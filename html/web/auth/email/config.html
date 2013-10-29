@@ -12,27 +12,20 @@
 <table cellspacing="0" cellpadding="5" border="0">
 <tr>
    <td colspan="3">
-        <h2 class="main"><?php print_string('auth_emailsettings', 'auth') ?> </h2>
+        <h2 class="main"><?php print_string('auth_emailsettings', 'auth_email') ?> </h2>
    </td>
 </tr>
 <tr>
-    <td align="right"><label for="menurecaptcha"><?php print_string('auth_emailrecaptcha_key', 'auth') ?></label></td>
-    <td>
-	<?php
-	//XTEC ************ MODIFICAT - Avoid to disable captcha
-	//2010.06.30
-	echo '<input od="menurecaptcha" value="1" name="recaptcha" type="hidden">';
-	echo get_string('yes');
-	//************ ORIGINAL
-	//choose_from_menu($yesno, 'recaptcha', $config->recaptcha, '');
-	//************ FI
-	?>
-	</td>
-    <td><?php print_string('auth_emailrecaptcha', 'auth') ?></td>
-</tr>    
+    <td align="right"><label for="menurecaptcha"><?php print_string('auth_emailrecaptcha_key', 'auth_email') ?></label></td>
+    <td><?php
+        global $OUTPUT;
+        echo html_writer::select($yesno, 'recaptcha', $config->recaptcha, false);
+        ?></td>
+    <td><?php print_string('auth_emailrecaptcha', 'auth_email') ?></td>
+</tr>
 <?php
 
-print_auth_lock_options('email', $user_fields, get_string('auth_fieldlocks_help', 'auth'), false, false);
+print_auth_lock_options($this->authtype, $user_fields, get_string('auth_fieldlocks_help', 'auth'), false, false);
 
 ?>
 </table>

@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Edit the grade options for an individual grade category
+ *
+ * @package   core_grades
+ * @copyright 2007 Petr Skoda
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 require_once $CFG->dirroot.'/grade/report/lib.php';
@@ -23,12 +30,19 @@ require_once 'category_form.php';
 $courseid = required_param('courseid', PARAM_INT);
 $id       = optional_param('id', 0, PARAM_INT); // grade_category->id
 
-if (!$course = get_record('course', 'id', $courseid)) {
+$url = new moodle_url('/grade/edit/tree/category.php', array('courseid'=>$courseid));
+if ($id !== 0) {
+    $url->param('id', $id);
+}
+$PAGE->set_url($url);
+$PAGE->set_pagelayout('admin');
+
+if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$context = context_course::instance($course->id);
 require_capability('moodle/grade:manage', $context);
 
 // default return url
@@ -40,7 +54,7 @@ $heading = get_string('categoryedit', 'grades');
 
 if ($id) {
     if (!$grade_category = grade_category::fetch(array('id'=>$id, 'courseid'=>$course->id))) {
-        error('Incorrect category id!');
+        print_error('invalidcategory');
     }
     $grade_category->apply_forced_settings();
     $category = $grade_category->get_record_data();
@@ -123,7 +137,7 @@ if ($mform->is_cancelled()) {
     if (!isset($itemdata->aggregationcoef)) {
         $itemdata->aggregationcoef = 0;
     }
-    
+
     if (!isset($itemdata->gradepass) || $itemdata->gradepass == '') {
         $itemdata->gradepass = 0;
     }
@@ -134,7 +148,7 @@ if ($mform->is_cancelled()) {
 
     if (!isset($itemdata->grademin) || $itemdata->grademin == '') {
         $itemdata->grademin = 0;
-    } 
+    }
 
     $hidden      = empty($itemdata->hidden) ? 0: $itemdata->hidden;
     $hiddenuntil = empty($itemdata->hiddenuntil) ? 0: $itemdata->hiddenuntil;
@@ -148,7 +162,7 @@ if ($mform->is_cancelled()) {
 
     $convert = array('grademax', 'grademin', 'gradepass', 'multfactor', 'plusfactor', 'aggregationcoef');
     foreach ($convert as $param) {
-        if (array_key_exists($param, $itemdata)) {
+        if (property_exists($itemdata, $param)) {
             $itemdata->$param = unformat_float($itemdata->$param);
         }
     }
@@ -177,7 +191,7 @@ if ($mform->is_cancelled()) {
     }
 
     // Handle null decimals value - must be done before update!
-    if (!array_key_exists('decimals', $itemdata) or $itemdata->decimals < 0) {
+    if (!property_exists($itemdata, 'decimals') or $itemdata->decimals < 0) {
         $grade_item->decimals = null;
     }
 
@@ -203,10 +217,12 @@ if ($mform->is_cancelled()) {
     redirect($returnurl);
 }
 
-
-print_grade_page_head($courseid, 'edittree', null, $heading);
+$return = false;
+$buttons = false;
+$shownavigation = false;
+print_grade_page_head($courseid, 'edittree', null, $heading, $return, $buttons, $shownavigation);
 
 $mform->display();
 
-print_footer($course);
+echo $OUTPUT->footer();
 die;

@@ -21,17 +21,19 @@ require_once 'grade_export_ods.php';
 
 $id = required_param('id', PARAM_INT); // course id
 
-if (!$course = get_record('course', 'id', $id)) {
+$PAGE->set_url('/grade/export/ods/index.php', array('id'=>$id));
+
+if (!$course = $DB->get_record('course', array('id'=>$id))) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = get_context_instance(CONTEXT_COURSE, $id);
+$context = context_course::instance($id);
 
 require_capability('moodle/grade:export', $context);
 require_capability('gradeexport/ods:view', $context);
 
-print_grade_page_head($COURSE->id, 'export', 'ods', get_string('exportto', 'grades') . ' ' . get_string('modulename', 'gradeexport_ods'));
+print_grade_page_head($COURSE->id, 'export', 'ods', get_string('exportto', 'grades') . ' ' . get_string('pluginname', 'gradeexport_ods'));
 
 if (!empty($CFG->gradepublishing)) {
     $CFG->gradepublishing = has_capability('gradeexport/ods:publish', $context);
@@ -42,20 +44,20 @@ $mform = new grade_export_form(null, array('publishing' => true));
 $groupmode    = groups_get_course_groupmode($course);   // Groups are being used
 $currentgroup = groups_get_course_group($course, true);
 if ($groupmode == SEPARATEGROUPS and !$currentgroup and !has_capability('moodle/site:accessallgroups', $context)) {
-    print_heading(get_string("notingroup"));
-    print_footer($course);
-    die;    
+    echo $OUTPUT->heading(get_string("notingroup"));
+    echo $OUTPUT->footer();
+    die;
 }
 
 // process post information
 if ($data = $mform->get_data()) {
-    $export = new grade_export_ods($course, $currentgroup, '', false, false, $data->display, $data->decimals);
+    $export = new grade_export_ods($course, $currentgroup, '', false, false, $data->display, $data->decimals, $data->export_onlyactive, true);
 
     // print the grades on screen for feedbacks
     $export->process_form($data);
     $export->print_continue();
     $export->display_preview();
-    print_footer($course);
+    echo $OUTPUT->footer();
     exit;
 }
 
@@ -64,5 +66,5 @@ echo '<div class="clearer"></div>';
 
 $mform->display();
 
-print_footer();
-?>
+echo $OUTPUT->footer();
+

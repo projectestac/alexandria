@@ -1,188 +1,166 @@
-<?php // $Id: users.php,v 1.26.2.18 2010/04/10 15:11:49 iarenaza Exp $
+<?php
 
 // This file defines settingpages and externalpages under the "users" category
 
-$ADMIN->add('users', new admin_category('authsettings', get_string('authentication','admin')));
-$ADMIN->add('users', new admin_category('accounts', get_string('accounts', 'admin')));
-$ADMIN->add('users', new admin_category('roles', get_string('permissions', 'role')));
+$ADMIN->add('users', new admin_category('accounts', new lang_string('accounts', 'admin')));
+$ADMIN->add('users', new admin_category('roles', new lang_string('permissions', 'role')));
 
 if ($hassiteconfig
- or has_capability('moodle/site:uploadusers', $systemcontext)
  or has_capability('moodle/user:create', $systemcontext)
  or has_capability('moodle/user:update', $systemcontext)
  or has_capability('moodle/user:delete', $systemcontext)
  or has_capability('moodle/role:manage', $systemcontext)
- or has_capability('moodle/role:assign', $systemcontext)) { // speedup for non-admins, add all caps used on this page
+ or has_capability('moodle/role:assign', $systemcontext)
+ or has_capability('moodle/cohort:manage', $systemcontext)
+ or has_capability('moodle/cohort:view', $systemcontext)) { // speedup for non-admins, add all caps used on this page
 
 
-    $temp = new admin_settingpage('manageauths', get_string('authsettings', 'admin'));
-    $temp->add(new admin_setting_manageauths());
-    $temp->add(new admin_setting_heading('manageauthscommonheading', get_string('commonsettings', 'admin'), ''));
-    $temp->add(new admin_setting_special_registerauth());
-    $temp->add(new admin_setting_configselect('guestloginbutton', get_string('guestloginbutton', 'auth'),
-                                              get_string('showguestlogin', 'auth'), '1', array('0'=>get_string('hide'), '1'=>get_string('show'))));
-    $temp->add(new admin_setting_configtext('alternateloginurl', get_string('alternateloginurl', 'auth'),
-                                            get_string('alternatelogin', 'auth', htmlspecialchars($CFG->wwwroot.'/login/index.php')), ''));
-    $temp->add(new admin_setting_configtext('forgottenpasswordurl', get_string('forgottenpasswordurl', 'auth'),
-                                            get_string('forgottenpassword', 'auth'), ''));
-    $temp->add(new admin_setting_confightmltextarea('auth_instructions', get_string('instructions', 'auth'),
-                                                get_string('authinstructions', 'auth'), ''));
-    $temp->add(new admin_setting_configtext('allowemailaddresses', get_string('allowemailaddresses', 'admin'), get_string('configallowemailaddresses', 'admin'), '', PARAM_NOTAGS));
-    $temp->add(new admin_setting_configtext('denyemailaddresses', get_string('denyemailaddresses', 'admin'), get_string('configdenyemailaddresses', 'admin'), '', PARAM_NOTAGS));
-    $temp->add(new admin_setting_configcheckbox('verifychangedemail', get_string('verifychangedemail', 'admin'), get_string('configverifychangedemail', 'admin'), 1));
-    
-    $temp->add(new admin_setting_configtext('recaptchapublickey', get_string('recaptchapublickey', 'admin'), get_string('configrecaptchapublickey', 'admin'), '', PARAM_NOTAGS));
-    $temp->add(new admin_setting_configtext('recaptchaprivatekey', get_string('recaptchaprivatekey', 'admin'), get_string('configrecaptchaprivatekey', 'admin'), '', PARAM_NOTAGS));
-    $ADMIN->add('authsettings', $temp);
-
-
-    if ($auths = get_list_of_plugins('auth')) {
-        $authsenabled = get_enabled_auth_plugins();
-        $authbyname = array();
-
-        foreach ($auths as $auth) {
-            $strauthname = auth_get_plugin_title($auth);
-            $authbyname[$strauthname] = $auth;
-        }
-        ksort($authbyname);
-
-        foreach ($authbyname as $strauthname=>$authname) {
-            //XTEC ************ AFEGIT - Acess to db config parameters is not allowed
-            //2010.06.30
-            if ($authname!='db' || !is_agora()){
-            //************ FI
-            if (file_exists($CFG->dirroot.'/auth/'.$authname.'/settings.php')) {
-                // do not show disabled auths in tree, keep only settings link on manage page
-                $settings = new admin_settingpage('authsetting'.$authname, $strauthname, 'moodle/site:config', !in_array($authname, $authsenabled));
-                if ($ADMIN->fulltree) {
-                    include($CFG->dirroot.'/auth/'.$authname.'/settings.php');
-                }
-                // TODO: finish implementation of common settings - locking, etc.
-                $ADMIN->add('authsettings', $settings);
-
-            } else {
-                $ADMIN->add('authsettings', new admin_externalpage('authsetting'.$authname, $strauthname, "$CFG->wwwroot/$CFG->admin/auth_config.php?auth=$authname", 'moodle/site:config', !in_array($authname, $authsenabled)));
-            }
-			//XTEC ************ AFEGIT - Acess to db config parameters is not allowed
-            }
-            //************ FI
-        }
-    }
-
-
-    if(empty($CFG->loginhttps)) {
+    if (empty($CFG->loginhttps)) {
         $securewwwroot = $CFG->wwwroot;
     } else {
         $securewwwroot = str_replace('http:','https:',$CFG->wwwroot);
     }
     // stuff under the "accounts" subcategory
-    $ADMIN->add('accounts', new admin_externalpage('editusers', get_string('userlist','admin'), "$CFG->wwwroot/$CFG->admin/user.php", array('moodle/user:update', 'moodle/user:delete')));
-    $ADMIN->add('accounts', new admin_externalpage('userbulk', get_string('userbulk','admin'), "$CFG->wwwroot/$CFG->admin/user/user_bulk.php", array('moodle/user:update', 'moodle/user:delete')));
-    $ADMIN->add('accounts', new admin_externalpage('addnewuser', get_string('addnewuser'), "$securewwwroot/user/editadvanced.php?id=-1", 'moodle/user:create'));
-    $ADMIN->add('accounts', new admin_externalpage('uploadusers', get_string('uploadusers'), "$CFG->wwwroot/$CFG->admin/uploaduser.php", 'moodle/site:uploadusers'));
-    $ADMIN->add('accounts', new admin_externalpage('uploadpictures', get_string('uploadpictures','admin'), "$CFG->wwwroot/$CFG->admin/uploadpicture.php", 'moodle/site:uploadusers'));
-    $ADMIN->add('accounts', new admin_externalpage('profilefields', get_string('profilefields','admin'), "$CFG->wwwroot/user/profile/index.php", 'moodle/site:config'));
+    $ADMIN->add('accounts', new admin_externalpage('editusers', new lang_string('userlist','admin'), "$CFG->wwwroot/$CFG->admin/user.php", array('moodle/user:update', 'moodle/user:delete')));
+    $ADMIN->add('accounts', new admin_externalpage('userbulk', new lang_string('userbulk','admin'), "$CFG->wwwroot/$CFG->admin/user/user_bulk.php", array('moodle/user:update', 'moodle/user:delete')));
+    $ADMIN->add('accounts', new admin_externalpage('addnewuser', new lang_string('addnewuser'), "$securewwwroot/user/editadvanced.php?id=-1", 'moodle/user:create'));
+    $ADMIN->add('accounts', new admin_externalpage('profilefields', new lang_string('profilefields','admin'), "$CFG->wwwroot/user/profile/index.php", 'moodle/site:config'));
+    $ADMIN->add('accounts', new admin_externalpage('cohorts', new lang_string('cohorts', 'cohort'), $CFG->wwwroot . '/cohort/index.php', array('moodle/cohort:manage', 'moodle/cohort:view')));
 
 
     // stuff under the "roles" subcategory
-    $ADMIN->add('roles', new admin_externalpage('defineroles', get_string('defineroles', 'role'), "$CFG->wwwroot/$CFG->admin/roles/manage.php", 'moodle/role:manage'));
-    $ADMIN->add('roles', new admin_externalpage('assignroles', get_string('assignglobalroles', 'role'), "$CFG->wwwroot/$CFG->admin/roles/assign.php?contextid=".$systemcontext->id, 'moodle/role:assign'));
-
 
     // "userpolicies" settingpage
-    $temp = new admin_settingpage('userpolicies', get_string('userpolicies', 'admin'));
+    $temp = new admin_settingpage('userpolicies', new lang_string('userpolicies', 'admin'));
     if ($ADMIN->fulltree) {
-        if (!empty($CFG->rolesactive)) {
-            $context = get_context_instance(CONTEXT_SYSTEM);
-            if (!$guestrole = get_guest_role()) {
-                $guestrole->id = 0;
-            }
-            if ($studentroles = get_roles_with_capability('moodle/legacy:student', CAP_ALLOW)) {
-                $studentrole = array_shift($studentroles);   /// Take the first one
-            } else {
-                $studentrole->id = 0;
-            }
-            if ($userroles = get_roles_with_capability('moodle/legacy:user', CAP_ALLOW)) {
-                $userrole = array_shift($userroles);   /// Take the first one
-            } else {
-                $userrole->id = 0;
-            }
-            if (empty($CFG->creatornewroleid)) {
-                if ($teacherroles = get_roles_with_capability('moodle/legacy:editingteacher', CAP_ALLOW, $context)) {
-                    $teachereditrole = array_shift($teacherroles);
-                    set_config('creatornewroleid', $teachereditrole->id);
-                } else {
-                    set_config('creatornewroleid', 0);
+        if (!during_initial_install()) {
+            $context = context_system::instance();
+
+            $otherroles      = array();
+            $guestroles      = array();
+            $userroles       = array();
+            $creatornewroles = array();
+
+            $defaultteacherid = null;
+            $defaultuserid    = null;
+            $defaultguestid   = null;
+
+            $roles = role_fix_names(get_all_roles(), null, ROLENAME_ORIGINALANDSHORT);
+            foreach ($roles as $role) {
+                $rolename = $role->localname;
+                switch ($role->archetype) {
+                    case 'manager':
+                        $creatornewroles[$role->id] = $rolename;
+                        break;
+                    case 'coursecreator':
+                        break;
+                    case 'editingteacher':
+                        $defaultteacherid = isset($defaultteacherid) ? $defaultteacherid : $role->id;
+                        $creatornewroles[$role->id] = $rolename;
+                        break;
+                    case 'teacher':
+                        $creatornewroles[$role->id] = $rolename;
+                        break;
+                    case 'student':
+                        break;
+                    case 'guest':
+                        $defaultguestid = isset($defaultguestid) ? $defaultguestid : $role->id;
+                        $guestroles[$role->id] = $rolename;
+                        break;
+                    case 'user':
+                        $defaultuserid = isset($defaultuserid) ? $defaultuserid : $role->id;
+                        $userroles[$role->id] = $rolename;
+                        break;
+                    case 'frontpage':
+                        break;
+                    default:
+                        $creatornewroles[$role->id] = $rolename;
+                        $otherroles[$role->id] = $rolename;
+                        break;
                 }
             }
-            if (!$guestroles = get_roles_with_capability('moodle/legacy:guest', CAP_ALLOW)) {
-                $guestroles = array();
-                $defaultguestid = null;
-            } else {
-                $defaultguestid = reset($guestroles);
-                $defaultguestid = $defaultguestid->id;
-            }
-            
-            // we must not use assignable roles here:
-            //   1/ unsetting roles as assignable for admin might bork the settings!
-            //   2/ default user role should not be assignable anyway
-            $allroles = array();
-            $nonguestroles = array();
-            if ($roles = get_all_roles()) {
-                foreach ($roles as $role) {
-                    $rolename = strip_tags(format_string($role->name, true));
-                    $allroles[$role->id] = $rolename;
-                    if (!isset($guestroles[$role->id])) {
-                        $nonguestroles[$role->id] = $rolename;
-                    }
-                }
+
+            if (empty($guestroles)) {
+                $guestroles[0] = new lang_string('none');
+                $defaultguestid = 0;
             }
 
-            $temp->add(new admin_setting_configselect('notloggedinroleid', get_string('notloggedinroleid', 'admin'),
-                          get_string('confignotloggedinroleid', 'admin'), $defaultguestid, $allroles ));
-            $temp->add(new admin_setting_configselect('guestroleid', get_string('guestroleid', 'admin'),
-                          get_string('configguestroleid', 'admin'), $defaultguestid, $allroles));
-            $temp->add(new admin_setting_configselect('defaultuserroleid', get_string('defaultuserroleid', 'admin'),
-                          get_string('configdefaultuserroleid', 'admin'), $userrole->id, $nonguestroles)); // guest role here breaks a lot of stuff
+            if (empty($userroles)) {
+                $userroles[0] = new lang_string('none');
+                $defaultuserid = 0;
+            }
+
+            $restorersnewrole = $creatornewroles;
+            $restorersnewrole[0] = new lang_string('none');
+
+            $temp->add(new admin_setting_configselect('notloggedinroleid', new lang_string('notloggedinroleid', 'admin'),
+                          new lang_string('confignotloggedinroleid', 'admin'), $defaultguestid, ($guestroles + $otherroles)));
+            $temp->add(new admin_setting_configselect('guestroleid', new lang_string('guestroleid', 'admin'),
+                          new lang_string('guestroleid_help', 'admin'), $defaultguestid, ($guestroles + $otherroles)));
+            $temp->add(new admin_setting_configselect('defaultuserroleid', new lang_string('defaultuserroleid', 'admin'),
+                          new lang_string('configdefaultuserroleid', 'admin'), $defaultuserid, ($userroles + $otherroles)));
+            $temp->add(new admin_setting_configselect('creatornewroleid', new lang_string('creatornewroleid', 'admin'),
+                          new lang_string('creatornewroleid_help', 'admin'), $defaultteacherid, $creatornewroles));
+            $temp->add(new admin_setting_configselect('restorernewroleid', new lang_string('restorernewroleid', 'admin'),
+                          new lang_string('restorernewroleid_help', 'admin'), $defaultteacherid, $restorersnewrole));
+
+            // release memory
+            unset($otherroles);
+            unset($guestroles);
+            unset($userroles);
+            unset($creatornewroles);
+            unset($restorersnewrole);
         }
 
-        $temp->add(new admin_setting_configcheckbox('nodefaultuserrolelists', get_string('nodefaultuserrolelists', 'admin'), get_string('confignodefaultuserrolelists', 'admin'), 0));
+        $temp->add(new admin_setting_configcheckbox('autologinguests', new lang_string('autologinguests', 'admin'), new lang_string('configautologinguests', 'admin'), 0));
 
-        if (!empty($CFG->rolesactive)) {
-            $temp->add(new admin_setting_configselect('defaultcourseroleid', get_string('defaultcourseroleid', 'admin'),
-                          get_string('configdefaultcourseroleid', 'admin'), $studentrole->id, $allroles));
-            $temp->add(new admin_setting_configselect('creatornewroleid', get_string('creatornewroleid', 'admin'),
-                          get_string('configcreatornewroleid', 'admin'), $CFG->creatornewroleid, $allroles));
-        }
+        $temp->add(new admin_setting_configmultiselect('hiddenuserfields', new lang_string('hiddenuserfields', 'admin'),
+                   new lang_string('confighiddenuserfields', 'admin'), array(),
+                       array('description' => new lang_string('description'),
+                             'city' => new lang_string('city'),
+                             'country' => new lang_string('country'),
+                             'webpage' => new lang_string('webpage'),
+                             'icqnumber' => new lang_string('icqnumber'),
+                             'skypeid' => new lang_string('skypeid'),
+                             'yahooid' => new lang_string('yahooid'),
+                             'aimid' => new lang_string('aimid'),
+                             'msnid' => new lang_string('msnid'),
+                             'firstaccess' => new lang_string('firstaccess'),
+                             'lastaccess' => new lang_string('lastaccess'),
+                             'mycourses' => new lang_string('mycourses'),
+                             'groups' => new lang_string('groups'),
+                             'suspended' => new lang_string('suspended', 'auth'),
+                       )));
 
-        $temp->add(new admin_setting_configcheckbox('autologinguests', get_string('autologinguests', 'admin'), get_string('configautologinguests', 'admin'), 0));
-
-        if (!empty($CFG->rolesactive)) {
-            $temp->add(new admin_setting_configmultiselect('nonmetacoursesyncroleids', get_string('nonmetacoursesyncroleids', 'admin'),
-                      get_string('confignonmetacoursesyncroleids', 'admin'), array(), $allroles));
-        }
-
-        $temp->add(new admin_setting_configmultiselect('hiddenuserfields', get_string('hiddenuserfields', 'admin'),
-                   get_string('confighiddenuserfields', 'admin'), array(),
-                       array('description' => get_string('description'),
-                             'city' => get_string('city'),
-                             'country' => get_string('country'),
-                             'webpage' => get_string('webpage'),
-                             'icqnumber' => get_string('icqnumber'),
-                             'skypeid' => get_string('skypeid'),
-                             'yahooid' => get_string('yahooid'),
-                             'aimid' => get_string('aimid'),
-                             'msnid' => get_string('msnid'),
-                             'firstaccess' => get_string('firstaccess'),
-                             'lastaccess' => get_string('lastaccess'),
-                             'mycourses' => get_string('mycourses'),
-                             'groups' => get_string('groups'))));
+        // Select fields to display as part of user identity (only to those
+        // with moodle/site:viewuseridentity).
+        // Options include fields from the user table that might be helpful to
+        // distinguish when adding or listing users ('I want to add the John
+        // Smith from Science faculty').
+        // Username is not included as an option because in some sites, it might
+        // be a security problem to reveal usernames even to trusted staff.
+        // Custom user profile fields are not currently supported.
+        $temp->add(new admin_setting_configmulticheckbox('showuseridentity',
+                new lang_string('showuseridentity', 'admin'),
+                new lang_string('showuseridentity_desc', 'admin'), array('email' => 1), array(
+                    'idnumber'    => new lang_string('idnumber'),
+                    'email'       => new lang_string('email'),
+                    'phone1'      => new lang_string('phone'),
+                    'phone2'      => new lang_string('phone2'),
+                    'department'  => new lang_string('department'),
+                    'institution' => new lang_string('institution'),
+                )));
+        $temp->add(new admin_setting_configcheckbox('enablegravatar', new lang_string('enablegravatar', 'admin'), new lang_string('enablegravatar_help', 'admin'), 0));
+        $temp->add(new admin_setting_configtext('gravatardefaulturl', new lang_string('gravatardefaulturl', 'admin'), new lang_string('gravatardefaulturl_help', 'admin'), 'mm'));
     }
-
-    $temp->add(new admin_setting_configcheckbox('allowuserswitchrolestheycantassign', get_string('allowuserswitchrolestheycantassign', 'admin'), get_string('configallowuserswitchrolestheycantassign', 'admin'), 0));
 
     $ADMIN->add('roles', $temp);
 
-} // end of speedup
+    if (is_siteadmin()) {
+        $ADMIN->add('roles', new admin_externalpage('admins', new lang_string('siteadministrators', 'role'), "$CFG->wwwroot/$CFG->admin/roles/admins.php"));
+    }
+    $ADMIN->add('roles', new admin_externalpage('defineroles', new lang_string('defineroles', 'role'), "$CFG->wwwroot/$CFG->admin/roles/manage.php", 'moodle/role:manage'));
+    $ADMIN->add('roles', new admin_externalpage('assignroles', new lang_string('assignglobalroles', 'role'), "$CFG->wwwroot/$CFG->admin/roles/assign.php?contextid=".$systemcontext->id, 'moodle/role:assign'));
+    $ADMIN->add('roles', new admin_externalpage('checkpermissions', new lang_string('checkglobalpermissions', 'role'), "$CFG->wwwroot/$CFG->admin/roles/check.php?contextid=".$systemcontext->id, array('moodle/role:assign', 'moodle/role:safeoverride', 'moodle/role:override', 'moodle/role:manage')));
 
-?>
+} // end of speedup

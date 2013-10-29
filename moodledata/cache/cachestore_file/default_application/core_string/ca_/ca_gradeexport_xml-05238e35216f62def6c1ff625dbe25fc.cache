@@ -1,0 +1,1 @@
+a:4:{s:10:"pluginname";s:10:"Fitxer XML";s:11:"xml:publish";s:48:"Publicar qualificacions exportades en format XML";s:8:"xml:view";s:49:"Utilitzar qualificacions exportades en format XML";s:19:"useridnumberwarning";s:109:"S'exclouen de l'exportació a XML els usuaris sense un número d'identificació perquè no es poden importar.";}

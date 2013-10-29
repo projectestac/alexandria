@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,14 +14,23 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/// Add settings for this module to the $settings object (it's already defined)
+/**
+ * Defines site settings for the overview gradebook report
+ *
+ * @package gradereport_overview
+ * @copyright 2007 Petr Skoda
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
-$settings->add(new admin_setting_configcheckbox('grade_report_overview_showrank', get_string('showrank', 'grades'), get_string('configshowrank', 'grades'), 0, PARAM_INT));
+defined('MOODLE_INTERNAL') || die;
 
-$settings->add(new admin_setting_configselect('grade_report_overview_showtotalsifcontainhidden', get_string('hidetotalifhiddenitems', 'grades'),
-                                                  get_string('hidetotalifhiddenitemsdescription', 'grades'), GRADE_REPORT_HIDE_TOTAL_IF_CONTAINS_HIDDEN,
-                                                  array(GRADE_REPORT_HIDE_TOTAL_IF_CONTAINS_HIDDEN => get_string('hide'),
-                                                        GRADE_REPORT_SHOW_TOTAL_IF_CONTAINS_HIDDEN => get_string('hidetotalshowexhiddenitems', 'grades'),
-                                                        GRADE_REPORT_SHOW_REAL_TOTAL_IF_CONTAINS_HIDDEN => get_string('hidetotalshowinchiddenitems', 'grades') )));
+if ($ADMIN->fulltree) {
 
-?>
+    $settings->add(new admin_setting_configcheckbox('grade_report_overview_showrank', get_string('showrank', 'grades'), get_string('showrank_help', 'grades'), 0, PARAM_INT));
+
+    $settings->add(new admin_setting_configselect('grade_report_overview_showtotalsifcontainhidden', get_string('hidetotalifhiddenitems', 'grades'),
+                                                      get_string('hidetotalifhiddenitems_help', 'grades'), GRADE_REPORT_HIDE_TOTAL_IF_CONTAINS_HIDDEN,
+                                                      array(GRADE_REPORT_HIDE_TOTAL_IF_CONTAINS_HIDDEN => get_string('hide'),
+                                                            GRADE_REPORT_SHOW_TOTAL_IF_CONTAINS_HIDDEN => get_string('hidetotalshowexhiddenitems', 'grades'),
+                                                            GRADE_REPORT_SHOW_REAL_TOTAL_IF_CONTAINS_HIDDEN => get_string('hidetotalshowinchiddenitems', 'grades') )));
+}

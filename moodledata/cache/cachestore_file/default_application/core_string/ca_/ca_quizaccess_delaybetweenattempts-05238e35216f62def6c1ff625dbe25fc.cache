@@ -1,0 +1,1 @@
+a:3:{s:10:"pluginname";s:46:"Temps entre intents per accedir a la pregunta.";s:13:"youcannotwait";s:75:"Aquest qüestionari es tancarà abans que pugueu començar un altre intent.";s:11:"youmustwait";s:105:"Encara no podeu tornar a contestar aquest qüestionari. Podreu iniciar un altre intent després de: {$a}.";}
