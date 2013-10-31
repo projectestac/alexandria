@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: field.class.php,v 1.8.2.1 2010/12/22 07:49:12 moodlerobot Exp $
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // NOTICE OF COPYRIGHT                                                   //
@@ -26,8 +26,12 @@ class data_field_text extends data_field_base {
 
     var $type = 'text';
 
+    function data_field_text($field=0, $data=0) {
+        parent::data_field_base($field, $data);
+    }
+
     function display_search_field($value = '') {
-        return '<label class="accesshide" for="f_' . $this->field->id . '">'. $this->field->name.'</label>' . '<input type="text" size="16" id="f_'.$this->field->id.'" name="f_'.$this->field->id.'" value="'.$value.'" />';
+        return '<input type="text" size="16" name="f_'.$this->field->id.'" value="'.$value.'" />';
     }
 
     function parse_search_field() {
@@ -35,14 +39,9 @@ class data_field_text extends data_field_base {
     }
 
     function generate_sql($tablealias, $value) {
-        global $DB;
-
-        static $i=0;
-        $i++;
-        $name = "df_text_$i";
-        return array(" ({$tablealias}.fieldid = {$this->field->id} AND ".$DB->sql_like("{$tablealias}.content", ":$name", false).") ", array($name=>"%$value%"));
+        return " ({$tablealias}.fieldid = {$this->field->id} AND {$tablealias}.content LIKE '%{$value}%') ";
     }
 
 }
 
-
+?>

@@ -1,20 +1,5 @@
 <?php
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 // A lot of this initial stuff is copied from mod/data/view.php
 
 require_once('../../../../config.php');
@@ -26,67 +11,61 @@ $d       = required_param('d', PARAM_INT);   // database id
 $fieldid = required_param('fieldid', PARAM_INT);   // field id
 $rid     = optional_param('rid', 0, PARAM_INT);    //record id
 
-$url = new moodle_url('/mod/data/field/latlong/kml.php', array('d'=>$d, 'fieldid'=>$fieldid));
-if ($rid !== 0) {
-    $url->param('rid', $rid);
-}
-$PAGE->set_url($url);
 
 if ($rid) {
-    if (! $record = $DB->get_record('data_records', array('id'=>$rid))) {
-        print_error('invalidrecord', 'data');
+    if (! $record = get_record('data_records', 'id', $rid)) {
+        error('Record ID is incorrect');
     }
-    if (! $data = $DB->get_record('data', array('id'=>$record->dataid))) {
-        print_error('invalidid', 'data');
+    if (! $data = get_record('data', 'id', $record->dataid)) {
+        error('Data ID is incorrect');
     }
-    if (! $course = $DB->get_record('course', array('id'=>$data->course))) {
-        print_error('coursemisconf');
+    if (! $course = get_record('course', 'id', $data->course)) {
+        error('Course is misconfigured');
     }
     if (! $cm = get_coursemodule_from_instance('data', $data->id, $course->id)) {
-        print_error('invalidcoursemodule');
+        error('Course Module ID was incorrect');
     }
-    if (! $field = $DB->get_record('data_fields', array('id'=>$fieldid))) {
-        print_error('invalidfieldid', 'data');
+    if (! $field = get_record('data_fields', 'id', $fieldid)) {
+        error('Field ID is incorrect');
     }
     if (! $field->type == 'latlong') { // Make sure we're looking at a latlong data type!
-        print_error('invalidfieldtype', 'data');
+        error('Field ID is incorrect');
     }
-    if (! $content = $DB->get_record('data_content', array('fieldid'=>$fieldid, 'recordid'=>$rid))) {
-        print_error('nofieldcontent', 'data');
+    if (! $content = get_record('data_content', 'fieldid', $fieldid, 'recordid', $rid)) {
+        error('Field content not found');
     }
 } else {   // We must have $d
-    if (! $data = $DB->get_record('data', array('id'=>$d))) {
-        print_error('invalidid', 'data');
+    if (! $data = get_record('data', 'id', $d)) {
+        error('Data ID is incorrect');
     }
-    if (! $course = $DB->get_record('course', array('id'=>$data->course))) {
-        print_error('coursemisconf');
+    if (! $course = get_record('course', 'id', $data->course)) {
+        error('Course is misconfigured');
     }
     if (! $cm = get_coursemodule_from_instance('data', $data->id, $course->id)) {
-        print_error('invalidcoursemodule');
+        error('Course Module ID was incorrect');
     }
-    if (! $field = $DB->get_record('data_fields', array('id'=>$fieldid))) {
-        print_error('invalidfieldid', 'data');
+    if (! $field = get_record('data_fields', 'id', $fieldid)) {
+        error('Field ID is incorrect');
     }
     if (! $field->type == 'latlong') { // Make sure we're looking at a latlong data type!
-        print_error('invalidfieldtype', 'data');
+        error('Field ID is incorrect');
     }
     $record = NULL;
 }
 
 require_course_login($course, true, $cm);
 
-$context = context_module::instance($cm->id);
-
 /// If it's hidden then it's don't show anything.  :)
-if (empty($cm->visible) and !has_capability('moodle/course:viewhiddenactivities', $context)) {
-    $PAGE->set_title($data->name);
-    echo $OUTPUT->header();
+if (empty($cm->visible) and !has_capability('moodle/course:viewhiddenactivities',get_context_instance(CONTEXT_MODULE, $cm->id))) {
+    $navigation = build_navigation('', $cm);
+    print_header_simple(format_string($data->name), "", $navigation,
+        "", "", true, '', navmenu($course, $cm));
     notice(get_string("activityiscurrentlyhidden"));
 }
 
 /// If we have an empty Database then redirect because this page is useless without data
 if (has_capability('mod/data:managetemplates', $context)) {
-    if (!$DB->record_exists('data_fields', array('dataid'=>$data->id))) {      // Brand new database!
+    if (!record_exists('data_fields','dataid',$data->id)) {      // Brand new database!
         redirect($CFG->wwwroot.'/mod/data/field.php?d='.$data->id);  // Redirect to field entry
     }
 }
@@ -102,7 +81,6 @@ header('Content-Disposition: attachment; filename="moodleearth-'.$d.'-'.$rid.'-'
 echo data_latlong_kml_top();
 
 if($rid) { // List one single item
-    $pm = new stdClass();
     $pm->name = data_latlong_kml_get_item_name($content, $field);
     $pm->description = "&lt;a href='$CFG->wwwroot/mod/data/view.php?d=$d&amp;rid=$rid'&gt;Item #$rid&lt;/a&gt; in Moodle data activity";
     $pm->long = $content->content1;
@@ -110,7 +88,7 @@ if($rid) { // List one single item
     echo data_latlong_kml_placemark($pm);
 } else {   // List all items in turn
 
-    $contents = $DB->get_records('data_content', array('fieldid'=>$fieldid));
+    $contents = get_records('data_content', 'fieldid', $fieldid);
 
     echo '<Document>';
 
@@ -164,14 +142,12 @@ function data_latlong_kml_bottom() {
 }
 
 function data_latlong_kml_get_item_name($content, $field) {
-    global $DB;
-
     // $field->param2 contains the user-specified labelling method
 
     $name = '';
 
     if($field->param2 > 0) {
-        $name = htmlspecialchars($DB->get_field('data_content', 'content', array('fieldid'=>$field->param2, 'recordid'=>$content->recordid)));
+        $name = htmlspecialchars(get_field('data_content', 'content', 'fieldid', $field->param2, 'recordid', $content->recordid));
     }elseif($field->param2 == -2) {
         $name = $content->content . ', ' . $content->content1;
     }

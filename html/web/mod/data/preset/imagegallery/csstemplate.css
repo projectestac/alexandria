@@ -36,7 +36,6 @@
   font-style: italic;
 }
 
-#singleimage img {
+#singleimage {
   width: 700px;
-  height: auto;
 }

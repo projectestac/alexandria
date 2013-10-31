@@ -18,6 +18,8 @@ $recordid = required_param( 'recordid', PARAM_INT );
 
 if (strrpos($_SERVER['HTTP_REFERER'], $CFG->wwwroot)!==FALSE){
 	echo data_update_downloadings($fieldid, $recordid);
+//} else {
+//	echo "ref=".$_SERVER['HTTP_REFERER'];
 }
 
 

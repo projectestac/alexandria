@@ -1,4 +1,4 @@
-<?php
+<?php  // $Id: field.class.php,v 1.15.2.1 2008/05/30 01:34:42 robertall Exp $
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // NOTICE OF COPYRIGHT                                                   //
@@ -25,60 +25,37 @@
 class data_field_url extends data_field_base {
     var $type = 'url';
 
+    function data_field_text($field=0, $data=0) {
+        parent::data_field_base($field, $data);
+    }
+
     function display_add_field($recordid=0) {
-        global $CFG, $DB, $OUTPUT, $PAGE;
-
-        require_once($CFG->dirroot. '/repository/lib.php'); // necessary for the constants used in args
-
-        $args = new stdClass();
-        $args->accepted_types = '*';
-        $args->return_types = FILE_EXTERNAL;
-        $args->context = $this->context;
-        $args->env = 'url';
-        $fp = new file_picker($args);
-        $options = $fp->options;
-
-        $fieldid = 'field_url_'.$options->client_id;
-
-        $straddlink = get_string('choosealink', 'repository');
+        global $CFG;
         $url = '';
         $text = '';
         if ($recordid) {
-            if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+            if ($content = get_record('data_content', 'fieldid', $this->field->id, 'recordid', $recordid)) {
                 $url  = $content->content;
                 $text = $content->content1;
             }
         }
+        $url = empty($url) ? 'http://' : $url;
         $str = '<div title="'.s($this->field->description).'">';
         if (!empty($this->field->param1) and empty($this->field->param2)) {
             $str .= '<table><tr><td align="right">';
-            $str .= get_string('url','data').':</td><td>';
-            $str .= '<label class="accesshide" for="' . $fieldid . '">'. $this->field->name .'</label>';
-            $str .= '<input type="text" name="field_'.$this->field->id.'_0" id="'.$fieldid.'" value="'.$url.'" size="60" />';
-            $str .= '<button id="filepicker-button-'.$options->client_id.'" style="display:none">'.$straddlink.'</button></td></tr>';
+            $str .= get_string('url','data').':</td><td><input type="text" name="field_'.$this->field->id.'_0" id="field_'.$this->field->id.'_0" value="'.$url.'" size="60" /></td></tr>';
             $str .= '<tr><td align="right">'.get_string('text','data').':</td><td><input type="text" name="field_'.$this->field->id.'_1" id="field_'.$this->field->id.'_1" value="'.s($text).'" size="60" /></td></tr>';
             $str .= '</table>';
         } else {
             // Just the URL field
-            $str .= '<label class="accesshide" for="' . $fieldid . '">'. $this->field->name .'</label>';
-            $str .= '<input type="text" name="field_'.$this->field->id.'_0" id="'.$fieldid.'" value="'.s($url).'" size="60" />';
-            $str .= '<button id="filepicker-button-'.$options->client_id.'" style="display:none">'.$straddlink.'</button>';
+            $str .= '<input type="text" name="field_'.$this->field->id.'_0" id="field_'.$this->field->id.'_0" value="'.s($url).'" size="60" />';
         }
-
-        // print out file picker
-        //$str .= $OUTPUT->render($fp);
-
-        $module = array('name'=>'data_urlpicker', 'fullpath'=>'/mod/data/data.js', 'requires'=>array('core_filepicker'));
-        $PAGE->requires->js_init_call('M.data_urlpicker.init', array($options), true, $module);
-        $PAGE->requires->js_function_call('show_item', array('filepicker-button-'.$options->client_id));
-
         $str .= '</div>';
         return $str;
     }
 
     function display_search_field($value = '') {
-        return '<label class="accesshide" for="f_'.$this->field->id.'">' . get_string('fieldname', 'data') . '</label>' .
-               '<input type="text" size="16" id="f_'.$this->field->id.'" name="f_'.$this->field->id.'" value="'.$value.'" />';
+        return '<input type="text" size="16" name="f_'.$this->field->id.'" value="'.$value.'" />';
     }
 
     function parse_search_field() {
@@ -86,18 +63,11 @@ class data_field_url extends data_field_base {
     }
 
     function generate_sql($tablealias, $value) {
-        global $DB;
-
-        static $i=0;
-        $i++;
-        $name = "df_url_$i";
-        return array(" ({$tablealias}.fieldid = {$this->field->id} AND ".$DB->sql_like("{$tablealias}.content", ":$name", false).") ", array($name=>"%$value%"));
+        return " ({$tablealias}.fieldid = {$this->field->id} AND {$tablealias}.content LIKE '%{$value}%') ";
     }
 
     function display_browse_field($recordid, $template) {
-        global $DB;
-
-        if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        if ($content = get_record('data_content', 'fieldid', $this->field->id, 'recordid', $recordid)) {
             $url = empty($content->content)? '':$content->content;
             $text = empty($content->content1)? '':$content->content1;
             if (empty($url) or ($url == 'http://')) {
@@ -123,13 +93,10 @@ class data_field_url extends data_field_base {
     }
 
     function update_content($recordid, $value, $name='') {
-        global $DB;
-
-        $content = new stdClass();
+        $content = new object;
         $content->fieldid = $this->field->id;
         $content->recordid = $recordid;
         $names = explode('_', $name);
-
         switch ($names[2]) {
             case 0:
                 // update link
@@ -143,15 +110,11 @@ class data_field_url extends data_field_base {
                 break;
         }
 
-        if (!empty($content->content) && (strpos($content->content, '://') === false) && (strpos($content->content, '/', 0) === false)) {
-            $content->content = 'http://' . $content->content;
-        }
-
-        if ($oldcontent = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        if ($oldcontent = get_record('data_content','fieldid', $this->field->id, 'recordid', $recordid)) {
             $content->id = $oldcontent->id;
-            return $DB->update_record('data_content', $content);
+            return update_record('data_content', $content);
         } else {
-            return $DB->insert_record('data_content', $content);
+            return insert_record('data_content', $content);
         }
     }
 
@@ -171,4 +134,4 @@ class data_field_url extends data_field_base {
 
 }
 
-
+?>

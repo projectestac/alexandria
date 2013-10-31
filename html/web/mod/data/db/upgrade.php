@@ -1,4 +1,4 @@
-<?php
+<?php  //$Id: upgrade.php,v 1.8.2.5 2010/10/05 01:56:10 jerome Exp $
 
 // This file keeps track of upgrades to
 // the data module
@@ -9,156 +9,167 @@
 //
 // The upgrade function in this file will attempt
 // to perform all the necessary actions to upgrade
-// your older installation to the current version.
+// your older installtion to the current version.
 //
 // If there's something it cannot do itself, it
 // will tell you what you need to do.
 //
 // The commands in here will all be database-neutral,
-// using the methods of database_manager class
-//
-// Please do not forget to use upgrade_set_timeout()
-// before any action that may take longer time to finish.
+// using the functions defined in lib/ddllib.php
 
-function xmldb_data_upgrade($oldversion) {
-    global $CFG, $DB, $OUTPUT;
+function xmldb_data_upgrade($oldversion=0) {
 
-    $dbman = $DB->get_manager();
+    global $CFG, $THEME, $db;
+
+    $result = true;
+
+/// And upgrade begins here. For each one, you'll need one
+/// block of code similar to the next one. Please, delete
+/// this comment lines once this file start handling proper
+/// upgrade code.
+
+/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
+///     $result = result of "/lib/ddllib.php" function calls
+/// }
+
+    if ($result && $oldversion < 2006121300) {
+
+    /// Define field format to be added to data_comments
+        $table = new XMLDBTable('data_comments');
+        $field = new XMLDBField('format');
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '2', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'content');
+
+    /// Launch add field format
+        $result = $result && add_field($table, $field);
+
+    }
+    
+    if ($result && $oldversion < 2007022600) {
+    /// Define field asearchtemplate to be added to data
+        $table = new XMLDBTable('data');
+        $field = new XMLDBField('asearchtemplate');
+        $field->setAttributes(XMLDB_TYPE_TEXT, 'small', null, null, null, null, null, null, 'jstemplate');
+
+    /// Launch add field asearchtemplate
+        $result = $result && add_field($table, $field);
+    }
 
 
-    // Moodle v2.2.0 release upgrade line
-    // Put any upgrade step following this
+    if ($result && $oldversion < 2007072200) {
+        require_once($CFG->dirroot.'/mod/data/lib.php');
+        // too much debug output
+        $db->debug = false;
+        data_update_grades();
+        $db->debug = true;
+    }  
 
-    // Moodle v2.3.0 release upgrade line
-    // Put any upgrade step following this
+    if ($result && $oldversion < 2007081400) {
 
-    if ($oldversion < 2012112901) {
-        // Check if there is a directory containing any old presets.
-        $olddatadir = $CFG->dataroot . '/data';
-        $oldpresetdir = "$olddatadir/preset";
-        if (file_exists($oldpresetdir)) {
-            // Get directory contents.
-            $userfolders = new DirectoryIterator($oldpresetdir);
-            // Store the system context, these are site wide presets.
-            $context = get_system_context();
-            // Create file storage object.
-            $fs = get_file_storage();
-            // Create array of accepted files.
-            $arracceptedfilenames = array('singletemplate.html', 'listtemplateheader.html', 'listtemplate.html',
-                                          'listtemplatefooter.html', 'addtemplate.html', 'rsstemplate.html',
-                                          'rsstitletemplate.html', 'csstemplate.css', 'jstemplate.js',
-                                          'asearchtemplate.html', 'preset.xml');
-            // Loop through all the folders, they should represent userids.
-            foreach ($userfolders as $userfolder) {
-                // If it is a file, skip it.
-                if ($userfolder->isFile()) {
-                    continue;
-                }
-                // The folder name should represent the user id.
-                $userid = $userfolder->getFilename();
-                // Skip if it is not numeric.
-                if (!is_numeric($userid)) {
-                    continue;
-                }
-                // Skip if the number does not correspond to a user (does not matter if user was deleted).
-                if (!$DB->record_exists('user', array('id' => $userid))) {
-                    continue;
-                }
-                // Open this folder.
-                $presetfolders = new DirectoryIterator("$oldpresetdir/$userid");
-                foreach ($presetfolders as $presetfolder) {
-                    // If it is a file, skip it.
-                    if ($presetfolder->isFile()) {
-                        continue;
-                    }
-                    // Save the name of the preset.
-                    $presetname = $presetfolder->getFilename();
-                    // Get the files in this preset folder.
-                    $presetfiles = new DirectoryIterator("$oldpresetdir/$userid/$presetname");
-                    // Now we want to get the contents of the presets.
-                    foreach ($presetfiles as $file) {
-                        // If it is not a file, skip it.
-                        if (!$file->isFile()) {
-                            continue;
-                        }
-                        // Set the filename.
-                        $filename = $file->getFilename();
-                        // If it is not in the array of accepted file names skip it.
-                        if (!in_array($filename, $arracceptedfilenames)) {
-                            continue;
-                        }
-                        // Store the full file path.
-                        $fullfilepath = "$oldpresetdir/$userid/$presetname/$filename";
-                        // Create file record.
-                        $filerecord = array('contextid' => $context->id,
-                                            'component' => 'mod_data',
-                                            'filearea' => 'site_presets',
-                                            'itemid' => 0,
-                                            'filename' => $filename,
-                                            'userid' => $userid);
-                        // Check to ensure it does not already exists in the file directory.
-                        if (!$fs->file_exists($context->id, 'mod_data', 'site_presets', 0, '/' . $presetfolder . '/', $filename)) {
-                            $filerecord['filepath'] = '/' . $presetfolder . '/';
-                        } else {
-                            $filerecord['filepath'] = '/' . $presetfolder . '_' . $userid . '_old/';
-                        }
-                        $fs->create_file_from_pathname($filerecord, $fullfilepath);
-                        // Remove the file.
-                        @unlink($fullfilepath);
-                    }
-                    // Remove the preset directory.
-                    @rmdir("$oldpresetdir/$userid/$presetname");
-                }
-                // Remove the user directory.
-                @rmdir("$oldpresetdir/$userid");
-            }
-            // Remove the final directories.
-            @rmdir("$oldpresetdir");
-            @rmdir("$olddatadir");
+    /// Define field notification to be added to data
+        $table = new XMLDBTable('data');
+        $field = new XMLDBField('notification');
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', null, null, null, null, null, null, 'editany');
+
+    /// Launch add field notification
+        $result = $result && add_field($table, $field);
+    }
+
+    if ($result && $oldversion < 2007081402) {
+
+    /// Define index type-dataid (not unique) to be added to data_fields
+        $table = new XMLDBTable('data_fields');
+        $index = new XMLDBIndex('type-dataid');
+        $index->setAttributes(XMLDB_INDEX_NOTUNIQUE, array('type', 'dataid'));
+
+    /// Launch add index type-dataid
+        if (!index_exists($table, $index)) {
+            $result = $result && add_index($table, $index);
         }
 
-        upgrade_mod_savepoint(true, 2012112901, 'data');
+    /// Define index course (not unique) to be added to data
+        $table = new XMLDBTable('data');
+        $index = new XMLDBIndex('course');
+        $index->setAttributes(XMLDB_INDEX_NOTUNIQUE, array('course'));
+
+    /// Launch add index course
+        if (!index_exists($table, $index)) {
+            $result = $result && add_index($table, $index);
+        }
     }
 
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this
+//===== 1.9.0 upgrade line ======//
 
-    //XTEC ************ AFEGIT - Create "abuse_reports" table to store all abuse reports
-    //2013.10.29
-    if ($oldversion < 2013102900) {
-        $table = new xmldb_table('data_abuse_reports');
-	$field = new xmldb_field('id');
-        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);
-	$table->addField($field);
+    if ($result && $oldversion < 2007101512) {
+    /// Launch add field asearchtemplate again if does not exists yet - reported on several sites
 
-	$field = new xmldb_field('recordid');
-        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
-	$table->addField($field);
+        $table = new XMLDBTable('data');
+        $field = new XMLDBField('asearchtemplate');
+        $field->setAttributes(XMLDB_TYPE_TEXT, 'small', null, null, null, null, null, null, 'jstemplate');
 
-	$field = new xmldb_field('abusetopic');
-        $field->set_attributes(XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, null, null);
-	$table->addField($field);
-
-	$field = new xmldb_field('report_author');
-        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
-	$table->addField($field);
-
-	$field = new xmldb_field('abusedescription');
-        $field->set_attributes(XMLDB_TYPE_TEXT, 'big', null, XMLDB_NOTNULL, null, null, null, null);
-	$table->addField($field);
-
-	$field = new xmldb_field('created');
-        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
-	$table->addField($field);
-
-	$table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'), null, null);
-	$table->add_key('report_author', XMLDB_KEY_FOREIGN, array('report_author'), 'user', array('id')); 
-
-        $result = $DB->get_manager()->create_table($table);
+        if (!field_exists($table, $field)) {
+            $result = $result && add_field($table, $field);
+        }
     }
-    //************ FI
 
-    return true;
+ ///Display a warning message about "Required Entries" fix from MDL-16999
+    if ($result && $oldversion < 2007101514) {
+        if (!get_config('data', 'requiredentriesfixflag')) {
+            set_config('requiredentriesfixflag', true, 'data'); // remove old flag
+        
+            $databases = get_records_sql("SELECT d.*, c.fullname
+                                              FROM {$CFG->prefix}data d, {$CFG->prefix}course c
+                                              WHERE d.course = c.id
+                                              AND (d.requiredentries > 0 OR d.requiredentriestoview > 0)
+                                              ORDER BY c.fullname, d.name");
+            if (!empty($databases)) {
+                $a = new object();
+                $a->text = '';
+                foreach($databases as $database) {
+                    $a->text .= "<p>".$database->fullname." - " .$database->name. " (course id: ".$database->course." - database id: ".$database->id.")</p>";
+                }
+                notify(get_string('requiredentrieschanged', 'data', $a));
+            }
+        }
+    }
+
+	//XTEC ************ AFEGIT - Create "abuse_reports" table to store all abuse reports
+	//2010.08.31
+	if ($result && $oldversion < 2007101509.01) { 
+        $table = new XMLDBTable('data_abuse_reports');
+        $table->addFieldInfo('id', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);
+        $table->addFieldInfo('recordid', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
+        $table->addFieldInfo('abusetopic', XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, null, null);
+        $table->addFieldInfo('report_author', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
+        $table->addFieldInfo('abusedescription', XMLDB_TYPE_TEXT, 'big', null, XMLDB_NOTNULL, null, null, null, null);
+        $table->addFieldInfo('created', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
+
+        /// Adding keys to table scorm_scoes_data
+        $table->addKeyInfo('primary', XMLDB_KEY_PRIMARY, array('id'));
+
+        $key = new XMLDBKey('report_author');
+        $key->setAttributes(XMLDB_KEY_FOREIGN, array('report_author'), 'user', array('id'));
+        $sql = $table->getAddKeySQL($CFG->dbtype, $CFG->prefix, $key, true);
+        
+        $result = $result && create_table($table);
+	//$result = $result && add_key($table, $key, false, false);
+    }
+	//************ FI
+
+    if ($result && $oldversion <  2007101515) {
+        // Upgrade all the data->notification currently being
+        // NULL to 0
+        $sql = "UPDATE {$CFG->prefix}data SET notification=0 WHERE notification IS NULL";
+        $result = execute_sql($sql);
+        $table = new XMLDBTable('data');
+        $field = new XMLDBField('notification');
+        // First step, Set NOT NULL
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'editany');
+        $result = $result && change_field_notnull($table, $field);
+        // Second step, Set default to 0
+        $result = $result && change_field_default($table, $field);
+    }
+
+    return $result;
 }
 
-
+?>

@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: field.class.php,v 1.6.2.5 2009/03/23 21:27:53 thepurpleblob Exp $
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // NOTICE OF COPYRIGHT                                                   //
@@ -34,63 +34,53 @@ class data_field_date extends data_field_base {
     var $month = 0;
     var $year  = 0;
 
+    function data_field_date($field=0, $data=0) {
+        parent::data_field_base($field, $data);
+    }
+
     function display_add_field($recordid=0) {
-        global $DB, $OUTPUT;
 
         if ($recordid) {
-            $content = (int)$DB->get_field('data_content', 'content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid));
+            $content = (int) get_field('data_content', 'content', 'fieldid', $this->field->id, 'recordid', $recordid);
         } else {
             $content = time();
         }
 
         $str = '<div title="'.s($this->field->description).'">';
-        $dayselector = html_writer::select_time('days', 'field_'.$this->field->id.'_day', $content);
-        $monthselector = html_writer::select_time('months', 'field_'.$this->field->id.'_month', $content);
-        $yearselector = html_writer::select_time('years', 'field_'.$this->field->id.'_year', $content);
-        $str .= $dayselector . $monthselector . $yearselector;
+        $str .= print_date_selector('field_'.$this->field->id.'_day', 'field_'.$this->field->id.'_month',
+                                    'field_'.$this->field->id.'_year', $content, true);
         $str .= '</div>';
 
         return $str;
     }
-
+    
     //Enable the following three functions once core API issues have been addressed.
     function display_search_field($value=0) {
-        $selectors = html_writer::select_time('days', 'f_'.$this->field->id.'_d', $value['timestamp'])
-           . html_writer::select_time('months', 'f_'.$this->field->id.'_m', $value['timestamp'])
-           . html_writer::select_time('years', 'f_'.$this->field->id.'_y', $value['timestamp']);
-        $datecheck = html_writer::checkbox('f_'.$this->field->id.'_z', 1, $value['usedate']);
-        $str = $selectors . ' ' . $datecheck . ' ' . get_string('usedate', 'data');
-
-        return $str;
+        return false;
+        //return print_date_selector('f_'.$this->field->id.'_d', 'f_'.$this->field->id.'_m', 'f_'.$this->field->id.'_y', $value, true);
     }
-
+    
     function generate_sql($tablealias, $value) {
-        global $DB;
-
-        static $i=0;
-        $i++;
-        $name = "df_date_$i";
-        $varcharcontent = $DB->sql_compare_text("{$tablealias}.content");
-        return array(" ({$tablealias}.fieldid = {$this->field->id} AND $varcharcontent = :$name) ", array($name => $value['timestamp']));
+        return ' 1=1 ';
+        //return " ({$tablealias}.fieldid = {$this->field->id} AND {$tablealias}.content = '$value') "; 
     }
-
+    
     function parse_search_field() {
+        return '';
+       /* 
         $day   = optional_param('f_'.$this->field->id.'_d', 0, PARAM_INT);
         $month = optional_param('f_'.$this->field->id.'_m', 0, PARAM_INT);
         $year  = optional_param('f_'.$this->field->id.'_y', 0, PARAM_INT);
-        $usedate = optional_param('f_'.$this->field->id.'_z', 0, PARAM_INT);
-        $data = array();
-        if (!empty($day) && !empty($month) && !empty($year) && $usedate == 1) {
-            $data['timestamp'] = make_timestamp($year, $month, $day, 12, 0, 0, 0, false);
-            $data['usedate'] = 1;
-            return $data;
-        } else {
+        if (!empty($day) && !empty($month) && !empty($year)) {
+            return make_timestamp($year, $month, $day, 12, 0, 0, 0, false);
+        }
+        else {
             return 0;
         }
+        */
     }
 
     function update_content($recordid, $value, $name='') {
-        global $DB;
 
         $names = explode('_',$name);
         $name = $names[2];          // day month or year
@@ -99,34 +89,35 @@ class data_field_date extends data_field_base {
 
         if ($this->day and $this->month and $this->year) {  // All of them have been collected now
 
-            $content = new stdClass();
+            $content = new object;
             $content->fieldid = $this->field->id;
             $content->recordid = $recordid;
             $content->content = make_timestamp($this->year, $this->month, $this->day, 12, 0, 0, 0, false);
 
-            if ($oldcontent = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+            if ($oldcontent = get_record('data_content','fieldid', $this->field->id, 'recordid', $recordid)) {
                 $content->id = $oldcontent->id;
-                return $DB->update_record('data_content', $content);
+                return update_record('data_content', $content);
             } else {
-                return $DB->insert_record('data_content', $content);
+                return insert_record('data_content', $content);
             }
         }
     }
 
     function display_browse_field($recordid, $template) {
-        global $CFG, $DB;
 
-        if ($content = $DB->get_field('data_content', 'content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        global $CFG;
+
+        if ($content = get_field('data_content', 'content', 'fieldid', $this->field->id, 'recordid', $recordid)){
             return userdate($content, get_string('strftimedate'), 0);
         }
     }
 
     function get_sort_sql($fieldname) {
-        global $DB;
-        return $DB->sql_cast_char2int($fieldname, true);
+
+         return sql_cast_char2int($fieldname, true);
     }
 
 
 }
 
-
+?>
