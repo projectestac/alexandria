@@ -1,4 +1,4 @@
-<?php // $Id: bennu.class.php,v 1.1 2006/01/13 15:06:25 defacer Exp $
+<?php
 
 /**
  *  BENNU - PHP iCalendar library
@@ -9,19 +9,18 @@
  *  See http://bennu.sourceforge.net/ for more information and downloads.
  *
  * @author Ioannis Papaioannou 
- * @version $Id: bennu.class.php,v 1.1 2006/01/13 15:06:25 defacer Exp $
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
 class Bennu {
-    function timestamp_to_datetime($t = NULL) {
+    static function timestamp_to_datetime($t = NULL) {
         if($t === NULL) {
             $t = time();
         }
         return gmstrftime('%Y%m%dT%H%M%SZ', $t);
     }
 
-    function generate_guid() {
+    static function generate_guid() {
         // Implemented as per the Network Working Group draft on UUIDs and GUIDs
     
         // These two octets get special treatment
@@ -56,4 +55,3 @@ class Bennu {
     }
 }
 
-?>

@@ -1,65 +1,67 @@
-<?php // $Id: index.php,v 1.24.2.5 2008/02/05 21:39:52 skodak Exp $
+<?php
 
     require_once("../../config.php");
     require_once("lib.php");
 
     $id = required_param('id', PARAM_INT);    // Course Module ID
 
-    if (! $course = get_record("course", "id", $id)) {
-        error("Course ID is incorrect");
+    $PAGE->set_url('/mod/survey/index.php', array('id'=>$id));
+
+    if (!$course = $DB->get_record('course', array('id'=>$id))) {
+        print_error('invalidcourseid');
     }
 
     require_course_login($course);
+    $PAGE->set_pagelayout('incourse');
 
     add_to_log($course->id, "survey", "view all", "index.php?id=$course->id", "");
 
     $strsurveys = get_string("modulenameplural", "survey");
-    $strweek = get_string("week");
-    $strtopic = get_string("topic");
+    $strsectionname  = get_string('sectionname', 'format_'.$course->format);
     $strname = get_string("name");
     $strstatus = get_string("status");
     $strdone  = get_string("done", "survey");
     $strnotdone  = get_string("notdone", "survey");
 
-    $navlinks = array();
-    $navlinks[] = array('name' => $strsurveys, 'link' => '', 'type' => 'activity');
-    $navigation = build_navigation($navlinks);
-
-    print_header_simple("$strsurveys", "", $navigation,
-                 "", "", true, "", navmenu($course));
+    $PAGE->navbar->add($strsurveys);
+    $PAGE->set_title($strsurveys);
+    $PAGE->set_heading($course->fullname);
+    echo $OUTPUT->header();
 
     if (! $surveys = get_all_instances_in_course("survey", $course)) {
         notice(get_string('thereareno', 'moodle', $strsurveys), "../../course/view.php?id=$course->id");
     }
 
-    if ($course->format == "weeks") {
-        $table->head  = array ($strweek, $strname, $strstatus);
-        $table->align = array ("CENTER", "LEFT", "LEFT");
-    } else if ($course->format == "topics") {
-        $table->head  = array ($strtopic, $strname, $strstatus);
-        $table->align = array ("CENTER", "LEFT", "LEFT");
+    $usesections = course_format_uses_sections($course->format);
+
+    $table = new html_table();
+    $table->width = '100%';
+
+    if ($usesections) {
+        $table->head  = array ($strsectionname, $strname, $strstatus);
     } else {
         $table->head  = array ($strname, $strstatus);
-        $table->align = array ("LEFT", "LEFT");
     }
 
     $currentsection = '';
 
     foreach ($surveys as $survey) {
-        if (!empty($USER->id) and survey_already_done($survey->id, $USER->id)) {
+        if (isloggedin() and survey_already_done($survey->id, $USER->id)) {
             $ss = $strdone;
         } else {
             $ss = $strnotdone;
         }
         $printsection = "";
-        if ($survey->section !== $currentsection) {
-            if ($survey->section) {
-                $printsection = $survey->section;
+        if ($usesections) {
+            if ($survey->section !== $currentsection) {
+                if ($survey->section) {
+                    $printsection = get_section_name($course, $survey->section);
+                }
+                if ($currentsection !== "") {
+                    $table->data[] = 'hr';
+                }
+                $currentsection = $survey->section;
             }
-            if ($currentsection !== "") {
-                $table->data[] = 'hr';
-            }
-            $currentsection = $survey->section;
         }
         //Calculate the href
         if (!$survey->visible) {
@@ -70,7 +72,7 @@
             $tt_href = "<a href=\"view.php?id=$survey->coursemodule\">".format_string($survey->name,true)."</a>";
         }
 
-        if ($course->format == "weeks" or $course->format == "topics") {
+        if ($usesections) {
             $table->data[] = array ($printsection, $tt_href, "<a href=\"view.php?id=$survey->coursemodule\">$ss</a>");
         } else {
             $table->data[] = array ($tt_href, "<a href=\"view.php?id=$survey->coursemodule\">$ss</a>");
@@ -78,7 +80,7 @@
     }
 
     echo "<br />";
-    print_table($table);
-    print_footer($course);
+    echo html_writer::table($table);
+    echo $OUTPUT->footer();
 
-?>
+

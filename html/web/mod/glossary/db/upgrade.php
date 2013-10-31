@@ -1,6 +1,6 @@
-<?php  //$Id: upgrade.php,v 1.8.2.1 2008/05/01 20:46:22 skodak Exp $
+<?php
 
-// This file keeps track of upgrades to 
+// This file keeps track of upgrades to
 // the glossary module
 //
 // Sometimes, changes between versions involve
@@ -9,68 +9,50 @@
 //
 // The upgrade function in this file will attempt
 // to perform all the necessary actions to upgrade
-// your older installtion to the current version.
+// your older installation to the current version.
 //
 // If there's something it cannot do itself, it
 // will tell you what you need to do.
 //
 // The commands in here will all be database-neutral,
-// using the functions defined in lib/ddllib.php
+// using the methods of database_manager class
+//
+// Please do not forget to use upgrade_set_timeout()
+// before any action that may take longer time to finish.
 
-function xmldb_glossary_upgrade($oldversion=0) {
+function xmldb_glossary_upgrade($oldversion) {
+    global $CFG, $DB, $OUTPUT;
 
-    global $CFG, $THEME, $db;
+    $dbman = $DB->get_manager();
 
-    $result = true;
 
-/// And upgrade begins here. For each one, you'll need one 
-/// block of code similar to the next one. Please, delete 
-/// this comment lines once this file start handling proper
-/// upgrade code.
+    // Moodle v2.2.0 release upgrade line
+    // Put any upgrade step following this
 
-/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
-///     $result = result of "/lib/ddllib.php" function calls
-/// }
-    
-    if ($result && $oldversion < 2006111400) {
+    if ($oldversion < 2012022000) {
 
-    /// MDL-10475, set override for legacy:student before dropping studentcanpost
-    /// if the glossary disables student postings
-    
-        if ($glossaries = get_records('glossary', 'studentcanpost', '0')) {
-            foreach ($glossaries as $glossary) {
-                if ($cm = get_coursemodule_from_instance('glossary', $glossary->id)) {
-                    // add student override in this instance
-                    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
-                    // find all roles with legacy:student
-                    if ($studentroles = get_roles_with_capability('moodle/legacy:student', CAP_ALLOW)) {
-                        foreach ($studentroles as $studentrole) {
-                            assign_capability('mod/glossary:write', CAP_PREVENT, $studentrole->id, $context->id);
-                        }
-                    }
-                }
-            }
+        // Define field approvaldisplayformat to be added to glossary
+        $table = new xmldb_table('glossary');
+        $field = new xmldb_field('approvaldisplayformat', XMLDB_TYPE_CHAR, '50', null, XMLDB_NOTNULL, null, 'default', 'defaultapproval');
+
+        // Conditionally launch add field approvaldisplayformat
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
         }
 
-    /// Define field studentcanpost to be dropped from glossary
-        $table = new XMLDBTable('glossary');
-        $field = new XMLDBField('studentcanpost');
+        // glossary savepoint reached
+        upgrade_mod_savepoint(true, 2012022000, 'glossary');
+    }
 
-    /// Launch drop field studentcanpost
-        $result = $result && drop_field($table, $field);
-    }  
+    // Moodle v2.3.0 release upgrade line
+    // Put any upgrade step following this
 
-    if ($result && $oldversion < 2007072200) {
-        require_once($CFG->dirroot.'/mod/glossary/lib.php');
-        // too much debug output
-        $db->debug = false;
-        glossary_update_grades();
-        $db->debug = true;
-    }  
 
-//===== 1.9.0 upgrade line ======//
+    // Moodle v2.4.0 release upgrade line
+    // Put any upgrade step following this
 
-    return $result;
+
+    return true;
 }
 
-?>
+

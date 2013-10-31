@@ -1,27 +1,75 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
+/**
+ * select type form element
+ *
+ * Contains HTML class for a select type element
+ *
+ * @package   core_form
+ * @copyright 2006 Jamie Pratt <me@jamiep.org>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once('HTML/QuickForm/select.php');
 
 /**
+ * select type form element
+ *
  * HTML class for a select type element
  *
- * @author       Jamie Pratt
- * @access       public
+ * @package   core_form
+ * @category  form
+ * @copyright 2006 Jamie Pratt <me@jamiep.org>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class MoodleQuickForm_select extends HTML_QuickForm_select{
-    /**
-     * html for help button, if empty then no help
-     *
-     * @var string
-     */
+    /** @var string html for help button, if empty then no help */
     var $_helpbutton='';
+
+    /** @var bool if true label will be hidden */
     var $_hiddenLabel=false;
 
+    /**
+     * constructor
+     *
+     * @param string $elementName Select name attribute
+     * @param mixed $elementLabel Label(s) for the select
+     * @param mixed $options Data to be used to populate options
+     * @param mixed $attributes Either a typical HTML attribute string or an associative array
+     */
     function MoodleQuickForm_select($elementName=null, $elementLabel=null, $options=null, $attributes=null) {
         parent::HTML_QuickForm_select($elementName, $elementLabel, $options, $attributes);
     }
+
+    /**
+     * Sets label to be hidden
+     *
+     * @param bool $hiddenLabel sets if label should be hidden
+     */
     function setHiddenLabel($hiddenLabel){
         $this->_hiddenLabel = $hiddenLabel;
     }
+
+    /**
+     * Returns HTML for select form element.
+     *
+     * @return string
+     */
     function toHtml(){
         if ($this->_hiddenLabel){
             $this->_generateId();
@@ -31,61 +79,21 @@ class MoodleQuickForm_select extends HTML_QuickForm_select{
              return parent::toHtml();
         }
     }
-   /**
-    * Automatically generates and assigns an 'id' attribute for the element.
-    *
-    * Currently used to ensure that labels work on radio buttons and
-    * checkboxes. Per idea of Alexander Radivanovich.
-    * Overriden in moodleforms to remove qf_ prefix.
-    *
-    * @access private
-    * @return void
-    */
-    function _generateId()
-    {
-        static $idx = 1;
 
-        if (!$this->getAttribute('id')) {
-            $this->updateAttributes(array('id' => 'id_'. substr(md5(microtime() . $idx++), 0, 6)));
-        }
-    } // end func _generateId
-    /**
-     * set html for help button
-     *
-     * @access   public
-     * @param array $help array of arguments to make a help button
-     * @param string $function function name to call to get html
-     */
-    function setHelpButton($helpbuttonargs, $function='helpbutton'){
-        if (!is_array($helpbuttonargs)){
-            $helpbuttonargs=array($helpbuttonargs);
-        }else{
-            $helpbuttonargs=$helpbuttonargs;
-        }
-        //we do this to to return html instead of printing it
-        //without having to specify it in every call to make a button.
-        if ('helpbutton' == $function){
-            $defaultargs=array('', '', 'moodle', true, false, '', true);
-            $helpbuttonargs=$helpbuttonargs + $defaultargs ;
-        }
-        $this->_helpbutton=call_user_func_array($function, $helpbuttonargs);
-    }
     /**
      * get html for help button
      *
-     * @access   public
-     * @return  string html for help button
+     * @return string html for help button
      */
     function getHelpButton(){
         return $this->_helpbutton;
     }
+
     /**
      * Removes an OPTION from the SELECT
      *
-     * @param     string    $value      Value for the OPTION to remove
-     * @since     1.0
-     * @access    public
-     * @return    void
+     * @param string $value Value for the OPTION to remove
+     * @return void
      */
     function removeOption($value)
     {
@@ -101,19 +109,16 @@ class MoodleQuickForm_select extends HTML_QuickForm_select{
                 return;
             }
         }
-    } // end func removeOption
+    }
+
     /**
      * Removes all OPTIONs from the SELECT
-     *
-     * @param     string    $value      Value for the OPTION to remove
-     * @since     1.0
-     * @access    public
-     * @return    void
      */
     function removeOptions()
     {
         $this->_options = array();
-    } // end func removeOption
+    }
+
     /**
      * Slightly different container template when frozen. Don't want to use a label tag
      * with a for attribute in that case for the element label but instead use a div.
@@ -132,6 +137,10 @@ class MoodleQuickForm_select extends HTML_QuickForm_select{
    /**
     * We check the options and return only the values that _could_ have been
     * selected. We also return a scalar value if select is not "multiple"
+    *
+    * @param array $submitValues submitted values
+    * @param bool $assoc if true the retured value is associated array
+    * @return mixed
     */
     function exportValue(&$submitValues, $assoc = false)
     {
@@ -165,5 +174,3 @@ class MoodleQuickForm_select extends HTML_QuickForm_select{
         }
     }
 }
-
-?>

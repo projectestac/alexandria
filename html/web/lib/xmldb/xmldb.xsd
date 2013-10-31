@@ -34,6 +34,7 @@
 
   <xs:simpleType name="fieldLength" >
     <xs:restriction base="xs:string" >
+    <!-- TODO: Moodle 2.5 - Drop LOB sizes, keep only numbers -->
      <xs:pattern value='(\d+)|(small|medium|big)'/>
     </xs:restriction >
   </xs:simpleType >
@@ -53,15 +54,6 @@
     </xs:restriction>
   </xs:simpleType>
 
-  <xs:simpleType name="statementType">
-    <xs:restriction base="xs:NMTOKEN">
-      <xs:enumeration value="insert" />
-      <xs:enumeration value="update" />
-      <xs:enumeration value="delete" />
-      <xs:enumeration value="custom" />
-    </xs:restriction>
-  </xs:simpleType>
-
 
   <xs:element name="FIELD">
     <xs:complexType>
@@ -71,9 +63,8 @@
       <xs:attribute name="LENGTH"     type="fieldLength" use="optional" />
       <xs:attribute name="NOTNULL"    type="trueFalse"   use="required" />
       <xs:attribute name="DECIMALS"   type="xs:positiveInteger" use="optional" />
+      <!-- TODO: Moodle 2.4 - Drop ignored UNSIGNED attribute -->
       <xs:attribute name="UNSIGNED"   type="trueFalse"   use="optional" />
-      <xs:attribute name="ENUM"       type="trueFalse"   use="optional" />
-      <xs:attribute name="ENUMVALUES" type="xs:string"   use="optional" />
       <xs:attribute name="DEFAULT"    type="xs:string"   use="optional" />
       <xs:attribute name="COMMENT"    type="xs:string"   use="optional" />
       <xs:attribute name="PREVIOUS"   type="fieldName"   use="optional" />
@@ -94,6 +85,7 @@
       <xs:attribute name="NAME"     type="xs:NMTOKEN" use="required" />
       <xs:attribute name="UNIQUE"   type="trueFalse"  use="required" />
       <xs:attribute name="FIELDS"   type="fieldsList" use="required" />
+      <xs:attribute name="HINTS"    type="xs:string"  use="optional" />
       <xs:attribute name="COMMENT"  type="xs:string"  use="optional" />
       <xs:attribute name="PREVIOUS" type="xs:NMTOKEN" use="optional" />
       <xs:attribute name="NEXT"     type="xs:NMTOKEN" use="optional" />
@@ -143,28 +135,6 @@
     </xs:complexType>
   </xs:element>
 
-  <xs:element name="STATEMENT">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="SENTENCES" />
-      </xs:sequence>
-      <xs:attribute name="NAME"     type="xs:string"     use="required" />
-      <xs:attribute name="TABLE"    type="tableName"     use="required" />
-      <xs:attribute name="TYPE"     type="statementType" use="required" />
-      <xs:attribute name="COMMENT"  type="xs:string"     use="optional" />
-      <xs:attribute name="PREVIOUS" type="xs:string"     use="optional" />
-      <xs:attribute name="NEXT"     type="xs:string"     use="optional" />
-    </xs:complexType>
-  </xs:element>
-
-  <xs:element name="STATEMENTS">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element ref="STATEMENT" maxOccurs="unbounded" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-
   <xs:element name="TABLE">
     <xs:complexType>
       <xs:sequence>
@@ -191,7 +161,6 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element ref="TABLES"     minOccurs="0" />
-        <xs:element ref="STATEMENTS" minOccurs="0" />
       </xs:sequence>
       <xs:attribute name="PATH"    type="xs:string" use="required" />
       <xs:attribute name="VERSION" type="xs:string" use="required" />

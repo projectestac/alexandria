@@ -1,12 +1,26 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
 /**
  * Create grouping OR edit grouping settings.
  *
- * @copyright &copy; 2006 The Open University
- * @author N.D.Freear AT open.ac.uk
- * @author J.White AT open.ac.uk
- * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package groups
+ * @copyright 2006 The Open University, N.D.Freear AT open.ac.uk, J.White AT open.ac.uk
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   core_group
  */
 require_once('../config.php');
 require_once('lib.php');
@@ -18,44 +32,57 @@ $id       = optional_param('id', 0, PARAM_INT);
 $delete   = optional_param('delete', 0, PARAM_BOOL);
 $confirm  = optional_param('confirm', 0, PARAM_BOOL);
 
+$url = new moodle_url('/group/grouping.php');
 if ($id) {
-    if (!$grouping = get_record('groupings', 'id', $id)) {
-        error('Group ID was incorrect');
+    $url->param('id', $id);
+    if (!$grouping = $DB->get_record('groupings', array('id'=>$id))) {
+        print_error('invalidgroupid');
     }
     $grouping->description = clean_text($grouping->description);
     if (empty($courseid)) {
         $courseid = $grouping->courseid;
-
     } else if ($courseid != $grouping->courseid) {
-        error('Course ID was incorrect');
+        print_error('invalidcourseid');
+    } else {
+        $url->param('courseid', $courseid);
     }
 
-    if (!$course = get_record('course', 'id', $courseid)) {
-        error('Course ID was incorrect');
+    if (!$course = $DB->get_record('course', array('id'=>$courseid))) {
+        print_error('invalidcourseid');
     }
 
 } else {
-    if (!$course = get_record('course', 'id', $courseid)) {
-        error('Course ID was incorrect');
+    $url->param('courseid', $courseid);
+    if (!$course = $DB->get_record('course', array('id'=>$courseid))) {
+        print_error('invalidcourseid');
     }
-    $grouping = new object();
+    $grouping = new stdClass();
     $grouping->courseid = $course->id;
 }
 
+$PAGE->set_url($url);
+
 require_login($course);
-$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$context = context_course::instance($course->id);
 require_capability('moodle/course:managegroups', $context);
 
 $returnurl = $CFG->wwwroot.'/group/groupings.php?id='.$course->id;
 
 
 if ($id and $delete) {
+    if (!empty($grouping->idnumber) && !has_capability('moodle/course:changeidnumber', $context)) {
+        print_error('groupinghasidnumber', '', '', $grouping->name);
+    }
     if (!$confirm) {
-        print_header(get_string('deletegrouping', 'group'), get_string('deletegrouping', 'group'));
+        $PAGE->set_title(get_string('deletegrouping', 'group'));
+        $PAGE->set_heading($course->fullname. ': '. get_string('deletegrouping', 'group'));
+        echo $OUTPUT->header();
         $optionsyes = array('id'=>$id, 'delete'=>1, 'courseid'=>$courseid, 'sesskey'=>sesskey(), 'confirm'=>1);
         $optionsno  = array('id'=>$courseid);
-        notice_yesno(get_string('deletegroupingconfirm', 'group', $grouping->name), 'grouping.php', 'groupings.php', $optionsyes, $optionsno, 'get', 'get');
-        print_footer();
+        $formcontinue = new single_button(new moodle_url('grouping.php', $optionsyes), get_string('yes'), 'get');
+        $formcancel = new single_button(new moodle_url('groupings.php', $optionsno), get_string('no'), 'get');
+        echo $OUTPUT->confirm(get_string('deletegroupingconfirm', 'group', $grouping->name), $formcontinue, $formcancel);
+        echo $OUTPUT->footer();
         die;
 
     } else if (confirm_sesskey()){
@@ -67,8 +94,16 @@ if ($id and $delete) {
     }
 }
 
+// Prepare the description editor: We do support files for grouping descriptions
+$editoroptions = array('maxfiles'=>EDITOR_UNLIMITED_FILES, 'maxbytes'=>$course->maxbytes, 'trust'=>true, 'context'=>$context, 'noclean'=>true);
+if (!empty($grouping->id)) {
+    $grouping = file_prepare_standard_editor($grouping, 'description', $editoroptions, $context, 'grouping', 'description', $grouping->id);
+} else {
+    $grouping = file_prepare_standard_editor($grouping, 'description', $editoroptions, $context, 'grouping', 'description', null);
+}
+
 /// First create the form
-$editform = new grouping_form();
+$editform = new grouping_form(null, compact('editoroptions'));
 $editform->set_data($grouping);
 
 if ($editform->is_cancelled()) {
@@ -76,23 +111,22 @@ if ($editform->is_cancelled()) {
 
 } elseif ($data = $editform->get_data()) {
     $success = true;
+    if (!has_capability('moodle/course:changeidnumber', $context)) {
+        // Remove the idnumber if the user doesn't have permission to modify it
+        unset($data->idnumber);
+    }
 
     if ($data->id) {
-        if (!groups_update_grouping($data)) {
-            error('Error updating grouping');
-        }
-
+        groups_update_grouping($data, $editoroptions);
     } else {
-        if (!groups_create_grouping($data)) {
-            error('Error creating grouping');
-        }
+        groups_create_grouping($data, $editoroptions);
     }
 
     redirect($returnurl);
 
 }
 
-$strgroupings     = get_string('groupings', 'group');
+$strgroupings    = get_string('groupings', 'group');
 $strparticipants = get_string('participants');
 
 if ($id) {
@@ -101,17 +135,14 @@ if ($id) {
     $strheading = get_string('creategrouping', 'group');
 }
 
-$navlinks = array(array('name'=>$strparticipants, 'link'=>$CFG->wwwroot.'/user/index.php?id='.$courseid, 'type'=>'misc'),
-                  array('name'=>$strgroupings, 'link'=>$CFG->wwwroot.'/group/groupings.php?id='.$courseid, 'type'=>'misc'),
-                  array('name'=>$strheading, 'link'=>'', 'type'=>'misc'));
-$navigation = build_navigation($navlinks);
+$PAGE->navbar->add($strparticipants, new moodle_url('/user/index.php', array('id'=>$courseid)));
+$PAGE->navbar->add($strgroupings, new moodle_url('/group/groupings.php', array('id'=>$courseid)));
+$PAGE->navbar->add($strheading);
 
 /// Print header
-print_header_simple($strgroupings, ': '.$strgroupings, $navigation, '', '', true, '', navmenu($course));
-
-
-print_heading($strheading);
+$PAGE->set_title($strgroupings);
+$PAGE->set_heading($course->fullname. ': '.$strgroupings);
+echo $OUTPUT->header();
+echo $OUTPUT->heading($strheading);
 $editform->display();
-print_footer($course);
-
-?>
+echo $OUTPUT->footer();

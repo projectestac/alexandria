@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,6 +14,14 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Edit a user's grade for a particular activity
+ *
+ * @package   core_grades
+ * @copyright 2007 Petr Skoda
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 require_once $CFG->dirroot.'/grade/report/lib.php';
@@ -25,44 +32,57 @@ $id       = optional_param('id', 0, PARAM_INT);
 $itemid   = optional_param('itemid', 0, PARAM_INT);
 $userid   = optional_param('userid', 0, PARAM_INT);
 
-if (!$course = get_record('course', 'id', $courseid)) {
+$url = new moodle_url('/grade/edit/tree/grade.php', array('courseid'=>$courseid));
+if ($id !== 0) {
+    $url->param('id', $id);
+}
+if ($itemid !== 0) {
+    $url->param('itemid', $itemid);
+}
+if ($userid !== 0) {
+    $url->param('userid', $userid);
+}
+$PAGE->set_url($url);
+
+if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('nocourseid');
 }
 
+$PAGE->set_pagelayout('incourse');
 require_login($course);
-$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$context = context_course::instance($course->id);
 if (!has_capability('moodle/grade:manage', $context)) {
     require_capability('moodle/grade:edit', $context);
 }
 
 // default return url
 $gpr = new grade_plugin_return();
-$returnurl = $gpr->get_return_url($CFG->wwwroot.'/grade/report.php?id='.$course->id);
+$returnurl = $gpr->get_return_url($CFG->wwwroot.'/grade/report/index.php?id='.$course->id);
 
 // security checks!
 if (!empty($id)) {
-    if (!$grade = get_record('grade_grades', 'id', $id)) {
-        error('Incorrect grade id');
+    if (!$grade = $DB->get_record('grade_grades', array('id' => $id))) {
+        print_error('invalidgroupid');
     }
 
     if (!empty($itemid) and $itemid != $grade->itemid) {
-        error('Incorrect itemid');
+        print_error('invaliditemid');
     }
     $itemid = $grade->itemid;
 
     if (!empty($userid) and $userid != $grade->userid) {
-        error('Incorrect userid');
+        print_error('invaliduser');
     }
     $userid = $grade->userid;
 
     unset($grade);
 
 } else if (empty($userid) or empty($itemid)) {
-    error('Missing userid and itemid');
+    print_error('missinguseranditemid');
 }
 
 if (!$grade_item = grade_item::fetch(array('id'=>$itemid, 'courseid'=>$courseid))) {
-    error('Can not find grade_item');
+    print_error('cannotfindgradeitem');
 }
 
 // now verify grading user has access to all groups or is member of the same group when separate groups used in course
@@ -75,26 +95,27 @@ if (groups_get_course_groupmode($COURSE) == SEPARATEGROUPS and !has_capability('
             }
         }
         if (!$ok) {
-            error('Can not grade this user');
+            print_error('cannotgradeuser');
         }
     } else {
-        error('Can not grade this user');
+        print_error('cannotgradeuser');
     }
 }
 
 $mform = new edit_grade_form(null, array('grade_item'=>$grade_item, 'gpr'=>$gpr));
 
-if ($grade = get_record('grade_grades', 'itemid', $grade_item->id, 'userid', $userid)) {
+if ($grade = $DB->get_record('grade_grades', array('itemid' => $grade_item->id, 'userid' => $userid))) {
 
     // always clean existing feedback - grading should not have XSS risk
     if (can_use_html_editor()) {
         if (empty($grade->feedback)) {
             $grade->feedback  = '';
         } else {
-            $options = new object();
+            $options = new stdClass();
             $options->smiley  = false;
             $options->filter  = false;
             $options->noclean = false;
+            $options->para    = false;
             $grade->feedback  = format_text($grade->feedback, $grade->feedbackformat, $options);
         }
         $grade->feedbackformat = FORMAT_HTML;
@@ -135,9 +156,12 @@ if ($grade = get_record('grade_grades', 'itemid', $grade_item->id, 'userid', $us
     $grade->oldgrade    = $grade->finalgrade;
     $grade->oldfeedback = $grade->feedback;
 
-    $mform->set_data($grade);
+    $grade->feedback = array('text'=>$grade->feedback, 'format'=>$grade->feedbackformat);
 
+    $mform->set_data($grade);
 } else {
+    $grade = new stdClass();
+    $grade->feedback = array('text'=>'', 'format'=>FORMAT_HTML);
     $mform->set_data(array('itemid'=>$itemid, 'userid'=>$userid, 'locked'=>$grade_item->locked, 'locktime'=>$grade_item->locktime));
 }
 
@@ -146,6 +170,12 @@ if ($mform->is_cancelled()) {
 
 // form processing
 } else if ($data = $mform->get_data(false)) {
+
+    if (isset($data->feedback) && is_array($data->feedback)) {
+        $data->feedbackformat = $data->feedback['format'];
+        $data->feedback = $data->feedback['text'];
+    }
+
     $old_grade_grade = new grade_grade(array('userid'=>$data->userid, 'itemid'=>$grade_item->id), true); //might not exist yet
 
     // fix no grade for scales
@@ -161,30 +191,28 @@ if ($mform->is_cancelled()) {
         $data->finalgrade = unformat_float($data->finalgrade);
 
     } else {
-        //this shoul not happen
+        //this should not happen
         $data->finalgrade = $old_grade_grade->finalgrade;
     }
 
     // the overriding of feedback is tricky - we have to care about external items only
-    if (!array_key_exists('feedback', $data) or $data->feedback == $data->oldfeedback) {
+    if (!property_exists($data, 'feedback') or $data->feedback == $data->oldfeedback) {
         $data->feedback       = $old_grade_grade->feedback;
         $data->feedbackformat = $old_grade_grade->feedbackformat;
     }
     // update final grade or feedback
+    // when we set override grade the first time, it happens here
     $grade_item->update_final_grade($data->userid, $data->finalgrade, 'editgrade', $data->feedback, $data->feedbackformat);
 
     $grade_grade = new grade_grade(array('userid'=>$data->userid, 'itemid'=>$grade_item->id), true);
     $grade_grade->grade_item =& $grade_item; // no db fetching
 
     if (has_capability('moodle/grade:manage', $context) or has_capability('moodle/grade:edit', $context)) {
-        if (!grade_floats_different($data->finalgrade, $old_grade_grade->finalgrade)
-          and $data->feedback === $old_grade_grade->feedback) {
-            // change overridden flag only if grade or feedback not changed
-            if (!isset($data->overridden)) {
-                $data->overridden = 0; // checkbox
-            }
-            $grade_grade->set_overridden($data->overridden);
+        // change overridden flag
+        if (!isset($data->overridden)) {
+            $data->overridden = 0; // checkbox unticked
         }
+        $grade_grade->set_overridden($data->overridden);
     }
 
     if (has_capability('moodle/grade:manage', $context) or has_capability('moodle/grade:hide', $context)) {
@@ -233,7 +261,7 @@ if ($mform->is_cancelled()) {
         $parent = $grade_item->get_parent_category();
         $parent->force_regrading();
 
-    } else if ($old_grade_grade->overridden != $grade_grade->overridden and empty($grade_grade->overridden)) { // only when unoverriding
+    } else if ($old_grade_grade->overridden != $grade_grade->overridden and empty($grade_grade->overridden)) { // only when unoverridding
         $grade_item->force_regrading();
 
     } else if ($old_grade_grade->locktime != $grade_grade->locktime) {
@@ -248,21 +276,21 @@ $strgraderreport = get_string('graderreport', 'grades');
 $strgradeedit    = get_string('editgrade', 'grades');
 $struser         = get_string('user');
 
-$navigation = grade_build_nav(__FILE__, $strgradeedit, array('courseid' => $courseid));
+grade_build_nav(__FILE__, $strgradeedit, array('courseid' => $courseid));
 
 /*********** BEGIN OUTPUT *************/
+$PAGE->set_title($strgrades . ': ' . $strgraderreport . ': ' . $strgradeedit);
+$PAGE->set_heading($course->fullname);
 
-print_header_simple($strgrades . ': ' . $strgraderreport . ': ' . $strgradeedit,
-    ': ' . $strgradeedit , $navigation, '', '', true, '', navmenu($course));
+echo $OUTPUT->header();
+echo $OUTPUT->heading($strgradeedit);
 
-print_heading($strgradeedit);
-
-print_simple_box_start("center");
+echo $OUTPUT->box_start();
 
 // Form if in edit or add modes
 $mform->display();
 
-print_simple_box_end();
+echo $OUTPUT->box_end();
 
-print_footer($course);
+echo $OUTPUT->footer();
 die;

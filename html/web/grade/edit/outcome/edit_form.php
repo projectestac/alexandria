@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,6 +14,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Edit form for grade outcomes
+ *
+ * @package   core_grades
+ * @copyright 2007 Petr Skoda
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
@@ -23,32 +29,32 @@ if (!defined('MOODLE_INTERNAL')) {
 require_once $CFG->libdir.'/formslib.php';
 
 class edit_outcome_form extends moodleform {
-    function definition() {
+    public function definition() {
         global $CFG, $COURSE;
         $mform =& $this->_form;
 
         // visible elements
         $mform->addElement('header', 'general', get_string('outcomes', 'grades'));
 
-        $mform->addElement('text', 'fullname', get_string('fullname'), 'size="40"');
+        $mform->addElement('text', 'fullname', get_string('outcomefullname', 'grades'), 'size="40"');
         $mform->addRule('fullname', get_string('required'), 'required');
         $mform->setType('fullname', PARAM_TEXT);
 
-        $mform->addElement('text', 'shortname', get_string('shortname'), 'size="20"');
+        $mform->addElement('text', 'shortname', get_string('outcomeshortname', 'grades'), 'size="20"');
         $mform->addRule('shortname', get_string('required'), 'required');
         $mform->setType('shortname', PARAM_NOTAGS);
 
         $mform->addElement('advcheckbox', 'standard', get_string('outcomestandard', 'grades'));
-        $mform->setHelpButton('standard', array('outcomestandard', get_string('outcomestandard'), 'grade'));
+        $mform->addHelpButton('standard', 'outcomestandard', 'grades');
 
         $options = array();
 
         $mform->addElement('selectwithlink', 'scaleid', get_string('scale'), $options, null,
             array('link' => $CFG->wwwroot.'/grade/edit/scale/edit.php?courseid='.$COURSE->id, 'label' => get_string('scalescustomcreate')));
-        $mform->setHelpButton('scaleid', array('scaleid', get_string('scale'), 'grade'));
+        $mform->addHelpButton('scaleid', 'typescale', 'grades');
         $mform->addRule('scaleid', get_string('required'), 'required');
 
-        $mform->addElement('htmleditor', 'description', get_string('description'), array('cols'=>80, 'rows'=>20));
+        $mform->addElement('editor', 'description_editor', get_string('description'), null, $this->_customdata['editoroptions']);
 
 
         // hidden params
@@ -115,7 +121,7 @@ class edit_outcome_form extends moodleform {
             if (empty($courseid)) {
                 $mform->hardFreeze('standard');
 
-            } else if (empty($outcome->courseid) and !has_capability('moodle/grade:manage', get_context_instance(CONTEXT_SYSTEM))) {
+            } else if (!has_capability('moodle/grade:manage', context_system::instance())) {
                 $mform->hardFreeze('standard');
 
             } else if ($coursecount and empty($outcome->courseid)) {
@@ -124,7 +130,7 @@ class edit_outcome_form extends moodleform {
 
 
         } else {
-            if (empty($courseid) or !has_capability('moodle/grade:manage', get_context_instance(CONTEXT_SYSTEM))) {
+            if (empty($courseid) or !has_capability('moodle/grade:manage', context_system::instance())) {
                 $mform->hardFreeze('standard');
             }
         }
@@ -151,4 +157,4 @@ class edit_outcome_form extends moodleform {
 
 }
 
-?>
+

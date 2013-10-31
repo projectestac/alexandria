@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: select.php,v 1.1 2006/09/24 17:04:55 jamiesensei Exp $
+// $Id$
 
 require_once('HTML/QuickForm/element.php');
 
@@ -105,7 +105,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element {
     function setSelected($values)
     {
         if (is_string($values) && $this->getMultiple()) {
-            $values = split("[ ]?,[ ]?", $values);
+            $values = preg_split("/[ ]?,[ ]?/", $values);
         }
         if (is_array($values)) {
             $this->_values = array_values($values);
@@ -326,7 +326,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element {
     function loadArray($arr, $values=null)
     {
         if (!is_array($arr)) {
-            return PEAR::raiseError('Argument 1 of HTML_Select::loadArray is not a valid array');
+            return self::raiseError('Argument 1 of HTML_Select::loadArray is not a valid array');
         }
         if (isset($values)) {
             $this->setSelected($values);
@@ -358,7 +358,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element {
     function loadDbResult(&$result, $textCol=null, $valueCol=null, $values=null)
     {
         if (!is_object($result) || !is_a($result, 'db_result')) {
-            return PEAR::raiseError('Argument 1 of HTML_Select::loadDbResult is not a valid DB_result');
+            return self::raiseError('Argument 1 of HTML_Select::loadDbResult is not a valid DB_result');
         }
         if (isset($values)) {
             $this->setValue($values);
@@ -401,7 +401,7 @@ class HTML_QuickForm_select extends HTML_QuickForm_element {
         } elseif (is_subclass_of($conn, "db_common")) {
             $dbConn = &$conn;
         } else {
-            return PEAR::raiseError('Argument 1 of HTML_Select::loadQuery is not a valid type');
+            return self::raiseError('Argument 1 of HTML_Select::loadQuery is not a valid type');
         }
         $result = $dbConn->query($sql);
         if (DB::isError($result)) {

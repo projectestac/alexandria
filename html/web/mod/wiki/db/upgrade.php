@@ -1,40 +1,78 @@
-<?php  //$Id: upgrade.php,v 1.1.8.1 2008/05/01 20:59:43 skodak Exp $
+<?php
 
-// This file keeps track of upgrades to 
-// the wiki module
+// This file is part of Moodle - http://moodle.org/
 //
-// Sometimes, changes between versions involve
-// alterations to database structures and other
-// major things that may break installations.
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
 //
-// The upgrade function in this file will attempt
-// to perform all the necessary actions to upgrade
-// your older installtion to the current version.
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
 //
-// If there's something it cannot do itself, it
-// will tell you what you need to do.
-//
-// The commands in here will all be database-neutral,
-// using the functions defined in lib/ddllib.php
+// You should have received a copy of the GNU General Public License
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
-function xmldb_wiki_upgrade($oldversion=0) {
+/**
+ * This file keeps track of upgrades to the wiki module
+ *
+ * Sometimes, changes between versions involve
+ * alterations to database structures and other
+ * major things that may break installations.
+ *
+ * The upgrade function in this file will attempt
+ * to perform all the necessary actions to upgrade
+ * your older installation to the current version.
+ *
+ * @package mod-wiki-2.0
+ * @copyrigth 2009 Marc Alier, Jordi Piguillem marc.alier@upc.edu
+ * @copyrigth 2009 Universitat Politecnica de Catalunya http://www.upc.edu
+ *
+ * @author Jordi Piguillem
+ *
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ *
+ */
 
-    global $CFG, $THEME, $db;
+function xmldb_wiki_upgrade($oldversion) {
+    global $CFG, $DB, $OUTPUT;
 
-    $result = true;
+    $dbman = $DB->get_manager();
 
-/// And upgrade begins here. For each one, you'll need one 
-/// block of code similar to the next one. Please, delete 
-/// this comment lines once this file start handling proper
-/// upgrade code.
 
-/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
-///     $result = result of "/lib/ddllib.php" function calls
-/// }
+    // Moodle v2.2.0 release upgrade line
+    // Put any upgrade step following this
 
-//===== 1.9.0 upgrade line ======//
+    // Moodle v2.3.0 release upgrade line
+    // Put any upgrade step following this
 
-    return $result;
+    if ($oldversion < 2012061701) {
+        // Drop all legacy upgrade tables, not used anymore.
+
+        $table = new xmldb_table('wiki_entries_old');
+        if ($dbman->table_exists('wiki_entries_old')) {
+            $dbman->drop_table($table);
+        }
+
+        $table = new xmldb_table('wiki_locks_old');
+        if ($dbman->table_exists('wiki_locks_old')) {
+            $dbman->drop_table($table);
+        }
+
+        $table = new xmldb_table('wiki_pages_old');
+        if ($dbman->table_exists('wiki_pages_old')) {
+            $dbman->drop_table($table);
+        }
+
+        upgrade_plugin_savepoint(true, 2012061701, 'mod', 'wiki');
+    }
+
+
+    // Moodle v2.4.0 release upgrade line
+    // Put any upgrade step following this
+
+
+    return true;
 }
-
-?>
