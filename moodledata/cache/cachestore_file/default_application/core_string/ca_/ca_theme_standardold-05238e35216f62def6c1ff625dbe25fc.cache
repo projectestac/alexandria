@@ -1,0 +1,8 @@
+a:4:{s:10:"pluginname";s:18:"Estàndard (antic)";s:16:"region-side-post";s:5:"Dreta";s:15:"region-side-pre";s:8:"Esquerra";s:12:"choosereadme";s:1099:"Aquest tema ha sigut dissenyat per treballar amb IE6 i altres navegadors antics.
+
+Les notes de la versió Moodle 2.0 especifiquen que IE6 no serà suportat més temps, no obstant no em pogut comprovar que funcioni correctament amb alguns problemes visuals lleus.
+
+Aquest tema està aquí per la gent que està atrapada amb IE6 com un tema útil encara que en algunes àrees específiques de Moodle 2.0 puguin haver problemes per funcionar de forma correcta.
+Es diferencia del tema Standard sols en els dissenys, en el fet que en lloc usar la capa flotant div per posar el continguts utilitza una tabla com capa de forma semblant als temes de Moodle 1.9.
+
+Com que IE6 no és compatible amb Moodle HQ no es gastaran grans quantitats de temps en aconseguir que sigui 100% funcional. Si us plau, si vostè troba un error amb IE6 i aquest tema i trobeu una solució. Llavors, creeu un informe d'error en el tracker.moodle.org i proporcionen un exemple detallat de com trobar i com reproduir l'error, així com la solució que heu trobat. D'aquesta manera podem seguir millorant el tema i el suport a IE6.";}

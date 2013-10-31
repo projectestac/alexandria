@@ -17,12 +17,12 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id: QuickForm.php,v 1.1 2006/09/24 17:04:53 jamiesensei Exp $
+// $Id$
 
 require_once('PEAR.php');
 require_once('HTML/Common.php');
 
-$GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'] = 
+$GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'] =
         array(
             'group'         =>array('HTML/QuickForm/group.php','HTML_QuickForm_group'),
             'hidden'        =>array('HTML/QuickForm/hidden.php','HTML_QuickForm_hidden'),
@@ -126,7 +126,7 @@ class HTML_QuickForm extends HTML_Common {
      * @since     1.0
      * @var  array
      * @access   private
-     */ 
+     */
     var $_required = array();
 
     /**
@@ -134,7 +134,7 @@ class HTML_QuickForm extends HTML_Common {
      * @since     1.0
      * @var  string
      * @access   public
-     */ 
+     */
     var $_jsPrefix = 'Invalid information entered.';
 
     /**
@@ -142,7 +142,7 @@ class HTML_QuickForm extends HTML_Common {
      * @since     1.0
      * @var  string
      * @access   public
-     */ 
+     */
     var $_jsPostfix = 'Please correct these fields.';
 
     /**
@@ -263,11 +263,11 @@ class HTML_QuickForm extends HTML_Common {
         $this->updateAttributes($attributes);
         if (!$trackSubmit || isset($_REQUEST['_qf__' . $formName])) {
             if (1 == get_magic_quotes_gpc()) {
-                $this->_submitValues = $this->_recursiveFilter('stripslashes', 'get' == $method? $_GET: $_POST);
+                $this->_submitValues = ('get' == $method? $_GET: $_POST); // we already eliminated magic quotes in moodle setup.php
                 foreach ($_FILES as $keyFirst => $valFirst) {
                     foreach ($valFirst as $keySecond => $valSecond) {
                         if ('name' == $keySecond) {
-                            $this->_submitFiles[$keyFirst][$keySecond] = $this->_recursiveFilter('stripslashes', $valSecond);
+                            $this->_submitFiles[$keyFirst][$keySecond] = $valSecond; // we already eliminated magic quotes in moodle setup.php
                         } else {
                             $this->_submitFiles[$keyFirst][$keySecond] = $valSecond;
                         }
@@ -298,7 +298,7 @@ class HTML_QuickForm extends HTML_Common {
                 default:
                     $this->_maxFileSize = $matches['1'];
             }
-        }    
+        }
     } // end constructor
 
     // }}}
@@ -329,7 +329,7 @@ class HTML_QuickForm extends HTML_Common {
      * @access    public
      * @return    void
      */
-    function registerElementType($typeName, $include, $className)
+    static function registerElementType($typeName, $include, $className)
     {
         $GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'][strtolower($typeName)] = array($include, $className);
     } // end func registerElementType
@@ -348,7 +348,7 @@ class HTML_QuickForm extends HTML_Common {
      * @access    public
      * @return    void
      */
-    function registerRule($ruleName, $type, $data1, $data2 = null)
+    static function registerRule($ruleName, $type, $data1, $data2 = null)
     {
         include_once('HTML/QuickForm/RuleRegistry.php');
         $registry =& HTML_QuickForm_RuleRegistry::singleton();
@@ -398,7 +398,7 @@ class HTML_QuickForm extends HTML_Common {
                 $this->setConstants($datasource->constantValues($this), $constantsFilter);
             }
         } else {
-            return PEAR::raiseError(null, QUICKFORM_INVALID_DATASOURCE, null, E_USER_WARNING, "Datasource is not an object in QuickForm::setDatasource()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_INVALID_DATASOURCE, null, E_USER_WARNING, "Datasource is not an object in QuickForm::setDatasource()", 'HTML_QuickForm_Error', true);
         }
     } // end func setDatasource
 
@@ -421,13 +421,13 @@ class HTML_QuickForm extends HTML_Common {
                 if (is_array($filter) && (2 != count($filter) || !is_callable($filter))) {
                     foreach ($filter as $val) {
                         if (!is_callable($val)) {
-                            return PEAR::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setDefaults()", 'HTML_QuickForm_Error', true);
+                            return self::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setDefaults()", 'HTML_QuickForm_Error', true);
                         } else {
                             $defaultValues = $this->_recursiveFilter($val, $defaultValues);
                         }
                     }
                 } elseif (!is_callable($filter)) {
-                    return PEAR::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setDefaults()", 'HTML_QuickForm_Error', true);
+                    return self::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setDefaults()", 'HTML_QuickForm_Error', true);
                 } else {
                     $defaultValues = $this->_recursiveFilter($filter, $defaultValues);
                 }
@@ -446,8 +446,8 @@ class HTML_QuickForm extends HTML_Common {
      * Initializes constant form values.
      * These values won't get overridden by POST or GET vars
      *
-     * @param     array   $constantValues        values used to fill the form    
-     * @param     mixed    $filter              (optional) filter(s) to apply to all default values    
+     * @param     array   $constantValues        values used to fill the form
+     * @param     mixed    $filter              (optional) filter(s) to apply to all default values
      *
      * @since     2.0
      * @access    public
@@ -460,13 +460,13 @@ class HTML_QuickForm extends HTML_Common {
                 if (is_array($filter) && (2 != count($filter) || !is_callable($filter))) {
                     foreach ($filter as $val) {
                         if (!is_callable($val)) {
-                            return PEAR::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setConstants()", 'HTML_QuickForm_Error', true);
+                            return self::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setConstants()", 'HTML_QuickForm_Error', true);
                         } else {
                             $constantValues = $this->_recursiveFilter($val, $constantValues);
                         }
                     }
                 } elseif (!is_callable($filter)) {
-                    return PEAR::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setConstants()", 'HTML_QuickForm_Error', true);
+                    return self::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::setConstants()", 'HTML_QuickForm_Error', true);
                 } else {
                     $constantValues = $this->_recursiveFilter($filter, $constantValues);
                 }
@@ -522,8 +522,8 @@ class HTML_QuickForm extends HTML_Common {
 
     /**
      * Creates a new form element of the given type.
-     * 
-     * This method accepts variable number of parameters, their 
+     *
+     * This method accepts variable number of parameters, their
      * meaning and count depending on $elementType
      *
      * @param     string     $elementType    type of element to add (text, textarea, file...)
@@ -557,13 +557,13 @@ class HTML_QuickForm extends HTML_Common {
     {
         $type = strtolower($type);
         if (!HTML_QuickForm::isTypeRegistered($type)) {
-            $error = PEAR::raiseError(null, QUICKFORM_UNREGISTERED_ELEMENT, null, E_USER_WARNING, "Element '$type' does not exist in HTML_QuickForm::_loadElement()", 'HTML_QuickForm_Error', true);
+            $error = self::raiseError(null, QUICKFORM_UNREGISTERED_ELEMENT, null, E_USER_WARNING, "Element '$type' does not exist in HTML_QuickForm::_loadElement()", 'HTML_QuickForm_Error', true);
             return $error;
         }
         $className = $GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'][$type][1];
         $includeFile = $GLOBALS['HTML_QUICKFORM_ELEMENT_TYPES'][$type][0];
         include_once($includeFile);
-        $elementObject =& new $className();
+        $elementObject = new $className(); //Moodle: PHP 5.3 compatibility
         for ($i = 0; $i < 5; $i++) {
             if (!isset($args[$i])) {
                 $args[$i] = null;
@@ -581,9 +581,9 @@ class HTML_QuickForm extends HTML_Common {
 
     /**
      * Adds an element into the form
-     * 
-     * If $element is a string representing element type, then this 
-     * method accepts variable number of parameters, their meaning 
+     *
+     * If $element is a string representing element type, then this
+     * method accepts variable number of parameters, their meaning
      * and count depending on $element
      *
      * @param    mixed      $element        element object or type of element to add (text, textarea, file...)
@@ -600,7 +600,7 @@ class HTML_QuickForm extends HTML_Common {
         } else {
             $args = func_get_args();
             $elementObject =& $this->_loadElement('addElement', $element, array_slice($args, 1));
-            if (PEAR::isError($elementObject)) {
+            if (@PEAR::isError($elementObject)) {
                 return $elementObject;
             }
         }
@@ -614,7 +614,7 @@ class HTML_QuickForm extends HTML_Common {
                 $elKeys = array_keys($this->_elements);
                 $this->_duplicateIndex[$elementName][] = end($elKeys);
             } else {
-                $error = PEAR::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, "Element '$elementName' already exists in HTML_QuickForm::addElement()", 'HTML_QuickForm_Error', true);
+                $error = self::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, "Element '$elementName' already exists in HTML_QuickForm::addElement()", 'HTML_QuickForm_Error', true);
                 return $error;
             }
         } else {
@@ -628,7 +628,7 @@ class HTML_QuickForm extends HTML_Common {
 
         return $elementObject;
     } // end func addElement
-    
+
     // }}}
     // {{{ insertElementBefore()
 
@@ -650,10 +650,10 @@ class HTML_QuickForm extends HTML_Common {
     function &insertElementBefore(&$element, $nameAfter)
     {
         if (!empty($this->_duplicateIndex[$nameAfter])) {
-            $error = PEAR::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, 'Several elements named "' . $nameAfter . '" exist in HTML_QuickForm::insertElementBefore().', 'HTML_QuickForm_Error', true);
+            $error = self::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, 'Several elements named "' . $nameAfter . '" exist in HTML_QuickForm::insertElementBefore().', 'HTML_QuickForm_Error', true);
             return $error;
         } elseif (!$this->elementExists($nameAfter)) {
-            $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$nameAfter' does not exist in HTML_QuickForm::insertElementBefore()", 'HTML_QuickForm_Error', true);
+            $error = self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$nameAfter' does not exist in HTML_QuickForm::insertElementBefore()", 'HTML_QuickForm_Error', true);
             return $error;
         }
         $elementName = $element->getName();
@@ -662,7 +662,7 @@ class HTML_QuickForm extends HTML_Common {
         // Like in addElement(), check that it's not an incompatible duplicate
         if (!empty($elementName) && isset($this->_elementIndex[$elementName])) {
             if ($this->_elements[$this->_elementIndex[$elementName]]->getType() != $element->getType()) {
-                $error = PEAR::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, "Element '$elementName' already exists in HTML_QuickForm::insertElementBefore()", 'HTML_QuickForm_Error', true);
+                $error = self::raiseError(null, QUICKFORM_INVALID_ELEMENT_NAME, null, E_USER_WARNING, "Element '$elementName' already exists in HTML_QuickForm::insertElementBefore()", 'HTML_QuickForm_Error', true);
                 return $error;
             }
             $duplicate = true;
@@ -676,8 +676,10 @@ class HTML_QuickForm extends HTML_Common {
                 if ($this->_elementIndex[$currentName] == $i) {
                     $this->_elementIndex[$currentName] = $i + 1;
                 } else {
-                    $dupIdx = array_search($i, $this->_duplicateIndex[$currentName]);
-                    $this->_duplicateIndex[$currentName][$dupIdx] = $i + 1;
+                    if (!empty($currentName)) {
+                        $dupIdx = array_search($i, $this->_duplicateIndex[$currentName]);
+                        $this->_duplicateIndex[$currentName][$dupIdx] = $i + 1;
+                    }
                 }
                 unset($this->_elements[$i]);
             }
@@ -725,7 +727,7 @@ class HTML_QuickForm extends HTML_Common {
         $group =& $this->addElement('group', $name, $groupLabel, $elements, $separator, $appendName);
         return $group;
     } // end func addGroup
-    
+
     // }}}
     // {{{ &getElement()
 
@@ -743,7 +745,7 @@ class HTML_QuickForm extends HTML_Common {
         if (isset($this->_elementIndex[$element])) {
             return $this->_elements[$this->_elementIndex[$element]];
         } else {
-            $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElement()", 'HTML_QuickForm_Error', true);
+            $error = self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElement()", 'HTML_QuickForm_Error', true);
             return $error;
         }
     } // end func getElement
@@ -753,8 +755,8 @@ class HTML_QuickForm extends HTML_Common {
 
     /**
      * Returns the element's raw value
-     * 
-     * This returns the value as submitted by the form (not filtered) 
+     *
+     * This returns the value as submitted by the form (not filtered)
      * or set via setDefaults() or setConstants()
      *
      * @param     string     $element    Element name
@@ -766,7 +768,7 @@ class HTML_QuickForm extends HTML_Common {
     function &getElementValue($element)
     {
         if (!isset($this->_elementIndex[$element])) {
-            $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElementValue()", 'HTML_QuickForm_Error', true);
+            $error = self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElementValue()", 'HTML_QuickForm_Error', true);
             return $error;
         }
         $value = $this->_elements[$this->_elementIndex[$element]]->getValue();
@@ -794,7 +796,7 @@ class HTML_QuickForm extends HTML_Common {
      * @since     2.0
      * @access    public
      * @return    mixed     submitted element value or null if not set
-     */    
+     */
     function getSubmitValue($elementName)
     {
         $value = null;
@@ -831,7 +833,7 @@ class HTML_QuickForm extends HTML_Common {
                 }
             }
         }
-        
+
         // This is only supposed to work for groups with appendName = false
         if (null === $value && 'group' == $this->getElementType($elementName)) {
             $group    =& $this->getElement($elementName);
@@ -889,7 +891,7 @@ class HTML_QuickForm extends HTML_Common {
             return $this->_errors[$element];
         }
     } // end func getElementError
-    
+
     // }}}
     // {{{ setElementError()
 
@@ -898,7 +900,7 @@ class HTML_QuickForm extends HTML_Common {
      *
      * @param     string    $element    Name of form element to set error for
      * @param     string    $message    Error message, if empty then removes the current error message
-     * @since     1.0       
+     * @since     1.0
      * @access    public
      * @return    void
      */
@@ -910,7 +912,7 @@ class HTML_QuickForm extends HTML_Common {
             unset($this->_errors[$element]);
         }
     } // end func setElementError
-         
+
      // }}}
      // {{{ getElementType()
 
@@ -945,7 +947,7 @@ class HTML_QuickForm extends HTML_Common {
     function updateElementAttr($elements, $attrs)
     {
         if (is_string($elements)) {
-            $elements = split('[ ]?,[ ]?', $elements);
+            $elements = preg_split('/[ ]?,[ ]?/', $elements);
         }
         foreach (array_keys($elements) as $key) {
             if (is_object($elements[$key]) && is_a($elements[$key], 'HTML_QuickForm_element')) {
@@ -968,11 +970,11 @@ class HTML_QuickForm extends HTML_Common {
      * Removes an element
      *
      * The method "unlinks" an element from the form, returning the reference
-     * to the element object. If several elements named $elementName exist, 
+     * to the element object. If several elements named $elementName exist,
      * it removes the first one, leaving the others intact.
-     * 
+     *
      * @param string    $elementName The element name
-     * @param boolean   $removeRules True if rules for this element are to be removed too                     
+     * @param boolean   $removeRules True if rules for this element are to be removed too
      * @access public
      * @since 2.0
      * @return object HTML_QuickForm_element    a reference to the removed element
@@ -981,7 +983,7 @@ class HTML_QuickForm extends HTML_Common {
     function &removeElement($elementName, $removeRules = true)
     {
         if (!isset($this->_elementIndex[$elementName])) {
-            $error = PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$elementName' does not exist in HTML_QuickForm::removeElement()", 'HTML_QuickForm_Error', true);
+            $error = self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$elementName' does not exist in HTML_QuickForm::removeElement()", 'HTML_QuickForm_Error', true);
             return $error;
         }
         $el =& $this->_elements[$this->_elementIndex[$elementName]];
@@ -1004,7 +1006,7 @@ class HTML_QuickForm extends HTML_Common {
      * Adds a validation rule for the given field
      *
      * If the element is in fact a group, it will be considered as a whole.
-     * To validate grouped elements as separated entities, 
+     * To validate grouped elements as separated entities,
      * use addGroupRule instead of addRule.
      *
      * @param    string     $element       Form element name
@@ -1022,17 +1024,17 @@ class HTML_QuickForm extends HTML_Common {
     {
         if (!$force) {
             if (!is_array($element) && !$this->elementExists($element)) {
-                return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::addRule()", 'HTML_QuickForm_Error', true);
+                return self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::addRule()", 'HTML_QuickForm_Error', true);
             } elseif (is_array($element)) {
                 foreach ($element as $el) {
                     if (!$this->elementExists($el)) {
-                        return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$el' does not exist in HTML_QuickForm::addRule()", 'HTML_QuickForm_Error', true);
+                        return self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$el' does not exist in HTML_QuickForm::addRule()", 'HTML_QuickForm_Error', true);
                     }
                 }
             }
         }
         if (false === ($newName = $this->isRuleRegistered($type, true))) {
-            return PEAR::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, "Rule '$type' is not registered in HTML_QuickForm::addRule()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, "Rule '$type' is not registered in HTML_QuickForm::addRule()", 'HTML_QuickForm_Error', true);
         } elseif (is_string($newName)) {
             $type = $newName;
         }
@@ -1087,7 +1089,7 @@ class HTML_QuickForm extends HTML_Common {
     function addGroupRule($group, $arg1, $type='', $format=null, $howmany=0, $validation = 'server', $reset = false)
     {
         if (!$this->elementExists($group)) {
-            return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Group '$group' does not exist in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Group '$group' does not exist in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
         }
 
         $groupObj =& $this->getElement($group);
@@ -1101,14 +1103,14 @@ class HTML_QuickForm extends HTML_Common {
                     $reset = isset($rule[4]) && $rule[4];
                     $type = $rule[1];
                     if (false === ($newName = $this->isRuleRegistered($type, true))) {
-                        return PEAR::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, "Rule '$type' is not registered in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
+                        return self::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, "Rule '$type' is not registered in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
                     } elseif (is_string($newName)) {
                         $type = $newName;
                     }
 
                     $this->_rules[$elementName][] = array(
                                                         'type'        => $type,
-                                                        'format'      => $format, 
+                                                        'format'      => $format,
                                                         'message'     => $rule[0],
                                                         'validation'  => $validation,
                                                         'reset'       => $reset,
@@ -1129,7 +1131,7 @@ class HTML_QuickForm extends HTML_Common {
             }
         } elseif (is_string($arg1)) {
             if (false === ($newName = $this->isRuleRegistered($type, true))) {
-                return PEAR::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, "Rule '$type' is not registered in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
+                return self::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, "Rule '$type' is not registered in HTML_QuickForm::addGroupRule()", 'HTML_QuickForm_Error', true);
             } elseif (is_string($newName)) {
                 $type = $newName;
             }
@@ -1145,7 +1147,7 @@ class HTML_QuickForm extends HTML_Common {
             }
 
             $this->_rules[$group][] = array('type'       => $type,
-                                            'format'     => $format, 
+                                            'format'     => $format,
                                             'message'    => $arg1,
                                             'validation' => $validation,
                                             'howmany'    => $howmany,
@@ -1163,13 +1165,13 @@ class HTML_QuickForm extends HTML_Common {
     // {{{ addFormRule()
 
    /**
-    * Adds a global validation rule 
-    * 
+    * Adds a global validation rule
+    *
     * This should be used when for a rule involving several fields or if
     * you want to use some completely custom validation for your form.
-    * The rule function/method should return true in case of successful 
+    * The rule function/method should return true in case of successful
     * validation and array('element name' => 'error') when there were errors.
-    * 
+    *
     * @access   public
     * @param    mixed   Callback, either function name or array(&$object, 'method')
     * @throws   HTML_QuickForm_Error
@@ -1177,11 +1179,11 @@ class HTML_QuickForm extends HTML_Common {
     function addFormRule($rule)
     {
         if (!is_callable($rule)) {
-            return PEAR::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, 'Callback function does not exist in HTML_QuickForm::addFormRule()', 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_INVALID_RULE, null, E_USER_WARNING, 'Callback function does not exist in HTML_QuickForm::addFormRule()', 'HTML_QuickForm_Error', true);
         }
         $this->_formRules[] = $rule;
     }
-    
+
     // }}}
     // {{{ applyFilter()
 
@@ -1196,7 +1198,7 @@ class HTML_QuickForm extends HTML_Common {
     function applyFilter($element, $filter)
     {
         if (!is_callable($filter)) {
-            return PEAR::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::applyFilter()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_INVALID_FILTER, null, E_USER_WARNING, "Callback function does not exist in QuickForm::applyFilter()", 'HTML_QuickForm_Error', true);
         }
         if ($element == '__ALL__') {
             $this->_submitValues = $this->_recursiveFilter($filter, $this->_submitValues);
@@ -1258,8 +1260,10 @@ class HTML_QuickForm extends HTML_Common {
     * @param    array   $b  array which will be merged into first one
     * @return   array   merged array
     */
-    function arrayMerge($a, $b)
+    static function arrayMerge($a, $b)
     {
+        if (is_null($a)) {$a = array();}
+        if (is_null($b)) {$b = array();}
         foreach ($b as $k => $v) {
             if (is_array($v)) {
                 if (isset($a[$k]) && !is_array($a[$k])) {
@@ -1415,7 +1419,7 @@ class HTML_QuickForm extends HTML_Common {
         $this->_jsPrefix = $pref;
         $this->_jsPostfix = $post;
     } // end func setJsWarnings
-    
+
     // }}}
     // {{{ setRequiredNote()
 
@@ -1458,7 +1462,7 @@ class HTML_QuickForm extends HTML_Common {
      */
     function validate()
     {
-        if (count($this->_rules) == 0 && count($this->_formRules) == 0 && 
+        if (count($this->_rules) == 0 && count($this->_formRules) == 0 &&
             $this->isSubmitted()) {
             return (0 == count($this->_errors));
         } elseif (!$this->isSubmitted()) {
@@ -1524,7 +1528,7 @@ class HTML_QuickForm extends HTML_Common {
                 if (is_array($res)) {
                     $this->_errors += $res;
                 } else {
-                    return PEAR::raiseError(null, QUICKFORM_ERROR, null, E_USER_WARNING, 'Form rule callback returned invalid value in HTML_QuickForm::validate()', 'HTML_QuickForm_Error', true);
+                    return self::raiseError(null, QUICKFORM_ERROR, null, E_USER_WARNING, 'Form rule callback returned invalid value in HTML_QuickForm::validate()', 'HTML_QuickForm_Error', true);
                 }
             }
         }
@@ -1564,11 +1568,11 @@ class HTML_QuickForm extends HTML_Common {
         }
 
         if (!empty($elementList)) {
-            return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Nonexistant element(s): '" . implode("', '", array_keys($elementList)) . "' in HTML_QuickForm::freeze()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Nonexistant element(s): '" . implode("', '", array_keys($elementList)) . "' in HTML_QuickForm::freeze()", 'HTML_QuickForm_Error', true);
         }
         return true;
     } // end func freeze
-        
+
     // }}}
     // {{{ isFrozen()
 
@@ -1599,7 +1603,7 @@ class HTML_QuickForm extends HTML_Common {
     function process($callback, $mergeFiles = true)
     {
         if (!is_callable($callback)) {
-            return PEAR::raiseError(null, QUICKFORM_INVALID_PROCESS, null, E_USER_WARNING, "Callback function does not exist in QuickForm::process()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_INVALID_PROCESS, null, E_USER_WARNING, "Callback function does not exist in QuickForm::process()", 'HTML_QuickForm_Error', true);
         }
         $values = ($mergeFiles === true) ? HTML_QuickForm::arrayMerge($this->_submitValues, $this->_submitFiles) : $this->_submitValues;
         return call_user_func($callback, $values);
@@ -1643,7 +1647,7 @@ class HTML_QuickForm extends HTML_Common {
     {
         if (!isset($GLOBALS['_HTML_QuickForm_default_renderer'])) {
             include_once('HTML/QuickForm/Renderer/Default.php');
-            $GLOBALS['_HTML_QuickForm_default_renderer'] =& new HTML_QuickForm_Renderer_Default();
+            $GLOBALS['_HTML_QuickForm_default_renderer'] = new HTML_QuickForm_Renderer_Default(); //Moodle: PHP 5.3 compatibility
         }
         return $GLOBALS['_HTML_QuickForm_default_renderer'];
     } // end func defaultRenderer
@@ -1747,7 +1751,7 @@ class HTML_QuickForm extends HTML_Common {
         if (count($test) > 0) {
             return
                 "\n<script type=\"text/javascript\">\n" .
-                "//<![CDATA[\n" . 
+                "//<![CDATA[\n" .
                 "function validate_" . $this->_attributes['id'] . "(frm) {\n" .
                 "  var value = '';\n" .
                 "  var errFlag = new Array();\n" .
@@ -1791,7 +1795,7 @@ class HTML_QuickForm extends HTML_Common {
      * Returns the form's contents in an array.
      *
      * The description of the array structure is in HTML_QuickForm_Renderer_Array docs
-     * 
+     *
      * @since     2.0
      * @access    public
      * @param     bool      Whether to collect hidden elements (passed to the Renderer's constructor)
@@ -1800,7 +1804,7 @@ class HTML_QuickForm extends HTML_Common {
     function toArray($collectHidden = false)
     {
         include_once 'HTML/QuickForm/Renderer/Array.php';
-        $renderer =& new HTML_QuickForm_Renderer_Array($collectHidden);
+        $renderer = new HTML_QuickForm_Renderer_Array($collectHidden); //Moodle: PHP 5.3 compatibility
         $this->accept($renderer);
         return $renderer->toArray();
      } // end func toArray
@@ -1810,7 +1814,7 @@ class HTML_QuickForm extends HTML_Common {
 
     /**
      * Returns a 'safe' element's value
-     * 
+     *
      * This method first tries to find a cleaned-up submitted value,
      * it will return a value set by setValue()/setDefaults()/setConstants()
      * if submitted value does not exist for the given element.
@@ -1822,7 +1826,7 @@ class HTML_QuickForm extends HTML_Common {
     function exportValue($element)
     {
         if (!isset($this->_elementIndex[$element])) {
-            return PEAR::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElementValue()", 'HTML_QuickForm_Error', true);
+            return self::raiseError(null, QUICKFORM_NONEXIST_ELEMENT, null, E_USER_WARNING, "Element '$element' does not exist in HTML_QuickForm::getElementValue()", 'HTML_QuickForm_Error', true);
         }
         $value = $this->_elements[$this->_elementIndex[$element]]->exportValue($this->_submitValues, false);
         if (isset($this->_duplicateIndex[$element])) {
@@ -1845,9 +1849,9 @@ class HTML_QuickForm extends HTML_Common {
     /**
      * Returns 'safe' elements' values
      *
-     * Unlike getSubmitValues(), this will return only the values 
+     * Unlike getSubmitValues(), this will return only the values
      * corresponding to the elements present in the form.
-     * 
+     *
      * @param   mixed   Array/string of element names, whose values we want. If not set then return all elements.
      * @access  public
      * @return  array   An assoc array of elements' values
@@ -1908,7 +1912,7 @@ class HTML_QuickForm extends HTML_Common {
      * @param mixed     result code
      * @return bool     whether $value is an error
      */
-    function isError($value)
+    static function isError($value)
     {
         return (is_object($value) && is_a($value, 'html_quickform_error'));
     } // end func isError
@@ -1923,7 +1927,7 @@ class HTML_QuickForm extends HTML_Common {
      * @param   int     error code
      * @return  string  error message
      */
-    function errorMessage($value)
+    static function errorMessage($value)
     {
         // make the variable static so that it only has to do the defining on the first call
         static $errorMessages;

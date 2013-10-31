@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,6 +14,15 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Edit the grade options for an individual grade item
+ *
+ * @package   core_grades
+ * @copyright 2007 Petr Skoda
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 require_once $CFG->dirroot.'/grade/report/lib.php';
@@ -23,12 +31,19 @@ require_once 'item_form.php';
 $courseid = required_param('courseid', PARAM_INT);
 $id       = optional_param('id', 0, PARAM_INT);
 
-if (!$course = get_record('course', 'id', $courseid)) {
+$url = new moodle_url('/grade/edit/tree/item.php', array('courseid'=>$courseid));
+if ($id !== 0) {
+    $url->param('id', $id);
+}
+$PAGE->set_url($url);
+$PAGE->set_pagelayout('admin');
+
+if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$context = context_course::instance($course->id);
 require_capability('moodle/grade:manage', $context);
 
 // default return url
@@ -82,6 +97,7 @@ if ($parent_category->aggregation == GRADE_AGGREGATE_SUM or $parent_category->ag
 } else {
     $item->aggregationcoef = format_float($item->aggregationcoef, 4);
 }
+$item->cancontrolvisibility = $grade_item->can_control_visibility();
 
 $mform = new edit_item_form(null, array('current'=>$item, 'gpr'=>$gpr));
 
@@ -118,7 +134,7 @@ if ($mform->is_cancelled()) {
 
     $convert = array('grademax', 'grademin', 'gradepass', 'multfactor', 'plusfactor', 'aggregationcoef');
     foreach ($convert as $param) {
-        if (array_key_exists($param, $data)) {
+        if (property_exists($data, $param)) {
             $data->$param = unformat_float($data->$param);
         }
     }
@@ -128,7 +144,7 @@ if ($mform->is_cancelled()) {
     $grade_item->outcomeid = null;
 
     // Handle null decimals value
-    if (!array_key_exists('decimals', $data) or $data->decimals < 0) {
+    if (!property_exists($data, 'decimals') or $data->decimals < 0) {
         $grade_item->decimals = null;
     }
 
@@ -158,8 +174,11 @@ if ($mform->is_cancelled()) {
     redirect($returnurl);
 }
 
-print_grade_page_head($courseid, 'edittree', null, $heading);
+$return = false;
+$buttons = false;
+$shownavigation = false;
+print_grade_page_head($courseid, 'edittree', null, $heading, $return, $buttons, $shownavigation);
 
 $mform->display();
 
-print_footer($course);
+echo $OUTPUT->footer();

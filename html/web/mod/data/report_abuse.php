@@ -16,32 +16,40 @@ require_once( $CFG->dirroot .'/lib/pagelib.php' );
 
 $recordid = required_param( 'recordid', PARAM_INT );
 $rid = $recordid;
-if (! $record = get_record('data_records', 'id', $rid)) {
+if (! $record = $DB->get_record('data_records', array('id'=>  $rid))) {
     error('Record ID is incorrect');
 }
-if (! $data = get_record('data', 'id', $record->dataid)) {
+if (! $data = $DB->get_record('data', array('id' =>  $record->dataid))) {
     error('Data ID is incorrect');
 }
-if (! $course = get_record('course', 'id', $data->course)) {
+if (! $course = $DB->get_record('course', array('id' => $data->course))) {
     error('Course is misconfigured');
+
 }
+
 if (! $cm = get_coursemodule_from_instance('data', $data->id, $course->id)) {
     error('Course Module ID was incorrect');
 }
 
 $title = get_string('reportabuse','data');
+
 $sql = "SELECT dc.content FROM ".$CFG->prefix."data_fields df, ".$CFG->prefix."data_content dc WHERE df.id=dc.fieldid AND df.name='Nom' AND df.dataid=".$data->id." AND dc.recordid=".$recordid;
-$tmp = get_record_sql($sql, 1);
+
+$tmp = $DB->get_record_sql($sql);
 $recordtitle = $data->name;
 if (isset($tmp) && isset($tmp->content)){
     $recordtitle = $tmp->content;
 }
 
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url($CFG->wwwroot.'/mod/data/report_abuse.php?record'.(!empty($recordid)?'id='.$recordid:''));
+
 $navigation = build_navigation($recordtitle, $cm);
 print_header_simple($recordtitle, '', $navigation,
             '', '', true, update_module_button($cm->id, $course->id, get_string('modulename', 'data'),$recordtitle),
             navmenu($course, $cm));
-print_heading($title);
+
+$OUTPUT->heading($title);
 
 //  Require user to be logged in to view this page
 if((!isloggedin() || isguestuser())) {
@@ -52,14 +60,11 @@ if((!isloggedin() || isguestuser())) {
 }
 
 
-$context = get_context_instance(CONTEXT_SYSTEM);
-require_capability('block/rate_course:reportabuse', $context);
-
-$report = optional_param( 'report' );
+$report = optional_param( 'report','',PARAM_TEXT);
 if ($report){
 	// Create an entry in the abuse_reports table of the database
-	$abusetopic = optional_param( 'abusetopic' );
-    $abusedescription = optional_param( 'abusedescription' );
+	$abusetopic = optional_param( 'abusetopic','',PARAM_TEXT);
+    $abusedescription = optional_param( 'abusedescription','',PARAM_TEXT);
     if (empty($abusedescription)) $abusedescription = get_string('reportabuse_no_comments','data');
 	$content->recordid = $recordid;
 	$content->abusetopic = $abusetopic;
@@ -67,11 +72,11 @@ if ($report){
 	$content->abusedescription = $abusedescription;
 	$content->created = time();                    
 	
-	insert_record('data_abuse_reports',$content);
+	$DB->insert_record('data_abuse_reports',$content);
 	   
     // Send email only to users with reportabusereceiver permission
     // If there is no user to send the abuse, add admin user to the list
-    $adminuser = get_record("user", "username", $CFG->admin);
+    $adminuser = $DB->get_record("user", array("username" => $CFG->admin));
     $receiverroles = get_roles_with_capability('block/rate_course:reportabusereceiver', CAP_ALLOW);
     $receiverusers = array();
     if (!empty($receiverroles)) $receiverusers = get_role_users(array_keys($receiverroles), $context, true, 'u.*', 'u.id ASC');
@@ -80,15 +85,17 @@ if ($report){
     }
     
     $fromuser = $USER;
-    $owneruser = get_field('data_records', 'userid', 'id', $recordid);
-    $owneruser = get_record("user", "id", $owneruser);
+    $owneruser = $DB->get_field('data_records', 'userid', array('id' => $recordid));
+    $owneruser = $DB->get_record("user", array("id" =>  $owneruser));
     $found = false;
     // Send the mail to users with reportabusereceiver permision
     //echo "<br><br>RECEIVERS...<br>";
+    
     foreach($receiverusers as $user) {
         if ($user->id==$fromuser->id) $found = true;
         data_send_mail($recordid, $user, $adminuser);
     }
+echo 2;
 
     if (!$found) {
         //echo "<br><br>REPORTING USER...<br>";
@@ -128,24 +135,21 @@ if ($report){
     echo '</form></div></div>';    
 }
 
-print_footer();
-
+$OUTPUT->footer();
 
 
 function data_send_mail($recordid, $user, $fromuser){
-    global $db;
-    $info = new object();
+    global $DB;
+    $info = new stdClass();
     $info->format = ($user->mailformat == 1) ? "html" : '';
-    $info->recordid=$recordid;
-    //$info->user = $user;
-    //$info->username = fullname($user, true);
+    $info->recordid = $recordid;
     $info->contentname = '';
-    $dataid = get_field('data_records', 'dataid', 'id', $recordid);
-    $fieldid = get_field('data_fields', 'id', 'name', "Nom", 'dataid', $dataid);
-    if ($fieldid) $info->contentname = get_field('data_content', 'content', 'fieldid', $fieldid, 'recordid', $recordid);
+    $dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+    $fieldid = $DB->get_field('data_fields', 'id', array('name' =>  "Nom", 'dataid'=> $dataid));
+    if ($fieldid) $info->contentname = $DB->get_field('data_content', 'content', array('fieldid' => $fieldid, 'recordid' => $recordid));
     if ($info->contentname == '') $info->contentname = $CFG->wwwroot.'/mod/data/view.php?rid='.$recordid;
-    $abusetopic = optional_param( 'abusetopic' );
-    $abusedescription = optional_param( 'abusedescription' );
+    $abusetopic = optional_param( 'abusetopic','',PARAM_TEXT);
+    $abusedescription = optional_param( 'abusedescription','',PARAM_TEXT);
     $info->abuse = get_string('reportabuse_'.$abusetopic,'data').($abusedescription!=''?" - ".$abusedescription:"");
     $postsubject = get_string('reportabuse_mailsubject', 'data', $info);
     $posttext = data_email_receivers_text($info, 'text', $fromuser);

@@ -1,4 +1,4 @@
-<?php // $Id: reset_form.php,v 1.1.2.4 2010/05/13 01:40:37 moodler Exp $
+<?php
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
@@ -7,23 +7,30 @@ require_once $CFG->libdir.'/formslib.php';
 
 class course_reset_form extends moodleform {
     function definition (){
-        global $CFG, $COURSE;
+        global $CFG, $COURSE, $DB;
 
         $mform =& $this->_form;
 
         $mform->addElement('header', 'generalheader', get_string('general'));
 
         $mform->addElement('date_selector', 'reset_start_date', get_string('startdate'), array('optional'=>true));
-        $mform->setHelpButton('reset_start_date', array('coursestartdate', get_string('startdate')));
+        $mform->addHelpButton('reset_start_date', 'startdate');
         $mform->addElement('checkbox', 'reset_events', get_string('deleteevents', 'calendar'));
         $mform->addElement('checkbox', 'reset_logs', get_string('deletelogs'));
         $mform->addElement('checkbox', 'reset_notes', get_string('deletenotes', 'notes'));
+        $mform->addElement('checkbox', 'reset_comments', get_string('deleteallcomments', 'moodle'));
+        $mform->addElement('checkbox', 'reset_completion', get_string('deletecompletiondata', 'completion'));
+        $mform->addElement('checkbox', 'delete_blog_associations', get_string('deleteblogassociations', 'blog'));
+        $mform->addHelpButton('delete_blog_associations', 'deleteblogassociations', 'blog');
 
 
         $mform->addElement('header', 'rolesheader', get_string('roles'));
 
-        $roles = get_assignable_roles(get_context_instance(CONTEXT_COURSE, $COURSE->id));
-        $mform->addElement('select', 'reset_roles', get_string('unenrolroleusers'), $roles, array('multiple' => 'multiple'));
+        $roles = get_assignable_roles(context_course::instance($COURSE->id));
+        $roles[0] = get_string('noroles', 'role');
+        $roles = array_reverse($roles, true);
+
+        $mform->addElement('select', 'unenrol_users', get_string('unenrolroleusers', 'enrol'), $roles, array('multiple' => 'multiple'));
         $mform->addElement('checkbox', 'reset_roles_overrides', get_string('deletecourseoverrides', 'role'));
         $mform->setAdvanced('reset_roles_overrides');
         $mform->addElement('checkbox', 'reset_roles_local', get_string('deletelocalroles', 'role'));
@@ -44,25 +51,23 @@ class course_reset_form extends moodleform {
         $mform->setAdvanced('reset_groups_members');
         $mform->disabledIf('reset_groups_members', 'reset_groups_remove', 'checked');
 
-        if (!empty($CFG->enablegroupings)) {
-            $mform->addElement('checkbox', 'reset_groupings_remove', get_string('deleteallgroupings', 'group'));
-            $mform->setAdvanced('reset_groupings_remove');
-            $mform->addElement('checkbox', 'reset_groupings_members', get_string('removegroupingsmembers', 'group'));
-            $mform->setAdvanced('reset_groupings_members');
-            $mform->disabledIf('reset_groupings_members', 'reset_groupings_remove', 'checked');
-        }
+        $mform->addElement('checkbox', 'reset_groupings_remove', get_string('deleteallgroupings', 'group'));
+        $mform->setAdvanced('reset_groupings_remove');
+        $mform->addElement('checkbox', 'reset_groupings_members', get_string('removegroupingsmembers', 'group'));
+        $mform->setAdvanced('reset_groupings_members');
+        $mform->disabledIf('reset_groupings_members', 'reset_groupings_remove', 'checked');
 
         $unsupported_mods = array();
-        if ($allmods = get_records('modules') ) {
+        if ($allmods = $DB->get_records('modules') ) {
             foreach ($allmods as $mod) {
                 $modname = $mod->name;
-                if (!count_records($modname, 'course', $COURSE->id)) {
-                    continue; // skip mods with no instances
-                }
                 $modfile = $CFG->dirroot."/mod/$modname/lib.php";
                 $mod_reset_course_form_definition = $modname.'_reset_course_form_definition';
                 $mod_reset__userdata = $modname.'_reset_userdata';
                 if (file_exists($modfile)) {
+                    if (!$DB->count_records($modname, array('course'=>$COURSE->id))) {
+                        continue; // Skip mods with no instances
+                    }
                     include_once($modfile);
                     if (function_exists($mod_reset_course_form_definition)) {
                         $mod_reset_course_form_definition($mform);
@@ -96,19 +101,18 @@ class course_reset_form extends moodleform {
     }
 
     function load_defaults() {
-        global $CFG, $COURSE;
+        global $CFG, $COURSE, $DB;
 
         $mform =& $this->_form;
 
         $defaults = array ('reset_events'=>1, 'reset_logs'=>1, 'reset_roles_local'=>1, 'reset_gradebook_grades'=>1, 'reset_notes'=>1);
 
-        if (!empty($COURSE->defaultrole)) {
-            $defaults['reset_roles'] = array($COURSE->defaultrole);
-        } else {
-            $defaults['reset_roles'] = array($CFG->defaultcourseroleid);
+        // Set student as default in unenrol user list, if role with student archetype exist.
+        if ($studentrole = get_archetype_roles('student')) {
+            $defaults['unenrol_users'] = array_keys($studentrole);
         }
 
-        if ($allmods = get_records('modules') ) {
+        if ($allmods = $DB->get_records('modules') ) {
             foreach ($allmods as $mod) {
                 $modname = $mod->name;
                 $modfile = $CFG->dirroot."/mod/$modname/lib.php";

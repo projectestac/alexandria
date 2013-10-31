@@ -1,11 +1,26 @@
-<?php // $Id: autogroup.php,v 1.1.2.4 2007/11/19 22:53:50 skodak Exp $
+<?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+
 /**
- * Create and allocate users go groups
+ * Create and allocate users to groups
  *
- * @author  Matt Clarkson mattc@catalyst.net.nz
- * @version 0.0.1
- * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
- * @package groups
+ * @package    core_group
+ * @copyright  Matt Clarkson mattc@catalyst.net.nz
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../config.php');
@@ -17,16 +32,16 @@ if (!defined('AUTOGROUP_MIN_RATIO')) {
 }
 
 $courseid = required_param('courseid', PARAM_INT);
+$PAGE->set_url('/group/autogroup.php', array('courseid' => $courseid));
 
-if (!$course = get_record('course', 'id', $courseid)) {
-    error('invalidcourse');
+if (!$course = $DB->get_record('course', array('id'=>$courseid))) {
+    print_error('invalidcourseid');
 }
 
 // Make sure that the user has permissions to manage groups.
 require_login($course);
 
-$context       = get_context_instance(CONTEXT_COURSE, $courseid);
-$systemcontext = get_context_instance(CONTEXT_SYSTEM);
+$context       = context_course::instance($courseid);
 require_capability('moodle/course:managegroups', $context);
 
 $returnurl = $CFG->wwwroot.'/group/index.php?id='.$course->id;
@@ -36,30 +51,11 @@ $strparticipants     = get_string('participants');
 $strautocreategroups = get_string('autocreategroups', 'group');
 
 // Print the page and form
-$navlinks = array(array('name'=>$strparticipants, 'link'=>$CFG->wwwroot.'/user/index.php?id='.$courseid, 'type'=>'misc'),
-                  array('name' => $strgroups, 'link' => "$CFG->wwwroot/group/index.php?id=$courseid", 'type' => 'misc'),
-                  array('name' => $strautocreategroups, 'link' => null, 'type' => 'misc'));
-$navigation = build_navigation($navlinks);
-
 $preview = '';
 $error = '';
 
-/// Get applicable roles
-$rolenames = array();
-if ($roles = get_roles_used_in_context($context, true)) {
-    $canviewroles    = get_roles_with_capability('moodle/course:view', CAP_ALLOW, $context);
-    $doanythingroles = get_roles_with_capability('moodle/site:doanything', CAP_ALLOW, $systemcontext);
-
-    foreach ($roles as $role) {
-        if (!isset($canviewroles[$role->id])) {   // Avoid this role (eg course creator)
-            continue;
-        }
-        if (isset($doanythingroles[$role->id])) {   // Avoid this role (ie admin)
-            continue;
-        }
-        $rolenames[$role->id] = strip_tags(role_get_name($role, $context));   // Used in menus etc later on
-    }
-}
+/// Get applicable roles - used in menus etc later on
+$rolenames = role_fix_names(get_profile_roles($context), $context, ROLENAME_ALIAS, true);
 
 /// Create the form
 $editform = new autogroup_form(null, array('roles' => $rolenames));
@@ -69,7 +65,7 @@ $editform->set_data(array('courseid' => $courseid, 'seed' => time()));
 if ($editform->is_cancelled()) {
     redirect($returnurl);
 
-} elseif ($data = $editform->get_data(false)) {
+} elseif ($data = $editform->get_data()) {
 
     /// Allocate members from the selected role to groups
     switch ($data->allocateby) {
@@ -82,9 +78,9 @@ if ($editform->is_cancelled()) {
         case 'idnumber':
             $orderby = 'idnumber'; break;
         default:
-            error('Unknown ordering');
+            print_error('unknoworder');
     }
-    $users = groups_get_potential_members($data->courseid, $data->roleid, $orderby);
+    $users = groups_get_potential_members($data->courseid, $data->roleid, $data->cohortid, $orderby);
     $usercnt = count($users);
 
     if ($data->allocateby == 'random') {
@@ -96,11 +92,11 @@ if ($editform->is_cancelled()) {
 
     // Plan the allocation
     if ($data->groupby == 'groups') {
-    	$numgrps    = $data->number;
+        $numgrps    = $data->number;
         $userpergrp = floor($usercnt/$numgrps);
 
     } else { // members
-    	$numgrps    = ceil($usercnt/$data->number);
+        $numgrps    = ceil($usercnt/$data->number);
         $userpergrp = $data->number;
 
         if (!empty($data->nosmallgroups) and $usercnt % $data->number != 0) {
@@ -142,7 +138,7 @@ if ($editform->is_cancelled()) {
     }
 
     if (isset($data->preview)) {
-        $table = new object();
+        $table = new html_table();
         if ($data->allocateby == 'no') {
             $table->head  = array(get_string('groupscount', 'group', $numgrps));
             $table->size  = array('100%');
@@ -175,7 +171,7 @@ if ($editform->is_cancelled()) {
             $table->data[] = $line;
         }
 
-        $preview .= print_table($table, true);
+        $preview .= html_writer::table($table);
 
     } else {
         $grouping = null;
@@ -185,15 +181,11 @@ if ($editform->is_cancelled()) {
 
         // prepare grouping
         if (!empty($data->grouping)) {
-            $groupingname = trim($data->groupingname);
             if ($data->grouping < 0) {
-                $grouping = new object();
+                $grouping = new stdClass();
                 $grouping->courseid = $COURSE->id;
-                $grouping->name     = $groupingname;
-                if (!$grouping->id = groups_create_grouping(addslashes_recursive($grouping))) {
-                    $error = 'Can not create grouping'; //should not happen
-                    $failed = true;
-                }
+                $grouping->name     = trim($data->groupingname);
+                $grouping->id = groups_create_grouping($grouping);
                 $createdgrouping = $grouping->id;
             } else {
                 $grouping = groups_get_grouping($data->grouping);
@@ -201,20 +193,16 @@ if ($editform->is_cancelled()) {
         }
 
         // Save the groups data
-    	foreach ($groups as $key=>$group) {
+        foreach ($groups as $key=>$group) {
             if (groups_get_group_by_name($courseid, $group['name'])) {
                 $error = get_string('groupnameexists', 'group', $group['name']);
                 $failed = true;
                 break;
             }
-            $newgroup = new object();
+            $newgroup = new stdClass();
             $newgroup->courseid = $data->courseid;
             $newgroup->name     = $group['name'];
-            if (!$groupid = groups_create_group(addslashes_recursive($newgroup))) {
-                $error = 'Can not create group!'; // should not happen
-                $failed = true;
-                break;
-            }
+            $groupid = groups_create_group($newgroup);
             $createdgroups[] = $groupid;
             foreach($group['members'] as $user) {
                 groups_add_member($groupid, $user->id);
@@ -237,22 +225,27 @@ if ($editform->is_cancelled()) {
     }
 }
 
+$PAGE->navbar->add($strparticipants, new moodle_url('/user/index.php', array('id'=>$courseid)));
+$PAGE->navbar->add($strgroups, new moodle_url('/group/index.php', array('id'=>$courseid)));
+$PAGE->navbar->add($strautocreategroups);
+
 /// Print header
-print_header_simple($strgroups, ': '.$strgroups, $navigation, '', '', true, '', navmenu($course));
-print_heading($strautocreategroups);
+$PAGE->set_title($strgroups);
+$PAGE->set_heading($course->fullname. ': '.$strgroups);
+echo $OUTPUT->header();
+echo $OUTPUT->heading($strautocreategroups);
 
 if ($error != '') {
-    notify($error);
+    echo $OUTPUT->notification($error);
 }
 
 /// Display the form
 $editform->display();
 
 if($preview !== '') {
-	print_heading(get_string('groupspreview', 'group'));
+    echo $OUTPUT->heading(get_string('groupspreview', 'group'));
 
     echo $preview;
 }
 
-print_footer($course);
-?>
+echo $OUTPUT->footer();

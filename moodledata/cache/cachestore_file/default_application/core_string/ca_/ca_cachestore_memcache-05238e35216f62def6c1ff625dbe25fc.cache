@@ -1,0 +1,6 @@
+a:5:{s:10:"pluginname";s:12:"Memòria cau";s:7:"servers";s:9:"Servidors";s:12:"servers_help";s:364:"Això configura els servidors que han de ser utilitzats per aquest adaptador de memòria cau. Els servidors s'han de definir un per línia i consisteixen d'una adreça de servidor i, opcionalment, un port i el pes. Si no es proporciona cap port s'utilitza el port per defecte (11211).
+Per exemple:
+<pre>
+servidor.url.com
+adreçaip: port
+nomservidor:port:pes </pre>";s:11:"testservers";s:17:"Servidor de prova";s:16:"testservers_desc";s:329:"Els servidors de prova s'utilitzen per a les proves unitàries i proves de rendiment. És totalment opcional configurar servidors de prova. Els servidors s'han de definir un per línia i es componen d'una adreça de servidor i, opcionalment, un port i el pes. Si no es proporciona cap port s'utilitza el port per defecte (11211).";}
