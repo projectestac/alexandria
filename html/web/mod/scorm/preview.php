@@ -8,13 +8,14 @@
     $a = optional_param('a', '', PARAM_INT);         // scorm ID
     $scoid = required_param('scoid', PARAM_INT);  // sco ID
     if ($USER->id == '0') $USER = authenticate_user_login('guest', 'guest');
-    
+    $PAGE->set_context(context_system::instance()); 
+    $PAGE->set_url('/mod/scorm/preview.php', $urlparams); 
     //Get $scorm object
     if (!empty($a)) {
-        if (! $scorm = get_record("scorm", "id", $a)) {
+        if (! $scorm = $DB->get_record("scorm", array("id"=> $a))) {
             error("Course module is incorrect");
         }
-        if (! $course = get_record("course", "id", $scorm->course)) {
+        if (! $course = $DB->get_record("course", array("id" => $scorm->course))) {
             error("Course is misconfigured");
         }
         if (! $cm = get_coursemodule_from_instance("scorm", $scorm->id, $course->id)) {
@@ -49,7 +50,7 @@
     //Get Iframe
     $scoidstr = '&amp;scoid='.$sco->id;
     $modestr = '&amp;mode='.$mode;
-    $iframe = '<iframe class="content_frame" src="loadSCO.php?a='.$a.$scoidstr.$modestr.'"></iframe>';
+    $iframe = '<iframe class="content_frame" style="width:100%;" src="loadSCO.php?a='.$a.$scoidstr.$modestr.'"></iframe>';
 
     //Javascript to hide and show index
     $javascript =

@@ -348,3 +348,22 @@ $string['usestandard_help'] = 'To use a preset available to the whole site, sele
 $string['viewfromdate'] = 'Read only from';
 $string['viewtodate'] = 'Read only to';
 $string['wrongdataid'] = 'Wrong data id provided';
+//XTEC ************ AFEGIT - Strings adicionals
+//2011 - @fcasanel
+//2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+$string['ispdipdf'] ='Is a PDF to show PDI materials?';
+$string['isscormfile'] ='Is a SCORM file?';
+$string['abusereports'] = 'Reports about inappropiate content';
+$string['reportabuse'] ='Report about inappropiate content';
+$string['data_never'] = 'never';
+$string['reportabuse_select'] ='Select the option that better describes the inappropiate content ';
+$string['reportabuse_copyrights'] ='Violates the author\'s rights';
+$string['reportabuse_nudity'] ='It has grave errors of form or content';
+$string['reportabuse_other'] ='Violates another condition (You must specify it)';
+$string['reportabuse_comments'] ='Add comments to help us to understand your report about inappropiate content.';
+$string['reportabuse_submit'] ='Send the report';
+$string['reportabuse_cancel'] ='Cancel';
+$string['reportabuse_mailsubject'] ='Report about inappropiate content in $a->coursename';
+$string['reportabuse_mail'] =' had reported the following inappropiate content in $a->coursename: $a->abuse';
+$string['reportabuse_intro'] ='Thank you for help the comunity reporting about contents that may violate the <a href=\"$a\" target=\"_blank\">terms of use</a> of this place! <br>Soon you\'ll recieve a copy of your report in your mailbox.';
+//************ FI

@@ -12,33 +12,38 @@
             <?php echo get_string('maxsize', 'data'); ?></label></td>
         <td class="c1">
             <?php
-                $course->maxbytes = get_field('course', 'maxbytes', 'id', $this->data->course);
+                $course = $DB->get_record('course', array('id'=>$this->data->course));
                 $choices = get_max_upload_sizes($CFG->maxbytes, $course->maxbytes);
-                choose_from_menu($choices, 'param3', $this->field->param3, '', '', 0, false, false, 0, 'param3');
+                echo html_writer::select($choices, 'param3', $this->field->param3, false, array('id' => 'param3'));
             ?>
         </td>
     </tr>
     <!-- XTEC **************** AFEGIT - If the file is a PDF to show PDI materials (param4) shows PDF viewer
-        2011.02.28 @fcasanel-->
+        2011.02.28 @fcasanel
+	2013.10.30 @mespinosa
+	-->
     <tr>
         <td class="c0"><label for="param4"><?php echo get_string('ispdipdf', 'data'); ?></label></td>
         <td class="c1">
             <?php
-                choose_from_menu_yesno('param4', (isset($this->field->param4))?$this->field->param4:0, '', false, false, 0);
+		echo html_writer::select(array(1 => 'Yes', 0 => 'No'),'param4',$this->field->param4,false);
             ?>
         </td>
     </tr>
     <!-- ***************** FI -->
 
     <!-- XTEC **************** AFEGIT - If the file is a SCORM save it in the SCORM table
-        2011.05.23 @fcasanel-->
+        2011.05.23 @fcasanel
+	2013.10.30 @mespinosa
+	-->
     <tr>
         <td class="c0"><label for="param5"><?php echo get_string('isscormfile', 'data'); ?></label></td>
         <td class="c1">
-            <?php
-                choose_from_menu_yesno('param5', (isset($this->field->param5))?$this->field->param5:0, '', false, false, 0);
+            <?php	
+		echo html_writer::select(array(1 => 'Yes', 0 => 'No'),'param5',$this->field->param5,false);
             ?>
         </td>
     </tr>
     <!-- ***************** FI -->
+
 </table>
