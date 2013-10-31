@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Performs actions on grade items and categories like hiding and locking
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 
@@ -29,14 +22,12 @@ $courseid = required_param('id', PARAM_INT);
 $action   = required_param('action', PARAM_ALPHA);
 $eid      = required_param('eid', PARAM_ALPHANUM);
 
-$PAGE->set_url('/grade/edit/tree/action.php', array('id'=>$courseid, 'action'=>$action, 'eid'=>$eid));
-
 /// Make sure they can even access this course
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 // default return url
 $gpr = new grade_plugin_return();
@@ -47,7 +38,7 @@ $gtree = new grade_tree($courseid, false, false);
 
 // what are we working with?
 if (!$element = $gtree->locate_element($eid)) {
-    print_error('invalidelementid', '', $returnurl);
+    error('Incorrect element id!', $returnurl);
 }
 $object = $element['object'];
 $type   = $element['type'];
@@ -57,7 +48,7 @@ switch ($action) {
     case 'hide':
         if ($eid and confirm_sesskey()) {
             if (!has_capability('moodle/grade:manage', $context) and !has_capability('moodle/grade:hide', $context)) {
-                print_error('nopermissiontohide', '', $returnurl);
+                error('No permission to hide!', $returnurl);
             }
             if ($type == 'grade' and empty($object->id)) {
                 $object->insert();
@@ -69,7 +60,7 @@ switch ($action) {
     case 'show':
         if ($eid and confirm_sesskey()) {
             if (!has_capability('moodle/grade:manage', $context) and !has_capability('moodle/grade:hide', $context)) {
-                print_error('nopermissiontoshow', '', $returnurl);
+                error('No permission to show!', $returnurl);
             }
             if ($type == 'grade' and empty($object->id)) {
                 $object->insert();
@@ -81,7 +72,7 @@ switch ($action) {
     case 'lock':
         if ($eid and confirm_sesskey()) {
             if (!has_capability('moodle/grade:manage', $context) and !has_capability('moodle/grade:lock', $context)) {
-                print_error('nopermissiontolock', '', $returnurl);
+                error('No permission to lock!', $returnurl);
             }
             if ($type == 'grade' and empty($object->id)) {
                 $object->insert();
@@ -93,7 +84,7 @@ switch ($action) {
     case 'unlock':
         if ($eid and confirm_sesskey()) {
             if (!has_capability('moodle/grade:manage', $context) and !has_capability('moodle/grade:unlock', $context)) {
-                print_error('nopermissiontounlock', '', $returnurl);
+                error('No permission to unlock!', $returnurl);
             }
             if ($type == 'grade' and empty($object->id)) {
                 $object->insert();
@@ -106,4 +97,4 @@ switch ($action) {
 redirect($returnurl);
 //redirect($returnurl, 'debug delay', 5);
 
-
+?>

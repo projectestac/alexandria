@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: publickey.php,v 1.2 2007/08/29 10:48:46 stronk7 Exp $
 /**
  * Print this server's public key and exit
  *
@@ -10,11 +10,7 @@
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once $CFG->dirroot.'/mnet/lib.php';
-
-if ($CFG->mnet_dispatcher_mode === 'off') {
-    print_error('mnetdisabled', 'mnet');
-}
-
-header("Content-type: text/plain; charset=utf-8");
+header("Content-type: text/plain");
 $keypair = mnet_get_keypair();
 echo $keypair['certificate'];
+?>

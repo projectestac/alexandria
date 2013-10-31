@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * A moodleform to edit the grade options for an individual grade category
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
@@ -29,10 +22,10 @@ if (!defined('MOODLE_INTERNAL')) {
 require_once $CFG->libdir.'/formslib.php';
 
 class edit_category_form extends moodleform {
-    private $aggregation_options = array();
+    var $aggregation_options = array();
 
     function definition() {
-        global $CFG, $COURSE, $DB;
+        global $CFG, $COURSE;
         $mform =& $this->_form;
 
         $category = $this->_customdata['current'];
@@ -53,14 +46,14 @@ class edit_category_form extends moodleform {
         $mform->addRule('fullname', null, 'required', null, 'client');
 
         $mform->addElement('select', 'aggregation', get_string('aggregation', 'grades'), $this->aggregation_options);
-        $mform->addHelpButton('aggregation', 'aggregation', 'grades');
+        $mform->setHelpButton('aggregation', array('aggregation', get_string('aggregation', 'grades'), 'grade'));
 
         if ((int)$CFG->grade_aggregation_flag & 2) {
             $mform->setAdvanced('aggregation');
         }
 
         $mform->addElement('checkbox', 'aggregateonlygraded', get_string('aggregateonlygraded', 'grades'));
-        $mform->addHelpButton('aggregateonlygraded', 'aggregateonlygraded', 'grades');
+        $mform->setHelpButton('aggregateonlygraded', array('aggregateonlygraded', get_string('aggregateonlygraded', 'grades'),'grade'), true);
         $mform->disabledIf('aggregateonlygraded', 'aggregation', 'eq', GRADE_AGGREGATE_SUM);
 
         if ((int)$CFG->grade_aggregateonlygraded_flag & 2) {
@@ -72,14 +65,14 @@ class edit_category_form extends moodleform {
             $mform->setType('aggregateoutcomes', PARAM_INT);
         } else {
             $mform->addElement('checkbox', 'aggregateoutcomes', get_string('aggregateoutcomes', 'grades'));
-            $mform->addHelpButton('aggregateoutcomes', 'aggregateoutcomes', 'grades');
+            $mform->setHelpButton('aggregateoutcomes', array('aggregateoutcomes', get_string('aggregateoutcomes', 'grades'), 'grade'), true);
             if ((int)$CFG->grade_aggregateoutcomes_flag & 2) {
                 $mform->setAdvanced('aggregateoutcomes');
             }
         }
 
         $mform->addElement('advcheckbox', 'aggregatesubcats', get_string('aggregatesubcats', 'grades'));
-        $mform->addHelpButton('aggregatesubcats', 'aggregatesubcats', 'grades');
+        $mform->setHelpButton('aggregatesubcats', array('aggregatesubcats', get_string('aggregatesubcats', 'grades'), 'grade'), true);
 
         if ((int)$CFG->grade_aggregatesubcats_flag & 2) {
             $mform->setAdvanced('aggregatesubcats');
@@ -92,13 +85,13 @@ class edit_category_form extends moodleform {
         }
 
         $mform->addElement('select', 'keephigh', get_string('keephigh', 'grades'), $options);
-        $mform->addHelpButton('keephigh', 'keephigh', 'grades');
+        $mform->setHelpButton('keephigh', array('keephigh', get_string('keephigh', 'grades'), 'grade'), true);
         if ((int)$CFG->grade_keephigh_flag & 2) {
             $mform->setAdvanced('keephigh');
         }
 
         $mform->addElement('select', 'droplow', get_string('droplow', 'grades'), $options);
-        $mform->addHelpButton('droplow', 'droplow', 'grades');
+        $mform->setHelpButton('droplow', array('droplow', get_string('droplow', 'grades'), 'grade'), true);
         $mform->disabledIf('droplow', 'keephigh', 'noteq', 0);
         if ((int)$CFG->grade_droplow_flag & 2) {
             $mform->setAdvanced('droplow');
@@ -108,17 +101,17 @@ class edit_category_form extends moodleform {
         $mform->disabledIf('droplow', 'keephigh', 'noteq', 0);
 
         // Grade item settings
-        // Displayed as Category total to avoid confusion between grade items requiring marking and category totals
+        //Displayed as Category total to avoid confusion between grade items requiring marking and category totals
         $mform->addElement('header', 'general', get_string('categorytotal', 'grades'));
 
         $mform->addElement('text', 'grade_item_itemname', get_string('categorytotalname', 'grades'));
         $mform->setAdvanced('grade_item_itemname');
 
         $mform->addElement('text', 'grade_item_iteminfo', get_string('iteminfo', 'grades'));
-        $mform->addHelpButton('grade_item_iteminfo', 'iteminfo', 'grades');
+        $mform->setHelpButton('grade_item_iteminfo', array('iteminfo', get_string('iteminfo', 'grades'), 'grade'), true);
 
         $mform->addElement('text', 'grade_item_idnumber', get_string('idnumbermod'));
-        $mform->addHelpButton('grade_item_idnumber', 'idnumbermod');
+        $mform->setHelpButton('grade_item_idnumber', array('idnumber', get_string('idnumber', 'grades'), 'grade'), true);
 
         $options = array(GRADE_TYPE_NONE=>get_string('typenone', 'grades'),
                          GRADE_TYPE_VALUE=>get_string('typevalue', 'grades'),
@@ -126,7 +119,7 @@ class edit_category_form extends moodleform {
                          GRADE_TYPE_TEXT=>get_string('typetext', 'grades'));
 
         $mform->addElement('select', 'grade_item_gradetype', get_string('gradetype', 'grades'), $options);
-        $mform->addHelpButton('grade_item_gradetype', 'gradetype', 'grades');
+        $mform->setHelpButton('grade_item_gradetype', array('gradetype', get_string('gradetype', 'grades'), 'grade'), true);
         $mform->setDefault('grade_item_gradetype', GRADE_TYPE_VALUE);
         $mform->disabledIf('grade_item_gradetype', 'aggregation', 'eq', GRADE_AGGREGATE_SUM);
 
@@ -145,29 +138,30 @@ class edit_category_form extends moodleform {
                 $options[$scale->id] = $scale->get_name();
             }
         }
-        // ugly BC hack - it was possible to use custom scale from other courses :-(
+        // ugly BC hack - it was possbile to use custom scale from other courses :-(
         if (!empty($category->grade_item_scaleid) and !isset($options[$category->grade_item_scaleid])) {
             if ($scale = grade_scale::fetch(array('id'=>$category->grade_item_scaleid))) {
                 $options[$scale->id] = $scale->get_name().' '.get_string('incorrectcustomscale', 'grades');
             }
         }
+
         $mform->addElement('select', 'grade_item_scaleid', get_string('scale'), $options);
-        $mform->addHelpButton('grade_item_scaleid', 'typescale', 'grades');
+        $mform->setHelpButton('grade_item_scaleid', array('scaleid', get_string('scaleid', 'grades'), 'grade'), true);
         $mform->disabledIf('grade_item_scaleid', 'grade_item_gradetype', 'noteq', GRADE_TYPE_SCALE);
         $mform->disabledIf('grade_item_scaleid', 'aggregation', 'eq', GRADE_AGGREGATE_SUM);
 
         $mform->addElement('text', 'grade_item_grademax', get_string('grademax', 'grades'));
-        $mform->addHelpButton('grade_item_grademax', 'grademax', 'grades');
+        $mform->setHelpButton('grade_item_grademax', array('grademax', get_string('grademax', 'grades'), 'grade'), true);
         $mform->disabledIf('grade_item_grademax', 'grade_item_gradetype', 'noteq', GRADE_TYPE_VALUE);
         $mform->disabledIf('grade_item_grademax', 'aggregation', 'eq', GRADE_AGGREGATE_SUM);
 
         $mform->addElement('text', 'grade_item_grademin', get_string('grademin', 'grades'));
-        $mform->addHelpButton('grade_item_grademin', 'grademin', 'grades');
+        $mform->setHelpButton('grade_item_grademin', array('grademin', get_string('grademin', 'grades'), 'grade'), true);
         $mform->disabledIf('grade_item_grademin', 'grade_item_gradetype', 'noteq', GRADE_TYPE_VALUE);
         $mform->disabledIf('grade_item_grademin', 'aggregation', 'eq', GRADE_AGGREGATE_SUM);
 
         $mform->addElement('text', 'grade_item_gradepass', get_string('gradepass', 'grades'));
-        $mform->addHelpButton('grade_item_gradepass', 'gradepass', 'grades');
+        $mform->setHelpButton('grade_item_gradepass', array('gradepass', get_string('gradepass', 'grades'), 'grade'), true);
         $mform->disabledIf('grade_item_gradepass', 'grade_item_gradetype', 'eq', GRADE_TYPE_NONE);
         $mform->disabledIf('grade_item_gradepass', 'grade_item_gradetype', 'eq', GRADE_TYPE_TEXT);
 
@@ -194,12 +188,12 @@ class edit_category_form extends moodleform {
             }
         }
         $mform->addElement('select', 'grade_item_display', get_string('gradedisplaytype', 'grades'), $options);
-        $mform->addHelpButton('grade_item_display', 'gradedisplaytype', 'grades');
+        $mform->setHelpButton('grade_item_display', array('gradedisplaytype', get_string('gradedisplaytype', 'grades'), 'grade'), true);
 
         $default_gradedecimals = grade_get_setting($COURSE->id, 'decimalpoints', $CFG->grade_decimalpoints);
         $options = array(-1=>get_string('defaultprev', 'grades', $default_gradedecimals), 0=>0, 1=>1, 2=>2, 3=>3, 4=>4, 5=>5);
         $mform->addElement('select', 'grade_item_decimals', get_string('decimalpoints', 'grades'), $options);
-        $mform->addHelpButton('grade_item_decimals', 'decimalpoints', 'grades');
+        $mform->setHelpButton('grade_item_decimals', array('decimalpoints', get_string('decimalpoints', 'grades'), 'grade'), true);
         $mform->setDefault('grade_item_decimals', -1);
         $mform->disabledIf('grade_item_decimals', 'grade_item_display', 'eq', GRADE_DISPLAY_TYPE_LETTER);
 
@@ -210,22 +204,24 @@ class edit_category_form extends moodleform {
         /// hiding
         // advcheckbox is not compatible with disabledIf!
         $mform->addElement('checkbox', 'grade_item_hidden', get_string('hidden', 'grades'));
-        $mform->addHelpButton('grade_item_hidden', 'hidden', 'grades');
+        $mform->setHelpButton('grade_item_hidden', array('hidden', get_string('hidden', 'grades'), 'grade'));
         $mform->addElement('date_time_selector', 'grade_item_hiddenuntil', get_string('hiddenuntil', 'grades'), array('optional'=>true));
+        $mform->setHelpButton('grade_item_hiddenuntil', array('hiddenuntil', get_string('hiddenuntil', 'grades'), 'grade'));
         $mform->disabledIf('grade_item_hidden', 'grade_item_hiddenuntil[off]', 'notchecked');
 
         /// locking
         $mform->addElement('checkbox', 'grade_item_locked', get_string('locked', 'grades'));
-        $mform->addHelpButton('grade_item_locked', 'locked', 'grades');
+        $mform->setHelpButton('grade_item_locked', array('locked', get_string('locked', 'grades'), 'grade'));
 
         $mform->addElement('date_time_selector', 'grade_item_locktime', get_string('locktime', 'grades'), array('optional'=>true));
+        $mform->setHelpButton('grade_item_locktime', array('lockedafter', get_string('locktime', 'grades'), 'grade'));
         $mform->disabledIf('grade_item_locktime', 'grade_item_gradetype', 'eq', GRADE_TYPE_NONE);
 
 /// parent category related settings
         $mform->addElement('header', 'headerparent', get_string('parentcategory', 'grades'));
 
         $options = array();
-        $default = -1;
+        $default = '';
         $categories = grade_category::fetch_all(array('courseid'=>$COURSE->id));
 
         foreach ($categories as $cat) {
@@ -238,7 +234,6 @@ class edit_category_form extends moodleform {
 
         if (count($categories) > 1) {
             $mform->addElement('select', 'parentcategory', get_string('parentcategory', 'grades'), $options);
-            $mform->setDefault('parentcategory', $default);
             $mform->addElement('static', 'currentparentaggregation', get_string('currentparentaggregation', 'grades'));
         }
 
@@ -448,7 +443,7 @@ class edit_category_form extends moodleform {
                         $element =& $mform->createElement('text', 'grade_item_aggregationcoef', get_string($coefstring, 'grades'));
                     }
                     $mform->insertElementBefore($element, 'parentcategory');
-                    $mform->addHelpButton('grade_item_aggregationcoef', $coefstring, 'grades');
+                    $mform->setHelpButton('grade_item_aggregationcoef', array($coefstring, get_string($coefstring, 'grades'), 'grade'), true);
                 }
             }
         }
@@ -478,4 +473,4 @@ class edit_category_form extends moodleform {
     }
 }
 
-
+?>

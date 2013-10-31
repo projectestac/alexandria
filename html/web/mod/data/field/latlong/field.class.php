@@ -1,4 +1,4 @@
-<?php
+<?php  // $Id: field.class.php,v 1.8.2.7 2010/12/22 07:49:11 moodlerobot Exp $
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // NOTICE OF COPYRIGHT                                                   //
@@ -43,13 +43,16 @@ class data_field_latlong extends data_field_base {
     );
     // Other map sources listed at http://kvaleberg.com/extensions/mapsources/index.php?params=51_30.4167_N_0_7.65_W_region:earth
 
-    function display_add_field($recordid=0) {
-        global $CFG, $DB;
+    function data_field_latlong($field=0, $data=0) {
+        parent::data_field_base($field, $data);
+    }
 
+    function display_add_field($recordid=0) {
+        global $CFG;
         $lat = '';
         $long = '';
         if ($recordid) {
-            if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+            if ($content = get_record('data_content', 'fieldid', $this->field->id, 'recordid', $recordid)) {
                 $lat  = $content->content;
                 $long = $content->content1;
             }
@@ -66,25 +69,20 @@ class data_field_latlong extends data_field_base {
     }
 
     function display_search_field($value = '') {
-        global $CFG, $DB;
-
-        $varcharlat = $DB->sql_compare_text('content');
-        $varcharlong= $DB->sql_compare_text('content1');
-        $latlongsrs = $DB->get_recordset_sql(
+        global $CFG;
+        $varcharlat = sql_compare_text('content');
+        $varcharlong= sql_compare_text('content1');
+        $latlongsrs = get_recordset_sql(
             "SELECT DISTINCT $varcharlat AS la, $varcharlong AS lo
-               FROM {data_content}
-              WHERE fieldid = ?
-             ORDER BY $varcharlat, $varcharlong", array($this->field->id));
-
+              FROM {$CFG->prefix}data_content
+             WHERE fieldid = {$this->field->id}
+             ORDER BY $varcharlat, $varcharlong");
         $options = array();
-        foreach ($latlongsrs as $latlong) {
+        while ($latlong = rs_fetch_next_record($latlongsrs)) {
             $options[$latlong->la . ',' . $latlong->lo] = $latlong->la . ',' . $latlong->lo;
         }
-        $latlongsrs->close();
-
-        $return = html_writer::label(get_string('latlong', 'data'), 'menuf_'.$this->field->id, false, array('class' => 'accesshide'));
-        $return .= html_writer::select($options, 'f_'.$this->field->id, $value);
-       return $return;
+        rs_close($latlongsrs);
+        return choose_from_menu($options, 'f_'.$this->field->id, $value, 'choose', '', 0, true);
     }
 
     function parse_search_field() {
@@ -92,26 +90,17 @@ class data_field_latlong extends data_field_base {
     }
 
     function generate_sql($tablealias, $value) {
-        global $DB;
-
-        static $i=0;
-        $i++;
-        $name1 = "df_latlong1_$i";
-        $name2 = "df_latlong2_$i";
-        $varcharlat = $DB->sql_compare_text("{$tablealias}.content");
-        $varcharlong= $DB->sql_compare_text("{$tablealias}.content1");
-
-
         $latlong[0] = '';
         $latlong[1] = '';
         $latlong = explode (',', $value, 2);
-        return array(" ({$tablealias}.fieldid = {$this->field->id} AND $varcharlat = :$name1 AND $varcharlong = :$name2) ",
-                     array($name1=>$latlong[0], $name2=>$latlong[1]));
+        $varcharlat = sql_compare_text("{$tablealias}.content");
+        $varcharlong= sql_compare_text("{$tablealias}.content1");
+        return " ({$tablealias}.fieldid = {$this->field->id} AND $varcharlat = '$latlong[0]' AND $varcharlong = '$latlong[1]') ";
     }
 
     function display_browse_field($recordid, $template) {
-        global $CFG, $DB;
-        if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        global $CFG;
+        if ($content = get_record('data_content', 'fieldid', $this->field->id, 'recordid', $recordid)) {
             $lat = $content->content;
             if (strlen($lat) < 1) {
                 return false;
@@ -130,6 +119,7 @@ class data_field_latlong extends data_field_base {
             } else {
                 $compasslong = sprintf('%01.4f', $long) . '°E';
             }
+            $str = '<form style="display:inline;">';
 
             // Now let's create the jump-to-services link
             $servicesshown = explode(',', $this->field->param1);
@@ -147,14 +137,11 @@ class data_field_latlong extends data_field_base {
             );
 
             if(sizeof($servicesshown)==1 && $servicesshown[0]) {
-                $str = " <a href='"
+                $str .= " <a href='"
                           . str_replace(array_keys($urlreplacements), array_values($urlreplacements), $this->linkoutservices[$servicesshown[0]])
                           ."' title='$servicesshown[0]'>$compasslat, $compasslong</a>";
             } elseif (sizeof($servicesshown)>1) {
-                $str = '<form id="latlongfieldbrowse">';
-                $str .= "$compasslat, $compasslong\n";
-                $str .= "<label class='accesshide' for='jumpto'>". get_string('jumpto') ."</label>";
-                $str .= "<select id='jumpto' name='jumpto'>";
+                $str .= "$compasslat, $compasslong\n<select name='jumpto'>";
                 foreach($servicesshown as $servicename){
                     // Add a link to a service
                     $str .= "\n  <option value='"
@@ -164,20 +151,17 @@ class data_field_latlong extends data_field_base {
                 // NB! If you are editing this, make sure you don't break the javascript reference "previousSibling"
                 //   which allows the "Go" button to refer to the drop-down selector.
                 $str .= "\n</select><input type='button' value='" . get_string('go') . "' onclick='if(previousSibling.value){self.location=previousSibling.value}'/>";
-                $str .= '</form>';
             } else {
-                $str = "$compasslat, $compasslong";
+                $str.= "$compasslat, $compasslong";
             }
-
+            $str.= '</form>';
             return $str;
         }
         return false;
     }
 
     function update_content($recordid, $value, $name='') {
-        global $DB;
-
-        $content = new stdClass();
+        $content = new object;
         $content->fieldid = $this->field->id;
         $content->recordid = $recordid;
         $value = trim($value);
@@ -199,17 +183,27 @@ class data_field_latlong extends data_field_base {
             default:
                 break;
         }
-        if ($oldcontent = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        if ($oldcontent = get_record('data_content','fieldid', $this->field->id, 'recordid', $recordid)) {
             $content->id = $oldcontent->id;
-            return $DB->update_record('data_content', $content);
+            return update_record('data_content', $content);
         } else {
-            return $DB->insert_record('data_content', $content);
+            return insert_record('data_content', $content);
         }
     }
 
     function get_sort_sql($fieldname) {
-        global $DB;
-        return $DB->sql_cast_char2real($fieldname, true);
+        global $CFG;
+        switch ($CFG->dbfamily) {
+            case 'mysql':
+                // string in an arithmetic operation is converted to a floating-point number
+                return '('.$fieldname.'+0.0)';
+            case 'postgres':
+                //cast is for PG
+                return 'CAST('.$fieldname.' AS REAL)';
+            default:
+                //Return just the fieldname. TODO: Look behaviour under MSSQL and Oracle
+                return $fieldname;
+        }
     }
 
     function export_text_value($record) {
@@ -218,4 +212,4 @@ class data_field_latlong extends data_field_base {
 
 }
 
-
+?>

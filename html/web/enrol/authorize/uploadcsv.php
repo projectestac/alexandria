@@ -1,79 +1,58 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * Authorize.Net enrolment plugin - support for user self unenrolment.
- *
- * @package    enrol
- * @subpackage authorize
- * @copyright  2010 Eugene Venter
- * @author     Eugene Venter
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+<?php // $Id: uploadcsv.php,v 1.12.2.2 2008/02/07 16:27:53 ethem Exp $
 
 /// Load libraries
-require_once('../../config.php');
-require_once($CFG->dirroot.'/enrol/authorize/const.php');
-require_once($CFG->dirroot.'/enrol/authorize/localfuncs.php');
-require_once($CFG->libdir.'/eventslib.php');
-require_once('import_form.php');
+    require_once('../../config.php');
+    require_once($CFG->libdir.'/uploadlib.php');
+    require_once($CFG->dirroot.'/enrol/authorize/const.php');
+    require_once($CFG->dirroot.'/enrol/authorize/localfuncs.php');
 
-/// Require capabilities
-require_login();
-require_capability('enrol/authorize:uploadcsv', context_system::instance());
+/// Require capabilites
+    require_login();
+    require_capability('enrol/authorize:uploadcsv', get_context_instance(CONTEXT_USER, $USER->id));
 
 /// Print header
-$struploadcsv = get_string('uploadcsv', 'enrol_authorize');
-$managebutton = "<form method='get' action='index.php'><input type='submit' value='".get_string('paymentmanagement', 'enrol_authorize')."' /></form>";
+    $struploadcsv = get_string('uploadcsv', 'enrol_authorize');
+    $navlinks = array();
+    $navlinks[] = array('name' => $struploadcsv, 'link' => "uploadcsv.php", 'type' => 'misc');
+    $navigation = build_navigation($navlinks);
 
-$form = new enrol_authorize_import_form();
-
-$PAGE->set_url('/enrol/authorize/uploadcsv.php');
-$PAGE->navbar->add(get_string('paymentmanagement', 'enrol_authorize'), 'index.php');
-$PAGE->navbar->add($struploadcsv, 'uploadcsv.php');
-$PAGE->set_title($struploadcsv);
-$PAGE->set_cacheable(false);
-$PAGE->set_button($managebutton);
-echo $OUTPUT->header();
-echo $OUTPUT->heading($struploadcsv);
+    print_header_simple($struploadcsv, "", $navigation);
+    print_heading_with_help($struploadcsv, 'uploadcsv', 'enrol/authorize');
 
 /// Handle CSV file
-if (!$form->get_data()) {
-    $form->display();
-} else {
-    $filename = $CFG->tempdir . '/enrolauthorize/importedfile_'.time().'.csv';
-    make_temp_directory('enrolauthorize');
-    // Fix mac/dos newlines
-    $text = $form->get_file_content('csvfile');
-    $text = preg_replace('!\r\n?!', "\n", $text);
-    $fp = fopen($filename, "w");
-    fwrite($fp, $text);
-    fclose($fp);
-    authorize_process_csv($filename);
-}
+    if (($form = data_submitted()) && confirm_sesskey()) {
+        $um = new upload_manager('csvfile', false, false, null, false, 0);
+        if ($um->preprocess_files()) {
+            $filename = $um->files['csvfile']['tmp_name'];
+            // Fix mac/dos newlines
+            $text = file_get_contents($filename);
+            $text = preg_replace('!\r\n?!', "\n", $text);
+            $fp = fopen($filename, "w");
+            fwrite($fp, $text);
+            fclose($fp);
+            authorize_process_csv($filename);
+        }
+    }
+
+/// Print submit form
+    $maxuploadsize = get_max_upload_file_size();
+    echo '<center><form method="post" enctype="multipart/form-data" action="uploadcsv.php">
+          <input type="hidden" name="MAX_FILE_SIZE" value="'.$maxuploadsize.'" />
+          <input type="hidden" name="sesskey" value="'.$USER->sesskey.'">';
+          upload_print_form_fragment(1, array('csvfile'), array(get_string('file')));
+    echo '<input type="submit" value="'.get_string('upload').'" />';
+    echo '</form></center><br />';
 
 /// Print footer
-echo $OUTPUT->footer();
+    print_footer();
 
-function authorize_process_csv($filename) {
-    global $CFG, $SITE, $DB;
+?><?php
 
-    $plugin = enrol_get_plugin('authorize');
+function authorize_process_csv($filename)
+{
+    global $CFG, $SITE;
 
-    /// We need these fields
+/// We need these fields
     $myfields = array(
         'Transaction ID',           // enrol_authorize.transid or enrol_authorize_refunds.transid; See: Reference Transaction ID
         'Transaction Status',       // Under Review,Approved Review,Review Failed,Settled Successfully
@@ -91,19 +70,19 @@ function authorize_process_csv($filename) {
         'Customer ID'               // enrol_authorize.userid
     );
 
-    /// Open the file and get first line
+/// Open the file and get first line
     $handle = fopen($filename, "r");
     if (!$handle) {
-        print_error('cannotopencsv');
+        error('CANNOT OPEN CSV FILE');
     }
     $firstline = fgetcsv($handle, 8192, ",");
     $numfields = count($firstline);
     if ($numfields != 49 && $numfields != 70) {
         @fclose($handle);
-        print_error('csvinvalidcolsnum');
+        error('INVALID CSV FILE; Each line must include 49 or 70 fields');
     }
 
-    /// Re-sort fields
+/// Re-sort fields
     $csvfields = array();
     foreach ($myfields as $myfield) {
         $csvindex = array_search($myfield, $firstline);
@@ -115,10 +94,12 @@ function authorize_process_csv($filename) {
     }
     if (empty($csvfields)) {
         @fclose($handle);
-        print_error('csvinvalidcols');
+        error("<b>INVALID CSV FILE:</b> First line must include 'Header Fields' and
+               the file must be type of <br />'Expanded Fields/Comma Separated'<br />or<br />
+              'Expanded Fields with CAVV Result Code/Comma Separated'");
     }
 
-    /// Read lines
+/// Read lines
     $sendem = array();
     $ignoredlines = '';
 
@@ -138,22 +119,22 @@ function authorize_process_csv($filename) {
         $settlementdate = strtotime($data[$csvfields['Settlement Date/Time']]);
 
         if ($transstatus == 'Approved Review' || $transstatus == 'Review Failed') {
-            if (($order = $DB->get_record('enrol_authorize', array('transid'=>$transid)))) {
+            if (($order = get_record('enrol_authorize', 'transid', $transid))) {
                 $order->status = ($transstatus == 'Approved Review') ? AN_STATUS_APPROVEDREVIEW : AN_STATUS_REVIEWFAILED;
-                $DB->update_record('enrol_authorize', $order);
+                update_record('enrol_authorize', $order);
                 $updated++; // Updated order status
             }
             continue;
         }
 
         if (!empty($reftransid) && is_numeric($reftransid) && 'Settled Successfully' == $transstatus && 'Credit' == $transtype) {
-            if (($order = $DB->get_record('enrol_authorize', array('transid'=>$reftransid)))) {
+            if (($order = get_record('enrol_authorize', 'transid', $reftransid))) {
                 if (AN_METHOD_ECHECK == $order->paymentmethod) {
-                    $refund = $DB->get_record('enrol_authorize_refunds', array('transid'=>$transid));
+                    $refund = get_record('enrol_authorize_refunds', 'transid', $transid);
                     if ($refund) {
                         $refund->status = AN_STATUS_CREDIT;
                         $refund->settletime = $settlementdate;
-                        $DB->update_record('enrol_authorize_refunds', $refund);
+                        update_record('enrol_authorize_refunds', $refund);
                         $updated++;
                     }
                     else {
@@ -176,7 +157,7 @@ function authorize_process_csv($filename) {
         }
 
         // TransactionId must match
-        $order = $DB->get_record('enrol_authorize', array('transid'=>$transid));
+        $order = get_record('enrol_authorize', 'transid', $transid);
         if (!$order) {
             $ignored++;
             $ignoredlines .= $transid . ": Not our business\n";
@@ -186,7 +167,7 @@ function authorize_process_csv($filename) {
         // Authorized/Captured and Settled
         $order->status = AN_STATUS_AUTHCAPTURE;
         $order->settletime = $settlementdate;
-        $DB->update_record('enrol_authorize', $order);
+        update_record('enrol_authorize', $order);
         $updated++; // Updated order status and settlement date
 
         if ($order->paymentmethod != AN_METHOD_ECHECK) {
@@ -196,13 +177,13 @@ function authorize_process_csv($filename) {
         }
 
         // Get course and context
-        $course = $DB->get_record('course', array('id'=>$order->courseid));
+        $course = get_record('course', 'id', $order->courseid);
         if (!$course) {
             $ignored++;
             $ignoredlines .= $transid . ": Could not find this course: " . $order->courseid . "\n";
             continue;
         }
-        $coursecontext = context_course::instance($course->id, IGNORE_MISSING);
+        $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
         if (!$coursecontext) {
             $ignored++;
             $ignoredlines .= $transid . ": Could not find course context: " . $order->courseid . "\n";
@@ -210,7 +191,7 @@ function authorize_process_csv($filename) {
         }
 
         // Get user
-        $user = $DB->get_record('user', array('id'=>$order->userid));
+        $user = get_record('user', 'id', $order->userid);
         if (!$user) {
             $ignored++;
             $ignoredlines .= $transid . ": Could not find this user: " . $order->userid . "\n";
@@ -225,42 +206,33 @@ function authorize_process_csv($filename) {
                     $timestart = time();
                     $timeend = $timestart + $course->enrolperiod;
                 }
-                // Enrol user
-                $pinstance = $DB->get_record('enrol', array('id'=>$order->instanceid));
-                $plugin->enrol_user($pinstance, $user->id, $pinstance->roleid, $timestart, $timeend);
-
-                $imported++;
-                if ($plugin->get_config('enrol_mailstudents')) {
-                    $sendem[] = $order->id;
+                if (role_assign($role->id, $user->id, 0, $coursecontext->id, $timestart, $timeend, 0, 'authorize')) {
+                    $imported++;
+                    if (!empty($CFG->enrol_mailstudents)) {
+                        $sendem[] = $order->id;
+                    }
+                }
+                else {
+                    $ignoredlines .= $transid . ": Error while trying to enrol " . fullname($user) . " in '$course->fullname' \n";
                 }
             }
         }
     }
     fclose($handle);
 
-    /// Send email to admin
+/// Send email to admin
     if (!empty($ignoredlines)) {
         $admin = get_admin();
-
-        $eventdata = new stdClass();
-        $eventdata->modulename        = 'moodle';
-        $eventdata->component         = 'enrol_authorize';
-        $eventdata->name              = 'authorize_enrolment';
-        $eventdata->userfrom          = $admin;
-        $eventdata->userto            = $admin;
-        $eventdata->subject           = format_string($SITE->fullname, true, array('context' => context_course::instance(SITEID))).': Authorize.net CSV ERROR LOG';
-        $eventdata->fullmessage       = $ignoredlines;
-        $eventdata->fullmessageformat = FORMAT_PLAIN;
-        $eventdata->fullmessagehtml   = '';
-        $eventdata->smallmessage      = '';
-        message_send($eventdata);
+        email_to_user($admin, $admin, "$SITE->fullname: Authorize.net CSV ERROR LOG", $ignoredlines);
     }
 
-    /// Send welcome messages to users
+/// Send welcome messages to users
     if (!empty($sendem)) {
         send_welcome_messages($sendem);
     }
 
-    /// Show result
+/// Show result
     notice("<b>Done...</b><br />Imported: $imported<br />Updated: $updated<br />Ignored: $ignored");
 }
+
+?>

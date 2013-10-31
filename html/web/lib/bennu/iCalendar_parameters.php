@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: iCalendar_parameters.php,v 1.1 2006/01/13 15:06:25 defacer Exp $
 
 /**
  *  BENNU - PHP iCalendar library
@@ -9,12 +9,12 @@
  *  See http://bennu.sourceforge.net/ for more information and downloads.
  *
  * @author Ioannis Papaioannou 
- * @version $Id$
+ * @version $Id: iCalendar_parameters.php,v 1.1 2006/01/13 15:06:25 defacer Exp $
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
 class iCalendar_parameter {
-    static function multiple_values_allowed($parameter) {
+    function multiple_values_allowed($parameter) {
         switch($parameter) {
             case 'DELEGATED-FROM':
             case 'DELEGATED-TO':
@@ -25,7 +25,7 @@ class iCalendar_parameter {
         }
     }
 
-    static function default_value($parameter) {
+    function default_value($parameter) {
         switch($parameter) {
             case 'CUTYPE':   return 'INDIVIDUAL';
             case 'FBTYPE':   return 'BUSY';
@@ -38,7 +38,7 @@ class iCalendar_parameter {
         }
     }
 
-    static function is_valid_value(&$parent_property, $parameter, $value) {
+    function is_valid_value(&$parent_property, $parameter, $value) {
         switch($parameter) {
             // These must all be a URI
             case 'ALTREP':
@@ -54,9 +54,9 @@ class iCalendar_parameter {
                 return rfc2445_is_valid_value($value, RFC2445_TYPE_CAL_ADDRESS);
             break;
 
-            // RFC-2445: can contain quotes.
+            // These are textual parameters, so the MUST NOT contain double quotes
             case 'CN':
-                return true;
+                return (strpos($value, '"') === false);
             break;
 
             // These have enumerated legal values
@@ -191,7 +191,7 @@ class iCalendar_parameter {
         }
     }
 
-    static function do_value_formatting($parameter, $value) {
+    function do_value_formatting($parameter, $value) {
         switch($parameter) {
             // Parameters of type CAL-ADDRESS or URI MUST be double-quoted
             case 'ALTREP':
@@ -232,7 +232,9 @@ class iCalendar_parameter {
         }
     }
 
-    static function undo_value_formatting($parameter, $value) {
+    function undo_value_formatting($parameter, $value) {
     }
 
 }
+
+?>

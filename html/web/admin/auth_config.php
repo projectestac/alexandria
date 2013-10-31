@@ -6,18 +6,27 @@
 require_once '../config.php';
 require_once $CFG->libdir.'/adminlib.php';
 
-$auth = required_param('auth', PARAM_PLUGIN);
-$PAGE->set_pagetype('admin-auth-' . $auth);
+$auth = required_param('auth', PARAM_SAFEDIR);
+
+$CFG->pagepath = 'auth/' . $auth;
 
 admin_externalpage_setup('authsetting'.$auth);
 
 $authplugin = get_auth_plugin($auth);
 $err = array();
 
+//XTEC ************ AFEGIT - Impedeix que es pugui accedir a les dades de connexió amb les bases de dades de les intranet
+//2010.06.30
+if($_REQUEST['auth']=='db' && is_agora()){
+	header('location:settings.php?section=manageauths');
+}
+//************ FI
+
 $returnurl = "$CFG->wwwroot/$CFG->admin/settings.php?section=manageauths";
 
 // save configuration changes
 if ($frm = data_submitted() and confirm_sesskey()) {
+    $frm = stripslashes_recursive($frm);
 
     $authplugin->validate_form($frm, $err);
 
@@ -31,7 +40,9 @@ if ($frm = data_submitted() and confirm_sesskey()) {
                 if (preg_match('/^lockconfig_(.+?)$/', $name, $matches)) {
                     $plugin = "auth/$auth";
                     $name   = $matches[1];
-                    set_config($name, $value, $plugin);
+                    if (!set_config($name, $value, $plugin)) {
+                        error("Problem saving config $name as $value for plugin $plugin");
+                    }
                 }
             }
             redirect($returnurl);
@@ -43,9 +54,7 @@ if ($frm = data_submitted() and confirm_sesskey()) {
         }
     }
 } else {
-    $frmlegacystyle = get_config('auth/'.$auth);
-    $frmnewstyle    = get_config('auth_'.$auth);
-    $frm = (object)array_merge((array)$frmlegacystyle, (array)$frmnewstyle);
+    $frm = get_config("auth/$auth");
 }
 
 $user_fields = $authplugin->userfields;
@@ -57,28 +66,28 @@ $user_fields = $authplugin->userfields;
     $authdescription = $authplugin->get_description();
 
 // output configuration form
-echo $OUTPUT->header();
+admin_externalpage_print_header();
 
 // choose an authentication method
-echo "<form id=\"authmenu\" method=\"post\" action=\"auth_config.php\">\n";
+echo "<form $CFG->frametarget id=\"authmenu\" method=\"post\" action=\"auth_config.php\">\n";
 echo "<div>\n";
-echo "<input type=\"hidden\" name=\"sesskey\" value=\"".sesskey()."\" />\n";
+echo "<input type=\"hidden\" name=\"sesskey\" value=\"".$USER->sesskey."\" />\n";
 echo "<input type=\"hidden\" name=\"auth\" value=\"".$auth."\" />\n";
 
 // auth plugin description
-echo $OUTPUT->box_start();
-echo $OUTPUT->heading($authtitle);
-echo $OUTPUT->box_start('informationbox');
+print_simple_box_start('center', '80%');
+print_heading($authtitle);
+print_simple_box_start('center', '80%', '', 5, 'informationbox');
 echo $authdescription;
-echo $OUTPUT->box_end();
+print_simple_box_end();
 echo "<hr />\n";
 $authplugin->config_form($frm, $err, $user_fields);
-echo $OUTPUT->box_end();
+print_simple_box_end();
 echo '<p style="text-align: center"><input type="submit" value="' . get_string("savechanges") . "\" /></p>\n";
 echo "</div>\n";
 echo "</form>\n";
 
-echo $OUTPUT->footer();
+admin_externalpage_print_footer();
 exit;
 
 /// Functions /////////////////////////////////////////////////////////////////
@@ -88,12 +97,12 @@ exit;
 // other options
 // Note: lockconfig_ fields have special handling.
 function print_auth_lock_options ($auth, $user_fields, $helptext, $retrieveopts, $updateopts) {
-    global $OUTPUT;
+
     echo '<tr><td colspan="3">';
     if ($retrieveopts) {
-        echo $OUTPUT->heading(get_string('auth_data_mapping', 'auth'));
+        print_heading(get_string('auth_data_mapping', 'auth'));
     } else {
-        echo $OUTPUT->heading(get_string('auth_fieldlocks', 'auth'));
+        print_heading(get_string('auth_fieldlocks', 'auth'));
     }
     echo '</td></tr>';
 
@@ -138,7 +147,7 @@ function print_auth_lock_options ($auth, $user_fields, $helptext, $retrieveopts,
             $fieldname = get_string('webpage');
         } else {
             $fieldname = get_string($fieldname);
-        }
+        } 
         if ($retrieveopts) {
             $varname = 'field_map_' . $field;
 
@@ -149,23 +158,23 @@ function print_auth_lock_options ($auth, $user_fields, $helptext, $retrieveopts,
             echo "<input id=\"lockconfig_{$varname}\" name=\"lockconfig_{$varname}\" type=\"text\" size=\"30\" value=\"{$pluginconfig->$varname}\" />";
             echo '<div style="text-align: right">';
             echo '<label for="menulockconfig_field_updatelocal_'.$field.'">'.get_string('auth_updatelocal', 'auth') . '</label>&nbsp;';
-            echo html_writer::select($updatelocaloptions, "lockconfig_field_updatelocal_{$field}", $pluginconfig->{"field_updatelocal_$field"}, false);
+            choose_from_menu($updatelocaloptions, "lockconfig_field_updatelocal_{$field}", $pluginconfig->{"field_updatelocal_$field"}, "");
             echo '<br />';
             if ($updateopts) {
                 echo '<label for="menulockconfig_field_updateremote_'.$field.'">'.get_string('auth_updateremote', 'auth') . '</label>&nbsp;';
-                echo html_writer::select($updateextoptions, "lockconfig_field_updateremote_{$field}", $pluginconfig->{"field_updateremote_$field"}, false);
+                choose_from_menu($updateextoptions, "lockconfig_field_updateremote_{$field}", $pluginconfig->{"field_updateremote_$field"}, "");
                 echo '<br />';
 
 
             }
             echo '<label for="menulockconfig_field_lock_'.$field.'">'.get_string('auth_fieldlock', 'auth') . '</label>&nbsp;';
-            echo html_writer::select($lockoptions, "lockconfig_field_lock_{$field}", $pluginconfig->{"field_lock_$field"}, false);
+            choose_from_menu($lockoptions, "lockconfig_field_lock_{$field}", $pluginconfig->{"field_lock_$field"}, "");
             echo '</div>';
         } else {
             echo '<tr valign="top"><td align="right">';
             echo '<label for="menulockconfig_field_lock_'.$field.'">'.$fieldname.'</label>';
             echo '</td><td>';
-            echo html_writer::select($lockoptions, "lockconfig_field_lock_{$field}", $pluginconfig->{"field_lock_$field"}, false);
+            choose_from_menu($lockoptions, "lockconfig_field_lock_{$field}", $pluginconfig->{"field_lock_$field"}, "");
         }
         echo '</td>';
         if (!empty($helptext)) {
@@ -176,4 +185,4 @@ function print_auth_lock_options ($auth, $user_fields, $helptext, $retrieveopts,
     }
 }
 
-
+?>

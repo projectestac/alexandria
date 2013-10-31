@@ -1,7 +1,8 @@
-<?php
+<?php  // $Id: faq_format.php,v 1.12.4.2 2007/11/09 14:35:07 nfreear Exp $
 
-function glossary_show_entry_faq($course, $cm, $glossary, $entry, $mode="", $hook="", $printicons=1, $aliases=true) {
+function glossary_show_entry_faq($course, $cm, $glossary, $entry, $mode="", $hook="", $printicons=1, $ratings=NULL, $aliases=true) {
     global $USER;
+    $return = false;
     if ( $entry ) {
 
         echo '<table class="glossarypost faq" cellspacing="0">';
@@ -20,7 +21,7 @@ function glossary_show_entry_faq($course, $cm, $glossary, $entry, $mode="", $hoo
         echo '<td class="entryattachment">';
 
         glossary_print_entry_approval($cm, $entry, $mode);
-        glossary_print_entry_attachment($entry, $cm, 'html', 'right');
+        glossary_print_entry_attachment($entry,'html','right');
         echo '</td>';
 
         echo '</tr>';
@@ -29,11 +30,11 @@ function glossary_show_entry_faq($course, $cm, $glossary, $entry, $mode="", $hoo
         echo '<td colspan="2" class="entry">';
         echo '<b>'.get_string('answer','glossary').':</b> ';
 
-        glossary_print_entry_definition($entry, $glossary, $cm);
+        glossary_print_entry_definition($entry);
 
         echo '</td></tr>';
         echo '<tr valign="top"><td colspan="3" class="entrylowersection">';
-        glossary_print_entry_lower_section($course, $cm, $glossary, $entry, $mode, $hook, $printicons, $aliases);
+        $return = glossary_print_entry_lower_section($course, $cm, $glossary, $entry, $mode, $hook, $printicons, $ratings, $aliases);
         echo '</td></tr></table>';
 
     } else {
@@ -41,9 +42,10 @@ function glossary_show_entry_faq($course, $cm, $glossary, $entry, $mode="", $hoo
         print_string('noentry', 'glossary');
         echo '</div>';
     }
+    return $return;
 }
 
-function glossary_print_entry_faq($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1) {
+function glossary_print_entry_faq($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL) {
 
     //The print view for this format is exactly the normal view, so we use it
 
@@ -55,4 +57,4 @@ function glossary_print_entry_faq($course, $cm, $glossary, $entry, $mode='', $ho
 
 }
 
-
+?>

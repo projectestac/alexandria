@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: submit.php,v 1.1 2006/09/24 17:04:55 jamiesensei Exp $
 
 require_once("HTML/QuickForm/input.php");
 

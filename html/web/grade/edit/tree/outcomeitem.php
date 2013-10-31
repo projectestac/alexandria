@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * A page to create or edit outcome grade items
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 require_once $CFG->dirroot.'/grade/report/lib.php';
@@ -30,18 +23,12 @@ require_once 'outcomeitem_form.php';
 $courseid = required_param('courseid', PARAM_INT);
 $id       = optional_param('id', 0, PARAM_INT);
 
-$url = new moodle_url('/grade/edit/tree/outcomeitem.php', array('courseid'=>$courseid));
-if ($id !== 0) {
-    $url->param('id', $id);
-}
-$PAGE->set_url($url);
-
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 require_capability('moodle/grade:manage', $context);
 
 
@@ -108,13 +95,13 @@ if (empty($parent_category)) {
 $mform->set_data($item);
 
 
-if ($data = $mform->get_data()) {
+if ($data = $mform->get_data(false)) {
 
     if (!isset($data->aggregationcoef)) {
         $data->aggregationcoef = 0;
     }
 
-    if (property_exists($data, 'calculation')) {
+    if (array_key_exists('calculation', $data)) {
         $data->calculation = grade_item::normalize_formula($data->calculation, $course->id);
     }
 
@@ -130,7 +117,7 @@ if ($data = $mform->get_data()) {
 
     $convert = array('gradepass', 'aggregationcoef');
     foreach ($convert as $param) {
-        if (property_exists($data, $param)) {
+        if (array_key_exists($param, $data)) {
             $data->$param = unformat_float($data->$param);
         }
     }
@@ -147,10 +134,9 @@ if ($data = $mform->get_data()) {
         $grade_item->itemnumber   = 0;
 
     } else {
-        $params = array($data->cmid);
-        $module = $DB->get_record_sql("SELECT cm.*, m.name as modname
-                                    FROM {modules} m, {course_modules} cm
-                                   WHERE cm.id = ? AND cm.module = m.id ", $params);
+        $module = get_record_sql("SELECT cm.*, m.name as modname
+                                    FROM {$CFG->prefix}modules m, {$CFG->prefix}course_modules cm
+                                   WHERE cm.id = {$data->cmid} AND cm.module = m.id ");
         $grade_item->itemtype     = 'mod';
         $grade_item->itemmodule   = $module->modname;
         $grade_item->iteminstance = $module->instance;
@@ -217,11 +203,11 @@ if ($data = $mform->get_data()) {
 print_grade_page_head($courseid, 'edittree', null, $heading);
 
 if (!grade_outcome::fetch_all_available($COURSE->id)) {
-    echo $OUTPUT->confirm(get_string('nooutcomes', 'grades'), $CFG->wwwroot.'/grade/edit/outcome/course.php?id='.$courseid, $returnurl);
-    echo $OUTPUT->footer();
+    notice_yesno(get_string('nooutcomes', 'grades'), $CFG->wwwroot.'/grade/edit/outcome/course.php?id='.$courseid, $returnurl);
+    print_footer($course);
     die();
 }
 
 $mform->display();
 
-echo $OUTPUT->footer();
+print_footer($course);

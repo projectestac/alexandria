@@ -1,208 +1,229 @@
 <?php
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
  * gdlib.php - Collection of routines in Moodle related to
  * processing images using GD
  *
- * @package   core
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Martin Dougiamas etc
+ * @version  $Id: gdlib.php,v 1.14.2.3 2008/02/21 05:23:24 moodler Exp $
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @package moodlecore
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
- * Copies a rectangular portion of the source image to another rectangle in the destination image
+ * short description (optional)
  *
- * This function calls imagecopyresampled() if it is available and GD version is 2 at least.
- * Otherwise it reimplements the same behaviour. See the PHP manual page for more info.
- *
- * @link http://php.net/manual/en/function.imagecopyresampled.php
- * @param resource $dst_img the destination GD image resource
- * @param resource $src_img the source GD image resource
- * @param int $dst_x vthe X coordinate of the upper left corner in the destination image
- * @param int $dst_y the Y coordinate of the upper left corner in the destination image
- * @param int $src_x the X coordinate of the upper left corner in the source image
- * @param int $src_y the Y coordinate of the upper left corner in the source image
- * @param int $dst_w the width of the destination rectangle
- * @param int $dst_h the height of the destination rectangle
- * @param int $src_w the width of the source rectangle
- * @param int $src_h the height of the source rectangle
- * @return bool tru on success, false otherwise
+ * long description
+ * @uses $CFG
+ * @param type? $dst_img description?
+ * @param type? $src_img description?
+ * @param type? $dst_x description?
+ * @param type? $dst_y description?
+ * @param type? $src_x description?
+ * @param type? $src_y description?
+ * @param type? $dst_w description?
+ * @param type? $dst_h description?
+ * @param type? $src_w description?
+ * @param type? $src_h description?
+ * @return ?
+ * @todo Finish documenting this function
  */
-function imagecopybicubic($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h) {
+function ImageCopyBicubic ($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y, $dst_w, $dst_h, $src_w, $src_h) {
+
     global $CFG;
 
-    if (function_exists('imagecopyresampled') and $CFG->gdversion >= 2) {
-       return imagecopyresampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y,
+    if (function_exists('ImageCopyResampled') and $CFG->gdversion >= 2) {
+       return ImageCopyResampled($dst_img, $src_img, $dst_x, $dst_y, $src_x, $src_y,
                                  $dst_w, $dst_h, $src_w, $src_h);
     }
 
     $totalcolors = imagecolorstotal($src_img);
     for ($i=0; $i<$totalcolors; $i++) {
-        if ($colors = imagecolorsforindex($src_img, $i)) {
-            imagecolorallocate($dst_img, $colors['red'], $colors['green'], $colors['blue']);
+        if ($colors = ImageColorsForIndex($src_img, $i)) {
+            ImageColorAllocate($dst_img, $colors['red'], $colors['green'], $colors['blue']);
         }
     }
 
-    $scalex = ($src_w - 1) / $dst_w;
-    $scaley = ($src_h - 1) / $dst_h;
+    $scaleX = ($src_w - 1) / $dst_w;
+    $scaleY = ($src_h - 1) / $dst_h;
 
-    $scalex2 = $scalex / 2.0;
-    $scaley2 = $scaley / 2.0;
+    $scaleX2 = $scaleX / 2.0;
+    $scaleY2 = $scaleY / 2.0;
 
     for ($j = 0; $j < $dst_h; $j++) {
-        $sy = $j * $scaley;
+        $sY = $j * $scaleY;
 
         for ($i = 0; $i < $dst_w; $i++) {
-            $sx = $i * $scalex;
+            $sX = $i * $scaleX;
 
-            $c1 = imagecolorsforindex($src_img, imagecolorat($src_img, (int)$sx, (int)$sy + $scaley2));
-            $c2 = imagecolorsforindex($src_img, imagecolorat($src_img, (int)$sx, (int)$sy));
-            $c3 = imagecolorsforindex($src_img, imagecolorat($src_img, (int)$sx + $scalex2, (int)$sy + $scaley2));
-            $c4 = imagecolorsforindex($src_img, imagecolorat($src_img, (int)$sx + $scalex2, (int)$sy));
+            $c1 = ImageColorsForIndex($src_img,ImageColorAt($src_img,(int)$sX,(int)$sY+$scaleY2));
+            $c2 = ImageColorsForIndex($src_img,ImageColorAt($src_img,(int)$sX,(int)$sY));
+            $c3 = ImageColorsForIndex($src_img,ImageColorAt($src_img,(int)$sX+$scaleX2,(int)$sY+$scaleY2));
+            $c4 = ImageColorsForIndex($src_img,ImageColorAt($src_img,(int)$sX+$scaleX2,(int)$sY));
 
             $red = (int) (($c1['red'] + $c2['red'] + $c3['red'] + $c4['red']) / 4);
             $green = (int) (($c1['green'] + $c2['green'] + $c3['green'] + $c4['green']) / 4);
             $blue = (int) (($c1['blue'] + $c2['blue'] + $c3['blue'] + $c4['blue']) / 4);
 
-            $color = imagecolorclosest($dst_img, $red, $green, $blue);
-            imagesetpixel($dst_img, $i + $dst_x, $j + $dst_y, $color);
+            $color = ImageColorClosest ($dst_img, $red, $green, $blue);
+            ImageSetPixel ($dst_img, $i + $dst_x, $j + $dst_y, $color);
         }
     }
 }
 
 /**
- * Stores optimised icon images in icon file area
- *
- * @param context $context
- * @param string $component
- * @param string filearea
- * @param int $itemid
- * @param string $originalfile
- * @return mixed new unique revision number or false if not saved
+ * Delete profile images associated with user or group
+ * @param int $id user or group id
+ * @param string $dir type of entity - 'groups' or 'users'
+ * @return boolean success
  */
-function process_new_icon($context, $component, $filearea, $itemid, $originalfile) {
+function delete_profile_image($id, $dir='users') {
     global $CFG;
+
+    require_once $CFG->libdir.'/filelib.php';
+    $location = $CFG->dataroot .'/'. $dir .'/'. $id;
+
+    if (file_exists($location)) {
+        return fulldelete($location);
+    }
+
+    return true;
+}
+
+/**
+ * Given an upload manager with the right settings, this function performs a virus scan, and then scales and crops
+ * it and saves it in the right place to be a "user" or "group" image.
+ *
+ * @param int $id user or group id
+ * @param string $dir type of entity - groups, user, ...
+ * @return string $destination (profile image destination path) or false on error
+ */
+function create_profile_image_destination($id, $dir='user') {
+    global $CFG;
+
+    umask(0000);
+
+    if (!file_exists($CFG->dataroot .'/'. $dir)) {
+        if (! mkdir($CFG->dataroot .'/'. $dir, $CFG->directorypermissions)) {
+            return false;
+        }
+    }
+
+    if ($dir == 'user') {
+        $destination = make_user_directory($id, true);
+    } else {
+        $destination = "$CFG->dataroot/$dir/$id";
+    }
+
+    if (!file_exists($destination)) {
+        if (!make_upload_directory(str_replace($CFG->dataroot . '/', '', $destination))) {
+            return false;
+        }
+    }
+    return $destination;
+}
+
+/**
+ * Given an upload manager with the right settings, this function performs a virus scan, and then scales and crops
+ * it and saves it in the right place to be a "user" or "group" image.
+ *
+ * @param int $id user or group id
+ * @param object $uploadmanager object referencing the image
+ * @param string $dir type of entity - groups, user, ...
+ * @return boolean success
+ */
+function save_profile_image($id, $uploadmanager, $dir='user') {
+
+    if (!$uploadmanager) {
+        return false;
+    }
+
+    $destination = create_profile_image_destination($id, $dir);
+    if ($destination === false) {
+        return false;
+    }
+
+    if (!$uploadmanager->save_files($destination)) {
+        return false;
+    }
+
+    return process_profile_image($uploadmanager->get_new_filepath(), $destination);
+}
+
+/**
+ * Given a path to an image file this function scales and crops it and saves it in
+ * the right place to be a "user" or "group" image.
+ *
+ * @uses $CFG
+ * @param string $originalfile the path of the original image file
+ * @param string $destination the final destination directory of the profile image
+ * @return boolean
+ */
+function process_profile_image($originalfile, $destination) {
+    global $CFG;
+
+    if(!(is_file($originalfile) && is_dir($destination))) {
+        return false;
+    }
 
     if (empty($CFG->gdversion)) {
         return false;
     }
 
-    if (!is_file($originalfile)) {
-        return false;
-    }
-
-    $imageinfo = getimagesize($originalfile);
+    $imageinfo = GetImageSize($originalfile);
 
     if (empty($imageinfo)) {
+        if (file_exists($originalfile)) {
+            unlink($originalfile);
+        }
         return false;
     }
 
-    $image = new stdClass();
     $image->width  = $imageinfo[0];
     $image->height = $imageinfo[1];
     $image->type   = $imageinfo[2];
 
-    $t = null;
     switch ($image->type) {
         case IMAGETYPE_GIF:
-            if (function_exists('imagecreatefromgif')) {
-                $im = imagecreatefromgif($originalfile);
+            if (function_exists('ImageCreateFromGIF')) {
+                $im = ImageCreateFromGIF($originalfile);
             } else {
-                debugging('GIF not supported on this server');
+                notice('GIF not supported on this server');
+                unlink($originalfile);
                 return false;
-            }
-            // Guess transparent colour from GIF.
-            $transparent = imagecolortransparent($im);
-            if ($transparent != -1) {
-                $t = imagecolorsforindex($im, $transparent);
             }
             break;
         case IMAGETYPE_JPEG:
-            if (function_exists('imagecreatefromjpeg')) {
-                $im = imagecreatefromjpeg($originalfile);
+            if (function_exists('ImageCreateFromJPEG')) {
+                $im = ImageCreateFromJPEG($originalfile);
             } else {
-                debugging('JPEG not supported on this server');
+                notice('JPEG not supported on this server');
+                unlink($originalfile);
                 return false;
             }
             break;
         case IMAGETYPE_PNG:
-            if (function_exists('imagecreatefrompng')) {
-                $im = imagecreatefrompng($originalfile);
+            if (function_exists('ImageCreateFromPNG')) {
+                $im = ImageCreateFromPNG($originalfile);
             } else {
-                debugging('PNG not supported on this server');
+                notice('PNG not supported on this server');
+                unlink($originalfile);
                 return false;
             }
             break;
         default:
+            unlink($originalfile);
             return false;
     }
 
-    if (function_exists('imagepng')) {
-        $imagefnc = 'imagepng';
-        $imageext = '.png';
-        $filters = PNG_NO_FILTER;
-        $quality = 1;
-    } else if (function_exists('imagejpeg')) {
-        $imagefnc = 'imagejpeg';
-        $imageext = '.jpg';
-        $filters = null; // not used
-        $quality = 90;
+    unlink($originalfile);
+
+    if (function_exists('ImageCreateTrueColor') and $CFG->gdversion >= 2) {
+        $im1 = ImageCreateTrueColor(100,100);
+        $im2 = ImageCreateTrueColor(35,35);
     } else {
-        debugging('Jpeg and png not supported on this server, please fix server configuration');
-        return false;
-    }
-
-    if (function_exists('imagecreatetruecolor') and $CFG->gdversion >= 2) {
-        $im1 = imagecreatetruecolor(100, 100);
-        $im2 = imagecreatetruecolor(35, 35);
-        $im3 = imagecreatetruecolor(512, 512);
-        if ($image->type != IMAGETYPE_JPEG and $imagefnc === 'imagepng') {
-            if ($t) {
-                // Transparent GIF hacking...
-                $transparentcolour = imagecolorallocate($im1 , $t['red'] , $t['green'] , $t['blue']);
-                imagecolortransparent($im1 , $transparentcolour);
-                $transparentcolour = imagecolorallocate($im2 , $t['red'] , $t['green'] , $t['blue']);
-                imagecolortransparent($im2 , $transparentcolour);
-                $transparentcolour = imagecolorallocate($im3 , $t['red'] , $t['green'] , $t['blue']);
-                imagecolortransparent($im3 , $transparentcolour);
-            }
-
-            imagealphablending($im1, false);
-            $color = imagecolorallocatealpha($im1, 0, 0,  0, 127);
-            imagefill($im1, 0, 0,  $color);
-            imagesavealpha($im1, true);
-
-            imagealphablending($im2, false);
-            $color = imagecolorallocatealpha($im2, 0, 0,  0, 127);
-            imagefill($im2, 0, 0,  $color);
-            imagesavealpha($im2, true);
-
-            imagealphablending($im3, false);
-            $color = imagecolorallocatealpha($im3, 0, 0,  0, 127);
-            imagefill($im3, 0, 0,  $color);
-            imagesavealpha($im3, true);
-        }
-    } else {
-        $im1 = imagecreate(100, 100);
-        $im2 = imagecreate(35, 35);
-        $im3 = imagecreate(512, 512);
+        $im1 = ImageCreate(100,100);
+        $im2 = ImageCreate(35,35);
     }
 
     $cx = $image->width / 2;
@@ -214,133 +235,90 @@ function process_new_icon($context, $component, $filearea, $itemid, $originalfil
         $half = floor($image->height / 2.0);
     }
 
-    imagecopybicubic($im1, $im, 0, 0, $cx - $half, $cy - $half, 100, 100, $half * 2, $half * 2);
-    imagecopybicubic($im2, $im, 0, 0, $cx - $half, $cy - $half, 35, 35, $half * 2, $half * 2);
-    imagecopybicubic($im3, $im, 0, 0, $cx - $half, $cy - $half, 512, 512, $half * 2, $half * 2);
+    ImageCopyBicubic($im1, $im, 0, 0, $cx-$half, $cy-$half, 100, 100, $half*2, $half*2);
+    ImageCopyBicubic($im2, $im, 0, 0, $cx-$half, $cy-$half, 35, 35, $half*2, $half*2);
 
-    $fs = get_file_storage();
-
-    $icon = array('contextid'=>$context->id, 'component'=>$component, 'filearea'=>$filearea, 'itemid'=>$itemid, 'filepath'=>'/');
-
-    ob_start();
-    if (!$imagefnc($im1, NULL, $quality, $filters)) {
-        // keep old icons
-        ob_end_clean();
-        return false;
+    if (function_exists('ImageJpeg')) {
+        @touch($destination .'/f1.jpg');  // Helps in Safe mode
+        @touch($destination .'/f2.jpg');  // Helps in Safe mode
+        if (ImageJpeg($im1, $destination .'/f1.jpg', 90) and
+            ImageJpeg($im2, $destination .'/f2.jpg', 95) ) {
+            @chmod($destination .'/f1.jpg', 0666);
+            @chmod($destination .'/f2.jpg', 0666);
+            return 1;
+        }
+    } else {
+        notify('PHP has not been configured to support JPEG images.  Please correct this.');
     }
-    $data = ob_get_clean();
-    imagedestroy($im1);
-    $icon['filename'] = 'f1'.$imageext;
-    $fs->delete_area_files($context->id, $component, $filearea, $itemid);
-    $file1 = $fs->create_file_from_string($icon, $data);
-
-    ob_start();
-    if (!$imagefnc($im2, NULL, $quality, $filters)) {
-        ob_end_clean();
-        $fs->delete_area_files($context->id, $component, $filearea, $itemid);
-        return false;
-    }
-    $data = ob_get_clean();
-    imagedestroy($im2);
-    $icon['filename'] = 'f2'.$imageext;
-    $fs->create_file_from_string($icon, $data);
-
-    ob_start();
-    if (!$imagefnc($im3, NULL, $quality, $filters)) {
-        ob_end_clean();
-        $fs->delete_area_files($context->id, $component, $filearea, $itemid);
-        return false;
-    }
-    $data = ob_get_clean();
-    imagedestroy($im3);
-    $icon['filename'] = 'f3'.$imageext;
-    $fs->create_file_from_string($icon, $data);
-
-    return $file1->get_id();
+    return 0;
 }
 
 /**
- * Generates a thumbnail for the given image
+ * Given a user id this function scales and crops the user images to remove
+ * the one pixel black border.
  *
- * If the GD library has at least version 2 and PNG support is available, the returned data
- * is the content of a transparent PNG file containing the thumbnail. Otherwise, the function
- * returns contents of a JPEG file with black background containing the thumbnail.
- *
- * @param string $filepath the full path to the original image file
- * @param int $width the width of the requested thumbnail
- * @param int $height the height of the requested thumbnail
- * @return string|bool false if a problem occurs, the thumbnail image data otherwise
+ * @uses $CFG
+ * @param int $id description?
+ * @return boolean
  */
-function generate_image_thumbnail($filepath, $width, $height) {
+function upgrade_profile_image($id, $dir='users') {
     global $CFG;
 
-    if (empty($CFG->gdversion) or empty($filepath) or empty($width) or empty($height)) {
-        return false;
-    }
+    $im = ImageCreateFromJPEG($CFG->dataroot .'/'. $dir .'/'. $id .'/f1.jpg');
 
-    $imageinfo = getimagesize($filepath);
-
-    if (empty($imageinfo)) {
-        return false;
-    }
-
-    $originalwidth = $imageinfo[0];
-    $originalheight = $imageinfo[1];
-
-    if (empty($originalwidth) or empty($originalheight)) {
-        return false;
-    }
-
-    $original = imagecreatefromstring(file_get_contents($filepath));
-
-    if (function_exists('imagepng')) {
-        $imagefnc = 'imagepng';
-        $filters = PNG_NO_FILTER;
-        $quality = 1;
-    } else if (function_exists('imagejpeg')) {
-        $imagefnc = 'imagejpeg';
-        $filters = null;
-        $quality = 90;
+    if (function_exists('ImageCreateTrueColor') and $CFG->gdversion >= 2) {
+        $im1 = ImageCreateTrueColor(100,100);
+        $im2 = ImageCreateTrueColor(35,35);
     } else {
-        debugging('Neither JPEG nor PNG are supported at this server, please fix the system configuration.');
-        return false;
+        $im1 = ImageCreate(100,100);
+        $im2 = ImageCreate(35,35);
     }
 
-    if (function_exists('imagecreatetruecolor') and $CFG->gdversion >= 2) {
-        $thumbnail = imagecreatetruecolor($width, $height);
-        if ($imagefnc === 'imagepng') {
-            imagealphablending($thumbnail, false);
-            imagefill($thumbnail, 0, 0, imagecolorallocatealpha($thumbnail, 0, 0, 0, 127));
-            imagesavealpha($thumbnail, true);
+    if (function_exists('ImageCopyResampled') and $CFG->gdversion >= 2) {
+        ImageCopyBicubic($im1, $im, 0, 0, 2, 2, 100, 100, 96, 96);
+    } else {
+        imagecopy($im1, $im, 0, 0, 0, 0, 100, 100);
+                $c = ImageColorsForIndex($im1,ImageColorAt($im1,2,2));
+                $color = ImageColorClosest ($im1, $c['red'], $c['green'], $c['blue']);
+                ImageSetPixel ($im1, 0, 0, $color);
+                $c = ImageColorsForIndex($im1,ImageColorAt($im1,2,97));
+                $color = ImageColorClosest ($im1, $c['red'], $c['green'], $c['blue']);
+                ImageSetPixel ($im1, 0, 99, $color);
+                $c = ImageColorsForIndex($im1,ImageColorAt($im1,97,2));
+                $color = ImageColorClosest ($im1, $c['red'], $c['green'], $c['blue']);
+                ImageSetPixel ($im1, 99, 0, $color);
+                $c = ImageColorsForIndex($im1,ImageColorAt($im1,97,97));
+                $color = ImageColorClosest ($im1, $c['red'], $c['green'], $c['blue']);
+                ImageSetPixel ($im1, 99, 99, $color);
+        for ($x = 1; $x < 99; $x++) {
+                $c1 = ImageColorsForIndex($im1,ImageColorAt($im,$x,1));
+                $color = ImageColorClosest ($im, $c1['red'], $c1['green'], $c1['blue']);
+                ImageSetPixel ($im1, $x, 0, $color);
+                $c2 = ImageColorsForIndex($im1,ImageColorAt($im1,$x,98));
+                $color = ImageColorClosest ($im, $c2['red'], $c2['green'], $c2['blue']);
+                ImageSetPixel ($im1, $x, 99, $color);
+        }
+        for ($y = 1; $y < 99; $y++) {
+                $c3 = ImageColorsForIndex($im1,ImageColorAt($im, 1, $y));
+                $color = ImageColorClosest ($im, $c3['red'], $c3['green'], $c3['blue']);
+                ImageSetPixel ($im1, 0, $y, $color);
+                $c4 = ImageColorsForIndex($im1,ImageColorAt($im1, 98, $y));
+                $color = ImageColorClosest ($im, $c4['red'], $c4['green'], $c4['blue']);
+                ImageSetPixel ($im1, 99, $y, $color);
+        }
+    }
+    ImageCopyBicubic($im2, $im, 0, 0, 2, 2, 35, 35, 96, 96);
+
+    if (function_exists('ImageJpeg')) {
+        if (ImageJpeg($im1, $CFG->dataroot .'/'. $dir .'/'. $id .'/f1.jpg', 90) and
+            ImageJpeg($im2, $CFG->dataroot .'/'. $dir .'/'. $id .'/f2.jpg', 95) ) {
+            @chmod($CFG->dataroot .'/'. $dir .'/'. $id .'/f1.jpg', 0666);
+            @chmod($CFG->dataroot .'/'. $dir .'/'. $id .'/f2.jpg', 0666);
+            return 1;
         }
     } else {
-        $thumbnail = imagecreate($width, $height);
+        notify('PHP has not been configured to support JPEG images.  Please correct this.');
     }
-
-    $ratio = min($width / $originalwidth, $height / $originalheight);
-
-    if ($ratio < 1) {
-        $targetwidth = floor($originalwidth * $ratio);
-        $targetheight = floor($originalheight * $ratio);
-    } else {
-        // do not enlarge the original file if it is smaller than the requested thumbnail size
-        $targetwidth = $originalwidth;
-        $targetheight = $originalheight;
-    }
-
-    $dstx = floor(($width - $targetwidth) / 2);
-    $dsty = floor(($height - $targetheight) / 2);
-
-    imagecopybicubic($thumbnail, $original, $dstx, $dsty, 0, 0, $targetwidth, $targetheight, $originalwidth, $originalheight);
-
-    ob_start();
-    if (!$imagefnc($thumbnail, null, $quality, $filters)) {
-        ob_end_clean();
-        return false;
-    }
-    $data = ob_get_clean();
-    imagedestroy($original);
-    imagedestroy($thumbnail);
-
-    return $data;
+    return 0;
 }
+?>

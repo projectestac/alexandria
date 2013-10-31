@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: user_bulk_display.php,v 1.1.2.1 2007/11/13 09:02:12 skodak Exp $
 
 require_once('../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -20,12 +20,12 @@ $usercount = count($users);
 
 $strnever = get_string('never');
 
-echo $OUTPUT->header();
+admin_externalpage_print_header();
 
-$countries = get_string_manager()->get_list_of_countries(true);
+$countries = get_list_of_countries();
 
 foreach ($users as $key => $id) {
-    $user = $DB->get_record('user', array('id'=>$id), 'id, firstname, lastname, username, email, country, lastaccess, city');
+    $user = get_record('user', 'id', $id, null, null, null, null, 'id, firstname, lastname, username, email, country, lastaccess, city');
     $user->fullname = fullname($user, true);
     $user->country = @$countries[$user->country];
     unset($user->firstname);
@@ -46,7 +46,6 @@ function sort_compare($a, $b) {
 }
 usort($users, 'sort_compare');
 
-$table = new html_table();
 $table->width = "95%";
 $columns = array('fullname', /*'username', */'email', 'city', 'country', 'lastaccess');
 foreach ($columns as $column) {
@@ -56,7 +55,7 @@ foreach ($columns as $column) {
         $columndir = 'asc';
     } else {
         $columndir = $dir == 'asc' ? 'desc' : 'asc';
-        $columnicon = ' <img src="'.$OUTPUT->pix_url('t/'.($dir == 'asc' ? 'down' : 'up' )).'f" alt="" />';
+        $columnicon = ' <img src="'.$CFG->pixpath.'/t/'.($dir == 'asc' ? 'down' : 'up' ).'.gif" alt="" />';
     }
     $table->head[] = '<a href="user_bulk_display.php?sort='.$column.'&amp;dir='.$columndir.'">'.$strtitle.'</a>'.$columnicon;
     $table->align[] = 'left';
@@ -73,9 +72,10 @@ foreach($users as $user) {
     );
 }
 
-echo $OUTPUT->heading("$usercount / $usertotal ".get_string('users'));
-echo html_writer::table($table);
+print_heading("$usercount / $usertotal ".get_string('users'));
+print_table($table);
 
-echo $OUTPUT->continue_button($return);
+print_continue($return);
 
-echo $OUTPUT->footer();
+admin_externalpage_print_footer();
+?>

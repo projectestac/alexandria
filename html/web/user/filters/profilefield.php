@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: profilefield.php,v 1.2.2.3 2007/12/11 13:01:13 nfreear Exp $
 
 require_once($CFG->dirroot.'/user/filters/lib.php');
 
@@ -37,8 +37,7 @@ class user_filter_profilefield extends user_filter_type {
      * @return array of profile fields
      */
     function get_profile_fields() {
-        global $DB;
-        if (!$fields = $DB->get_records('user_info_field', null, 'shortname', 'id,shortname')) {
+        if (!$fields = get_records_select('user_info_field', '', 'shortname', 'id,shortname')) {
             return null;
         }
         $res = array(0 => get_string('anyfield', 'filters'));
@@ -62,6 +61,7 @@ class user_filter_profilefield extends user_filter_type {
         $objs[] =& $mform->createElement('select', $this->_name.'_op', null, $this->get_operators());
         $objs[] =& $mform->createElement('text', $this->_name, null);
         $grp =& $mform->addElement('group', $this->_name.'_grp', $this->_label, $objs, '', false);
+        $grp->setHelpButton(array('profilefield',$this->_label,'filters'));
         if ($this->_advanced) {
             $mform->setAdvanced($this->_name.'_grp');
         }
@@ -97,12 +97,10 @@ class user_filter_profilefield extends user_filter_type {
     /**
      * Returns the condition to be used with SQL where
      * @param array $data filter settings
-     * @return array sql string and $params
+     * @return string the filtering condition or null if the filter is disabled
      */
     function get_sql_filter($data) {
-        global $CFG, $DB;
-        static $counter = 0;
-        $name = 'ex_profilefield'.$counter++;
+        global $CFG;
 
         $profile_fields = $this->get_profile_fields();
         if (empty($profile_fields)) {
@@ -111,15 +109,15 @@ class user_filter_profilefield extends user_filter_type {
 
         $profile  = $data['profile'];
         $operator = $data['operator'];
-        $value    = $data['value'];
+        $value    = addslashes($data['value']);
 
-        $params = array();
         if (!array_key_exists($profile, $profile_fields)) {
-            return array('', array());
-        }
+            return '';
+        } 
 
         $where = "";
         $op = " IN ";
+        $ilike = sql_ilike();
 
         if ($operator < 5 and $value === '') {
             return '';
@@ -127,29 +125,17 @@ class user_filter_profilefield extends user_filter_type {
 
         switch($operator) {
             case 0: // contains
-                $where = $DB->sql_like('data', ":$name", false, false);
-                $params[$name] = "%$value%";
-                break;
+                $where = "data $ilike '%$value%'"; break;
             case 1: // does not contain
-                $where = $DB->sql_like('data', ":$name", false, false, true);
-                $params[$name] = "%$value%";
-                break;
+                $where = "data NOT $ilike '%$value%'"; break;
             case 2: // equal to
-                $where = $DB->sql_like('data', ":$name", false, false);
-                $params[$name] = "$value";
-                break;
+                $where = "data $ilike '$value'"; break;
             case 3: // starts with
-                $where = $DB->sql_like('data', ":$name", false, false);
-                $params[$name] = "$value%";
-                break;
+                $where = "data $ilike '$value%'"; break;
             case 4: // ends with
-                $where = $DB->sql_like('data', ":$name", false, false);
-                $params[$name] = "%$value";
-                break;
+                $where = "data $ilike '%$value'"; break;
             case 5: // empty
-                $where = "data = :$name";
-                $params[$name] = "";
-                break;
+                $where = "data=''"; break;
             case 6: // is not defined
                 $op = " NOT IN "; break;
             case 7: // is defined
@@ -164,7 +150,7 @@ class user_filter_profilefield extends user_filter_type {
         if ($where !== '') {
             $where = "WHERE $where";
         }
-        return array("id $op (SELECT userid FROM {user_info_data} $where)", $params);
+        return "id $op (SELECT userid FROM {$CFG->prefix}user_info_data $where)";
     }
 
     /**
@@ -186,9 +172,9 @@ class user_filter_profilefield extends user_filter_type {
 
         if (!array_key_exists($profile, $profile_fields)) {
             return '';
-        }
+        } 
 
-        $a = new stdClass();
+        $a = new object();
         $a->label    = $this->_label;
         $a->value    = $value;
         $a->profile  = $profile_fields[$profile];

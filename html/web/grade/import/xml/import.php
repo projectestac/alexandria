@@ -23,18 +23,12 @@ $url       = required_param('url', PARAM_URL); // only real urls here
 $id        = required_param('id', PARAM_INT); // course id
 $feedback  = optional_param('feedback', 0, PARAM_BOOL);
 
-$url = new moodle_url('/grade/import/xml/import.php', array('id'=>$id,'url'=>$url));
-if ($feedback !== 0) {
-    $url->param('feedback', $feedback);
-}
-$PAGE->set_url($url);
-
-if (!$course = $DB->get_record('course', array('id'=>$id))) {
+if (!$course = get_record('course', 'id', $id)) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = context_course::instance($id);
+$context = get_context_instance(CONTEXT_COURSE, $id);
 
 require_capability('moodle/grade:import', $context);
 require_capability('gradeimport/xml:view', $context);
@@ -44,25 +38,28 @@ require_capability('gradeimport/xml:view', $context);
 // that we'll take longer, and that the process should be recycled soon
 // to free up memory.
 @set_time_limit(0);
-raise_memory_limit(MEMORY_EXTRA);
+@raise_memory_limit("256M");
+if (function_exists('apache_child_terminate')) {
+    @apache_child_terminate();
+}
 
 $text = download_file_content($url);
 if ($text === false) {
-    print_error('cannotreadfile');
+    error('Can not read file');
 }
 
 $error = '';
 $importcode = import_xml_grades($text, $course, $error);
 
 if ($importcode !== false) {
-    /// commit the code if we are up this far
+    /// comit the code if we are up this far
 
     if (defined('USER_KEY_LOGIN')) {
         if (grade_import_commit($id, $importcode, $feedback, false)) {
             echo 'ok';
             die;
         } else {
-            print_error('cannotimportgrade'); //TODO: localize
+            error('Grade import error'); //TODO: localize
         }
 
     } else {
@@ -70,12 +67,12 @@ if ($importcode !== false) {
 
         grade_import_commit($id, $importcode, $feedback, true);
 
-        echo $OUTPUT->footer();
+        print_footer();
         die;
     }
 
 } else {
-    print_error('error', 'gradeimport_xml');
+    error($error);
 }
 
-
+?>

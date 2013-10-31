@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,38 +15,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Redirects the user to the default grade report
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 require_once '../../config.php';
 
 $courseid = required_param('id', PARAM_INT);
 
-$PAGE->set_url('/grade/report/index.php', array('id'=>$courseid));
-
 /// basic access checks
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 /// find all accessible reports
-$reports = get_plugin_list('gradereport');     // Get all installed reports
-
-foreach ($reports as $plugin => $plugindir) {                      // Remove ones we can't see
-    if (!has_capability('gradereport/'.$plugin.':view', $context)) {
-        unset($reports[$plugin]);
+if ($reports = get_list_of_plugins('grade/report', 'CVS')) {     // Get all installed reports
+    foreach ($reports as $key => $plugin) {                      // Remove ones we can't see
+        if (!has_capability('gradereport/'.$plugin.':view', $context)) {
+            unset($reports[$key]);
+        }
     }
 }
 
 if (empty($reports)) {
-    print_error('noreports', 'debug', $CFG->wwwroot.'/course/view.php?id='.$course->id);
+    error('No reports accessible', $CFG->wwwroot.'/course/view.php?id='.$course->id); // TODO: localize
 }
 
 if (!isset($USER->grade_last_report)) {
@@ -58,23 +50,23 @@ if (!empty($USER->grade_last_report[$course->id])) {
     $last = null;
 }
 
-if (!array_key_exists($last, $reports)) {
+if (!in_array($last, $reports)) {
     $last = null;
 }
 
 if (empty($last)) {
-    if (array_key_exists('grader', $reports)) {
+    if (in_array('grader', $reports)) {
         $last = 'grader';
 
-    } else if (array_key_exists($CFG->grade_profilereport, $reports)) {
-        $last = $CFG->grade_profilereport;
+    } else if (in_array('user', $reports)) {
+        $last = 'user';
 
     } else {
-        reset($reports);
-        $last = key($reports);
+        $last = reset($reports);
     }
 }
 
 //redirect to last or guessed report
 redirect($CFG->wwwroot.'/grade/report/'.$last.'/index.php?id='.$course->id);
 
+?>

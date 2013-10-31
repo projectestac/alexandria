@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,22 +15,13 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Functions used to retrieve grades objects
- *
- * @package   core_grades
- * @category  grade
- * @copyright 2008 Petr Skoda and Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 /**
- * Returns the aggregated or calculated course grade(s) for a single course for one or more users
- *
- * @param int $courseid The ID of course
- * @param int|array $userid_or_ids Optional ID of the graded user or array of user IDs; if userid not used, returns only information about grade_item
- * @return stdClass Returns an object containing information about course grade item. scaleid, name, grade
- *         and locked status etc and user course grades: $item->grades[$userid] => $usercoursegrade
+ * Returns the aggregated or calculated course grade(s) in given course.
+ * @public
+ * @param int $courseid id of course
+ * @param int $userid_or_ids optional id of the graded user or array of ids; if userid not used, returns only information about grade_item
+ * @return information about course grade item scaleid, name, grade and locked status, etc. + user grades
  */
 function grade_get_course_grades($courseid, $userid_or_ids=null) {
 
@@ -39,7 +31,7 @@ function grade_get_course_grades($courseid, $userid_or_ids=null) {
         grade_regrade_final_grades($courseid);
     }
 
-    $item = new stdClass();
+    $item = new object();
     $item->scaleid    = $grade_item->scaleid;
     $item->name       = $grade_item->get_name();
     $item->grademin   = $grade_item->grademin;
@@ -80,7 +72,7 @@ function grade_get_course_grades($courseid, $userid_or_ids=null) {
         foreach ($userids as $userid) {
             $grade_grades[$userid]->grade_item =& $grade_item;
 
-            $grade = new stdClass();
+            $grade = new object();
             $grade->grade          = $grade_grades[$userid]->finalgrade;
             $grade->locked         = $grade_grades[$userid]->is_locked();
             $grade->hidden         = $grade_grades[$userid]->is_hidden();
@@ -105,7 +97,7 @@ function grade_get_course_grades($courseid, $userid_or_ids=null) {
                 if ($grade_item->gradetype == GRADE_TYPE_SCALE or $grade_item->get_displaytype() != GRADE_DISPLAY_TYPE_REAL) {
                     $grade->str_long_grade = $grade->str_grade;
                 } else {
-                    $a = new stdClass();
+                    $a = new object();
                     $a->grade = $grade->str_grade;
                     $a->max   = grade_format_gradevalue($grade_item->grademax, $grade_item);
                     $grade->str_long_grade = get_string('gradelong', 'grades', $a);
@@ -127,17 +119,17 @@ function grade_get_course_grades($courseid, $userid_or_ids=null) {
 }
 
 /**
- * Returns the aggregated or calculated course grade for a single user for one or more courses
- *
- * @param int $userid The ID of the single user
- * @param int|array $courseid_or_ids Optional ID of course or array of IDs, empty means all of the user's courses
+ * Returns the aggregated or calculated course grade for the given user(s).
+ * @public
+ * @param int $userid
+ * @param int $courseid optional id of course or array of ids, empty means all uses courses (returns array if not present)
  * @return mixed grade info or grades array including item info, false if error
  */
 function grade_get_course_grade($userid, $courseid_or_ids=null) {
 
     if (!is_array($courseid_or_ids)) {
         if (empty($courseid_or_ids)) {
-            if (!$courses = enrol_get_users_courses($userid)) {
+            if (!$courses = get_my_courses($userid, $sort='visible DESC,sortorder ASC', 'id')) {
                 return false;
             }
             $courseids = array_keys($courses);
@@ -166,7 +158,7 @@ function grade_get_course_grade($userid, $courseid_or_ids=null) {
             grade_regrade_final_grades($courseid);
         }
 
-        $item = new stdClass();
+        $item = new object();
         $item->scaleid    = $grade_item->scaleid;
         $item->name       = $grade_item->get_name();
         $item->grademin   = $grade_item->grademin;
@@ -193,7 +185,7 @@ function grade_get_course_grade($userid, $courseid_or_ids=null) {
         $grade_grade = new grade_grade(array('userid'=>$userid, 'itemid'=>$grade_item->id));
         $grade_grade->grade_item =& $grade_item;
 
-        $grade = new stdClass();
+        $grade = new object();
         $grade->grade          = $grade_grade->finalgrade;
         $grade->locked         = $grade_grade->is_locked();
         $grade->hidden         = $grade_grade->is_hidden();
@@ -219,7 +211,7 @@ function grade_get_course_grade($userid, $courseid_or_ids=null) {
             if ($grade_item->gradetype == GRADE_TYPE_SCALE or $grade_item->get_displaytype() != GRADE_DISPLAY_TYPE_REAL) {
                 $grade->str_long_grade = $grade->str_grade;
             } else {
-                $a = new stdClass();
+                $a = new object();
                 $a->grade = $grade->str_grade;
                 $a->max   = grade_format_gradevalue($grade_item->grademax, $grade_item);
                 $grade->str_long_grade = get_string('gradelong', 'grades', $a);
@@ -242,19 +234,17 @@ function grade_get_course_grade($userid, $courseid_or_ids=null) {
 /**
  * Returns all grade items (including outcomes) or main item for a given activity identified by $cm object.
  *
- * @param cm_info $cm A course module object (preferably with modname property)
- * @param bool $only_main_item Limit the search to the primary grade item for the activity, 'itemnumber'==0
- * @return mixed An array of grade item instances, one grade item if $only_main_item == true, false if error or not found
+ * @param object $cm A course module object (preferably with modname property)
+ * @return mixed - array of grade item instances (one if $only_main_item true), false if error or not found
  */
 function grade_get_grade_items_for_activity($cm, $only_main_item=false) {
-    global $CFG, $DB;
+    global $CFG;
 
     if (!isset($cm->modname)) {
-        $params = array($cm->id);
-        $cm = $DB->get_record_sql("SELECT cm.*, m.name, md.name as modname
-                                    FROM {course_modules} cm,
-                                         {modules} md,
-                                   WHERE cm.id = ? AND md.id = cm.module", $params);
+        $cm = get_record_sql("SELECT cm.*, m.name, md.name as modname
+                                FROM {$CFG->prefix}course_modules cm,
+                                     {$CFG->prefix}modules md,
+                               WHERE cm.id = {$cm->id} AND md.id = cm.module");
     }
 
 
@@ -271,11 +261,11 @@ function grade_get_grade_items_for_activity($cm, $only_main_item=false) {
 }
 
 /**
- * Returns whether or not a user received grades in main grade item for given activity
+ * Returns whether or not user received grades in main grade item for given activity.
  *
- * @param cm_info $cm The activity context module
- * @param int $userid The user ID
- * @return bool True if graded, false if user not graded yet
+ * @param object $cm
+ * @param int $userid
+ * @return bool True if graded false if user not graded yet
  */
 function grade_is_user_graded_in_activity($cm, $userid) {
 
@@ -314,10 +304,10 @@ function grade_is_user_graded_in_activity($cm, $userid) {
  * @return array $cm objects
  */
 function grade_get_gradable_activities($courseid, $modulename='') {
-    global $CFG, $DB;
+    global $CFG;
 
     if (empty($modulename)) {
-        if (!$modules = $DB->get_records('modules', array('visible' => '1'))) {
+        if (!$modules = get_records('modules', 'visible', '1')) {
             return false;
         }
         $result = array();
@@ -333,19 +323,18 @@ function grade_get_gradable_activities($courseid, $modulename='') {
         }
     }
 
-    $params = array($courseid, $modulename, GRADE_TYPE_NONE, $modulename);
     $sql = "SELECT cm.*, m.name, md.name as modname
-              FROM {grade_items} gi, {course_modules} cm, {modules} md, {{$modulename}} m
-             WHERE gi.courseid = ? AND
+              FROM {$CFG->prefix}grade_items gi, {$CFG->prefix}course_modules cm, {$CFG->prefix}modules md, {$CFG->prefix}$modulename m
+             WHERE gi.courseid = $courseid AND
                    gi.itemtype = 'mod' AND
-                   gi.itemmodule = ? AND
+                   gi.itemmodule = '$modulename' AND
                    gi.itemnumber = 0 AND
-                   gi.gradetype != ? AND
+                   gi.gradetype != ".GRADE_TYPE_NONE." AND
                    gi.iteminstance = cm.instance AND
                    cm.instance = m.id AND
-                   md.name = ? AND
+                   md.name = '$modulename' AND
                    md.id = cm.module";
 
-    return $DB->get_records_sql($sql, $params);
+    return get_records_sql($sql);
 }
-
+?>

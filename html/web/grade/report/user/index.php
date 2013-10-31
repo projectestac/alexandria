@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * The gradebook user report
- *
- * @package   gradereport_user
- * @copyright 2007 Moodle Pty Ltd (http://moodle.com)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once '../../../config.php';
 require_once $CFG->libdir.'/gradelib.php';
 require_once $CFG->dirroot.'/grade/lib.php';
@@ -30,24 +23,21 @@ require_once $CFG->dirroot.'/grade/report/user/lib.php';
 $courseid = required_param('id', PARAM_INT);
 $userid   = optional_param('userid', $USER->id, PARAM_INT);
 
-$PAGE->set_url(new moodle_url('/grade/report/user/index.php', array('id'=>$courseid)));
-
 /// basic access checks
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 require_login($course);
-$PAGE->set_pagelayout('report');
 
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 require_capability('gradereport/user:view', $context);
 
 if (empty($userid)) {
     require_capability('moodle/grade:viewall', $context);
 
 } else {
-    if (!$DB->get_record('user', array('id'=>$userid, 'deleted'=>0)) or isguestuser($userid)) {
-        print_error('invaliduser');
+    if (!get_record('user', 'id', $userid, 'deleted', 0) or isguestuser($userid)) {
+        error("Incorrect userid");
     }
 }
 
@@ -60,14 +50,14 @@ if (has_capability('moodle/grade:viewall', $context)) {
     //ok - can view own grades
     $access = true;
 
-} else if (has_capability('moodle/grade:viewall', context_user::instance($userid)) and $course->showgrades) {
+} else if (has_capability('moodle/grade:viewall', get_context_instance(CONTEXT_USER, $userid)) and $course->showgrades) {
     // ok - can view grades of this user- parent most probably
     $access = true;
 }
 
 if (!$access) {
     // no access to grades!
-    print_error('nopermissiontoviewgrades', 'error',  $CFG->wwwroot.'/course/view.php?id='.$courseid);
+    error("Can not view grades.", $CFG->wwwroot.'/course/view.php?id='.$courseid); //TODO: localize
 }
 
 /// return tracking object
@@ -96,9 +86,13 @@ if (has_capability('moodle/grade:viewall', $context)) { //Teachers will see all 
     if ($isseparategroups and (!$currentgroup)) {
         // no separate group access, can view only self
         $userid = $USER->id;
-        $user_selector = false;
+        $user_selector = '';
     } else {
-        $user_selector = true;
+        /// Print graded user selector at the top
+        $user_selector = '<div id="graded_users_selector">';
+        $user_selector .= print_graded_users_selector($course, 'report/user/index.php?id=' . $course->id, $userid, $currentgroup, true, true);
+        $user_selector .= '</div>';
+        $user_selector .= "<p style = 'page-break-after: always;'></p>";
     }
 
     if (empty($userid)) {
@@ -108,17 +102,11 @@ if (has_capability('moodle/grade:viewall', $context)) { //Teachers will see all 
         print_grade_page_head($courseid, 'report', 'user');
         groups_print_course_menu($course, $gpr->get_return_url('index.php?id='.$courseid, array('userid'=>0)));
 
-        if ($user_selector) {
-            $renderer = $PAGE->get_renderer('gradereport_user');
-            echo $renderer->graded_users_selector('user', $course, $userid, $currentgroup, true);
-        }
-
+        echo $user_selector.'<br />';
         while ($userdata = $gui->next_user()) {
             $user = $userdata->user;
             $report = new grade_report_user($courseid, $gpr, $context, $user->id);
-
-            $studentnamelink = html_writer::link(new moodle_url('/user/view.php', array('id' => $report->user->id, 'course' => $courseid)), fullname($report->user));
-            echo $OUTPUT->heading(get_string('pluginname', 'gradereport_user') . ' - ' . $studentnamelink);
+            print_heading(get_string('modulename', 'gradereport_user'). ' - '.fullname($report->user));
 
             if ($report->fill_table()) {
                 echo '<br />'.$report->print_table(true);
@@ -128,19 +116,13 @@ if (has_capability('moodle/grade:viewall', $context)) { //Teachers will see all 
         $gui->close();
     } else { // Only show one user's report
         $report = new grade_report_user($courseid, $gpr, $context, $userid);
-
-        $studentnamelink = html_writer::link(new moodle_url('/user/view.php', array('id' => $report->user->id, 'course' => $courseid)), fullname($report->user));
-        print_grade_page_head($courseid, 'report', 'user', get_string('pluginname', 'gradereport_user') . ' - ' . $studentnamelink);
+        print_grade_page_head($courseid, 'report', 'user', get_string('modulename', 'gradereport_user'). ' - '.fullname($report->user));
         groups_print_course_menu($course, $gpr->get_return_url('index.php?id='.$courseid, array('userid'=>0)));
 
-        if ($user_selector) {
-            $renderer = $PAGE->get_renderer('gradereport_user');
-            $showallusersoptions = true;
-            echo $renderer->graded_users_selector('user', $course, $userid, $currentgroup, $showallusersoptions);
-        }
+        echo $user_selector;
 
         if ($currentgroup and !groups_is_member($currentgroup, $userid)) {
-            echo $OUTPUT->notification(get_string('groupusernotmember', 'error'));
+            notify(get_string('groupusernotmember', 'error'));
         } else {
             if ($report->fill_table()) {
                 echo '<br />'.$report->print_table(true);
@@ -153,11 +135,13 @@ if (has_capability('moodle/grade:viewall', $context)) { //Teachers will see all 
     $report = new grade_report_user($courseid, $gpr, $context, $userid);
 
     // print the page
-    print_grade_page_head($courseid, 'report', 'user', get_string('pluginname', 'gradereport_user'). ' - '.fullname($report->user));
+    print_grade_page_head($courseid, 'report', 'user', get_string('modulename', 'gradereport_user'). ' - '.fullname($report->user));
 
     if ($report->fill_table()) {
         echo '<br />'.$report->print_table(true);
     }
 }
 
-echo $OUTPUT->footer();
+print_footer($course);
+
+?>

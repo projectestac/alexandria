@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,84 +16,82 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * File containing the grade_report class
- *
- * @package   core_grades
- * @copyright 2007 Moodle Pty Ltd (http://moodle.com)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * File containing the grade_report class.
+ * @package gradebook
  */
 
 require_once($CFG->libdir.'/gradelib.php');
 
 /**
  * An abstract class containing variables and methods used by all or most reports.
- * @package core_grades
+ * @abstract
+ * @package gradebook
  */
-abstract class grade_report {
+class grade_report {
     /**
      * The courseid.
      * @var int $courseid
      */
-    public $courseid;
+    var $courseid;
 
     /**
      * The course.
      * @var object $course
      */
-    public $course;
+    var $course;
 
     /** Grade plugin return tracking object.
      * @var object $gpr
      */
-    public $gpr;
+    var $gpr;
 
     /**
      * The context.
      * @var int $context
      */
-    public $context;
+    var $context;
 
     /**
      * The grade_tree object.
      * @var object $gtree
      */
-    public $gtree;
+    var $gtree;
 
     /**
      * User preferences related to this report.
      * @var array $prefs
      */
-    public $prefs = array();
+    var $prefs = array();
 
     /**
      * The roles for this report.
      * @var string $gradebookroles
      */
-    public $gradebookroles;
+    var $gradebookroles;
 
     /**
      * base url for sorting by first/last name.
      * @var string $baseurl
      */
-    public $baseurl;
+    var $baseurl;
 
     /**
      * base url for paging.
      * @var string $pbarurl
      */
-    public $pbarurl;
+    var $pbarurl;
 
     /**
      * Current page (for paging).
      * @var int $page
      */
-    public $page;
+    var $page;
 
     /**
      * Array of cached language strings (using get_string() all the time takes a long time!).
      * @var array $lang_strings
      */
-    public $lang_strings = array();
+    var $lang_strings = array();
 
 //// GROUP VARIABLES (including SQL)
 
@@ -100,7 +99,7 @@ abstract class grade_report {
      * The current group being displayed.
      * @var int $currentgroup
      */
-    public $currentgroup;
+    var $currentgroup;
 
     /**
      * Current course group mode
@@ -112,26 +111,19 @@ abstract class grade_report {
      * A HTML select element used to select the current group.
      * @var string $group_selector
      */
-    public $group_selector;
+    var $group_selector;
 
     /**
      * An SQL fragment used to add linking information to the group tables.
      * @var string $groupsql
      */
-    protected $groupsql;
+    var $groupsql;
 
     /**
      * An SQL constraint to append to the queries used by this object to build the report.
      * @var string $groupwheresql
      */
-    protected $groupwheresql;
-
-    /**
-     * The ordered params for $groupwheresql
-     * @var array $groupwheresql_params
-     */
-    protected $groupwheresql_params = array();
-
+    var $groupwheresql;
 
     /**
      * Constructor. Sets local copies of user preferences and initialises grade_tree.
@@ -140,11 +132,11 @@ abstract class grade_report {
      * @param string $context
      * @param int $page The current page being viewed (when report is paged)
      */
-    public function __construct($courseid, $gpr, $context, $page=null) {
-        global $CFG, $COURSE, $DB;
+    function grade_report($courseid, $gpr, $context, $page=null) {
+        global $CFG, $COURSE;
 
         if (empty($CFG->gradebookroles)) {
-            print_error('norolesdefined', 'grades');
+            error ('no roles defined in admin->appearance->graderoles');
         }
 
 
@@ -152,7 +144,7 @@ abstract class grade_report {
         if ($this->courseid == $COURSE->id) {
             $this->course = $COURSE;
         } else {
-            $this->course = $DB->get_record('course', array('id' => $this->courseid));
+            $this->course = get_record('course', 'id', $this->courseid);
         }
 
         $this->gpr       = $gpr;
@@ -178,7 +170,7 @@ abstract class grade_report {
      * @param int $objectid An optional itemid or categoryid to check for a more fine-grained preference
      * @return mixed The value of the preference
      */
-    public function get_pref($pref, $objectid=null) {
+    function get_pref($pref, $objectid=null) {
         global $CFG;
         $fullprefname = 'grade_report_' . $pref;
         $shortprefname = 'grade_' . $pref;
@@ -226,7 +218,7 @@ abstract class grade_report {
      * @param int $itemid An optional itemid to which the preference will be assigned
      * @return bool Success or failure.
      */
-    public function set_pref($pref, $pref_value='default', $itemid=null) {
+    function set_pref($pref, $pref_value='default', $itemid=null) {
         $fullprefname = 'grade_report_' . $pref;
         if ($pref_value == 'default') {
             return unset_user_preference($fullprefname.$itemid);
@@ -241,7 +233,9 @@ abstract class grade_report {
      * @param array $data
      * @return mixed True or array of errors
      */
-    abstract function process_data($data);
+    function process_data($data) {
+        // Implement in children classes
+    }
 
     /**
      * Processes a single action against a category, grade_item or grade.
@@ -249,7 +243,9 @@ abstract class grade_report {
      * @param string $action Which action to take (edit, delete etc...)
      * @return
      */
-    abstract function process_action($target, $action);
+    function process_action($target, $action) {
+        //implement if needed
+    }
 
     /**
      * First checks the cached language strings, then returns match if found, or uses get_string()
@@ -258,7 +254,7 @@ abstract class grade_report {
      * @param string $section Optional language section
      * @return string
      */
-    public function get_lang_string($strcode, $section=null) {
+    function get_lang_string($strcode, $section=null) {
         if (empty($this->lang_strings[$strcode])) {
             $this->lang_strings[$strcode] = get_string($strcode, $section);
         }
@@ -270,57 +266,44 @@ abstract class grade_report {
      * @param boolean $groups include groups limit
      * @return int Count of users
      */
-    public function get_numusers($groups=true) {
-        global $CFG, $DB;
+    function get_numusers($groups=true) {
+        global $CFG;
 
         $groupsql      = "";
         $groupwheresql = "";
-
-        //limit to users with a gradeable role
-        list($gradebookrolessql, $gradebookrolesparams) = $DB->get_in_or_equal(explode(',', $this->gradebookroles), SQL_PARAMS_NAMED, 'grbr0');
-
-        //limit to users with an active enrollment
-        list($enrolledsql, $enrolledparams) = get_enrolled_sql($this->context);
-
-        $params = array_merge($gradebookrolesparams, $enrolledparams);
-
         if ($groups) {
             $groupsql      = $this->groupsql;
             $groupwheresql = $this->groupwheresql;
-            $params        = array_merge($params, $this->groupwheresql_params);
         }
 
         $countsql = "SELECT COUNT(DISTINCT u.id)
-                       FROM {user} u
-                       JOIN ($enrolledsql) je
-                            ON je.id = u.id
-                       JOIN {role_assignments} ra
-                            ON u.id = ra.userid
-                       $groupsql
-                      WHERE ra.roleid $gradebookrolessql
-                            AND u.deleted = 0
+                       FROM {$CFG->prefix}user u
+                            JOIN {$CFG->prefix}role_assignments ra ON u.id = ra.userid
+                            $groupsql
+                      WHERE ra.roleid IN ($this->gradebookroles) AND u.deleted = 0
                             $groupwheresql
                             AND ra.contextid ".get_related_contexts_string($this->context);
-        return $DB->count_records_sql($countsql, $params);
+        return count_records_sql($countsql);
     }
 
     /**
      * Sets up this object's group variables, mainly to restrict the selection of users to display.
      */
-    protected function setup_groups() {
+    function setup_groups() {
+        global $CFG;
+
         /// find out current groups mode
         if ($this->groupmode = groups_get_course_groupmode($this->course)) {
             $this->currentgroup = groups_get_course_group($this->course, true);
             $this->group_selector = groups_print_course_menu($this->course, $this->pbarurl, true);
 
             if ($this->groupmode == SEPARATEGROUPS and !$this->currentgroup and !has_capability('moodle/site:accessallgroups', $this->context)) {
-                $this->currentgroup = -2; // means can not access any groups at all
+                $this->currentgroup = -2; // means can not accesss any groups at all
             }
 
             if ($this->currentgroup) {
-                $this->groupsql             = " JOIN {groups_members} gm ON gm.userid = u.id ";
-                $this->groupwheresql        = " AND gm.groupid = :gr_grpid ";
-                $this->groupwheresql_params = array('gr_grpid'=>$this->currentgroup);
+                $this->groupsql = " JOIN {$CFG->prefix}groups_members gm ON gm.userid = u.id ";
+                $this->groupwheresql = " AND gm.groupid = $this->currentgroup ";
             }
         }
     }
@@ -328,17 +311,16 @@ abstract class grade_report {
     /**
      * Returns an arrow icon inside an <a> tag, for the purpose of sorting a column.
      * @param string $direction
-     * @param moodle_url $sort_link
+     * @param string $sort_link
      * @param string HTML
      */
-    protected function get_sort_arrow($direction='move', $sortlink=null) {
-        global $OUTPUT;
-        $pix = array('up' => 't/sort_desc', 'down' => 't/sort_asc', 'move' => 't/sort');
+    function get_sort_arrow($direction='move', $sort_link=null) {
         $matrix = array('up' => 'desc', 'down' => 'asc', 'move' => 'desc');
         $strsort = $this->get_lang_string('sort' . $matrix[$direction]);
 
-        $arrow = $OUTPUT->pix_icon($pix[$direction], $strsort, '', array('class' => 'sorticon'));
-        return html_writer::link($sortlink, $arrow, array('title'=>$strsort));
+        $arrow = print_arrow($direction, $strsort, true);
+        $html = '<a href="'.$sort_link .'" title="'.$strsort.'">' . $arrow . '</a>';
+        return $html;
     }
 
     /**
@@ -348,35 +330,31 @@ abstract class grade_report {
      * @param string $finalgrade the grade for the course_item
      * @return string The new final grade
      */
-    protected function blank_hidden_total($courseid, $course_item, $finalgrade) {
-        global $CFG, $DB;
+    function blank_hidden_total($courseid, $course_item, $finalgrade) {
+        global $CFG;
         static $hiding_affected = null;//array of items in this course affected by hiding
-
-        // If we're dealing with multiple users we need to know when we've moved on to a new user.
+        
+        //if we're dealing with multiple users we need to know when we've moved on to a new user
         static $previous_userid = null;
-
-        // If we're dealing with multiple courses we need to know when we've moved on to a new course.
-        static $previous_courseid = null;
 
         if( $this->showtotalsifcontainhidden==GRADE_REPORT_SHOW_REAL_TOTAL_IF_CONTAINS_HIDDEN ) {
             return $finalgrade;
         }
 
-        // If we've moved on to another course or user, reload the grades.
-        if ($previous_userid != $this->user->id || $previous_courseid != $courseid) {
+        //if we've moved on to another user don't return the previous user's affected grades
+        if ($previous_userid!=$this->user->id) {
             $hiding_affected = null;
             $previous_userid = $this->user->id;
-            $previous_courseid = $courseid;
         }
 
         if( !$hiding_affected ) {
             $items = grade_item::fetch_all(array('courseid'=>$courseid));
             $grades = array();
             $sql = "SELECT g.*
-                      FROM {grade_grades} g
-                      JOIN {grade_items} gi ON gi.id = g.itemid
+                      FROM {$CFG->prefix}grade_grades g
+                      JOIN {$CFG->prefix}grade_items gi ON gi.id = g.itemid
                      WHERE g.userid = {$this->user->id} AND gi.courseid = {$courseid}";
-            if ($gradesrecords = $DB->get_records_sql($sql)) {
+            if ($gradesrecords = get_records_sql($sql)) {
                 foreach ($gradesrecords as $grade) {
                     $grades[$grade->itemid] = new grade_grade($grade, false);
                 }
@@ -416,7 +394,11 @@ abstract class grade_report {
             }
         }
 
+        //unset($hiding_affected);
+        //unset($grades);
+        //unset($items);
+
         return $finalgrade;
     }
 }
-
+?>

@@ -83,10 +83,13 @@ class mnet_encxml_parser {
      * |                                                |
      * |________________________________________________|
      *
+     * @uses $MNET
      * @param   string  $data   The XML that you want to parse
      * @return  bool            True on success - false on failure
      */
     function parse($data) {
+        global $MNET, $MNET_REMOTE_CLIENT;
+
         $p = xml_parse($this->parser, $data);
 
         if ($p == 0) {
@@ -305,3 +308,4 @@ class mnet_encxml_parser {
         return true;
     }
 }
+?>

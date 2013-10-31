@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Grader report preferences configuration page
- *
- * @package   gradereport_grader
- * @copyright 2007 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 set_time_limit(0);
 require_once '../../../config.php';
 require_once $CFG->libdir . '/gradelib.php';
@@ -29,19 +22,16 @@ require_once '../../lib.php';
 
 $courseid      = required_param('id', PARAM_INT);
 
-$PAGE->set_url(new moodle_url('/grade/report/grader/preferences.php', array('id'=>$courseid)));
-$PAGE->set_pagelayout('admin');
-
 /// Make sure they can even access this course
 
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 
-require_login($course);
+require_login($course->id);
 
-$context = context_course::instance($course->id);
-$systemcontext = context_system::instance();
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 require_capability('gradereport/grader:view', $context);
 
 require('preferences_form.php');
@@ -78,10 +68,10 @@ if (has_capability('moodle/site:config', $systemcontext)) {
     echo "</a></div>\n";
 }
 
-echo $OUTPUT->box_start();
+print_simple_box_start("center");
 
 $mform->display();
-echo $OUTPUT->box_end();
+print_simple_box_end();
 
-echo $OUTPUT->footer();
-
+print_footer($course);
+?>

@@ -1,73 +1,93 @@
-<?php
+<?php  //$Id: upgrade.php,v 1.5.2.6 2009/05/04 08:11:15 stronk7 Exp $
 
-// This file is part of Moodle - http://moodle.org/
+// This file keeps track of upgrades to 
+// the forum module
 //
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// Sometimes, changes between versions involve
+// alterations to database structures and other
+// major things that may break installations.
 //
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// The upgrade function in this file will attempt
+// to perform all the necessary actions to upgrade
+// your older installtion to the current version.
 //
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// If there's something it cannot do itself, it
+// will tell you what you need to do.
+//
+// The commands in here will all be database-neutral,
+// using the functions defined in lib/ddllib.php
 
-/**
- * This file keeps track of upgrades to
- * the forum module
- *
- * Sometimes, changes between versions involve
- * alterations to database structures and other
- * major things that may break installations.
- *
- * The upgrade function in this file will attempt
- * to perform all the necessary actions to upgrade
- * your older installation to the current version.
- *
- * If there's something it cannot do itself, it
- * will tell you what you need to do.
- *
- * The commands in here will all be database-neutral,
- * using the methods of database_manager class
- *
- * Please do not forget to use upgrade_set_timeout()
- * before any action that may take longer time to finish.
- *
- * @package mod-forum
- * @copyright 2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+function xmldb_forum_upgrade($oldversion=0) {
 
-function xmldb_forum_upgrade($oldversion) {
-    global $CFG, $DB, $OUTPUT;
+    global $CFG, $THEME, $db;
 
-    $dbman = $DB->get_manager(); // loads ddl manager and xmldb classes
+    $result = true;
 
+/// And upgrade begins here. For each one, you'll need one 
+/// block of code similar to the next one. Please, delete 
+/// this comment lines once this file start handling proper
+/// upgrade code.
 
-    // Moodle v2.2.0 release upgrade line
-    // Put any upgrade step following this
+/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
+///     $result = result of "/lib/ddllib.php" function calls
+/// }
 
-    // Moodle v2.3.0 release upgrade line
-    // Put any upgrade step following this
+    if ($result && $oldversion < 2007101000) {
 
+    /// Define field timemodified to be added to forum_queue
+        $table = new XMLDBTable('forum_queue');
+        $field = new XMLDBField('timemodified');
+        $field->setAttributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0', 'postid');
 
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this
-
-    // Forcefully assign mod/forum:allowforcesubscribe to frontpage role, as we missed that when
-    // capability was introduced.
-    if ($oldversion < 2012112901) {
-        // If capability mod/forum:allowforcesubscribe is defined then set it for frontpage role.
-        if (get_capability_info('mod/forum:allowforcesubscribe')) {
-            assign_legacy_capabilities('mod/forum:allowforcesubscribe', array('frontpage' => CAP_ALLOW));
-        }
-        // Forum savepoint reached.
-        upgrade_mod_savepoint(true, 2012112901, 'forum');
+    /// Launch add field timemodified
+        $result = $result && add_field($table, $field);
     }
-    return true;
+
+//===== 1.9.0 upgrade line ======//
+
+    if ($result and $oldversion < 2007101511) {
+        notify('Processing forum grades, this may take a while if there are many forums...', 'notifysuccess');
+        //MDL-13866 - send forum ratins to gradebook again
+        require_once($CFG->dirroot.'/mod/forum/lib.php');
+        // too much debug output
+        $db->debug = false;
+        forum_update_grades();
+        $db->debug = true;
+    }
+
+    if ($result && $oldversion < 2007101512) {
+
+    /// Cleanup the forum subscriptions
+        notify('Removing stale forum subscriptions', 'notifysuccess');
+
+        $roles = get_roles_with_capability('moodle/course:view', CAP_ALLOW);
+        $roles = array_keys($roles);
+        $roles = implode(',', $roles);
+
+        $sql = "SELECT fs.userid, f.id AS forumid
+                  FROM {$CFG->prefix}forum f
+                       JOIN {$CFG->prefix}course c                 ON c.id = f.course
+                       JOIN {$CFG->prefix}context ctx              ON (ctx.instanceid = c.id AND ctx.contextlevel = ".CONTEXT_COURSE.")
+                       JOIN {$CFG->prefix}forum_subscriptions fs   ON fs.forum = f.id
+                       LEFT JOIN {$CFG->prefix}role_assignments ra ON (ra.contextid = ctx.id AND ra.userid = fs.userid AND ra.roleid IN ($roles))
+                 WHERE ra.id IS NULL";
+
+        if ($rs = get_recordset_sql($sql)) {
+            $db->debug = false;
+            while ($remove = rs_fetch_next_record($rs)) {
+                delete_records('forum_subscriptions', 'userid', $remove->userid, 'forum', $remove->forumid);
+                echo '.';
+            }
+            $db->debug = true;
+            rs_close($rs);
+        }
+    }
+
+    if ($result && $oldversion < 2007101513) {
+        delete_records('forum_ratings', 'post', 0); /// Clean existing wrong rates. MDL-18227
+    }
+
+    return $result;
 }
 
-
+?>

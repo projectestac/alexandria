@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: user_bulk_forms.php,v 1.1.2.4 2009/11/16 17:11:31 arborrow Exp $
 
 require_once($CFG->libdir.'/formslib.php');
 require_once($CFG->libdir.'/datalib.php');
@@ -9,7 +9,7 @@ class user_bulk_action_form extends moodleform {
 
         $mform =& $this->_form;
 
-        $syscontext = context_system::instance();
+        $syscontext = get_context_instance(CONTEXT_SYSTEM);
         $actions = array(0=>get_string('choose').'...');
         if (has_capability('moodle/user:update', $syscontext)) {
             $actions[1] = get_string('confirm');
@@ -24,16 +24,16 @@ class user_bulk_action_form extends moodleform {
         if (has_capability('moodle/user:update', $syscontext)) {
             $actions[5] = get_string('download', 'admin');
         }
-        if (has_capability('moodle/role:assign', $syscontext)){
-             //TODO: MDL-24064
-            //$actions[6] = get_string('enrolmultipleusers', 'admin');
-        }
         if (has_capability('moodle/user:update', $syscontext)) {
-            $actions[7] = get_string('forcepasswordchange');
+            $actions[6] = get_string('forcepasswordchange');
         }
-        if (has_capability('moodle/cohort:assign', $syscontext)) {
-            $actions[8] = get_string('bulkadd', 'core_cohort');
+		//XTEC ************ AFEGIT - To allow capitalize user names
+		//2010.06.30
+    	if (has_capability('moodle/user:editprofile', $syscontext)) {
+            $actions[7] = get_string('ucwords', 'admin');
         }
+        //************ FI
+
         $objs = array();
         $objs[] =& $mform->createElement('select', 'action', null, $actions);
         $objs[] =& $mform->createElement('submit', 'doaction', get_string('go'));
@@ -58,7 +58,7 @@ class user_bulk_form extends moodleform {
             if ($total == $acount) {
                 $achoices[0] = get_string('allusers', 'bulkusers', $total);
             } else {
-                $a = new stdClass();
+                $a = new object();
                 $a->total  = $total;
                 $a->count = $acount;
                 $achoices[0] = get_string('allfilteredusers', 'bulkusers', $a);
@@ -74,7 +74,7 @@ class user_bulk_form extends moodleform {
         }
 
         if (is_array($susers)) {
-            $a = new stdClass();
+            $a = new object();
             $a->total  = $total;
             $a->count = $scount;
             $schoices[0] = get_string('allselectedusers', 'bulkusers', $a);
@@ -97,8 +97,8 @@ class user_bulk_form extends moodleform {
         $objs[1]->setMultiple(true);
 
 
-        $grp =& $mform->addElement('group', 'usersgrp', get_string('users', 'bulkusers'), $objs, ' ', false);
-        $mform->addHelpButton('usersgrp', 'users', 'bulkusers');
+        $grp =& $mform->addElement('group', 'usersgrp', get_string('users'), $objs, ' ', false);
+        $grp->setHelpButton(array('lists', get_string('users'), 'bulkusers'));
 
         $mform->addElement('static', 'comment');
 
@@ -108,10 +108,11 @@ class user_bulk_form extends moodleform {
         $objs[] =& $mform->createElement('submit', 'addall', get_string('addall', 'bulkusers'));
         $objs[] =& $mform->createElement('submit', 'removeall', get_string('removeall', 'bulkusers'));
         $grp =& $mform->addElement('group', 'buttonsgrp', get_string('selectedlist', 'bulkusers'), $objs, array(' ', '<br />'), false);
-        $mform->addHelpButton('buttonsgrp', 'selectedlist', 'bulkusers');
+        $grp->setHelpButton(array('selectedlist', get_string('selectedlist', 'bulkusers'), 'bulkusers'));
 
         $renderer =& $mform->defaultRenderer();
         $template = '<label class="qflabel" style="vertical-align:top">{label}</label> {element}';
         $renderer->setGroupElementTemplate($template, 'usersgrp');
     }
 }
+?>

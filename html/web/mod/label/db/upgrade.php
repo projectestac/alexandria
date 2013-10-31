@@ -1,30 +1,6 @@
-<?php
+<?php  //$Id: upgrade.php,v 1.1.8.2 2008/07/11 02:54:54 moodler Exp $
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * Label module upgrade
- *
- * @package    mod
- * @subpackage label
- * @copyright  2006 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-// This file keeps track of upgrades to
+// This file keeps track of upgrades to 
 // the label module
 //
 // Sometimes, changes between versions involve
@@ -33,37 +9,35 @@
 //
 // The upgrade function in this file will attempt
 // to perform all the necessary actions to upgrade
-// your older installation to the current version.
+// your older installtion to the current version.
 //
 // If there's something it cannot do itself, it
 // will tell you what you need to do.
 //
 // The commands in here will all be database-neutral,
-// using the methods of database_manager class
-//
-// Please do not forget to use upgrade_set_timeout()
-// before any action that may take longer time to finish.
+// using the functions defined in lib/ddllib.php
 
-defined('MOODLE_INTERNAL') || die;
+function xmldb_label_upgrade($oldversion=0) {
 
-function xmldb_label_upgrade($oldversion) {
-    global $CFG, $DB;
+    global $CFG, $THEME, $db;
 
-    $dbman = $DB->get_manager();
+    $result = true;
 
+/// And upgrade begins here. For each one, you'll need one 
+/// block of code similar to the next one. Please, delete 
+/// this comment lines once this file start handling proper
+/// upgrade code.
 
-    // Moodle v2.2.0 release upgrade line
-    // Put any upgrade step following this
+/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
+///     $result = result of "/lib/ddllib.php" function calls
+/// }
 
-    // Moodle v2.3.0 release upgrade line
-    // Put any upgrade step following this
+//===== 1.9.0 upgrade line ======//
+    if ($oldversion < 2007101510) {
+        execute_sql("UPDATE {$CFG->prefix}log_display SET mtable = 'label' WHERE module = 'label'", 'false');
+    }
 
-
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this
-
-
-    return true;
+    return $result;
 }
 
-
+?>

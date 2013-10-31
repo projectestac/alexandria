@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: lib.php,v 1.7.2.3 2008/11/30 19:25:49 skodak Exp $
 
 /**
  * Library of functions and constants for notes
@@ -32,34 +32,26 @@ define('NOTES_SHOW_FOOT', 0x04);
  * @return array of note objects
  */
 function note_list($courseid=0, $userid=0, $state = '', $author = 0, $order='lastmodified DESC', $limitfrom=0, $limitnum=0) {
-    global $DB;
-
     // setup filters
     $selects = array();
-    $params = array();
-    if ($courseid) {
-        $selects[] = 'courseid=?';
-        $params[]  = $courseid;
+    if($courseid) {
+        $selects[] = 'courseid=' . $courseid;
     }
-    if ($userid) {
-        $selects[] = 'userid=?';
-        $params[]  = $userid;
+    if($userid) {
+        $selects[] = 'userid=' . $userid;
     }
-    if ($author) {
-        $selects[] = 'usermodified=?';
-        $params[]  = $author;
+    if($author) {
+        $selects[] = 'usermodified=' . $author;
     }
-    if ($state) {
-        $selects[] = 'publishstate=?';
-        $params[]  = $state;
+    if($state) {
+        $selects[] = "publishstate='$state'";
     }
-    $selects[] = "module=?";
-    $params[]  = 'notes';
-
+    $selects[] = "module='notes'";
     $select = implode(' AND ', $selects);
     $fields = 'id,courseid,userid,content,format,created,lastmodified,usermodified,publishstate';
     // retrieve data
-    return $DB->get_records_select('post', $select, $params, $order, $fields, $limitfrom, $limitnum);
+    $rs =& get_recordset_select('post', $select, $order, $fields, $limitfrom, $limitnum);
+    return recordset_to_array($rs);
 }
 
 /**
@@ -69,10 +61,8 @@ function note_list($courseid=0, $userid=0, $state = '', $author = 0, $order='las
  * @return note object
  */
 function note_load($note_id) {
-    global $DB;
-
     $fields = 'id,courseid,userid,content,format,created,lastmodified,usermodified,publishstate';
-    return $DB->get_record('post', array('id'=>$note_id, 'module'=>'notes'), $fields);
+    return get_record_select('post', "id=$note_id AND module='notes'", $fields);
 }
 
 /**
@@ -83,7 +73,7 @@ function note_load($note_id) {
  * @return boolean true if the object was saved; false otherwise
  */
 function note_save(&$note) {
-    global $USER, $DB;
+    global $USER;
 
     // setup & clean fields
     $note->module       = 'notes';
@@ -99,15 +89,18 @@ function note_save(&$note) {
     if (empty($note->id)) {
         // insert new note
         $note->created = $note->lastmodified;
-        $id = $DB->insert_record('post', $note);
-        $note = note_load($id);
+        if ($id = insert_record('post', $note)) {
+            $note = addslashes_recursive(get_record('post', 'id', $id));
+            $result = true;
+        } else {
+            $result = false;
+        }
     } else {
         // update old note
-        $DB->update_record('post', $note);
-        $note = note_load($note->id);
+        $result = update_record('post', $note);
     }
     unset($note->module);
-    return true;
+    return $result;
 }
 
 /**
@@ -117,9 +110,7 @@ function note_save(&$note) {
  * @return boolean true if the object was deleted; false otherwise
  */
 function note_delete($noteid) {
-    global $DB;
-
-    return $DB->delete_records('post', array('id'=>$noteid, 'module'=>'notes'));
+    return delete_records_select('post', "id=$noteid AND module='notes'");
 }
 
 /**
@@ -161,20 +152,20 @@ function note_get_state_names() {
  * @param int   $detail OR-ed NOTES_SHOW_xyz flags that specify which note parts to print
  */
 function note_print($note, $detail = NOTES_SHOW_FULL) {
-    global $CFG, $USER, $DB, $OUTPUT;
+    global $CFG, $USER;
 
-    if (!$user = $DB->get_record('user', array('id'=>$note->userid))) {
+    if (!$user = get_record('user','id',$note->userid)) {
         debugging("User $note->userid not found");
         return;
     }
-    if (!$author = $DB->get_record('user', array('id'=>$note->usermodified))) {
+    if (!$author = get_record('user','id',$note->usermodified)) {
         debugging("User $note->usermodified not found");
         return;
     }
-    $context = context_course::instance($note->courseid);
-    $systemcontext = context_system::instance();
+    $context = get_context_instance(CONTEXT_COURSE, $note->courseid);
+    $systemcontext = get_context_instance(CONTEXT_SYSTEM);
 
-    $authoring = new stdClass();
+    $authoring = new object();
     $authoring->name = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$author->id.'&amp;course='.$note->courseid.'">'.fullname($author).'</a>';
     $authoring->date = userdate($note->lastmodified);
 
@@ -186,7 +177,7 @@ function note_print($note, $detail = NOTES_SHOW_FULL) {
     if ($detail & NOTES_SHOW_HEAD) {
         echo '<div class="header">';
         echo '<div class="user">';
-        echo $OUTPUT->user_picture($user, array('courseid'=>$note->courseid));
+        print_user_picture($user, $note->courseid, $user->picture);
         echo fullname($user) . '</div>';
         echo '<div class="info">' .
             get_string('bynameondate', 'notes', $authoring) .
@@ -197,7 +188,7 @@ function note_print($note, $detail = NOTES_SHOW_FULL) {
     // print note content
     if ($detail & NOTES_SHOW_BODY) {
         echo '<div class="content">';
-        echo format_text($note->content, $note->format, array('overflowdiv'=>true));
+        echo format_text($note->content, $note->format);
         echo '</div>';
     }
 
@@ -274,17 +265,6 @@ function note_print_notes($header, $addcourseid = 0, $viewnotes = true, $coursei
  * @return bool success
  */
 function note_delete_all($courseid) {
-    global $DB;
-
-    return $DB->delete_records('post', array('module'=>'notes', 'courseid'=>$courseid));
+    return delete_records('post', 'module', 'notes', 'courseid', $courseid);
 }
-
-/**
- * Return a list of page types
- * @param string $pagetype current page type
- * @param stdClass $parentcontext Block's parent context
- * @param stdClass $currentcontext Current context of block
- */
-function note_page_type_list($pagetype, $parentcontext, $currentcontext) {
-    return array('notes-*'=>get_string('page-notes-x', 'notes'));
-}
+?>

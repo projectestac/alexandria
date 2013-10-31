@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: delete.php,v 1.4.2.2 2008/11/30 19:25:50 skodak Exp $
 
 require_once('../config.php');
 require_once('lib.php');
@@ -6,28 +6,26 @@ require_once('lib.php');
 // retrieve parameters
 $noteid = required_param('id', PARAM_INT);
 
-$PAGE->set_url('/notes/delete.php', array('id'=>$noteid));
-
 // locate note information
 if (!$note = note_load($noteid)) {
-    print_error('invalidid');
+    error('Incorrect note id specified');
 }
 
 // locate course information
-if (!$course = $DB->get_record('course', array('id'=>$note->courseid))) {
-    print_error('invalidcourseid');
+if (!$course = get_record('course', 'id', $note->courseid)) {
+    error('Incorrect course id found');
 }
 
 // locate user information
-    if (!$user = $DB->get_record('user', array('id'=>$note->userid))) {
-        print_error('invaliduserid');
+    if (!$user = get_record('user', 'id', $note->userid)) {
+        error('Incorrect user id found');
     }
 
 // require login to access notes
 require_login($course);
 
 // locate context information
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 // check capability
 if (!has_capability('moodle/notes:manage', $context)) {
@@ -55,19 +53,16 @@ if (data_submitted() && confirm_sesskey()) {
     $optionsno  = array('course'=>$course->id, 'user'=>$note->userid);
 
 // output HTML
-    $link = null;
-    if (has_capability('moodle/course:viewparticipants', $context) || has_capability('moodle/site:viewparticipants', context_system::instance())) {
-        $link = new moodle_url('/user/index.php',array('id'=>$course->id));
+    if (has_capability('moodle/course:viewparticipants', $context) || has_capability('moodle/site:viewparticipants', get_context_instance(CONTEXT_SYSTEM))) {
+        $nav[] = array('name' => get_string('participants'), 'link' => $CFG->wwwroot . '/user/index.php?id=' . $course->id, 'type' => 'misc');
     }
-    $PAGE->navbar->add(get_string('participants'), $link);
-    $PAGE->navbar->add(fullname($user), new moodle_url('/user/view.php', array('id'=>$user->id,'course'=>$course->id)));
-    $PAGE->navbar->add(get_string('notes', 'notes'), new moodle_url('/notes/index.php', array('user'=>$user->id,'course'=>$course->id)));
-    $PAGE->navbar->add(get_string('delete'));
-    $PAGE->set_title($course->shortname . ': ' . $strnotes);
-    $PAGE->set_heading($course->fullname);
-    echo $OUTPUT->header();
-    echo $OUTPUT->confirm(get_string('deleteconfirm', 'notes'), new moodle_url('delete.php',$optionsyes),  new moodle_url('index.php',$optionsno));
+    $nav[] = array('name' => fullname($user), 'link' => $CFG->wwwroot . '/user/view.php?id=' . $user->id. '&amp;course=' . $course->id, 'type' => 'misc');
+    $nav[] = array('name' => get_string('notes', 'notes'), 'link' => $CFG->wwwroot . '/notes/index.php?course=' . $course->id . '&amp;user=' . $user->id, 'type' => 'misc');
+    $nav[] = array('name' => get_string('delete'), 'link' => '', 'type' => 'activity');
+    print_header($course->shortname . ': ' . $strnotes, $course->fullname, build_navigation($nav));
+    notice_yesno(get_string('deleteconfirm', 'notes'), 'delete.php', 'index.php', $optionsyes, $optionsno, 'post', 'get');
     echo '<br />';
     note_print($note, NOTES_SHOW_BODY | NOTES_SHOW_HEAD);
-    echo $OUTPUT->footer();
+    print_footer();
 }
+?>

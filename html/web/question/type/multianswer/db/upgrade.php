@@ -1,52 +1,67 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
+<?php  // $Id: upgrade.php,v 1.1.10.3 2008/05/15 16:05:49 tjhunt Exp $
+
+// This file keeps track of upgrades to 
+// the multianswer qtype plugin
 //
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// Sometimes, changes between versions involve
+// alterations to database structures and other
+// major things that may break installations.
 //
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// The upgrade function in this file will attempt
+// to perform all the necessary actions to upgrade
+// your older installtion to the current version.
 //
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// If there's something it cannot do itself, it
+// will tell you what you need to do.
+//
+// The commands in here will all be database-neutral,
+// using the functions defined in lib/ddllib.php
 
-/**
- * Multi-answer question type upgrade code.
- *
- * @package    qtype
- * @subpackage multianswer
- * @copyright  1999 onwards Martin Dougiamas {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+function xmldb_qtype_multianswer_upgrade($oldversion=0) {
 
+    global $CFG, $THEME, $db;
 
-defined('MOODLE_INTERNAL') || die();
+    $result = true;
 
+/// And upgrade begins here. For each one, you'll need one 
+/// block of code similar to the next one. Please, delete 
+/// this comment lines once this file start handling proper
+/// upgrade code.
 
-/**
- * Upgrade code for the multi-answer question type.
- * @param int $oldversion the version we are upgrading from.
- */
-function xmldb_qtype_multianswer_upgrade($oldversion) {
-    global $CFG, $DB;
+/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
+///     $result = result of "/lib/ddllib.php" function calls
+/// }
 
-    $dbman = $DB->get_manager();
+    if ($result && $oldversion < 2008050800) {
+        question_multianswer_fix_subquestion_parents_and_categories();
+    }
 
-
-    // Moodle v2.2.0 release upgrade line
-    // Put any upgrade step following this
-
-    // Moodle v2.3.0 release upgrade line
-    // Put any upgrade step following this
-
-
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this
-
-
-    return true;
+    return $result;
 }
+
+/**
+ * Due to MDL-14750, subquestions of multianswer questions restored from backup will
+ * have the wrong parent, and due to MDL-10899 subquestions of multianswer questions
+ * that have been moved between categories will be in the wrong category, This code fixes these up.
+ */
+function question_multianswer_fix_subquestion_parents_and_categories() {
+    global $CFG;
+
+    $result = true;
+    $rs = get_recordset_sql('SELECT q.id, q.category, qma.sequence FROM ' . $CFG->prefix .
+            'question q JOIN ' . $CFG->prefix . 'question_multianswer qma ON q.id = qma.question');
+    if ($rs) {
+        while ($q = rs_fetch_next_record($rs)) {
+            if (!empty($q->sequence)) {
+                $result = $result && execute_sql('UPDATE ' . $CFG->prefix . 'question' .
+                        ' SET parent = ' . $q->id . ', category = ' . $q->category .
+                        ' WHERE id IN (' . $q->sequence . ') AND parent <> 0');
+            }
+        }
+        rs_close($rs);
+    } else {
+        $result = false;
+    }
+    return $result;
+}
+?>

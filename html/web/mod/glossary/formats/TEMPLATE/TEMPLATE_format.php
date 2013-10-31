@@ -1,21 +1,22 @@
-<?php
+<?php  // $Id: TEMPLATE_format.php,v 1.9.4.2 2008/02/13 17:01:45 skodak Exp $
 
-function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $aliases=true) {
-    global $CFG, $USER, $DB, $OUTPUT;
+function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL, $aliases=true) {
 
+    global $CFG, $USER;
+    
 
-    $user = $DB->get_record('user', array('id'=>$entry->userid));
+    $user = get_record('user', 'id', $entry->userid);
     $strby = get_string('writtenby', 'glossary');
 
     if ($entry) {
-
+    
         echo '<table class="glossarypost TEMPLATE">';
         echo '<tr>';
         echo '<td class="entryheader">';
 
         //Use this function to show author's image
         //Comments: Configuration not supported
-        echo $OUTPUT->user_picture($user, array('courseid'=>$course->id));
+        print_user_picture($user, $course->id, $user->picture);
 
         //Line separator to show this template fine. :-)
         echo '<br />';
@@ -23,7 +24,7 @@ function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='',
         //Use this code to show author's name
         //Comments: Configuration not supported
         $fullname = fullname($user);
-        $by = new stdClass();
+        $by = new object();
         $by->name = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$user->id.'&amp;course='.$course->id.'">'.$fullname.'</a>';
         $by->date = userdate($entry->timemodified);
         echo '<span class="author">'.get_string('bynameondate', 'forum', $by).'</span>' . '<br />';
@@ -32,7 +33,7 @@ function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='',
         //Comments: Configuration not supported
         echo get_string('lastedited').': '. userdate($entry->timemodified) . '<br /></span>';
 
-        //Use this function to show the approval button. It'll be shown if necessary
+        //Use this function to show the approval button. It'll be shown if necessary       
         //Comments: You can configure this parameters:
         //----Define where to show the approval button
         $approvalalign = 'right'; //Values: left, center and right (default right)
@@ -50,14 +51,14 @@ function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='',
 
         //Use this function to show the attachment. It'll be showed if necessary
         //Comments: You can configure this parameters:
-        //----Define how to show the attachment
+        //----Define how to show the attachment 
         $attachmentformat = 'html'; //Values: html (link) and NULL (inline image if possible) (default NULL)
         //----Define where to show the attachment
         $attachmentalign = 'right'; //Values: left, center and right (default right)
         //----Define if the attachment must be showed into a 100% width table
         $attachmentinsidetable = true; //Values: true, false (default true)
         //Call the function
-        glossary_print_entry_attachment($entry, $cm, $attachmentformat, $attachmentalign, $attachmentinsidetable);
+        glossary_print_entry_attachment($entry,$attachmentformat,$attachmentalign,$attachmentinsidetable);
 
         //Line separator to show this template fine. :-)
         echo "<br />\n";
@@ -74,9 +75,9 @@ function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='',
         //Line separator not normally needed now.
         //echo "<br />\n";
 
-        //Use this function to show the definition
+        //Use this function to show the definition 
         //Comments: Configuration not supported
-        glossary_print_entry_definition($entry, $glossary, $cm);
+        glossary_print_entry_definition($entry);
 
         //Line separator to show this template fine. :-)
         echo "<br />\n";
@@ -86,22 +87,27 @@ function glossary_show_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='',
         //----Define when to show the aliases popup
         //    use it only if you are really sure!
         //$aliases = true; //Values: true, false (Default: true)
+        //----Uncoment this line to avoid ratings being showed
+        //    use it only if you are really sure! You can define this in the glossary conf. page.
+        //$ratings = NULL;
         //----Uncoment this line to avoid editing icons being showed
         //    use it only if you are really sure!
         //$printicons = false;
-        glossary_print_entry_lower_section($course, $cm, $glossary, $entry, $mode, $hook, $printicons, $aliases);
-
+        $return = glossary_print_entry_lower_section($course, $cm, $glossary, $entry, $mode, $hook, $printicons, $ratings, $aliases);
+        
         echo '</td>';
         echo '</tr>';
         echo "</table>\n";
-    } else {
+    } else {    
         echo '<div style="text-align:center">';
         print_string('noentry', 'glossary');
         echo '</div>';
     }
+
+    return $return;
 }
 
-function glossary_print_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1) {
+function glossary_print_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode='', $hook='', $printicons=1, $ratings=NULL) {
 
     //The print view for this format is exactly the normal view, so we use it
     //Anyway, you can modify this to use your own print format!!
@@ -114,4 +120,4 @@ function glossary_print_entry_TEMPLATE($course, $cm, $glossary, $entry, $mode=''
 
 }
 
-
+?>

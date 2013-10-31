@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,28 +15,18 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * The gradebook outcomes report
- *
- * @package   gradereport_outcomes
- * @copyright 2007 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 include_once('../../../config.php');
 require_once($CFG->libdir . '/gradelib.php');
 require_once $CFG->dirroot.'/grade/lib.php';
 
 $courseid = required_param('id', PARAM_INT);                   // course id
 
-$PAGE->set_url('/grade/report/outcomes/index.php', array('id'=>$courseid));
-
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 
-require_login($course);
-$context = context_course::instance($course->id);
+require_login($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 require_capability('gradereport/outcomes:view', $context);
 
@@ -48,17 +39,17 @@ $outcomes = grade_outcome::fetch_all_available($courseid);
 
 // Get grade_items that use each outcome
 foreach ($outcomes as $outcomeid => $outcome) {
-    $report_info[$outcomeid]['items'] = $DB->get_records_select('grade_items', "outcomeid = ? AND courseid = ?", array($outcomeid, $courseid));
+    $report_info[$outcomeid]['items'] = get_records_select('grade_items', "outcomeid = $outcomeid AND courseid = $courseid");
     $report_info[$outcomeid]['outcome'] = $outcome;
 
     // Get average grades for each item
     if (is_array($report_info[$outcomeid]['items'])) {
         foreach ($report_info[$outcomeid]['items'] as $itemid => $item) {
             $sql = "SELECT itemid, AVG(finalgrade) AS avg, COUNT(finalgrade) AS count
-                      FROM {grade_grades}
-                     WHERE itemid = ?
+                      FROM {$CFG->prefix}grade_grades
+                     WHERE itemid = $itemid
                   GROUP BY itemid";
-            $info = $DB->get_records_sql($sql, array($itemid));
+            $info = get_records_sql($sql);
 
             if (!$info) {
                 unset($report_info[$outcomeid]['items'][$itemid]);
@@ -76,7 +67,7 @@ foreach ($outcomes as $outcomeid => $outcome) {
 }
 
 $html = '<table class="generaltable boxaligncenter" width="90%" cellspacing="1" cellpadding="5" summary="Outcomes Report">' . "\n";
-$html .= '<tr><th class="header c0" scope="col">' . get_string('outcomeshortname', 'grades') . '</th>';
+$html .= '<tr><th class="header c0" scope="col">' . get_string('outcomename', 'grades') . '</th>';
 $html .= '<th class="header c1" scope="col">' . get_string('courseavg', 'grades') . '</th>';
 $html .= '<th class="header c2" scope="col">' . get_string('sitewide', 'grades') . '</th>';
 $html .= '<th class="header c3" scope="col">' . get_string('activities', 'grades') . '</th>';
@@ -161,6 +152,6 @@ print_grade_page_head($courseid, 'report', 'outcomes');
 
 
 echo $html;
-echo $OUTPUT->footer();
+print_footer($course);
 
-
+?>

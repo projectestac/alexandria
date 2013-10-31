@@ -1,12 +1,13 @@
-<?php
+<?PHP //$Id: block_news_items.php,v 1.23.2.4 2008/10/31 19:04:03 stronk7 Exp $
 
 class block_news_items extends block_base {
     function init() {
-        $this->title = get_string('pluginname', 'block_news_items');
+        $this->title = get_string('latestnews');
+        $this->version = 2007101509;
     }
 
     function get_content() {
-        global $CFG, $USER;
+        global $CFG, $USER, $COURSE;
 
         if ($this->content !== NULL) {
             return $this->content;
@@ -21,27 +22,23 @@ class block_news_items extends block_base {
         }
 
 
-        if ($this->page->course->newsitems) {   // Create a nice listing of recent postings
+        if ($COURSE->newsitems) {   // Create a nice listing of recent postings
 
             require_once($CFG->dirroot.'/mod/forum/lib.php');   // We'll need this
 
             $text = '';
 
-            if (!$forum = forum_get_course_forum($this->page->course->id, 'news')) {
+            if (!$forum = forum_get_course_forum($COURSE->id, 'news')) {
                 return '';
             }
 
-            $modinfo = get_fast_modinfo($this->page->course);
+            $modinfo = get_fast_modinfo($COURSE);
             if (empty($modinfo->instances['forum'][$forum->id])) {
                 return '';
             }
             $cm = $modinfo->instances['forum'][$forum->id];
 
-            if (!$cm->uservisible) {
-                return '';
-            }
-
-            $context = context_module::instance($cm->id);
+            $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
         /// User must have perms to view discussions in that forum
             if (!has_capability('mod/forum:viewdiscussion', $context)) {
@@ -60,8 +57,8 @@ class block_news_items extends block_base {
 
         /// Get all the recent discussions we're allowed to see
 
-            if (! $discussions = forum_get_discussions($cm, 'p.modified DESC', false,
-                                                       $currentgroup, $this->page->course->newsitems) ) {
+            if (! $discussions = forum_get_discussions($cm, 'p.modified DESC', false, 
+                                                       $currentgroup, $COURSE->newsitems) ) {
                 $text .= '('.get_string('nonews', 'forum').')';
                 $this->content->text = $text;
                 return $this->content;
@@ -81,10 +78,12 @@ class block_news_items extends block_base {
                 $discussion->subject = format_string($discussion->subject, true, $forum->course);
 
                 $text .= '<li class="post">'.
-                         '<div class="head clearfix">'.
+                         '<div class="head">'.
                          '<div class="date">'.userdate($discussion->modified, $strftimerecent).'</div>'.
                          '<div class="name">'.fullname($discussion).'</div></div>'.
-                         '<div class="info"><a href="'.$CFG->wwwroot.'/mod/forum/discuss.php?d='.$discussion->discussion.'">'.$discussion->subject.'</a></div>'.
+                         '<div class="info">'.$discussion->subject.' '.
+                         '<a href="'.$CFG->wwwroot.'/mod/forum/discuss.php?d='.$discussion->discussion.'">'.
+                         $strmore.'...</a></div>'.
                          "</li>\n";
             }
             $text .= "</ul>\n";
@@ -99,17 +98,16 @@ class block_news_items extends block_base {
                 $CFG->enablerssfeeds && $CFG->forum_enablerssfeeds && $forum->rsstype && $forum->rssarticles) {
                 require_once($CFG->dirroot.'/lib/rsslib.php');   // We'll need this
                 if ($forum->rsstype == 1) {
-                    $tooltiptext = get_string('rsssubscriberssdiscussions','forum');
+                    $tooltiptext = get_string('rsssubscriberssdiscussions','forum',format_string($forum->name));
                 } else {
-                    $tooltiptext = get_string('rsssubscriberssposts','forum');
+                    $tooltiptext = get_string('rsssubscriberssposts','forum',format_string($forum->name));
                 }
-                if (!isloggedin()) {
-                    $userid = $CFG->siteguest;
+                if (empty($USER->id)) {
+                    $userid = 0;
                 } else {
                     $userid = $USER->id;
                 }
-
-                $this->content->footer .= '<br />'.rss_get_link($context->id, $userid, 'mod_forum', $forum->id, $tooltiptext);
+                $this->content->footer .= '<br />'.rss_get_link($COURSE->id, $userid, 'forum', $forum->id, $tooltiptext);
             }
 
         }
@@ -118,4 +116,4 @@ class block_news_items extends block_base {
     }
 }
 
-
+?>

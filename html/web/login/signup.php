@@ -1,77 +1,78 @@
-<?php
+<?php  // $Id: signup.php,v 1.56.2.2 2008/09/25 07:40:54 skodak Exp $
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+    require_once('../config.php');
+    
+    /**
+     * Returns whether or not the captcha element is enabled, and the admin settings fulfil its requirements.
+     * @return bool
+     */
+    function signup_captcha_enabled() {
+        global $CFG;
+		//XTEC ************ MODIFICAT - Impedeix desactivar el recaptcha
+		//2010.07.07
+        return !empty($CFG->recaptchapublickey) && !empty($CFG->recaptchaprivatekey);
+		//************ ORIGINAL
+		//return !empty($CFG->recaptchapublickey) && !empty($CFG->recaptchaprivatekey) && get_config('auth/email', 'recaptcha');
+		//************ FI
+    }
+    
+    require_once('signup_form.php');
+    
 
-/**
- * user signup page.
- *
- * @package    core
- * @subpackage auth
- * @copyright  1999 onwards Martin Dougiamas  http://dougiamas.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+    if (empty($CFG->registerauth)) {
+        error("Sorry, you may not use this page.");
+    }
+    $authplugin = get_auth_plugin($CFG->registerauth);
 
-require('../config.php');
+    if (!$authplugin->can_signup()) {
+        error("Sorry, you may not use this page.");
+    }
 
-if (empty($CFG->registerauth)) {
-    print_error('notlocalisederrormessage', 'error', '', 'Sorry, you may not use this page.');
-}
-$authplugin = get_auth_plugin($CFG->registerauth);
+    //HTTPS is potentially required in this page
+    httpsrequired();
 
-if (!$authplugin->can_signup()) {
-    print_error('notlocalisederrormessage', 'error', '', 'Sorry, you may not use this page.');
-}
+    $mform_signup = new login_signup_form();
 
-//HTTPS is required in this page when $CFG->loginhttps enabled
-$PAGE->https_required();
+    if ($mform_signup->is_cancelled()) {
+        redirect($CFG->httpswwwroot.'/login/index.php');
 
-$PAGE->set_url('/login/signup.php');
-$PAGE->set_context(context_system::instance());
+    } else if ($user = $mform_signup->get_data()) {
+        $user->confirmed   = 0;
+        $user->lang        = current_language();
+        $user->firstaccess = time();
+        $user->mnethostid  = $CFG->mnet_localhost_id;
+        $user->secret      = random_string(15);
+        $user->auth        = $CFG->registerauth;
 
-$mform_signup = $authplugin->signup_form();
+		//XTEC ************ AFEGIT - To solve problems with city length
+		//2010.07.07 @pferre22
+        if (strlen($user->city)>=20) 
+            $user->city=substr($user->city, 0, 19);
+        //************ FI
 
-if ($mform_signup->is_cancelled()) {
-    redirect(get_login_url());
+        $authplugin->user_signup($user, true); // prints notice and link to login/index.php
+        exit; //never reached
+    }
 
-} else if ($user = $mform_signup->get_data()) {
-    $user->confirmed   = 0;
-    $user->lang        = current_language();
-    $user->firstaccess = time();
-    $user->timecreated = time();
-    $user->mnethostid  = $CFG->mnet_localhost_id;
-    $user->secret      = random_string(15);
-    $user->auth        = $CFG->registerauth;
+    $newaccount = get_string('newaccount');
+    $login      = get_string('login');
 
-    $authplugin->user_signup($user, true); // prints notice and link to login/index.php
-    exit; //never reached
-}
+    if (empty($CFG->langmenu)) {
+        $langmenu = '';
+    } else {
+        $currlang = current_language();
+        $langs    = get_list_of_languages();
+        $langmenu = popup_form ("$CFG->wwwroot/login/signup.php?lang=", $langs, "chooselang", $currlang, "", "", "", true);
+    }
 
-// make sure we really are on the https page when https login required
-$PAGE->verify_https_required();
+    $navlinks = array();
+    $navlinks[] = array('name' => $login, 'link' => "index.php", 'type' => 'misc');
+    $navlinks[] = array('name' => $newaccount, 'link' => null, 'type' => 'misc');
+    $navigation = build_navigation($navlinks);
+    print_header($newaccount, $newaccount, $navigation, $mform_signup->focus(), "", true, "<div class=\"langmenu\">$langmenu</div>");
+    
+    $mform_signup->display();
+    print_footer();
 
 
-$newaccount = get_string('newaccount');
-$login      = get_string('login');
-
-$PAGE->navbar->add($login);
-$PAGE->navbar->add($newaccount);
-
-$PAGE->set_title($newaccount);
-$PAGE->set_heading($SITE->fullname);
-
-echo $OUTPUT->header();
-$mform_signup->display();
-echo $OUTPUT->footer();
+?>

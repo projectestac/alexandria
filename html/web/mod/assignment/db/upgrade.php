@@ -1,4 +1,4 @@
-<?php
+<?php  //$Id: upgrade.php,v 1.7.2.5 2008/05/01 20:37:22 skodak Exp $
 
 // This file keeps track of upgrades to
 // the assignment module
@@ -9,72 +9,57 @@
 //
 // The upgrade function in this file will attempt
 // to perform all the necessary actions to upgrade
-// your older installation to the current version.
+// your older installtion to the current version.
 //
 // If there's something it cannot do itself, it
 // will tell you what you need to do.
 //
 // The commands in here will all be database-neutral,
-// using the methods of database_manager class
-//
-// Please do not forget to use upgrade_set_timeout()
-// before any action that may take longer time to finish.
+// using the functions defined in lib/ddllib.php
 
-function xmldb_assignment_upgrade($oldversion) {
-    global $CFG, $DB, $OUTPUT;
+function xmldb_assignment_upgrade($oldversion=0) {
 
-    $dbman = $DB->get_manager();
+    global $CFG, $THEME, $db;
 
+    $result = true;
 
-    // Moodle v2.2.0 release upgrade line
-    // Put any upgrade step following this
+    if ($result && $oldversion < 2007091900) { /// MDL-11268
 
-    // Moodle v2.3.0 release upgrade line
-    // Put any upgrade step following this
+    /// Changing nullability of field data1 on table assignment_submissions to null
+        $table = new XMLDBTable('assignment_submissions');
+        $field = new XMLDBField('data1');
+        $field->setAttributes(XMLDB_TYPE_TEXT, 'small', null, null, null, null, null, null, 'numfiles');
 
+    /// Launch change of nullability for field data1
+        $result = $result && change_field_notnull($table, $field);
 
-    if ($oldversion < 2012061701) {
-        // Fixed/updated numfiles field in assignment_submissions table to count the actual
-        // number of files has been uploaded when sendformarking is disabled
-        upgrade_set_timeout(600);  // increase excution time for in large sites
-        $fs = get_file_storage();
+    /// Changing nullability of field data2 on table assignment_submissions to null
+        $field = new XMLDBField('data2');
+        $field->setAttributes(XMLDB_TYPE_TEXT, 'small', null, null, null, null, null, null, 'data1');
 
-        // Fetch the moduleid for use in the course_modules table
-        $moduleid = $DB->get_field('modules', 'id', array('name' => 'assignment'), MUST_EXIST);
-
-        $selectcount = 'SELECT COUNT(s.id) ';
-        $select      = 'SELECT s.id, cm.id AS cmid ';
-        $query       = 'FROM {assignment_submissions} s
-                        JOIN {assignment} a ON a.id = s.assignment
-                        JOIN {course_modules} cm ON a.id = cm.instance AND cm.module = :moduleid
-                        WHERE assignmenttype = :assignmenttype';
-
-        $params = array('moduleid' => $moduleid, 'assignmenttype' => 'upload');
-
-        $countsubmissions = $DB->count_records_sql($selectcount.$query, $params);
-        $submissions = $DB->get_recordset_sql($select.$query, $params);
-
-        $pbar = new progress_bar('assignmentupgradenumfiles', 500, true);
-        $i = 0;
-        foreach ($submissions as $sub) {
-            $i++;
-            if ($context = context_module::instance($sub->cmid)) {
-                $sub->numfiles = count($fs->get_area_files($context->id, 'mod_assignment', 'submission', $sub->id, 'sortorder', false));
-                $DB->update_record('assignment_submissions', $sub);
-            }
-            $pbar->update($i, $countsubmissions, "Counting files of submissions ($i/$countsubmissions)");
-        }
-        $submissions->close();
-
-        // assignment savepoint reached
-        upgrade_mod_savepoint(true, 2012061701, 'assignment');
+    /// Launch change of nullability for field data2
+        $result = $result && change_field_notnull($table, $field);
     }
 
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this
+    if ($result && $oldversion < 2007091902) {
+        // add draft tracking default to existing upload assignments
+        $sql = "UPDATE {$CFG->prefix}assignment SET var4=1 WHERE assignmenttype='upload'";
+        $result = execute_sql($sql);
+    }
 
+//===== 1.9.0 upgrade line ======//
 
-    return true;
+    if ($result && $oldversion < 2007101511) {
+        notify('Processing assignment grades, this may take a while if there are many assignments...', 'notifysuccess');
+        // change grade typo to text if no grades MDL-13920
+        require_once $CFG->dirroot.'/mod/assignment/lib.php';
+        // too much debug output
+        $db->debug = false;
+        assignment_update_grades();
+        $db->debug = true;
+    }
+
+    return $result;
 }
 
-
+?>

@@ -1,36 +1,11 @@
-<?php
-
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * @package mod-forum
- * @copyright  2008 Petr Skoda (http://skodak.org)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+<?php  //$Id: unsubscribeall.php,v 1.1.2.2 2008/07/07 21:51:40 skodak Exp $
 
 require_once("../../config.php");
 require_once("lib.php");
 
 $confirm = optional_param('confirm', false, PARAM_BOOL);
 
-$PAGE->set_url('/mod/forum/unsubscribeall.php');
-$PAGE->set_context(context_user::instance($USER->id));
-
-// Do not autologin guest. Only proper users can have forum subscriptions.
-require_login(null, false);
+require_login();
 
 $return = $CFG->wwwroot.'/';
 
@@ -39,39 +14,34 @@ if (isguestuser()) {
 }
 
 $strunsubscribeall = get_string('unsubscribeall', 'forum');
-$PAGE->navbar->add(get_string('modulename', 'forum'));
-$PAGE->navbar->add($strunsubscribeall);
-$PAGE->set_title($strunsubscribeall);
-$PAGE->set_heading(format_string($COURSE->fullname));
-echo $OUTPUT->header();
-echo $OUTPUT->heading($strunsubscribeall);
+$navlinks = array(array('name' => get_string('modulename', 'forum'), 'link' => null, 'type' => 'misc'),
+                  array('name' => $strunsubscribeall, 'link' => null, 'type' => 'misc'));
+$navigation = build_navigation($navlinks);
+
+print_header($strunsubscribeall, format_string($COURSE->fullname), $navigation);
+print_heading($strunsubscribeall);
 
 if (data_submitted() and $confirm and confirm_sesskey()) {
-    $forums = forum_get_optional_subscribed_forums();
-
-    foreach($forums as $forum) {
-        forum_unsubscribe($USER->id, $forum->id);
-    }
-    $DB->set_field('user', 'autosubscribe', 0, array('id'=>$USER->id));
-
-    echo $OUTPUT->box(get_string('unsubscribealldone', 'forum'));
-    echo $OUTPUT->continue_button($return);
-    echo $OUTPUT->footer();
+    delete_records('forum_subscriptions', 'userid', $USER->id);
+    set_field('user', 'autosubscribe', 0, 'id', $USER->id);
+    print_box(get_string('unsubscribealldone', 'forum'));
+    print_continue($return);
+    print_footer();
     die;
-
+    
 } else {
-    $a = count(forum_get_optional_subscribed_forums());
+    $a = count_records('forum_subscriptions', 'userid', $USER->id);
 
     if ($a) {
         $msg = get_string('unsubscribeallconfirm', 'forum', $a);
-        echo $OUTPUT->confirm($msg, new moodle_url('unsubscribeall.php', array('confirm'=>1)), $return);
-        echo $OUTPUT->footer();
+        notice_yesno($msg, 'unsubscribeall.php', $return, array('confirm'=>1, 'sesskey'=>sesskey()), NULL, 'post', 'get');
+        print_footer();
         die;
 
     } else {
-        echo $OUTPUT->box(get_string('unsubscribeallempty', 'forum'));
-        echo $OUTPUT->continue_button($return);
-        echo $OUTPUT->footer();
+        print_box(get_string('unsubscribeallempty', 'forum'));
+        print_continue($return);
+        print_footer();
         die;
     }
 }

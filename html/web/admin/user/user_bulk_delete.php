@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: user_bulk_delete.php,v 1.3.2.1 2007/11/13 09:02:12 skodak Exp $
 /**
 * script for bulk user delete operations
 */
@@ -8,9 +8,8 @@ require_once($CFG->libdir.'/adminlib.php');
 
 $confirm = optional_param('confirm', 0, PARAM_BOOL);
 
-require_login();
 admin_externalpage_setup('userbulk');
-require_capability('moodle/user:delete', context_system::instance());
+require_capability('moodle/user:delete', get_context_instance(CONTEXT_SYSTEM));
 
 $return = $CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk.php';
 
@@ -18,33 +17,46 @@ if (empty($SESSION->bulk_users)) {
     redirect($return);
 }
 
-echo $OUTPUT->header();
+admin_externalpage_print_header();
 
 //TODO: add support for large number of users
 
 if ($confirm and confirm_sesskey()) {
+    $primaryadmin = get_admin();
 
-    list($in, $params) = $DB->get_in_or_equal($SESSION->bulk_users);
-    $rs = $DB->get_recordset_select('user', "id $in", $params);
-    foreach ($rs as $user) {
-        if (!is_siteadmin($user) and $USER->id != $user->id and delete_user($user)) {
-            unset($SESSION->bulk_users[$user->id]);
-        } else {
-            echo $OUTPUT->notification(get_string('deletednot', '', fullname($user, true)));
+    $in = implode(',', $SESSION->bulk_users);
+    if ($rs = get_recordset_select('user', "id IN ($in)")) {
+        while ($user = rs_fetch_next_record($rs)) {
+            if ($primaryadmin->id != $user->id and $USER->id != $user->id and delete_user($user)) {
+                unset($SESSION->bulk_users[$user->id]);
+            } else {
+                notify(get_string('deletednot', '', fullname($user, true)));
+            }
         }
+        rs_close($rs);
     }
-    $rs->close();
-    session_gc(); // remove stale sessions
     redirect($return, get_string('changessaved'));
 
 } else {
-    list($in, $params) = $DB->get_in_or_equal($SESSION->bulk_users);
-    $userlist = $DB->get_records_select_menu('user', "id $in", $params, 'fullname', 'id,'.$DB->sql_fullname().' AS fullname');
+    $in = implode(',', $SESSION->bulk_users);
+    $userlist = get_records_select_menu('user', "id IN ($in)", 'fullname', 'id,'.sql_fullname().' AS fullname');
     $usernames = implode(', ', $userlist);
-    echo $OUTPUT->heading(get_string('confirmation', 'admin'));
-    $formcontinue = new single_button(new moodle_url('user_bulk_delete.php', array('confirm' => 1)), get_string('yes'));
-    $formcancel = new single_button(new moodle_url('user_bulk.php'), get_string('no'), 'get');
-    echo $OUTPUT->confirm(get_string('deletecheckfull', '', $usernames), $formcontinue, $formcancel);
+    $optionsyes = array();
+    $optionsyes['confirm'] = 1;
+    $optionsyes['sesskey'] = sesskey();
+    print_heading(get_string('confirmation', 'admin'));
+    //XTEC ************ MODIFICAT - To warn that the deleting of a large number of user does not work
+    //2010.06.30
+    if(count($userlist) > 100){
+    	notice_yesno(get_string('deletecheckfull', '', $usernames) . get_string('deletebulkusers', ''), 'user_bulk_delete.php', 'user_bulk.php', $optionsyes, NULL, 'post', 'get');	
+    }
+    else{
+    	notice_yesno(get_string('deletecheckfull', '', $usernames), 'user_bulk_delete.php', 'user_bulk.php', $optionsyes, NULL, 'post', 'get');
+    }
+    //************ ORIGINAL
+    //notice_yesno(get_string('deletecheckfull', '', $usernames), 'user_bulk_delete.php', 'user_bulk.php', $optionsyes, NULL, 'post', 'get');
+	//************ FI
 }
 
-echo $OUTPUT->footer();
+admin_externalpage_print_footer();
+?>

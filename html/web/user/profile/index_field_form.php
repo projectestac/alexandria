@@ -1,8 +1,4 @@
-<?php
-
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
-}
+<?php //$Id: index_field_form.php,v 1.4.4.3 2009/09/26 16:28:24 skodak Exp $
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 
@@ -28,7 +24,7 @@ class field_form extends moodleform {
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
         $mform->addElement('hidden', 'action', 'editfield');
-        $mform->setType('action', PARAM_ALPHANUMEXT);
+        $mform->setType('action', PARAM_ACTION);
         $mform->addElement('hidden', 'datatype', $datatype);
         $mform->setType('datatype', PARAM_ALPHA);
 
@@ -49,10 +45,6 @@ class field_form extends moodleform {
     function validation($data, $files) {
         return $this->field->define_validate($data, $files);
     }
-
-    function editors() {
-        return $this->field->define_editors();
-    }
 }
 
-
+?>

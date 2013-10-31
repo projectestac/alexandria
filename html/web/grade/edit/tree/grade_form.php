@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * A moodleform to allow the editing of a user's grade for a particular activity
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
 }
@@ -31,7 +24,7 @@ require_once $CFG->libdir.'/formslib.php';
 class edit_grade_form extends moodleform {
 
     function definition() {
-        global $CFG, $COURSE, $DB;
+        global $CFG, $COURSE;
 
         $mform =& $this->_form;
 
@@ -52,13 +45,13 @@ class edit_grade_form extends moodleform {
         $mform->addElement('static', 'itemname', get_string('itemname', 'grades'));
 
         $mform->addElement('checkbox', 'overridden', get_string('overridden', 'grades'));
-        $mform->addHelpButton('overridden', 'overridden', 'grades');
+        $mform->setHelpButton('overridden', array('overridden', get_string('overridden', 'grades'), 'grade'));
 
         /// actual grade - numeric or scale
         if ($grade_item->gradetype == GRADE_TYPE_VALUE) {
             // numeric grade
             $mform->addElement('text', 'finalgrade', get_string('finalgrade', 'grades'));
-            $mform->addHelpButton('finalgrade', 'finalgrade', 'grades');
+            $mform->setHelpButton('finalgrade', array('finalgrade', get_string('finalgrade', 'grades'), 'grade'));
             $mform->disabledIf('finalgrade', 'overridden', 'notchecked');
 
         } else if ($grade_item->gradetype == GRADE_TYPE_SCALE) {
@@ -72,15 +65,15 @@ class edit_grade_form extends moodleform {
             }
 
             $i = 1;
-            if ($scale = $DB->get_record('scale', array('id' => $grade_item->scaleid))) {
-                foreach (explode(",", $scale->scale) as $option) {
+            if ($scale = get_record('scale', 'id', $grade_item->scaleid)) {
+                foreach (split(",", $scale->scale) as $option) {
                     $scaleopt[$i] = $option;
                     $i++;
                 }
             }
 
             $mform->addElement('select', 'finalgrade', get_string('finalgrade', 'grades'), $scaleopt);
-            $mform->addHelpButton('finalgrade', 'finalgrade', 'grades');
+            $mform->setHelpButton('finalgrade', array('finalgrade', get_string('finalgrade', 'grades'), 'grade'));
             $mform->disabledIf('finalgrade', 'overridden', 'notchecked');
         }
 
@@ -89,26 +82,31 @@ class edit_grade_form extends moodleform {
         } else {
             $mform->addElement('advcheckbox', 'excluded', get_string('excluded', 'grades'));
         }
-        $mform->addHelpButton('excluded', 'excluded', 'grades');
+        $mform->setHelpButton('excluded', array('excluded', get_string('excluded', 'grades'), 'grade'));
 
         /// hiding
         /// advcheckbox is not compatible with disabledIf !!
         $mform->addElement('checkbox', 'hidden', get_string('hidden', 'grades'));
-        $mform->addHelpButton('hidden', 'hidden', 'grades');
+        $mform->setHelpButton('hidden', array('hidden', get_string('hidden', 'grades'), 'grade'));
         $mform->addElement('date_time_selector', 'hiddenuntil', get_string('hiddenuntil', 'grades'), array('optional'=>true));
+        $mform->setHelpButton('hiddenuntil', array('hiddenuntil', get_string('hiddenuntil', 'grades'), 'grade'));
         $mform->disabledIf('hidden', 'hiddenuntil[off]', 'notchecked');
 
         /// locking
         $mform->addElement('advcheckbox', 'locked', get_string('locked', 'grades'));
-        $mform->addHelpButton('locked', 'locked', 'grades');
+        $mform->setHelpButton('locked', array('locked', get_string('locked', 'grades'), 'grade'));
         $mform->addElement('date_time_selector', 'locktime', get_string('locktime', 'grades'), array('optional'=>true));
+        $mform->setHelpButton('locktime', array('lockedafter', get_string('locktime', 'grades'), 'grade'));
         $mform->disabledIf('locktime', 'gradetype', 'eq', GRADE_TYPE_NONE);
 
         // Feedback format is automatically converted to html if user has enabled editor
-        $feedbackoptions = array('maxfiles'=>0, 'maxbytes'=>0); //TODO: no files here for now, if ever gets implemented use component 'grade' and filearea 'feedback'
-        $mform->addElement('editor', 'feedback', get_string('feedback', 'grades'), null, $feedbackoptions);
-        $mform->addHelpButton('feedback', 'feedback', 'grades');
+        $mform->addElement('htmleditor', 'feedback', get_string('feedback', 'grades'),
+            array('rows'=>'15', 'course'=>$COURSE->id, 'cols'=>'45'));
+        $mform->setHelpButton('feedback', array('feedback', get_string('feedback', 'grades'), 'grade'));
         $mform->setType('text', PARAM_RAW); // to be cleaned before display, no XSS risk
+        $mform->addElement('format', 'feedbackformat', get_string('format'));
+        $mform->setHelpButton('feedbackformat', array('textformat', get_string('helpformatting')));
+        //TODO: unfortunately we can not disable html editor for external grades when overridden off :-(
 
         // hidden params
         $mform->addElement('hidden', 'oldgrade');
@@ -137,16 +135,16 @@ class edit_grade_form extends moodleform {
     }
 
     function definition_after_data() {
-        global $CFG, $COURSE, $DB;
+        global $CFG, $COURSE;
 
-        $context = context_course::instance($COURSE->id);
+        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
 
         $mform =& $this->_form;
         $grade_item = $this->_customdata['grade_item'];
 
         // fill in user name if user still exists
         $userid = $mform->getElementValue('userid');
-        if ($user = $DB->get_record('user', array('id' => $userid))) {
+        if ($user = get_record('user', 'id', $userid)) {
             $username = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$userid.'">'.fullname($user).'</a>';
             $user_el =& $mform->getElement('user');
             $user_el->setValue($username);
@@ -212,4 +210,4 @@ class edit_grade_form extends moodleform {
     }
 }
 
-
+?>

@@ -1,187 +1,113 @@
-<?php
+<?php  // $Id: rsslib.php,v 1.52.2.8 2011/01/19 13:31:51 moodlerobot Exp $
+       // This file contains all the common stuff to be used in RSS System
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+//This function returns the icon (from theme) with the link to rss/file.php
+function rss_get_link($courseid, $userid, $modulename, $id, $tooltiptext='') {
 
-/**
- * This file contains all the common stuff to be used in RSS System
- *
- * @package    core_rss
- * @category   rss
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+    global $CFG, $USER;
 
-defined('MOODLE_INTERNAL') || die();
-
-/**
- * Build the URL for the RSS feed and add it as a header
- *
- * @param stdClass    $context           The context under which the URL should be created
- * @param string      $componentname     The name of the component for which the RSS feed exists
- * @param stdClass    $componentinstance The instance of the component
- * @param string      $title             Name for the link to be added to the page header
- */
-function rss_add_http_header($context, $componentname, $componentinstance, $title) {
-    global $PAGE, $USER;
-
-    $componentid = null;
-    if (is_object($componentinstance)) {
-        $componentid = $componentinstance->id;
-    } else {
-        $componentid = $componentinstance;
-    }
-
-    $rsspath = rss_get_url($context->id, $USER->id, $componentname, $componentid);
-    $PAGE->add_alternate_version($title, $rsspath, 'application/rss+xml');
- }
-
-/**
- * Print the link for the RSS feed with the correct RSS icon
- *
- * @param stdClass    $contextid     The id of the context under which the URL should be created
- * @param int         $userid        The source of the RSS feed (site/course/group/user)
- * @param string      $componentname The name of the component for which the feed exists
- * @param string      $id            The name by which to call the RSS File
- * @param string      $tooltiptext   The tooltip to be displayed with the link
- * @return string HTML output for the RSS link
- */
-function rss_get_link($contextid, $userid, $componentname, $id, $tooltiptext='') {
-    global $OUTPUT;
-
+    static $pixpath = '';
     static $rsspath = '';
 
-    $rsspath = rss_get_url($contextid, $userid, $componentname, $id);
-    $rsspix = $OUTPUT->pix_url('i/rss');
+    //In site course, if no logged (userid), use admin->id. Bug 2048.
+    if ($courseid == SITEID and empty($userid)) {
+        $admin = get_admin();
+        $userid = $admin->id;
+    }
+
+    $rsspath = rss_get_url($courseid, $userid, $modulename, $id);
+    $rsspix = $CFG->pixpath .'/i/rss.gif';
 
     return '<a href="'. $rsspath .'"><img src="'. $rsspix .'" title="'. strip_tags($tooltiptext) .'" alt="'.get_string('rss').'" /></a>';
+
 }
 
-/**
- * This function returns the URL for the RSS XML file.
- *
- * @param int    $contextid      the course id
- * @param int    $userid         the current user id
- * @param string $componentname  the name of the current component. For example "forum"
- * @param string $additionalargs For modules, module instance id
- * @return string the url of the RSS feed
- */
-function rss_get_url($contextid, $userid, $componentname, $additionalargs) {
+//This function returns the URL for the RSS XML file.
+function rss_get_url($courseid, $userid, $modulename, $id) {
     global $CFG;
     require_once($CFG->libdir.'/filelib.php');
-    $usertoken = rss_get_token($userid);
-    return get_file_url($contextid.'/'.$usertoken.'/'.$componentname.'/'.$additionalargs.'/rss.xml', null, 'rssfile');
+    return get_file_url($courseid.'/'.$userid.'/'.$modulename.'/'.$id.'/rss.xml', null, 'rssfile');
 }
 
-/**
- * Print the link for the RSS feed with the correct RSS icon (Theme based)
- *
- * @param stdClass    $contextid     The id of the context under which the URL should be created
- * @param int         $userid        The source of the RSS feed (site/course/group/user)
- * @param string      $componentname The name of the component for which the feed exists
- * @param string      $id            The name by which to call the RSS File
- * @param string      $tooltiptext   The tooltip to be displayed with the link
- */
-function rss_print_link($contextid, $userid, $componentname, $id, $tooltiptext='') {
-    print rss_get_link($contextid, $userid, $componentname, $id, $tooltiptext);
+//This function prints the icon (from theme) with the link to rss/file.php
+function rss_print_link($courseid, $userid, $modulename, $id, $tooltiptext='') {
+
+    print rss_get_link($courseid, $userid, $modulename, $id, $tooltiptext);
 
 }
+//This function iterates over each module in the server to see if
+//it supports generating rss feeds, searching for a MODULENAME_rss_feeds()
+//function and invoking it foreach activity as necessary
+function cron_rss_feeds () {
 
-/**
- * Given an object, deletes all RSS files associated with it.
- *
- * @param string   $componentname the name of the module ie 'forum'. Used to construct the cache path.
- * @param stdClass $instance      An object with an id member variable ie $forum, $glossary.
- */
-function rss_delete_file($componentname, $instance) {
-    global $CFG;
-
-    $dirpath = "$CFG->cachedir/rss/$componentname";
-    if (is_dir($dirpath)) {
-        if (!$dh = opendir($dirpath)) {
-            error_log("Directory permission error. RSS directory store for component '{$componentname}' exists but cannot be opened.", DEBUG_DEVELOPER);
-            return;
-        }
-        while (false !== ($filename = readdir($dh))) {
-            if ($filename!='.' && $filename!='..') {
-                if (preg_match("/{$instance->id}_/", $filename)) {
-                    unlink("$dirpath/$filename");
-                }
-            }
-        }
-    }
-}
-
-/**
- * Are RSS feeds enabled for the supplied module instance?
- *
- * @param string   $modname        The name of the module to be checked
- * @param stdClass $instance       An instance of an activity module ie $forum, $glossary.
- * @param bool     $hasrsstype     Should there be a rsstype member variable?
- * @param bool     $hasrssarticles Should there be a rssarticles member variable?
- * @return bool whether or not RSS is enabled for the module
- */
-function rss_enabled_for_mod($modname, $instance=null, $hasrsstype=true, $hasrssarticles=true) {
-    if ($hasrsstype) {
-        if (empty($instance->rsstype) || $instance->rsstype==0) {
-            return false;
-        }
-    }
-
-    //have they set the RSS feed to return 0 results?
-    if ($hasrssarticles) {
-        if (empty($instance->rssarticles) || $instance->rssarticles==0) {
-            return false;
-        }
-    }
-
-    if (!empty($instance) && !instance_is_visible($modname,$instance)) {
-        return false;
-    }
-
-    return true;
-}
-
-/**
- * This function saves to file the rss feed specified in the parameters
- *
- * @param string $componentname  the module name ie forum. Used to create a cache directory.
- * @param string $filename       the name of the file to be created ie "rss.xml"
- * @param string $contents       the data to be written to the file
- * @param bool   $expandfilename whether or not the fullname of the RSS file should be used
- * @return bool whether the save was successful or not
- */
-function rss_save_file($componentname, $filename, $contents, $expandfilename=true) {
     global $CFG;
 
     $status = true;
 
-    if (! $basedir = make_cache_directory ('rss/'. $componentname)) {
+    mtrace('    Generating rssfeeds...');
+
+    //Check for required functions...
+    if(!function_exists('utf8_encode')) {
+        mtrace('        ERROR: You need to add XML support to your PHP installation!');
+        return true;
+    }
+
+    if ($allmods = get_records('modules') ) {
+        foreach ($allmods as $mod) {
+            mtrace('        '.$mod->name.': ', '');
+            $modname = $mod->name;
+            $modfile = "$CFG->dirroot/mod/$modname/rsslib.php";
+            //If file exists and we have selected to restore that type of module
+            if (file_exists($modfile)) {
+                include_once($modfile);
+                $generaterssfeeds = $modname.'_rss_feeds';
+                if (function_exists($generaterssfeeds)) {
+                    if ($status) {
+                        mtrace('generating ', '');;
+                        $status = $generaterssfeeds();
+                        if (!empty($status)) {
+                            mtrace('...OK');
+                        } else {
+                            mtrace('...FAILED');
+                        }
+                    } else {
+                        mtrace('...SKIPPED (failed above)');
+                    }
+                } else {
+                    mtrace('...NOT SUPPORTED (function)');
+                }
+            } else {
+                mtrace('...NOT SUPPORTED (file)');
+            }
+        }
+    }
+    mtrace('    Ending  rssfeeds...', '');
+    if (!empty($status)) {
+        mtrace('...OK');
+    } else {
+        mtrace('...FAILED');
+    }
+
+    return $status;
+}
+
+//This function saves to file the rss feed specified in the parameters
+function rss_save_file ($modname, $mod, $result) {
+
+    global $CFG;
+
+    $status = true;
+
+    if (! $basedir = make_upload_directory ('rss/'. $modname)) {
         //Cannot be created, so error
         $status = false;
     }
 
     if ($status) {
-        $fullfilename = $filename;
-        if ($expandfilename) {
-            $fullfilename = rss_get_file_full_name($componentname, $filename);
-        }
-
-        $rss_file = fopen($fullfilename, "w");
+        $file = rss_file_name($modname, $mod);
+        $rss_file = fopen($file, "w");
         if ($rss_file) {
-            $status = fwrite ($rss_file, $contents);
+            $status = fwrite ($rss_file, $result);
             fclose($rss_file);
         } else {
             $status = false;
@@ -190,55 +116,26 @@ function rss_save_file($componentname, $filename, $contents, $expandfilename=tru
     return $status;
 }
 
-/**
- * Retrieve the location and file name of a cached RSS feed
- *
- * @param string $componentname the name of the component the RSS feed is being created for
- * @param string $filename the name of the RSS FEED
- * @return string The full name and path of the RSS file
- */
-function rss_get_file_full_name($componentname, $filename) {
+
+function rss_file_name($modname, $mod) {
     global $CFG;
-    return "$CFG->cachedir/rss/$componentname/$filename.xml";
+
+    return "$CFG->dataroot/rss/$modname/$mod->id.xml";
 }
 
-/**
- * Construct the file name of the RSS File
- *
- * @param stdClass $instance the instance of the source of the RSS feed
- * @param string $sql the SQL used to produce the RSS feed
- * @param array $params the parameters used in the SQL query
- * @return string the name of the RSS file
- */
-function rss_get_file_name($instance, $sql, $params = array()) {
-    if ($params) {
-        // If a parameters array is passed, then we want to
-        // serialize it and then concatenate it with the sql.
-        // The reason for this is to generate a unique filename
-        // for queries using the same sql but different parameters.
-        asort($parms);
-        $serializearray = serialize($params);
-        return $instance->id.'_'.md5($sql . $serializearray);
-    } else {
-        return $instance->id.'_'.md5($sql);
-    }
-}
-
-/**
- * This function return all the common headers for every rss feed in the site
- *
- * @param string $title       the title for the RSS Feed
- * @param string $link        the link for the origin of the RSS feed
- * @param string $description the description of the contents of the RSS feed
- * @return bool|string the standard header for the RSS feed
- */
+//This function return all the common headers for every rss feed in the site
 function rss_standard_header($title = NULL, $link = NULL, $description = NULL) {
-    global $CFG, $USER, $OUTPUT;
+
+    global $CFG, $USER;
+
+    static $pixpath = '';
 
     $status = true;
     $result = "";
 
-    $site = get_site();
+    if (!$site = get_site()) {
+        $status = false;
+    }
 
     if ($status) {
 
@@ -278,7 +175,7 @@ function rss_standard_header($title = NULL, $link = NULL, $description = NULL) {
        */
 
         //write image info
-        $rsspix = $OUTPUT->pix_url('i/rsssitelogo');
+        $rsspix = $CFG->pixpath."/i/rsssitelogo.gif";
 
         //write the info
         $result .= rss_start_tag('image', 2, true);
@@ -297,20 +194,14 @@ function rss_standard_header($title = NULL, $link = NULL, $description = NULL) {
     }
 }
 
-
-/**
- * Generates the rss XML code for every item passed in the array
- *
- * item->title: The title of the item
- * item->author: The author of the item. Optional !!
- * item->pubdate: The pubdate of the item
- * item->link: The link url of the item
- * item->description: The content of the item
- *
- * @param array $items an array of item objects
- * @return bool|string the rss XML code for every item passed in the array
- */
+//This function returns the rss XML code for every item passed in the array
+//item->title: The title of the item
+//item->author: The author of the item. Optional !!
+//item->pubdate: The pubdate of the item
+//item->link: The link url of the item
+//item->description: The content of the item
 function rss_add_items($items) {
+
     global $CFG;
 
     $result = '';
@@ -336,7 +227,7 @@ function rss_add_items($items) {
             $result .= rss_add_enclosures($item);
             $result .= rss_full_tag('pubDate',3,false,gmdate('D, d M Y H:i:s',$item->pubdate).' GMT');  # MDL-12563
             //Include the author if exists
-            if (isset($item->author) && !empty($item->author)) {
+            if (isset($item->author)) {
                 //$result .= rss_full_tag('author',3,false,$item->author);
                 //We put it in the description instead because it's more important
                 //for moodle than most other feeds, and most rss software seems to ignore
@@ -354,16 +245,11 @@ function rss_add_items($items) {
     return $result;
 }
 
-/**
- * This function return all the common footers for every rss feed in the site
- *
- * @param string $title       Not used at all
- * @param string $link        Not used at all
- * @param string $description Not used at all
- * @todo  MDL-31050 Fix/Remove this function
- * @return string
- */
+//This function return all the common footers for every rss feed in the site
 function rss_standard_footer($title = NULL, $link = NULL, $description = NULL) {
+
+    global $CFG, $USER;
+
     $status = true;
     $result = '';
 
@@ -375,14 +261,11 @@ function rss_standard_footer($title = NULL, $link = NULL, $description = NULL) {
     return $result;
 }
 
+//This function return an error xml file (string)
+//to be sent when a rss is required (file.php)
+//and something goes wrong
+function rss_geterrorxmlfile() {
 
-/**
- * This function return an error xml file (string) to be sent when a rss is required (file.php) and something goes wrong
- *
- * @param string $errortype Type of error to send, default is rsserror
- * @return stdClass returns a XML Feed with an error message in it
- */
-function rss_geterrorxmlfile($errortype = 'rsserror') {
     global $CFG;
 
     $return = '';
@@ -392,11 +275,11 @@ function rss_geterrorxmlfile($errortype = 'rsserror') {
 
     //XML item
     if ($return) {
-        $item = new stdClass();
-        $item->title       = "RSS Error";
-        $item->link        = $CFG->wwwroot;
-        $item->pubdate     = time();
-        $item->description = get_string($errortype);
+        $item = new object();
+        $item->title = "RSS Error";
+        $item->link = $CFG->wwwroot;
+        $item->pubdate = time();
+        $item->description = get_string("rsserror");
         $return .= rss_add_items(array($item));
     }
 
@@ -408,49 +291,12 @@ function rss_geterrorxmlfile($errortype = 'rsserror') {
     return $return;
 }
 
-/**
- * Get the ID of the user from a given RSS Token
- *
- * @param string $token the RSS token you would like to use to find the user id
- * @return int The user id
- */
-function rss_get_userid_from_token($token) {
-    global $DB;
+// ===== This function are used to write XML tags =========
+// [stronk7]: They are similar to the glossary export and backup generation
+// but I've replicated them here because they have some minor
+// diferences. Someday all they should go to a common place.
 
-    $sql = 'SELECT u.id FROM {user} u
-            JOIN {user_private_key} k ON u.id = k.userid
-            WHERE u.deleted = 0 AND u.confirmed = 1
-            AND u.suspended = 0 AND k.value = ?';
-    return $DB->get_field_sql($sql, array($token), IGNORE_MISSING);
-}
-
-/**
- * Get the RSS Token from a given user id
- *
- * @param int $userid The user id
- * @return string the RSS token for the user
- */
-function rss_get_token($userid) {
-    return get_user_key('rss', $userid);
-}
-
-/**
- * Removes the token for the given user from the DB
- * @param int $userid The user id for the token you wish to delete
- */
-function rss_delete_token($userid) {
-    delete_user_key('rss', $userid);
-}
-
-/**
- * Return the xml start tag
- *
- * @param string $tag        the xml tag name
- * @param int    $level      the indentation level
- * @param bool   $endline    whether or not to start new tags on a new line
- * @param array  $attributes the attributes of the xml tag
- * @return string the xml start tag
- */
+//Return the xml start tag
 function rss_start_tag($tag,$level=0,$endline=false,$attributes=null) {
     if ($endline) {
        $endchar = "\n";
@@ -466,13 +312,7 @@ function rss_start_tag($tag,$level=0,$endline=false,$attributes=null) {
     return str_repeat(" ",$level*2)."<".$tag.$attrstring.">".$endchar;
 }
 
-/**
- * Return the xml end tag
- * @param string $tag        the xml tag name
- * @param int    $level      the indentation level
- * @param bool   $endline    whether or not to start new tags on a new line
- * @return string the xml end tag
- */
+//Return the xml end tag
 function rss_end_tag($tag,$level=0,$endline=true) {
     if ($endline) {
        $endchar = "\n";
@@ -482,17 +322,9 @@ function rss_end_tag($tag,$level=0,$endline=true) {
     return str_repeat(" ",$level*2)."</".$tag.">".$endchar;
 }
 
-/**
- * Return the while xml element, including content
- *
- * @param string $tag        the xml tag name
- * @param int    $level      the indentation level
- * @param bool   $endline    whether or not to start new tags on a new line
- * @param string $content    the text to go inside the tag
- * @param array  $attributes the attributes of the xml tag
- * @return string the whole xml element
- */
+//Return the start tag, the contents and the end tag
 function rss_full_tag($tag,$level=0,$endline=true,$content,$attributes=null) {
+    global $CFG;
     $st = rss_start_tag($tag,$level,$endline,$attributes);
     $co="";
     $co = preg_replace("/\r\n|\r/", "\n", htmlspecialchars($content));
@@ -501,21 +333,240 @@ function rss_full_tag($tag,$level=0,$endline=true,$content,$attributes=null) {
     return $st.$co.$et;
 }
 
+//////////////////// LIBRARY FUNCTIONS FOR RSS_CLIENT BLOCK ////////////////
+
+//initialize default config vars for rss_client block if needed
+if (!isset($CFG->block_rss_client_submitters) ) {
+    $CFG->block_rss_client_submitters = 1; //default to admin only
+}
+if (empty($CFG->block_rss_client_num_entries) ) {
+    $CFG->block_rss_client_num_entries = 5; //default to 5 entries per block
+}
+if (!isset($CFG->block_rss_client_timeout) ) {
+    $CFG->block_rss_client_timeout = 30; //default to 30 mins
+}
+
+// Defines for moodle's use of magpierss classes
+define('MAGPIE_DIR', $CFG->libdir.'/magpie/');
+define('MAGPIE_CACHE_DIR', $CFG->dataroot .'/cache/rsscache');
+define('MAGPIE_CACHE_ON', true); //might want to expose as an admin config option, but perhaps this is something that should truly just be on unless the code is tweaked
+define('MAGPIE_CACHE_FRESH_ONLY', false); //should be exposed as an admin config option
+define('MAGPIE_CACHE_AGE', $CFG->block_rss_client_timeout * 60);
+define('MAGPIE_DEBUG', $CFG->debug); // magpie, like moodle, takes an integer debug
+
+// defines for config var block_rss_client_submitters
+define('SUBMITTERS_ALL_ACCOUNT_HOLDERS', 0);
+define('SUBMITTERS_ADMIN_ONLY', 1);
+define('SUBMITTERS_ADMIN_AND_TEACHER', 2);
+
 /**
- * Adds RSS Media Enclosures for "podcasting" by including attachments that
- * are specified in the item->attachments field.
- *
- * @param stdClass $item representing an RSS item
- * @return string RSS enclosure tags
+ * @param int $courseid The id of the course the user is currently viewing
+ * @param int $userid We need this to know which feeds the user is allowed to manage
+ * @param int $rssid If present the rss entry matching this id alone will be displayed
+ *            as long as the user is allowed to manage this feed
+ * @param object $context we need the context object to check what the user is allowed to do.
  */
+function rss_display_feeds($courseid, $userid, $rssid='', $context) {
+    global $db, $USER, $CFG;
+    global $blogid; //hackish, but if there is a blogid it would be good to preserve it
+
+    require_once($CFG->libdir.'/tablelib.php');
+
+    $select = '';
+    $managesharedfeeds = has_capability('block/rss_client:manageanyfeeds', $context);
+    $manageownfeeds = has_capability('block/rss_client:manageownfeeds', $context);
+
+    if ($rssid != '') {
+        $select = 'id = '.$rssid.' AND ';
+    }
+    if ($managesharedfeeds) {
+        $select .= '(userid = '.$userid.' OR shared = 1)';
+    } else if ($manageownfeeds) {
+        $select .= 'userid = '.$userid;
+    }
+
+    $table = new flexible_table('rss-display-feeds');
+
+    $table->define_columns(array('feed', 'actions'));
+    $table->define_headers(array(get_string('feed', 'block_rss_client'), get_string('actions', 'moodle')));
+
+    $table->set_attribute('cellspacing', '0');
+    $table->set_attribute('id', 'rssfeeds');
+    $table->set_attribute('class', 'generaltable generalbox');
+    $table->column_class('feed', 'feed');
+    $table->column_class('actions', 'actions');
+
+    $table->setup();
+
+    $feeds = get_records_select('block_rss_client', $select, sql_order_by_text('title'));
+
+    if(!empty($feeds)) {
+        foreach($feeds as $feed) {
+
+            if (!empty($feed->preferredtitle)) {
+                $feedtitle = stripslashes_safe($feed->preferredtitle);
+            } else {
+                $feedtitle =  stripslashes_safe($feed->title);
+            }
+
+            if ( ($feed->userid == $USER->id && $manageownfeeds)
+                    || ($feed->shared && $managesharedfeeds) ) {
+
+                $feedicons = '<a href="'. $CFG->wwwroot .'/blocks/rss_client/block_rss_client_action.php?id='. $courseid .'&amp;act=rssedit&amp;rssid='. $feed->id .'&amp;shared='.$feed->shared.'&amp;blogid='. $blogid .'">'.
+                             '<img src="'. $CFG->pixpath .'/t/edit.gif" alt="'. get_string('edit').'" title="'. get_string('edit') .'" /></a>&nbsp;'.
+
+                             '<a href="'. $CFG->wwwroot .'/blocks/rss_client/block_rss_client_action.php?id='. $courseid .'&amp;act=delfeed&amp;sesskey='.sesskey().'&amp;rssid='. $feed->id.'&amp;shared='.$feed->shared.'blogid='. $blogid .'"
+                onclick="return confirm(\''. get_string('deletefeedconfirm', 'block_rss_client') .'\');">'.
+                             '<img src="'. $CFG->pixpath .'/t/delete.gif" alt="'. get_string('delete').'" title="'. get_string('delete') .'" /></a>';
+            }
+            else {
+                $feedicons = '';
+            }
+
+            $feedinfo = '
+    <div class="title">
+        <a href="'. $CFG->wwwroot .'/blocks/rss_client/block_rss_client_action.php?id='. $courseid .'&amp;act=view&amp;rssid='.$feed->id .'&amp;blogid='. $blogid .'">
+        '. $feedtitle .'</a>
+    </div>
+    <div class="url">
+        <a href="'. $feed->url .'">'. $feed->url .'</a>
+    </div>
+    <div class="description">'.$feed->description.'</div>';
+
+            $table->add_data(array($feedinfo, $feedicons));
+        }
+    }
+
+    $table->print_html();
+}
+
+
+/**
+ * Wrapper function for rss_get_form
+ */
+function rss_print_form($act='none', $url='', $rssid='', $preferredtitle='', $shared=0, $courseid='', $context) {
+    print rss_get_form($act, $url, $rssid, $preferredtitle, $shared, $courseid, $context);
+}
+
+
+/**
+ * Prints or returns a form for managing rss feed entries.
+ * @param string $act The current action. If "rssedit" then and "update" button is used, otherwise "add" is used.
+ * @param string $url The url of the feed that is being updated or NULL
+ * @param int $rssid The dataabse id of the feed that is being updated or NULL
+ * @param string $preferredtitle The preferred title to display for this feed
+ * @param int $shared Whether this feed is to be shared or not
+ * @param int $courseid The id of the course that is currently being viewed if applicable
+ * @param object $context The context that we will use to check for permissions
+ * @return string Either the form is printed directly and nothing is returned or the form is returned as a string
+ */
+function rss_get_form($act='none', $url='', $rssid='', $preferredtitle='', $shared=0, $courseid='', $context) {
+    global $USER, $CFG, $_SERVER, $blockid, $blockaction;
+    global $blogid; //hackish, but if there is a blogid it would be good to preserve it
+    $stredit = get_string('edit');
+    $stradd = get_string('add');
+    $strupdatefeed = get_string('updatefeed', 'block_rss_client');
+    $straddfeed = get_string('addfeed', 'block_rss_client');
+
+    $returnstring = '';
+
+    $returnstring .= '<form action="'. $CFG->wwwroot .'/blocks/rss_client/block_rss_client_action.php" method="post" id="block_rss">'."\n";
+    $returnstring .= '<div id="rss_table">'."\n";
+    if ($act == 'rssedit') {
+        $returnstring .= $strupdatefeed;
+    } else {
+        $returnstring .= $straddfeed;
+    }
+
+    $returnstring .= "\n".'<br /><input type="text" size="60" maxlength="256" name="url" value="';
+    if ($act == 'rssedit') {
+        $returnstring .= $url;
+    }
+
+    $returnstring .= '" />'."\n";
+    $returnstring .= '<br />'. get_string('customtitlelabel', 'block_rss_client');
+    $returnstring .= '<br /><input type="text" size="60" maxlength="128" name="preferredtitle" value="';
+
+    if ($act == 'rssedit') {
+        $returnstring .= $preferredtitle;
+    }
+
+    $returnstring .= '" />'."\n";
+
+    if (has_capability('block/rss_client:createsharedfeeds', $context)) {
+        $returnstring .= '<br /><input type="checkbox" name="shared" value="1" ';
+        if ($shared) {
+            $returnstring .= 'checked="checked" ';
+        }
+        $returnstring .= '/> ';
+        $returnstring .= get_string('sharedfeed', 'block_rss_client');
+        $returnstring .= '<br />'."\n";
+    }
+
+    $returnstring .= '<input type="hidden" name="act" value="';
+
+    if ($act == 'rssedit') {
+        $returnstring .= 'updfeed';
+    } else {
+        $returnstring .= 'addfeed';
+    }
+
+    $returnstring .= '" />'."\n";
+    if ($act == 'rssedit') {
+        $returnstring .= '<input type="hidden" name="rssid" value="'. $rssid .'" />'. "\n";
+    }
+
+    $returnstring .= '<input type="hidden" name="id" value="'. $courseid .'" />'."\n";
+    $returnstring .= '<input type="hidden" name="blogid" value="'. $blogid .'" />'."\n";
+    $returnstring .= '<input type="hidden" name="user" value="'. $USER->id .'" />'."\n";
+    $returnstring .= '<input type="hidden" name="sesskey" value="'. sesskey() .'" />'."\n";
+    $returnstring .= '<br /><input type="submit" value="';
+    $validatestring = "<a href=\"#\" onclick=\"window.open('http://feedvalidator.org/check.cgi?url='+getElementById('block_rss').elements['url'].value,'validate','width=640,height=480,scrollbars=yes,status=yes,resizable=yes');return true;\">". get_string('validatefeed', 'block_rss_client')."</a>";
+
+    if ($act == 'rssedit') {
+        $returnstring .= $stredit;
+    } else {
+        $returnstring .= $stradd;
+    }
+
+    $returnstring .= '" />&nbsp;'. $validatestring ."\n";
+    $returnstring .= '</div></form>'."\n";
+
+    return $returnstring;
+}
+
+
+/**
+* Adds RSS Media Enclosures for "podcasting" by examining links to media files,
+* and attachments which are media files. Please note that the RSS that is
+* produced cannot be strictly valid for the linked files, since we do not know
+* the files' sizes and cannot include them in the "length" attribute. At
+* present, the validity (and therefore the podcast working in most software)
+* can only be ensured for attachments, and not for links.
+* Note also that iTunes does some things very badly - one thing it does is
+* refuse to download ANY of your files if you're using "file.php?file=blah"
+* and can't use the more elegant "file.php/blah" slasharguments setting. It
+* stops after ".php" and assumes the files are not media files, despite what
+* is specified in the "type" attribute. Dodgy coding all round!
+*
+* @param    $item     object representing an RSS item
+* @return   string    RSS enclosure tags
+* @author   Hannes Gassert <hannes@mediagonal.ch>
+* @author   Dan Stowell
+*/
 function rss_add_enclosures($item){
+
     global $CFG;
 
     $returnstring = '';
+    $rss_text = $item->description;
 
     // list of media file extensions and their respective mime types
     include_once($CFG->libdir.'/filelib.php');
     $mediafiletypes = get_mimetypes_array();
+
+    // regular expression (hopefully) matching all links to media files
+    $medialinkpattern = '@href\s*=\s*(\'|")(\S+(' . implode('|', array_keys($mediafiletypes)) . '))\1@Usie';
 
     // take into account attachments (e.g. from forum) - with these, we are able to know the file size
     if (isset($item->attachments) && is_array($item->attachments)) {
@@ -530,5 +581,24 @@ function rss_add_enclosures($item){
         }
     }
 
+    if (!preg_match_all($medialinkpattern, $rss_text, $matches)){
+        return $returnstring;
+    }
+
+    // loop over matches of regular expression
+    for ($i = 0; $i < count($matches[2]); $i++){
+        $url = htmlspecialchars($matches[2][$i]);
+        $extension = strtolower($matches[3][$i]);
+        if (isset($mediafiletypes[$extension]['type'])) {
+            $type = $mediafiletypes[$extension]['type'];
+        } else {
+            $type = 'document/unknown';
+        }
+
+        // the rss_*_tag functions can't deal with methods, unfortunately
+        $returnstring .= "\n<enclosure url='$url' type='$type' />\n";
+    }
+
     return $returnstring;
 }
+?>

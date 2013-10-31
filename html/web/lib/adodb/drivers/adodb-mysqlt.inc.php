@@ -1,7 +1,7 @@
 <?php
 
 /*
-V5.17 17 May 2012  (c) 2000-2012 John Lim (jlim#natsoft.com). All rights reserved.
+V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -62,25 +62,25 @@ class ADODB_mysqlt extends ADODB_mysql {
 		if (!$ok) return $this->RollbackTrans();
 		
 		if ($this->transCnt) $this->transCnt -= 1;
-		$ok = $this->Execute('COMMIT');
+		$this->Execute('COMMIT');
 		$this->Execute('SET AUTOCOMMIT=1');
-		return $ok ? true : false;
+		return true;
 	}
 	
 	function RollbackTrans()
 	{
 		if ($this->transOff) return true;
 		if ($this->transCnt) $this->transCnt -= 1;
-		$ok = $this->Execute('ROLLBACK');
+		$this->Execute('ROLLBACK');
 		$this->Execute('SET AUTOCOMMIT=1');
-		return $ok ? true : false;
+		return true;
 	}
 	
-	function RowLock($tables,$where='',$col='1 as adodbignore') 
+	function RowLock($tables,$where='',$flds='1 as adodb_ignore') 
 	{
 		if ($this->transCnt==0) $this->BeginTrans();
 		if ($where) $where = ' where '.$where;
-		$rs = $this->Execute("select $col from $tables $where for update");
+		$rs =& $this->Execute("select $flds from $tables $where for update");
 		return !empty($rs); 
 	}
 	

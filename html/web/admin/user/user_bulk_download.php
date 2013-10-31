@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: user_bulk_download.php,v 1.1.2.3 2008/10/22 01:32:22 jerome Exp $
 /**
 * script for downloading of user lists
 */
@@ -8,9 +8,8 @@ require_once($CFG->libdir.'/adminlib.php');
 
 $format = optional_param('format', '', PARAM_ALPHA);
 
-require_login();
 admin_externalpage_setup('userbulk');
-require_capability('moodle/user:update', context_system::instance());
+require_capability('moodle/user:update', get_context_instance(CONTEXT_SYSTEM));
 
 $return = $CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk.php';
 
@@ -38,7 +37,7 @@ if ($format) {
                     'msn'       => 'msn',
                     'country'   => 'country');
 
-    if ($extrafields = $DB->get_records('user_info_field')) {
+    if ($extrafields = get_records_select('user_info_field')) {
         foreach ($extrafields as $n=>$v){
             $fields['profile_field_'.$v->shortname] = 'profile_field_'.$v->shortname;
         }
@@ -48,28 +47,28 @@ if ($format) {
         case 'csv' : user_download_csv($fields);
         case 'ods' : user_download_ods($fields);
         case 'xls' : user_download_xls($fields);
-
+        
     }
     die;
 }
 
-echo $OUTPUT->header();
-echo $OUTPUT->heading(get_string('download', 'admin'));
+admin_externalpage_print_header();
+print_heading(get_string('download', 'admin'));
 
-echo $OUTPUT->box_start();
+print_box_start();
 echo '<ul>';
 echo '<li><a href="user_bulk_download.php?format=csv">'.get_string('downloadtext').'</a></li>';
 echo '<li><a href="user_bulk_download.php?format=ods">'.get_string('downloadods').'</a></li>';
 echo '<li><a href="user_bulk_download.php?format=xls">'.get_string('downloadexcel').'</a></li>';
 echo '</ul>';
-echo $OUTPUT->box_end();
+print_box_end();
 
-echo $OUTPUT->continue_button($return);
+print_continue($return);
 
-echo $OUTPUT->footer();
+print_footer();
 
 function user_download_ods($fields) {
-    global $CFG, $SESSION, $DB;
+    global $CFG, $SESSION;
 
     require_once("$CFG->libdir/odslib.class.php");
     require_once($CFG->dirroot.'/user/profile/lib.php');
@@ -81,7 +80,7 @@ function user_download_ods($fields) {
 
     $worksheet = array();
 
-    $worksheet[0] = $workbook->add_worksheet('');
+    $worksheet[0] =& $workbook->add_worksheet('');
     $col = 0;
     foreach ($fields as $fieldname) {
         $worksheet[0]->write(0, $col, $fieldname);
@@ -90,7 +89,7 @@ function user_download_ods($fields) {
 
     $row = 1;
     foreach ($SESSION->bulk_users as $userid) {
-        if (!$user = $DB->get_record('user', array('id'=>$userid))) {
+        if (!$user = get_record('user', 'id', $userid)) {
             continue;
         }
         $col = 0;
@@ -107,7 +106,7 @@ function user_download_ods($fields) {
 }
 
 function user_download_xls($fields) {
-    global $CFG, $SESSION, $DB;
+    global $CFG, $SESSION;
 
     require_once("$CFG->libdir/excellib.class.php");
     require_once($CFG->dirroot.'/user/profile/lib.php');
@@ -119,7 +118,7 @@ function user_download_xls($fields) {
 
     $worksheet = array();
 
-    $worksheet[0] = $workbook->add_worksheet('');
+    $worksheet[0] =& $workbook->add_worksheet('');
     $col = 0;
     foreach ($fields as $fieldname) {
         $worksheet[0]->write(0, $col, $fieldname);
@@ -128,7 +127,7 @@ function user_download_xls($fields) {
 
     $row = 1;
     foreach ($SESSION->bulk_users as $userid) {
-        if (!$user = $DB->get_record('user', array('id'=>$userid))) {
+        if (!$user = get_record('user', 'id', $userid)) {
             continue;
         }
         $col = 0;
@@ -145,36 +144,39 @@ function user_download_xls($fields) {
 }
 
 function user_download_csv($fields) {
-    global $CFG, $SESSION, $DB;
-
+    global $CFG, $SESSION;
+    
     require_once($CFG->dirroot.'/user/profile/lib.php');
-    require_once($CFG->libdir . '/csvlib.class.php');
 
-    $filename = clean_filename(get_string('users'));
+    $filename = clean_filename(get_string('users').'.csv');
 
-    $csvexport = new csv_export_writer();
-    $csvexport->set_filename($filename);
-    $csvexport->add_data($fields);
+    header("Content-Type: application/download\n");
+    header("Content-Disposition: attachment; filename=$filename");
+    header("Expires: 0");
+    header("Cache-Control: must-revalidate,post-check=0,pre-check=0");
+    header("Pragma: public");
+
+    $delimiter = get_string('listsep');
+    $encdelim  = '&#'.ord($delimiter);
+
+    $row = array(); 
+    foreach ($fields as $fieldname) {
+        $row[] = str_replace($delimiter, $encdelim, $fieldname);
+    }
+    echo implode($delimiter, $row)."\n";
 
     foreach ($SESSION->bulk_users as $userid) {
         $row = array();
-        if (!$user = $DB->get_record('user', array('id'=>$userid))) {
+        if (!$user = get_record('user', 'id', $userid)) {
             continue;
         }
         profile_load_data($user);
-        $userprofiledata = array();
         foreach ($fields as $field=>$unused) {
-            // Custom user profile textarea fields come in an array
-            // The first element is the text and the second is the format.
-            // We only take the text.
-            if (is_array($user->$field)) {
-                $userprofiledata[] = reset($user->$field);
-            } else {
-                $userprofiledata[] = $user->$field;
-            }
+            $row[] = str_replace($delimiter, $encdelim, $user->$field);
         }
-        $csvexport->add_data($userprofiledata);
+        echo implode($delimiter, $row)."\n";
     }
-    $csvexport->download_file();
     die;
 }
+
+?>

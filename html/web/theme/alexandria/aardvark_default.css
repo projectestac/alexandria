@@ -1,0 +1,111 @@
+/* Core */
+
+a:link, a:visited {
+    color: #104282;
+    text-decoration: underline;
+}
+
+
+a:hover {
+    color: #FF0000;
+}
+
+a.dimmed:link,
+a.dimmed:visited {
+  color:#AAAAAA;
+}
+
+/***
+ *** Top Menu
+ ***/
+
+
+#top_menu {
+	background:url('images/default/top_menu.gif') repeat-x top center;
+}
+#top_menu ul li a:hover {
+	color:#104282;
+}
+#top_menu ul li:hover {
+	background:url('images/default/top_menu_on.gif') repeat-x top center;
+}
+#top_menu ul li ul li:hover {
+	background: none;
+}
+#top_menu ul li {
+	background:url('images/default/top_menu_line.gif') right top no-repeat;
+}
+/***
+ *** Header
+ ***/
+
+#logo { 
+background: url('images/default/logo.png') no-repeat left top; 
+height: 80px;
+} 
+
+#logo_gene { 
+background: url('images/default/logo_educacio.png') no-repeat left top; 
+height: 30px;
+} 
+
+#header {
+  background: url('images/default/header-grad.jpg') repeat-x;
+  height: 80px;
+}
+
+#header-home {
+  background: transparent;
+  width: 398px;
+  height: 80px;
+  position: absolute;
+  left: 0px;
+}
+
+h1.headermain {
+  background-color: transparent;
+}
+
+.header-profilename, .header-profilename a {
+	background-color: transparent;
+	color:#999999;
+
+}
+
+.header-profilename, .header-profilename a:hover {
+	background-color: transparent;
+	color: #926B7D;
+	text-decoration:none;
+
+}
+
+.header-profileoptions {
+	background-color: transparent;
+	color:#dfdfdf;
+
+}
+
+.header-profileoptions, .header-profileoptions a {
+	background-color: transparent;
+	color:#666666;
+
+}
+
+
+.header-profileoptions a:hover {
+	background-color: transparent;
+	color: #ff0000;
+	text-decoration:none;
+}
+
+.header-profileoptions a.username{
+    text-decoration:none;
+}
+
+td.category a {
+text-decoration: none;
+}
+
+.categorybox{
+padding-bottom:20px  !important;
+}

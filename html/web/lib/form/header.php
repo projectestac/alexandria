@@ -1,74 +1,70 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-
-/**
- * Header form element
- *
- * Contains a pseudo-element used for adding headers to form
- *
- * @package   core_form
- * @copyright 2007 Jamie Pratt <me@jamiep.org>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+// $Id: header.php,v 1.2.10.1 2009/06/13 17:24:41 skodak Exp $
 
 require_once 'HTML/QuickForm/header.php';
 
 /**
- * Header form element
- *
  * A pseudo-element used for adding headers to form
  *
- * @package   core_form
- * @category  form
- * @copyright 2007 Jamie Pratt <me@jamiep.org>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class MoodleQuickForm_header extends HTML_QuickForm_header
 {
-    /** @var string html for help button, if empty then no help */
+    /**
+     * html for help button, if empty then no help
+     *
+     * @var string
+     */
     var $_helpbutton='';
 
-    /**
-     * constructor
-     *
-     * @param string $elementName name of the header element
-     * @param string $text text displayed in header element
-     */
     function MoodleQuickForm_header($elementName = null, $text = null) {
         parent::HTML_QuickForm_header($elementName, $text);
     }
 
+    // {{{ accept()
+
    /**
     * Accepts a renderer
     *
-    * @param HTML_QuickForm_Renderer $renderer a HTML_QuickForm_Renderer object
+    * @param object     An HTML_QuickForm_Renderer object
+    * @access public
+    * @return void
     */
-    function accept(&$renderer, $required=false, $error=null)
+    function accept(&$renderer)
     {
         $this->_text .= $this->getHelpButton();
         $renderer->renderHeader($this);
-    }
+    } // end func accept
 
+    // }}}
+    /**
+     * set html for help button
+     *
+     * @access   public
+     * @param array $help array of arguments to make a help button
+     * @param string $function function name to call to get html
+     */
+    function setHelpButton($helpbuttonargs, $function='helpbutton'){
+        if (!is_array($helpbuttonargs)){
+            $helpbuttonargs=array($helpbuttonargs);
+        }else{
+            $helpbuttonargs=$helpbuttonargs;
+        }
+        //we do this to to return html instead of printing it
+        //without having to specify it in every call to make a button.
+        if ('helpbutton' == $function){
+            $defaultargs=array('', '', 'moodle', true, false, '', true);
+            $helpbuttonargs=$helpbuttonargs + $defaultargs ;
+        }
+        $this->_helpbutton=call_user_func_array($function, $helpbuttonargs);
+    }
     /**
      * get html for help button
      *
-     * @return string html for help button
+     * @access   public
+     * @return  string html for help button
      */
     function getHelpButton(){
         return $this->_helpbutton;
     }
-}
+} //end class MoodleQuickForm_header
+?>

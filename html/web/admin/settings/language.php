@@ -1,20 +1,36 @@
-<?php
+<?php // $Id: language.php,v 1.7.4.5 2008/01/11 17:20:31 stronk7 Exp $
 
 // This file defines settingpages and externalpages under the "appearance" category
 
-if ($hassiteconfig) {
+if ($hassiteconfig
+    or has_capability('moodle/site:langeditmaster', $systemcontext)
+    or has_capability('moodle/site:langeditlocal', $systemcontext)) { // speedup for non-admins, add all caps used on this page
 
     // "languageandlocation" settingpage
-    $temp = new admin_settingpage('langsettings', new lang_string('languagesettings', 'admin'));
-    $temp->add(new admin_setting_configcheckbox('autolang', new lang_string('autolang', 'admin'), new lang_string('configautolang', 'admin'), 1));
-    $temp->add(new admin_setting_configselect('lang', new lang_string('lang', 'admin'), new lang_string('configlang', 'admin'), current_language(), get_string_manager()->get_list_of_translations())); // $CFG->lang might be set in installer already, default en is in setup.php
-    $temp->add(new admin_setting_configcheckbox('langmenu', new lang_string('langmenu', 'admin'), new lang_string('configlangmenu', 'admin'), 1));
+    $temp = new admin_settingpage('langsettings', get_string('languagesettings', 'admin'));
+    $temp->add(new admin_setting_configcheckbox('autolang', get_string('autolang', 'admin'), get_string('configautolang', 'admin'), 1));
+    $temp->add(new admin_setting_configselect('lang', get_string('lang', 'admin'), get_string('configlang', 'admin'), current_language(), get_list_of_languages())); // $CFG->lang might be set in installer already, default en or en_utf8 is in setup.php
+    $temp->add(new admin_setting_configcheckbox('langmenu', get_string('langmenu', 'admin'), get_string('configlangmenu', 'admin'), 1));
     $temp->add(new admin_setting_langlist());
-    $temp->add(new admin_setting_configcheckbox('langcache', new lang_string('langcache', 'admin'), new lang_string('langcache_desc', 'admin'), 1));
-    $temp->add(new admin_setting_configcheckbox('langstringcache', new lang_string('langstringcache', 'admin'), new lang_string('configlangstringcache', 'admin'), 1));
-    $temp->add(new admin_setting_configtext('locale', new lang_string('localetext', 'admin'), new lang_string('configlocale', 'admin'), '', PARAM_FILE));
-    $temp->add(new admin_setting_configselect('latinexcelexport', new lang_string('latinexcelexport', 'admin'), new lang_string('configlatinexcelexport', 'admin'), '0', array('0'=>'Unicode','1'=>'Latin')));
+    $temp->add(new admin_setting_configcheckbox('langcache', get_string('langcache', 'admin'), get_string('configlangcache', 'admin'), 1));
+    $temp->add(new admin_setting_configtext('locale', get_string('localetext', 'admin'), get_string('configlocale', 'admin'), '', PARAM_FILE));
+
+    // new CFG variable for excel encoding
+    $temp->add(new admin_setting_configselect('latinexcelexport', get_string('latinexcelexport', 'admin'), get_string('configlatinexcelexport', 'admin'), '0', array('0'=>'Unicode','1'=>'Latin')));
+
 
     $ADMIN->add('language', $temp);
 
+//XTEC ************ AFEGIT - To hide edition and import of new languages
+//2010.06.30
+if (!is_agora()){
+//************ FI
+    $ADMIN->add('language', new admin_externalpage('langedit', get_string('langedit', 'admin'), "$CFG->wwwroot/$CFG->admin/lang.php", array('moodle/site:langeditmaster', 'moodle/site:langeditlocal') ));
+    $ADMIN->add('language', new admin_externalpage('langimport', get_string('langpacks', 'admin'), "$CFG->wwwroot/$CFG->admin/langimport.php"));
+//XTEC ************ AFEGIT - To hide edition and import of new languages
+}
+//************ FI
+
 } // end of speedup
+
+?>

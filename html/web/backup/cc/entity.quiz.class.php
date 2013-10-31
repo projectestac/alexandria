@@ -17,13 +17,14 @@
  * @package   moodlecore
  * @subpackage backup-imscc
  * @copyright 2009 Mauro Rondinelli (mauro.rondinelli [AT] uvcms.com)
- * @copyright 2011 Darko Miletic (dmiletic@moodlerooms.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') or die('Direct access to this script is forbidden.');
 
-class cc_quiz extends entities {
+class quiz extends entities {
+
+    private $namespaces = array('xmlns' => 'http://www.imsglobal.org/xsd/ims_qtiasiv1p2');
 
     public function generate_node_question_categories () {
 
@@ -140,15 +141,15 @@ class cc_quiz extends entities {
                            '[#node_questions_feedback#]');
 
         $replace_values = array($instance['id'],
-                                self::safexml($instance['title']),
-                                self::safexml($instance['title']),
-                                self::safexml($quiz_stamp),
-                                self::safexml($questions_strings),
+                                $instance['title'],
+                                $instance['title'],
+                                $quiz_stamp,
+                                $questions_strings,
                                 time(),
                                 $instance['options']['max_attempts'],
                                 $instance['options']['timelimit'],
                                 $node_course_modules_quiz_question_instances,
-                                $node_course_modules_quiz_feedback); //this one has tags
+                                $node_course_modules_quiz_feedback);
 
         $node_question_mod = str_replace($find_tags, $replace_values, $sheet_question_mod);
 
@@ -157,7 +158,7 @@ class cc_quiz extends entities {
 
     private function get_global_config ($assessment, $option, $default_value, $replace_values = '') {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
         $metadata = $xpath->query('/xmlns:questestinterop/xmlns:assessment/xmlns:qtimetadata/xmlns:qtimetadatafield');
 
         foreach ($metadata as $field) {
@@ -256,7 +257,7 @@ class cc_quiz extends entities {
         $quiz_stamp = 'localhost+' . time() . '+' . $this->generate_random_string(6);
 
         $replace_values = array($instance['id'],
-                                self::safexml($instance['title']),
+                                $instance['title'],
                                 $quiz_stamp,
                                 $node_course_question_categories_questions);
 
@@ -276,7 +277,6 @@ class cc_quiz extends entities {
                            '[#question_text#]',
                            '[#question_type#]',
                            '[#question_general_feedback#]',
-                           '[#question_defaultgrade#]',
                            '[#date_now#]',
                            '[#question_type_nodes#]',
                            '[#question_stamp#]',
@@ -305,11 +305,10 @@ class cc_quiz extends entities {
                 $question_type_node = ($question_moodle_type == MOODLE_QUIZ_SHORTANSWER) ? $this->create_node_course_question_categories_question_category_question_shortanswer($question) : $question_type_node;
 
                 $replace_values = array($question['id'],
-                                        self::safexml($this->truncate_text($question['title'], 255, true)),
-                                        self::safexml($question['title']),
+                                        $this->truncate_text($question['title'], 255, true),
+                                        $question['title'],
                                         $question_moodle_type,
-                                        self::safexml($question['feedback']),
-                                        $question['defaultgrade'], //default grade
+                                        $question['feedback'],
                                         time(),
                                         $question_type_node,
                                         $quiz_stamp,
@@ -329,7 +328,7 @@ class cc_quiz extends entities {
 
         $questions = array();
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         if (!$is_question_bank) {
             $questions_items = $xpath->query('/xmlns:questestinterop/xmlns:assessment/xmlns:section/xmlns:item');
@@ -370,7 +369,6 @@ class cc_quiz extends entities {
                     $questions[$question_identifier]['moodle_type'] = $question_type['moodle'];
                     $questions[$question_identifier]['cc_type'] = $question_type['cc'];
                     $questions[$question_identifier]['feedback'] = $this->get_general_feedback($assessment, $question_identifier);
-                    $questions[$question_identifier]['defaultgrade'] = $this->get_defaultgrade($assessment, $question_identifier);
                     $questions[$question_identifier]['answers'] = $this->get_answers($question_identifier, $assessment, $last_answer_id);
 
                 }
@@ -398,24 +396,9 @@ class cc_quiz extends entities {
         }
     }
 
-    private function get_defaultgrade($assessment, $question_identifier) {
-        $result = 1;
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
-        $query = '//xmlns:item[@ident="' . $question_identifier . '"]';
-        $query .= '//xmlns:qtimetadatafield[xmlns:fieldlabel="cc_weighting"]/xmlns:fieldentry';
-        $defgrade = $xpath->query($query);
-        if (!empty($defgrade) && ($defgrade->length > 0)) {
-            $resp = (int)$defgrade->item(0)->nodeValue;
-            if ($resp >= 0 && $resp <= 99) {
-                $result = $resp;
-            }
-        }
-        return $result;
-    }
-
     private function get_general_feedback ($assessment, $question_identifier) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $respconditions = $xpath->query('//xmlns:item[@ident="' . $question_identifier . '"]/xmlns:resprocessing/xmlns:respcondition');
 
@@ -460,7 +443,7 @@ class cc_quiz extends entities {
 
     private function get_feedback ($assessment, $identifier, $item_identifier, $question_type) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $resource_processing = $xpath->query('//xmlns:item[@ident="' . $item_identifier . '"]/xmlns:resprocessing/xmlns:respcondition');
 
@@ -505,7 +488,7 @@ class cc_quiz extends entities {
 
     private function get_answers_fib ($question_identifier, $identifier, $assessment, &$last_answer_id) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $answers_fib = array();
 
@@ -571,7 +554,7 @@ class cc_quiz extends entities {
 
     private function get_answers_pattern_match ($question_identifier, $identifier, $assessment, &$last_answer_id) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $answers_fib = array();
 
@@ -647,7 +630,7 @@ class cc_quiz extends entities {
 
     private function get_answers ($identifier, $assessment, &$last_answer_id) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $answers = array();
 
@@ -736,7 +719,7 @@ class cc_quiz extends entities {
 
     private function get_score ($assessment, $identifier, $question_identifier) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $resource_processing = $xpath->query('//xmlns:item[@ident="' . $question_identifier . '"]/xmlns:resprocessing/xmlns:respcondition');
 
@@ -782,7 +765,7 @@ class cc_quiz extends entities {
                            '[#is_single#]');
 
         $replace_values = array($node_course_question_categories_question_answer,
-                                self::safexml($answer_string),
+                                $answer_string,
                                 $is_single);
 
         $node_question_categories_question = str_replace($find_tags, $replace_values, $sheet_question_categories_question);
@@ -837,8 +820,8 @@ class cc_quiz extends entities {
                            '[#use_case#]',
                            '[#node_course_question_categories_question_category_question_answer#]');
 
-        $replace_values = array(self::safexml($answers_string),
-                                self::safexml($use_case),
+        $replace_values = array($answers_string,
+                                $use_case,
                                 $node_course_question_categories_question_answer);
 
 
@@ -918,9 +901,9 @@ class cc_quiz extends entities {
                            '[#answer_feedback#]');
 
         $replace_values = array($answer['id'],
-                                self::safexml($answer['title']),
+                                $answer['title'],
                                 $answer['score'],
-                                self::safexml($answer['feedback']));
+                                $answer['feedback']);
 
         $node_question_categories_question_answer = str_replace($find_tags, $replace_values, $sheet_question_categories_question_answer);
 
@@ -929,7 +912,7 @@ class cc_quiz extends entities {
 
     private function get_question_type ($identifier, $assessment) {
 
-        $xpath = cc2moodle::newx_path($assessment, cc2moodle::getquizns());
+        $xpath = cc2moodle::newx_path($assessment, $this->namespaces);
 
         $metadata = $xpath->query('//xmlns:item[@ident="' . $identifier . '"]/xmlns:itemmetadata/xmlns:qtimetadata/xmlns:qtimetadatafield');
 
@@ -972,3 +955,4 @@ class cc_quiz extends entities {
 
     }
 }
+?>

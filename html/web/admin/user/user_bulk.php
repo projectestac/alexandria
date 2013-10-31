@@ -1,4 +1,4 @@
-<?php
+<?php  //$Id: user_bulk.php,v 1.4.2.5 2009/11/16 17:11:31 arborrow Exp $
 
 require_once('../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
@@ -16,7 +16,7 @@ $ufiltering = new user_filtering();
 // array of bulk operations
 // create the bulk operations form
 $action_form = new user_bulk_action_form();
-if ($data = $action_form->get_data()) {
+if ($data = $action_form->get_data(false)) {
     // check if an action should be performed and do so
     switch ($data->action) {
         case 1: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_confirm.php');
@@ -24,15 +24,17 @@ if ($data = $action_form->get_data()) {
         case 3: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_delete.php');
         case 4: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_display.php');
         case 5: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_download.php');
-        //case 6: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_enrol.php'); //TODO: MDL-24064
-        case 7: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_forcepasswordchange.php');
-        case 8: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_cohortadd.php');
+        case 6: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_forcepasswordchange.php');
+        //XTEC ************ AFEGIT - To allow capitalize user names
+        //2010.06.30
+        case 7: redirect($CFG->wwwroot.'/'.$CFG->admin.'/user/user_bulk_ucwords.php');
+        //************ FI
     }
 }
 
 $user_bulk_form = new user_bulk_form(null, get_selection_data($ufiltering));
 
-if ($data = $user_bulk_form->get_data()) {
+if ($data = $user_bulk_form->get_data(false)) {
     if (!empty($data->addall)) {
         add_selection_all($ufiltering);
 
@@ -75,13 +77,14 @@ if ($data = $user_bulk_form->get_data()) {
     $user_bulk_form = new user_bulk_form(null, get_selection_data($ufiltering));
 }
 // do output
-echo $OUTPUT->header();
+admin_externalpage_print_header();
 
 $ufiltering->display_add();
 $ufiltering->display_active();
 
 $user_bulk_form->display();
-
 $action_form->display();
 
-echo $OUTPUT->footer();
+admin_externalpage_print_footer();
+
+?>

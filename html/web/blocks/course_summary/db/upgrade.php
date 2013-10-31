@@ -1,69 +1,38 @@
-<?php
+<?php  //$Id: upgrade.php,v 1.1 2006/10/26 16:33:51 stronk7 Exp $
 
-// This file is part of Moodle - http://moodle.org/
+// This file keeps track of upgrades to 
+// the course_summary block
 //
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
+// Sometimes, changes between versions involve
+// alterations to database structures and other
+// major things that may break installations.
 //
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
+// The upgrade function in this file will attempt
+// to perform all the necessary actions to upgrade
+// your older installtion to the current version.
 //
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// If there's something it cannot do itself, it
+// will tell you what you need to do.
+//
+// The commands in here will all be database-neutral,
+// using the functions defined in lib/ddllib.php
 
-/**
- * This file keeps track of upgrades to the course summary block
- *
- * Sometimes, changes between versions involve alterations to database structures
- * and other major things that may break installations.
- *
- * The upgrade function in this file will attempt to perform all the necessary
- * actions to upgrade your older installation to the current version.
- *
- * If there's something it cannot do itself, it will tell you what you need to do.
- *
- * The commands in here will all be database-neutral, using the methods of
- * database_manager class
- *
- * Please do not forget to use upgrade_set_timeout()
- * before any action that may take longer time to finish.
- *
- * @since 2.0
- * @package blocks
- * @copyright 2012 Mark Nelson <markn@moodle.com>
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+function xmldb_block_course_summary_upgrade($oldversion=0) {
 
-/**
- * Handles upgrading instances of this block.
- *
- * @param int $oldversion
- * @param object $block
- */
-function xmldb_block_course_summary_upgrade($oldversion, $block) {
-    global $DB;
+    global $CFG, $THEME, $db;
 
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this.
+    $result = true;
 
-    if ($oldversion < 2012112901) {
-        // Get the instances of this block.
-        if ($blocks = $DB->get_records('block_instances', array('blockname' => 'course_summary', 'pagetypepattern' => 'my-index'))) {
-            // Loop through and remove them from the My Moodle page.
-            foreach ($blocks as $block) {
-                blocks_delete_instance($block);
-            }
+/// And upgrade begins here. For each one, you'll need one 
+/// block of code similar to the next one. Please, delete 
+/// this comment lines once this file start handling proper
+/// upgrade code.
 
-        }
+/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
+///     $result = result of "/lib/ddllib.php" function calls
+/// }
 
-        // Savepoint reached.
-        upgrade_block_savepoint(true, 2012112901, 'course_summary');
-    }
-
-
-    return true;
+    return $result;
 }
+
+?>

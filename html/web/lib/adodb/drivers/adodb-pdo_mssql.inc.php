@@ -2,7 +2,7 @@
 
 
 /*
-V5.17 17 May 2012  (c) 2000-2012 John Lim (jlim#natsoft.com). All rights reserved.
+V4.98 13 Feb 2008  (c) 2000-2008 John Lim (jlim#natsoft.com.my). All rights reserved.
   Released under both BSD license and Lesser GPL library license. 
   Whenever there is any discrepancy between the two licenses, 
   the BSD license will take precedence.
@@ -47,12 +47,12 @@ class ADODB_pdo_mssql extends ADODB_pdo {
 		$this->Execute("SET TRANSACTION ".$transaction_mode);
 	}
 	
-	function MetaTables($ttype=false,$showSchema=false,$mask=false) 
+	function MetaTables()
 	{
 		return false;
 	}
 	
-	function MetaColumns($table,$normalize=true)
+	function MetaColumns()
 	{
 		return false;
 	}

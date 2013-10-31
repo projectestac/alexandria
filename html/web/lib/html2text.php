@@ -30,9 +30,7 @@
  *                                                                       *
  *************************************************************************/
 
-if (!defined('RCMAIL_CHARSET')) {
-    define('RCMAIL_CHARSET', 'UTF-8');
-}
+require_once "$CFG->libdir/textlib.class.php";
 
 /**
  *  Takes HTML and converts it to formatted, plain text.
@@ -148,8 +146,10 @@ class html2text
     var $search = array(
         "/\r/",                                  // Non-legal carriage return
         "/[\n\t]+/",                             // Newlines and tabs
+        '/[ ]{2,}/',                             // Runs of spaces, pre-handling
         '/<script[^>]*>.*?<\/script>/i',         // <script>s -- which strip_tags supposedly has problems with
         '/<style[^>]*>.*?<\/style>/i',           // <style>s -- which strip_tags supposedly has problems with
+        //'/<!-- .* -->/',                         // Comments -- which strip_tags might have problem a with
         '/<p[^>]*>/i',                           // <P>
         '/<br[^>]*>/i',                          // <br>
         '/<i[^>]*>(.*?)<\/i>/i',                 // <i>
@@ -159,10 +159,25 @@ class html2text
         '/<li[^>]*>(.*?)<\/li>/i',               // <li> and </li>
         '/<li[^>]*>/i',                          // <li>
         '/<hr[^>]*>/i',                          // <hr>
-        '/<div[^>]*>/i',                         // <div>
         '/(<table[^>]*>|<\/table>)/i',           // <table> and </table>
         '/(<tr[^>]*>|<\/tr>)/i',                 // <tr> and </tr>
         '/<td[^>]*>(.*?)<\/td>/i',               // <td> and </td>
+        '/&(nbsp|#160);/i',                      // Non-breaking space
+        '/&(quot|rdquo|ldquo|#8220|#8221|#147|#148);/i',
+		                                         // Double quotes
+        '/&(apos|rsquo|lsquo|#8216|#8217);/i',   // Single quotes
+        '/&gt;/i',                               // Greater-than
+        '/&lt;/i',                               // Less-than
+        '/&(amp|#38);/i',                        // Ampersand
+        '/&(copy|#169);/i',                      // Copyright
+        '/&(trade|#8482|#153);/i',               // Trademark
+        '/&(reg|#174);/i',                       // Registered
+        '/&(mdash|#151|#8212);/i',               // mdash
+        '/&(ndash|minus|#8211|#8722);/i',        // ndash
+        '/&(bull|#149|#8226);/i',                // Bullet
+        '/&(pound|#163);/i',                     // Pound sign
+        '/&(euro|#8364);/i',                     // Euro sign
+        '/[ ]{2,}/'                              // Runs of spaces, post-handling
     );
 
     /**
@@ -175,9 +190,11 @@ class html2text
     var $replace = array(
         '',                                     // Non-legal carriage return
         ' ',                                    // Newlines and tabs
+        ' ',                                    // Runs of spaces, pre-handling
         '',                                     // <script>s -- which strip_tags supposedly has problems with
         '',                                     // <style>s -- which strip_tags supposedly has problems with
-        "\n\n",                                 // <P>
+        //'',                                     // Comments -- which strip_tags might have problem a with
+        "\n\n",                               // <P>
         "\n",                                   // <br>
         '_\\1_',                                // <i>
         '_\\1_',                                // <em>
@@ -186,52 +203,15 @@ class html2text
         "\t* \\1\n",                            // <li> and </li>
         "\n\t* ",                               // <li>
         "\n-------------------------\n",        // <hr>
-        "<div>\n",                              // <div>
         "\n\n",                                 // <table> and </table>
         "\n",                                   // <tr> and </tr>
         "\t\t\\1\n",                            // <td> and </td>
-    );
-
-    /**
-     *  List of preg* regular expression patterns to search for,
-     *  used in conjunction with $ent_replace.
-     *
-     *  @var array $ent_search
-     *  @access public
-     *  @see $ent_replace
-     */
-    var $ent_search = array(
-        '/&(nbsp|#160);/i',                      // Non-breaking space
-        '/&(quot|rdquo|ldquo|#8220|#8221|#147|#148);/i',
-        // Double quotes
-        '/&(apos|rsquo|lsquo|#8216|#8217);/i',   // Single quotes
-        '/&gt;/i',                               // Greater-than
-        '/&lt;/i',                               // Less-than
-        '/&(copy|#169);/i',                      // Copyright
-        '/&(trade|#8482|#153);/i',               // Trademark
-        '/&(reg|#174);/i',                       // Registered
-        '/&(mdash|#151|#8212);/i',               // mdash
-        '/&(ndash|minus|#8211|#8722);/i',        // ndash
-        '/&(bull|#149|#8226);/i',                // Bullet
-        '/&(pound|#163);/i',                     // Pound sign
-        '/&(euro|#8364);/i',                     // Euro sign
-        '/&(amp|#38);/i',                        // Ampersand: see _converter()
-        '/[ ]{2,}/',                             // Runs of spaces, post-handling
-    );
-
-    /**
-     *  List of pattern replacements corresponding to patterns searched.
-     *
-     *  @var array $ent_replace
-     *  @access public
-     *  @see $ent_search
-     */
-    var $ent_replace = array(
         ' ',                                    // Non-breaking space
         '"',                                    // Double quotes
         "'",                                    // Single quotes
         '>',
         '<',
+        '&',
         '(c)',
         '(tm)',
         '(R)',
@@ -240,8 +220,7 @@ class html2text
         '*',
         '£',
         'EUR',                                  // Euro sign. € ?
-        '|+|amp|+|',                            // Ampersand: see _converter()
-        ' ',                                    // Runs of spaces, post-handling
+        ' '                                     // Runs of spaces, post-handling
     );
 
     /**
@@ -252,23 +231,23 @@ class html2text
      *  @access public
      */
     var $callback_search = array(
-        '/<(a) [^>]*href=("|\')([^"\']+)\2[^>]*>(.*?)<\/a>/i',
-        // <a href="">
         '/<(h)[123456][^>]*>(.*?)<\/h[123456]>/i', // H1 - H3
         '/<(b)[^>]*>(.*?)<\/b>/i',                 // <b>
         '/<(strong)[^>]*>(.*?)<\/strong>/i',       // <strong>
+        '/<(a) [^>]*href=("|\')([^"\']+)\2[^>]*>(.*?)<\/a>/i',
+                                                   // <a href="">
         '/<(th)[^>]*>(.*?)<\/th>/i',               // <th> and </th>
         '/<(img)[^>]*alt=\"([^>"]+)\"[^>]*>/i',    // <img> with alt
     );
 
-    /**
-     *  List of preg* regular expression patterns to search for in PRE body,
-     *  used in conjunction with $pre_replace.
-     *
-     *  @var array $pre_search
-     *  @access public
-     *  @see $pre_replace
-     */
+   /**
+    *  List of preg* regular expression patterns to search for in PRE body,
+    *  used in conjunction with $pre_replace.
+    *
+    *  @var array $pre_search
+    *  @access public
+    *  @see $pre_replace
+    */
     var $pre_search = array(
         "/\n/",
         "/\t/",
@@ -321,21 +300,31 @@ class html2text
     /**
      *  Contains URL addresses from links to be rendered in plain text.
      *
-     *  @var array $_link_list
+     *  @var string $_link_list
      *  @access private
      *  @see _build_link_list()
      */
-    var $_link_list = array();
-
+    var $_link_list = '';
+    
     /**
-     * Boolean flag, true if a table of link URLs should be listed after the text.
+     *  Number of valid links detected in the text, used for plain text
+     *  display (rendered similar to footnotes).
      *
-     * @var boolean $_do_links
-     * @access private
-     * @see html2text()
+     *  @var integer $_link_count
+     *  @access private
+     *  @see _build_link_list()
+     */
+    var $_link_count = 0;
+
+    /** 
+     * Boolean flag, true if a table of link URLs should be listed after the text. 
+     *  
+     * @var boolean $_do_links 
+     * @access private 
+     * @see html2text() 
      */
     var $_do_links = true;
-
+ 
     /**
      *  Constructor.
      *
@@ -352,7 +341,7 @@ class html2text
      */
     function html2text( $source = '', $from_file = false, $do_links = true, $width = 75 )
     {
-        if ( $source !== '' ) {
+        if ( !empty($source) ) {
             $this->set_html($source, $from_file);
         }
 
@@ -372,7 +361,7 @@ class html2text
     function set_html( $source, $from_file = false )
     {
         if ( $from_file && file_exists($source) ) {
-            $this->html = file_get_contents($source);
+            $this->html = file_get_contents($source); 
         }
         else
             $this->html = $source;
@@ -442,11 +431,11 @@ class html2text
     function set_base_url( $url = '' )
     {
         if ( empty($url) ) {
-            if ( !empty($_SERVER['HTTP_HOST']) ) {
-                $this->url = 'http://' . $_SERVER['HTTP_HOST'];
-            } else {
-                $this->url = '';
-            }
+        	if ( !empty($_SERVER['HTTP_HOST']) ) {
+	            $this->url = 'http://' . $_SERVER['HTTP_HOST'];
+        	} else {
+	            $this->url = '';
+	        }
         } else {
             // Strip any trailing slashes for consistency (relative
             // URLs may already start with a slash like "/file.html")
@@ -458,35 +447,6 @@ class html2text
     }
 
     /**
-     *  Workhorse function that does actual conversion (calls _converter() method).
-     *
-     *  @access private
-     *  @return void
-     */
-    function _convert()
-    {
-        // Variables used for building the link list
-        $this->_link_list = array();
-
-        $text = trim($this->html);
-
-        // Convert HTML to TXT
-        $this->_converter($text);
-
-        // Add link list
-        if (!empty($this->_link_list)) {
-            $text .= "\n\nLinks:\n------\n";
-            foreach ($this->_link_list as $idx => $url) {
-                $text .= '[' . ($idx+1) . '] ' . $url . "\n";
-            }
-        }
-
-        $this->text = $text;
-
-        $this->_converted = true;
-    }
-
-    /**
      *  Workhorse function that does actual conversion.
      *
      *  First performs custom tag replacement specified by $search and
@@ -494,54 +454,53 @@ class html2text
      *  and newlines to a readable format, and word wraps the text to
      *  $width characters.
      *
-     *  @param string Reference to HTML content string
-     *
      *  @access private
      *  @return void
      */
-    function _converter(&$text)
+    function _convert()
     {
-        // Convert <BLOCKQUOTE> (before PRE!)
-        $this->_convert_blockquotes($text);
+        // Variables used for building the link list
+        $this->_link_count = 0;
+        $this->_link_list = '';
+
+        $text = trim(stripslashes($this->html));
 
         // Convert <PRE>
         $this->_convert_pre($text);
 
-        // Run our defined tags search-and-replace
+        // Run our defined search-and-replace
         $text = preg_replace($this->search, $this->replace, $text);
+        $text = preg_replace_callback($this->callback_search, array(&$this, '_preg_callback'), $text);
 
-        // Run our defined tags search-and-replace with callback
-        $text = preg_replace_callback($this->callback_search, array('html2text', '_preg_callback'), $text);
+        // Replace known html entities
+        $tl=textlib_get_instance();
+        $text = $tl->entities_to_utf8($text, true);
+
+        // Remove unknown/unhandled entities (this cannot be done in search-and-replace block)
+        $text = preg_replace('/&[^&;]+;/i', '', $text); 
 
         // Strip any other HTML tags
         $text = strip_tags($text, $this->allowed_tags);
-
-        // Run our defined entities/characters search-and-replace
-        $text = preg_replace($this->ent_search, $this->ent_replace, $text);
-
-        // Replace known html entities
-        $text = html_entity_decode($text, ENT_COMPAT, 'UTF-8');
-
-        // Remove unknown/unhandled entities (this cannot be done in search-and-replace block)
-        $text = preg_replace('/&([a-zA-Z0-9]{2,6}|#[0-9]{2,4});/', '', $text);
-
-        // Convert "|+|amp|+|" into "&", need to be done after handling of unknown entities
-        // This properly handles situation of "&amp;quot;" in input string
-        $text = str_replace('|+|amp|+|', '&', $text);
 
         // Bring down number of empty lines to 2 max
         $text = preg_replace("/\n\s+\n/", "\n\n", $text);
         $text = preg_replace("/[\n]{3,}/", "\n\n", $text);
 
-        // remove leading empty lines (can be produced by eg. P tag on the beginning)
-        $text = ltrim($text, "\n");
+        // Add link list
+        if ( !empty($this->_link_list) ) {
+            $text .= "\n\nLinks:\n------\n" . $this->_link_list;
+        }
 
         // Wrap the text to a readable format
         // for PHP versions >= 4.0.2. Default width is 75
         // If width is 0 or less, don't wrap the text.
         if ( $this->width > 0 ) {
-            $text = wordwrap($text, $this->width);
+        	$text = wordwrap($text, $this->width);
         }
+
+        $this->text = $text;
+
+        $this->_converted = true;
     }
 
     /**
@@ -559,34 +518,30 @@ class html2text
      */
     function _build_link_list( $link, $display )
     {
-        if (!$this->_do_links || empty($link)) {
-            return $display;
-        }
-
-        // Ignored link types
-        if (preg_match('!^(javascript|mailto|#):!i', $link)) {
-            return $display;
-        }
-
-        if (preg_match('!^(https?://)!i', $link)) {
-            $url = $link;
-        }
-        else {
-            $url = $this->url;
-            if (substr($link, 0, 1) != '/') {
-                $url .= '/';
+	if ( !$this->_do_links ) return $display;
+	
+	if ( substr($link, 0, 7) == 'http://' || substr($link, 0, 8) == 'https://' ||
+             substr($link, 0, 7) == 'mailto:' ) {
+            $this->_link_count++;
+            $this->_link_list .= "[" . $this->_link_count . "] $link\n";
+            $additional = ' [' . $this->_link_count . ']';
+	} elseif ( substr($link, 0, 11) == 'javascript:' ) {
+		// Don't count the link; ignore it
+		$additional = '';
+		// what about href="#anchor" ?
+        } else {
+            $this->_link_count++;
+            $this->_link_list .= "[" . $this->_link_count . "] " . $this->url;
+            if ( substr($link, 0, 1) != '/' ) {
+                $this->_link_list .= '/';
             }
-            $url .= "$link";
+            $this->_link_list .= "$link\n";
+            $additional = ' [' . $this->_link_count . ']';
         }
 
-        if (($index = array_search($url, $this->_link_list)) === false) {
-            $this->_link_list[] = $url;
-            $index = count($this->_link_list);
-        }
-
-        return $display . ' [' . ($index+1) . ']';
+        return $display . $additional;
     }
-
+    
     /**
      *  Helper function for PRE body conversion.
      *
@@ -595,72 +550,9 @@ class html2text
      */
     function _convert_pre(&$text)
     {
-        // get the content of PRE element
-        while (preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
-            // convert the content
-            $this->pre_content = sprintf('<div><br>%s<br></div>',
-                preg_replace($this->pre_search, $this->pre_replace, $matches[1]));
-            // replace the content (use callback because content can contain $0 variable)
-            $text = preg_replace_callback('/<pre[^>]*>.*<\/pre>/ismU',
-                array('html2text', '_preg_pre_callback'), $text, 1);
-            // free memory
-            $this->pre_content = '';
-        }
-    }
-
-    /**
-     *  Helper function for BLOCKQUOTE body conversion.
-     *
-     *  @param string HTML content
-     *  @access private
-     */
-    function _convert_blockquotes(&$text)
-    {
-        if (preg_match_all('/<\/*blockquote[^>]*>/i', $text, $matches, PREG_OFFSET_CAPTURE)) {
-            $level = 0;
-            $diff = 0;
-            foreach ($matches[0] as $m) {
-                if ($m[0][0] == '<' && $m[0][1] == '/') {
-                    $level--;
-                    if ($level < 0) {
-                        $level = 0; // malformed HTML: go to next blockquote
-                    }
-                    else if ($level > 0) {
-                        // skip inner blockquote
-                    }
-                    else {
-                        $end  = $m[1];
-                        $len  = $end - $taglen - $start;
-                        // Get blockquote content
-                        $body = substr($text, $start + $taglen - $diff, $len);
-
-                        // Set text width
-                        $p_width = $this->width;
-                        if ($this->width > 0) $this->width -= 2;
-                        // Convert blockquote content
-                        $body = trim($body);
-                        $this->_converter($body);
-                        // Add citation markers and create PRE block
-                        $body = preg_replace('/((^|\n)>*)/', '\\1> ', trim($body));
-                        $body = '<pre>' . htmlspecialchars($body) . '</pre>';
-                        // Re-set text width
-                        $this->width = $p_width;
-                        // Replace content
-                        $text = substr($text, 0, $start - $diff)
-                            . $body . substr($text, $end + strlen($m[0]) - $diff);
-
-                        $diff = $len + $taglen + strlen($m[0]) - strlen($body);
-                        unset($body);
-                    }
-                }
-                else {
-                    if ($level == 0) {
-                        $start = $m[1];
-                        $taglen = strlen($m[0]);
-                    }
-                    $level ++;
-                }
-            }
+        while(preg_match('/<pre[^>]*>(.*)<\/pre>/ismU', $text, $matches)) {
+            $result = preg_replace($this->pre_search, $this->pre_replace, $matches[1]);
+            $text = preg_replace('/<pre[^>]*>.*<\/pre>/ismU', '<div><br>' . $result . '<br></div>', $text, 1);
         }
     }
 
@@ -669,77 +561,37 @@ class html2text
      *
      *  @param  array PREG matches
      *  @return string
+     *  @access private
      */
-    private function _preg_callback($matches)
+    function _preg_callback($matches)
     {
         switch($matches[1]) {
-            case 'b':
-            case 'strong':
-                return $this->_toupper($matches[2]);
-            case 'th':
-                return $this->_toupper("\t\t". $matches[2] ."\n");
-            case 'h':
-                return $this->_toupper("\n\n". $matches[2] ."\n\n");
-            case 'a':
-                // Remove spaces in URL (#1487805)
-                $url = str_replace(' ', '', $matches[3]);
-                return $this->_build_link_list($url, $matches[4]);
-            case 'img':
-                return '[' . $matches[2] . ']';
+        case 'b':
+        case 'strong':
+            return $this->_strtoupper($matches[2]);
+        case 'hr':
+            return $this->_strtoupper("\t\t". $matches[2] ."\n");
+        case 'h':
+            return $this->_strtoupper("\n\n". $matches[2] ."\n\n");
+        case 'a':
+            return $this->_build_link_list($matches[3], $matches[4]);
+        case 'img':
+            return '[' . $matches[2] . ']';
         }
     }
-
+    
     /**
-     *  Callback function for preg_replace_callback use in PRE content handler.
+     *  Strtoupper multibyte wrapper function
      *
-     *  @param  array PREG matches
+     *  @param  string
      *  @return string
+     *  @access private
      */
-    private function _preg_pre_callback($matches)
+    function _strtoupper($str)
     {
-        return $this->pre_content;
-    }
-
-    /**
-     * Strtoupper function with HTML tags and entities handling.
-     *
-     * @param string $str Text to convert
-     * @return string Converted text
-     */
-    private function _toupper($str)
-    {
-        // string can containg HTML tags
-        $chunks = preg_split('/(<[^>]*>)/', $str, null, PREG_SPLIT_NO_EMPTY | PREG_SPLIT_DELIM_CAPTURE);
-
-        // convert toupper only the text between HTML tags
-        foreach ($chunks as $idx => $chunk) {
-            if ($chunk[0] != '<') {
-                $chunks[$idx] = $this->_strtoupper($chunk);
-            }
-        }
-
-        return implode($chunks);
-    }
-
-    /**
-     * Strtoupper multibyte wrapper function with HTML entities handling.
-     *
-     * @param string $str Text to convert
-     * @return string Converted text
-     */
-    private function _strtoupper($str)
-    {
-        $str = html_entity_decode($str, ENT_COMPAT, RCMAIL_CHARSET);
-
-        if (class_exists('textlib'))
-            $str = textlib::strtoupper($str);
-        else if (function_exists('mb_strtoupper'))
-            $str = mb_strtoupper($str);
-        else
-            $str = strtoupper($str);
-
-        $str = htmlspecialchars($str, ENT_COMPAT, RCMAIL_CHARSET);
-
-        return $str;
+        $tl = textlib_get_instance();
+        return $tl->strtoupper($str);
     }
 }
+
+?>

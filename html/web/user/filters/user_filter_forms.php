@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: user_filter_forms.php,v 1.1.2.3 2009/09/26 16:28:24 skodak Exp $
 
 require_once($CFG->libdir.'/formslib.php');
 

@@ -1,27 +1,4 @@
-<?php
-
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * Display all recent activity in a flexible way
- *
- * @copyright 1999 Martin Dougiamas  http://dougiamas.com
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package course
- */
+<?php //$$
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
@@ -34,73 +11,46 @@ class recent_form extends moodleform {
         global $CFG, $COURSE, $USER;
 
         $mform =& $this->_form;
-        $context = context_course::instance($COURSE->id);
+        $context = get_context_instance(CONTEXT_COURSE, $COURSE->id);
         $modinfo = get_fast_modinfo($COURSE);
 
         $mform->addElement('header', 'filters', get_string('managefilters')); //TODO: add better string
 
-        $groupoptions = array();
-        if (groups_get_course_groupmode($COURSE) == SEPARATEGROUPS and !has_capability('moodle/site:accessallgroups', $context)) {
-            // limited group access
-            $groups = groups_get_user_groups($COURSE->id);
-            $allgroups = groups_get_all_groups($COURSE->id);
-            if (!empty($groups[$COURSE->defaultgroupingid])) {
-                foreach ($groups[$COURSE->defaultgroupingid] AS $groupid) {
-                    $groupoptions[$groupid] = format_string($allgroups[$groupid]->name, true, array('context'=>$context));
-                }
-            }
-        } else {
-            $groupoptions = array('0'=>get_string('allgroups'));
-            if (has_capability('moodle/site:accessallgroups', $context)) {
-                // user can see all groups
-                $allgroups = groups_get_all_groups($COURSE->id);
-            } else {
-                // user can see course level groups
-                $allgroups = groups_get_all_groups($COURSE->id, 0, $COURSE->defaultgroupingid);
-            }
-            foreach($allgroups as $group) {
-                $groupoptions[$group->id] = format_string($group->name, true, array('context'=>$context));
-            }
-        }
-
         if ($COURSE->id == SITEID) {
-            $viewparticipants = has_capability('moodle/site:viewparticipants', context_system::instance());
+            $viewparticipants = has_capability('moodle/site:viewparticipants', get_context_instance(CONTEXT_SYSTEM));
         } else {
             $viewparticipants = has_capability('moodle/course:viewparticipants', $context);
         }
 
-        if ($viewparticipants) {
-            $viewfullnames = has_capability('moodle/site:viewfullnames', context_course::instance($COURSE->id));
+        $viewfullnames = has_capability('moodle/site:viewfullnames', get_context_instance(CONTEXT_COURSE, $COURSE->id));
 
+        if ($viewparticipants) {
             $options = array();
             $options[0] = get_string('allparticipants');
-            $options[$CFG->siteguest] = get_string('guestuser');
-
-            if (isset($groupoptions[0])) {
-                // can see all enrolled users
-                if ($enrolled = get_enrolled_users($context, null, 0, user_picture::fields('u'))) {
-                    foreach ($enrolled as $euser) {
-                        $options[$euser->id] = fullname($euser, $viewfullnames);
-                    }
-                }
-            } else {
-                // can see users from some groups only
-                foreach ($groupoptions as $groupid=>$unused) {
-                    if ($enrolled = get_enrolled_users($context, null, $groupid, user_picture::fields('u'))) {
-                        foreach ($enrolled as $euser) {
-                            if (!array_key_exists($euser->id, $options)) {
-                                $options[$euser->id] = fullname($euser, $viewfullnames);
-                            }
-                        }
-                    }
-                }
+            if ($guest = get_guest()) {
+                $options[$guest->id] = fullname($guest);
             }
 
+            if (groups_get_course_groupmode($COURSE) == SEPARATEGROUPS) {
+                $groups = groups_get_user_groups($COURSE->id);
+                $groups = $groups[0];
+            } else {
+                $groups = '';
+            }
+            
+            if ($courseusers = get_users_by_capability($context, 'moodle/course:view', 'u.id, u.firstname, u.lastname', 'lastname ASC, firstname DESC', '', '', $groups)) {
+                foreach ($courseusers as $courseuser) {
+                    $options[$courseuser->id] = fullname($courseuser, $viewfullnames);
+                }
+            }
             $mform->addElement('select', 'user', get_string('participants'), $options);
             $mform->setAdvanced('user');
-        } else {
-            // Default to no user.
-            $mform->addElement('hidden', 'user', 0);
+        }
+
+        switch ($COURSE->format) {
+            case 'weeks':  $sectiontitle = get_string('week'); break;
+            case 'topics': $sectiontitle = get_string('topic'); break;
+            default: $sectiontitle = get_string('section'); break;
         }
 
         $options = array(''=>get_string('allactivities'));
@@ -129,7 +79,7 @@ class recent_form extends moodleform {
         }
 
         foreach ($modinfo->sections as $section=>$cmids) {
-            $options["section/$section"] = "-- ".get_section_name($COURSE, $section)." --";
+            $options["section/$section"] = "-- $sectiontitle $section --";
             foreach ($cmids as $cmid) {
                 $cm = $modinfo->cms[$cmid];
                 if (empty($modsused[$cm->modname]) or !$cm->uservisible) {
@@ -142,14 +92,19 @@ class recent_form extends moodleform {
         $mform->setAdvanced('modid');
 
 
-        if ($groupoptions) {
-            $mform->addElement('select', 'group', get_string('groups'), $groupoptions);
-            $mform->setAdvanced('group');
+        if (has_capability('moodle/site:accessallgroups', $context)) {
+            if ($groups = groups_get_all_groups($COURSE->id)) {
+                $options = array('0'=>get_string('allgroups'));
+                foreach($groups as $group) {
+                    $options[$group->id] = format_string($group->name);
+                }
+                $mform->addElement('select', 'group', get_string('groups'), $options);
+                $mform->setAdvanced('group');
+            }
         } else {
-            // no access to groups in separate mode
             $mform->addElement('hidden','group');
             $mform->setType('group', PARAM_INT);
-            $mform->setConstants(array('group'=>-1));
+            $mform->setConstants(array('group'=>0));
         }
 
         $options = array('default'  => get_string('bycourseorder'),

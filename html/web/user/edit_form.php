@@ -1,8 +1,4 @@
-<?php
-
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
-}
+<?php //$Id: edit_form.php,v 1.24.2.15 2011/03/16 08:42:21 moodlerobot Exp $
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 
@@ -10,24 +6,10 @@ class user_edit_form extends moodleform {
 
     // Define the form
     function definition () {
-        global $CFG, $COURSE, $USER;
+        global $CFG, $COURSE;
 
         $mform =& $this->_form;
-        $editoroptions = null;
-        $filemanageroptions = null;
-        $userid = $USER->id;
-
-        if (is_array($this->_customdata)) {
-            if (array_key_exists('editoroptions', $this->_customdata)) {
-                $editoroptions = $this->_customdata['editoroptions'];
-            }
-            if (array_key_exists('filemanageroptions', $this->_customdata)) {
-                $filemanageroptions = $this->_customdata['filemanageroptions'];
-            }
-            if (array_key_exists('userid', $this->_customdata)) {
-                $userid = $this->_customdata['userid'];
-            }
-        }
+        $this->set_upload_manager(new upload_manager('imagefile', false, false, null, false, 0, true, true, false));
         //Accessibility: "Required" is bad legend text.
         $strgeneral  = get_string('general');
         $strrequired = get_string('required');
@@ -42,7 +24,7 @@ class user_edit_form extends moodleform {
         $mform->addElement('header', 'moodle', $strgeneral);
 
         /// shared fields
-        useredit_shared_definition($mform, $editoroptions, $filemanageroptions);
+        useredit_shared_definition($mform);
 
         /// extra settigs
         if (!empty($CFG->gdversion) and !empty($CFG->disableuserimages)) {
@@ -52,13 +34,13 @@ class user_edit_form extends moodleform {
         }
 
         /// Next the customisable profile fields
-        profile_definition($mform, $userid);
+        profile_definition($mform);
 
         $this->add_action_buttons(false, get_string('updatemyprofile'));
     }
 
     function definition_after_data() {
-        global $CFG, $DB, $OUTPUT;
+        global $CFG;
 
         $mform =& $this->_form;
         $userid = $mform->getElementValue('id');
@@ -66,36 +48,34 @@ class user_edit_form extends moodleform {
         // if language does not exist, use site default lang
         if ($langsel = $mform->getElementValue('lang')) {
             $lang = reset($langsel);
+            // missing _utf8 in language, add it before further processing. MDL-11829 MDL-16845
+            if (strpos($lang, '_utf8') === false) {
+                $lang = $lang . '_utf8';
+                $lang_el =& $mform->getElement('lang');
+                $lang_el->setValue($lang);
+            }
             // check lang exists
-            if (!get_string_manager()->translation_exists($lang, false)) {
+            if (!file_exists($CFG->dataroot.'/lang/'.$lang) and
+              !file_exists($CFG->dirroot .'/lang/'.$lang)) {
                 $lang_el =& $mform->getElement('lang');
                 $lang_el->setValue($CFG->lang);
             }
         }
 
 
-        if ($user = $DB->get_record('user', array('id'=>$userid))) {
-
+        if ($user = get_record('user', 'id', $userid)) {
             // remove description
-            if (empty($user->description) && !empty($CFG->profilesforenrolledusersonly) && !$DB->record_exists('role_assignments', array('userid'=>$userid))) {
-                $mform->removeElement('description_editor');
+            if (empty($user->description) && !empty($CFG->profilesforenrolledusersonly) && !record_exists('role_assignments', 'userid', $userid)) {
+                $mform->removeElement('description');
             }
 
             // print picture
             if (!empty($CFG->gdversion)) {
-                $context = context_user::instance($user->id, MUST_EXIST);
-                $fs = get_file_storage();
-                $hasuploadedpicture = ($fs->file_exists($context->id, 'user', 'icon', 0, '/', 'f2.png') || $fs->file_exists($context->id, 'user', 'icon', 0, '/', 'f2.jpg'));
-                if (!empty($user->picture) && $hasuploadedpicture) {
-                    $imagevalue = $OUTPUT->user_picture($user, array('courseid' => SITEID, 'size'=>64));
+                $image_el =& $mform->getElement('currentpicture');
+                if ($user and $user->picture) {
+                    $image_el->setValue(print_user_picture($user, SITEID, $user->picture, 64,true,false,'',true));
                 } else {
-                    $imagevalue = get_string('none');
-                }
-                $imageelement = $mform->getElement('currentpicture');
-                $imageelement->setValue($imagevalue);
-
-                if ($mform->elementExists('deletepicture') && !$hasuploadedpicture) {
-                    $mform->removeElement('deletepicture');
+                    $image_el->setValue(get_string('none'));
                 }
             }
 
@@ -127,28 +107,28 @@ class user_edit_form extends moodleform {
     }
 
     function validation($usernew, $files) {
-        global $CFG, $DB;
+        global $CFG;
 
         $errors = parent::validation($usernew, $files);
 
         $usernew = (object)$usernew;
-        $user    = $DB->get_record('user', array('id'=>$usernew->id));
+        $user    = get_record('user', 'id', $usernew->id);
 
         // validate email
         if (!isset($usernew->email)) {
             // mail not confirmed yet
-        } else if (!validate_email($usernew->email)) {
+        } else if (!validate_email(stripslashes($usernew->email))) {
             $errors['email'] = get_string('invalidemail');
-        } else if (($usernew->email !== $user->email) and $DB->record_exists('user', array('email'=>$usernew->email, 'mnethostid'=>$CFG->mnet_localhost_id))) {
+        } else if ((stripslashes($usernew->email) !== $user->email) and record_exists('user', 'email', $usernew->email, 'mnethostid', $CFG->mnet_localhost_id)) {
             $errors['email'] = get_string('emailexists');
         }
 
-        if (isset($usernew->email) and $usernew->email === $user->email and over_bounce_threshold($user)) {
+        if (isset($usernew->email) and stripslashes($usernew->email) === $user->email and over_bounce_threshold($user)) {
             $errors['email'] = get_string('toomanybounces');
         }
 
-        if (isset($usernew->email) and !empty($CFG->verifychangedemail) and !isset($errors['email']) and !has_capability('moodle/user:update', context_system::instance())) {
-            $errorstr = email_is_not_allowed($usernew->email);
+        if (isset($usernew->email) and !empty($CFG->verifychangedemail) and !isset($errors['email']) and !has_capability('moodle/user:update', get_context_instance(CONTEXT_SYSTEM))) {
+            $errorstr = email_is_not_allowed(stripslashes($usernew->email));
             if ($errorstr !== false) {
                 $errors['email'] = $errorstr;
             }
@@ -159,6 +139,10 @@ class user_edit_form extends moodleform {
 
         return $errors;
     }
+
+    function get_um() {
+        return $this->_upload_manager;
+    }
 }
 
-
+?>

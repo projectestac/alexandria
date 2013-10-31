@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: text.php,v 1.1.2.2 2007/12/11 13:01:13 nfreear Exp $
 
 require_once($CFG->dirroot.'/user/filters/lib.php');
 
@@ -42,6 +42,7 @@ class user_filter_text extends user_filter_type {
         $objs[] =& $mform->createElement('select', $this->_name.'_op', null, $this->getOperators());
         $objs[] =& $mform->createElement('text', $this->_name, null);
         $grp =& $mform->addElement('group', $this->_name.'_grp', $this->_label, $objs, '', false);
+        $grp->setHelpButton(array('text',$this->_label,'filters'));
         $mform->disabledIf($this->_name, $this->_name.'_op', 'eq', 5);
         if ($this->_advanced) {
             $mform->setAdvanced($this->_name.'_grp');
@@ -62,12 +63,7 @@ class user_filter_text extends user_filter_type {
                 // no data - no change except for empty filter
                 return false;
             }
-            // If field value is set then use it, else it's null.
-            $fieldvalue = null;
-            if (isset($formdata->$field)) {
-                $fieldvalue = $formdata->$field;
-            }
-            return array('operator' => (int)$formdata->$operator, 'value' =>  $fieldvalue);
+            return array('operator'=>(int)$formdata->$operator, 'value'=>$formdata->$field);
         }
 
         return false;
@@ -76,52 +72,36 @@ class user_filter_text extends user_filter_type {
     /**
      * Returns the condition to be used with SQL where
      * @param array $data filter settings
-     * @return array sql string and $params
+     * @return string the filtering condition or null if the filter is disabled
      */
     function get_sql_filter($data) {
-        global $DB;
-        static $counter = 0;
-        $name = 'ex_text'.$counter++;
-
         $operator = $data['operator'];
-        $value    = $data['value'];
+        $value    = addslashes($data['value']);
         $field    = $this->_field;
-
-        $params = array();
 
         if ($operator != 5 and $value === '') {
             return '';
         }
 
+        $ilike = sql_ilike();
+
         switch($operator) {
             case 0: // contains
-                $res = $DB->sql_like($field, ":$name", false, false);
-                $params[$name] = "%$value%";
-                break;
+                $res = "$ilike '%$value%'"; break;
             case 1: // does not contain
-                $res = $DB->sql_like($field, ":$name", false, false, true);
-                $params[$name] = "%$value%";
-                break;
+                $res = "NOT $ilike '%$value%'"; break;
             case 2: // equal to
-                $res = $DB->sql_like($field, ":$name", false, false);
-                $params[$name] = "$value";
-                break;
+                $res = "$ilike '$value'"; break;
             case 3: // starts with
-                $res = $DB->sql_like($field, ":$name", false, false);
-                $params[$name] = "$value%";
-                break;
+                $res = "$ilike '$value%'"; break;
             case 4: // ends with
-                $res = $DB->sql_like($field, ":$name", false, false);
-                $params[$name] = "%$value";
-                break;
+                $res = "$ilike '%$value'"; break;
             case 5: // empty
-                $res = "$field = :$name";
-                $params[$name] = $DB->sql_empty();
-                break;
+                $res = "=''"; break;
             default:
                 return '';
         }
-        return array($res, $params);
+        return $field.' '.$res;
     }
 
     /**
@@ -134,7 +114,7 @@ class user_filter_text extends user_filter_type {
         $value     = $data['value'];
         $operators = $this->getOperators();
 
-        $a = new stdClass();
+        $a = new object();
         $a->label    = $this->_label;
         $a->value    = '"'.s($value).'"';
         $a->operator = $operators[$operator];

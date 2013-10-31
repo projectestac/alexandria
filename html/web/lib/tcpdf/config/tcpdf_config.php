@@ -2,249 +2,196 @@
 //============================================================+
 // File name   : tcpdf_config.php
 // Begin       : 2004-06-11
-// Last Update : 2011-04-15
+// Last Update : 2006-05-18
 //
-// Description : Configuration file for TCPDF.
-// Author      : Nicola Asuni - Tecnick.com LTD - Manor Coach House, Church Hill, Aldershot, Hants, GU12 4RQ, UK - www.tecnick.com - info@tecnick.com
-// License     : GNU-LGPL v3 (http://www.gnu.org/copyleft/lesser.html)
-// -------------------------------------------------------------------
-// Copyright (C) 2004-2012  Nicola Asuni - Tecnick.com LTD
+// Description : Congiguration file for TCPDF.
 //
-// This file is part of TCPDF software library.
+// Author: Nicola Asuni
 //
-// TCPDF is free software: you can redistribute it and/or modify it
-// under the terms of the GNU Lesser General Public License as
-// published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
-//
-// TCPDF is distributed in the hope that it will be useful, but
-// WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-// See the GNU Lesser General Public License for more details.
-//
-// You should have received a copy of the GNU Lesser General Public License
-// along with TCPDF.  If not, see <http://www.gnu.org/licenses/>.
-//
-// See LICENSE.TXT file for more information.
+// (c) Copyright:
+//               Tecnick.com S.r.l.
+//               Via Ugo Foscolo n.19
+//               09045 Quartu Sant'Elena (CA)
+//               ITALY
+//               www.tecnick.com
+//               info@tecnick.com
 //============================================================+
 
 /**
- * Configuration file for TCPDF.
+ * Congiguration file for TCPDF.
  * @author Nicola Asuni
+ * @copyright Copyright &copy; 2004, Tecnick.com S.r.l. - Via Ugo Foscolo
+ *            n.19 - 09045 Quartu Sant'Elena (CA) - ITALY - www.tecnick.com -
+ *            info@tecnick.com
  * @package com.tecnick.tcpdf
- * @version 4.9.005
- * @since 2004-10-27
+ * @version 1.53.0.TC017
+ * @link http://tcpdf.sourceforge.net
+ * @license http://www.gnu.org/copyleft/lesser.html LGPL
+ * @since 2004-06-11
+ *
+ * Moodle-specific changes:
+ *   Default values for K_PATH_MAIN and K_PATH_URL are automatically set for
+ *   the Moodle installation.
  */
 
-// If you define the constant K_TCPDF_EXTERNAL_CONFIG, the following settings will be ignored.
+// PLEASE SET THE FOLLOWING CONSTANTS:
 
-if (!defined('K_TCPDF_EXTERNAL_CONFIG')) {
+/**
+ * installation path
+ */
+define ('K_PATH_MAIN', $CFG->dirroot.'/lib/tcpdf/');
 
-	// DOCUMENT_ROOT fix for IIS Webserver
-	if ((!isset($_SERVER['DOCUMENT_ROOT'])) OR (empty($_SERVER['DOCUMENT_ROOT']))) {
-		if(isset($_SERVER['SCRIPT_FILENAME'])) {
-			$_SERVER['DOCUMENT_ROOT'] = str_replace( '\\', '/', substr($_SERVER['SCRIPT_FILENAME'], 0, 0-strlen($_SERVER['PHP_SELF'])));
-		} elseif(isset($_SERVER['PATH_TRANSLATED'])) {
-			$_SERVER['DOCUMENT_ROOT'] = str_replace( '\\', '/', substr(str_replace('\\\\', '\\', $_SERVER['PATH_TRANSLATED']), 0, 0-strlen($_SERVER['PHP_SELF'])));
-		} else {
-			// define here your DOCUMENT_ROOT path if the previous fails (e.g. '/var/www')
-			$_SERVER['DOCUMENT_ROOT'] = '/';
-		}
-	}
+/**
+ * url path
+ */
+define ('K_PATH_URL', $CFG->wwwroot.'/lib/tcpdf/');
 
-	// Automatic calculation for the following K_PATH_MAIN constant
-	$k_path_main = str_replace( '\\', '/', realpath(substr(dirname(__FILE__), 0, 0-strlen('config'))));
-	if (substr($k_path_main, -1) != '/') {
-		$k_path_main .= '/';
-	}
+/**
+ * path for PDF fonts
+ */
+define ("FPDF_FONTPATH", K_PATH_MAIN."fonts/");
 
-	/**
-	 * Installation path (/var/www/tcpdf/).
-	 * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
-	 */
-	define ('K_PATH_MAIN', $k_path_main);
+/**
+ * cache directory for temporary files (full path)
+ */
+define ("K_PATH_CACHE", K_PATH_MAIN."cache/");
 
-	// Automatic calculation for the following K_PATH_URL constant
-	$k_path_url = $k_path_main; // default value for console mode
-	if (isset($_SERVER['HTTP_HOST']) AND (!empty($_SERVER['HTTP_HOST']))) {
-		if(isset($_SERVER['HTTPS']) AND (!empty($_SERVER['HTTPS'])) AND strtolower($_SERVER['HTTPS'])!='off') {
-			$k_path_url = 'https://';
-		} else {
-			$k_path_url = 'http://';
-		}
-		$k_path_url .= $_SERVER['HTTP_HOST'];
-		$k_path_url .= str_replace( '\\', '/', substr(K_PATH_MAIN, (strlen($_SERVER['DOCUMENT_ROOT']) - 1)));
-	}
+/**
+ * cache directory for temporary files (url path)
+ */
+define ("K_PATH_URL_CACHE", K_PATH_URL."cache/");
 
-	/**
-	 * URL path to tcpdf installation folder (http://localhost/tcpdf/).
-	 * By default it is automatically calculated but you can also set it as a fixed string to improve performances.
-	 */
-	define ('K_PATH_URL', $k_path_url);
+/**
+ *images directory
+ */
+define ("K_PATH_IMAGES", K_PATH_MAIN."images/");
 
-	/**
-	 * path for PDF fonts
-	 * use K_PATH_MAIN.'fonts/old/' for old non-UTF8 fonts
-	 */
-	define ('K_PATH_FONTS', K_PATH_MAIN.'fonts/');
+/**
+ * blank image
+ */
+define ("K_BLANK_IMAGE", K_PATH_IMAGES."_blank.png");
 
-	/**
-	 * cache directory for temporary files (full path)
-	 */
-	define ('K_PATH_CACHE', K_PATH_MAIN.'cache/');
+/**
+ * page format
+ */
+define ("PDF_PAGE_FORMAT", "A4");
 
-	/**
-	 * cache directory for temporary files (url path)
-	 */
-	define ('K_PATH_URL_CACHE', K_PATH_URL.'cache/');
+/**
+ * page orientation (P=portrait, L=landscape)
+ */
+define ("PDF_PAGE_ORIENTATION", "P");
 
-	/**
-	 *images directory
-	 */
-	define ('K_PATH_IMAGES', K_PATH_MAIN.'images/');
+/**
+ * document creator
+ */
+define ("PDF_CREATOR", "pdf creator");
 
-	/**
-	 * blank image
-	 */
-	define ('K_BLANK_IMAGE', K_PATH_IMAGES.'_blank.png');
+/**
+ * document author
+ */
+define ("PDF_AUTHOR", "pdf author");
 
-	/**
-	 * page format
-	 */
-	define ('PDF_PAGE_FORMAT', 'A4');
+/**
+ * header title
+ */
+define ("PDF_HEADER_TITLE", "header title");
 
-	/**
-	 * page orientation (P=portrait, L=landscape)
-	 */
-	define ('PDF_PAGE_ORIENTATION', 'P');
+/**
+ * header description string
+ */
+define ("PDF_HEADER_STRING", "first row\nsecond row\nthird row");
 
-	/**
-	 * document creator
-	 */
-	define ('PDF_CREATOR', 'TCPDF');
+/**
+ * image logo
+ */
+define ("PDF_HEADER_LOGO", "logo_example.png");
 
-	/**
-	 * document author
-	 */
-	define ('PDF_AUTHOR', 'TCPDF');
+/**
+ * header logo image width [mm]
+ */
+define ("PDF_HEADER_LOGO_WIDTH", 20);
 
-	/**
-	 * header title
-	 */
-	define ('PDF_HEADER_TITLE', 'TCPDF Example');
+/**
+ *  document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch]
+ */
+define ("PDF_UNIT", "mm");
 
-	/**
-	 * header description string
-	 */
-	define ('PDF_HEADER_STRING', "by Nicola Asuni - Tecnick.com\nwww.tcpdf.org");
+/**
+ * header margin
+ */
+define ("PDF_MARGIN_HEADER", 5);
 
-	/**
-	 * image logo
-	 */
-	define ('PDF_HEADER_LOGO', 'tcpdf_logo.jpg');
+/**
+ * footer margin
+ */
+define ("PDF_MARGIN_FOOTER", 10);
 
-	/**
-	 * header logo image width [mm]
-	 */
-	define ('PDF_HEADER_LOGO_WIDTH', 30);
+/**
+ * top margin
+ */
+define ("PDF_MARGIN_TOP", 27);
 
-	/**
-	 *  document unit of measure [pt=point, mm=millimeter, cm=centimeter, in=inch]
-	 */
-	define ('PDF_UNIT', 'mm');
+/**
+ * bottom margin
+ */
+define ("PDF_MARGIN_BOTTOM", 25);
 
-	/**
-	 * header margin
-	 */
-	define ('PDF_MARGIN_HEADER', 5);
+/**
+ * left margin
+ */
+define ("PDF_MARGIN_LEFT", 15);
 
-	/**
-	 * footer margin
-	 */
-	define ('PDF_MARGIN_FOOTER', 10);
+/**
+ * right margin
+ */
+define ("PDF_MARGIN_RIGHT", 15);
 
-	/**
-	 * top margin
-	 */
-	define ('PDF_MARGIN_TOP', 27);
+/**
+ * main font name
+ */
+define ("PDF_FONT_NAME_MAIN", "FreeSans"); //vera
 
-	/**
-	 * bottom margin
-	 */
-	define ('PDF_MARGIN_BOTTOM', 25);
+/**
+ * main font size
+ */
+define ("PDF_FONT_SIZE_MAIN", 10);
 
-	/**
-	 * left margin
-	 */
-	define ('PDF_MARGIN_LEFT', 15);
+/**
+ * data font name
+ */
+define ("PDF_FONT_NAME_DATA", "FreeSerif"); //verase
 
-	/**
-	 * right margin
-	 */
-	define ('PDF_MARGIN_RIGHT', 15);
+/**
+ * data font size
+ */
+define ("PDF_FONT_SIZE_DATA", 8);
 
-	/**
-	 * default main font name
-	 */
-	define ('PDF_FONT_NAME_MAIN', 'helvetica');
+/**
+ *  scale factor for images (number of points in user unit)
+ */
+define ("PDF_IMAGE_SCALE_RATIO", 4);
 
-	/**
-	 * default main font size
-	 */
-	define ('PDF_FONT_SIZE_MAIN', 10);
+/**
+ * magnification factor for titles
+ */
+define("HEAD_MAGNIFICATION", 1.1);
 
-	/**
-	 * default data font name
-	 */
-	define ('PDF_FONT_NAME_DATA', 'helvetica');
+/**
+ * height of cell repect font height
+ */
+define("K_CELL_HEIGHT_RATIO", 1.25);
 
-	/**
-	 * default data font size
-	 */
-	define ('PDF_FONT_SIZE_DATA', 8);
+/**
+ * title magnification respect main font size
+ */
+define("K_TITLE_MAGNIFICATION", 1.3);
 
-	/**
-	 * default monospaced font name
-	 */
-	define ('PDF_FONT_MONOSPACED', 'courier');
-
-	/**
-	 * ratio used to adjust the conversion of pixels to user units
-	 */
-	define ('PDF_IMAGE_SCALE_RATIO', 1.25);
-
-	/**
-	 * magnification factor for titles
-	 */
-	define('HEAD_MAGNIFICATION', 1.1);
-
-	/**
-	 * height of cell repect font height
-	 */
-	define('K_CELL_HEIGHT_RATIO', 1.25);
-
-	/**
-	 * title magnification respect main font size
-	 */
-	define('K_TITLE_MAGNIFICATION', 1.3);
-
-	/**
-	 * reduction factor for small font
-	 */
-	define('K_SMALL_RATIO', 2/3);
-
-	/**
-	 * set to true to enable the special procedure used to avoid the overlappind of symbols on Thai language
-	 */
-	define('K_THAI_TOPCHARS', true);
-
-	/**
-	 * if true allows to call TCPDF methods using HTML syntax
-	 * IMPORTANT: For security reason, disable this feature if you are printing user HTML content.
-	 */
-	define('K_TCPDF_CALLS_IN_HTML', true);
-}
+/**
+ * reduction factor for small font
+ */
+define("K_SMALL_RATIO", 2/3);
 
 //============================================================+
-// END OF FILE
+// END OF FILE                                                 
 //============================================================+
+?>

@@ -1,23 +1,29 @@
-<?php
+<?PHP // $Id: algebradebug.php,v 1.19.2.3 2010/04/01 17:10:58 skodak Exp $
       // This function fetches math. images from the data directory
       // If not, it obtains the corresponding TeX expression from the cache_tex db table
       // and uses mimeTeX to create the image file
 
-    define('NO_MOODLE_COOKIES', true); // Because it interferes with caching
+    $nomoodlecookie = true;     // Because it interferes with caching
 
     require_once("../../config.php");
 
-    if (!filter_is_enabled('filter/algebra')) {
-        print_error('filternotenabled');
+    if (empty($CFG->textfilters)) {
+        error ('Filter not enabled!');
+    } else {
+        $filters = explode(',', $CFG->textfilters);
+        if (array_search('filter/algebra', $filters) === FALSE) {
+            error ('Filter not enabled!');
+        }
     }
 
     require_once($CFG->libdir.'/filelib.php');
     require_once($CFG->dirroot.'/filter/tex/lib.php');
 
     require_login();
-    require_capability('moodle/site:config', context_system::instance());
+    require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 
     $query = urldecode($_SERVER['QUERY_STRING']);
+    error_reporting(DEBUG_ALL);
 
     if ($query) {
       $output = $query;
@@ -25,7 +31,7 @@
       $algebra = substr($query,8,$splitpos);
       $md5 = md5($algebra);
       if (strpos($query,'ShowDB') || strpos($query,'DeleteDB')) {
-        $texcache = $DB->get_record("cache_filters", array("filter"=>"algebra", "md5key"=>$md5));
+        $texcache = get_record("cache_filters","filter","algebra", "md5key", $md5);
       }
       if (strpos($query,'ShowDB')) {
         if ($texcache) {
@@ -43,7 +49,7 @@
       if (strpos($query,'DeleteDB')) {
         if ($texcache) {
           $output = "Deleting DB cache_filters entry for $algebra\n";
-          $result =  $DB->delete_records("cache_filters", array("id"=>$texcache->id));
+          $result =  delete_records("cache_filters","id",$texcache->id);
           if ($result) {
             $result = 1;
           } else {
@@ -183,7 +189,7 @@ function refineTeX($texexp) {
 }
 
 function outputText($texexp) {
-  header("Content-type: text/html; charset=utf-8");
+  header("Content-type: text/html");
   echo "<html><body><pre>\n";
   if ($texexp) {
     $texexp = str_replace('<','&lt;',$texexp);
@@ -214,8 +220,8 @@ function tex2image($texexp, $md5, $return=false) {
     if (file_exists($pathname)) {
         unlink($pathname);
     }
-    $commandpath = filter_tex_get_executable(true);
-    $cmd = filter_tex_get_cmd($pathname, $texexp);
+    $commandpath = tex_filter_get_executable(true);
+    $cmd = tex_filter_get_cmd($pathname, $texexp);
     system($cmd, $status);
 
     if ($return) {
@@ -280,8 +286,7 @@ function slasharguments($texexp, $md5) {
           <form action="algebradebug.php" method="get"
            target="inlineframe">
             <center>
-             <label for="algebra" class="accesshide"><?php print_string('algebraicexpression', 'filter_algebra'); ?></label>
-             <input type="text" id="algebra" name="algebra" size="50"
+             <input type="text" name="algebra" size="50"
                     value="sin(z)/(x^2+y^2)" />
             </center>
            <ol>
@@ -301,7 +306,7 @@ function slasharguments($texexp, $md5) {
           </form> <br /> <br />
        <center>
           <iframe name="inlineframe" align="middle" width="80%" height="200">
-          &lt;p&gt;Something is wrong...&lt;/p&gt;
+          &lt;p&gt;Something is wrong...&lt;/p&gt; 
           </iframe>
        </center> <br />
 <hr />
@@ -341,7 +346,7 @@ C sources downloaded from <a href="http://www.forkosh.com/mimetex.zip">
 http://www.forkosh.com/mimetex.zip</a>, or looking for an appropriate
 binary at <a href="http://moodle.org/download/mimetex/">
 http://moodle.org/download/mimetex/</a>. You may then also need to
-edit your moodle/filter/algebra/pix.php file to add
+edit your moodle/filter/algebra/pix.php file to add 
 <br /><?PHP echo "case &quot;" . PHP_OS . "&quot;:" ;?><br ?> to the list of operating systems
 in the switch (PHP_OS) statement. Windows users may have a problem properly
 unzipping mimetex.exe. Make sure that mimetex.exe is is <b>PRECISELY</b>

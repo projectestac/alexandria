@@ -1,0 +1,30 @@
+<table cellpadding="9" cellspacing="0">
+<tr valign="top">
+    <td align="right"><?php print_string('configtitle', 'block_top_rate_entries'); ?>:</td>
+    <td><input type="text" name="title" size="30" value="<?php echo isset($this->config->title)?p($this->config->title):''; ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><?php print_string('configdatabaseid', 'block_top_rate_entries'); ?>:</td>
+    <td><input type="text" name="databaseid" size="30" value="<?php echo isset($this->config->databaseid)?p($this->config->databaseid):''; ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><?php print_string('configtitlefieldid', 'block_top_rate_entries'); ?>:</td>
+    <td><input type="text" name="titlefieldid" size="30" value="<?php echo isset($this->config->titlefieldid)?p($this->config->titlefieldid):''; ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><?php print_string('configauthorfieldid', 'block_top_rate_entries'); ?>:</td>
+    <td><input type="text" name="authorfieldid" size="30" value="<?php echo isset($this->config->authorfieldid)?p($this->config->authorfieldid):''; ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><?php print_string('configmaxentries', 'block_top_rate_entries'); ?>:</td>
+    <td><input type="text" name="maxentries" size="30" value="<?php echo isset($this->config->maxentries)?p($this->config->maxentries):'5'; ?>" /></td>
+</tr>
+<tr valign="top">
+    <td align="right"><?php print_string('configcaducityseconds', 'block_top_rate_entries'); ?>:</td>
+    <td><input type="text" name="caducityseconds" size="30" value="<?php echo isset($this->config->caducityseconds)?p($this->config->caducityseconds):43200; ?>" /></td>
+</tr>
+<tr>
+    <td colspan="3" align="center">
+    <input type="submit" value="<?php print_string('savechanges') ?>" /></td>
+</tr>
+</table>

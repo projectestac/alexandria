@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: lib.php,v 1.1.2.6 2009/12/18 05:24:14 dongsheng Exp $
 
 require_once($CFG->dirroot.'/user/filters/text.php');
 require_once($CFG->dirroot.'/user/filters/date.php');
@@ -8,9 +8,8 @@ require_once($CFG->dirroot.'/user/filters/courserole.php');
 require_once($CFG->dirroot.'/user/filters/globalrole.php');
 require_once($CFG->dirroot.'/user/filters/profilefield.php');
 require_once($CFG->dirroot.'/user/filters/yesno.php');
-require_once($CFG->dirroot.'/user/filters/cohort.php');
 require_once($CFG->dirroot.'/user/filters/user_filter_forms.php');
-require_once($CFG->dirroot.'/user/filters/checkbox.php');
+
 
 /**
  * User filtering wrapper class.
@@ -35,9 +34,8 @@ class user_filtering {
 
         if (empty($fieldnames)) {
             $fieldnames = array('realname'=>0, 'lastname'=>1, 'firstname'=>1, 'email'=>1, 'city'=>1, 'country'=>1,
-                                'confirmed'=>1, 'suspended'=>1, 'profile'=>1, 'courserole'=>1, 'systemrole'=>1, 'cohort'=>1,
-                                'firstaccess'=>1, 'lastaccess'=>1, 'neveraccessed'=>1, 'timemodified'=>1,
-                                'nevermodified'=>1, 'username'=>1, 'auth'=>1, 'mnethostid'=>1);
+                                'confirmed'=>1, 'profile'=>1, 'courserole'=>1, 'systemrole'=>1,
+                                'firstaccess'=>1, 'lastaccess'=>1, 'lastlogin'=>1, 'timemodified'=>1, 'username'=>1, 'auth'=>1, 'mnethostid'=>1);
         }
 
         $this->_fields  = array();
@@ -50,7 +48,7 @@ class user_filtering {
 
         // fist the new filter form
         $this->_addform = new user_add_filter_form($baseurl, array('fields'=>$this->_fields, 'extraparams'=>$extraparams));
-        if ($adddata = $this->_addform->get_data()) {
+        if ($adddata = $this->_addform->get_data(false)) {
             foreach($this->_fields as $fname=>$field) {
                 $data = $field->check_data($adddata);
                 if ($data === false) {
@@ -68,7 +66,7 @@ class user_filtering {
 
         // now the active filters
         $this->_activeform = new user_active_filter_form($baseurl, array('fields'=>$this->_fields, 'extraparams'=>$extraparams));
-        if ($adddata = $this->_activeform->get_data()) {
+        if ($adddata = $this->_activeform->get_data(false)) {
             if (!empty($adddata->removeall)) {
                 $SESSION->user_filtering = array();
 
@@ -82,7 +80,7 @@ class user_filtering {
                     }
                     if (empty($SESSION->user_filtering[$fname])) {
                         unset($SESSION->user_filtering[$fname]);
-                    }
+                    } 
                 }
             }
             // clear+reload the form
@@ -99,38 +97,35 @@ class user_filtering {
      * @return object filter
      */
     function get_field($fieldname, $advanced) {
-        global $USER, $CFG, $DB, $SITE;
+        global $USER, $CFG, $SITE;
 
         switch ($fieldname) {
             case 'username':    return new user_filter_text('username', get_string('username'), $advanced, 'username');
-            case 'realname':    return new user_filter_text('realname', get_string('fullnameuser'), $advanced, $DB->sql_fullname());
+            case 'realname':    return new user_filter_text('realname', get_string('fullname'), $advanced, sql_fullname());
             case 'lastname':    return new user_filter_text('lastname', get_string('lastname'), $advanced, 'lastname');
             case 'firstname':    return new user_filter_text('firstname', get_string('firstname'), $advanced, 'firstname');
             case 'email':       return new user_filter_text('email', get_string('email'), $advanced, 'email');
             case 'city':        return new user_filter_text('city', get_string('city'), $advanced, 'city');
-            case 'country':     return new user_filter_select('country', get_string('country'), $advanced, 'country', get_string_manager()->get_list_of_countries(), $USER->country);
+            case 'country':     return new user_filter_select('country', get_string('country'), $advanced, 'country', get_list_of_countries(), $USER->country);
             case 'confirmed':   return new user_filter_yesno('confirmed', get_string('confirmed', 'admin'), $advanced, 'confirmed');
-            case 'suspended':   return new user_filter_yesno('suspended', get_string('suspended', 'auth'), $advanced, 'suspended');
             case 'profile':     return new user_filter_profilefield('profile', get_string('profile'), $advanced);
             case 'courserole':  return new user_filter_courserole('courserole', get_string('courserole', 'filters'), $advanced);
             case 'systemrole':  return new user_filter_globalrole('systemrole', get_string('globalrole', 'role'), $advanced);
             case 'firstaccess': return new user_filter_date('firstaccess', get_string('firstaccess', 'filters'), $advanced, 'firstaccess');
             case 'lastaccess':  return new user_filter_date('lastaccess', get_string('lastaccess'), $advanced, 'lastaccess');
-            case 'neveraccessed': return new user_filter_checkbox('neveraccessed', get_string('neveraccessed', 'filters'), $advanced, 'firstaccess', array('lastaccess_sck', 'lastaccess_eck', 'firstaccess_eck', 'firstaccess_sck'));
+            case 'lastlogin':   return new user_filter_date('lastlogin', get_string('lastlogin'), $advanced, 'lastlogin');
             case 'timemodified': return new user_filter_date('timemodified', get_string('lastmodified'), $advanced, 'timemodified');
-            case 'nevermodified': return new user_filter_checkbox('nevermodified', get_string('nevermodified', 'filters'), $advanced, array('timemodified', 'timecreated'), array('timemodified_sck', 'timemodified_eck'));
-            case 'cohort':      return new user_filter_cohort($advanced);
             case 'auth':
-                $plugins = get_plugin_list('auth');
+                $plugins = get_list_of_plugins('auth');
                 $choices = array();
-                foreach ($plugins as $auth => $unused) {
-                    $choices[$auth] = get_string('pluginname', "auth_{$auth}");
+                foreach ($plugins as $auth) {
+                    $choices[$auth] = auth_get_plugin_title ($auth);
                 }
                 return new user_filter_simpleselect('auth', get_string('authentication'), $advanced, 'auth', $choices);
 
             case 'mnethostid':
                 // include all hosts even those deleted or otherwise problematic
-                if (!$hosts = $DB->get_records('mnet_host', null, 'id', 'id, wwwroot, name')) {
+                if (!$hosts = get_records('mnet_host', '', '', 'id', 'id, wwwroot, name')) {
                     $hosts = array();
                 }
                 $choices = array();
@@ -144,17 +139,17 @@ class user_filtering {
                         $choices[$host->id] = $host->name.' ('.$host->wwwroot.')';
                     }
                 }
-                if ($usedhosts = $DB->get_fieldset_sql("SELECT DISTINCT mnethostid FROM {user} WHERE deleted=0")) {
+                if ($usedhosts = get_fieldset_sql("SELECT DISTINCT mnethostid FROM {$CFG->prefix}user WHERE deleted=0")) {
                     foreach ($usedhosts as $hostid) {
                         if (empty($hosts[$hostid])) {
                             $choices[$hostid] = 'id: '.$hostid.' ('.get_string('error').')';
                         }
-                    }
+                    } 
                 }
                 if (count($choices) < 2) {
                     return null; // filter not needed
                 }
-                return new user_filter_simpleselect('mnethostid', get_string('mnetidprovider', 'mnet'), $advanced, 'mnethostid', $choices);
+                return new user_filter_simpleselect('mnethostid', 'mnethostid', $advanced, 'mnethostid', $choices);
 
             default:            return null;
         }
@@ -163,17 +158,15 @@ class user_filtering {
     /**
      * Returns sql where statement based on active user filters
      * @param string $extra sql
-     * @param array named params (recommended prefix ex)
-     * @return array sql string and $params
+     * @return string
      */
-    function get_sql_filter($extra='', array $params=null) {
+    function get_sql_filter($extra='') {
         global $SESSION;
 
         $sqls = array();
         if ($extra != '') {
             $sqls[] = $extra;
         }
-        $params = (array)$params;
 
         if (!empty($SESSION->user_filtering)) {
             foreach ($SESSION->user_filtering as $fname=>$datas) {
@@ -182,18 +175,15 @@ class user_filtering {
                 }
                 $field = $this->_fields[$fname];
                 foreach($datas as $i=>$data) {
-                    list($s, $p) = $field->get_sql_filter($data);
-                    $sqls[] = $s;
-                    $params = $params + $p;
+                    $sqls[] = $field->get_sql_filter($data);
                 }
             }
         }
 
         if (empty($sqls)) {
-            return array('', array());
+            return '';
         } else {
-            $sqls = implode(' AND ', $sqls);
-            return array($sqls, $params);
+            return implode(' AND ', $sqls);
         }
     }
 
@@ -250,7 +240,7 @@ class user_filter_type {
      * @return string the filtering condition or null if the filter is disabled
      */
     function get_sql_filter($data) {
-        print_error('mustbeoveride', 'debug', '', 'get_sql_filter');
+        error('Abstract method get_sql_filter() called - must be implemented');
     }
 
     /**
@@ -259,7 +249,7 @@ class user_filter_type {
      * @return mixed array filter data or false when filter not set
      */
     function check_data($formdata) {
-        print_error('mustbeoveride', 'debug', '', 'check_data');
+        error('Abstract method check_data() called - must be implemented');
     }
 
     /**
@@ -267,7 +257,7 @@ class user_filter_type {
      * @param object $mform a MoodleForm object to setup
      */
     function setupForm(&$mform) {
-        print_error('mustbeoveride', 'debug', '', 'setupForm');
+        error('Abstract method setupForm() called - must be implemented');
     }
 
     /**
@@ -276,6 +266,6 @@ class user_filter_type {
      * @return string active filter label
      */
     function get_label($data) {
-        print_error('mustbeoveride', 'debug', '', 'get_label');
+        error('Abstract method get_label() called - must be implemented');
     }
 }

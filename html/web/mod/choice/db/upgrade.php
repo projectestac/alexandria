@@ -1,6 +1,6 @@
-<?php
+<?php  //$Id: upgrade.php,v 1.1.8.1 2008/05/01 20:39:47 skodak Exp $
 
-// This file keeps track of upgrades to
+// This file keeps track of upgrades to 
 // the choice module
 //
 // Sometimes, changes between versions involve
@@ -9,35 +9,32 @@
 //
 // The upgrade function in this file will attempt
 // to perform all the necessary actions to upgrade
-// your older installation to the current version.
+// your older installtion to the current version.
 //
 // If there's something it cannot do itself, it
 // will tell you what you need to do.
 //
 // The commands in here will all be database-neutral,
-// using the methods of database_manager class
-//
-// Please do not forget to use upgrade_set_timeout()
-// before any action that may take longer time to finish.
+// using the functions defined in lib/ddllib.php
 
-function xmldb_choice_upgrade($oldversion) {
-    global $CFG, $DB;
+function xmldb_choice_upgrade($oldversion=0) {
 
-    $dbman = $DB->get_manager();
+    global $CFG, $THEME, $db;
 
+    $result = true;
 
-    // Moodle v2.2.0 release upgrade line
-    // Put any upgrade step following this
+/// And upgrade begins here. For each one, you'll need one 
+/// block of code similar to the next one. Please, delete 
+/// this comment lines once this file start handling proper
+/// upgrade code.
 
-    // Moodle v2.3.0 release upgrade line
-    // Put any upgrade step following this
+/// if ($result && $oldversion < YYYYMMDD00) { //New version in version.php
+///     $result = result of "/lib/ddllib.php" function calls
+/// }
 
+//===== 1.9.0 upgrade line ======//
 
-    // Moodle v2.4.0 release upgrade line
-    // Put any upgrade step following this
-
-
-    return true;
+    return $result;
 }
 
-
+?>

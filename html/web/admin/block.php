@@ -1,28 +1,29 @@
-<?php
+<?PHP  // $Id: block.php,v 1.18.4.2 2008/04/02 06:09:57 dongsheng Exp $
 
 // block.php - allows admin to edit all local configuration variables for a block
 
     require_once('../config.php');
     require_once($CFG->libdir.'/adminlib.php');
+    require_once($CFG->libdir.'/blocklib.php');
 
     $blockid = required_param('block', PARAM_INT);
 
     if(!$blockrecord = blocks_get_record($blockid)) {
-        print_error('blockdoesnotexist', 'error');
+        error('This block does not exist');
     }
 
     admin_externalpage_setup('blocksetting'.$blockrecord->name);
 
     $block = block_instance($blockrecord->name);
     if($block === false) {
-        print_error('blockcannotinistantiate', 'error');
+        error('Problem in instantiating block object');
     }
 
     // Define the data we're going to silently include in the instance config form here,
     // so we can strip them from the submitted data BEFORE handling it.
     $hiddendata = array(
         'block' => $blockid,
-        'sesskey' => sesskey()
+        'sesskey' => $USER->sesskey
     );
 
     /// If data submitted, then process and store.
@@ -33,7 +34,7 @@
              print_error('confirmsesskeybad', 'error');
         }
         if(!$block->has_config()) {
-            print_error('blockcannotconfig', 'error');
+            error('This block does not support global configuration');
         }
         $remove = array_keys($hiddendata);
         foreach($remove as $item) {
@@ -49,14 +50,11 @@
     $strmanageblocks = get_string('manageblocks');
     $strblockname = $block->get_title();
 
-    echo $OUTPUT->header();
+    admin_externalpage_print_header();
 
-    echo $OUTPUT->heading($strblockname);
+    print_heading($strblockname);
 
-    echo $OUTPUT->notification('This block still uses an old-style config_global.html file. ' .
-            'It must be updated by a developer to use a settings.php file.');
-
-    echo $OUTPUT->box(get_string('configwarning', 'admin'), 'generalbox boxwidthnormal boxaligncenter');
+    print_simple_box(get_string('configwarning', 'admin'), 'center', '50%');
     echo '<br />';
 
     echo '<form method="post" action="block.php">';
@@ -65,12 +63,8 @@
         echo '<input type="hidden" name="'. $name .'" value="'. $val .'" />';
     }
     echo '</p>';
-
-    echo $OUTPUT->box_start();
-    include($CFG->dirroot.'/blocks/'. $block->name() .'/config_global.html');
-    echo $OUTPUT->box_end();
-
+    $block->config_print();
     echo '</form>';
-    echo $OUTPUT->footer();
+    print_footer();
 
-
+?>

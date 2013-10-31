@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: bennu.inc.php,v 1.1 2006/01/13 15:06:25 defacer Exp $
 
 /**
  *  BENNU - PHP iCalendar library
@@ -9,7 +9,7 @@
  *  See http://bennu.sourceforge.net/ for more information and downloads.
  *
  * @author Ioannis Papaioannou 
- * @version $Id$
+ * @version $Id: bennu.inc.php,v 1.1 2006/01/13 15:06:25 defacer Exp $
  * @license http://www.gnu.org/copyleft/lesser.html GNU Lesser General Public License
  */
 
@@ -21,3 +21,5 @@ if(!defined('_BENNU_VERSION')) {
     include('iCalendar_properties.php');
     include('iCalendar_parameters.php');
 }
+
+?>

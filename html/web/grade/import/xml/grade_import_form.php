@@ -15,56 +15,52 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-if (!defined('MOODLE_INTERNAL')) {
-    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
-}
-
 require_once $CFG->libdir.'/formslib.php';
 
 class grade_import_form extends moodleform {
     function definition () {
-        global $COURSE, $USER, $CFG, $DB;
+        global $COURSE, $USER, $CFG;
 
         $mform =& $this->_form;
 
+        $this->set_upload_manager(new upload_manager('userfile', false, false, null, false, 0, true, true, false));
+
         // course id needs to be passed for auth purposes
-        $mform->addElement('hidden', 'id', optional_param('id', 0, PARAM_INT));
+        $mform->addElement('hidden', 'id', optional_param('id'));
         $mform->setType('id', PARAM_INT);
 
         $mform->addElement('header', 'general', get_string('importfile', 'grades'));
+        $mform->disabledIf('url', 'userfile', 'noteq', '');
 
         $mform->addElement('advcheckbox', 'feedback', get_string('importfeedback', 'grades'));
         $mform->setDefault('feedback', 0);
 
         // file upload
-        $mform->addElement('filepicker', 'userfile', get_string('file'));
+        $mform->addElement('file', 'userfile', get_string('file'));
+        $mform->setType('userfile', PARAM_FILE);
         $mform->disabledIf('userfile', 'url', 'noteq', '');
 
         $mform->addElement('text', 'url', get_string('fileurl', 'gradeimport_xml'), 'size="80"');
-        $mform->disabledIf('url', 'userfile', 'noteq', '');
 
         if (!empty($CFG->gradepublishing)) {
             $mform->addElement('header', 'publishing', get_string('publishing', 'grades'));
             $options = array(get_string('nopublish', 'grades'), get_string('createnewkey', 'userkey'));
-            $keys = $DB->get_records_select('user_private_key',
-                            "script='grade/import' AND instance=? AND userid=?",
-                            array($COURSE->id, $USER->id));
-            if ($keys) {
+            if ($keys = get_records_select('user_private_key', "script='grade/import' AND instance={$COURSE->id} AND userid={$USER->id}")) {
                 foreach ($keys as $key) {
                     $options[$key->value] = $key->value; // TODO: add more details - ip restriction, valid until ??
                 }
             }
             $mform->addElement('select', 'key', get_string('userkey', 'userkey'), $options);
-            $mform->addHelpButton('key', 'userkey', 'userkey');
+            $mform->setHelpButton('key', array('userkey', get_string('userkey', 'userkey'), 'grade'));
             $mform->addElement('static', 'keymanagerlink', get_string('keymanager', 'userkey'),
                     '<a href="'.$CFG->wwwroot.'/grade/import/keymanager.php?id='.$COURSE->id.'">'.get_string('keymanager', 'userkey').'</a>');
 
             $mform->addElement('text', 'iprestriction', get_string('keyiprestriction', 'userkey'), array('size'=>80));
-            $mform->addHelpButton('iprestriction', 'keyiprestriction', 'userkey');
+            $mform->setHelpButton('iprestriction', array('keyiprestriction', get_string('keyiprestriction', 'userkey'), 'userkey'));
             $mform->setDefault('iprestriction', getremoteaddr()); // own IP - just in case somebody does not know what user key is
 
             $mform->addElement('date_time_selector', 'validuntil', get_string('keyvaliduntil', 'userkey'), array('optional'=>true));
-            $mform->addHelpButton('validuntil', 'keyvaliduntil', 'userkey');
+            $mform->setHelpButton('validuntil', array('keyvaliduntil', get_string('keyvaliduntil', 'userkey'), 'userkey'));
             $mform->setDefault('validuntil', time()+3600*24*7); // only 1 week default duration - just in case somebody does not know what user key is
 
             $mform->disabledIf('iprestriction', 'key', 'noteq', 1);
@@ -80,7 +76,7 @@ class grade_import_form extends moodleform {
 
     function validation($data, $files) {
         $err = parent::validation($data, $files);
-        if (empty($data['url']) and empty($data['userfile'])) {
+        if (empty($data['url']) and empty($files['userfile'])) {
             if (array_key_exists('url', $data)) {
                 $err['url'] = get_string('required');
             }
@@ -95,4 +91,4 @@ class grade_import_form extends moodleform {
         return $err;
     }
 }
-
+?>

@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,14 +14,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * A moodleform to allow the creation and editing of outcome grade items
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
@@ -41,10 +34,10 @@ class edit_outcomeitem_form extends moodleform {
         $mform->addRule('itemname', get_string('required'), 'required', null, 'client');
 
         $mform->addElement('text', 'iteminfo', get_string('iteminfo', 'grades'));
-        $mform->addHelpButton('iteminfo', 'iteminfo', 'grades');
+        $mform->setHelpButton('iteminfo', array('iteminfo', get_string('iteminfo', 'grades'), 'grade'), true);
 
         $mform->addElement('text', 'idnumber', get_string('idnumbermod'));
-        $mform->addHelpButton('idnumber', 'idnumbermod');
+        $mform->setHelpButton('idnumber', array('idnumber', get_string('idnumber', 'grades'), 'grade'), true);
 
         // allow setting of outcomes on module items too
         $options = array();
@@ -55,7 +48,7 @@ class edit_outcomeitem_form extends moodleform {
         }
         $mform->addElement('selectwithlink', 'outcomeid', get_string('outcome', 'grades'), $options, null,
             array('link' => $CFG->wwwroot.'/grade/edit/outcome/course.php?id='.$COURSE->id, 'label' => get_string('outcomeassigntocourse', 'grades')));
-        $mform->addHelpButton('outcomeid', 'outcome', 'grades');
+        $mform->setHelpButton('outcomeid', array('outcomeid', get_string('outcomeid', 'grades'), 'grade'), true);
         $mform->addRule('outcomeid', get_string('required'), 'required');
 
         $options = array(0=>get_string('none'));
@@ -67,20 +60,26 @@ class edit_outcomeitem_form extends moodleform {
             }
         }
         $mform->addElement('select', 'cmid', get_string('linkedactivity', 'grades'), $options);
-        $mform->addHelpButton('cmid', 'linkedactivity', 'grades');
+        $mform->setHelpButton('cmid', array('linkedactivity', get_string('linkedactivity', 'grades'), 'grade'), true);
         $mform->setDefault('cmid', 0);
+
+        /*$mform->addElement('text', 'gradepass', get_string('gradepass', 'grades'));
+        $mform->setHelpButton('gradepass', array(false, get_string('gradepass', 'grades'),
+                false, true, false, get_string('gradepasshelp', 'grades')));*/
 
         /// hiding
         /// advcheckbox is not compatible with disabledIf !!
         $mform->addElement('checkbox', 'hidden', get_string('hidden', 'grades'));
-        $mform->addHelpButton('hidden', 'hidden', 'grades');
+        $mform->setHelpButton('hidden', array('hidden', get_string('hidden', 'grades'), 'grade'));
         $mform->addElement('date_time_selector', 'hiddenuntil', get_string('hiddenuntil', 'grades'), array('optional'=>true));
+        $mform->setHelpButton('hiddenuntil', array('hiddenuntil', get_string('hiddenuntil', 'grades'), 'grade'));
         $mform->disabledIf('hidden', 'hiddenuntil[off]', 'notchecked');
 
         //locking
         $mform->addElement('advcheckbox', 'locked', get_string('locked', 'grades'));
-        $mform->addHelpButton('locked', 'locked', 'grades');
+        $mform->setHelpButton('locked', array('locked', get_string('locked', 'grades'), 'grade'));
         $mform->addElement('date_time_selector', 'locktime', get_string('locktime', 'grades'), array('optional'=>true));
+        $mform->setHelpButton('locktime', array('lockedafter', get_string('locktime', 'grades'), 'grade'));
 
 /// parent category related settings
         $mform->addElement('header', 'headerparent', get_string('parentcategory', 'grades'));
@@ -103,7 +102,7 @@ class edit_outcomeitem_form extends moodleform {
                     $coefstring = ($coefstring=='' or $coefstring=='aggregationcoefextrasum') ? 'aggregationcoefextrasum' : 'aggregationcoef';
 
                 } else if ($cat->aggregation == GRADE_AGGREGATE_EXTRACREDIT_MEAN) {
-                    $coefstring = ($coefstring=='' or $coefstring=='aggregationcoefextraweight') ? 'aggregationcoefextraweight' : 'aggregationcoef';
+                    $coefstring = ($coefstring=='' or $coefstring=='aggregationcoefextra') ? 'aggregationcoefextra' : 'aggregationcoef';
 
                 } else if ($cat->aggregation == GRADE_AGGREGATE_SUM) {
                     $coefstring = ($coefstring=='' or $coefstring=='aggregationcoefextrasum') ? 'aggregationcoefextrasum' : 'aggregationcoef';
@@ -128,7 +127,7 @@ class edit_outcomeitem_form extends moodleform {
             } else {
                 $mform->addElement('text', 'aggregationcoef', get_string($coefstring, 'grades'));
             }
-            $mform->addHelpButton('aggregationcoef', $coefstring, 'grades');
+            $mform->setHelpButton('aggregationcoef', array($coefstring, get_string($coefstring, 'grades'), 'grade'), true);
         }
 
 /// hidden params
@@ -205,7 +204,7 @@ class edit_outcomeitem_form extends moodleform {
                         $aggcoef = 'aggregationcoefextrasum';
 
                     } else if ($parent_category->aggregation == GRADE_AGGREGATE_EXTRACREDIT_MEAN) {
-                        $aggcoef = 'aggregationcoefextraweight';
+                        $aggcoef = 'aggregationcoefextra';
 
                     } else if ($parent_category->aggregation == GRADE_AGGREGATE_SUM) {
                         $aggcoef = 'aggregationcoefextrasum';
@@ -213,7 +212,7 @@ class edit_outcomeitem_form extends moodleform {
 
                     if ($aggcoef !== '') {
                         $agg_el->setLabel(get_string($aggcoef, 'grades'));
-                        $mform->addHelpButton('aggregationcoef', $aggcoef, 'grades');
+                        $mform->setHelpButton('aggregationcoef', array($aggcoef, get_string($aggcoef, 'grades'), 'grade'));
                     }
                 }
             }
@@ -248,4 +247,4 @@ class edit_outcomeitem_form extends moodleform {
     }
 
 }
-
+?>

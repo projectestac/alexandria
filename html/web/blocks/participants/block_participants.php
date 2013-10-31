@@ -1,32 +1,38 @@
-<?php
+<?PHP //$Id: block_participants.php,v 1.33.2.2 2008/03/03 11:41:03 moodler Exp $
 
 class block_participants extends block_list {
     function init() {
-        $this->title = get_string('pluginname', 'block_participants');
+        $this->title = get_string('people');
+        $this->version = 2007101509;
     }
 
     function get_content() {
 
-        global $CFG, $OUTPUT;
+        global $CFG, $COURSE;
 
         if (empty($this->instance)) {
             $this->content = '';
             return $this->content;
         }
 
-        $this->content = new stdClass();
+        // the following 3 lines is need to pass _self_test();
+        if (empty($this->instance->pageid)) {
+            return '';
+        }
+        
+        $this->content = new object();
         $this->content->items = array();
         $this->content->icons = array();
         $this->content->footer = '';
-
-        // user/index.php expect course context, so get one if page has module context.
-        $currentcontext = $this->page->context->get_course_context(false);
-
-        if (empty($currentcontext)) {
+        
+        /// MDL-13252 Always get the course context or else the context may be incorrect in the user/index.php
+        if (!$currentcontext = get_context_instance(CONTEXT_COURSE, $COURSE->id)) {
             $this->content = '';
             return $this->content;
-        } else if ($this->page->course->id == SITEID) {
-            if (!has_capability('moodle/site:viewparticipants', context_system::instance())) {
+        }
+        
+        if ($COURSE->id == SITEID) {
+            if (!has_capability('moodle/site:viewparticipants', get_context_instance(CONTEXT_SYSTEM))) {
                 $this->content = '';
                 return $this->content;
             }
@@ -37,9 +43,9 @@ class block_participants extends block_list {
             }
         }
 
-        $icon = '<img src="'.$OUTPUT->pix_url('i/users') . '" class="icon" alt="" />';
         $this->content->items[] = '<a title="'.get_string('listofallpeople').'" href="'.
-                                  $CFG->wwwroot.'/user/index.php?contextid='.$currentcontext->id.'">'.$icon.get_string('participants').'</a>';
+                                  $CFG->wwwroot.'/user/index.php?contextid='.$currentcontext->id.'">'.get_string('participants').'</a>';
+        $this->content->icons[] = '<img src="'.$CFG->pixpath.'/i/users.gif" class="icon" alt="" />';
 
         return $this->content;
     }
@@ -50,3 +56,5 @@ class block_participants extends block_list {
     }
 
 }
+
+?>

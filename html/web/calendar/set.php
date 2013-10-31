@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: set.php,v 1.21 2007/06/22 13:23:21 dwoolhead Exp $
 
 /////////////////////////////////////////////////////////////////////////////
 //                                                                         //
@@ -38,36 +38,90 @@
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 
-require_once('../config.php');
-require_once($CFG->dirroot.'/calendar/lib.php');
+    require_once('../config.php');
+    require_once($CFG->dirroot.'/calendar/lib.php');
 
-require_sesskey();
+    $from = required_param('from');
+    $var = required_param('var');
+    $value = optional_param('value');
+    $id = optional_param('id');
+    $cal_d = optional_param('cal_d');
+    $cal_m = optional_param('cal_m');
+    $cal_y = optional_param('cal_y');
+    $action = optional_param('action');
+    $type = optional_param('type');
 
-$var = required_param('var', PARAM_ALPHA);
-$return = clean_param(base64_decode(required_param('return', PARAM_RAW)), PARAM_URL);
-$courseid = optional_param('id', -1, PARAM_INT);
-if ($courseid != -1) {
-    $return = new moodle_url($return, array('course' => $courseid));
-} else {
-    $return = new moodle_url($return);
-}
-$url = new moodle_url('/calendar/set.php', array('return'=>base64_encode($return->out(false)), 'course' => $courseid, 'var'=>$var, 'sesskey'=>sesskey()));
-$PAGE->set_url($url);
-$PAGE->set_context(context_system::instance());
+    // Initialize the session variables
+    calendar_session_vars();
 
-switch($var) {
-    case 'showgroups':
-        calendar_set_event_type_display(CALENDAR_EVENT_GROUP);
-        break;
-    case 'showcourses':
-        calendar_set_event_type_display(CALENDAR_EVENT_COURSE);
-        break;
-    case 'showglobal':
-        calendar_set_event_type_display(CALENDAR_EVENT_GLOBAL);
-        break;
-    case 'showuser':
-        calendar_set_event_type_display(CALENDAR_EVENT_USER);
-        break;
-}
+    // Ensure course id passed if relevant
+    // Required due to changes in view/lib.php mainly (calendar_session_vars())
+    $courseid = '';
+    if (!empty($id)) {
+        $courseid = '&amp;course='.$id;
+    }
 
-redirect($return);
+    switch($var) {
+        case 'setuser':
+            // Not implemented yet (or possibly at all)
+        break;
+        case 'setcourse':
+            $id = intval($id);
+            if($id == 0) {
+                $SESSION->cal_courses_shown = array();
+                calendar_set_referring_course(0);
+            }
+            else if($id == 1) {
+                $SESSION->cal_courses_shown = calendar_get_default_courses(true);
+                calendar_set_referring_course(0);
+            }
+            else {
+                if(get_record('course', 'id', $id) === false) {
+                    // There is no such course
+                    $SESSION->cal_courses_shown = array();
+                    calendar_set_referring_course(0);
+                }
+                else {
+                    calendar_set_referring_course($id);
+                    $SESSION->cal_courses_shown = $id;
+                }
+            }
+        break;
+        case 'showgroups':
+            $SESSION->cal_show_groups = !$SESSION->cal_show_groups;
+            set_user_preference('calendar_savedflt', calendar_get_filters_status());
+        break;
+        case 'showcourses':
+            $SESSION->cal_show_course = !$SESSION->cal_show_course;
+            set_user_preference('calendar_savedflt', calendar_get_filters_status());
+        break;
+        case 'showglobal':
+            $SESSION->cal_show_global = !$SESSION->cal_show_global;
+            set_user_preference('calendar_savedflt', calendar_get_filters_status());
+        break;
+        case 'showuser':
+            $SESSION->cal_show_user = !$SESSION->cal_show_user;
+            set_user_preference('calendar_savedflt', calendar_get_filters_status());
+        break;
+    }
+
+    switch($from) {
+        case 'event':
+            redirect(CALENDAR_URL.'event.php?action='.$action.'&amp;type='.$type.'&amp;id='.intval($id));
+        break;
+        case 'month':
+            redirect(CALENDAR_URL.'view.php?view=month'.$courseid.'&cal_d='.$cal_d.'&cal_m='.$cal_m.'&cal_y='.$cal_y);
+        break;
+        case 'upcoming':
+            redirect(CALENDAR_URL.'view.php?view=upcoming'.$courseid);
+        break;
+        case 'day':
+            redirect(CALENDAR_URL.'view.php?view=day'.$courseid.'&cal_d='.$cal_d.'&cal_m='.$cal_m.'&cal_y='.$cal_y);
+        break;
+        case 'course':
+            redirect($CFG->wwwroot.'/course/view.php?id='.intval($id));
+        break;
+        default:
+
+    }
+?>

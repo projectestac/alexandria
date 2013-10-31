@@ -46,7 +46,7 @@ class auth_plugin_imap extends auth_plugin_base {
         }
 
         global $CFG;
-        $hosts = explode(';', $this->config->host);   // Could be multiple hosts
+        $hosts = split(';', $this->config->host);   // Could be multiple hosts
 
         foreach ($hosts as $host) {                 // Try each host in turn
             $host = trim($host);
@@ -69,7 +69,7 @@ class auth_plugin_imap extends auth_plugin_base {
             }
 
             error_reporting(0);
-            $connection = imap_open($host, $username, $password, OP_HALFOPEN);
+            $connection = imap_open($host, stripslashes($username), stripslashes($password), OP_HALFOPEN);
             error_reporting($CFG->debug);
 
             if ($connection) {
@@ -108,10 +108,10 @@ class auth_plugin_imap extends auth_plugin_base {
      * Returns the URL for changing the user's pw, or empty if the default can
      * be used.
      *
-     * @return moodle_url
+     * @return string
      */
     function change_password_url() {
-        return new moodle_url($this->config->changepasswordurl);
+        return $this->config->changepasswordurl;
     }
 
     /**
@@ -123,8 +123,6 @@ class auth_plugin_imap extends auth_plugin_base {
      * @param array $page An object containing all the data for this page.
      */
     function config_form($config, $err, $user_fields) {
-        global $OUTPUT;
-
         include "config.html";
     }
 
@@ -157,4 +155,4 @@ class auth_plugin_imap extends auth_plugin_base {
 
 }
 
-
+?>

@@ -1,78 +1,36 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-
-/**
- * A form for the creation and editing of groups.
- *
- * @copyright 2006 The Open University, N.D.Freear AT open.ac.uk, J.White AT open.ac.uk
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package   core_group
- */
-
-defined('MOODLE_INTERNAL') || die;
+<?php //$Id: group_form.php,v 1.3.2.4 2008/12/29 21:32:36 skodak Exp $
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 
-/**
- * Group form class
- *
- * @copyright 2006 The Open University, N.D.Freear AT open.ac.uk, J.White AT open.ac.uk
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @package   core_group
- */
+/// get url variables
 class group_form extends moodleform {
 
-    /**
-     * Definition of the form
-     */
+    // Define the form
     function definition () {
         global $USER, $CFG, $COURSE;
-        $coursecontext = context_course::instance($COURSE->id);
 
         $mform =& $this->_form;
-        $editoroptions = $this->_customdata['editoroptions'];
-
-        $mform->addElement('header', 'general', get_string('general', 'form'));
 
         $mform->addElement('text','name', get_string('groupname', 'group'),'maxlength="254" size="50"');
         $mform->addRule('name', get_string('required'), 'required', null, 'client');
-        $mform->setType('name', PARAM_TEXT);
+        $mform->setType('name', PARAM_MULTILANG);
 
-        $mform->addElement('text','idnumber', get_string('idnumbergroup'), 'maxlength="100" size="10"');
-        $mform->addHelpButton('idnumber', 'idnumbergroup');
-        $mform->setType('idnumber', PARAM_RAW);
-        $mform->setAdvanced('idnumber');
-        if (!has_capability('moodle/course:changeidnumber', $coursecontext)) {
-            $mform->hardFreeze('idnumber');
-        }
+        $mform->addElement('htmleditor', 'description', get_string('groupdescription', 'group'), array('rows'=> '15', 'course' => $COURSE->id, 'cols'=>'45'));
+        $mform->setType('description', PARAM_RAW);
 
-        $mform->addElement('editor', 'description_editor', get_string('groupdescription', 'group'), null, $editoroptions);
-        $mform->setType('description_editor', PARAM_RAW);
-
-        $mform->addElement('passwordunmask', 'enrolmentkey', get_string('enrolmentkey', 'group'), 'maxlength="254" size="24"', get_string('enrolmentkey', 'group'));
-        $mform->addHelpButton('enrolmentkey', 'enrolmentkey', 'group');
+        $mform->addElement('passwordunmask', 'enrolmentkey', get_string('enrolmentkey', 'group'), 'maxlength="254" size="24"', get_string('enrolmentkey'));
+        $mform->setHelpButton('enrolmentkey', array('groupenrolmentkey', get_string('enrolmentkey', 'group')), true);
         $mform->setType('enrolmentkey', PARAM_RAW);
 
-        if (!empty($CFG->gdversion)) {
+        $maxbytes = get_max_upload_file_size($CFG->maxbytes, $COURSE->maxbytes);
+
+        if (!empty($CFG->gdversion) and $maxbytes) {
             $options = array(get_string('no'), get_string('yes'));
             $mform->addElement('select', 'hidepicture', get_string('hidepicture'), $options);
 
-            $mform->addElement('filepicker', 'imagefile', get_string('newpicture', 'group'));
-            $mform->addHelpButton('imagefile', 'newpicture', 'group');
+            $this->set_upload_manager(new upload_manager('imagefile', false, false, null, false, 0, true, true, false));
+            $mform->addElement('file', 'imagefile', get_string('newpicture', 'group'));
+            $mform->setHelpButton('imagefile', array ('picture', get_string('helppicture')), true);
         }
 
         $mform->addElement('hidden','id');
@@ -84,37 +42,22 @@ class group_form extends moodleform {
         $this->add_action_buttons();
     }
 
-    /**
-     * Form validation
-     *
-     * @param array $data
-     * @param array $files
-     * @return array $errors An array of errors
-     */
     function validation($data, $files) {
-        global $COURSE, $DB, $CFG;
+        global $COURSE, $CFG;
 
         $errors = parent::validation($data, $files);
 
-        $name = trim($data['name']);
-        if (isset($data['idnumber'])) {
-            $idnumber = trim($data['idnumber']);
-        } else {
-            $idnumber = '';
-        }
-        if ($data['id'] and $group = $DB->get_record('groups', array('id'=>$data['id']))) {
-            if (textlib::strtolower($group->name) != textlib::strtolower($name)) {
+        $textlib = textlib_get_instance();
+
+        $name = trim(stripslashes($data['name']));
+        if ($data['id'] and $group = get_record('groups', 'id', $data['id'])) {
+            if ($textlib->strtolower($group->name) != $textlib->strtolower($name)) {
                 if (groups_get_group_by_name($COURSE->id,  $name)) {
                     $errors['name'] = get_string('groupnameexists', 'group', $name);
                 }
             }
-            if (!empty($idnumber) && $group->idnumber != $idnumber) {
-                if (groups_get_group_by_idnumber($COURSE->id, $idnumber)) {
-                    $errors['idnumber']= get_string('idnumbertaken');
-                }
-            }
 
-            if (!empty($CFG->groupenrolmentkeypolicy) and $data['enrolmentkey'] != '' and $group->enrolmentkey !== $data['enrolmentkey']) {
+            if (!empty($CFG->enrol_manual_usepasswordpolicy) and $data['enrolmentkey'] != '' and $group->enrolmentkey !== $data['enrolmentkey']) {
                 // enforce password policy only if changing password
                 $errmsg = '';
                 if (!check_password_policy($data['enrolmentkey'], $errmsg)) {
@@ -124,19 +67,14 @@ class group_form extends moodleform {
 
         } else if (groups_get_group_by_name($COURSE->id, $name)) {
             $errors['name'] = get_string('groupnameexists', 'group', $name);
-        } else if (!empty($idnumber) && groups_get_group_by_idnumber($COURSE->id, $idnumber)) {
-            $errors['idnumber']= get_string('idnumbertaken');
         }
 
         return $errors;
     }
 
-    /**
-     * Get editor options for this form
-     *
-     * @return array An array of options
-     */
-    function get_editor_options() {
-        return $this->_customdata['editoroptions'];
+    function get_um() {
+        return $this->_upload_manager;
     }
 }
+
+?>

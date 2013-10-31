@@ -40,8 +40,8 @@ class auth_plugin_email extends auth_plugin_base {
      * @return bool Authentication success or failure.
      */
     function user_login ($username, $password) {
-        global $CFG, $DB;
-        if ($user = $DB->get_record('user', array('username'=>$username, 'mnethostid'=>$CFG->mnet_localhost_id))) {
+        global $CFG;
+        if ($user = get_record('user', 'username', $username, 'mnethostid', $CFG->mnet_localhost_id)) {
             return validate_internal_user_password($user, $password);
         }
         return false;
@@ -70,34 +70,37 @@ class auth_plugin_email extends auth_plugin_base {
      * Sign up a new user ready for confirmation.
      * Password is passed in plaintext.
      *
-     * @param object $user new user object
+     * @param object $user new user object (with system magic quotes)
      * @param boolean $notify print notice with link and terminate
      */
     function user_signup($user, $notify=true) {
-        global $CFG, $DB;
+        global $CFG;
         require_once($CFG->dirroot.'/user/profile/lib.php');
-
+        
         $user->password = hash_internal_user_password($user->password);
 
-        $user->id = $DB->insert_record('user', $user);
-
+        if (! ($user->id = insert_record('user', $user)) ) {
+            print_error('auth_emailnoinsert','auth');
+        }
+        
         /// Save any custom profile field information
         profile_save_data($user);
 
-        $user = $DB->get_record('user', array('id'=>$user->id));
+        $user = get_record('user', 'id', $user->id);
         events_trigger('user_created', $user);
 
         if (! send_confirmation_email($user)) {
-            print_error('auth_emailnoemail','auth_email');
+            print_error('auth_emailnoemail','auth');
         }
 
         if ($notify) {
-            global $CFG, $PAGE, $OUTPUT;
+            global $CFG;
             $emailconfirm = get_string('emailconfirm');
-            $PAGE->navbar->add($emailconfirm);
-            $PAGE->set_title($emailconfirm);
-            $PAGE->set_heading($PAGE->course->fullname);
-            echo $OUTPUT->header();
+            $navlinks = array();
+            $navlinks[] = array('name' => $emailconfirm, 'link' => null, 'type' => 'misc');
+            $navigation = build_navigation($navlinks);
+
+            print_header($emailconfirm, $emailconfirm, $navigation);
             notice(get_string('emailconfirmsent', '', $user->email), "$CFG->wwwroot/index.php");
         } else {
             return true;
@@ -116,24 +119,25 @@ class auth_plugin_email extends auth_plugin_base {
     /**
      * Confirm the new user as registered.
      *
-     * @param string $username
-     * @param string $confirmsecret
+     * @param string $username (with system magic quotes)
+     * @param string $confirmsecret (with system magic quotes)
      */
     function user_confirm($username, $confirmsecret) {
-        global $DB;
         $user = get_complete_user_data('username', $username);
 
         if (!empty($user)) {
             if ($user->confirmed) {
                 return AUTH_CONFIRM_ALREADY;
 
-            } else if ($user->auth != $this->authtype) {
+            } else if ($user->auth != 'email') {
                 return AUTH_CONFIRM_ERROR;
 
-            } else if ($user->secret == $confirmsecret) {   // They have provided the secret key to get in
-                $DB->set_field("user", "confirmed", 1, array("id"=>$user->id));
-                if ($user->firstaccess == 0) {
-                    $DB->set_field("user", "firstaccess", time(), array("id"=>$user->id));
+            } else if ($user->secret == stripslashes($confirmsecret)) {   // They have provided the secret key to get in
+                if (!set_field("user", "confirmed", 1, "id", $user->id)) {
+                    return AUTH_CONFIRM_FAIL;
+                }
+                if (!set_field("user", "firstaccess", time(), "id", $user->id)) {
+                    return AUTH_CONFIRM_FAIL;
                 }
                 return AUTH_CONFIRM_OK;
             }
@@ -169,10 +173,10 @@ class auth_plugin_email extends auth_plugin_base {
      * Returns the URL for changing the user's pw, or empty if the default can
      * be used.
      *
-     * @return moodle_url
+     * @return mixed
      */
     function change_password_url() {
-        return null; // use default internal method
+        return ''; // use dafult internal method
     }
 
     /**
@@ -201,24 +205,24 @@ class auth_plugin_email extends auth_plugin_base {
      */
     function process_config($config) {
         // set to defaults if undefined
-        if (!isset($config->recaptcha)) {
-            $config->recaptcha = false;
+        if (!isset($config->recaptcha)) { 
+            $config->recaptcha = false; 
         }
-
+        
         // save settings
         set_config('recaptcha', $config->recaptcha, 'auth/email');
         return true;
     }
-
+    
     /**
      * Returns whether or not the captcha element is enabled, and the admin settings fulfil its requirements.
+     * @abstract Implement in child classes
      * @return bool
      */
     function is_captcha_enabled() {
-        global $CFG;
-        return isset($CFG->recaptchapublickey) && isset($CFG->recaptchaprivatekey) && get_config("auth/{$this->authtype}", 'recaptcha');
+        return false;
     }
 
 }
 
-
+?>

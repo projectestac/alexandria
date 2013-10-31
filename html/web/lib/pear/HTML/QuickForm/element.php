@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: element.php,v 1.1.12.1 2007/12/04 10:27:14 nicolasconnault Exp $
 
 require_once('HTML/Common.php');
 
@@ -415,16 +415,14 @@ class HTML_QuickForm_element extends HTML_Common
     * @access private
     * @return void 
     */
-    function _generateId() {
-        if ($this->getAttribute('id')) {
-            return;
-        }
+    function _generateId()
+    {
+        static $idx = 1;
 
-        $id = $this->getName();
-        $id = 'id_' . str_replace(array('qf_', '[', ']'), array('', '_', ''), $id);
-        $id = clean_param($id, PARAM_ALPHANUMEXT);
-        $this->updateAttributes(array('id' => $id));
-    }
+        if (!$this->getAttribute('id')) {
+            $this->updateAttributes(array('id' => 'qf_' . substr(md5(microtime() . $idx++), 0, 6)));
+        }
+    } // end func _generateId
 
     // }}}
     // {{{ exportValue()

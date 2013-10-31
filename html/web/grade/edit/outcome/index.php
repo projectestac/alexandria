@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,36 +15,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Listing page for grade outcomes.
- *
- * @package   core_grades
- * @copyright 2008 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-require_once(dirname(__FILE__).'/../../../config.php');
-require_once($CFG->dirroot.'/grade/lib.php');
-require_once($CFG->libdir.'/gradelib.php');
+require_once '../../../config.php';
+require_once($CFG->dirroot.'/lib/formslib.php');
+require_once $CFG->dirroot.'/grade/lib.php';
+require_once $CFG->libdir.'/gradelib.php';
 
 $courseid = optional_param('id', 0, PARAM_INT);
 $action   = optional_param('action', '', PARAM_ALPHA);
 
-$PAGE->set_url('/grade/edit/outcome/index.php', array('id' => $courseid));
-$PAGE->set_pagelayout('admin');
-
 /// Make sure they can even access this course
 if ($courseid) {
-    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
+    if (!$course = get_record('course', 'id', $courseid)) {
+        print_error('nocourseid');
+    }
     require_login($course);
-    $context = context_course::instance($course->id);
+    $context = get_context_instance(CONTEXT_COURSE, $course->id);
     require_capability('moodle/grade:manageoutcomes', $context);
 
     if (empty($CFG->enableoutcomes)) {
         redirect('../../index.php?id='.$courseid);
     }
-    // This page doesn't exist on the navigation so map it to another
-    navigation_node::override_active_url(new moodle_url('/grade/edit/outcome/course.php', array('id'=>$courseid)));
+
 } else {
     if (empty($CFG->enableoutcomes)) {
         redirect('../../../');
@@ -55,11 +47,27 @@ if ($courseid) {
 /// return tracking object
 $gpr = new grade_plugin_return(array('type'=>'edit', 'plugin'=>'outcome', 'courseid'=>$courseid));
 
-$strshortname        = get_string('outcomeshortname', 'grades');
-$strfullname         = get_string('outcomefullname', 'grades');
+require_once('import_outcomes_form.php');
+$upload_form = new import_outcomes_form();
+
+if ($upload_form_data = $upload_form->get_data()) {
+    require_once('import.php');
+    exit();
+}
+
+
+$strgrades = get_string('grades');
+$pagename  = get_string('outcomes', 'grades');
+
+$navigation = grade_build_nav(__FILE__, $pagename, $courseid);
+
+$strshortname        = get_string('shortname');
+$strfullname         = get_string('fullname');
 $strscale            = get_string('scale');
 $strstandardoutcome  = get_string('outcomesstandard', 'grades');
 $strcustomoutcomes   = get_string('outcomescustom', 'grades');
+$strdelete           = get_string('delete');
+$stredit             = get_string('edit');
 $strcreatenewoutcome = get_string('outcomecreate', 'grades');
 $stritems            = get_string('items', 'grades');
 $strcourses          = get_string('courses');
@@ -76,9 +84,9 @@ switch ($action) {
         }
 
         if (empty($outcome->courseid)) {
-            require_capability('moodle/grade:manage', context_system::instance());
+            require_capability('moodle/grade:manage', get_context_instance(CONTEXT_SYSTEM));
         } else if ($outcome->courseid != $courseid) {
-            print_error('invalidcourseid');
+            error('Incorrect courseid!');
         }
 
         if (!$outcome->can_delete()) {
@@ -88,16 +96,15 @@ switch ($action) {
         $deleteconfirmed = optional_param('deleteconfirmed', 0, PARAM_BOOL);
 
         if(!$deleteconfirmed){
-            $PAGE->set_title(get_string('outcomedelete', 'grades'));
-            echo $OUTPUT->header();
-            $confirmurl = new moodle_url('index.php', array(
-                    'id' => $courseid, 'outcomeid' => $outcome->id,
-                    'action'=> 'delete',
-                    'sesskey' =>  sesskey(),
-                    'deleteconfirmed'=> 1));
-
-            echo $OUTPUT->confirm(get_string('outcomeconfirmdelete', 'grades', $outcome->fullname), $confirmurl, "index.php?id={$courseid}");
-            echo $OUTPUT->footer();
+            print_header(get_string('outcomedelete', 'grades'));
+            notice_yesno(get_string('outcomeconfirmdelete', 'grades', $outcome->fullname),
+                    "index.php?id={$courseid}", "index.php?id={$courseid}",
+                    array('outcomeid' => $outcome->id,
+                        'action'=> 'delete',
+                        'sesskey' =>  $USER->sesskey,
+                        'deleteconfirmed'=> 1)
+                    );
+            print_footer();
             die;
         }else{
             $outcome->delete();
@@ -105,7 +112,7 @@ switch ($action) {
         break;
 }
 
-$systemcontext = context_system::instance();
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 $caneditsystemscales = has_capability('moodle/course:managescales', $systemcontext);
 
 if ($courseid) {
@@ -113,7 +120,7 @@ if ($courseid) {
     $caneditcoursescales = has_capability('moodle/course:managescales', $context);
 
 } else {
-    echo $OUTPUT->header();
+    admin_externalpage_print_header();
     $caneditcoursescales = $caneditsystemscales;
 }
 
@@ -122,7 +129,7 @@ $outcomes_tables = array();
 $heading = get_string('outcomes', 'grades');
 
 if ($courseid and $outcomes = grade_outcome::fetch_all_local($courseid)) {
-    $return = $OUTPUT->heading($strcustomoutcomes, 3, 'main');
+    $return = print_heading($strcustomoutcomes, '', 3, 'main', true);
     $data = array();
     foreach($outcomes as $outcome) {
         $line = array();
@@ -138,11 +145,13 @@ if ($courseid and $outcomes = grade_outcome::fetch_all_local($courseid)) {
             } else if ($scale->courseid == $courseid) {
                 $caneditthisscale = $caneditcoursescales;
             } else {
-                $context = context_course::instance($scale->courseid);
+                $context = get_context_instance(CONTEXT_COURSE, $scale->courseid);
                 $caneditthisscale = has_capability('moodle/course:managescales', $context);
             }
             if ($caneditthisscale) {
-                $line[] = grade_print_scale_link($courseid, $scale, $gpr);
+                $url = $CFG->wwwroot.'/grade/edit/scale/edit.php?courseid='.$courseid.'&amp;id='.$scale->id;
+                $url = $gpr->add_url_params($url);
+                $line[] = '<a href="'.$url.'">'.$scale->get_name().'</a>';
             } else {
                 $line[] = $scale->get_name();
             }
@@ -150,28 +159,31 @@ if ($courseid and $outcomes = grade_outcome::fetch_all_local($courseid)) {
 
         $line[] = $outcome->get_item_uses_count();
 
-        $buttons = grade_button('edit', $courseid, $outcome);
-
+        $buttons = "";
+        $buttons .= "<a title=\"$stredit\" href=\"edit.php?courseid=$courseid&amp;id=$outcome->id\"><img".
+                    " src=\"$CFG->pixpath/t/edit.gif\" class=\"iconsmall\" alt=\"$stredit\" /></a> ";
         if ($outcome->can_delete()) {
-            $buttons .= grade_button('delete', $courseid, $outcome);
+            $buttons .= "<a title=\"$strdelete\" href=\"index.php?id=$courseid&amp;outcomeid=$outcome->id&amp;action=delete&amp;sesskey=$USER->sesskey\"><img".
+                        " src=\"$CFG->pixpath/t/delete.gif\" class=\"iconsmall\" alt=\"$strdelete\" /></a> ";
         }
         $line[] = $buttons;
 
         $data[] = $line;
     }
-    $table = new html_table();
+    $table = new object();
     $table->head  = array($strfullname, $strshortname, $strscale, $stritems, $stredit);
     $table->size  = array('30%', '20%', '20%', '20%', '10%' );
     $table->align = array('left', 'left', 'left', 'center', 'center');
     $table->width = '90%';
     $table->data  = $data;
-    $return .= html_writer::table($table);
+    $return .= print_table($table, true);
     $outcomes_tables[] = $return;
 }
 
 
 if ($outcomes = grade_outcome::fetch_all_global()) {
-    $return = $OUTPUT->heading($strstandardoutcome, 3, 'main');
+
+    $return = print_heading($strstandardoutcome, '', 2, 'main', true);
     $data = array();
     foreach($outcomes as $outcome) {
         $line = array();
@@ -187,11 +199,13 @@ if ($outcomes = grade_outcome::fetch_all_global()) {
             } else if ($scale->courseid == $courseid) {
                 $caneditthisscale = $caneditcoursescales;
             } else {
-                $context = context_course::instance($scale->courseid);
+                $context = get_context_instance(CONTEXT_COURSE, $scale->courseid);
                 $caneditthisscale = has_capability('moodle/course:managescales', $context);
             }
             if ($caneditthisscale) {
-                $line[] = grade_print_scale_link($courseid, $scale, $gpr);
+                $url = $CFG->wwwroot.'/grade/edit/scale/edit.php?courseid='.$courseid.'&amp;id='.$scale->id;
+                $url = $gpr->add_url_params($url);
+                $line[] = '<a href="'.$url.'">'.$scale->get_name().'</a>';
             } else {
                 $line[] = $scale->get_name();
             }
@@ -201,23 +215,25 @@ if ($outcomes = grade_outcome::fetch_all_global()) {
         $line[] = $outcome->get_item_uses_count();
 
         $buttons = "";
-        if (has_capability('moodle/grade:manage', context_system::instance())) {
-            $buttons .= grade_button('edit', $courseid, $outcome);
+        if (has_capability('moodle/grade:manage', get_context_instance(CONTEXT_SYSTEM))) {
+            $buttons .= "<a title=\"$stredit\" href=\"edit.php?courseid=$courseid&amp;id=$outcome->id\"><img".
+                        " src=\"$CFG->pixpath/t/edit.gif\" class=\"iconsmall\" alt=\"$stredit\" /></a> ";
         }
-        if (has_capability('moodle/grade:manage', context_system::instance()) and $outcome->can_delete()) {
-            $buttons .= grade_button('delete', $courseid, $outcome);
+        if (has_capability('moodle/grade:manage', get_context_instance(CONTEXT_SYSTEM)) and $outcome->can_delete()) {
+            $buttons .= "<a title=\"$strdelete\" href=\"index.php?id=$courseid&amp;outcomeid=$outcome->id&amp;action=delete&amp;sesskey=$USER->sesskey\"><img".
+                        " src=\"$CFG->pixpath/t/delete.gif\" class=\"iconsmall\" alt=\"$strdelete\" /></a> ";
         }
         $line[] = $buttons;
 
         $data[] = $line;
     }
-    $table = new html_table();
+    $table = new object();
     $table->head  = array($strfullname, $strshortname, $strscale, $strcourses, $stritems, $stredit);
     $table->size  = array('30%', '20%', '20%', '10%', '10%', '10%');
     $table->align = array('left', 'left', 'left', 'center', 'center', 'center');
     $table->width = '90%';
     $table->data  = $data;
-    $return .= html_writer::table($table);
+    $return .= print_table($table, true);
     $outcomes_tables[] = $return;
 }
 
@@ -227,28 +243,22 @@ if ($courseid) {
 }
 
 foreach($outcomes_tables as $table) {
-    echo $table;
+    print($table);
 }
 
-echo $OUTPUT->container_start('buttons');
-echo $OUTPUT->single_button(new moodle_url('edit.php', array('courseid'=>$courseid)), $strcreatenewoutcome);
+echo '<div class="buttons">';
+print_single_button('edit.php', array('courseid'=>$courseid), $strcreatenewoutcome);
 if ( !empty($outcomes_tables) ) {
-    echo $OUTPUT->single_button(new moodle_url('export.php', array('id'=>$courseid, 'sesskey'=>sesskey())),  get_string('exportalloutcomes', 'grades'));
+    print_single_button('export.php', array('id'=>$courseid, 'sesskey'=>sesskey()),  get_string('exportalloutcomes', 'grades'));
 }
-echo $OUTPUT->container_end();
+echo '</div>';
 
-echo $OUTPUT->footer();
+$upload_form->display();
 
-/**
- * Local shortcut function for creating a link to a scale.
- * @param int $courseid The Course ID
- * @param grade_scale $scale The Scale to link to
- * @param grade_plugin_return $gpr An object used to identify the page we just came from
- * @return string html
- */
-function grade_print_scale_link($courseid, $scale, $gpr) {
-    global $CFG, $OUTPUT;
-    $url = new moodle_url('/grade/edit/scale/edit.php', array('courseid' => $courseid, 'id' => $scale->id));
-    $url = $gpr->add_url_params($url);
-    return html_writer::link($url, $scale->get_name());
+if ($courseid) {
+    print_footer($course);
+} else {
+    admin_externalpage_print_footer();
 }
+
+?>

@@ -1,141 +1,119 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+<?php // $Id: grade_outcome.php,v 1.21.2.3 2008/03/08 15:29:04 skodak Exp $
 
-/**
- * Definition of grade outcome class
- *
- * @package   core_grades
- * @category  grade
- * @copyright 2006 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die();
+///////////////////////////////////////////////////////////////////////////
+//                                                                       //
+// NOTICE OF COPYRIGHT                                                   //
+//                                                                       //
+// Moodle - Modular Object-Oriented Dynamic Learning Environment         //
+//          http://moodle.com                                            //
+//                                                                       //
+// Copyright (C) 1999 onwards Martin Dougiamas  http://dougiamas.com     //
+//                                                                       //
+// This program is free software; you can redistribute it and/or modify  //
+// it under the terms of the GNU General Public License as published by  //
+// the Free Software Foundation; either version 2 of the License, or     //
+// (at your option) any later version.                                   //
+//                                                                       //
+// This program is distributed in the hope that it will be useful,       //
+// but WITHOUT ANY WARRANTY; without even the implied warranty of        //
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         //
+// GNU General Public License for more details:                          //
+//                                                                       //
+//          http://www.gnu.org/copyleft/gpl.html                         //
+//                                                                       //
+///////////////////////////////////////////////////////////////////////////
 
 require_once('grade_object.php');
 
 /**
- * Class representing a grade outcome.
- *
- * It is responsible for handling its DB representation, modifying and returning its metadata.
- *
- * @package   core_grades
- * @category  grade
- * @copyright 2006 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Class representing a grade outcome. It is responsible for handling its DB representation,
+ * modifying and returning its metadata.
  */
 class grade_outcome extends grade_object {
     /**
      * DB Table (used by grade_object).
      * @var string $table
      */
-    public $table = 'grade_outcomes';
+    var $table = 'grade_outcomes';
 
     /**
      * Array of required table fields, must start with 'id'.
      * @var array $required_fields
      */
-    public $required_fields = array('id', 'courseid', 'shortname', 'fullname', 'scaleid','description',
-                                 'descriptionformat', 'timecreated', 'timemodified', 'usermodified');
+    var $required_fields = array('id', 'courseid', 'shortname', 'fullname', 'scaleid',
+                                 'description', 'timecreated', 'timemodified', 'usermodified');
 
     /**
      * The course this outcome belongs to.
      * @var int $courseid
      */
-    public $courseid;
+    var $courseid;
 
     /**
      * The shortname of the outcome.
      * @var string $shortname
      */
-    public $shortname;
+    var $shortname;
 
     /**
      * The fullname of the outcome.
      * @var string $fullname
      */
-    public $fullname;
+    var $fullname;
 
     /**
      * A full grade_scale object referenced by $this->scaleid.
      * @var object $scale
      */
-    public $scale;
+    var $scale;
 
     /**
      * The id of the scale referenced by this outcome.
      * @var int $scaleid
      */
-    public $scaleid;
+    var $scaleid;
 
     /**
      * The description of this outcome - FORMAT_MOODLE.
      * @var string $description
      */
-    public $description;
+    var $description;
 
     /**
      * The userid of the person who last modified this outcome.
-     *
      * @var int $usermodified
      */
-    public $usermodified;
+    var $usermodified;
 
     /**
      * Deletes this outcome from the database.
-     *
      * @param string $source from where was the object deleted (mod/forum, manual, etc.)
-     * @return bool success
+     * @return boolean success
      */
-    public function delete($source=null) {
-        global $DB;
+    function delete($source=null) {
         if (!empty($this->courseid)) {
-            $DB->delete_records('grade_outcomes_courses', array('outcomeid' => $this->id, 'courseid' => $this->courseid));
+            delete_records('grade_outcomes_courses', 'outcomeid', $this->id, 'courseid', $this->courseid);
         }
-        if (parent::delete($source)) {
-            $context = context_system::instance();
-            $fs = get_file_storage();
-            $files = $fs->get_area_files($context->id, 'grade', 'outcome', $this->id);
-            foreach ($files as $file) {
-                $file->delete();
-            }
-            return true;
-        }
-        return false;
+        return parent::delete($source);
     }
 
     /**
      * Records this object in the Database, sets its id to the returned value, and returns that value.
      * If successful this function also fetches the new object data from database and stores it
      * in object properties.
-     *
      * @param string $source from where was the object inserted (mod/forum, manual, etc.)
      * @return int PK ID if successful, false otherwise
      */
-    public function insert($source=null) {
-        global $DB;
+    function insert($source=null) {
 
         $this->timecreated = $this->timemodified = time();
 
         if ($result = parent::insert($source)) {
             if (!empty($this->courseid)) {
-                $goc = new stdClass();
+                $goc = new object();
                 $goc->courseid = $this->courseid;
                 $goc->outcomeid = $this->id;
-                $DB->insert_record('grade_outcomes_courses', $goc);
+                insert_record('grade_outcomes_courses', $goc);
             }
         }
         return $result;
@@ -143,11 +121,10 @@ class grade_outcome extends grade_object {
 
     /**
      * In addition to update() it also updates grade_outcomes_courses if needed
-     *
      * @param string $source from where was the object inserted
-     * @return bool success
+     * @return boolean success
      */
-    public function update($source=null) {
+    function update($source=null) {
         $this->timemodified = time();
 
         if ($result = parent::update($source)) {
@@ -159,54 +136,51 @@ class grade_outcome extends grade_object {
     }
 
     /**
-     * Mark outcome as used in a course
-     *
+     * Mark outcome as used in course
      * @param int $courseid
-     * @return False if invalid courseid requested
+     * @return succes - false if incorrect courseid requested
      */
-    public function use_in($courseid) {
-        global $DB;
+    function use_in($courseid) {
         if (!empty($this->courseid) and $courseid != $this->courseid) {
             return false;
         }
 
-        if (!$DB->record_exists('grade_outcomes_courses', array('courseid' => $courseid, 'outcomeid' => $this->id))) {
-            $goc = new stdClass();
+        if (!record_exists('grade_outcomes_courses', 'courseid', $courseid, 'outcomeid', $this->id)) {
+            $goc = new object();
             $goc->courseid  = $courseid;
             $goc->outcomeid = $this->id;
-            $DB->insert_record('grade_outcomes_courses', $goc);
+            return (bool)insert_record('grade_outcomes_courses', $goc);
         }
         return true;
     }
 
     /**
      * Finds and returns a grade_outcome instance based on params.
-     *
      * @static
+     *
      * @param array $params associative arrays varname=>value
      * @return object grade_outcome instance or false if none found.
      */
-    public static function fetch($params) {
+    function fetch($params) {
         return grade_object::fetch_helper('grade_outcomes', 'grade_outcome', $params);
     }
 
     /**
      * Finds and returns all grade_outcome instances based on params.
-     *
      * @static
+     *
      * @param array $params associative arrays varname=>value
      * @return array array of grade_outcome insatnces or false if none found.
      */
-    public static function fetch_all($params) {
+    function fetch_all($params) {
         return grade_object::fetch_all_helper('grade_outcomes', 'grade_outcome', $params);
     }
 
     /**
-     * Instantiates a grade_scale object whose data is retrieved from the database
-     *
-     * @return grade_scale
+     * Instantiates a grade_scale object whose data is retrieved from the
+     * @return object grade_scale
      */
-    public function load_scale() {
+    function load_scale() {
         if (empty($this->scale->id) or $this->scale->id != $this->scaleid) {
             $this->scale = grade_scale::fetch(array('id'=>$this->scaleid));
             $this->scale->load_items();
@@ -216,11 +190,10 @@ class grade_outcome extends grade_object {
 
     /**
      * Static function returning all global outcomes
-     *
      * @static
-     * @return array
+     * @return object
      */
-    public static function fetch_all_global() {
+    function fetch_all_global() {
         if (!$outcomes = grade_outcome::fetch_all(array('courseid'=>null))) {
             $outcomes = array();
         }
@@ -229,12 +202,11 @@ class grade_outcome extends grade_object {
 
     /**
      * Static function returning all local course outcomes
-     *
      * @static
      * @param int $courseid
-     * @return array
+     * @return object
      */
-    public static function fetch_all_local($courseid) {
+    function fetch_all_local($courseid) {
         if (!$outcomes =grade_outcome::fetch_all(array('courseid'=>$courseid))) {
             $outcomes = array();
         }
@@ -242,23 +214,21 @@ class grade_outcome extends grade_object {
     }
 
     /**
-     * Static method that returns all outcomes available in course
-     *
+     * Static method - returns all outcomes available in course
      * @static
      * @param int $courseid
      * @return array
      */
-    public static function fetch_all_available($courseid) {
-        global $CFG, $DB;
+    function fetch_all_available($courseid) {
+        global $CFG;
 
         $result = array();
-        $params = array($courseid);
         $sql = "SELECT go.*
-                  FROM {grade_outcomes} go, {grade_outcomes_courses} goc
-                 WHERE go.id = goc.outcomeid AND goc.courseid = ?
+                  FROM {$CFG->prefix}grade_outcomes go, {$CFG->prefix}grade_outcomes_courses goc
+                 WHERE go.id = goc.outcomeid AND goc.courseid = {$courseid}
               ORDER BY go.id ASC";
 
-        if ($datas = $DB->get_records_sql($sql, $params)) {
+        if ($datas = get_records_sql($sql)) {
             foreach($datas as $data) {
                 $instance = new grade_outcome();
                 grade_object::set_properties($instance, $data);
@@ -272,44 +242,25 @@ class grade_outcome extends grade_object {
     /**
      * Returns the most descriptive field for this object. This is a standard method used
      * when we do not know the exact type of an object.
-     *
      * @return string name
      */
-    public function get_name() {
+    function get_name() {
         return format_string($this->fullname);
     }
 
     /**
      * Returns unique outcome short name.
-     *
      * @return string name
      */
-    public function get_shortname() {
+    function get_shortname() {
         return $this->shortname;
     }
 
     /**
-     * Returns the formatted grade description with URLs converted
-     *
-     * @return string
-     */
-    public function get_description() {
-        global $CFG;
-        require_once($CFG->libdir . '/filelib.php');
-
-        $options = new stdClass;
-        $options->noclean = true;
-        $systemcontext = context_system::instance();
-        $description = file_rewrite_pluginfile_urls($this->description, 'pluginfile.php', $systemcontext->id, 'grade', 'outcome', $this->id);
-        return format_text($description, $this->descriptionformat, $options);
-    }
-
-    /**
      * Checks if outcome can be deleted.
-     *
-     * @return bool
+     * @return boolean
      */
-    public function can_delete() {
+    function can_delete() {
         if ($this->get_item_uses_count()) {
             return false;
         }
@@ -323,27 +274,24 @@ class grade_outcome extends grade_object {
 
     /**
      * Returns the number of places where outcome is used.
-     *
      * @return int
      */
-    public function get_course_uses_count() {
-        global $DB;
+    function get_course_uses_count() {
+        global $CFG;
 
         if (!empty($this->courseid)) {
             return 1;
         }
 
-        return $DB->count_records('grade_outcomes_courses', array('outcomeid' => $this->id));
+        return count_records('grade_outcomes_courses', 'outcomeid', $this->id);
     }
 
     /**
-     * Returns the number of grade items that use this grade outcome
-     *
+     * Returns the number of places where outcome is used.
      * @return int
      */
-    public function get_item_uses_count() {
-        global $DB;
-        return $DB->count_records('grade_items', array('outcomeid' => $this->id));
+    function get_item_uses_count() {
+        return count_records('grade_items', 'outcomeid', $this->id);
     }
 
     /**
@@ -353,14 +301,13 @@ class grade_outcome extends grade_object {
      * is also requested, then a single array is returned, which contains the grade_items AND the average grade
      * if such is still requested (array('items' => array(...), 'avg' => 2.30)). This combining of two
      * methods into one is to save on DB queries, since both queries are similar and can be performed together.
-     *
      * @param int $courseid An optional courseid to narrow down the average to 1 course only
      * @param bool $average Whether or not to return the average grade for this outcome
      * @param bool $items Whether or not to return the list of items using this outcome
      * @return float
      */
-    public function get_grade_info($courseid=null, $average=true, $items=false) {
-        global $CFG, $DB;
+    function get_grade_info($courseid=null, $average=true, $items=false) {
+        global $CFG;
 
         if (!isset($this->id)) {
             debugging("You must setup the outcome's id before calling its get_grade_info() method!");
@@ -372,27 +319,24 @@ class grade_outcome extends grade_object {
             return false;
         }
 
-        $params = array($this->id);
-
         $wheresql = '';
         if (!is_null($courseid)) {
-            $wheresql = " AND {grade_items}.courseid = ? ";
-            $params[] = $courseid;
+            $wheresql = " AND {$CFG->prefix}grade_items.courseid = $courseid ";
         }
 
         $selectadd = '';
         if ($items !== false) {
-            $selectadd = ", {grade_items}.* ";
+            $selectadd = ", {$CFG->prefix}grade_items.* ";
         }
 
         $sql = "SELECT finalgrade $selectadd
-                  FROM {grade_grades}, {grade_items}, {grade_outcomes}
-                 WHERE {grade_outcomes}.id = {grade_items}.outcomeid
-                   AND {grade_items}.id = {grade_grades}.itemid
-                   AND {grade_outcomes}.id = ?
+                  FROM {$CFG->prefix}grade_grades, {$CFG->prefix}grade_items, {$CFG->prefix}grade_outcomes
+                 WHERE {$CFG->prefix}grade_outcomes.id = {$CFG->prefix}grade_items.outcomeid
+                   AND {$CFG->prefix}grade_items.id = {$CFG->prefix}grade_grades.itemid
+                   AND {$CFG->prefix}grade_outcomes.id = $this->id
                    $wheresql";
 
-        $grades = $DB->get_records_sql($sql, $params);
+        $grades = get_records_sql($sql);
         $retval = array();
 
         if ($average !== false && count($grades) > 0) {
@@ -420,3 +364,4 @@ class grade_outcome extends grade_object {
         return $retval;
     }
 }
+?>

@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,47 +15,34 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * A library of classes used by the grade edit pages
- *
- * @package   core_grades
- * @copyright 2009 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 class grade_edit_tree {
-    public $columns = array();
+    var $columns = array();
 
     /**
      * @var object $gtree          @see grade/lib.php
      */
-    public $gtree;
+    var $gtree;
 
     /**
      * @var grade_plugin_return @see grade/lib.php
      */
-    public $gpr;
+    var $gpr;
 
     /**
      * @var string              $moving The eid of the category or item being moved
      */
-    public $moving;
+    var $moving;
 
-    public $deepest_level;
+    var $deepest_level;
 
-    public $uses_extra_credit = false;
+    var $uses_extra_credit = false;
 
-    public $uses_weight = false;
+    var $uses_weight = false;
 
-    public $table;
-
-    public $categories = array();
     /**
      * Constructor
      */
-    public function __construct($gtree, $moving=false, $gpr) {
-        global $USER, $OUTPUT, $COURSE;
-
+    function grade_edit_tree($gtree, $moving=false, $gpr) {
         $this->gtree = $gtree;
         $this->moving = $moving;
         $this->gpr = $gpr;
@@ -80,42 +68,20 @@ class grade_edit_tree {
         $this->columns[] = grade_edit_tree_column::factory('plusfactor', array('adv' => true));
         $this->columns[] = grade_edit_tree_column::factory('actions');
         $this->columns[] = grade_edit_tree_column::factory('select');
-
-        $mode = ($USER->gradeediting[$COURSE->id]) ? 'advanced' : 'simple';
-
-        $widthstyle = '';
-        if ($mode == 'simple') {
-            $widthstyle = ' style="width:auto;" ';
-        }
-
-        $this->table = new html_table();
-        $this->table->id = "grade_edit_tree_table";
-        $this->table->cellpadding = 5;
-        $this->table->attributes['class'] = 'generaltable ' . $mode;
-        $this->table->style = $widthstyle;
-
-        foreach ($this->columns as $column) {
-            if (!($this->moving && $column->hide_when_moving) && !$column->is_hidden($mode)) {
-                $this->table->head[] = $column->get_header_cell();
-            }
-        }
-
-        $rowcount = 0;
-        $this->table->data = $this->build_html_tree($this->gtree->top_element, true, array(), 0, $rowcount);
     }
 
     /**
      * Recursive function for building the table holding the grade categories and items,
      * with CSS indentation and styles.
      *
-     * @param array   $element The current tree element being rendered
-     * @param boolean $totals Whether or not to print category grade items (category totals)
-     * @param array   $parents An array of parent categories for the current element (used for indentation and row classes)
+     * @param array               $element The current tree element being rendered
+     * @param boolean             $totals Whether or not to print category grade items (category totals)
+     * @param array               $parents An array of parent categories for the current element (used for indentation and row classes)
      *
      * @return string HTML
      */
-    public function build_html_tree($element, $totals, $parents, $level, &$row_count) {
-        global $CFG, $COURSE, $USER, $OUTPUT;
+    function build_html_tree($element, $totals, $parents, &$categories, $level, &$row_count) {
+        global $CFG, $COURSE, $USER;
 
         $object = $element['object'];
         $eid    = $element['eid'];
@@ -127,9 +93,9 @@ class grade_edit_tree {
             $is_category_item = true;
         }
 
-        $rowclasses = array();
+        $rowclasses = '';
         foreach ($parents as $parent_eid) {
-            $rowclasses[] = $parent_eid;
+            $rowclasses .= " $parent_eid ";
         }
 
         $actions = '';
@@ -142,12 +108,13 @@ class grade_edit_tree {
 
         if ($element['type'] == 'item' or ($element['type'] == 'category' and $element['depth'] > 1)) {
             if ($this->element_deletable($element)) {
-                $aurl = new moodle_url('index.php', array('id' => $COURSE->id, 'action' => 'delete', 'eid' => $eid, 'sesskey' => sesskey()));
-                $actions .= $OUTPUT->action_icon($aurl, new pix_icon('t/delete', get_string('delete')));
+                $actions .= '<a href="index.php?id='.$COURSE->id.'&amp;action=delete&amp;eid='
+                         . $eid.'&amp;sesskey='.sesskey().'"><img src="'.$CFG->pixpath.'/t/delete.gif" class="iconsmall" alt="'
+                         . get_string('delete').'" title="'.get_string('delete').'"/></a>';
             }
-
-            $aurl = new moodle_url('index.php', array('id' => $COURSE->id, 'action' => 'moveselect', 'eid' => $eid, 'sesskey' => sesskey()));
-            $actions .= $OUTPUT->action_icon($aurl, new pix_icon('t/move', get_string('move')));
+            $actions .= '<a href="index.php?id='.$COURSE->id.'&amp;action=moveselect&amp;eid='
+                     . $eid.'&amp;sesskey='.sesskey().'"><img src="'.$CFG->pixpath.'/t/move.gif" class="iconsmall" alt="'
+                     . get_string('move').'" title="'.get_string('move').'"/></a>';
         }
 
         $actions .= $this->gtree->get_hiding_icon($element, $this->gpr);
@@ -155,8 +122,9 @@ class grade_edit_tree {
 
         $mode = ($USER->gradeediting[$COURSE->id]) ? 'advanced' : 'simple';
 
-        $returnrows = array();
+        $html = '';
         $root = false;
+
 
         $id = required_param('id', PARAM_INT);
 
@@ -165,33 +133,31 @@ class grade_edit_tree {
 
         /// print the list items now
         if ($this->moving == $eid) {
+
             // do not diplay children
-            $cell = new html_table_cell();
-            $cell->colspan = 12;
-            $cell->attributes['class'] = $element['type'] . ' moving';
-            $cell->text = $object->name.' ('.get_string('move').')';
-            return array(new html_table_row(array($cell)));
+            return '<tr><td colspan="12" class="'.$element['type'].' moving">'.$object->name.' ('.get_string('move').')</td></tr>';
+
         }
 
         if ($element['type'] == 'category') {
             $level++;
-            $this->categories[$object->id] = $object->stripped_name;
+            $categories[$object->id] = $object->stripped_name;
             $category = grade_category::fetch(array('id' => $object->id));
             $item = $category->get_grade_item();
 
             // Add aggregation coef input if not a course item and if parent category has correct aggregation type
-            $dimmed = ($item->is_hidden()) ? 'dimmed' : '';
+            $dimmed = ($item->is_hidden()) ? " dimmed " : "";
 
             // Before we print the category's row, we must find out how many rows will appear below it (for the filler cell's rowspan)
             $aggregation_position = grade_get_setting($COURSE->id, 'aggregationposition', $CFG->grade_aggregationposition);
             $category_total_data = null; // Used if aggregationposition is set to "last", so we can print it last
 
-            $html_children = array();
+            $html_children = '';
 
             $row_count = 0;
 
             foreach($element['children'] as $child_el) {
-                $moveto = null;
+                $moveto = '';
 
                 if (empty($child_el['object']->itemtype)) {
                     $child_el['object']->itemtype = false;
@@ -201,11 +167,11 @@ class grade_edit_tree {
                     continue;
                 }
 
-                $child_eid = $child_el['eid'];
+                $child_eid    = $child_el['eid'];
                 $first = '';
 
                 if ($child_el['object']->itemtype == 'course' || $child_el['object']->itemtype == 'category') {
-                    $first = array('first' => 1);
+                    $first = '&amp;first=1';
                     $child_eid = $eid;
                 }
 
@@ -215,18 +181,9 @@ class grade_edit_tree {
                     $strmovehere = get_string('movehere');
                     $actions = ''; // no action icons when moving
 
-                    $aurl = new moodle_url('index.php', array('id' => $COURSE->id, 'action' => 'move', 'eid' => $this->moving, 'moveafter' => $child_eid, 'sesskey' => sesskey()));
-                    if ($first) {
-                        $aurl->params($first);
-                    }
-
-                    $cell = new html_table_cell();
-                    $cell->colspan = 12;
-
-                    $icon = new pix_icon('movehere', $strmovehere, null, array('class'=>'movetarget'));
-                    $cell->text = $OUTPUT->action_icon($aurl, $icon);
-
-                    $moveto = new html_table_row(array($cell));
+                    $moveto = '<tr><td colspan="12"><a href="index.php?id='.$COURSE->id.'&amp;action=move&amp;eid='.$this->moving.'&amp;moveafter='
+                            . $child_eid.'&amp;sesskey='.sesskey().$first.'"><img class="movetarget" src="'.$CFG->wwwroot.'/pix/movehere.gif" alt="'
+                            . $strmovehere.'" title="'.s($strmovehere).'" /></a></td></tr>';
                 }
 
                 $newparents = $parents;
@@ -237,18 +194,15 @@ class grade_edit_tree {
 
                 // If moving, do not print course and category totals, but still print the moveto target box
                 if ($this->moving && ($child_el['object']->itemtype == 'course' || $child_el['object']->itemtype == 'category')) {
-                    $html_children[] = $moveto;
+                    $html_children .= $moveto;
                 } elseif ($child_el['object']->itemtype == 'course' || $child_el['object']->itemtype == 'category') {
                     // We don't build the item yet because we first need to know the deepest level of categories (for category/name colspans)
-                    $category_total_item = $this->build_html_tree($child_el, $totals, $newparents, $level, $child_row_count);
+                    $category_total_item = $this->build_html_tree($child_el, $totals, $newparents, $categories, $level, $child_row_count);
                     if (!$aggregation_position) {
-                        $html_children = array_merge($html_children, $category_total_item);
+                        $html_children .= $category_total_item;
                     }
                 } else {
-                    $html_children = array_merge($html_children, $this->build_html_tree($child_el, $totals, $newparents, $level, $child_row_count));
-                    if (!empty($moveto)) {
-                        $html_children[] = $moveto;
-                    }
+                    $html_children .= $this->build_html_tree($child_el, $totals, $newparents, $categories, $level, $child_row_count) . $moveto;
 
                     if ($this->moving) {
                         $row_count++;
@@ -265,51 +219,55 @@ class grade_edit_tree {
 
             // Print category total at the end if aggregation position is "last" (1)
             if (!empty($category_total_item) && $aggregation_position) {
-                $html_children = array_merge($html_children, $category_total_item);
+                $html_children .= $category_total_item;
             }
 
-            // Determine if we are at the root
+            // now build the header
             if (isset($element['object']->grade_item) && $element['object']->grade_item->is_course_item()) {
+                // Reduce width if advanced elements are not shown
+                $width_style = '';
+
+                if ($mode == 'simple') {
+                    $width_style = ' style="width:auto;" ';
+                }
+
+                $html .= '<table cellpadding="5" class="generaltable" '.$width_style.'>
+                            <tr>';
+
+                foreach ($this->columns as $column) {
+                    if (!($this->moving && $column->hide_when_moving) && !$column->is_hidden($mode)) {
+                        $html .= $column->get_header_cell();
+                    }
+                }
+
+                $html .= '</tr>';
                 $root = true;
             }
 
-            $levelclass = "level$level";
+            $row_count_offset = 0;
 
-            $courseclass = '';
-            if ($level == 1) {
-                $courseclass = 'coursecategory';
+            if (empty($category_total_item) && !$this->moving) {
+                $row_count_offset = -1;
             }
 
-            $row = new html_table_row();
-            $row->attributes['class'] = $courseclass . ' category ' . $dimmed;
-            foreach ($rowclasses as $class) {
-                $row->attributes['class'] .= ' ' . $class;
-            }
+            $levelclass = " level$level ";
 
-            $headercell = new html_table_cell();
-            $headercell->header = true;
-            $headercell->scope = 'row';
-            $headercell->attributes['title'] = $object->stripped_name;
-            $headercell->attributes['class'] = 'cell rowspan ' . $levelclass;
-            $headercell->rowspan = $row_count + 1;
-            $row->cells[] = $headercell;
+            $html .= '
+                    <tr class="category '.$dimmed.$rowclasses.'">
+                      <th scope="row" title="'.s($object->stripped_name).'" class="cell rowspan '.$levelclass.'" rowspan="'.($row_count+1+$row_count_offset).'"></th>';
 
             foreach ($this->columns as $column) {
                 if (!($this->moving && $column->hide_when_moving) && !$column->is_hidden($mode)) {
-                    $row->cells[] = $column->get_category_cell($category, $levelclass, array('id' => $id, 'name' => $object->name, 'level' => $level, 'actions' => $actions, 'eid' => $eid));
+                    $html .= $column->get_category_cell($category, $levelclass, array('id' => $id, 'name' => $object->name, 'level' => $level, 'actions' => $actions, 'eid' => $eid));
                 }
             }
 
-            $returnrows[] = $row;
+            $html .= '</tr>';
 
-            $returnrows = array_merge($returnrows, $html_children);
+            $html .= $html_children;
 
-            // Print a coloured row to show the end of the category across the table
-            $endcell = new html_table_cell();
-            $endcell->colspan = (19 - $level);
-            $endcell->attributes['class'] = 'colspan ' . $levelclass;
-
-            $returnrows[] = new html_table_row(array($endcell));;
+            // Print a coloured row to show the end of the category accross the table
+            $html .= '<tr><td colspan="'.(19 - $level).'" class="colspan '.$levelclass.'"></td></tr>';
 
         } else { // Dealing with a grade item
 
@@ -317,29 +275,27 @@ class grade_edit_tree {
             $element['type'] = 'item';
             $element['object'] = $item;
 
-            $categoryitemclass = '';
-            if ($item->itemtype == 'category') {
-                $categoryitemclass = 'categoryitem';
-            }
+            // Determine aggregation coef element
 
-            $dimmed = ($item->is_hidden()) ? "dimmed_text" : "";
-            $gradeitemrow = new html_table_row();
-            $gradeitemrow->attributes['class'] = $categoryitemclass . ' item ' . $dimmed;
-            foreach ($rowclasses as $class) {
-                $gradeitemrow->attributes['class'] .= ' ' . $class;
-            }
+            $dimmed = ($item->is_hidden()) ? " dimmed_text " : "";
+            $html .= '<tr class="item'.$dimmed.$rowclasses.'">';
 
             foreach ($this->columns as $column) {
                 if (!($this->moving && $column->hide_when_moving) && !$column->is_hidden($mode)) {
-                    $gradeitemrow->cells[] = $column->get_item_cell($item, array('id' => $id, 'name' => $object->name, 'level' => $level, 'actions' => $actions,
+                    $html .= $column->get_item_cell($item, array('id' => $id, 'name' => $object->name, 'level' => $level, 'actions' => $actions,
                                                                  'element' => $element, 'eid' => $eid, 'itemtype' => $object->itemtype));
                 }
             }
 
-            $returnrows[] = $gradeitemrow;
+            $html .= '</tr>';
         }
 
-        return $returnrows;
+
+        if ($root) {
+            $html .= "</table>\n";
+        }
+
+        return $html;
 
     }
 
@@ -349,12 +305,9 @@ class grade_edit_tree {
      * @param string type "extra" or "weight": the type of the column hosting the weight input
      * @return string HTML
      */
-    static function get_weight_input($item, $type) {
-        global $OUTPUT;
-
+    function get_weight_input($item, $type) {
         if (!is_object($item) || get_class($item) !== 'grade_item') {
-            throw new Exception('grade_edit_tree::get_weight_input($item) was given a variable that is not of the required type (grade_item object)');
-            return false;
+            error('grade_edit_tree::get_weight_input($item) was given a variable that is not of the required type (grade_item object)');
         }
 
         if ($item->is_course_item()) {
@@ -366,31 +319,16 @@ class grade_edit_tree {
         $aggcoef = $item->get_coefstring();
 
         if ((($aggcoef == 'aggregationcoefweight' || $aggcoef == 'aggregationcoef') && $type == 'weight') ||
-            ($aggcoef == 'aggregationcoefextraweight' && $type == 'extra')) {
-            return '<label class="accesshide" for="aggregationcoef_'.$item->id.'">'.
-                get_string('extracreditvalue', 'grades', $item->itemname).'</label>'.
-                '<input type="text" size="6" id="aggregationcoef_'.$item->id.'" name="aggregationcoef_'.$item->id.'"
-                value="'.grade_edit_tree::format_number($item->aggregationcoef).'" />';
+            ($aggcoef == 'aggregationcoefextra' && $type == 'extra')) {
+            return '<input type="text" size="6" id="aggregationcoef_'.$item->id.'" name="aggregationcoef_'.$item->id.'"
+                value="'.format_float($item->aggregationcoef, 4).'" />';
         } elseif ($aggcoef == 'aggregationcoefextrasum' && $type == 'extra') {
             $checked = ($item->aggregationcoef > 0) ? 'checked="checked"' : '';
             return '<input type="hidden" name="extracredit_'.$item->id.'" value="0" />
-                <label class="accesshide" for="extracredit_'.$item->id.'">'.
-                get_string('extracreditvalue', 'grades', $item->itemname).'</label>
-                <input type="checkbox" id="extracredit_'.$item->id.'" name="extracredit_'.$item->id.'" value="1" '."$checked />\n";
+                    <input type="checkbox" id="extracredit_'.$item->id.'" name="extracredit_'.$item->id.'" value="1" '."$checked />\n";
         } else {
             return '';
         }
-    }
-
-    //Trims trailing zeros
-    //Used on the 'categories and items' page for grade items settings like aggregation co-efficient
-    //Grader report has its own decimal place settings so they are handled elsewhere
-    static function format_number($number) {
-        $formatted = rtrim(format_float($number, 4),'0');
-        if (substr($formatted, -1)==get_string('decsep', 'langconfig')) { //if last char is the decimal point
-            $formatted .= '0';
-        }
-        return $formatted;
     }
 
     /**
@@ -476,7 +414,7 @@ class grade_edit_tree {
         if ($element['type'] == 'category') {
             if ($coefstring == 'aggregationcoefweight') {
                 $this->uses_weight = true;
-            } elseif ($coefstring ==  'aggregationcoefextraweight' || $coefstring == 'aggregationcoefextrasum') {
+            } elseif ($coefstring ==  'aggregationcoefextra' || $coefstring == 'aggregationcoefextrasum') {
                 $this->uses_extra_credit = true;
             }
 
@@ -492,73 +430,41 @@ class grade_edit_tree {
     }
 }
 
-abstract class grade_edit_tree_column {
-    public $forced;
-    public $hidden;
-    public $forced_hidden;
-    public $advanced_hidden;
-    public $hide_when_moving = true;
-    /**
-     * html_table_cell object used as a template for header cells in all categories.
-     * It must be cloned before being used.
-     * @var html_table_cell $headercell
-     */
-    public $headercell;
-    /**
-     * html_table_cell object used as a template for category cells in all categories.
-     * It must be cloned before being used.
-     * @var html_table_cell $categorycell
-     */
-    public $categorycell;
-    /**
-     * html_table_cell object used as a template for item cells in all categories.
-     * It must be cloned before being used.
-     * @var html_table_cell $itemcell
-     */
-    public $itemcell;
+class grade_edit_tree_column {
+    var $forced;
+    var $hidden;
+    var $forced_hidden;
+    var $advanced_hidden;
+    var $hide_when_moving = true;
 
-    public static function factory($name, $params=array()) {
+    function factory($name, $params=array()) {
         $class_name = "grade_edit_tree_column_$name";
         if (class_exists($class_name)) {
             return new $class_name($params);
         }
     }
 
-    public abstract function get_header_cell();
+    function get_header_cell() {}
 
-    public abstract function get_category_cell($category, $levelclass, $params);
+    function get_category_cell($category, $levelclass, $params) {}
 
-    public abstract function get_item_cell($item, $params);
+    function get_item_cell($item, $params) {}
 
-    public abstract function is_hidden($mode='simple');
-
-    public function __construct() {
-        $this->headercell = new html_table_cell();
-        $this->headercell->header = true;
-        $this->headercell->style = 'whitespace: normal;';
-        $this->headercell->attributes['class'] = 'header';
-
-        $this->categorycell = new html_table_cell();
-        $this->categorycell->attributes['class']  = 'cell';
-
-        $this->itemcell = new html_table_cell();
-        $this->itemcell->attributes['class'] = 'cell';
-    }
+    function is_hidden($mode='simple') {}
 }
 
-abstract class grade_edit_tree_column_category extends grade_edit_tree_column {
+class grade_edit_tree_column_category extends grade_edit_tree_column {
 
-    public $forced;
-    public $advanced;
+    var $forced;
+    var $advanced;
 
-    public function __construct($name) {
+    function grade_edit_tree_column_category($name) {
         global $CFG;
         $this->forced = (int)$CFG->{"grade_$name"."_flag"} & 1;
         $this->advanced = (int)$CFG->{"grade_$name"."_flag"} & 2;
-        parent::__construct();
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($mode == 'simple') {
             return $this->advanced;
@@ -573,80 +479,64 @@ abstract class grade_edit_tree_column_category extends grade_edit_tree_column {
 }
 
 class grade_edit_tree_column_name extends grade_edit_tree_column {
-    public $forced = false;
-    public $hidden = false;
-    public $forced_hidden = false;
-    public $advanced_hidden = false;
-    public $deepest_level = 1;
-    public $hide_when_moving = false;
+    var $forced = false;
+    var $hidden = false;
+    var $forced_hidden = false;
+    var $advanced_hidden = false;
+    var $deepest_level = 1;
+    var $hide_when_moving = false;
 
-    public function __construct($params) {
+    function grade_edit_tree_column_name($params) {
         if (empty($params['deepest_level'])) {
-            throw new Exception('Tried to instantiate a grade_edit_tree_column_name object without the "deepest_level" param!');
+            error('Tried to instantiate a grade_edit_tree_column_name object without the "deepest_level" param!');
         }
 
         $this->deepest_level = $params['deepest_level'];
-        parent::__construct();
     }
 
-    public function get_header_cell() {
-        $headercell = clone($this->headercell);
-        $headercell->attributes['class'] .= ' name';
-        $headercell->colspan = $this->deepest_level + 1;
-        $headercell->text = get_string('name');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header name" colspan="'.($this->deepest_level + 1).'" scope="col">'.get_string('name').'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        global $OUTPUT;
+    function get_category_cell($category, $levelclass, $params) {
         if (empty($params['name']) || empty($params['level'])) {
-            throw new Exception('Array key (name or level) missing from 3rd param of grade_edit_tree_column_name::get_category_cell($category, $levelclass, $params)');
+            error('Array key (name or level) missing from 3rd param of grade_edit_tree_column_name::get_category_cell($category, $levelclass, $params)');
         }
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' name ' . $levelclass;
-        $categorycell->colspan = ($this->deepest_level +1) - $params['level'];
-        $categorycell->text = $OUTPUT->heading($params['name'], 4);
-        return $categorycell;
+
+        return '<td class="cell name '.$levelclass.'" colspan="'.(($this->deepest_level +1) - $params['level']).'"><h4>' . $params['name'] . "</h4></td>\n";
     }
 
-    public function get_item_cell($item, $params) {
+    function get_item_cell($item, $params) {
         global $CFG;
 
         if (empty($params['element']) || empty($params['name']) || empty($params['level'])) {
-            throw new Exception('Array key (name, level or element) missing from 2nd param of grade_edit_tree_column_name::get_item_cell($item, $params)');
+            error('Array key (name, level or element) missing from 2nd param of grade_edit_tree_column_name::get_item_cell($item, $params)');
         }
 
         $name = $params['name'];
 
-        $itemcell = clone($this->itemcell);
-        $itemcell->attributes['class'] .= ' name';
-        $itemcell->colspan = ($this->deepest_level + 1) - $params['level'];
-        $itemcell->text = $name;
-        return $itemcell;
+        return '<td class="cell name" colspan="'.(($this->deepest_level + 1) - $params['level']).'">' . $name . '</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         return false;
     }
 }
 
 class grade_edit_tree_column_aggregation extends grade_edit_tree_column_category {
 
-    public function __construct($params) {
-        parent::__construct('aggregation');
+    function grade_edit_tree_column_aggregation($params) {
+        parent::grade_edit_tree_column_category('aggregation');
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('aggregation', 'grades').$OUTPUT->help_icon('aggregation', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('aggregation', 'grades').helpbutton('aggregation', 'aggregation', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        global $CFG, $OUTPUT;
+    function get_category_cell($category, $levelclass, $params) {
+        global $CFG;
         if (empty($params['id'])) {
-            throw new Exception('Array key (id) missing from 3rd param of grade_edit_tree_column_aggregation::get_category_cell($category, $levelclass, $params)');
+            error('Array key (id) missing from 3rd param of grade_edit_tree_column_aggregation::get_category_cell($category, $levelclass, $params)');
         }
 
         $options = array(GRADE_AGGREGATE_MEAN             => get_string('aggregatemean', 'grades'),
@@ -666,64 +556,50 @@ class grade_edit_tree_column_aggregation extends grade_edit_tree_column_category
             }
         }
 
+        $script = "window.location='index.php?id={$params['id']}&amp;category={$category->id}&amp;aggregationtype='+this.value+'&amp;sesskey=" . sesskey()."';";
+        $aggregation = choose_from_menu($options, 'aggregation_'.$category->id, $category->aggregation, null, $script, 0, true);
+
         if ($this->forced) {
             $aggregation = $options[$category->aggregation];
-        } else {
-            $attributes = array();
-            $attributes['id'] = 'aggregation_'.$category->id;
-            $aggregation = html_writer::label(get_string('aggregation', 'grades'), 'aggregation_'.$category->id, false, array('class' => 'accesshide'));
-            $aggregation .= html_writer::select($options, 'aggregation_'.$category->id, $category->aggregation, null, $attributes);
-            $action = new component_action('change', 'update_category_aggregation', array('courseid' => $params['id'], 'category' => $category->id, 'sesskey' => sesskey()));
-            $OUTPUT->add_action_handler($action, 'aggregation_'.$category->id);
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = $aggregation;
-        return $categorycell;
+        return '<td class="cell '.$levelclass.'">' . $aggregation . '</td>';
 
     }
 
-    public function get_item_cell($item, $params) {
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = ' - ';
-        return $itemcell;
+    function get_item_cell($item, $params) {
+          return '<td class="cell"> - </td>';
     }
 }
 
 class grade_edit_tree_column_extracredit extends grade_edit_tree_column {
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('aggregationcoefextra', 'grades').$OUTPUT->help_icon('aggregationcoefextra', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('extracredit', 'grades').helpbutton('aggregationcoefcombo', 'aggregationcoefcombo', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
+    function get_category_cell($category, $levelclass, $params) {
+
         $item = $category->get_grade_item();
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = grade_edit_tree::get_weight_input($item, 'extra');
-        return $categorycell;
+        $aggcoef_input = grade_edit_tree::get_weight_input($item, 'extra');
+        return '<td class="cell '.$levelclass.'">' . $aggcoef_input . '</td>';
     }
 
-    public function get_item_cell($item, $params) {
+    function get_item_cell($item, $params) {
         if (empty($params['element'])) {
-            throw new Exception('Array key (element) missing from 2nd param of grade_edit_tree_column_weightorextracredit::get_item_cell($item, $params)');
+            error('Array key (element) missing from 2nd param of grade_edit_tree_column_weightorextracredit::get_item_cell($item, $params)');
         }
 
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = '&nbsp;';
+        $html = '<td class="cell">';
 
         if (!in_array($params['element']['object']->itemtype, array('courseitem', 'categoryitem', 'category'))) {
-            $itemcell->text = grade_edit_tree::get_weight_input($item, 'extra');
+            $html .= grade_edit_tree::get_weight_input($item, 'extra');
         }
 
-        return $itemcell;
+        return $html.'</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($mode == 'simple') {
             return strstr($CFG->grade_item_advanced, 'aggregationcoef');
@@ -735,37 +611,32 @@ class grade_edit_tree_column_extracredit extends grade_edit_tree_column {
 
 class grade_edit_tree_column_weight extends grade_edit_tree_column {
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('weightuc', 'grades').$OUTPUT->help_icon('aggregationcoefweight', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('weightuc', 'grades').helpbutton('aggregationcoefweight', 'aggregationcoefweight', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
+    function get_category_cell($category, $levelclass, $params) {
 
         $item = $category->get_grade_item();
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class']  .= ' ' . $levelclass;
-        $categorycell->text = grade_edit_tree::get_weight_input($item, 'weight');
-        return $categorycell;
+        $aggcoef_input = grade_edit_tree::get_weight_input($item, 'weight');
+        return '<td class="cell '.$levelclass.'">' . $aggcoef_input . '</td>';
     }
 
-    public function get_item_cell($item, $params) {
+    function get_item_cell($item, $params) {
         if (empty($params['element'])) {
-            throw new Exception('Array key (element) missing from 2nd param of grade_edit_tree_column_weightorextracredit::get_item_cell($item, $params)');
+            error('Array key (element) missing from 2nd param of grade_edit_tree_column_weightorextracredit::get_item_cell($item, $params)');
         }
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = '&nbsp;';
+
+        $html = '<td class="cell">';
 
         if (!in_array($params['element']['object']->itemtype, array('courseitem', 'categoryitem', 'category'))) {
-            $itemcell->text = grade_edit_tree::get_weight_input($item, 'weight');
+            $html .= grade_edit_tree::get_weight_input($item, 'weight');
         }
 
-        return $itemcell;
+        return $html.'</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($mode == 'simple') {
             return strstr($CFG->grade_item_advanced, 'aggregationcoef');
@@ -777,28 +648,22 @@ class grade_edit_tree_column_weight extends grade_edit_tree_column {
 
 class grade_edit_tree_column_range extends grade_edit_tree_column {
 
-    public function get_header_cell() {
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('maxgrade', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('maxgrade', 'grades').'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' range ' . $levelclass;
-        $categorycell->text = ' - ';
-        return $categorycell;
+    function get_category_cell($category, $levelclass, $params) {
+        return '<td class="cell range '.$levelclass.'"> - </td>';
     }
 
-    public function get_item_cell($item, $params) {
-        global $DB, $OUTPUT;
+    function get_item_cell($item, $params) {
 
         // If the parent aggregation is Sum of Grades, this cannot be changed
         $parent_cat = $item->get_parent_category();
         if ($parent_cat->aggregation == GRADE_AGGREGATE_SUM) {
             $grademax = format_float($item->grademax, $item->get_decimals());
         } elseif ($item->gradetype == GRADE_TYPE_SCALE) {
-            $scale = $DB->get_record('scale', array('id' => $item->scaleid));
+            $scale = get_record('scale', 'id', $item->scaleid);
             $scale_items = null;
             if (empty($scale)) { //if the item is using a scale that's been removed
                 $scale_items = array();
@@ -809,17 +674,13 @@ class grade_edit_tree_column_range extends grade_edit_tree_column {
         } elseif ($item->is_external_item()) {
             $grademax = format_float($item->grademax, $item->get_decimals());
         } else {
-            $grademax = '<label class="accesshide" for="grademax'.$item->id.'">'.get_string('grademax', 'grades').'</label>
-                <input type="text" size="6" id="grademax'.$item->id.'" name="grademax_'.$item->id.'" value="'.
-                format_float($item->grademax, $item->get_decimals()).'" />';
+            $grademax = '<input type="text" size="4" id="grademax'.$item->id.'" name="grademax_'.$item->id.'" value="'.format_float($item->grademax, $item->get_decimals()).'" />';
         }
 
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = $grademax;
-        return $itemcell;
+        return '<td class="cell">'.$grademax.'</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($mode == 'simple') {
             return strstr($CFG->grade_item_advanced, 'grademax');
@@ -831,125 +692,90 @@ class grade_edit_tree_column_range extends grade_edit_tree_column {
 
 class grade_edit_tree_column_aggregateonlygraded extends grade_edit_tree_column_category {
 
-    public function __construct($params) {
-        parent::__construct('aggregateonlygraded');
+    function grade_edit_tree_column_aggregateonlygraded($params) {
+        parent::grade_edit_tree_column_category('aggregateonlygraded');
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->style .= 'width: 40px;';
-        $headercell->text = get_string('aggregateonlygraded', 'grades')
-                . $OUTPUT->help_icon('aggregateonlygraded', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" style="width: 40px" scope="col">'.get_string('aggregateonlygraded', 'grades')
+              .helpbutton('aggregateonlygraded', 'aggregateonlygraded', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
+    function get_category_cell($category, $levelclass, $params) {
         $onlygradedcheck = ($category->aggregateonlygraded == 1) ? 'checked="checked"' : '';
         $hidden = '<input type="hidden" name="aggregateonlygraded_'.$category->id.'" value="0" />';
-        $aggregateonlygraded = '<label class="accesshide" for="aggregateonlygraded_'.$category->id.'">'.
-                get_string('aggregateonlygraded', 'grades').'</label>
-                <input type="checkbox" id="aggregateonlygraded_'.$category->id.'" name="aggregateonlygraded_'.
-                $category->id.'" value="1" '.$onlygradedcheck . ' />';
+        $aggregateonlygraded ='<input type="checkbox" id="aggregateonlygraded_'.$category->id.'" name="aggregateonlygraded_'.$category->id.'" value="1" '.$onlygradedcheck . ' />';
 
         if ($this->forced) {
             $aggregateonlygraded = ($category->aggregateonlygraded) ? get_string('yes') : get_string('no');
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = $hidden.$aggregateonlygraded;
-        return $categorycell;
+        return '<td class="cell '.$levelclass.'">'.$hidden.$aggregateonlygraded.'</td>';
     }
 
-    public function get_item_cell($item, $params) {
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = ' - ';
-        return $itemcell;
+    function get_item_cell($item, $params) {
+        return '<td class="cell"> - </td>';
     }
 }
 
 class grade_edit_tree_column_aggregatesubcats extends grade_edit_tree_column_category {
 
-    public function __construct($params) {
-        parent::__construct('aggregatesubcats');
+    function grade_edit_tree_column_aggregatesubcats($params) {
+        parent::grade_edit_tree_column_category('aggregatesubcats');
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->style .= 'width: 40px;';
-        $headercell->text = get_string('aggregatesubcats', 'grades')
-              .$OUTPUT->help_icon('aggregatesubcats', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" style="width: 40px" scope="col">'.get_string('aggregatesubcats', 'grades')
+              .helpbutton('aggregatesubcats', 'aggregatesubcats', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
+    function get_category_cell($category, $levelclass, $params) {
         $subcatscheck = ($category->aggregatesubcats == 1) ? 'checked="checked"' : '';
         $hidden = '<input type="hidden" name="aggregatesubcats_'.$category->id.'" value="0" />';
-        $aggregatesubcats = '<label class="accesshide" for="aggregatesubcats_'.$category->id.'">'.
-                get_string('aggregatesubcats', 'grades').'</label>
-                <input type="checkbox" id="aggregatesubcats_'.$category->id.'" name="aggregatesubcats_'.$category->id.
-                '" value="1" ' . $subcatscheck.' />';
+        $aggregatesubcats = '<input type="checkbox" id="aggregatesubcats_'.$category->id.'" name="aggregatesubcats_'.$category->id.'" value="1" ' . $subcatscheck.' />';
 
         if ($this->forced) {
             $aggregatesubcats = ($category->aggregatesubcats) ? get_string('yes') : get_string('no');
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = $hidden.$aggregatesubcats;
-        return $categorycell;
+        return '<td class="cell '.$levelclass.'">'.$hidden.$aggregatesubcats.'</td>';
 
     }
 
-    public function get_item_cell($item, $params) {
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = ' - ';
-        return $itemcell;
+    function get_item_cell($item, $params) {
+        return '<td class="cell"> - </td>';
     }
 }
 
 class grade_edit_tree_column_aggregateoutcomes extends grade_edit_tree_column_category {
 
-    public function __construct($params) {
-        parent::__construct('aggregateoutcomes');
+    function grade_edit_tree_column_aggregateoutcomes($params) {
+        parent::grade_edit_tree_column_category('aggregateoutcomes');
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->style .= 'width: 40px;';
-        $headercell->text = get_string('aggregateoutcomes', 'grades')
-              .$OUTPUT->help_icon('aggregateoutcomes', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" style="width: 40px" scope="col">'.get_string('aggregateoutcomes', 'grades')
+              .helpbutton('aggregateoutcomes', 'aggregateoutcomes', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
+    function get_category_cell($category, $levelclass, $params) {
+
         $outcomescheck = ($category->aggregateoutcomes == 1) ? 'checked="checked"' : '';
         $hidden = '<input type="hidden" name="aggregateoutcomes_'.$category->id.'" value="0" />';
-        $aggregateoutcomes = '<label class="accesshide" for="aggregateoutcomes_'.$category->id.'">'.
-                get_string('aggregateoutcomes', 'grades').'</label>
-                <input type="checkbox" id="aggregateoutcomes_'.$category->id.'" name="aggregateoutcomes_'.$category->id.
-                '" value="1" ' . $outcomescheck.' />';
+        $aggregateoutcomes = '<input type="checkbox" id="aggregateoutcomes_'.$category->id.'" name="aggregateoutcomes_'.$category->id.'" value="1" ' . $outcomescheck.' />';
 
         if ($this->forced) {
             $aggregateoutcomes = ($category->aggregateoutcomes) ? get_string('yes') : get_string('no');
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = $hidden.$aggregateoutcomes;
-        return $categorycell;
+        return '<td class="cell '.$levelclass.'">'.$hidden.$aggregateoutcomes.'</td>';
     }
 
-    public function get_item_cell($item, $params) {
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = ' - ';
-        return $itemcell;
+    function get_item_cell($item, $params) {
+        return '<td class="cell"> - </td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($CFG->enableoutcomes) {
             return parent::is_hidden($mode);
@@ -961,112 +787,78 @@ class grade_edit_tree_column_aggregateoutcomes extends grade_edit_tree_column_ca
 
 class grade_edit_tree_column_droplow extends grade_edit_tree_column_category {
 
-    public function __construct($params) {
-        parent::__construct('droplow');
+    function grade_edit_tree_column_droplow($params) {
+        parent::grade_edit_tree_column_category('droplow');
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('droplow', 'grades').$OUTPUT->help_icon('droplow', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('droplow', 'grades').helpbutton('droplow', 'droplow', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        $droplow = '<label class="accesshide" for="droplow_' . $category->id.'">' . get_string('droplowestvalue', 'grades') . '</label>';
-        $droplow .= '<input type="text" size="3" id="droplow_' . $category->id . '" name="droplow_' . $category->id . '" value="'
-                . $category->droplow.'" />';
+    function get_category_cell($category, $levelclass, $params) {
+        $droplow = '<input type="text" size="3" id="droplow_'.$category->id.'" name="droplow_'.$category->id.'" value="'.$category->droplow.'" />';
 
         if ($this->forced) {
             $droplow = $category->droplow;
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class']  .= ' ' . $levelclass;
-        $categorycell->text = $droplow;
-        return $categorycell;
+        return '<td class="cell '.$levelclass.'">' . $droplow . '</td>';
     }
 
-    public function get_item_cell($item, $params) {
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = ' - ';
-        return $itemcell;
+    function get_item_cell($item, $params) {
+        return '<td class="cell"> - </td>';
     }
 }
 
 class grade_edit_tree_column_keephigh extends grade_edit_tree_column_category {
 
-    public function __construct($params) {
-        parent::__construct('keephigh');
+    function grade_edit_tree_column_keephigh($params) {
+        parent::grade_edit_tree_column_category('keephigh');
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('keephigh', 'grades').$OUTPUT->help_icon('keephigh', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('keephigh', 'grades').helpbutton('keephigh', 'keephigh', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        $keephigh = '<label class="accesshide" for="keephigh_'.$category->id.'">'.get_string('keephigh', 'grades').'</label>';
-        $keephigh .= '<input type="text" size="3" id="keephigh_'.$category->id.'" name="keephigh_'.$category->id.'" value="'.
-                $category->keephigh.'" />';
+    function get_category_cell($category, $levelclass, $params) {
+        $keephigh = '<input type="text" size="3" id="keephigh_'.$category->id.'" name="keephigh_'.$category->id.'" value="'.$category->keephigh.'" />';
 
         if ($this->forced) {
             $keephigh = $category->keephigh;
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = $keephigh;
-        return $categorycell;
+        return '<td class="cell '.$levelclass.'">' . $keephigh . '</td>';
     }
 
-    public function get_item_cell($item, $params) {
-        $itemcell = clone($this->itemcell);
-        $itemcell->text = ' - ';
-        return $itemcell;
+    function get_item_cell($item, $params) {
+        return '<td class="cell"> - </td>';
     }
 }
 
 class grade_edit_tree_column_multfactor extends grade_edit_tree_column {
 
-    public function __construct($params) {
-        parent::__construct();
+    function grade_edit_tree_column_multfactor($params) {
+
     }
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('multfactor', 'grades').$OUTPUT->help_icon('multfactor', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('multfactor', 'grades').helpbutton('multfactor', 'multfactor', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = ' - ';
-        return $categorycell;
+    function get_category_cell($category, $levelclass, $params) {
+
+        return '<td class="cell '.$levelclass.'"> - </td>';
     }
 
-    public function get_item_cell($item, $params) {
-        global $OUTPUT;
-
-        $itemcell = clone($this->itemcell);
+    function get_item_cell($item, $params) {
         if (!$item->is_raw_used()) {
-            $itemcell->text = '&nbsp;';
-            return $itemcell;
+            return '<td class="cell">&nbsp;</td>';
         }
-        $multfactor = '<label class="accesshide" for="multfactor'.$item->id.'">'.
-                get_string('multfactorvalue', 'grades', $item->itemname).'</label>
-                <input type="text" size="4" id="multfactor'.$item->id.'" name="multfactor_'.$item->id.'" value="'.
-                grade_edit_tree::format_number($item->multfactor).'" />';
-
-        $itemcell->text = $multfactor;
-        return $itemcell;
+        $multfactor = '<input type="text" size="4" id="multfactor'.$item->id.'" name="multfactor_'.$item->id.'" value="'.format_float($item->multfactor, 4).'" />';
+        return '<td class="cell">'.$multfactor.'</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($mode == 'simple') {
             return strstr($CFG->grade_item_advanced, 'multfactor');
@@ -1078,41 +870,25 @@ class grade_edit_tree_column_multfactor extends grade_edit_tree_column {
 
 class grade_edit_tree_column_plusfactor extends grade_edit_tree_column {
 
-    public function get_header_cell() {
-        global $OUTPUT;
-        $headercell = clone($this->headercell);
-        $headercell->text = get_string('plusfactor', 'grades').$OUTPUT->help_icon('plusfactor', 'grades');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header" scope="col">'.get_string('plusfactor', 'grades').helpbutton('plusfactor', 'plusfactor', 'grade', true, false, '', true).'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = ' - ';
-        return $categorycell;
+    function get_category_cell($category, $levelclass, $params) {
+        return '<td class="cell '.$levelclass.'"> - </td>';
 
     }
 
-    public function get_item_cell($item, $params) {
-        global $OUTPUT;
-
-        $itemcell = clone($this->itemcell);
+    function get_item_cell($item, $params) {
         if (!$item->is_raw_used()) {
-            $itemcell->text = '&nbsp;';
-            return $itemcell;
+            return '<td class="cell">&nbsp;</td>';
         }
-
-        $plusfactor = '<label class="accesshide" for="plusfactor_'. $item->id . '">'.
-                get_string('plusfactorvalue', 'grades', $item->itemname).'</label>
-                <input type="text" size="4" id="plusfactor_'.$item->id.'" name="plusfactor_'.$item->id.'" value="'.
-                grade_edit_tree::format_number($item->plusfactor).'" />';
-
-        $itemcell->text = $plusfactor;
-        return $itemcell;
+        $plusfactor = '<input type="text" size="4" id="plusfactor_'.$item->id.'" name="plusfactor_'.$item->id.'" value="'.format_float($item->plusfactor, 4).'" />';
+        return '<td class="cell">'.$plusfactor.'</td>';
 
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         global $CFG;
         if ($mode == 'simple') {
             return strstr($CFG->grade_item_advanced, 'plusfactor');
@@ -1124,86 +900,67 @@ class grade_edit_tree_column_plusfactor extends grade_edit_tree_column {
 
 class grade_edit_tree_column_actions extends grade_edit_tree_column {
 
-    public function __construct($params) {
-        parent::__construct();
+    function grade_edit_tree_column_actions($params) {
+
     }
 
-    public function get_header_cell() {
-        $headercell = clone($this->headercell);
-        $headercell->attributes['class'] .= ' actions';
-        $headercell->text = get_string('actions');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header actions" scope="col">'.get_string('actions').'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
+    function get_category_cell($category, $levelclass, $params) {
 
         if (empty($params['actions'])) {
-            throw new Exception('Array key (actions) missing from 3rd param of grade_edit_tree_column_actions::get_category_actions($category, $levelclass, $params)');
+            error('Array key (actions) missing from 3rd param of grade_edit_tree_column_actions::get_category_actions($category, $levelclass, $params)');
         }
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' ' . $levelclass;
-        $categorycell->text = $params['actions'];
-        return $categorycell;
+        return '<td class="cell actions '.$levelclass.'">' . $params['actions'] . '</td>';
     }
 
-    public function get_item_cell($item, $params) {
+    function get_item_cell($item, $params) {
         if (empty($params['actions'])) {
-            throw new Exception('Array key (actions) missing from 2nd param of grade_edit_tree_column_actions::get_item_cell($item, $params)');
+            error('Array key (actions) missing from 2nd param of grade_edit_tree_column_actions::get_item_cell($item, $params)');
         }
-        $itemcell = clone($this->itemcell);
-        $itemcell->attributes['class'] .= ' actions';
-        $itemcell->text = $params['actions'];
-        return $itemcell;
+        return '<td class="cell actions">' . $params['actions'] . '</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         return false;
     }
 }
 
 class grade_edit_tree_column_select extends grade_edit_tree_column {
 
-    public function get_header_cell() {
-        $headercell = clone($this->headercell);
-        $headercell->attributes['class'] .= ' selection';
-        $headercell->text = get_string('select');
-        return $headercell;
+    function get_header_cell() {
+        return '<th class="header selection" scope="col">'.get_string('select').'</th>';
     }
 
-    public function get_category_cell($category, $levelclass, $params) {
-        global $OUTPUT;
+    function get_category_cell($category, $levelclass, $params) {
+
         if (empty($params['eid'])) {
-            throw new Exception('Array key (eid) missing from 3rd param of grade_edit_tree_column_select::get_category_cell($category, $levelclass, $params)');
+            error('Array key (eid) missing from 3rd param of grade_edit_tree_column_select::get_category_cell($category, $levelclass, $params)');
         }
-        $selectall  = new action_link(new moodle_url('#'), get_string('all'), new component_action('click', 'togglecheckboxes', array('eid' => $params['eid'], 'check' => true)));
-        $selectnone = new action_link(new moodle_url('#'), get_string('none'), new component_action('click', 'togglecheckboxes', array('eid' => $params['eid'], 'check' => false)));
 
-        $categorycell = clone($this->categorycell);
-        $categorycell->attributes['class'] .= ' last ' . $levelclass;
-        $categorycell->style .= 'text-align: center;';
-        $categorycell->text = $OUTPUT->render($selectall) . '<br />' . $OUTPUT->render($selectnone);
-        return $categorycell;
+        return '<td class="cell last  '.$levelclass.'" style="text-align: center">
+                    <span class="actionlink" onclick="togglecheckboxes(\''.$params['eid'].'\', true);">'.get_string('all').'</span><br />
+                    <span class="actionlink" onclick="togglecheckboxes(\''.$params['eid'].'\', false);">'.get_string('none').'</span>
+                </td>';
     }
 
-    public function get_item_cell($item, $params) {
+    function get_item_cell($item, $params) {
         if (empty($params['itemtype']) || empty($params['eid'])) {
             error('Array key (itemtype or eid) missing from 2nd param of grade_edit_tree_column_select::get_item_cell($item, $params)');
         }
         $itemselect = '';
 
         if ($params['itemtype'] != 'course' && $params['itemtype'] != 'category') {
-            $itemselect = '<label class="accesshide" for="select_'.$params['eid'].'">'.
-                get_string('select', 'grades', $item->itemname).'</label>
-                <input class="itemselect" type="checkbox" name="select_'.$params['eid'].'" id="select_'.$params['eid'].
-                '" onchange="toggleCategorySelector();"/>'; // TODO: convert to YUI handler
+            $itemselect = '<input class="itemselect" type="checkbox" name="select_'.$params['eid'].'" onchange="toggleCategorySelector();"/>';
         }
-        //html_writer::table() will wrap the item cell contents in a <TD> so don't do it here
-        return $itemselect;
+        return '<td class="cell last selection">' . $itemselect . '</td>';
     }
 
-    public function is_hidden($mode='simple') {
+    function is_hidden($mode='simple') {
         return false;
     }
 }
-
+?>

@@ -1,4 +1,4 @@
-<?php
+<?PHP  // $Id: phpinfo.php,v 1.9 2007/04/30 17:08:36 skodak Exp $
        // phpinfo.php - shows phpinfo for the current server
 
     require_once("../config.php");
@@ -6,7 +6,7 @@
 
     admin_externalpage_setup('phpinfo');
 
-    echo $OUTPUT->header();
+    admin_externalpage_print_header();
 
     echo '<div class="phpinfo">';
 
@@ -28,6 +28,6 @@
 
     echo '</div>';
 
-    echo $OUTPUT->footer();
+    admin_externalpage_print_footer();
 
-
+?>

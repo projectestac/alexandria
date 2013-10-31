@@ -1,29 +1,26 @@
 <?php
 require_once(dirname(dirname(dirname(__FILE__))) . '/config.php');
-require_login(0, false);
-require_capability('moodle/site:config', context_system::instance());
+require_login();
+require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 
-$site = get_site();
+if (!$site = get_site()) {
+    redirect("index.php");
+}
 
 /// get language strings
-$PAGE->set_context(context_system::instance());
+$str = get_strings(array('enrolments', 'users', 'administration', 'settings'));
+$navlinks = array();
+$navlinks[] = array('name' => $str->administration, 'link' => "../../$CFG->admin/index.php", 'type' => 'misc');
+$navlinks[] = array('name' => $str->enrolments, 'link' => null, 'type' => 'misc');
+$navlinks[] = array('name' => 'IMS import', 'link' => null, 'type' => 'misc');
+$navigation = build_navigation($navlinks);
 
-$PAGE->set_url('/enrol/imsenterprise/importnow.php');
-$PAGE->set_title(get_string('importimsfile', 'enrol_imsenterprise'));
-$PAGE->set_heading(get_string('importimsfile', 'enrol_imsenterprise'));
-$PAGE->navbar->add(get_string('administrationsite'));
-$PAGE->navbar->add(get_string('plugins', 'admin'));
-$PAGE->navbar->add(get_string('enrolments', 'enrol'));
-$PAGE->navbar->add(get_string('pluginname', 'enrol_imsenterprise'), new moodle_url('/admin/settings.php', array('section'=>'enrolsettingsimsenterprise')));
-$PAGE->navbar->add(get_string('importimsfile', 'enrol_imsenterprise'));
-$PAGE->navigation->clear_cache();
+print_header("$site->shortname: $str->enrolments", $site->fullname, $navigation);
 
-echo $OUTPUT->header();
-
-require_once('lib.php');
+require_once('enrol.php');
 
 //echo "Creating the IMS Enterprise enroller object\n";
-$enrol = new enrol_imsenterprise_plugin();
+$enrol = new enrolment_plugin_imsenterprise();
 
 ?>
 <p>Launching the IMS Enterprise "cron" function. The import log will appear below (giving details of any
@@ -32,7 +29,7 @@ problems that might require attention).</p>
 //error_reporting(E_ALL);
 $enrol->cron();
 ?></pre><?php
-echo $OUTPUT->footer();
+print_footer();
 
 exit;
 ?>

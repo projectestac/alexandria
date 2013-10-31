@@ -1,33 +1,8 @@
-<?php
+<?php  // $Id: searchlib.php,v 1.13.6.1 2008/04/16 03:35:37 scyrma Exp $
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * @package    core
- * @subpackage search
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die();
-
-/** @see lexer.php */
 require_once($CFG->libdir.'/lexer.php');
 
-/** Constants for the various types of tokens */
+// Constants for the various types of tokens
 
 define("TOKEN_USER","0");
 define("TOKEN_META","1");
@@ -39,30 +14,24 @@ define("TOKEN_DATEFROM","6");
 define("TOKEN_DATETO","7");
 define("TOKEN_INSTANCE","8");
 
-/**
- * Class to hold token/value pairs after they're parsed.
- *
- * @package   moodlecore
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class search_token {
-  private $value;
-  private $type;
+// Class to hold token/value pairs after they're parsed.
 
+class search_token {
+  var $value;
+  var $type;
   function search_token($type,$value){
     $this->type = $type;
     $this->value = $this->sanitize($value);
-
+  
   }
 
   // Try to clean up user input to avoid potential security issues.
-  // Need to think about this some more.
+  // Need to think about this some more. 
 
   function sanitize($userstring){
-    return htmlspecialchars($userstring);
+    return htmlspecialchars(addslashes($userstring));
   }
-  function getValue(){
+  function getValue(){  
     return $this->value;
   }
   function getType(){
@@ -71,15 +40,11 @@ class search_token {
 }
 
 
-/**
- * This class does the heavy lifting of lexing the search string into tokens.
- * Using a full-blown lexer is probably overkill for this application, but
- * might be useful for other tasks.
- *
- * @package   moodlecore
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+
+// This class does the heavy lifting of lexing the search string into tokens.
+// Using a full-blown lexer is probably overkill for this application, but 
+// might be useful for other tasks.
+
 class search_lexer extends Lexer{
 
   function search_lexer(&$parser){
@@ -145,7 +110,7 @@ class search_lexer extends Lexer{
 
 
     // Patterns to handle strings  of the form meta:foo
-
+ 
    // If we see the string meta: while in the base accept state, start
     // parsing a username and go to the inmeta state.
     $this->addEntryPattern("subject:\S+","accept","inmeta");
@@ -154,7 +119,7 @@ class search_lexer extends Lexer{
     // back to the base accept state.
     $this->addExitPattern("\s","inmeta");
 
-
+   
     // Patterns to handle required exact match strings (+foo) .
 
     // If we see a + sign  while in the base accept state, start
@@ -177,38 +142,35 @@ class search_lexer extends Lexer{
     // If we see a quote  while in the base accept state, start
     // parsing a quoted string and enter the inquotedstring state.
     // Grab everything until we see the closing quote.
-
+  
     $this->addEntryPattern("\"[^\"]+","accept","inquotedstring");
 
     // When we see a closing quote, reenter the base accept state.
     $this->addExitPattern("\"","inquotedstring");
-
+ 
     // Patterns to handle ordinary, nonquoted words.
-
+  
     // When we see non-whitespace, snarf everything into the nonquoted word
     // until we see whitespace again.
     $this->addEntryPattern("\S+","accept","plainstring");
 
     // Once we see whitespace, reenter the base accept state.
     $this->addExitPattern("\s","plainstring");
-
+  
   }
-}
+} 
 
 
 
-/**
- * This class takes care of sticking the proper token type/value pairs into
- * the parsed token  array.
- * Most functions in this class should only be called by the lexer, the
- * one exception being getParseArray() which returns the result.
- *
- * @package   moodlecore
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+
+// This class takes care of sticking the proper token type/value pairs into
+// the parsed token  array.
+// Most functions in this class should only be called by the lexer, the
+// one exception being getParseArray() which returns the result.
+
 class search_parser {
-    private $tokens;
+    var $tokens;
+
 
     // This function is called by the code that's interested in the result of the parse operation.
     function get_parsed_array(){
@@ -284,7 +246,7 @@ class search_parser {
 
 
     // State for handling meta:foo constructs. Potentially emits a token.
-    function inmeta($content){
+    function inmeta($content){   
         if (strlen($content) < 9) { // Missing parameter.
             return true;
         }
@@ -304,9 +266,9 @@ class search_parser {
         // Strip off the + sign and add the reminder to the parsed token array.
         $this->tokens[] = new search_token(TOKEN_EXACT,substr($content,1));
         return true;
-    }
+    } 
 
-    // State entered when we've seen an excluded string (-foo). Potentially
+    // State entered when we've seen an excluded string (-foo). Potentially 
     // emits a token.
     function inexcluded($content){
         if (strlen($content) < 2) { // State exit or missing parameter.
@@ -315,7 +277,7 @@ class search_parser {
         // Strip off the -sign and add the reminder to the parsed token array.
         $this->tokens[] = new search_token(TOKEN_NEGATE,substr($content,1));
         return true;
-    }
+    } 
 
 
     // State entered when we've seen a quoted string. Potentially emits a token.
@@ -326,7 +288,7 @@ class search_parser {
         // Strip off the opening quote and add the reminder to the parsed token array.
         $this->tokens[] = new search_token(TOKEN_STRING,substr($content,1));
         return true;
-    }
+    } 
 
     // State entered when we've seen an ordinary, non-quoted word. Potentially
     // emits a token.
@@ -337,37 +299,31 @@ class search_parser {
         // Add the string to the parsed token array.
         $this->tokens[] = new search_token(TOKEN_STRING,$content);
         return true;
-    }
+    } 
 }
 
-/**
- * Primitive function to generate a SQL string from a parse tree
- * using TEXT indexes. If searches aren't suitable to use TEXT
- * this function calls the default search_generate_SQL() one.
- *
- * $parsetree should be a parse tree generated by a
- * search_lexer/search_parser combination.
- * Other fields are database table names to search.
- *
- * @global object
- * @global object
- */
+// Primitive function to generate a SQL string from a parse tree
+// using TEXT indexes. If searches aren't suitable to use TEXT
+// this function calls the default search_generate_SQL() one.
+//      
+// $parsetree should be a parse tree generated by a 
+// search_lexer/search_parser combination. 
+// Other fields are database table names to search.
 function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfield, $useridfield,
                              $userfirstnamefield, $userlastnamefield, $timefield, $instancefield) {
-    global $CFG, $DB;
-    static $p = 0;
+    global $CFG;
 
 /// First of all, search for reasons to switch to standard SQL generation
 /// Only mysql are supported for now
-    if ($DB->get_dbfamily() != 'mysql') {
+    if ($CFG->dbfamily != 'mysql') {
         return search_generate_SQL($parsetree, $datafield, $metafield, $mainidfield, $useridfield,
                                    $userfirstnamefield, $userlastnamefield, $timefield, $instancefield);
     }
 
 /// Some languages don't have "word separators" and MySQL FULLTEXT doesn't perform well with them, so
 /// switch to standard SQL search generation
-    if ($DB->get_dbfamily() == 'mysql') {
-        $nonseparatedlangs = array('ja', 'th', 'zh_cn', 'zh_tw');
+    if ($CFG->dbfamily == 'mysql') {
+        $nonseparatedlangs = array('ja_utf8', 'th_utf8', 'zh_cn_utf8', 'zh_tw_utf8');
         if (in_array(current_language(), $nonseparatedlangs)) {
             return search_generate_SQL($parsetree, $datafield, $metafield, $mainidfield, $useridfield,
                                        $userfirstnamefield, $userlastnamefield, $timefield, $instancefield);
@@ -376,7 +332,6 @@ function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfie
 
 /// Here we'll acumulate non-textual tokens
     $non_text_tokens = array();
-    $params = array();
 
     $ntokens = count($parsetree);
     if ($ntokens == 0) {
@@ -431,9 +386,8 @@ function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfie
 
 /// Call to standard search for pending tokens
     if (!empty($non_text_tokens)) {
-        list($SQLString, $sparams) = search_generate_SQL($non_text_tokens, $datafield, $metafield, $mainidfield, $useridfield,
+        $SQLString = search_generate_SQL($non_text_tokens, $datafield, $metafield, $mainidfield, $useridfield,
                                          $userfirstnamefield, $userlastnamefield, $timefield, $instancefield);
-        $params = array_merge($params, $sparams);
     }
 /// Build the final SQL clause
     if (!empty($datasearch_clause)) {
@@ -445,12 +399,11 @@ function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfie
                 $text_sql_string .= ', ' . $metafield;
             }
         /// Begin with the AGAINST clause
-            $text_sql_string .= ') AGAINST (';
+            $text_sql_string .= ') AGAINST (' . "'";
         /// Add the search terms
-            $text_sql_string .= ':sgt'.$p;
-            $params['sgt'.$p++] = trim($datasearch_clause);
+            $text_sql_string .= trim($datasearch_clause);
         /// Close AGAINST clause
-            $text_sql_string .= " IN BOOLEAN MODE)";
+            $text_sql_string .= "' IN BOOLEAN MODE)";
         }
     }
 /// Now add the metasearch_clause
@@ -463,12 +416,11 @@ function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfie
             }
             $text_sql_string .= 'MATCH (' . $metafield;
         /// Begin with the AGAINST clause
-            $text_sql_string .= ') AGAINST (';
+            $text_sql_string .= ') AGAINST (' . "'";
         /// Add the search terms
-            $text_sql_string .= ':sgt'.$p;
-            $params['sgt'.$p++] = trim($metasearch_clause);
+            $text_sql_string .= trim($metasearch_clause);
         /// Close AGAINST clause
-            $text_sql_string .= " IN BOOLEAN MODE)";
+            $text_sql_string .= "' IN BOOLEAN MODE)";
         }
     }
 /// Finally add the non-text conditions
@@ -480,31 +432,29 @@ function search_generate_text_SQL($parsetree, $datafield, $metafield, $mainidfie
         $text_sql_string .= $SQLString;
     }
 
-    return array($text_sql_string, $params);
+    return $text_sql_string;
 }
 
-/**
- * Primitive function to generate a SQL string from a parse tree.
- * Parameters:
- *
- * $parsetree should be a parse tree generated by a
- * search_lexer/search_parser combination.
- * Other fields are database table names to search.
- *
- * @global object
- * @global object
- */
+// Primitive function to generate a SQL string from a parse tree. 
+// Parameters: 
+//
+// $parsetree should be a parse tree generated by a 
+// search_lexer/search_parser combination. 
+// Other fields are database table names to search.
+
 function search_generate_SQL($parsetree, $datafield, $metafield, $mainidfield, $useridfield,
                              $userfirstnamefield, $userlastnamefield, $timefield, $instancefield) {
-    global $CFG, $DB;
-    static $p = 0;
+    global $CFG;
 
-    if ($DB->sql_regex_supported()) {
-        $REGEXP    = $DB->sql_regex(true);
-        $NOTREGEXP = $DB->sql_regex(false);
+    $LIKE = sql_ilike();
+    $NOTLIKE = 'NOT ' . $LIKE;
+    if ($CFG->dbfamily == "postgres") {
+        $REGEXP = "~*";
+        $NOTREGEXP = "!~*";
+    } else {
+        $REGEXP = "REGEXP";
+        $NOTREGEXP = "NOT REGEXP";
     }
-
-    $params = array();
 
     $ntokens = count($parsetree);
     if ($ntokens == 0) {
@@ -522,63 +472,50 @@ function search_generate_SQL($parsetree, $datafield, $metafield, $mainidfield, $
         $value = $parsetree[$i]->getValue();
 
     /// Under Oracle and MSSQL, transform TOKEN searches into STRING searches and trim +- chars
-        if (!$DB->sql_regex_supported()) {
+        if ($CFG->dbfamily == 'oracle' || $CFG->dbfamily == 'mssql') {
             $value = trim($value, '+-');
             if ($type == TOKEN_EXACT) {
                 $type = TOKEN_STRING;
             }
         }
 
-        $name1 = 'sq'.$p++;
-        $name2 = 'sq'.$p++;
-
         switch($type){
-            case TOKEN_STRING:
-                $SQLString .= "((".$DB->sql_like($datafield, ":$name1", false).") OR (".$DB->sql_like($metafield, ":$name2", false)."))";
-                $params[$name1] =  "%$value%";
-                $params[$name2] =  "%$value%";
+            case TOKEN_STRING: 
+                $SQLString .= "(($datafield $LIKE '%$value%') OR ($metafield $LIKE '%$value%') )";
                 break;
-            case TOKEN_EXACT:
-                $SQLString .= "(($datafield $REGEXP :$name1) OR ($metafield $REGEXP :$name2))";
-                $params[$name1] =  "[[:<:]]".$value."[[:>:]]";
-                $params[$name2] =  "[[:<:]]".$value."[[:>:]]";
-                break;
-            case TOKEN_META:
+            case TOKEN_EXACT: 
+                $SQLString .= "(($datafield $REGEXP '[[:<:]]".$value."[[:>:]]') OR ($metafield $REGEXP '[[:<:]]".$value."[[:>:]]'))";
+                break; 
+            case TOKEN_META: 
                 if ($metafield != '') {
-                    $SQLString .= "(".$DB->sql_like($metafield, ":$name1", false).")";
-                    $params[$name1] =  "%$value%";
+                    $SQLString .= "($metafield $LIKE '%$value%')";
                 }
                 break;
-            case TOKEN_USER:
-                $SQLString .= "(($mainidfield = $useridfield) AND ((".$DB->sql_like($userfirstnamefield, ":$name1", false).") OR (".$DB->sql_like($userlastnamefield, ":$name2", false).")))";
-                $params[$name1] =  "%$value%";
-                $params[$name2] =  "%$value%";
-                break;
-            case TOKEN_USERID:
-                $SQLString .= "($useridfield = :$name1)";
-                $params[$name1] =  $value;
-                break;
-            case TOKEN_INSTANCE:
-                $SQLString .= "($instancefield = :$name1)";
-                $params[$name1] =  $value;
-                break;
-            case TOKEN_DATETO:
-                $SQLString .= "($timefield <= :$name1)";
-                $params[$name1] =  $value;
-                break;
-            case TOKEN_DATEFROM:
-                $SQLString .= "($timefield >= :$name1)";
-                $params[$name1] =  $value;
-                break;
-            case TOKEN_NEGATE:
-                $SQLString .= "(NOT ((".$DB->sql_like($datafield, ":$name1", false).") OR (".$DB->sql_like($metafield, ":$name2", false).")))";
-                $params[$name1] =  "%$value%";
-                $params[$name2] =  "%$value%";
-                break;
+            case TOKEN_USER: 
+                $SQLString .= "(($mainidfield = $useridfield) AND (($userfirstnamefield $LIKE '%$value%') OR ($userlastnamefield $LIKE '%$value%')))";
+                break; 
+            case TOKEN_USERID: 
+                $SQLString .= "($useridfield = $value)";
+                break; 
+            case TOKEN_INSTANCE: 
+                $SQLString .= "($instancefield = $value)";
+                break; 
+            case TOKEN_DATETO: 
+                $SQLString .= "($timefield <= $value)";
+                break; 
+            case TOKEN_DATEFROM: 
+                $SQLString .= "($timefield >= $value)";
+                break; 
+            case TOKEN_NEGATE: 
+                $SQLString .= "(NOT (($datafield  $LIKE '%$value%') OR ($metafield  $LIKE '%$value%')))";
+                break; 
             default:
                 return '';
 
-        }
-    }
-    return array($SQLString, $params);
+        } 
+    } 
+    return $SQLString;
 }
+
+
+?>

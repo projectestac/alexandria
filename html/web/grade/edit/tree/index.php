@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,44 +15,29 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Edit and review page for grade categories and items
- *
- * @package   core_grades
- * @copyright 2008 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 require_once $CFG->dirroot.'/grade/report/lib.php'; // for preferences
 require_once $CFG->dirroot.'/grade/edit/tree/lib.php';
+
+require_js(array('yui_yahoo', 'yui_dom', 'yui_event', 'yui_json', 'yui_connection', 'yui_dragdrop', 'yui_treeview', 'yui_element',
+            $CFG->wwwroot.'/grade/edit/tree/functions.js'));
 
 $courseid        = required_param('id', PARAM_INT);
 $action          = optional_param('action', 0, PARAM_ALPHA);
 $eid             = optional_param('eid', 0, PARAM_ALPHANUM);
 $category        = optional_param('category', null, PARAM_INT);
 $aggregationtype = optional_param('aggregationtype', null, PARAM_INT);
-$showadvanced    = optional_param('showadvanced', -1, PARAM_BOOL); // sticky editing mode
-
-$url = new moodle_url('/grade/edit/tree/index.php', array('id' => $courseid));
-if($showadvanced!=-1) {
-    $url->param("showadvanced",$showadvanced);
-}
-$PAGE->set_url($url);
-$PAGE->set_pagelayout('admin');
+$showadvanced    = optional_param('showadvanced', -1, PARAM_BOOL); // sticky editting mode
 
 /// Make sure they can even access this course
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 require_capability('moodle/grade:manage', $context);
-
-// todo $PAGE->requires->js_module() should be used here instead
-$PAGE->requires->js('/grade/edit/tree/functions.js');
 
 /// return tracking object
 $gpr = new grade_plugin_return(array('type'=>'edit', 'plugin'=>'tree', 'courseid'=>$courseid));
@@ -75,7 +61,7 @@ if (has_capability('moodle/grade:manage', $context)) {
         $USER->gradeediting[$course->id] = 0;
     }
 
-    // page params for the turn editing on
+    // page params for the turn editting on
     $options = $gpr->get_options();
     $options['sesskey'] = sesskey();
 
@@ -95,14 +81,11 @@ if (has_capability('moodle/grade:manage', $context)) {
 // Change category aggregation if requested
 if (!is_null($category) && !is_null($aggregationtype) && confirm_sesskey()) {
     if (!$grade_category = grade_category::fetch(array('id'=>$category, 'courseid'=>$courseid))) {
-        print_error('invalidcategoryid');
+        error('Incorrect category id!');
     }
-
-    $data = new stdClass();
     $data->aggregation = $aggregationtype;
     grade_category::set_properties($grade_category, $data);
     $grade_category->update();
-
     grade_regrade_final_grades($courseid);
 }
 
@@ -131,17 +114,10 @@ $strgraderreport       = get_string('graderreport', 'grades');
 $strcategoriesedit     = get_string('categoriesedit', 'grades');
 $strcategoriesanditems = get_string('categoriesanditems', 'grades');
 
+$navigation = grade_build_nav(__FILE__, $strcategoriesanditems, array('courseid' => $courseid));
 $moving = false;
-$movingeid = false;
 
-if ($action == 'moveselect') {
-    if ($eid and confirm_sesskey()) {
-        $movingeid = $eid;
-        $moving=true;
-    }
-}
-
-$grade_edit_tree = new grade_edit_tree($gtree, $movingeid, $gpr);
+$grade_edit_tree = new grade_edit_tree($gtree, $moving, $gpr);
 
 switch ($action) {
     case 'delete':
@@ -158,16 +134,12 @@ switch ($action) {
                 redirect($returnurl);
 
             } else {
-                $PAGE->set_title($strgrades . ': ' . $strgraderreport);
-                $PAGE->set_heading($course->fullname);
-                echo $OUTPUT->header();
+                print_header_simple($strgrades . ': ' . $strgraderreport, ': ' . $strcategoriesedit, $navigation, '', '', true, null, navmenu($course));
                 $strdeletecheckfull = get_string('deletecheck', '', $object->get_name());
                 $optionsyes = array('eid'=>$eid, 'confirm'=>1, 'sesskey'=>sesskey(), 'id'=>$course->id, 'action'=>'delete');
                 $optionsno  = array('id'=>$course->id);
-                $formcontinue = new single_button(new moodle_url('index.php', $optionsyes), get_string('yes'));
-                $formcancel = new single_button(new moodle_url('index.php', $optionsno), get_string('no'), 'get');
-                echo $OUTPUT->confirm($strdeletecheckfull, $formcontinue, $formcancel);
-                echo $OUTPUT->footer();
+                notice_yesno($strdeletecheckfull, 'index.php', 'index.php', $optionsyes, $optionsno, 'post', 'get');
+                print_footer($course);
                 die;
             }
         }
@@ -176,6 +148,10 @@ switch ($action) {
     case 'autosort':
         //TODO: implement autosorting based on order of mods on course page, categories first, manual items last
         break;
+
+    case 'synclegacy':
+        grade_grab_legacy_grades($course->id);
+        redirect($returnurl);
 
     case 'move':
         if ($eid and confirm_sesskey()) {
@@ -202,6 +178,13 @@ switch ($action) {
         }
         break;
 
+    case 'moveselect':
+        if ($eid and confirm_sesskey()) {
+            $grade_edit_tree->moving = $eid;
+            $moving=true;
+        }
+        break;
+
     default:
         break;
 }
@@ -212,6 +195,8 @@ if ($grade_edit_tree->moving) {
     $USER->gradeediting[$course->id] = 0;
 }
 
+$CFG->stylesheets[] = $CFG->wwwroot.'/grade/edit/tree/tree.css';
+
 $current_view_str = '';
 if ($current_view != '') {
     if ($current_view == 'simpleview') {
@@ -221,10 +206,7 @@ if ($current_view != '') {
     }
 }
 
-//if we go straight to the db to update an element we need to recreate the tree as
-// $grade_edit_tree has already been constructed.
-//Ideally we could do the updates through $grade_edit_tree to avoid recreating it
-$recreatetree = false;
+print_grade_page_head($courseid, 'edittree', $current_view, get_string('categoriesedit', 'grades') . ': ' . $current_view_str);
 
 if ($data = data_submitted() and confirm_sesskey()) {
     // Perform bulk actions first
@@ -257,15 +239,13 @@ if ($data = data_submitted() and confirm_sesskey()) {
             $grade_category->update();
             grade_regrade_final_grades($courseid);
 
-            $recreatetree = true;
-
         // Grade item text inputs
         } elseif (preg_match('/^(grademax|aggregationcoef|multfactor|plusfactor)_([0-9]+)$/', $key, $matches)) {
             $param = $matches[1];
             $aid   = $matches[2];
 
             $value = unformat_float($value);
-            $value = clean_param($value, PARAM_FLOAT);
+            $value = clean_param($value, PARAM_NUMBER);
 
             $grade_item = grade_item::fetch(array('id'=>$aid, 'courseid'=>$courseid));
 
@@ -278,8 +258,6 @@ if ($data = data_submitted() and confirm_sesskey()) {
             $grade_item->update();
             grade_regrade_final_grades($courseid);
 
-            $recreatetree = true;
-
         // Grade item checkbox inputs
         } elseif (preg_match('/^extracredit_([0-9]+)$/', $key, $matches)) { // Sum extra credit checkbox
             $aid   = $matches[1];
@@ -290,8 +268,6 @@ if ($data = data_submitted() and confirm_sesskey()) {
 
             $grade_item->update();
             grade_regrade_final_grades($courseid);
-
-            $recreatetree = true;
 
         // Grade category checkbox inputs
         } elseif (preg_match('/^aggregate(onlygraded|subcats|outcomes)_([0-9]+)$/', $key, $matches)) {
@@ -304,27 +280,22 @@ if ($data = data_submitted() and confirm_sesskey()) {
 
             $grade_category->update();
             grade_regrade_final_grades($courseid);
-
-            $recreatetree = true;
         }
     }
 }
 
-print_grade_page_head($courseid, 'edittree', $current_view, get_string('categoriesedit', 'grades') . ': ' . $current_view_str);
-
 // Print Table of categories and items
-echo $OUTPUT->box_start('gradetreebox generalbox');
+print_box_start('gradetreebox generalbox');
 
 echo '<form id="gradetreeform" method="post" action="'.$returnurl.'">';
 echo '<div>';
 echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
 
-//did we update something in the db and thus invalidate $grade_edit_tree?
-if ($recreatetree) {
-    $grade_edit_tree = new grade_edit_tree($gtree, $movingeid, $gpr);
-}
-
-echo html_writer::table($grade_edit_tree->table);
+// Build up an array of categories for move drop-down (by reference)
+$categories = array();
+$level     = 0;
+$row_count = 0;
+echo $grade_edit_tree->build_html_tree($gtree->top_element, true, array(), $categories, $level, $row_count);
 
 echo '<div id="gradetreesubmit">';
 if (!$moving) {
@@ -332,43 +303,52 @@ if (!$moving) {
 }
 
 // We don't print a bulk move menu if there are no other categories than course category
-if (!$moving && count($grade_edit_tree->categories) > 1) {
+if (!$moving && count($categories) > 1) {
     echo '<br /><br />';
     echo '<input type="hidden" name="bulkmove" value="0" id="bulkmoveinput" />';
-    $attributes = array('id'=>'menumoveafter');
-    echo html_writer::label(get_string('moveselectedto', 'grades'), 'menumoveafter');
-    echo html_writer::select($grade_edit_tree->categories, 'moveafter', '', array(''=>'choosedots'), $attributes);
-    $OUTPUT->add_action_handler(new component_action('change', 'submit_bulk_move'), 'menumoveafter');
-    echo '<div id="noscriptgradetreeform" class="hiddenifjs">
+    echo get_string('moveselectedto', 'grades') . ' ';
+    echo choose_from_menu($categories, 'moveafter', '', 'choose',
+            'document.getElementById(\'bulkmoveinput\').value=1;document.getElementById(\'gradetreeform\').submit()', 0, true, true);
+    echo '<div id="noscriptgradetreeform" style="display: inline;">
             <input type="submit" value="'.get_string('go').'" />
-          </div>';
+          </div>
+          <script type="text/javascript">
+            //<![CDATA[
+                document.getElementById("noscriptgradetreeform").style.display= "none";
+            //]]>
+          </script>';
 }
 
 echo '</div>';
 
 echo '</div></form>';
 
-echo $OUTPUT->box_end();
+print_box_end();
 
 // Print action buttons
-echo $OUTPUT->container_start('buttons mdl-align');
+echo '<div class="buttons">';
 
 if ($moving) {
-    echo $OUTPUT->single_button(new moodle_url('index.php', array('id'=>$course->id)), get_string('cancel'), 'get');
+    print_single_button('index.php', array('id'=>$course->id), get_string('cancel'), 'get');
 } else {
-    echo $OUTPUT->single_button(new moodle_url('category.php', array('courseid'=>$course->id)), get_string('addcategory', 'grades'), 'get');
-    echo $OUTPUT->single_button(new moodle_url('item.php', array('courseid'=>$course->id)), get_string('additem', 'grades'), 'get');
+    print_single_button('category.php', array('courseid'=>$course->id), get_string('addcategory', 'grades'), 'get');
+    print_single_button('item.php', array('courseid'=>$course->id), get_string('additem', 'grades'), 'get');
 
     if (!empty($CFG->enableoutcomes)) {
-        echo $OUTPUT->single_button(new moodle_url('outcomeitem.php', array('courseid'=>$course->id)), get_string('addoutcomeitem', 'grades'), 'get');
+        print_single_button('outcomeitem.php', array('courseid'=>$course->id), get_string('addoutcomeitem', 'grades'), 'get');
     }
 
-    //echo $OUTPUT->(new moodle_url('index.php', array('id'=>$course->id, 'action'=>'autosort')), get_string('autosort', 'grades'), 'get');
+    if ($legacy = grade_get_legacy_modules($course->id)) {
+        //print_single_button('index.php', array('id'=>$course->id, 'action'=>'autosort'), get_string('autosort', 'grades'), 'get');
+        echo "<br /><br />";
+        print_single_button('index.php', array('id'=>$course->id, 'action'=>'synclegacy'), get_string('synclegacygrades', 'grades').' ('.implode(', ', $legacy).')', 'get');
+        helpbutton('synclegacygrades', get_string('synclegacygrades', 'grades'), 'grade');
+    }
 }
 
-echo $OUTPUT->container_end();
+echo '</div>';
 
-echo $OUTPUT->footer();
+print_footer($course);
 
 // Restore original show/hide preference if moving
 if ($moving) {
@@ -376,4 +356,4 @@ if ($moving) {
 }
 die;
 
-
+?>

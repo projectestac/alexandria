@@ -8,16 +8,19 @@
     require_login();
     admin_externalpage_setup('trustedhosts');
 
-    $context = context_system::instance();
+    $context = get_context_instance(CONTEXT_SYSTEM);
 
     require_capability('moodle/site:config', $context, $USER->id, true, "nopermissions");
 
     if (!extension_loaded('openssl')) {
-        echo $OUTPUT->header();
+        admin_externalpage_print_header();
         print_error('requiresopenssl', 'mnet', '', NULL, true);
     }
-
-    $site = get_site();
+    
+    if (!$site = get_site()) {
+        admin_externalpage_print_header();
+        print_error('nosite', '', '', NULL, true);
+    }
 
     $trusted_hosts = '';//array();
     $old_trusted_hosts = get_config('mnet', 'mnet_trusted_hosts');
@@ -31,9 +34,13 @@
     $in_range = false;
     if (!empty($test_ip_address)) {
         foreach($old_trusted_hosts as $host) {
-            if (address_in_subnet($test_ip_address, $host)) {
+            list($network, $mask) = explode('/', $host.'/');
+            if (empty($network)) continue;
+            if (strlen($mask) == 0) $mask = 32;
+            
+            if (ip_in_range($test_ip_address, $network, $mask)) {
                 $in_range = true;
-                $validated_by = $host;
+                $validated_by = $network.'/'.$mask;
                 break;
             }
         }
@@ -61,3 +68,4 @@
     }
 
     include('./trustedhosts.html');
+?>

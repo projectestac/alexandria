@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,16 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Version details for the user gradebook report
- *
- * @package    gradereport_user
- * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+$plugin->version  = 2007092500;
+$plugin->requires = 2007101000;
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version   = 2012112900;        // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2012112900;        // Requires this Moodle version
-$plugin->component = 'gradereport_user'; // Full name of the plugin (used for diagnostics)
+?>

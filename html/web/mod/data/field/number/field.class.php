@@ -1,4 +1,4 @@
-<?php
+<?php // $Id: field.class.php,v 1.6.2.4 2010/12/22 07:49:12 moodlerobot Exp $
 ///////////////////////////////////////////////////////////////////////////
 //                                                                       //
 // NOTICE OF COPYRIGHT                                                   //
@@ -25,10 +25,12 @@
 class data_field_number extends data_field_base {
     var $type = 'number';
 
-    function update_content($recordid, $value, $name='') {
-        global $DB;
+    function data_field_number($field=0, $data=0) {
+        parent::data_field_base($field, $data);
+    }
 
-        $content = new stdClass();
+    function update_content($recordid, $value, $name='') {
+        $content = new object;
         $content->fieldid = $this->field->id;
         $content->recordid = $recordid;
         $value = trim($value);
@@ -37,18 +39,16 @@ class data_field_number extends data_field_base {
         } else {
             $content->content = null;
         }
-        if ($oldcontent = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        if ($oldcontent = get_record('data_content','fieldid', $this->field->id, 'recordid', $recordid)) {
             $content->id = $oldcontent->id;
-            return $DB->update_record('data_content', $content);
+            return update_record('data_content', $content);
         } else {
-            return $DB->insert_record('data_content', $content);
+            return insert_record('data_content', $content);
         }
     }
 
     function display_browse_field($recordid, $template) {
-        global $DB;
-
-        if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+        if ($content = get_record('data_content', 'fieldid', $this->field->id, 'recordid', $recordid)) {
             if (strlen($content->content) < 1) {
                 return false;
             }
@@ -70,30 +70,33 @@ class data_field_number extends data_field_base {
     }
 
     function display_search_field($value = '') {
-        return '<label class="accesshide" for="f_'.$this->field->id.'">' . get_string('fieldname', 'data') . '</label>' .
-               '<input type="text" size="16" id="f_'.$this->field->id.'" name="f_'.$this->field->id.'" value="'.$value.'" />';
+        return '<input type="text" size="16" name="f_'.$this->field->id.'" value="'.$value.'" />';
     }
 
     function parse_search_field() {
         return optional_param('f_'.$this->field->id, '', PARAM_NOTAGS);
     }
 
-    // need to cast?
     function generate_sql($tablealias, $value) {
-        global $DB;
-
-        static $i=0;
-        $i++;
-        $name = "df_number_$i";
-        $varcharcontent = $DB->sql_compare_text("{$tablealias}.content");
-        return array(" ({$tablealias}.fieldid = {$this->field->id} AND $varcharcontent = :$name) ", array($name=>$value));
+        $varcharcontent = sql_compare_text("{$tablealias}.content");
+        return " ({$tablealias}.fieldid = {$this->field->id} AND $varcharcontent = '$value') ";
     }
 
     function get_sort_sql($fieldname) {
-        global $DB;
-        return $DB->sql_cast_char2real($fieldname, true);
+        global $CFG;
+        switch ($CFG->dbfamily) {
+            case 'mysql':
+                // string in an arithmetic operation is converted to a floating-point number
+                return '('.$fieldname.'+0.0)';
+            case 'postgres':
+                // cast for PG
+                return 'CAST('.$fieldname.' AS REAL)';
+            default:
+                // the rest, just the field name. TODO: Analyse behaviour under MSSQL and Oracle
+                return $fieldname;
+        }
     }
 
 }
 
-
+?>

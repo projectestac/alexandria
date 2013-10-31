@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Edit a calculated grade item
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
 require_once $CFG->libdir.'/mathslib.php';
@@ -32,31 +25,25 @@ $id        = required_param('id', PARAM_INT);
 $section   = optional_param('section', 'calculation', PARAM_ALPHA);
 $idnumbers = optional_param('idnumbers', null, PARAM_RAW);
 
-$url = new moodle_url('/grade/edit/tree/calculation.php', array('id'=>$id, 'courseid'=>$courseid));
-if ($section !== 'calculation') {
-    $url->param('section', $section);
-}
-$PAGE->set_url($url);
-
-if (!$course = $DB->get_record('course', array('id' => $courseid))) {
+if (!$course = get_record('course', 'id', $courseid)) {
     print_error('nocourseid');
 }
 
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 require_capability('moodle/grade:manage', $context);
 
 // default return url
 $gpr = new grade_plugin_return();
-$returnurl = $gpr->get_return_url($CFG->wwwroot.'/grade/report/index.php?id='.$course->id);
+$returnurl = $gpr->get_return_url($CFG->wwwroot.'/grade/report.php?id='.$course->id);
 
 if (!$grade_item = grade_item::fetch(array('id'=>$id, 'courseid'=>$course->id))) {
-    print_error('invaliditemid');
+    error('Incorect item id');
 }
 
 // activity items and items without grade can not have calculation
 if ($grade_item->is_external_item() or ($grade_item->gradetype != GRADE_TYPE_VALUE and $grade_item->gradetype != GRADE_TYPE_SCALE)) {
-    redirect($returnurl, get_string('errornocalculationallowed', 'grades'));
+    redirect($returnurl, get_string('errornocalculationallowed', 'grades')); 
 }
 
 $mform = new edit_calculation_form(null, array('gpr'=>$gpr, 'itemid' => $grade_item->id));
@@ -72,7 +59,7 @@ $mform->set_data(array('courseid'=>$grade_item->courseid, 'calculation'=>$calcul
 
 $errors = array();
 
-if ($data = $mform->get_data()) {
+if ($data = $mform->get_data(false)) {
     $calculation = calc_formula::unlocalize($data->calculation);
     $grade_item->set_calculation($calculation);
 
@@ -93,7 +80,7 @@ if ($data = $mform->get_data()) {
                 continue;
             }
 
-            if (empty($gi->idnumber) and !$gi->add_idnumber($idnumbers[$gi->id])) {
+            if (empty($gi->idnumber) and !$gi->add_idnumber(stripslashes($idnumbers[$gi->id]))) {
                 $errors[$giid] = get_string('error');
                 continue;
             }
@@ -109,10 +96,9 @@ $strgrades          = get_string('grades');
 $strgraderreport    = get_string('graderreport', 'grades');
 $strcalculationedit = get_string('editcalculation', 'grades');
 
-grade_build_nav(__FILE__, $strcalculationedit, array('courseid' => $courseid));
-$PAGE->set_title($strgrades . ': ' . $strgraderreport);
-$PAGE->set_heading($course->fullname);
-echo $OUTPUT->header();
+$navigation = grade_build_nav(__FILE__, $strcalculationedit, array('courseid' => $courseid));
+
+print_header_simple($strgrades . ': ' . $strgraderreport, ': ' . $strcalculationedit, $navigation, '', '', true, '', navmenu($course));
 
 $mform->display();
 // Now show the gradetree with the idnumbers add/edit form
@@ -141,7 +127,7 @@ echo '
     </div>
 </form>';
 
-echo $OUTPUT->footer();
+print_footer($course);
 die();
 
 
@@ -184,7 +170,6 @@ function get_grade_tree(&$gtree, $element, $current_itemid=null, $errors=null) {
                     $name .= '<div class="error"><span class="error">' . $errors[$grade_item->id].'</span><br />'."\n";
                     $closingdiv = "</div>\n";
                 }
-                $name .= '<label class="accesshide" for="id_idnumber_' . $grade_item->id . '">' . get_string('gradeitems', 'grades')  .'</label>';
                 $name .= '<input class="idnumber" id="id_idnumber_'.$grade_item->id.'" type="text" name="idnumbers['.$grade_item->id.']" />' . "\n";
                 $name .= $closingdiv;
             }
@@ -215,4 +200,4 @@ function get_grade_tree(&$gtree, $element, $current_itemid=null, $errors=null) {
     return $return_string;
 }
 
-
+?>

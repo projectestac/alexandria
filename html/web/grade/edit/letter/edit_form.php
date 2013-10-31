@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,13 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * A moodleform for editing grade letters
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
@@ -30,19 +24,21 @@ require_once $CFG->libdir.'/formslib.php';
 
 class edit_letter_form extends moodleform {
 
-    public function definition() {
+    function definition() {
         $mform =& $this->_form;
         $num   = $this->_customdata['num'];
         $admin = $this->_customdata['admin'];
 
         $mform->addElement('header', 'gradeletters', get_string('gradeletters', 'grades'));
-
+        
         // Only show "override site defaults" checkbox if editing the course grade letters
         if (!$admin) {
             $mform->addElement('checkbox', 'override', get_string('overridesitedefaultgradedisplaytype', 'grades'));
-            $mform->addHelpButton('override', 'overridesitedefaultgradedisplaytype', 'grades');
+            $mform->setHelpButton('override', array('overridesitedefaultgradedisplaytype', get_string('overridesitedefaultgradedisplaytype', 'grades'), 'grade'));
         }
 
+        $gradeletterhelp   = get_string('configgradeletter', 'grades');
+        $gradeboundaryhelp = get_string('configgradeboundary', 'grades');
         $gradeletter       = get_string('gradeletter', 'grades');
         $gradeboundary     = get_string('gradeboundary', 'grades');
 
@@ -57,10 +53,10 @@ class edit_letter_form extends moodleform {
 
             $mform->addElement('text', $gradelettername, $gradeletter." $i");
             if ($i == 1) {
-                $mform->addHelpButton($gradelettername, 'gradeletter', 'grades');
+                $mform->setHelpButton($gradelettername, array('gradeletter', get_string('gradeletter', 'grades'), 'grade'));
             }
             $mform->setType($gradelettername, PARAM_TEXT);
-
+            
             if (!$admin) {
                 $mform->disabledIf($gradelettername, 'override', 'notchecked');
                 $mform->disabledIf($gradelettername, $gradeboundaryname, 'eq', -1);
@@ -68,11 +64,11 @@ class edit_letter_form extends moodleform {
 
             $mform->addElement('select', $gradeboundaryname, $gradeboundary." $i", $percentages);
             if ($i == 1) {
-                $mform->addHelpButton($gradeboundaryname, 'gradeboundary', 'grades');
+                $mform->setHelpButton($gradeboundaryname, array('gradeboundary', get_string('gradeboundary', 'grades'), 'grade'));
             }
             $mform->setDefault($gradeboundaryname, -1);
             $mform->setType($gradeboundaryname, PARAM_INT);
-
+            
             if (!$admin) {
                 $mform->disabledIf($gradeboundaryname, 'override', 'notchecked');
             }
@@ -89,4 +85,4 @@ class edit_letter_form extends moodleform {
 
 }
 
-
+?>

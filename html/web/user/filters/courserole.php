@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: courserole.php,v 1.1.2.3 2008/02/08 12:14:39 poltawski Exp $
 
 require_once($CFG->dirroot .'/user/filters/lib.php');
 
@@ -21,8 +21,8 @@ class user_filter_courserole extends user_filter_type {
      * @return array of availble roles
      */
     function get_roles() {
-        $context = context_system::instance();
-        $roles = array(0=> get_string('anyrole','filters')) + get_default_enrol_roles($context);
+        $context = get_context_instance(CONTEXT_SYSTEM);
+        $roles = array(0=> get_string('anyrole','filters')) + get_assignable_roles($context);
         return $roles;
     }
 
@@ -31,8 +31,6 @@ class user_filter_courserole extends user_filter_type {
      * @return array of course categories
      */
     function get_course_categories() {
-        global $CFG;
-        require_once($CFG->dirroot.'/course/lib.php');
         $displaylist = array();
         $parentlist = array();
         make_categories_list($displaylist, $parentlist);
@@ -49,6 +47,7 @@ class user_filter_courserole extends user_filter_type {
         $objs[] =& $mform->createElement('select', $this->_name .'_ct', null, $this->get_course_categories());
         $objs[] =& $mform->createElement('text', $this->_name, null);
         $grp =& $mform->addElement('group', $this->_name.'_grp', $this->_label, $objs, '', false);
+        $grp->setHelpButton(array('courserole', $this->_label, 'filters'));
         if ($this->_advanced) {
             $mform->setAdvanced($this->_name.'_grp');
         }
@@ -79,41 +78,34 @@ class user_filter_courserole extends user_filter_type {
     /**
      * Returns the condition to be used with SQL where
      * @param array $data filter settings
-     * @return array sql string and $params
+     * @return string the filtering condition or null if the filter is disabled
      */
     function get_sql_filter($data) {
-        global $CFG, $DB;
-        static $counter = 0;
-        $pref = 'ex_courserole'.($counter++).'_';
-
-        $value      = $data['value'];
+        global $CFG;
+        $value      = addslashes($data['value']);
         $roleid     = $data['roleid'];
         $categoryid = $data['categoryid'];
 
-        $params = array();
-
         if (empty($value) and empty($roleid) and empty($categoryid)) {
-            return array('', $params);
+            return '';
         }
 
-        $where = "b.contextlevel=50";
+        $timenow = round(time(), 100); // rounding - enable sql caching
+        $where = "b.contextlevel=50 AND a.timestart<$timenow AND (a.timeend=0 OR a.timeend>$timenow)";
         if ($roleid) {
-            $where .= " AND a.roleid = :{$pref}roleid";
-            $params[$pref.'roleid'] = $roleid;
+            $where .= " AND a.roleid=$roleid";
         }
         if ($categoryid) {
-            $where .= " AND c.category = :{$pref}categoryid";
-            $params[$pref.'categoryid'] = $categoryid;
+            $where .= " AND c.category=$categoryid";
         }
         if ($value) {
-            $where .= " AND c.shortname = :{$pref}course";
-            $params[$pref.'course'] = $value;
+            $where .= " AND c.shortname ".sql_ilike()." '$value'";
         }
-        return array("id IN (SELECT userid
-                               FROM {role_assignments} a
-                         INNER JOIN {context} b ON a.contextid=b.id
-                         INNER JOIN {course} c ON b.instanceid=c.id
-                              WHERE $where)", $params);
+        return "id IN (SELECT userid
+                         FROM {$CFG->prefix}role_assignments a
+                   INNER JOIN {$CFG->prefix}context b ON a.contextid=b.id
+                   INNER JOIN {$CFG->prefix}course c ON b.instanceid=c.id
+                        WHERE $where)";
     }
 
     /**
@@ -122,24 +114,22 @@ class user_filter_courserole extends user_filter_type {
      * @return string active filter label
      */
     function get_label($data) {
-        global $DB;
-
         $value      = $data['value'];
         $roleid     = $data['roleid'];
         $categoryid = $data['categoryid'];
 
-        $a = new stdClass();
+        $a = new object();
         $a->label = $this->_label;
 
         if ($roleid) {
-            $rolename = $DB->get_field('role', 'name', array('id'=>$roleid));
+            $rolename = get_field('role', 'name', 'id', $roleid);
             $a->rolename = '"'.format_string($rolename).'"';
         } else {
             $a->rolename = get_string('anyrole', 'filters');
         }
 
         if ($categoryid) {
-            $catname = $DB->get_field('course_categories', 'name', array('id'=>$categoryid));
+            $catname = get_field('course_categories', 'name', 'id', $categoryid);
             $a->categoryname = '"'.format_string($catname).'"';
         } else {
             $a->categoryname = get_string('anycategory', 'filters');
@@ -147,7 +137,7 @@ class user_filter_courserole extends user_filter_type {
 
         if ($value) {
             $a->coursename = '"'.s($value).'"';
-            if (!$DB->record_exists('course', array('shortname'=>$value))) {
+            if (!record_exists('course', 'shortname', addslashes($value))) {
                 return '<span class="notifyproblem">'.get_string('courserolelabelerror', 'filters', $a).'</span>';
             }
         } else {

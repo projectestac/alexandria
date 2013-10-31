@@ -1,12 +1,10 @@
-<?php
+<?php // $Id: create.php,v 1.9.2.3 2008/04/02 06:09:59 dongsheng Exp $
 
 require('../../config.php');
 
 require_once($CFG->libdir.'/adminlib.php');
 require_login();
-$context = context_system::instance();
-$PAGE->set_context($context);
-$adminroot = admin_get_root(false, false);  // settings not required - only pages
+$adminroot =& admin_get_root(false, false);  // settings not required - only pages
 
 if ($section = optional_param('section', '', PARAM_SAFEDIR) and confirm_sesskey()) {
 
@@ -24,7 +22,7 @@ if ($section = optional_param('section', '', PARAM_SAFEDIR) and confirm_sesskey(
 
     $temp = $adminroot->locate($section);
 
-    if ($temp instanceof admin_settingpage || $temp instanceof admin_externalpage) {
+    if (is_a($temp, 'admin_settingpage') || is_a($temp, 'admin_externalpage')) {
         $bookmarks[] = $section;
         $bookmarks = implode(',', $bookmarks);
         set_user_preference('admin_bookmarks', $bookmarks);
@@ -34,10 +32,10 @@ if ($section = optional_param('section', '', PARAM_SAFEDIR) and confirm_sesskey(
         die;
     }
 
-    if ($temp instanceof admin_settingpage) {
+    if (is_a($temp, 'admin_settingpage')) {
         redirect($CFG->wwwroot . '/' . $CFG->admin . '/settings.php?section=' . $section);
 
-    } elseif ($temp instanceof admin_externalpage) {
+    } elseif (is_a($temp, 'admin_externalpage')) {
         redirect($temp->url);
     }
 
@@ -47,3 +45,4 @@ if ($section = optional_param('section', '', PARAM_SAFEDIR) and confirm_sesskey(
 }
 
 
+?>

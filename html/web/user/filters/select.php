@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: select.php,v 1.2.2.2 2007/12/11 13:01:13 nfreear Exp $
 
 require_once($CFG->dirroot.'/user/filters/lib.php');
 
@@ -50,6 +50,7 @@ class user_filter_select extends user_filter_type {
         $objs[] =& $mform->createElement('select', $this->_name.'_op', null, $this->get_operators());
         $objs[] =& $mform->createElement('select', $this->_name, null, $this->_options);
         $grp =& $mform->addElement('group', $this->_name.'_grp', $this->_label, $objs, '', false);
+        $grp->setHelpButton(array('select', $this->_label, 'filters'));
         $mform->disabledIf($this->_name, $this->_name.'_op', 'eq', 0);
         if (!is_null($this->_default)) {
             $mform->setDefault($this->_name, $this->_default);
@@ -79,31 +80,22 @@ class user_filter_select extends user_filter_type {
     /**
      * Returns the condition to be used with SQL where
      * @param array $data filter settings
-     * @return array sql string and $params
+     * @return string the filtering condition or null if the filter is disabled
      */
     function get_sql_filter($data) {
-        static $counter = 0;
-        $name = 'ex_select'.$counter++;
-
         $operator = $data['operator'];
-        $value    = $data['value'];
+        $value    = addslashes($data['value']);
         $field    = $this->_field;
-
-        $params = array();
 
         switch($operator) {
             case 1: // equal to
-                $res = "=:$name";
-                $params[$name] = $value;
-                break;
+                $res = "='$value'"; break;
             case 2: // not equal to
-                $res = "<>:$name";
-                $params[$name] = $value;
-                 break;
+                $res = "<>'$value'"; break;
             default:
-                return array('', array());
+                return '';
         }
-        return array($field.$res, $params);
+        return $field.$res;
     }
 
     /**
@@ -120,7 +112,7 @@ class user_filter_select extends user_filter_type {
             return '';
         }
 
-        $a = new stdClass();
+        $a = new object();
         $a->label    = $this->_label;
         $a->value    = '"'.s($this->_options[$value]).'"';
         $a->operator = $operators[$operator];

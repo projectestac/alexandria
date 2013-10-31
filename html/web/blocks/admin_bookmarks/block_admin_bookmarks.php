@@ -1,140 +1,80 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+<?php  // $Id: block_admin_bookmarks.php,v 1.20.2.3 2008/03/03 11:41:01 moodler Exp $
 
-/**
- * Admin Bookmarks Block page.
- *
- * @package    block
- * @subpackage admin_bookmarks
- * @copyright  2011 Moodle
- * @author     2006 vinkmar
- *             2011 Rossiani Wijaya (updated)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- *
- */
+// seems to work...
+// maybe I should add some pretty icons?
+// or possibly add the ability to custom-name things?
 
-/**
- * The admin bookmarks block class
- */
 class block_admin_bookmarks extends block_base {
 
-    /** @var string */
-    public $blockname = null;
-
-    /** @var bool */
-    protected $contentgenerated = false;
-
-    /** @var bool|null */
-    protected $docked = null;
-
-    /**
-     * Set the initial properties for the block
-     */
     function init() {
-        $this->blockname = get_class($this);
-        $this->title = get_string('pluginname', $this->blockname);
+        $this->title = get_string('adminbookmarks');
+        $this->version = 2007101509;
     }
 
-    /**
-     * All multiple instances of this block
-     * @return bool Returns false
-     */
-    function instance_allow_multiple() {
-        return false;
-    }
-
-    /**
-     * Set the applicable formats for this block to all
-     * @return array
-     */
     function applicable_formats() {
-        if (has_capability('moodle/site:config', context_system::instance())) {
+        if (has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM))) {
             return array('all' => true);
         } else {
             return array('site' => true);
         }
     }
 
-    /**
-     * Gets the content for this block
-     */
+    function preferred_width() {
+        return 210;
+    }
+
+    function create_item($visiblename,$link,$icon) {
+        $this->tempcontent .= '<a href="' . $link . '"><img src="' . $icon . '" alt="" /> ' . $visiblename . '</a><br />' . "\n";
+    }
+
     function get_content() {
 
-        global $CFG;
+        global $CFG, $USER, $PAGE;
 
-        // First check if we have already generated, don't waste cycles
-        if ($this->contentgenerated === true) {
+        if ($this->content !== NULL) {
             return $this->content;
         }
-        $this->content = new stdClass();
 
+        $this->content = new stdClass;
+        $this->content->text = '';
         if (get_user_preferences('admin_bookmarks')) {
+            // this is expensive! Only require when bookmakrs exist..
             require_once($CFG->libdir.'/adminlib.php');
-            $adminroot = admin_get_root(false, false);  // settings not required - only pages
+            $adminroot =& admin_get_root(false, false);  // settings not required - only pages
 
             $bookmarks = explode(',', get_user_preferences('admin_bookmarks'));
+            // hmm... just a liiitle (potentially) processor-intensive
+            // (recall that $adminroot->locate is a huge recursive call... and we're calling it repeatedly here
+
             /// Accessibility: markup as a list.
-            $contents = array();
+            $this->content->text .= '<ol class="list">'."\n";
+
             foreach($bookmarks as $bookmark) {
                 $temp = $adminroot->locate($bookmark);
-                if ($temp instanceof admin_settingpage) {
-                    $contenturl = new moodle_url('/admin/settings.php', array('section'=>$bookmark));
-                    $contentlink = html_writer::link($contenturl, $temp->visiblename);
-                    $contents[] = html_writer::tag('li', $contentlink);
-                } else if ($temp instanceof admin_externalpage) {
-                    $contenturl = new moodle_url($temp->url);
-                    $contentlink = html_writer::link($contenturl, $temp->visiblename);
-                    $contents[] = html_writer::tag('li', $contentlink);
+                if (is_a($temp, 'admin_settingpage')) {
+                    $this->content->text .= '<li><a href="' . $CFG->wwwroot . '/' . $CFG->admin . '/settings.php?section=' . $bookmark . '">' . $temp->visiblename . "</a></li>\n";
+                } else if (is_a($temp, 'admin_externalpage')) {
+                    $this->content->text .= '<li><a href="' . $temp->url . '">' . $temp->visiblename . "</a></li>\n";
                 }
             }
-            $this->content->text = html_writer::tag('ol', implode('', $contents), array('class' => 'list'));
+            $this->content->text .= "</ol>\n";
         } else {
             $bookmarks = array();
         }
 
-        $this->content->footer = '';
-        $this->page->settingsnav->initialise();
-        $node = $this->page->settingsnav->get('root', navigation_node::TYPE_SETTING);
-        if (!$node || !$node->contains_active_node()) {
-            return $this->content;
-        }
-        $section = $node->find_active_node()->key;
-
-        if ($section == 'search' || empty($section)){
+        if (isset($PAGE->section) and $PAGE->section == 'search'){
             // the search page can't be properly bookmarked at present
             $this->content->footer = '';
-        } else if (in_array($section, $bookmarks)) {
-            $deleteurl = new moodle_url('/blocks/admin_bookmarks/delete.php', array('section'=>$section, 'sesskey'=>sesskey()));
-            $this->content->footer =  html_writer::link($deleteurl, get_string('unbookmarkthispage','admin'));
+        } else if (($section = (isset($PAGE->section) ? $PAGE->section : '')) && (in_array($section, $bookmarks))) {
+            $this->content->footer = '<a href="' . $CFG->wwwroot . '/blocks/admin_bookmarks/delete.php?section=' . $section . '&amp;sesskey='.sesskey().'">' . get_string('unbookmarkthispage','admin') . '</a>';
+        } else if ($section = (isset($PAGE->section) ? $PAGE->section : '')) {
+            $this->content->footer = '<a href="' . $CFG->wwwroot . '/blocks/admin_bookmarks/create.php?section=' . $section . '&amp;sesskey='.sesskey().'">' . get_string('bookmarkthispage','admin') . '</a>';
         } else {
-            $createurl = new moodle_url('/blocks/admin_bookmarks/create.php', array('section'=>$section, 'sesskey'=>sesskey()));
-            $this->content->footer = html_writer::link($createurl, get_string('bookmarkthispage','admin'));
+            $this->content->footer = '';
         }
 
         return $this->content;
     }
-
-    /**
-     * Returns the role that best describes the admin bookmarks block.
-     *
-     * @return string
-     */
-    public function get_aria_role() {
-        return 'navigation';
-    }
 }
 
-
+?>

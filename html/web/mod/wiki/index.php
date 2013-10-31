@@ -1,98 +1,107 @@
-<?php
+<?PHP // $Id: index.php,v 1.13.2.6 2009/01/16 05:37:56 dongsheng Exp $
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
+/// This page lists all the instances of wiki in a particular course
+/// Replace wiki with the name of your module
 
-/**
- * This page lists all the instances of wiki in a particular course
- *
- * @package mod-wiki-2.0
- * @copyrigth 2009 Marc Alier, Jordi Piguillem marc.alier@upc.edu
- * @copyrigth 2009 Universitat Politecnica de Catalunya http://www.upc.edu
- *
- * @author Jordi Piguillem
- * @author Marc Alier
- * @author David Jimenez
- * @author Josep Arus
- * @author Kenneth Riba
- *
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+    require_once("../../config.php");
+    require_once("lib.php");
 
-require_once('../../config.php');
-require_once('lib.php');
+    $id = required_param('id', PARAM_INT);   // course
 
-$id = required_param('id', PARAM_INT); // course
-$PAGE->set_url('/mod/wiki/index.php', array('id' => $id));
+    if (! $course = get_record("course", "id", $id)) {
+        error("Course ID is incorrect");
+    }
 
-if (!$course = $DB->get_record('course', array('id' => $id))) {
-    print_error('invalidcourseid');
-}
+    require_course_login($course);
 
-require_login($course, true);
-$PAGE->set_pagelayout('incourse');
-$context = context_course::instance($course->id);
+    add_to_log($course->id, "wiki", "view all", "index.php?id=$course->id", "");
 
-add_to_log($course->id, 'wiki', 'view', "index.php?id=".$id, "");
 
-/// Get all required stringswiki
-$strwikis = get_string("modulenameplural", "wiki");
-$strwiki = get_string("modulename", "wiki");
+/// Get all required strings
+
+    $strwikis = get_string("modulenameplural", "wiki");
+    $strwiki  = get_string("modulename", "wiki");
+
 
 /// Print the header
-$PAGE->navbar->add($strwikis, "index.php?id=$course->id");
-$PAGE->set_title($strwikis);
-$PAGE->set_heading($course->fullname);
-echo $OUTPUT->header();
+    $navlinks = array();
+    $navlinks[] = array('name' => $strwikis, 'link' => "index.php?id=$course->id", 'type' => 'activity');
+    $navigation = build_navigation($navlinks);
+
+    print_header_simple("$strwikis", "", $navigation, "", "", true, "", navmenu($course));
 
 /// Get all the appropriate data
-if (!$wikis = get_all_instances_in_course("wiki", $course)) {
-    notice("There are no wikis", "../../course/view.php?id=$course->id");
-    die;
-}
 
-$usesections = course_format_uses_sections($course->format);
+    if (! $wikis = get_all_instances_in_course("wiki", $course)) {
+        notice(get_string('thereareno', 'moodle', $strwikis), "../../course/view.php?id=$course->id");
+        die;
+    }
 
 /// Print the list of instances (your module will probably extend this)
 
-$timenow = time();
-$strsectionname = get_string('sectionname', 'format_' . $course->format);
-$strname = get_string("name");
-$table = new html_table();
+    $timenow = time();
+    $strname  = get_string('wikiname', 'wiki');
+    $strsummary = get_string('summary');
+    $strtype = get_string('wikitype', 'wiki');
+    $strlastmodified = get_string('lastmodified');
+    $strweek  = get_string('week');
+    $strtopic  = get_string('topic');
 
-if ($usesections) {
-    $table->head = array($strsectionname, $strname);
-} else {
-    $table->head = array($strname);
-}
-
-foreach ($wikis as $wiki) {
-    $linkcss = null;
-    if (!$wiki->visible) {
-        $linkcss = array('class' => 'dimmed');
-    }
-    $link = html_writer::link(new moodle_url('/mod/wiki/view.php', array('id' => $wiki->coursemodule)), $wiki->name, $linkcss);
-
-    if ($usesections) {
-        $table->data[] = array(get_section_name($course, $wiki->section), $link);
+    if ($course->format == "weeks") {
+        $table->head  = array ($strweek, $strname, $strsummary, $strtype, $strlastmodified);
+        $table->align = array ('CENTER', 'LEFT', 'LEFT', 'LEFT', 'LEFT');
+    } else if ($course->format == "topics") {
+        $table->head  = array ($strtopic, $strname, $strsummary, $strtype, $strlastmodified);
+        $table->align = array ('CENTER', 'LEFT', 'LEFT', 'LEFT', 'LEFT');
     } else {
-        $table->data[] = array($link);
+        $table->head  = array ($strname, $strsummary, $strtype, $strlastmodified);
+        $table->align = array ('LEFT', 'LEFT', 'LEFT', 'LEFT');
     }
-}
 
-echo html_writer::table($table);
+    foreach ($wikis as $wiki) {
+        if (!$wiki->visible) {
+            //Show dimmed if the mod is hidden
+            $link = '<a class="dimmed" href="view.php?id='.$wiki->coursemodule.'">'.format_string($wiki->name,true).'</a>';
+        } else {
+            //Show normal if the mod is visible
+            $link = '<a href="view.php?id='.$wiki->coursemodule.'">'.format_string($wiki->name,true).'</a>';
+        }
+
+        $timmod = '<span class="smallinfo">'.userdate($wiki->timemodified).'</span>';
+        $summary = '<div class="smallinfo">'.format_text($wiki->summary).'</div>';
+
+        $site = get_site();
+        switch ($wiki->wtype) {
+
+        case 'teacher':
+            $wtype = $site->teacher;
+            break;
+
+        case 'student':
+            $wtype = $site->student;
+            break;
+
+        case 'group':
+        default:
+            $wtype = get_string('group');
+            break;
+        }
+
+        $wtype = '<span class="smallinfo">'.$wtype.'</span>';
+
+        if ($course->format == "weeks" or $course->format == "topics") {
+            $table->data[] = array ($wiki->section, $link, $summary, $wtype, $timmod);
+        } else {
+            $table->data[] = array ($link, $summary, $wtype, $timmod);
+        }
+    }
+
+    echo "<br />";
+
+    print_table($table);
 
 /// Finish the page
-echo $OUTPUT->footer();
+
+    print_footer($course);
+
+?>

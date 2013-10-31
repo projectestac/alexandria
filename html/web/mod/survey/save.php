@@ -1,28 +1,4 @@
-<?php
-
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * This file is responsible for saving the results of a users survey and displaying
- * the final message.
- *
- * @package   mod-survey
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+<?php // $Id: save.php,v 1.26.2.3 2009/11/20 08:33:47 skodak Exp $
 
     require_once('../../config.php');
     require_once('lib.php');
@@ -30,37 +6,36 @@
 
 // Make sure this is a legitimate posting
 
-    if (!$formdata = data_submitted() or !confirm_sesskey()) {
-        print_error('cannotcallscript');
+    if (!$formdata = data_submitted("$CFG->wwwroot/mod/survey/view.php") or !confirm_sesskey()) {
+        error("You are not supposed to use this script like that.");
     }
 
     $id = required_param('id', PARAM_INT);    // Course Module ID
 
     if (! $cm = get_coursemodule_from_id('survey', $id)) {
-        print_error('invalidcoursemodule');
+        error("Course Module ID was incorrect");
     }
 
-    if (! $course = $DB->get_record("course", array("id"=>$cm->course))) {
-        print_error('coursemisconf');
+    if (! $course = get_record("course", "id", $cm->course)) {
+        error("Course is misconfigured");
     }
 
-    $PAGE->set_url('/mod/survey/save.php', array('id'=>$id));
-    require_login($course, false, $cm);
-
-    $context = context_module::instance($cm->id);
+    require_login($course->id, false, $cm);
+    
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     require_capability('mod/survey:participate', $context);
-
-    if (! $survey = $DB->get_record("survey", array("id"=>$cm->instance))) {
-        print_error('invalidsurveyid', 'survey');
+    
+    if (! $survey = get_record("survey", "id", $cm->instance)) {
+        error("Survey ID was incorrect");
     }
 
     add_to_log($course->id, "survey", "submit", "view.php?id=$cm->id", "$survey->id", "$cm->id");
 
     $strsurveysaved = get_string('surveysaved', 'survey');
 
-    $PAGE->set_title($strsurveysaved);
-    $PAGE->set_heading($course->fullname);
-    echo $OUTPUT->header();
+    $navigation = build_navigation('', $cm);
+    print_header_simple("$strsurveysaved", "", $navigation, "");
+
 
     if (survey_already_done($survey->id, $USER->id)) {
         notice(get_string("alreadysubmitted", "survey"), $_SERVER["HTTP_REFERER"]);
@@ -93,24 +68,24 @@
 
     $timenow = time();
     foreach ($answers as $key => $val) {
-        if ($key != 'sesskey') {
-            $newdata = new stdClass();
-            $newdata->time = $timenow;
-            $newdata->userid = $USER->id;
-            $newdata->survey = $survey->id;
-            $newdata->question = $key;
-            if (!empty($val[0])) {
-                $newdata->answer1 = $val[0];
-            } else {
-                $newdata->answer1 = "";
-            }
-            if (!empty($val[1])) {
-                $newdata->answer2 = $val[1];
-            } else {
-                $newdata->answer2 = "";
-            }
 
-            $DB->insert_record("survey_answers", $newdata);
+        $newdata->time = $timenow;
+        $newdata->userid = $USER->id;
+        $newdata->survey = $survey->id;
+        $newdata->question = $key;
+        if (!empty($val[0])) {
+            $newdata->answer1 = $val[0];
+        } else {
+            $newdata->answer1 = "";
+        }
+        if (!empty($val[1])) {
+            $newdata->answer2 = $val[1];
+        } else {
+            $newdata->answer2 = "";
+        }
+
+        if (! insert_record("survey_answers", $newdata)) {
+            error("Encountered a problem trying to store your results. Sorry.");
         }
     }
 
@@ -121,4 +96,4 @@
     exit;
 
 
-
+?>

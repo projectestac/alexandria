@@ -1,62 +1,55 @@
-<?php
+<?php // $Id: delete.php,v 1.29.2.2 2008/07/06 17:55:56 skodak Exp $
       // Admin-only code to delete a course utterly
 
-    require_once(dirname(__FILE__) . '/../config.php');
-    require_once($CFG->dirroot . '/course/lib.php');
+    require_once("../config.php");
 
     $id     = required_param('id', PARAM_INT);              // course id
     $delete = optional_param('delete', '', PARAM_ALPHANUM); // delete confirmation hash
 
-    $PAGE->set_url('/course/delete.php', array('id' => $id));
-    $PAGE->set_context(context_system::instance());
     require_login();
 
-    $site = get_site();
+    if (!can_delete_course($id)) {
+        error('You do not have the permission to delete this course.');
+    }
+
+    if (!$site = get_site()) {
+        error("Site not found!");
+    }
 
     $strdeletecourse = get_string("deletecourse");
     $stradministration = get_string("administration");
     $strcategories = get_string("categories");
 
-    if (! $course = $DB->get_record("course", array("id"=>$id))) {
-        print_error("invalidcourseid");
-    }
-    if ($site->id == $course->id) {
-        // can not delete frontpage!
-        print_error("invalidcourseid");
+    if (! $course = get_record("course", "id", $id)) {
+        error("Course ID was incorrect (can't find it)");
     }
 
-    $coursecontext = context_course::instance($course->id);
+    $category = get_record("course_categories", "id", $course->category);
+    $navlinks = array();
 
-    if (!can_delete_course($id)) {
-        print_error('cannotdeletecourse');
-    }
-
-    $category = $DB->get_record("course_categories", array("id"=>$course->category));
-    $courseshortname = format_string($course->shortname, true, array('context' => context_course::instance($course->id)));
-    $categoryname = format_string($category->name, true, array('context' => context_coursecat::instance($category->id)));
-
-    $PAGE->navbar->add($stradministration, new moodle_url('/admin/index.php/'));
-    $PAGE->navbar->add($strcategories, new moodle_url('/course/index.php'));
-    $PAGE->navbar->add($categoryname, new moodle_url('/course/category.php', array('id'=>$course->category)));
     if (! $delete) {
-        $strdeletecheck = get_string("deletecheck", "", $courseshortname);
+        $strdeletecheck = get_string("deletecheck", "", $course->shortname);
         $strdeletecoursecheck = get_string("deletecoursecheck");
 
-        $PAGE->navbar->add($strdeletecheck);
-        $PAGE->set_title("$site->shortname: $strdeletecheck");
-        $PAGE->set_heading($site->fullname);
-        echo $OUTPUT->header();
+        $navlinks[] = array('name' => $stradministration, 'link' => "../$CFG->admin/index.php", 'type' => 'misc');
+        $navlinks[] = array('name' => $strcategories, 'link' => "index.php", 'type' => 'misc');
+        $navlinks[] = array('name' => $category->name, 'link' => "category.php?id=$course->category", 'type' => 'misc');
+        $navlinks[] = array('name' => $strdeletecheck, 'link' => null, 'type' => 'misc');
+        $navigation = build_navigation($navlinks);
 
-        $message = "$strdeletecoursecheck<br /><br />" . format_string($course->fullname, true, array('context' => $coursecontext)) .  " (" . $courseshortname . ")";
+        print_header("$site->shortname: $strdeletecheck", $site->fullname, $navigation);
 
-        echo $OUTPUT->confirm($message, "delete.php?id=$course->id&delete=".md5($course->timemodified), "category.php?id=$course->category");
+        notice_yesno("$strdeletecoursecheck<br /><br />" . format_string($course->fullname) .
+                     " (" . format_string($course->shortname) . ")",
+                     "delete.php?id=$course->id&amp;delete=".md5($course->timemodified)."&amp;sesskey=$USER->sesskey",
+                     "category.php?id=$course->category");
 
-        echo $OUTPUT->footer();
+        print_footer($course);
         exit;
     }
 
     if ($delete != md5($course->timemodified)) {
-        print_error("invalidmd5");
+        error("The check variable was wrong - try again");
     }
 
     if (!confirm_sesskey()) {
@@ -67,21 +60,25 @@
 
     add_to_log(SITEID, "course", "delete", "view.php?id=$course->id", "$course->fullname (ID $course->id)");
 
-    $strdeletingcourse = get_string("deletingcourse", "", $courseshortname);
+    $strdeletingcourse = get_string("deletingcourse", "", format_string($course->shortname));
 
-    $PAGE->navbar->add($strdeletingcourse);
-    $PAGE->set_title("$site->shortname: $strdeletingcourse");
-    $PAGE->set_heading($site->fullname);
-    echo $OUTPUT->header();
-    echo $OUTPUT->heading($strdeletingcourse);
+    $navlinks[] = array('name' => $stradministration, 'link' => "../$CFG->admin/index.php", 'type' => 'misc');
+    $navlinks[] = array('name' => $strcategories, 'link' => "index.php", 'type' => 'misc');
+    $navlinks[] = array('name' => $category->name, 'link' => "category.php?id=$course->category", 'type' => 'misc');
+    $navlinks[] = array('name' => $strdeletingcourse, 'link' => null, 'type' => 'misc');
+    $navigation = build_navigation($navlinks);
+
+    print_header("$site->shortname: $strdeletingcourse", $site->fullname, $navigation);
+
+    print_heading($strdeletingcourse);
 
     delete_course($course);
     fix_course_sortorder(); //update course count in catagories
 
-    echo $OUTPUT->heading( get_string("deletedcourse", "", $courseshortname) );
+    print_heading( get_string("deletedcourse", "", format_string($course->shortname)) );
 
-    echo $OUTPUT->continue_button("category.php?id=$course->category");
+    print_continue("category.php?id=$course->category");
 
-    echo $OUTPUT->footer();
+    print_footer();
 
-
+?>

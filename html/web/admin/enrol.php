@@ -1,164 +1,144 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+<?PHP  // $Id: enrol.php,v 1.30.4.2 2008/07/26 16:51:11 skodak Exp $
+       // enrol.php - allows admin to edit all enrollment variables
+       //             Yes, enrol is correct English spelling.
 
-/**
- * Enrol config manipulation script.
- *
- * @package    core
- * @subpackage enrol
- * @copyright  2010 Petr Skoda {@link http://skodak.org}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+    require_once('../config.php');
+    require_once($CFG->libdir.'/adminlib.php');
 
-define('NO_OUTPUT_BUFFERING', true);
+    $enrol        = optional_param('enrol', $CFG->enrol, PARAM_SAFEDIR);
+    $savesettings = optional_param('savesettings', 0, PARAM_BOOL);
 
-require_once('../config.php');
-require_once($CFG->libdir.'/adminlib.php');
+    $CFG->pagepath = 'enrol';
 
-$action  = required_param('action', PARAM_ALPHANUMEXT);
-$enrol   = required_param('enrol', PARAM_PLUGIN);
-$confirm = optional_param('confirm', 0, PARAM_BOOL);
-$migrate = optional_param('migrate', 0, PARAM_BOOL);
+    admin_externalpage_setup('enrolment');
 
-$PAGE->set_url('/admin/enrol.php');
-$PAGE->set_context(context_system::instance());
+    if (!isset($CFG->sendcoursewelcomemessage)) {
+        set_config('sendcoursewelcomemessage', 1);
+    }
 
-require_login();
-require_capability('moodle/site:config', context_system::instance());
-require_sesskey();
 
-$enabled = enrol_get_plugins(true);
-$all     = enrol_get_plugins(false);
+    require_once("$CFG->dirroot/enrol/enrol.class.php");   /// Open the factory class
 
-$return = new moodle_url('/admin/settings.php', array('section'=>'manageenrols'));
+/// Save settings
 
-$syscontext = context_system::instance();
-
-switch ($action) {
-    case 'disable':
-        unset($enabled[$enrol]);
-        set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
-        $syscontext->mark_dirty(); // resets all enrol caches
-        break;
-
-    case 'enable':
-        if (!isset($all[$enrol])) {
-            break;
+    if ($frm = data_submitted() and !$savesettings) {
+        if (!confirm_sesskey()) {
+            print_error('confirmsesskeybad', 'error');
         }
-        $enabled = array_keys($enabled);
-        $enabled[] = $enrol;
-        set_config('enrol_plugins_enabled', implode(',', $enabled));
-        $syscontext->mark_dirty(); // resets all enrol caches
-        break;
+        if (empty($frm->enable)) {
+            $frm->enable = array();
+        }
+        if (empty($frm->default)) {
+            $frm->default = '';
+        }
+        if ($frm->default && $frm->default != 'manual' && !in_array($frm->default, $frm->enable)) {
+            $frm->enable[] = $frm->default;
+        }
+        asort($frm->enable);
+        $frm->enable = array_merge(array('manual'), $frm->enable); // make sure manual plugin is called first
+        set_config('enrol_plugins_enabled', implode(',', $frm->enable));
+        set_config('enrol', $frm->default);
+        redirect("enrol.php", get_string("changessaved"), 1);
 
-    case 'up':
-        if (!isset($enabled[$enrol])) {
-            break;
+    } else if ($frm = data_submitted() and $savesettings) {
+        if (!confirm_sesskey()) {
+            print_error('confirmsesskeybad', 'error');
         }
-        $enabled = array_keys($enabled);
-        $enabled = array_flip($enabled);
-        $current = $enabled[$enrol];
-        if ($current == 0) {
-            break; //already at the top
-        }
-        $enabled = array_flip($enabled);
-        $enabled[$current] = $enabled[$current - 1];
-        $enabled[$current - 1] = $enrol;
-        set_config('enrol_plugins_enabled', implode(',', $enabled));
-        break;
+        set_config('sendcoursewelcomemessage', required_param('sendcoursewelcomemessage', PARAM_BOOL));
+    }
 
-    case 'down':
-        if (!isset($enabled[$enrol])) {
-            break;
-        }
-        $enabled = array_keys($enabled);
-        $enabled = array_flip($enabled);
-        $current = $enabled[$enrol];
-        if ($current == count($enabled) - 1) {
-            break; //already at the end
-        }
-        $enabled = array_flip($enabled);
-        $enabled[$current] = $enabled[$current + 1];
-        $enabled[$current + 1] = $enrol;
-        set_config('enrol_plugins_enabled', implode(',', $enabled));
-        break;
+/// Print the form
 
-    case 'uninstall':
-        if (get_string_manager()->string_exists('pluginname', 'enrol_'.$enrol)) {
-            $strplugin = get_string('pluginname', 'enrol_'.$enrol);
-        } else {
-            $strplugin = $enrol;
+    $str = get_strings(array('enrolmentplugins', 'users', 'administration', 'settings', 'edit'));
+
+    admin_externalpage_print_header();
+
+    $modules = get_list_of_plugins("enrol");
+    $options = array();
+    foreach ($modules as $module) {
+        $options[$module] = get_string("enrolname", "enrol_$module");
+    }
+    asort($options);
+
+    print_simple_box(get_string('configenrolmentplugins', 'admin'), 'center', '700');
+
+    echo "<form $CFG->frametarget id=\"enrolmenu\" method=\"post\" action=\"enrol.php\">";
+    echo "<div>";
+    echo "<input type=\"hidden\" name=\"sesskey\" value=\"".$USER->sesskey."\" />";
+
+    $table = new stdClass();
+    $table->head = array(get_string('name'), get_string('enable'), get_string('default'), $str->settings);
+    $table->align = array('left', 'center', 'center', 'center');
+    $table->size = array('60%', '', '', '15%');
+    $table->width = '700';
+    $table->data = array();
+
+    $modules = get_list_of_plugins("enrol");
+    $enabledplugins = explode(',', $CFG->enrol_plugins_enabled);
+    foreach ($modules as $module) {
+
+        // skip if directory is empty
+        if (!file_exists("$CFG->dirroot/enrol/$module/enrol.php")) {
+            continue;
         }
 
-        $PAGE->set_title($strplugin);
-        echo $OUTPUT->header();
-
-        if (!$confirm) {
-            echo $OUTPUT->heading(get_string('enrolments', 'enrol'));
-
-            $deleteurl = new moodle_url('/admin/enrol.php', array('action'=>'uninstall', 'enrol'=>$enrol, 'sesskey'=>sesskey(), 'confirm'=>1, 'migrate'=>0));
-            $migrateurl = new moodle_url('/admin/enrol.php', array('action'=>'uninstall', 'enrol'=>$enrol, 'sesskey'=>sesskey(), 'confirm'=>1, 'migrate'=>1));
-
-            $migrate = new single_button($migrateurl, get_string('uninstallmigrate', 'enrol'));
-            $delete = new single_button($deleteurl, get_string('uninstalldelete', 'enrol'));
-            $cancel = new single_button($return, get_string('cancel'), 'get');
-
-            $buttons = $OUTPUT->render($delete) . $OUTPUT->render($cancel);
-            if ($enrol !== 'manual') {
-                $buttons = $OUTPUT->render($migrate) . $buttons;
+        $name = get_string("enrolname", "enrol_$module");
+        $plugin = enrolment_factory::factory($module);
+        $enable = '<input type="checkbox" name="enable[]" value="'.$module.'"';
+        if (in_array($module, $enabledplugins)) {
+            $enable .= ' checked="checked"';
+        }
+        if ($module == 'manual') {
+            $enable .= ' disabled="disabled"';
+        }
+        $enable .= ' />';
+        if (method_exists($plugin, 'print_entry')) {
+            $default = '<input type="radio" name="default" value="'.$module.'"';
+            if ($CFG->enrol == $module) {
+                $default .= ' checked="checked"';
             }
-
-            echo $OUTPUT->box_start('generalbox', 'notice');
-            echo html_writer::tag('p', markdown_to_html(get_string('uninstallconfirm', 'enrol', $strplugin)));
-            echo html_writer::tag('div', $buttons, array('class' => 'buttons'));
-            echo $OUTPUT->box_end();
-
-            echo $OUTPUT->footer();
-            exit;
-
+            $default .= ' />';
         } else {
-            // This may take a long time.
-            set_time_limit(0);
-
-            // Disable plugin to prevent concurrent cron execution.
-            unset($enabled[$enrol]);
-            set_config('enrol_plugins_enabled', implode(',', array_keys($enabled)));
-
-            if ($migrate) {
-                echo $OUTPUT->heading(get_string('uninstallmigrating', 'enrol', 'enrol_'.$enrol));
-
-                require_once("$CFG->dirroot/enrol/manual/locallib.php");
-                enrol_manual_migrate_plugin_enrolments($enrol);
-
-                echo $OUTPUT->notification(get_string('success'), 'notifysuccess');
-            }
-
-            // Delete everything!!
-            uninstall_plugin('enrol', $enrol);
-            $syscontext->mark_dirty(); // Resets all enrol caches.
-
-            $a = new stdClass();
-            $a->plugin = $strplugin;
-            $a->directory = "$CFG->dirroot/enrol/$enrol";
-            echo $OUTPUT->notification(get_string('uninstalldeletefiles', 'enrol', $a), 'notifysuccess');
-            echo $OUTPUT->continue_button($return);
-            echo $OUTPUT->footer();
-            exit;
+            $default = '';
         }
-}
+        $table->data[$name] = array($name, $enable, $default,
+                                '<a href="enrol_config.php?enrol='.$module.'">'.$str->edit.'</a>');
+    }
+    asort($table->data);
 
+    print_table($table);
 
-redirect($return);
+    echo "<div style=\"text-align:center\"><input type=\"submit\" value=\"".get_string("savechanges")."\" /></div>\n";
+    echo "</div>";
+    echo "</form>";
+
+    echo '<hr />';
+
+    $yesnooptions = array(0=>get_string('no'), 1=>get_string('yes'));
+
+    echo '<form '.$CFG->frametarget.' id="adminsettings" method="post" action="enrol.php">';
+    echo '<div class="settingsform clearfix">';
+    print_heading(get_string('commonsettings', 'admin'));
+    echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
+    echo '<input type="hidden" name="savesettings" value="1" />';
+    echo '<fieldset>';
+    echo '<div class="form-item clearfix" id="admin-sendcoursewelcomemessage">';
+    
+    echo '<div class="form-label"><label for = "menusendcoursewelcomemessage">' . get_string('sendcoursewelcomemessage', 'admin');
+    echo '<span class="form-shortname">sendcoursewelcomemessage</span>';
+    echo '</label></div>';
+    echo '<div class="form-setting"><div class="form-checkbox defaultsnext">';
+    choose_from_menu($yesnooptions, 'sendcoursewelcomemessage', $CFG->sendcoursewelcomemessage, '');
+    echo '</div><div class="form-defaultinfo">'.get_string('defaultsettinginfo', 'admin', get_string('yes')).'</div></div>';
+    echo '<div class="form-description">' . get_string('configsendcoursewelcomemessage', 'admin') . '</div>';
+    echo '</div>';
+
+    echo '</fieldset>';
+
+    echo '<div class="form-buttons"><input class="form-submit" type="submit" value="'.get_string('savechanges', 'admin').'" /></div>';
+    echo '</div>';
+    echo '</form>';
+
+    admin_externalpage_print_footer();
+
+?>

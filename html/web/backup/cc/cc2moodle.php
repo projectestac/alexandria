@@ -30,96 +30,34 @@ require_once($CFG->dirroot . '/backup/cc/entity.quiz.class.php');
 
 class cc2moodle {
 
-    const CC_TYPE_FORUM              = 'imsdt_xmlv1p0';
-    const CC_TYPE_QUIZ               = 'imsqti_xmlv1p2/imscc_xmlv1p0/assessment';
-    const CC_TYPE_QUESTION_BANK      = 'imsqti_xmlv1p2/imscc_xmlv1p0/question-bank';
-    const CC_TYPE_WEBLINK            = 'imswl_xmlv1p0';
-    const CC_TYPE_WEBCONTENT         = 'webcontent';
-    const CC_TYPE_ASSOCIATED_CONTENT = 'associatedcontent/imscc_xmlv1p0/learning-application-resource';
-    const CC_TYPE_EMPTY              = '';
-
-    public static $restypes = array('associatedcontent/imscc_xmlv1p0/learning-application-resource', 'webcontent');
-    public static $forumns  = array('dt' => 'http://www.imsglobal.org/xsd/imsdt_v1p0');
-    public static $quizns   = array('xmlns' => 'http://www.imsglobal.org/xsd/ims_qtiasiv1p2');
-    public static $resourcens = array('wl' => 'http://www.imsglobal.org/xsd/imswl_v1p0');
-    /**
-     *
-     * @return array
-     */
-    public static function getquizns() {
-        return static::$quizns;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public static function getforumns() {
-        return static::$forumns;
-    }
-
-    /**
-     *
-     * @return array
-     */
-    public static function getresourcens() {
-        return static::$resourcens;
-    }
-
-    public static function get_manifest($folder) {
-        if (!is_dir($folder)) {
-            return false;
-        }
-
-        // Before iterate over directories, try to find one manifest at top level
-        if (file_exists($folder . '/imsmanifest.xml')) {
-            return $folder . '/imsmanifest.xml';
-        }
-
-        $result = false;
-        try {
-            $dirIter = new RecursiveDirectoryIterator($folder, RecursiveDirectoryIterator::KEY_AS_PATHNAME);
-            $recIter = new RecursiveIteratorIterator($dirIter, RecursiveIteratorIterator::CHILD_FIRST);
-            foreach ($recIter as $info) {
-                if ($info->isFile() && ($info->getFilename() == 'imsmanifest.xml')) {
-                    $result = $info->getPathname();
-                    break;
-                }
-            }
-        } catch (Exception $e) {}
-
-        return $result;
-    }
-
     public static $instances = array();
     public static $manifest;
     public static $path_to_manifest_folder;
 
-    public static $namespaces = array('imscc'    => 'http://www.imsglobal.org/xsd/imscc/imscp_v1p1',
+    public static $namespaces = array('imscc' => 'http://www.imsglobal.org/xsd/imscc/imscp_v1p1',
                                       'lomimscc' => 'http://ltsc.ieee.org/xsd/imscc/LOM',
-                                      'lom'      => 'http://ltsc.ieee.org/xsd/LOM',
-                                      'voc'      => 'http://ltsc.ieee.org/xsd/LOM/vocab',
-                                      'xsi'      => 'http://www.w3.org/2001/XMLSchema-instance',
-                                      'cc'       => 'http://www.imsglobal.org/xsd/imsccauth_v1p0');
+                                      'lom' => 'http://ltsc.ieee.org/xsd/LOM',
+                                      'voc' => 'http://ltsc.ieee.org/xsd/LOM/vocab',
+                                      'xsi' => 'http://www.w3.org/2001/XMLSchema-instance',
+                                      'cc' => 'http://www.imsglobal.org/xsd/imsccauth_v1p0');
 
     function __construct ($path_to_manifest) {
 
-        static::$manifest = new DOMDocument();
-        static::$manifest->validateOnParse = false;
+        self::$manifest = new DOMDocument();
 
-        static::$path_to_manifest_folder = dirname($path_to_manifest);
+        self::$path_to_manifest_folder = dirname($path_to_manifest);
 
-        static::log_action('Proccess start');
-        static::log_action('Load the manifest file: ' . $path_to_manifest);
+        self::log_action('Proccess start');
+        self::log_action('Load the manifest file: ' . $path_to_manifest);
 
-        if (!static::$manifest->load($path_to_manifest, LIBXML_NONET)) {
-            static::log_action('Cannot load the manifest file: ' . $path_to_manifest, true);
+        if (!self::$manifest->load($path_to_manifest)) {
+            self::log_action('Cannot load the manifest file: ' . $path_to_manifest, true);
         }
     }
 
     public function is_auth () {
 
-        $xpath = static::newx_path(static::$manifest, static::$namespaces);
+        $xpath = self::newx_path(self::$manifest, self::$namespaces);
 
         $count_auth = $xpath->evaluate('count(/imscc:manifest/cc:authorizations)');
 
@@ -132,9 +70,9 @@ class cc2moodle {
         return $response;
     }
 
-    protected function get_metadata ($section, $key) {
+    private function get_metadata ($section, $key) {
 
-        $xpath = static::newx_path(static::$manifest, static::$namespaces);
+        $xpath = self::newx_path(self::$manifest, self::$namespaces);
 
         $metadata = $xpath->query('/imscc:manifest/imscc:metadata/lomimscc:lom/lomimscc:' . $section . '/lomimscc:' . $key . '/lomimscc:string');
         $value = !empty($metadata->item(0)->nodeValue) ? $metadata->item(0)->nodeValue : '';
@@ -146,13 +84,9 @@ class cc2moodle {
 
         global $CFG;
 
-        $cdir = static::$path_to_manifest_folder . DIRECTORY_SEPARATOR . 'course_files';
+        mkdir(self::$path_to_manifest_folder . DIRECTORY_SEPARATOR . 'course_files');
 
-        if (!file_exists($cdir)) {
-            mkdir($cdir);
-        }
-
-        $sheet_base = static::loadsheet(SHEET_BASE);
+        $sheet_base = self::loadsheet(SHEET_BASE);
 
         // MOODLE_BACKUP / INFO / DETAILS / MOD
         $node_info_details_mod = $this->create_code_info_details_mod();
@@ -173,7 +107,7 @@ class cc2moodle {
         $node_course_header = $this->create_node_course_header();
 
         // GENERAL INFO
-        $filename = optional_param('file', 'not_available.zip', PARAM_RAW);
+        $filename = optional_param('file', 'not_available.zip');
         $filename = basename($filename);
 
         $www_root = $CFG->wwwroot;
@@ -205,8 +139,8 @@ class cc2moodle {
 
         if (array_key_exists("index", self::$instances)) {
 
-            if (!file_put_contents(static::$path_to_manifest_folder . DIRECTORY_SEPARATOR . 'moodle.xml', $result_xml)) {
-                static::log_action('Cannot save the moodle manifest file: ' . static::$path_to_tmp_folder . DIRECTORY_SEPARATOR . 'moodle.xml', true);
+            if (!file_put_contents(self::$path_to_manifest_folder . DIRECTORY_SEPARATOR . 'moodle.xml', $result_xml)) {
+                self::log_action('Cannot save the moodle manifest file: ' . self::$path_to_tmp_folder . DIRECTORY_SEPARATOR . 'moodle.xml', true);
             } else {
                 $status = true;
             }
@@ -214,14 +148,14 @@ class cc2moodle {
         } else {
             $status = false;
             notify('The course is empty');
-            static::log_action('The course is empty', false);
+            self::log_action('The course is empty', false);
         }
 
         return $status;
 
     }
 
-    protected function get_sections_numbers ($instances) {
+    private function get_sections_numbers ($instances) {
 
         $count = 0;
 
@@ -236,15 +170,13 @@ class cc2moodle {
         return $count;
     }
 
-    protected function create_node_course_header () {
+    private function create_node_course_header () {
 
         $node_course_header = '';
-        $sheet_course_header = static::loadsheet(SHEET_COURSE_HEADER);
+        $sheet_course_header = self::loadsheet(SHEET_COURSE_HEADER);
 
-        $course_title = trim($this->get_metadata('general', 'title'));
-        $course_title = empty($course_title) ? 'Untitled Course' : $course_title;
-        $course_description = $this->get_metadata('general', 'description');
-        $section_count = $this->get_sections_numbers(static::$instances) - 1;
+        $course_title = $this->get_metadata('general', 'title');
+        $section_count = $this->get_sections_numbers(self::$instances) - 1;
 
         if ($section_count == -1) {
             $section_count = 0;
@@ -258,13 +190,11 @@ class cc2moodle {
 
         $find_tags = array('[#course_name#]',
                            '[#course_short_name#]',
-                           '[#course_description#]',
                            '[#date_now#]',
                            '[#section_count#]');
 
-        $replace_values = array(entities::safexml($course_title),
-                                entities::safexml($course_short_name),
-                                entities::safexml($course_description),
+        $replace_values = array($course_title,
+                                $course_short_name,
                                 time(),
                                 $section_count);
 
@@ -273,25 +203,25 @@ class cc2moodle {
         return $node_course_header;
     }
 
-    protected function create_node_question_categories () {
+    private function create_node_question_categories () {
 
-        $quiz = new cc_quiz();
+        $quiz = new quiz();
 
-        static::log_action('Creating node: QUESTION_CATEGORIES');
+        self::log_action('Creating node: QUESTION_CATEGORIES');
 
         $node_course_question_categories = $quiz->generate_node_question_categories();
 
         return $node_course_question_categories;
     }
 
-    protected function create_node_course_modules_mod () {
+    private function create_node_course_modules_mod () {
 
-        $labels = new cc_label();
-        $resources = new cc_resource();
-        $forums = new cc_forum();
-        $quiz = new cc_quiz();
+        $labels = new label();
+        $resources = new resource();
+        $forums = new forum();
+        $quiz = new quiz();
 
-        static::log_action('Creating node: COURSE/MODULES/MOD');
+        self::log_action('Creating node: COURSE/MODULES/MOD');
 
         // LABELS
         $node_course_modules_mod_label = $labels->generate_node();
@@ -304,19 +234,18 @@ class cc2moodle {
 
         // QUIZ
         $node_course_modules_mod_quiz = $quiz->generate_node_course_modules_mod();
-        //TODO: label
         $node_course_modules = $node_course_modules_mod_label . $node_course_modules_mod_resource . $node_course_modules_mod_forum . $node_course_modules_mod_quiz;
 
         return $node_course_modules;
     }
 
 
-    protected function create_node_course_sections_section () {
+    private function create_node_course_sections_section () {
 
-        static::log_action('Creating node: COURSE/SECTIONS/SECTION');
+        self::log_action('Creating node: COURSE/SECTIONS/SECTION');
 
         $node_course_sections_section = '';
-        $sheet_course_sections_section = static::loadsheet(SHEET_COURSE_SECTIONS_SECTION);
+        $sheet_course_sections_section = self::loadsheet(SHEET_COURSE_SECTIONS_SECTION);
 
         $topics = $this->get_nodes_by_criteria('deep', ROOT_DEEP);
 
@@ -363,13 +292,13 @@ class cc2moodle {
         return $node_course_sections_section;
     }
 
-    protected function create_node_course_blocks_block () {
+    private function create_node_course_blocks_block () {
 
         global $CFG;
 
-        static::log_action('Creating node: COURSE/BLOCKS/BLOCK');
+        self::log_action('Creating node: COURSE/BLOCKS/BLOCK');
 
-        $sheet_course_blocks_block = static::loadsheet(SHEET_COURSE_BLOCKS_BLOCK);
+        $sheet_course_blocks_block = self::loadsheet(SHEET_COURSE_BLOCKS_BLOCK);
         $node_course_blocks_block = '';
 
         $format_config = $CFG->dirroot . '/course/format/weeks/config.php';
@@ -384,7 +313,7 @@ class cc2moodle {
             if (!empty($CFG->defaultblocks)) {
                 $blocknames = $CFG->defaultblocks;
             } else {
-                $blocknames = 'participants,activity_modules,search_forums,course_list:news_items,calendar_upcoming,recent_activity';
+                $blocknames = 'participants,activity_modules,search_forums,admin,course_list:news_items,calendar_upcoming,recent_activity';
             }
         }
 
@@ -431,33 +360,9 @@ class cc2moodle {
 
     }
 
-    /**
-    *
-    * Is activity visible or not
-    * @param string $identifier
-    * @return number
-    */
-    protected function get_module_visible($identifier) {
-        //Should item be hidden or not
-        $mod_visible = 1;
-        if (!empty($identifier)) {
-            $xpath = static::newx_path(static::$manifest, static::$namespaces);
-            $query  = '/imscc:manifest/imscc:resources/imscc:resource[@identifier="' . $identifier . '"]';
-            $query .= '//lom:intendedEndUserRole/voc:vocabulary/lom:value';
-            $intendeduserrole = $xpath->query($query);
-            if (!empty($intendeduserrole) && ($intendeduserrole->length > 0)) {
-                $role = trim($intendeduserrole->item(0)->nodeValue);
-                if (strcasecmp('Instructor', $role) == 0) {
-                    $mod_visible = 0;
-                }
-            }
-        }
-        return $mod_visible;
-    }
+    private function create_node_course_sections_section_mods_mod ($root_parent) {
 
-    protected function create_node_course_sections_section_mods_mod ($root_parent) {
-
-        $sheet_course_sections_section_mods_mod = static::loadsheet(SHEET_COURSE_SECTIONS_SECTION_MODS_MOD);
+        $sheet_course_sections_section_mods_mod = self::loadsheet(SHEET_COURSE_SECTIONS_SECTION_MODS_MOD);
         $childs = $this->get_nodes_by_criteria('root_parent', $root_parent);
 
         if ($childs) {
@@ -488,15 +393,13 @@ class cc2moodle {
                                        '[#mod_instance_id#]',
                                        '[#mod_type#]',
                                        '[#date_now#]',
-                                       '[#mod_indent#]',
-                                       '[#mod_visible#]');
+                                       '[#mod_indent#]');
 
                     $replace_values = array($child['index'],
                                             $child['instance'],
                                             $child['moodle_type'],
                                             time(),
-                                            $indent,
-                                            $this->get_module_visible($child['resource_indentifier']));
+                                            $indent);
 
                     $node_course_sections_section_mods_mod .= str_replace($find_tags, $replace_values, $sheet_course_sections_section_mods_mod);
                 }
@@ -516,8 +419,8 @@ class cc2moodle {
 
         $response = array();
 
-        if (array_key_exists('index', static::$instances)) {
-            foreach (static::$instances['index'] as $item) {
+        if (array_key_exists('index', self::$instances)) {
+            foreach (self::$instances['index'] as $item) {
                 if ($item[$key] == $value) {
                     $response[] = $item;
                 }
@@ -527,14 +430,13 @@ class cc2moodle {
         return $response;
     }
 
-    //Modified here
-    protected function create_code_info_details_mod () {
+    private function create_code_info_details_mod () {
 
-        static::log_action('Creating node: INFO/DETAILS/MOD');
+        self::log_action('Creating node: INFO/DETAILS/MOD');
 
-        $xpath = static::newx_path(static::$manifest, static::$namespaces);
+        $xpath = self::newx_path(self::$manifest, self::$namespaces);
 
-        $items = $xpath->query('/imscc:manifest/imscc:organizations/imscc:organization/imscc:item | /imscc:manifest/imscc:resources/imscc:resource[@type="' . static::CC_TYPE_QUESTION_BANK . '"]');
+        $items = $xpath->query('/imscc:manifest/imscc:organizations/imscc:organization/imscc:item | /imscc:manifest/imscc:resources/imscc:resource[@type="' . CC_TYPE_QUESTION_BANK . '"]');
 
         $this->create_instances($items);
 
@@ -543,19 +445,19 @@ class cc2moodle {
         $count_resource = $this->count_instances(MOODLE_TYPE_RESOURCE);
         $count_label = $this->count_instances(MOODLE_TYPE_LABEL);
 
-        $sheet_info_details_mod_instances_instance = static::loadsheet(SHEET_INFO_DETAILS_MOD_INSTANCE);
+        $sheet_info_details_mod_instances_instance = self::loadsheet(SHEET_INFO_DETAILS_MOD_INSTANCE);
 
         if ($count_resource > 0) {
-            $resource_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_resource, static::$instances['instances'][MOODLE_TYPE_RESOURCE]);
+            $resource_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_resource, self::$instances['instances'][MOODLE_TYPE_RESOURCE]);
         }
         if ($count_quiz > 0) {
-            $quiz_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_quiz, static::$instances['instances'][MOODLE_TYPE_QUIZ]);
+            $quiz_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_quiz, self::$instances['instances'][MOODLE_TYPE_QUIZ]);
         }
         if ($count_forum > 0) {
-            $forum_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_forum, static::$instances['instances'][MOODLE_TYPE_FORUM]);
+            $forum_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_forum, self::$instances['instances'][MOODLE_TYPE_FORUM]);
         }
         if ($count_label > 0) {
-            $label_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_label, static::$instances['instances'][MOODLE_TYPE_LABEL]);
+            $label_instance = $this->create_mod_info_details_mod_instances_instance($sheet_info_details_mod_instances_instance, $count_label, self::$instances['instances'][MOODLE_TYPE_LABEL]);
         }
 
         $resource_mod = $count_resource ? $this->create_mod_info_details_mod(MOODLE_TYPE_RESOURCE, $resource_instance) : '';
@@ -563,14 +465,13 @@ class cc2moodle {
         $forum_mod = $count_forum ? $this->create_mod_info_details_mod(MOODLE_TYPE_FORUM, $forum_instance) : '';
         $label_mod = $count_label ? $this->create_mod_info_details_mod(MOODLE_TYPE_LABEL, $label_instance) : '';
 
-        //TODO: label
         return $label_mod . $resource_mod . $quiz_mod . $forum_mod;
 
     }
 
-    protected function create_mod_info_details_mod ($mod_type, $node_info_details_mod_instances_instance) {
+    private function create_mod_info_details_mod ($mod_type, $node_info_details_mod_instances_instance) {
 
-        $sheet_info_details_mod = static::loadsheet(SHEET_INFO_DETAILS_MOD);
+        $sheet_info_details_mod = self::loadsheet(SHEET_INFO_DETAILS_MOD);
 
         $find_tags = array('[#mod_type#]' ,'[#node_info_details_mod_instances_instance#]');
         $replace_values = array($mod_type , $node_info_details_mod_instances_instance);
@@ -578,7 +479,7 @@ class cc2moodle {
         return str_replace($find_tags, $replace_values, $sheet_info_details_mod);
     }
 
-    protected function create_mod_info_details_mod_instances_instance ($sheet, $instances_quantity, $instances) {
+    private function create_mod_info_details_mod_instances_instance ($sheet, $instances_quantity, $instances) {
 
         $instance = '';
 
@@ -588,15 +489,10 @@ class cc2moodle {
 
         for ($i = 1; $i <= $instances_quantity; $i++) {
 
-            $user_info = ($instances[$i - 1]['common_cartriedge_type'] == static::CC_TYPE_FORUM) ? 'true' : 'false';
-            if ($instances[$i - 1]['common_cartriedge_type'] == static::CC_TYPE_EMPTY) {
-                if ($instances[$i - 1]['deep'] <= ROOT_DEEP ) {
-                    continue;
-                }
-            }
+            $user_info = ($instances[$i - 1]['common_cartriedge_type'] == CC_TYPE_FORUM) ? 'true' : 'false';
 
             $replace_values = array($instances[$i - 1]['instance'],
-                                    entities::safexml($instances[$i - 1]['title']),
+                                    $instances[$i - 1]['title'],
                                     $user_info);
 
             $instance .= str_replace($find_tags, $replace_values, $sheet);
@@ -606,37 +502,30 @@ class cc2moodle {
 
     }
 
-    protected function create_instances ($items, $level = 0, &$array_index = 0, $index_root = 0) {
+    private function create_instances ($items, $level = 0, &$array_index = 0, $index_root = 0) {
 
         $level++;
         $i = 1;
 
         if ($items) {
 
-            $xpath = self::newx_path(static::$manifest, static::$namespaces);
+            $xpath = self::newx_path(self::$manifest, self::$namespaces);
 
             foreach ($items as $item) {
 
                 $array_index++;
 
-                if ($item->nodeName == "item")  {
-                    $identifierref = '';
-                    if ($item->hasAttribute('identifierref')) {
-                      $identifierref = $item->getAttribute('identifierref');
-                    }
+                if ($item->nodeName == "item") {
 
-                    $title = '';
-                    $titles = $xpath->query('imscc:title', $item);
-                    if ($titles->length > 0) {
-                        $title = $titles->item(0)->nodeValue;
-                    }
+                    $identifierref = $xpath->query('@identifierref', $item);
+                    $identifierref = !empty($identifierref->item(0)->nodeValue) ? $identifierref->item(0)->nodeValue : '';
+
+                    $title = $xpath->query('imscc:title', $item);
+                    $title = !empty($title->item(0)->nodeValue) ? $title->item(0)->nodeValue : '';
 
                     $cc_type = $this->get_item_cc_type($identifierref);
                     $moodle_type = $this->convert_to_moodle_type($cc_type);
-                    //Fix the label issue - MDL-33523
-                    if (empty($identifierref) && empty($title)) {
-                      $moodle_type = TYPE_UNKNOWN;
-                    }
+
                 }
                 elseif ($item->nodeName == "resource")  {
 
@@ -654,20 +543,18 @@ class cc2moodle {
                     $index_root = $array_index;
                 }
 
-                static::$instances['index'][$array_index]['common_cartriedge_type'] = $cc_type;
-                static::$instances['index'][$array_index]['moodle_type'] = $moodle_type;
-                static::$instances['index'][$array_index]['title'] = $title ? $title : '';
-                static::$instances['index'][$array_index]['root_parent'] = $index_root;
-                static::$instances['index'][$array_index]['index'] = $array_index;
-                static::$instances['index'][$array_index]['deep'] = $level;
-                static::$instances['index'][$array_index]['instance'] = $this->count_instances($moodle_type);
-                static::$instances['index'][$array_index]['resource_indentifier'] = $identifierref;
+                self::$instances['index'][$array_index]['common_cartriedge_type'] = $cc_type;
+                self::$instances['index'][$array_index]['moodle_type'] = $moodle_type;
+                self::$instances['index'][$array_index]['title'] = $title ? $title : '';
+                self::$instances['index'][$array_index]['root_parent'] = $index_root;
+                self::$instances['index'][$array_index]['index'] = $array_index;
+                self::$instances['index'][$array_index]['deep'] = $level;
+                self::$instances['index'][$array_index]['instance'] = $this->count_instances($moodle_type);
+                self::$instances['index'][$array_index]['resource_indentifier'] = $identifierref;
 
-                static::$instances['instances'][$moodle_type][] = array('title' => $title,
-                                                                        'instance' => static::$instances['index'][$array_index]['instance'],
-                                                                        'common_cartriedge_type' => $cc_type,
-                                                                        'resource_indentifier' => $identifierref,
-                                                                        'deep' => $level);
+                self::$instances['instances'][$moodle_type][] = array('title' => $title,
+                        'instance' => self::$instances['index'][$array_index]['instance'],
+                        'common_cartriedge_type' => $cc_type , 'resource_indentifier' => $identifierref);
 
                 $more_items = $xpath->query('imscc:item', $item);
 
@@ -685,10 +572,10 @@ class cc2moodle {
 
         $quantity = 0;
 
-        if (array_key_exists('index', static::$instances)) {
-            if (static::$instances['index'] && $type) {
+        if (array_key_exists('index', self::$instances)) {
+            if (self::$instances['index'] && $type) {
 
-                foreach (static::$instances['index'] as $instance) {
+                foreach (self::$instances['index'] as $instance) {
                     if (!empty($instance['moodle_type'])) {
                         $types[] = $instance['moodle_type'];
                     }
@@ -703,42 +590,37 @@ class cc2moodle {
     }
 
     public function convert_to_moodle_type ($cc_type) {
-        $type = TYPE_UNKNOWN;
 
-        if ($cc_type == static::CC_TYPE_FORUM) {
+        if ($cc_type == CC_TYPE_FORUM) {
             $type = MOODLE_TYPE_FORUM;
         }
-
-        if ($cc_type == static::CC_TYPE_QUIZ) {
+        if ($cc_type == CC_TYPE_QUIZ) {
             $type = MOODLE_TYPE_QUIZ;
         }
-
-        if ($cc_type == static::CC_TYPE_WEBLINK) {
+        if ($cc_type == CC_TYPE_WEBLINK) {
             $type = MOODLE_TYPE_RESOURCE;
         }
-
-        if ($cc_type == static::CC_TYPE_WEBCONTENT) {
+        if ($cc_type == CC_TYPE_WEBCONTENT) {
             $type = MOODLE_TYPE_RESOURCE;
         }
-
-        if ($cc_type == static::CC_TYPE_ASSOCIATED_CONTENT) {
+        if ($cc_type == CC_TYPE_ASSOCIATED_CONTENT) {
             $type = MOODLE_TYPE_RESOURCE;
         }
-
-        if ($cc_type == static::CC_TYPE_QUESTION_BANK) {
+        if ($cc_type == CC_TYPE_QUESTION_BANK) {
             $type = MOODLE_TYPE_QUESTION_BANK;
         }
-        //TODO: label
-        if ($cc_type == static::CC_TYPE_EMPTY) {
+        if ($cc_type == CC_TYPE_EMPTY) {
             $type = MOODLE_TYPE_LABEL;
         }
+
+        $type = empty($type) ? TYPE_UNKNOWN : $type;
 
         return $type;
     }
 
     public function get_item_cc_type ($identifier) {
 
-        $xpath = static::newx_path(static::$manifest, static::$namespaces);
+        $xpath = self::newx_path(self::$manifest, self::$namespaces);
 
         $nodes = $xpath->query('/imscc:manifest/imscc:resources/imscc:resource[@identifier="' . $identifier . '"]/@type');
 
@@ -756,7 +638,7 @@ class cc2moodle {
         if (!empty($namespaces)) {
             foreach ($namespaces as $prefix => $ns) {
                 if (!$xpath->registerNamespace($prefix, $ns)) {
-                    static::log_action('Cannot register the namespace: ' . $prefix . ':' . $ns, true);
+                    self::log_action('Cannot register the namespace: ' . $prefix . ':' . $ns, true);
                 }
             }
         }
@@ -768,35 +650,32 @@ class cc2moodle {
 
         $content = (is_readable($file) && ($content = file_get_contents($file))) ? $content : false;
 
-        static::log_action('Loading sheet: ' . $file);
+        self::log_action('Loading sheet: ' . $file);
 
         if (!$content) {
-            static::log_action('Cannot load the xml sheet: ' . $file, true);
+            self::log_action('Cannot load the xml sheet: ' . $file, true);
         }
 
-        static::log_action('Load OK!');
+        self::log_action('Load OK!');
 
         return $content;
     }
 
-    public static function log_file() {
-        return static::$path_to_manifest_folder . DIRECTORY_SEPARATOR . 'cc2moodle.log';
-    }
-
     public static function log_action ($text, $critical_error = false) {
 
+        $filename = cc2moodle::$path_to_manifest_folder . DIRECTORY_SEPARATOR . 'cc2moodle.log';
         $full_message = strtoupper(date("j/n/Y g:i:s a")) . " - " . $text . "\r";
 
-        file_put_contents(static::log_file(), $full_message, FILE_APPEND);
+        file_put_contents($filename, $full_message, FILE_APPEND);
 
         if ($critical_error) {
-            static::critical_error($text);
+            self::critical_error($text);
         }
     }
 
-    protected function critical_error ($text) {
+    private function critical_error ($text) {
 
-        $path_to_log = static::log_file();
+        $path_to_log = cc2moodle::$path_to_manifest_folder . '/cc2moodle.log';
 
         echo '
 
@@ -819,10 +698,17 @@ class cc2moodle {
         die();
     }
 
-    protected function create_course_code ($title) {
-        //Making sure that text of the short name does not go over the DB limit.
-        //and leaving the space to add additional characters by the platform
-        $code = substr(strtoupper(str_replace(' ', '', trim($title))),0,94);
+    private function create_course_code ($title) {
+
+        $code = '';
+        $words = explode(' ', $title);
+
+        foreach ($words as $word) {
+            $code .= $word[0];
+        }
+
+        $code = strtoupper($code . '-1');
         return $code;
     }
 }
+?>

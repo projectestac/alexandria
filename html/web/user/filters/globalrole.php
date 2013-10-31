@@ -1,4 +1,4 @@
-<?php
+<?php //$Id: globalrole.php,v 1.1.2.3 2008/02/08 12:14:39 poltawski Exp $
 
 require_once($CFG->dirroot.'/user/filters/lib.php');
 
@@ -22,7 +22,7 @@ class user_filter_globalrole extends user_filter_type {
      * @return array of availble roles
      */
     function get_roles() {
-        $context = context_system::instance();
+        $context = get_context_instance(CONTEXT_SYSTEM);
         $roles = array(0=> get_string('anyrole','filters')) + get_assignable_roles($context);
         return $roles;
     }
@@ -33,6 +33,7 @@ class user_filter_globalrole extends user_filter_type {
      */
     function setupForm(&$mform) {
         $obj =& $mform->addElement('select', $this->_name, $this->_label, $this->get_roles());
+        $obj->setHelpButton(array('globalrole', $this->_label, 'filters'));
         $mform->setDefault($this->_name, 0);
         if ($this->_advanced) {
             $mform->setAdvanced($this->_name);
@@ -56,18 +57,18 @@ class user_filter_globalrole extends user_filter_type {
     /**
      * Returns the condition to be used with SQL where
      * @param array $data filter settings
-     * @return array sql string and $params
+     * @return string the filtering condition or null if the filter is disabled
      */
     function get_sql_filter($data) {
         global $CFG;
-        $value = (int)$data['value'];
+        $value = $data['value'];
 
         $timenow = round(time(), 100);
 
-        $sql = "id IN (SELECT userid
-                         FROM {role_assignments} a
-                        WHERE a.contextid=".SYSCONTEXTID." AND a.roleid=$value)";
-        return array($sql, array());
+        return "id IN (SELECT userid
+                         FROM {$CFG->prefix}role_assignments a
+                        WHERE a.contextid=".SYSCONTEXTID." AND a.roleid=$value AND a.timestart<$timenow
+                              AND (a.timeend=0 OR a.timeend>$timenow))";
     }
 
     /**
@@ -76,11 +77,9 @@ class user_filter_globalrole extends user_filter_type {
      * @return string active filter label
      */
     function get_label($data) {
-        global $DB;
+        $rolename = get_field('role', 'name', 'id', $data['value']);
 
-        $rolename = $DB->get_field('role', 'name', array('id'=>$data['value']));
-
-        $a = new stdClass();
+        $a = new object();
         $a->label = $this->_label;
         $a->value = '"'.format_string($rolename).'"';
 

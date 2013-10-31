@@ -1,33 +1,10 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-
-/**
- * @package    core_tag
- * @category   tag
- * @copyright  2007 Luiz Cruz <luiz.laydner@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+ <?php // $Id: edit.php,v 1.5.2.21 2011/01/19 13:31:50 moodlerobot Exp $
 
 require_once('../config.php');
 require_once('lib.php');
 require_once('edit_form.php');
 
-$tag_id = optional_param('id', 0, PARAM_INT);
-$tag_name = optional_param('tag', '', PARAM_TAG);
+require_js(array('yui_dom-event', 'yui_connection', 'yui_animation', 'yui_datasource', 'yui_autocomplete'));
 
 require_login();
 
@@ -35,9 +12,8 @@ if (empty($CFG->usetags)) {
     print_error('tagsaredisabled', 'tag');
 }
 
-//Editing a tag requires moodle/tag:edit capability
-$systemcontext   = context_system::instance();
-require_capability('moodle/tag:edit', $systemcontext);
+$tag_id = optional_param('id', 0, PARAM_INT);
+$tag_name = optional_param('tag', '', PARAM_TAG);
 
 if ($tag_name) {
     $tag = tag_get('name', $tag_name, '*');
@@ -49,19 +25,17 @@ if (empty($tag)) {
     redirect($CFG->wwwroot.'/tag/search.php');
 }
 
-$PAGE->set_url('/tag/index.php', array('id' => $tag->id));
-$PAGE->set_subpage($tag->id);
-$PAGE->set_context($systemcontext);
-$PAGE->set_blocks_editing_capability('moodle/tag:editblocks');
-$PAGE->set_pagelayout('base');
-
 $tagname = tag_display_name($tag);
+
+//Editing a tag requires moodle/tag:edit capability
+$systemcontext   = get_context_instance(CONTEXT_SYSTEM);
+require_capability('moodle/tag:edit', $systemcontext);
 
 // set the relatedtags field of the $tag object that will be passed to the form
 $tag->relatedtags = tag_get_related_tags_csv(tag_get_related_tags($tag->id, TAG_RELATED_MANUAL), TAG_RETURN_TEXT);
 
 if (can_use_html_editor()) {
-    $options = new stdClass();
+    $options = new object();
     $options->smiley = false;
     $options->filter = false;
 
@@ -72,25 +46,18 @@ if (can_use_html_editor()) {
 
 $errorstring = '';
 
-$editoroptions = array(
-    'maxfiles'  => EDITOR_UNLIMITED_FILES,
-    'maxbytes'  => $CFG->maxbytes,
-    'trusttext' => false,
-    'context'   => $systemcontext
-);
-$tag = file_prepare_standard_editor($tag, 'description', $editoroptions, $systemcontext, 'tag', 'description', $tag->id);
-
-$tagform = new tag_edit_form(null, compact('editoroptions'));
+$tagform = new tag_edit_form();
 if ( $tag->tagtype == 'official' ) {
     $tag->tagtype = '1';
 } else {
     $tag->tagtype = '0';
 }
-
 $tagform->set_data($tag);
 
 // If new data has been sent, update the tag record
 if ($tagnew = $tagform->get_data()) {
+
+    tag_description_set($tag_id, stripslashes($tagnew->description), $tagnew->descriptionformat);
 
     if (has_capability('moodle/tag:manage', $systemcontext)) {
         if (($tag->tagtype != 'default') && (!isset($tagnew->tagtype) || ($tagnew->tagtype != '1'))) {
@@ -106,8 +73,7 @@ if ($tagnew = $tagform->get_data()) {
         unset($tagnew->rawname);
 
     } else {  // They might be trying to change the rawname, make sure it's a change that doesn't affect name
-        $norm = tag_normalize($tagnew->rawname, TAG_CASE_LOWER);
-        $tagnew->name = array_shift($norm);
+        $tagnew->name = array_shift(tag_normalize($tagnew->rawname, TAG_CASE_LOWER));
 
         if ($tag->name != $tagnew->name) {  // The name has changed, let's make sure it's not another existing tag
             if (tag_get_id($tagnew->name)) {   // Something exists already, so flag an error
@@ -118,16 +84,12 @@ if ($tagnew = $tagform->get_data()) {
 
     if (empty($errorstring)) {    // All is OK, let's save it
 
-        $tagnew = file_postupdate_standard_editor($tagnew, 'description', $editoroptions, $systemcontext, 'tag', 'description', $tag->id);
-
-        tag_description_set($tag_id, $tagnew->description, $tagnew->descriptionformat);
-
         $tagnew->timemodified = time();
 
         if (has_capability('moodle/tag:manage', $systemcontext)) {
             // rename tag
             if(!tag_rename($tag->id, $tagnew->rawname)) {
-                print_error('errorupdatingrecord', 'tag');
+                error('Error updating tag record');
             }
         }
 
@@ -149,22 +111,46 @@ if ($tagnew = $tagform->get_data()) {
     }
 }
 
-$PAGE->navbar->add(get_string('tags', 'tag'), new moodle_url('/tag/search.php'));
-$PAGE->navbar->add($tagname);
-$PAGE->navbar->add(get_string('edit'));
-$PAGE->set_title(get_string('tag', 'tag') . ' - '. $tagname);
-$PAGE->set_heading($COURSE->fullname);
-echo $OUTPUT->header();
-echo $OUTPUT->heading($tagname, 2);
+
+$navlinks = array();
+$navlinks[] = array('name' => get_string('tags', 'tag'), 'link' => "{$CFG->wwwroot}/tag/search.php", 'type' => '');
+$navlinks[] = array('name' => $tagname, 'link' => '', 'type' => '');
+
+$navigation = build_navigation($navlinks);
+print_header_simple(get_string('tag', 'tag') . ' - '. $tagname, '', $navigation);
+
+print_heading($tagname, '', 2);
 
 if (!empty($errorstring)) {
-    echo $OUTPUT->notification($errorstring);
+    notify($errorstring);
 }
 
 $tagform->display();
 
 if (ajaxenabled()) {
-    $PAGE->requires->js('/tag/tag.js');
-    $PAGE->requires->js_function_call('init_tag_autocomplete', null, true);
+?>
+
+<script type="text/javascript">
+
+// An XHR DataSource
+var myDataSource = new YAHOO.util.XHRDataSource("./tag_autocomplete.php");
+myDataSource.responseType = YAHOO.util.XHRDataSource.TYPE_TEXT;
+myDataSource.responseSchema = {recordDelim: "\n", fieldDelim: "\t"};
+myDataSource.maxCacheEntries = 60;
+myDataSource.queryMatchSubset = true;
+
+var myAutoComp = new YAHOO.widget.AutoComplete("id_relatedtags","relatedtags-autocomplete", myDataSource);
+myAutoComp.delimChar = ",";
+myAutoComp.maxResultsDisplayed = 20;
+myAutoComp.minQueryLength = 2;
+myAutoComp.allowBrowserAutocomplete = false;
+myAutoComp.formatResult = function(aResultItem, sQuery) {
+    return aResultItem[1];
 }
-echo $OUTPUT->footer();
+</script>
+
+<?php
+}
+print_footer();
+
+?>
