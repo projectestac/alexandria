@@ -160,17 +160,17 @@ class data_field_file extends data_field_base {
 		$str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
 		if (!empty($this->field->param5)) {
 			 $str .= '<div id="text">
-                                <script>show_preview_button(\'[[Fitxer]]\');</script>
+                                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',true);</script>
                         </div>';
 			$str .= '<div id="image" style="display: none;">
-				<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0"></iframe>
+				<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>
 				<br />
 				<img src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" title="Previsualitza" />
 				 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
 			</div>';
 		} else {
 			$str .= '<div id="text">
-				<script>show_preview_button(\'[[pdf]]\');</script>
+				<script>show_preview_button(\'[[pdf]]\',false);</script>
 			</div>';
 			$str .= '<div id="image" style="display: none;">
 				<iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe> 
@@ -199,36 +199,6 @@ class data_field_file extends data_field_base {
             $content = $DB->get_record('data_content', array('id'=>$id));
         }
 
-        // delete existing files
-        $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
-
-        $usercontext = context_user::instance($USER->id);
-        $files = $fs->get_area_files($usercontext->id, 'user', 'draft', $value, 'timecreated DESC');
-
-        if (count($files)<2) {
-            // no file
-        } else {
-            foreach ($files as $draftfile) {
-                if (!$draftfile->is_directory()) {
-                    $file_record = array(
-                        'contextid' => $this->context->id,
-                        'component' => 'mod_data',
-                        'filearea' => 'content',
-                        'itemid' => $content->id,
-                        'filepath' => '/',
-                        'filename' => $draftfile->get_filename(),
-                    );
-
-                    $content->content = $file_record['filename'];
-
-                    $fs->create_file_from_storedfile($file_record, $draftfile);
-                    $DB->update_record('data_content', $content);
-
-                    // Break from the loop now to avoid overwriting the uploaded file record
-                    break;
-                }
-            }
-        }
 	//XTEC ************ AFEGIT - If it's a SCORM file insert as a new scorm object
         //2011.05.23 @fcasanel
 	//2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
@@ -238,12 +208,16 @@ class data_field_file extends data_field_base {
 
                     $module_scorm_id = $DB->get_record('modules', array('name' => 'scorm'));
                     $module_scorm_id = $module_scorm_id->id;
+			
+		    $filename = explode('.',$content->content);
+                    $extension = array_pop($filename);
+  	            $filename = implode('.',$filename).'_scorm.'.$extension;
 
                     $scorm_object = new stdClass();
                     $scorm_object->MAX_FILE_SIZE = $this->field->param3;
                     $scorm_object->name = $this->field->name;
                     $scorm_object->summary = $this->field->description;
-                    $scorm_object->reference = $CFG->moddata.'/data/'.$this->data->id.'/'.$this->field->id.'/'.$recordid.'/'.$content->content;
+                    $scorm_object->reference = $filename;
                     $scorm_object->grademethod = 1;
                     $scorm_object->maxgrade = 100;
                     $scorm_object->maxattempt = 0;
@@ -263,11 +237,11 @@ class data_field_file extends data_field_base {
                     $scorm_object->launch = '';
                     $scorm_object->redirect = 'no';
                     $scorm_object->redirecturl = '../mod/scorm/view.php?id=';
-                    $scorm_object->visible = 1;
+                    $scorm_object->visible = 0;
                     $scorm_object->cmidnumber = '';
                     $scorm_object->gradecat = 1;
                     $scorm_object->course = 1;
-                    $scorm_object->section = 2;
+                    $scorm_object->section = 1;
                     $scorm_object->module = $module_scorm_id;
                     $scorm_object->modulename = 'scorm';
                     $scorm_object->instance = '';
@@ -286,21 +260,72 @@ class data_field_file extends data_field_base {
                         // Delete old scorm
                         scorm_delete_instance($scorm_record->content2);
                         $relation_id = $DB->get_record('course_modules', array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_record->content2));
+			if ($relation_id->id) $oldscormcontext = context_module::instance($relation_id->id);
                         delete_course_module($relation_id->id);
                     }
 		    $cmid = add_course_module($scorm_object);
 	            $scorm_object->coursemodule = $cmid;
-                    $scorm_id = scorm_add_instance($scorm_object);
-		    $cm = new stdClass();
-		    $cm->id = $cmid;
-		    $cm->instance = $scorm_id;
-		    $DB->update_record('course_modules',$cm);
-                    $content->content2 = $scorm_id;
-                    $DB->update_record('data_content',$content);
-		    rebuild_course_cache($course->id,true);
+		    $scormcontext = context_module::instance($cmid);
+		    
     	}
-	//*************** FI
+	// delete existing files
+        $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
+	if ($this->field->param5 && $odscormcontext) {
+		$fs->delete_area_files($oldscormcontext->id, 'mod_scorm');
+	}
 
+        $usercontext = context_user::instance($USER->id);
+        $files = $fs->get_area_files($usercontext->id, 'user', 'draft', $value, 'timecreated DESC');
+
+        if (count($files)>=2) {
+            foreach ($files as $draftfile) {
+
+                if (!$draftfile->is_directory()) {
+                   if ($this->field->param5) {
+			$filename = explode('.',$draftfile->get_filename());
+			$extension = array_pop($filename);
+			$filename = implode('.',$filename).'_scorm.'.$extension;
+                        $file_record = array(
+                                'contextid' => $scormcontext->id,
+                                'component' => 'mod_scorm',
+                                'filearea' => 'package',
+                                'itemid' => 0,
+                                'filepath' => '/',
+                                'filename' => $filename,
+                        );
+                        $fs->create_file_from_storedfile($file_record, $draftfile);
+                    }
+                    $file_record = array(
+                        'contextid' => $this->context->id,
+                        'component' => 'mod_data',
+                        'filearea' => 'content',
+                        'itemid' => $content->id,
+                        'filepath' => '/',
+                        'filename' => $draftfile->get_filename(),
+                    );
+
+                    $content->content = $file_record['filename'];
+
+                    $fs->create_file_from_storedfile($file_record, $draftfile);
+                    $DB->update_record('data_content', $content);
+
+                    // Break from the loop now to avoid overwriting the uploaded file record
+                    break;
+                }
+            }
+        }
+	if ($this->field->param5) {
+		$scorm_id = scorm_add_instance($scorm_object);
+        	course_add_cm_to_section(1, $cmid, 0);
+	        $cm = new stdClass();
+        	$cm->id = $cmid;
+	        $cm->instance = $scorm_id;
+        	$DB->update_record('course_modules',$cm);
+	        $content->content2 = $scorm_id;
+        	$DB->update_record('data_content',$content);
+	        rebuild_course_cache($course->id,true);
+		//*************** FI
+	}
     }
 
     function text_export_supported() {
