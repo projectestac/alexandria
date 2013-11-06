@@ -185,28 +185,26 @@ class data_field_file extends data_field_base {
         	$str = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;'.
                '<script type="text/javascript" src="files.js"></script>'.'<a href="'.$src.'" onclick="increase_counter('.$this->field->id.','.$recordid.')">'.s($name).'</a>';
 		$str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
-		if (!in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-			if (!empty($this->field->param5)) {
-				 $str .= '<div id="text">
-                	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',true);</script>
-                        	</div>';
-				$str .= '<div id="image" style="display: none;">
-					<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>
-					<br />
-					<img src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" title="Previsualitza" />
-					 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-				</div>';
-			} else {
-				$str .= '<div id="text">
-					<script>show_preview_button(\'[[pdf]]\',false);</script>
-				</div>';
-				$str .= '<div id="image" style="display: none;">
-					<iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe> 
-					<br/>
-					<img title="Previsualitza" src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" />
-				 	<a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-				</div>';
-			}
+		if (!empty($this->field->param5)) {
+			 $str .= '<div id="text">
+                                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',true);</script>
+                        </div>';
+			$str .= '<div id="image" style="display: none;">
+				<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>
+				<br />
+				<img src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" title="Previsualitza" />
+				 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
+			</div>';
+		} else {
+			$str .= '<div id="text">
+				<script>show_preview_button(\'[[pdf]]\',false);</script>
+			</div>';
+			$str .= '<div id="image" style="display: none;">
+				<iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe> 
+				<br/>
+				<img title="Previsualitza" src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" />
+			 	<a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
+			</div>';
 		}
 	}
         return $str;

@@ -29,7 +29,7 @@ require_once(dirname(__FILE__) . '/lib/setup.php');
 // There is no php closing tag in this file,
 // it is intentional because it prevents trailing whitespace problems!
 
-@ini_set('display_errors', '1'); // NOT FOR PRODUCTION SERVERS!
+/*@ini_set('display_errors', '1'); // NOT FOR PRODUCTION SERVERS!
 $CFG->debug = 32767;         // DEBUG_DEVELOPER // NOT FOR PRODUCTION SERVERS!
 // for Moodle 2.0 - 2.2, use:  $CFG->debug = 38911;  
-$CFG->debugdisplay = true;   // NOT FOR PRODUCTION SERVERS!
+$CFG->debugdisplay = true;   // NOT FOR PRODUCTION SERVERS!*/

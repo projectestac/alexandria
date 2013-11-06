@@ -3704,3 +3704,71 @@ function data_update_downloadings($fieldid, $recordid){
 
 //************ FI
 
+//XTEC ************ AFEGIT - Funcions per restaurar curs
+//2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+function restore_backup_file($file,$courseid = NULL) {
+	global $CFG,$DB;
+	$folder = $CFG->dataroot . '/temp/backup/alexandria/';
+        if (!file_exists($folder)) 
+		mkdir ($folder);
+	if (!$courseid)
+	        $courseid = restore_dbops::create_new_course( '', '', 1);
+        $filename = $folder.'course-backup-'.$courseid.'.mbz';
+        $file->copy_content_to($filename);
+        $folder .= $courseid;
+        mkdir($folder);
+        $zip = new ZipArchive;
+        $res = $zip->open($filename);
+        if ($res === TRUE) { 
+		$zip->extractTo($folder);
+                $zip->close();
+                $controller = new restore_controller('/alexandria/'.$courseid, $courseid,
+	                backup::INTERACTIVE_NO, backup::MODE_GENERAL,
+        	        $DB->get_field('user','id',array('username' => $CFG->admin)),
+                	backup::TARGET_NEW_COURSE);
+                $controller->execute_precheck();
+                $controller->execute_plan();
+        }
+        unlink($filename);
+	return $courseid;
+}
+
+function override_course_values($courseid, $recordid) {
+	global $DB,$CFG;
+	$ccid = 1;
+	$cat = explode('-',get_data_field_by_name($CFG->data_categoryfieldid,$recordid));
+	$category = $DB->get_record('course_categories',array('idnumber' => $cat[0]));
+	if (!$category) {
+		$category = new stdClass();
+		$category->name = $cat[1];
+		$category->idnumber = $cat[0];
+		$category->visible = 1;
+		$category->parent = 0;
+		$category->depth = 1;
+		$category = create_course_category($category);
+	}
+	$course = $DB->get_record('course', array('id' => $courseid));
+	$course->fullname = get_data_field_by_name($CFG->data_fullnamefieldid,$recordid);
+	$course->shortname = $cat[0]
+		.'_'.date('my',get_data_field_by_name($CFG->data_creationdatefieldid,$recordid))
+		.'_'.str_pad($ccid,3,'0',STR_PAD_LEFT)
+		.'_1.0';
+	$course->category = $category->id;
+	update_course($course);
+}
+
+function get_data_field_by_name($name,$recordid) {
+	global $DB;
+	$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));	
+	$fieldid = $DB->get_field('data_fields','id',array('dataid' => $dataid, 'name' => $name));
+	return $DB->get_field('data_content','content',array('fieldid' => $fieldid, 'recordid' => $recordid));
+}
+
+function sort_datarecord_files_last($a,$b) {
+	if (end(explode('_',$a->name)) == 'file' && end(explode('_',$b->name)) == 'file') return 0;
+	if (end(explode('_',$a->name)) == 'file') return 1;
+	if (end(explode('_',$b->name)) == 'file') return -1;
+	return 0;
+}
+
+//*************** FI

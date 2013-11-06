@@ -155,24 +155,9 @@ $PAGE->set_heading($course->fullname);
 /// Process incoming data for adding/updating records
 
 if ($datarecord = data_submitted() and confirm_sesskey()) {
-    $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
-    //XTEC ************ AFEGIT - Ordenem els registres per a que el fitxer de backup es procesi per úlim, així ja tindrem tots els valors a la base de dades per a poder omplenar el curs
-    //2013.11.06 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-    $datavalues = array();
-    foreach($datarecord as $key => $value) {
-	$record = new stdClass();
-	$record->name = $key;
-	$record->value = $value;
-	$datavalues[] = $record;	
-    }
-    usort($datavalues,'sort_datarecord_files_last');
 
-    $datarecord = new stdClass();
-    foreach($datavalues as $record) {
-	$name = $record->name;
-	$datarecord->$name = $record->value;
-    }
-    // ********* FI
+    $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
+
     if ($rid) {                                          /// Update some records
 
         /// All student edits are marked unapproved by default
@@ -209,6 +194,7 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
         ///Empty form checking - you can't submit an empty form!
 
         $emptyform = true;      // assume the worst
+
         foreach ($datarecord as $name => $value) {
             if (!in_array($name, $ignorenames)) {
                 $namearr = explode('_', $name);  // Second one is the field id
@@ -221,6 +207,7 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
                 }
             }
         }
+
         if ($emptyform){    //nothing gets written to database
             echo $OUTPUT->notification(get_string('emptyaddform','data'));
         }

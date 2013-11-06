@@ -26,7 +26,6 @@
 require_once('../../config.php');
 require_once('lib.php');
 require_once("$CFG->libdir/rsslib.php");
-require_once("$CFG->libdir/form/filemanager.php");
 
 $id    = optional_param('id', 0, PARAM_INT);    // course module id
 $d     = optional_param('d', 0, PARAM_INT);    // database id
@@ -156,23 +155,20 @@ $PAGE->set_heading($course->fullname);
 
 if ($datarecord = data_submitted() and confirm_sesskey()) {
     $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
-    //XTEC ************ AFEGIT - Ordenem els registres per a que el fitxer de backup es procesi per úlim, així ja tindrem tots els valors a la base de dades per a poder omplenar el curs
-    //2013.11.06 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-    $datavalues = array();
-    foreach($datarecord as $key => $value) {
+    $data = array();
+    foreach($datarecod as $key => $value) {
 	$record = new stdClass();
 	$record->name = $key;
 	$record->value = $value;
-	$datavalues[] = $record;	
+	$data[] = $record;	
     }
-    usort($datavalues,'sort_datarecord_files_last');
 
-    $datarecord = new stdClass();
-    foreach($datavalues as $record) {
-	$name = $record->name;
-	$datarecord->$name = $record->value;
+    usort($data,'sort_datarecord_files_last');
+    $datarecord = array();
+    foreach($data as $record) {
+	$datarecord[$record->name] = $record->value;
     }
-    // ********* FI
+	print_r($datarecord); exit;
     if ($rid) {                                          /// Update some records
 
         /// All student edits are marked unapproved by default
@@ -221,6 +217,7 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
                 }
             }
         }
+
         if ($emptyform){    //nothing gets written to database
             echo $OUTPUT->notification(get_string('emptyaddform','data'));
         }
