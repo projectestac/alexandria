@@ -188,7 +188,7 @@ class data_field_file extends data_field_base {
 		if (!in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 			if (!empty($this->field->param5)) {
 				 $str .= '<div id="text">
-                	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',true);</script>
+                	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',false);</script>
                         	</div>';
 				$str .= '<div id="image" style="display: none;">
 					<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>

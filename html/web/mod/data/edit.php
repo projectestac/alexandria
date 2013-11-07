@@ -156,7 +156,7 @@ $PAGE->set_heading($course->fullname);
 
 if ($datarecord = data_submitted() and confirm_sesskey()) {
     $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
-    //XTEC ************ AFEGIT - Ordenem els registres per a que el fitxer de backup es procesi per úlim, així ja tindrem tots els valors a la base de dades per a poder omplenar el curs
+    //XTEC ************ AFEGIT - Ordenem els registres per a que el fitxer de backup es procesi per últim, així ja tindrem tots els valors a la base de dades per a poder omplenar el curs
     //2013.11.06 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
     $datavalues = array();
     foreach($datarecord as $key => $value) {

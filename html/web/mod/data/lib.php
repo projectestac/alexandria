@@ -1197,7 +1197,16 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
     // Then we generate strings to replace for normal tags
         foreach ($fields as $field) {
             $patterns[]='[['.$field->field->name.']]';
+            //XTEC **************** MODIFICAT - Si no té contingut els marquem com buit
+            //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+	    // ***** CODI ORIGINAL
             $replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
+	    // ***** CODI MODIFICAT
+	    //$value = highlight($search, $field->display_browse_field($record->id, $template));
+	    //if (!$value)
+	    //$value = '<div class="dataEmptyField"></div>';
+	    //$replacement[] = $value;
+	    // ***** FI
         }
 
     // Replacing special tags (##Edit##, ##Delete##, ##More##)
@@ -1328,6 +1337,16 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
             }
         }
     }
+    //XTEC ***** AFEGIT - Amaguem les files dels camps buits que hem marcat previament
+    //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    // ***** CODI AFEGIT
+    //echo '<script>
+    //	var emptyFields = Y.all(\'.dataEmptyField\');
+    //	emptyFields.each(function (node) {	
+    //		node.ancestor(\'tr\').setStyle(\'display\', \'none\');
+    //	});		
+    //</script>'; 
+    // ***** FI
 }
 
 /**
@@ -3641,24 +3660,16 @@ function data_user_can_delete_preset($context, $preset) {
 
 //XTEC ************ AFEGIT - Functions to report an abuse of the content and show downloads
 //2013.10.29
-	function data_abuse_report_button($recordid){
-                global $CFG;
-                $content = '<a href="'.$CFG->wwwroot.'/mod/data/report_abuse.php?recordid='.$recordid.'">'.
-                                        get_string('reportabuse','data').'</a>';
-                return $content;
-        }
-	function data_display_downloads($data, $record){
-	    global $CFG,$DB;
-	    /*if($data->id == $CFG->data_coursesdataid){
-	       //It's a course
-	       $courseid = $DB->get_field('data_content', 'content', array('fieldid' =>  $CFG->data_coursefieldid, 'recordid' => $record->id));
-	       $downloads = $DB->get_field('block_download_course', 'downloading', array('course' => $courseid));
-	       if (empty($downloads)) $downloads = 0;
-	       return $downloads;
-	    }else{*/
-	       //It's another kind of data
-	       return (int)$DB->get_field('data_content', 'MAX(content4)', array('recordid' => $record->id));
-	//}
+function data_abuse_report_button($recordid){
+	global $CFG;
+	$content = '<a href="'.$CFG->wwwroot.'/mod/data/report_abuse.php?recordid='.$recordid.'">'.
+	get_string('reportabuse','data').'</a>';
+	return $content;
+}
+
+function data_display_downloads($data, $record){
+    global $CFG,$DB;
+    return (int)$DB->get_field('data_content', 'MAX(content4)', array('recordid' => $record->id));
 }
 
 function data_download_file($filename){
@@ -3733,6 +3744,35 @@ function restore_backup_file($file,$courseid = NULL) {
 	return $courseid;
 }
 
+function update_backup_file($file,$courseid) {
+	global $CFG;
+	require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
+    	require_once($CFG->dirroot . '/backup/controller/backup_controller.class.php');
+
+    	$bc = new backup_controller(backup::TYPE_1COURSE, $courseid,
+        	backup::FORMAT_MOODLE, backup::INTERACTIVE_NO, backup::MODE_AUTOMATED, 2);
+
+    	$bc->execute_plan();
+   	$results = $bc->get_results();
+	
+    	$backup = $results['backup_destination'];
+	
+	$fileinfo = array(
+		'contextid' => $file->get_contextid(),
+		'component' => $file->get_component(),
+		'filearea' => $file->get_filearea(),
+		'itemid' => $file->get_itemid(),
+		'filepath' => $file->get_filepath(),
+		'filename' => $file->get_filename(),
+	);
+	$file->delete();
+	$fs = get_file_storage();
+	$fs->create_file_from_storedfile($fileinfo, $backup);
+	$backup->delete();
+    	$bc->destroy();
+	return true;
+}	
+
 function override_course_values($courseid, $recordid) {
 	global $DB,$CFG;
 	$ccid = 1;
@@ -3747,12 +3787,31 @@ function override_course_values($courseid, $recordid) {
 		$category->depth = 1;
 		$category = create_course_category($category);
 	}
+	$ccid = $DB->get_field_sql('SELECT IFNULL(MAX(
+		IFNULL(CAST(
+			REPLACE(
+				SUBSTRING(
+					SUBSTRING_INDEX(shortname, \'_\', 3), 
+					LENGTH(
+						SUBSTRING_INDEX(shortname, \'_\', 3 - 1)
+					)+1
+				), \'_\', \'\')
+			 AS UNSIGNED 
+		),0)
+	),0)+1 FROM mdl_course WHERE category = '.$category->id);
+
 	$course = $DB->get_record('course', array('id' => $courseid));
 	$course->fullname = get_data_field_by_name($CFG->data_fullnamefieldid,$recordid);
 	$course->shortname = $cat[0]
 		.'_'.date('my',get_data_field_by_name($CFG->data_creationdatefieldid,$recordid))
 		.'_'.str_pad($ccid,3,'0',STR_PAD_LEFT)
 		.'_1.0';
+	$course->summary = get_data_field_by_name($CFG->data_summaryfieldid,$recordid).'<br/>';
+	if ($creator = get_data_field_by_name($CFG->data_creatorfieldid,$recordid))
+		$course->summary .= '<br/><strong>'.get_string('creatorfield','mod_data').': </strong>'.$creator;
+	if ($license = get_data_field_by_name($CFG->data_licensefieldid,$recordid))
+                $course->summary .= '<br/><strong>'.get_string('licensefield','mod_data').': </strong>'.$license;
+	
 	$course->category = $category->id;
 	update_course($course);
 }
@@ -3771,4 +3830,30 @@ function sort_datarecord_files_last($a,$b) {
 	return 0;
 }
 
+//*************** FI
+
+//XTEC ************ AFEGIT - Funcions pel CRON
+//2013.11.07 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+function data_cron() {
+	global $DB,$CFG;
+	$fs = get_file_storage();
+	$fields = array_keys($DB->get_records_sql('SELECT id FROM {data_fields} WHERE dataid IN ('.$CFG->data_coursesdataid.') AND name = \''.$CFG->data_filefieldid.'\''));
+	$updatefiles = $DB->get_records_sql('SELECT * FROM {data_content} WHERE fieldid IN ('.implode(',',$fields).')');
+	foreach($updatefiles as $file) {
+		if ((time()-$file->content3) > 3600) {
+			$fields = array_keys($DB->get_records_sql('SELECT id FROM {data_fields} WHERE dataid IN ('.$CFG->data_coursesdataid.') AND name = \''.$CFG->data_coursefieldid.'\''));
+			$course = $DB->get_record_sql('SELECT * FROM {data_content} WHERE fieldid IN ('.implode(',',$fields).') AND recordid = '.$file->recordid);
+			$cmid = $DB->get_field_sql('SELECT id FROM {course_modules} WHERE module = 6 AND instance IN (
+				SELECT dataid FROM {data_records}
+				WHERE id = '.$file->recordid.'
+			)');
+			$storedfile = $fs->get_file(context_module::instance($cmid)->id, 'mod_data', 'content', $file->id, '/', $file->content);
+			$result = update_backup_file($storedfile,$course->content);
+			if ($result) {
+				$file->content3 = time();
+				$DB->update_record('data_content',$file);
+			}
+		}
+	}
+}
 //*************** FI

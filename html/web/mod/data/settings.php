@@ -23,31 +23,31 @@ $settings->add(new admin_setting_configtext('data_coursesdataid', get_string('co
 $settings->add(new admin_setting_configtext('data_filefieldid', get_string('filefieldid', 'data'),
                    get_string('configfilefieldid', 'data'), 'Fitxer', PARAM_TEXT));
 $settings->add(new admin_setting_configtext('data_coursefieldid', get_string('coursefieldid', 'data'),
-                   get_string('coursefieldid', 'data'), '', PARAM_TEXT));
+                   get_string('coursefieldid', 'data'), 'courseid', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_fullnamefieldid', get_string('fullnamefieldid', 'data'),
-                   get_string('configfullnamefieldid', 'data'), 1, PARAM_TEXT));
+                   get_string('configfullnamefieldid', 'data'), 'Nom', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_shortnamefieldid', get_string('shortnamefieldid', 'data'),
-                   get_string('configshortnamefieldid', 'data'), 2, PARAM_TEXT));
+                   get_string('configshortnamefieldid', 'data'), 'Nom curt', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_summaryfieldid', get_string('summaryfieldid', 'data'),
-                   get_string('configsummaryfieldid', 'data'), 4, PARAM_TEXT));
+                   get_string('configsummaryfieldid', 'data'), 'Descripció', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_creatorfieldid', get_string('creatorfieldid', 'data'),
-                   get_string('configcreatorfieldid', 'data'), 5, PARAM_TEXT));
+                   get_string('configcreatorfieldid', 'data'), 'Autor/a', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_categoryfieldid', get_string('categoryfieldid', 'data'),
-                   get_string('configcategoryfieldid', 'data'), 6, PARAM_TEXT));
+                   get_string('configcategoryfieldid', 'data'), 'Àrea curricular', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_urlfieldid', get_string('urlfieldid', 'data'),
-                   get_string('configurlfieldid', 'data'), 8, PARAM_TEXT));
+                   get_string('configurlfieldid', 'data'), 'Enllaç', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_licensefieldid', get_string('licensefieldid', 'data'),
-                   get_string('configlicensefieldid', 'data'), 10, PARAM_TEXT));
+                   get_string('configlicensefieldid', 'data'), 'Llicència', PARAM_TEXT));
 
 $settings->add(new admin_setting_configtext('data_creationdatefieldid', get_string('creationdatefieldid', 'data'),
-                   get_string('configcreationdatefieldid', 'data'), 11, PARAM_TEXT));
+                   get_string('configcreationdatefieldid', 'data'), 'Data de creació', PARAM_TEXT));
 
 //************ FI
 

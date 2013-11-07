@@ -5,9 +5,9 @@
 
 require_once('../../config.php');
 
-$context = get_context_instance(CONTEXT_SYSTEM);
+$context = context_system::instance();
 require_login();
-require_capability('block/rate_course:reportabuse', $context);
+require_capability('moodle/site:config', $context);
     
 //print_header_simple('View Reports', '', '');
 $links = array(array('name' => 'alexandria', 'link' => $CFG->wwwroot, 'type' => 'title'));
@@ -23,7 +23,7 @@ $table->size = array('', '', '', '', '');
 
 //Pages
 $rpp = 20; //Records Per Page
-$num_records = count_records("data_abuse_reports");
+$num_records = $DB->count_records("data_abuse_reports");
 $num_pages = intval($num_records / $rpp);
 $first = false;
 $last = false;
@@ -59,15 +59,15 @@ echo '</div>';
 //Get reports
 $limitfrom = ($actual_page-1)*$rpp;
 $limitnum = $rpp;
-$reports = get_records("data_abuse_reports", "", "", "created desc", "*", $limitfrom, $limitnum);
+$reports = $DB->get_records("data_abuse_reports", NULL, "created desc", "*", $limitfrom, $limitnum);
 foreach ($reports as $report){
     $resource = "";
-    $dataid = get_field('data_records', 'dataid', 'id', $report->recordid);
-    $fieldid = get_field('data_fields', 'id', 'name', "Nom", 'dataid', $dataid);
-    if ($fieldid) $resource = get_field('data_content', 'content', 'fieldid', $fieldid, 'recordid', $report->recordid);
+    $dataid = $DB->get_field('data_records', 'dataid', array('id' => $report->recordid));
+    $fieldid = $DB->get_field('data_fields', 'id', array('name' => "Nom", 'dataid' => $dataid));
+    if ($fieldid) $resource = $DB->get_field('data_content', 'content', array('fieldid' =>  $fieldid, 'recordid' => $report->recordid));
     if ($resource == '') $resource = $report->recordid;
     $resource = '<a href="'.$CFG->wwwroot.'/mod/data/view.php?rid='.$report->recordid.'">'.$resource.'</a>';
-    $reporter_record = get_record("user", "id", $report->report_author);
+    $reporter_record = $DB->get_record("user", array("id" => $report->report_author));
     $reporter = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$report->report_author.'">'.$reporter_record->firstname." ".$reporter_record->lastname.'</a>';
     $report_topic = get_string("reportabuse_".$report->abusetopic, "data");
     $report_desc = $report->abusedescription;

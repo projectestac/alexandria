@@ -17,4 +17,18 @@ $string['reportabuse_cancel'] ='Cancel·la';
 $string['reportabuse_mailsubject'] ='Notificació de contingut inadequat a $a->contentname';
 $string['reportabuse_mail'] =' ha notificat el contingut inadequat següent al recurs $a->coursename: $a->abuse';
 $string['reportabuse_intro'] ='Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href=\"$a\" target=\"_blank\">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
+$string['licensefield'] = 'Llicència';
+$string['creatorfield'] = 'Autor/a';
+//*********** FI
 
+//XTEC ************ AFEGIT - Messages for abuse reports viewrer
+//2011.05.12 @fcasanel
+$string['abusereports'] = 'Informes de contingut inadequat';
+$string['reports'] ='Informes';
+$string['pages'] ='Pàgines';
+$string['resource_reported'] ='Recurs afectat';
+$string['reporter'] ='Autor de l\'informe';
+$string['report_topic'] ='Tema';
+$string['report_desc'] ='Descripció';
+$string['report_date'] ='Data';
+//*********** FI
