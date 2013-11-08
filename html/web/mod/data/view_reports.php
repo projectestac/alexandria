@@ -1,6 +1,6 @@
 <?php
 
-//XTEC ************ FITXER AFEGIT
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT
 //2010.09.01
 
 require_once('../../config.php');

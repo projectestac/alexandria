@@ -123,7 +123,7 @@ function xmldb_data_upgrade($oldversion) {
     // Moodle v2.4.0 release upgrade line
     // Put any upgrade step following this
 
-    //XTEC ************ AFEGIT - Create "abuse_reports" table to store all abuse reports
+    //XTEC - ALEXANDRIA ************ AFEGIT - Create "abuse_reports" table to store all abuse reports
     //2013.10.29
     if ($oldversion < 2013102900) {
         $table = new xmldb_table('data_abuse_reports');

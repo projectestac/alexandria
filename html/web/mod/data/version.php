@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $module->version   = 2013050100;       // The current module version (Date: YYYYMMDDXX)
 $module->requires  = 2012112900;       // Requires this Moodle version
 $module->component = 'mod_data';       // Full name of the plugin (used for diagnostics)
-//XTEC ************ MODIFICAT - Configuració CRON
+//XTEC - ALEXANDRIA ************ MODIFICAT - Configuració CRON
 //2013.11.07 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 // ******** CODI ORIGINAL
 //$module->cron      = 0;

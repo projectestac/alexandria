@@ -1,4 +1,4 @@
-//XTEC ************ FITXER AFEGIT
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT
 //2010.09.01
 //2013.10.31 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 function show_preview_button(url,popup){

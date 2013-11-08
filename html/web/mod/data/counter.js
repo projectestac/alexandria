@@ -1,4 +1,4 @@
-//XTEC ************ FITXER AFEGIT
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT
 //2010.09.01
 
 function increase_counter(fieldid, recordid){

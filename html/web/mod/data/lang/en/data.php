@@ -349,7 +349,7 @@ $string['viewfromdate'] = 'Read only from';
 $string['viewtodate'] = 'Read only to';
 $string['wrongdataid'] = 'Wrong data id provided';
 
-//XTEC ************ AFEGIT - Strings adicionals
+//XTEC - ALEXANDRIA ************ AFEGIT - Strings adicionals
 //2011 - @fcasanel
 //2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['ispdipdf'] ='Is a PDF to show PDI materials?';
@@ -371,7 +371,7 @@ $string['licensefield'] = 'License';
 $string['creatorfield'] = 'Author';
 //************ FI
 
-//XTEC ************ AFEGIT - Messages for abuse reports viewer
+//XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer
 //2011.05.12 @fcasanel
 $string['abusereports'] = 'Reports about inappropiate content';
 $string['reports'] ='Reports';

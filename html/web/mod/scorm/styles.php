@@ -258,7 +258,7 @@ a#mod-scorm-log-toggle {
 }
 
 
-/*XTEC ************ AFEGIT - CSS parameters for SCROM content preview
+/*XTEC - ALEXANDRIA ************ AFEGIT - CSS parameters for SCROM content preview
 /2011.05.23 @fcasanel*/
 
 #mod-scorm-preview .content_frame {

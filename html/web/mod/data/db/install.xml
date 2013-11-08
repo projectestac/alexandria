@@ -105,7 +105,7 @@
         <KEY NAME="fieldid" TYPE="foreign" FIELDS="fieldid" REFTABLE="data_fields" REFFIELDS="id" PREVIOUS="recordid"/>
       </KEYS>
     </TABLE>
-    <!--//XTEC ************ AFEGIT - Create "abuse_reports" table to store all abuse reports -->
+    <!--//XTEC - ALEXANDRIA ************ AFEGIT - Create "abuse_reports" table to store all abuse reports -->
     <!--//2010.10.29 -->
         <TABLE NAME="data_abuse_reports" COMMENT="to data abuse reports" PREVIOUS="data_ratings">
       <FIELDS>

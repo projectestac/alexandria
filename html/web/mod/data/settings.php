@@ -15,7 +15,7 @@ if ($ADMIN->fulltree) {
                        $str, 0, $options));
 }
 
-//XTEC ************ AFEGIT - Configuration params (file field id...)
+//XTEC - ALEXANDRIA ************ AFEGIT - Configuration params (file field id...)
 //2010.08.31
 //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $settings->add(new admin_setting_configtext('data_coursesdataid', get_string('coursesdataid', 'data'),

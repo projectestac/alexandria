@@ -350,7 +350,7 @@ Handling of Multiple Attempts
 $string['whatgradedesc'] = 'This preference sets the default attempts grading';
 $string['width'] = 'Width';
 $string['window'] = 'Window';
-//XTEC ************ AFEGIT - Strings adicionals
+//XTEC - ALEXANDRIA ************ AFEGIT - Strings adicionals
 //2011 - @fcasanel
 //2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['show_index'] = 'Show index >>';

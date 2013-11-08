@@ -64,7 +64,7 @@ function data_restore_mods($mod,$restore) {
             $database->ratings = backup_todb($info['MOD']['#']['RATINGS']['0']['#']);
         }
         $database->comments = backup_todb($info['MOD']['#']['COMMENTS']['0']['#']);
-        //XTEC ************** MODIFICAT - Les bases de dades importades sempre estan disponibles
+        //XTEC - ALEXANDRIA ************** MODIFICAT - Les bases de dades importades sempre estan disponibles
         //2011.02.03 @fcasanel
         $database->timeavailablefrom = '0';
         $database->timeavailableto = '0';

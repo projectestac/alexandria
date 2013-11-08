@@ -63,7 +63,7 @@ class data_field_file extends data_field_base {
         }
 
         $html = '';
-	//XTEC **************** MODIFICAT - Deshabilitem la pujada del fitxer si es un backup i ja té contingut
+	//XTEC - ALEXANDRIA **************** MODIFICAT - Deshabilitem la pujada del fitxer si es un backup i ja té contingut
         //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         // ***** CODI ORIGINAL
         // database entry label
@@ -163,7 +163,7 @@ class data_field_file extends data_field_base {
         if (!$file = $this->get_file($recordid, $content)) {
             return '';
         }
-	//XTEC ************ MODIFICAT
+	//XTEC - ALEXANDRIA ************ MODIFICAT
 	//Si es una previsualització només retornem el link al fitxer
 	// CODI ORIGINAL
         //$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
@@ -191,7 +191,7 @@ class data_field_file extends data_field_base {
                 	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',false);</script>
                         	</div>';
 				$str .= '<div id="image" style="display: none;">
-					<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>
+					<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>
 					<br />
 					<img src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" title="Previsualitza" />
 					 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
@@ -228,7 +228,7 @@ class data_field_file extends data_field_base {
             $content = $DB->get_record('data_content', array('id'=>$id));
         }
 
-	//XTEC ************ AFEGIT - If it's a SCORM file insert as a new scorm object
+	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a SCORM file insert as a new scorm object
         //2011.05.23 @fcasanel
 	//2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         if ($this->field->param5){
@@ -357,7 +357,7 @@ class data_field_file extends data_field_base {
 	}
 	//*************** FI
 
-	//XTEC ************ AFEGIT - Si es un backup restaurem el curs
+	//XTEC - ALEXANDRIA ************ AFEGIT - Si es un backup restaurem el curs
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 		require_once( $CFG->dirroot . '/backup/util/includes/restore_includes.php' );

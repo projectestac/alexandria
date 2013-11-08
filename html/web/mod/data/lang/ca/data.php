@@ -1,5 +1,5 @@
 <?php
-//XTEC ************ FITXER AFEGIT - Strings adicionals català
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT - Strings adicionals català
 //2011 - @fcasanel
 //2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['ispdipdf'] = 'És un PDF de previsualització de materials PDI?';
@@ -21,7 +21,7 @@ $string['licensefield'] = 'Llicència';
 $string['creatorfield'] = 'Autor/a';
 //*********** FI
 
-//XTEC ************ AFEGIT - Messages for abuse reports viewrer
+//XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewrer
 //2011.05.12 @fcasanel
 $string['abusereports'] = 'Informes de contingut inadequat';
 $string['reports'] ='Informes';
