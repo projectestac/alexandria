@@ -1,7 +1,4 @@
 <?php
-//XTEC - ALEXANDRIA ************ AFEGIT - Fitxer afegit per a poder carregar els SCO
-//2013.11.08 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-
 require_once('../../config.php');
 require_once($CFG->dirroot.'/mod/scorm/locallib.php');
 
@@ -171,7 +168,7 @@ header('Content-Type: text/html; charset=UTF-8');
         }
 
         function myFindAPI(win) {
-           while ((win.<?php echo $LMS_api; ?> == null) && (win.parent != null) && (win.parent != win)) {
+           while ((win.<?php echo $LMS_api; ?> == null) && (win.parent != null) && (win.parent != win)) {	
               myFindAPITries++;
               // Note: 7 is an arbitrary number, but should be more than sufficient
               if (myFindAPITries > 7) {
@@ -183,7 +180,7 @@ header('Content-Type: text/html; charset=UTF-8');
         }
 
         // hun for the API - needs to be loaded before we can launch the package
-        function myGetAPI() {
+function myGetAPI() {
            var theAPI = myFindAPI(window);
            if ((theAPI == null) && (window.opener != null) && (typeof(window.opener) != "undefined")) {
               theAPI = myFindAPI(window.opener);

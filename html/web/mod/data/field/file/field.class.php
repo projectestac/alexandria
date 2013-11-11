@@ -187,11 +187,10 @@ class data_field_file extends data_field_base {
 		$str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
 		if (!in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 			if (!empty($this->field->param5)) {
-				 $str .= '<div id="text">
-                	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/player.php?a='.$content->content2.'&scoid=0&display=popup\',false);</script>
+				 $str .= '<div id="text" onclick="create_iframe_scorm_preview(\''.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\');">
+                	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\',false,true);</script>
                         	</div>';
 				$str .= '<div id="image" style="display: none;">
-					<iframe id="scorm_preview_iframe" src="'.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup"></iframe>
 					<br />
 					<img src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" title="Previsualitza" />
 					 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>

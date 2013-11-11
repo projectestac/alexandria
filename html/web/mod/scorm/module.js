@@ -26,7 +26,6 @@ mod_scorm_launch_prev_sco = null;
 mod_scorm_activate_item = null;
 
 M.mod_scorm = {};
-
 M.mod_scorm.init = function(Y, hide_nav, hide_toc, toc_title, window_name, launch_sco, scoes_nav) {
     var scorm_disable_toc = false;
     var scorm_hide_nav = true;
@@ -543,10 +542,13 @@ M.mod_scorm.init = function(Y, hide_nav, hide_toc, toc_title, window_name, launc
     });
 };
 
-M.mod_scorm.init_preview = function(Y, hide_nav, hide_toc, toc_title, window_name, launch_sco, scoes_nav) {
-    var scorm_disable_toc = true;
+//XTEC - ALEXANDRIA ************ AFEGIT - Funcions per a carregar el preview dels SCORMS
+//2013.11.11 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+M.mod_scorm.init_preview = function(Y,toc_title, window_name, launch_sco, scoes_nav) {
+    var scorm_disable_toc = false;
     var scorm_hide_nav = true;
     var scorm_hide_toc = true;
+
     scoes_nav = JSON.parse(scoes_nav);
     var scorm_layout_widget;
     var scorm_current_node;
@@ -588,7 +590,7 @@ M.mod_scorm.init_preview = function(Y, hide_nav, hide_toc, toc_title, window_nam
             if (window.API_1484_11) {
                 window.API_1484_11 = null;
             }
-            var url_prefix = M.cfg.wwwroot + '/mod/scorm/loadSCO.php?';
+            var url_prefix = M.cfg.wwwroot + '/mod/scorm/loadSCO_preview.php?';
             var el_old_api = document.getElementById('scormapi123');
             if (el_old_api) {
                 el_old_api.parentNode.removeChild(el_old_api);
@@ -602,7 +604,7 @@ M.mod_scorm.init_preview = function(Y, hide_nav, hide_toc, toc_title, window_nam
                 el_scorm_api.setAttribute('type','text/javascript');
                 var pel_scorm_api = document.getElementById('scormapi-parent');
                 pel_scorm_api.appendChild(el_scorm_api);
-                var api_url = M.cfg.wwwroot + '/mod/scorm/loaddatamodel.php?' + node.title;
+                var api_url = M.cfg.wwwroot + '/mod/scorm/loaddatamodel_preview.php?' + node.title;
                 document.getElementById('external-scormapi').src = api_url;
             }
 
@@ -1000,6 +1002,37 @@ M.mod_scorm.init_preview = function(Y, hide_nav, hide_toc, toc_title, window_nam
         tree.expandAll();
         tree.render();
 
+        // navigation
+        if (scorm_hide_nav == false) {
+            scorm_nav_panel = new Y.YUI2.widget.Panel('scorm_navpanel', { visible:true, draggable:true, close:false, xy: [250, 450],
+                                                                    autofillheight: "body"} );
+            scorm_nav_panel.setHeader(M.str.scorm.navigation);
+
+            //TODO: make some better&accessible buttons
+            scorm_nav_panel.setBody('<span id="scorm_nav"><button id="nav_skipprev">&lt;&lt;</button><button id="nav_prev">&lt;</button><button id="nav_up">^</button><button id="nav_next">&gt;</button><button id="nav_skipnext">&gt;&gt;</button></span>');
+            scorm_nav_panel.render();
+            scorm_buttons[0] = new Y.YUI2.widget.Button('nav_skipprev');
+            scorm_buttons[1] = new Y.YUI2.widget.Button('nav_prev');
+            scorm_buttons[2] = new Y.YUI2.widget.Button('nav_up');
+            scorm_buttons[3] = new Y.YUI2.widget.Button('nav_next');
+            scorm_buttons[4] = new Y.YUI2.widget.Button('nav_skipnext');
+            scorm_buttons[0].on('click', function(ev) {
+                scorm_activate_item(scorm_skipprev(scorm_tree_node.getHighlightedNode(), true));
+            });
+            scorm_buttons[1].on('click', function(ev) {
+                scorm_launch_prev_sco();
+            });
+            scorm_buttons[2].on('click', function(ev) {
+                scorm_activate_item(scorm_up(scorm_tree_node.getHighlightedNode(), true));
+            });
+            scorm_buttons[3].on('click', function(ev) {
+                scorm_launch_next_sco();
+            });
+            scorm_buttons[4].on('click', function(ev) {
+                scorm_activate_item(scorm_skipnext(scorm_tree_node.getHighlightedNode(), true));
+            });
+            scorm_nav_panel.render();
+        }
 
         // finally activate the chosen item
         var scorm_first_url = tree.getRoot().children[0];
@@ -1018,8 +1051,7 @@ M.mod_scorm.init_preview = function(Y, hide_nav, hide_toc, toc_title, window_nam
         };
     });
 };
-
-
+// ************ FI
 M.mod_scorm.connectPrereqCallback = {
 
     success: function(o) {

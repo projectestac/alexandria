@@ -13,6 +13,18 @@ function show_preview_button(url,popup){
 	}
 }
 
+
+function create_iframe_scorm_preview(url) {
+	if (document.getElementById('scorm_iframe_preview')) return;
+		var ifrm = document.createElement('IFRAME');
+                ifrm.setAttribute('src', url);
+                ifrm.setAttribute('id','scorm_iframe_preview');
+                ifrm.style.width = '100%';
+                ifrm.style.height = '500px';
+                var node = document.getElementById('image');
+                node.insertBefore(ifrm,node.firstChild);
+}
+
 function increase_counter(fieldid, recordid){
 	 var xhReq = new XMLHttpRequest();
 	 xhReq.open("GET", "counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
