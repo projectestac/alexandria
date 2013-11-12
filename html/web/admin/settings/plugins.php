@@ -253,6 +253,10 @@ if ($hassiteconfig) {
     }
 
 /// Web services
+    //XTEC ************ AFEGIT - To let access only to xtecadmin user
+    //2012.08.20  @sarjona
+    if (get_protected_agora() ) {
+    //************ FI    
     $ADMIN->add('modules', new admin_category('webservicesettings', new lang_string('webservices', 'webservice')));
     // Mobile
     $temp = new admin_settingpage('mobile', new lang_string('mobile','admin'), 'moodle/site:config', false);
@@ -308,6 +312,11 @@ if ($hassiteconfig) {
         $temp->add(new admin_setting_heading('webservicesaredisabled', '', new lang_string('disabledwarning', 'webservice')));
     }
     $ADMIN->add('webservicesettings', $temp);
+    //XTEC ************ AFEGIT - To let access only to xtecadmin user
+    //2012.08.20  @sarjona
+    }
+    //************ FI    
+    
 }
 
 // Question type settings
@@ -400,7 +409,14 @@ foreach (get_plugin_list('tool') as $plugin => $plugindir) {
 }
 
 // Now add the Cache plugins
+//XTEC ************ MODIFICAT - To let access only to xtecadmin user
+//2013.04.16  @sarjona
+if ($hassiteconfig && get_protected_agora() ) {
+//************ ORIGINAL
+/*
 if ($hassiteconfig) {
+*/
+//************ FI
     $ADMIN->add('modules', new admin_category('cache', new lang_string('caching', 'cache')));
     $ADMIN->add('cache', new admin_externalpage('cacheconfig', new lang_string('cacheconfig', 'cache'), $CFG->wwwroot .'/cache/admin.php'));
     $ADMIN->add('cache', new admin_externalpage('cachetestperformance', new lang_string('testperformance', 'cache'), $CFG->wwwroot . '/cache/testperformance.php'));

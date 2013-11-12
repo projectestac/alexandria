@@ -2109,8 +2109,18 @@ abstract class plugininfo_base {
         $plugins = get_plugin_list($type);
         $ondisk = array();
         foreach ($plugins as $pluginname => $pluginrootdir) {
+            //XTEC ************ MODIFICAT - Added function to check which modules can appear in the list
+            //2012.11.05  @sarjona
+            if (is_enabled_in_agora($pluginname)) {
+                $ondisk[$pluginname] = plugininfo_default_factory::make($type, $typerootdir,
+                    $pluginname, $pluginrootdir, $typeclass);
+            }
+            //************ ORIGINAL 
+            /*
             $ondisk[$pluginname] = plugininfo_default_factory::make($type, $typerootdir,
                 $pluginname, $pluginrootdir, $typeclass);
+            */
+            //************ FI
         }
         return $ondisk;
     }
@@ -2858,6 +2868,12 @@ class plugininfo_mod extends plugininfo_base {
             if (isset($modules[$modulename])) {
                 continue;
             }
+            //XTEC ************ AFEGIT - Only enabled modules has to be showed
+            //2012.11.06  @sarjona
+            if (!is_enabled_in_agora($modulename) ){
+                continue;
+            }
+            //************ FI
             $plugin                 = new $typeclass();
             $plugin->type           = $type;
             $plugin->typerootdir    = $typerootdir;
@@ -3071,6 +3087,10 @@ class plugininfo_auth extends plugininfo_base {
 
         $settings = null;
         if ($hassiteconfig) {
+            //XTEC ************ AFEGIT - To let access only to xtecadmin user
+            //2012.07.03  @sarjona
+            if ($auth->name != 'db' || get_protected_agora() ) {
+            //************ FI    
             if (file_exists($this->full_path('settings.php'))) {
                 // TODO: finish implementation of common settings - locking, etc.
                 $settings = new admin_settingpage($section, $this->displayname,
@@ -3081,7 +3101,11 @@ class plugininfo_auth extends plugininfo_base {
                 $settings = new admin_externalpage($section, $this->displayname,
                         $settingsurl, 'moodle/site:config', $this->is_enabled() === false);
             }
-        }
+            //XTEC ************ AFEGIT - To let access only to xtecadmin user
+            //2012.07.03  @sarjona
+            }
+            //************ FI    
+        } 
         if ($settings) {
             $ADMIN->add($parentnodename, $settings);
         }
@@ -3213,7 +3237,14 @@ class plugininfo_repository extends plugininfo_base {
     }
 
     public function load_settings(part_of_admin_tree $adminroot, $parentnodename, $hassiteconfig) {
+        //XTEC ************ MODIFICAT - To let access only to xtecadmin user
+        //2012.06.25  @sarjona
+        if (( $this->name != 'filesystem' || get_protected_agora() ) && $hassiteconfig && $this->is_enabled()) {
+        //************ ORIGINAL
+        /*
         if ($hassiteconfig && $this->is_enabled()) {
+         */
+        //************ FI
             // completely no access to repository setting when it is not enabled
             $sectionname = $this->get_settings_section_name();
             $settingsurl = new moodle_url('/admin/repository.php',

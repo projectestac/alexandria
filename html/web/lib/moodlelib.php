@@ -3835,13 +3835,30 @@ function create_user_record($username, $password, $auth = 'manual') {
 
     $newuser = new stdClass();
 
+    //XTEC ************ MODIFICAT - To retrive data from XTEC LDAP
+    //2012.06.20 @sarjona
+    if ( ( ($auth == 'ldap' || $auth == 'odissea') && $newinfo = $authplugin->get_userinfo($username, $password)) || 
+            ($newinfo = $authplugin->get_userinfo($username)) ) {
+    //************ ORIGINAL
+    /*
     if ($newinfo = $authplugin->get_userinfo($username)) {
+    */
+    //************ FI
         $newinfo = truncate_userinfo($newinfo);
         foreach ($newinfo as $key => $value){
             $newuser->$key = $value;
         }
     }
-
+    //XTEC ************ AFEGIT - To capitalize correctly the first and last names
+    //2012.12.07 @sarjona
+    if (!empty($newuser->firstname)){
+        $newuser->firstname = mb_convert_case($newuser->firstname, MB_CASE_TITLE, "UTF-8");
+    }
+    if (!empty($newuser->lastname)){
+        $newuser->lastname = mb_convert_case($newuser->lastname, MB_CASE_TITLE, "UTF-8");    	
+    }
+    //************ FI
+    
     if (!empty($newuser->email)) {
         if (email_is_not_allowed($newuser->email)) {
             unset($newuser->email);
@@ -3853,7 +3870,16 @@ function create_user_record($username, $password, $auth = 'manual') {
     }
 
     $newuser->auth = $auth;
+    //XTEC ************ AFEGIT - To change username if auth method has another different (for Odissea)
+    //2012.06.20 @sarjona
+    if ($auth == 'odissea' && !empty($newuser->username)){
+        $newuser->username = mb_convert_case($newuser->username, MB_CASE_LOWER, 'UTF-8');    	
+    }
+    //************ ORIGINAL
+    /*
     $newuser->username = $username;
+    */
+    //************ FI
 
     // fix for MDL-8480
     // user CFG lang for user if $newuser->lang is empty
@@ -3866,6 +3892,18 @@ function create_user_record($username, $password, $auth = 'manual') {
     $newuser->timecreated = time();
     $newuser->timemodified = $newuser->timecreated;
     $newuser->mnethostid = $CFG->mnet_localhost_id;
+
+
+    //XTEC ************ AFEGIT - To change username if auth method has another different (for Odissea)
+    //2013.06.21 @sarjona
+    if ($auth == 'odissea' && $newuser->username != $username){
+	if ($user = get_complete_user_data('username', $newuser->username, $CFG->mnet_localhost_id)) {
+            // User exists, so it's not necessary create it (because the username is not the one specified for the user in the form) 
+            return $user;
+        }
+    }
+    //************ FI
+
 
     $newuser->id = $DB->insert_record('user', $newuser);
     $user = get_complete_user_data('id', $newuser->id);
@@ -5415,9 +5453,21 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml='', $a
     if (is_string($from)) { // So we can pass whatever we want if there is need
         $mail->From     = $CFG->noreplyaddress;
         $mail->FromName = $from;
+        //XTEC ************ AFEGIT - Avoid replying to SMTP address when sending using Gmail
+        //2012.03.13  @aginard
+        if (empty($replyto)) {
+            $tempreplyto[] = array($CFG->noreplyaddress, get_string('noreplyname'));
+        }
+        //************ FI     
     } else if ($usetrueaddress and $from->maildisplay) {
         $mail->From     = $from->email;
         $mail->FromName = fullname($from);
+        //XTEC ************ AFEGIT - Avoid replying to SMTP address when sending using Gmail
+        //2012.03.13  @aginard
+        if (empty($replyto)) {
+            $tempreplyto[] = array($CFG->noreplyaddress, get_string('noreplyname'));
+        }
+        //************ FI     
     } else {
         $mail->From     = $CFG->noreplyaddress;
         $mail->FromName = fullname($from);
@@ -5430,7 +5480,21 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml='', $a
         $tempreplyto[] = array($replyto, $replytoname);
     }
 
+    //XTEC ************ MODIFICAT - Add main title (usually school name) at the beginning of the subject
+    //2011.04.21  @fcasanellas
+    if (!isset($CFG->mailheader)) {
+        $CFG->mailheader = '';
+    }
+    if ($CFG->apligestmail) {
+        $mail->Subject = $CFG->mailheader . " [" . get_site()->fullname . "] " . substr($subject, 0, 900);
+    } else {
+        $mail->Subject = substr($subject, 0, 900);
+    }
+    //************ ORIGINAL
+	/*
     $mail->Subject = substr($subject, 0, 900);
+	*/
+    //************ FI
 
     $temprecipients[] = array($user->email, fullname($user));
 
@@ -5508,6 +5572,94 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml='', $a
         $mail->AddReplyTo($values[0], $values[1]);
     }
 
+    //XTEC ************ MODIFICAT - Use apligest system to send mails if it's configured
+    //28.04.2011 @fcasanel
+    //14.03.2012 @aginard
+    //17.01.2013 @aginard: added global $FULLME;
+    global $FULLME;
+    
+    if ($CFG->apligestmail) {
+        require_once ($CFG->dirroot.'/local/agora/mailer/message.class.php');
+        require_once ($CFG->dirroot.'/local/agora/mailer/mailsender.class.php');
+
+        $log = $CFG->apligestlog;
+        $logdebug = $CFG->apligestlogdebug;
+        $logpath = $CFG->apligestlogpath;
+        
+        //load the message
+        $message = new message(TEXTHTML, $log, $logdebug, $logpath);
+
+        //set $to
+        $to_array = array();
+        foreach ($mail->to as $to){
+            $to_array[] = $to[0];
+        }
+        $message->set_to($to_array);
+
+        //set $cc
+        $cc_array = array();
+        foreach ($mail->cc as $cc){
+            $cc_array[] = $cc[0];
+        }
+        if (!empty($cc_array)) $message->set_cc($cc_array);
+
+        //set $bcc
+        $bcc_array = array();
+        foreach ($mail->bcc as $bcc){
+            $bcc_array[] = $bcc[0];
+        }
+        if (!empty($bcc_array)) $message->set_bcc($bcc_array);
+
+        //set $subject
+        $message->set_subject($mail->Subject);
+
+        //set $bodyContent
+        $message->set_bodyContent($mail->Body);
+
+        //load the mailsender
+        $environment = $CFG->apligestenv;
+        $application = $CFG->apligestaplic;
+        $replyto = $CFG->noreplyaddress;
+
+        $sender = new mailsender($application, $replyto, 'educacio', $environment, $log, $logdebug, $logpath);
+        
+        //add message to mailsender
+        if (!$sender->add($message)){
+                mtrace('ERROR: '.' Impossible to add message to mailsender');
+                add_to_log(SITEID, 'library', 'mailer', $FULLME, 'ERROR: '. ' Impossible to add message to mailsender');
+                return false;
+        }
+        //send messages
+        if (!$sender->send_mail()){
+                mtrace('ERROR: '.' Impossible to send messages');
+                add_to_log(SITEID, 'library', 'mailer', $FULLME, 'ERROR: '. ' Impossible to send messages');
+                return false;
+        } else {
+            set_send_count($user);
+            return true;
+        }
+    } else {
+        if ($mail->Send()) {
+            set_send_count($user);
+            $mail->IsSMTP();                               // use SMTP directly
+            if (!empty($mail->SMTPDebug)) {
+                echo '</pre>';
+            }
+            return true;
+        } else {
+            add_to_log(SITEID, 'library', 'mailer', $FULLME, 'ERROR: '. $mail->ErrorInfo);
+            if (CLI_SCRIPT) {
+                mtrace('Error: lib/moodlelib.php email_to_user(): '.$mail->ErrorInfo);
+            }
+            if (!empty($mail->SMTPDebug)) {
+                echo '</pre>';
+            }
+            return false;
+        }
+    }
+    
+    //************ ORIGINAL
+    /*
     if ($mail->Send()) {
         set_send_count($user);
         if (!empty($mail->SMTPDebug)) {
@@ -5524,6 +5676,8 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml='', $a
         }
         return false;
     }
+    */
+    //************ FI    
 }
 
 /**
@@ -8121,6 +8275,7 @@ function get_plugin_list($plugintype) {
         $fulldirs[] = $fulldir;
     }
     $result = array();
+require_once($CFG->dirroot.'/local/agora/lib.php');
 
     foreach ($fulldirs as $fulldir) {
         if (!is_dir($fulldir)) {
@@ -8140,6 +8295,12 @@ function get_plugin_list($plugintype) {
                 // better ignore plugins with problematic names here
                 continue;
             }
+            //XTEC ************ AFEGIT - Only enabled modules has to be showed
+            //2012.11.06  @sarjona
+            if (!is_enabled_in_agora($pluginname) ){
+                continue;
+            }
+            //************ FI
             $result[$pluginname] = $fulldir.'/'.$pluginname;
             unset($item);
         }

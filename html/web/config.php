@@ -32,4 +32,9 @@ require_once(dirname(__FILE__) . '/lib/setup.php');
 /*@ini_set('display_errors', '1'); // NOT FOR PRODUCTION SERVERS!
 $CFG->debug = 32767;         // DEBUG_DEVELOPER // NOT FOR PRODUCTION SERVERS!
 // for Moodle 2.0 - 2.2, use:  $CFG->debug = 38911;  
-$CFG->debugdisplay = true;   // NOT FOR PRODUCTION SERVERS!*/
+$CFG->debugdisplay = true;   // NOT FOR PRODUCTION SERVERS!
+
+define('MDL_PERF', true);
+define('MDL_PERFDB', true);
+define('MDL_PERFTOLOG', true);
+define('MDL_PERFTOFOOT', true);*/

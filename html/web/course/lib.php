@@ -1231,7 +1231,14 @@ function get_module_types_names($plural = false) {
         $modnames = array(0 => array(), 1 => array());
         if ($allmods = $DB->get_records("modules")) {
             foreach ($allmods as $mod) {
+                //XTEC ************ MODIFICAT - Added function to check which modules can appear in the list
+                //2012.11.06  @sarjona
+                if (is_enabled_in_agora($mod->name) && file_exists("$CFG->dirroot/mod/$mod->name/lib.php") && $mod->visible) {
+                //************ ORIGINAL 
+                /*
                 if (file_exists("$CFG->dirroot/mod/$mod->name/lib.php") && $mod->visible) {
+                 */
+                //************ FI
                     $modnames[0][$mod->name] = get_string("modulename", "$mod->name");
                     $modnames[1][$mod->name] = get_string("modulenameplural", "$mod->name");
                 }
@@ -2955,6 +2962,15 @@ function delete_course_module($id) {
     $DB->delete_records('course_modules_avail_fields', array('coursemoduleid' => $cm->id));
     $DB->delete_records('course_completion_criteria', array('moduleinstance' => $cm->id,
                                                             'criteriatype' => COMPLETION_CRITERIA_TYPE_ACTIVITY));
+
+//XTEC ************ AFEGIT - Added patch for course format "Simple"
+//2010.07.12 @aginard (patch provided by UPCnet)
+
+	//@PATCH SIMPLE: Eliminar la imatge si existeix
+	require_once($CFG->dirroot.'/course/format/simple/lib.php');
+	simple_delete_module_image($id);
+
+//************ FI                                                        
 
     delete_context(CONTEXT_MODULE, $cm->id);
     $DB->delete_records('course_modules', array('id'=>$cm->id));
