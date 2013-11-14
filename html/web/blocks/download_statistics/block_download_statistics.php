@@ -38,13 +38,12 @@ class block_download_statistics extends block_list {
             $content.= "<ul>";
             $old_dataname = '';
             if ($fields = block_download_statistics_fields()){
-                foreach ($fields as $field){
-                    if ($field['dataname'] != $old_dataname){
-                        $content .= '<li> <b>' . $field['dataname'] . '</b></li>';
-                        $old_dataname = $field['dataname'];
-                    }
-                    $content .= $field['name'] . ': ' . $field['downloads'].'<br>';
-                }            
+                foreach ($fields as $field) {
+		    $data[$field['dataname']] += $field['downloads'];
+		}
+		foreach($data as $key => $value) {
+			$content .= '<li><b>'.$key.':</b> '.$value.'</li>';
+		}
             }
             $content.="</ul>";
             $this->content->items[] = $content;

@@ -24,7 +24,7 @@ $CFG->directorypermissions = 0777;
 
 $CFG->passwordsaltmain = '/PN~dd>bLwqEOKaMa3j9cn*vcb';
 
-$CFG->defaultblocks_override = 'about_course,share_course';
+$CFG->defaultblocks_override = 'about_course';
 
 require_once(dirname(__FILE__) . '/lib/setup.php');
 

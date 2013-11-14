@@ -37,19 +37,20 @@ class block_about_course extends block_list {
 		SELECT id FROM {data_fields} 
 		WHERE  name = \''.$CFG->data_coursefieldid.'\'
 	)');
-	if ($rid) {
-		$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
-		$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN ( 
-	                SELECT id FROM {data_fields}  
-        	        WHERE  name = \''.$CFG->data_creatorfieldid.'\'
-	        )');
-		$license = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (        
-	                SELECT id FROM {data_fields}  
-        	        WHERE  name = \''.$CFG->data_licensefieldid.'\'
-	        )');
-		$filefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_filefieldid));
-		$content = $DB->get_record('data_content', array('recordid' => $rid, 'fieldid' => $filefieldid));
-	}
+	if (!$rid) return $this->content;
+
+	$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
+	$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN ( 
+	      SELECT id FROM {data_fields}  
+              WHERE  name = \''.$CFG->data_creatorfieldid.'\'
+	)');
+	$license = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (        
+	      SELECT id FROM {data_fields}  
+              WHERE  name = \''.$CFG->data_licensefieldid.'\'
+	)');
+	$filefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_filefieldid));
+	$content = $DB->get_record('data_content', array('recordid' => $rid, 'fieldid' => $filefieldid));
+	
         // License
         $this->content->icons[] = '';
         $this->content->items[] = get_string('author','block_about_course').': <b>'.$author.'</b>';
@@ -98,8 +99,9 @@ class block_about_course extends block_list {
 			}
 		</script>';
 	}
-        		
-        $this->content->footer = '';
+        
+        $this->content->footer = '<br/><a style = "font-size: 11px;" href="'.$CFG->wwwroot.'/mod/data/report_abuse.php?recordid='.$rid.'">'.
+        get_string('reportabuse','data').'</a>';
         return $this->content;
 
     }    
