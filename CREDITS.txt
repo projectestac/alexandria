@@ -1,11 +1,12 @@
 Alexandria
 Generalitat de Catalunya - Departament d'Educacio
 
-WWW:   https://projectes.lafarga.cat/projects/alexandria
+WWW:   https://github.com/projectestac/alexandria
        
 Developers:
    Sara Arjona Tellez (sara.arjona+xtec@gmail.com)
-   Fèlix Casanellas (fcasanel@xtec.cat)
+   Fèlix Casanellas (fcasanel@xtec.cat) 
+   Marc Espinosa Zamora (marc.espinosa.zamora@upcnet.es)
 
 With the support of:
    Albert Bachiller
