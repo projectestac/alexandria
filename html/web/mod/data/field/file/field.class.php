@@ -237,15 +237,10 @@ class data_field_file extends data_field_base {
                     $module_scorm_id = $DB->get_record('modules', array('name' => 'scorm'));
                     $module_scorm_id = $module_scorm_id->id;
 			
-		    $filename = explode('.',$content->content);
-                    $extension = array_pop($filename);
-  	            $filename = implode('.',$filename).'_scorm.'.$extension;
-
                     $scorm_object = new stdClass();
                     $scorm_object->MAX_FILE_SIZE = $this->field->param3;
                     $scorm_object->name = $this->field->name;
                     $scorm_object->summary = $this->field->description;
-                    $scorm_object->reference = $filename;
                     $scorm_object->grademethod = 1;
                     $scorm_object->maxgrade = 100;
                     $scorm_object->maxattempt = 0;
@@ -312,6 +307,7 @@ class data_field_file extends data_field_base {
 			$filename = explode('.',$draftfile->get_filename());
 			$extension = array_pop($filename);
 			$filename = implode('.',$filename).'_scorm.'.$extension;
+			$scorm_object->reference = $filename;
                         $file_record = array(
                                 'contextid' => $scormcontext->id,
                                 'component' => 'mod_scorm',
@@ -335,9 +331,6 @@ class data_field_file extends data_field_base {
 		    
                     $fs->create_file_from_storedfile($file_record, $draftfile);
                     $DB->update_record('data_content', $content);
-		    if ($CFG->data_coursesdataid && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid)) && $this->field->name == $CFG->data_filefieldid) {
-			$fs = get_file_storage();
-		    }
                     // Break from the loop now to avoid overwriting the uploaded file record
                     break;
                 }
@@ -383,6 +376,9 @@ class data_field_file extends data_field_base {
 			);
 			$enrol->enrol_users($enrolments);
 			role_assign($roleid,$USER->id,context_course::instance($courseid)->id);
+			$guestenrol = $DB->get_record('enrol',array('enrol' => 'guest'));
+			$guestenrol->status = 0;
+			$DB->update_record('enrol',$guestenrol);
 		}
 			
 			
@@ -397,6 +393,28 @@ class data_field_file extends data_field_base {
     function file_ok($path) {
         return true;
     }
+    
+    //XTEC - ALEXANDRIA ************ AFEGIT - Si era un SCORM o un curs, els borrem.
+    //2013.11.13 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    // ******** CODI AFEGIT
+    function delete_content($recordid) {
+	global $DB,$CFG;
+	if($this->field->param5){
+                $scorm_id = $DB->get_field('data_content','content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));
+                $module_scorm_id = $DB->get_field('modules', 'id',array('name' => 'scorm'));
+                $cmid = $DB->get_field('course_modules', 'id',array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
+		scorm_delete_instance($scorm_id);
+                delete_course_module($cmid);
+
+      	}
+	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
+                $courseid = $DB->get_field('data_content','content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
+		delete_course($courseid,false);
+	}
+ 	parent::delete_content($recordid);
+    } 
+    // ******** FI
 
 }
 

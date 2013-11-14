@@ -360,8 +360,12 @@ header('X-Frame-Options: GOFORIT');
     }
 
 /// Delete any requested records
-
-    if ($delete && confirm_sesskey() && (has_capability('mod/data:manageentries', $context) or data_isowner($delete))) {
+    //XTEC - ALEXANDRIA ************ MODIFICAT - Only admin users can delete entries
+    //2010.08.31
+    if ($delete && confirm_sesskey() && (has_capability('mod/data:manageentries', $context))) {
+    //************ ORIGINAL
+    //if ($delete && confirm_sesskey() && (has_capability('mod/data:manageentries', $context) or data_isowner($delete))) {
+    //************ FI
         if ($confirm = optional_param('confirm',0,PARAM_INT)) {
             if ($deleterecord = $DB->get_record('data_records', array('id'=>$delete))) {   // Need to check this is valid
                 if ($deleterecord->dataid == $data->id) {                       // Must be from this database

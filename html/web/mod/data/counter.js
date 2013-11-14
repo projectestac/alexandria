@@ -3,7 +3,8 @@
 
 function increase_counter(fieldid, recordid){
 	 var xhReq = new XMLHttpRequest();
-	 xhReq.open("GET", "counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
+	alert(1);
+	 xhReq.open("GET", "/web/mod/data/counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
 	 xhReq.send(null);
 	 var serverResponse = xhReq.responseText;
 	 //alert(serverResponse+" value=");

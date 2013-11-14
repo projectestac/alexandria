@@ -14,4 +14,5 @@ $string['license'] = 'License';
 $string['license_warning'] = 'The use of this material is subject to the terms of a <a href=\"http://creativecommons.org\" target=\"_blank\">Creative Commons License</a>';
 $string['metainfo'] = 'Complete record';
 $string['download_course'] = 'Download course';
+$string['pluginname'] = 'About course';
 ?>

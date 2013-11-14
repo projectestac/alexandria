@@ -24,7 +24,11 @@ $CFG->directorypermissions = 0777;
 
 $CFG->passwordsaltmain = '/PN~dd>bLwqEOKaMa3j9cn*vcb';
 
+$CFG->defaultblocks_override = 'about_course,share_course';
+
 require_once(dirname(__FILE__) . '/lib/setup.php');
+
+require_once($CFG->dirroot.'/local/agora/lib.php');
 
 // There is no php closing tag in this file,
 // it is intentional because it prevents trailing whitespace problems!

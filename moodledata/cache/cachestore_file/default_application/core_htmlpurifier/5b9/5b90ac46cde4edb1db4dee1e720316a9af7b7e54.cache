@@ -1,1 +1,0 @@
-s:323:"<strong>Stack trace:</strong> <ul style="text-align:left;"><li>line 406 of /lib/setuplib.php: coding_exception thrown</li><li>line ? of unknownfile: call to default_error_handler()</li><li>line 1294 of /mod/data/lib.php: call to str_ireplace()</li><li>line 731 of /mod/data/view.php: call to data_print_template()</li></ul>";

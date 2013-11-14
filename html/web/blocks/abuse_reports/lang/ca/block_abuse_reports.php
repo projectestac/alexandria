@@ -11,4 +11,5 @@ $string['abuse_reports'] = 'Continguts inadequats';
 $string['more_info'] = 'Més informació';
 $string['last_five_reports'] = 'Darreres notificacions:';
 
+$string['pluginname'] = 'Continguts inadequats';
 ?>

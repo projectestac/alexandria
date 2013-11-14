@@ -11,4 +11,5 @@ $string['download_statistics'] = 'Estadístiques de descàrrega';
 $string['total_of_downloads'] = 'Descàrregues totals de:';
 $string['courses'] = 'Biblioteca de cursos';
 
+$string['pluginname'] = 'Estadístiques de descàrrega';
 ?>

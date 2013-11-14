@@ -12,5 +12,5 @@ $string['author'] = 'Autor/a';
 $string['license'] = 'Licéncia de uso';
 $string['license_warning'] = 'Esta obra está sujeta a una <a href=\"http://creativecommons.org\" target=\"_blank\">Licéncia Creative Commons</a>';
 $string['metainfo'] = 'Ficha completa';
-
+$string['pluginname'] = 'Información del curso';
 ?>

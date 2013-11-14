@@ -3722,8 +3722,21 @@ function restore_backup_file($file,$courseid = NULL) {
 	$folder = $CFG->dataroot . '/temp/backup/alexandria/';
         if (!file_exists($folder)) 
 		mkdir ($folder);
-	if (!$courseid)
-	        $courseid = restore_dbops::create_new_course( '', '', 1);
+	if (!$courseid) {
+		if (!$category = $DB->get_record('course_categories',array('name' =>'Default hidden category'))) {
+			$category = new stdClass();
+			$category->name = 'Default hidden category';	
+			$category->visible = $category->visibleold = 0;			
+			$category = create_course_category($category);
+		}
+		$course = new stdClass();
+		$course->fullname = '';
+		$course->shortname = '';
+		$course->category = $category->id;
+		$course = create_course($course);
+		$courseid = $course->id;
+	        //$courseid = restore_dbops::create_new_course( '', '', $category->id);
+	}
         $filename = $folder.'course-backup-'.$courseid.'.mbz';
         $file->copy_content_to($filename);
         $folder .= $courseid;

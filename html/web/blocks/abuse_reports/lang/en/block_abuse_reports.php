@@ -11,4 +11,6 @@ $string['abuse_reports'] = 'Abuse reports';
 $string['more_info'] = 'More info';
 $string['last_five_reports'] = 'Last reports:';
 
+$string['pluginname'] = 'Abuse reports';
+
 ?>

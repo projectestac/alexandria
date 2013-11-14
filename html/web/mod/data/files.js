@@ -27,7 +27,7 @@ function create_iframe_scorm_preview(url) {
 
 function increase_counter(fieldid, recordid){
 	 var xhReq = new XMLHttpRequest();
-	 xhReq.open("GET", "counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
+	 xhReq.open("GET", M.cfg.wwwroot + "/mod/data/counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
 	 xhReq.send(null);
 	 var serverResponse = xhReq.responseText;
 	 document.getElementById('downloads').innerHTML=serverResponse;

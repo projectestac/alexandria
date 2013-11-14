@@ -8275,7 +8275,6 @@ function get_plugin_list($plugintype) {
         $fulldirs[] = $fulldir;
     }
     $result = array();
-require_once($CFG->dirroot.'/local/agora/lib.php');
 
     foreach ($fulldirs as $fulldir) {
         if (!is_dir($fulldir)) {

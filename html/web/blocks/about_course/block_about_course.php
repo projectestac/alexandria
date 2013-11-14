@@ -37,20 +37,19 @@ class block_about_course extends block_list {
 		SELECT id FROM {data_fields} 
 		WHERE  name = \''.$CFG->data_coursefieldid.'\'
 	)');
-	$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
-	$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN ( 
-                SELECT id FROM {data_fields}  
-                WHERE  name = \''.$CFG->data_creatorfieldid.'\'
-        )');
-	$license = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (        
-                SELECT id FROM {data_fields}  
-                WHERE  name = \''.$CFG->data_licensefieldid.'\'
-        )');
-	$content = $DB->get_record_sql('SELECT * FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (
-                SELECT id FROM {data_fields}
-                WHERE  name = \''.$CFG->data_filefieldid.'\'
-        )');
-
+	if ($rid) {
+		$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
+		$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN ( 
+	                SELECT id FROM {data_fields}  
+        	        WHERE  name = \''.$CFG->data_creatorfieldid.'\'
+	        )');
+		$license = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (        
+	                SELECT id FROM {data_fields}  
+        	        WHERE  name = \''.$CFG->data_licensefieldid.'\'
+	        )');
+		$filefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_filefieldid));
+		$content = $DB->get_record('data_content', array('recordid' => $rid, 'fieldid' => $filefieldid));
+	}
         // License
         $this->content->icons[] = '';
         $this->content->items[] = get_string('author','block_about_course').': <b>'.$author.'</b>';
@@ -85,10 +84,20 @@ class block_about_course extends block_list {
          .get_string('metainfo','block_about_course').'</a>';
 	
 	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => 6));
-	$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.context_module::instance($cmid)->id.'/mod_data/content/'.$content->id.'/'.$content->content);
-	$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/rate_course/metainfo.gif" height="16" />';
-	$this->content->items[] = '<a href="'.$url.'" >'
-         .get_string('download_course','block_about_course').'</a>';
+	if ($cmid) {
+		
+		$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.context_module::instance($cmid)->id.'/mod_data/content/'.$content->id.'/'.$content->content);
+		$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/rate_course/metainfo.gif" height="16" />';
+		$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
+         	.get_string('download_course','block_about_course').'</a>'.
+		'<script>
+			function increase_counter(fieldid, recordid){
+				var xhReq = new XMLHttpRequest();
+			        xhReq.open("GET", M.cfg.wwwroot + "/mod/data/counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
+			        xhReq.send(null);
+			}
+		</script>';
+	}
         		
         $this->content->footer = '';
         return $this->content;
