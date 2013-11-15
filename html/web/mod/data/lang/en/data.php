@@ -369,6 +369,28 @@ $string['reportabuse_mail'] =' had reported the following inappropiate content i
 $string['reportabuse_intro'] ='Thank you for help the comunity reporting about contents that may violate the <a href=\"$a\" target=\"_blank\">terms of use</a> of this place! <br>Soon you\'ll recieve a copy of your report in your mailbox.';
 $string['licensefield'] = 'License';
 $string['creatorfield'] = 'Author';
+$string['coursesdataid'] = 'coursesdataid';
+$string['coursefieldid'] = 'coursefieldid';
+$string['fullnamefieldid'] = 'fullnamefieldid';
+$string['shortnamefieldid'] = 'shortnamefieldid';
+$string['summaryfieldid'] = 'summaryfieldid';
+$string['creatorfieldid'] = 'creatorfieldid';
+$string['categoryfieldi'] = 'categoryfieldi';
+$string['urlfieldid'] = 'urlfieldid';
+$string['licensefieldid'] = 'licensefieldid';
+$string['creationdatefieldid'] = 'creationdatefieldid';
+$string['filefieldid'] = 'filefieldid';
+$string['configfilefieldid'] = 'configfilefieldid';
+$string['configfullnamefieldid'] = 'configfullnamefieldid';
+$string['configshortnamefieldid'] = 'configshortnamefieldid';
+$string['configsummaryfieldid'] = 'configsummaryfieldid';
+$string['configcreatorfieldid'] = 'configcreatorfieldid';
+$string['categoryfieldid'] = 'categoryfieldid';
+$string['configcategoryfieldid'] = 'configcategoryfieldid';
+$string['configurlfieldid'] = 'configurlfieldid';
+$string['configlicensefieldid'] = 'configlicensefieldid';
+$string['configcreationdatefieldid'] = 'configcreationdatefieldid';
+$string['configcoursesdataid'] = 'configcoursesdataid';
 //************ FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer

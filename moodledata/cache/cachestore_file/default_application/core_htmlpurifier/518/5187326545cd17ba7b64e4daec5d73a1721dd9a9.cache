@@ -1,1 +1,0 @@
-s:340:"<strong>Stack trace:</strong> <ul style="text-align:left;"><li>line 367 of /lib/filestorage/stored_file.php: file_exception thrown</li><li>line 2110 of /lib/filelib.php: call to stored_file-&gt;readfile()</li><li>line 2451 of /lib/filelib.php: call to readfile_accel()</li><li>line 88 of /draftfile.php: call to send_stored_file()</li></ul>";
