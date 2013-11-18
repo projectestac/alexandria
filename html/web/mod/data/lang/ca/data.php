@@ -1,5 +1,5 @@
 <?php
-//XTEC - ALEXANDRIA ************ FITXER AFEGIT - Strings adicionals català
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT - Additional catalan strings
 //2011 - @fcasanel
 //2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['ispdipdf'] = 'És un PDF de previsualització de materials PDI?';
@@ -31,4 +31,28 @@ $string['reporter'] ='Autor de l\'informe';
 $string['report_topic'] ='Tema';
 $string['report_desc'] ='Descripció';
 $string['report_date'] ='Data';
+$string['licensefield'] = 'Llic&egrave;ncia';
+$string['creatorfield'] = 'Autor';
+$string['coursesdataid'] = 'Llista de IDs de base de dades que contenen cursos';
+$string['coursefieldid'] = 'Camp de ID de curs';
+$string['fullnamefieldid'] = 'Camp de nom complet';
+$string['shortnamefieldid'] = 'Camp del nom curt';
+$string['summaryfieldid'] = 'Camp de la descripci&oacute;';
+$string['creatorfieldid'] = 'Camp de l\'autor';
+$string['categoryfieldid'] = 'Camp de la categoria';
+$string['urlfieldid'] = 'Camp de la URL';
+$string['licensefieldid'] = 'Camp de la llic&egrave;ncia';
+$string['creationdatefieldid'] = 'Camp de la data de creaci&oacute;';
+$string['filefieldid'] = 'Camp del fitxer';
+$string['configfilefieldid'] = 'Camp de la base de dades que cont&eacute; el fitxer';
+$string['configfullnamefieldid'] = 'Camp de la base de dades que cont&eacute; el nom complet';
+$string['configshortnamefieldid'] = 'Camp de la base de dades que cont&eacute; el nomm curt';
+$string['configsummaryfieldid'] = 'Camp de la base de dades que cont&eacute; la descripci&oacute;';
+$string['configcreatorfieldid'] = 'Camp de la base de dades que cont&eacute; l\'autor';
+$string['configcategoryfieldid'] = 'Camp de la base de dades que cont&eacute; la categoria';
+$string['configurlfieldid'] = 'Camp de la base de dades que cont&eacute; la URL';
+$string['configlicensefieldid'] = 'Camp de la base de dades que cont&eacute; la llic&egrave;ncia';
+$string['configcreationdatefieldid'] = 'Camp de la base de dades que cont&eacute; la data de creaci&oacute;';
+$string['configcoursesdataid'] = 'Llista de base de dades que estractaran com a base de dades de cursos.';
+
 //*********** FI

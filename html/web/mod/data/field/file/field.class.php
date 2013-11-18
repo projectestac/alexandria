@@ -63,7 +63,7 @@ class data_field_file extends data_field_base {
         }
 
         $html = '';
-	//XTEC - ALEXANDRIA **************** MODIFICAT - Deshabilitem la pujada del fitxer si es un backup i ja té contingut
+	//XTEC - ALEXANDRIA **************** MODIFICAT - If the file is already uploaded, disable upload
         //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         // ***** CODI ORIGINAL
         // database entry label
@@ -163,8 +163,7 @@ class data_field_file extends data_field_base {
         if (!$file = $this->get_file($recordid, $content)) {
             return '';
         }
-	//XTEC - ALEXANDRIA ************ MODIFICAT
-	//Si es una previsualització només retornem el link al fitxer
+	//XTEC - ALEXANDRIA ************ MODIFICAT - If it's a preview only return the file link
 	// CODI ORIGINAL
         //$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
         //$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
@@ -349,7 +348,7 @@ class data_field_file extends data_field_base {
 	}
 	//*************** FI
 
-	//XTEC - ALEXANDRIA ************ AFEGIT - Si es un backup restaurem el curs
+	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 		require_once( $CFG->dirroot . '/backup/util/includes/restore_includes.php' );
@@ -394,10 +393,10 @@ class data_field_file extends data_field_base {
         return true;
     }
     
-    //XTEC - ALEXANDRIA ************ AFEGIT - Si era un SCORM o un curs, els borrem.
+    //XTEC - ALEXANDRIA ************ AFEGIT - If it was a course or a SCORM, we deleted the related resources
     //2013.11.13 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
     // ******** CODI AFEGIT
-    function delete_content($recordid) {
+    function delete_content($recordid = 0) {
 	global $DB,$CFG;
 	if($this->field->param5){
                 $scorm_id = $DB->get_field('data_content','content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));

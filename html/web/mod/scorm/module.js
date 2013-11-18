@@ -542,7 +542,7 @@ M.mod_scorm.init = function(Y, hide_nav, hide_toc, toc_title, window_name, launc
     });
 };
 
-//XTEC - ALEXANDRIA ************ AFEGIT - Funcions per a carregar el preview dels SCORMS
+//XTEC - ALEXANDRIA ************ AFEGIT - SCORM preview functions
 //2013.11.11 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 M.mod_scorm.init_preview = function(Y,toc_title, window_name, launch_sco, scoes_nav) {
     var scorm_disable_toc = false;

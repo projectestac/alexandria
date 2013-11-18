@@ -125,7 +125,7 @@ function xmldb_data_upgrade($oldversion) {
 
     //XTEC - ALEXANDRIA ************ AFEGIT - Create "abuse_reports" table to store all abuse reports
     //2013.10.29
-    if ($oldversion < 2013102900) {
+    if ($oldversion <  2007101509.01) {
         $table = new xmldb_table('data_abuse_reports');
 	$field = new xmldb_field('id');
         $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);

@@ -1,5 +1,5 @@
 <?php
-//XTEC - ALEXANDRIA ************ FITXER AFEGIT - Fitxer afegit per a poder carregar els SCO
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT - File added for SCO preview
 require_once('../../config.php');
 require_once($CFG->dirroot.'/mod/scorm/locallib.php');
 

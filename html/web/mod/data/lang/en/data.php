@@ -349,7 +349,7 @@ $string['viewfromdate'] = 'Read only from';
 $string['viewtodate'] = 'Read only to';
 $string['wrongdataid'] = 'Wrong data id provided';
 
-//XTEC - ALEXANDRIA ************ AFEGIT - Strings adicionals
+//XTEC - ALEXANDRIA ************ AFEGIT - Additional english strings
 //2011 - @fcasanel
 //2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['ispdipdf'] ='Is a PDF to show PDI materials?';
@@ -369,28 +369,27 @@ $string['reportabuse_mail'] =' had reported the following inappropiate content i
 $string['reportabuse_intro'] ='Thank you for help the comunity reporting about contents that may violate the <a href=\"$a\" target=\"_blank\">terms of use</a> of this place! <br>Soon you\'ll recieve a copy of your report in your mailbox.';
 $string['licensefield'] = 'License';
 $string['creatorfield'] = 'Author';
-$string['coursesdataid'] = 'coursesdataid';
-$string['coursefieldid'] = 'coursefieldid';
-$string['fullnamefieldid'] = 'fullnamefieldid';
-$string['shortnamefieldid'] = 'shortnamefieldid';
-$string['summaryfieldid'] = 'summaryfieldid';
-$string['creatorfieldid'] = 'creatorfieldid';
-$string['categoryfieldi'] = 'categoryfieldi';
-$string['urlfieldid'] = 'urlfieldid';
-$string['licensefieldid'] = 'licensefieldid';
-$string['creationdatefieldid'] = 'creationdatefieldid';
-$string['filefieldid'] = 'filefieldid';
-$string['configfilefieldid'] = 'configfilefieldid';
-$string['configfullnamefieldid'] = 'configfullnamefieldid';
-$string['configshortnamefieldid'] = 'configshortnamefieldid';
-$string['configsummaryfieldid'] = 'configsummaryfieldid';
-$string['configcreatorfieldid'] = 'configcreatorfieldid';
-$string['categoryfieldid'] = 'categoryfieldid';
-$string['configcategoryfieldid'] = 'configcategoryfieldid';
-$string['configurlfieldid'] = 'configurlfieldid';
-$string['configlicensefieldid'] = 'configlicensefieldid';
-$string['configcreationdatefieldid'] = 'configcreationdatefieldid';
-$string['configcoursesdataid'] = 'configcoursesdataid';
+$string['coursesdataid'] = 'List of course IDs that contain course-based databases';
+$string['coursefieldid'] = 'Database course ID field';
+$string['fullnamefieldid'] = 'Database fullname field';
+$string['shortnamefieldid'] = 'Database shortname field';
+$string['summaryfieldid'] = 'Database summary field';
+$string['creatorfieldid'] = 'Database creator field';
+$string['categoryfieldid'] = 'Database category field';
+$string['urlfieldid'] = 'Database URL field';
+$string['licensefieldid'] = 'Database licence field';
+$string['creationdatefieldid'] = 'Database creation date field';
+$string['filefieldid'] = 'Database file field';
+$string['configfilefieldid'] = 'Field of the database containing the file';
+$string['configfullnamefieldid'] = 'Field of the database containing the fullname';
+$string['configshortnamefieldid'] = 'Field of the database containing the shortname';
+$string['configsummaryfieldid'] = 'Field of the database containing the summary';
+$string['configcreatorfieldid'] = 'Field of the database containing the creator';
+$string['configcategoryfieldid'] = 'Field of the database containing the category';
+$string['configurlfieldid'] = 'Field of the database containing the URL';
+$string['configlicensefieldid'] = 'Field of the database containing the licence';
+$string['configcreationdatefieldid'] = 'Field of the database containing the creation date';
+$string['configcoursesdataid'] = 'List of courses that should be handled as a course database.';
 //************ FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer

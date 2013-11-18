@@ -1197,7 +1197,7 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
     // Then we generate strings to replace for normal tags
         foreach ($fields as $field) {
             $patterns[]='[['.$field->field->name.']]';
-            //XTEC - ALEXANDRIA **************** MODIFICAT - Si no té contingut els marquem com buit
+            //XTEC - ALEXANDRIA **************** MODIFICAT - If it's empty, we tag it
             //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 	    // ***** CODI ORIGINAL
             $replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
@@ -1337,7 +1337,7 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
             }
         }
     }
-    //XTEC - ALEXANDRIA ***** AFEGIT - Amaguem les files dels camps buits que hem marcat previament
+    //XTEC - ALEXANDRIA ***** AFEGIT - Hide previously tagged rows of empty fields
     //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
     // ***** CODI AFEGIT
     //echo '<script>
@@ -3715,7 +3715,7 @@ function data_update_downloadings($fieldid, $recordid){
 
 //************ FI
 
-//XTEC - ALEXANDRIA ************ AFEGIT - Funcions per restaurar curs
+//XTEC - ALEXANDRIA ************ AFEGIT - Restore course functions
 //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 function restore_backup_file($file,$courseid = NULL) {
 	global $CFG,$DB;
@@ -3845,7 +3845,7 @@ function sort_datarecord_files_last($a,$b) {
 
 //*************** FI
 
-//XTEC - ALEXANDRIA ************ AFEGIT - Funcions pel CRON
+//XTEC - ALEXANDRIA ************ AFEGIT - CRON functions
 //2013.11.07 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 function data_cron() {
 	global $DB,$CFG;

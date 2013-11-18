@@ -1,5 +1,5 @@
-<?php
-//XTEC - ALEXANDRIA ************ FITXER AFEGIT - Fitxer afegit per a poder carregar els SCO
+<?phip
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT - File added for SCO preview
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
