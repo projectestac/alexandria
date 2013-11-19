@@ -9,3 +9,6 @@ $string['error_saving_grade'] = 'There was an error and failed to save the user 
 $string['alert_units_table'] = "The data displayed correspond to the last two units for which there has been activity. To select other use the units selector.";
 $string['alert_units_table_hide'] = "I don't want to see the notice again.";
 $string['alert_units_table_ok'] = 'Accept';
+$string['rgrade:myaddinstance'] = 'Add Remote Content Grades block instance to My Moodle';
+$string['rgrade:addinstance'] = 'Add Remote Content Grades block instance';
+

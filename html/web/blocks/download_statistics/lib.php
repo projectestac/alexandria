@@ -1,6 +1,6 @@
 <?php 
 
-function block_download_statistics_fields($courses_dataid) {
+function block_download_statistics_fields() {
 	global $CFG,$DB;
 	
     $sql = 'SELECT id, dataid, name  FROM {data_fields} WHERE type=\'file\'';

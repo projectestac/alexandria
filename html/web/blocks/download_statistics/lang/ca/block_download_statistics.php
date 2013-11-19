@@ -12,4 +12,7 @@ $string['total_of_downloads'] = 'Descàrregues totals:';
 $string['courses'] = 'Biblioteca de cursos';
 
 $string['pluginname'] = 'Estadístiques de descàrrega';
+
+$string['download_statistics:addinstance'] = 'Afegir instancia del block Estadístiques de descàrrega';
+
 ?>

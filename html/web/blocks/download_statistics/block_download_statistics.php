@@ -28,7 +28,7 @@ class block_download_statistics extends block_list {
             if ($this->content !== NULL) {
                 return $this->content;
             }
-            
+             
             $this->content = new stdClass;
             $this->content->items = array();
             $this->content->icons = array();
@@ -37,8 +37,11 @@ class block_download_statistics extends block_list {
             $content = get_string('total_of_downloads','block_download_statistics');
             $content.= "<ul>";
             $old_dataname = '';
+	    $data = array();
             if ($fields = block_download_statistics_fields()){
                 foreach ($fields as $field) {
+		    if (!isset($data[$field['dataname']]))
+			$data[$field['dataname']] = 0;
 		    $data[$field['dataname']] += $field['downloads'];
 		}
 		foreach($data as $key => $value) {

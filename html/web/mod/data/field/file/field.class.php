@@ -317,6 +317,9 @@ class data_field_file extends data_field_base {
                         );
                         $fs->create_file_from_storedfile($file_record, $draftfile);
                     }
+		    if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+			$draftfile->rename($draftfile->get_filepath(),str_replace('.zip','.mbz',$draftfile->get_filename()));
+		    }
                     $file_record = array(
                         'contextid' => $this->context->id,
                         'component' => 'mod_data',
@@ -375,12 +378,10 @@ class data_field_file extends data_field_base {
 			);
 			$enrol->enrol_users($enrolments);
 			role_assign($roleid,$USER->id,context_course::instance($courseid)->id);
-			$guestenrol = $DB->get_record('enrol',array('enrol' => 'guest'));
+			$guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid));
 			$guestenrol->status = 0;
 			$DB->update_record('enrol',$guestenrol);
-		}
-			
-			
+		}			
 	} 
 	//*************** FI
     }

@@ -15,4 +15,6 @@ $string['license_warning'] = 'The use of this material is subject to the terms o
 $string['metainfo'] = 'Complete record';
 $string['download_course'] = 'Download course';
 $string['pluginname'] = 'About course';
+
+$string['about_course:addinstance'] = 'Add About Course block instance';
 ?>

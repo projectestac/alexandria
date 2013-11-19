@@ -3720,8 +3720,7 @@ function data_update_downloadings($fieldid, $recordid){
 function restore_backup_file($file,$courseid = NULL) {
 	global $CFG,$DB;
 	$folder = $CFG->dataroot . '/temp/backup/alexandria/';
-        if (!file_exists($folder)) 
-		mkdir ($folder);
+	create_backup_folder('alexandria');
 	if (!$courseid) {
 		if (!$category = $DB->get_record('course_categories',array('name' =>'Default hidden category'))) {
 			$category = new stdClass();
@@ -3743,20 +3742,42 @@ function restore_backup_file($file,$courseid = NULL) {
         mkdir($folder);
         $zip = new ZipArchive;
         $res = $zip->open($filename);
+	$rebuildfile = false;
         if ($res === TRUE) { 
 		$zip->extractTo($folder);
                 $zip->close();
-                $controller = new restore_controller('/alexandria/'.$courseid, $courseid,
+                $controller = new restore_controller('alexandria/'.$courseid, $courseid,
 	                backup::INTERACTIVE_NO, backup::MODE_GENERAL,
         	        $DB->get_field('user','id',array('username' => $CFG->admin)),
                 	backup::TARGET_NEW_COURSE);
+		if ($controller->get_status() == backup::STATUS_REQUIRE_CONV) {
+		    $rebuildfile = true;
+        	    $controller->convert();
+	        }
+        	if ($controller->get_status() == backup::STATUS_SETTING_UI) {
+	            $controller->finish_ui();
+        	}
                 $controller->execute_precheck();
                 $controller->execute_plan();
         }
+	if ($rebuildfile) 
+		update_backup_file($file,$courseid);
         unlink($filename);
 	return $courseid;
 }
 
+function create_backup_folder($dirname) {
+	global $CFG;
+	$folder = $CFG->dataroot . '/temp';
+	if (!file_exists($folder))
+		mkdir($folder);
+	$folder .= '/backup';
+	if (!file_exists($folder))
+                mkdir($folder);
+	$folder .= '/'.$dirname;
+	if (!file_exists($folder))
+                mkdir($folder);
+}
 function update_backup_file($file,$courseid) {
 	global $CFG;
 	require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
@@ -3837,9 +3858,15 @@ function get_data_field_by_name($name,$recordid) {
 }
 
 function sort_datarecord_files_last($a,$b) {
-	if (end(explode('_',$a->name)) == 'file' && end(explode('_',$b->name)) == 'file') return 0;
-	if (end(explode('_',$a->name)) == 'file') return 1;
-	if (end(explode('_',$b->name)) == 'file') return -1;
+	$a = explode('_',$a->name);
+	$a = end($a);
+		
+	$b = explode('_',$b->name);
+	$b = end($b);
+	
+	if ($a == 'file' && $b == 'file') return 0;
+	if ($a == 'file') return 1;
+	if ($b == 'file') return -1;
 	return 0;
 }
 

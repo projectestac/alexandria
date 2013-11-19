@@ -16,4 +16,5 @@ $string['metainfo'] = 'Fitxa completa';
 $string['download_course'] = 'Descarrèga el curs';
 $string['pluginname'] = 'Informació del curs';
 
+$string['about_course:addinstance'] = 'Afegir instancia del block Informació del curs';
 ?>
