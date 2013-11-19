@@ -98,25 +98,6 @@ function feedback_add_instance($feedback) {
 
     feedback_set_events($feedback);
 
-    if (!isset($feedback->coursemodule)) {
-        $cm = get_coursemodule_from_id('feedback', $feedback->id);
-        $feedback->coursemodule = $cm->id;
-    }
-    $context = context_module::instance($feedback->coursemodule);
-
-    $editoroptions = feedback_get_editor_options();
-
-    // process the custom wysiwyg editor in page_after_submit
-    if ($draftitemid = $feedback->page_after_submit_editor['itemid']) {
-        $feedback->page_after_submit = file_save_draft_area_files($draftitemid, $context->id,
-                                                    'mod_feedback', 'page_after_submit',
-                                                    0, $editoroptions,
-                                                    $feedback->page_after_submit_editor['text']);
-
-        $feedback->page_after_submitformat = $feedback->page_after_submit_editor['format'];
-    }
-    $DB->update_record('feedback', $feedback);
-
     return $feedbackid;
 }
 
@@ -150,21 +131,6 @@ function feedback_update_instance($feedback) {
     //create or update the new events
     feedback_set_events($feedback);
 
-    $context = context_module::instance($feedback->coursemodule);
-
-    $editoroptions = feedback_get_editor_options();
-
-    // process the custom wysiwyg editor in page_after_submit
-    if ($draftitemid = $feedback->page_after_submit_editor['itemid']) {
-        $feedback->page_after_submit = file_save_draft_area_files($draftitemid, $context->id,
-                                                    'mod_feedback', 'page_after_submit',
-                                                    0, $editoroptions,
-                                                    $feedback->page_after_submit_editor['text']);
-
-        $feedback->page_after_submitformat = $feedback->page_after_submit_editor['format'];
-    }
-    $DB->update_record('feedback', $feedback);
-
     return true;
 }
 
@@ -174,38 +140,31 @@ function feedback_update_instance($feedback) {
  * There are two situations in general where the files will be sent.
  * 1) filearea = item, 2) filearea = template
  *
- * @package  mod_feedback
- * @category files
- * @param stdClass $course course object
- * @param stdClass $cm course module object
- * @param stdClass $context context object
- * @param string $filearea file area
- * @param array $args extra arguments
- * @param bool $forcedownload whether or not force download
- * @param array $options additional options affecting the file serving
+ * @param object $course
+ * @param object $cm
+ * @param object $context
+ * @param string $filearea
+ * @param array $args
+ * @param bool $forcedownload
  * @return bool false if file not found, does not return if found - justsend the file
  */
-function feedback_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options=array()) {
+function feedback_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload) {
     global $CFG, $DB;
 
-    if ($filearea === 'item' or $filearea === 'template') {
-        $itemid = (int)array_shift($args);
-        //get the item what includes the file
-        if (!$item = $DB->get_record('feedback_item', array('id'=>$itemid))) {
-            return false;
-        }
-        $feedbackid = $item->feedback;
-        $templateid = $item->template;
+    $itemid = (int)array_shift($args);
+
+    //get the item what includes the file
+    if (!$item = $DB->get_record('feedback_item', array('id'=>$itemid))) {
+        return false;
     }
 
-    if ($filearea === 'page_after_submit' or $filearea === 'item') {
-        if (! $feedback = $DB->get_record("feedback", array("id"=>$cm->instance))) {
+    //if the filearea is "item" so we check the permissions like view/complete the feedback
+    if ($filearea === 'item') {
+        //get the feedback
+        if (!$feedback = $DB->get_record('feedback', array('id'=>$item->feedback))) {
             return false;
         }
 
-        $feedbackid = $feedback->id;
-
-        //if the filearea is "item" so we check the permissions like view/complete the feedback
         $canload = false;
         //first check whether the user has the complete capability
         if (has_capability('mod/feedback:complete', $context)) {
@@ -230,7 +189,7 @@ function feedback_pluginfile($course, $cm, $context, $filearea, $args, $forcedow
             return false;
         }
     } else if ($filearea === 'template') { //now we check files in templates
-        if (!$template = $DB->get_record('feedback_template', array('id'=>$templateid))) {
+        if (!$template = $DB->get_record('feedback_template', array('id'=>$item->template))) {
             return false;
         }
 
@@ -249,7 +208,13 @@ function feedback_pluginfile($course, $cm, $context, $filearea, $args, $forcedow
     }
 
     if ($context->contextlevel == CONTEXT_MODULE) {
-        if ($filearea !== 'item' and $filearea !== 'page_after_submit') {
+        if ($filearea !== 'item') {
+            return false;
+        }
+
+        if ($item->feedback == $cm->instance) {
+            $filecontext = $context;
+        } else {
             return false;
         }
     }
@@ -261,20 +226,15 @@ function feedback_pluginfile($course, $cm, $context, $filearea, $args, $forcedow
     }
 
     $relativepath = implode('/', $args);
-    if ($filearea === 'page_after_submit') {
-        $fullpath = "/{$context->id}/mod_feedback/$filearea/$relativepath";
-    } else {
-        $fullpath = "/{$context->id}/mod_feedback/$filearea/{$item->id}/$relativepath";
-    }
+    $fullpath = "/$context->id/mod_feedback/$filearea/$itemid/$relativepath";
 
     $fs = get_file_storage();
-
     if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
         return false;
     }
 
     // finally send the file
-    send_stored_file($file, 0, 0, true, $options); // download MUST be forced - security!
+    send_stored_file($file, 0, 0, true); // download MUST be forced - security!
 
     return false;
 }
@@ -382,7 +342,7 @@ function feedback_get_recent_mod_activity(&$activities, &$index,
         $course = $DB->get_record('course', array('id'=>$courseid));
     }
 
-    $modinfo = get_fast_modinfo($course);
+    $modinfo =& get_fast_modinfo($course);
 
     $cm = $modinfo->cms[$cmid];
 
@@ -400,7 +360,7 @@ function feedback_get_recent_mod_activity(&$activities, &$index,
 
     $sql .= " WHERE fc.timemodified > ? AND fk.id = ? ";
     $sqlargs[] = $timemodified;
-    $sqlargs[] = $cm->instance;
+    $sqlargs[] = $cm->instace;
 
     if ($userid) {
         $sql .= " AND u.id = ? ";
@@ -416,7 +376,7 @@ function feedback_get_recent_mod_activity(&$activities, &$index,
         return;
     }
 
-    $cm_context      = context_module::instance($cm->id);
+    $cm_context      = get_context_instance(CONTEXT_MODULE, $cm->id);
     $accessallgroups = has_capability('moodle/site:accessallgroups', $cm_context);
     $viewfullnames   = has_capability('moodle/site:viewfullnames', $cm_context);
     $groupmode       = groups_get_activity_groupmode($cm, $course);
@@ -453,24 +413,13 @@ function feedback_get_recent_mod_activity(&$activities, &$index,
         $tmpactivity->sectionnum= $cm->sectionnum;
         $tmpactivity->timestamp = $feedbackitem->timemodified;
 
-        $tmpactivity->content = new stdClass();
         $tmpactivity->content->feedbackid = $feedbackitem->id;
         $tmpactivity->content->feedbackuserid = $feedbackitem->userid;
 
-        $userfields = explode(',', user_picture::fields());
-        $tmpactivity->user = new stdClass();
-        foreach ($userfields as $userfield) {
-            if ($userfield == 'id') {
-                $tmpactivity->user->{$userfield} = $feedbackitem->userid; // aliased in SQL above
-            } else {
-                if (!empty($feedbackitem->{$userfield})) {
-                    $tmpactivity->user->{$userfield} = $feedbackitem->{$userfield};
-                } else {
-                    $tmpactivity->user->{$userfield} = null;
-                }
-            }
-        }
+        //TODO: add all necessary user fields, this is not enough for user_picture
+        $tmpactivity->user->userid   = $feedbackitem->userid;
         $tmpactivity->user->fullname = fullname($feedbackitem, $viewfullnames);
+        $tmpactivity->user->picture  = $feedbackitem->picture;
 
         $activities[$index++] = $tmpactivity;
     }
@@ -511,7 +460,7 @@ function feedback_print_recent_mod_activity($activity, $courseid, $detail, $modn
     echo '</div>';
 
     echo '<div class="user">';
-    echo "<a href=\"$CFG->wwwroot/user/view.php?id={$activity->user->id}&amp;course=$courseid\">"
+    echo "<a href=\"$CFG->wwwroot/user/view.php?id={$activity->user->userid}&amp;course=$courseid\">"
          ."{$activity->user->fullname}</a> - ".userdate($activity->timestamp);
     echo '</div>';
 
@@ -567,6 +516,15 @@ function feedback_user_complete($course, $user, $mod, $feedback) {
 function feedback_cron () {
     return true;
 }
+
+/**
+ * @todo: deprecated - to be deleted in 2.2
+ * @return bool false
+ */
+function feedback_get_participants($feedbackid) {
+    return false;
+}
+
 
 /**
  * @return bool false
@@ -732,16 +690,6 @@ function feedback_reset_course_form($course) {
 }
 
 /**
- * This gets an array with default options for the editor
- *
- * @return array the options
- */
-function feedback_get_editor_options() {
-    return array('maxfiles' => EDITOR_UNLIMITED_FILES,
-                'trusttext'=>true);
-}
-
-/**
  * This creates new events given as timeopen and closeopen by $feedback.
  *
  * @global object
@@ -837,7 +785,9 @@ function feedback_get_context($cmid) {
         return $context;
     }
 
-    $context = context_module::instance($cmid);
+    if (!$context = get_context_instance(CONTEXT_MODULE, $cmid)) {
+            print_error('badcontext');
+    }
     return $context;
 }
 
@@ -878,7 +828,7 @@ function feedback_get_incomplete_users($cm,
 
     global $DB;
 
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     //first get all user who can complete this feedback
     $cap = 'mod/feedback:complete';
@@ -984,7 +934,9 @@ function feedback_get_complete_users($cm,
 
     global $DB;
 
-    $context = context_module::instance($cm->id);
+    if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+            print_error('badcontext');
+    }
 
     $params = (array)$params;
 
@@ -1030,7 +982,9 @@ function feedback_get_complete_users($cm,
  */
 function feedback_get_viewreports_users($cmid, $groups = false) {
 
-    $context = context_module::instance($cmid);
+    if (!$context = get_context_instance(CONTEXT_MODULE, $cmid)) {
+            print_error('badcontext');
+    }
 
     //description of the call below:
     //get_users_by_capability($context, $capability, $fields='', $sort='', $limitfrom='',
@@ -1056,7 +1010,9 @@ function feedback_get_viewreports_users($cmid, $groups = false) {
  */
 function feedback_get_receivemail_users($cmid, $groups = false) {
 
-    $context = context_module::instance($cmid);
+    if (!$context = get_context_instance(CONTEXT_MODULE, $cmid)) {
+            print_error('badcontext');
+    }
 
     //description of the call below:
     //get_users_by_capability($context, $capability, $fields='', $sort='', $limitfrom='',
@@ -1129,10 +1085,10 @@ function feedback_save_as_template($feedback, $name, $ispublic = 0) {
     if ($ispublic) {
         $s_context = get_system_context();
     } else {
-        $s_context = context_course::instance($newtempl->course);
+        $s_context = get_context_instance(CONTEXT_COURSE, $newtempl->course);
     }
     $cm = get_coursemodule_from_instance('feedback', $feedback->id);
-    $f_context = context_module::instance($cm->id);
+    $f_context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     //create items of this new template
     //depend items we are storing temporary in an mapping list array(new id => dependitem)
@@ -1234,11 +1190,11 @@ function feedback_items_from_template($feedback, $templateid, $deleteold = false
     if ($template->ispublic) {
         $s_context = get_system_context();
     } else {
-        $s_context = context_course::instance($feedback->course);
+        $s_context = get_context_instance(CONTEXT_COURSE, $feedback->course);
     }
     $course = $DB->get_record('course', array('id'=>$feedback->course));
     $cm = get_coursemodule_from_instance('feedback', $feedback->id);
-    $f_context = context_module::instance($cm->id);
+    $f_context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     //if deleteold then delete all old items before
     //get all items
@@ -1537,7 +1493,7 @@ function feedback_delete_item($itemid, $renumber = true, $template = false) {
         if ($template->ispublic) {
             $context = get_system_context();
         } else {
-            $context = context_course::instance($template->course);
+            $context = get_context_instance(CONTEXT_COURSE, $template->course);
         }
         $templatefiles = $fs->get_area_files($context->id,
                                     'mod_feedback',
@@ -1553,7 +1509,7 @@ function feedback_delete_item($itemid, $renumber = true, $template = false) {
         if (!$cm = get_coursemodule_from_instance('feedback', $item->feedback)) {
             return false;
         }
-        $context = context_module::instance($cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
         $itemfiles = $fs->get_area_files($context->id,
                                     'mod_feedback',
@@ -2062,17 +2018,6 @@ function feedback_get_page_to_continue($feedbackid, $courseid = false, $guestid 
 ////////////////////////////////////////////////
 
 /**
- * cleans the userinput while submitting the form.
- *
- * @param mixed $value
- * @return mixed
- */
-function feedback_clean_input_value($item, $value) {
-    $itemobj = feedback_get_item_class($item->typ);
-    return $itemobj->clean_input_value($value);
-}
-
-/**
  * this saves the values of an completed.
  * if the param $tmp is set true so the values are saved temporary in table feedback_valuetmp.
  * if there is already a completed and the userid is set so the values are updated.
@@ -2206,13 +2151,10 @@ function feedback_check_values($firstitem, $lastitem) {
         $formvalname = $item->typ . '_' . $item->id;
 
         if ($itemobj->value_is_array()) {
-            //get the raw value here. It is cleaned after that by the object itself
-            $value = optional_param_array($formvalname, null, PARAM_RAW);
+            $value = optional_param_array($formvalname, null, $itemobj->value_type());
         } else {
-            //get the raw value here. It is cleaned after that by the object itself
-            $value = optional_param($formvalname, null, PARAM_RAW);
+            $value = optional_param($formvalname, null, $itemobj->value_type());
         }
-        $value = $itemobj->clean_input_value($value);
 
         //check if the value is set
         if (is_null($value) AND $item->required == 1) {
@@ -2991,7 +2933,7 @@ function feedback_send_email_anonym($cm, $feedback, $course) {
  * @return string the text you want to post
  */
 function feedback_send_email_text($info, $course) {
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
     $courseshortname = format_string($course->shortname, true, array('context' => $coursecontext));
     $posttext  = $courseshortname.' -> '.get_string('modulenameplural', 'feedback').' -> '.
                     $info->feedback."\n";
@@ -3012,7 +2954,7 @@ function feedback_send_email_text($info, $course) {
  */
 function feedback_send_email_html($info, $course, $cm) {
     global $CFG;
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
     $courseshortname = format_string($course->shortname, true, array('context' => $coursecontext));
     $course_url = $CFG->wwwroot.'/course/view.php?id='.$course->id;
     $feedback_all_url = $CFG->wwwroot.'/mod/feedback/index.php?id='.$course->id;
@@ -3052,7 +2994,7 @@ function feedback_extend_settings_navigation(settings_navigation $settings,
 
     global $PAGE, $DB;
 
-    if (!$context = context_module::instance($PAGE->cm->id, IGNORE_MISSING)) {
+    if (!$context = get_context_instance(CONTEXT_MODULE, $PAGE->cm->id)) {
         print_error('badcontext');
     }
 

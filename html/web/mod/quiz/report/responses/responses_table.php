@@ -15,55 +15,43 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This file defines the quiz responses table.
+ * This file defines the quiz responses report class.
  *
- * @package   quiz_responses
- * @copyright 2008 Jean-Michel Vedrine
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    quiz
+ * @subpackage responses
+ * @copyright  2008 Jean-Michel Vedrine
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_table.php');
-
 
 /**
  * This is a table subclass for displaying the quiz responses report.
  *
- * @copyright 2008 Jean-Michel Vedrine
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2008 Jean-Michel Vedrine
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_responses_table extends quiz_attempts_report_table {
+class quiz_report_responses_table extends quiz_attempt_report_table {
 
-    /**
-     * Constructor
-     * @param object $quiz
-     * @param context $context
-     * @param string $qmsubselect
-     * @param quiz_responses_options $options
-     * @param array $groupstudents
-     * @param array $students
-     * @param array $questions
-     * @param moodle_url $reporturl
-     */
-    public function __construct($quiz, $context, $qmsubselect, quiz_responses_options $options,
-            $groupstudents, $students, $questions, $reporturl) {
+    public function __construct($quiz, $context, $qmsubselect, $qmfilter,
+            $attemptsmode, $groupstudents, $students,
+            $questions, $includecheckboxes, $reporturl, $displayoptions) {
         parent::__construct('mod-quiz-report-responses-report', $quiz, $context,
-                $qmsubselect, $options, $groupstudents, $students, $questions, $reporturl);
+                $qmsubselect, $qmfilter, $attemptsmode, $groupstudents, $students,
+                $questions, $includecheckboxes, $reporturl, $displayoptions);
     }
 
     public function build_table() {
-        if (!$this->rawdata) {
-            return;
+        if ($this->rawdata) {
+            $this->strtimeformat = str_replace(',', ' ', get_string('strftimedatetime'));
+            parent::build_table();
         }
-
-        $this->strtimeformat = str_replace(',', ' ', get_string('strftimedatetime'));
-        parent::build_table();
     }
 
     public function col_sumgrades($attempt) {
-        if ($attempt->state != quiz_attempt::FINISHED) {
+        if (!$attempt->timefinish) {
             return '-';
         }
 

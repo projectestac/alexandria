@@ -84,8 +84,9 @@ class qtype_essay_renderer extends qtype_renderer {
         $output = array();
 
         foreach ($files as $file) {
+            $mimetype = $file->get_mimetype();
             $output[] = html_writer::tag('p', html_writer::link($qa->get_response_file_url($file),
-                    $this->output->pix_icon(file_file_icon($file), get_mimetype_description($file),
+                    $this->output->pix_icon(file_mimetype_icon($mimetype), $mimetype,
                     'moodle', array('class' => 'icon')) . ' ' . s($file->get_filename())));
         }
         return implode($output);
@@ -109,14 +110,11 @@ class qtype_essay_renderer extends qtype_renderer {
         $pickeroptions->itemid = $qa->prepare_response_files_draft_itemid(
                 'attachments', $options->context->id);
         $pickeroptions->context = $options->context;
-        $pickeroptions->return_types = FILE_INTERNAL;
 
         $pickeroptions->itemid = $qa->prepare_response_files_draft_itemid(
                 'attachments', $options->context->id);
 
-        $fm = new form_filemanager($pickeroptions);
-        $filesrenderer = $this->page->get_renderer('core', 'files');
-        return $filesrenderer->render($fm). html_writer::empty_tag(
+        return form_filemanager_render($pickeroptions) . html_writer::empty_tag(
                 'input', array('type' => 'hidden', 'name' => $qa->get_qt_field_name('attachments'),
                 'value' => $pickeroptions->itemid));
     }
@@ -219,14 +217,12 @@ class qtype_essay_format_editor_renderer extends plugin_renderer_base {
                 array('id' => $id, 'name' => $inputname, 'rows' => $lines, 'cols' => 60)));
 
         $output .= html_writer::start_tag('div');
-        if (count($formats) == 1) {
+        if (count($formats == 1)) {
             reset($formats);
             $output .= html_writer::empty_tag('input', array('type' => 'hidden',
                     'name' => $inputname . 'format', 'value' => key($formats)));
 
         } else {
-            $output .= html_writer::label(get_string('format'), 'menu' . $inputname . 'format', false);
-            $output .= ' ';
             $output .= html_writer::select($formats, $inputname . 'format', $responseformat, '');
         }
         $output .= html_writer::end_tag('div');
@@ -283,7 +279,7 @@ class qtype_essay_format_editor_renderer extends plugin_renderer_base {
      * @return array filepicker options for the editor.
      */
     protected function get_filepicker_options($context, $draftitemid) {
-        return array('return_types'  => FILE_INTERNAL | FILE_EXTERNAL);
+        return array();
     }
 
     /**

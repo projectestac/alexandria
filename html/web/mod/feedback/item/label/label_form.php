@@ -29,6 +29,8 @@ class feedback_label_form extends feedback_item_form {
         $positionlist = $this->_customdata['positionlist'];
         $position = $this->_customdata['position'];
 
+        $context = get_context_instance(CONTEXT_MODULE, $common['cmid']);
+
         $mform =& $this->_form;
 
         $mform->addElement('hidden', 'required', 0);
@@ -40,7 +42,7 @@ class feedback_label_form extends feedback_item_form {
 
         $mform->addElement('header', 'general', get_string($this->type, 'feedback'));
         $mform->addElement('editor', 'presentation_editor', '', null, $presentationoptions);
-        $mform->setType('presentation_editor', PARAM_RAW);
+        $mform->setType('presentation_editor', PARAM_CLEANHTML);
 
         parent::definition();
         $this->set_data($item);

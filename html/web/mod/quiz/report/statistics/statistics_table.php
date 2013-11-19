@@ -17,9 +17,10 @@
 /**
  * Quiz statistics report, table for showing statistics of each question in the quiz.
  *
- * @package   quiz_statistics
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    quiz
+ * @subpackage statistics
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -32,10 +33,10 @@ require_once($CFG->libdir.'/tablelib.php');
  * This table has one row for each question in the quiz, with sub-rows when
  * random questions appear. There are columns for the various statistics.
  *
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_statistics_table extends flexible_table {
+class quiz_report_statistics_table extends flexible_table {
     /** @var object the quiz settings. */
     protected $quiz;
 
@@ -50,7 +51,7 @@ class quiz_statistics_table extends flexible_table {
     }
 
     /**
-     * Set up the columns and headers and other properties of the table and then
+     * Setup the columns and headers and other properties of the table and then
      * call flexible_table::setup() method.
      *
      * @param object $quiz the quiz settings
@@ -58,11 +59,11 @@ class quiz_statistics_table extends flexible_table {
      * @param moodle_url $reporturl the URL to redisplay this report.
      * @param int $s number of attempts included in the statistics.
      */
-    public function statistics_setup($quiz, $cmid, $reporturl, $s) {
+    public function setup($quiz, $cmid, $reporturl, $s) {
         $this->quiz = $quiz;
         $this->cmid = $cmid;
 
-        // Define the table columns.
+        // Define table columns
         $columns = array();
         $headers = array();
 
@@ -121,7 +122,7 @@ class quiz_statistics_table extends flexible_table {
         $this->column_class('discrimination_index', 'numcol');
         $this->column_class('discriminative_efficiency', 'numcol');
 
-        // Set up the table.
+        // Set up the table
         $this->define_baseurl($reporturl->out());
 
         $this->collapsible(true);

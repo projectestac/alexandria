@@ -1,27 +1,26 @@
 <?php
 
 require_once('../../config.php');
+include($CFG->libdir . '/jpgraph/src/jpgraph.php');
+include($CFG->libdir . '/jpgraph/src/jpgraph_pie.php');
+include($CFG->libdir . '/jpgraph/src/jpgraph_pie3d.php');
 
-include($CFG->dirroot . '/local/agora/jpgraph/src/jpgraph.php');
-include($CFG->dirroot . '/local/agora/jpgraph/src/jpgraph_pie.php');
-include($CFG->dirroot . '/local/agora/jpgraph/src/jpgraph_pie3d.php');
-
-// Get diskSpace and diskConsume 
+//Get diskSpace and diskConsume 
 $diskSpace = $_GET['diskSpace'];
 $diskConsume = $_GET['diskConsume'];
 $diskFree = $diskSpace - $diskConsume;
 
-// Protect the graph against data errors
-if ($diskFree < 0) {
+//Overload
+if ($diskFree < 0)
     $diskFree = 0;
-}
 
 $data = array($diskConsume, $diskFree);
 
-$graph = new PieGraph(500, 300);
+$graph = new PieGraph(400, 300);
 $graph->SetShadow();
+//$graph->title-> Set(get_string("general_ocupation", "admin"));
 
-$legends = array(get_string('disk_used', 'report_coursequotas'), get_string('disk_free', 'report_coursequotas'));
+$legends = array(get_string('disk_used', 'local_moodle'), get_string('disk_free', 'local_moodle'));
 
 $p1 = new PiePlot3D($data);
 $p1->SetLegends($legends);
@@ -32,6 +31,6 @@ $p1->SetTheme("sand");
 $graph->legend->SetShadow();
 $graph->legend->Pos(0.5, 0.99, 'center', 'bottom');
 $graph->legend->SetLayout(LEGEND_HOR);
-$graph->SetColor('#ffffff');
+$graph->SetColor('#FAFAFA');
 $graph->Add($p1);
 $graph->Stroke();

@@ -29,7 +29,8 @@ require_once($CFG->libdir.'/formslib.php');
 class mod_wiki_create_form extends moodleform {
 
     protected function definition() {
-        $mform = $this->_form;
+        global $CFG;
+        $mform =& $this->_form;
 
         $formats = $this->_customdata['formats'];
         $defaultformat = $this->_customdata['defaultformat'];
@@ -42,8 +43,6 @@ class mod_wiki_create_form extends moodleform {
             $textoptions = array('readonly'=>'readonly');
         }
         $mform->addElement('text', 'pagetitle', get_string('newpagetitle', 'wiki'), $textoptions);
-        $mform->setType('pagetitle', PARAM_TEXT);
-        $mform->addRule('pagetitle', get_string('required'), 'required', null, 'client');
 
         if ($forceformat) {
             $mform->addElement('hidden', 'pageformat', $defaultformat);
@@ -61,27 +60,10 @@ class mod_wiki_create_form extends moodleform {
                 $mform->addElement('radio', 'pageformat', '', get_string('format'.$format, 'wiki'), $format, $attr);
             }
         }
-        $mform->setType('pageformat', PARAM_ALPHANUMEXT);
-        $mform->addRule('pageformat', get_string('required'), 'required', null, 'client');
-
-        if (!empty($this->_customdata['groups']->availablegroups)) {
-            foreach ($this->_customdata['groups']->availablegroups as $groupdata) {
-                $groupinfo[$groupdata->id] = $groupdata->name;
-            }
-            if (count($groupinfo) > 1) {
-                $mform->addElement('select', 'groupinfo', get_string('group'), $groupinfo);
-                $mform->setDefault('groupinfo', $this->_customdata['groups']->currentgroup);
-            } else {
-                $groupid = key($groupinfo);
-                $groupname = $groupinfo[$groupid];
-                $mform->addElement('static', 'groupdesciption', get_string('group'), $groupname);
-                $mform->addElement('hidden', 'groupinfo', $groupid);
-            }
-        }
 
         //hiddens
-        $mform->addElement('hidden', 'action', 'create');
-        $mform->setType('action', PARAM_ALPHA);
+        $mform->addElement('hidden', 'action');
+        $mform->setDefault('action', 'create');
 
         $this->add_action_buttons(false, get_string('createpage', 'wiki'));
     }

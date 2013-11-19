@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,14 +14,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * A moodleform allowing the editing of the grade options for an individual grade item
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 if (!defined('MOODLE_INTERNAL')) {
     die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
@@ -143,18 +136,11 @@ class edit_item_form extends moodleform {
         }
 
         /// hiding
-        if ($item->cancontrolvisibility) {
-            // advcheckbox is not compatible with disabledIf!
-            $mform->addElement('checkbox', 'hidden', get_string('hidden', 'grades'));
-            $mform->addElement('date_time_selector', 'hiddenuntil', get_string('hiddenuntil', 'grades'), array('optional'=>true));
-            $mform->disabledIf('hidden', 'hiddenuntil[off]', 'notchecked');
-        } else {
-            $mform->addElement('static', 'hidden', get_string('hidden', 'grades'),
-                    get_string('componentcontrolsvisibility', 'grades'));
-            // Unset hidden to avoid data override.
-            unset($item->hidden);
-        }
+        // advcheckbox is not compatible with disabledIf!
+        $mform->addElement('checkbox', 'hidden', get_string('hidden', 'grades'));
         $mform->addHelpButton('hidden', 'hidden', 'grades');
+        $mform->addElement('date_time_selector', 'hiddenuntil', get_string('hiddenuntil', 'grades'), array('optional'=>true));
+        $mform->disabledIf('hidden', 'hiddenuntil[off]', 'notchecked');
 
         /// locking
         $mform->addElement('advcheckbox', 'locked', get_string('locked', 'grades'));

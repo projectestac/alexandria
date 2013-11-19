@@ -27,7 +27,6 @@ $strchat  = get_string('modulename', 'chat');
 /// Print the header
 $PAGE->navbar->add($strchats);
 $PAGE->set_title($strchats);
-$PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
 
 /// Get all the appropriate data
@@ -38,6 +37,9 @@ if (! $chats = get_all_instances_in_course('chat', $course)) {
 }
 
 $usesections = course_format_uses_sections($course->format);
+if ($usesections) {
+    $sections = get_all_sections($course->id);
+}
 
 /// Print the list of instances (your module will probably extend this)
 
@@ -66,7 +68,7 @@ foreach ($chats as $chat) {
     $printsection = '';
     if ($chat->section !== $currentsection) {
         if ($chat->section) {
-            $printsection = get_section_name($course, $chat->section);
+            $printsection = get_section_name($course, $sections[$chat->section]);
         }
         if ($currentsection !== '') {
             $table->data[] = 'hr';

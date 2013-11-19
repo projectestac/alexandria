@@ -52,8 +52,8 @@
         $count = 0;
         $tid_count = 0;
         $p = 0;
-
-
+    
+     
         array_push($qids, $qidc);
         array_push($qids, $qidr);
 
@@ -63,8 +63,8 @@
         array_push($tids, $result->type_id);
     }
     unset($result);
-
-    // Now that we know the question's type
+    
+    // Now that we know the question's type	
     // let's grab each question's choice content.
     foreach ($tids as $tid){
         if ($tid_count == 0 && $tid == 1){
@@ -79,7 +79,7 @@
             }
         }
         else if ($tid_count == 0){
-            if ($results = $DB->get_records('questionnaire_quest_choice', array('question_id' => $qidc),
+            if ($results = $DB->get_records('questionnaire_quest_choice', array('question_id' => $qidc), 
                                             'id', 'id,content')) {
                 foreach ($results as $result) {
                     array_push($qidc_content, $result->content);
@@ -98,7 +98,7 @@
             }
         }
         else{
-            if ($results = $DB->get_records('questionnaire_quest_choice', array('question_id' => $qidr),
+            if ($results = $DB->get_records('questionnaire_quest_choice', array('question_id' => $qidr), 
                                             'id', 'id,content')) {
                 foreach ($results as $result) {
                     array_push($qidr_content, $result->content);
@@ -156,7 +156,7 @@
             }
         }
         $count++;
-        $tidcounter++;
+        $tidcounter++;	
     }
 
     $num = 0;
@@ -167,17 +167,17 @@
                 $total_row = 0;
             foreach ($cids_col as $xx) {
                 $sql = 'SELECT count(*) '.
-                       'FROM {questionnaire_'.$tbl[0].'} r1, '.
-                       '{questionnaire_'.$tbl[1].'} r2 '.
-                       'WHERE (r1.question_id = ? AND r1.choice_id = ?) '.
-                          'AND (r2.question_id = ? AND r2.choice_id = ?) '.
+                       'FROM '.$CFG->prefix.'questionnaire_'.$tbl[0].' r1, '.
+                       $CFG->prefix.'questionnaire_'.$tbl[1].' r2 '.
+                       'WHERE (r1.question_id = \''.$qids[0].'\' AND r1.choice_id = \''.$xx.'\') '.
+                          'AND (r2.question_id = \''.$qids[1].'\' AND r2.choice_id = \''.$yy.'\') '.
                           'AND r1.response_id = r2.response_id';
-                $result = $DB->count_records_sql($sql, array($qids[0], $xx, $qids[1], $yy));
+                $result = $DB->count_records_sql($sql);
                 $total_row += intval($result);
                 array_push($col_counts, $result);
           }
                 array_push($row_totals,$total_row);
-       }
+       }                
 
                 // let's build the cross-tabulation results table
 ?>
@@ -187,7 +187,7 @@
                 <table width="714" border="0" cellpadding="5" cellspacing="1" bgcolor="#999999">
                 <tr>
                 <td width="411" height="25" valign="default" bgcolor="#FFFFFF"><!-- <div style="text-align:center">
-        <strong>graph cross tabulated results:&nbsp;&nbsp;&nbsp;&nbsp;
+        <strong>graph cross tabulated results:&nbsp;&nbsp;&nbsp;&nbsp; 
                 </strong></div> --></td>
 <?php
                 foreach ($qidc_content as $content){
@@ -234,7 +234,7 @@
                 echo ("<div align=\"center\"><strong>TOTALS</strong></div></td>\n");
 
                 for ($f = 0; $f < $cids_col_count; $f++){
-                    $grand_total = 0;
+            $grand_total = 0;
                         for ($g = 0; $g < $cids_row_count; $g++){
                                 if ($g == 0){
                                         $subtotal = $f;
@@ -255,10 +255,10 @@
                 echo ("</tr>\n");
 ?>
                 </table>
-         <p>&nbsp;</p>
+         <p>&nbsp;</p>  
         <a href="<?php echo($CFG->wwwroot); ?>/mod/questionnaire/report.php?where=results&sid=<?php echo($sid);?>&type=cross&instance=$instance">Go back to Cross Analysis/Tabulation</a>
         </center>
-
+        
 <?php
   }
 ?>

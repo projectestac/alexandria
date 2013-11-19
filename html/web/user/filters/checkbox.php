@@ -72,7 +72,7 @@ class user_filter_checkbox extends user_filter_type {
      *
      * @param moodleform $mform a MoodleQuickForm object in which element will be added
      */
-    public function setupForm(&$mform) {
+    public function setupForm(MoodleQuickForm &$mform) {
         $objs = array();
 
         $objs[] = $mform->createElement('checkbox', $this->_name, null, '');

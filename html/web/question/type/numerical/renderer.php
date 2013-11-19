@@ -98,9 +98,7 @@ class qtype_numerical_renderer extends qtype_renderer {
                         array('class' => 'unitchoices'));
 
             } else if ($question->unitdisplay == qtype_numerical::UNITSELECT) {
-                $unitchoice = html_writer::label(get_string('selectunit', 'qtype_numerical'),
-                        'menu' . $qa->get_qt_field_name('unit'), false, array('class' => 'accesshide'));
-                $unitchoice .= html_writer::select($question->ap->get_unit_options(),
+                $unitchoice = html_writer::select($question->ap->get_unit_options(),
                         $qa->get_qt_field_name('unit'), $selectedunit, array(''=>'choosedots'),
                         array('disabled' => $options->readonly));
             }
@@ -113,10 +111,7 @@ class qtype_numerical_renderer extends qtype_renderer {
         }
 
         if ($placeholder) {
-            $inputinplace = html_writer::tag('label', get_string('answer'),
-                    array('for' => $inputattributes['id'], 'class' => 'accesshide'));
-            $inputinplace .= $input;
-            $questiontext = substr_replace($questiontext, $inputinplace,
+            $questiontext = substr_replace($questiontext, $input,
                     strpos($questiontext, $placeholder), strlen($placeholder));
         }
 
@@ -124,14 +119,14 @@ class qtype_numerical_renderer extends qtype_renderer {
 
         if (!$placeholder) {
             $result .= html_writer::start_tag('div', array('class' => 'ablock'));
-            $result .= html_writer::tag('label', get_string('answercolon', 'qtype_numerical'), array('for' => $inputattributes['id']));
-            $result .= html_writer::tag('span', $input, array('class' => 'answer'));
+            $result .= get_string('answer', 'qtype_shortanswer',
+                    html_writer::tag('div', $input, array('class' => 'answer')));
             $result .= html_writer::end_tag('div');
         }
 
         if ($qa->get_state() == question_state::$invalid) {
             $result .= html_writer::nonempty_tag('div',
-                    $question->get_validation_error(array('answer' => $currentanswer, 'unit' => $selectedunit)),
+                    $question->get_validation_error(array('answer' => $currentanswer)),
                     array('class' => 'validationerror'));
         }
 

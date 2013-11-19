@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will display one XML file
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -51,7 +53,6 @@ class view_xml extends XMLDBAction {
      * Invoke method, every class will have its own
      * returns true/false on completion, setting both
      * errormsg and output as necessary
-     * @return mixed
      */
     function invoke() {
         parent::invoke();

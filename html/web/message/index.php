@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,9 +18,9 @@
 /**
  * A page displaying the user's contacts and messages
  *
- * @package    core_message
- * @copyright  2010 Andrew Davis
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   moodlecore
+ * @copyright 2010 Andrew Davis
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once('../config.php');
@@ -64,41 +65,43 @@ $advancedsearch = optional_param('advanced', 0, PARAM_INT);
 //if they have numerous contacts or are viewing course participants we might need to page through them
 $page = optional_param('page', 0, PARAM_INT);
 
-$url = new moodle_url('/message/index.php', array('user1' => $user1id));
+$url = new moodle_url('/message/index.php');
 
 if ($user2id !== 0) {
     $url->param('user2', $user2id);
+}
 
+if ($user2id !== 0) {
     //Switch view back to contacts if:
     //1) theyve searched and selected a user
     //2) they've viewed recent messages or notifications and clicked through to a user
-    if ($viewing == MESSAGE_VIEW_SEARCH || $viewing == MESSAGE_VIEW_RECENT_NOTIFICATIONS) {
+    if ($viewing == MESSAGE_VIEW_SEARCH || $viewing == MESSAGE_VIEW_SEARCH || $viewing == MESSAGE_VIEW_RECENT_NOTIFICATIONS) {
         $viewing = MESSAGE_VIEW_CONTACTS;
     }
 }
-
-if ($viewing != MESSAGE_VIEW_UNREAD_MESSAGES) {
-    $url->param('viewing', $viewing);
-}
+$url->param('viewing', $viewing);
 
 $PAGE->set_url($url);
 
-$navigationurl = new moodle_url('/message/index.php', array('user1' => $user1id));
-navigation_node::override_active_url($navigationurl);
+$PAGE->set_context(get_context_instance(CONTEXT_USER, $USER->id));
+$PAGE->navigation->extend_for_user($USER);
+$PAGE->set_pagelayout('course');
 
 // Disable message notification popups while the user is viewing their messages
 $PAGE->set_popup_notification_allowed(false);
 
+$context = get_context_instance(CONTEXT_SYSTEM);
+
 $user1 = null;
 $currentuser = true;
-$showactionlinks = true;
+$showcontactactionlinks = true;
 if ($user1id != $USER->id) {
     $user1 = $DB->get_record('user', array('id' => $user1id));
     if (!$user1) {
         print_error('invaliduserid');
     }
     $currentuser = false;//if we're looking at someone else's messages we need to lock/remove some UI elements
-    $showactionlinks = false;
+    $showcontactactionlinks = false;
 } else {
     $user1 = $USER;
 }
@@ -113,17 +116,10 @@ if (!empty($user2id)) {
 }
 unset($user2id);
 
-$systemcontext = context_system::instance();
-
-// Is the user involved in the conversation?
-// Do they have the ability to read other user's conversations?
-if (!message_current_user_is_involved($user1, $user2) && !has_capability('moodle/site:readallmessages', $systemcontext)) {
+//the current user isnt involved in this discussion at all
+if ($user1->id != $USER->id && (!empty($user2) && $user2->id != $USER->id) && !has_capability('moodle/site:readallmessages', $context)) {
     print_error('accessdenied','admin');
 }
-
-$PAGE->set_context(context_user::instance($user1->id));
-$PAGE->set_pagelayout('course');
-$PAGE->navigation->extend_for_user($user1);
 
 /// Process any contact maintenance requests there may be
 if ($addcontact and confirm_sesskey()) {
@@ -146,10 +142,10 @@ if ($unblockcontact and confirm_sesskey()) {
 
 //was a message sent? Do NOT allow someone looking at someone else's messages to send them.
 $messageerror = null;
-if ($currentuser && !empty($user2) && has_capability('moodle/site:sendmessage', $systemcontext)) {
+if ($currentuser && !empty($user2) && has_capability('moodle/site:sendmessage', $context)) {
     // Check that the user is not blocking us!!
     if ($contact = $DB->get_record('message_contacts', array('userid' => $user2->id, 'contactid' => $user1->id))) {
-        if ($contact->blocked and !has_capability('moodle/site:readallmessages', $systemcontext)) {
+        if ($contact->blocked and !has_capability('moodle/site:readallmessages', $context)) {
             $messageerror = get_string('userisblockingyou', 'message');
         }
     }
@@ -157,7 +153,7 @@ if ($currentuser && !empty($user2) && has_capability('moodle/site:sendmessage', 
 
     if (!empty($userpreferences['message_blocknoncontacts'])) {  // User is blocking non-contacts
         if (empty($contact)) {   // We are not a contact!
-            $messageerror = get_string('userisblockingyounoncontact', 'message', fullname($user2));
+            $messageerror = get_string('userisblockingyounoncontact', 'message');
         }
     }
 
@@ -218,10 +214,8 @@ if (!empty($user2)) {
 }
 $countunreadtotal = message_count_unread_messages($user1);
 
-if ($currentuser && $countunreadtotal == 0 && $viewing == MESSAGE_VIEW_UNREAD_MESSAGES && empty($user2)) {
-    // If the user has no unread messages, show the search box.
-    // We don't do this when a user is viewing another user's messages as search doesn't
-    // handle user A searching user B's messages properly.
+if ($countunreadtotal == 0 && $viewing == MESSAGE_VIEW_UNREAD_MESSAGES && empty($user2)) {
+    //default to showing the search
     $viewing = MESSAGE_VIEW_SEARCH;
 }
 
@@ -230,7 +224,7 @@ $countblocked = count($blockedusers);
 
 list($onlinecontacts, $offlinecontacts, $strangers) = message_get_contacts($user1, $user2);
 
-message_print_contact_selector($countunreadtotal, $viewing, $user1, $user2, $blockedusers, $onlinecontacts, $offlinecontacts, $strangers, $showactionlinks, $page);
+message_print_contact_selector($countunreadtotal, $viewing, $user1, $user2, $blockedusers, $onlinecontacts, $offlinecontacts, $strangers, $showcontactactionlinks, $page);
 
 echo html_writer::start_tag('div', array('class' => 'messagearea mdl-align'));
     if (!empty($user2)) {
@@ -286,26 +280,15 @@ echo html_writer::start_tag('div', array('class' => 'messagearea mdl-align'));
 
             $messagehistorylink .= html_writer::end_tag('div');
 
-            message_print_message_history($user1, $user2, $search, $displaycount, $messagehistorylink, $viewingnewmessages, $showactionlinks);
+            message_print_message_history($user1, $user2, $search, $displaycount, $messagehistorylink, $viewingnewmessages);
         echo html_writer::end_tag('div');
 
         //send message form
-        if ($currentuser && has_capability('moodle/site:sendmessage', $systemcontext)) {
+        if ($currentuser && has_capability('moodle/site:sendmessage', $context)) {
             echo html_writer::start_tag('div', array('class' => 'mdl-align messagesend'));
                 if (!empty($messageerror)) {
-                    echo html_writer::tag('span', $messageerror, array('id' => 'messagewarning'));
+                    echo $OUTPUT->heading($messageerror, 3);
                 } else {
-                    // Display a warning if the current user is blocking non-contacts and is about to message to a non-contact
-                    // Otherwise they may wonder why they never get a reply
-                    $blocknoncontacts = get_user_preferences('message_blocknoncontacts', '', $user1->id);
-                    if (!empty($blocknoncontacts)) {
-                        $contact = $DB->get_record('message_contacts', array('userid' => $user1->id, 'contactid' => $user2->id));
-                        if (empty($contact)) {
-                            $msg = get_string('messagingblockednoncontact', 'message', fullname($user2));
-                            echo html_writer::tag('span', $msg, array('id' => 'messagewarning'));
-                        }
-                    }
-
                     $mform = new send_form();
                     $defaultmessage = new stdClass;
                     $defaultmessage->id = $user2->id;
@@ -319,7 +302,7 @@ echo html_writer::start_tag('div', array('class' => 'messagearea mdl-align'));
     } else if ($viewing == MESSAGE_VIEW_SEARCH) {
         message_print_search($advancedsearch, $user1);
     } else if ($viewing == MESSAGE_VIEW_RECENT_CONVERSATIONS) {
-        message_print_recent_conversations($user1, false, $showactionlinks);
+        message_print_recent_conversations($user1);
     } else if ($viewing == MESSAGE_VIEW_RECENT_NOTIFICATIONS) {
         message_print_recent_notifications($user1);
     }

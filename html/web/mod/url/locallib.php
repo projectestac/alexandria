@@ -40,9 +40,9 @@ require_once("$CFG->dirroot/mod/url/lib.php");
 function url_appears_valid_url($url) {
     if (preg_match('/^(\/|https?:|ftp:)/i', $url)) {
         // note: this is not exact validation, we look for severely malformed URLs only
-        return (bool)preg_match('/^[a-z]+:\/\/([^:@\s]+:[^@\s]+@)?[a-z0-9_\.\-]+(:[0-9]+)?(\/[^#]*)?(#.*)?$/i', $url);
+        return preg_match('/^[a-z]+:\/\/([^:@\s]+:[^@\s]+@)?[a-z0-9_\.\-]+(:[0-9]+)?(\/[^#]*)?(#.*)?$/i', $url);
     } else {
-        return (bool)preg_match('/^[a-z]+:\/\/...*$/i', $url);
+        return preg_match('/^[a-z]+:\/\/...*$/i', $url);
     }
 }
 
@@ -220,15 +220,14 @@ function url_display_frame($url, $cm, $course) {
 
     } else {
         $config = get_config('url');
-        $context = context_module::instance($cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $cm->id);
         $exteurl = url_get_full_url($url, $cm, $course, $config);
         $navurl = "$CFG->wwwroot/mod/url/view.php?id=$cm->id&amp;frameset=top";
-        $coursecontext = context_course::instance($course->id);
+        $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
         $courseshortname = format_string($course->shortname, true, array('context' => $coursecontext));
         $title = strip_tags($courseshortname.': '.format_string($url->name));
         $framesize = $config->framesize;
         $modulename = s(get_string('modulename','url'));
-        $contentframetitle = format_string($url->name);
         $dir = get_string('thisdirection', 'langconfig');
 
         $extframe = <<<EOF
@@ -240,7 +239,7 @@ function url_display_frame($url, $cm, $course) {
   </head>
   <frameset rows="$framesize,*">
     <frame src="$navurl" title="$modulename"/>
-    <frame src="$exteurl" title="$contentframetitle"/>
+    <frame src="$exteurl" title="$modulename"/>
   </frameset>
 </html>
 EOF;
@@ -307,22 +306,39 @@ function url_display_embed($url, $cm, $course) {
 
     $link = html_writer::tag('a', $fullurl, array('href'=>str_replace('&amp;', '&', $fullurl)));
     $clicktoopen = get_string('clicktoopen', 'url', $link);
-    $moodleurl = new moodle_url($fullurl);
 
     $extension = resourcelib_get_extension($url->externalurl);
-
-    $mediarenderer = $PAGE->get_renderer('core', 'media');
-    $embedoptions = array(
-        core_media::OPTION_TRUSTED => true,
-        core_media::OPTION_BLOCK => true
-    );
 
     if (in_array($mimetype, array('image/gif','image/jpeg','image/png'))) {  // It's an image
         $code = resourcelib_embed_image($fullurl, $title);
 
-    } else if ($mediarenderer->can_embed_url($moodleurl, $embedoptions)) {
-        // Media (audio/video) file.
-        $code = $mediarenderer->embed_url($moodleurl, $title, 0, 0, $embedoptions);
+    } else if ($mimetype == 'audio/mp3') {
+        // MP3 audio file
+        $code = resourcelib_embed_mp3($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype == 'video/x-flv' or $extension === 'f4v') {
+        // Flash video file
+        $code = resourcelib_embed_flashvideo($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype == 'application/x-shockwave-flash') {
+        // Flash file
+        $code = resourcelib_embed_flash($fullurl, $title, $clicktoopen);
+
+    } else if (substr($mimetype, 0, 10) == 'video/x-ms') {
+        // Windows Media Player file
+        $code = resourcelib_embed_mediaplayer($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype == 'video/quicktime') {
+        // Quicktime file
+        $code = resourcelib_embed_quicktime($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype == 'video/mpeg') {
+        // Mpeg file
+        $code = resourcelib_embed_mpeg($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype == 'audio/x-pn-realaudio-plugin') {
+        // RealMedia file
+        $code = resourcelib_embed_real($fullurl, $title, $clicktoopen);
 
     } else {
         // anything else - just try object tag enlarged as much as possible
@@ -438,10 +454,10 @@ function url_get_variable_options($config) {
     );
 
     if ($config->rolesinparams) {
-        $roles = role_fix_names(get_all_roles());
+        $roles = get_all_roles();
         $roleoptions = array();
         foreach ($roles as $role) {
-            $roleoptions['course'.$role->shortname] = get_string('yourwordforx', '', $role->localname);
+            $roleoptions['course'.$role->shortname] = get_string('yourwordforx', '', $role->name);
         }
         $options[get_string('roles')] = $roleoptions;
     }
@@ -462,7 +478,7 @@ function url_get_variable_values($url, $cm, $course, $config) {
 
     $site = get_site();
 
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
     $values = array (
         'courseid'        => $course->id,
@@ -509,8 +525,9 @@ function url_get_variable_values($url, $cm, $course, $config) {
 
     //hmm, this is pretty fragile and slow, why do we need it here??
     if ($config->rolesinparams) {
-        $coursecontext = context_course::instance($course->id);
-        $roles = role_fix_names(get_all_roles($coursecontext), $coursecontext, ROLENAME_ALIAS);
+        $roles = get_all_roles();
+        $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
+        $roles = role_fix_names($roles, $coursecontext, ROLENAME_ALIAS);
         foreach ($roles as $role) {
             $values['course'.$role->shortname] = $role->localname;
         }
@@ -540,26 +557,22 @@ function url_get_encrypted_parameter($url, $config) {
 /**
  * Optimised mimetype detection from general URL
  * @param $fullurl
- * @param int $size of the icon.
- * @return string|null mimetype or null when the filetype is not relevant.
+ * @return string mimetype
  */
-function url_guess_icon($fullurl, $size = null) {
+function url_guess_icon($fullurl) {
     global $CFG;
     require_once("$CFG->libdir/filelib.php");
 
     if (substr_count($fullurl, '/') < 3 or substr($fullurl, -1) === '/') {
-        // Most probably default directory - index.php, index.html, etc. Return null because
-        // we want to use the default module icon instead of the HTML file icon.
-        return null;
+        // most probably default directory - index.php, index.html, etc.
+        return 'f/web';
     }
 
-    $icon = file_extension_icon($fullurl, $size);
-    $htmlicon = file_extension_icon('.htm', $size);
-    $unknownicon = file_extension_icon('', $size);
+    $icon = mimeinfo('icon', $fullurl);
+    $icon = 'f/'.str_replace(array('.gif', '.png'), '', $icon);
 
-    // We do not want to return those icon types, the module icon is more appropriate.
-    if ($icon === $unknownicon || $icon === $htmlicon) {
-        return null;
+    if ($icon === 'f/html' or $icon === 'f/unknown') {
+        $icon = 'f/web';
     }
 
     return $icon;

@@ -45,7 +45,7 @@
 global $CFG; // this should be done much earlier in config.php before creating new $CFG instance
 
 if (!isset($CFG)) {
-    if (defined('PHPUNIT_TEST') and PHPUNIT_TEST) {
+    if (defined('PHPUNIT_SCRIPT') and PHPUNIT_SCRIPT) {
         echo('There is a missing "global $CFG;" at the beginning of the config.php file.'."\n");
         exit(1);
     } else {
@@ -112,10 +112,7 @@ if (!isset($CFG->cachedir)) {
 // directory of the script when run from the command line. The require_once()
 // would fail, so we'll have to chdir()
 if (!isset($_SERVER['REMOTE_ADDR']) && isset($_SERVER['argv'][0])) {
-    // do it only once - skip the second time when continuing after prevous abort
-    if (!defined('ABORT_AFTER_CONFIG') and !defined('ABORT_AFTER_CONFIG_CANCEL')) {
-        chdir(dirname($_SERVER['argv'][0]));
-    }
+    chdir(dirname($_SERVER['argv'][0]));
 }
 
 // sometimes default PHP settings are borked on shared hosting servers, I wonder why they have to do that??
@@ -133,27 +130,6 @@ if (!defined('NO_OUTPUT_BUFFERING')) {
     define('NO_OUTPUT_BUFFERING', false);
 }
 
-// PHPUnit tests need custom init
-if (!defined('PHPUNIT_TEST')) {
-    define('PHPUNIT_TEST', false);
-}
-
-// When set to true MUC (Moodle caching) will be disabled as much as possible.
-// A special cache factory will be used to handle this situation and will use special "disabled" equivalents objects.
-// This ensure we don't attempt to read or create the config file, don't use stores, don't provide persistence or
-// storage of any kind.
-if (!defined('CACHE_DISABLE_ALL')) {
-    define('CACHE_DISABLE_ALL', false);
-}
-
-// When set to true MUC (Moodle caching) will not use any of the defined or default stores.
-// The Cache API will continue to function however this will force the use of the cachestore_dummy so all requests
-// will be interacting with a static property and will never go to the proper cache stores.
-// Useful if you need to avoid the stores for one reason or another.
-if (!defined('CACHE_DISABLE_STORES')) {
-    define('CACHE_DISABLE_STORES', false);
-}
-
 // Servers should define a default timezone in php.ini, but if they don't then make sure something is defined.
 // This is a quick hack.  Ideally we should ask the admin for a value.  See MDL-22625 for more on this.
 if (function_exists('date_default_timezone_set') and function_exists('date_default_timezone_get')) {
@@ -161,6 +137,15 @@ if (function_exists('date_default_timezone_set') and function_exists('date_defau
     date_default_timezone_set(date_default_timezone_get());
     error_reporting($olddebug);
     unset($olddebug);
+}
+
+// PHPUnit scripts are a special case, for now we treat them as normal CLI scripts,
+// please note you must install PHPUnit library separately via PEAR
+if (!defined('PHPUNIT_SCRIPT')) {
+    define('PHPUNIT_SCRIPT', false);
+}
+if (PHPUNIT_SCRIPT) {
+    define('CLI_SCRIPT', true);
 }
 
 // Detect CLI scripts - CLI scripts are executed from command line, do not have session and we do not want HTML in output
@@ -190,7 +175,6 @@ if (defined('WEB_CRON_EMULATED_CLI')) {
 if (file_exists("$CFG->dataroot/climaintenance.html")) {
     if (!CLI_SCRIPT) {
         header('Content-type: text/html; charset=utf-8');
-        header('X-UA-Compatible: IE=edge');
         /// Headers to make it not cacheable and json
         header('Cache-Control: no-store, no-cache, must-revalidate');
         header('Cache-Control: post-check=0, pre-check=0', false);
@@ -239,7 +223,7 @@ umask(0000);
 
 // exact version of currently used yui2 and 3 library
 $CFG->yui2version = '2.9.0';
-$CFG->yui3version = '3.7.3';
+$CFG->yui3version = '3.4.1';
 
 
 // special support for highly optimised scripts that do not need libraries and DB connection
@@ -251,11 +235,7 @@ if (defined('ABORT_AFTER_CONFIG')) {
         } else {
             error_reporting(0);
         }
-        if (NO_DEBUG_DISPLAY) {
-            // Some parts of Moodle cannot display errors and debug at all.
-            ini_set('display_errors', '0');
-            ini_set('log_errors', '1');
-        } else if (empty($CFG->debugdisplay)) {
+        if (empty($CFG->debugdisplay)) {
             ini_set('display_errors', '0');
             ini_set('log_errors', '1');
         } else {
@@ -353,12 +333,11 @@ global $COURSE;
 global $OUTPUT;
 
 /**
- * Cache used within grouplib to cache data within current request only.
- *
- * @global object $GROUPLLIB_CACHE
- * @name $GROUPLIB_CACHE
+ * Shared memory cache.
+ * @global object $MCACHE
+ * @name $MCACHE
  */
-global $GROUPLIB_CACHE;
+global $MCACHE;
 
 /**
  * Full script path including all params, slash arguments, scheme and host.
@@ -420,13 +399,11 @@ init_performance_info();
 $OUTPUT = new bootstrap_renderer();
 
 // set handler for uncaught exceptions - equivalent to print_error() call
-if (!PHPUNIT_TEST or PHPUNIT_UTIL) {
-    set_exception_handler('default_exception_handler');
-    set_error_handler('default_error_handler', E_ALL | E_STRICT);
-}
+set_exception_handler('default_exception_handler');
+set_error_handler('default_error_handler', E_ALL | E_STRICT);
 
 // If there are any errors in the standard libraries we want to know!
-error_reporting(E_ALL | E_STRICT);
+error_reporting(E_ALL);
 
 // Just say no to link prefetching (Moz prefetching, Google Web Accelerator, others)
 // http://www.google.com/webmasters/faq.html#prefetchblock
@@ -478,7 +455,6 @@ require_once($CFG->libdir .'/sessionlib.php');      // All session and cookie re
 require_once($CFG->libdir .'/editorlib.php');       // All text editor related functions and classes
 require_once($CFG->libdir .'/messagelib.php');      // Messagelib functions
 require_once($CFG->libdir .'/modinfolib.php');      // Cached information on course-module instances
-require_once($CFG->dirroot.'/cache/lib.php');       // Cache API
 
 // make sure PHP is not severly misconfigured
 setup_validate_php_configuration();
@@ -486,39 +462,16 @@ setup_validate_php_configuration();
 // Connect to the database
 setup_DB();
 
-if (PHPUNIT_TEST and !PHPUNIT_UTIL) {
-    // make sure tests do not run in parallel
-    phpunit_util::acquire_test_lock();
-    $dbhash = null;
-    try {
-        if ($dbhash = $DB->get_field('config', 'value', array('name'=>'phpunittest'))) {
-            // reset DB tables
-            phpunit_util::reset_database();
-        }
-    } catch (Exception $e) {
-        if ($dbhash) {
-            // we ned to reinit if reset fails
-            $DB->set_field('config', 'value', 'na', array('name'=>'phpunittest'));
-        }
-    }
-    unset($dbhash);
-}
-
 // Disable errors for now - needed for installation when debug enabled in config.php
 if (isset($CFG->debug)) {
     $originalconfigdebug = $CFG->debug;
     unset($CFG->debug);
 } else {
-    $originalconfigdebug = null;
+    $originalconfigdebug = -1;
 }
 
 // Load up any configuration from the config table
-
-if (PHPUNIT_TEST) {
-    phpunit_util::initialise_cfg();
-} else {
-    initialise_cfg();
-}
+initialise_cfg();
 
 // Verify upgrade is not running unless we are in a script that needs to execute in any case
 if (!defined('NO_UPGRADE_CHECK') and isset($CFG->upgraderunning)) {
@@ -539,7 +492,7 @@ if (isset($CFG->debug)) {
     $originaldatabasedebug = $CFG->debug;
     unset($CFG->debug);
 } else {
-    $originaldatabasedebug = null;
+    $originaldatabasedebug = -1;
 }
 
 // enable circular reference collector in PHP 5.3,
@@ -554,12 +507,12 @@ if (function_exists('register_shutdown_function')) {
 }
 
 // Set error reporting back to normal
-if ($originaldatabasedebug === null) {
+if ($originaldatabasedebug == -1) {
     $CFG->debug = DEBUG_MINIMAL;
 } else {
     $CFG->debug = $originaldatabasedebug;
 }
-if ($originalconfigdebug !== null) {
+if ($originalconfigdebug !== -1) {
     $CFG->debug = $originalconfigdebug;
 }
 unset($originalconfigdebug);
@@ -591,6 +544,42 @@ if (!isset($CFG->debugdisplay)) {
 if (!empty($CFG->version) and $CFG->version < 2007101509) {
     print_error('upgraderequires19', 'error');
     die;
+}
+
+// Shared-Memory cache init -- will set $MCACHE
+// $MCACHE is a global object that offers at least add(), set() and delete()
+// with similar semantics to the memcached PHP API http://php.net/memcache
+// Ensure we define rcache - so we can later check for it
+// with a really fast and unambiguous $CFG->rcache === false
+if (!empty($CFG->cachetype)) {
+    if (empty($CFG->rcache)) {
+        $CFG->rcache = false;
+    } else {
+        $CFG->rcache = true;
+    }
+
+    // do not try to initialize if cache disabled
+    if (!$CFG->rcache) {
+        $CFG->cachetype = '';
+    }
+
+    if ($CFG->cachetype === 'memcached' && !empty($CFG->memcachedhosts)) {
+        if (!init_memcached()) {
+            debugging("Error initialising memcached");
+            $CFG->cachetype = '';
+            $CFG->rcache = false;
+        }
+    } else if ($CFG->cachetype === 'eaccelerator') {
+        if (!init_eaccelerator()) {
+            debugging("Error initialising eaccelerator cache");
+            $CFG->cachetype = '';
+            $CFG->rcache = false;
+        }
+    }
+
+} else { // just make sure it is defined
+    $CFG->cachetype = '';
+    $CFG->rcache    = false;
 }
 
 // Calculate and set $CFG->ostype to be used everywhere. Possible values are:
@@ -766,9 +755,6 @@ moodle_setlocale();
 
 // Create the $PAGE global - this marks the PAGE and OUTPUT fully initialised, this MUST be done at the end of setup!
 if (!empty($CFG->moodlepageclass)) {
-    if (!empty($CFG->moodlepageclassfile)) {
-        require_once($CFG->moodlepageclassfile);
-    }
     $classname = $CFG->moodlepageclass;
 } else {
     $classname = 'moodle_page';
@@ -834,9 +820,7 @@ if (!empty($CFG->customscripts)) {
     }
 }
 
-if (PHPUNIT_TEST) {
-    // no ip blocking, these are CLI only
-} else if (CLI_SCRIPT and !defined('WEB_CRON_EMULATED_CLI')) {
+if (CLI_SCRIPT and !defined('WEB_CRON_EMULATED_CLI') and !PHPUNIT_SCRIPT) {
     // no ip blocking
 } else if (!empty($CFG->allowbeforeblock)) { // allowed list processed before blocked list?
     // in this case, ip in allowed list will be performed first
@@ -887,15 +871,6 @@ if (PHPUNIT_TEST) {
     }
 
 }
-
-// // try to detect IE6 and prevent gzip because it is extremely buggy browser
-if (!empty($_SERVER['HTTP_USER_AGENT']) and strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6') !== false) {
-    @ini_set('zlib.output_compression', 'Off');
-    if (function_exists('apache_setenv')) {
-        @apache_setenv('no-gzip', 1);
-    }
-}
-
 
 // note: we can not block non utf-8 installations here, because empty mysql database
 // might be converted to utf-8 in admin/index.php during installation

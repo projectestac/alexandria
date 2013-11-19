@@ -22,16 +22,6 @@ if ($hascustommenu) {
     $bodyclasses[] = 'has-custom-menu';
 }
 
-$courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
-if (empty($PAGE->layout_options['nocourseheaderfooter'])) {
-    $courseheader = $OUTPUT->course_header();
-    $coursecontentheader = $OUTPUT->course_content_header();
-    if (empty($PAGE->layout_options['nocoursefooter'])) {
-        $coursecontentfooter = $OUTPUT->course_content_footer();
-        $coursefooter = $OUTPUT->course_footer();
-    }
-}
-
 echo $OUTPUT->doctype() ?>
 <html <?php echo $OUTPUT->htmlattributes() ?>>
 <head>
@@ -44,7 +34,7 @@ echo $OUTPUT->doctype() ?>
 
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
-<?php if ($hasheading || $hasnavbar || !empty($courseheader) || !empty($coursefooter)) { ?>
+<?php if ($hasheading || $hasnavbar) { ?>
 
 <div id="page-wrapper">
   <div id="page" class="clearfix">
@@ -67,10 +57,6 @@ echo $OUTPUT->doctype() ?>
 
  <div class="myclear"></div>
 
-      <?php if (!empty($courseheader)) { ?>
-        <div id="course-header"><?php echo $courseheader; ?></div>
-      <?php } ?>
-
       <?php if ($hasnavbar) { ?>
         <div class="navbar clearfix">
           <div class="breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
@@ -87,9 +73,7 @@ echo $OUTPUT->doctype() ?>
                 <div id="region-main-wrap">
                     <div id="region-main">
                         <div class="region-content">
-                            <?php echo $coursecontentheader; ?>
                             <?php echo $OUTPUT->main_content() ?>
-                            <?php echo $coursecontentfooter; ?>
                         </div>
                     </div>
                 </div>
@@ -115,9 +99,6 @@ echo $OUTPUT->doctype() ?>
     </div>
 
     <div class="myclear"></div>
-    <?php if (!empty($coursefooter)) { ?>
-        <div id="course-footer"><?php echo $coursefooter; ?></div>
-    <?php } ?>
 <?php if ($hasfooter) { ?>
 
     <div id="page-footer" class="clearfix">
@@ -127,7 +108,7 @@ echo $OUTPUT->doctype() ?>
 
 <?php }
 
-if ($hasheading || $hasnavbar || !empty($courseheader) || !empty($coursefooter)) { ?>
+if ($hasheading || $hasnavbar) { ?>
    <div class="myclear"></div>
   </div> <!-- END #page -->
 

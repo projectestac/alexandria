@@ -32,8 +32,8 @@ if (isguestuser()) {
 }
 
 $returnurl = optional_param('returnurl', '', PARAM_LOCALURL);
-$courseid = optional_param('courseid', 0, PARAM_INT);
-$rssid = required_param('rssid', PARAM_INT);
+$courseid = optional_param('courseid', 0, PARAM_INTEGER);
+$rssid = required_param('rssid', PARAM_INTEGER);
 
 if ($courseid = SITEID) {
     $courseid = 0;
@@ -43,7 +43,7 @@ if ($courseid) {
     $PAGE->set_course($course);
     $context = $PAGE->context;
 } else {
-    $context = context_system::instance();
+    $context = get_context_instance(CONTEXT_SYSTEM);
     $PAGE->set_context($context);
 }
 
@@ -71,10 +71,11 @@ $strviewfeed = get_string('viewfeed', 'block_rss_client');
 $PAGE->set_title($strviewfeed);
 $PAGE->set_heading($strviewfeed);
 
+$settingsurl = new moodle_url('/admin/settings.php?section=blocksettingrss_client');
 $managefeeds = new moodle_url('/blocks/rss_client/managefeeds.php', $urlparams);
 $PAGE->navbar->add(get_string('blocks'));
-$PAGE->navbar->add(get_string('pluginname', 'block_rss_client'));
-$PAGE->navbar->add(get_string('managefeeds', 'block_rss_client'), $managefeeds);
+$PAGE->navbar->add(get_string('feedstitle', 'block_rss_client'), $settingsurl);
+$PAGE->navbar->add(get_string('managefeeds', 'block_rss_client'));
 $PAGE->navbar->add($strviewfeed);
 echo $OUTPUT->header();
 

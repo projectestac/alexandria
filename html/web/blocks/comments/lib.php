@@ -28,9 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Validate comment parameter before perform other comments actions
  *
- * @package  block_comments
- * @category comment
- *
  * @param stdClass $comment_param {
  *              context  => context the context object
  *              courseid => int course id
@@ -53,9 +50,6 @@ function block_comments_comment_validate($comment_param) {
 /**
  * Running addtional permission check on plugins
  *
- * @package  block_comments
- * @category comment
- *
  * @param stdClass $args
  * @return array
  */
@@ -65,9 +59,6 @@ function block_comments_comment_permissions($args) {
 
 /**
  * Validate comment data before displaying comments
- *
- * @package  block_comments
- * @category comment
  *
  * @param stdClass $comment
  * @param stdClass $args

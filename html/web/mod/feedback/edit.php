@@ -57,9 +57,11 @@ if (! $feedback = $DB->get_record("feedback", array("id"=>$cm->instance))) {
     print_error('invalidcoursemodule');
 }
 
-$context = context_module::instance($cm->id);
+if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+        print_error('badcontext');
+}
 
-require_login($course, true, $cm);
+require_login($course->id, true, $cm);
 
 require_capability('mod/feedback:edititems', $context);
 
@@ -347,10 +349,10 @@ if ($do_show == 'edit') {
                 echo '<span class="feedback_item_command_toggle">';
                 if ($feedbackitem->required == 1) {
                     $buttontitle = get_string('switch_item_to_not_required', 'feedback');
-                    $buttonimg = $OUTPUT->pix_url('required', 'feedback');
+                    $buttonimg = 'pics/required.gif';
                 } else {
                     $buttontitle = get_string('switch_item_to_required', 'feedback');
-                    $buttonimg = $OUTPUT->pix_url('notrequired', 'feedback');
+                    $buttonimg = 'pics/notrequired.gif';
                 }
                 $urlparams = array('switchitemrequired'=>$feedbackitem->id);
                 $requiredurl = new moodle_url($url, $urlparams);

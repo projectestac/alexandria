@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,15 +15,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * Advance grading form element
- *
  * Element-container for advanced grading custom input
  *
- * @package   core_form
- * @copyright 2011 Marina Glancy
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2011 Marina Glancy
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 global $CFG;
@@ -34,32 +31,36 @@ if (class_exists('HTML_QuickForm')) {
 }
 
 /**
- * Advance grading form element
- *
  * HTML class for a grading element. This is a wrapper for advanced grading plugins.
  * When adding the 'grading' element to the form, developer must pass an object of
  * class gradingform_instance as $attributes['gradinginstance']. Otherwise an exception will be
  * thrown.
  * This object is responsible for implementing functions to render element html and validate it
  *
- * @package   core_form
- * @category  form
- * @copyright 2011 Marina Glancy
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author       Marina Glancy
+ * @access       public
  */
 class MoodleQuickForm_grading extends HTML_QuickForm_input{
-    /** @var string html for help button, if empty then no help */
+    /**
+     * html for help button, if empty then no help
+     *
+     * @var string
+     */
     var $_helpbutton='';
 
-    /** @var array Stores attributes passed to the element */
+    /**
+     * Stores attributes passed to the element
+     * @var array
+     */
     private $gradingattributes;
 
     /**
      * Class constructor
      *
-     * @param string $elementName Input field name attribute
-     * @param mixed $elementLabel Label(s) for the input field
-     * @param mixed $attributes Either a typical HTML attribute string or an associative array
+     * @param string $elementName   Input field name attribute
+     * @param mixed $elementLabel   Label(s) for the input field
+     * @param mixed $attributes     Either a typical HTML attribute string or an associative array
+     * @return void
      */
     public function MoodleQuickForm_grading($elementName=null, $elementLabel=null, $attributes=null) {
         parent::HTML_QuickForm_input($elementName, $elementLabel, $attributes);
@@ -82,7 +83,7 @@ class MoodleQuickForm_grading extends HTML_QuickForm_input{
     /**
      * Returns the input field in HTML
      *
-     * @return string
+     * @return    string
      */
     public function toHtml(){
         global $PAGE;
@@ -90,9 +91,21 @@ class MoodleQuickForm_grading extends HTML_QuickForm_input{
     }
 
     /**
+     * set html for help button
+     *
+     * @access   public
+     * @param array $help array of arguments to make a help button
+     * @param string $function function name to call to get html
+     */
+    public function setHelpButton($helpbuttonargs, $function='helpbutton'){
+        debugging('component setHelpButton() is not used any more, please use $mform->setHelpButton() instead');
+    }
+
+    /**
      * get html for help button
      *
-     * @return string html for help button
+     * @access   public
+     * @return  string html for help button
      */
     public function getHelpButton(){
         return $this->_helpbutton;
@@ -113,11 +126,11 @@ class MoodleQuickForm_grading extends HTML_QuickForm_input{
      * Adds necessary rules to the element and checks that coorenct instance of gradingform_instance
      * is passed in attributes
      *
-     * @param string $event Name of event
-     * @param mixed $arg event arguments
-     * @param object $caller calling object
-     * @return bool
-     * @throws moodle_exception
+     * @param     string    $event  Name of event
+     * @param     mixed     $arg    event arguments
+     * @param     object    $caller calling object
+     * @return    void
+     * @throws    moodle_exception
      */
     public function onQuickFormEvent($event, $arg, &$caller) {
         if ($event == 'createElement') {
@@ -138,9 +151,8 @@ class MoodleQuickForm_grading extends HTML_QuickForm_input{
      * Function registered as rule for this element and is called when this element is being validated.
      * This is a wrapper to pass the validation to the method gradingform_instance::validate_grading_element
      *
-     * @param mixed $elementValue value of element to be validated
-     * @param array $attributes element attributes
-     * @return MoodleQuickForm_grading
+     * @param mixed $elementValue
+     * @param array $attributes
      */
     static function _validate($elementValue, $attributes = null) {
         return $attributes['gradinginstance']->validate_grading_element($elementValue);

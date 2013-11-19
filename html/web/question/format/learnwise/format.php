@@ -42,15 +42,11 @@ defined('MOODLE_INTERNAL') || die();
  */
 class qformat_learnwise extends qformat_default {
 
-    public function provide_import() {
+    function provide_import() {
         return true;
     }
 
-    public function export_file_extension() {
-        return '.xml';
-    }
-
-    protected function readquestions($lines) {
+    function readquestions($lines) {
         $questions = array();
         $currentquestion = array();
 
@@ -66,11 +62,9 @@ class qformat_learnwise extends qformat_default {
         return $questions;
     }
 
-    protected function readquestion($lines) {
-        global $OUTPUT;
-
+    function readquestion($lines) {
         $text = implode(' ', $lines);
-        $text = str_replace(array('\t','\n','\r'), array('','',''), $text);
+        $text = str_replace(array('\t','\n','\r','\''), array('','','','\\\''), $text);
 
         $startpos = strpos($text, '<question type');
         $endpos = strpos($text, '</question>');
@@ -81,8 +75,8 @@ class qformat_learnwise extends qformat_default {
         preg_match("/<question type=[\"\']([^\"\']+)[\"\']>/i", $text, $matches);
         $type = strtolower($matches[1]); // multichoice or multianswerchoice
 
-        $questiontext = textlib::entities_to_utf8($this->stringbetween($text, '<text>', '</text>'));
-        $questionhint = textlib::entities_to_utf8($this->stringbetween($text, '<hint>', '</hint>'));
+        $questiontext = $this->unhtmlentities($this->stringbetween($text, '<text>', '</text>'));
+        $questionhint = $this->unhtmlentities($this->stringbetween($text, '<hint>', '</hint>'));
         $questionaward = $this->stringbetween($text, '<award>', '</award>');
         $optionlist = $this->stringbetween($text, '<answer>', '</answer>');
 
@@ -95,13 +89,10 @@ class qformat_learnwise extends qformat_default {
 
         if ($type == 'multichoice') {
             foreach ($optionlist as $option) {
-                if (trim($option) === '') {
-                    continue;
-                }
                 $correct = $this->stringbetween($option, ' correct="', '">');
                 $answer = $this->stringbetween($option, '">', '</option>');
                 $optionscorrect[$n] = $correct;
-                $optionstext[$n] = textlib::entities_to_utf8($answer);
+                $optionstext[$n] = $this->unhtmlentities($answer);
                 ++$n;
             }
         } else if ($type == 'multianswerchoice') {
@@ -111,9 +102,6 @@ class qformat_learnwise extends qformat_default {
             $optionsaward = array();
 
             foreach ($optionlist as $option) {
-                if (trim($option) === '') {
-                    continue;
-                }
                 preg_match("/correct=\"([^\"]*)\"/i", $option, $correctmatch);
                 preg_match("/award=\"([^\"]*)\"/i", $option, $awardmatch);
 
@@ -127,37 +115,37 @@ class qformat_learnwise extends qformat_default {
                 $answer = $this->stringbetween($option, '">', '</option>');
 
                 $optionscorrect[$n] = $correct;
-                $optionstext[$n] = textlib::entities_to_utf8($answer);
+                $optionstext[$n] = $this->unhtmlentities($answer);
                 $optionsaward[$n] = $award;
                 ++$n;
             }
 
         } else {
-            echo $OUTPUT->notification(get_string('unknownorunhandledtype', 'question', $type));
+            echo "<p>I don't understand this question type (type = <strong>$type</strong>).</p>\n";
         }
 
         $question = $this->defaultquestion();
-        $question->qtype = 'multichoice';
-        $question->name = $this->create_default_question_name($questiontext, get_string('questionname', 'question'));
-        $this->add_blank_combined_feedback($question);
+        $question->qtype = MULTICHOICE;
+        $question->name = substr($questiontext, 0, 30);
+        if (strlen($questiontext) > 30) {
+            $question->name .= '...';
+        }
 
         $question->questiontext = $questiontext;
-        $question->questiontextformat = FORMAT_HTML;
         $question->single = ($type == 'multichoice') ? 1 : 0;
+        $question->feedback[] = '';
 
         $question->fraction = array();
         $question->answer = array();
         for ($n = 0; $n < count($optionstext); ++$n) {
             if ($optionstext[$n]) {
-                if (!isset($numcorrect)) {
-                    // Single answer.
+                if (!isset($numcorrect)) { // single answer
                     if ($optionscorrect[$n] == 'yes') {
                         $fraction = (int) $questionaward;
                     } else {
                         $fraction = 0;
                     }
-                } else {
-                    // Multiple answers.
+                } else { // mulitple answers
                     if ($optionscorrect[$n] == 'yes') {
                         $fraction = $optionsaward[$n] / $totalaward;
                     } else {
@@ -165,22 +153,15 @@ class qformat_learnwise extends qformat_default {
                     }
                 }
                 $question->fraction[] = $fraction;
-                $question->answer[] = array('text' => $optionstext[$n], 'format' => FORMAT_HTML);
-                $question->feedback[] = array('text' => '', 'format' => FORMAT_HTML); // No feedback in this type.
+                $question->answer[] = $optionstext[$n];
+                $question->feedback[] = ''; // no feedback in this type
             }
         }
 
         return $question;
     }
 
-    /**
-     * Extract the substring of $text between $start and $end.
-     * @param string $text text to analyse.
-     * @param string $start opening delimiter.
-     * @param string $end closing delimiter.
-     * @return string the requested substring.
-     */
-    protected function stringbetween($text, $start, $end) {
+    function stringbetween($text, $start, $end) {
         $startpos = strpos($text, $start) + strlen($start);
         $endpos = strpos($text, $end);
 
@@ -188,4 +169,13 @@ class qformat_learnwise extends qformat_default {
             return substr($text, $startpos, $endpos - $startpos);
         }
     }
+
+    function unhtmlentities($string) {
+        $transtable = get_html_translation_table(HTML_ENTITIES);
+        $transtable = array_flip($transtable);
+        return strtr($string, $transtable);
+    }
+
 }
+
+

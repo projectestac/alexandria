@@ -13,16 +13,6 @@ $showsidepost = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-
 $custommenu = $OUTPUT->custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
 
-$courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
-if (empty($PAGE->layout_options['nocourseheaderfooter'])) {
-    $courseheader = $OUTPUT->course_header();
-    $coursecontentheader = $OUTPUT->course_content_header();
-    if (empty($PAGE->layout_options['nocoursefooter'])) {
-        $coursecontentfooter = $OUTPUT->course_content_footer();
-        $coursefooter = $OUTPUT->course_footer();
-    }
-}
-
 $bodyclasses = array();
 if ($showsidepre && !$showsidepost) {
     $bodyclasses[] = 'side-pre-only';
@@ -49,7 +39,7 @@ echo $OUTPUT->doctype() ?>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
 <div id="page">
-<?php if ($hasheading || $hasnavbar || !empty($courseheader)) { ?>
+<?php if ($hasheading || $hasnavbar) { ?>
     <div id="page-header" >
 		<div id="page-header-wrapper" class="wrapper clearfix">
 	        <?php if ($hasheading) { ?>
@@ -68,10 +58,6 @@ echo $OUTPUT->doctype() ?>
     </div>
 
 <div id="top">
-
-        <?php if (!empty($courseheader)) { ?>
-            <div id="course-header" class="wrapper"><?php echo $courseheader; ?></div>
-        <?php } ?>
 
         <?php if ($hasnavbar) { ?>
             <div class="navbar">
@@ -93,9 +79,7 @@ echo $OUTPUT->doctype() ?>
 	                <div id="region-main-wrap">
     	                <div id="region-main">
         	                <div class="region-content">
-                                <?php echo $coursecontentheader; ?>
             	                <?php echo $OUTPUT->main_content() ?>
-                                <?php echo $coursecontentfooter; ?>
                 	        </div>
                     	</div>
 	                </div>
@@ -121,12 +105,8 @@ echo $OUTPUT->doctype() ?>
     	</div>
     </div>
 
-<?php if ($hasheading || $hasnavbar || !empty($courseheader)) { ?>
+<?php if ($hasheading || $hasnavbar) { ?>
 </div>
-<?php } ?>
-
-<?php if (!empty($coursefooter)) { ?>
-    <div id="course-footer" class="wrapper"><?php echo $coursefooter; ?></div>
 <?php } ?>
 
 <!-- START OF FOOTER -->

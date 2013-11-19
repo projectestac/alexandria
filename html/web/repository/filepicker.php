@@ -59,8 +59,6 @@ $search_text = optional_param('s', '',             PARAM_CLEANHTML);
 $maxfiles    = optional_param('maxfiles', -1,      PARAM_INT);    // maxfiles
 $maxbytes    = optional_param('maxbytes',  0,      PARAM_INT);    // maxbytes
 $subdirs     = optional_param('subdirs',  0,       PARAM_INT);    // maxbytes
-$areamaxbytes   = optional_param('areamaxbytes', FILE_AREA_MAX_BYTES_UNLIMITED, PARAM_INT);    // Area maxbytes.
-$accepted_types = optional_param_array('accepted_types', '*', PARAM_RAW);
 
 // the path to save files
 $savepath = optional_param('savepath', '/',    PARAM_PATH);
@@ -69,7 +67,7 @@ $draftpath = optional_param('draftpath', '/',    PARAM_PATH);
 
 
 // user context
-$user_context = context_user::instance($USER->id);
+$user_context = get_context_instance(CONTEXT_USER, $USER->id);
 
 $PAGE->set_context($user_context);
 if (!$course = $DB->get_record('course', array('id'=>$courseid))) {
@@ -77,24 +75,31 @@ if (!$course = $DB->get_record('course', array('id'=>$courseid))) {
 }
 $PAGE->set_course($course);
 
-if ($repo_id) {
-    // Get repository instance information
-    $repooptions = array(
-        'ajax' => false,
-        'mimetypes' => $accepted_types
-    );
-    $repo = repository::get_repository_by_id($repo_id, $contextid, $repooptions);
-
-    // Check permissions
-    $repo->check_capability();
+// init repository plugin
+$sql = 'SELECT i.name, i.typeid, r.type FROM {repository} r, {repository_instances} i '.
+       'WHERE i.id=? AND i.typeid=r.id';
+if ($repository = $DB->get_record_sql($sql, array($repo_id))) {
+    $type = $repository->type;
+    if (file_exists($CFG->dirroot.'/repository/'.$type.'/lib.php')) {
+        require_once($CFG->dirroot.'/repository/'.$type.'/lib.php');
+        $classname = 'repository_' . $type;
+        try {
+            $repo = new $classname($repo_id, $contextid, array('ajax'=>false, 'name'=>$repository->name, 'type'=>$type));
+        } catch (repository_exception $e){
+            print_error('pluginerror', 'repository');
+        }
+    } else {
+        print_error('invalidplugin', 'repository');
+    }
 }
 
-$context = context::instance_by_id($contextid);
+$moodle_maxbytes = get_max_upload_file_size();
+// to prevent maxbytes greater than moodle maxbytes setting
+if ($maxbytes == 0 || $maxbytes>=$moodle_maxbytes) {
+    $maxbytes = $moodle_maxbytes;
+}
 
-// Make sure maxbytes passed is within site filesize limits.
-$maxbytes = get_user_max_upload_file_size($context, $CFG->maxbytes, $course->maxbytes, $maxbytes);
-
-$params = array('ctx_id' => $contextid, 'itemid' => $itemid, 'env' => $env, 'course'=>$courseid, 'maxbytes'=>$maxbytes, 'areamaxbytes'=>$areamaxbytes, 'maxfiles'=>$maxfiles, 'subdirs'=>$subdirs, 'sesskey'=>sesskey());
+$params = array('ctx_id' => $contextid, 'itemid' => $itemid, 'env' => $env, 'course'=>$courseid, 'maxbytes'=>$maxbytes, 'maxfiles'=>$maxfiles, 'subdirs'=>$subdirs, 'sesskey'=>sesskey());
 $params['action'] = 'browse';
 $params['draftpath'] = $draftpath;
 $home_url = new moodle_url('/repository/draftfiles_manager.php', $params);
@@ -134,20 +139,12 @@ case 'search':
         echo '<table>';
         foreach ($search_result['list'] as $item) {
             echo '<tr>';
-            echo '<td>';
-            $style = '';
-            if (isset($item['thumbnail_height'])) {
-                $style .= 'max-height:'.$item['thumbnail_height'].'px;';
-            }
-            if (isset($item['thumbnail_width'])) {
-                $style .= 'max-width:'.$item['thumbnail_width'].'px;';
-            }
-            echo html_writer::empty_tag('img', array('src' => $item['thumbnail'], 'alt' => '', 'style' => $style));
+            echo '<td><img src="'.$item['thumbnail'].'" />';
             echo '</td><td>';
             if (!empty($item['url'])) {
-                echo html_writer::link($item['url'], s($item['title']), array('target'=>'_blank'));
+                echo html_writer::link($item['url'], $item['title'], array('target'=>'_blank'));
             } else {
-                echo s($item['title']);
+                echo $item['title'];
             }
             echo '</td>';
             echo '<td>';
@@ -204,46 +201,24 @@ case 'sign':
                         'draftpath'=>$draftpath,
                         'savepath'=>$savepath
                         ));
-                    echo '<strong>' . html_writer::link($pathurl, s($p['name'])) . '</strong>';
+                    echo '<strong>' . html_writer::link($pathurl, $p['name']) . '</strong>';
                     echo '<span> / </span>';
                 }
             }
             if (!empty($list['page'])) {
-                // TODO MDL-28482: need a better solution
-                // paging_bar is not a good option because it starts page numbering from 0 and
-                // repositories number pages starting from 1.
-                $pagingurl = new moodle_url("$CFG->httpswwwroot/repository/filepicker.php?action=list&itemid=$itemid&ctx_id=$contextid&repo_id=$repo_id&course=$courseid&sesskey=".  sesskey());
-                if (!isset($list['perpage']) && !isset($list['total'])) {
-                    $list['perpage'] = 10; // instead of setting perpage&total we use number of pages, the result is the same
-                }
-                if (empty($list['total'])) {
-                    if ($list['pages'] == -1) {
-                        $total = ($list['page'] + 2) * $list['perpage'];
-                    } else {
-                        $total = $list['pages'] * $list['perpage'];
-                    }
-                } else {
-                    $total = $list['total'];
-                }
-                echo $OUTPUT->paging_bar($total, $list['page'], $list['perpage'], $pagingurl);
+                // TODO: need a better solution
+                $pagingurl = new moodle_url("$CFG->httpswwwroot/repository/filepicker.php?action=list&itemid=$itemid&ctx_id=$contextid&repo_id=$repo_id&course=$courseid");
+                echo $OUTPUT->paging_bar($list['total'], $list['page'] - 1, $list['perpage'], $pagingurl);
             }
             echo '<table>';
             foreach ($list['list'] as $item) {
                 echo '<tr>';
-                echo '<td>';
-                $style = '';
-                if (isset($item['thumbnail_height'])) {
-                    $style .= 'max-height:'.$item['thumbnail_height'].'px;';
-                }
-                if (isset($item['thumbnail_width'])) {
-                    $style .= 'max-width:'.$item['thumbnail_width'].'px;';
-                }
-                echo html_writer::empty_tag('img', array('src' => $item['thumbnail'], 'style' => $style));
+                echo '<td><img src="'.$item['thumbnail'].'" />';
                 echo '</td><td>';
                 if (!empty($item['url'])) {
-                    echo html_writer::link($item['url'], s($item['title']), array('target'=>'_blank'));
+                    echo html_writer::link($item['url'], $item['title'], array('target'=>'_blank'));
                 } else {
-                    echo s($item['title']);
+                    echo $item['title'];
                 }
                 echo '</td>';
                 echo '<td>';
@@ -279,86 +254,45 @@ case 'sign':
     break;
 
 case 'download':
-    // Check that user has permission to access this file
-    if (!$repo->file_is_accessible($fileurl)) {
-        print_error('storedfilecannotread');
+    $thefile = $repo->get_file($fileurl, $filename);
+    $filesize = filesize($thefile['path']);
+    if (($maxbytes!=-1) && ($filesize>$maxbytes)) {
+        print_error('maxbytes');
     }
-    $record = new stdClass();
-    $reference = $repo->get_file_reference($fileurl);
-
-    $sourcefield = $repo->get_file_source_info($fileurl);
-    $record->source = repository::build_source_field($sourcefield);
-
-    // If file is already a reference, set $fileurl = file source, $repo = file repository
-    // note that in this case user may not have permission to access the source file directly
-    // so no file_browser/file_info can be used below
-    if ($repo->has_moodle_files()) {
-        $file = repository::get_moodle_file($fileurl);
-        if ($file && $file->is_external_file()) {
-            $sourcefield = $file->get_source(); // remember the original source
-            $record->source = $repo::build_source_field($sourcefield);
-            $reference = $file->get_reference();
-            $repo_id = $file->get_repository_id();
-            $repo = repository::get_repository_by_id($repo_id, $contextid, $repooptions);
+    if (!empty($thefile)) {
+        $record = new stdClass();
+        $record->filepath = $savepath;
+        $record->filename = $filename;
+        $record->component = 'user';
+        $record->filearea = 'draft';
+        $record->itemid   = $itemid;
+        $record->license  = '';
+        $record->author   = '';
+        $record->source   = $thefile['url'];
+        try {
+            $info = repository::move_to_filepool($thefile['path'], $record);
+            redirect($home_url, get_string('downloadsucc', 'repository'));
+        } catch (moodle_exception $e) {
+            // inject target URL
+            $e->link = $PAGE->url->out();
+            echo $OUTPUT->header(); // hack: we need the embedded header here, standard error printing would not use it
+            throw $e;
         }
-    }
-
-    $record->filepath = $savepath;
-    $record->filename = $filename;
-    $record->component = 'user';
-    $record->filearea = 'draft';
-    $record->itemid   = $itemid;
-    $record->license  = '';
-    $record->author   = '';
-
-    $now = time();
-    $record->timecreated  = $now;
-    $record->timemodified = $now;
-    $record->userid       = $USER->id;
-    $record->contextid = $user_context->id;
-    $record->sortorder = 0;
-
-    if ($repo->has_moodle_files()) {
-        $fileinfo = $repo->copy_to_area($reference, $record, $maxbytes, $areamaxbytes);
-        redirect($home_url, get_string('downloadsucc', 'repository'));
     } else {
-        $thefile = $repo->get_file($reference, $filename);
-        if (!empty($thefile['path'])) {
-            $filesize = filesize($thefile['path']);
-            if ($maxbytes != -1 && $filesize>$maxbytes) {
-                unlink($thefile['path']);
-                print_error('maxbytes');
-            }
-            // Ensure the file will not make the area exceed its size limit.
-            if (file_is_draft_area_limit_reached($record->itemid, $areamaxbytes, $filesize)) {
-                unlink($thefile['path']);
-                print_error('maxareabytes');
-            }
-            try {
-                $info = repository::move_to_filepool($thefile['path'], $record);
-                redirect($home_url, get_string('downloadsucc', 'repository'));
-            } catch (moodle_exception $e) {
-                // inject target URL
-                $e->link = $PAGE->url->out();
-                echo $OUTPUT->header(); // hack: we need the embedded header here, standard error printing would not use it
-                throw $e;
-            }
-        } else {
-            print_error('cannotdownload', 'repository');
-        }
+        print_error('cannotdownload', 'repository');
     }
 
     break;
 
 case 'confirm':
     echo $OUTPUT->header();
-    echo '<div><a href="'.s($PAGE->url->out(false)).'">'.get_string('back', 'repository').'</a></div>';
+    echo '<div><a href="'.me().'">'.get_string('back', 'repository').'</a></div>';
     echo '<img src="'.$thumbnail.'" />';
     echo '<form method="post">';
     echo '<table>';
     echo '  <tr>';
-    echo '    <td>'. html_writer::label(get_string('filename', 'repository'), 'filename'). '</td>';
-    echo '    <td><input type="text" id="filename" name="filename" value="'.s($filename).'" /></td>';
+    echo '    <td><label>'.get_string('filename', 'repository').'</label></td>';
+    echo '    <td><input type="text" name="filename" value="'.s($filename).'" /></td>';
     echo '    <td><input type="hidden" name="fileurl" value="'.s($fileurl).'" /></td>';
     echo '    <td><input type="hidden" name="action" value="download" /></td>';
     echo '    <td><input type="hidden" name="itemid" value="'.s($itemid).'" /></td>';
@@ -393,8 +327,8 @@ case 'plugins':
         $aurl->params(array('savepath'=>$savepath, 'action' => 'list', 'repo_id' => $info->id, 'draftpath'=>$draftpath));
 
         echo '<li>';
-        echo html_writer::empty_tag('img', array('src'=>$info->icon, 'alt'=>$info->name, 'class'=>'icon icon-pre'));
-        echo html_writer::link($aurl, s($info->name));
+        echo '<img src="'.$info->icon.'" alt="'.$info->name.'" width="16" height="16" /> ';
+        echo html_writer::link($aurl, $info->name);
         echo '</li>';
     }
     echo '</ul>';

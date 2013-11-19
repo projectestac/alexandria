@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,14 +14,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-/**
- * Edit a user's grade for a particular activity
- *
- * @package   core_grades
- * @copyright 2007 Petr Skoda
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 
 require_once '../../../config.php';
 require_once $CFG->dirroot.'/grade/lib.php';
@@ -50,14 +43,14 @@ if (!$course = $DB->get_record('course', array('id' => $courseid))) {
 
 $PAGE->set_pagelayout('incourse');
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 if (!has_capability('moodle/grade:manage', $context)) {
     require_capability('moodle/grade:edit', $context);
 }
 
 // default return url
 $gpr = new grade_plugin_return();
-$returnurl = $gpr->get_return_url($CFG->wwwroot.'/grade/report/index.php?id='.$course->id);
+$returnurl = $gpr->get_return_url($CFG->wwwroot.'/grade/report.php?id='.$course->id);
 
 // security checks!
 if (!empty($id)) {
@@ -160,7 +153,6 @@ if ($grade = $DB->get_record('grade_grades', array('itemid' => $grade_item->id, 
 
     $mform->set_data($grade);
 } else {
-    $grade = new stdClass();
     $grade->feedback = array('text'=>'', 'format'=>FORMAT_HTML);
     $mform->set_data(array('itemid'=>$itemid, 'userid'=>$userid, 'locked'=>$grade_item->locked, 'locktime'=>$grade_item->locktime));
 }
@@ -171,7 +163,7 @@ if ($mform->is_cancelled()) {
 // form processing
 } else if ($data = $mform->get_data(false)) {
 
-    if (isset($data->feedback) && is_array($data->feedback)) {
+    if (is_array($data->feedback)) {
         $data->feedbackformat = $data->feedback['format'];
         $data->feedback = $data->feedback['text'];
     }
@@ -201,18 +193,20 @@ if ($mform->is_cancelled()) {
         $data->feedbackformat = $old_grade_grade->feedbackformat;
     }
     // update final grade or feedback
-    // when we set override grade the first time, it happens here
     $grade_item->update_final_grade($data->userid, $data->finalgrade, 'editgrade', $data->feedback, $data->feedbackformat);
 
     $grade_grade = new grade_grade(array('userid'=>$data->userid, 'itemid'=>$grade_item->id), true);
     $grade_grade->grade_item =& $grade_item; // no db fetching
 
     if (has_capability('moodle/grade:manage', $context) or has_capability('moodle/grade:edit', $context)) {
-        // change overridden flag
-        if (!isset($data->overridden)) {
-            $data->overridden = 0; // checkbox unticked
+        if (!grade_floats_different($data->finalgrade, $old_grade_grade->finalgrade)
+          and $data->feedback === $old_grade_grade->feedback) {
+            // change overridden flag only if grade or feedback not changed
+            if (!isset($data->overridden)) {
+                $data->overridden = 0; // checkbox
+            }
+            $grade_grade->set_overridden($data->overridden);
         }
-        $grade_grade->set_overridden($data->overridden);
     }
 
     if (has_capability('moodle/grade:manage', $context) or has_capability('moodle/grade:hide', $context)) {

@@ -115,6 +115,7 @@ YUI.add('moodle-form-dateselector', function(Y) {
             M.form.dateselector.currentowner = this;
             M.form.dateselector.calendar.cfg.setProperty('mindate', new Date(this.yearselect.firstOptionValue(), 0, 1));
             M.form.dateselector.calendar.cfg.setProperty('maxdate', new Date(this.yearselect.lastOptionValue(), 11, 31));
+            M.form.dateselector.panel.set('constrain', this.get('node').ancestor('form'));
             M.form.dateselector.panel.show();
             M.form.dateselector.fix_position();
             setTimeout(function(){M.form.dateselector.cancel_any_timeout()}, 100);
@@ -135,7 +136,6 @@ YUI.add('moodle-form-dateselector', function(Y) {
             this.yearselect.set('selectedIndex', newindex);
             this.monthselect.set('selectedIndex', date[1] - this.monthselect.firstOptionValue());
             this.dayselect.set('selectedIndex', date[2] - this.dayselect.firstOptionValue());
-            M.form.dateselector.release_current();
         },
         connect_handlers : function() {
             M.form.dateselector.calendar.selectEvent.subscribe(this.set_selects_from_date, this, true);
@@ -183,6 +183,7 @@ YUI.add('moodle-form-dateselector', function(Y) {
         initPanel : function(config) {
             this.panel = new Y.Overlay({
                 visible : false,
+                constrain : true,
                 bodyContent : Y.Node.create('<div id="dateselector-calendar-content"></div>'),
                 id : 'dateselector-calendar-panel'
             });
@@ -192,33 +193,10 @@ YUI.add('moodle-form-dateselector', function(Y) {
             Y.one('#dateselector-calendar-panel').on('click', function(e){e.halt();});
             Y.one(document.body).on('click', this.document_click, this);
 
-            this.calendar = new Y.YUI2.widget.Calendar(document.getElementById('dateselector-calendar-content'), {
+            this.calendar = new YAHOO.widget.Calendar(document.getElementById('dateselector-calendar-content'), {
                 iframe: false,
                 hide_blank_weeks: true,
-                start_weekday: config.firstdayofweek,
-                locale_weekdays: 'medium',
-                locale_months: 'long',
-                WEEKDAYS_MEDIUM: [
-                    config.sun,
-                    config.mon,
-                    config.tue,
-                    config.wed,
-                    config.thu,
-                    config.fri,
-                    config.sat ],
-                MONTHS_LONG: [
-                    config.january,
-                    config.february,
-                    config.march,
-                    config.april,
-                    config.may,
-                    config.june,
-                    config.july,
-                    config.august,
-                    config.september,
-                    config.october,
-                    config.november,
-                    config.december ]
+                start_weekday: config.firstdayofweek
             });
             this.calendar.changePageEvent.subscribe(function(){
                 this.fix_position();
@@ -243,6 +221,7 @@ YUI.add('moodle-form-dateselector', function(Y) {
         },
         fix_position : function() {
             if (this.currentowner) {
+                this.panel.set('constrain', this.currentowner.get('node').ancestor('form'));
                 this.panel.set('align', {
                     node:this.currentowner.get('node').one('select'),
                     points:[Y.WidgetPositionAlign.BL, Y.WidgetPositionAlign.TL]

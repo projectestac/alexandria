@@ -97,10 +97,8 @@ class lesson_page_type_essay extends lesson_page {
 
         if (is_array($data->answer)) {
             $studentanswer = $data->answer['text'];
-            $studentanswerformat = $data->answer['format'];
         } else {
             $studentanswer = $data->answer;
-            $studentanswerformat = FORMAT_MOODLE;
         }
 
         if (trim($studentanswer) === '') {
@@ -119,19 +117,18 @@ class lesson_page_type_essay extends lesson_page {
         $userresponse->graded = 0;
         $userresponse->score = 0;
         $userresponse->answer = $studentanswer;
-        $userresponse->answerformat = $studentanswerformat;
         $userresponse->response = "";
         $result->userresponse = serialize($userresponse);
-        $result->studentanswerformat = $studentanswerformat;
+
         $result->studentanswer = s($studentanswer);
         return $result;
     }
-    public function update($properties, $context = null, $maxbytes = null) {
+    public function update($properties) {
         global $DB, $PAGE;
         $answers  = $this->get_answers();
         $properties->id = $this->properties->id;
         $properties->lessonid = $this->lesson->id;
-        $properties = file_postupdate_standard_editor($properties, 'contents', array('noclean'=>true, 'maxfiles'=>EDITOR_UNLIMITED_FILES, 'maxbytes'=>$PAGE->course->maxbytes), context_module::instance($PAGE->cm->id), 'mod_lesson', 'page_contents', $properties->id);
+        $properties = file_postupdate_standard_editor($properties, 'contents', array('noclean'=>true, 'maxfiles'=>EDITOR_UNLIMITED_FILES, 'maxbytes'=>$PAGE->course->maxbytes), get_context_instance(CONTEXT_MODULE, $PAGE->cm->id), 'mod_lesson', 'page_contents', $properties->id);
         $DB->update_record("lesson_pages", $properties);
 
         if (!array_key_exists(0, $this->answers)) {
@@ -213,7 +210,6 @@ class lesson_page_type_essay extends lesson_page {
             } else {
                 $essayinfo = new stdClass();
                 $essayinfo->answer = get_string("didnotanswerquestion", "lesson");
-                $essayinfo->answerformat = null;
             }
 
             if (isset($pagestats[$this->properties->id])) {
@@ -224,7 +220,7 @@ class lesson_page_type_essay extends lesson_page {
                 // dont think this should ever be reached....
                 $avescore = get_string("nooneansweredthisquestion", "lesson");
             }
-            $answerdata->answers[] = array(format_text($essayinfo->answer, $essayinfo->answerformat, $formattextdefoptions), $avescore);
+            $answerdata->answers[] = array(format_text($essayinfo->answer, FORMAT_MOODLE, $formattextdefoptions), $avescore);
             $answerpage->answerdata = $answerdata;
         }
         return $answerpage;

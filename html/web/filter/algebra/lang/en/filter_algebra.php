@@ -24,4 +24,3 @@
  */
 
 $string['filtername'] = 'Algebra notation';
-$string['algebraicexpression'] = 'Algebraic expression';

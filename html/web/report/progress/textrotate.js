@@ -49,8 +49,7 @@ function textrotate_make_svg(el)
 }
 
 function textrotate_init() {
-YUI().use('yui2-dom', function(Y) {
-  var elements= Y.YUI2.util.Dom.getElementsByClassName('completion-activityname', 'span');
+  var elements=YAHOO.util.Dom.getElementsByClassName('completion-activityname', 'span');
   for(var i=0;i<elements.length;i++)
   {
     var el=elements[i];
@@ -58,7 +57,7 @@ YUI().use('yui2-dom', function(Y) {
     textrotate_make_svg(el);
   }
 
-  elements= Y.YUI2.util.Dom.getElementsByClassName('completion-expected', 'div');
+  elements=YAHOO.util.Dom.getElementsByClassName('completion-expected', 'div');
   for(var i=0;i<elements.length;i++)
   {
     var el=elements[i];
@@ -69,17 +68,18 @@ YUI().use('yui2-dom', function(Y) {
     textrotate_make_svg(el.firstChild);
   }
 
-  elements= Y.YUI2.util.Dom.getElementsByClassName('rotateheaders', 'table');
+  elements=YAHOO.util.Dom.getElementsByClassName('rotateheaders', 'table');
   for(var i=0;i<elements.length;i++)
   {
     var table=elements[i];
-    var headercells = Y.YUI2.util.Dom.getElementsByClassName('header', 'th', table);
+    var headercells = YAHOO.util.Dom.getElementsByClassName('header', 'th', table);
     for(var j=0;j<headercells.length;j++)
     {
       var el=headercells[j];
       textrotate_make_svg(el.firstChild);
     }
   }
-});
 }
+
+YAHOO.util.Event.onDOMReady(textrotate_init);
 

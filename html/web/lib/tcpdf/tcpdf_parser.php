@@ -1,20 +1,22 @@
 <?php
 //============================================================+
 // File name   : tcpdf_parser.php
-// Version     : 1.0.001
+// Version     : 1.0.000
 // Begin       : 2011-05-23
-// Last Update : 2012-05-03
-// Author      : Nicola Asuni - Tecnick.com LTD - Manor Coach House, Church Hill, Aldershot, Hants, GU12 4RQ, UK - www.tecnick.com - info@tecnick.com
-// License     : http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT GNU-LGPLv3
+// Last Update : 2011-07-14
+// Author      : Nicola Asuni - Tecnick.com S.r.l - Via Della Pace, 11 - 09044 - Quartucciu (CA) - ITALY - www.tecnick.com - info@tecnick.com
+// License     : http://www.tecnick.com/pagefiles/tcpdf/LICENSE.TXT GNU-LGPLv3 + YOU CAN'T REMOVE ANY TCPDF COPYRIGHT NOTICE OR LINK FROM THE GENERATED PDF DOCUMENTS.
 // -------------------------------------------------------------------
-// Copyright (C) 2011-2012  Nicola Asuni - Tecnick.com LTD
+// Copyright (C) 2011-2011  Nicola Asuni - Tecnick.com S.r.l.
 //
 // This file is part of TCPDF software library.
 //
 // TCPDF is free software: you can redistribute it and/or modify it
 // under the terms of the GNU Lesser General Public License as
 // published by the Free Software Foundation, either version 3 of the
-// License, or (at your option) any later version.
+// License, or (at your option) any later version. Additionally,
+// YOU CAN'T REMOVE ANY TCPDF COPYRIGHT NOTICE OR LINK FROM THE
+// GENERATED PDF DOCUMENTS.
 //
 // TCPDF is distributed in the hope that it will be useful, but
 // WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -37,7 +39,7 @@
  * This is a PHP class for parsing PDF documents.<br>
  * @package com.tecnick.tcpdf
  * @author Nicola Asuni
- * @version 1.0.001
+ * @version 1.0.000
  */
 
 // include class for decoding filters
@@ -48,7 +50,7 @@ require_once(dirname(__FILE__).'/tcpdf_filters.php');
  * This is a PHP class for parsing PDF documents.<br>
  * @package com.tecnick.tcpdf
  * @brief This is a PHP class for parsing PDF documents..
- * @version 1.0.001
+ * @version 1.0.000
  * @author Nicola Asuni - info@tecnick.com
  */
 class TCPDF_PARSER {
@@ -127,29 +129,20 @@ class TCPDF_PARSER {
 	 * @since 1.0.000 (2011-05-24)
 	 */
 	protected function getXrefData($offset=0, $xref=array()) {
-		if ($offset == 0) {
-			// find last startxref
-			if (preg_match_all('/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_SET_ORDER, $offset) == 0) {
-				$this->Error('Unable to find startxref');
-			}
-			$matches = array_pop($matches);
-			$startxref = $matches[1];
-		} else {
-			// get the first xref at the specified offset
-			if (preg_match('/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) == 0) {
-				$this->Error('Unable to find startxref');
-			}
-			$startxref = $matches[1][0];
+		// find last startxref
+		if (preg_match_all('/[\r\n]startxref[\s]*[\r\n]+([0-9]+)[\s]*[\r\n]+%%EOF/i', $this->pdfdata, $matches, PREG_SET_ORDER, $offset) == 0) {
+			$this->Error('Unable to find startxref');
 		}
+		$matches = array_pop($matches);
+		$startxref = $matches[1];
 		// check xref position
 		if (strpos($this->pdfdata, 'xref', $startxref) != $startxref) {
 			$this->Error('Unable to find xref');
 		}
 		// extract xref data (object indexes and offsets)
-		$xoffset = $startxref + 5;
+		$offset = $startxref + 5;
 		// initialize object number
 		$obj_num = 0;
-		$offset = $xoffset;
 		while (preg_match('/^([0-9]+)[\s]([0-9]+)[\s]?([nf]?)/im', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
 			$offset = (strlen($matches[0][0]) + $matches[0][1]);
 			if ($matches[3][0] == 'n') {
@@ -171,7 +164,7 @@ class TCPDF_PARSER {
 			}
 		}
 		// get trailer data
-		if (preg_match('/trailer[\s]*<<(.*)>>[\s]*[\r\n]+startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $xoffset) > 0) {
+		if (preg_match('/trailer[\s]*<<(.*)>>[\s]*[\r\n]+startxref[\s]*[\r\n]+/isU', $this->pdfdata, $matches, PREG_OFFSET_CAPTURE, $offset) > 0) {
 			$trailer_data = $matches[1][0];
 			if (!isset($xref['trailer'])) {
 				// get only the last updated version
@@ -197,7 +190,7 @@ class TCPDF_PARSER {
 			}
 			if (preg_match('/Prev[\s]+([0-9]+)/i', $trailer_data, $matches) > 0) {
 				// get previous xref
-				$xref = $this->getXrefData(intval($matches[1]), $xref);
+				$xref = getXrefData(substr($this->pdfdata, 0, $startxref), intval($matches[1]), $xref);
 			}
 		} else {
 			$this->Error('Unable to find trailer');
@@ -408,7 +401,7 @@ class TCPDF_PARSER {
 			$offset = $element[2];
 			// decode stream using stream's dictionary information
 			if ($decoding AND ($element[0] == 'stream') AND (isset($objdata[($i - 1)][0])) AND ($objdata[($i - 1)][0] == '<<')) {
-				$element[3] = $this->decodeStream($objdata[($i - 1)][1], substr($element[1], 1));
+				$element[3] = $this->decodeStream($objdata[($i - 1)][1], $element[1]);
 			}
 			$objdata[$i] = $element;
 			++$i;

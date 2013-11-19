@@ -29,10 +29,6 @@ class block_html extends block_base {
         $this->title = get_string('pluginname', 'block_html');
     }
 
-    function has_config() {
-        return true;
-    }
-
     function applicable_formats() {
         return array('all' => true);
     }
@@ -108,7 +104,7 @@ class block_html extends block_base {
     function content_is_trusted() {
         global $SCRIPT;
 
-        if (!$context = context::instance_by_id($this->instance->parentcontextid, IGNORE_MISSING)) {
+        if (!$context = get_context_instance_by_id($this->instance->parentcontextid)) {
             return false;
         }
         //find out if this block is on the profile page
@@ -134,24 +130,5 @@ class block_html extends block_base {
      */
     public function instance_can_be_docked() {
         return (!empty($this->config->title) && parent::instance_can_be_docked());
-    }
-
-    /*
-     * Add custom html attributes to aid with theming and styling
-     *
-     * @return array
-     */
-    function html_attributes() {
-        global $CFG;
-
-        $attributes = parent::html_attributes();
-
-        if (!empty($CFG->block_html_allowcssclasses)) {
-            if (!empty($this->config->classes)) {
-                $attributes['class'] .= ' '.$this->config->classes;
-            }
-        }
-
-        return $attributes;
     }
 }

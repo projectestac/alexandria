@@ -33,7 +33,7 @@ if (isguestuser()) {
 }
 //TODO: add capability check here!
 
-$context = context_user::instance($USER->id);
+$context = get_context_instance(CONTEXT_USER, $USER->id);
 $title = get_string('privatefiles', 'block_private_files');
 $struser = get_string('user');
 
@@ -45,7 +45,7 @@ $PAGE->set_pagelayout('mydashboard');
 $PAGE->set_pagetype('user-private-files');
 
 $data = new stdClass();
-$options = array('subdirs'=>1, 'maxbytes'=>$CFG->userquota, 'maxfiles'=>-1, 'accepted_types'=>'*');
+$options = array('subdirs'=>1, 'maxbytes'=>$CFG->userquota, 'maxfiles'=>-1, 'accepted_types'=>'*', 'return_types'=>FILE_INTERNAL);
 file_prepare_standard_filemanager($data, 'files', $options, $context, 'user', 'private', 0);
 
 $mform = new block_private_files_form(null, array('data'=>$data, 'options'=>$options));

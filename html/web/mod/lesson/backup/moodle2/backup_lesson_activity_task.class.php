@@ -18,42 +18,38 @@
 /**
  * This file contains the backup task for the lesson module
  *
- * @package     mod_lesson
- * @category    backup
- * @copyright   2010 Sam Hemelryk
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod
+ * @subpackage lesson
+ * @copyright  2010 Sam Hemelryk
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
+/**
+ * Require the backup lesson steps lib
+ */
 require_once($CFG->dirroot . '/mod/lesson/backup/moodle2/backup_lesson_stepslib.php');
 
 /**
- * Provides the steps to perform one complete backup of the Lesson instance
- *
+ * The backup task class for the lesson module
  * @copyright  2010 Sam Hemelryk
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class backup_lesson_activity_task extends backup_activity_task {
 
-    /**
-     * No specific settings for this activity
-     */
     protected function define_my_settings() {
+        // There are no settings
     }
 
-    /**
-     * Defines a backup step to store the instance data in the lesson.xml file
-     */
     protected function define_my_steps() {
         $this->add_step(new backup_lesson_activity_structure_step('lesson structure', 'lesson.xml'));
     }
 
     /**
-     * Encodes URLs to various Lesson scripts
+     * Replaces links within the content with links that can be corrected during
+     * restore
      *
-     * @param string $content some HTML text that eventually contains URLs to the activity instance scripts
-     * @return string the content with the URLs encoded
+     * @param string $content
+     * @return string
      */
     static public function encode_content_links($content) {
         global $CFG;
@@ -108,4 +104,5 @@ class backup_lesson_activity_task extends backup_activity_task {
         // Return the now encoded content
         return $content;
     }
+
 }

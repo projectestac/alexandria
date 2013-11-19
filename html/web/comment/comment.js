@@ -95,7 +95,7 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                                     color: { to: '#06e' },
                                     backgroundColor: { to: '#FFE390' }
                                 };
-                                var anim = new Y.YUI2.util.ColorAnim(ids[i], attributes);
+                                var anim = new YAHOO.util.ColorAnim(ids[i], attributes);
                                 anim.animate();
                             }
                             scope.register_pagination();
@@ -106,7 +106,7 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                     var attributes = {
                         backgroundColor: { from: '#FFE390', to:'#FFFFFF' }
                     };
-                    var anim = new Y.YUI2.util.ColorAnim('dlg-content-'+cid, attributes);
+                    var anim = new YAHOO.util.ColorAnim('dlg-content-'+cid, attributes);
                     anim.animate();
                 }
             },
@@ -157,7 +157,8 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                         scope: scope
                     },
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                        'User-Agent': 'MoodleComment/3.0'
                     },
                     data: build_querystring(params)
                 };
@@ -183,7 +184,7 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                         val = val.replace('___name___', list[i].fullname);
                     }
                     if (list[i]['delete']||newcmt) {
-                        list[i].content = '<div class="comment-delete"><a href="#" id ="comment-delete-'+this.client_id+'-'+list[i].id+'" title="'+M.str.moodle.deletecomment+'"><img alt="" src="'+M.util.image_url('t/delete', 'core')+'" /></a></div>' + list[i].content;
+                        list[i].content = '<div class="comment-delete"><a href="#" id ="comment-delete-'+this.client_id+'-'+list[i].id+'" title="'+M.str.moodle.deletecomment+'"><img src="'+M.util.image_url('t/delete', 'core')+'" /></a></div>' + list[i].content;
                     }
                     val = val.replace('___time___', list[i].time);
                     val = val.replace('___picture___', list[i].avatar);
@@ -254,7 +255,7 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                         };
                         var cmt = Y.one('#'+htmlid);
                         cmt.setStyle('overflow', 'hidden');
-                        var anim = new Y.YUI2.util.Anim(htmlid, attributes, 1, Y.YUI2.util.Easing.easeOut);
+                        var anim = new YAHOO.util.Anim(htmlid, attributes, 1, YAHOO.util.Easing.easeOut);
                         anim.onComplete.subscribe(remove_dom, cmt, this);
                         anim.animate();
                     }
@@ -308,16 +309,16 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                             CommentHelper.confirmoverlay.set('xy', [e.pageX-width-5, e.pageY]);
                             CommentHelper.confirmoverlay.set('visible', true);
                             Y.one('#canceldelete-'+scope.client_id).on('click', function(e) {
-                                e.preventDefault();
+								e.preventDefault();
                                 scope.cancel_delete();
                                 });
                             Y.Event.purgeElement('#confirmdelete-'+scope.client_id, false, 'click');
                             Y.one('#confirmdelete-'+scope.client_id).on('click', function(e) {
-                                e.preventDefault();
-                                if (commentid[1]) {
-                                    scope.dodelete(commentid[1]);
-                                }
-                            });
+									e.preventDefault();
+                                    if (commentid[1]) {
+                                        scope.dodelete(commentid[1]);
+                                    }
+                                });
                         }, scope, node);
                     }
                 );
@@ -360,13 +361,7 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                 } else {
                     // hide
                     container.setStyle('display', 'none');
-                    var collapsedimage = 't/collapsed'; // ltr mode
-                    if ( Y.one(document.body).hasClass('dir-rtl') ) {
-                        collapsedimage = 't/collapsed_rtl';
-                    } else {
-                        collapsedimage = 't/collapsed';
-                    }
-                    img.set('src', M.util.image_url(collapsedimage, 'core'));
+                    img.set('src', M.util.image_url('t/collapsed', 'core'));
                     if (ta) {
                         ta.set('value','');
                     }
@@ -390,9 +385,6 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
             },
             toggle_textarea: function(focus) {
                 var t = Y.one('#dlg-content-'+this.client_id);
-                if (!t) {
-                    return false;
-                }
                 if (focus) {
                     if (t.get('value') == M.str.moodle.addcomment) {
                         t.set('value', '');
@@ -471,7 +463,8 @@ bodyContent: '<div class="comment-delete-confirm"><a href="#" id="confirmdelete-
                             scope: this
                         },
                         headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+                            'User-Agent': 'MoodleComment/3.0'
                         },
                         data: build_querystring(data)
                     };

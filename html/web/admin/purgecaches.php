@@ -28,19 +28,10 @@ require_once($CFG->libdir.'/adminlib.php');
 
 $confirm = optional_param('confirm', 0, PARAM_BOOL);
 
-//XTEC ************ AFEGIT - To let purge caches without login
-//2012.09.27 @sarjona
-if ($confirm && is_agora() && !isloggedin()) {
-    purge_all_caches();
-    redirect(new moodle_url('../index.php'), get_string('purgecachesfinished', 'admin'));
-    exit;
-}
-//************ FI
-
 admin_externalpage_setup('purgecaches');
 
 require_login();
-require_capability('moodle/site:config', context_system::instance());
+require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 
 if ($confirm) {
     require_sesskey();

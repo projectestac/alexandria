@@ -17,9 +17,10 @@
 /**
  * This file defines the quiz manual grading report class.
  *
- * @package   quiz_grading
- * @copyright 2006 Gustav Delius
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    quiz
+ * @subpackage grading
+ * @copyright  2006 Gustav Delius
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -35,8 +36,8 @@ require_once($CFG->dirroot . '/mod/quiz/report/grading/gradingsettings_form.php'
  * - List question that might need manual grading (or optionally all questions).
  * - Provide an efficient UI to grade all attempts at a particular question.
  *
- * @copyright 2006 Gustav Delius
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2006 Gustav Delius
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_grading_report extends quiz_default_report {
     const DEFAULT_PAGE_SIZE = 5;
@@ -44,6 +45,8 @@ class quiz_grading_report extends quiz_default_report {
 
     protected $viewoptions = array();
     protected $questions;
+    protected $currentgroup;
+    protected $users;
     protected $cm;
     protected $quiz;
     protected $context;
@@ -82,8 +85,8 @@ class quiz_grading_report extends quiz_default_report {
             $this->viewoptions['order'] = $order;
         }
 
-        // Check permissions.
-        $this->context = context_module::instance($cm->id);
+        // Check permissions
+        $this->context = get_context_instance(CONTEXT_MODULE, $cm->id);
         require_capability('mod/quiz:grade', $this->context);
         $shownames = has_capability('quiz/grading:viewstudentnames', $this->context);
         $showidnumbers = has_capability('quiz/grading:viewidnumber', $this->context);
@@ -123,28 +126,11 @@ class quiz_grading_report extends quiz_default_report {
                     $this->currentgroup, '', false);
         }
 
-        $questionsinquiz = quiz_questions_in_quiz($quiz->questions);
-        $counts = null;
-        if ($slot && $questionsinquiz) {
-            // Make sure there is something to do.
-            $statecounts = $this->get_question_state_summary(array($slot));
-            foreach ($statecounts as $record) {
-                if ($record->questionid == $questionid) {
-                    $counts = $record;
-                    break;
-                }
-            }
-            // If not, redirect back to the list.
-            if (!$counts || $counts->$grade == 0) {
-                redirect($this->list_questions_url(), get_string('alldoneredirecting', 'quiz_grading'));
-            }
-        }
-
         // Start output.
         $this->print_header_and_tabs($cm, $course, $quiz, 'grading');
 
         // What sort of page to display?
-        if (!$questionsinquiz) {
+        if (!quiz_questions_in_quiz($quiz->questions)) {
             echo quiz_no_questions_message($quiz, $cm, $this->context);
 
         } else if (!$slot) {
@@ -152,7 +138,7 @@ class quiz_grading_report extends quiz_default_report {
 
         } else {
             $this->display_grading_interface($slot, $questionid, $grade,
-                    $pagesize, $page, $shownames, $showidnumbers, $order, $counts);
+                    $pagesize, $page, $shownames, $showidnumbers, $order);
         }
         return true;
     }
@@ -162,22 +148,14 @@ class quiz_grading_report extends quiz_default_report {
 
         $where = "quiza.quiz = :mangrquizid AND
                 quiza.preview = 0 AND
-                quiza.state = :statefinished";
-        $params = array('mangrquizid' => $this->cm->instance, 'statefinished' => quiz_attempt::FINISHED);
+                quiza.timefinish <> 0";
+        $params = array('mangrquizid' => $this->cm->instance);
 
-        $currentgroup = groups_get_activity_group($this->cm, true);
-        if ($currentgroup) {
-            $users = get_users_by_capability($this->context,
-                    array('mod/quiz:reviewmyattempts', 'mod/quiz:attempt'), 'u.id, u.id', '', '', '',
-                    $currentgroup, '', false);
-            if (empty($users)) {
-                $where .= ' AND quiza.userid = 0';
-            } else {
-                list($usql, $uparam) = $DB->get_in_or_equal(array_keys($users),
-                        SQL_PARAMS_NAMED, 'mangru');
-                $where .= ' AND quiza.userid ' . $usql;
-                $params += $uparam;
-            }
+        if ($this->currentgroup) {
+            list($usql, $uparam) = $DB->get_in_or_equal(array_keys($this->users),
+                    SQL_PARAMS_NAMED, 'mangru');
+            $where .= ' AND quiza.userid ' . $usql;
+            $params += $uparam;
         }
 
         return new qubaid_join('{quiz_attempts} quiza', 'quiza.uniqueid', $where, $params);
@@ -187,14 +165,13 @@ class quiz_grading_report extends quiz_default_report {
         global $DB;
 
         list($asql, $params) = $DB->get_in_or_equal($qubaids);
-        $params[] = quiz_attempt::FINISHED;
         $params[] = $this->quiz->id;
 
         $attemptsbyid = $DB->get_records_sql("
                 SELECT quiza.*, u.firstname, u.lastname, u.idnumber
                 FROM {quiz_attempts} quiza
                 JOIN {user} u ON u.id = quiza.userid
-                WHERE quiza.uniqueid $asql AND quiza.state = ? AND quiza.quiz = ?",
+                WHERE quiza.uniqueid $asql AND quiza.timefinish <> 0 AND quiza.quiz = ?",
                 $params);
 
         $attempts = array();
@@ -270,7 +247,7 @@ class quiz_grading_report extends quiz_default_report {
         global $OUTPUT;
 
         if ($groupmode = groups_get_activity_groupmode($this->cm)) {
-            // Groups is being used.
+            // Groups are being used
             groups_print_activity_menu($this->cm, $this->list_questions_url());
         }
 
@@ -314,7 +291,7 @@ class quiz_grading_report extends quiz_default_report {
         }
 
         if (empty($data)) {
-            echo $OUTPUT->heading(get_string('nothingfound', 'quiz_grading'));
+            echo $OUTPUT->heading(get_string('noquestionsfound', 'quiz_grading'));
             return;
         }
 
@@ -336,8 +313,24 @@ class quiz_grading_report extends quiz_default_report {
     }
 
     protected function display_grading_interface($slot, $questionid, $grade,
-            $pagesize, $page, $shownames, $showidnumbers, $order, $counts) {
+            $pagesize, $page, $shownames, $showidnumbers, $order) {
         global $OUTPUT;
+
+        // Make sure there is something to do.
+        $statecounts = $this->get_question_state_summary(array($slot));
+
+        $counts = null;
+        foreach ($statecounts as $record) {
+            if ($record->questionid == $questionid) {
+                $counts = $record;
+                break;
+            }
+        }
+
+        // If not, redirect back to the list.
+        if (!$counts || $counts->$grade == 0) {
+            redirect($this->list_questions_url(), get_string('alldoneredirecting', 'quiz_grading'));
+        }
 
         if ($pagesize * $page >= $counts->$grade) {
             $page = 0;
@@ -358,7 +351,7 @@ class quiz_grading_report extends quiz_default_report {
         if (array_key_exists('includeauto', $this->viewoptions)) {
             $hidden['includeauto'] = $this->viewoptions['includeauto'];
         }
-        $mform = new quiz_grading_settings_form($hidden, $counts, $shownames, $showidnumbers);
+        $mform = new quiz_grading_settings($hidden, $counts, $shownames, $showidnumbers);
 
         // Tell the form the current settings.
         $settings = new stdClass();
@@ -461,7 +454,11 @@ class quiz_grading_report extends quiz_default_report {
 
         foreach ($qubaids as $qubaid) {
             foreach ($slots as $slot) {
-                if (!question_behaviour::is_manual_grade_in_range($qubaid, $slot)) {
+                $prefix = 'q' . $qubaid . ':' . $slot . '_';
+                $mark = optional_param($prefix . '-mark', null, PARAM_NUMBER);
+                $maxmark = optional_param($prefix . '-maxmark', null, PARAM_NUMBER);
+                $minfraction = optional_param($prefix . ':minfraction', null, PARAM_NUMBER);
+                if (!is_null($mark) && ($mark < $minfraction * $maxmark || $mark > $maxmark)) {
                     return false;
                 }
             }
@@ -486,7 +483,7 @@ class quiz_grading_report extends quiz_default_report {
             $attempt = $attempts[$qubaid];
             $quba = question_engine::load_questions_usage_by_activity($qubaid);
             $attemptobj = new quiz_attempt($attempt, $this->quiz, $this->cm, $this->course);
-            $attemptobj->process_submitted_actions(time());
+            $attemptobj->process_all_actions(time());
         }
         $transaction->allow_commit();
     }

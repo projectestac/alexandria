@@ -55,7 +55,7 @@ class qtype_numerical_edit_form extends question_edit_form {
 
         $tolerance = $mform->createElement('text', 'tolerance',
                 get_string('acceptederror', 'qtype_numerical'));
-        $repeatedoptions['tolerance']['type'] = PARAM_FLOAT;
+        $repeatedoptions['tolerance']['type'] = PARAM_NUMBER;
         $repeatedoptions['tolerance']['default'] = 0;
         array_splice($repeated, 3, 0, array($tolerance));
         $repeated[1]->setSize(10);
@@ -83,7 +83,7 @@ class qtype_numerical_edit_form extends question_edit_form {
         $penaltygrp = array();
         $penaltygrp[] = $mform->createElement('text', 'unitpenalty',
                 get_string('unitpenalty', 'qtype_numerical'), array('size' => 6));
-        $mform->setType('unitpenalty', PARAM_FLOAT);
+        $mform->setType('unitpenalty', PARAM_NUMBER);
         $mform->setDefault('unitpenalty', 0.1000000);
 
         $unitgradingtypes = array(
@@ -137,7 +137,7 @@ class qtype_numerical_edit_form extends question_edit_form {
         );
 
         $repeatedoptions['unit']['type'] = PARAM_NOTAGS;
-        $repeatedoptions['multiplier']['type'] = PARAM_FLOAT;
+        $repeatedoptions['multiplier']['type'] = PARAM_NUMBER;
         $repeatedoptions['unit']['disabledif'] =
                 array('unitrole', 'eq', qtype_numerical::UNITNONE);
         $repeatedoptions['multiplier']['disabledif'] =
@@ -159,7 +159,8 @@ class qtype_numerical_edit_form extends question_edit_form {
         if ($mform->elementExists('multiplier[0]')) {
             $firstunit = $mform->getElement('multiplier[0]');
             $firstunit->freeze();
-            $mform->setDefault('multiplier[0]', '1.0');
+            $firstunit->setValue('1.0');
+            $firstunit->setPersistantFreeze(true);
             $mform->addHelpButton('multiplier[0]', 'numericalmultiplier', 'qtype_numerical');
         }
     }
@@ -173,8 +174,8 @@ class qtype_numerical_edit_form extends question_edit_form {
         return $question;
     }
 
-    protected function data_preprocessing_answers($question, $withanswerfiles = false) {
-        $question = parent::data_preprocessing_answers($question, $withanswerfiles);
+    protected function data_preprocessing_answers($question) {
+        $question = parent::data_preprocessing_answers($question);
         if (empty($question->options->answers)) {
             return $question;
         }

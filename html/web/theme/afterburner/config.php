@@ -5,16 +5,15 @@ $THEME->name = 'afterburner';
 $THEME->parents = array('base');
 
 $THEME->sheets = array(
-    'afterburner_pagelayout',   /** Must come first: page layout **/
+    'afterburner_layout',   /** Must come first: Page layout **/
     'afterburner_styles',   /** Must come second: default styles **/
     'afterburner_menu',
     'afterburner_blocks',
     'afterburner_mod',
     'afterburner_calendar',
     'afterburner_dock',
-    'afterburner_rtl',
     'afterburner_settings',
-
+    'rtl'
 );
 
 $THEME->parents_exclude_sheets = array(
@@ -35,32 +34,31 @@ $THEME->layouts = array(
     'standard' => array(
         'file' => 'default.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     // Main course page
     'course' => array(
         'file' => 'default.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu'=>true),
     ),
     'coursecategory' => array(
         'file' => 'default.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     // part of course, typical for modules - default page layout if $cm specified in require_login()
     'incourse' => array(
         'file' => 'default.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     // The site home page.
     'frontpage' => array(
         'file' => 'default.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('langmenu'=>true),
+        'defaultregion' => 'side-post',
     ),
     // Server administration scripts.
     'admin' => array(
@@ -91,13 +89,13 @@ $THEME->layouts = array(
     'popup' => array(
         'file' => 'default.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocustommenu'=>true, 'nologininfo'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocustommenu'=>true, 'nologininfo'=>true),
     ),
     // No blocks and minimal footer - used for legacy frame layouts only!
     'frametop' => array(
         'file' => 'default.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nocoursefooter'=>true),
+        'options' => array('nofooter'=>true),
     ),
     // Embedded pages, like iframe/object embeded in moodleform - it needs as much space as possible
     'embedded' => array(
@@ -110,31 +108,24 @@ $THEME->layouts = array(
     'maintenance' => array(
         'file' => 'default.php',
         'regions' => array(),
-        'options' => array('noblocks'=>true, 'nofooter'=>true, 'nonavbar'=>true, 'nocustommenu'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('noblocks'=>true, 'nofooter'=>true, 'nonavbar'=>true, 'nocustommenu'=>true),
     ),
     // Should display the content and basic headers only.
     'print' => array(
         'file' => 'default.php',
         'regions' => array(),
-        'options' => array('noblocks'=>true, 'nofooter'=>true, 'nonavbar'=>false, 'nocustommenu'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('noblocks'=>true, 'nofooter'=>true, 'nonavbar'=>false, 'nocustommenu'=>true),
     ),
     // The pagelayout used when a redirection is occuring.
     'redirect' => array(
         'file' => 'embedded.php',
         'regions' => array()
     ),
-    // The pagelayout used for reports.
+    // The pagelayout used for reports
     'report' => array(
         'file' => 'default.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
-    ),
-    // The pagelayout used for safebrowser and securewindow.
-    'secure' => array(
-        'file' => 'default.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocustommenu'=>true, 'nologinlinks'=>true, 'nocourseheaderfooter'=>true),
     ),
 );
 

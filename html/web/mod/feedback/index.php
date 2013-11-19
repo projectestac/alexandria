@@ -35,9 +35,11 @@ if (!$course = $DB->get_record('course', array('id'=>$id))) {
     print_error('invalidcourseid');
 }
 
-$context = context_course::instance($course->id);
+if (!$context = get_context_instance(CONTEXT_COURSE, $course->id)) {
+        print_error('badcontext');
+}
 
-require_login($course);
+require_login($course->id);
 $PAGE->set_pagelayout('incourse');
 
 add_to_log($course->id, 'feedback', 'view all', $url->out(false), $course->id);
@@ -61,6 +63,9 @@ if (! $feedbacks = get_all_instances_in_course("feedback", $course)) {
 }
 
 $usesections = course_format_uses_sections($course->format);
+if ($usesections) {
+    $sections = get_all_sections($course->id);
+}
 
 /// Print the list of instances (your module will probably extend this)
 
@@ -102,7 +107,7 @@ foreach ($feedbacks as $feedback) {
     $link = '<a '.$dimmedclass.' href="'.$viewurl->out().'">'.$feedback->name.'</a>';
 
     if ($usesections) {
-        $tabledata = array (get_section_name($course, $feedback->section), $link);
+        $tabledata = array (get_section_name($course, $sections[$feedback->section]), $link);
     } else {
         $tabledata = array ($link);
     }

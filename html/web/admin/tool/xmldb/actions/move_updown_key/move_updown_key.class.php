@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will will move one key up/down
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -67,13 +69,13 @@ class move_updown_key extends XMLDBAction {
 
         // Get the correct dirs
         if (!empty($XMLDB->dbdirs)) {
-            $dbdir = $XMLDB->dbdirs[$dirpath];
+            $dbdir =& $XMLDB->dbdirs[$dirpath];
         } else {
             return false;
         }
         if (!empty($XMLDB->editeddirs)) {
-            $editeddir = $XMLDB->editeddirs[$dirpath];
-            $structure = $editeddir->xml_file->getStructure();
+            $editeddir =& $XMLDB->editeddirs[$dirpath];
+            $structure =& $editeddir->xml_file->getStructure();
         }
 
         $prev = NULL;
@@ -81,20 +83,20 @@ class move_updown_key extends XMLDBAction {
         $tableparam = required_param('table', PARAM_CLEAN);
         $keyparam = required_param('key', PARAM_CLEAN);
         $direction  = required_param('direction', PARAM_ALPHA);
-        $tables = $structure->getTables();
-        $table = $structure->getTable($tableparam);
-        $keys = $table->getKeys();
+        $tables =& $structure->getTables();
+        $table =& $structure->getTable($tableparam);
+        $keys =& $table->getKeys();
         if ($direction == 'down') {
-            $key = $table->getKey($keyparam);
-            $swap = $table->getKey($key->getNext());
+            $key =& $table->getKey($keyparam);
+            $swap =& $table->getKey($key->getNext());
         } else {
-            $swap = $table->getKey($keyparam);
-            $key = $table->getKey($swap->getPrevious());
+            $swap =& $table->getKey($keyparam);
+            $key =& $table->getKey($swap->getPrevious());
         }
 
         // Change the key before the pair
         if ($key->getPrevious()) {
-            $prev = $table->getKey($key->getPrevious());
+            $prev =& $table->getKey($key->getPrevious());
             $prev->setNext($swap->getName());
             $swap->setPrevious($prev->getName());
             $prev->setChanged(true);
@@ -103,7 +105,7 @@ class move_updown_key extends XMLDBAction {
         }
         // Change the key after the pair
         if ($swap->getNext()) {
-            $next = $table->getKey($swap->getNext());
+            $next =& $table->getKey($swap->getNext());
             $next->setPrevious($key->getName());
             $key->setNext($next->getName());
             $next->setChanged(true);
@@ -122,14 +124,14 @@ class move_updown_key extends XMLDBAction {
         $table->setChanged(true);
 
         // Reorder the keys
-        $table->orderKeys();
+        $table->orderKeys($keys);
 
         // Recalculate the hash
         $structure->calculateHash(true);
 
         // If the hash has changed from the original one, change the version
         // and mark the structure as changed
-        $origstructure = $dbdir->xml_file->getStructure();
+        $origstructure =& $dbdir->xml_file->getStructure();
         if ($structure->getHash() != $origstructure->getHash()) {
             $structure->setVersion(userdate(time(), '%Y%m%d', 99, false));
             $structure->setChanged(true);

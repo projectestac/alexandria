@@ -18,7 +18,8 @@
 /**
  * This file defines a class with comments grading strategy logic
  *
- * @package    workshopform_comments
+ * @package    workshopform
+ * @subpackage comments
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,20 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once(dirname(dirname(__FILE__)) . '/lib.php');  // interface definition
 require_once($CFG->libdir . '/gradelib.php');           // to handle float vs decimal issues
 
-/**
- * Server workshop files
- *
- * @category files
- * @param stdClass $course course object
- * @param stdClass $cm course module object
- * @param stdClass $context context object
- * @param string $filearea file area
- * @param array $args extra arguments
- * @param bool $forcedownload whether or not force download
- * @param array $options additional options affecting the file serving
- * @return bool
- */
-function workshopform_comments_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
+function workshopform_comments_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
     global $DB;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -73,7 +61,7 @@ function workshopform_comments_pluginfile($course, $cm, $context, $filearea, arr
     }
 
     // finally send the file
-    send_stored_file($file, 0, 0, $forcedownload, $options);
+    send_stored_file($file);
 }
 
 /**

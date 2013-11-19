@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,9 +19,10 @@
 /**
  * Abstraction of general file archives.
  *
- * @package   core_files
- * @copyright 2008 Petr Skoda (http://skodak.org)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    core
+ * @subpackage filestorage
+ * @copyright  2008 Petr Skoda (http://skodak.org)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -28,9 +30,10 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Each file archive type must extend this class.
  *
- * @package   core_files
- * @copyright 2008 Petr Skoda (http://skodak.org)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    core
+ * @subpackage filestorage
+ * @copyright  2008 Petr Skoda (http://skodak.org)
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class file_archive implements Iterator {
 
@@ -43,13 +46,12 @@ abstract class file_archive implements Iterator {
     /** Always create new archive */
     const OVERWRITE = 4;
 
-    /** @var string Encoding of file names - windows usually expects DOS single-byte charset*/
+    /** Encoding of file names - windows usually expects DOS single-byte charset*/
     protected $encoding = 'utf-8';
 
     /**
      * Open or create archive (depending on $mode)
-     *
-     * @param string $archivepathname archive path name
+     * @param string $archivepathname
      * @param int $mode OPEN, CREATE or OVERWRITE constant
      * @param string $encoding archive local paths encoding
      * @return bool success
@@ -58,44 +60,38 @@ abstract class file_archive implements Iterator {
 
     /**
      * Close archive
-     *
      * @return bool success
      */
     public abstract function close();
 
     /**
      * Returns file stream for reading of content
-     *
-     * @param int $index index of file
-     * @return stream|bool stream or false if error
+     * @param int $index of file
+     * @return stream or false if error
      */
     public abstract function get_stream($index);
 
     /**
      * Returns file information
-     *
-     * @param int $index index of file
-     * @return stdClass|bool object or false if error
+     * @param int $index of file
+     * @return info object or false if error
      */
     public abstract function get_info($index);
 
     /**
      * Returns array of info about all files in archive
-     *
      * @return array of file infos
      */
     public abstract function list_files();
 
     /**
      * Returns number of files in archive
-     *
      * @return int number of files
      */
     public abstract function count();
 
     /**
      * Add file into archive
-     *
      * @param string $localname name of file in archive
      * @param string $pathname location of file
      * @return bool success
@@ -104,17 +100,15 @@ abstract class file_archive implements Iterator {
 
     /**
      * Add content of string into archive
-     *
      * @param string $localname name of file in archive
-     * @param string $contents contents
+     * @param string $contents
      * @return bool success
      */
     public abstract function add_file_from_string($localname, $contents);
 
     /**
      * Add empty directory into archive
-     *
-     * @param string $localname name of file in archive
+     * @param string $local
      * @return bool success
      */
     public abstract function add_directory($localname);
@@ -122,26 +116,26 @@ abstract class file_archive implements Iterator {
     /**
      * Tries to convert $localname into another encoding,
      * please note that it may fail really badly.
-     *
-     * @param string $localname name of file in utf-8 encoding
+     * @param string $localname in utf-8 encoding
      * @return string
      */
     protected function mangle_pathname($localname) {
         if ($this->encoding === 'utf-8') {
             return $localname;
         }
+        $textlib = textlib_get_instance();
 
-        $converted = textlib::convert($localname, 'utf-8', $this->encoding);
-        $original  = textlib::convert($converted, $this->encoding, 'utf-8');
+        $converted = $textlib->convert($localname, 'utf-8', $this->encoding);
+        $original  = $textlib->convert($converted, $this->encoding, 'utf-8');
 
         if ($original === $localname) {
             $result = $converted;
 
         } else {
             // try ascii conversion
-            $converted2 = textlib::specialtoascii($localname);
-            $converted2 = textlib::convert($converted2, 'utf-8', $this->encoding);
-            $original2  = textlib::convert($converted, $this->encoding, 'utf-8');
+            $converted2 = $textlib->specialtoascii($localname);
+            $converted2 = $textlib->convert($converted2, 'utf-8', $this->encoding);
+            $original2  = $textlib->convert($converted, $this->encoding, 'utf-8');
 
             if ($original2 === $localname) {
                 //this looks much better
@@ -167,7 +161,7 @@ abstract class file_archive implements Iterator {
      * please note that it may fail really badly.
      * The resulting file name is cleaned.
      *
-     * @param string $localname name of file in $this->encoding
+     * @param string $localname in $this->encoding
      * @return string in utf-8
      */
     protected function unmangle_pathname($localname) {
@@ -175,7 +169,7 @@ abstract class file_archive implements Iterator {
         $result = ltrim($result, '/');                // no leading /
 
         if ($this->encoding !== 'utf-8') {
-            $result = textlib::convert($result, $this->encoding, 'utf-8');
+            $result = textlib_get_instance()->convert($result, $this->encoding, 'utf-8');
         }
 
         return clean_param($result, PARAM_PATH);

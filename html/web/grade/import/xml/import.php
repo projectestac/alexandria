@@ -34,7 +34,7 @@ if (!$course = $DB->get_record('course', array('id'=>$id))) {
 }
 
 require_login($course);
-$context = context_course::instance($id);
+$context = get_context_instance(CONTEXT_COURSE, $id);
 
 require_capability('moodle/grade:import', $context);
 require_capability('gradeimport/xml:view', $context);

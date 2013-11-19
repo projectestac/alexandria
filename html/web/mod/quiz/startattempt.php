@@ -21,9 +21,10 @@
  *
  * This code used to be at the top of attempt.php, if you are looking for CVS history.
  *
- * @package   mod_quiz
- * @copyright 2009 The Open University
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod
+ * @subpackage quiz
+ * @copyright  2009 The Open University
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once(dirname(__FILE__) . '/../../config.php');
@@ -32,7 +33,7 @@ require_once($CFG->dirroot . '/mod/quiz/locallib.php');
 // Get submitted parameters.
 $id = required_param('cmid', PARAM_INT); // Course module id
 $forcenew = optional_param('forcenew', false, PARAM_BOOL); // Used to force a new preview
-$page = optional_param('page', -1, PARAM_INT); // Page to jump to in the attempt.
+$page = optional_param('page', 0, PARAM_INT); // Page to jump to in the attempt.
 
 if (!$cm = get_coursemodule_from_id('quiz', $id)) {
     print_error('invalidcoursemodule');
@@ -46,10 +47,10 @@ $quizobj = quiz::create($cm->instance, $USER->id);
 $PAGE->set_url($quizobj->view_url());
 
 // Check login and sesskey.
-require_login($quizobj->get_course(), false, $quizobj->get_cm());
+require_login($quizobj->get_courseid(), false, $quizobj->get_cm());
 require_sesskey();
 
-// If no questions have been set up yet redirect to edit.php or display an error.
+// if no questions have been set up yet redirect to edit.php or display an error.
 if (!$quizobj->has_questions()) {
     if ($quizobj->has_capability('mod/quiz:manage')) {
         redirect($quizobj->edit_url());
@@ -59,8 +60,7 @@ if (!$quizobj->has_questions()) {
 }
 
 // Create an object to manage all the other (non-roles) access rules.
-$timenow = time();
-$accessmanager = $quizobj->get_access_manager($timenow);
+$accessmanager = $quizobj->get_access_manager(time());
 if ($quizobj->is_preview_user() && $forcenew) {
     $accessmanager->current_attempt_finished();
 }
@@ -72,9 +72,9 @@ if (!$quizobj->is_preview_user()) {
 
 // Check to see if a new preview was requested.
 if ($quizobj->is_preview_user() && $forcenew) {
-    // To force the creation of a new preview, we mark the current attempt (if any)
-    // as finished. It will then automatically be deleted below.
-    $DB->set_field('quiz_attempts', 'state', quiz_attempt::FINISHED,
+    // To force the creation of a new preview, we set a finish time on the
+    // current attempt (if any). It will then automatically be deleted below
+    $DB->set_field('quiz_attempts', 'timefinish', time(),
             array('quiz' => $quizobj->get_quizid(), 'userid' => $USER->id));
 }
 
@@ -83,28 +83,12 @@ $attempts = quiz_get_user_attempts($quizobj->get_quizid(), $USER->id, 'all', tru
 $lastattempt = end($attempts);
 
 // If an in-progress attempt exists, check password then redirect to it.
-if ($lastattempt && ($lastattempt->state == quiz_attempt::IN_PROGRESS ||
-        $lastattempt->state == quiz_attempt::OVERDUE)) {
+if ($lastattempt && !$lastattempt->timefinish) {
     $currentattemptid = $lastattempt->id;
     $messages = $accessmanager->prevent_access();
 
-    // If the attempt is now overdue, deal with that.
-    $quizobj->create_attempt_object($lastattempt)->handle_if_time_expired($timenow, true);
-
-    // And, if the attempt is now no longer in progress, redirect to the appropriate place.
-    if ($lastattempt->state == quiz_attempt::OVERDUE) {
-         redirect($quizobj->summary_url($lastattempt->id));
-    } else if ($lastattempt->state != quiz_attempt::IN_PROGRESS) {
-        redirect($quizobj->review_url($lastattempt->id));
-    }
-
-    // If the page number was not explicitly in the URL, go to the current page.
-    if ($page == -1) {
-        $page = $lastattempt->currentpage;
-    }
-
 } else {
-    // Get number for the next or unfinished attempt.
+    // Get number for the next or unfinished attempt
     if ($lastattempt && !$lastattempt->preview && !$quizobj->is_preview_user()) {
         $attemptnumber = $lastattempt->attempt + 1;
     } else {
@@ -115,10 +99,6 @@ if ($lastattempt && ($lastattempt->state == quiz_attempt::IN_PROGRESS ||
 
     $messages = $accessmanager->prevent_access() +
             $accessmanager->prevent_new_attempt(count($attempts), $lastattempt);
-
-    if ($page == -1) {
-        $page = 0;
-    }
 }
 
 // Check access.
@@ -164,8 +144,7 @@ $quba = question_engine::make_questions_usage_by_activity('mod_quiz', $quizobj->
 $quba->set_preferred_behaviour($quizobj->get_quiz()->preferredbehaviour);
 
 // Create the new attempt and initialize the question sessions
-$timenow = time(); // Update time now, in case the server is running really slowly.
-$attempt = quiz_create_attempt($quizobj, $attemptnumber, $lastattempt, $timenow,
+$attempt = quiz_create_attempt($quizobj->get_quiz(), $attemptnumber, $lastattempt, time(),
         $quizobj->is_preview_user());
 
 if (!($quizobj->get_quiz()->attemptonlast && $lastattempt)) {
@@ -205,7 +184,8 @@ if (!($quizobj->get_quiz()->attemptonlast && $lastattempt)) {
         $variantoffset = $attemptnumber;
     }
     $quba->start_all_questions(
-            new question_variant_pseudorandom_no_repeats_strategy($variantoffset), $timenow);
+            new question_variant_pseudorandom_no_repeats_strategy($variantoffset),
+            time());
 
     // Update attempt layout.
     $newlayout = array();
@@ -259,12 +239,11 @@ if ($attempt->preview) {
             $quizobj->get_quizid(), $quizobj->get_cmid());
 }
 
-// Trigger event.
+// Trigger event
 $eventdata = new stdClass();
 $eventdata->component = 'mod_quiz';
 $eventdata->attemptid = $attempt->id;
 $eventdata->timestart = $attempt->timestart;
-$eventdata->timestamp = $attempt->timestart;
 $eventdata->userid    = $attempt->userid;
 $eventdata->quizid    = $quizobj->get_quizid();
 $eventdata->cmid      = $quizobj->get_cmid();

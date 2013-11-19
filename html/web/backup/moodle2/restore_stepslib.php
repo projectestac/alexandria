@@ -16,16 +16,15 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines various restore steps that will be used by common tasks in restore
- *
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Define all the restore steps that will be used by common tasks in restore
+ */
 
 /**
  * delete old directories and conditionally create backup_temp_ids table
@@ -42,11 +41,11 @@ class restore_create_and_clean_temp_stuff extends restore_execution_step {
         }
         // Create the old-course-ctxid to new-course-ctxid mapping, we need that available since the beginning
         $itemid = $this->task->get_old_contextid();
-        $newitemid = context_course::instance($this->get_courseid())->id;
+        $newitemid = get_context_instance(CONTEXT_COURSE, $this->get_courseid())->id;
         restore_dbops::set_backup_ids_record($this->get_restoreid(), 'context', $itemid, $newitemid);
         // Create the old-system-ctxid to new-system-ctxid mapping, we need that available since the beginning
         $itemid = $this->task->get_old_system_contextid();
-        $newitemid = context_system::instance()->id;
+        $newitemid = get_context_instance(CONTEXT_SYSTEM)->id;
         restore_dbops::set_backup_ids_record($this->get_restoreid(), 'context', $itemid, $newitemid);
         // Create the old-course-id to new-course-id mapping, we need that available since the beginning
         $itemid = $this->task->get_old_courseid();
@@ -190,15 +189,6 @@ class restore_gradebook_structure_step extends restore_structure_step {
                 $data->id = $newitemid = $existinggradeitem->id;
                 $DB->update_record('grade_items', $data);
             }
-        } else if ($data->itemtype == 'manual') {
-            // Manual items aren't assigned to a cm, so don't go duplicating them in the target if one exists.
-            $gi = array(
-                'itemtype' => $data->itemtype,
-                'courseid' => $data->courseid,
-                'itemname' => $data->itemname,
-                'categoryid' => $data->categoryid,
-            );
-            $newitemid = $DB->get_field('grade_items', 'id', $gi);
         }
 
         if (empty($newitemid)) {
@@ -216,25 +206,21 @@ class restore_gradebook_structure_step extends restore_structure_step {
         global $DB;
 
         $data = (object)$data;
-        $olduserid = $data->userid;
+        $oldid = $data->id;
 
         $data->itemid = $this->get_new_parentid('grade_item');
 
-        $data->userid = $this->get_mappingid('user', $data->userid, null);
-        if (!empty($data->userid)) {
-            $data->usermodified = $this->get_mappingid('user', $data->usermodified, null);
-            $data->locktime     = $this->apply_date_offset($data->locktime);
-            // TODO: Ask, all the rest of locktime/exported... work with time... to be rolled?
-            $data->overridden = $this->apply_date_offset($data->overridden);
-            $data->timecreated  = $this->apply_date_offset($data->timecreated);
-            $data->timemodified = $this->apply_date_offset($data->timemodified);
+        $data->userid = $this->get_mappingid('user', $data->userid, NULL);
+        $data->usermodified = $this->get_mappingid('user', $data->usermodified, NULL);
+        $data->locktime     = $this->apply_date_offset($data->locktime);
+        // TODO: Ask, all the rest of locktime/exported... work with time... to be rolled?
+        $data->overridden = $this->apply_date_offset($data->overridden);
+        $data->timecreated  = $this->apply_date_offset($data->timecreated);
+        $data->timemodified = $this->apply_date_offset($data->timemodified);
 
-            $newitemid = $DB->insert_record('grade_grades', $data);
-        } else {
-            debugging("Mapped user id not found for user id '{$olduserid}', grade item id '{$data->itemid}'");
-        }
+        $newitemid = $DB->insert_record('grade_grades', $data);
+        //$this->set_mapping('grade_grade', $oldid, $newitemid);
     }
-
     protected function process_grade_category($data) {
         global $DB;
 
@@ -277,16 +263,9 @@ class restore_gradebook_structure_step extends restore_structure_step {
         $data = (object)$data;
         $oldid = $data->id;
 
-        $data->contextid = context_course::instance($this->get_courseid())->id;
+        $data->contextid = get_context_instance(CONTEXT_COURSE, $this->get_courseid())->id;
 
-        $gradeletter = (array)$data;
-        unset($gradeletter['id']);
-        if (!$DB->record_exists('grade_letters', $gradeletter)) {
-            $newitemid = $DB->insert_record('grade_letters', $data);
-        } else {
-            $newitemid = $data->id;
-        }
-
+        $newitemid = $DB->insert_record('grade_letters', $data);
         $this->set_mapping('grade_letter', $oldid, $newitemid);
     }
     protected function process_grade_setting($data) {
@@ -297,13 +276,8 @@ class restore_gradebook_structure_step extends restore_structure_step {
 
         $data->courseid = $this->get_courseid();
 
-        if (!$DB->record_exists('grade_settings', array('courseid' => $data->courseid, 'name' => $data->name))) {
-            $newitemid = $DB->insert_record('grade_settings', $data);
-        } else {
-            $newitemid = $data->id;
-        }
-
-        $this->set_mapping('grade_setting', $oldid, $newitemid);
+        $newitemid = $DB->insert_record('grade_settings', $data);
+        //$this->set_mapping('grade_setting', $oldid, $newitemid);
     }
 
     /**
@@ -611,11 +585,7 @@ class restore_load_included_files extends restore_structure_step {
         return array($file);
     }
 
-    /**
-     * Process one <file> element from files.xml
-     *
-     * @param array $data the element data
-     */
+    // Processing functions go here
     public function process_file($data) {
 
         $data = (object)$data; // handy
@@ -729,6 +699,9 @@ class restore_groups_structure_step extends restore_structure_step {
         $paths = array(); // Add paths here
 
         $paths[] = new restore_path_element('group', '/groups/group');
+        if ($this->get_setting_value('users')) {
+            $paths[] = new restore_path_element('member', '/groups/group/group_members/group_member');
+        }
         $paths[] = new restore_path_element('grouping', '/groups/groupings/grouping');
         $paths[] = new restore_path_element('grouping_group', '/groups/groupings/grouping/grouping_groups/grouping_group');
 
@@ -741,17 +714,6 @@ class restore_groups_structure_step extends restore_structure_step {
 
         $data = (object)$data; // handy
         $data->courseid = $this->get_courseid();
-
-        // Only allow the idnumber to be set if the user has permission and the idnumber is not already in use by
-        // another a group in the same course
-        $context = context_course::instance($data->courseid);
-        if (isset($data->idnumber) and has_capability('moodle/course:changeidnumber', $context, $this->task->get_userid())) {
-            if (groups_get_group_by_idnumber($data->courseid, $data->idnumber)) {
-                unset($data->idnumber);
-            }
-        } else {
-            unset($data->idnumber);
-        }
 
         $oldid = $data->id;    // need this saved for later
 
@@ -780,22 +742,27 @@ class restore_groups_structure_step extends restore_structure_step {
         $this->set_mapping('group', $oldid, $newitemid, $restorefiles);
     }
 
+    public function process_member($data) {
+        global $DB;
+
+        $data = (object)$data; // handy
+
+        // get parent group->id
+        $data->groupid = $this->get_new_parentid('group');
+
+        // map user newitemid and insert if not member already
+        if ($data->userid = $this->get_mappingid('user', $data->userid)) {
+            if (!$DB->record_exists('groups_members', array('groupid' => $data->groupid, 'userid' => $data->userid))) {
+                $DB->insert_record('groups_members', $data);
+            }
+        }
+    }
+
     public function process_grouping($data) {
         global $DB;
 
         $data = (object)$data; // handy
         $data->courseid = $this->get_courseid();
-
-        // Only allow the idnumber to be set if the user has permission and the idnumber is not already in use by
-        // another a grouping in the same course
-        $context = context_course::instance($data->courseid);
-        if (isset($data->idnumber) and has_capability('moodle/course:changeidnumber', $context, $this->task->get_userid())) {
-            if (groups_get_grouping_by_idnumber($data->courseid, $data->idnumber)) {
-                unset($data->idnumber);
-            }
-        } else {
-            unset($data->idnumber);
-        }
 
         $oldid = $data->id;    // need this saved for later
         $restorefiles = false; // Only if we end creating the grouping
@@ -824,12 +791,20 @@ class restore_groups_structure_step extends restore_structure_step {
     }
 
     public function process_grouping_group($data) {
-        global $CFG;
-
-        require_once($CFG->dirroot.'/group/lib.php');
+        global $DB;
 
         $data = (object)$data;
-        groups_assign_grouping($this->get_new_parentid('grouping'), $this->get_mappingid('group', $data->groupid), $data->timeadded);
+
+        $data->groupingid = $this->get_new_parentid('grouping'); // Use new parentid
+        $data->groupid    = $this->get_mappingid('group', $data->groupid); // Get from mappings
+
+        $params = array();
+        $params['groupingid'] = $data->groupingid;
+        $params['groupid']    = $data->groupid;
+
+        if (!$DB->record_exists('groupings_groups', $params)) {
+            $DB->insert_record('groupings_groups', $data);  // No need to set this mapping (no child info nor files)
+        }
     }
 
     protected function after_execute() {
@@ -840,86 +815,6 @@ class restore_groups_structure_step extends restore_structure_step {
         $this->add_related_files('grouping', 'description', 'grouping');
     }
 
-}
-
-/**
- * Structure step that will create all the needed group memberships
- * by loading them from the groups.xml file performing the required matches.
- */
-class restore_groups_members_structure_step extends restore_structure_step {
-
-    protected $plugins = null;
-
-    protected function define_structure() {
-
-        $paths = array(); // Add paths here
-
-        if ($this->get_setting_value('users')) {
-            $paths[] = new restore_path_element('group', '/groups/group');
-            $paths[] = new restore_path_element('member', '/groups/group/group_members/group_member');
-        }
-
-        return $paths;
-    }
-
-    public function process_group($data) {
-        $data = (object)$data; // handy
-
-        // HACK ALERT!
-        // Not much to do here, this groups mapping should be already done from restore_groups_structure_step.
-        // Let's fake internal state to make $this->get_new_parentid('group') work.
-
-        $this->set_mapping('group', $data->id, $this->get_mappingid('group', $data->id));
-    }
-
-    public function process_member($data) {
-        global $DB, $CFG;
-        require_once("$CFG->dirroot/group/lib.php");
-
-        // NOTE: Always use groups_add_member() because it triggers events and verifies if user is enrolled.
-
-        $data = (object)$data; // handy
-
-        // get parent group->id
-        $data->groupid = $this->get_new_parentid('group');
-
-        // map user newitemid and insert if not member already
-        if ($data->userid = $this->get_mappingid('user', $data->userid)) {
-            if (!$DB->record_exists('groups_members', array('groupid' => $data->groupid, 'userid' => $data->userid))) {
-                // Check the component, if any, exists.
-                if (empty($data->component)) {
-                    groups_add_member($data->groupid, $data->userid);
-
-                } else if ((strpos($data->component, 'enrol_') === 0)) {
-                    // Deal with enrolment groups - ignore the component and just find out the instance via new id,
-                    // it is possible that enrolment was restored using different plugin type.
-                    if (!isset($this->plugins)) {
-                        $this->plugins = enrol_get_plugins(true);
-                    }
-                    if ($enrolid = $this->get_mappingid('enrol', $data->itemid)) {
-                        if ($instance = $DB->get_record('enrol', array('id'=>$enrolid))) {
-                            if (isset($this->plugins[$instance->enrol])) {
-                                $this->plugins[$instance->enrol]->restore_group_member($instance, $data->groupid, $data->userid);
-                            }
-                        }
-                    }
-
-                } else {
-                    $dir = get_component_directory($data->component);
-                    if ($dir and is_dir($dir)) {
-                        if (component_callback($data->component, 'restore_group_member', array($this, $data), true)) {
-                            return;
-                        }
-                    }
-                    // Bad luck, plugin could not restore the data, let's add normal membership.
-                    groups_add_member($data->groupid, $data->userid);
-                    $message = "Restore of '$data->component/$data->itemid' group membership is not supported, using standard group membership instead.";
-                    debugging($message);
-                    $this->log($message, backup::LOG_WARNING);
-                }
-            }
-        }
-    }
 }
 
 /**
@@ -962,7 +857,7 @@ class restore_scales_structure_step extends restore_structure_step {
             $data->courseid = $data->courseid ? $this->get_courseid() : 0;
             // If global scale (course=0), check the user has perms to create it
             // falling to course scale if not
-            $systemctx = context_system::instance();
+            $systemctx = get_context_instance(CONTEXT_SYSTEM);
             if ($data->courseid == 0 && !has_capability('moodle/course:managescales', $systemctx , $this->task->get_userid())) {
                 $data->courseid = $this->get_courseid();
             }
@@ -1024,7 +919,7 @@ class restore_outcomes_structure_step extends restore_structure_step {
             $data->courseid = $data->courseid ? $this->get_courseid() : null;
             // If global outcome (course=null), check the user has perms to create it
             // falling to course outcome if not
-            $systemctx = context_system::instance();
+            $systemctx = get_context_instance(CONTEXT_SYSTEM);
             if (is_null($data->courseid) && !has_capability('moodle/grade:manageoutcomes', $systemctx , $this->task->get_userid())) {
                 $data->courseid = $this->get_courseid();
             }
@@ -1096,29 +991,16 @@ class restore_process_categories_and_questions extends restore_execution_step {
 class restore_section_structure_step extends restore_structure_step {
 
     protected function define_structure() {
-        global $CFG;
-
-        $paths = array();
-
         $section = new restore_path_element('section', '/section');
-        $paths[] = $section;
-        if ($CFG->enableavailability) {
-            $paths[] = new restore_path_element('availability', '/section/availability');
-            $paths[] = new restore_path_element('availability_field', '/section/availability_field');
-        }
-        $paths[] = new restore_path_element('course_format_options', '/section/course_format_options');
 
         // Apply for 'format' plugins optional paths at section level
         $this->add_plugin_structure('format', $section);
 
-        // Apply for 'local' plugins optional paths at section level
-        $this->add_plugin_structure('local', $section);
-
-        return $paths;
+        return array($section);
     }
 
     public function process_section($data) {
-        global $CFG, $DB;
+        global $DB;
         $data = (object)$data;
         $oldid = $data->id; // We'll need this later
 
@@ -1135,25 +1017,13 @@ class restore_section_structure_step extends restore_structure_step {
             $section->summaryformat = $data->summaryformat;
             $section->sequence = '';
             $section->visible = $data->visible;
-            if (empty($CFG->enableavailability)) { // Process availability information only if enabled.
-                $section->availablefrom = 0;
-                $section->availableuntil = 0;
-                $section->showavailability = 0;
-            } else {
-                $section->availablefrom = isset($data->availablefrom) ? $this->apply_date_offset($data->availablefrom) : 0;
-                $section->availableuntil = isset($data->availableuntil) ? $this->apply_date_offset($data->availableuntil) : 0;
-                $section->showavailability = isset($data->showavailability) ? $data->showavailability : 0;
-            }
-            if (!empty($CFG->enablegroupmembersonly)) { // Only if enablegroupmembersonly is enabled
-                $section->groupingid = isset($data->groupingid) ? $this->get_mappingid('grouping', $data->groupingid) : 0;
-            }
             $newitemid = $DB->insert_record('course_sections', $section);
             $restorefiles = true;
 
         // Section exists, update non-empty information
         } else {
             $section->id = $secrec->id;
-            if ((string)$secrec->name === '') {
+            if (empty($secrec->name)) {
                 $section->name = $data->name;
             }
             if (empty($secrec->summary)) {
@@ -1161,16 +1031,6 @@ class restore_section_structure_step extends restore_structure_step {
                 $section->summaryformat = $data->summaryformat;
                 $restorefiles = true;
             }
-            if (empty($secrec->groupingid)) {
-                if (!empty($CFG->enablegroupmembersonly)) { // Only if enablegroupmembersonly is enabled
-                    $section->groupingid = isset($data->groupingid) ? $this->get_mappingid('grouping', $data->groupingid) : 0;
-                }
-            }
-
-            // Don't update available from, available until, or show availability
-            // (I didn't see a useful way to define whether existing or new one should
-            // take precedence).
-
             $DB->update_record('course_sections', $section);
             $newitemid = $secrec->id;
         }
@@ -1194,101 +1054,9 @@ class restore_section_structure_step extends restore_structure_step {
         //}
     }
 
-    public function process_availability($data) {
-        global $DB;
-        $data = (object)$data;
-
-        $data->coursesectionid = $this->task->get_sectionid();
-
-        // NOTE: Other values in $data need updating, but these (cm,
-        // grade items) have not yet been restored, so are done later.
-
-        $newid = $DB->insert_record('course_sections_availability', $data);
-
-        // We do not need to map between old and new id but storing a mapping
-        // means it gets added to the backup_ids table to record which ones
-        // need updating. The mapping is stored with $newid => $newid for
-        // convenience.
-        $this->set_mapping('course_sections_availability', $newid, $newid);
-    }
-
-    public function process_availability_field($data) {
-        global $DB;
-        $data = (object)$data;
-        // Mark it is as passed by default
-        $passed = true;
-        $customfieldid = null;
-
-        // If a customfield has been used in order to pass we must be able to match an existing
-        // customfield by name (data->customfield) and type (data->customfieldtype)
-        if (is_null($data->customfield) xor is_null($data->customfieldtype)) {
-            // xor is sort of uncommon. If either customfield is null or customfieldtype is null BUT not both.
-            // If one is null but the other isn't something clearly went wrong and we'll skip this condition.
-            $passed = false;
-        } else if (!is_null($data->customfield)) {
-            $params = array('shortname' => $data->customfield, 'datatype' => $data->customfieldtype);
-            $customfieldid = $DB->get_field('user_info_field', 'id', $params);
-            $passed = ($customfieldid !== false);
-        }
-
-        if ($passed) {
-            // Create the object to insert into the database
-            $availfield = new stdClass();
-            $availfield->coursesectionid = $this->task->get_sectionid();
-            $availfield->userfield = $data->userfield;
-            $availfield->customfieldid = $customfieldid;
-            $availfield->operator = $data->operator;
-            $availfield->value = $data->value;
-            $DB->insert_record('course_sections_avail_fields', $availfield);
-        }
-    }
-
-    public function process_course_format_options($data) {
-        global $DB;
-        $data = (object)$data;
-        $oldid = $data->id;
-        unset($data->id);
-        $data->sectionid = $this->task->get_sectionid();
-        $data->courseid = $this->get_courseid();
-        $newid = $DB->insert_record('course_format_options', $data);
-        $this->set_mapping('course_format_options', $oldid, $newid);
-    }
-
     protected function after_execute() {
         // Add section related files, with 'course_section' itemid to match
         $this->add_related_files('course', 'section', 'course_section');
-    }
-
-    public function after_restore() {
-        global $DB;
-
-        $sectionid = $this->get_task()->get_sectionid();
-
-        // Get data object for current section availability (if any).
-        $records = $DB->get_records('course_sections_availability',
-                array('coursesectionid' => $sectionid), 'id, sourcecmid, gradeitemid');
-
-        // If it exists, update mappings.
-        foreach ($records as $data) {
-            // Only update mappings for entries which are created by this restore.
-            // Otherwise, when you restore to an existing course, it will mess up
-            // existing section availability entries.
-            if (!$this->get_mappingid('course_sections_availability', $data->id, false)) {
-                return;
-            }
-
-            // Update source cmid / grade id to new value.
-            $data->sourcecmid = $this->get_mappingid('course_module', $data->sourcecmid);
-            if (!$data->sourcecmid) {
-                $data->sourcecmid = null;
-            }
-            $data->gradeitemid = $this->get_mappingid('grade_item', $data->gradeitemid);
-            if (!$data->gradeitemid) {
-                $data->gradeitemid = null;
-            }
-
-            $DB->update_record('course_sections_availability', $data);
-        }
     }
 }
 
@@ -1300,21 +1068,6 @@ class restore_section_structure_step extends restore_structure_step {
  * the course record (never inserting)
  */
 class restore_course_structure_step extends restore_structure_step {
-    /**
-     * @var bool this gets set to true by {@link process_course()} if we are
-     * restoring an old coures that used the legacy 'module security' feature.
-     * If so, we have to do more work in {@link after_execute()}.
-     */
-    protected $legacyrestrictmodules = false;
-
-    /**
-     * @var array Used when {@link $legacyrestrictmodules} is true. This is an
-     * array with array keys the module names ('forum', 'quiz', etc.). These are
-     * the modules that are allowed according to the data in the backup file.
-     * In {@link after_execute()} we then have to prevent adding of all the other
-     * types of activity.
-     */
-    protected $legacyallowedmodules = array();
 
     protected function define_structure() {
 
@@ -1337,9 +1090,6 @@ class restore_course_structure_step extends restore_structure_step {
 
         // Apply for plagiarism plugins optional paths at course level
         $this->add_plugin_structure('plagiarism', $course);
-
-        // Apply for local plugins optional paths at course level
-        $this->add_plugin_structure('local', $course);
 
         return array($course, $category, $tag, $allowed_module);
     }
@@ -1367,7 +1117,7 @@ class restore_course_structure_step extends restore_structure_step {
         $data->fullname = $fullname;
         $data->shortname= $shortname;
 
-        $context = context::instance_by_id($this->task->get_contextid());
+        $context = get_context_instance_by_id($this->task->get_contextid());
         if (has_capability('moodle/course:changeidnumber', $context, $this->task->get_userid())) {
             $data->idnumber = '';
         } else {
@@ -1380,9 +1130,8 @@ class restore_course_structure_step extends restore_structure_step {
             $data->hiddensections = 0;
         }
 
-        // Set legacyrestrictmodules to true if the course was resticting modules. If so
-        // then we will need to process restricted modules after execution.
-        $this->legacyrestrictmodules = !empty($data->restrictmodules);
+        // Only restrict modules if original course was and target site too for new courses
+        $data->restrictmodules = $data->restrictmodules && !empty($CFG->restrictmodulesfor) && $CFG->restrictmodulesfor == 'all';
 
         $data->startdate= $this->apply_date_offset($data->startdate);
         if ($data->defaultgroupingid) {
@@ -1405,8 +1154,6 @@ class restore_course_structure_step extends restore_structure_step {
 
         // Course record ready, update it
         $DB->update_record('course', $data);
-
-        course_get_format($data)->update_course_format_options($data);
 
         // Role name aliases
         restore_dbops::set_course_role_names($this->get_restoreid(), $this->get_courseid());
@@ -1439,58 +1186,44 @@ class restore_course_structure_step extends restore_structure_step {
     }
 
     public function process_allowed_module($data) {
+        global $CFG, $DB;
+
         $data = (object)$data;
 
-        // Backwards compatiblity support for the data that used to be in the
-        // course_allowed_modules table.
-        if ($this->legacyrestrictmodules) {
-            $this->legacyallowedmodules[$data->modulename] = 1;
+        // only if enabled by admin setting
+        if (!empty($CFG->restrictmodulesfor) && $CFG->restrictmodulesfor == 'all') {
+            $available = get_plugin_list('mod');
+            $mname = $data->modulename;
+            if (array_key_exists($mname, $available)) {
+                if ($module = $DB->get_record('modules', array('name' => $mname, 'visible' => 1))) {
+                    $rec = new stdclass();
+                    $rec->course = $this->get_courseid();
+                    $rec->module = $module->id;
+                    if (!$DB->record_exists('course_allowed_modules', (array)$rec)) {
+                        $DB->insert_record('course_allowed_modules', $rec);
+                    }
+                }
+            }
         }
     }
 
     protected function after_execute() {
-        global $DB;
-
         // Add course related files, without itemid to match
         $this->add_related_files('course', 'summary', null);
         $this->add_related_files('course', 'legacy', null);
-
-        // Deal with legacy allowed modules.
-        if ($this->legacyrestrictmodules) {
-            $context = context_course::instance($this->get_courseid());
-
-            list($roleids) = get_roles_with_cap_in_context($context, 'moodle/course:manageactivities');
-            list($managerroleids) = get_roles_with_cap_in_context($context, 'moodle/site:config');
-            foreach ($managerroleids as $roleid) {
-                unset($roleids[$roleid]);
-            }
-
-            foreach (get_plugin_list('mod') as $modname => $notused) {
-                if (isset($this->legacyallowedmodules[$modname])) {
-                    // Module is allowed, no worries.
-                    continue;
-                }
-
-                $capability = 'mod/' . $modname . ':addinstance';
-                foreach ($roleids as $roleid) {
-                    assign_capability($capability, CAP_PREVENT, $roleid, $context);
-                }
-            }
-        }
     }
 }
 
 
 /*
  * Structure step that will read the roles.xml file (at course/activity/block levels)
- * containing all the role_assignments and overrides for that context. If corresponding to
+ * containig all the role_assignments and overrides for that context. If corresponding to
  * one mapped role, they will be applied to target context. Will observe the role_assignments
  * setting to decide if ras are restored.
- *
- * Note: this needs to be executed after all users are enrolled.
+ * Note: only ras with component == null are restored as far as the any ra with component
+ * is handled by one enrolment plugin, hence it will createt the ras later
  */
 class restore_ras_and_caps_structure_step extends restore_structure_step {
-    protected $plugins = null;
 
     protected function define_structure() {
 
@@ -1539,34 +1272,18 @@ class restore_ras_and_caps_structure_step extends restore_structure_step {
             role_assign($newroleid, $newuserid, $contextid);
 
         } else if ((strpos($data->component, 'enrol_') === 0)) {
-            // Deal with enrolment roles - ignore the component and just find out the instance via new id,
-            // it is possible that enrolment was restored using different plugin type.
-            if (!isset($this->plugins)) {
-                $this->plugins = enrol_get_plugins(true);
-            }
+            // Deal with enrolment roles
             if ($enrolid = $this->get_mappingid('enrol', $data->itemid)) {
-                if ($instance = $DB->get_record('enrol', array('id'=>$enrolid))) {
-                    if (isset($this->plugins[$instance->enrol])) {
-                        $this->plugins[$instance->enrol]->restore_role_assignment($instance, $newroleid, $newuserid, $contextid);
+                if ($component = $DB->get_field('enrol', 'component', array('id'=>$enrolid))) {
+                    //note: we have to verify component because it might have changed
+                    if ($component === 'enrol_manual') {
+                        // manual is a special case, we do not use components - this owudl happen when converting from other plugin
+                        role_assign($newroleid, $newuserid, $contextid); //TODO: do we need modifierid?
+                    } else {
+                        role_assign($newroleid, $newuserid, $contextid, $component, $enrolid); //TODO: do we need modifierid?
                     }
                 }
             }
-
-        } else {
-            $data->roleid    = $newroleid;
-            $data->userid    = $newuserid;
-            $data->contextid = $contextid;
-            $dir = get_component_directory($data->component);
-            if ($dir and is_dir($dir)) {
-                if (component_callback($data->component, 'restore_role_assignment', array($this, $data), true)) {
-                    return;
-                }
-            }
-            // Bad luck, plugin could not restore the data, let's add normal membership.
-            role_assign($data->roleid, $data->userid, $data->contextid);
-            $message = "Restore of '$data->component/$data->itemid' role assignments is not supported, using manual role assignments instead.";
-            debugging($message);
-            $this->log($message, backup::LOG_WARNING);
         }
     }
 
@@ -1589,9 +1306,6 @@ class restore_ras_and_caps_structure_step extends restore_structure_step {
  * enrolments, performing all the mappings and/or movements required
  */
 class restore_enrolments_structure_step extends restore_structure_step {
-    protected $enrolsynced = false;
-    protected $plugins = null;
-    protected $originalstatus = array();
 
     /**
      * Conditionally decide if this step should be executed.
@@ -1638,79 +1352,64 @@ class restore_enrolments_structure_step extends restore_structure_step {
         global $DB;
 
         $data = (object)$data;
-        $oldid = $data->id; // We'll need this later.
-        unset($data->id);
+        $oldid = $data->id; // We'll need this later
 
-        $this->originalstatus[$oldid] = $data->status;
+        $restoretype = plugin_supports('enrol', $data->enrol, ENROL_RESTORE_TYPE, null);
 
-        if (!$courserec = $DB->get_record('course', array('id' => $this->get_courseid()))) {
+        if ($restoretype !== ENROL_RESTORE_EXACT and $restoretype !== ENROL_RESTORE_NOUSERS) {
+            // TODO: add complex restore support via custom class
+            debugging("Skipping '{$data->enrol}' enrolment plugin. Will be implemented before 2.0 release", DEBUG_DEVELOPER);
             $this->set_mapping('enrol', $oldid, 0);
             return;
         }
 
-        if (!isset($this->plugins)) {
-            $this->plugins = enrol_get_plugins(true);
+        // Perform various checks to decide what to do with the enrol plugin
+        if (!array_key_exists($data->enrol, enrol_get_plugins(false))) {
+            // TODO: decide if we want to switch to manual enrol - we need UI for this
+            debugging("Enrol plugin data can not be restored because it is not installed");
+            $this->set_mapping('enrol', $oldid, 0);
+            return;
+
+        }
+        if (!enrol_is_enabled($data->enrol)) {
+            // TODO: decide if we want to switch to manual enrol - we need UI for this
+            debugging("Enrol plugin data can not be restored because it is not enabled");
+            $this->set_mapping('enrol', $oldid, 0);
+            return;
         }
 
-        if (!$this->enrolsynced) {
-            // Make sure that all plugin may create instances and enrolments automatically
-            // before the first instance restore - this is suitable especially for plugins
-            // that synchronise data automatically using course->idnumber or by course categories.
-            foreach ($this->plugins as $plugin) {
-                $plugin->restore_sync_course($courserec);
-            }
-            $this->enrolsynced = true;
-        }
+        // map standard fields - plugin has to process custom fields from own restore class
+        $data->roleid = $this->get_mappingid('role', $data->roleid);
+        //TODO: should we move the enrol start and end date here?
 
-        // Map standard fields - plugin has to process custom fields manually.
-        $data->roleid   = $this->get_mappingid('role', $data->roleid);
-        $data->courseid = $courserec->id;
-
-        if ($this->get_setting_value('enrol_migratetomanual')) {
-            unset($data->sortorder); // Remove useless sortorder from <2.4 backups.
-            if (!enrol_is_enabled('manual')) {
-                $this->set_mapping('enrol', $oldid, 0);
-                return;
-            }
-            if ($instances = $DB->get_records('enrol', array('courseid'=>$data->courseid, 'enrol'=>'manual'), 'id')) {
-                $instance = reset($instances);
-                $this->set_mapping('enrol', $oldid, $instance->id);
-            } else {
-                if ($data->enrol === 'manual') {
-                    $instanceid = $this->plugins['manual']->add_instance($courserec, (array)$data);
-                } else {
-                    $instanceid = $this->plugins['manual']->add_default_instance($courserec);
-                }
-                $this->set_mapping('enrol', $oldid, $instanceid);
-            }
-
+        // always add instance, if the course does not support multiple instances it just returns NULL
+        $enrol = enrol_get_plugin($data->enrol);
+        $courserec = $DB->get_record('course', array('id' => $this->get_courseid())); // Requires object, uses only id!!
+        if ($newitemid = $enrol->add_instance($courserec, (array)$data)) {
+            // ok
         } else {
-            if (!enrol_is_enabled($data->enrol) or !isset($this->plugins[$data->enrol])) {
-                $this->set_mapping('enrol', $oldid, 0);
-                $message = "Enrol plugin '$data->enrol' data can not be restored because it is not enabled, use migration to manual enrolments";
-                debugging($message);
-                $this->log($message, backup::LOG_WARNING);
-                return;
-            }
-            if ($task = $this->get_task() and $task->get_target() == backup::TARGET_NEW_COURSE) {
-                // Let's keep the sortorder in old backups.
+            if ($instances = $DB->get_records('enrol', array('courseid'=>$courserec->id, 'enrol'=>$data->enrol))) {
+                // most probably plugin that supports only one instance
+                $newitemid = key($instances);
             } else {
-                // Prevent problems with colliding sortorders in old backups,
-                // new 2.4 backups do not need sortorder because xml elements are ordered properly.
-                unset($data->sortorder);
+                debugging('Can not create new enrol instance or reuse existing');
+                $newitemid = 0;
             }
-            // Note: plugin is responsible for setting up the mapping, it may also decide to migrate to different type.
-            $this->plugins[$data->enrol]->restore_instance($this, $data, $courserec, $oldid);
         }
+
+        if ($restoretype === ENROL_RESTORE_NOUSERS) {
+            // plugin requests to prevent restore of any users
+            $newitemid = 0;
+        }
+
+        $this->set_mapping('enrol', $oldid, $newitemid);
     }
 
     /**
-     * Create user enrolments.
+     * Create user enrolments
      *
      * This has to be called after creation of enrolment instances
      * and before adding of role assignments.
-     *
-     * Roles are assigned in restore_ras_and_caps_structure_step::process_assignment() processing afterwards.
      *
      * @param mixed $data
      * @return void
@@ -1718,25 +1417,17 @@ class restore_enrolments_structure_step extends restore_structure_step {
     public function process_enrolment($data) {
         global $DB;
 
-        if (!isset($this->plugins)) {
-            $this->plugins = enrol_get_plugins(true);
-        }
-
         $data = (object)$data;
 
-        // Process only if parent instance have been mapped.
+        // Process only if parent instance have been mapped
         if ($enrolid = $this->get_new_parentid('enrol')) {
-            $oldinstancestatus = ENROL_INSTANCE_ENABLED;
-            $oldenrolid = $this->get_old_parentid('enrol');
-            if (isset($this->originalstatus[$oldenrolid])) {
-                $oldinstancestatus = $this->originalstatus[$oldenrolid];
-            }
             if ($instance = $DB->get_record('enrol', array('id'=>$enrolid))) {
-                // And only if user is a mapped one.
+                // And only if user is a mapped one
                 if ($userid = $this->get_mappingid('user', $data->userid)) {
-                    if (isset($this->plugins[$instance->enrol])) {
-                        $this->plugins[$instance->enrol]->restore_user_enrolment($this, $data, $instance, $userid, $oldinstancestatus);
-                    }
+                    $enrol = enrol_get_plugin($instance->enrol);
+                    //TODO: do we need specify modifierid?
+                    $enrol->enrol_user($instance, $userid, null, $data->timestart, $data->timeend, $data->status);
+                    //note: roles are assigned in restore_ras_and_caps_structure_step::process_assignment() processing above
                 }
             }
         }
@@ -1875,93 +1566,6 @@ class restore_comments_structure_step extends restore_structure_step {
     }
 }
 
-/**
- * This structure steps restores the calendar events
- */
-class restore_calendarevents_structure_step extends restore_structure_step {
-
-    protected function define_structure() {
-
-        $paths = array();
-
-        $paths[] = new restore_path_element('calendarevents', '/events/event');
-
-        return $paths;
-    }
-
-    public function process_calendarevents($data) {
-        global $DB, $SITE;
-
-        $data = (object)$data;
-        $oldid = $data->id;
-        $restorefiles = true; // We'll restore the files
-        // Find the userid and the groupid associated with the event. Return if not found.
-        $data->userid = $this->get_mappingid('user', $data->userid);
-        if ($data->userid === false) {
-            return;
-        }
-        if (!empty($data->groupid)) {
-            $data->groupid = $this->get_mappingid('group', $data->groupid);
-            if ($data->groupid === false) {
-                return;
-            }
-        }
-        // Handle events with empty eventtype //MDL-32827
-        if(empty($data->eventtype)) {
-            if ($data->courseid == $SITE->id) {                                // Site event
-                $data->eventtype = "site";
-            } else if ($data->courseid != 0 && $data->groupid == 0 && ($data->modulename == 'assignment' || $data->modulename == 'assign')) {
-                // Course assingment event
-                $data->eventtype = "due";
-            } else if ($data->courseid != 0 && $data->groupid == 0) {      // Course event
-                $data->eventtype = "course";
-            } else if ($data->groupid) {                                      // Group event
-                $data->eventtype = "group";
-            } else if ($data->userid) {                                       // User event
-                $data->eventtype = "user";
-            } else {
-                return;
-            }
-        }
-
-        $params = array(
-                'name'           => $data->name,
-                'description'    => $data->description,
-                'format'         => $data->format,
-                'courseid'       => $this->get_courseid(),
-                'groupid'        => $data->groupid,
-                'userid'         => $data->userid,
-                'repeatid'       => $data->repeatid,
-                'modulename'     => $data->modulename,
-                'eventtype'      => $data->eventtype,
-                'timestart'      => $this->apply_date_offset($data->timestart),
-                'timeduration'   => $data->timeduration,
-                'visible'        => $data->visible,
-                'uuid'           => $data->uuid,
-                'sequence'       => $data->sequence,
-                'timemodified'    => $this->apply_date_offset($data->timemodified));
-        if ($this->name == 'activity_calendar') {
-            $params['instance'] = $this->task->get_activityid();
-        } else {
-            $params['instance'] = 0;
-        }
-        $sql = 'SELECT id FROM {event} WHERE name = ? AND courseid = ? AND
-                repeatid = ? AND modulename = ? AND timestart = ? AND timeduration =?
-                AND ' . $DB->sql_compare_text('description', 255) . ' = ' . $DB->sql_compare_text('?', 255);
-        $arg = array ($params['name'], $params['courseid'], $params['repeatid'], $params['modulename'], $params['timestart'], $params['timeduration'], $params['description']);
-        $result = $DB->record_exists_sql($sql, $arg);
-        if (empty($result)) {
-            $newitemid = $DB->insert_record('event', $params);
-            $this->set_mapping('event_description', $oldid, $newitemid, $restorefiles);
-        }
-
-    }
-    protected function after_execute() {
-        // Add related files
-        $this->add_related_files('calendar', 'event_description', 'event_description');
-    }
-}
-
 class restore_course_completion_structure_step extends restore_structure_step {
 
     /**
@@ -2021,6 +1625,7 @@ class restore_course_completion_structure_step extends restore_structure_step {
 
         $paths = array();
         $paths[] = new restore_path_element('course_completion_criteria', '/course_completion/course_completion_criteria');
+        $paths[] = new restore_path_element('course_completion_notify', '/course_completion/course_completion_notify');
         $paths[] = new restore_path_element('course_completion_aggr_methd', '/course_completion/course_completion_aggr_methd');
 
         if ($userinfo) {
@@ -2124,6 +1729,9 @@ class restore_course_completion_structure_step extends restore_structure_step {
             if (isset($data->unenroled)) {
                 $params['unenroled'] = $data->unenroled;
             }
+            if (isset($data->deleted)) {
+                $params['deleted'] = $data->deleted;
+            }
             $DB->insert_record('course_completion_crit_compl', $params);
         }
     }
@@ -2146,6 +1754,8 @@ class restore_course_completion_structure_step extends restore_structure_step {
             $params = array(
                 'userid' => $data->userid,
                 'course' => $data->course,
+                'deleted' => $data->deleted,
+                'timenotified' => $this->apply_date_offset($data->timenotified),
                 'timeenrolled' => $this->apply_date_offset($data->timeenrolled),
                 'timestarted' => $this->apply_date_offset($data->timestarted),
                 'timecompleted' => $this->apply_date_offset($data->timecompleted),
@@ -2153,6 +1763,34 @@ class restore_course_completion_structure_step extends restore_structure_step {
             );
             $DB->insert_record('course_completions', $params);
         }
+    }
+
+    /**
+     * Process course completion notification records.
+     *
+     * Note: As of Moodle 2.0 this table is not being used however it has been
+     * left in in the hopes that one day the functionality there will be completed
+     *
+     * @global moodle_database $DB
+     * @param stdClass $data
+     */
+    public function process_course_completion_notify($data) {
+        global $DB;
+
+        $data = (object)$data;
+
+        $data->course = $this->get_courseid();
+        if (!empty($data->role)) {
+            $data->role = $this->get_mappingid('role', $data->role);
+        }
+
+        $params = array(
+            'course' => $data->course,
+            'role' => $data->role,
+            'message' => $data->message,
+            'timesent' => $this->apply_date_offset($data->timesent),
+        );
+        $DB->insert_record('course_completion_notify', $params);
     }
 
     /**
@@ -2331,25 +1969,17 @@ class restore_activity_grading_structure_step extends restore_structure_step {
         $paths = array();
         $userinfo = $this->get_setting_value('userinfo');
 
-        $area = new restore_path_element('grading_area', '/areas/area');
-        $paths[] = $area;
-        // attach local plugin stucture to $area element
-        $this->add_plugin_structure('local', $area);
+        $paths[] = new restore_path_element('grading_area', '/areas/area');
 
         $definition = new restore_path_element('grading_definition', '/areas/area/definitions/definition');
         $paths[] = $definition;
         $this->add_plugin_structure('gradingform', $definition);
-        // attach local plugin stucture to $definition element
-        $this->add_plugin_structure('local', $definition);
-
 
         if ($userinfo) {
             $instance = new restore_path_element('grading_instance',
                 '/areas/area/definitions/definition/instances/instance');
             $paths[] = $instance;
             $this->add_plugin_structure('gradingform', $instance);
-            // attach local plugin stucture to $intance element
-            $this->add_plugin_structure('local', $instance);
         }
 
         return $paths;
@@ -2522,43 +2152,33 @@ class restore_activity_grades_structure_step extends restore_structure_step {
 
     protected function process_grade_grade($data) {
         $data = (object)($data);
-        $olduserid = $data->userid;
+
         unset($data->id);
-
         $data->itemid = $this->get_new_parentid('grade_item');
+        $data->userid = $this->get_mappingid('user', $data->userid);
+        $data->usermodified = $this->get_mappingid('user', $data->usermodified);
+        $data->rawscaleid = $this->get_mappingid('scale', $data->rawscaleid);
+        // TODO: Ask, all the rest of locktime/exported... work with time... to be rolled?
+        $data->overridden = $this->apply_date_offset($data->overridden);
 
-        $data->userid = $this->get_mappingid('user', $data->userid, null);
-        if (!empty($data->userid)) {
-            $data->usermodified = $this->get_mappingid('user', $data->usermodified, null);
-            $data->rawscaleid = $this->get_mappingid('scale', $data->rawscaleid);
-            // TODO: Ask, all the rest of locktime/exported... work with time... to be rolled?
-            $data->overridden = $this->apply_date_offset($data->overridden);
-
-            $grade = new grade_grade($data, false);
-            $grade->insert('restore');
-            // no need to save any grade_grade mapping
-        } else {
-            debugging("Mapped user id not found for user id '{$olduserid}', grade item id '{$data->itemid}'");
-        }
+        $grade = new grade_grade($data, false);
+        $grade->insert('restore');
+        // no need to save any grade_grade mapping
     }
 
     /**
      * process activity grade_letters. Note that, while these are possible,
-     * because grade_letters are contextid based, in practice, only course
+     * because grade_letters are contextid based, in proctice, only course
      * context letters can be defined. So we keep here this method knowing
      * it won't be executed ever. gradebook restore will restore course letters.
      */
     protected function process_grade_letter($data) {
         global $DB;
 
-        $data['contextid'] = $this->task->get_contextid();
-        $gradeletter = (object)$data;
+        $data = (object)$data;
 
-        // Check if it exists before adding it
-        unset($data['id']);
-        if (!$DB->record_exists('grade_letters', $data)) {
-            $newitemid = $DB->insert_record('grade_letters', $gradeletter);
-        }
+        $data->contextid = $this->task->get_contextid();
+        $newitemid = $DB->insert_record('grade_letters', $data);
         // no need to save any grade_letter mapping
     }
 }
@@ -2599,11 +2219,7 @@ class restore_block_instance_structure_step extends restore_structure_step {
         // If there is already one block of that type in the parent context
         // and the block is not multiple, stop processing
         // Use blockslib loader / method executor
-        if (!$bi = block_instance($data->blockname)) {
-            return false;
-        }
-
-        if (!$bi->instance_allow_multiple()) {
+        if (!block_method_result($data->blockname, 'instance_allow_multiple')) {
             if ($DB->record_exists_sql("SELECT bi.id
                                           FROM {block_instances} bi
                                           JOIN {block} b ON b.name = bi.blockname
@@ -2650,7 +2266,7 @@ class restore_block_instance_structure_step extends restore_structure_step {
         // Save the mapping (with restorefiles support)
         $this->set_mapping('block_instance', $oldid, $newitemid, true);
         // Create the block context
-        $newcontextid = context_block::instance($newitemid)->id;
+        $newcontextid = get_context_instance(CONTEXT_BLOCK, $newitemid)->id;
         // Save the block contexts mapping and sent it to task
         $this->set_mapping('context', $oldcontextid, $newcontextid);
         $this->task->set_contextid($newcontextid);
@@ -2703,7 +2319,6 @@ class restore_module_structure_step extends restore_structure_step {
         $paths[] = $module;
         if ($CFG->enableavailability) {
             $paths[] = new restore_path_element('availability', '/module/availability_info/availability');
-            $paths[] = new restore_path_element('availability_field', '/module/availability_info/availability_field');
         }
 
         // Apply for 'format' plugins optional paths at module level
@@ -2711,9 +2326,6 @@ class restore_module_structure_step extends restore_structure_step {
 
         // Apply for 'plagiarism' plugins optional paths at module level
         $this->add_plugin_structure('plagiarism', $module);
-
-        // Apply for 'local' plugins optional paths at module level
-        $this->add_plugin_structure('local', $module);
 
         return $paths;
     }
@@ -2723,6 +2335,7 @@ class restore_module_structure_step extends restore_structure_step {
 
         $data = (object)$data;
         $oldid = $data->id;
+
         $this->task->set_old_moduleversion($data->version);
 
         $data->course = $this->task->get_courseid();
@@ -2788,7 +2401,7 @@ class restore_module_structure_step extends restore_structure_step {
         // set the new course_module id in the task
         $this->task->set_moduleid($newitemid);
         // we can now create the context safely
-        $ctxid = context_module::instance($newitemid)->id;
+        $ctxid = get_context_instance(CONTEXT_MODULE, $newitemid)->id;
         // set the new context id in the task
         $this->task->set_contextid($ctxid);
         // update sequence field in course_section
@@ -2800,45 +2413,14 @@ class restore_module_structure_step extends restore_structure_step {
         $DB->set_field('course_sections', 'sequence', $sequence, array('id' => $data->section));
     }
 
+
     protected function process_availability($data) {
         $data = (object)$data;
         // Simply going to store the whole availability record now, we'll process
-        // all them later in the final task (once all activities have been restored)
+        // all them later in the final task (once all actvivities have been restored)
         // Let's call the low level one to be able to store the whole object
         $data->coursemoduleid = $this->task->get_moduleid(); // Let add the availability cmid
         restore_dbops::set_backup_ids_record($this->get_restoreid(), 'module_availability', $data->id, 0, null, $data);
-    }
-
-    protected function process_availability_field($data) {
-        global $DB;
-        $data = (object)$data;
-        // Mark it is as passed by default
-        $passed = true;
-        $customfieldid = null;
-
-        // If a customfield has been used in order to pass we must be able to match an existing
-        // customfield by name (data->customfield) and type (data->customfieldtype)
-        if (!empty($data->customfield) xor !empty($data->customfieldtype)) {
-            // xor is sort of uncommon. If either customfield is null or customfieldtype is null BUT not both.
-            // If one is null but the other isn't something clearly went wrong and we'll skip this condition.
-            $passed = false;
-        } else if (!empty($data->customfield)) {
-            $params = array('shortname' => $data->customfield, 'datatype' => $data->customfieldtype);
-            $customfieldid = $DB->get_field('user_info_field', 'id', $params);
-            $passed = ($customfieldid !== false);
-        }
-
-        if ($passed) {
-            // Create the object to insert into the database
-            $availfield = new stdClass();
-            $availfield->coursemoduleid = $this->task->get_moduleid(); // Lets add the availability cmid
-            $availfield->userfield = $data->userfield;
-            $availfield->customfieldid = $customfieldid;
-            $availfield->operator = $data->operator;
-            $availfield->value = $data->value;
-            // Insert into the database
-            $DB->insert_record('course_modules_avail_fields', $availfield);
-        }
     }
 }
 
@@ -3011,9 +2593,6 @@ class restore_create_categories_and_questions extends restore_structure_step {
         // Apply for 'qtype' plugins optional paths at question level
         $this->add_plugin_structure('qtype', $question);
 
-        // Apply for 'local' plugins optional paths at question level
-        $this->add_plugin_structure('local', $question);
-
         return array($category, $question, $hint);
     }
 
@@ -3078,6 +2657,9 @@ class restore_create_categories_and_questions extends restore_structure_step {
             $data->penalty = 1;
         }
 
+        $data->timecreated  = $this->apply_date_offset($data->timecreated);
+        $data->timemodified = $this->apply_date_offset($data->timemodified);
+
         $userid = $this->get_mappingid('user', $data->createdby);
         $data->createdby = $userid ? $userid : $this->task->get_userid();
 
@@ -3131,22 +2713,6 @@ class restore_create_categories_and_questions extends restore_structure_step {
                        AND ' . $DB->sql_compare_text('hint', 255) . ' = ' . $DB->sql_compare_text('?', 255);
             $params = array($newquestionid, $data->hint);
             $newitemid = $DB->get_field_sql($sql, $params);
-
-            // Not able to find the hint, let's try cleaning the hint text
-            // of all the question's hints in DB as slower fallback. MDL-33863.
-            if (!$newitemid) {
-                $potentialhints = $DB->get_records('question_hints',
-                        array('questionid' => $newquestionid), '', 'id, hint');
-                foreach ($potentialhints as $potentialhint) {
-                    // Clean in the same way than {@link xml_writer::xml_safe_utf8()}.
-                    $cleanhint = preg_replace('/[\x-\x8\xb-\xc\xe-\x1f\x7f]/is','', $potentialhint->hint); // Clean CTRL chars.
-                    $cleanhint = preg_replace("/\r\n|\r/", "\n", $cleanhint); // Normalize line ending.
-                    if ($cleanhint === $data->hint) {
-                        $newitemid = $data->id;
-                    }
-                }
-            }
-
             // If we haven't found the newitemid, something has gone really wrong, question in DB
             // is missing hints, exception
             if (!$newitemid) {
@@ -3308,331 +2874,6 @@ class restore_create_question_files extends restore_execution_step {
     }
 }
 
-
-/**
- * Try to restore aliases and references to external files.
- *
- * The queue of these files was prepared for us in {@link restore_dbops::send_files_to_pool()}.
- * We expect that all regular (non-alias) files have already been restored. Make sure
- * there is no restore step executed after this one that would call send_files_to_pool() again.
- *
- * You may notice we have hardcoded support for Server files, Legacy course files
- * and user Private files here at the moment. This could be eventually replaced with a set of
- * callbacks in the future if needed.
- *
- * @copyright 2012 David Mudrak <david@moodle.com>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-class restore_process_file_aliases_queue extends restore_execution_step {
-
-    /** @var array internal cache for {@link choose_repository()} */
-    private $cachereposbyid = array();
-
-    /** @var array internal cache for {@link choose_repository()} */
-    private $cachereposbytype = array();
-
-    /**
-     * What to do when this step is executed.
-     */
-    protected function define_execution() {
-        global $DB;
-
-        $this->log('processing file aliases queue', backup::LOG_INFO);
-
-        $fs = get_file_storage();
-
-        // Load the queue.
-        $rs = $DB->get_recordset('backup_ids_temp',
-            array('backupid' => $this->get_restoreid(), 'itemname' => 'file_aliases_queue'),
-            '', 'info');
-
-        // Iterate over aliases in the queue.
-        foreach ($rs as $record) {
-            $info = unserialize(base64_decode($record->info));
-
-            // Try to pick a repository instance that should serve the alias.
-            $repository = $this->choose_repository($info);
-
-            if (is_null($repository)) {
-                $this->notify_failure($info, 'unable to find a matching repository instance');
-                continue;
-            }
-
-            if ($info->oldfile->repositorytype === 'local' or $info->oldfile->repositorytype === 'coursefiles') {
-                // Aliases to Server files and Legacy course files may refer to a file
-                // contained in the backup file or to some existing file (if we are on the
-                // same site).
-                try {
-                    $reference = file_storage::unpack_reference($info->oldfile->reference);
-                } catch (Exception $e) {
-                    $this->notify_failure($info, 'invalid reference field format');
-                    continue;
-                }
-
-                // Let's see if the referred source file was also included in the backup.
-                $candidates = $DB->get_recordset('backup_files_temp', array(
-                        'backupid' => $this->get_restoreid(),
-                        'contextid' => $reference['contextid'],
-                        'component' => $reference['component'],
-                        'filearea' => $reference['filearea'],
-                        'itemid' => $reference['itemid'],
-                    ), '', 'info, newcontextid, newitemid');
-
-                $source = null;
-
-                foreach ($candidates as $candidate) {
-                    $candidateinfo = unserialize(base64_decode($candidate->info));
-                    if ($candidateinfo->filename === $reference['filename']
-                            and $candidateinfo->filepath === $reference['filepath']
-                            and !is_null($candidate->newcontextid)
-                            and !is_null($candidate->newitemid) ) {
-                        $source = $candidateinfo;
-                        $source->contextid = $candidate->newcontextid;
-                        $source->itemid = $candidate->newitemid;
-                        break;
-                    }
-                }
-                $candidates->close();
-
-                if ($source) {
-                    // We have an alias that refers to another file also included in
-                    // the backup. Let us change the reference field so that it refers
-                    // to the restored copy of the original file.
-                    $reference = file_storage::pack_reference($source);
-
-                    // Send the new alias to the filepool.
-                    $fs->create_file_from_reference($info->newfile, $repository->id, $reference);
-                    $this->notify_success($info);
-                    continue;
-
-                } else {
-                    // This is a reference to some moodle file that was not contained in the backup
-                    // file. If we are restoring to the same site, keep the reference untouched
-                    // and restore the alias as is if the referenced file exists.
-                    if ($this->task->is_samesite()) {
-                        if ($fs->file_exists($reference['contextid'], $reference['component'], $reference['filearea'],
-                                $reference['itemid'], $reference['filepath'], $reference['filename'])) {
-                            $reference = file_storage::pack_reference($reference);
-                            $fs->create_file_from_reference($info->newfile, $repository->id, $reference);
-                            $this->notify_success($info);
-                            continue;
-                        } else {
-                            $this->notify_failure($info, 'referenced file not found');
-                            continue;
-                        }
-
-                    // If we are at other site, we can't restore this alias.
-                    } else {
-                        $this->notify_failure($info, 'referenced file not included');
-                        continue;
-                    }
-                }
-
-            } else if ($info->oldfile->repositorytype === 'user') {
-                if ($this->task->is_samesite()) {
-                    // For aliases to user Private files at the same site, we have a chance to check
-                    // if the referenced file still exists.
-                    try {
-                        $reference = file_storage::unpack_reference($info->oldfile->reference);
-                    } catch (Exception $e) {
-                        $this->notify_failure($info, 'invalid reference field format');
-                        continue;
-                    }
-                    if ($fs->file_exists($reference['contextid'], $reference['component'], $reference['filearea'],
-                            $reference['itemid'], $reference['filepath'], $reference['filename'])) {
-                        $reference = file_storage::pack_reference($reference);
-                        $fs->create_file_from_reference($info->newfile, $repository->id, $reference);
-                        $this->notify_success($info);
-                        continue;
-                    } else {
-                        $this->notify_failure($info, 'referenced file not found');
-                        continue;
-                    }
-
-                // If we are at other site, we can't restore this alias.
-                } else {
-                    $this->notify_failure($info, 'restoring at another site');
-                    continue;
-                }
-
-            } else {
-                // This is a reference to some external file such as in boxnet or dropbox.
-                // If we are restoring to the same site, keep the reference untouched and
-                // restore the alias as is.
-                if ($this->task->is_samesite()) {
-                    $fs->create_file_from_reference($info->newfile, $repository->id, $info->oldfile->reference);
-                    $this->notify_success($info);
-                    continue;
-
-                // If we are at other site, we can't restore this alias.
-                } else {
-                    $this->notify_failure($info, 'restoring at another site');
-                    continue;
-                }
-            }
-        }
-        $rs->close();
-    }
-
-    /**
-     * Choose the repository instance that should handle the alias.
-     *
-     * At the same site, we can rely on repository instance id and we just
-     * check it still exists. On other site, try to find matching Server files or
-     * Legacy course files repository instance. Return null if no matching
-     * repository instance can be found.
-     *
-     * @param stdClass $info
-     * @return repository|null
-     */
-    private function choose_repository(stdClass $info) {
-        global $DB, $CFG;
-        require_once($CFG->dirroot.'/repository/lib.php');
-
-        if ($this->task->is_samesite()) {
-            // We can rely on repository instance id.
-
-            if (array_key_exists($info->oldfile->repositoryid, $this->cachereposbyid)) {
-                return $this->cachereposbyid[$info->oldfile->repositoryid];
-            }
-
-            $this->log('looking for repository instance by id', backup::LOG_DEBUG, $info->oldfile->repositoryid, 1);
-
-            try {
-                $this->cachereposbyid[$info->oldfile->repositoryid] = repository::get_repository_by_id($info->oldfile->repositoryid, SYSCONTEXTID);
-                return $this->cachereposbyid[$info->oldfile->repositoryid];
-            } catch (Exception $e) {
-                $this->cachereposbyid[$info->oldfile->repositoryid] = null;
-                return null;
-            }
-
-        } else {
-            // We can rely on repository type only.
-
-            if (empty($info->oldfile->repositorytype)) {
-                return null;
-            }
-
-            if (array_key_exists($info->oldfile->repositorytype, $this->cachereposbytype)) {
-                return $this->cachereposbytype[$info->oldfile->repositorytype];
-            }
-
-            $this->log('looking for repository instance by type', backup::LOG_DEBUG, $info->oldfile->repositorytype, 1);
-
-            // Both Server files and Legacy course files repositories have a single
-            // instance at the system context to use. Let us try to find it.
-            if ($info->oldfile->repositorytype === 'local' or $info->oldfile->repositorytype === 'coursefiles') {
-                $sql = "SELECT ri.id
-                          FROM {repository} r
-                          JOIN {repository_instances} ri ON ri.typeid = r.id
-                         WHERE r.type = ? AND ri.contextid = ?";
-                $ris = $DB->get_records_sql($sql, array($info->oldfile->repositorytype, SYSCONTEXTID));
-                if (empty($ris)) {
-                    return null;
-                }
-                $repoids = array_keys($ris);
-                $repoid = reset($repoids);
-                try {
-                    $this->cachereposbytype[$info->oldfile->repositorytype] = repository::get_repository_by_id($repoid, SYSCONTEXTID);
-                    return $this->cachereposbytype[$info->oldfile->repositorytype];
-                } catch (Exception $e) {
-                    $this->cachereposbytype[$info->oldfile->repositorytype] = null;
-                    return null;
-                }
-            }
-
-            $this->cachereposbytype[$info->oldfile->repositorytype] = null;
-            return null;
-        }
-    }
-
-    /**
-     * Let the user know that the given alias was successfully restored
-     *
-     * @param stdClass $info
-     */
-    private function notify_success(stdClass $info) {
-        $filedesc = $this->describe_alias($info);
-        $this->log('successfully restored alias', backup::LOG_DEBUG, $filedesc, 1);
-    }
-
-    /**
-     * Let the user know that the given alias can't be restored
-     *
-     * @param stdClass $info
-     * @param string $reason detailed reason to be logged
-     */
-    private function notify_failure(stdClass $info, $reason = '') {
-        $filedesc = $this->describe_alias($info);
-        if ($reason) {
-            $reason = ' ('.$reason.')';
-        }
-        $this->log('unable to restore alias'.$reason, backup::LOG_WARNING, $filedesc, 1);
-        $this->add_result_item('file_aliases_restore_failures', $filedesc);
-    }
-
-    /**
-     * Return a human readable description of the alias file
-     *
-     * @param stdClass $info
-     * @return string
-     */
-    private function describe_alias(stdClass $info) {
-
-        $filedesc = $this->expected_alias_location($info->newfile);
-
-        if (!is_null($info->oldfile->source)) {
-            $filedesc .= ' ('.$info->oldfile->source.')';
-        }
-
-        return $filedesc;
-    }
-
-    /**
-     * Return the expected location of a file
-     *
-     * Please note this may and may not work as a part of URL to pluginfile.php
-     * (depends on how the given component/filearea deals with the itemid).
-     *
-     * @param stdClass $filerecord
-     * @return string
-     */
-    private function expected_alias_location($filerecord) {
-
-        $filedesc = '/'.$filerecord->contextid.'/'.$filerecord->component.'/'.$filerecord->filearea;
-        if (!is_null($filerecord->itemid)) {
-            $filedesc .= '/'.$filerecord->itemid;
-        }
-        $filedesc .= $filerecord->filepath.$filerecord->filename;
-
-        return $filedesc;
-    }
-
-    /**
-     * Append a value to the given resultset
-     *
-     * @param string $name name of the result containing a list of values
-     * @param mixed $value value to add as another item in that result
-     */
-    private function add_result_item($name, $value) {
-
-        $results = $this->task->get_results();
-
-        if (isset($results[$name])) {
-            if (!is_array($results[$name])) {
-                throw new coding_exception('Unable to append a result item into a non-array structure.');
-            }
-            $current = $results[$name];
-            $current[] = $value;
-            $this->task->add_result(array($name => $current));
-
-        } else {
-            $this->task->add_result(array($name => array($value)));
-        }
-    }
-}
-
-
 /**
  * Abstract structure step, to be used by all the activities using core questions stuff
  * (like the quiz module), to support qtype plugins, states and sessions
@@ -3646,74 +2887,31 @@ abstract class restore_questions_activity_structure_step extends restore_activit
     /**
      * Attach below $element (usually attempts) the needed restore_path_elements
      * to restore question_usages and all they contain.
-     *
-     * If you use the $nameprefix parameter, then you will need to implement some
-     * extra methods in your class, like
-     *
-     * protected function process_{nameprefix}question_attempt($data) {
-     *     $this->restore_question_usage_worker($data, '{nameprefix}');
-     * }
-     * protected function process_{nameprefix}question_attempt($data) {
-     *     $this->restore_question_attempt_worker($data, '{nameprefix}');
-     * }
-     * protected function process_{nameprefix}question_attempt_step($data) {
-     *     $this->restore_question_attempt_step_worker($data, '{nameprefix}');
-     * }
-     *
-     * @param restore_path_element $element the parent element that the usages are stored inside.
-     * @param array $paths the paths array that is being built.
-     * @param string $nameprefix should match the prefix passed to the corresponding
-     *      backup_questions_activity_structure_step::add_question_usages call.
      */
-    protected function add_question_usages($element, &$paths, $nameprefix = '') {
+    protected function add_question_usages($element, &$paths) {
         // Check $element is restore_path_element
         if (! $element instanceof restore_path_element) {
             throw new restore_step_exception('element_must_be_restore_path_element', $element);
         }
-
         // Check $paths is one array
         if (!is_array($paths)) {
             throw new restore_step_exception('paths_must_be_array', $paths);
         }
-        $paths[] = new restore_path_element($nameprefix . 'question_usage',
-                $element->get_path() . "/{$nameprefix}question_usage");
-        $paths[] = new restore_path_element($nameprefix . 'question_attempt',
-                $element->get_path() . "/{$nameprefix}question_usage/{$nameprefix}question_attempts/{$nameprefix}question_attempt");
-        $paths[] = new restore_path_element($nameprefix . 'question_attempt_step',
-                $element->get_path() . "/{$nameprefix}question_usage/{$nameprefix}question_attempts/{$nameprefix}question_attempt/{$nameprefix}steps/{$nameprefix}step",
+        $paths[] = new restore_path_element('question_usage',
+                $element->get_path() . '/question_usage');
+        $paths[] = new restore_path_element('question_attempt',
+                $element->get_path() . '/question_usage/question_attempts/question_attempt');
+        $paths[] = new restore_path_element('question_attempt_step',
+                $element->get_path() . '/question_usage/question_attempts/question_attempt/steps/step',
                 true);
-        $paths[] = new restore_path_element($nameprefix . 'question_attempt_step_data',
-                $element->get_path() . "/{$nameprefix}question_usage/{$nameprefix}question_attempts/{$nameprefix}question_attempt/{$nameprefix}steps/{$nameprefix}step/{$nameprefix}response/{$nameprefix}variable");
+        $paths[] = new restore_path_element('question_attempt_step_data',
+                $element->get_path() . '/question_usage/question_attempts/question_attempt/steps/step/response/variable');
     }
 
     /**
      * Process question_usages
      */
     protected function process_question_usage($data) {
-        $this->restore_question_usage_worker($data, '');
-    }
-
-    /**
-     * Process question_attempts
-     */
-    protected function process_question_attempt($data) {
-        $this->restore_question_attempt_worker($data, '');
-    }
-
-    /**
-     * Process question_attempt_steps
-     */
-    protected function process_question_attempt_step($data) {
-        $this->restore_question_attempt_step_worker($data, '');
-    }
-
-    /**
-     * This method does the acutal work for process_question_usage or
-     * process_{nameprefix}_question_usage.
-     * @param array $data the data from the XML file.
-     * @param string $nameprefix the element name prefix.
-     */
-    protected function restore_question_usage_worker($data, $nameprefix) {
         global $DB;
 
         // Clear our caches.
@@ -3731,7 +2929,7 @@ abstract class restore_questions_activity_structure_step extends restore_activit
 
         $this->inform_new_usage_id($newitemid);
 
-        $this->set_mapping($nameprefix . 'question_usage', $oldid, $newitemid, false);
+        $this->set_mapping('question_usage', $oldid, $newitemid, false);
     }
 
     /**
@@ -3743,36 +2941,30 @@ abstract class restore_questions_activity_structure_step extends restore_activit
     abstract protected function inform_new_usage_id($newusageid);
 
     /**
-     * This method does the acutal work for process_question_attempt or
-     * process_{nameprefix}_question_attempt.
-     * @param array $data the data from the XML file.
-     * @param string $nameprefix the element name prefix.
+     * Process question_attempts
      */
-    protected function restore_question_attempt_worker($data, $nameprefix) {
+    protected function process_question_attempt($data) {
         global $DB;
 
         $data = (object)$data;
         $oldid = $data->id;
         $question = $this->get_mapping('question', $data->questionid);
 
-        $data->questionusageid = $this->get_new_parentid($nameprefix . 'question_usage');
+        $data->questionusageid = $this->get_new_parentid('question_usage');
         $data->questionid      = $question->newitemid;
         $data->timemodified    = $this->apply_date_offset($data->timemodified);
 
         $newitemid = $DB->insert_record('question_attempts', $data);
 
-        $this->set_mapping($nameprefix . 'question_attempt', $oldid, $newitemid);
+        $this->set_mapping('question_attempt', $oldid, $newitemid);
         $this->qtypes[$newitemid] = $question->info->qtype;
         $this->newquestionids[$newitemid] = $data->questionid;
     }
 
     /**
-     * This method does the acutal work for process_question_attempt_step or
-     * process_{nameprefix}_question_attempt_step.
-     * @param array $data the data from the XML file.
-     * @param string $nameprefix the element name prefix.
+     * Process question_attempt_steps
      */
-    protected function restore_question_attempt_step_worker($data, $nameprefix) {
+    protected function process_question_attempt_step($data) {
         global $DB;
 
         $data = (object)$data;
@@ -3780,14 +2972,14 @@ abstract class restore_questions_activity_structure_step extends restore_activit
 
         // Pull out the response data.
         $response = array();
-        if (!empty($data->{$nameprefix . 'response'}[$nameprefix . 'variable'])) {
-            foreach ($data->{$nameprefix . 'response'}[$nameprefix . 'variable'] as $variable) {
+        if (!empty($data->response['variable'])) {
+            foreach ($data->response['variable'] as $variable) {
                 $response[$variable['name']] = $variable['value'];
             }
         }
         unset($data->response);
 
-        $data->questionattemptid = $this->get_new_parentid($nameprefix . 'question_attempt');
+        $data->questionattemptid = $this->get_new_parentid('question_attempt');
         $data->timecreated = $this->apply_date_offset($data->timecreated);
         $data->userid      = $this->get_mappingid('user', $data->userid);
 
@@ -3800,7 +2992,6 @@ abstract class restore_questions_activity_structure_step extends restore_activit
                 $this->qtypes[$data->questionattemptid],
                 $this->newquestionids[$data->questionattemptid],
                 $data->sequencenumber, $response);
-
         foreach ($response as $name => $value) {
             $row = new stdClass();
             $row->attemptstepid = $newitemid;

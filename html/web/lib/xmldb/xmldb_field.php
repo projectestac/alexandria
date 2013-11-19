@@ -1,50 +1,40 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This class represent one XMLDB Field
- *
- * @package    core_xmldb
- * @copyright  1999 onwards Martin Dougiamas     http://dougiamas.com
- *             2001-3001 Eloy Lafuente (stronk7) http://contiento.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+///////////////////////////////////////////////////////////////////////////
+//                                                                       //
+// NOTICE OF COPYRIGHT                                                   //
+//                                                                       //
+// Moodle - Modular Object-Oriented Dynamic Learning Environment         //
+//          http://moodle.com                                            //
+//                                                                       //
+// Copyright (C) 1999 onwards Martin Dougiamas     http://dougiamas.com  //
+//           (C) 2001-3001 Eloy Lafuente (stronk7) http://contiento.com  //
+//                                                                       //
+// This program is free software; you can redistribute it and/or modify  //
+// it under the terms of the GNU General Public License as published by  //
+// the Free Software Foundation; either version 2 of the License, or     //
+// (at your option) any later version.                                   //
+//                                                                       //
+// This program is distributed in the hope that it will be useful,       //
+// but WITHOUT ANY WARRANTY; without even the implied warranty of        //
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         //
+// GNU General Public License for more details:                          //
+//                                                                       //
+//          http://www.gnu.org/copyleft/gpl.html                         //
+//                                                                       //
+///////////////////////////////////////////////////////////////////////////
 
-defined('MOODLE_INTERNAL') || die();
-
+/// This class represent one XMLDB Field
 
 class xmldb_field extends xmldb_object {
 
-    /** @var int XMLDB_TYPE_ constants */
-    protected $type;
-
-    /** @var int size of field */
-    protected $length;
-
-    /** @var bool is null forbidden? XMLDB_NOTNULL */
-    protected $notnull;
-
-    /** @var mixed default value */
-    protected $default;
-
-    /** @var bool use automatic counter */
-    protected $sequence;
-
-    /** @var int number of decimals */
-    protected $decimals;
+    var $type;
+    var $length;
+    var $unsigned;
+    var $notnull;
+    var $default;
+    var $sequence;
+    var $decimals;
 
     /**
      * Note:
@@ -57,64 +47,46 @@ class xmldb_field extends xmldb_object {
      */
     const CHAR_MAX_LENGTH = 1333;
 
-
-    /**
-     * @const maximum number of digits of integers
-     */
-    const INTEGER_MAX_LENGTH = 20;
-
-    /**
-     * @const max length of decimals
-     */
-    const NUMBER_MAX_LENGTH = 20;
-
-    /**
-     * @const max length of floats
-     */
-    const FLOAT_MAX_LENGTH = 20;
-
-    /**
-     * Note:
-     *  - Oracle has 30 chars limit for all names
-     *
-     * @const maximumn length of field names
-     */
-    const NAME_MAX_LENGTH = 30;
-
     /**
      * Creates one new xmldb_field
-     * @param string $name of field
-     * @param int $type XMLDB_TYPE_INTEGER, XMLDB_TYPE_NUMBER, XMLDB_TYPE_CHAR, XMLDB_TYPE_TEXT, XMLDB_TYPE_BINARY
-     * @param string $precision length for integers and chars, two-comma separated numbers for numbers
-     * @param bool $unsigned XMLDB_UNSIGNED or null (or false)
-     * @param bool $notnull XMLDB_NOTNULL or null (or false)
-     * @param bool $sequence XMLDB_SEQUENCE or null (or false)
-     * @param mixed $default meaningful default o null (or false)
-     * @param xmldb_object $previous
      */
-    public function __construct($name, $type=null, $precision=null, $unsigned=null, $notnull=null, $sequence=null, $default=null, $previous=null) {
-        $this->type = null;
-        $this->length = null;
+    function __construct($name, $type=null, $precision=null, $unsigned=null, $notnull=null, $sequence=null, $default=null, $previous=null) {
+        $this->type = NULL;
+        $this->length = NULL;
+        $this->unsigned = true;
         $this->notnull = false;
-        $this->default = null;
+        $this->default = NULL;
         $this->sequence = false;
-        $this->decimals = null;
+        $this->decimals = NULL;
         parent::__construct($name);
         $this->set_attributes($type, $precision, $unsigned, $notnull, $sequence, $default, $previous);
     }
 
+/// TODO: Delete for 2.1 (deprecated in 2.0).
+/// Deprecated API starts here
+
+    function setAttributes($type, $precision=null, $unsigned=null, $notnull=null, $sequence=null, $enum=null, $enumvalues=null, $default=null, $previous=null) {
+
+        debugging('XMLDBField->setAttributes() has been deprecated in Moodle 2.0. Will be out in Moodle 2.1. Please use xmldb_field->set_attributes() instead.', DEBUG_DEVELOPER);
+        if ($enum) {
+            debugging('Also, ENUMs support has been dropped in Moodle 2.0. Your fields specs are incorrect because you are trying to introduce one new ENUM. Created DB estructures will ignore that.');
+        }
+
+        return $this->set_attributes($type, $precision, $unsigned, $notnull, $sequence, $default, $previous);
+    }
+/// Deprecated API ends here
+
     /**
      * Set all the attributes of one xmldb_field
      *
-     * @param int $type XMLDB_TYPE_INTEGER, XMLDB_TYPE_NUMBER, XMLDB_TYPE_CHAR, XMLDB_TYPE_TEXT, XMLDB_TYPE_BINARY
-     * @param string $precision length for integers and chars, two-comma separated numbers for numbers
-     * @param bool $unsigned XMLDB_UNSIGNED or null (or false)
-     * @param bool $notnull XMLDB_NOTNULL or null (or false)
-     * @param bool $sequence XMLDB_SEQUENCE or null (or false)
-     * @param mixed $default meaningful default o null (or false)
-     * @param xmldb_object $previous
+     * @param string type XMLDB_TYPE_INTEGER, XMLDB_TYPE_NUMBER, XMLDB_TYPE_CHAR, XMLDB_TYPE_TEXT, XMLDB_TYPE_BINARY
+     * @param string precision length for integers and chars, two-comma separated numbers for numbers and 'small', 'medium', 'big' for texts and binaries
+     * @param string unsigned XMLDB_UNSIGNED or null (or false)
+     * @param string notnull XMLDB_NOTNULL or null (or false)
+     * @param string sequence XMLDB_SEQUENCE or null (or false)
+     * @param string default meaningful default o null (or false)
      */
-    public function set_attributes($type, $precision=null, $unsigned=null, $notnull=null, $sequence=null, $default=null, $previous=null) {
+    function set_attributes($type, $precision=null, $unsigned=null, $notnull=null, $sequence=null, $default=null, $previous=null) {
         $this->type = $type;
     /// Try to split the precision into length and decimals and apply
     /// each one as needed
@@ -126,136 +98,117 @@ class xmldb_field extends xmldb_object {
             $this->decimals = trim($precisionarr[1]);
         }
         $this->precision = $type;
+        $this->unsigned = !empty($unsigned) ? true : false;
         $this->notnull = !empty($notnull) ? true : false;
         $this->sequence = !empty($sequence) ? true : false;
         $this->setDefault($default);
-
-        if ($this->type == XMLDB_TYPE_BINARY || $this->type == XMLDB_TYPE_TEXT) {
-            $this->length = null;
-            $this->decimals = null;
-        }
 
         $this->previous = $previous;
     }
 
     /**
      * Get the type
-     * @return int
      */
-    public function getType() {
+    function getType() {
         return $this->type;
     }
 
     /**
      * Get the length
-     * @return int
      */
-    public function getLength() {
+    function getLength() {
         return $this->length;
     }
 
     /**
      * Get the decimals
-     * @return string
      */
-    public function getDecimals() {
+    function getDecimals() {
         return $this->decimals;
     }
 
     /**
      * Get the notnull
-     * @return bool
      */
-    public function getNotNull() {
+    function getNotNull() {
         return $this->notnull;
     }
 
     /**
      * Get the unsigned
-     * @deprecated since moodle 2.3
-     * @return bool
      */
-    public function getUnsigned() {
-        return false;
+    function getUnsigned() {
+        return $this->unsigned;
     }
 
     /**
      * Get the sequence
-     * @return bool
      */
-    public function getSequence() {
+    function getSequence() {
         return $this->sequence;
     }
 
     /**
      * Get the default
-     * @return mixed
      */
-    public function getDefault() {
+    function getDefault() {
         return $this->default;
     }
 
     /**
      * Set the field type
-     * @param int $type
      */
-    public function setType($type) {
+    function setType($type) {
         $this->type = $type;
     }
 
     /**
      * Set the field length
-     * @param int $length
      */
-    public function setLength($length) {
+    function setLength($length) {
         $this->length = $length;
     }
 
     /**
      * Set the field decimals
-     * @param string
      */
-    public function setDecimals($decimals) {
+    function setDecimals($decimals) {
         $this->decimals = $decimals;
     }
 
     /**
      * Set the field unsigned
-     * @deprecated since moodle 2.3
-     * @param bool $unsigned
      */
-    public function setUnsigned($unsigned=true) {
+    function setUnsigned($unsigned=true) {
+        $this->unsigned = $unsigned;
     }
 
     /**
      * Set the field notnull
-     * @param bool $notnull
      */
-    public function setNotNull($notnull=true) {
+    function setNotNull($notnull=true) {
         $this->notnull = $notnull;
     }
 
     /**
      * Set the field sequence
-     * @param bool $sequence
      */
-    public function setSequence($sequence=true) {
+    function setSequence($sequence=true) {
         $this->sequence = $sequence;
     }
 
     /**
      * Set the field default
-     * @param mixed $default
      */
-    public function setDefault($default) {
-        // Check, warn and auto-fix '' (empty) defaults for CHAR NOT NULL columns, changing them
-        // to NULL so XMLDB will apply the proper default
+    function setDefault($default) {
+    /// Check, warn and auto-fix '' (empty) defaults for CHAR NOT NULL columns, changing them
+    /// to NULL so XMLDB will apply the proper default
         if ($this->type == XMLDB_TYPE_CHAR && $this->notnull && $default === '') {
             $this->errormsg = 'XMLDB has detected one CHAR NOT NULL column (' . $this->name . ") with '' (empty string) as DEFAULT value. This type of columns must have one meaningful DEFAULT declared or none (NULL). XMLDB have fixed it automatically changing it to none (NULL). The process will continue ok and proper defaults will be created accordingly with each DB requirements. Please fix it in source (XML and/or upgrade script) to avoid this message to be displayed.";
             $this->debug($this->errormsg);
             $default = null;
         }
-        // Check, warn and autofix TEXT|BINARY columns having a default clause (only null is allowed)
+    /// Check, warn and autofix TEXT|BINARY columns having a default clause (only null is allowed)
         if (($this->type == XMLDB_TYPE_TEXT || $this->type == XMLDB_TYPE_BINARY) && $default !== null) {
             $this->errormsg = 'XMLDB has detected one TEXT/BINARY column (' . $this->name . ") with some DEFAULT defined. This type of columns cannot have any default value. Please fix it in source (XML and/or upgrade script) to avoid this message to be displayed.";
             $this->debug($this->errormsg);
@@ -266,20 +219,18 @@ class xmldb_field extends xmldb_object {
 
     /**
      * Load data from XML to the table
-     * @param array $xmlarr
-     * @return mixed
      */
-    public function arr2xmldb_field($xmlarr) {
+    function arr2xmldb_field($xmlarr) {
 
         $result = true;
 
-        // Debug the table
-        // traverse_xmlize($xmlarr);                   //Debug
-        // print_object ($GLOBALS['traverse_array']);  //Debug
-        // $GLOBALS['traverse_array']="";              //Debug
+    /// Debug the table
+    /// traverse_xmlize($xmlarr);                   //Debug
+    /// print_object ($GLOBALS['traverse_array']);  //Debug
+    /// $GLOBALS['traverse_array']="";              //Debug
 
-        // Process table attributes (name, type, length
-        // notnull, sequence, decimals, comment, previous, next)
+    /// Process table attributes (name, type, length, unsigned,
+    /// notnull, sequence, decimals, comment, previous, next)
         if (isset($xmlarr['@']['NAME'])) {
             $this->name = trim($xmlarr['@']['NAME']);
         } else {
@@ -289,7 +240,7 @@ class xmldb_field extends xmldb_object {
         }
 
         if (isset($xmlarr['@']['TYPE'])) {
-            // Check for valid type
+        /// Check for valid type
             $type = $this->getXMLDBFieldType(trim($xmlarr['@']['TYPE']));
             if ($type) {
                 $this->type = $type;
@@ -306,7 +257,7 @@ class xmldb_field extends xmldb_object {
 
         if (isset($xmlarr['@']['LENGTH'])) {
             $length = trim($xmlarr['@']['LENGTH']);
-            // Check for integer values
+        /// Check for integer values
             if ($this->type == XMLDB_TYPE_INTEGER ||
                 $this->type == XMLDB_TYPE_NUMBER ||
                 $this->type == XMLDB_TYPE_CHAR) {
@@ -320,13 +271,35 @@ class xmldb_field extends xmldb_object {
                     $result = false;
                 }
             }
-            // Remove length from text and binary
+        /// Check for big, medium, small to be applied to text and binary
             if ($this->type == XMLDB_TYPE_TEXT ||
                 $this->type == XMLDB_TYPE_BINARY) {
-                $length = null;
+                if (!$length) {
+                    $length == 'big';
+                }
+                if ($length != 'big' &&
+                    $length != 'medium' &&
+                    $length != 'small') {
+                    $this->errormsg = 'Incorrect LENGTH attribute for text and binary fields (only big, medium and small allowed)';
+                    $this->debug($this->errormsg);
+                    $result = false;
+                }
             }
-            // Finally, set the length
+        /// Finally, set the length
             $this->length = $length;
+        }
+
+        if (isset($xmlarr['@']['UNSIGNED'])) {
+            $unsigned = strtolower(trim($xmlarr['@']['UNSIGNED']));
+            if ($unsigned == 'true') {
+                $this->unsigned = true;
+            } else if ($unsigned == 'false') {
+                $this->unsigned = false;
+            } else {
+                $this->errormsg = 'Incorrect UNSIGNED attribute (true/false allowed)';
+                $this->debug($this->errormsg);
+                $result = false;
+            }
         }
 
         if (isset($xmlarr['@']['NOTNULL'])) {
@@ -359,10 +332,10 @@ class xmldb_field extends xmldb_object {
             $this->setDefault(trim($xmlarr['@']['DEFAULT']));
         }
 
-        $decimals = null;
+        $decimals = NULL;
         if (isset($xmlarr['@']['DECIMALS'])) {
             $decimals = trim($xmlarr['@']['DECIMALS']);
-            // Check for integer values
+        /// Check for integer values
             if ($this->type == XMLDB_TYPE_NUMBER ||
                 $this->type == XMLDB_TYPE_FLOAT) {
                 if (!(is_numeric($decimals)&&(intval($decimals)==floatval($decimals)))) {
@@ -384,7 +357,7 @@ class xmldb_field extends xmldb_object {
                 $decimals = 0;
             }
         }
-        // Finally, set the decimals
+     // Finally, set the decimals
         if ($this->type == XMLDB_TYPE_NUMBER ||
             $this->type == XMLDB_TYPE_FLOAT) {
             $this->decimals = $decimals;
@@ -402,7 +375,16 @@ class xmldb_field extends xmldb_object {
             $this->next = trim($xmlarr['@']['NEXT']);
         }
 
-        // Set some attributes
+    /// TODO: Drop this check in Moodle 2.1
+    /// Detect if there is old enum information in the XML file
+        if (isset($xmlarr['@']['ENUM']) && isset($xmlarr['@']['ENUMVALUES'])) {
+            $this->hasenums = true;
+            if ($xmlarr['@']['ENUM'] == 'true') {
+                $this->hasenumsenabled = true;
+            }
+        }
+
+    /// Set some attributes
         if ($result) {
             $this->loaded = true;
         }
@@ -413,10 +395,8 @@ class xmldb_field extends xmldb_object {
     /**
      * This function returns the correct XMLDB_TYPE_XXX value for the
      * string passed as argument
-     * @param string $type
-     * @return int
      */
-    public function getXMLDBFieldType($type) {
+    function getXMLDBFieldType($type) {
 
         $result = XMLDB_TYPE_INCORRECT;
 
@@ -443,17 +423,15 @@ class xmldb_field extends xmldb_object {
                 $result = XMLDB_TYPE_DATETIME;
                 break;
         }
-        // Return the normalized XMLDB_TYPE
+    /// Return the normalized XMLDB_TYPE
         return $result;
     }
 
     /**
      * This function returns the correct name value for the
      * XMLDB_TYPE_XXX passed as argument
-     * @param int $type
-     * @return string
      */
-    public function getXMLDBTypeName($type) {
+    function getXMLDBTypeName($type) {
 
         $result = "";
 
@@ -480,32 +458,28 @@ class xmldb_field extends xmldb_object {
                 $result = 'datetime';
                 break;
         }
-        // Return the normalized name
+    /// Return the normalized name
         return $result;
     }
 
     /**
      * This function calculate and set the hash of one xmldb_field
-     * @param bool $recursive
-     * @return void, modifies $this->hash
      */
-     public function calculateHash($recursive = false) {
+     function calculateHash($recursive = false) {
         if (!$this->loaded) {
-            $this->hash = null;
+            $this->hash = NULL;
         } else {
-            $defaulthash = is_null($this->default) ? '' : sha1($this->default);
             $key = $this->name . $this->type . $this->length .
-                   $this->notnull . $this->sequence .
-                   $this->decimals . $this->comment . $defaulthash;
+                   $this->unsigned . $this->notnull . $this->sequence .
+                   $this->decimals . $this->comment;
             $this->hash = md5($key);
         }
     }
 
     /**
-     * This function will output the XML text for one field
-     * @return string
+     *This function will output the XML text for one field
      */
-    public function xmlOutput() {
+    function xmlOutput() {
         $o = '';
         $o.= '        <FIELD NAME="' . $this->name . '"';
         $o.= ' TYPE="' . $this->getXMLDBTypeName($this->type) . '"';
@@ -518,7 +492,17 @@ class xmldb_field extends xmldb_object {
             $notnull = 'false';
         }
         $o.= ' NOTNULL="' . $notnull . '"';
-        if (!$this->sequence && $this->default !== null) {
+        if ($this->type == XMLDB_TYPE_INTEGER ||
+            $this->type == XMLDB_TYPE_NUMBER ||
+            $this->type == XMLDB_TYPE_FLOAT) {
+            if ($this->unsigned) {
+                $unsigned = 'true';
+            } else {
+                $unsigned = 'false';
+            }
+            $o.= ' UNSIGNED="' . $unsigned . '"';
+        }
+        if (!$this->sequence && $this->default !== NULL) {
             $o.= ' DEFAULT="' . $this->default . '"';
         }
         if ($this->sequence) {
@@ -527,7 +511,7 @@ class xmldb_field extends xmldb_object {
             $sequence = 'false';
         }
         $o.= ' SEQUENCE="' . $sequence . '"';
-        if ($this->decimals !== null) {
+        if ($this->decimals !== NULL) {
             $o.= ' DECIMALS="' . $this->decimals . '"';
         }
         if ($this->comment) {
@@ -547,12 +531,10 @@ class xmldb_field extends xmldb_object {
     /**
      * This function will set all the attributes of the xmldb_field object
      * based on information passed in one ADOField
-     * @param string $adofield
-     * @return void, sets $this->type
      */
-    public function setFromADOField($adofield) {
+    function setFromADOField($adofield) {
 
-        // Calculate the XMLDB_TYPE
+    /// Calculate the XMLDB_TYPE
         switch (strtolower($adofield->type)) {
             case 'int':
             case 'tinyint':
@@ -595,7 +577,7 @@ class xmldb_field extends xmldb_object {
             default:
                 $this->type = XMLDB_TYPE_TEXT;
         }
-        // Calculate the length of the field
+    /// Calculate the length of the field
         if ($adofield->max_length > 0 &&
                ($this->type == XMLDB_TYPE_INTEGER ||
                 $this->type == XMLDB_TYPE_NUMBER  ||
@@ -604,45 +586,78 @@ class xmldb_field extends xmldb_object {
             $this->length = $adofield->max_length;
         }
         if ($this->type == XMLDB_TYPE_TEXT) {
-            $this->length = null;
+            switch (strtolower($adofield->type)) {
+                case 'tinytext':
+                case 'text':
+                    $this->length = 'small';
+                    break;
+                case 'mediumtext':
+                    $this->length = 'medium';
+                    break;
+                case 'longtext':
+                    $this->length = 'big';
+                    break;
+                default:
+                    $this->length = 'small';
+            }
         }
         if ($this->type == XMLDB_TYPE_BINARY) {
-            $this->length = null;
+            switch (strtolower($adofield->type)) {
+                case 'tinyblob':
+                case 'blob':
+                    $this->length = 'small';
+                    break;
+                case 'mediumblob':
+                    $this->length = 'medium';
+                    break;
+                case 'longblob':
+                    $this->length = 'big';
+                    break;
+                default:
+                    $this->length = 'small';
+            }
         }
-        // Calculate the decimals of the field
+    /// Calculate the decimals of the field
         if ($adofield->max_length > 0 &&
             $adofield->scale &&
                ($this->type == XMLDB_TYPE_NUMBER ||
                 $this->type == XMLDB_TYPE_FLOAT)) {
             $this->decimals = $adofield->scale;
         }
-        // Calculate the notnull field
+    /// Calculate the unsigned field
+        if ($adofield->unsigned &&
+               ($this->type == XMLDB_TYPE_INTEGER ||
+                $this->type == XMLDB_TYPE_NUMBER  ||
+                $this->type == XMLDB_TYPE_FLOAT)) {
+            $this->unsigned = true;
+        }
+    /// Calculate the notnull field
         if ($adofield->not_null) {
             $this->notnull = true;
         }
-        // Calculate the default field
+    /// Calculate the default field
         if ($adofield->has_default) {
             $this->default = $adofield->default_value;
         }
-        // Calculate the sequence field
+    /// Calculate the sequence field
         if ($adofield->auto_increment) {
             $this->sequence = true;
+        /// Sequence fields are always unsigned
+            $this->unsigned = true;
         }
-        // Some more fields
+    /// Some more fields
         $this->loaded = true;
         $this->changed = true;
     }
 
     /**
      * Returns the PHP code needed to define one xmldb_field
-     * @param bool $includeprevious
-     * @return string
      */
-    public function getPHP($includeprevious=true) {
+    function getPHP($includeprevious=true) {
 
         $result = '';
 
-        // The XMLDBTYPE
+    /// The XMLDBTYPE
         switch ($this->getType()) {
             case XMLDB_TYPE_INTEGER:
                 $result .= 'XMLDB_TYPE_INTEGER' . ', ';
@@ -669,7 +684,7 @@ class xmldb_field extends xmldb_object {
                 $result .= 'XMLDB_TYPE_TIMESTAMP' . ', ';
                 break;
         }
-        // The length
+    /// The length
         $length = $this->getLength();
         $decimals = $this->getDecimals();
         if (!empty($length)) {
@@ -681,30 +696,36 @@ class xmldb_field extends xmldb_object {
         } else {
             $result .= 'null, ';
         }
-        // Unsigned is not used any more since Moodle 2.3
-        $result .= 'null, ';
-        // Not Null
+    /// Unsigned (only applicable to numbers)
+        $unsigned = $this->getUnsigned();
+        if (!empty($unsigned) &&
+           ($this->getType() == XMLDB_TYPE_INTEGER || $this->getType() == XMLDB_TYPE_NUMBER || $this->getType() == XMLDB_TYPE_FLOAT)) {
+            $result .= 'XMLDB_UNSIGNED' . ', ';
+        } else {
+            $result .= 'null, ';
+        }
+    /// Not Null
         $notnull = $this->getNotnull();
         if (!empty($notnull)) {
             $result .= 'XMLDB_NOTNULL' . ', ';
         } else {
             $result .= 'null, ';
         }
-        // Sequence
+    /// Sequence
         $sequence = $this->getSequence();
         if (!empty($sequence)) {
             $result .= 'XMLDB_SEQUENCE' . ', ';
         } else {
             $result .= 'null, ';
         }
-        // Default
+    /// Default
         $default =  $this->getDefault();
         if ($default !== null && !$this->getSequence()) {
             $result .= "'" . $default . "'";
         } else {
             $result .= 'null';
         }
-        // Previous (decided by parameter)
+    /// Previous (decided by parameter)
         if ($includeprevious) {
             $previous = $this->getPrevious();
             if (!empty($previous)) {
@@ -713,19 +734,18 @@ class xmldb_field extends xmldb_object {
                 $result .= ', null';
             }
         }
-        // Return result
+    /// Return result
         return $result;
     }
 
     /**
      * Shows info in a readable format
-     * @return string
      */
-    public function readableInfo() {
+    function readableInfo() {
         $o = '';
-        // type
+    /// type
         $o .= $this->getXMLDBTypeName($this->type);
-        // length
+    /// length
         if ($this->type == XMLDB_TYPE_INTEGER ||
             $this->type == XMLDB_TYPE_NUMBER  ||
             $this->type == XMLDB_TYPE_FLOAT   ||
@@ -734,19 +754,33 @@ class xmldb_field extends xmldb_object {
                 $o .= ' (' . $this->length;
                 if ($this->type == XMLDB_TYPE_NUMBER  ||
                     $this->type == XMLDB_TYPE_FLOAT) {
-                    if ($this->decimals !== null) {
+                    if ($this->decimals !== NULL) {
                         $o .= ', ' . $this->decimals;
                     }
                 }
                 $o .= ')';
             }
         }
-        // not null
+        if ($this->type == XMLDB_TYPE_TEXT ||
+            $this->type == XMLDB_TYPE_BINARY) {
+                $o .= ' (' . $this->length . ')';
+        }
+    /// unsigned
+        if ($this->type == XMLDB_TYPE_INTEGER ||
+            $this->type == XMLDB_TYPE_NUMBER ||
+            $this->type == XMLDB_TYPE_FLOAT) {
+            if ($this->unsigned) {
+                $o .= ' unsigned';
+            } else {
+                $o .= ' signed';
+            }
+        }
+    /// not null
         if ($this->notnull) {
             $o .= ' not null';
         }
-        // default
-        if ($this->default !== null) {
+    /// default
+        if ($this->default !== NULL) {
             $o .= ' default ';
             if ($this->type == XMLDB_TYPE_CHAR ||
                 $this->type == XMLDB_TYPE_TEXT) {
@@ -755,7 +789,7 @@ class xmldb_field extends xmldb_object {
                 $o .= $this->default;
             }
         }
-        // sequence
+    /// sequence
         if ($this->sequence) {
             $o .= ' auto-numbered';
         }
@@ -772,68 +806,19 @@ class xmldb_field extends xmldb_object {
      * @param xmldb_table $xmldb_table optional when object is table
      * @return string null if ok, error message if problem found
      */
-    public function validateDefinition(xmldb_table $xmldb_table=null) {
+    function validateDefinition(xmldb_table $xmldb_table=null) {
         if (!$xmldb_table) {
-            return 'Invalid xmldb_field->validateDefinition() call, $xmldb_table is required.';
-        }
-
-        $name = $this->getName();
-        if (strlen($name) > self::NAME_MAX_LENGTH) {
-            return 'Invalid field name in table {'.$xmldb_table->getName().'}: field "'.$this->getName().'" name is too long.'
-                .' Limit is '.self::NAME_MAX_LENGTH.' chars.';
-        }
-        if (!preg_match('/^[a-z][a-z0-9_]*$/', $name)) {
-            return 'Invalid field name in table {'.$xmldb_table->getName().'}: field "'.$this->getName().'" name includes invalid characters.';
+            return 'Invalid xmldb_field->validateDefinition() call, $xmldb_table si required.';
         }
 
         switch ($this->getType()) {
             case XMLDB_TYPE_INTEGER:
-                $length = $this->getLength();
-                if (!is_number($length) or $length <= 0 or $length > self::INTEGER_MAX_LENGTH) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_INTEGER field "'.$this->getName().'" has invalid length';
-                }
-                $default = $this->getDefault();
-                if (!empty($default) and !is_number($default)) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_INTEGER field "'.$this->getName().'" has invalid default';
-                }
                 break;
 
             case XMLDB_TYPE_NUMBER:
-                $maxlength = self::NUMBER_MAX_LENGTH;
-                if ($xmldb_table->getName() === 'question_numerical_units' and $name === 'multiplier') {
-                    //TODO: remove after MDL-32113 is resolved
-                    $maxlength = 40;
-                }
-                $length = $this->getLength();
-                if (!is_number($length) or $length <= 0 or $length > $maxlength) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_NUMBER field "'.$this->getName().'" has invalid length';
-                }
-                $decimals = $this->getDecimals();
-                $decimals = empty($decimals) ? 0 : $decimals; // fix missing decimals
-                if (!is_number($decimals) or $decimals < 0 or $decimals > $length) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_NUMBER field "'.$this->getName().'" has invalid decimals';
-                }
-                $default = $this->getDefault();
-                if (!empty($default) and !is_numeric($default)) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_NUMBER field "'.$this->getName().'" has invalid default';
-                }
                 break;
 
             case XMLDB_TYPE_FLOAT:
-                $length = $this->getLength();
-                $length = empty($length) ? 6 : $length; // weird, it might be better to require something here...
-                if (!is_number($length) or $length <= 0 or $length > self::FLOAT_MAX_LENGTH) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_FLOAT field "'.$this->getName().'" has invalid length';
-                }
-                $decimals = $this->getDecimals();
-                $decimals = empty($decimals) ? 0 : $decimals; // fix missing decimals
-                if (!is_number($decimals) or $decimals < 0 or $decimals > $length) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_FLOAT field "'.$this->getName().'" has invalid decimals';
-                }
-                $default = $this->getDefault();
-                if (!empty($default) and !is_numeric($default)) {
-                    return 'Invalid field definition in table {'.$xmldb_table->getName().'}: XMLDB_TYPE_FLOAT field "'.$this->getName().'" has invalid default';
-                }
                 break;
 
             case XMLDB_TYPE_CHAR:
@@ -859,3 +844,14 @@ class xmldb_field extends xmldb_object {
         return null;
     }
 }
+
+/// TODO: Delete for 2.1 (deprecated in 2.0).
+/// Deprecated API starts here
+class XMLDBField extends xmldb_field {
+
+    function __construct($name) {
+        parent::__construct($name);
+    }
+
+}
+/// Deprecated API ends here

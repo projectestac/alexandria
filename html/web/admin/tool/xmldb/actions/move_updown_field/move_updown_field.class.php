@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will will move one field up/down
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -67,13 +69,13 @@ class move_updown_field extends XMLDBAction {
 
         // Get the correct dirs
         if (!empty($XMLDB->dbdirs)) {
-            $dbdir = $XMLDB->dbdirs[$dirpath];
+            $dbdir =& $XMLDB->dbdirs[$dirpath];
         } else {
             return false;
         }
         if (!empty($XMLDB->editeddirs)) {
-            $editeddir = $XMLDB->editeddirs[$dirpath];
-            $structure = $editeddir->xml_file->getStructure();
+            $editeddir =& $XMLDB->editeddirs[$dirpath];
+            $structure =& $editeddir->xml_file->getStructure();
         }
 
         $prev = NULL;
@@ -81,20 +83,20 @@ class move_updown_field extends XMLDBAction {
         $tableparam = required_param('table', PARAM_CLEAN);
         $fieldparam = required_param('field', PARAM_CLEAN);
         $direction  = required_param('direction', PARAM_ALPHA);
-        $tables = $structure->getTables();
-        $table = $structure->getTable($tableparam);
-        $fields = $table->getFields();
+        $tables =& $structure->getTables();
+        $table =& $structure->getTable($tableparam);
+        $fields =& $table->getFields();
         if ($direction == 'down') {
-            $field  = $table->getField($fieldparam);
-            $swap   = $table->getField($field->getNext());
+            $field  =& $table->getField($fieldparam);
+            $swap   =& $table->getField($field->getNext());
         } else {
-            $swap   = $table->getField($fieldparam);
-            $field  = $table->getField($swap->getPrevious());
+            $swap   =& $table->getField($fieldparam);
+            $field  =& $table->getField($swap->getPrevious());
         }
 
         // Change the field before the pair
         if ($field->getPrevious()) {
-            $prev = $table->getField($field->getPrevious());
+            $prev =& $table->getField($field->getPrevious());
             $prev->setNext($swap->getName());
             $swap->setPrevious($prev->getName());
             $prev->setChanged(true);
@@ -103,7 +105,7 @@ class move_updown_field extends XMLDBAction {
         }
         // Change the field after the pair
         if ($swap->getNext()) {
-            $next = $table->getField($swap->getNext());
+            $next =& $table->getField($swap->getNext());
             $next->setPrevious($field->getName());
             $field->setNext($next->getName());
             $next->setChanged(true);
@@ -122,14 +124,14 @@ class move_updown_field extends XMLDBAction {
         $table->setChanged(true);
 
         // Reorder the fields
-        $table->orderFields();
+        $table->orderFields($fields);
 
         // Recalculate the hash
         $structure->calculateHash(true);
 
         // If the hash has changed from the original one, change the version
         // and mark the structure as changed
-        $origstructure = $dbdir->xml_file->getStructure();
+        $origstructure =& $dbdir->xml_file->getStructure();
         if ($structure->getHash() != $origstructure->getHash()) {
             $structure->setVersion(userdate(time(), '%Y%m%d', 99, false));
             $structure->setChanged(true);

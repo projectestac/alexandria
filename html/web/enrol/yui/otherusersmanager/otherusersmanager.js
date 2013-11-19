@@ -11,7 +11,7 @@ YUI.add('moodle-enrol-otherusersmanager', function(Y) {
         USERCOUNT = 'userCount',
         PICTURE = 'picture',
         FULLNAME = 'fullname',
-        EXTRAFIELDS = 'extrafields',
+        EMAIL = 'email',
         ASSIGNABLEROLES = 'assignableRoles',
         USERS = 'users',
         URL = 'url',
@@ -36,7 +36,7 @@ YUI.add('moodle-enrol-otherusersmanager', function(Y) {
         PICTURE : 'oump-user-picture',
         DETAILS : 'oump-user-specifics',
         FULLNAME : 'oump-user-fullname',
-        EXTRAFIELDS : 'oump-user-extrafields',
+        EMAIL : 'oump-user-email',
         OPTIONS : 'oump-role-options',
         ROLEOPTION : 'oump-assignable-role',
         ODD  : 'odd',
@@ -310,7 +310,7 @@ YUI.add('moodle-enrol-otherusersmanager', function(Y) {
                     )
                     .append(Y.Node.create('<div class="'+CSS.DETAILS+'"></div>')
                         .append(Y.Node.create('<div class="'+CSS.FULLNAME+'">'+this.get(FULLNAME)+'</div>'))
-                        .append(Y.Node.create('<div class="'+CSS.EXTRAFIELDS+'">'+this.get(EXTRAFIELDS)+'</div>'))
+                        .append(Y.Node.create('<div class="'+CSS.EMAIL+'">'+this.get(EMAIL)+'</div>'))
                     )
                     .append(Y.Node.create('<div class="'+CSS.OPTIONS+'"><span class="label">'+M.str.role.assignrole+': </span></div>'))
                 );
@@ -374,7 +374,7 @@ YUI.add('moodle-enrol-otherusersmanager', function(Y) {
             fullname : {
                 validator : Y.Lang.isString
             },
-            extrafields : {
+            email : {
                 validator : Y.Lang.isString
             },
             picture : {
@@ -391,4 +391,4 @@ YUI.add('moodle-enrol-otherusersmanager', function(Y) {
         }
     }
 
-}, '@VERSION@', {requires:['base','node', 'overlay', 'io-base', 'test', 'json-parse', 'event-delegate', 'dd-plugin', 'event-key', 'moodle-core-notification']});
+}, '@VERSION@', {requires:['base','node', 'overlay', 'io-base', 'test', 'json-parse', 'event-delegate', 'dd-plugin', 'event-key', 'moodle-enrol-notification']});

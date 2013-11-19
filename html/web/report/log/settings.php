@@ -17,9 +17,8 @@
 /**
  * Links and settings
  *
- * Contains settings used by logs report.
- *
- * @package    report_log
+ * @package    report
+ * @subpackage log
  * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

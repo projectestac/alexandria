@@ -44,7 +44,7 @@ class hotpot_mediafilter_moodle extends hotpot_mediafilter {
      * @param xxx $text
      * @param xxx $options
      */
-    function mediaplugin_filter($hotpot, $text, $options=array()) {
+    function mediaplugin_filter($hotpot, $text, $options) {
         global $CFG, $PAGE;
         static $eolas_fix_applied = 0;
 

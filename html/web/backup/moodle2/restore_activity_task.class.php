@@ -16,16 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines restore_activity_task class
- *
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * abstract activity task that provides all the properties and common tasks to be performed
@@ -152,11 +147,6 @@ abstract class restore_activity_task extends restore_task {
             $this->add_step(new restore_comments_structure_step('activity_comments', 'comments.xml'));
         }
 
-        // Calendar events (conditionally)
-        if ($this->get_setting_value('calendarevents')) {
-            $this->add_step(new restore_calendarevents_structure_step('activity_calendar', 'calendar.xml'));
-        }
-
         // Grades (module-related, rest of gradebook is restored later if possible: cats, calculations...)
         $this->add_step(new restore_activity_grades_structure_step('activity_grades', 'grades.xml'));
 
@@ -278,8 +268,7 @@ abstract class restore_activity_task extends restore_task {
         // - section_included setting (if exists)
         $settingname = $settingprefix . 'included';
         $activity_included = new restore_activity_generic_setting($settingname, base_setting::IS_BOOLEAN, true);
-        $activity_included->get_ui()->set_icon(new pix_icon('icon', get_string('pluginname', $this->modulename),
-            $this->modulename, array('class' => 'iconlarge icon-post')));
+        $activity_included->get_ui()->set_icon(new pix_icon('icon', get_string('pluginname', $this->modulename), $this->modulename));
         $this->add_setting($activity_included);
         // Look for "activities" root setting
         $activities = $this->plan->get_setting('activities');
@@ -294,46 +283,30 @@ abstract class restore_activity_task extends restore_task {
         // Define activity_userinfo. Dependent of:
         // - users root setting
         // - section_userinfo setting (if exists)
-        // - activity_included setting.
+        // - activity_included setting
         $settingname = $settingprefix . 'userinfo';
-        $defaultvalue = false;
+        $selectvalues = array(0=>get_string('no')); // Safer options
+        $defaultvalue = false;                      // Safer default
         if (isset($this->info->settings[$settingname]) && $this->info->settings[$settingname]) { // Only enabled when available
+            $selectvalues = array(1=>get_string('yes'), 0=>get_string('no'));
             $defaultvalue = true;
         }
-
         $activity_userinfo = new restore_activity_userinfo_setting($settingname, base_setting::IS_BOOLEAN, $defaultvalue);
-        if (!$defaultvalue) {
-            // This is a bit hacky, but if there is no user data to restore, then
-            // we replace the standard check-box with a select menu with the
-            // single choice 'No', and the select menu is clever enough that if
-            // there is only one choice, it just displays a static string.
-            //
-            // It would probably be better design to have a special UI class
-            // setting_ui_checkbox_or_no, rather than this hack, but I am not
-            // going to do that today.
-            $activity_userinfo->set_ui(new backup_setting_ui_select($activity_userinfo, '-',
-                    array(0 => get_string('no'))));
-        } else {
-            $activity_userinfo->get_ui()->set_label('-');
-        }
-
+        $activity_userinfo->set_ui(new backup_setting_ui_select($activity_userinfo, get_string('includeuserinfo','backup'), $selectvalues));
         $this->add_setting($activity_userinfo);
-
         // Look for "users" root setting
         $users = $this->plan->get_setting('users');
         $users->add_dependency($activity_userinfo);
-
         // Look for "section_userinfo" section setting (if exists)
         $settingname = 'section_' . $this->info->sectionid . '_userinfo';
         if ($this->plan->setting_exists($settingname)) {
             $section_userinfo = $this->plan->get_setting($settingname);
             $section_userinfo->add_dependency($activity_userinfo);
         }
-
-        // Look for "activity_included" setting.
+        // Look for "activity_included" setting
         $activity_included->add_dependency($activity_userinfo);
 
-        // End of common activity settings, let's add the particular ones.
+        // End of common activity settings, let's add the particular ones
         $this->define_my_settings();
     }
 

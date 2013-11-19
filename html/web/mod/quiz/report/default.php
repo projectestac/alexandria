@@ -17,9 +17,10 @@
 /**
  * Base class for quiz report plugins.
  *
- * @package   mod_quiz
- * @copyright 1999 onwards Martin Dougiamas and others {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod
+ * @subpackage quiz
+ * @copyright  1999 onwards Martin Dougiamas and others {@link http://moodle.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -38,8 +39,8 @@ defined('MOODLE_INTERNAL') || die();
  * to itself - all these will also be globally available.  You must
  * pass "id=$cm->id" or q=$quiz->id", and "mode=reportname".
  *
- * @copyright 1999 onwards Martin Dougiamas and others {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  1999 onwards Martin Dougiamas and others {@link http://moodle.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 abstract class quiz_default_report {
     const NO_GROUPS_ALLOWED = -2;
@@ -63,7 +64,7 @@ abstract class quiz_default_report {
     public function print_header_and_tabs($cm, $course, $quiz, $reportmode = 'overview') {
         global $PAGE, $OUTPUT;
 
-        // Print the page header.
+        // Print the page header
         $PAGE->set_title(format_string($quiz->name));
         $PAGE->set_heading($course->fullname);
         echo $OUTPUT->header();

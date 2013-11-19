@@ -36,7 +36,7 @@ require_login();
 $courseid = required_param('courseid', PARAM_INT); //if no courseid is given
 $parentcourse = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
 
-$context = context_course::instance($courseid);
+$context = get_context_instance(CONTEXT_COURSE, $courseid);
 $PAGE->set_course($parentcourse);
 $PAGE->set_url('/blocks/community/communitycourse.php');
 $PAGE->set_heading($SITE->fullname);
@@ -67,8 +67,8 @@ $communitymanager = new block_community_manager();
 $renderer = $PAGE->get_renderer('block_community');
 
 /// Check if the page has been called with trust argument
-$add = optional_param('add', -1, PARAM_INT);
-$confirm = optional_param('confirmed', false, PARAM_INT);
+$add = optional_param('add', -1, PARAM_INTEGER);
+$confirm = optional_param('confirmed', false, PARAM_INTEGER);
 if ($add != -1 and $confirm and confirm_sesskey()) {
     $course = new stdClass();
     $course->name = optional_param('coursefullname', '', PARAM_TEXT);
@@ -93,8 +93,8 @@ if ($usercandownload and $cancelrestore and confirm_sesskey()) {
 
 /// Download
 $huburl = optional_param('huburl', false, PARAM_URL);
-$download = optional_param('download', -1, PARAM_INT);
-$downloadcourseid = optional_param('downloadcourseid', '', PARAM_INT);
+$download = optional_param('download', -1, PARAM_INTEGER);
+$downloadcourseid = optional_param('downloadcourseid', '', PARAM_INTEGER);
 $coursefullname = optional_param('coursefullname', '', PARAM_ALPHANUMEXT);
 $backupsize = optional_param('backupsize', 0, PARAM_INT);
 if ($usercandownload and $download != -1 and !empty($downloadcourseid) and confirm_sesskey()) {
@@ -125,8 +125,8 @@ if ($usercandownload and $download != -1 and !empty($downloadcourseid) and confi
 }
 
 /// Remove community
-$remove = optional_param('remove', '', PARAM_INT);
-$communityid = optional_param('communityid', '', PARAM_INT);
+$remove = optional_param('remove', '', PARAM_INTEGER);
+$communityid = optional_param('communityid', '', PARAM_INTEGER);
 if ($remove != -1 and !empty($communityid) and confirm_sesskey()) {
     $communitymanager->block_community_remove_course($communityid, $USER->id);
     echo $OUTPUT->header();
@@ -152,8 +152,8 @@ $hubselectorform->set_data($fromformdata);
 
 //Retrieve courses by web service
 $courses = null;
-if (optional_param('executesearch', 0, PARAM_INT) and confirm_sesskey()) {
-    $downloadable = optional_param('downloadable', false, PARAM_INT);
+if (optional_param('executesearch', 0, PARAM_INTEGER) and confirm_sesskey()) {
+    $downloadable = optional_param('downloadable', false, PARAM_INTEGER);
 
     $options = new stdClass();
     if (!empty($fromformdata['coverage'])) {
@@ -178,7 +178,7 @@ if (optional_param('executesearch', 0, PARAM_INT) and confirm_sesskey()) {
     $options->orderby = $fromformdata['orderby'];
 
     //the range of course requested
-    $options->givememore = optional_param('givememore', 0, PARAM_INT);
+    $options->givememore = optional_param('givememore', 0, PARAM_INTEGER);
 
     //check if the selected hub is from the registered list (in this case we use the private token)
     $token = 'publichub';
@@ -228,10 +228,10 @@ if (!empty($courses)) {
     }
 }
 $PAGE->requires->yui_module('moodle-block_community-comments', 'M.blocks_community.init_comments',
-        array(array('commentids' => $commentedcourseids, 'closeButtonTitle' => get_string('close', 'editor'))));
+        array(array('commentids' => $commentedcourseids)));
 $PAGE->requires->yui_module('moodle-block_community-imagegallery', 'M.blocks_community.init_imagegallery',
         array(array('imageids' => $courseids, 'imagenumbers' => $courseimagenumbers,
-                'huburl' => $huburl, 'closeButtonTitle' => get_string('close', 'editor'))));
+                'huburl' => $huburl)));
 
 echo highlight($search, $renderer->course_list($courses, $huburl, $courseid));
 

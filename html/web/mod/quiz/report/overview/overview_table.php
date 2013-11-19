@@ -17,42 +17,33 @@
 /**
  * This file defines the quiz grades table.
  *
- * @package   quiz_overview
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    quiz
+ * @subpackage overview
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->dirroot . '/mod/quiz/report/attemptsreport_table.php');
-
 
 /**
  * This is a table subclass for displaying the quiz grades report.
  *
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class quiz_overview_table extends quiz_attempts_report_table {
+class quiz_report_overview_table extends quiz_attempt_report_table {
 
     protected $regradedqs = array();
 
-    /**
-     * Constructor
-     * @param object $quiz
-     * @param context $context
-     * @param string $qmsubselect
-     * @param quiz_overview_options $options
-     * @param array $groupstudents
-     * @param array $students
-     * @param array $questions
-     * @param moodle_url $reporturl
-     */
-    public function __construct($quiz, $context, $qmsubselect,
-            quiz_overview_options $options, $groupstudents, $students, $questions, $reporturl) {
+    public function __construct($quiz, $context, $qmsubselect, $qmfilter,
+            $attemptsmode, $groupstudents, $students, $detailedmarks,
+            $questions, $includecheckboxes, $reporturl, $displayoptions) {
         parent::__construct('mod-quiz-report-overview-report', $quiz , $context,
-                $qmsubselect, $options, $groupstudents, $students, $questions, $reporturl);
+                $qmsubselect, $qmfilter, $attemptsmode, $groupstudents, $students,
+                $questions, $includecheckboxes, $reporturl, $displayoptions);
+        $this->detailedmarks = $detailedmarks;
     }
 
     public function build_table() {
@@ -62,7 +53,7 @@ class quiz_overview_table extends quiz_attempts_report_table {
             return;
         }
 
-        $this->strtimeformat = str_replace(',', ' ', get_string('strftimedatetime'));
+        $this->strtimeformat = str_replace(',', '', get_string('strftimedatetime'));
         parent::build_table();
 
         // End of adding the data from attempts. Now add averages at bottom.
@@ -104,7 +95,7 @@ class quiz_overview_table extends quiz_attempts_report_table {
                                         $record->grade, $this->quiz->id, $this->context))
         );
 
-        if ($this->options->slotmarks) {
+        if ($this->detailedmarks) {
             $dm = new question_engine_data_mapper();
             $qubaids = new qubaid_join($from, 'quiza.uniqueid', $where, $params);
             $avggradebyq = $dm->load_average_marks($qubaids, array_keys($this->questions));
@@ -180,7 +171,7 @@ class quiz_overview_table extends quiz_attempts_report_table {
     }
 
     public function col_sumgrades($attempt) {
-        if ($attempt->state != quiz_attempt::FINISHED) {
+        if (!$attempt->timefinish) {
             return '-';
         }
 
@@ -227,7 +218,6 @@ class quiz_overview_table extends quiz_attempts_report_table {
             return null;
         }
         $slot = $matches[1];
-
         $question = $this->questions[$slot];
         if (!isset($this->lateststeps[$attempt->usageid][$slot])) {
             return '-';
@@ -280,7 +270,7 @@ class quiz_overview_table extends quiz_attempts_report_table {
     }
 
     protected function requires_latest_steps_loaded() {
-        return $this->options->slotmarks;
+        return $this->detailedmarks;
     }
 
     protected function is_latest_step_column($column) {
@@ -297,7 +287,7 @@ class quiz_overview_table extends quiz_attempts_report_table {
     public function query_db($pagesize, $useinitialsbar = true) {
         parent::query_db($pagesize, $useinitialsbar);
 
-        if ($this->options->slotmarks && has_capability('mod/quiz:regrade', $this->context)) {
+        if ($this->detailedmarks && has_capability('mod/quiz:regrade', $this->context)) {
             $this->regradedqs = $this->get_regraded_questions();
         }
     }

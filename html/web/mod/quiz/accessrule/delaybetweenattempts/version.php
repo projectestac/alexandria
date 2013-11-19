@@ -27,6 +27,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 
-$plugin->version   = 2012112900;
-$plugin->requires  = 2012112900;
+$plugin->version   = 2011092300;
+$plugin->requires  = 2011091600;
 $plugin->component = 'quizaccess_delaybetweenattempts';

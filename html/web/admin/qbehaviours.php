@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/tablelib.php');
 
 // Check permissions.
 require_login();
-$systemcontext = context_system::instance();
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/question:config', $systemcontext);
 
 admin_externalpage_setup('manageqbehaviours');
@@ -211,23 +211,9 @@ $table = new flexible_table('qbehaviouradmintable');
 $table->define_baseurl($thispageurl);
 $table->define_columns(array('behaviour', 'numqas', 'version', 'requires',
         'available', 'delete'));
-//XTEC ************ MODIFICAT - To let access only to xtecadmin user
-//2012.08.20 @sarjona
-if (!get_protected_agora()) {
-    $strdelete = '';
-} else{
-    $strdelete = get_string('delete');
-}
-$table->define_headers(array(get_string('behaviour', 'question'), get_string('numqas', 'question'),
-        get_string('version'), get_string('requires', 'admin'),
-        get_string('availableq', 'question'), $strdelete));
-//************ ORIGINAL
-/*
 $table->define_headers(array(get_string('behaviour', 'question'), get_string('numqas', 'question'),
         get_string('version'), get_string('requires', 'admin'),
         get_string('availableq', 'question'), get_string('delete')));
- */
-//************ FI
 $table->set_attribute('id', 'qbehaviours');
 $table->set_attribute('class', 'generaltable generalbox boxaligncenter boxwidthwide');
 $table->setup();
@@ -272,7 +258,7 @@ foreach ($sortedbehaviours as $behaviour => $behaviourname) {
             $rowclass = 'dimmed_text';
         }
     } else {
-        $icons = $OUTPUT->spacer(array('class' => 'iconsmall'));
+        $icons = $OUTPUT->spacer() . ' ';
     }
 
     // Move icons.
@@ -281,14 +267,7 @@ foreach ($sortedbehaviours as $behaviour => $behaviourname) {
     $row[] = $icons;
 
     // Delete link, if available.
-    //XTEC ************ MODIFICAT - To let access only to xtecadmin user
-    //2012.08.20 @sarjona
-    if ($needed[$behaviour] || !get_protected_agora()) {
-    //************ ORIGINAL
-    /*
     if ($needed[$behaviour]) {
-     */
-    //************ FI
         $row[] = '';
     } else {
         $row[] = html_writer::link(new moodle_url($thispageurl,
@@ -305,10 +284,10 @@ echo $OUTPUT->footer();
 
 function question_behaviour_enable_disable_icons($behaviour, $enabled) {
     if ($enabled) {
-        return question_behaviour_icon_html('disable', $behaviour, 't/hide',
+        return question_behaviour_icon_html('disable', $behaviour, 'i/hide',
                 get_string('enabled', 'question'), get_string('disable'));
     } else {
-        return question_behaviour_icon_html('enable', $behaviour, 't/show',
+        return question_behaviour_icon_html('enable', $behaviour, 'i/show',
                 get_string('disabled', 'question'), get_string('enable'));
     }
 }
@@ -317,7 +296,7 @@ function question_behaviour_icon_html($action, $behaviour, $icon, $alt, $tip) {
     global $OUTPUT;
     return $OUTPUT->action_icon(new moodle_url('/admin/qbehaviours.php',
             array($action => $behaviour, 'sesskey' => sesskey())),
-            new pix_icon($icon, $alt, 'moodle', array('title' => '', 'class' => 'iconsmall')),
-            null, array('title' => $tip));
+            new pix_icon($icon, $alt, 'moodle', array('title' => '')),
+            null, array('title' => $tip)) . ' ';
 }
 

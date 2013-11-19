@@ -54,11 +54,15 @@ function get_module_from_cmid($cmid) {
 * @param bool $noparent if true only questions with NO parent will be selected
 * @param bool $recurse include subdirectories
 * @param bool $export set true if this is called by questionbank export
+* @author added by Howard Miller June 2004
 */
 function get_questions_category( $category, $noparent=false, $recurse=true, $export=true ) {
     global $DB;
 
-    // Build sql bit for $noparent
+    // questions will be added to an array
+    $qresults = array();
+
+    // build sql bit for $noparent
     $npsql = '';
     if ($noparent) {
       $npsql = " and parent='0' ";
@@ -71,21 +75,16 @@ function get_questions_category( $category, $noparent=false, $recurse=true, $exp
         $categorylist = array($category->id);
     }
 
-    // Get the list of questions for the category
+    // get the list of questions for the category
     list($usql, $params) = $DB->get_in_or_equal($categorylist);
-    $questions = $DB->get_records_select('question', "category $usql $npsql", $params, 'qtype, name');
+    if ($questions = $DB->get_records_select('question', "category $usql $npsql", $params, 'qtype, name')) {
 
-    // Iterate through questions, getting stuff we need
-    $qresults = array();
-    foreach($questions as $key => $question) {
-        $question->export_process = $export;
-        $qtype = question_bank::get_qtype($question->qtype, false);
-        if ($export && $qtype->name() == 'missingtype') {
-            // Unrecognised question type. Skip this question when exporting.
-            continue;
+        // iterate through questions, getting stuff we need
+        foreach($questions as $question) {
+            $question->export_process = $export;
+            question_bank::get_qtype($question->qtype)->get_question_options($question);
+            $qresults[] = $question;
         }
-        $qtype->get_question_options($question);
-        $qresults[] = $question;
     }
 
     return $qresults;
@@ -117,7 +116,7 @@ function question_can_delete_cat($todelete) {
         print_error('cannotdeletecate', 'question');
     } else {
         $contextid = $DB->get_field('question_categories', 'contextid', array('id' => $todelete));
-        require_capability('moodle/question:managecategory', context::instance_by_id($contextid));
+        require_capability('moodle/question:managecategory', get_context_instance_by_id($contextid));
     }
 }
 
@@ -134,9 +133,6 @@ abstract class question_bank_column_base {
      */
     protected $qbank;
 
-    /** @var bool determine whether the column is td or th. */
-    protected $isheading = false;
-
     /**
      * Constructor.
      * @param $qbank the question_bank_view we are helping to render.
@@ -151,13 +147,6 @@ abstract class question_bank_column_base {
      * without having to override the constructor.
      */
     protected function init() {
-    }
-
-    /**
-     * Set the column as heading
-     */
-    public function set_as_heading() {
-        $this->isheading = true;
     }
 
     public function is_extra_row() {
@@ -251,9 +240,9 @@ abstract class question_bank_column_base {
     protected function get_sort_icon($reverse) {
         global $OUTPUT;
         if ($reverse) {
-            return $OUTPUT->pix_icon('t/sort_desc', get_string('desc'), '', array('class' => 'iconsort'));
+            return ' <img src="' . $OUTPUT->pix_url('t/up') . '" alt="' . get_string('desc') . '" />';
         } else {
-            return $OUTPUT->pix_icon('t/sort_asc', get_string('asc'), '', array('class' => 'iconsort'));
+            return ' <img src="' . $OUTPUT->pix_url('t/down') . '" alt="' . get_string('asc') . '" />';
         }
     }
 
@@ -268,20 +257,8 @@ abstract class question_bank_column_base {
         $this->display_end($question, $rowclasses);
     }
 
-    /**
-     * Output the opening column tag.  If it is set as heading, it will use <th> tag instead of <td>
-     *
-     * @param stdClass $question
-     * @param array $rowclasses
-     */
     protected function display_start($question, $rowclasses) {
-        $tag = 'td';
-        $attr = array('class' => $this->get_classes());
-        if ($this->isheading) {
-            $tag = 'th';
-            $attr['scope'] = 'row';
-        }
-        echo html_writer::start_tag($tag, $attr);
+        echo '<td class="' . $this->get_classes() . '">';
     }
 
     /**
@@ -314,18 +291,8 @@ abstract class question_bank_column_base {
      */
     protected abstract function display_content($question, $rowclasses);
 
-    /**
-     * Output the closing column tag
-     *
-     * @param object $question
-     * @param string $rowclasses
-     */
     protected function display_end($question, $rowclasses) {
-        $tag = 'td';
-        if ($this->isheading) {
-            $tag = 'th';
-        }
-        echo html_writer::end_tag($tag);
+        echo "</td>\n";
     }
 
     /**
@@ -439,16 +406,8 @@ class question_bank_checkbox_column extends question_bank_column_base {
         echo '<input title="' . $this->strselect . '" type="checkbox" name="q' .
                 $question->id . '" id="checkq' . $question->id . '" value="1"/>';
         if ($this->firstrow) {
-            $PAGE->requires->js('/question/qengine.js');
-            $module = array(
-                'name'      => 'qbank',
-                'fullpath'  => '/question/qbank.js',
-                'requires'  => array('yui2-dom', 'yui2-event', 'yui2-container'),
-                'strings'   => array(),
-                'async'     => false,
-            );
-            $PAGE->requires->js_init_call('question_bank.init_checkbox_column', array(get_string('selectall'),
-                    get_string('deselectall'), 'checkq' . $question->id), false, $module);
+            $PAGE->requires->js_function_call('question_bank.init_checkbox_column', array(get_string('selectall'),
+                    get_string('deselectall'), 'checkq' . $question->id));
             $this->firstrow = false;
         }
     }
@@ -646,8 +605,7 @@ abstract class question_bank_action_column_base extends question_bank_column_bas
     }
 
     public function get_required_fields() {
-        // createdby is required for permission checks.
-        return array('q.id', 'q.createdby');
+        return array('q.id');
     }
 }
 
@@ -673,9 +631,10 @@ class question_bank_edit_action_column extends question_bank_action_column_base 
     }
 
     protected function display_content($question, $rowclasses) {
-        if (question_has_capability_on($question, 'edit')) {
+        if (question_has_capability_on($question, 'edit') ||
+                question_has_capability_on($question, 'move')) {
             $this->print_icon('t/edit', $this->stredit, $this->qbank->edit_question_url($question->id));
-        } else if (question_has_capability_on($question, 'view')) {
+        } else {
             $this->print_icon('i/info', $this->strview, $this->qbank->edit_question_url($question->id));
         }
     }
@@ -704,7 +663,7 @@ class question_bank_preview_action_column extends question_bank_action_column_ba
         global $OUTPUT;
         if (question_has_capability_on($question, 'use')) {
             // Build the icon.
-            $image = $OUTPUT->pix_icon('t/preview', $this->strpreview, '', array('class' => 'iconsmall'));
+            $image = $OUTPUT->pix_icon('t/preview', $this->strpreview);
 
             $link = $this->qbank->preview_question_url($question);
             $action = new popup_action('click', $link, 'questionpreview',
@@ -912,7 +871,7 @@ class question_bank_view {
         }
 
         // Create the url of the new question page to forward to.
-        $returnurl = $pageurl->out_as_local_url(false);
+        $returnurl = str_replace($CFG->wwwroot, '', $pageurl->out(false));
         $this->editquestionurl = new moodle_url('/question/question.php',
                 array('returnurl' => $returnurl));
         if ($cm !== null){
@@ -924,8 +883,10 @@ class question_bank_view {
         $this->lastchangedid = optional_param('lastchanged',0,PARAM_INT);
 
         $this->init_column_types();
-        $this->init_columns($this->wanted_columns(), $this->heading_column());
+        $this->init_columns($this->wanted_columns());
         $this->init_sort();
+
+        $PAGE->requires->yui2_lib('container');
     }
 
     protected function wanted_columns() {
@@ -936,15 +897,6 @@ class question_bank_view {
             $columns[] = 'questiontext';
         }
         return $columns;
-    }
-
-    /**
-     * Specify the column heading
-     *
-     * @return string Column name for the heading
-     */
-    protected function heading_column() {
-        return 'questionname';
     }
 
     protected function known_field_types() {
@@ -969,13 +921,7 @@ class question_bank_view {
         }
     }
 
-    /**
-     * Initializing table columns
-     *
-     * @param array $wanted Collection of column names
-     * @param string $heading The name of column that is set as heading
-     */
-    protected function init_columns($wanted, $heading = '') {
+    protected function init_columns($wanted) {
         $this->visiblecolumns = array();
         $this->extrarows = array();
         foreach ($wanted as $colname) {
@@ -990,9 +936,6 @@ class question_bank_view {
             }
         }
         $this->requiredcolumns = array_merge($this->visiblecolumns, $this->extrarows);
-        if (array_key_exists($heading, $this->requiredcolumns)) {
-            $this->requiredcolumns[$heading]->set_as_heading();
-        }
     }
 
     /**
@@ -1088,8 +1031,6 @@ class question_bank_view {
     }
 
     protected function default_sort() {
-        $this->requiredcolumns['qtype'] = $this->knowncolumntypes['qtype'];
-        $this->requiredcolumns['questionname'] = $this->knowncolumntypes['questionname'];
         return array('qtype' => 1, 'questionname' => 1);
     }
 
@@ -1240,6 +1181,8 @@ class question_bank_view {
             return;
         }
 
+        $PAGE->requires->js('/question/qbank.js');
+
         // Category selection form
         echo $OUTPUT->heading(get_string('questionbank', 'question'), 2);
 
@@ -1373,7 +1316,7 @@ class question_bank_view {
         $strdelete = get_string('delete');
 
         list($categoryid, $contextid) = explode(',', $categoryandcontext);
-        $catcontext = context::instance_by_id($contextid);
+        $catcontext = get_context_instance_by_id($contextid);
 
         $canadd = has_capability('moodle/question:add', $catcontext);
         $caneditall =has_capability('moodle/question:editall', $catcontext);
@@ -1487,7 +1430,9 @@ class question_bank_view {
         if ($question->id == $this->lastchangedid) {
             $classes[] ='highlight';
         }
-        $classes[] = 'r' . ($rowcount % 2);
+        if (!empty($this->extrarows)) {
+            $classes[] = 'r' . ($rowcount % 2);
+        }
         return $classes;
     }
 
@@ -1517,7 +1462,7 @@ class question_bank_view {
             if (! $tocategory = $DB->get_record('question_categories', array('id' => $tocategoryid, 'contextid' => $contextid))) {
                 print_error('cannotfindcate', 'question');
             }
-            $tocontext = context::instance_by_id($contextid);
+            $tocontext = get_context_instance_by_id($contextid);
             require_capability('moodle/question:add', $tocontext);
             $rawdata = (array) data_submitted();
             $questionids = array();
@@ -1571,10 +1516,6 @@ class question_bank_view {
         if(($unhide = optional_param('unhide', '', PARAM_INT)) and confirm_sesskey()) {
             question_require_capability_on($unhide, 'edit');
             $DB->set_field('question', 'hidden', 0, array('id' => $unhide));
-
-            // Purge these questions from the cache.
-            question_bank::notify_question_edited($unhide);
-
             redirect($this->baseurl);
         }
     }
@@ -1643,7 +1584,7 @@ function question_edit_setup($edittab, $baseurl, $requirecmid = false, $requirec
         $courseid = $cm->course;
         $thispageurl->params(compact('cmid'));
         require_login($courseid, false, $cm);
-        $thiscontext = context_module::instance($cmid);
+        $thiscontext = get_context_instance(CONTEXT_MODULE, $cmid);
     } else {
         $module = null;
         $cm = null;
@@ -1655,7 +1596,7 @@ function question_edit_setup($edittab, $baseurl, $requirecmid = false, $requirec
         if ($courseid){
             $thispageurl->params(compact('courseid'));
             require_login($courseid, false);
-            $thiscontext = context_course::instance($courseid);
+            $thiscontext = get_context_instance(CONTEXT_COURSE, $courseid);
         } else {
             $thiscontext = null;
         }
@@ -1696,8 +1637,12 @@ function question_edit_setup($edittab, $baseurl, $requirecmid = false, $requirec
         $pagevars['qpage'] = 0;
     }
 
-    $pagevars['qperpage'] = question_get_display_preference(
-            'qperpage', DEFAULT_QUESTIONS_PER_PAGE, PARAM_INT, $thispageurl);
+    $pagevars['qperpage'] = optional_param('qperpage', -1, PARAM_INT);
+    if ($pagevars['qperpage'] > -1) {
+        $thispageurl->param('qperpage', $pagevars['qperpage']);
+    } else {
+        $pagevars['qperpage'] = DEFAULT_QUESTIONS_PER_PAGE;
+    }
 
     for ($i = 1; $i <= question_bank_view::MAX_SORTS; $i++) {
         $param = 'qbs' . $i;
@@ -1725,12 +1670,28 @@ function question_edit_setup($edittab, $baseurl, $requirecmid = false, $requirec
         $pagevars['cat'] = "$category->id,$category->contextid";
     }
 
-    // Display options.
-    $pagevars['recurse']    = question_get_display_preference('recurse',    1, PARAM_BOOL, $thispageurl);
-    $pagevars['showhidden'] = question_get_display_preference('showhidden', 0, PARAM_BOOL, $thispageurl);
-    $pagevars['qbshowtext'] = question_get_display_preference('qbshowtext', 0, PARAM_BOOL, $thispageurl);
+    if(($recurse = optional_param('recurse', -1, PARAM_BOOL)) != -1) {
+        $pagevars['recurse'] = $recurse;
+        $thispageurl->param('recurse', $recurse);
+    } else {
+        $pagevars['recurse'] = 1;
+    }
 
-    // Category list page.
+    if(($showhidden = optional_param('showhidden', -1, PARAM_BOOL)) != -1) {
+        $pagevars['showhidden'] = $showhidden;
+        $thispageurl->param('showhidden', $showhidden);
+    } else {
+        $pagevars['showhidden'] = 0;
+    }
+
+    if(($showquestiontext = optional_param('qbshowtext', -1, PARAM_BOOL)) != -1) {
+        $pagevars['qbshowtext'] = $showquestiontext;
+        $thispageurl->param('qbshowtext', $showquestiontext);
+    } else {
+        $pagevars['qbshowtext'] = 0;
+    }
+
+    //category list page
     $pagevars['cpage'] = optional_param('cpage', 1, PARAM_INT);
     if ($pagevars['cpage'] != 1){
         $thispageurl->param('cpage', $pagevars['cpage']);
@@ -1740,30 +1701,10 @@ function question_edit_setup($edittab, $baseurl, $requirecmid = false, $requirec
 }
 
 /**
- * Get a particular question preference that is also stored as a user preference.
- * If the the value is given in the GET/POST request, then that value is used,
- * and the user preference is updated to that value. Otherwise, the last set
- * value of the user preference is used, or if it has never been set the default
- * passed to this function.
- *
- * @param string $param the param name. The URL parameter set, and the GET/POST
- *      parameter read. The user_preference name is 'question_bank_' . $param.
- * @param mixed $default The default value to use, if not otherwise set.
- * @param int $type one of the PARAM_... constants.
- * @param moodle_url $thispageurl if the value has been explicitly set, we add
- *      it to this URL.
- * @return mixed the parameter value to use.
+ * Required for legacy reasons. Was originally global then changed to class static
+ * as of Moodle 2.0
  */
-function question_get_display_preference($param, $default, $type, $thispageurl) {
-    $submittedvalue = optional_param($param, null, $type);
-    if (is_null($submittedvalue)) {
-        return get_user_preferences('question_bank_' . $param, $default);
-    }
-
-    set_user_preference('question_bank_' . $param, $submittedvalue);
-    $thispageurl->param($param, $submittedvalue);
-    return $submittedvalue;
-}
+$QUESTION_EDITTABCAPS = question_edit_contexts::$caps;
 
 /**
  * Make sure user is logged in as required in this context.
@@ -1771,7 +1712,7 @@ function question_get_display_preference($param, $default, $type, $thispageurl) 
 function require_login_in_context($contextorid = null){
     global $DB, $CFG;
     if (!is_object($contextorid)){
-        $context = context::instance_by_id($contextorid, IGNORE_MISSING);
+        $context = get_context_instance_by_id($contextorid);
     } else {
         $context = $contextorid;
     }
@@ -1801,13 +1742,11 @@ function require_login_in_context($contextorid = null){
  * Print a form to let the user choose which question type to add.
  * When the form is submitted, it goes to the question.php script.
  * @param $hiddenparams hidden parameters to add to the form, in addition to
- *      the qtype radio buttons.
- * @param $allowedqtypes optional list of qtypes that are allowed. If given, only
- *      those qtypes will be shown. Example value array('description', 'multichoice').
+ * the qtype radio buttons.
  */
-function print_choose_qtype_to_add_form($hiddenparams, array $allowedqtypes = null) {
+function print_choose_qtype_to_add_form($hiddenparams) {
     global $CFG, $PAGE, $OUTPUT;
-
+    $PAGE->requires->js('/question/qbank.js');
     echo '<div id="chooseqtypehead" class="hd">' . "\n";
     echo $OUTPUT->heading(get_string('chooseqtypetoadd', 'question'), 3);
     echo "</div>\n";
@@ -1821,10 +1760,7 @@ function print_choose_qtype_to_add_form($hiddenparams, array $allowedqtypes = nu
     echo '<div class="instruction">' . get_string('selectaqtypefordescription', 'question') . "</div>\n";
     echo '<div class="realqtypes">' . "\n";
     $fakeqtypes = array();
-    foreach (question_bank::get_creatable_qtypes() as $qtypename => $qtype) {
-        if ($allowedqtypes && !in_array($qtypename, $allowedqtypes)) {
-            continue;
-        }
+    foreach (question_bank::get_creatable_qtypes() as $qtype) {
         if ($qtype->is_real_question_type()) {
             print_qtype_to_add_option($qtype);
         } else {
@@ -1843,33 +1779,28 @@ function print_choose_qtype_to_add_form($hiddenparams, array $allowedqtypes = nu
     echo '<input type="submit" id="chooseqtypecancel" name="addcancel" value="' . get_string('cancel') . '" />' . "\n";
     echo "</div></form>\n";
     echo "</div>\n";
-
-    $PAGE->requires->js('/question/qengine.js');
-    $module = array(
-        'name'      => 'qbank',
-        'fullpath'  => '/question/qbank.js',
-        'requires'  => array('yui2-dom', 'yui2-event', 'yui2-container'),
-        'strings'   => array(),
-        'async'     => false,
-    );
-    $PAGE->requires->js_init_call('qtype_chooser.init', array('chooseqtype'), false, $module);
+    $PAGE->requires->js_init_call('qtype_chooser.init', array('chooseqtype'));
 }
 
 /**
  * Private function used by the preceding one.
- * @param question_type $qtype the question type.
+ * @param $qtype the question type.
  */
 function print_qtype_to_add_option($qtype) {
+    if (get_string_manager()->string_exists('pluginnamesummary', $qtype->plugin_name())) {
+        $summary = get_string('pluginnamesummary', $qtype->plugin_name());
+    } else {
+        $summary = get_string($qtype->name() . 'summary', $qtype->plugin_name());
+    }
+
     echo '<div class="qtypeoption">' . "\n";
-    echo '<label for="' . $qtype->plugin_name() . '">';
-    echo '<input type="radio" name="qtype" id="' . $qtype->plugin_name() .
-            '" value="' . $qtype->name() . '" />';
+    echo '<label for="qtype_' . $qtype->name() . '">';
+    echo '<input type="radio" name="qtype" id="qtype_' . $qtype->name() . '" value="' . $qtype->name() . '" />';
     echo '<span class="qtypename">';
     $fakequestion = new stdClass();
     $fakequestion->qtype = $qtype->name();
     echo print_question_icon($fakequestion);
-    echo $qtype->menu_name() . '</span><span class="qtypesummary">' .
-            get_string('pluginnamesummary', $qtype->plugin_name());
+    echo $qtype->menu_name() . '</span><span class="qtypesummary">' . $summary;
     echo "</span></label>\n";
     echo "</div>\n";
 }
@@ -1893,6 +1824,8 @@ function create_new_question_button($categoryid, $params, $caption, $tooltip = '
     $url = new moodle_url('/question/addquestion.php', $params);
     echo $OUTPUT->single_button($url, $caption, 'get', array('disabled'=>$disabled, 'title'=>$tooltip));
 
+    $PAGE->requires->yui2_lib('dragdrop');
+    $PAGE->requires->yui2_lib('container');
     if (!$choiceformprinted) {
         echo '<div id="qtypechoicecontainer">';
         print_choose_qtype_to_add_form(array());

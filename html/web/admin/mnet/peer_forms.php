@@ -50,7 +50,7 @@ class mnet_simple_host_form extends moodleform {
         $this->add_action_buttons(false, get_string('addhost', 'mnet'));
     }
 
-    function validation($data, $files) {
+    function validation($data) {
         global $DB;
 
         $wwwroot = $data['wwwroot'];
@@ -141,10 +141,10 @@ class mnet_review_host_form extends moodleform {
 
         if ($mnet_peer && !empty($mnet_peer->deleted)) {
             $radioarray = array();
-            $radioarray[] = $mform->createElement('static', 'deletedinfo', '',
+            $radioarray[] = MoodleQuickForm::createElement('static', 'deletedinfo', '',
                 $OUTPUT->container(get_string('deletedhostinfo', 'mnet'), 'deletedhostinfo'));
-            $radioarray[] = $mform->createElement('radio', 'deleted', '', get_string('yes'), 1);
-            $radioarray[] = $mform->createElement('radio', 'deleted', '', get_string('no'), 0);
+            $radioarray[] = MoodleQuickForm::createElement('radio', 'deleted', '', get_string('yes'), 1);
+            $radioarray[] = MoodleQuickForm::createElement('radio', 'deleted', '', get_string('no'), 0);
             $mform->addGroup($radioarray, 'radioar', get_string('deleted'), array(' ', ' '), false);
         } else {
             $mform->addElement('hidden', 'deleted');
@@ -154,7 +154,7 @@ class mnet_review_host_form extends moodleform {
         $this->add_action_buttons(false);
     }
 
-    function validation($data, $files) {
+    function validation($data) {
         $errors = array();
         if ($data['oldpublickey'] == $data['public_key']) {
             return;

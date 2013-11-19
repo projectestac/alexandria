@@ -585,13 +585,14 @@ class lang_installer {
     /**
      * Prepare the installer
      *
+     * @todo Moodle major version is hardcoded here, should be obtained from version.php or so
      * @param string|array $langcode a code of the language to install
      */
     public function __construct($langcode = '') {
         global $CFG;
 
         $this->set_queue($langcode);
-        $this->version = moodle_major_version(true);
+        $this->version = '2.2';
 
         if (!empty($CFG->langotherroot) and $CFG->langotherroot !== $CFG->dataroot . '/lang') {
             debugging('The in-built language pack installer does not support alternative location ' .

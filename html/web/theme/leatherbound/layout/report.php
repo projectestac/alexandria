@@ -8,16 +8,6 @@ $hassidepost = $PAGE->blocks->region_has_content('side-post', $OUTPUT);
 $custommenu = $OUTPUT->custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
 
-$courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
-if (empty($PAGE->layout_options['nocourseheaderfooter'])) {
-    $courseheader = $OUTPUT->course_header();
-    $coursecontentheader = $OUTPUT->course_content_header();
-    if (empty($PAGE->layout_options['nocoursefooter'])) {
-        $coursecontentfooter = $OUTPUT->course_content_footer();
-        $coursefooter = $OUTPUT->course_footer();
-    }
-}
-
 $bodyclasses = array();
 if ($hassidepre && !$hassidepost) {
     $bodyclasses[] = 'side-pre-only';
@@ -42,9 +32,10 @@ echo $OUTPUT->doctype() ?>
 <?php echo $OUTPUT->standard_top_of_body_html() ?>
 
 <div id="page">
-<?php if ($hasheading) { ?>
+<?php if ($hasheading || $hasnavbar) { ?>
     <div id="page-header">
         <div id="page-header-wrapper" class="wrapper clearfix">
+            <?php if ($hasheading) { ?>
                 <h1 class="headermain inside"><?php echo $PAGE->heading ?></h1>
                 <div class="headermenu"><?php
                     echo $OUTPUT->login_info();
@@ -53,16 +44,12 @@ echo $OUTPUT->doctype() ?>
                         }
                     echo $PAGE->headingmenu ?>
                 </div>
+            <?php } ?>
         </div>
     </div>
-<?php } ?>
 
 <?php if ($hascustommenu) { ?>
-    <div id="custommenuwrap"><div id="custommenu"><?php echo $custommenu; ?></div></div>
-<?php } ?>
-
-<?php if (!empty($courseheader)) { ?>
-    <div id="course-header"><?php echo $courseheader; ?></div>
+<div id="custommenuwrap"><div id="custommenu"><?php echo $custommenu; ?></div></div>
 <?php } ?>
 
         <?php if ($hasnavbar) { ?>
@@ -74,15 +61,14 @@ echo $OUTPUT->doctype() ?>
             </div>
         <?php } ?>
 
+<?php } ?>
 <!-- END OF HEADER -->
 
 <div id="page-content-wrapper" class="wrapper clearfix">
     <div id="page-content">
         <div id="report-main-content">
             <div class="region-content">
-                <?php echo $coursecontentheader; ?>
                 <?php echo $OUTPUT->main_content() ?>
-                <?php echo $coursecontentfooter; ?>
             </div>
         </div>
         <?php if ($hassidepre) { ?>
@@ -96,10 +82,6 @@ echo $OUTPUT->doctype() ?>
         <?php } ?>
     </div>
 </div>
-
-<?php if (!empty($coursefooter)) { ?>
-<div id="course-footer"><?php echo $coursefooter; ?></div>
-<?php } ?>
 
 <!-- START OF FOOTER -->
     <?php if ($hasfooter) { ?>

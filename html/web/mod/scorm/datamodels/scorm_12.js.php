@@ -198,6 +198,11 @@ function SCORMapi1_2() {
         return "false";
     }
 
+<?php
+    // pull in the TOC callback
+    require_once($CFG->dirroot.'/mod/scorm/datamodels/callback.js.php');
+?>
+
     function LMSFinish (param) {
         errorCode = "0";
         if (param == "") {
@@ -206,13 +211,13 @@ function SCORMapi1_2() {
                 result = StoreData(cmi,true);
                 if (nav.event != '') {
                     if (nav.event == 'continue') {
-                        setTimeout('mod_scorm_launch_next_sco();',500);
+                        setTimeout('scorm_get_next();',500);
                     } else {
-                        setTimeout('mod_scorm_launch_prev_sco();',500);
+                        setTimeout('scorm_get_prev();',500);
                     }
                 } else {
                     if (<?php echo $scorm->auto ?> == 1) {
-                        setTimeout('mod_scorm_launch_next_sco();',500);
+                        setTimeout('scorm_get_next();',500);
                     }
                 }
                 <?php
@@ -230,10 +235,7 @@ function SCORMapi1_2() {
                 ?>
                 // trigger TOC update
                 var sURL = "<?php echo $CFG->wwwroot; ?>" + "/mod/scorm/prereqs.php?a=<?php echo $scorm->id ?>&scoid=<?php echo $scoid ?>&attempt=<?php echo $attempt ?>&mode=<?php echo $mode ?>&currentorg=<?php echo $currentorg ?>&sesskey=<?php echo sesskey(); ?>";
-                var callback = M.mod_scorm.connectPrereqCallback;
-                YUI().use('yui2-connection', function(Y) {
-                    Y.YUI2.util.Connect.asyncRequest('GET', sURL, callback, null);
-                });
+                YAHOO.util.Connect.asyncRequest('GET', sURL, this.connectPrereqCallback, null);
                 return result;
             } else {
                 errorCode = "301";
@@ -427,12 +429,6 @@ function SCORMapi1_2() {
         if (param == "") {
             if (Initialized) {
                 result = StoreData(cmi,false);
-                // trigger TOC update
-                var sURL = "<?php echo $CFG->wwwroot; ?>" + "/mod/scorm/prereqs.php?a=<?php echo $scorm->id ?>&scoid=<?php echo $scoid ?>&attempt=<?php echo $attempt ?>&mode=<?php echo $mode ?>&currentorg=<?php echo $currentorg ?>&sesskey=<?php echo sesskey(); ?>";
-                var callback = M.mod_scorm.connectPrereqCallback;
-                YUI().use('yui2-connection', function(Y) {
-                    Y.YUI2.util.Connect.asyncRequest('GET', sURL, callback, null);
-                });
                 <?php
                     if (scorm_debugging($scorm)) {
                         echo 'LogAPICall("Commit", param, "", 0);';

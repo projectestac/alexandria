@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/gradelib.php');
 /**
  * Defines the computation login of the grading evaluation subplugin
  */
-class workshop_best_evaluation extends workshop_evaluation {
+class workshop_best_evaluation implements workshop_evaluation {
 
     /** @var workshop the parent workshop instance */
     protected $workshop;
@@ -67,7 +67,7 @@ class workshop_best_evaluation extends workshop_evaluation {
     public function update_grading_grades(stdclass $settings, $restrict=null) {
         global $DB;
 
-        // Remember the recently used settings for this workshop.
+        // remember the recently used settings for this workshop
         if (empty($this->settings)) {
             $record = new stdclass();
             $record->workshopid = $this->workshop->id;
@@ -78,7 +78,7 @@ class workshop_best_evaluation extends workshop_evaluation {
                     array('workshopid' => $this->workshop->id));
         }
 
-        // Get the grading strategy instance.
+        // get the grading strategy instance
         $grader = $this->workshop->grading_strategy_instance();
 
         // get the information about the assessment dimensions
@@ -109,11 +109,14 @@ class workshop_best_evaluation extends workshop_evaluation {
     }
 
     /**
-     * Returns an instance of the form to provide evaluation settings.
+     * TODO: short description.
      *
-     * @return workshop_best_evaluation_settings_form
+     * @return TODO
      */
     public function get_settings_form(moodle_url $actionurl=null) {
+        global $CFG;    // needed because the included files use it
+        global $DB;
+        require_once(dirname(__FILE__) . '/settings_form.php');
 
         $customdata['workshop'] = $this->workshop;
         $customdata['current'] = $this->settings;
@@ -398,32 +401,5 @@ class workshop_best_evaluation extends workshop_evaluation {
         } else {
             return null;
         }
-    }
-}
-
-
-/**
- * Represents the settings form for this plugin.
- */
-class workshop_best_evaluation_settings_form extends workshop_evaluation_settings_form {
-
-    /**
-     * Defines specific fields for this evaluation method.
-     */
-    protected function definition_sub() {
-        $mform = $this->_form;
-
-        $plugindefaults = get_config('workshopeval_best');
-        $current = $this->_customdata['current'];
-
-        $options = array();
-        for ($i = 9; $i >= 1; $i = $i-2) {
-            $options[$i] = get_string('comparisonlevel' . $i, 'workshopeval_best');
-        }
-        $mform->addElement('select', 'comparison', get_string('comparison', 'workshopeval_best'), $options);
-        $mform->addHelpButton('comparison', 'comparison', 'workshopeval_best');
-        $mform->setDefault('comparison', $plugindefaults->comparison);
-
-        $this->set_data($current);
     }
 }

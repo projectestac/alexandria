@@ -43,14 +43,14 @@ class data_field_file extends data_field_base {
 
                 if (!empty($content->content)) {
                     if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
-                        $usercontext = context_user::instance($USER->id);
+                        $usercontext = get_context_instance(CONTEXT_USER, $USER->id);
                         if (!$files = $fs->get_area_files($usercontext->id, 'user', 'draft', $itemid, 'id DESC', false)) {
                             return false;
                         }
                         if (empty($content->content1)) {
                             // Print icon if file already exists
                             $src = moodle_url::make_draftfile_url($itemid, '/', $file->get_filename());
-                            $displayname = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('class' => 'icon')). '<a href="'.$src.'" >'.s($file->get_filename()).'</a>';
+                            $displayname = '<img src="'.$OUTPUT->pix_url(file_mimetype_icon($file->get_mimetype())).'" class="icon" alt="'.$file->get_mimetype().'" />'. '<a href="'.$src.'" >'.s($file->get_filename()).'</a>';
 
                         } else {
                             $displayname = 'no file added';
@@ -63,63 +63,35 @@ class data_field_file extends data_field_base {
         }
 
         $html = '';
-	//XTEC - ALEXANDRIA **************** MODIFICAT - If the file is already uploaded, disable upload
-        //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-        // ***** CODI ORIGINAL
         // database entry label
-        //$html .= '<div title="'.s($this->field->description).'">';
-        //$html .= '<fieldset><legend><span class="accesshide">'.$this->field->name.'</span></legend>';
+        $html .= '<div title="'.s($this->field->description).'">';
+        $html .= '<fieldset><legend><span class="accesshide">'.$this->field->name.'</span></legend>';
+
         // itemid element
-        //$html .= '<input type="hidden" name="field_'.$this->field->id.'_file" value="'.$itemid.'" />';
-        //$options = new stdClass();
-        //$options->maxbytes  = $this->field->param3;
-        //$options->itemid    = $itemid;
-        //$options->accepted_types = '*';
-        //$options->return_types = FILE_INTERNAL;
-        //$options->context = $PAGE->context;
-        //$fp = new file_picker($options);
+        $html .= '<input type="hidden" name="field_'.$this->field->id.'_file" value="'.$itemid.'" />';
+
+        $options = new stdClass();
+        $options->maxbytes  = $this->field->param3;
+        $options->itemid    = $itemid;
+        $options->accepted_types = '*';
+        $options->return_types = FILE_INTERNAL;
+        $options->context = $PAGE->context;
+
+        $fp = new file_picker($options);
         // print out file picker
-        //$html .= $OUTPUT->render($fp);
-	//$html .= '</fieldset>';
-        //$html .= '</div>';
-        //$module = array('name'=>'data_filepicker', 'fullpath'=>'/mod/data/data.js', 'requires'=>array('core_filepicker'));
-        //$PAGE->requires->js_init_call('M.data_filepicker.init', array($fp->options), true, $module);
-	// ***** CODI MODIFICAT
-	if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid)) && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid)) && $this->field->name == $CFG->data_filefieldid) {
-		$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid));
-		$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content);
-		$html .= '<a href="'.file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename()).'">'.$file->get_filename().'</a>';
-	} else {
-		// database entry label
-        	$html .= '<div title="'.s($this->field->description).'">';
-	        $html .= '<fieldset><legend><span class="accesshide">'.$this->field->name.'</span></legend>';
+        $html .= $OUTPUT->render($fp);
 
-        	// itemid element
-	        $html .= '<input type="hidden" name="field_'.$this->field->id.'_file" value="'.$itemid.'" />';
+        $html .= '</fieldset>';
+        $html .= '</div>';
 
-		$options = new stdClass();
-        	$options->maxbytes  = $this->field->param3;
-	        $options->itemid    = $itemid;
-        	$options->accepted_types = '*';
-	        $options->return_types = FILE_INTERNAL;
-        	$options->context = $PAGE->context;
-
-	        $fp = new file_picker($options);
-        	// print out file picker
-	        $html .= $OUTPUT->render($fp);
-		$module = array('name'=>'data_filepicker', 'fullpath'=>'/mod/data/data.js', 'requires'=>array('core_filepicker'));
-	        $PAGE->requires->js_init_call('M.data_filepicker.init', array($fp->options), true, $module);
-	        $html .= '</fieldset>';
-        	$html .= '</div>';
-	}
-	// ***** FI
+        $module = array('name'=>'data_filepicker', 'fullpath'=>'/mod/data/data.js', 'requires'=>array('core_filepicker'));
+        $PAGE->requires->js_init_call('M.data_filepicker.init', array($fp->options), true, $module);
 
         return $html;
     }
 
     function display_search_field($value = '') {
-        return '<label class="accesshide" for="f_' . $this->field->id . '">' . $this->field->name . '</label>' .
-               '<input type="text" size="16" id="f_'.$this->field->id.'" name="f_'.$this->field->id.'" value="'.$value.'" />';
+        return '<input type="text" size="16" name="f_'.$this->field->id.'" value="'.$value.'" />';
     }
 
     function generate_sql($tablealias, $value) {
@@ -152,6 +124,7 @@ class data_field_file extends data_field_base {
 
     function display_browse_field($recordid, $template) {
         global $CFG, $DB, $OUTPUT;
+
         if (!$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
             return '';
         }
@@ -163,56 +136,20 @@ class data_field_file extends data_field_base {
         if (!$file = $this->get_file($recordid, $content)) {
             return '';
         }
-	//XTEC - ALEXANDRIA ************ MODIFICAT - If it's a preview only return the file link
-	// CODI ORIGINAL
-        //$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
-        //$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
-        //$width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
-        //$height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
-        //$str = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;'.
-        //       '<a href="'.$src.'" >'.s($name).'</a>';
-	// CODI MODIFICAT
-	if (!empty($this->field->param4)) {
-		$str = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
-	} else {
-		$dwnldinfo = download_info($this->field->id, $recordid);
-		$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
-        	$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
-	        $width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
-        	$height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
-	
-        	$str = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;'.
-               '<script type="text/javascript" src="files.js"></script>'.'<a href="'.$src.'" onclick="increase_counter('.$this->field->id.','.$recordid.')">'.s($name).'</a>';
-		$str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
-		if (!in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-			if (!empty($this->field->param5)) {
-				 $str .= '<div id="text" onclick="create_iframe_scorm_preview(\''.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\');">
-                	                <script>show_preview_button(\''.$CFG->wwwroot.'/mod/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\',false,true);</script>
-                        	</div>';
-				$str .= '<div id="image" style="display: none;">
-					<br />
-					<img src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" title="Previsualitza" />
-					 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-				</div>';
-			} else {
-				$str .= '<div id="text">
-					<script>show_preview_button(\'[[pdf]]\',false);</script>
-				</div>';
-				$str .= '<div id="image" style="display: none;">
-					<iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe> 
-					<br/>
-					<img title="Previsualitza" src="http://alexandria.xtec.cat/pix/i/show.gif" alt="Previsualitza" />
-				 	<a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-				</div>';
-			}
-		}
-	}
+
+        $name   = empty($content->content1) ? $file->get_filename() : $content->content1;
+        $src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
+        $width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
+        $height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
+
+        $str = '<img src="'.$OUTPUT->pix_url(file_mimetype_icon($file->get_mimetype())).'" height="16" width="16" alt="'.$file->get_mimetype().'" />&nbsp;'.
+               '<a href="'.$src.'" >'.s($name).'</a>';
         return $str;
     }
 
 
     // content: "a##b" where a is the file name, b is the display name
-    function update_content($recordid, $value, $name='') {
+    function update_content($recordid, $value, $name) {
         global $CFG, $DB, $USER;
         $fs = get_file_storage();
 
@@ -226,97 +163,17 @@ class data_field_file extends data_field_base {
             $content = $DB->get_record('data_content', array('id'=>$id));
         }
 
-	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a SCORM file insert as a new scorm object
-        //2011.05.23 @fcasanel
-	//2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-        if ($this->field->param5){
-                    require_once $CFG->dirroot.'/mod/scorm/lib.php';
-                    require_once $CFG->dirroot.'/course/lib.php';
-
-                    $module_scorm_id = $DB->get_record('modules', array('name' => 'scorm'));
-                    $module_scorm_id = $module_scorm_id->id;
-			
-                    $scorm_object = new stdClass();
-                    $scorm_object->MAX_FILE_SIZE = $this->field->param3;
-                    $scorm_object->name = $this->field->name;
-                    $scorm_object->summary = $this->field->description;
-                    $scorm_object->grademethod = 1;
-                    $scorm_object->maxgrade = 100;
-                    $scorm_object->maxattempt = 0;
-                    $scorm_object->whatgrade = 0;
-                    $scorm_object->mform_showadvanced_last = 0;
-                    $scorm_object->width = 100;
-                    $scorm_object->height = 500;
-                    $scorm_object->popup = 0;
-                    $scorm_object->skipview = 0;
-                    $scorm_object->hidebrowse = 0;
-                    $scorm_object->hidetoc = 0;
-                    $scorm_object->hidenav = 0;
-                    $scorm_object->auto = 0;
-                    $scorm_object->updatefreq = 0;
-                    $scorm_object->datadir = '';
-                    $scorm_object->pkgtype = '';
-                    $scorm_object->launch = '';
-                    $scorm_object->redirect = 'no';
-                    $scorm_object->redirecturl = '../mod/scorm/view.php?id=';
-                    $scorm_object->visible = 0;
-                    $scorm_object->cmidnumber = '';
-                    $scorm_object->gradecat = 1;
-                    $scorm_object->course = 1;
-                    $scorm_object->section = 1;
-                    $scorm_object->module = $module_scorm_id;
-                    $scorm_object->modulename = 'scorm';
-                    $scorm_object->instance = '';
-                    $scorm_object->add = 'scorm';
-                    $scorm_object->update = 0;
-                    $scorm_object->return = 0;
-                    $scorm_object->submitbutton = '';
-                    $scorm_object->groupingid = 0;
-		    $scorm_object->groupmembersonly = 0;
-                    $scorm_object->groupmode = 0;
-		    $scorm_object->intro = '';
-                    
-		    //Check if is an update or a new entry
-                    $scorm_record = $DB->get_record('data_content', array('fieldid' => $this->field->id, 'recordid' => $recordid));
-                    if ($scorm_record->content2){
-                        // Delete old scorm
-                        scorm_delete_instance($scorm_record->content2);
-                        $relation_id = $DB->get_record('course_modules', array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_record->content2));
-			if ($relation_id->id) $oldscormcontext = context_module::instance($relation_id->id);
-                        delete_course_module($relation_id->id);
-                    }
-		    $cmid = add_course_module($scorm_object);
-	            $scorm_object->coursemodule = $cmid;
-		    $scormcontext = context_module::instance($cmid);
-		    
-    	}
-	// delete existing files
+        // delete existing files
         $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
-	if ($this->field->param5 && $odscormcontext) {
-		$fs->delete_area_files($oldscormcontext->id, 'mod_scorm');
-	}
 
-        $usercontext = context_user::instance($USER->id);
+        $usercontext = get_context_instance(CONTEXT_USER, $USER->id);
         $files = $fs->get_area_files($usercontext->id, 'user', 'draft', $value, 'timecreated DESC');
 
-        if (count($files)>=2) {
+        if (count($files)<2) {
+            // no file
+        } else {
             foreach ($files as $draftfile) {
                 if (!$draftfile->is_directory()) {
-                   if ($this->field->param5) {
-			$filename = explode('.',$draftfile->get_filename());
-			$extension = array_pop($filename);
-			$filename = implode('.',$filename).'_scorm.'.$extension;
-			$scorm_object->reference = $filename;
-                        $file_record = array(
-                                'contextid' => $scormcontext->id,
-                                'component' => 'mod_scorm',
-                                'filearea' => 'package',
-                                'itemid' => 0,
-                                'filepath' => '/',
-                                'filename' => $filename,
-                        );
-                        $fs->create_file_from_storedfile($file_record, $draftfile);
-                    }
                     $file_record = array(
                         'contextid' => $this->context->id,
                         'component' => 'mod_data',
@@ -327,62 +184,15 @@ class data_field_file extends data_field_base {
                     );
 
                     $content->content = $file_record['filename'];
-		    
+
                     $fs->create_file_from_storedfile($file_record, $draftfile);
                     $DB->update_record('data_content', $content);
+
                     // Break from the loop now to avoid overwriting the uploaded file record
                     break;
                 }
             }
         }
-	if ($this->field->param5) {
-		$scorm_id = scorm_add_instance($scorm_object);
-        	course_add_cm_to_section(1, $cmid, 0);
-	        $cm = new stdClass();
-        	$cm->id = $cmid;
-	        $cm->instance = $scorm_id;
-        	$DB->update_record('course_modules',$cm);
-	        $content->content2 = $scorm_id;
-        	$DB->update_record('data_content',$content);
-	        rebuild_course_cache($course->id,true);
-	}
-	//*************** FI
-
-	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
-        //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-		require_once( $CFG->dirroot . '/backup/util/includes/restore_includes.php' );
-		$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content);
-		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
-		$fieldcontent = $DB->get_record('data_content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
-		if (!$fieldcontent) {
-                	$fieldcontent = new stdClass();
-                        $fieldcontent->fieldid = $coursefieldid;
-                        $fieldcontent->recordid = $recordid;
-                        $fieldcontent->id = $DB->insert_record('data_content',$fieldcontent);
-                }
-		if (!$fieldcontent->content || !$course = $DB->get_record('course',array('id' => $fieldcontent->content))) {
-			$courseid = restore_backup_file($file,null,$recordid);
-			$fieldcontent->content = $courseid;
-			$fieldcontent->content3 = time();
-			$DB->update_record('data_content',$fieldcontent);
-			override_course_values($courseid,$recordid);
-			require_once($CFG->dirroot.'/enrol/manual/externallib.php');
-			$enrol = new enrol_manual_external();
-			$roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
-			$enrolments = array(
-				array('userid' => $USER->id,'roleid' => $roleid,'courseid' => $courseid)
-			);
-			$enrol->enrol_users($enrolments);
-			role_assign($roleid,$USER->id,context_course::instance($courseid)->id);
-			$guestenrol = $DB->get_record('enrol',array('enrol' => 'guest'));
-			$guestenrol->status = 0;
-			$DB->update_record('enrol',$guestenrol);
-		}
-			
-			
-	} 
-	//*************** FI
     }
 
     function text_export_supported() {
@@ -392,28 +202,6 @@ class data_field_file extends data_field_base {
     function file_ok($path) {
         return true;
     }
-    
-    //XTEC - ALEXANDRIA ************ AFEGIT - If it was a course or a SCORM, we deleted the related resources
-    //2013.11.13 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-    // ******** CODI AFEGIT
-    function delete_content($recordid = 0) {
-	global $DB,$CFG;
-	if($this->field->param5){
-                $scorm_id = $DB->get_field('data_content','content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));
-                $module_scorm_id = $DB->get_field('modules', 'id',array('name' => 'scorm'));
-                $cmid = $DB->get_field('course_modules', 'id',array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
-		scorm_delete_instance($scorm_id);
-                delete_course_module($cmid);
-
-      	}
-	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
-                $courseid = $DB->get_field('data_content','content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
-		delete_course($courseid,false);
-	}
- 	parent::delete_content($recordid);
-    } 
-    // ******** FI
 
 }
 

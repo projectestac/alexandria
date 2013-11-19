@@ -118,6 +118,10 @@ abstract class qtype_multianswer_subq_renderer_base extends qtype_renderer {
     protected function feedback_popup(question_graded_automatically $subq,
             $fraction, $feedbacktext, $rightanswer, question_display_options $options) {
 
+        if (!$options->feedback) {
+            return '';
+        }
+
         $feedback = array();
         if ($options->correctness) {
             if (is_null($fraction)) {
@@ -128,7 +132,7 @@ abstract class qtype_multianswer_subq_renderer_base extends qtype_renderer {
             $feedback[] = $state->default_string(true);
         }
 
-        if ($options->feedback && $feedbacktext) {
+        if ($feedbacktext) { // Note $options->feedback is already checked above.
             $feedback[] = $feedbacktext;
         }
 
@@ -137,8 +141,7 @@ abstract class qtype_multianswer_subq_renderer_base extends qtype_renderer {
         }
 
         $subfraction = '';
-        if ($options->marks >= question_display_options::MARK_AND_MAX && $subq->maxmark > 0
-                && (!is_null($fraction) || $feedback)) {
+        if ($options->marks >= question_display_options::MARK_AND_MAX && $subq->maxmark > 0) {
             $a = new stdClass();
             $a->mark = format_float($fraction * $subq->maxmark, $options->markdp);
             $a->max =  format_float($subq->maxmark, $options->markdp);
@@ -174,18 +177,13 @@ class qtype_multianswer_textfield_renderer extends qtype_multianswer_subq_render
         if ($subq->qtype->name() == 'shortanswer') {
             $matchinganswer = $subq->get_matching_answer(array('answer' => $response));
         } else if ($subq->qtype->name() == 'numerical') {
-            list($value, $unit, $multiplier) = $subq->ap->apply_units($response, '');
-            $matchinganswer = $subq->get_matching_answer($value, 1);
+            $matchinganswer = $subq->get_matching_answer($response, 1);
         } else {
             $matchinganswer = $subq->get_matching_answer($response);
         }
 
         if (!$matchinganswer) {
-            if (is_null($response) || $response === '') {
-                $matchinganswer = new question_answer(0, '', null, '', FORMAT_HTML);
-            } else {
-                $matchinganswer = new question_answer(0, '', 0.0, '', FORMAT_HTML);
-            }
+            $matchinganswer = new question_answer(0, '', null, '', FORMAT_HTML);
         }
 
         // Work out a good input field size.
@@ -194,7 +192,7 @@ class qtype_multianswer_textfield_renderer extends qtype_multianswer_subq_render
             $size = max($size, strlen(trim($ans->answer)));
         }
         $size = min(60, round($size + rand(0, $size*0.15)));
-        // The rand bit is to make guessing harder.
+        // The rand bit is to make guessing harder
 
         $inputattributes = array(
             'type' => 'text',
@@ -224,13 +222,12 @@ class qtype_multianswer_textfield_renderer extends qtype_multianswer_subq_render
                         $qa, 'question', 'answerfeedback', $matchinganswer->id),
                 s($correctanswer->answer), $options);
 
-        $output = html_writer::start_tag('span', array('class' => 'subquestion'));
-        $output .= html_writer::tag('label', get_string('answer'),
-                array('class' => 'subq accesshide', 'for' => $inputattributes['id']));
+        $output = '';
+        $output .= html_writer::start_tag('label', array('class' => 'subq'));
         $output .= html_writer::empty_tag('input', $inputattributes);
         $output .= $feedbackimg;
         $output .= $feedbackpopup;
-        $output .= html_writer::end_tag('span');
+        $output .= html_writer::end_tag('label');
 
         return $output;
     }
@@ -277,28 +274,24 @@ class qtype_multianswer_multichoice_inline_renderer
             $inputattributes['class'] = $this->feedback_class($matchinganswer->fraction);
             $feedbackimg = $this->feedback_image($matchinganswer->fraction);
         }
+
         $select = html_writer::select($choices, $qa->get_qt_field_name($fieldname),
                 $response, array('' => ''), $inputattributes);
 
         $order = $subq->get_order($qa);
-        $correctresponses = $subq->get_correct_response();
-        $rightanswer = $subq->answers[$order[reset($correctresponses)]];
-        if (!$matchinganswer) {
-            $matchinganswer = new question_answer(0, '', null, '', FORMAT_HTML);
-        }
+        $rightanswer = $subq->answers[$order[reset($subq->get_correct_response())]];
         $feedbackpopup = $this->feedback_popup($subq, $matchinganswer->fraction,
                 $subq->format_text($matchinganswer->feedback, $matchinganswer->feedbackformat,
                         $qa, 'question', 'answerfeedback', $matchinganswer->id),
                 $subq->format_text($rightanswer->answer, $rightanswer->answerformat,
                         $qa, 'question', 'answer', $rightanswer->id), $options);
 
-        $output = html_writer::start_tag('span', array('class' => 'subquestion'));
-        $output .= html_writer::tag('label', get_string('answer'),
-                array('class' => 'subq accesshide', 'for' => $inputattributes['id']));
+        $output = '';
+        $output .= html_writer::start_tag('label', array('class' => 'subq'));
         $output .= $select;
         $output .= $feedbackimg;
         $output .= $feedbackpopup;
-        $output .= html_writer::end_tag('span');
+        $output .= html_writer::end_tag('label');
 
         return $output;
     }
@@ -372,29 +365,15 @@ class qtype_multianswer_multichoice_vertical_renderer extends qtype_multianswer_
 
         $result .= $this->all_choices_wrapper_end();
 
-        $feedback = array();
         if ($options->feedback && $options->marks >= question_display_options::MARK_AND_MAX &&
                 $subq->maxmark > 0) {
             $a = new stdClass();
             $a->mark = format_float($fraction * $subq->maxmark, $options->markdp);
             $a->max =  format_float($subq->maxmark, $options->markdp);
 
-            $feedback[] = html_writer::tag('div', get_string('markoutofmax', 'question', $a));
+            $result .= html_writer::tag('div', get_string('markoutofmax', 'question', $a),
+                    array('class' => 'outcome'));
         }
-
-        if ($options->rightanswer) {
-            foreach ($subq->answers as $ans) {
-                if (question_state::graded_state_for_fraction($ans->fraction) ==
-                        question_state::$gradedright) {
-                    $feedback[] = get_string('correctansweris', 'qtype_multichoice',
-                            $subq->format_text($ans->answer, $ans->answerformat,
-                                    $qa, 'question', 'answer', $ansid));
-                    break;
-                }
-            }
-        }
-
-        $result .= html_writer::nonempty_tag('div', implode('<br />', $feedback), array('class' => 'outcome'));
 
         return $result;
     }

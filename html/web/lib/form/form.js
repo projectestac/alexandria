@@ -59,11 +59,6 @@ M.form.initShowAdvanced = function(Y, config) {
 };
 
 /**
- * Stores a list of the dependencyManager for each form on the page.
- */
-M.form.dependencyManagers = {};
-
-/**
  * Initialises a manager for a forms dependencies.
  * This should happen once per form.
  */
@@ -133,7 +128,7 @@ M.form.initFormDependencies = function(Y, formid, dependencies) {
                 return this.checkDependencies(null);
             },
             /**
-             * Gets all elements in the form by their name and returns
+             * Gets all elements in the form by thier name and returns
              * a YUI NodeList
              * @return Y.NodeList
              */
@@ -212,14 +207,16 @@ M.form.initFormDependencies = function(Y, formid, dependencies) {
                         this.removeAttribute('disabled');
                     }
 
-                    // Extra code to disable filepicker or filemanager form elements
-                    var fitem = this.ancestor('.fitem');
-                    if (fitem && (fitem.hasClass('fitem_ffilemanager') || fitem.hasClass('fitem_ffilepicker'))) {
-                        if (disabled){
-                            fitem.addClass('disabled');
-                        } else {
-                            fitem.removeClass('disabled');
-                        }
+                    // Extra code to disable a filepicker
+                    if (this.getAttribute('class') == 'filepickerhidden'){
+                        var pickerbuttons = form.elementsByName(name + 'choose');
+                        pickerbuttons.each(function(){
+                            if (disabled){
+                                this.setAttribute('disabled','disabled');
+                            } else {
+                                this.removeAttribute('disabled');
+                            }
+                        });
                     }
                 })
             },
@@ -357,17 +354,5 @@ M.form.initFormDependencies = function(Y, formid, dependencies) {
         return dependencyManager;
     })();
 
-    M.form.dependencyManagers[formid] = new M.form.dependencyManager();
-    return M.form.dependencyManagers[formid];
-};
-
-/**
- * Update the state of a form. You need to call this after, for example, changing
- * the state of some of the form input elements in your own code, in order that
- * things like the disableIf state of elements can be updated.
- */
-M.form.updateFormState = function(formid) {
-    if (formid in M.form.dependencyManagers) {
-        M.form.dependencyManagers[formid].checkDependencies(null);
-    }
+    return new M.form.dependencyManager();
 };

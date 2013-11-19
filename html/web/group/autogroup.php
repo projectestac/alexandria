@@ -1,26 +1,11 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-
 /**
- * Create and allocate users to groups
+ * Create and allocate users go groups
  *
- * @package    core_group
- * @copyright  Matt Clarkson mattc@catalyst.net.nz
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author  Matt Clarkson mattc@catalyst.net.nz
+ * @version 0.0.1
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @package groups
  */
 
 require_once('../config.php');
@@ -41,7 +26,8 @@ if (!$course = $DB->get_record('course', array('id'=>$courseid))) {
 // Make sure that the user has permissions to manage groups.
 require_login($course);
 
-$context       = context_course::instance($courseid);
+$context       = get_context_instance(CONTEXT_COURSE, $courseid);
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/course:managegroups', $context);
 
 $returnurl = $CFG->wwwroot.'/group/index.php?id='.$course->id;
@@ -54,8 +40,13 @@ $strautocreategroups = get_string('autocreategroups', 'group');
 $preview = '';
 $error = '';
 
-/// Get applicable roles - used in menus etc later on
-$rolenames = role_fix_names(get_profile_roles($context), $context, ROLENAME_ALIAS, true);
+/// Get applicable roles
+$rolenames = array();
+if ($roles = get_profile_roles($context)) {
+    foreach ($roles as $role) {
+        $rolenames[$role->id] = strip_tags(role_get_name($role, $context));   // Used in menus etc later on
+    }
+}
 
 /// Create the form
 $editform = new autogroup_form(null, array('roles' => $rolenames));

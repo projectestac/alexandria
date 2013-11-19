@@ -37,33 +37,13 @@ require_once($CFG->libdir . '/formslib.php');
  */
 class quiz_override_form extends moodleform {
 
-    /** @var object course module object. */
-    protected $cm;
+    protected $cm;          // course module object
+    protected $quiz;        // quiz object
+    protected $context;     // context object
+    protected $groupmode;   // editing group override (true) or user override (false)
+    protected $groupid;     // groupid, if provided
+    protected $userid;      // userid, if provided
 
-    /** @var object the quiz settings object. */
-    protected $quiz;
-
-    /** @var context the quiz context. */
-    protected $context;
-
-    /** @var bool editing group override (true) or user override (false). */
-    protected $groupmode;
-
-    /** @var int groupid, if provided. */
-    protected $groupid;
-
-    /** @var int userid, if provided. */
-    protected $userid;
-
-    /**
-     * Constructor.
-     * @param moodle_url $submiturl the form action URL.
-     * @param object course module object.
-     * @param object the quiz settings object.
-     * @param context the quiz context.
-     * @param bool editing group override (true) or user override (false).
-     * @param object $override the override being edited, if it already exists.
-     */
     public function __construct($submiturl, $cm, $quiz, $context, $groupmode, $override) {
 
         $this->cm = $cm;
@@ -86,19 +66,19 @@ class quiz_override_form extends moodleform {
         $mform->addElement('header', 'override', get_string('override', 'quiz'));
 
         if ($this->groupmode) {
-            // Group override.
+            // group override
             if ($this->groupid) {
-                // There is already a groupid, so freeze the selector.
+                // There is already a groupid, so freeze the selector
                 $groupchoices = array();
                 $groupchoices[$this->groupid] = groups_get_group_name($this->groupid);
                 $mform->addElement('select', 'groupid',
                         get_string('overridegroup', 'quiz'), $groupchoices);
                 $mform->freeze('groupid');
             } else {
-                // Prepare the list of groups.
+                // Prepare the list of groups
                 $groups = groups_get_all_groups($cm->course);
                 if (empty($groups)) {
-                    // Generate an error.
+                    // generate an error
                     $link = new moodle_url('/mod/quiz/overrides.php', array('cmid'=>$cm->id));
                     print_error('groupsnone', 'quiz', $link);
                 }
@@ -118,9 +98,9 @@ class quiz_override_form extends moodleform {
                 $mform->addRule('groupid', get_string('required'), 'required', null, 'client');
             }
         } else {
-            // User override.
+            //user override
             if ($this->userid) {
-                // There is already a userid, so freeze the selector.
+                // There is already a userid, so freeze the selector
                 $user = $DB->get_record('user', array('id'=>$this->userid));
                 $userchoices = array();
                 $userchoices[$this->userid] = fullname($user);
@@ -128,30 +108,24 @@ class quiz_override_form extends moodleform {
                         get_string('overrideuser', 'quiz'), $userchoices);
                 $mform->freeze('userid');
             } else {
-                // Prepare the list of users.
+                // Prepare the list of users
                 $users = array();
-                list($sort, $sortparams) = users_order_by_sql('u');
-                if (!empty($sortparams)) {
-                    throw new coding_exception('users_order_by_sql returned some query parameters. ' .
-                            'This is unexpected, and a problem because there is no way to pass these ' .
-                            'parameters to get_users_by_capability. See MDL-34657.');
-                }
                 if (!empty($CFG->enablegroupmembersonly) && $cm->groupmembersonly) {
-                    // Only users from the grouping.
+                    // only users from the grouping
                     $groups = groups_get_all_groups($cm->course, 0, $cm->groupingid);
                     if (!empty($groups)) {
                         $users = get_users_by_capability($this->context, 'mod/quiz:attempt',
                                 'u.id, u.firstname, u.lastname, u.email',
-                                $sort, '', '', array_keys($groups),
+                                'firstname ASC, lastname ASC', '', '', array_keys($groups),
                                 '', false, true);
                     }
                 } else {
                     $users = get_users_by_capability($this->context, 'mod/quiz:attempt',
                             'u.id, u.firstname, u.lastname, u.email' ,
-                            $sort, '', '', '', '', false, true);
+                            'firstname ASC, lastname ASC', '', '', '', '', false, true);
                 }
                 if (empty($users)) {
-                    // Generate an error.
+                    // generate an error
                     $link = new moodle_url('/mod/quiz/overrides.php', array('cmid'=>$cm->id));
                     print_error('usersnone', 'quiz', $link);
                 }
@@ -174,9 +148,9 @@ class quiz_override_form extends moodleform {
             }
         }
 
-        // Password.
+        // Password
         // This field has to be above the date and timelimit fields,
-        // otherwise browsers will clear it when those fields are changed.
+        // otherwise browsers will clear it when those fields are changed
         $mform->addElement('passwordunmask', 'password', get_string('requirepassword', 'quiz'));
         $mform->setType('password', PARAM_TEXT);
         $mform->addHelpButton('password', 'requirepassword', 'quiz');
@@ -206,7 +180,7 @@ class quiz_override_form extends moodleform {
                 get_string('attemptsallowed', 'quiz'), $attemptoptions);
         $mform->setDefault('attempts', $this->quiz->attempts);
 
-        // Submit buttons.
+        // Submit buttons
         $mform->addElement('submit', 'resetbutton',
                 get_string('reverttodefaults', 'quiz'));
 
@@ -222,6 +196,7 @@ class quiz_override_form extends moodleform {
 
     }
 
+    // form verification
     public function validation($data, $files) {
         global $COURSE, $DB;
         $errors = parent::validation($data, $files);
@@ -241,14 +216,14 @@ class quiz_override_form extends moodleform {
             }
         }
 
-        // Ensure that the dates make sense.
+        // Ensure that the dates make sense
         if (!empty($data['timeopen']) && !empty($data['timeclose'])) {
             if ($data['timeclose'] < $data['timeopen'] ) {
                 $errors['timeclose'] = get_string('closebeforeopen', 'quiz');
             }
         }
 
-        // Ensure that at least one quiz setting was changed.
+        // Ensure that at least one quiz setting was changed
         $changed = false;
         $keys = array('timeopen', 'timeclose', 'timelimit', 'attempts', 'password');
         foreach ($keys as $key) {

@@ -34,14 +34,14 @@
             'id' => $courseid));
 
     if ($contextid) {
-        $context = context::instance_by_id($contextid, MUST_EXIST);
+        $context = get_context_instance_by_id($contextid, MUST_EXIST);
         if ($context->contextlevel != CONTEXT_COURSE) {
             print_error('invalidcontext');
         }
         $course = $DB->get_record('course', array('id'=>$context->instanceid), '*', MUST_EXIST);
     } else {
         $course = $DB->get_record('course', array('id'=>$courseid), '*', MUST_EXIST);
-        $context = context_course::instance($course->id, MUST_EXIST);
+        $context = get_context_instance(CONTEXT_COURSE, $course->id, MUST_EXIST);
     }
     // not needed anymore
     unset($contextid);
@@ -49,10 +49,10 @@
 
     require_login($course);
 
-    $systemcontext = context_system::instance();
+    $systemcontext = get_context_instance(CONTEXT_SYSTEM);
     $isfrontpage = ($course->id == SITEID);
 
-    $frontpagectx = context_course::instance(SITEID);
+    $frontpagectx = get_context_instance(CONTEXT_COURSE, SITEID);
 
     if ($isfrontpage) {
         $PAGE->set_pagelayout('admin');
@@ -64,11 +64,20 @@
 
     $rolenamesurl = new moodle_url("$CFG->wwwroot/user/index.php?contextid=$context->id&sifirst=&silast=");
 
-    $rolenames = role_fix_names(get_profile_roles($context), $context, ROLENAME_ALIAS, true);
+    $allroles = get_all_roles();
+    $roles = get_profile_roles($context);
+    $allrolenames = array();
     if ($isfrontpage) {
-        $rolenames[0] = get_string('allsiteusers', 'role');
+        $rolenames = array(0=>get_string('allsiteusers', 'role'));
     } else {
-        $rolenames[0] = get_string('allparticipants');
+        $rolenames = array(0=>get_string('allparticipants'));
+    }
+
+    foreach ($allroles as $role) {
+        $allrolenames[$role->id] = strip_tags(role_get_name($role, $context));   // Used in menus etc later on
+        if (isset($roles[$role->id])) {
+            $rolenames[$role->id] = $allrolenames[$role->id];
+        }
     }
 
     // make sure other roles may not be selected by any means
@@ -190,7 +199,7 @@
         $courselist = array();
         $popupurl = new moodle_url('/user/index.php?roleid='.$roleid.'&sifirst=&silast=');
         foreach ($mycourses as $mycourse) {
-            $coursecontext = context_course::instance($mycourse->id);
+            $coursecontext = get_context_instance(CONTEXT_COURSE, $mycourse->id);
             $courselist[$mycourse->id] = format_string($mycourse->shortname, true, array('context' => $coursecontext));
         }
         if (has_capability('moodle/site:viewparticipants', $systemcontext)) {
@@ -488,15 +497,14 @@
         $heading .= ": $a->number";
 
         if (user_can_assign($context, $roleid)) {
-            $headingurl = new moodle_url($CFG->wwwroot . '/' . $CFG->admin . '/roles/assign.php',
-                    array('roleid' => $roleid, 'contextid' => $context->id));
-            $heading .= $OUTPUT->action_icon($headingurl, new pix_icon('t/edit', get_string('edit')));
+            $heading .= ' <a href="'.$CFG->wwwroot.'/'.$CFG->admin.'/roles/assign.php?roleid='.$roleid.'&amp;contextid='.$context->id.'">';
+            $heading .= '<img src="'.$OUTPUT->pix_url('i/edit') . '" class="icon" alt="" /></a>';
         }
         echo $OUTPUT->heading($heading, 3);
     } else {
         if ($course->id != SITEID && has_capability('moodle/course:enrolreview', $context)) {
             $editlink = $OUTPUT->action_icon(new moodle_url('/enrol/users.php', array('id' => $course->id)),
-                                             new pix_icon('t/edit', get_string('edit')));
+                                             new pix_icon('i/edit', get_string('edit')));
         } else {
             $editlink = '';
         }
@@ -517,7 +525,7 @@
         echo '<form action="action_redir.php" method="post" id="participantsform">';
         echo '<div>';
         echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />';
-        echo '<input type="hidden" name="returnto" value="'.s($PAGE->url->out(false)).'" />';
+        echo '<input type="hidden" name="returnto" value="'.s(me()).'" />';
     }
 
     if ($mode === MODE_USERDETAILS) {    // Print simple listing
@@ -580,8 +588,8 @@
 
                     context_instance_preload($user);
 
-                    $context = context_course::instance($course->id);
-                    $usercontext = context_user::instance($user->id);
+                    $context = get_context_instance(CONTEXT_COURSE, $course->id);
+                    $usercontext = get_context_instance(CONTEXT_USER, $user->id);
 
                     $countries = get_string_manager()->get_list_of_countries();
 
@@ -610,7 +618,7 @@
                     }
                     if ($user->maildisplay == 1 or ($user->maildisplay == 2 and ($course->id != SITEID) and !isguestuser()) or
                                 has_capability('moodle/course:viewhiddenuserfields', $context) or
-                                in_array('email', $extrafields) or ($user->id == $USER->id)) {
+                                in_array('email', $extrafields)) {
                         $row->cells[1]->text .= get_string('email').get_string('labelsep', 'langconfig').html_writer::link("mailto:$user->email", $user->email) . '<br />';
                     }
                     foreach ($extrafields as $field) {
@@ -674,8 +682,8 @@
 
                     $row->cells[2]->text .= implode('', $links);
 
-                    if ($bulkoperations) {
-                        $row->cells[2]->text .= '<br /><input type="checkbox" class="usercheckbox" name="user'.$user->id.'" /> ';
+                    if (!empty($messageselect)) {
+                        $row->cells[2]->text .= '<br /><input type="checkbox" name="user'.$user->id.'" /> ';
                     }
                     $table->data = array($row);
                     echo html_writer::table($table);
@@ -720,7 +728,7 @@
                     }
                 }
 
-                $usercontext = context_user::instance($user->id);
+                $usercontext = get_context_instance(CONTEXT_USER, $user->id);
 
                 if ($piclink = ($USER->id == $user->id || has_capability('moodle/user:viewdetails', $context) || has_capability('moodle/user:viewdetails', $usercontext))) {
                     $profilelink = '<strong><a href="'.$CFG->wwwroot.'/user/view.php?id='.$user->id.'&amp;course='.$course->id.'">'.fullname($user).'</a></strong>';
@@ -804,9 +812,8 @@
     }
 
     if (has_capability('moodle/site:viewparticipants', $context) && $totalcount > ($perpage*3)) {
-        echo '<form action="index.php" class="searchform"><div><input type="hidden" name="id" value="'.$course->id.'" />';
-        echo '<label for="search">' . get_string('search', 'search') . ' </label>';
-        echo '<input type="text" id="search" name="search" value="'.s($search).'" />&nbsp;<input type="submit" value="'.get_string('search').'" /></div></form>'."\n";
+        echo '<form action="index.php" class="searchform"><div><input type="hidden" name="id" value="'.$course->id.'" />'.get_string('search').':&nbsp;'."\n";
+        echo '<input type="text" name="search" value="'.s($search).'" />&nbsp;<input type="submit" value="'.get_string('search').'" /></div></form>'."\n";
     }
 
     $perpageurl = clone($baseurl);

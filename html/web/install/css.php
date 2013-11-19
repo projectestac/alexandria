@@ -96,7 +96,7 @@ h2 {
 .formrow label.formlabel {
   display:block;
   float:left;
-  width: 160px;
+  width: 260px;
   margin-right:5px;
   text-align:right;
 }

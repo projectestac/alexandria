@@ -1,11 +1,5 @@
 This files describes API changes for question behaviour plugins.
 
-=== 2.3 ===
-
-* This plugin type now supports cron in the standard way. If required, Create a
-  lib.php file containing
-function qbehaviour_mypluginname_cron() {};
-
 === 2.2 ===
 
 1) The old

@@ -23,7 +23,7 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['keyword'] = 'Search for';
+$string['keyword'] = 'Full text';
 $string['pluginname'] = 'Wikimedia';
 $string['wikimedia:view'] = 'View wikimedia repository';
 $string['configplugin'] = 'Wikimedia repository type configuration';

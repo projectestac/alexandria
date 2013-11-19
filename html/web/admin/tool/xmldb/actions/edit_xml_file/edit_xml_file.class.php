@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,7 +27,8 @@
  * Main page to start editing one XML file. From here it's possible to access
  * to tables edition plus PHP code generation and other utilities
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -88,7 +90,7 @@ class edit_xml_file extends XMLDBAction {
 
         // Get the correct dir
         if (!empty($XMLDB->dbdirs)) {
-            $dbdir = $XMLDB->dbdirs[$dirpath];
+            $dbdir =& $XMLDB->dbdirs[$dirpath];
             if ($dbdir) {
                 // Only if the directory exists and it has been loaded
                 if (!$dbdir->path_exists || !$dbdir->xml_loaded) {
@@ -103,8 +105,8 @@ class edit_xml_file extends XMLDBAction {
                     $XMLDB->editeddirs[$dirpath] = unserialize(serialize($dbdir));
                 }
                 // Get it
-                $editeddir = $XMLDB->editeddirs[$dirpath];
-                $structure = $editeddir->xml_file->getStructure();
+                $editeddir =& $XMLDB->editeddirs[$dirpath];
+                $structure =& $editeddir->xml_file->getStructure();
 
                 // Add the main form
                 $o = '<form id="form" action="index.php" method="post">';

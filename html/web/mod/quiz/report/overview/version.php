@@ -17,13 +17,14 @@
 /**
  * Quiz overview report version information.
  *
- * @package   quiz_overview
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    quiz
+ * @subpackage overview
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2012112900;
-$plugin->requires = 2012112900;
+$plugin->version  = 2011051200;
+$plugin->requires = 2011060313;
 $plugin->component = 'quiz_overview';

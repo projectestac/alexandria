@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,29 +15,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * AMF web service entry point. The authentication is done via username/password.
+ * AMF web service entry point. The authentication is done via tokens.
  *
- * @package    webservice_amf
- * @copyright  2009 Petr Skodak
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   webservice
+ * @copyright 2009 Moodle Pty Ltd (http://moodle.com)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-/**
- * NO_DEBUG_DISPLAY - disable moodle specific debug messages and any errors in output
- */
+// disable moodle specific debug messages and any errors in output
 define('NO_DEBUG_DISPLAY', true);
-
-/**
- * NO_MOODLE_COOKIES - no cookies with web service
- */
 define('NO_MOODLE_COOKIES', true);
 
 require('../../config.php');
 require_once("$CFG->dirroot/webservice/amf/locallib.php");
 
-//disable all 'displayed error' mess in xml
+//ob_start();
+
+//TODO: for now disable all mess in xml
 ini_set('display_errors', '0');
 ini_set('log_errors', '1');
 $CFG->debugdisplay = false;

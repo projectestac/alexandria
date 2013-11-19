@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * The gradebook grader report
- *
- * @package   gradereport_grader
- * @copyright 2007 Moodle Pty Ltd (http://moodle.com)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once '../../../config.php';
 require_once $CFG->libdir.'/gradelib.php';
 require_once $CFG->dirroot.'/grade/lib.php';
@@ -29,6 +22,7 @@ require_once $CFG->dirroot.'/grade/report/grader/lib.php';
 
 $courseid      = required_param('id', PARAM_INT);        // course id
 $page          = optional_param('page', 0, PARAM_INT);   // active page
+$perpageurl    = optional_param('perpage', 0, PARAM_INT);
 $edit          = optional_param('edit', -1, PARAM_BOOL); // sticky editting mode
 
 $sortitemid    = optional_param('sortitemid', 0, PARAM_ALPHANUM); // sort by which grade item
@@ -46,7 +40,7 @@ if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('nocourseid');
 }
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 require_capability('gradereport/grader:view', $context);
 require_capability('moodle/grade:viewall', $context);
@@ -107,7 +101,7 @@ grade_regrade_final_grades($courseid);
 
 // Perform actions
 if (!empty($target) && !empty($action) && confirm_sesskey()) {
-    grade_report_grader::do_process_action($target, $action);
+    grade_report_grader::process_action($target, $action);
 }
 
 $reportname = get_string('pluginname', 'gradereport_grader');
@@ -133,6 +127,12 @@ if ($data = data_submitted() and confirm_sesskey() and has_capability('moodle/gr
     $warnings = array();
 }
 
+
+// Override perpage if set in URL
+if ($perpageurl) {
+    $report->user_prefs['studentsperpage'] = $perpageurl;
+}
+
 // final grades MUST be loaded after the processing
 $report->load_users();
 $numusers = $report->get_numusers();
@@ -140,13 +140,14 @@ $report->load_final_grades();
 
 echo $report->group_selector;
 echo '<div class="clearer"></div>';
+// echo $report->get_toggles_html();
 
 //show warnings if any
 foreach($warnings as $warning) {
     echo $OUTPUT->notification($warning);
 }
 
-$studentsperpage = $report->get_students_per_page();
+$studentsperpage = $report->get_pref('studentsperpage');
 // Don't use paging if studentsperpage is empty or 0 at course AND site levels
 if (!empty($studentsperpage)) {
     echo $OUTPUT->paging_bar($numusers, $report->page, $studentsperpage, $report->pbarurl);
@@ -161,9 +162,8 @@ if ($USER->gradeediting[$course->id] && ($report->get_pref('showquickfeedback') 
     echo '<input type="hidden" value="'.s($courseid).'" name="id" />';
     echo '<input type="hidden" value="'.sesskey().'" name="sesskey" />';
     echo '<input type="hidden" value="grader" name="report"/>';
-    echo '<input type="hidden" value="'.$page.'" name="page"/>';
     echo $reporthtml;
-    echo '<div class="submit"><input type="submit" id="gradersubmit" value="'.s(get_string('update')).'" /></div>';
+    echo '<div class="submit"><input type="submit" value="'.s(get_string('update')).'" /></div>';
     echo '</div></form>';
 } else {
     echo $reporthtml;

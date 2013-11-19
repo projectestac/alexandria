@@ -40,7 +40,9 @@ $THEME->name = 'canvas';
 // the directory in which this file resides.
 ////////////////////////////////////////////////////
 
-$THEME->parents = array('base');
+$THEME->parents = array(
+    'base',
+);
 
 /////////////////////////////////////////////////////
 // Which existing theme(s) in the /theme/ directory
@@ -71,7 +73,12 @@ $THEME->sheets = array(
 // this theme's /styles/ directory.
 ////////////////////////////////////////////////////
 
-$THEME->parents_exclude_sheets = array();
+$THEME->parents_exclude_sheets = array(
+    'base'=>array(
+        'navigation',
+        'browser',
+    ),
+);
 
 ////////////////////////////////////////////////////
 // An array of stylesheets not to inherit from the
@@ -82,32 +89,32 @@ $THEME->layouts = array(
     'base' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     'standard' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     'course' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre'
+        'defaultregion' => 'side-post'
     ),
     'coursecategory' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     'incourse' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     'frontpage' => array(
         'file' => 'frontpage.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     'admin' => array(
         'file' => 'general.php',
@@ -117,13 +124,13 @@ $THEME->layouts = array(
     'mydashboard' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu'=>true),
     ),
     'mypublic' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
     ),
     'login' => array(
         'file' => 'general.php',
@@ -133,47 +140,40 @@ $THEME->layouts = array(
     'popup' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'noblocks'=>true, 'nonavbar'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'noblocks'=>true, 'nonavbar'=>true),
     ),
     'frametop' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nocoursefooter'=>true),
+        'options' => array('nofooter'=>true),
     ),
     'maintenance' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true),
     ),
     'embedded' => array(
         'file' => 'embedded.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true),
     ),
     // Should display the content and basic headers only.
     'print' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>false, 'noblocks'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>false, 'noblocks'=>true),
     ),
     // The pagelayout used when a redirection is occuring.
     'redirect' => array(
         'file' => 'embedded.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true),
     ),
     'report' => array(
         'file' => 'report.php',
         'regions' => array('side-pre'),
         'defaultregion' => 'side-pre',
-    ),
-    // The pagelayout used for safebrowser and securewindow.
-    'secure' => array(
-        'file' => 'general.php',
-        'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'nocustommenu'=>true, 'nologinlinks'=>true, 'nocourseheaderfooter'=>true),
-    ),
+    )
 );
 
 /////////////////////////////////////////////////////////
@@ -194,13 +194,16 @@ $THEME->hidefromselector = true;
 // switched on.
 /////////////////////////////////////////////////////
 
-$THEME->enable_dock = true;
+
+
+// $THEME->enable_dock = false;
 
 ////////////////////////////////////////////////////
 // Do you want to use the new navigation dock?
 ////////////////////////////////////////////////////
 
-$THEME->editor_sheets = array('editor');
+
+// $THEME->editor_sheets
 
 ////////////////////////////////////////////////////
 // An array of stylesheets to include within the
@@ -262,3 +265,5 @@ $THEME->editor_sheets = array('editor');
 // Sets a custom render factory to use with the
 // theme, used when working with custom renderers.
 ////////////////////////////////////////////////////
+
+$THEME->editor_sheets = array('editor');

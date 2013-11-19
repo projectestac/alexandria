@@ -289,7 +289,7 @@ class restore_ui extends base_ui {
      * @param core_backup_renderer $renderer
      * @return string HTML code to echo
      */
-    public function display(core_backup_renderer $renderer) {
+    public function display($renderer) {
         if ($this->progress < self::PROGRESS_SAVED) {
             throw new base_ui_exception('backupsavebeforedisplay');
         }

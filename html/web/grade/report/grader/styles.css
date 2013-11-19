@@ -11,14 +11,6 @@ width:20px;
 height:20px;
 }
 
-.gradestable th img {
-    vertical-align: text-bottom;
-    padding-bottom: 0;
-}
-.gradestable th .grade_icons { margin-top: .3em; }
-.gradestable th img.sorticon { margin-left: .3em; }
-.dir-rtl .gradestable th img.sorticon { margin-left: 0; margin-right: .3em; }
-
 table#user-grades .catlevel2 {
 background-color:#f9f9f9;
 }
@@ -141,8 +133,9 @@ border-width:0 0 1px 1px;
 }
 
 table#user-grades th.categoryitem,
+table#user-grades th.courseitem,
 table#user-grades td.topleft {
-vertical-align: bottom;
+vertical-align:top;
 border-style:solid;
 border-width:0 1px;
 }
@@ -167,10 +160,10 @@ border-width:0 1px 0 0;
 }
 
 table#user-grades th.item ,
-table#user-grades th.categoryitem,
+table#user-grades th.categoryitem ,
 table#user-grades th.courseitem {
 border-bottom-color:#000;
-vertical-align:bottom;
+vertical-align:top;
 border-style:solid;
 border-width:1px;
 }
@@ -192,10 +185,8 @@ margin-right:10px;
 }
 
 table#user-grades .quickfeedback {
-border:1px dashed #000;
-margin-left: 10px;
+border:#000 1px dashed;
 }
-.dir-rtl table#user-grades .quickfeedback { margin-left: 0; margin-right: 10px;}
 
 .path-grade-report-grader #siteconfiglink {
 text-align:right;
@@ -223,7 +214,7 @@ border-color:#cecece;
 }
 
 .path-grade-report-grader th {
-padding:1px 10px;
+padding:2px 10px 0;
 }
 
 .path-grade-report-grader span.inclusion-links {
@@ -264,21 +255,21 @@ padding:0;
 table#user-grades th.categoryitem,
 table#user-grades th.courseitem,
 .path-grade-report-grader table td.topleft {
-vertical-align:bottom;
+vertical-align:top;
 border-color:#cecece #cecece #000;
 border-style:solid;
 border-width:0 1px 1px;
 }
 
 .path-grade-report-grader table td.topleft {
-border-bottom:0;
+border-bottom:none;
 }
 
 table#user-grades td.topleft {
 background-color:#fff;
 }
 
-.path-grade-report-grader th.user img.userpicture {
+.path-grade-report-grader th.user img {
 border:3px double #cecece;
 vertical-align:top;
 width:2.7em;
@@ -325,6 +316,8 @@ padding:0;
 
 .path-grade-report-grader td input.text {
 border:1px solid #666;
+margin-left:10px;
+margin-right:10px;
 }
 
 .path-grade-report-grader td input.submit {
@@ -332,12 +325,12 @@ margin: 10px 10px 0px 10px;
 }
 
 .path-grade-report-grader table#quick_edit td.fullname {
-border-left:0;
+border-left:none;
 padding-left:5px;
 }
 
 .path-grade-report-grader table#quick_edit td.picture {
-border-right:0;
+border-right:none;
 }
 
 .path-grade-report-grader table#quick_edit td.finalgrade input {
@@ -384,8 +377,6 @@ float:left;
 clear:none;
 padding-top:20px;
 }
-.path-grade-report-grader.dir-rtl .left_scroller {float:right;}
-
 
 .path-grade-report-grader .right_scroller {
 width:auto;
@@ -471,6 +462,8 @@ width:2000px;
 .path-grade-report-grader .grade_icons img.ajax {
 float:right;
 }
+
+.path-grade-report-grader .action-icon {margin-left:0.3em;}
 
 .path-grade-report-grader .gradestable th.user,
 .path-grade-report-grader .gradestable th.range,
@@ -580,13 +573,10 @@ background-color:#f3ead8;
 }
 
 .path-grade-report-grader table th.usersuspended img.usersuspendedicon {
-    vertical-align: text-bottom;
-    margin-left: .45em;
+    vertical-align:middle;
 }
 
-.path-grade-report-grader .grade_icons { margin-bottom: .3em;}
-
-.path-grade-report-grader .yui3-overlay {
+.path-grade-report-grader .yui-overlay {
     background-color: #FFEE69;
     border-color: #D4C237 #A6982B #A6982B;
     border-style: solid;
@@ -596,15 +586,15 @@ background-color:#f3ead8;
     font-size: 0.7em;
 }
 
-.path-grade-report-grader .yui3-overlay .fullname {
+.path-grade-report-grader .yui-overlay .fullname {
     color: #5F3E00;
     font-weight: bold;
 }
-.path-grade-report-grader .yui3-overlay .itemname {
+.path-grade-report-grader .yui-overlay .itemname {
     color: #194F3E;
     font-weight: bold;
 }
-.path-grade-report-grader .yui3-overlay .feedback {
+.path-grade-report-grader .yui-overlay .feedback {
     color: #5F595E;
 }
 /* table#user-grades td */
@@ -613,7 +603,7 @@ background-color:#f3ead8;
   text-align: left;
 }
 
-.path-grade-report-grader .yui3-overlay a.container-close {
+.path-grade-report-grader .yui-overlay a.container-close {
   margin-top: -3px;
 }
 

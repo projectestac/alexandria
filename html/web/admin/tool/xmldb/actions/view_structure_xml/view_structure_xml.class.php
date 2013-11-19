@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will display the XML for one structure
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -71,11 +73,11 @@ class view_structure_xml extends XMLDBAction {
         // Get the correct dir
         if ($select == 'original') {
             if (!empty($XMLDB->dbdirs)) {
-                $base = $XMLDB->dbdirs[$dirpath];
+                $base =& $XMLDB->dbdirs[$dirpath];
             }
         } else if ($select == 'edited') {
             if (!empty($XMLDB->editeddirs)) {
-                $base = $XMLDB->editeddirs[$dirpath];
+                $base =& $XMLDB->editeddirs[$dirpath];
             }
         } else {
             $this->errormsg = 'Cannot access to ' . $select . ' info';
@@ -94,7 +96,7 @@ class view_structure_xml extends XMLDBAction {
 
         // Get the structure
         if ($result) {
-            if (!$structure = $base->xml_file->getStructure()) {
+            if (!$structure =& $base->xml_file->getStructure()) {
                 $this->errormsg = 'Error retrieving ' . $select . ' structure';
                 $result = false;
             }

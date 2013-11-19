@@ -33,7 +33,6 @@
     text-align: left;
     border-right: 1px solid #ddd;
 }
-.path-mod-forum.dir-rtl .forumheaderlist th {text-align: right;}
 
 .forumnodiscuss,
 .path-mod-forum .forumheaderlist .replies {
@@ -63,7 +62,7 @@
     text-align:right;
 }
 
-/* Folder
+/* Database
 ------------------------*/
 
 .path-mod-folder #pageintro {
@@ -73,13 +72,9 @@
 }
 
 .path-mod-folder .foldertree {
-    width: 90%;
+    width: 60%;
     margin: 1.5em auto;
     padding: 10px;
-}
-
-#page-mod-folder-edit .foldertree {
-    width: 100%;
 }
 
 /* Assignment
@@ -459,6 +454,9 @@
     margin-top: 1em;
 }
 
+#page-mod-folder-edit .foldertree {
+    width: 65%;
+}
 
 /* Quiz
 --------------------------------*/

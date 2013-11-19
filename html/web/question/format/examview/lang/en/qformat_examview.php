@@ -17,7 +17,8 @@
 /**
  * Strings for component 'qformat_examview', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package    qformat_examview
+ * @package    qformat
+ * @subpackage examview
  * @copyright  2010 Helen Foster
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

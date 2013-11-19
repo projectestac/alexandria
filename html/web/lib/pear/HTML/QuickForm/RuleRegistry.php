@@ -18,7 +18,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: RuleRegistry.php,v 1.3 2010/12/14 17:35:24 moodlerobot Exp $
 
 /**
 * Registers rule objects and uses them for validation
@@ -44,7 +44,7 @@ class HTML_QuickForm_RuleRegistry
      * @static
      * @return    object    Reference to the HTML_QuickForm_RuleRegistry singleton
      */
-    static function &singleton()
+    function &singleton()
     {
         static $obj;
         if (!isset($obj)) {

@@ -38,31 +38,28 @@ $lesson = new lesson($DB->get_record('lesson', array('id' => $cm->instance), '*'
 
 require_login($course, false, $cm);
 
-$context = context_module::instance($cm->id);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 require_capability('mod/lesson:manage', $context);
 
 $ufields = user_picture::fields('u'); // These fields are enough
 $params = array("lessonid" => $lesson->id);
-list($sort, $sortparams) = users_order_by_sql('u');
-$params = array_merge($params, $sortparams);
 // TODO: Improve this. Fetching all students always is crazy!
 if (!empty($cm->groupingid)) {
-    $params["groupingid"] = $cm->groupingid;
+    $params["groupid"] = $cm->groupingid;
     $sql = "SELECT DISTINCT $ufields
                 FROM {lesson_attempts} a
                     INNER JOIN {user} u ON u.id = a.userid
                     INNER JOIN {groups_members} gm ON gm.userid = u.id
-                    INNER JOIN {groupings_groups} gg ON gm.groupid = gg.groupid
-                WHERE a.lessonid = :lessonid AND
-                      gg.groupingid = :groupingid
-                ORDER BY $sort";
+                    INNER JOIN {groupings_groups} gg ON gm.groupid = :groupid
+                WHERE a.lessonid = :lessonid
+                ORDER BY u.lastname";
 } else {
     $sql = "SELECT DISTINCT $ufields
             FROM {user} u,
                  {lesson_attempts} a
             WHERE a.lessonid = :lessonid and
                   u.id = a.userid
-            ORDER BY $sort";
+            ORDER BY u.lastname";
 }
 
 if (! $students = $DB->get_records_sql($sql, $params)) {
@@ -97,7 +94,7 @@ if (! $times = $DB->get_records('lesson_timer', array('lessonid' => $lesson->id)
 }
 
 if ($nothingtodisplay) {
-    echo $lessonoutput->header($lesson, $cm, $action, false, null, get_string('nolessonattempts', 'lesson'));
+    echo $lessonoutput->header($lesson, $cm, $action);
     echo $OUTPUT->notification(get_string('nolessonattempts', 'lesson'));
     echo $OUTPUT->footer();
     exit();
@@ -163,9 +160,9 @@ if ($action === 'delete') {
     /**************************************************************************
     this action is for default view and overview view
     **************************************************************************/
-    echo $lessonoutput->header($lesson, $cm, $action, false, null, get_string('overview', 'lesson'));
+    echo $lessonoutput->header($lesson, $cm, $action);
 
-    $course_context = context_course::instance($course->id);
+    $course_context = get_context_instance(CONTEXT_COURSE, $course->id);
     if (has_capability('gradereport/grader:view', $course_context) && has_capability('moodle/grade:viewall', $course_context)) {
         $seeallgradeslink = new moodle_url('/grade/report/grader/index.php', array('id'=>$course->id));
         $seeallgradeslink = html_writer::link($seeallgradeslink, get_string('seeallcoursegrades', 'grades'));
@@ -287,10 +284,10 @@ if ($action === 'delete') {
                     $numofattempts++;
                     $avescore += $try["grade"];
                     $avetime += $timetotake;
-                    if ($try["grade"] > $highscore || $highscore === NULL) {
+                    if ($try["grade"] > $highscore || $highscore == NULL) {
                         $highscore = $try["grade"];
                     }
-                    if ($try["grade"] < $lowscore || $lowscore === NULL) {
+                    if ($try["grade"] < $lowscore || $lowscore == NULL) {
                         $lowscore = $try["grade"];
                     }
                     if ($timetotake > $hightime || $hightime == NULL) {
@@ -317,12 +314,8 @@ if ($action === 'delete') {
     if (has_capability('mod/lesson:edit', $context)) {
         $checklinks  = '<a href="javascript: checkall();">'.get_string('selectall').'</a> / ';
         $checklinks .= '<a href="javascript: checknone();">'.get_string('deselectall').'</a>';
-        $checklinks .= html_writer::label('action', 'menuaction', false, array('class' => 'accesshide'));
-        $checklinks .= html_writer::select(array('delete' => get_string('deleteselected')), 'action', 0, array(''=>'choosedots'), array('id'=>'actionid', 'class' => 'autosubmit'));
-        $PAGE->requires->yui_module('moodle-core-formautosubmit',
-            'M.core.init_formautosubmit',
-            array(array('selectid' => 'actionid', 'nothing' => false))
-        );
+        $checklinks .= html_writer::select(array('delete' => get_string('deleteselected')), 'action', 0, array(''=>'choosedots'), array('id'=>'actionid'));
+        $PAGE->requires->js_init_call('M.util.init_select_autosubmit', array('theform', 'actionid', ''));
         echo $OUTPUT->box($checklinks, 'center');
         echo '</form>';
     }
@@ -349,10 +342,10 @@ if ($action === 'delete') {
     } else {
         $lowtime = format_time($lowtime);
     }
-    if ($highscore === NULL) {
+    if ($highscore == NULL) {
         $highscore = get_string("notcompleted", "lesson");
     }
-    if ($lowscore === NULL) {
+    if ($lowscore == NULL) {
         $lowscore = get_string("notcompleted", "lesson");
     }
 
@@ -365,14 +358,7 @@ if ($action === 'delete') {
     $stattable->align = array('center', 'center', 'center', 'center', 'center', 'center');
     $stattable->wrap = array('nowrap', 'nowrap', 'nowrap', 'nowrap', 'nowrap', 'nowrap');
     $stattable->attributes['class'] = 'standardtable generaltable';
-
-    if (is_numeric($highscore)) {
-        $highscore .= '%';
-    }
-    if (is_numeric($lowscore)) {
-        $lowscore .= '%';
-    }
-    $stattable->data[] = array($avescore.'%', $avetime, $highscore, $lowscore, $hightime, $lowtime);
+    $stattable->data[] = array($avescore.'%', $avetime, $highscore.'%', $lowscore.'%', $hightime, $lowtime);
 
     echo html_writer::table($stattable);
 } else if ($action === 'reportdetail') {
@@ -389,9 +375,9 @@ if ($action === 'delete') {
     4.  Print out the object which contains all the try info
 
 **************************************************************************/
-    echo $lessonoutput->header($lesson, $cm, $action, false, null, get_string('detailedstats', 'lesson'));
+    echo $lessonoutput->header($lesson, $cm, $action);
 
-    $course_context = context_course::instance($course->id);
+    $course_context = get_context_instance(CONTEXT_COURSE, $course->id);
     if (has_capability('gradereport/grader:view', $course_context) && has_capability('moodle/grade:viewall', $course_context)) {
         $seeallgradeslink = new moodle_url('/grade/report/grader/index.php', array('id'=>$course->id));
         $seeallgradeslink = html_writer::link($seeallgradeslink, get_string('seeallcoursegrades', 'grades'));
@@ -453,7 +439,7 @@ if ($action === 'delete') {
         $page = $lessonpages[$pageid];
         $answerpage = new stdClass;
         $data ='';
-
+        
         $answerdata = new stdClass;
         // Set some defaults for the answer data.
         $answerdata->score = NULL;
@@ -474,7 +460,7 @@ if ($action === 'delete') {
         if (empty($userid)) {
             // there is no userid, so set these vars and display stats.
             $answerpage->grayout = 0;
-            $useranswer = NULL;
+            $useranswer = NULL;    
         } elseif ($useranswers = $DB->get_records("lesson_attempts",array("lessonid"=>$lesson->id, "userid"=>$userid, "retry"=>$try,"pageid"=>$page->id), "timeseen")) {
             // get the user's answer for this page
             // need to find the right one

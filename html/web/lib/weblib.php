@@ -187,6 +187,7 @@ function get_referer($stripquery=true) {
  * server, and the way PHP is compiled (ie. as a CGI, module, ISAPI, etc.)
  * <b>NOTE:</b> This function returns false if the global variables needed are not set.
  *
+ * @global string
  * @return mixed String, or false if the global variables needed are not set
  */
 function me() {
@@ -195,32 +196,22 @@ function me() {
 }
 
 /**
- * Guesses the full URL of the current script.
+ * Returns the name of the current script, WITH the full URL.
  *
- * This function is using $PAGE->url, but may fall back to $FULLME which
- * is constructed from  PHP_SELF and REQUEST_URI or SCRIPT_NAME
+ * This function is necessary because PHP_SELF and REQUEST_URI and SCRIPT_NAME
+ * return different things depending on a lot of things like your OS, Web
+ * server, and the way PHP is compiled (ie. as a CGI, module, ISAPI, etc.
+ * <b>NOTE:</b> This function returns false if the global variables needed are not set.
  *
- * @return mixed full page URL string or false if unknown
+ * Like {@link me()} but returns a full URL
+ * @see me()
+ *
+ * @global string
+ * @return mixed String, or false if the global variables needed are not set
  */
 function qualified_me() {
-    global $FULLME, $PAGE, $CFG;
-
-    if (isset($PAGE) and $PAGE->has_set_url()) {
-        // this is the only recommended way to find out current page
-        return $PAGE->url->out(false);
-
-    } else {
-        if ($FULLME === null) {
-            // CLI script most probably
-            return false;
-        }
-        if (!empty($CFG->sslproxy)) {
-            // return only https links when using SSL proxy
-            return preg_replace('/^http:/', 'https:', $FULLME, 1);
-        } else {
-            return $FULLME;
-        }
-    }
+    global $FULLME;
+    return $FULLME;
 }
 
 /**
@@ -713,7 +704,7 @@ class moodle_url {
     public static function make_draftfile_url($draftid, $pathname, $filename, $forcedownload = false) {
         global $CFG, $USER;
         $urlbase = "$CFG->httpswwwroot/draftfile.php";
-        $context = context_user::instance($USER->id);
+        $context = get_context_instance(CONTEXT_USER, $USER->id);
 
         return self::make_file_url($urlbase, "/$context->id/user/draft/$draftid".$pathname.$filename, $forcedownload);
     }
@@ -731,67 +722,6 @@ class moodle_url {
 
         $urlbase = "$CFG->wwwroot/file.php";
         return self::make_file_url($urlbase, '/'.$courseid.'/'.$filepath, $forcedownload);
-    }
-
-    /**
-     * Returns URL a relative path from $CFG->wwwroot
-     *
-     * Can be used for passing around urls with the wwwroot stripped
-     *
-     * @param boolean $escaped Use &amp; as params separator instead of plain &
-     * @param array $overrideparams params to add to the output url, these override existing ones with the same name.
-     * @return string Resulting URL
-     * @throws coding_exception if called on a non-local url
-     */
-    public function out_as_local_url($escaped = true, array $overrideparams = null) {
-        global $CFG;
-
-        $url = $this->out($escaped, $overrideparams);
-        $httpswwwroot = str_replace("http://", "https://", $CFG->wwwroot);
-
-        // $url should be equal to wwwroot or httpswwwroot. If not then throw exception.
-        if (($url === $CFG->wwwroot) || (strpos($url, $CFG->wwwroot.'/') === 0)) {
-            $localurl = substr($url, strlen($CFG->wwwroot));
-            return !empty($localurl) ? $localurl : '';
-        } else if (($url === $httpswwwroot) || (strpos($url, $httpswwwroot.'/') === 0)) {
-            $localurl = substr($url, strlen($httpswwwroot));
-            return !empty($localurl) ? $localurl : '';
-        } else {
-            throw new coding_exception('out_as_local_url called on a non-local URL');
-        }
-    }
-
-    /**
-     * Returns the 'path' portion of a URL. For example, if the URL is
-     * http://www.example.org:447/my/file/is/here.txt?really=1 then this will
-     * return '/my/file/is/here.txt'.
-     *
-     * By default the path includes slash-arguments (for example,
-     * '/myfile.php/extra/arguments') so it is what you would expect from a
-     * URL path. If you don't want this behaviour, you can opt to exclude the
-     * slash arguments. (Be careful: if the $CFG variable slasharguments is
-     * disabled, these URLs will have a different format and you may need to
-     * look at the 'file' parameter too.)
-     *
-     * @param bool $includeslashargument If true, includes slash arguments
-     * @return string Path of URL
-     */
-    public function get_path($includeslashargument = true) {
-        return $this->path . ($includeslashargument ? $this->slashargument : '');
-    }
-
-    /**
-     * Returns a given parameter value from the URL.
-     *
-     * @param string $name Name of parameter
-     * @return string Value of parameter or null if not set
-     */
-    public function get_param($name) {
-        if (array_key_exists($name, $this->params)) {
-            return $this->params[$name];
-        } else {
-            return null;
-        }
     }
 }
 
@@ -830,17 +760,20 @@ function data_submitted() {
  */
 function break_up_long_words($string, $maxsize=20, $cutchar=' ') {
 
+/// Loading the textlib singleton instance. We are going to need it.
+    $textlib = textlib_get_instance();
+
 /// First of all, save all the tags inside the text to skip them
     $tags = array();
     filter_save_tags($string,$tags);
 
 /// Process the string adding the cut when necessary
     $output = '';
-    $length = textlib::strlen($string);
+    $length = $textlib->strlen($string);
     $wordlength = 0;
 
     for ($i=0; $i<$length; $i++) {
-        $char = textlib::substr($string, $i, 1);
+        $char = $textlib->substr($string, $i, 1);
         if ($char == ' ' or $char == "\t" or $char == "\n" or $char == "\r" or $char == "<" or $char == ">") {
             $wordlength = 0;
         } else {
@@ -1078,11 +1011,11 @@ function format_text($text, $format = FORMAT_MOODLE, $options = NULL, $courseid_
         if (is_object($options['context'])) {
             $context = $options['context'];
         } else {
-            $context = context::instance_by_id($options['context']);
+            $context = get_context_instance_by_id($options['context']);
         }
     } else if ($courseid_do_not_use) {
         // legacy courseid
-        $context = context_course::instance($courseid_do_not_use);
+        $context = get_context_instance(CONTEXT_COURSE, $courseid_do_not_use);
     } else {
         // fallback to $PAGE->context this may be problematic in CLI and other non-standard pages :-(
         $context = $PAGE->context;
@@ -1096,7 +1029,6 @@ function format_text($text, $format = FORMAT_MOODLE, $options = NULL, $courseid_
 
     if ($options['filter']) {
         $filtermanager = filter_manager::instance();
-        $filtermanager->setup_page_for_filters($PAGE, $context); // Setup global stuff filters may have.
     } else {
         $filtermanager = new null_filter_manager();
     }
@@ -1233,16 +1165,14 @@ function format_text($text, $format = FORMAT_MOODLE, $options = NULL, $courseid_
 /**
  * Resets all data related to filters, called during upgrade or when filter settings change.
  *
- * @param bool $phpunitreset true means called from our PHPUnit integration test reset
+ * @global object
+ * @global object
  * @return void
  */
-function reset_text_filters_cache($phpunitreset = false) {
+function reset_text_filters_cache() {
     global $CFG, $DB;
 
-    if (!$phpunitreset) {
-        $DB->delete_records('cache_text');
-    }
-
+    $DB->delete_records('cache_text');
     $purifdir = $CFG->cachedir.'/htmlpurifier';
     remove_dir($purifdir, true);
 }
@@ -1280,7 +1210,7 @@ function format_string($string, $striplinks = true, $options = NULL) {
 
     if (is_numeric($options)) {
         // legacy courseid usage
-        $options  = array('context'=>context_course::instance($options));
+        $options  = array('context'=>get_context_instance(CONTEXT_COURSE, $options));
     } else {
         $options = (array)$options; // detach object, we can not modify it
     }
@@ -1289,7 +1219,7 @@ function format_string($string, $striplinks = true, $options = NULL) {
         // fallback to $PAGE->context this may be problematic in CLI and other non-standard pages :-(
         $options['context'] = $PAGE->context;
     } else if (is_numeric($options['context'])) {
-        $options['context'] = context::instance_by_id($options['context']);
+        $options['context'] = get_context_instance_by_id($options['context']);
     }
 
     if (!$options['context']) {
@@ -1310,9 +1240,7 @@ function format_string($string, $striplinks = true, $options = NULL) {
     $string = replace_ampersands_not_followed_by_entity($string);
 
     if (!empty($CFG->filterall)) {
-        $filtermanager = filter_manager::instance();
-        $filtermanager->setup_page_for_filters($PAGE, $options['context']); // Setup global stuff filters may have.
-        $string = $filtermanager->filter_string($string, $options['context']);
+        $string = filter_manager::instance()->filter_string($string, $options['context']);
     }
 
     // If the site requires it, strip ALL tags from this string
@@ -1390,7 +1318,7 @@ function format_text_email($text, $format) {
         case FORMAT_WIKI:
             // there should not be any of these any more!
             $text = wikify_links($text);
-            return textlib::entities_to_utf8(strip_tags($text), true);
+            return strtr(strip_tags($text), array_flip(get_html_translation_table(HTML_ENTITIES)));
             break;
 
         case FORMAT_HTML:
@@ -1401,7 +1329,7 @@ function format_text_email($text, $format) {
         case FORMAT_MARKDOWN:
         default:
             $text = wikify_links($text);
-            return textlib::entities_to_utf8(strip_tags($text), true);
+            return strtr(strip_tags($text), array_flip(get_html_translation_table(HTML_ENTITIES)));
             break;
     }
 }
@@ -1420,7 +1348,7 @@ function format_text_email($text, $format) {
 function format_module_intro($module, $activity, $cmid, $filter=true) {
     global $CFG;
     require_once("$CFG->libdir/filelib.php");
-    $context = context_module::instance($cmid);
+    $context = get_context_instance(CONTEXT_MODULE, $cmid);
     $options = array('noclean'=>true, 'para'=>false, 'filter'=>$filter, 'context'=>$context, 'overflowdiv'=>true);
     $intro = file_rewrite_pluginfile_urls($activity->intro, 'pluginfile.php', $context->id, 'mod_'.$module, 'intro', null);
     return trim(format_text($intro, $activity->introformat, $options, null));
@@ -1503,7 +1431,9 @@ function trusttext_active() {
  * @return string The cleaned up text
  */
 function clean_text($text, $format = FORMAT_HTML, $options = array()) {
-    $text = (string)$text;
+    if (empty($text) or is_numeric($text)) {
+       return (string)$text;
+    }
 
     if ($format != FORMAT_HTML and $format != FORMAT_HTML) {
         // TODO: we need to standardise cleanup of text when loading it into editor first
@@ -1514,9 +1444,7 @@ function clean_text($text, $format = FORMAT_HTML, $options = array()) {
         return $text;
     }
 
-    if (is_purify_html_necessary($text)) {
-        $text = purify_html($text, $options);
-    }
+    $text = purify_html($text, $options);
 
     // Originally we tried to neutralise some script events here, it was a wrong approach because
     // it was trivial to work around that (for example using style based XSS exploits).
@@ -1524,53 +1452,6 @@ function clean_text($text, $format = FORMAT_HTML, $options = array()) {
     // rawurlencode(), htmlentities(), htmlspecialchars(), p(), s(), moodle_url, html_writer and friends!!!
 
     return $text;
-}
-
-/**
- * Is it necessary to use HTMLPurifier?
- * @private
- * @param string $text
- * @return bool false means html is safe and valid, true means use HTMLPurifier
- */
-function is_purify_html_necessary($text) {
-    if ($text === '') {
-        return false;
-    }
-
-    if ($text === (string)((int)$text)) {
-        return false;
-    }
-
-    if (strpos($text, '&') !== false or preg_match('|<[^pesb/]|', $text)) {
-        // we need to normalise entities or other tags except p, em, strong and br present
-        return true;
-    }
-
-    $altered = htmlspecialchars($text, ENT_NOQUOTES, 'UTF-8', true);
-    if ($altered === $text) {
-        // no < > or other special chars means this must be safe
-        return false;
-    }
-
-    // let's try to convert back some safe html tags
-    $altered = preg_replace('|&lt;p&gt;(.*?)&lt;/p&gt;|m', '<p>$1</p>', $altered);
-    if ($altered === $text) {
-        return false;
-    }
-    $altered = preg_replace('|&lt;em&gt;([^<>]+?)&lt;/em&gt;|m', '<em>$1</em>', $altered);
-    if ($altered === $text) {
-        return false;
-    }
-    $altered = preg_replace('|&lt;strong&gt;([^<>]+?)&lt;/strong&gt;|m', '<strong>$1</strong>', $altered);
-    if ($altered === $text) {
-        return false;
-    }
-    $altered = str_replace('&lt;br /&gt;', '<br />', $altered);
-    if ($altered === $text) {
-        return false;
-    }
-
-    return true;
 }
 
 /**
@@ -1584,21 +1465,8 @@ function is_purify_html_necessary($text) {
 function purify_html($text, $options = array()) {
     global $CFG;
 
-    static $purifiers = array();
-    static $caches = array();
-
     $type = !empty($options['allowid']) ? 'allowid' : 'normal';
-
-    if (!array_key_exists($type, $caches)) {
-        $caches[$type] = cache::make('core', 'htmlpurifier', array('type' => $type));
-    }
-    $cache = $caches[$type];
-
-    $filteredtext = $cache->get($text);
-    if ($filteredtext !== false) {
-        return $filteredtext;
-    }
-
+    static $purifiers = array();
     if (empty($purifiers[$type])) {
 
         // make sure the serializer dir exists, it should be fine if it disappears later during cache reset
@@ -1606,7 +1474,6 @@ function purify_html($text, $options = array()) {
         check_dir_exists($cachedir);
 
         require_once $CFG->libdir.'/htmlpurifier/HTMLPurifier.safe-includes.php';
-        require_once $CFG->libdir.'/htmlpurifier/locallib.php';
         $config = HTMLPurifier_Config::createDefault();
 
         $config->set('HTML.DefinitionID', 'moodlehtml');
@@ -1646,17 +1513,15 @@ function purify_html($text, $options = array()) {
 
     $multilang = (strpos($text, 'class="multilang"') !== false);
 
-    $filteredtext = $text;
     if ($multilang) {
-        $filteredtext = preg_replace('/<span(\s+lang="([a-zA-Z0-9_-]+)"|\s+class="multilang"){2}\s*>/', '<span xxxlang="${2}">', $filteredtext);
+        $text = preg_replace('/<span(\s+lang="([a-zA-Z0-9_-]+)"|\s+class="multilang"){2}\s*>/', '<span xxxlang="${2}">', $text);
     }
-    $filteredtext = $purifier->purify($filteredtext);
+    $text = $purifier->purify($text);
     if ($multilang) {
-        $filteredtext = preg_replace('/<span xxxlang="([a-zA-Z0-9_-]+)">/', '<span lang="${1}" class="multilang">', $filteredtext);
+        $text = preg_replace('/<span xxxlang="([a-zA-Z0-9_-]+)">/', '<span lang="${1}" class="multilang">', $text);
     }
-    $cache->set($text, $filteredtext);
 
-    return $filteredtext;
+    return $text;
 }
 
 /**
@@ -1815,7 +1680,7 @@ function highlightfast($needle, $haystack) {
         return $haystack;
     }
 
-    $parts = explode(textlib::strtolower($needle), textlib::strtolower($haystack));
+    $parts = explode(moodle_strtolower($needle), moodle_strtolower($haystack));
 
     if (count($parts) === 1) {
         return $haystack;
@@ -1861,26 +1726,7 @@ function get_html_lang($dir = false) {
 
 /**
  * Send the HTTP headers that Moodle requires.
- *
- * There is a backwards compatibility hack for legacy code
- * that needs to add custom IE compatibility directive.
- *
- * Example:
- * <code>
- * if (!isset($CFG->additionalhtmlhead)) {
- *     $CFG->additionalhtmlhead = '';
- * }
- * $CFG->additionalhtmlhead .= '<meta http-equiv="X-UA-Compatible" content="IE=8" />';
- * header('X-UA-Compatible: IE=8');
- * echo $OUTPUT->header();
- * </code>
- *
- * Please note the $CFG->additionalhtmlhead alone might not work,
- * you should send the IE compatibility header() too.
- *
- * @param string $contenttype
- * @param bool $cacheable Can this page be cached on back?
- * @return void, sends HTTP headers
+ * @param $cacheable Can this page be cached on back?
  */
 function send_headers($contenttype, $cacheable = true) {
     global $CFG;
@@ -1888,10 +1734,6 @@ function send_headers($contenttype, $cacheable = true) {
     @header('Content-Type: ' . $contenttype);
     @header('Content-Script-Type: text/javascript');
     @header('Content-Style-Type: text/css');
-
-    if (empty($CFG->additionalhtmlhead) or stripos($CFG->additionalhtmlhead, 'X-UA-Compatible') === false) {
-        @header('X-UA-Compatible: IE=edge');
-    }
 
     if ($cacheable) {
         // Allow caching on "back" (but not on normal clicks)
@@ -2122,7 +1964,7 @@ function print_group_picture($group, $courseid, $large=false, $return=false, $li
         }
     }
 
-    $context = context_course::instance($courseid);
+    $context = get_context_instance(CONTEXT_COURSE, $courseid);
 
     // If there is no picture, do nothing
     if (!$group->picture) {
@@ -2178,7 +2020,7 @@ function print_recent_activity_note($time, $user, $text, $link, $return=false, $
     $output = '';
 
     if (is_null($viewfullnames)) {
-        $context = context_system::instance();
+        $context = get_context_instance(CONTEXT_SYSTEM);
         $viewfullnames = has_capability('moodle/site:viewfullnames', $context);
     }
 
@@ -2231,8 +2073,7 @@ function navmenulist($course, $sections, $modinfo, $strsection, $strjumpto, $wid
     $menu = array();
     $doneheading = false;
 
-    $courseformatoptions = course_get_format($course)->get_format_options();
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
     $menu[] = '<ul class="navmenulist"><li class="jumpto section"><span>'.$strjumpto.'</span><ul>';
     foreach ($modinfo->cms as $mod) {
@@ -2241,8 +2082,7 @@ function navmenulist($course, $sections, $modinfo, $strsection, $strjumpto, $wid
             continue;
         }
 
-        // For course formats using 'numsections' do not show extra sections
-        if (isset($courseformatoptions['numsections']) && $mod->sectionnum > $courseformatoptions['numsections']) {
+        if ($mod->sectionnum > $course->numsections) {   /// Don't show excess hidden sections
             break;
         }
 
@@ -2253,9 +2093,8 @@ function navmenulist($course, $sections, $modinfo, $strsection, $strjumpto, $wid
         if ($mod->sectionnum >= 0 and $section != $mod->sectionnum) {
             $thissection = $sections[$mod->sectionnum];
 
-            if ($thissection->visible or
-                    (isset($courseformatoptions['hiddensections']) and !$courseformatoptions['hiddensections']) or
-                    has_capability('moodle/course:viewhiddensections', $coursecontext)) {
+            if ($thissection->visible or !$course->hiddensections or
+                      has_capability('moodle/course:viewhiddensections', $coursecontext)) {
                 $thissection->summary = strip_tags(format_string($thissection->summary,true));
                 if (!$doneheading) {
                     $menu[] = '</ul></li>';
@@ -2600,38 +2439,23 @@ function obfuscate_text($plaintext) {
  * @param string $email The email address to display
  * @param string $label The text to displayed as hyperlink to $email
  * @param boolean $dimmed If true then use css class 'dimmed' for hyperlink
- * @param string $subject The subject of the email in the mailto link
- * @param string $body The content of the email in the mailto link
  * @return string The obfuscated mailto link
  */
-function obfuscate_mailto($email, $label='', $dimmed=false, $subject = '', $body = '') {
+function obfuscate_mailto($email, $label='', $dimmed=false) {
 
     if (empty($label)) {
         $label = $email;
     }
-
-    $label = obfuscate_text($label);
-    $email = obfuscate_email($email);
-    $mailto = obfuscate_text('mailto');
-    $url = new moodle_url("mailto:$email");
-    $attrs = array();
-
-    if (!empty($subject)) {
-        $url->param('subject', format_string($subject));
-    }
-    if (!empty($body)) {
-        $url->param('body', format_string($body));
-    }
-
-    // Use the obfuscated mailto
-    $url = preg_replace('/^mailto/', $mailto, $url->out());
-
     if ($dimmed) {
-        $attrs['title'] = get_string('emaildisable');
-        $attrs['class'] = 'dimmed';
+        $title = get_string('emaildisable');
+        $dimmed = ' class="dimmed"';
+    } else {
+        $title = '';
+        $dimmed = '';
     }
-
-    return html_writer::link($url, $label, $attrs);
+    return sprintf("<a href=\"%s:%s\" $dimmed title=\"$title\">%s</a>",
+                    obfuscate_text('mailto'), obfuscate_email($email),
+                    obfuscate_text($label));
 }
 
 /**
@@ -2878,7 +2702,7 @@ function convert_tabrows_to_tree($tabrows, $selected, $inactive, $activated) {
  * @return bool
  */
 function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
-    global $CFG, $USER;
+    global $CFG, $USER, $UNITTEST;
 
     $forcedebug = false;
     if (!empty($CFG->debugusers) && $USER) {
@@ -2886,7 +2710,7 @@ function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
         $forcedebug = in_array($USER->id, $debugusers);
     }
 
-    if (!$forcedebug and (empty($CFG->debug) || ($CFG->debug != -1 and $CFG->debug < $level))) {
+    if (!$forcedebug and (empty($CFG->debug) || $CFG->debug < $level)) {
         return false;
     }
 
@@ -2899,14 +2723,15 @@ function debugging($message = '', $level = DEBUG_NORMAL, $backtrace = null) {
             $backtrace = debug_backtrace();
         }
         $from = format_backtrace($backtrace, CLI_SCRIPT);
-        if (PHPUNIT_TEST) {
-            if (phpunit_util::debugging_triggered($message, $level, $from)) {
-                // We are inside test, the debug message was logged.
-                return true;
-            }
-        }
+        if (!empty($UNITTEST->running)) {
+            // When the unit tests are running, any call to trigger_error
+            // is intercepted by the test framework and reported as an exception.
+            // Therefore, we cannot use trigger_error during unit tests.
+            // At the same time I do not think we should just discard those messages,
+            // so displaying them on-screen seems like the only option. (MDL-20398)
+            echo '<div class="notifytiny">' . $message . $from . '</div>';
 
-        if (NO_DEBUG_DISPLAY) {
+        } else if (NO_DEBUG_DISPLAY) {
             // script does not want any errors or debugging in output,
             // we send the info to error log instead
             error_log('Debugging: ' . $message . $from);

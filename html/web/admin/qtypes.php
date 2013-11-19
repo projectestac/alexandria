@@ -33,7 +33,7 @@ require_once($CFG->libdir . '/tablelib.php');
 
 // Check permissions.
 require_login();
-$systemcontext = context_system::instance();
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/question:config', $systemcontext);
 $canviewreports = has_capability('report/questioninstances:view', $systemcontext);
 
@@ -191,23 +191,9 @@ $table = new flexible_table('qtypeadmintable');
 $table->define_baseurl($thispageurl);
 $table->define_columns(array('questiontype', 'numquestions', 'version', 'requires',
         'availableto', 'delete', 'settings'));
-//XTEC ************ MODIFICAT - To let access only to xtecadmin user
-//2012.08.20 @sarjona
-if (!get_protected_agora()) {
-    $strdelete = '';
-} else{
-    $strdelete = get_string('delete');
-}
-$table->define_headers(array(get_string('questiontype', 'question'), get_string('numquestions', 'question'),
-        get_string('version'), get_string('requires', 'admin'), get_string('availableq', 'question'),
-        $strdelete, get_string('settings')));
-//************ ORIGINAL
-/*
 $table->define_headers(array(get_string('questiontype', 'question'), get_string('numquestions', 'question'),
         get_string('version'), get_string('requires', 'admin'), get_string('availableq', 'question'),
         get_string('delete'), get_string('settings')));
- */
-//************ FI
 $table->set_attribute('id', 'qtypes');
 $table->set_attribute('class', 'generaltable generalbox boxaligncenter boxwidthwide');
 $table->setup();
@@ -271,7 +257,7 @@ foreach ($sortedqtypes as $qtypename => $localname) {
             $rowclass = 'dimmed_text';
         }
     } else {
-        $icons = $OUTPUT->spacer();
+        $icons = $OUTPUT->spacer() . ' ';
     }
 
     // Move icons.
@@ -280,14 +266,7 @@ foreach ($sortedqtypes as $qtypename => $localname) {
     $row[] = $icons;
 
     // Delete link, if available.
-    //XTEC ************ MODIFICAT - To let access only to xtecadmin user
-    //2012.08.20 @sarjona
-    if ($needed[$qtypename] || !get_protected_agora()) {
-    //************ ORIGINAL
-    /*
     if ($needed[$qtypename]) {
-     */
-    //************ FI
         $row[] = '';
     } else {
         $row[] = html_writer::link(new moodle_url($thispageurl,
@@ -315,10 +294,10 @@ echo $OUTPUT->footer();
 
 function question_types_enable_disable_icons($qtypename, $createable) {
     if ($createable) {
-        return question_type_icon_html('disable', $qtypename, 't/hide',
+        return question_type_icon_html('disable', $qtypename, 'i/hide',
                 get_string('enabled', 'question'), get_string('disable'));
     } else {
-        return question_type_icon_html('enable', $qtypename, 't/show',
+        return question_type_icon_html('enable', $qtypename, 'i/show',
                 get_string('disabled', 'question'), get_string('enable'));
     }
 }
@@ -327,7 +306,7 @@ function question_type_icon_html($action, $qtypename, $icon, $alt, $tip) {
     global $OUTPUT;
     return $OUTPUT->action_icon(new moodle_url('/admin/qtypes.php',
             array($action => $qtypename, 'sesskey' => sesskey())),
-            new pix_icon($icon, $alt, 'moodle', array('title' => '', 'class' => 'iconsmall')),
-            null, array('title' => $tip));
+            new pix_icon($icon, $alt, 'moodle', array('title' => '')),
+            null, array('title' => $tip)) . ' ';
 }
 

@@ -16,24 +16,18 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Functions and classes for comments management
- *
- * @package   core
- * @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-defined('MOODLE_INTERNAL') || die();
-
-/**
  * comment_manager is helper class to manage moodle comments in admin page (Reports->Comments)
  *
- * @package   core
- * @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
+ * @package   comment
+ * @copyright  2010 Dongsheng Cai <dongsheng@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class comment_manager {
 
-    /** @var int The number of comments to display per page */
+    /**
+     * The number of comments to display per page
+     * @var int
+     */
     private $perpage;
 
     /**
@@ -91,10 +85,11 @@ class comment_manager {
      * @global moodle_page $PAGE
      * @global moodle_database $DB
      * @param int $courseid
+     * @return void
      */
     private function setup_course($courseid) {
         global $PAGE, $DB;
-        if (!empty($this->course) && $this->course->id == $courseid) {
+        if (!empty($this->course)) {
             // already set, stop
             return;
         }
@@ -114,7 +109,7 @@ class comment_manager {
      */
     private function setup_plugin($comment) {
         global $DB;
-        $this->context = context::instance_by_id($comment->contextid, IGNORE_MISSING);
+        $this->context = get_context_instance_by_id($comment->contextid);
         if (!$this->context) {
             return false;
         }
@@ -141,7 +136,7 @@ class comment_manager {
     /**
      * Print comments
      * @param int $page
-     * @return bool return false if no comments available
+     * @return boolean return false if no comments available
      */
     public function print_comments($page = 0) {
         global $OUTPUT, $CFG, $OUTPUT, $DB;

@@ -27,7 +27,7 @@ require_once("lib.php");
 $confirm = optional_param('confirm', false, PARAM_BOOL);
 
 $PAGE->set_url('/mod/forum/unsubscribeall.php');
-$PAGE->set_context(context_user::instance($USER->id));
+$PAGE->set_context(get_context_instance(CONTEXT_USER, $USER->id));
 
 // Do not autologin guest. Only proper users can have forum subscriptions.
 require_login(null, false);
@@ -47,20 +47,15 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading($strunsubscribeall);
 
 if (data_submitted() and $confirm and confirm_sesskey()) {
-    $forums = forum_get_optional_subscribed_forums();
-
-    foreach($forums as $forum) {
-        forum_unsubscribe($USER->id, $forum->id);
-    }
+    $DB->delete_records('forum_subscriptions', array('userid'=>$USER->id));
     $DB->set_field('user', 'autosubscribe', 0, array('id'=>$USER->id));
-
     echo $OUTPUT->box(get_string('unsubscribealldone', 'forum'));
     echo $OUTPUT->continue_button($return);
     echo $OUTPUT->footer();
     die;
 
 } else {
-    $a = count(forum_get_optional_subscribed_forums());
+    $a = $DB->count_records('forum_subscriptions', array('userid'=>$USER->id));
 
     if ($a) {
         $msg = get_string('unsubscribeallconfirm', 'forum', $a);

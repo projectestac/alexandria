@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,7 +18,8 @@
 /**
  * Self enrol plugin implementation.
  *
- * @package    enrol_self
+ * @package    enrol
+ * @subpackage self
  * @copyright  2010 Petr Skoda  {@link http://skodak.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -31,7 +33,7 @@ class enrol_self_enrol_form extends moodleform {
     protected $toomany = false;
 
     /**
-     * Overriding this function to get unique form id for multiple self enrolments.
+     * Overriding this function to get unique form id for multiple self enrolments
      *
      * @return string form identifier
      */
@@ -52,10 +54,10 @@ class enrol_self_enrol_form extends moodleform {
         $mform->addElement('header', 'selfheader', $heading);
 
         if ($instance->customint3 > 0) {
-            // Max enrol limit specified.
+            // max enrol limit specified
             $count = $DB->count_records('user_enrolments', array('enrolid'=>$instance->id));
             if ($count >= $instance->customint3) {
-                // Bad luck, no more self enrolments here.
+                // bad luck, no more self enrolments here
                 $this->toomany = true;
                 $mform->addElement('static', 'notice', '', get_string('maxenrolledreached', 'enrol_self'));
                 return;
@@ -63,9 +65,9 @@ class enrol_self_enrol_form extends moodleform {
         }
 
         if ($instance->password) {
-            // Change the id of self enrolment key input as there can be multiple self enrolment methods.
+            //change the id of self enrolment key input as there can be multiple self enrolment methods
             $mform->addElement('passwordunmask', 'enrolpassword', get_string('password', 'enrol_self'),
-                    array('id' => 'enrolpassword_'.$instance->id));
+                    array('id' => $instance->id."_enrolpassword"));
         } else {
             $mform->addElement('static', 'nokey', '', get_string('nopassword', 'enrol_self'));
         }
@@ -107,14 +109,15 @@ class enrol_self_enrol_form extends moodleform {
                         }
                     }
                     if (!$found) {
-                        // We can not hint because there are probably multiple passwords.
+                        // we can not hint because there are probably multiple passwords
                         $errors['enrolpassword'] = get_string('passwordinvalid', 'enrol_self');
                     }
 
                 } else {
                     $plugin = enrol_get_plugin('self');
                     if ($plugin->get_config('showhint')) {
-                        $hint = textlib::substr($instance->password, 0, 1);
+                        $textlib = textlib_get_instance();
+                        $hint = $textlib->substr($instance->password, 0, 1);
                         $errors['enrolpassword'] = get_string('passwordinvalidhint', 'enrol_self', $hint);
                     } else {
                         $errors['enrolpassword'] = get_string('passwordinvalid', 'enrol_self');

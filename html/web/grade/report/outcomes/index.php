@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,14 +15,6 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * The gradebook outcomes report
- *
- * @package   gradereport_outcomes
- * @copyright 2007 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 include_once('../../../config.php');
 require_once($CFG->libdir . '/gradelib.php');
 require_once $CFG->dirroot.'/grade/lib.php';
@@ -34,8 +27,8 @@ if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('nocourseid');
 }
 
-require_login($course);
-$context = context_course::instance($course->id);
+require_login($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 require_capability('gradereport/outcomes:view', $context);
 

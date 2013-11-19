@@ -26,8 +26,6 @@ class Minify_CSS {
      * 'preserveComments': (default true) multi-line comments that begin
      * with "/*!" will be preserved with newlines before and after to
      * enhance readability.
-     *
-     * 'removeCharsets': (default true) remove all @charset at-rules
      * 
      * 'prependRelativePath': (default null) if given, this string will be
      * prepended to all relative URIs in import/url declarations
@@ -47,28 +45,14 @@ class Minify_CSS {
      * array('//symlink' => '/real/target/path') // unix
      * array('//static' => 'D:\\staticStorage')  // Windows
      * </code>
-     *
-     * 'docRoot': (default = $_SERVER['DOCUMENT_ROOT'])
-     * see Minify_CSS_UriRewriter::rewrite
      * 
      * @return string
      */
     public static function minify($css, $options = array()) 
     {
-        $options = array_merge(array(
-            'removeCharsets' => true,
-            'preserveComments' => true,
-            'currentDir' => null,
-            'docRoot' => $_SERVER['DOCUMENT_ROOT'],
-            'prependRelativePath' => null,
-            'symlinks' => array(),
-        ), $options);
-        
-        if ($options['removeCharsets']) {
-            $css = preg_replace('/@charset[^;]+;\\s*/', '', $css);
-        }
         require_once 'Minify/CSS/Compressor.php';
-        if (! $options['preserveComments']) {
+        if (isset($options['preserveComments']) 
+            && !$options['preserveComments']) {
             $css = Minify_CSS_Compressor::process($css, $options);
         } else {
             require_once 'Minify/CommentPreserver.php';
@@ -78,16 +62,16 @@ class Minify_CSS {
                 ,array($options)
             );
         }
-        if (! $options['currentDir'] && ! $options['prependRelativePath']) {
+        if (! isset($options['currentDir']) && ! isset($options['prependRelativePath'])) {
             return $css;
         }
         require_once 'Minify/CSS/UriRewriter.php';
-        if ($options['currentDir']) {
+        if (isset($options['currentDir'])) {
             return Minify_CSS_UriRewriter::rewrite(
                 $css
                 ,$options['currentDir']
-                ,$options['docRoot']
-                ,$options['symlinks']
+                ,isset($options['docRoot']) ? $options['docRoot'] : $_SERVER['DOCUMENT_ROOT']
+                ,isset($options['symlinks']) ? $options['symlinks'] : array()
             );  
         } else {
             return Minify_CSS_UriRewriter::prepend(

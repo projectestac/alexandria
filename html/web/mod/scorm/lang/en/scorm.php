@@ -47,9 +47,6 @@ $string['asset'] = 'Asset';
 $string['assetlaunched'] = 'Asset - Viewed';
 $string['attempt'] = 'Attempt';
 $string['attempts'] = 'Attempts';
-$string['attemptstatusall'] = 'My home and entry page';
-$string['attemptstatusmy'] = 'My home only';
-$string['attemptstatusentry'] = 'Entry page only';
 $string['attemptsx'] = '{$a} attempts';
 $string['attempt1'] = '1 attempt';
 $string['attr_error'] = 'Bad value for attribute ({$a->attr}) in tag {$a->tag}.';
@@ -65,12 +62,6 @@ $string['browsemode'] = 'Preview mode';
 $string['browserepository'] = 'Browse repository';
 $string['cannotfindsco'] = 'Could not find SCO';
 $string['completed'] = 'Completed';
-$string['completionscorerequired'] = 'Require minimum score';
-$string['completionscorerequired_help'] = 'Enabling this setting will require a user to have at least the minimum score entered to be marked complete in this SCORM activity, as well as any other Activity Completion requirements.';
-$string['completionstatus_passed'] = 'Passed';
-$string['completionstatus_completed'] = 'Completed';
-$string['completionstatusrequired'] = 'Require status';
-$string['completionstatusrequired_help'] = 'Checking one or more statuses will require a user to achieve at least one of the checked statuses in order to be marked complete in this SCORM activity, as well as any other Activity Completion requirements.';
 $string['confirmloosetracks'] = 'WARNING: The package seems to be changed or modified. If the package structure is changed, some users tracks may be lost during update process.';
 $string['contents'] = 'Contents';
 $string['coursepacket'] = 'Course package';
@@ -88,14 +79,13 @@ $string['directories'] = 'Show the directory links';
 $string['disabled'] = 'Disabled';
 $string['display'] = 'Display package';
 $string['displayattemptstatus'] = 'Display attempt status';
-$string['displayattemptstatus_help'] = 'This preference allows a summary of the users attempts to show in the course overview block in My home and/or the SCORM entry page.';
+$string['displayattemptstatus_help'] = 'If enabled, scores and grades for attempts are displayed on the SCORM outline page.';
 $string['displayattemptstatusdesc'] = 'This preference sets the default value for the display attempt status setting';
 $string['displaycoursestructure'] = 'Display course structure on entry page';
 $string['displaycoursestructure_help'] = 'If enabled, the table of contents is displayed on the SCORM outline page.';
 $string['displaycoursestructuredesc'] = 'This preference sets the default value for the display course structure on entry page setting';
 $string['displaydesc'] = 'This preference sets the default of whether to display the package or not for an activity';
 $string['displaysettings'] = 'Display Settings';
-$string['dnduploadscorm'] = 'Add a SCORM package';
 $string['domxml'] = 'DOMXML external library';
 $string['duedate'] = 'Due date';
 $string['element'] = 'Element';
@@ -180,12 +170,11 @@ $string['interactionsweight'] = 'Weight assigned to the element';
 $string['interactionslearnerresponse'] = 'Learner\'s Response';
 $string['invalidactivity'] = 'Scorm activity is incorrect';
 $string['invalidurl'] = 'Invalid URL specified';
-$string['invalidurlhttpcheck'] = 'Invalid URL specified. Debug message:<pre>{$a->cmsg}</pre>';
 $string['invalidhacpsession'] = 'Invalid HACP Session';
 $string['invalidmanifestresource'] = 'WARNING: The following resources were referenced in your manifest but couldn\'t be found:';
 $string['last'] = 'Last accessed on';
 $string['lastaccess'] = 'Last access';
-$string['lastattempt'] = 'Last completed attempt';
+$string['lastattempt'] = 'Last attempt';
 $string['lastattemptlock'] = 'Lock after final attempt';
 $string['lastattemptlock_help'] = 'If enabled, a student is prevented from launching the SCORM player after using up all their allocated attempts.';
 $string['lastattemptlockdesc'] = 'This preference sets the default value for the lock after final attempt setting';
@@ -202,15 +191,7 @@ $string['missingparam'] = 'A required is missing or wrong';
 $string['missing_tag'] = 'Missing tag {$a->tag}';
 $string['mode'] = 'Mode';
 $string['modulename'] = 'SCORM package';
-$string['modulename_help'] = 'A SCORM package is a collection of files which are packaged according to an agreed standard for learning objects. The SCORM activity module enables SCORM or AICC packages to be uploaded as a zip file and added to a course.
-
-Content is usually displayed over several pages, with navigation between the pages. There are various options for displaying content in a pop-up window, with a table of contents, with navigation buttons etc. SCORM activities generally include questions, with grades being recorded in the gradebook.
-
-SCORM activities may be used
-
-* For presenting multimedia content and animations
-* As an assessment tool';
-$string['modulename_link'] = 'mod/scorm/view';
+$string['modulename_help'] = 'SCORM and AICC are a collection of specifications that enable interoperability, accessibility and reusability of web-based learning content. The SCORM/AICC module allows for SCORM/AICC packages to be included in the course.';
 $string['modulenameplural'] = 'SCORM packages';
 $string['newattempt'] = 'Start a new attempt';
 $string['next'] = 'Continue';
@@ -229,6 +210,7 @@ $string['notattempted'] = 'Not attempted';
 $string['not_corr_type'] = 'Type mismatch for tag {$a->tag}';
 $string['notopenyet'] = 'Sorry, this activity is not available until {$a}';
 $string['objectives'] = 'Objectives';
+$string['onchanges'] = 'Whenever it changes';
 $string['optallstudents'] = 'all users';
 $string['optattemptsonly'] = 'users with attempts only';
 $string['optnoattemptsonly'] = 'users with no attempts only';
@@ -272,7 +254,6 @@ $string['review'] = 'Review';
 $string['reviewmode'] = 'Review mode';
 $string['scoes'] = 'Learning objects';
 $string['score'] = 'Score';
-$string['scorm:addinstance'] = 'Add a new SCORM package';
 $string['scormclose'] = 'Until';
 $string['scormcourse'] = 'Learning course';
 $string['scorm:deleteresponses'] = 'Delete SCORM attempts';
@@ -339,8 +320,7 @@ $string['versionwarning'] = 'The manifest version is older than 1.3, warning at 
 $string['viewallreports'] = 'View reports for {$a} attempts';
 $string['viewalluserreports'] = 'View reports for {$a} users';
 $string['whatgrade'] = 'Attempts grading';
-$string['whatgrade_help'] = 'If multiple attempts are allowed, this setting specifies whether the highest, average (mean), first or last completed attempt is recorded in the gradebook.
-The last completed attempt option does not include attempts with a \'failed\' status.
+$string['whatgrade_help'] = 'If multiple attempts are allowed, this setting specifies whether the highest, average (mean), first or last attempt is recorded in the gradebook.
 
 Handling of Multiple Attempts
 
@@ -350,9 +330,3 @@ Handling of Multiple Attempts
 $string['whatgradedesc'] = 'This preference sets the default attempts grading';
 $string['width'] = 'Width';
 $string['window'] = 'Window';
-//XTEC - ALEXANDRIA ************ AFEGIT - Additional english strings
-//2011 - @fcasanel
-//2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-$string['show_index'] = 'Show index >>';
-$string['hide_index'] = 'Hide index <<';
-//************ FI

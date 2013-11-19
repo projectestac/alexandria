@@ -113,18 +113,17 @@ function cron_run() {
         }
 
 
-        // Delete old backup_controllers and logs.
-        $loglifetime = get_config('backup', 'loglifetime');
-        if (!empty($loglifetime)) {  // Value in days.
-            $loglifetime = $timenow - ($loglifetime * 3600 * 24);
-            // Delete child records from backup_logs.
+        // Delete old backup_controllers and logs
+        if (!empty($CFG->loglifetime)) {  // value in days
+            $loglifetime = $timenow - ($CFG->loglifetime * 3600 * 24);
+            // Delete child records from backup_logs
             $DB->execute("DELETE FROM {backup_logs}
                            WHERE EXISTS (
                                SELECT 'x'
                                  FROM {backup_controllers} bc
                                 WHERE bc.backupid = {backup_logs}.backupid
                                   AND bc.timecreated < ?)", array($loglifetime));
-            // Delete records from backup_controllers.
+            // Delete records from backup_controllers
             $DB->execute("DELETE FROM {backup_controllers}
                           WHERE timecreated < ?", array($loglifetime));
             mtrace(" Deleted old backup records");
@@ -174,8 +173,9 @@ function cron_run() {
 
     // Send login failures notification - brute force protection in moodle is weak,
     // we should at least send notices early in each cron execution
-    if (notify_login_failures()) {
-        mtrace(' Notified login failures');
+    if (!empty($CFG->notifyloginfailures)) {
+        notify_login_failures();
+        mtrace(' Notified login failured');
     }
 
 
@@ -208,11 +208,11 @@ function cron_run() {
     if ($DB->count_records('user_preferences', array('name'=>'create_password', 'value'=>'1'))) {
         mtrace('Creating passwords for new users...');
         $newusers = $DB->get_recordset_sql("SELECT u.id as id, u.email, u.firstname,
-                                                 u.lastname, u.username, u.lang,
+                                                 u.lastname, u.username,
                                                  p.id as prefid
                                             FROM {user} u
                                             JOIN {user_preferences} p ON u.id=p.userid
-                                           WHERE p.name='create_password' AND p.value='1' AND u.email !='' AND u.suspended = 0 AND u.auth != 'nologin' AND u.deleted = 0");
+                                           WHERE p.name='create_password' AND p.value='1' AND u.email !='' AND u.suspended = 0 AND u.auth != 'nologin'");
 
         // note: we can not send emails to suspended accounts
         foreach ($newusers as $newuser) {
@@ -318,7 +318,7 @@ function cron_run() {
     if ($CFG->enablecompletion) {
         // Completion cron
         mtrace('Starting the completion cron...');
-        require_once($CFG->dirroot.'/completion/cron.php');
+        require_once($CFG->libdir . '/completion/cron.php');
         completion_cron();
         mtrace('done');
     }
@@ -350,16 +350,13 @@ function cron_run() {
     cron_execute_plugin_type('gradereport');
     mtrace('Finished gradebook plugins');
 
-    // run calendar cron
-    require_once "{$CFG->dirroot}/calendar/lib.php";
-    calendar_cron();
 
     // Run external blog cron if needed
-    if (!empty($CFG->enableblogs) && $CFG->useexternalblogs) {
+    if ($CFG->useexternalblogs) {
         require_once($CFG->dirroot . '/blog/lib.php');
         mtrace("Fetching external blog entries...", '');
         $sql = "timefetched < ? OR timefetched = 0";
-        $externalblogs = $DB->get_records_select('blog_external', $sql, array(time() - $CFG->externalblogcrontime));
+        $externalblogs = $DB->get_records_select('blog_external', $sql, array(mktime() - $CFG->externalblogcrontime));
 
         foreach ($externalblogs as $eb) {
             blog_sync_external_entries($eb);
@@ -367,7 +364,7 @@ function cron_run() {
         mtrace('done.');
     }
     // Run blog associations cleanup
-    if (!empty($CFG->enableblogs) && $CFG->useblogassociations) {
+    if ($CFG->useblogassociations) {
         require_once($CFG->dirroot . '/blog/lib.php');
         // delete entries whose contextids no longer exists
         mtrace("Deleting blog associations linked to non-existent contexts...", '');
@@ -376,26 +373,13 @@ function cron_run() {
     }
 
 
-    // Run question bank clean-up.
-    mtrace("Starting the question bank cron...", '');
-    require_once($CFG->libdir . '/questionlib.php');
-    question_bank::cron();
-    mtrace('done.');
-
-
     //Run registration updated cron
     mtrace(get_string('siteupdatesstart', 'hub'));
-    require_once($CFG->dirroot . '/' . $CFG->admin . '/registration/lib.php');
+    require_once($CFG->dirroot . '/admin/registration/lib.php');
     $registrationmanager = new registration_manager();
     $registrationmanager->cron();
     mtrace(get_string('siteupdatesend', 'hub'));
 
-    // If enabled, fetch information about available updates and eventually notify site admins
-    if (empty($CFG->disableupdatenotifications)) {
-        require_once($CFG->libdir.'/pluginlib.php');
-        $updateschecker = available_update_checker::instance();
-        $updateschecker->cron();
-    }
 
     //cleanup old session linked tokens
     //deletes the session linked tokens that are over a day old.
@@ -412,9 +396,9 @@ function cron_run() {
     cron_execute_plugin_type('format', 'course formats');
     cron_execute_plugin_type('profilefield', 'profile fields');
     cron_execute_plugin_type('webservice', 'webservices');
-    cron_execute_plugin_type('repository', 'repository plugins');
-    cron_execute_plugin_type('qbehaviour', 'question behaviours');
-    cron_execute_plugin_type('qformat', 'question import/export formats');
+    // TODO: Repository lib.php files are messed up (include many other files, etc), so it is
+    // currently not possible to implement repository plugin cron using this infrastructure
+    // cron_execute_plugin_type('repository', 'repository plugins');
     cron_execute_plugin_type('qtype', 'question types');
     cron_execute_plugin_type('plagiarism', 'plagiarism plugins');
     cron_execute_plugin_type('theme', 'themes');
@@ -468,6 +452,7 @@ function cron_run() {
     // cleanup file trash - not very important
     $fs = get_file_storage();
     $fs->cron();
+
 
     mtrace("Cron script completed correctly");
 
@@ -608,25 +593,14 @@ function cron_bc_hack_plugin_functions($plugintype, $plugins) {
  * Note that this function must be only executed from the cron script
  * It uses the cache_flags system to store temporary records, deleting them
  * by name before finishing
- *
- * @return bool True if executed, false if not
  */
 function notify_login_failures() {
     global $CFG, $DB, $OUTPUT;
-
-    if (empty($CFG->notifyloginfailures)) {
-        return false;
-    }
 
     $recip = get_users_from_config($CFG->notifyloginfailures, 'moodle/site:config');
 
     if (empty($CFG->lastnotifyfailure)) {
         $CFG->lastnotifyfailure=0;
-    }
-
-    // If it has been less than an hour, or if there are no recipients, don't execute.
-    if (((time() - HOURSECS) < $CFG->lastnotifyfailure) || !is_array($recip) || count($recip) <= 0) {
-        return false;
     }
 
     // we need to deal with the threshold stuff first.
@@ -670,8 +644,7 @@ function notify_login_failures() {
 
     // Now, select all the login error logged records belonging to the ips and infos
     // since lastnotifyfailure, that we have stored in the cache_flags table
-    $sql = "SELECT * FROM (
-        SELECT l.*, u.firstname, u.lastname
+    $sql = "SELECT l.*, u.firstname, u.lastname
               FROM {log} l
               JOIN {cache_flags} cf ON l.ip = cf.name
          LEFT JOIN {user} u         ON l.userid = u.id
@@ -685,8 +658,8 @@ function notify_login_failures() {
          LEFT JOIN {user} u         ON l.userid = u.id
              WHERE l.module = 'login' AND l.action = 'error'
                    AND l.time > ?
-                   AND cf.flagtype = 'login_failure_by_info') t
-        ORDER BY t.time DESC";
+                   AND cf.flagtype = 'login_failure_by_info'
+          ORDER BY time DESC";
     $params = array($CFG->lastnotifyfailure, $CFG->lastnotifyfailure);
 
     // Init some variables
@@ -701,8 +674,10 @@ function notify_login_failures() {
     }
     $rs->close();
 
-    // If we have something useful to report.
-    if ($count > 0) {
+    // If we haven't run in the last hour and
+    // we have something useful to report and we
+    // are actually supposed to be reporting to somebody
+    if ((time() - HOURSECS) > $CFG->lastnotifyfailure && $count > 0 && is_array($recip) && count($recip) > 0) {
         $site = get_site();
         $subject = get_string('notifyloginfailuressubject', '', format_string($site->fullname));
         // Calculate the complete body of notification (start + messages + end)
@@ -715,15 +690,13 @@ function notify_login_failures() {
         mtrace('Emailing admins about '. $count .' failed login attempts');
         foreach ($recip as $admin) {
             //emailing the admins directly rather than putting these through the messaging system
-            email_to_user($admin, generate_email_supportuser(), $subject, $body);
+            email_to_user($admin,get_admin(), $subject, $body);
         }
-    }
 
-    // Update lastnotifyfailure with current time
-    set_config('lastnotifyfailure', time());
+        // Update lastnotifyfailure with current time
+        set_config('lastnotifyfailure', time());
+    }
 
     // Finally, delete all the temp records we have created in cache_flags
     $DB->delete_records_select('cache_flags', "flagtype IN ('login_failure_by_ip', 'login_failure_by_info')");
-
-    return true;
 }

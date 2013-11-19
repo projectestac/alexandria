@@ -26,7 +26,6 @@
 require_once('../../config.php');
 require_once('lib.php');
 require_once("$CFG->libdir/rsslib.php");
-require_once("$CFG->libdir/form/filemanager.php");
 
 $id    = optional_param('id', 0, PARAM_INT);    // course module id
 $d     = optional_param('d', 0, PARAM_INT);    // database id
@@ -69,13 +68,13 @@ if ($id) {
     }
 }
 
-require_login($course, false, $cm);
+require_login($course->id, false, $cm);
 
 if (isguestuser()) {
     redirect('view.php?d='.$data->id);
 }
 
-$context = context_module::instance($cm->id);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
 /// If it's hidden then it doesn't show anything.  :)
 if (empty($cm->visible) and !has_capability('moodle/course:viewhiddenactivities', $context)) {
@@ -94,23 +93,8 @@ if (has_capability('mod/data:managetemplates', $context)) {
     }
 }
 
-if ($rid) {
-    // When editing an existing record, we require the session key
-    require_sesskey();
-}
-
-// Get Group information for permission testing and record creation
-$currentgroup = groups_get_activity_group($cm);
-$groupmode = groups_get_activity_groupmode($cm);
-
-if (!has_capability('mod/data:manageentries', $context)) {
-    if ($rid) {
-        // User is editing an existing record
-        if (!data_isowner($rid) || data_in_readonly_period($data)) {
-            print_error('noaccess','data');
-        }
-    } else if (!data_user_can_add_entry($data, $currentgroup, $groupmode, $context)) {
-        // User is trying to create a new record
+if ($rid) {    // So do you have access?
+    if (!(has_capability('mod/data:manageentries', $context) or data_isowner($rid)) or !confirm_sesskey() ) {
         print_error('noaccess','data');
     }
 }
@@ -122,9 +106,9 @@ if ($cancel) {
 
 /// RSS and CSS and JS meta
 if (!empty($CFG->enablerssfeeds) && !empty($CFG->data_enablerssfeeds) && $data->rssarticles > 0) {
-    $courseshortname = format_string($course->shortname, true, array('context' => context_course::instance($course->id)));
-    $rsstitle = $courseshortname . ': ' . format_string($data->name);
-    rss_add_http_header($context, 'mod_data', $data, $rsstitle);
+    $rsspath = rss_get_url($context->id, $USER->id, 'mod_data', $data->id);
+    $courseshortname = format_string($course->shortname, true, array('context' => get_context_instance(CONTEXT_COURSE, $course->id)));
+    $PAGE->add_alternate_version($courseshortname . ': %fullname%', $rsspath, 'application/rss+xml');
 }
 if ($data->csstemplate) {
     $PAGE->requires->css('/mod/data/css.php?d='.$data->id);
@@ -152,27 +136,26 @@ if ($rid) {
 $PAGE->set_title($data->name);
 $PAGE->set_heading($course->fullname);
 
+/// Check to see if groups are being used here
+$currentgroup = groups_get_activity_group($cm);
+$groupmode = groups_get_activity_groupmode($cm);
+
+if ($currentgroup) {
+    $groupselect = " AND groupid = '$currentgroup'";
+    $groupparam = "&amp;groupid=$currentgroup";
+} else {
+    $groupselect = "";
+    $groupparam = "";
+    $currentgroup = 0;
+}
+
+
 /// Process incoming data for adding/updating records
 
 if ($datarecord = data_submitted() and confirm_sesskey()) {
-    $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
-    //XTEC - ALEXANDRIA ************ AFEGIT - We order the registers so the backup file is processed last, this way we'll have in database all the values needed to fill the course
-    //2013.11.06 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-    $datavalues = array();
-    foreach($datarecord as $key => $value) {
-	$record = new stdClass();
-	$record->name = $key;
-	$record->value = $value;
-	$datavalues[] = $record;	
-    }
-    usort($datavalues,'sort_datarecord_files_last');
 
-    $datarecord = new stdClass();
-    foreach($datavalues as $record) {
-	$name = $record->name;
-	$datarecord->$name = $record->value;
-    }
-    // ********* FI
+    $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
+
     if ($rid) {                                          /// Update some records
 
         /// All student edits are marked unapproved by default
@@ -206,9 +189,25 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
         redirect($CFG->wwwroot.'/mod/data/view.php?d='.$data->id.'&rid='.$rid);
 
     } else { /// Add some new records
+
+        if (!data_user_can_add_entry($data, $currentgroup, $groupmode, $context)) {
+            print_error('cannotadd', 'data');
+        }
+
+    /// Check if maximum number of entry as specified by this database is reached
+    /// Of course, you can't be stopped if you are an editting teacher! =)
+
+        if (data_atmaxentries($data) and !has_capability('mod/data:manageentries',$context)){
+            echo $OUTPUT->header();
+            echo $OUTPUT->notification(get_string('atmaxentry','data'));
+            echo $OUTPUT->footer();
+            exit;
+        }
+
         ///Empty form checking - you can't submit an empty form!
 
         $emptyform = true;      // assume the worst
+
         foreach ($datarecord as $name => $value) {
             if (!in_array($name, $ignorenames)) {
                 $namearr = explode('_', $name);  // Second one is the field id
@@ -221,6 +220,7 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
                 }
             }
         }
+
         if ($emptyform){    //nothing gets written to database
             echo $OUTPUT->notification(get_string('emptyaddform','data'));
         }
@@ -230,7 +230,6 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
             /// Insert a whole lot of empty records to make sure we have them
             $fields = $DB->get_records('data_fields', array('dataid'=>$data->id));
             foreach ($fields as $field) {
-                $content = new stdClass();
                 $content->recordid = $recordid;
                 $content->fieldid = $field->id;
                 $DB->insert_record('data_content',$content);

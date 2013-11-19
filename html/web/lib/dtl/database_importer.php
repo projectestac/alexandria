@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * General database importer class
  *
- * @package    core_dtl
+ * @package    core
+ * @subpackage dtl
  * @copyright  2008 Andrei Bautu
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -40,22 +43,23 @@ defined('MOODLE_INTERNAL') || die();
  * is respected.
  */
 class database_importer {
-    /** @var moodle_database Connection to the target database (a @see moodle_database object). */
+    /** Connection to the target database (a @see moodle_database object). */
     protected $mdb;
-    /** @var database_manager Database manager of the target database (a @see database_manager object). */
+    /** Database manager of the target database (a @see database_manager object). */
     protected $manager;
-    /** @var xmldb_structure Target database schema in XMLDB format (a @see xmldb_structure object). */
+    /** Target database schema in XMLDB format (a @see xmldb_structure object). */
     protected $schema;
     /**
      * Boolean flag - whether or not to check that XML database schema matches
      * the RDBMS database schema before importing (used by
      * @see begin_database_import).
-     * @var bool
      */
     protected $check_schema;
-    /** @var string How to use transactions. */
+    /**
+     * How to use transactions.
+     */
     protected $transactionmode = 'allinone';
-    /** @var moodle_transaction Transaction object */
+    /** Transaction object */
     protected $transaction;
 
     /**
@@ -101,7 +105,7 @@ class database_importer {
         global $CFG;
 
         if (!$this->mdb->get_tables()) {
-            // No tables present yet, time to create all tables.
+            // not tables yet, time to create all tables
             $this->manager->install_from_xmldb_structure($this->schema);
         }
 

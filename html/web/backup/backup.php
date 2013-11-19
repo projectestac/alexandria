@@ -56,13 +56,13 @@ require_login($course, false, $cm);
 
 switch ($type) {
     case backup::TYPE_1COURSE :
-        require_capability('moodle/backup:backupcourse', context_course::instance($course->id));
+        require_capability('moodle/backup:backupcourse', get_context_instance(CONTEXT_COURSE, $course->id));
         $heading = get_string('backupcourse', 'backup', $course->shortname);
         break;
     case backup::TYPE_1SECTION :
-        $coursecontext = context_course::instance($course->id);
+        $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
         require_capability('moodle/backup:backupsection', $coursecontext);
-        if ((string)$section->name !== '') {
+        if (!empty($section->name)) {
             $sectionname = format_string($section->name, true, array('context' => $coursecontext));
             $heading = get_string('backupsection', 'backup', $sectionname);
             $PAGE->navbar->add($sectionname);
@@ -72,26 +72,29 @@ switch ($type) {
         }
         break;
     case backup::TYPE_1ACTIVITY :
-        require_capability('moodle/backup:backupactivity', context_module::instance($cm->id));
+        require_capability('moodle/backup:backupactivity', get_context_instance(CONTEXT_MODULE, $cm->id));
         $heading = get_string('backupactivity', 'backup', $cm->name);
         break;
     default :
         print_error('unknownbackuptype');
 }
 
+
 //XTEC ************ AFEGIT - Control backup hours
 //2012.06.04 @aginard
 if (!get_protected_agora() && is_rush_hour()) {
-    print_error('rush_hour', 'local_agora', $CFG->wwwroot . '/course/view.php?id=' . $id);
+    print_error('rush_hour', 'local_moodle', $CFG->wwwroot . '/course/view.php?id=' . $id);
 }
 //************ FI
 
 //XTEC ************ AFEGIT - Check if there's enough disk space quota
 //2012.06.04 @aginard
 if (($CFG->diskPercent) && ($CFG->diskPercent >= 100)) {
-    print_error('diskquotaerror', 'local_agora', $CFG->wwwroot . '/course/view.php?id=' . $id);
+    print_error('diskquotaerror', 'local_moodle', $CFG->wwwroot . '/course/view.php?id=' . $id);
 }
 //************ FI
+
+
 
 if (!($bc = backup_ui::load_controller($backupid))) {
     $bc = new backup_controller($type, $id, backup::FORMAT_MOODLE,
@@ -112,10 +115,10 @@ $PAGE->navbar->add($backup->get_stage_name());
 $renderer = $PAGE->get_renderer('core','backup');
 echo $OUTPUT->header();
 if ($backup->enforce_changed_dependencies()) {
-    debugging('Your settings have been altered due to unmet dependencies', DEBUG_DEVELOPER);
+    echo $renderer->dependency_notification(get_string('dependenciesenforced','backup'));
 }
 echo $renderer->progress_bar($backup->get_progress_bar());
-echo $backup->display($renderer);
+echo $backup->display();
 $backup->destroy();
 unset($backup);
 echo $OUTPUT->footer();

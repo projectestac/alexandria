@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,34 +18,24 @@
 /**
  * This file is serving optimised JS
  *
- * @package    core_lib
+ * @package    core
+ * @subpackage lib
  * @copyright  2010 Petr Skoda (skodak)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// disable moodle specific debug messages and any errors in output,
-// comment out when debugging or better look into error log!
-define('NO_DEBUG_DISPLAY', true);
-
 // we need just the values from config.php and minlib.php
 define('ABORT_AFTER_CONFIG', true);
 require('../config.php'); // this stops immediately at the beginning of lib/setup.php
-require_once("$CFG->dirroot/lib/jslib.php");
 
-if ($slashargument = min_get_slash_argument()) {
-    $slashargument = ltrim($slashargument, '/');
-    if (substr_count($slashargument, '/') < 1) {
-        image_not_found();
-    }
-    // image must be last because it may contain "/"
-    list($rev, $file) = explode('/', $slashargument, 2);
-    $rev  = min_clean_param($rev, 'INT');
-    $file = '/'.min_clean_param($file, 'SAFEPATH');
+ini_set('zlib.output_compression', 'Off');
 
-} else {
-    $rev  = min_optional_param('rev', 0, 'INT');
-    $file = min_optional_param('jsfile', '', 'RAW'); // 'file' would collide with URL rewriting!
-}
+// setup include path
+set_include_path($CFG->libdir . '/minify/lib' . PATH_SEPARATOR . get_include_path());
+require_once('Minify.php');
+
+$file = min_optional_param('file', '', 'RAW');
+$rev  = min_optional_param('rev', 0, 'INT');
 
 // some security first - pick only files with .js extension in dirroot
 $jsfiles = array();
@@ -55,11 +46,7 @@ foreach ($files as $fsfile) {
         // does not exist
         continue;
     }
-    if ($CFG->dirroot === '/') {
-        // Some shared hosting sites serve files directly from '/',
-        // this is NOT supported, but at least allow JS when showing
-        // errors and warnings.
-    } else if (strpos($jsfile, $CFG->dirroot . DIRECTORY_SEPARATOR) !== 0) {
+    if (strpos($jsfile, $CFG->dirroot . DIRECTORY_SEPARATOR) !== 0) {
         // hackers - not in dirroot
         continue;
     }
@@ -75,30 +62,29 @@ if (!$jsfiles) {
     die();
 }
 
-$etag = sha1($rev.implode(',', $jsfiles));
-$candidate = $CFG->cachedir.'/js/'.$etag;
+minify($jsfiles);
 
-if ($rev > -1) {
-    if (file_exists($candidate)) {
-        if (!empty($_SERVER['HTTP_IF_NONE_MATCH']) || !empty($_SERVER['HTTP_IF_MODIFIED_SINCE'])) {
-            // we do not actually need to verify the etag value because our files
-            // never change in cache because we increment the rev parameter
-            js_send_unmodified(filemtime($candidate), $etag);
-        }
-        js_send_cached($candidate, $etag);
+function minify($files) {
+    global $CFG;
 
-    } else {
-        js_write_cache_file_content($candidate, js_minify($jsfiles));
-        // verify nothing failed in cache file creation
-        clearstatcache();
-        if (file_exists($candidate)) {
-            js_send_cached($candidate, $etag);
-        }
+    $cachedir = $CFG->cachedir.'/js';
+    // make sure the cache dir exist
+    if (!file_exists($cachedir)) {
+        @mkdir($cachedir, $CFG->directorypermissions, true);
     }
-}
 
-$content = '';
-foreach ($jsfiles as $jsfile) {
-    $content .= file_get_contents($jsfile)."\n";
+    if (0 === stripos(PHP_OS, 'win')) {
+        Minify::setDocRoot(); // IIS may need help
+    }
+    Minify::setCache($cachedir, true);
+
+    $options = array(
+        // Maximum age to cache
+        'maxAge' => (60*60*24*20),
+        // The files to minify
+        'files' => $files
+    );
+
+    Minify::serve('Files', $options);
+    die();
 }
-js_send_uncached($content, $etag);

@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will save changes in table name and/or comments
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -75,15 +77,15 @@ class edit_table_save extends XMLDBAction {
         $dirpath = $CFG->dirroot . $dirpath;
 
         $tableparam = strtolower(required_param('table', PARAM_PATH));
-        $name = substr(trim(strtolower(required_param('name', PARAM_PATH))),0,xmldb_table::NAME_MAX_LENGTH);
+        $name = substr(trim(strtolower(required_param('name', PARAM_PATH))),0,28);
         $comment = required_param('comment', PARAM_CLEAN);
         $comment = $comment;
 
-        $dbdir = $XMLDB->dbdirs[$dirpath];
+        $dbdir =& $XMLDB->dbdirs[$dirpath];
 
-        $editeddir = $XMLDB->editeddirs[$dirpath];
-        $structure = $editeddir->xml_file->getStructure();
-        $table = $structure->getTable($tableparam);
+        $editeddir =& $XMLDB->editeddirs[$dirpath];
+        $structure =& $editeddir->xml_file->getStructure();
+        $table =& $structure->getTable($tableparam);
 
         $errors = array(); // To store all the errors found
 
@@ -118,12 +120,12 @@ class edit_table_save extends XMLDBAction {
             if ($tableparam != $name) {
                 $table->setName($name);
                 if ($table->getPrevious()) {
-                    $prev = $structure->getTable($table->getPrevious());
+                    $prev =& $structure->getTable($table->getPrevious());
                     $prev->setNext($name);
                     $prev->setChanged(true);
                 }
                 if ($table->getNext()) {
-                    $next = $structure->getTable($table->getNext());
+                    $next =& $structure->getTable($table->getNext());
                     $next->setPrevious($name);
                     $next->setChanged(true);
                 }
@@ -143,7 +145,7 @@ class edit_table_save extends XMLDBAction {
 
             // If the hash has changed from the original one, change the version
             // and mark the structure as changed
-            $origstructure = $dbdir->xml_file->getStructure();
+            $origstructure =& $dbdir->xml_file->getStructure();
             if ($structure->getHash() != $origstructure->getHash()) {
                 $structure->setVersion(userdate(time(), '%Y%m%d', 99, false));
                 $structure->setChanged(true);

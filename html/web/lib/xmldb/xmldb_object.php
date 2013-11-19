@@ -1,188 +1,158 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * This class represent the XMLDB base class where all the common pieces are defined
- *
- * @package    core_xmldb
- * @copyright  1999 onwards Martin Dougiamas     http://dougiamas.com
- *             2001-3001 Eloy Lafuente (stronk7) http://contiento.com
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+///////////////////////////////////////////////////////////////////////////
+//                                                                       //
+// NOTICE OF COPYRIGHT                                                   //
+//                                                                       //
+// Moodle - Modular Object-Oriented Dynamic Learning Environment         //
+//          http://moodle.com                                            //
+//                                                                       //
+// Copyright (C) 1999 onwards Martin Dougiamas     http://dougiamas.com  //
+//           (C) 2001-3001 Eloy Lafuente (stronk7) http://contiento.com  //
+//                                                                       //
+// This program is free software; you can redistribute it and/or modify  //
+// it under the terms of the GNU General Public License as published by  //
+// the Free Software Foundation; either version 2 of the License, or     //
+// (at your option) any later version.                                   //
+//                                                                       //
+// This program is distributed in the hope that it will be useful,       //
+// but WITHOUT ANY WARRANTY; without even the implied warranty of        //
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         //
+// GNU General Public License for more details:                          //
+//                                                                       //
+//          http://www.gnu.org/copyleft/gpl.html                         //
+//                                                                       //
+///////////////////////////////////////////////////////////////////////////
 
-defined('MOODLE_INTERNAL') || die();
-
+/// This class represent the XMLDB base class where all the common pieces
+/// are defined
 
 class xmldb_object {
 
-    /** @var string name of obejct */
-    protected $name;
-
-    /** @var string comment on object */
-    protected $comment;
-
-    /** @var xmldb_object */
-    protected $previous;
-
-    /** @var xmldb_object */
-    protected $next;
-
-    /** @var string hash of object */
-    protected $hash;
-
-    /** @var bool is it loaded yet */
-    protected $loaded;
-
-    /** @var bool was object changed */
-    protected $changed;
-
-    /** @var string error message */
-    protected $errormsg;
+    var $name;
+    var $comment;
+    var $previous;
+    var $next;
+    var $hash;
+    var $loaded;
+    var $changed;
+    var $errormsg;
 
     /**
      * Creates one new xmldb_object
-     * @param string $name
      */
-    public function __construct($name) {
+    function __construct($name) {
         $this->name = $name;
-        $this->comment = null;
-        $this->previous = null;
-        $this->next = null;
-        $this->hash = null;
+        $this->comment = NULL;
+        $this->previous = NULL;
+        $this->next = NULL;
+        $this->hash = NULL;
         $this->loaded = false;
         $this->changed = false;
-        $this->errormsg = null;
+        $this->errormsg = NULL;
     }
 
     /**
      * This function returns true/false, if the xmldb_object has been loaded
-     * @return bool
      */
-    public function isLoaded() {
+    function isLoaded() {
         return $this->loaded;
     }
 
     /**
      * This function returns true/false, if the xmldb_object has changed
-     * @return bool
      */
-    public function hasChanged() {
+    function hasChanged() {
         return $this->changed;
     }
 
     /**
      * This function returns the comment of one xmldb_object
-     * @return string
      */
-    public function getComment() {
+    function getComment() {
         return $this->comment;
     }
 
     /**
      * This function returns the hash of one xmldb_object
-     * @return string
      */
-    public function getHash() {
+    function getHash() {
         return $this->hash;
     }
 
     /**
      * This function will return the name of the previous xmldb_object
-     * @return xmldb_object
      */
-    public function getPrevious() {
+    function getPrevious() {
         return $this->previous;
     }
 
     /**
      * This function will return the name of the next xmldb_object
-     * @return xmldb_object
      */
-    public function getNext() {
+    function getNext() {
         return $this->next;
     }
 
     /**
      * This function will return the name of the xmldb_object
-     * @return string
      */
-    public function getName() {
+    function getName() {
         return $this->name;
     }
 
     /**
      * This function will return the error detected in the object
-     * @return string
      */
-    public function getError() {
+    function getError() {
         return $this->errormsg;
     }
 
     /**
      * This function will set the comment of the xmldb_object
-     * @param string $comment
      */
-    public function setComment($comment) {
+    function setComment($comment) {
         $this->comment = $comment;
     }
 
     /**
      * This function will set the previous of the xmldb_object
-     * @param xmldb_object $previous
      */
-    public function setPrevious($previous) {
+    function setPrevious($previous) {
         $this->previous = $previous;
     }
 
     /**
      * This function will set the next of the xmldb_object
-     * @param xmldb_object $next
      */
-    public function setNext($next) {
+    function setNext($next) {
         $this->next = $next;
     }
 
     /**
      * This function will set the hash of the xmldb_object
-     * @param string $hash
      */
-    public function setHash($hash) {
+    function setHash($hash) {
         $this->hash = $hash;
     }
 
     /**
      * This function will set the loaded field of the xmldb_object
-     * @param bool $loaded
      */
-    public function setLoaded($loaded = true) {
+    function setLoaded($loaded = true) {
         $this->loaded = $loaded;
     }
 
     /**
      * This function will set the changed field of the xmldb_object
-     * @param bool $changed
      */
-    public function setChanged($changed = true) {
+    function setChanged($changed = true) {
         $this->changed = $changed;
     }
     /**
      * This function will set the name field of the xmldb_object
-     * @param string $name
      */
-    public function setName($name) {
+    function setName($name) {
         $this->name = $name;
     }
 
@@ -190,9 +160,8 @@ class xmldb_object {
     /**
      * This function will check if one key name is ok or no (true/false)
      * only lowercase a-z, 0-9 and _ are allowed
-     * @return bool
      */
-    public function checkName () {
+    function checkName () {
         $result = true;
 
         if ($this->name != preg_replace('/[^a-z0-9_ -]/i', '', $this->name)) {
@@ -204,14 +173,12 @@ class xmldb_object {
     /**
      * This function will check that all the elements in one array
      * have a correct name [a-z0-9_]
-     * @param array $arr
-     * @return bool
      */
-    public function checkNameValues($arr) {
+    function checkNameValues(&$arr) {
         $result = true;
-        // TODO: Perhaps, add support for reserved words
+    /// TODO: Perhaps, add support for reserved words
 
-        // Check the name only contains valid chars
+    /// Check the name only contains valid chars
         if ($arr) {
             foreach($arr as $element) {
                 if (!$element->checkName()) {
@@ -219,7 +186,7 @@ class xmldb_object {
                 }
             }
         }
-        // Check there aren't duplicate names
+    /// Check there aren't duplicate names
         if ($arr) {
             $existing_fields = array();
             foreach($arr as $element) {
@@ -235,10 +202,8 @@ class xmldb_object {
 
     /**
      * Reconstruct previous/next attributes.
-     * @param array $arr
-     * @return bool true if $arr modified
      */
-    public function fixPrevNext(&$arr) {
+    function fixPrevNext(&$arr) {
         global $CFG;
 
         if (empty($CFG->xmldbreconstructprevnext)) {
@@ -270,16 +235,14 @@ class xmldb_object {
     /**
      * This function will check that all the elements in one array
      * have a consistent info in their previous/next fields
-     * @param array $arr
-     * @return bool true means ok, false invalid prev/next present
      */
-    public function checkPreviousNextValues($arr) {
+    function checkPreviousNextValues(&$arr) {
         global $CFG;
         if (!empty($CFG->xmldbdisablenextprevchecking)) {
             return true;
         }
         $result = true;
-        // Check that only one element has the previous not set
+    /// Check that only one element has the previous not set
         if ($arr) {
             $counter = 0;
             foreach($arr as $element) {
@@ -292,7 +255,7 @@ class xmldb_object {
                 $result = false;
             }
         }
-        // Check that only one element has the next not set
+    /// Check that only one element has the next not set
         if ($result && $arr) {
             $counter = 0;
             foreach($arr as $element) {
@@ -305,31 +268,31 @@ class xmldb_object {
                 $result = false;
             }
         }
-        // Check that all the previous elements are existing elements
+    /// Check that all the previous elements are existing elements
         if ($result && $arr) {
             foreach($arr as $element) {
                 if ($element->getPrevious()) {
                     $i = $this->findObjectInArray($element->getPrevious(), $arr);
-                    if ($i === null) {
+                    if ($i === NULL) {
                         debugging('Object ' . $element->getName() . ' says PREVIOUS="' . $element->getPrevious() . '" but that other object does not exist.', DEBUG_DEVELOPER);
                         $result = false;
                     }
                 }
             }
         }
-        // Check that all the next elements are existing elements
+    /// Check that all the next elements are existing elements
         if ($result && $arr) {
             foreach($arr as $element) {
                 if ($element->getNext()) {
                     $i = $this->findObjectInArray($element->getNext(), $arr);
-                    if ($i === null) {
+                    if ($i === NULL) {
                         debugging('Object ' . $element->getName() . ' says NEXT="' . $element->getNext() . '" but that other object does not exist.', DEBUG_DEVELOPER);
                         $result = false;
                     }
                 }
             }
         }
-        // Check that there aren't duplicates in the previous values
+    /// Check that there aren't duplicates in the previous values
         if ($result && $arr) {
             $existarr = array();
             foreach($arr as $element) {
@@ -341,7 +304,7 @@ class xmldb_object {
                 }
             }
         }
-        // Check that there aren't duplicates in the next values
+    /// Check that there aren't duplicates in the next values
         if ($result && $arr) {
             $existarr = array();
             foreach($arr as $element) {
@@ -353,7 +316,7 @@ class xmldb_object {
                 }
             }
         }
-        // Check that there aren't next values pointing to themselves
+    /// Check that there aren't next values pointing to themselves
         if ($result && $arr) {
             foreach($arr as $element) {
                 if ($element->getNext() == $element->getName()) {
@@ -362,7 +325,7 @@ class xmldb_object {
                 }
             }
         }
-        // Check that there aren't prev values pointing to themselves
+    /// Check that there aren't prev values pointing to themselves
         if ($result && $arr) {
             foreach($arr as $element) {
                 if ($element->getPrevious() == $element->getName()) {
@@ -377,20 +340,18 @@ class xmldb_object {
     /**
      * This function will order all the elements in one array, following
      * the previous/next rules
-     * @param array $arr
-     * @return array|bool
      */
-    public function orderElements($arr) {
+    function orderElements($arr) {
         global $CFG;
         $result = true;
         if (!empty($CFG->xmldbdisablenextprevchecking)) {
             return $arr;
         }
-        // Create a new array
+    /// Create a new array
         $newarr = array();
         if (!empty($arr)) {
-            $currentelement = null;
-            // Get the element without previous
+            $currentelement = NULL;
+        /// Get the element without previous
             foreach($arr as $key => $element) {
                 if (!$element->getPrevious()) {
                     $currentelement = $arr[$key];
@@ -400,7 +361,7 @@ class xmldb_object {
             if (!$currentelement) {
                 $result = false;
             }
-            // Follow the next rules
+        /// Follow the next rules
             $counter = 1;
             while ($result && $currentelement->getNext()) {
                 $i = $this->findObjectInArray($currentelement->getNext(), $arr);
@@ -408,11 +369,11 @@ class xmldb_object {
                 $newarr[$counter] = $arr[$i];
                 $counter++;
             }
-            // Compare number of elements between original and new array
+        /// Compare number of elements between original and new array
             if ($result && count($arr) != count($newarr)) {
                 $result = false;
             }
-            // Check that previous/next is ok (redundant but...)
+        /// Check that previous/next is ok (redundant but...)
             if ($this->checkPreviousNextValues($newarr)) {
                 $result = $newarr;
             } else {
@@ -426,25 +387,22 @@ class xmldb_object {
 
     /**
      * Returns the position of one object in the array.
-     * @param string $objectname
-     * @param array $arr
-     * @return mixed
      */
-    public function findObjectInArray($objectname, $arr) {
+    function &findObjectInArray($objectname, $arr) {
         foreach ($arr as $i => $object) {
             if ($objectname == $object->getName()) {
                 return $i;
             }
         }
-        return null;
+        $null = NULL;
+        return $null;
     }
 
     /**
      * This function will display a readable info about the xmldb_object
      * (should be implemented inside each XMLDBxxx object)
-     * @return string
      */
-    public function readableInfo() {
+    function readableInfo() {
         return get_class($this);
     }
 
@@ -458,13 +416,12 @@ class xmldb_object {
      *
      * Call to the external hook function can be disabled by request by
      * defining XMLDB_SKIP_DEBUG_HOOK
-     * @param string $message
      */
-    public function debug($message) {
+    function debug($message) {
 
-        // Check for xmldb_debug($message, $xmldb_object)
+    /// Check for xmldb_debug($message, $xmldb_object)
         $funcname = 'xmldb_debug';
-        // If exists and XMLDB_SKIP_DEBUG_HOOK is undefined
+    /// If exists and XMLDB_SKIP_DEBUG_HOOK is undefined
         if (function_exists($funcname) && !defined('XMLDB_SKIP_DEBUG_HOOK')) {
             $funcname($message, $this);
         }
@@ -473,15 +430,13 @@ class xmldb_object {
     /**
      * Returns one array of elements from one comma separated string,
      * supporting quoted strings containing commas and concat function calls
-     * @param string $string
-     * @return array
      */
-    public function comma2array($string) {
+    function comma2array($string) {
 
         $foundquotes  = array();
         $foundconcats = array();
 
-        // Extract all the concat elements from the string
+    /// Extract all the concat elements from the string
         preg_match_all("/(CONCAT\(.*?\))/is", $string, $matches);
         foreach (array_unique($matches[0]) as $key=>$value) {
             $foundconcats['<#'.$key.'#>'] = $value;
@@ -490,8 +445,8 @@ class xmldb_object {
             $string = str_replace($foundconcats,array_keys($foundconcats),$string);
         }
 
-        // Extract all the quoted elements from the string (skipping
-        // backslashed quotes that are part of the content.
+    /// Extract all the quoted elements from the string (skipping
+    /// backslashed quotes that are part of the content.
         preg_match_all("/(''|'.*?[^\\\\]')/is", $string, $matches);
         foreach (array_unique($matches[0]) as $key=>$value) {
             $foundquotes['<%'.$key.'%>'] = $value;
@@ -500,23 +455,23 @@ class xmldb_object {
             $string = str_replace($foundquotes,array_keys($foundquotes),$string);
         }
 
-        // Explode safely the string
+    /// Explode safely the string
         $arr = explode (',', $string);
 
-        // Put the concat and quoted elements back again, trimming every element
+    /// Put the concat and quoted elements back again, trimming every element
         if ($arr) {
             foreach ($arr as $key => $element) {
-                // Clear some spaces
+            /// Clear some spaces
                 $element = trim($element);
-                // Replace the quoted elements if exists
+            /// Replace the quoted elements if exists
                 if (!empty($foundquotes)) {
                     $element = str_replace(array_keys($foundquotes), $foundquotes, $element);
                 }
-                // Replace the concat elements if exists
+            /// Replace the concat elements if exists
                 if (!empty($foundconcats)) {
                     $element = str_replace(array_keys($foundconcats), $foundconcats, $element);
                 }
-                // Delete any backslash used for quotes. XMLDB stuff will add them before insert
+            /// Delete any backslash used for quotes. XMLDB stuff will add them before insert
                 $arr[$key] = str_replace("\\'", "'", $element);
             }
         }
@@ -533,7 +488,7 @@ class xmldb_object {
      * @param xmldb_table $xmldb_table optional when object is table
      * @return string null if ok, error message if problem found
      */
-    public function validateDefinition(xmldb_table $xmldb_table=null) {
+    function validateDefinition(xmldb_table $xmldb_table=null) {
         return null;
     }
 }

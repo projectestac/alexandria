@@ -4,11 +4,9 @@ defined('MOODLE_INTERNAL') || die;
 
 if ($ADMIN->fulltree) {
 
-    // Load xtec2_theme_onload only when in theme configuration page of theme xtec2
+    // Load xtec2_theme_onload only when in theme configuration page
     global $PAGE;
-    if ($CFG->theme == 'xtec2' && $PAGE->pagetype == 'admin-setting-themesettingxtec2') {
-        $PAGE->requires->js_init_code('xtec2_theme_onload();');
-    }
+    $PAGE->requires->js_init_code('xtec2_theme_onload();');
 
     // This is the note box for all the settings pages
     $name = 'theme_xtec2/notes';
@@ -26,11 +24,11 @@ if ($ADMIN->fulltree) {
 
     
     // Set the path to the logo image
-    $name = 'theme_xtec2/logo';
-    $title = get_string('logo', 'theme_xtec2');
-    $description = get_string('logodesc', 'theme_xtec2');
-    $setting = new admin_setting_configstoredfile($name, $title, $description, 'logo');
-  	$setting->set_updatedcallback('theme_reset_all_caches');
+    $name = 'theme_xtec2/logourl';
+    $title = get_string('logourl', 'theme_xtec2');
+    $description = get_string('logourldesc', 'theme_xtec2');
+    $default = '';
+    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_CLEAN);
     $settings->add($setting);
 
     
@@ -139,8 +137,8 @@ if ($ADMIN->fulltree) {
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $settings->add($setting);
 
-/*    
-    // Select iconset
+    
+    // Select font style
     $name = 'theme_xtec2/iconset';
     $title = get_string('iconset', 'theme_xtec2');
     $icons_core = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -173,15 +171,6 @@ if ($ADMIN->fulltree) {
     $choices = array('tema' => 'Personalitzades del tema', 'estandard' => 'Estàndard del Moodle');
     $setting = new admin_setting_configselect($name, $title, $description, $default, $choices);
     $settings->add($setting);
-*/
-
-    // Set CSS to be imported
-    $name = 'theme_xtec2/importcss';
-    $title = get_string('importcss', 'theme_xtec2');
-    $description = get_string('importcssdesc', 'theme_xtec2');
-    $default = '';
-    $setting = new admin_setting_configtext($name, $title, $description, $default, PARAM_CLEAN);
-    $settings->add($setting);  
 
     
     // Set custom css for theme

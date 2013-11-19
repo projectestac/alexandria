@@ -14,9 +14,9 @@ require_once($CFG->dirroot . "/lib/outputcomponents.php");
 class parser_utils {
         
     public static function h($tag, $text = null, $options = array(), $escape_text = false) {
-        $tag = htmlentities($tag, ENT_COMPAT, 'UTF-8');
+        $tag = htmlentities($tag);
         if(!empty($text) && $escape_text) {
-                $text = htmlentities($text, ENT_COMPAT, 'UTF-8');
+                $text = htmlentities($text);
             }
         return html_writer::tag($tag, $text, $options);
     }

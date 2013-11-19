@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,12 +18,15 @@
 /**
  * Cohort related management functions, this file needs to be included manually.
  *
- * @package    core_cohort
+ * @package    core
+ * @subpackage cohort
  * @copyright  2010 Petr Skoda  {@link http://skodak.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+if (!defined('MOODLE_INTERNAL')) {
+    die('Direct access to this script is forbidden.');    ///  It must be included from a Moodle page
+}
 
 require_once($CFG->dirroot . '/lib/formslib.php');
 
@@ -39,13 +43,13 @@ class cohort_edit_form extends moodleform {
 
         $mform->addElement('text', 'name', get_string('name', 'cohort'), 'maxlength="254" size="50"');
         $mform->addRule('name', get_string('required'), 'required', null, 'client');
-        $mform->setType('name', PARAM_TEXT);
+        $mform->setType('name', PARAM_MULTILANG);
 
         $options = $this->get_category_options($cohort->contextid);
         $mform->addElement('select', 'contextid', get_string('context', 'role'), $options);
 
         $mform->addElement('text', 'idnumber', get_string('idnumber', 'cohort'), 'maxlength="254" size="50"');
-        $mform->setType('idnumber', PARAM_RAW); // Idnumbers are plain text, must not be changed.
+        $mform->setType('name', PARAM_RAW);
 
         $mform->addElement('editor', 'description_editor', get_string('description', 'cohort'), null, $editoroptions);
         $mform->setType('description_editor', PARAM_RAW);
@@ -65,7 +69,7 @@ class cohort_edit_form extends moodleform {
 
         $idnumber = trim($data['idnumber']);
         if ($idnumber === '') {
-            // Fine, empty is ok.
+            // fine, empty is ok
 
         } else if ($data['id']) {
             $current = $DB->get_record('cohort', array('id'=>$data['id']), '*', MUST_EXIST);
@@ -89,18 +93,18 @@ class cohort_edit_form extends moodleform {
         $parentlist = array();
         make_categories_list($displaylist, $parentlist, 'moodle/cohort:manage');
         $options = array();
-        $syscontext = context_system::instance();
+        $syscontext = get_context_instance(CONTEXT_SYSTEM);
         if (has_capability('moodle/cohort:manage', $syscontext)) {
-            $options[$syscontext->id] = $syscontext->get_context_name();
+            $options[$syscontext->id] = print_context_name($syscontext);
         }
         foreach ($displaylist as $cid=>$name) {
-            $context = context_coursecat::instance($cid);
+            $context = get_context_instance(CONTEXT_COURSECAT, $cid, MUST_EXIST);
             $options[$context->id] = $name;
         }
-        // Always add current - this is not likely, but if the logic gets changed it might be a problem.
+        // always add current - this is not likely, but if the logic gets changed it might be a problem
         if (!isset($options[$currentcontextid])) {
-            $context = context::instance_by_id($currentcontextid, MUST_EXIST);
-            $options[$context->id] = $syscontext->get_context_name();
+            $context = get_context_instance_by_id($currentcontextid, MUST_EXIST);
+            $options[$context->id] = print_context_name($syscontext);
         }
         return $options;
     }

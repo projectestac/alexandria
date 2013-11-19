@@ -17,7 +17,8 @@
 /**
  * Version information for the calculated question type.
  *
- * @package    qformat_examview
+ * @package    qformat
+ * @subpackage examview
  * @copyright  2011 The Open University
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,8 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'qformat_examview';
-$plugin->version   = 2012112900;
+$plugin->version   = 2011102700;
 
-$plugin->requires  = 2012112900;
+$plugin->requires  = 2011102700;
 
 $plugin->maturity  = MATURITY_STABLE;

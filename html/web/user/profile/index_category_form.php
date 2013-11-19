@@ -20,10 +20,10 @@ class category_form extends moodleform {
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
         $mform->addElement('hidden', 'action', 'editcategory');
-        $mform->setType('action', PARAM_ALPHANUMEXT);
+        $mform->setType('action', PARAM_ACTION);
 
         $mform->addElement('text', 'name', get_string('profilecategoryname', 'admin'), 'maxlength="255" size="30"');
-        $mform->setType('name', PARAM_TEXT);
+        $mform->setType('name', PARAM_MULTILANG);
         $mform->addRule('name', $strrequired, 'required', null, 'client');
 
         $this->add_action_buttons(true);

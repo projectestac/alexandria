@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,30 +15,27 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * Native postgresql recordset.
  *
- * @package    core_dml
+ * @package    core
+ * @subpackage dml
  * @copyright  2008 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once(__DIR__.'/moodle_recordset.php');
+require_once($CFG->libdir.'/dml/moodle_recordset.php');
 
 /**
  * pgsql specific moodle recordset class
- *
- * @package    core_dml
- * @copyright  2008 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class pgsql_native_moodle_recordset extends moodle_recordset {
 
     protected $result;
-    /** @var current row as array.*/
-    protected $current;
+    protected $current; // current row as array
     protected $bytea_oid;
     protected $blobs = array();
 
@@ -78,7 +76,7 @@ class pgsql_native_moodle_recordset extends moodle_recordset {
     }
 
     public function key() {
-        // return first column value as key
+    /// return first column value as key
         if (!$this->current) {
             return false;
         }

@@ -13,20 +13,11 @@ class user_editadvanced_form extends moodleform {
         global $USER, $CFG, $COURSE;
 
         $mform =& $this->_form;
-        $editoroptions = null;
-        $filemanageroptions = null;
-        $userid = $USER->id;
 
-        if (is_array($this->_customdata)) {
-            if (array_key_exists('editoroptions', $this->_customdata)) {
-                $editoroptions = $this->_customdata['editoroptions'];
-            }
-            if (array_key_exists('filemanageroptions', $this->_customdata)) {
-                $filemanageroptions = $this->_customdata['filemanageroptions'];
-            }
-            if (array_key_exists('userid', $this->_customdata)) {
-                $userid = $this->_customdata['userid'];
-            }
+        if (is_array($this->_customdata) && array_key_exists('editoroptions', $this->_customdata)) {
+            $editoroptions = $this->_customdata['editoroptions'];
+        } else {
+            $editoroptions = null;
         }
 
         //Accessibility: "Required" is bad legend text.
@@ -67,18 +58,12 @@ class user_editadvanced_form extends moodleform {
         $mform->addElement('advcheckbox', 'preference_auth_forcepasswordchange', get_string('forcepasswordchange'));
         $mform->addHelpButton('preference_auth_forcepasswordchange', 'forcepasswordchange');
         /// shared fields
-        useredit_shared_definition($mform, $editoroptions, $filemanageroptions);
+        useredit_shared_definition($mform, $editoroptions);
 
         /// Next the customisable profile fields
-        profile_definition($mform, $userid);
+        profile_definition($mform);
 
-        if ($userid == -1) {
-            $btnstring = get_string('createuser');
-        } else {
-            $btnstring = get_string('updatemyprofile');
-        }
-
-        $this->add_action_buttons(false, $btnstring);
+        $this->add_action_buttons(false, get_string('updatemyprofile'));
     }
 
     function definition_after_data() {
@@ -90,13 +75,6 @@ class user_editadvanced_form extends moodleform {
         } else {
             $user = false;
         }
-        
-        //XTEC ************ AFEGIT - To avoid admin changes its own username
-        //2013.02.06  @sarjona
-        if ($mform->getElementValue('username') == 'admin'){
-            $mform->freeze('username');
-        }
-        //************ FI
 
         // if language does not exist, use site default lang
         if ($langsel = $mform->getElementValue('lang')) {
@@ -143,7 +121,7 @@ class user_editadvanced_form extends moodleform {
         // print picture
         if (!empty($CFG->gdversion) and empty($USER->newadminuser)) {
             if ($user) {
-                $context = context_user::instance($user->id, MUST_EXIST);
+                $context = get_context_instance(CONTEXT_USER, $user->id, MUST_EXIST);
                 $fs = get_file_storage();
                 $hasuploadedpicture = ($fs->file_exists($context->id, 'user', 'icon', 0, '/', 'f2.png') || $fs->file_exists($context->id, 'user', 'icon', 0, '/', 'f2.jpg'));
                 if (!empty($user->picture) && $hasuploadedpicture) {
@@ -191,7 +169,7 @@ class user_editadvanced_form extends moodleform {
                 $err['username'] = get_string('usernameexists');
             }
             //check allowed characters
-            if ($usernew->username !== textlib::strtolower($usernew->username)) {
+            if ($usernew->username !== moodle_strtolower($usernew->username)) {
                 $err['username'] = get_string('usernamelowercase');
             } else {
                 if ($usernew->username !== clean_param($usernew->username, PARAM_USERNAME)) {

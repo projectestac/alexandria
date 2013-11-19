@@ -47,13 +47,14 @@
     $defineurl = $CFG->wwwroot . '/' . $CFG->admin . '/roles/define.php';
 
 /// Check access permissions.
-    $systemcontext = context_system::instance();
+    $systemcontext = get_context_instance(CONTEXT_SYSTEM);
     require_login();
     require_capability('moodle/role:manage', $systemcontext);
     admin_externalpage_setup('defineroles');
 
 /// Get some basic data we are going to need.
-    $roles = role_fix_names(get_all_roles(), $systemcontext, ROLENAME_ORIGINAL);
+    $roles = get_all_roles();
+    role_fix_names($roles, $systemcontext, ROLENAME_ORIGINAL);
 
     $undeletableroles = array();
     $undeletableroles[$CFG->notloggedinroleid] = 1;
@@ -213,7 +214,7 @@
     /// Basic data.
         $row = array(
             '<a href="' . $defineurl . '?action=view&amp;roleid=' . $role->id . '">' . $role->localname . '</a>',
-            role_get_description($role),
+            format_text($role->description, FORMAT_HTML),
             s($role->shortname),
             '',
         );

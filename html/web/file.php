@@ -71,7 +71,7 @@ if ($course->legacyfiles != 2) {
 }
 
 if ($course->id != SITEID) {
-    require_login($course, true, null, false);
+    require_login($course->id, true, null, false);
 
 } else if ($CFG->forcelogin) {
     if (!empty($CFG->sitepolicy)
@@ -83,7 +83,7 @@ if ($course->id != SITEID) {
     }
 }
 
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 $fs = get_file_storage();
 

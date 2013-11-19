@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will create a new default table to be edited
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -67,19 +69,19 @@ class new_table extends XMLDBAction {
 
         // Get the correct dirs
         if (!empty($XMLDB->dbdirs)) {
-            $dbdir = $XMLDB->dbdirs[$dirpath];
+            $dbdir =& $XMLDB->dbdirs[$dirpath];
         } else {
             return false;
         }
         if (!empty($XMLDB->editeddirs)) {
-            $editeddir = $XMLDB->editeddirs[$dirpath];
-            $structure = $editeddir->xml_file->getStructure();
+            $editeddir =& $XMLDB->editeddirs[$dirpath];
+            $structure =& $editeddir->xml_file->getStructure();
         }
 
         // If the changeme table exists, just get it and continue
         $changeme_exists = false;
-        if ($tables = $structure->getTables()) {
-            if ($table = $structure->getTable('changeme')) {
+        if ($tables =& $structure->getTables()) {
+            if ($table =& $structure->getTable('changeme')) {
                 $changeme_exists = true;
             }
         }
@@ -88,6 +90,7 @@ class new_table extends XMLDBAction {
             $field->setType(XMLDB_TYPE_INTEGER);
             $field->setLength(10);
             $field->setNotNull(true);
+            $field->setUnsigned(true);
             $field->setSequence(true);
             $field->setLoaded(true);
             $field->setChanged(true);

@@ -224,16 +224,12 @@ class block_manager {
             return $this->addableblocks;
         }
 
-        $unaddableblocks = self::get_undeletable_block_types();
         $pageformat = $this->page->pagetype;
         foreach($allblocks as $block) {
-            if (!$bi = block_instance($block->name)) {
-                continue;
-            }
-            if ($block->visible && !in_array($block->name, $unaddableblocks) &&
-                    ($bi->instance_allow_multiple() || !$this->is_block_present($block->name)) &&
+            if ($block->visible &&
+                    (block_method_result($block->name, 'instance_allow_multiple') || !$this->is_block_present($block->name)) &&
                     blocks_name_allowed_in_format($block->name, $pageformat) &&
-                    $bi->user_can_addto($this->page)) {
+                    block_method_result($block->name, 'user_can_addto', $this->page)) {
                 $this->addableblocks[$block->name] = $block;
             }
         }
@@ -374,21 +370,6 @@ class block_manager {
         return $this->allblocks;
     }
 
-    /**
-     * @return array names of block types that cannot be added or deleted. E.g. array('navigation','settings').
-     */
-    public static function get_undeletable_block_types() {
-        global $CFG;
-
-        if (!isset($CFG->undeletableblocktypes) || (!is_array($CFG->undeletableblocktypes) && !is_string($CFG->undeletableblocktypes))) {
-            return array('navigation','settings');
-        } else if (is_string($CFG->undeletableblocktypes)) {
-            return explode(',', $CFG->undeletableblocktypes);
-        } else {
-            return $CFG->undeletableblocktypes;
-        }
-    }
-
 /// Setter methods =============================================================
 
     /**
@@ -470,17 +451,9 @@ class block_manager {
      * @return bool True if all of the blocks within that region are docked
      */
     public function region_completely_docked($region, $output) {
-        global $CFG;
-        // If theme doesn't allow docking or allowblockstodock is not set, then return.
-        if (!$this->page->theme->enable_dock || empty($CFG->allowblockstodock)) {
+        if (!$this->page->theme->enable_dock) {
             return false;
         }
-
-        // Do not dock the region when the user attemps to move a block.
-        if ($this->movingblock) {
-            return false;
-        }
-
         $this->check_is_loaded();
         $this->ensure_content_created($region, $output);
         foreach($this->visibleblockcontent[$region] as $instance) {
@@ -681,7 +654,7 @@ class block_manager {
         $blockinstance->id = $DB->insert_record('block_instances', $blockinstance);
 
         // Ensure the block context is created.
-        context_block::instance($blockinstance->id);
+        get_context_instance(CONTEXT_BLOCK, $blockinstance->id);
 
         // If the new instance was created, allow it to do additional setup
         if ($block = block_instance($blockname, $blockinstance)) {
@@ -816,7 +789,7 @@ class block_manager {
      * Find a given block by its instance id
      *
      * @param integer $instanceid
-     * @return block_base
+     * @return object
      */
     public function find_instance($instanceid) {
         foreach ($this->regions as $region => $notused) {
@@ -1025,40 +998,47 @@ class block_manager {
     public function edit_controls($block) {
         global $CFG;
 
+        if (!isset($CFG->undeletableblocktypes) || (!is_array($CFG->undeletableblocktypes) && !is_string($CFG->undeletableblocktypes))) {
+            $undeletableblocktypes = array('navigation','settings');
+        } else if (is_string($CFG->undeletableblocktypes)) {
+            $undeletableblocktypes = explode(',', $CFG->undeletableblocktypes);
+        } else {
+            $undeletableblocktypes = $CFG->undeletableblocktypes;
+        }
+
         $controls = array();
         $actionurl = $this->page->url->out(false, array('sesskey'=> sesskey()));
 
         if ($this->page->user_can_edit_blocks()) {
             // Move icon.
             $controls[] = array('url' => $actionurl . '&bui_moveid=' . $block->instance->id,
-                    'icon' => 't/move', 'caption' => get_string('moveblock', 'block', $block->title),
-                    'class' => 'editing_move');
+                    'icon' => 't/move', 'caption' => get_string('move'));
         }
 
         if ($this->page->user_can_edit_blocks() || $block->user_can_edit()) {
             // Edit config icon - always show - needed for positioning UI.
             $controls[] = array('url' => $actionurl . '&bui_editid=' . $block->instance->id,
-                    'icon' => 't/edit', 'caption' => get_string('configureblock', 'block', $block->title),
-                    'class' => 'editing_edit');
+                    'icon' => 't/edit', 'caption' => get_string('configuration'));
         }
 
-        if ($this->user_can_delete_block($block)) {
-            // Delete icon.
-            $controls[] = array('url' => $actionurl . '&bui_deleteid=' . $block->instance->id,
-                    'icon' => 't/delete', 'caption' => get_string('deleteblock', 'block', $block->title),
-                    'class' => 'editing_delete');
+        if ($this->page->user_can_edit_blocks() && $block->user_can_edit() && $block->user_can_addto($this->page)) {
+            if (!in_array($block->instance->blockname, $undeletableblocktypes)
+                    || !in_array($block->instance->pagetypepattern, array('*', 'site-index'))
+                    || $block->instance->parentcontextid != SITEID) {
+                // Delete icon.
+                $controls[] = array('url' => $actionurl . '&bui_deleteid=' . $block->instance->id,
+                        'icon' => 't/delete', 'caption' => get_string('delete'));
+            }
         }
 
         if ($this->page->user_can_edit_blocks() && $block->instance_can_be_hidden()) {
             // Show/hide icon.
             if ($block->instance->visible) {
                 $controls[] = array('url' => $actionurl . '&bui_hideid=' . $block->instance->id,
-                        'icon' => 't/hide', 'caption' => get_string('hideblock', 'block', $block->title),
-                        'class' => 'editing_hide');
+                        'icon' => 't/hide', 'caption' => get_string('hide'));
             } else {
                 $controls[] = array('url' => $actionurl . '&bui_showid=' . $block->instance->id,
-                        'icon' => 't/show', 'caption' => get_string('showblock', 'block', $block->title),
-                        'class' => 'editing_show');
+                        'icon' => 't/show', 'caption' => get_string('show'));
             }
         }
 
@@ -1072,21 +1052,10 @@ class block_manager {
 
             $controls[] = array('url' => $CFG->wwwroot . '/' . $CFG->admin .
                     '/roles/assign.php?contextid=' . $block->context->id . '&returnurl=' . urlencode($return),
-                    'icon' => 't/assignroles', 'caption' => get_string('assignrolesinblock', 'block', $block->title),
-                    'class' => 'editing_roles');
+                    'icon' => 'i/roles', 'caption' => get_string('assignroles', 'role'));
         }
 
         return $controls;
-    }
-
-    /**
-     * @param block_base $block a block that appears on this page.
-     * @return boolean boolean whether the currently logged in user is allowed to delete this block.
-     */
-    protected function user_can_delete_block($block) {
-        return $this->page->user_can_edit_blocks() && $block->user_can_edit() &&
-                $block->user_can_addto($this->page) &&
-                !in_array($block->instance->blockname, self::get_undeletable_block_types());
     }
 
     /**
@@ -1136,86 +1105,25 @@ class block_manager {
      * @return boolean true if anything was done. False if not.
      */
     public function process_url_delete() {
-        global $CFG, $PAGE, $OUTPUT;
-
-        $blockid = optional_param('bui_deleteid', null, PARAM_INT);
-        $confirmdelete = optional_param('bui_confirm', null, PARAM_INT);
-
+        $blockid = optional_param('bui_deleteid', null, PARAM_INTEGER);
         if (!$blockid) {
             return false;
         }
 
         require_sesskey();
+
         $block = $this->page->blocks->find_instance($blockid);
-        if (!$this->user_can_delete_block($block)) {
+
+        if (!$block->user_can_edit() || !$this->page->user_can_edit_blocks() || !$block->user_can_addto($this->page)) {
             throw new moodle_exception('nopermissions', '', $this->page->url->out(), get_string('deleteablock'));
         }
 
-        if (!$confirmdelete) {
-            $deletepage = new moodle_page();
-            $deletepage->set_pagelayout('admin');
-            $deletepage->set_course($this->page->course);
-            $deletepage->set_context($this->page->context);
-            if ($this->page->cm) {
-                $deletepage->set_cm($this->page->cm);
-            }
+        blocks_delete_instance($block->instance);
 
-            $deleteurlbase = str_replace($CFG->wwwroot . '/', '/', $this->page->url->out_omit_querystring());
-            $deleteurlparams = $this->page->url->params();
-            $deletepage->set_url($deleteurlbase, $deleteurlparams);
-            $deletepage->set_block_actions_done();
-            // At this point we are either going to redirect, or display the form, so
-            // overwrite global $PAGE ready for this. (Formslib refers to it.)
-            $PAGE = $deletepage;
-            //some functions like MoodleQuickForm::addHelpButton use $OUTPUT so we need to replace that too
-            $output = $deletepage->get_renderer('core');
-            $OUTPUT = $output;
+        // If the page URL was a guess, it will contain the bui_... param, so we must make sure it is not there.
+        $this->page->ensure_param_not_in_url('bui_deleteid');
 
-            $site = get_site();
-            $blocktitle = $block->get_title();
-            $strdeletecheck = get_string('deletecheck', 'block', $blocktitle);
-            $message = get_string('deleteblockcheck', 'block', $blocktitle);
-
-            // If the block is being shown in sub contexts display a warning.
-            if ($block->instance->showinsubcontexts == 1) {
-                $parentcontext = context::instance_by_id($block->instance->parentcontextid);
-                $systemcontext = context_system::instance();
-                $messagestring = new stdClass();
-                $messagestring->location = $parentcontext->get_context_name();
-
-                // Checking for blocks that may have visibility on the front page and pages added on that.
-                if ($parentcontext->id != $systemcontext->id && is_inside_frontpage($parentcontext)) {
-                    $messagestring->pagetype = get_string('showonfrontpageandsubs', 'block');
-                } else {
-                    $pagetypes = generate_page_type_patterns($this->page->pagetype, $parentcontext);
-                    $messagestring->pagetype = $block->instance->pagetypepattern;
-                    if (isset($pagetypes[$block->instance->pagetypepattern])) {
-                        $messagestring->pagetype = $pagetypes[$block->instance->pagetypepattern];
-                    }
-                }
-
-                $message = get_string('deleteblockwarning', 'block', $messagestring);
-            }
-
-            $PAGE->navbar->add($strdeletecheck);
-            $PAGE->set_title($blocktitle . ': ' . $strdeletecheck);
-            $PAGE->set_heading($site->fullname);
-            echo $OUTPUT->header();
-            $confirmurl = new moodle_url($deletepage->url, array('sesskey' => sesskey(), 'bui_deleteid' => $block->instance->id, 'bui_confirm' => 1));
-            $cancelurl = new moodle_url($deletepage->url);
-            $yesbutton = new single_button($confirmurl, get_string('yes'));
-            $nobutton = new single_button($cancelurl, get_string('no'));
-            echo $OUTPUT->confirm($message, $yesbutton, $nobutton);
-            echo $OUTPUT->footer();
-            // Make sure that nothing else happens after we have displayed this form.
-            exit;
-        } else {
-            blocks_delete_instance($block->instance);
-            // bui_deleteid and bui_confirm should not be in the PAGE url.
-            $this->page->ensure_param_not_in_url('bui_deleteid');
-            $this->page->ensure_param_not_in_url('bui_confirm');
-            return true;
-        }
+        return true;
     }
 
     /**
@@ -1223,9 +1131,9 @@ class block_manager {
      * @return boolean true if anything was done. False if not.
      */
     public function process_url_show_hide() {
-        if ($blockid = optional_param('bui_hideid', null, PARAM_INT)) {
+        if ($blockid = optional_param('bui_hideid', null, PARAM_INTEGER)) {
             $newvisibility = 0;
-        } else if ($blockid = optional_param('bui_showid', null, PARAM_INT)) {
+        } else if ($blockid = optional_param('bui_showid', null, PARAM_INTEGER)) {
             $newvisibility = 1;
         } else {
             return false;
@@ -1258,7 +1166,7 @@ class block_manager {
     public function process_url_edit() {
         global $CFG, $DB, $PAGE, $OUTPUT;
 
-        $blockid = optional_param('bui_editid', null, PARAM_INT);
+        $blockid = optional_param('bui_editid', null, PARAM_INTEGER);
         if (!$blockid) {
             return false;
         }
@@ -1312,19 +1220,16 @@ class block_manager {
         } else if ($data = $mform->get_data()) {
             $bi = new stdClass;
             $bi->id = $block->instance->id;
-
-            // This may get overwritten by the special case handling below.
             $bi->pagetypepattern = $data->bui_pagetypepattern;
-            $bi->showinsubcontexts = (bool) $data->bui_contexts;
             if (empty($data->bui_subpagepattern) || $data->bui_subpagepattern == '%@NULL@%') {
                 $bi->subpagepattern = null;
             } else {
                 $bi->subpagepattern = $data->bui_subpagepattern;
             }
 
-            $systemcontext = context_system::instance();
-            $frontpagecontext = context_course::instance(SITEID);
-            $parentcontext = context::instance_by_id($data->bui_parentcontextid);
+            $systemcontext = get_context_instance(CONTEXT_SYSTEM);
+            $frontpagecontext = get_context_instance(CONTEXT_COURSE, SITEID);
+            $parentcontext = get_context_instance_by_id($data->bui_parentcontextid);
 
             // Updating stickiness and contexts.  See MDL-21375 for details.
             if (has_capability('moodle/site:manageblocks', $parentcontext)) { // Check permissions in destination
@@ -1459,7 +1364,7 @@ class block_manager {
     public function process_url_move() {
         global $CFG, $DB, $PAGE;
 
-        $blockid = optional_param('bui_moveid', null, PARAM_INT);
+        $blockid = optional_param('bui_moveid', null, PARAM_INTEGER);
         if (!$blockid) {
             return false;
         }
@@ -1878,7 +1783,6 @@ function block_add_block_ui($page, $output) {
 
     $actionurl = new moodle_url($page->url, array('sesskey'=>sesskey()));
     $select = new single_select($actionurl, 'bui_addblock', $menu, null, array(''=>get_string('adddots')), 'add_block');
-    $select->set_label(get_string('addblock'), array('class'=>'accesshide'));
     $bc->content = $OUTPUT->render($select);
     return $bc;
 }
@@ -1946,11 +1850,7 @@ function blocks_remove_inappropriate($course) {
 function blocks_name_allowed_in_format($name, $pageformat) {
     $accept = NULL;
     $maxdepth = -1;
-    if (!$bi = block_instance($name)) {
-        return false;
-    }
-
-    $formats = $bi->applicable_formats();
+    $formats = block_method_result($name, 'applicable_formats');
     if (!$formats) {
         $formats = array();
     }
@@ -2054,6 +1954,35 @@ function blocks_delete_all_on_page($pagetype, $pageid) {
 }
 
 /**
+ * Dispite what this function is called, it seems to be mostly used to populate
+ * the default blocks when a new course (or whatever) is created.
+ *
+ * @deprecated since 2.0
+ *
+ * @param object $page the page to add default blocks to.
+ * @return boolean success or failure.
+ */
+function blocks_repopulate_page($page) {
+    global $CFG;
+
+    debugging('Call to deprecated function blocks_repopulate_page. ' .
+            'Use a more specific method like blocks_add_default_course_blocks, ' .
+            'or just call $PAGE->blocks->add_blocks()', DEBUG_DEVELOPER);
+
+    /// If the site override has been defined, it is the only valid one.
+    if (!empty($CFG->defaultblocks_override)) {
+        $blocknames = $CFG->defaultblocks_override;
+    } else {
+        $blocknames = $page->blocks_get_default();
+    }
+
+    $blocks = blocks_parse_default_blocks_list($blocknames);
+    $page->blocks->add_blocks($blocks);
+
+    return true;
+}
+
+/**
  * Get the block record for a particular blockid - that is, a particular type os block.
  *
  * @param $int blockid block type id. If null, an array of all block types is returned.
@@ -2152,12 +2081,30 @@ function blocks_add_default_course_blocks($course) {
     } else if ($course->id == SITEID) {
         $blocknames = blocks_get_default_site_course_blocks();
 
-    } else if (!empty($CFG->{'defaultblocks_' . $course->format})) {
-        $blocknames = blocks_parse_default_blocks_list($CFG->{'defaultblocks_' . $course->format});
-
     } else {
-        $blocknames = course_get_format($course)->get_default_blocks();
+        $defaultblocks = 'defaultblocks_' . $course->format;
+        if (!empty($CFG->$defaultblocks)) {
+            $blocknames = blocks_parse_default_blocks_list($CFG->$defaultblocks);
 
+        } else {
+            $formatconfig = $CFG->dirroot.'/course/format/'.$course->format.'/config.php';
+            $format = array(); // initialize array in external file
+            if (is_readable($formatconfig)) {
+                include($formatconfig);
+            }
+            if (!empty($format['defaultblocks'])) {
+                $blocknames = blocks_parse_default_blocks_list($format['defaultblocks']);
+
+            } else if (!empty($CFG->defaultblocks)){
+                $blocknames = blocks_parse_default_blocks_list($CFG->defaultblocks);
+
+            } else {
+                $blocknames = array(
+                    BLOCK_POS_LEFT => array(),
+                    BLOCK_POS_RIGHT => array('search_forums', 'news_items', 'calendar_upcoming', 'recent_activity')
+                );
+            }
+        }
     }
 
     if ($course->id == SITEID) {
@@ -2177,7 +2124,7 @@ function blocks_add_default_system_blocks() {
     global $DB;
 
     $page = new moodle_page();
-    $page->set_context(context_system::instance());
+    $page->set_context(get_context_instance(CONTEXT_SYSTEM));
     $page->blocks->add_blocks(array(BLOCK_POS_LEFT => array('navigation', 'settings')), '*', null, true);
     $page->blocks->add_blocks(array(BLOCK_POS_LEFT => array('admin_bookmarks')), 'admin-*', null, null, 2);
 

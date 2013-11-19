@@ -37,7 +37,7 @@ if (!$course = $DB->get_record('course', array('id'=>$id))) {
 require_course_login($course);
 $PAGE->set_pagelayout('incourse');
 
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 add_to_log($course->id, "data", "view all", "index.php?id=$course->id", "");
 
@@ -56,6 +56,9 @@ if (! $datas = get_all_instances_in_course("data", $course)) {
 }
 
 $usesections = course_format_uses_sections($course->format);
+if ($usesections) {
+    $sections = get_all_sections($course->id);
+}
 
 $timenow  = time();
 $strname  = get_string('name');
@@ -117,7 +120,7 @@ foreach ($datas as $data) {
     if ($usesections) {
         if ($data->section !== $currentsection) {
             if ($data->section) {
-                $printsection = get_section_name($course, $data->section);
+                $printsection = get_section_name($course, $sections[$data->section]);
             }
             if ($currentsection !== '') {
                 $table->data[] = 'hr';

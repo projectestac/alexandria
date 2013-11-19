@@ -1,19 +1,4 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
+<?php // $Id$
 /// This page lists all the instances of Questionnaire in a particular course
 
 
@@ -77,7 +62,7 @@
         $questionnaire = $questionnaires[$questionnaireid];
         $realm = $DB->get_field('questionnaire_survey', 'realm', array('id' => $questionnaire->sid));
         // template surveys should NOT be displayed as an activity to students
-        if (!($realm == 'template' && !has_capability('mod/questionnaire:manage',get_context_instance(CONTEXT_MODULE,$cm->id)))) {
+        if (!($realm == 'template' && !has_capability('mod/questionnaire:manage',get_context_instance(CONTEXT_MODULE,$questionnaire->coursemodule)))) {
             //Show normal if the mod is visible
             $link = "<a href=\"view.php?id=$cm->id\">$questionnaire->name</a>";
             $intro = format_module_intro('questionnaire', $questionnaire, $cm->id);
@@ -93,3 +78,5 @@
 /// Finish the page
 
     echo $OUTPUT->footer();
+
+?>

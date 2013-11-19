@@ -23,22 +23,30 @@ require_once($CFG->libdir.'/formslib.php');//putting this is as a safety as i go
  */
 class mod_assignment_upload_form extends moodleform {
     function definition() {
-        $mform = $this->_form;
-        $instance = $this->_customdata;
+        //XTEC ************** ADDED - If disk quota is exceeded, don't show the upload form
+        //2012.06.08 @aginard
+        global $CFG;
+        if ($CFG->diskPercent && ($CFG->diskPercent < 100)) {
+        //************ FI
+            $mform = $this->_form;
+            $instance = $this->_customdata;
 
-        // visible elements
-        $mform->addElement('filemanager', 'files_filemanager', get_string('uploadafile'), null, $instance['options']);
-        $mform->addRule('files_filemanager', get_string('uploadnofilefound'), 'required', null, 'client');
+            // visible elements
+            $mform->addElement('filemanager', 'files_filemanager', get_string('uploadafile'), null, $instance['options']);
 
-        // hidden params
-        $mform->addElement('hidden', 'contextid', $instance['contextid']);
-        $mform->setType('contextid', PARAM_INT);
-        $mform->addElement('hidden', 'userid', $instance['userid']);
-        $mform->setType('userid', PARAM_INT);
-        $mform->addElement('hidden', 'action', 'uploadfile');
-        $mform->setType('action', PARAM_ALPHA);
+            // hidden params
+            $mform->addElement('hidden', 'contextid', $instance['contextid']);
+            $mform->setType('contextid', PARAM_INT);
+            $mform->addElement('hidden', 'userid', $instance['userid']);
+            $mform->setType('userid', PARAM_INT);
+            $mform->addElement('hidden', 'action', 'uploadfile');
+            $mform->setType('action', PARAM_ALPHA);
 
-        // buttons
-        $this->add_action_buttons(true, get_string('savechanges', 'admin'));
-    }
+            // buttons
+            $this->add_action_buttons(true, get_string('savechanges', 'admin'));
+        //XTEC ************** ADDED - If disk quota is exceeded, don't show the upload form
+        //2012.06.08 @aginard
+        }
+        //************ FI
+   }
 }

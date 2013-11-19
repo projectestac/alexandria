@@ -41,7 +41,9 @@ if (! $feedback = $DB->get_record("feedback", array("id"=>$cm->instance))) {
     print_error('invalidcoursemodule');
 }
 
-$context = context_module::instance($cm->id);
+if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+        print_error('badcontext');
+}
 
 $feedback_complete_cap = false;
 
@@ -74,9 +76,9 @@ if ($course->id == SITEID AND !has_capability('mod/feedback:edititems', $context
 
 if ($feedback->anonymous != FEEDBACK_ANONYMOUS_YES) {
     if ($course->id == SITEID) {
-        require_login($course, true);
+        require_login($course->id, true);
     } else {
-        require_login($course, true, $cm);
+        require_login($course->id, true, $cm);
     }
 } else {
     if ($course->id == SITEID) {
@@ -201,18 +203,9 @@ echo format_module_intro('feedback', $feedback, $cm->id);
 echo $OUTPUT->box_end();
 
 if (has_capability('mod/feedback:edititems', $context)) {
-    require_once($CFG->libdir . '/filelib.php');
-
-    $page_after_submit_output = file_rewrite_pluginfile_urls($feedback->page_after_submit,
-                                                            'pluginfile.php',
-                                                            $context->id,
-                                                            'mod_feedback',
-                                                            'page_after_submit',
-                                                            0);
-
     echo $OUTPUT->heading(get_string("page_after_submit", "feedback"), 4);
     echo $OUTPUT->box_start('generalbox boxaligncenter boxwidthwide');
-    echo format_text($page_after_submit_output,
+    echo format_text($feedback->page_after_submit,
                      $feedback->page_after_submitformat,
                      array('overflowdiv'=>true));
 

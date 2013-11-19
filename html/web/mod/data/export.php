@@ -29,9 +29,6 @@ require_once('export_form.php');
 
 // database ID
 $d = required_param('d', PARAM_INT);
-$exportuser = optional_param('exportuser', false, PARAM_BOOL); // Flag for exporting user details
-$exporttime = optional_param('exporttime', false, PARAM_BOOL); // Flag for exporting date/time information
-$exportapproval = optional_param('exportapproval', false, PARAM_BOOL); // Flag for exporting user details
 
 $PAGE->set_url('/mod/data/export.php', array('d'=>$d));
 
@@ -44,7 +41,7 @@ if (! $cm = get_coursemodule_from_instance('data', $data->id, $data->course)) {
 }
 
 if(! $course = $DB->get_record('course', array('id'=>$cm->course))) {
-    print_error('invalidcourseid');
+    print_error('invalidcourseid', '', '', $cm->course);
 }
 
 // fill in missing properties needed for updating of instance
@@ -52,15 +49,18 @@ $data->course     = $cm->course;
 $data->cmidnumber = $cm->idnumber;
 $data->instance   = $cm->instance;
 
-$context = context_module::instance($cm->id);
+if (! $context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+    print_error('invalidcontext', '');
+}
 
-require_login($course, false, $cm);
+require_login($course->id, false, $cm);
 require_capability(DATA_CAP_EXPORT, $context);
 
 // get fields for this database
 $fieldrecords = $DB->get_records('data_fields', array('dataid'=>$data->id), 'id');
 
 if(empty($fieldrecords)) {
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     if (has_capability('mod/data:managetemplates', $context)) {
         redirect($CFG->wwwroot.'/mod/data/field.php?d='.$data->id);
     } else {
@@ -75,7 +75,7 @@ foreach ($fieldrecords as $fieldrecord) {
 }
 
 
-$mform = new mod_data_export_form('export.php?d='.$data->id, $fields, $cm, $data);
+$mform = new mod_data_export_form('export.php?d='.$data->id, $fields, $cm);
 
 if($mform->is_cancelled()) {
     redirect('view.php?d='.$data->id);
@@ -108,8 +108,7 @@ foreach ($formdata as $key => $value) {
 
 $currentgroup = groups_get_activity_group($cm);
 
-$exportdata = data_get_exportdata($data->id, $fields, $selectedfields, $currentgroup, $context,
-                                  $exportuser, $exporttime, $exportapproval);
+$exportdata = data_get_exportdata($data->id, $fields, $selectedfields, $currentgroup);
 $count = count($exportdata);
 switch ($formdata['exporttype']) {
     case 'csv':

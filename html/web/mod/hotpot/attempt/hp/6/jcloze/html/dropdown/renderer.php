@@ -75,13 +75,6 @@ class mod_hotpot_attempt_hp_6_jcloze_html_dropdown_renderer extends mod_hotpot_a
     }
 
     /**
-     * fix_headcontent
-     */
-    function fix_headcontent()  {
-        $this->fix_headcontent_rottmeier('dropdown');
-    }
-
-    /**
      * fix_bodycontent
      */
     function fix_bodycontent()  {

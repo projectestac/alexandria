@@ -17,9 +17,10 @@
 /**
  * Quiz statistics report calculations class.
  *
- * @package   quiz_statistics
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    quiz
+ * @subpackage statistics
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 
@@ -29,8 +30,8 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * This class has methods to compute the question statistics from the raw data.
  *
- * @copyright 2008 Jamie Pratt
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright  2008 Jamie Pratt
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class quiz_statistics_question_stats {
     public $questions;
@@ -202,7 +203,7 @@ class quiz_statistics_question_stats {
 
         // This cannot be a foreach loop because we need to have both
         // $question and $nextquestion available, but apart from that it is
-        // foreach ($this->questions as $qid => $question).
+        // foreach ($this->questions as $qid => $question) {
         reset($this->questions);
         while (list($slot, $question) = each($this->questions)) {
             $nextquestion = current($this->questions);
@@ -219,7 +220,7 @@ class quiz_statistics_question_stats {
                     $nextrandomselectorstring = $nextquestion->category . '/' .
                             $nextquestion->questiontext;
                     if ($randomselectorstring == $nextrandomselectorstring) {
-                        continue; // Next loop iteration.
+                        continue; // Next loop iteration
                     }
                 }
                 if (isset($this->randomselectors[$randomselectorstring])) {
@@ -229,7 +230,7 @@ class quiz_statistics_question_stats {
             }
         }
 
-        // Go through the records one more time.
+        // Go through the records one more time
         foreach ($this->lateststeps as $step) {
             $this->secondary_steps_walker($step,
                     $this->questions[$step->slot]->_stats);

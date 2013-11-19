@@ -18,7 +18,8 @@
 /**
  * This file defines a class with rubric grading strategy logic
  *
- * @package    workshopform_rubric
+ * @package    workshopform
+ * @subpackage rubric
  * @copyright  2009 David Mudrak <david.mudrak@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,20 +29,7 @@ defined('MOODLE_INTERNAL') || die();
 require_once(dirname(dirname(__FILE__)) . '/lib.php');  // interface definition
 require_once($CFG->libdir . '/gradelib.php');           // to handle float vs decimal issues
 
-/**
- * Server workshop files
- *
- * @category files
- * @param stdClass $course course object
- * @param stdClass $cm course module object
- * @param stdClass $context context object
- * @param string $filearea file area
- * @param array $args extra arguments
- * @param bool $forcedownload whether or not force download
- * @param array $options additional options affecting the file serving
- * @return bool
- */
-function workshopform_rubric_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload, array $options=array()) {
+function workshopform_rubric_pluginfile($course, $cm, $context, $filearea, array $args, $forcedownload) {
     global $DB;
 
     if ($context->contextlevel != CONTEXT_MODULE) {
@@ -73,7 +61,7 @@ function workshopform_rubric_pluginfile($course, $cm, $context, $filearea, array
     }
 
     // finally send the file
-    send_stored_file($file, 0, 0, $forcedownload, $options);
+    send_stored_file($file);
 }
 
 /**
@@ -430,17 +418,16 @@ class workshop_rubric_strategy implements workshop_strategy {
     protected function load_fields() {
         global $DB;
 
-        $sql = "SELECT r.id AS rid, r.sort, r.description, r.descriptionformat,
-                       l.id AS lid, l.grade, l.definition, l.definitionformat
+        $sql = 'SELECT l.id AS lid, r.id AS rid, r.*, l.*
                   FROM {workshopform_rubric} r
              LEFT JOIN {workshopform_rubric_levels} l ON (l.dimensionid = r.id)
                  WHERE r.workshopid = :workshopid
-                 ORDER BY r.sort, l.grade";
+                 ORDER BY r.sort, l.grade';
         $params = array('workshopid' => $this->workshop->id);
 
-        $rs = $DB->get_recordset_sql($sql, $params);
+        $records = $DB->get_records_sql($sql, $params);
         $fields = array();
-        foreach ($rs as $record) {
+        foreach ($records as $record) {
             if (!isset($fields[$record->rid])) {
                 $fields[$record->rid] = new stdclass();
                 $fields[$record->rid]->id = $record->rid;
@@ -457,8 +444,6 @@ class workshop_rubric_strategy implements workshop_strategy {
                 $fields[$record->rid]->levels[$record->lid]->definitionformat = $record->definitionformat;
             }
         }
-        $rs->close();
-
         return $fields;
     }
 

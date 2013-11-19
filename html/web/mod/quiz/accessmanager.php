@@ -392,40 +392,29 @@ class quiz_access_manager {
     }
 
     /**
-     * Compute when the attempt must be submitted.
-     *
-     * @param object $attempt the data from the relevant quiz_attempts row.
-     * @return int|false the attempt close time.
-     *      False if there is no limit.
-     */
-    public function get_end_time($attempt) {
-        $timeclose = false;
-        foreach ($this->rules as $rule) {
-            $ruletimeclose = $rule->end_time($attempt);
-            if ($ruletimeclose !== false && ($timeclose === false || $ruletimeclose < $timeclose)) {
-                $timeclose = $ruletimeclose;
-            }
-        }
-        return $timeclose;
-    }
-
-    /**
-     * Compute what should be displayed to the user for time remaining in this attempt.
+     * Will cause the attempt time to start counting down after the page has loaded,
+     * if that is necessary.
      *
      * @param object $attempt the data from the relevant quiz_attempts row.
      * @param int $timenow the time to consider as 'now'.
-     * @return int|false the number of seconds remaining for this attempt.
-     *      False if no limit should be displayed.
+     * @param mod_quiz_renderer $output the quiz renderer.
      */
-    public function get_time_left_display($attempt, $timenow) {
+    public function show_attempt_timer_if_needed($attempt, $timenow, $output) {
+
         $timeleft = false;
         foreach ($this->rules as $rule) {
-            $ruletimeleft = $rule->time_left_display($attempt, $timenow);
+            $ruletimeleft = $rule->time_left($attempt, $timenow);
             if ($ruletimeleft !== false && ($timeleft === false || $ruletimeleft < $timeleft)) {
                 $timeleft = $ruletimeleft;
             }
         }
-        return $timeleft;
+
+        if ($timeleft !== false) {
+            // Make sure the timer starts just above zero. If $timeleft was <= 0, then
+            // this will just have the effect of causing the quiz to be submitted immediately.
+            $timerstartvalue = max($timeleft, 1);
+            $output->initialise_timer($timerstartvalue);
+        }
     }
 
     /**
@@ -463,7 +452,7 @@ class quiz_access_manager {
      */
     public function back_to_view_page($output, $message = '') {
         if ($this->attempt_must_be_in_popup()) {
-            echo $output->close_attempt_popup($this->quizobj->view_url(), $message);
+            echo $output->close_attempt_popup($message, $this->quizobj->view_url());
             die();
         } else {
             redirect($this->quizobj->view_url(), $message);
@@ -480,8 +469,8 @@ class quiz_access_manager {
      */
     public function make_review_link($attempt, $reviewoptions, $output) {
 
-        // If the attempt is still open, don't link.
-        if (in_array($attempt->state, array(quiz_attempt::IN_PROGRESS, quiz_attempt::OVERDUE))) {
+        // If review of responses is not allowed, or the attempt is still open, don't link.
+        if (!$attempt->timefinish) {
             return $output->no_review_message('');
         }
 

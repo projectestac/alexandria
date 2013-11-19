@@ -1,27 +1,12 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot . '/repository/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-$repository       = optional_param('repos', '', PARAM_ALPHANUMEXT);
-$action           = optional_param('action', '', PARAM_ALPHANUMEXT);
-$sure             = optional_param('sure', '', PARAM_ALPHA);
-$downloadcontents = optional_param('downloadcontents', false, PARAM_BOOL);
+$repository    = optional_param('repos', '', PARAM_FORMAT);
+$action        = optional_param('action', '', PARAM_ALPHA);
+$sure          = optional_param('sure', '', PARAM_ALPHA);
 
 $display = true; // fall through to normal display
 
@@ -47,7 +32,7 @@ if ($action == 'newon') {
     $visible = false;
 }
 
-require_capability('moodle/site:config', context_system::instance());
+require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 admin_externalpage_setup($pagename);
 
 $sesskeyurl = $CFG->wwwroot.'/'.$CFG->admin.'/repository.php?sesskey=' . sesskey();
@@ -56,10 +41,6 @@ $baseurl    = $CFG->wwwroot.'/'.$CFG->admin.'/repository.php';
 $configstr  = get_string('manage', 'repository');
 
 $return = true;
-
-if (!empty($action)) {
-    require_sesskey();
-}
 
 /**
  * Helper function that generates a moodle_url object
@@ -171,10 +152,10 @@ if (($action == 'edit') || ($action == 'new')) {
 
         // Display instances list and creation form
         if ($action == 'edit') {
-            $instanceoptionnames = repository::static_function($repository, 'get_instance_option_names');
-            if (!empty($instanceoptionnames)) {
-                repository::display_instances_list(context_system::instance(), $repository);
-            }
+           $instanceoptionnames = repository::static_function($repository, 'get_instance_option_names');
+           if (!empty($instanceoptionnames)) {
+               repository::display_instances_list(get_context_instance(CONTEXT_SYSTEM), $repository);
+           }
         }
     }
 } else if ($action == 'show') {
@@ -204,8 +185,7 @@ if (($action == 'edit') || ($action == 'new')) {
         if (!confirm_sesskey()) {
             print_error('confirmsesskeybad', '', $baseurl);
         }
-
-        if ($repositorytype->delete($downloadcontents)) {
+        if ($repositorytype->delete()) {
             redirect($baseurl);
         } else {
             print_error('instancenotdeleted', 'repository', $baseurl);
@@ -213,34 +193,7 @@ if (($action == 'edit') || ($action == 'new')) {
         exit;
     } else {
         echo $OUTPUT->header();
-
-        $message = get_string('confirmremove', 'repository', $repositorytype->get_readablename());
-
-        $output = $OUTPUT->box_start('generalbox', 'notice');
-        $output .= html_writer::tag('p', $message);
-
-        $removeurl = new moodle_url($sesskeyurl);
-        $removeurl->params(array(
-            'action' =>'delete',
-            'repos' => $repository,
-            'sure' => 'yes',
-        ));
-
-        $removeanddownloadurl = new moodle_url($sesskeyurl);
-        $removeanddownloadurl->params(array(
-            'action' =>'delete',
-            'repos'=> $repository,
-            'sure' => 'yes',
-            'downloadcontents' => 1,
-        ));
-
-        $output .= $OUTPUT->single_button($removeurl, get_string('continueuninstall', 'repository'));
-        $output .= $OUTPUT->single_button($removeanddownloadurl, get_string('continueuninstallanddownload', 'repository'));
-        $output .= $OUTPUT->single_button($baseurl, get_string('cancel'));
-        $output .= $OUTPUT->box_end();
-
-        echo $output;
-
+        echo $OUTPUT->confirm(get_string('confirmremove', 'repository', $repositorytype->get_readablename()), $sesskeyurl . '&action=delete&repos=' . $repository . '&sure=yes', $baseurl);
         $return = false;
     }
 } else if ($action == 'moveup') {
@@ -302,7 +255,7 @@ if (($action == 'edit') || ($action == 'new')) {
                 // Calculate number of instances in order to display them for the Moodle administrator
                 if (!empty($instanceoptionnames)) {
                     $params = array();
-                    $params['context'] = array(context_system::instance());
+                    $params['context'] = array(get_system_context());
                     $params['onlyvisible'] = false;
                     $params['type'] = $typename;
                     $admininstancenumber = count(repository::static_function($typename, 'get_instances', $params));
@@ -360,14 +313,16 @@ if (($action == 'edit') || ($action == 'new')) {
             }
 
             $select = new single_select(repository_action_url($typename, 'repos'), 'action', $actionchoicesforexisting, $currentaction, null, 'applyto' . basename($typename));
-            $select->set_label(get_string('action'), array('class' => 'accesshide'));
             //XTEC ************ AFEGIT - To let access only to xtecadmin user
             //2012.06.25  @sarjona
             if ($typename == 'filesystem' && !get_protected_agora() ) {
+            //************ FI    
                 $select->disabled = true;
+            //XTEC ************ AFEGIT - To let access only to xtecadmin user
+            //2012.06.25  @sarjona
             }
             //************ FI    
-            
+
             // Display up/down link
             $updown = '';
             $spacer = $OUTPUT->spacer(array('height'=>15, 'width'=>15)); // should be done with CSS instead
@@ -404,7 +359,6 @@ if (($action == 'edit') || ($action == 'new')) {
             // Check that it has not already been listed
             if (!in_array($plugin, $alreadyplugins)) {
                 $select = new single_select(repository_action_url($plugin, 'repos'), 'action', $actionchoicesfornew, 'delete', null, 'applyto' . basename($plugin));
-                $select->set_label(get_string('action'), array('class' => 'accesshide'));
                 $table->data[] = array(get_string('pluginname', 'repository_'.$plugin), $OUTPUT->render($select), '', '');
             }
         }

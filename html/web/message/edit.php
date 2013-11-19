@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,24 +18,42 @@
 /**
  * Edit user message preferences
  *
- * @package    core_message
- * @copyright  2008 Luis Rodrigues and Martin Dougiamas
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Luis Rodrigues and Martin Dougiamas
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package message
  */
 
 require_once(dirname(__FILE__) . '/../config.php');
 require_once($CFG->dirroot . '/message/lib.php');
 
 $userid = optional_param('id', $USER->id, PARAM_INT);    // user id
+$course = optional_param('course', SITEID, PARAM_INT);   // course id (defaults to Site)
 $disableall = optional_param('disableall', 0, PARAM_BOOL); //disable all of this user's notifications
 
 $url = new moodle_url('/message/edit.php');
-$url->param('id', $userid);
-
+if ($userid !== $USER->id) {
+    $url->param('id', $userid);
+}
+if ($course != SITEID) {
+    $url->param('course', $course);
+}
 $PAGE->set_url($url);
-$PAGE->set_popup_notification_allowed(false); // We are within the messaging system so don't show message popups
 
-require_login();
+if (!$course = $DB->get_record('course', array('id' => $course))) {
+    print_error('invalidcourseid');
+}
+
+if ($course->id != SITEID) {
+    require_login($course);
+
+} else {
+    if (!isloggedin()) {
+        if (empty($SESSION->wantsurl)) {
+            $SESSION->wantsurl = $CFG->httpswwwroot.'/message/edit.php';
+        }
+        redirect(get_login_url());
+    }
+}
 
 if (isguestuser()) {
     print_error('guestnoeditmessage', 'message');
@@ -44,8 +63,9 @@ if (!$user = $DB->get_record('user', array('id' => $userid))) {
     print_error('invaliduserid');
 }
 
-$systemcontext   = context_system::instance();
-$personalcontext = context_user::instance($user->id);
+$systemcontext   = get_context_instance(CONTEXT_SYSTEM);
+$personalcontext = get_context_instance(CONTEXT_USER, $user->id);
+$coursecontext   = get_context_instance(CONTEXT_COURSE, $course->id);
 
 $PAGE->set_context($personalcontext);
 $PAGE->set_pagelayout('course');
@@ -55,6 +75,10 @@ $PAGE->requires->js_init_call('M.core_message.init_editsettings');
 if ($user->id == $USER->id) {
     //editing own message profile
     require_capability('moodle/user:editownmessageprofile', $systemcontext);
+    if ($course->id != SITEID && $node = $PAGE->navigation->find($course->id, navigation_node::TYPE_COURSE)) {
+        $node->make_active();
+        $PAGE->navbar->includesettingsbase = true;
+    }
 } else {
     // teachers, parents, etc.
     require_capability('moodle/user:editmessageprofile', $personalcontext);
@@ -124,7 +148,7 @@ if (($form = data_submitted()) && confirm_sesskey()) {
         print_error('cannotupdateusermsgpref');
     }
 
-    redirect("$CFG->wwwroot/message/edit.php?id=$user->id");
+    redirect("$CFG->wwwroot/message/edit.php?id=$user->id&course=$course->id");
 }
 
 /// Load preferences
@@ -158,9 +182,16 @@ $preferences->blocknoncontacts  =  get_user_preferences( 'message_blocknoncontac
 //$preferences->beepnewmessage    =  get_user_preferences( 'message_beepnewmessage', '', $user->id);
 
 /// Display page header
-$strmessaging = get_string('messaging', 'message');
-$PAGE->set_title($strmessaging);
-$PAGE->set_heading($strmessaging);
+$streditmymessage = get_string('editmymessage', 'message');
+$strparticipants  = get_string('participants');
+$userfullname     = fullname($user, true);
+
+$PAGE->set_title("$course->shortname: $streditmymessage");
+if ($course->id != SITEID) {
+    $PAGE->set_heading("$course->fullname: $streditmymessage");
+} else {
+    $PAGE->set_heading($course->fullname);
+}
 
 // Grab the renderer
 $renderer = $PAGE->get_renderer('core', 'message');

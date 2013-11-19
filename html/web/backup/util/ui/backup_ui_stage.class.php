@@ -124,8 +124,6 @@ class backup_ui_stage_initial extends backup_ui_stage {
             // Store as a variable so we can iterate by reference
             $tasks = $this->ui->get_tasks();
             // Iterate all tasks by reference
-            $add_settings = array();
-            $dependencies = array();
             foreach ($tasks as &$task) {
                 // For the initial stage we are only interested in the root settings
                 if ($task instanceof backup_root_task) {
@@ -136,22 +134,16 @@ class backup_ui_stage_initial extends backup_ui_stage {
                         if ($setting->get_name() == 'filename') {
                             continue;
                         }
-                        $add_settings[] = array($setting, $task);
+                        $form->add_setting($setting, $task);
                     }
                     // Then add all dependencies
                     foreach ($settings as &$setting) {
                         if ($setting->get_name() == 'filename') {
                             continue;
                         }
-                        $dependencies[] = $setting;
+                        $form->add_dependencies($setting);
                     }
                 }
-            }
-            // Add all settings at once.
-            $form->add_settings($add_settings);
-            // Add dependencies.
-            foreach ($dependencies as $depsetting) {
-                $form->add_dependencies($depsetting);
             }
             $this->stageform = $form;
         }
@@ -234,8 +226,6 @@ class backup_ui_stage_schema extends backup_ui_stage {
             $tasks = $this->ui->get_tasks();
             $content = '';
             $courseheading = false;
-            $add_settings = array();
-            $dependencies = array();
             foreach ($tasks as $task) {
                 if (!($task instanceof backup_root_task)) {
                     if (!$courseheading) {
@@ -245,11 +235,11 @@ class backup_ui_stage_schema extends backup_ui_stage {
                     }
                     // First add each setting
                     foreach ($task->get_settings() as $setting) {
-                        $add_settings[] = array($setting, $task);
+                        $form->add_setting($setting, $task);
                     }
                     // The add all the dependencies
                     foreach ($task->get_settings() as $setting) {
-                        $dependencies[] = $setting;
+                        $form->add_dependencies($setting);
                     }
                 } else if ($this->ui->enforce_changed_dependencies()) {
                     // Only show these settings if dependencies changed them.
@@ -263,10 +253,6 @@ class backup_ui_stage_schema extends backup_ui_stage {
                         }
                     }
                 }
-            }
-            $form->add_settings($add_settings);
-            foreach ($dependencies as $depsetting) {
-                $form->add_dependencies($depsetting);
             }
             $this->stageform = $form;
         }
@@ -424,7 +410,7 @@ class backup_ui_stage_final extends backup_ui_stage {
     /**
      * should NEVER be called... throws an exception
      */
-    public function display(core_backup_renderer $renderer) {
+    public function display() {
         throw new backup_ui_exception('backup_ui_must_execute_first');
     }
 }
@@ -458,13 +444,13 @@ class backup_ui_stage_complete extends backup_ui_stage_final {
     /**
      * Displays the completed backup stage.
      *
-     * Currently this just involves redirecting to the file browser with an
+     * Currently this just envolves redirecting to the file browser with an
      * appropriate message.
      *
-     * @param core_backup_renderer $renderer
-     * @return string HTML code to echo
+     * @global core_renderer $OUTPUT
      */
-    public function display(core_backup_renderer $renderer) {
+    public function display() {
+        global $OUTPUT;
 
         // Get the resulting stored_file record
         $type = $this->get_ui()->get_controller()->get_type();
@@ -473,27 +459,18 @@ class backup_ui_stage_complete extends backup_ui_stage_final {
         case 'activity':
             $cmid = $this->get_ui()->get_controller()->get_id();
             $cm = get_coursemodule_from_id(null, $cmid, $courseid);
-            $modcontext = context_module::instance($cm->id);
+            $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
             $restorerul = new moodle_url('/backup/restorefile.php', array('contextid'=>$modcontext->id));
             break;
         case 'course':
         default:
-            $coursecontext = context_course::instance($courseid);
+            $coursecontext = get_context_instance(CONTEXT_COURSE, $courseid);
             $restorerul = new moodle_url('/backup/restorefile.php', array('contextid'=>$coursecontext->id));
         }
 
-        $output = '';
-        $output .= $renderer->box_start();
-        if (!empty($this->results['include_file_references_to_external_content'])) {
-            $output .= $renderer->notification(get_string('filereferencesincluded', 'backup'), 'notifyproblem');
-        }
-        if (!empty($this->results['missing_files_in_pool'])) {
-            $output .= $renderer->notification(get_string('missingfilesinpool', 'backup'), 'notifyproblem');
-        }
-        $output .= $renderer->notification(get_string('executionsuccess', 'backup'), 'notifysuccess');
-        $output .= $renderer->continue_button($restorerul);
-        $output .= $renderer->box_end();
-
-        return $output;
+        echo $OUTPUT->box_start();
+        echo $OUTPUT->notification(get_string('executionsuccess', 'backup'), 'notifysuccess');
+        echo $OUTPUT->continue_button($restorerul);
+        echo $OUTPUT->box_end();
     }
 }

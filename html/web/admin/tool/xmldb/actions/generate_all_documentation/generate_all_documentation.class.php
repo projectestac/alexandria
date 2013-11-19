@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  (C) 2001-3001 Eloy Lafuente (stronk7) {@link http://contiento.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -24,7 +25,8 @@
  * This class will produce the documentation for all the XMLDB files in the server,
  * via XSL, performing the output in HTML format.
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  (C) 2001-3001 Eloy Lafuente (stronk7) {@link http://contiento.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

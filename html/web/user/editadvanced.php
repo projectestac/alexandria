@@ -49,11 +49,11 @@ if (!empty($USER->newadminuser)) {
 }
 
 if ($course->id == SITEID) {
-    $coursecontext = context_system::instance();   // SYSTEM context
+    $coursecontext = get_context_instance(CONTEXT_SYSTEM);   // SYSTEM context
 } else {
-    $coursecontext = context_course::instance($course->id);   // Course context
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);   // Course context
 }
-$systemcontext = context_system::instance();
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 
 if ($id == -1) {
     // creating new user
@@ -68,13 +68,15 @@ if ($id == -1) {
     // editing existing user
     require_capability('moodle/user:update', $systemcontext);
     $user = $DB->get_record('user', array('id'=>$id), '*', MUST_EXIST);
+
     //XTEC ************ AFEGIT - To avoid admin edit xtecadmin profile
     //2012.05.23  @sarjona
     if ($user->id !== $USER->id && $user->username=='xtecadmin') {
         redirect($CFG->wwwroot . "/user/view.php?id=$id&course={$course->id}");
     }
     //************ FI
-    $PAGE->set_context(context_user::instance($user->id));
+
+    $PAGE->set_context(get_context_instance(CONTEXT_USER, $user->id));
     if ($user->id == $USER->id) {
         if ($course->id != SITEID && $node = $PAGE->navigation->find($course->id, navigation_node::TYPE_COURSE)) {
             $node->make_active();
@@ -118,7 +120,7 @@ if (!empty($CFG->usetags)) {
 }
 
 if ($user->id !== -1) {
-    $usercontext = context_user::instance($user->id);
+    $usercontext = get_context_instance(CONTEXT_USER, $user->id);
     $editoroptions = array(
         'maxfiles'   => EDITOR_UNLIMITED_FILES,
         'maxbytes'   => $CFG->maxbytes,
@@ -140,20 +142,8 @@ if ($user->id !== -1) {
     );
 }
 
-// Prepare filemanager draft area.
-$draftitemid = 0;
-$filemanagercontext = $editoroptions['context'];
-$filemanageroptions = array('maxbytes'       => $CFG->maxbytes,
-                             'subdirs'        => 0,
-                             'maxfiles'       => 1,
-                             'accepted_types' => 'web_image');
-file_prepare_draft_area($draftitemid, $filemanagercontext->id, 'user', 'newicon', 0, $filemanageroptions);
-$user->imagefile = $draftitemid;
 //create form
-$userform = new user_editadvanced_form(null, array(
-    'editoroptions' => $editoroptions,
-    'filemanageroptions' => $filemanageroptions,
-    'userid' => $user->id));
+$userform = new user_editadvanced_form(null, array('editoroptions'=>$editoroptions));
 $userform->set_data($user);
 
 if ($usernew = $userform->get_data()) {
@@ -209,7 +199,7 @@ if ($usernew = $userform->get_data()) {
         $usercreated = false;
     }
 
-    $usercontext = context_user::instance($usernew->id);
+    $usercontext = get_context_instance(CONTEXT_USER, $usernew->id);
 
     //update preferences
     useredit_update_user_preference($usernew);
@@ -221,7 +211,7 @@ if ($usernew = $userform->get_data()) {
 
     //update user picture
     if (!empty($CFG->gdversion) and empty($USER->newadminuser)) {
-        useredit_update_picture($usernew, $userform, $filemanageroptions);
+        useredit_update_picture($usernew, $userform);
     }
 
     // update mail bounces

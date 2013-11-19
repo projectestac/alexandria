@@ -1,35 +1,18 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot . '/repository/lib.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-require_sesskey();
-
 // id of repository
 $edit    = optional_param('edit', 0, PARAM_INT);
-$new     = optional_param('new', '', PARAM_PLUGIN);
+$new     = optional_param('new', '', PARAM_FORMAT);
 $hide    = optional_param('hide', 0, PARAM_INT);
 $delete  = optional_param('delete', 0, PARAM_INT);
 $sure    = optional_param('sure', '', PARAM_ALPHA);
 $type    = optional_param('type', '', PARAM_PLUGIN);
-$downloadcontents = optional_param('downloadcontents', false, PARAM_BOOL);
 
-$context = context_system::instance();
+$context = get_context_instance(CONTEXT_SYSTEM);
 
 $pagename = 'repositorycontroller';
 
@@ -41,20 +24,16 @@ if ($edit){
     $pagename = 'repositoryinstancenew';
 }
 
-admin_externalpage_setup($pagename, '', null, new moodle_url('/admin/repositoryinstance.php'));
-require_capability('moodle/site:config', $context);
+admin_externalpage_setup($pagename);
+require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 
-$baseurl = new moodle_url("/$CFG->admin/repositoryinstance.php", array('sesskey'=>sesskey()));
-
-$parenturl = new moodle_url("/$CFG->admin/repository.php", array(
-    'sesskey'=>sesskey(),
-    'action'=>'edit',
-));
-
+$sesskeyurl = "$CFG->wwwroot/$CFG->admin/repositoryinstance.php?sesskey=" . sesskey();
+$baseurl    = "$CFG->wwwroot/$CFG->admin/repository.php?session=". sesskey() .'&action=edit&repos=';
 if ($new) {
-    $parenturl->param('repos', $new);
-} else {
-    $parenturl->param('repos', $type);
+    $baseurl .= $new;
+}
+else {
+    $baseurl .= $type;
 }
 
 $return = true;
@@ -62,9 +41,6 @@ $return = true;
 if (!empty($edit) || !empty($new)) {
     if (!empty($edit)) {
         $instance = repository::get_instance($edit);
-        if ($instance->instance->contextid != $context->id) {
-            throw new repository_exception('nopermissiontoaccess', 'repository');
-        }
         $instancetype = repository::get_type_by_id($instance->options['typeid']);
         $classname = 'repository_' . $instancetype->get_typename();
         $configs  = $instance->get_instance_option_names();
@@ -72,7 +48,7 @@ if (!empty($edit) || !empty($new)) {
         $typeid = $instance->options['typeid'];
     } else {
         $plugin = $new;
-        $typeid = null;
+        $typeid = $new;
         $instance = null;
     }
 
@@ -81,9 +57,12 @@ if (!empty($edit) || !empty($new)) {
     // end setup, begin output
 
     if ($mform->is_cancelled()){
-        redirect($parenturl);
+        redirect($baseurl);
         exit;
     } else if ($fromform = $mform->get_data()){
+        if (!confirm_sesskey()) {
+            print_error('confirmsesskeybad', '', $baseurl);
+        }
         if ($edit) {
             $settings = array();
             $settings['name'] = $fromform->name;
@@ -98,13 +77,13 @@ if (!empty($edit) || !empty($new)) {
             }
             $success = $instance->set_option($settings);
         } else {
-            $success = repository::static_function($plugin, 'create', $plugin, 0, $context, $fromform);
+            $success = repository::static_function($plugin, 'create', $plugin, 0, get_system_context(), $fromform);
             $data = data_submitted();
         }
         if ($success) {
-            redirect($parenturl);
+            redirect($baseurl);
         } else {
-            print_error('instancenotsaved', 'repository', $parenturl);
+            print_error('instancenotsaved', 'repository', $baseurl);
         }
         exit;
     } else {
@@ -116,50 +95,38 @@ if (!empty($edit) || !empty($new)) {
         $return = false;
     }
 } else if (!empty($hide)) {
+    if (!confirm_sesskey()) {
+        print_error('confirmsesskeybad', '', $baseurl);
+    }
     $instance = repository::get_type_by_typename($hide);
     $instance->hide();
     $return = true;
 } else if (!empty($delete)) {
     $instance = repository::get_instance($delete);
+    //if you try to delete an instance set as readonly, display an error message
     if ($instance->readonly) {
-        // If you try to delete an instance set as readonly, display an error message.
-        throw new repository_exception('readonlyinstance', 'repository');
-    } else if ($instance->instance->contextid != $context->id) {
-        throw new repository_exception('nopermissiontoaccess', 'repository');
-    }
+            throw new repository_exception('readonlyinstance', 'repository');
+     }
     if ($sure) {
-        if ($instance->delete($downloadcontents)) {
+        if (!confirm_sesskey()) {
+            print_error('confirmsesskeybad', '', $baseurl);
+        }
+        if ($instance->delete()) {
             $deletedstr = get_string('instancedeleted', 'repository');
-            redirect($parenturl, $deletedstr, 3);
+            redirect($baseurl, $deletedstr, 3);
         } else {
-            print_error('instancenotdeleted', 'repository', $parenturl);
+            print_error('instancenotdeleted', 'repository', $baseurl);
         }
         exit;
     }
 
     echo $OUTPUT->header();
-    echo $OUTPUT->box_start('generalbox', 'notice');
-    $continueurl = new moodle_url($baseurl, array(
-        'type' => $type,
-        'delete' => $delete,
-        'sure' => 'yes',
-    ));
-    $continueanddownloadurl = new moodle_url($continueurl, array(
-        'downloadcontents' => 1
-    ));
-    $message = get_string('confirmdelete', 'repository', $instance->name);
-    echo html_writer::tag('p', $message);
-
-    echo $OUTPUT->single_button($continueurl, get_string('continueuninstall', 'repository'));
-    echo $OUTPUT->single_button($continueanddownloadurl, get_string('continueuninstallanddownload', 'repository'));
-    echo $OUTPUT->single_button($parenturl, get_string('cancel'));
-
-    echo $OUTPUT->box_end();
-
+    echo $OUTPUT->confirm(get_string('confirmdelete', 'repository', $instance->name), "$sesskeyurl&type=$type'&delete=$delete'&sure=yes", "$CFG->wwwroot/$CFG->admin/repositoryinstance.php?session=". sesskey());
     $return = false;
 }
 
 if (!empty($return)) {
-    redirect($parenturl);
+
+    redirect($baseurl);
 }
 echo $OUTPUT->footer();

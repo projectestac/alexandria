@@ -1,8 +1,5 @@
 <?php
 
-defined('MOODLE_INTERNAL') || die();
-require_once($CFG->libdir . '/filelib.php');
-
 class block_activity_modules extends block_list {
     function init() {
         $this->title = get_string('pluginname', 'block_activity_modules');
@@ -53,26 +50,15 @@ class block_activity_modules extends block_list {
 
         foreach ($modfullnames as $modname => $modfullname) {
             if ($modname === 'resources') {
-                $icon = $OUTPUT->pix_icon('icon', '', 'mod_page', array('class' => 'icon'));
+                $icon = '<img src="'.$OUTPUT->pix_url('f/html') . '" class="icon" alt="" />&nbsp;';
                 $this->content->items[] = '<a href="'.$CFG->wwwroot.'/course/resources.php?id='.$course->id.'">'.$icon.$modfullname.'</a>';
             } else {
-                $icon = '<img src="'.$OUTPUT->pix_url('icon', $modname) . '" class="icon" alt="" />';
+                $icon = '<img src="'.$OUTPUT->pix_url('icon', $modname) . '" class="icon" alt="" />&nbsp;';
                 $this->content->items[] = '<a href="'.$CFG->wwwroot.'/mod/'.$modname.'/index.php?id='.$course->id.'">'.$icon.$modfullname.'</a>';
             }
         }
 
         return $this->content;
-    }
-
-    /**
-     * Returns the role that best describes this blocks contents.
-     *
-     * This returns 'navigation' as the blocks contents is a list of links to activities and resources.
-     *
-     * @return string 'navigation'
-     */
-    public function get_aria_role() {
-        return 'navigation';
     }
 
     function applicable_formats() {

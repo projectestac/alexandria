@@ -17,12 +17,11 @@
 /**
  * Capabilities
  *
- * @package    report_progress
+ * @package    report
+ * @subpackage progress
  * @copyright  2008 Sam Marshall
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 

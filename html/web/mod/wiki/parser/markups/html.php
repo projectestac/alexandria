@@ -19,8 +19,9 @@ class html_parser extends nwiki_parser {
         parent::__construct();
         $this->tagrules = array('link' => $this->tagrules['link'], 'url' => $this->tagrules['url']);
 
-        // Headers are considered tags here.
-        $this->tagrules['header'] = array('expression' => "/<\s*h([1-$this->maxheaderdepth])\s*>(.+?)<\/h[1-$this->maxheaderdepth]>/is"
+        //headers are considered tags here...
+        $h1 = array("<\s*h1\s*>", "<\/h1>");
+        $this->tagrules['header1'] = array('expression' => "/{$h1[0]}(.+?){$h1[1]}/is"
         );
     }
 
@@ -31,12 +32,10 @@ class html_parser extends nwiki_parser {
     }
 
     /**
-     * Header tag rule
-     * @param array $match Header regex match
-     * @return string
+     * Header 1 tag rule
      */
-    protected function header_tag_rule($match) {
-        return $this->generate_header($match[2], $match[1]);
+    protected function header1_tag_rule($match) {
+        return $this->generate_header($match[1], 1);
     }
 
     /**
@@ -63,11 +62,11 @@ class html_parser extends nwiki_parser {
 
     protected function get_repeated_sections(&$text, $repeated = array()) {
         $this->repeated_sections = $repeated;
-        return preg_replace_callback($this->tagrules['header'], array($this, 'get_repeated_sections_callback'), $text);
+        return preg_replace_callback($this->tagrules['header1'], array($this, 'get_repeated_sections_callback'), $text);
     }
 
     protected function get_repeated_sections_callback($match) {
-        $text = trim($match[2]);
+        $text = trim($match[1]);
 
         if (in_array($text, $this->repeated_sections)) {
             $this->returnvalues['repeated_sections'][] = $text;

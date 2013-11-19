@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * Delegated database transaction support.
  *
- * @package    core_dml
+ * @package    core
+ * @subpackage dml
  * @copyright  2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,15 +29,9 @@ defined('MOODLE_INTERNAL') || die();
 
 /**
  * Delegated transaction class.
- *
- * @package    core_dml
- * @copyright  2009 Petr Skoda (http://skodak.org)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class moodle_transaction {
-    /** @var array The debug_backtrace() returned array.*/
     private $start_backtrace;
-    /**@var moodle_database The moodle_database instance.*/
     private $database = null;
 
     /**
@@ -69,7 +66,7 @@ class moodle_transaction {
      * Mark transaction as disposed, no more
      * commits and rollbacks allowed.
      * To be used only from moodle_database class
-     * @return null
+     * @return unknown_type
      */
     public function dispose() {
         return $this->database = null;

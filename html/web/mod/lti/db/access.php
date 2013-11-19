@@ -17,8 +17,10 @@
 /**
  * This file contains the capabilities used by the lti module
  *
- * @package    mod_lti
- * @copyright  2009 Marc Alier, Jordi Piguillem, Nikolas Galanis, marc.alier@upc.edu
+ * @package    mod
+ * @subpackage lti
+ * @copyright  2009 Marc Alier, Jordi Piguillem, Nikolas Galanis
+ *  marc.alier@upc.edu
  * @copyright  2009 Universitat Politecnica de Catalunya http://www.upc.edu
  * @author     Marc Alier
  * @author     Jordi Piguillem
@@ -41,18 +43,6 @@ $capabilities = array(
             'editingteacher' => CAP_ALLOW,
             'manager' => CAP_ALLOW
         )
-    ),
-
-    'mod/lti:addinstance' => array(
-        'riskbitmask' => RISK_XSS,
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'editingteacher' => CAP_ALLOW,
-            'manager' => CAP_ALLOW
-        ),
-        'clonepermissionsfrom' => 'moodle/course:manageactivities'
     ),
 
     'mod/lti:grade' => array(

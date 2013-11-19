@@ -23,10 +23,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-//XTEC ************ AFEGIT - Added Catalonia to countries list
-//2012.08.22  @sarjona
-$string['CT'] = 'Catalonia';
-//************ FI 
 $string['AD'] = 'Andorra';
 $string['AE'] = 'United Arab Emirates';
 $string['AF'] = 'Afghanistan';
@@ -161,7 +157,7 @@ $string['LS'] = 'Lesotho';
 $string['LT'] = 'Lithuania';
 $string['LU'] = 'Luxembourg';
 $string['LV'] = 'Latvia';
-$string['LY'] = 'State of Libya';
+$string['LY'] = 'Libyan Arab Jamahiriya';
 $string['MA'] = 'Morocco';
 $string['MC'] = 'Monaco';
 $string['MD'] = 'Moldova, Republic Of';

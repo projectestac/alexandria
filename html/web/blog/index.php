@@ -34,7 +34,7 @@ foreach ($url_params as $var => $val) {
 }
 $PAGE->set_url('/blog/index.php', $url_params);
 
-if (empty($CFG->enableblogs)) {
+if (empty($CFG->bloglevel)) {
     print_error('blogdisable', 'blog');
 }
 
@@ -56,7 +56,7 @@ if (!empty($groupid) && empty($courseid)) {
     $courseid = $DB->get_field('groups', 'courseid', array('id'=>$groupid));
 }
 
-$sitecontext = context_system::instance();
+$sitecontext = get_context_instance(CONTEXT_SYSTEM);
 
 // check basic permissions
 if ($CFG->bloglevel == BLOG_GLOBAL_LEVEL) {
@@ -122,7 +122,7 @@ if (!empty($courseid)) {
     }
 
     $courseid = $course->id;
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
     require_login($course);
 
@@ -130,7 +130,7 @@ if (!empty($courseid)) {
         print_error('cannotviewcourseblog', 'blog');
     }
 } else {
-    $coursecontext = context_course::instance(SITEID);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, SITEID);
 }
 
 if (!empty($groupid)) {
@@ -143,10 +143,10 @@ if (!empty($groupid)) {
     }
 
     if (!$course = $DB->get_record('course', array('id'=>$group->courseid))) {
-        print_error('invalidcourseid');
+        print_error(get_string('invalidcourseid', 'blog'));
     }
 
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
     $courseid = $course->id;
     require_login($course);
 
@@ -183,7 +183,7 @@ if (!empty($userid)) {
             print_error('donothaveblog', 'blog');
         }
     } else {
-        $personalcontext = context_user::instance($userid);
+        $personalcontext = get_context_instance(CONTEXT_USER, $userid);
 
         if (!has_capability('moodle/blog:view', $sitecontext) && !has_capability('moodle/user:readuserblogs', $personalcontext)) {
             print_error('cannotviewuserblog', 'blog');
@@ -192,8 +192,6 @@ if (!empty($userid)) {
         if (!blog_user_can_view_user_entry($userid)) {
             print_error('cannotviewcourseblog', 'blog');
         }
-
-        $PAGE->navigation->extend_for_user($user);
     }
 }
 

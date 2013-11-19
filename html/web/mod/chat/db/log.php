@@ -18,8 +18,8 @@
 /**
  * Definition of log events
  *
- * @package    mod_chat
- * @category   log
+ * @package    mod
+ * @subpackage chat
  * @copyright  2010 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

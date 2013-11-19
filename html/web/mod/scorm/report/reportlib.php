@@ -68,16 +68,14 @@ function get_scorm_question_count($scormid) {
     $params[] = "cmi.interactions_%.id";
     $rs = $DB->get_recordset_select("scorm_scoes_track", $select, $params, 'element');
     $keywords = array("cmi.interactions_", ".id");
-    if ($rs->valid()) {
-        // Done as interactions start at 0 (do only if we have something to report).
-        $count++;
-        foreach ($rs as $record) {
-            $num = trim(str_ireplace($keywords, '', $record->element));
-            if (is_numeric($num) && $num > $count) {
-                $count = $num;
-            }
+    foreach ($rs as $record) {
+        $num = trim(str_ireplace($keywords, '', $record->element));
+        if (is_numeric($num) && $num > $count) {
+            $count = $num;
         }
     }
+    //done as interactions start at 0
+    $count++;
     $rs->close(); // closing recordset
     return $count;
 }

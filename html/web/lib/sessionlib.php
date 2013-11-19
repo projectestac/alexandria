@@ -42,12 +42,6 @@ function session_get_instance() {
     static $session = null;
 
     if (is_null($session)) {
-        if (!defined('NO_MOODLE_COOKIES') or empty($DB)) {
-            // Moodle was not initialised properly in lib/setup.php.
-            $session = new emergency_session();
-            return $session;
-        }
-
         if (empty($CFG->sessiontimeout)) {
             $CFG->sessiontimeout = 7200;
         }
@@ -432,19 +426,24 @@ class legacy_file_session extends session_stub {
         // make sure sessions dir exists and is writable, throws exception if not
         make_upload_directory('sessions');
 
+
         //XTEC ************ ELIMINAT - Sessions will be saved in each web server
         //2012.05.23 @aginard
         /*
+        
         // Need to disable debugging since disk_free_space()
         // will fail on very large partitions (see MDL-19222)
         $freespace = @disk_free_space($CFG->dataroot.'/sessions');
         if (!($freespace > 2048) and $freespace !== false) {
             print_error('sessiondiskfull', 'error');
         }
+
         ini_set('session.save_path', $CFG->dataroot .'/sessions');
+
         */
         //************ FI
     }
+
     /**
      * Check for existing session with id $sid
      * @param unknown_type $sid
@@ -478,9 +477,6 @@ class database_session extends session_stub {
     /** @var bool $failed session read/init failed, do not write back to DB */
     protected $failed   = false;
 
-    /** @var string hash of the session data content */
-    protected $lasthash = null;
-
     public function __construct() {
         global $DB;
         $this->database = $DB;
@@ -498,7 +494,7 @@ class database_session extends session_stub {
 
     /**
      * Check for existing session with id $sid
-     * @param string $sid
+     * @param unknown_type $sid
      * @return boolean true if session found.
      */
     public function session_exists($sid){
@@ -586,8 +582,7 @@ class database_session extends session_stub {
         }
 
         try {
-            // Do not fetch full record yet, wait until it is locked.
-            if (!$record = $this->database->get_record('sessions', array('sid'=>$sid), 'id, userid')) {
+            if (!$record = $this->database->get_record('sessions', array('sid'=>$sid))) {
                 $record = new stdClass();
                 $record->state        = 0;
                 $record->sid          = $sid;
@@ -605,14 +600,7 @@ class database_session extends session_stub {
         }
 
         try {
-            if (!empty($CFG->sessionlockloggedinonly) and (isguestuser($record->userid) or empty($record->userid))) {
-                // No session locking for guests and not-logged-in users,
-                // these users mostly read stuff, there should not be any major
-                // session race conditions. Hopefully they do not access other
-                // pages while being logged-in.
-            } else {
-                $this->database->get_session_lock($record->id, SESSION_ACQUIRE_LOCK_TIMEOUT);
-            }
+            $this->database->get_session_lock($record->id, SESSION_ACQUIRE_LOCK_TIMEOUT);
         } catch (Exception $ex) {
             // This is a fatal error, better inform users.
             // It should not happen very often - all pages that need long time to execute
@@ -622,23 +610,12 @@ class database_session extends session_stub {
             throw $ex;
         }
 
-        // Finally read the full session data because we know we have the lock now.
-        if (!$record = $this->database->get_record('sessions', array('id'=>$record->id))) {
-            error_log('Cannot read session record');
-            $this->failed = true;
-            return '';
-        }
-
         // verify timeout
         if ($record->timemodified + $CFG->sessiontimeout < time()) {
             $ignoretimeout = false;
             if (!empty($record->userid)) { // skips not logged in
                 if ($user = $this->database->get_record('user', array('id'=>$record->userid))) {
-
-                    // Refresh session if logged as a guest
-                    if (isguestuser($user)) {
-                        $ignoretimeout = true;
-                    } else {
+                    if (!isguestuser($user)) {
                         $authsequence = get_enabled_auth_plugins(); // auths, in sequence
                         foreach($authsequence as $authname) {
                             $authplugin = get_auth_plugin($authname);
@@ -679,13 +656,7 @@ class database_session extends session_stub {
             }
         }
 
-        if (is_null($record->sessdata)) {
-            $data = '';
-            $this->lasthash = sha1('');
-        } else {
-            $data = base64_decode($record->sessdata);
-            $this->lasthash = sha1($record->sessdata);
-        }
+        $data = is_null($record->sessdata) ? '' : base64_decode($record->sessdata);
 
         unset($record->sessdata); // conserve memory
         $this->record = $record;
@@ -723,28 +694,19 @@ class database_session extends session_stub {
         }
 
         if (isset($this->record->id)) {
-            $data = base64_encode($session_data);  // There might be some binary mess :-(
-
-            // Skip db update if nothing changed,
-            // do not update the timemodified each second.
-            $hash = sha1($data);
-            if ($this->lasthash === $hash
-                and $this->record->userid == $userid
-                and (time() - $this->record->timemodified < 20)
-                and $this->record->lastip == getremoteaddr()
-            ) {
-                // No need to update anything!
-                return true;
-            }
-
-            $this->record->sessdata     = $data;
+            $record = new stdClass();
+            $record->state              = 0;
+            $record->sid                = $sid;                         // might be regenerating sid
+            $this->record->sessdata     = base64_encode($session_data); // there might be some binary mess :-(
             $this->record->userid       = $userid;
             $this->record->timemodified = time();
             $this->record->lastip       = getremoteaddr();
 
+            // TODO: verify session changed before doing update,
+            //       also make sure the timemodified field is changed only every 10s if nothing else changes  MDL-20462
+
             try {
                 $this->database->update_record_raw('sessions', $this->record);
-                $this->lasthash = $hash;
             } catch (dml_exception $ex) {
                 if ($this->database->get_dbfamily() === 'mysql') {
                     try {
@@ -772,9 +734,7 @@ class database_session extends session_stub {
                 $record->timecreated  = $record->timemodified = time();
                 $record->firstip      = $record->lastip = getremoteaddr();
                 $record->id           = $this->database->insert_record_raw('sessions', $record);
-
-                $this->record = $this->database->get_record('sessions', array('id'=>$record->id));
-                $this->lasthash = sha1($record->sessdata);
+                $this->record = $record;
 
                 $this->database->get_session_lock($this->record->id, SESSION_ACQUIRE_LOCK_TIMEOUT);
             } catch (Exception $ex) {
@@ -807,8 +767,6 @@ class database_session extends session_stub {
             }
             $this->record = null;
         }
-
-        $this->lasthash = null;
 
         return true;
     }
@@ -980,12 +938,9 @@ function session_gc() {
         }
         $rs->close();
 
-        // Extending the timeout period for guest sessions as they are renewed.
         $purgebefore = time() - $maxlifetime;
-        $purgebeforeguests = time() - ($maxlifetime * 5);
-
         // delete expired sessions for guest user account
-        $DB->delete_records_select('sessions', 'userid = ? AND timemodified < ?', array($CFG->siteguest, $purgebeforeguests));
+        $DB->delete_records_select('sessions', 'userid = ? AND timemodified < ?', array($CFG->siteguest, $purgebefore));
         // delete expired sessions for userid = 0 (not logged in)
         $DB->delete_records_select('sessions', 'userid = 0 AND timemodified < ?', array($purgebefore));
     } catch (dml_exception $ex) {
@@ -1004,9 +959,6 @@ function session_gc() {
 function sesskey() {
     // note: do not use $USER because it may not be initialised yet
     if (empty($_SESSION['USER']->sesskey)) {
-        if (!isset($_SESSION['USER'])) {
-            $_SESSION['USER'] = new stdClass;
-        }
         $_SESSION['USER']->sesskey = random_string(10);
     }
 
@@ -1081,7 +1033,7 @@ function set_moodle_cookie($username) {
 
     if ($username !== '') {
         // set username cookie for 60 days
-        setcookie($cookiename, rc4encrypt($username), time()+(DAYSECS*60), $CFG->sessioncookiepath, $CFG->sessioncookiedomain, $CFG->cookiesecure, $CFG->cookiehttponly);
+        setcookie($cookiename, rc4encrypt($username, true), time()+(DAYSECS*60), $CFG->sessioncookiepath, $CFG->sessioncookiedomain, $CFG->cookiesecure, $CFG->cookiehttponly);
     }
 }
 
@@ -1106,7 +1058,7 @@ function get_moodle_cookie() {
     if (empty($_COOKIE[$cookiename])) {
         return '';
     } else {
-        $username = rc4decrypt($_COOKIE[$cookiename]);
+        $username = rc4decrypt($_COOKIE[$cookiename], true);
         if ($username === 'guest' or $username === 'nobody') {
             // backwards compatibility - we do not set these cookies any more
             $username = '';
@@ -1127,18 +1079,7 @@ function get_moodle_cookie() {
 function session_set_user($user) {
     $_SESSION['USER'] = $user;
     unset($_SESSION['USER']->description); // conserve memory
-    if (isset($_SESSION['USER']->lang)) {
-        // Make sure it is a valid lang pack name.
-        $_SESSION['USER']->lang = clean_param($_SESSION['USER']->lang, PARAM_LANG);
-    }
     sesskey(); // init session key
-
-    if (PHPUNIT_TEST) {
-        // phpunit tests use reversed reference
-        global $USER;
-        $USER = $_SESSION['USER'];
-        $_SESSION['USER'] =& $USER;
-    }
 }
 
 /**

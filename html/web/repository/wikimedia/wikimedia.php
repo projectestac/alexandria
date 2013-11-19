@@ -118,9 +118,9 @@ class wikimedia {
             $commons_main_dir = 'http://upload.wikimedia.org/wikipedia/commons/';
             if ($image_url) {
                 $short_path = str_replace($commons_main_dir, '', $image_url);
-                $extension = strtolower(pathinfo($short_path, PATHINFO_EXTENSION));
+                $extension = pathinfo($short_path, PATHINFO_EXTENSION);
                 if (strcmp($extension, 'gif') == 0) {  //no thumb for gifs
-                    return $OUTPUT->pix_url(file_extension_icon('.gif', $thumb_width))->out(false);
+                    return $OUTPUT->pix_url(file_extension_icon('xx.jpg', 32));
                 }
                 $dir_parts = explode('/', $short_path);
                 $file_name = end($dir_parts);
@@ -141,14 +141,13 @@ class wikimedia {
      * @param string $keyword
      * @return array
      */
-    public function search_images($keyword, $page = 0) {
+    public function search_images($keyword) {
         $files_array = array();
         $this->_param['action'] = 'query';
         $this->_param['generator'] = 'search';
         $this->_param['gsrsearch'] = $keyword;
         $this->_param['gsrnamespace'] = WIKIMEDIA_FILE_NS;
         $this->_param['gsrlimit'] = WIKIMEDIA_THUMBS_PER_PAGE;
-        $this->_param['gsroffset'] = $page * WIKIMEDIA_THUMBS_PER_PAGE;
         $this->_param['prop']   = 'imageinfo';
         $this->_param['iiprop'] = 'url|dimensions|mime';
         $this->_param['iiurlwidth'] = WIKIMEDIA_IMAGE_SIDE_LENGTH;

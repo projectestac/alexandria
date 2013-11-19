@@ -218,14 +218,8 @@ abstract class restore_structure_step extends restore_step {
      */
     public function add_related_files($component, $filearea, $mappingitemname, $filesctxid = null, $olditemid = null) {
         $filesctxid = is_null($filesctxid) ? $this->task->get_old_contextid() : $filesctxid;
-        $results = restore_dbops::send_files_to_pool($this->get_basepath(), $this->get_restoreid(), $component,
-                $filearea, $filesctxid, $this->task->get_userid(), $mappingitemname, $olditemid);
-        $resultstoadd = array();
-        foreach ($results as $result) {
-            $this->log($result->message, $result->level);
-            $resultstoadd[$result->code] = true;
-        }
-        $this->task->add_result($resultstoadd);
+        restore_dbops::send_files_to_pool($this->get_basepath(), $this->get_restoreid(), $component,
+                                          $filearea, $filesctxid, $this->task->get_userid(), $mappingitemname, $olditemid);
     }
 
     /**
@@ -262,7 +256,7 @@ abstract class restore_structure_step extends restore_step {
 
         // Re-enforce 'moodle/restore:rolldates' capability for the user in the course, just in case
         } else if (!has_capability('moodle/restore:rolldates',
-                                   context_course::instance($this->get_courseid()),
+                                   get_context_instance(CONTEXT_COURSE, $this->get_courseid()),
                                    $this->task->get_userid())) {
             $cache[$this->get_restoreid()] = 0;
 
@@ -278,7 +272,6 @@ abstract class restore_structure_step extends restore_step {
     /**
      * As far as restore structure steps are implementing restore_plugin stuff, they need to
      * have the parent task available for wrapping purposes (get course/context....)
-     * @return restore_task|null
      */
     public function get_task() {
         return $this->task;
@@ -402,8 +395,6 @@ abstract class restore_structure_step extends restore_step {
                 $pobject->launch_after_restore_methods();
             }
         }
-        // Finally execute own (restore_structure_step) after_restore method
-        $this->after_restore();
     }
 
     /**
@@ -414,16 +405,6 @@ abstract class restore_structure_step extends restore_step {
      * overwrite in in your steps if needed
      */
     protected function after_execute() {
-        // do nothing by default
-    }
-
-    /**
-     * This method will be executed after the rest of the restore has been processed.
-     *
-     * Use if you need to update IDs based on things which are restored after this
-     * step has completed.
-     */
-    protected function after_restore() {
         // do nothing by default
     }
 

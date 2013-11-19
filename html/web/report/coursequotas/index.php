@@ -1,166 +1,192 @@
 <?php
 
-/**
- * Coursequotas report
- *
- * @package    report
- * @subpackage coursequotas
- * @copyright  2012 Agora Development Team (http://agora.xtec.cat)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
 require_once('../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-require_once($CFG->dirroot.'/report/coursequotas/locallib.php');
+//require_once($CFG->dirroot . '/local/agora.php');
 
-admin_externalpage_setup('coursequotas', '', null, '', array('pagelayout' => 'report'));
+admin_externalpage_setup('coursequotas', '', null, '', array('pagelayout'=>'report'));
 echo $OUTPUT->header();
 
-$isAgora = is_agora();
-
 if (!get_protected_agora() && is_rush_hour()) {
-    print_error('rush_hour', 'local_agora', $CFG->wwwroot);
+    // Rush hour message
+    error(get_string('rush_hour', 'local_moodle'), $CFG->wwwroot);
 } else {
-    if ($isAgora) {
-        // Get diskSpace and diskConsume from Agoraportal (might be out-of-date)
-        $diskInfo = getDiskInfo($CFG->dnscentre, 'moodle2');        
-        $diskSpace = round($diskInfo['diskSpace']); // In MB
-        $diskConsume = round($diskInfo['diskConsume'] / 1024); // Originally in kB
+    //Get diskSpace and diskConsume from portal dataBase
+    $diskInfo = getDiskInfo($CFG->dnscentre, 'moodle');
+    $diskSpace = round($diskInfo['diskSpace']); //In MB
+    //$diskConsume = round($diskInfo['diskConsume'] / 1024); //Originally in Kb
+    //Get size of every course directory
+    $courses = get_courses('all');
+    $categories = get_categories('none');
+    $categories_info = array();
 
-        // Get the size of repository 'files'
-        $repoMessage = '';
-        $size = array('unit' => 0);
-        if (file_exists($CFG->dataroot . '/repository/files/')) {
-            $repoSize = exec('du -sk ' . $CFG->dataroot . '/repository/files/');
-            $repoSize = explode('/', $repoSize);
-            $repoSize = $repoSize[0]; // Size in kB
-            $size = report_coursequotas_formatSize($repoSize * 1024);
-        }
-
-        // Variables for the language strings
-        $a = new stdClass;
-        $b = new stdClass;
-        $a->diskSpace = $diskSpace;
-        $a->diskConsume = $diskConsume;
-        $b->figure = number_format($size['figure'], 1, ',', '.');
-        $b->unit = $size['unit'];
+    foreach ($categories as $category) {
+        $categories_info[$category->id]['name'] = $category->name;
     }
 
-    // Get category tree with information about its courses and disk usage
-    $data = report_coursequotas_getCategoryData();
+    //Content for each tab
+    $data = get_category_data(0);
 
-    /* Debug code - Must be removed when issues will be fixed */
-    if (isset($_GET['debugtree'])) {
-        echo '<pre>Category tree:';
-        print_r($data);
-        echo '</pre>';
-    }
-    
-    // Calculate quota used by course files (does not include backups)
-    $coursesSize = 0;
-    foreach ($data as $category) {
-        $coursesSize += $category['categorysize'];
-    }
-    $size = report_coursequotas_formatSize($coursesSize);
+    $diskConsume = substr(($data['categorysize'] / 1024), 0, strpos($data['categorysize'] / 1024, "."));
+    $a = new stdClass;
+    $a->diskSpace = $diskSpace;
+    $a->diskConsume = $diskConsume;
 
-    /* Debug code - Must be removed when issues will be fixed */
-    if (isset($_GET['debugtree'])) {
-        echo '<pre>Size of the courses:';
-        print_r($size);
-        echo '</pre>';
-    }
-    
-    // Variable for the language strings
-    $c = new stdClass;
-    $c->figure = number_format($size['figure'], 1, ',', '.');
-    $c->unit = $size['unit'];
+    $general_content = '<p>' . get_string('total_description', 'local_moodle') . '</p>
+				   <div ><img src="graph.php?diskSpace=' . $diskSpace . '&diskConsume=' . $diskConsume . '" /></div><div ><br>' . get_string('disk_consume_explain', 'local_moodle', $a) . '</div>';
 
-    // Get quota used in backups
-    $backupUsage = report_coursequotas_formatSize(report_coursequotas_getBackupUsage());
+    $category_data = print_category_data($data);
+    $category_content = '<p>' . get_string('category_description', 'local_moodle') . '</p>' . $category_data['content'];
 
-    $d = new stdClass;
-    $d->figure = number_format($backupUsage['figure'], 1, ',', '.');
-    $d->unit = $backupUsage['unit'];
+    $larger_content = '<p>' . get_string('courses_description', 'local_moodle') . '</p>' .
+            print_larger_courses();
 
-    // Get quota used in files in moodledata/temp/ and in moodledata/trashdir/
-    $tempUsage = report_coursequotas_getTempTrashUsage();
-
-    $e = new stdClass;
-    $f = new stdClass;
-    $e->figure = number_format($tempUsage['temp']['figure'], 1, ',', '.');
-    $e->unit = $tempUsage['temp']['unit'];   
-    $f->figure = number_format($tempUsage['trashdir']['figure'], 1, ',', '.');
-    $f->unit = $tempUsage['trashdir']['unit'];
-
-    // Content for first tab (general)
-    if ($isAgora) {
-        $tempInfo = $trashInfo = '';
-        if (isset($e->figure) && !empty($e->figure)) {
-            $tempInfo = '<li>' . get_string('disk_consume_temp', 'report_coursequotas', $e) . '</li>';
-        }
-        if (isset($f->figure) && !empty($f->figure)) {
-            $trashInfo = '<li>' . get_string('disk_consume_trash', 'report_coursequotas', $f) . '</li>';
-        }
-        $generalContent = '<h3 style="text-align:center;">' . get_string('total_description', 'report_coursequotas') . '</h3>
-                            <p style="text-align:center; margin-bottom:20px;"><img src="graph.php?diskSpace=' . $diskSpace . '&diskConsume=' . $diskConsume . '" /></p>
-                            <p style="text-align:center;">' . get_string('disk_consume_explain', 'report_coursequotas', $a) .
-                '<ul style="margin:auto; width:400px; margin-bottom:20px;">' .
-                '<li>' . get_string('disk_consume_courses', 'report_coursequotas', $c) . '</li>' .
-                '<li>' . get_string('disk_consume_backups', 'report_coursequotas', $d) . '</li>' .
-                '<li>' . get_string('disk_consume_repofiles', 'report_coursequotas', $b) . '</li>' .
-                $tempInfo .
-                $trashInfo .
-                '</ul>' .
-                '</p>';        
-    } else {
-        $generalContent = '<h3 style="text-align:center;">' . get_string('total_noquota_description', 'report_coursequotas') . '</h3> '.
-                '<ul style="margin:auto; width:400px; margin-bottom:20px;">' .
-                '<li>' . get_string('disk_consume_courses', 'report_coursequotas', $c) . '</li>' .
-                '<li>' . get_string('disk_consume_backups', 'report_coursequotas', $d) . '</li>' .
-                '</ul>' .
-                '</p>';
-    }
-    
-    // Content for second tab (categories)
-    $categoryContent = '<h3 style="text-align:center;">' . get_string('category_description', 'report_coursequotas') . '</h3><div style="margin:20px; margin-left:50px;">' . report_coursequotas_printCategoryData($data) . '</div>';
-
-    // Content for third tab (courses)
-    $coursesContent = '<h3 style="text-align:center;">' . get_string('courses_description', 'report_coursequotas') . '</h3>' . report_coursequotas_printCoursesData($data);
+    //JavaScript switch
+    $PAGE->requires->js_module(array('yui_yahoo', 'yui_event', 'yui_element', 'yui_tabview', 'yui_dom-event'));
 
     $yui_code = '
-            <div class="yui3-widget yui3-tabview">
-                <div id="demo" class="yui3-tabview-content">
-                    <ul class="yui3-tabview-list">
-                        <li class="yui3-tab yui3-widget yui3-tab-selected">
-                            <a href="#foo" class="yui3-tab-label yui3-tab-content"><em>' . get_string('total_data', 'report_coursequotas') . '</em></a>
-                        </li>
-                        <li class="yui3-tab yui3-widget">
-                            <a href="#bar" class="yui3-tab-label yui3-tab-content"><em>' . get_string('category_data', 'report_coursequotas') . '</em></a>
-                        </li>
-                        <li class="yui3-tab yui3-widget">
-                            <a href="#baz" class="yui3-tab-label yui3-tab-content"><em>' . get_string('larger_courses', 'report_coursequotas') . '</em></a>
-                        </li>
-                    </ul>
-                    <div class="yui3-tabview-panel">
-                        <div id="foo" class="yui3-tab-panel">' . $generalContent . '</div>
-                        <div id="bar" class="yui3-tab-panel">' . $categoryContent . '</div>
-                        <div id="baz" class="yui3-tab-panel">' . $coursesContent . '</div>
-                    </div>
-                </div>
-            </div>
-            
-			<script type="text/javascript">
-                YUI().use(\'tabview\', function(Y) {
-                    var tabview = new Y.TabView({
-                        srcNode: \'#demo\'
-                    });
+			<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.4.1/build/tabview/assets/skins/sam/tabview.css" />
 
-                    tabview.render();
-                });
-            </script>
+			<div id="demo" class="yui-navset">
+				<ul class="yui-nav">
+					<li class="selected"><a href="#tab1"><em>' . get_string('total_data', 'local_moodle') . '</em></a></li>
+					<li><a href="#tab2"><em>' . get_string('category_data', 'local_moodle') . '</em></a></li>
+					<li><a href="#tab3"><em>' . get_string('larger_courses', 'local_moodle') . '</em></a></li>
+				</ul>            
+				<div class="yui-content">
+					<div id="tab1">' . $general_content . '</div>
+					<div id="tab2">' . $category_content . '</div>
+					<div id="tab3">' . $larger_content . '</div>
+				</div>
+			</div>
+			<script type="text/javascript">
+				document.body.className += " yui-skin-sam";
+				var tabView = new YAHOO.widget.TabView("demo");
+			</script>
 			';
 
-    echo $yui_code;
+    echo $yui_code;   
 }
 
 echo $OUTPUT->footer();
+
+
+
+function get_category_data($cat_id) {
+    global $CFG;
+
+    $categorysize = 0;
+    $data = array('id' => $cat_id);
+    if ($subcategories = get_categories($cat_id)) {
+        // Category have sons
+        $data['subcategories'] = array();
+        foreach ($subcategories as $cat) {
+            $cat_data = get_category_data($cat->id);
+            $data['subcategories'][] = $cat_data;
+        }
+    }
+    $courses = get_courses($cat_id);
+    $data['courses'] = array();
+    foreach ($courses as $course) {
+        if (file_exists($CFG->dataroot . '/' . $course->id)) {
+            $directorysize = exec('du -sk ' . $CFG->dataroot . '/' . $course->id);
+            $directorysize = explode('/', $directorysize);
+            $directorysize = $directorysize[0]; //Size in Kbytes
+        } else {
+            $directorysize = 0;
+        }
+        $categorysize += $directorysize;
+        $data['courses'][] = array('id' => $course->id,
+            'fullname' => $course->fullname,
+            'directorysize' => $directorysize);
+    }
+    $data['categorysize'] = $categorysize;
+    return $data;
+}
+
+function print_category_data($data) {
+    global $categories_info;
+    $data = $data['subcategories'];
+    $content_array = array();
+    $content = '';
+    $content .= '<ul>';
+
+    foreach ($data as $category) {
+        $categorysize = 0;
+        foreach ($category['courses'] as $course) {
+//				$content .= '<tr>';
+//				$content .= '<td>'.$course['fullname'].' -- <b>'.$course['directorysize'].' Kb</b> ('.substr(($course['directorysize'] / 1024),0,4) .' MB)</td></tr>'; 
+            $categorysize += $course['directorysize'];
+        }
+
+        $subcategory_content = '';
+        if (!empty($category['subcategories'])) {
+            foreach ($category['subcategories'] as $subcategory) {
+                $subcategory_array = print_category_data($category);
+                $subcategory_content .= $subcategory_array['content'];
+                $categorysize += $subcategory_array['categorysize'];
+            }
+        }
+
+        $content .= '<li class="category_title"><b><a href="../../course/category.php?id=' . $category['id'] . '" target="_blank">' . $categories_info[$category['id']]['name'] . '</a></b>';
+        $content .= ' - ' . substr(($categorysize / 1024), 0, strpos($categorysize / 1024, ".") + 3) . ' MB</li>';
+        $content .= $subcategory_content;
+    }
+    $content .= '</ul>';
+    $content_array['content'] = $content;
+    $content_array['categorysize'] = $categorysize;
+
+    return $content_array;
+}
+
+function print_larger_courses() {
+    global $CFG, $DB;
+    global $categories_info;
+
+    $courses = get_courses();
+    $data = array();
+    foreach ($courses as $course) {
+        if (file_exists($CFG->dataroot . '/' . $course->id)) {
+            $directorysize = exec('du -sk ' . $CFG->dataroot . '/' . $course->id);
+            $directorysize = explode('/', $directorysize);
+            $directorysize = $directorysize[0]; //Size in Kbytes
+        } else {
+            $directorysize = 0;
+        }
+        $data[] = array('directorysize' => (int) $directorysize,
+            'id' => $course->id,
+            'fullname' => $course->fullname,
+            'category' => $course->category);
+    }
+
+    /* Another way to sort the array
+     * foreach ($data as $key=>$row){
+      $size[$key] = (int)$row['directorysize'];
+      $id[$key] = $row['id'];
+      $fullname[$key] = $row['fullname'];
+      $category[$key] = $row['category'];
+      }
+
+      array_multisort($size, SORT_ASC, $id, SORT_ASC, $fullname, SORT_ASC, $category, SORT_ASC, $data);
+     */
+    rsort($data);
+    $content = '<table id="larger_courses"><tr><td><b>' . get_string('course_name', 'local_moodle') . '</b></td><td><b>' . get_string('category_name', 'local_moodle') . '</b></td><td><b>' . get_string('disk_used', 'local_moodle') . '</b></td></tr>';
+    foreach ($data as $course) {
+        $category_name = '';
+        if ($course['category'] != 0) {
+            $categoryrecord = $DB->get_record('course_categories', array('id' => $course['category']));
+            $categoryrecord = explode("/", ($categoryrecord->path));
+            foreach ($categoryrecord as $category_id) {
+                if ($category_id != '')
+                    $category_name .= $categories_info[$category_id]['name'] . '/';
+            }
+        }
+        //$category_name = ($course['category'] == 0) ? '' : $categories_info[$course['category']]['name'];
+        $content .= '<tr><td><a href="../../course/view.php?id=' . $course['id'] . '" target="_blank">' . $course['fullname'] . '</a></td>';
+        $content .= '<td><a href="../../course/category.php?id=' . $course['category'] . '" target="_blank">' . $category_name . '</a></td>';
+        $content .= '<td>' . substr(($course['directorysize'] / 1024), 0, strpos($course['directorysize'] / 1024, ".") + 3) . ' MB</td></tr>';
+    }
+    $content .= '</table>';
+    return $content;
+}
+

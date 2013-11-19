@@ -32,6 +32,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+include_once ($CFG->dirroot. '/mod/choice/renderer.php');
+
 class theme_mymobile_renderer extends plugin_renderer_base {
 
     /**
@@ -42,7 +44,7 @@ class theme_mymobile_renderer extends plugin_renderer_base {
      */
     public function settings_tree(settings_navigation $navigation) {
         $content = $this->navigation_node($navigation, array('class' => 'settings'));
-        if (has_capability('moodle/site:config', context_system::instance())) {
+        if (has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM))) {
             // TODO: Work out whether something is missing from here.
         }
         return $content;
@@ -177,8 +179,8 @@ class theme_mymobile_core_renderer extends core_renderer {
             $skipdest = html_writer::tag('span', '', array('id' => 'sb-' . $bc->skipid, 'class' => 'skip-block-to'));
         }
         $testb = $bc->attributes['class'];
-        $testc = $bc->attributes['id'];
-        // TODO: Find a better solution to this hardcoded block checks.
+
+        // TODO: Find a better solution to this hardcoded block checks
         if ($testb == "block_calendar_month2  block") {
             $output  = html_writer::start_tag('span');
         } else if ($testb == "block_course_overview  block") {
@@ -194,12 +196,7 @@ class theme_mymobile_core_renderer extends core_renderer {
             } else {
                 $dtheme = 'c';
             }
-            if ($testc == "mod_quiz_navblock") {
-                $collap = 'false';
-            } else {
-                $collap = 'true';
-            }
-            $output  = html_writer::start_tag('div', array('data-role' => 'collapsible', 'data-collapsed' => $collap, 'data-content-theme' => $dtheme));
+            $output  = html_writer::start_tag('div', array('data-role' => 'collapsible', 'data-collapsed' => 'true', 'data-content-theme' => $dtheme));
         }
 
         $output .= html_writer::tag('h1', $this->block_header($bc));
@@ -301,7 +298,7 @@ class theme_mymobile_core_renderer extends core_renderer {
      *
      * @return string
      */
-    public function login_info($withlinks = null) {
+    public function login_info() {
         global $USER, $CFG, $DB, $SESSION;
 
         if (during_initial_install()) {
@@ -324,7 +321,7 @@ class theme_mymobile_core_renderer extends core_renderer {
             // $course->id is not defined during installation
             return '';
         } else if (isloggedin()) {
-            $context = context_course::instance($course->id);
+            $context = get_context_instance(CONTEXT_COURSE, $course->id);
             $fullname = fullname($USER, true);
 
             // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
@@ -362,7 +359,7 @@ class theme_mymobile_core_renderer extends core_renderer {
                         } else {
                             $loggedinas .= get_string('failedloginattemptsall', '', $count);
                         }
-                        if (file_exists("$CFG->dirroot/report/log/index.php") and has_capability('report/log:view', context_system::instance())) {
+                        if (has_capability('coursereport/log:view', get_context_instance(CONTEXT_SYSTEM))) {
                             $loggedinas .= ' (<a href="'.$CFG->wwwroot.'/course/report/log/index.php?chooselog=1&amp;id=1&amp;modid=site_errors">'.get_string('logs').'</a>)';
                         }
                         $loggedinas .= '</div>';
@@ -403,7 +400,7 @@ class theme_mymobile_core_renderer extends core_renderer {
             // $course->id is not defined during installation
             return '';
         } else if (isloggedin()) {
-            $context = context_course::instance($course->id);
+            $context = get_context_instance(CONTEXT_COURSE, $course->id);
 
             $fullname = fullname($USER, true);
             // Since Moodle 2.0 this link always goes to the public profile page (not the course profile page)
@@ -445,7 +442,7 @@ class theme_mymobile_core_renderer extends core_renderer {
                         } else {
                             $loggedinas .= get_string('failedloginattemptsall', '', $count);
                         }
-                        if (has_capability('report/log:view', context_system::instance())) {
+                        if (has_capability('coursereport/log:view', get_context_instance(CONTEXT_SYSTEM))) {
                             $loggedinas .= ' (<a href="'.$CFG->wwwroot.'/course/report/log/index.php?chooselog=1&amp;id=1&amp;modid=site_errors">'.get_string('logs').'</a>)';
                         }
                         $loggedinas .= '</div>';
@@ -551,7 +548,7 @@ class theme_mymobile_core_renderer extends core_renderer {
         $attributes['id'] = $id;
         $attributes['rel'] = 'notexternal';
         $attributes['data-rel'] = 'dialog';
-        $attributes['data-transition'] = 'flow';
+        $attributes['data-transition'] = 'slideup';
         $output = html_writer::tag('a', $output, $attributes);
 
         // and finally span
@@ -747,11 +744,6 @@ class theme_mymobile_core_renderer extends core_renderer {
             $select->attributes['title'] = $select->tooltip;
         }
 
-        $select->attributes['class'] = 'autosubmit';
-        if ($select->class) {
-            $select->attributes['class'] .= ' ' . $select->class;
-        }
-
         if ($select->label) {
             $output .= html_writer::label($select->label, $select->attributes['id']);
         }
@@ -766,14 +758,11 @@ class theme_mymobile_core_renderer extends core_renderer {
 
         //by john show go button to fix selects
         $go = '';
-        $output .= html_writer::empty_tag('input data-inline="true"', array('type' => 'submit','value' => get_string('go')));
+        $output .= html_writer::empty_tag('input data-inline="true"', array('type' => 'submit', 'value' => get_string('go')));
         $output .= html_writer::tag('noscript', html_writer::tag('div', $go), array('style' => 'inline'));
 
         $nothing = empty($select->nothing) ? false : key($select->nothing);
-        $this->page->requires->yui_module('moodle-core-formautosubmit',
-            'M.core.init_formautosubmit',
-            array(array('selectid' => $select->attributes['id'], 'nothing' => $nothing))
-        );
+        $this->page->requires->js_init_call('M.util.init_select_autosubmit', array($select->formid, $select->attributes['id'], $nothing));
 
         // then div wrapper for xhtml strictness
         $output = html_writer::tag('div', $output);
@@ -792,15 +781,196 @@ class theme_mymobile_core_renderer extends core_renderer {
 }
 
 /**
- * Overridden choice module renderer for the mymobile theme
+ * Overridden choie module renderer for the mymobile theme
  *
  * @package    theme
  * @subpackage mymobile
  * @copyright  John Stabinger
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+class theme_mymobile_mod_choice_renderer extends mod_choice_renderer {
 
-$choice = get_plugin_directory('mod', 'choice');
-if (file_exists($choice . '/renderer.php')) {
-    require_once($CFG->dirroot . '/theme/mymobile/renderers/mod_choice_renderer.php');
+    /**
+     * Returns HTML to display choices of option
+     * @param object $options
+     * @param int  $coursemoduleid
+     * @param bool $vertical
+     * @return string
+     */
+    public function display_options($options, $coursemoduleid, $vertical = false) {
+        $layoutclass = 'horizontal';
+        if ($vertical) {
+            $layoutclass = 'vertical';
+        }
+        $target = new moodle_url('/mod/choice/view.php');
+        //changed below to post from target john
+        $attributes = array('method'=>'POST', 'action'=>$target, 'class'=> $layoutclass);
+
+        $html = html_writer::start_tag('form', $attributes);
+        $html .= html_writer::start_tag('ul', array('class'=>'choices', 'data-role'=>'controlgroup' ));
+
+        $availableoption = count($options['options']);
+        foreach ($options['options'] as $option) {
+            $html .= html_writer::start_tag('li', array('class'=>'option'));
+            $option->attributes->name = 'answer';
+            $option->attributes->type = 'radio';
+            $option->attributes->id = 'answer'.html_writer::random_id();
+
+            $labeltext = $option->text;
+            if (!empty($option->attributes->disabled)) {
+                $labeltext .= ' ' . get_string('full', 'choice');
+                $availableoption--;
+            }
+
+            $html .= html_writer::empty_tag('input', (array)$option->attributes);
+            $html .= html_writer::tag('label', $labeltext, array('for'=>$option->attributes->id));
+            $html .= html_writer::end_tag('li');
+        }
+        $html .= html_writer::tag('li','', array('class'=>'clearfloat'));
+        $html .= html_writer::end_tag('ul');
+        $html .= html_writer::tag('div', '', array('class'=>'clearfloat'));
+        $html .= html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'sesskey', 'value'=>sesskey()));
+        $html .= html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'id', 'value'=>$coursemoduleid));
+
+        if (!empty($options['hascapability']) && ($options['hascapability'])) {
+            if ($availableoption < 1) {
+               $html .= html_writer::tag('label', get_string('choicefull', 'choice'));
+            } else {
+                $html .= html_writer::empty_tag('input', array('type'=>'submit', 'value'=>get_string('savemychoice','choice'), 'class'=>'button'));
+            }
+
+            if (!empty($options['allowupdate']) && ($options['allowupdate'])) {
+                $url = new moodle_url('view.php', array('id'=>$coursemoduleid, 'action'=>'delchoice', 'sesskey'=>sesskey()));
+                $html .= html_writer::link($url, get_string('removemychoice','choice'));
+            }
+        } else {
+            $html .= html_writer::tag('label', get_string('havetologin', 'choice'));
+        }
+
+        $html .= html_writer::end_tag('ul');
+        $html .= html_writer::end_tag('form');
+
+        return $html;
+    }
+
+    /**
+     * Returns HTML to display choices result
+     *
+     * TODO: There are differences between this method and the mod choice renderers function.
+     *       This needs to be checked VERY careful as the minor changes look like they
+     *       may lead to regressions.
+     *
+     * @param object $choices
+     * @param bool $forcepublish
+     * @return string
+     */
+    public function display_publish_name_vertical($choices) {
+        $html ='';
+        $html .= html_writer::tag('h2',format_string(get_string("responses", "choice")), array('class'=>'main'));
+
+        $attributes = array('method'=>'POST');
+        $attributes['action'] = new moodle_url('/mod/choice/view.php');
+        $attributes['id'] = 'attemptsform';
+
+        if ($choices->viewresponsecapability) {
+            $html .= html_writer::start_tag('form', $attributes);
+            $html .= html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'id', 'value'=> $choices->coursemoduleid));
+            $html .= html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'sesskey', 'value'=> sesskey()));
+            $html .= html_writer::empty_tag('input', array('type'=>'hidden', 'name'=>'mode', 'value'=>'overview'));
+        }
+
+        $table = new html_table();
+        $table->cellpadding = 0;
+        $table->cellspacing = 0;
+        $table->attributes['class'] = 'results names ';
+        $table->tablealign = 'center';
+        $table->data = array();
+
+        $count = 0;
+        ksort($choices->options);
+
+        $columns = array();
+        foreach ($choices->options as $optionid => $options) {
+            $coldata = '';
+            if ($choices->showunanswered && $optionid == 0) {
+                $coldata .= html_writer::tag('div', format_string(get_string('notanswered', 'choice')), array('class'=>'option'));
+            } else if ($optionid > 0) {
+                $coldata .= html_writer::tag('div', format_string($choices->options[$optionid]->text), array('class'=>'option'));
+            }
+            $numberofuser = 0;
+            if (!empty($options->user) && count($options->user) > 0) {
+                $numberofuser = count($options->user);
+            }
+
+            $coldata .= html_writer::tag('div', ' ('.$numberofuser. ')', array('class'=>'numberofuser', 'title' => get_string('numberofuser', 'choice')));
+            $columns[] = $coldata;
+        }
+
+        $table->head = $columns;
+
+        $coldata = '';
+        $columns = array();
+        foreach ($choices->options as $optionid => $options) {
+            $coldata = '';
+            if ($choices->showunanswered || $optionid > 0) {
+                if (!empty($options->user)) {
+                    foreach ($options->user as $user) {
+                        $data = '';
+                        if (empty($user->imagealt)){
+                            $user->imagealt = '';
+                        }
+
+                        if ($choices->viewresponsecapability && $choices->deleterepsonsecapability  && $optionid > 0) {
+                            $attemptaction = html_writer::checkbox('attemptid[]', $user->id,'');
+                            $data .= html_writer::tag('div', $attemptaction, array('class'=>'attemptaction'));
+                        }
+                        $userimage = $this->output->user_picture($user, array('courseid'=>$choices->courseid));
+                        $data .= html_writer::tag('div', $userimage, array('class'=>'image'));
+
+                        $userlink = new moodle_url('/user/view.php', array('id'=>$user->id,'course'=>$choices->courseid));
+                        $name = html_writer::tag('a', fullname($user, $choices->fullnamecapability), array('href'=>$userlink, 'class'=>'username'));
+                        $data .= html_writer::tag('div', $name, array('class'=>'fullname'));
+                        $data .= html_writer::tag('div','', array('class'=>'clearfloat'));
+                        $coldata .= html_writer::tag('div', $data, array('class'=>'user'));
+                    }
+                }
+            }
+
+            $columns[] = $coldata;
+            $count++;
+        }
+
+        $table->data[] = $columns;
+        foreach ($columns as $d) {
+            $table->colclasses[] = 'data';
+        }
+        $html .= html_writer::tag('div', html_writer::table($table), array('class'=>'response'));
+
+        $actiondata = '';
+        if ($choices->viewresponsecapability && $choices->deleterepsonsecapability) {
+            $selecturl = new moodle_url('#');
+
+            $selectallactions = new component_action('click',"select_all_in", array('div',null,'tablecontainer'));
+            $selectall = new action_link($selecturl, get_string('selectall'), $selectallactions);
+            $actiondata .= $this->output->render($selectall) . ' / ';
+
+            $deselectallactions = new component_action('click',"deselect_all_in", array('div',null,'tablecontainer'));
+            $deselectall = new action_link($selecturl, get_string('deselectall'), $deselectallactions);
+            $actiondata .= $this->output->render($deselectall);
+            //below john fixed
+            $actiondata .= html_writer::tag('label', ' ' . get_string('withselected', 'choice') . ' ', array('for'=>'menuaction'));
+
+            $actionurl = new moodle_url('/mod/choice/view.php', array('sesskey'=>sesskey(), 'action'=>'delete_confirmation()'));
+            $select = new single_select($actionurl, 'action', array('delete'=>get_string('delete')), null, array(''=>get_string('moveselectedusersto', 'choice')), 'attemptsform');
+
+            $actiondata .= $this->output->render($select);
+        }
+        $html .= html_writer::tag('div', $actiondata, array('class'=>'responseaction'));
+
+        if ($choices->viewresponsecapability) {
+            $html .= html_writer::end_tag('form');
+        }
+
+        return $html;
+    }
 }

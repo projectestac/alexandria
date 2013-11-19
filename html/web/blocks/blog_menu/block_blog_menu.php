@@ -58,7 +58,7 @@ class block_blog_menu extends block_base {
             return $this->content;
         }
 
-        if (empty($CFG->enableblogs)) {
+        if (empty($CFG->bloglevel)) {
             $this->content = new stdClass();
             $this->content->text = '';
             if ($this->page->user_is_editing()) {
@@ -98,7 +98,7 @@ class block_blog_menu extends block_base {
         $this->content->text = html_writer::alist($menulist, array('class'=>'list'));
 
         // Prepare the footer for this block
-        if (has_capability('moodle/blog:search', context_system::instance())) {
+        if (has_capability('moodle/blog:search', get_context_instance(CONTEXT_SYSTEM))) {
             // Full-text search field
             $form  = html_writer::tag('label', get_string('search', 'admin'), array('for'=>'blogsearchquery', 'class'=>'accesshide'));
             $form .= html_writer::empty_tag('input', array('id'=>'blogsearchquery', 'type'=>'text', 'name'=>'search'));
@@ -111,14 +111,5 @@ class block_blog_menu extends block_base {
 
         // Return the content object
         return $this->content;
-    }
-
-    /**
-     * Returns the role that best describes the blog menu block.
-     *
-     * @return string
-     */
-    public function get_aria_role() {
-        return 'navigation';
     }
 }

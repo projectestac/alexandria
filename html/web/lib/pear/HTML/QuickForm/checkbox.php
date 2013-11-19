@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: checkbox.php,v 1.2.6.2 2012/02/13 00:47:50 moodlerobot Exp $
 
 require_once("HTML/QuickForm/input.php");
 

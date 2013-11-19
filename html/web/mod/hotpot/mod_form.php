@@ -521,6 +521,9 @@ class mod_hotpot_mod_form extends moodleform_mod {
 
         if ($modinfo = get_fast_modinfo($PAGE->course)) {
 
+            // we may need textlib to truncate activity names
+            $textlib = hotpot_get_textlib();
+
             switch ($PAGE->course->format) {
                 case 'weeks': $strsection = get_string('strftimedateshort'); break;
                 case 'topics': $strsection = get_string('topic'); break;
@@ -556,10 +559,10 @@ class mod_hotpot_mod_form extends moodleform_mod {
                 }
 
                 $name = format_string($mod->name);
-                $strlen = hotpot_textlib('strlen', $name);
+                $strlen = $textlib->strlen($name);
                 if ($strlen > $namelength) {
-                    $head = hotpot_textlib('substr', $name, 0, $headlength);
-                    $tail = hotpot_textlib('substr', $name, $strlen - $taillength, $taillength);
+                    $head = $textlib->substr($name, 0, $headlength);
+                    $tail = $textlib->substr($name, $strlen - $taillength, $taillength);
                     $name = $head.' ... '.$tail;
                 }
                 $optgroups[$optgroup][$cmid] = $name;
@@ -716,7 +719,7 @@ class mod_hotpot_mod_form extends moodleform_mod {
         $errors = array();
 
         // get the $files specified in the form
-        $usercontext = hotpot_get_context(CONTEXT_USER, $USER->id);
+        $usercontext = get_context_instance(CONTEXT_USER, $USER->id);
         $fs = get_file_storage();
         $files = $fs->get_area_files($usercontext->id, 'user', 'draft', $data['sourceitemid'], 'sortorder, id', 0); // files only, no dirs
 

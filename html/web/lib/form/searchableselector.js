@@ -50,9 +50,7 @@ selector = {
         div.appendChild(label);
         div.appendChild(input);
         selector.select.parentNode.insertBefore(div, selector.select);
-        YUI().use('yui2-event', function(Y) {
-            Y.YUI2.util.Event.addListener(input, 'keyup', selector.filter_change);
-        });
+        YAHOO.util.Event.addListener(input, 'keyup', selector.filter_change);
     },
 
     filter_change: function() {

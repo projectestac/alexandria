@@ -60,7 +60,7 @@ if ($roleid != 0 and !$role = $DB->get_record('role', array('id'=>$roleid))) {
 }
 
 require_login($course);
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 require_capability('report/participation:view', $context);
 
 add_to_log($course->id, "course", "report participation", "report/participation/index.php?id=$course->id", $course->id);
@@ -137,11 +137,19 @@ if (strtotime('-1 year',$now) >= $minlog) {
     $timeoptions[strtotime('-1 year',$now)] = get_string('lastyear');
 }
 
+$roleoptions = array();
 // TODO: we need a new list of roles that are visible here
-$roles = get_roles_used_in_context($context);
+if ($roles = get_roles_used_in_context($context)) {
+    foreach ($roles as $r) {
+        $roleoptions[$r->id] = $r->name;
+    }
+}
 $guestrole = get_guest_role();
-$roles[$guestrole->id] = $guestrole;
-$roleoptions = role_fix_names($roles, $context, ROLENAME_ALIAS, true);
+if (empty($roleoptions[$guestrole->id])) {
+        $roleoptions[$guestrole->id] = $guestrole->name;
+}
+
+$roleoptions = role_fix_names($roleoptions, $context);
 
 // print first controls.
 echo '<form class="participationselectform" action="index.php" method="get"><div>'."\n".
@@ -275,7 +283,7 @@ if (!empty($instanceid) && !empty($roleid)) {
     echo '<form action="'.$CFG->wwwroot.'/user/action_redir.php" method="post" id="studentsform">'."\n";
     echo '<div>'."\n";
     echo '<input type="hidden" name="id" value="'.$id.'" />'."\n";
-    echo '<input type="hidden" name="returnto" value="'. s($PAGE->url) .'" />'."\n";
+    echo '<input type="hidden" name="returnto" value="'. s($FULLME) .'" />'."\n";
     echo '<input type="hidden" name="sesskey" value="'.sesskey().'" />'."\n";
 
     foreach ($users as $u) {
@@ -303,7 +311,7 @@ if (!empty($instanceid) && !empty($roleid)) {
     }
     echo '</div>';
     echo '<div>';
-    echo html_writer::label(get_string('withselectedusers'), 'formactionselect');
+    echo '<label for="formaction">'.get_string('withselectedusers').'</label>';
     $displaylist['messageselect.php'] = get_string('messageselectadd');
     echo html_writer::select($displaylist, 'formaction', '', array(''=>'choosedots'), array('id'=>'formactionselect'));
     echo $OUTPUT->help_icon('withselectedusers');

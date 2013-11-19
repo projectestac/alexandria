@@ -30,7 +30,7 @@ require_once(dirname(dirname(__FILE__)) . '/config.php');
 require_once($CFG->dirroot . '/repository/lib.php');
 
 $edit    = optional_param('edit', 0, PARAM_INT);
-$new     = optional_param('new', '', PARAM_ALPHANUMEXT);
+$new     = optional_param('new', '', PARAM_FORMAT);
 $delete  = optional_param('delete', 0, PARAM_INT);
 $sure    = optional_param('sure', '', PARAM_ALPHA);
 $contextid = optional_param('contextid', 0, PARAM_INT);
@@ -65,7 +65,7 @@ if ($usercourseid != SITEID) {
     $url->param('usercourseid', $usercourseid);
 }
 
-$context = context::instance_by_id($contextid);
+$context = get_context_instance_by_id($contextid);
 
 $PAGE->set_url($url);
 $PAGE->set_context($context);
@@ -106,24 +106,12 @@ if (!empty($new)){
     $type = repository::get_type_by_id($instance->options['typeid']);
 }
 
-// The context passed MUST match the context of the repository. And as both have to be
-// similar, this also ensures that the context is either a user one, or a course one.
-if (!empty($instance)) {
-    if ($instance->instance->contextid != $context->id) {
-        print_error('invalidcontext');
-    }
+if (isset($type) && !$type->get_visible()) {
+    print_error('typenotvisible', 'repository', $baseurl);
 }
 
-if (isset($type)) {
-    if (!$type->get_visible()) {
-        print_error('typenotvisible', 'repository', $baseurl);
-    }
-    // Prevents the user from creating/editing an instance if the repository is not visible in
-    // this context OR if the user does not have the capability to view this repository in this context.
-    $canviewrepository = has_capability('repository/'.$type->get_typename().':view', $context);
-    if (!$type->get_contextvisibility($context) || !$canviewrepository) {
-        print_error('usercontextrepositorydisabled', 'repository', $baseurl);
-    }
+if (isset($type) && !$type->get_contextvisibility($context)) {
+    print_error('usercontextrepositorydisabled', 'repository', $baseurl);
 }
 
 /// Create navigation links
@@ -158,8 +146,6 @@ if (!empty($edit) || !empty($new)) {
         if ($instance->readonly) {
             throw new repository_exception('readonlyinstance', 'repository');
         }
-        // Check if we can read the content of the repository, if not exception is thrown.
-        $instance->check_capability();
         $instancetype = repository::get_type_by_id($instance->options['typeid']);
         $classname = 'repository_' . $instancetype->get_typename();
         $configs  = $instance->get_instance_option_names();
@@ -191,7 +177,7 @@ if (!empty($edit) || !empty($new)) {
             }
             $success = $instance->set_option($settings);
         } else {
-            $success = repository::static_function($plugin, 'create', $plugin, 0, context::instance_by_id($contextid), $fromform);
+            $success = repository::static_function($plugin, 'create', $plugin, 0, get_context_instance_by_id($contextid), $fromform);
             $data = data_submitted();
         }
         if ($success) {
@@ -216,8 +202,6 @@ if (!empty($edit) || !empty($new)) {
     if ($instance->readonly) {
         throw new repository_exception('readonlyinstance', 'repository');
     }
-    // Check if we can read the content of the repository, if not exception is thrown.
-    $instance->check_capability();
     if ($sure) {
         if (!confirm_sesskey()) {
             print_error('confirmsesskeybad', '', $baseurl);

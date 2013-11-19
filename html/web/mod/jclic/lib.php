@@ -233,38 +233,37 @@ function jclic_update_instance(stdClass $jclic, mod_jclic_mod_form $mform = null
  */
 function jclic_delete_instance($id) {
     global $DB;
-    
+
     if (!$jclic = $DB->get_record('jclic', array('id'=>$id))) {
         return false;
     }
     
-    $result = true;
     // Delete any dependent records
+    $result = true;
     $rs =  $DB->get_records('jclic_sessions', array('jclicid' => $id));
     foreach($rs as $session){
-        $DB->delete_records('jclic_activities', array('session_id' => $session->session_id));
+        if (!$DB->delete_records('jclic_activities', array('session_id' => $session->session_id))){
+            $result = false;
+            exit;
+        }
     }
 
-    $DB->delete_records('jclic_sessions', array('jclicid' => $id));
-
-    // delete items from the gradebook
-    if(!jclic_grade_item_delete($jclic)){
+    if ($result && !$DB->delete_records('jclic_sessions', array('jclicid' => $id))){
         $result = false;
     }
 
-    /** TODO: // delete files associated with this jclic
-        $fs = get_file_storage();
-        if (! $fs->delete_area_files($context->id) ) {
-            $result = false;
-        }
-    **/
+    if ($result && !$DB->delete_records('jclic', array('id' => $id))) {
+        $result = false;
+    }
+    
+    if ($result && !$DB->delete_records('event', array('modulename'=>'jclic', 'instance'=>$jclic->id))) {
+        $result = false;
+    }
 
-    // delete events related with this instance
-    $DB->delete_records('event', array('modulename'=>'jclic', 'instance'=>$id));
+    if ($result && !jclic_grade_item_delete($jclic)){
+        $result = false;
+    }
 
-    // delete the instance
-    $DB->delete_records('jclic', array('id' => $id));
-        
     return $result;
 }
 
@@ -312,12 +311,8 @@ function jclic_user_outline($course, $user, $mod, $jclic) {
  * @return string HTML
  */
 function jclic_user_complete($course, $user, $mod, $jclic) {
-    $outline = jclic_user_outline($course, $user, $mod, $jclic);
-    
-    print_r($outline->info);
-    return true;
+    return '';
 }
-
 
 /**
  * Given a course and a time, this module should find recent activity
@@ -517,10 +512,10 @@ function jclic_grade_item_update(stdClass $jclic, $grades=NULL) {
  * @return object grade_item
  */
 function jclic_grade_item_delete($jclic) {
-    global $CFG;    
+    global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
-    return grade_update('mod/jclic', $jclic->course, 'mod', 'jclic', $jclic->id, 0, NULL, array('deleted'=>1)) == GRADE_UPDATE_OK;
+    return grade_update('mod/jclic', $jclic->course, 'mod', 'jclic', $jclic->id, 0, NULL, array('deleted'=>1));
 }
 
 /**
@@ -534,15 +529,13 @@ function jclic_grade_item_delete($jclic) {
  * @return array array of grades, false if none
  */
 function jclic_get_user_grades($jclic, $userid=0) {
-    global $CFG;
+    global $CFG, $DB;
     require_once($CFG->dirroot.'/mod/jclic/locallib.php');
 
     // sanity check on $jclic->id
     if (! isset($jclic->id)) {
         return;
     }
-    
-    $grades[$userid] = new stdClass();
     $sessions_summary = jclic_get_sessions_summary($jclic->id, $userid);
     $grades[$userid]->userid = $userid;
     $grades[$userid]->attempts = $sessions_summary->attempts;
@@ -571,7 +564,7 @@ function jclic_get_user_grades($jclic, $userid=0) {
  * @return void
  */
 function jclic_update_grades(stdClass $jclic, $userid = 0, $nullifnone=true) {
-    global $CFG;
+    global $CFG, $DB;
     require_once($CFG->libdir.'/gradelib.php');
 
     if ($jclic->grade == 0) {

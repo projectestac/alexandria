@@ -17,7 +17,7 @@
 // |          Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: input.php,v 1.2 2010/12/14 17:35:23 moodlerobot Exp $
 
 require_once("HTML/QuickForm/element.php");
 
@@ -141,10 +141,25 @@ class HTML_QuickForm_input extends HTML_QuickForm_element
      */
     function toHtml()
     {
+		//XTEC **************** AFEGIT - Show alert message if there is no free disk space
+		//2010.07.15 @fcasanel (@aginard copied from 1.9)
+		$atribs = $this->_getAttrString($this->_attributes);
+		$atribs = strstr($atribs, 'type=');
+		$atribs = explode('"', $atribs);
+		$type = $atribs[1];
+		//***************** FI
         if ($this->_flagFrozen) {
             return $this->getFrozenHtml();
         } else {
+			//XTEC **************** AFEGIT - To show alert message if there isn't free disk space
+			//2010.07.15 @fcasanel (@aginard copied from 1.9)
+			global $CFG;
+            if($type=="file" && $CFG->diskPercent > 100){
+				return $this->_getTabs() . '<input' . $this->_getAttrString($this->_attributes) . ' DISABLED/><br /><span style="font-size:small">'.get_string('diskquotaerror', 'moodle').'</span>';
+			}
+            //******************* FI
             return $this->_getTabs() . '<input' . $this->_getAttrString($this->_attributes) . ' />';
+            
         }
     } //end func toHtml
 

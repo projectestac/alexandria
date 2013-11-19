@@ -23,7 +23,7 @@ class assignment_online extends assignment_base {
         $edit  = optional_param('edit', 0, PARAM_BOOL);
         $saved = optional_param('saved', 0, PARAM_BOOL);
 
-        $context = context_module::instance($this->cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $this->cm->id);
         require_capability('mod/assignment:view', $context);
 
         $submission = $this->get_submission($USER->id, false);
@@ -42,8 +42,7 @@ class assignment_online extends assignment_base {
                 'noclean'  => false,
                 'maxfiles' => EDITOR_UNLIMITED_FILES,
                 'maxbytes' => $this->course->maxbytes,
-                'context'  => $this->context,
-                'return_types' => FILE_INTERNAL | FILE_EXTERNAL
+                'context'  => $this->context
             );
 
             $data = new stdClass();
@@ -107,17 +106,12 @@ class assignment_online extends assignment_base {
             } else {
                 echo $OUTPUT->box_start('generalbox boxwidthwide boxaligncenter', 'online');
                 if ($submission && has_capability('mod/assignment:exportownsubmission', $this->context)) {
-                    echo plagiarism_get_links(array('userid' => $USER->id,
-                        'content' => trim(format_text($submission->data1, $submission->data2, array('context' => $context))),
-                        'cmid' => $this->cm->id,
-                        'course' => $this->course,
-                        'assignment' => $this->assignment));
                     $text = file_rewrite_pluginfile_urls($submission->data1, 'pluginfile.php', $this->context->id, 'mod_assignment', $this->filearea, $submission->id);
                     echo format_text($text, $submission->data2, array('overflowdiv'=>true));
                     if ($CFG->enableportfolios) {
                         require_once($CFG->libdir . '/portfoliolib.php');
                         $button = new portfolio_add_button();
-                        $button->set_callback_options('assignment_portfolio_caller', array('id' => $this->cm->id), 'mod_assignment');
+                        $button->set_callback_options('assignment_portfolio_caller', array('id' => $this->cm->id), '/mod/assignment/locallib.php');
                         $fs = get_file_storage();
                         if ($files = $fs->get_area_files($this->context->id, 'mod_assignment', $this->filearea, $submission->id, "timemodified", false)) {
                             $button->set_formats(PORTFOLIO_FORMAT_RICHHTML);
@@ -199,21 +193,6 @@ class assignment_online extends assignment_base {
 
         $submission = $this->get_submission($USER->id);
         $this->update_grade($submission);
-        $fs = get_file_storage();
-        $files = $fs->get_area_files($this->context->id, 'mod_assignment', 'submission', $submission->id);
-        // Let Moodle know that an assessable content was uploaded (eg for plagiarism detection)
-        $eventdata = new stdClass();
-        $eventdata->modulename   = 'assignment';
-        $eventdata->name         = 'update_submission';
-        $eventdata->cmid         = $this->cm->id;
-        $eventdata->itemid       = $update->id;
-        $eventdata->courseid     = $this->course->id;
-        $eventdata->userid       = $USER->id;
-        $eventdata->content      = trim(format_text($update->data1, $update->data2));
-        if ($files) {
-            $eventdata->pathnamehashes = array_keys($files);
-        }
-        events_trigger('assessable_content_uploaded', $eventdata);
         return $submission;
     }
 
@@ -229,26 +208,14 @@ class assignment_online extends assignment_base {
         $popup = $OUTPUT->action_link($link, shorten_text(trim(strip_tags(format_text($submission->data1,$submission->data2))), 15), $action, array('title'=>get_string('submission', 'assignment')));
 
         $output = '<div class="files">'.
-                  $OUTPUT->pix_icon(file_extension_icon('.htm'), 'html', 'moodle', array('class' => 'icon')).
+                  '<img src="'.$OUTPUT->pix_url('f/html') . '" class="icon" alt="html" />'.
                   $popup .
-                  plagiarism_get_links(array('userid' => $userid,
-                      'content' => trim(format_text($submission->data1, $submission->data2)),
-                      'cmid' => $this->cm->id,
-                      'course' => $this->course,
-                      'assignment' => $this->assignment)) .
                   '</div>';
                   return $output;
     }
 
-    function print_user_files($userid=0, $return=false) {
-        global $OUTPUT, $CFG, $USER;
-
-        if (!$userid) {
-            if (!isloggedin()) {
-                return '';
-            }
-            $userid = $USER->id;
-        }
+    function print_user_files($userid, $return=false) {
+        global $OUTPUT, $CFG;
 
         if (!$submission = $this->get_submission($userid)) {
             return '';
@@ -259,7 +226,7 @@ class assignment_online extends assignment_base {
         $popup = $OUTPUT->action_link($link, get_string('popupinnewwindow','assignment'), $action, array('title'=>get_string('submission', 'assignment')));
 
         $output = '<div class="files">'.
-                  $OUTPUT->pix_icon(file_extension_icon('.htm'), 'html', 'moodle', array('height' => 16, 'width' => 16)).
+                  '<img align="middle" src="'.$OUTPUT->pix_url('f/html') . '" height="16" width="16" alt="html" />'.
                   $popup .
                   '</div>';
 
@@ -308,9 +275,6 @@ class assignment_online extends assignment_base {
         $mform->addElement('select', 'var1', get_string('commentinline', 'assignment'), $ynoptions);
         $mform->addHelpButton('var1', 'commentinline', 'assignment');
         $mform->setDefault('var1', 0);
-
-        $coursecontext = context_course::instance($COURSE->id);
-        plagiarism_get_form_elements_module($mform, $coursecontext, 'mod_assignment');
 
     }
 
@@ -404,7 +368,7 @@ class assignment_online extends assignment_base {
         }
     }
 
-    public function send_file($filearea, $args, $forcedownload, array $options=array()) {
+    public function send_file($filearea, $args) {
         global $USER;
         require_capability('mod/assignment:view', $this->context);
 
@@ -420,8 +384,7 @@ class assignment_online extends assignment_base {
         }
 
         session_get_instance()->write_close(); // unlock session during fileserving
-
-        send_stored_file($file, 60*60, 0, true, $options);
+        send_stored_file($file, 60*60, 0, true);
     }
 
     /**

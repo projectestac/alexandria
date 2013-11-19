@@ -31,9 +31,9 @@ if (! $glossary = $DB->get_record("glossary", array("id"=>$cm->instance))) {
     print_error('invalidid', 'glossary');
 }
 
-require_login($course, false, $cm);
+require_login($course->id, false, $cm);
 
-$context = context_module::instance($cm->id);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 require_capability('mod/glossary:import', $context);
 
 $strglossaries = get_string("modulenameplural", "glossary");
@@ -87,7 +87,7 @@ if ($xml = glossary_read_imported_file($result)) {
         $xmlglossary = $xml['GLOSSARY']['#']['INFO'][0]['#'];
 
         if ( $xmlglossary['NAME'][0]['#'] ) {
-            $glossary = new stdClass();
+            unset($glossary);
             $glossary->name = ($xmlglossary['NAME'][0]['#']);
             $glossary->course = $course->id;
             $glossary->globalglossary = ($xmlglossary['GLOBALGLOSSARY'][0]['#']);
@@ -159,11 +159,14 @@ if ($xml = glossary_read_imported_file($result)) {
                     print_error('cannotaddcoursemodule');
                 }
 
-                $sectionid = course_add_cm_to_section($course, $mod->coursemodule, 0);
+                if (! $sectionid = add_mod_to_section($mod) ) {
+                    print_error('cannotaddcoursemoduletosection');
+                }
                 //We get the section's visible field status
                 $visible = $DB->get_field("course_sections", "visible", array("id"=>$sectionid));
 
                 $DB->set_field("course_modules", "visible", $visible, array("id"=>$mod->coursemodule));
+                $DB->set_field("course_modules", "section", $sectionid, array("id"=>$mod->coursemodule));
 
                 add_to_log($course->id, "course", "add mod",
                            "../mod/$mod->modulename/view.php?id=$mod->coursemodule",
@@ -188,7 +191,7 @@ if ($xml = glossary_read_imported_file($result)) {
     for($i = 0; $i < $sizeofxmlentries; $i++) {
         // Inserting the entries
         $xmlentry = $xmlentries[$i];
-        $newentry = new stdClass();
+        unset($newentry);
         $newentry->concept = trim($xmlentry['#']['CONCEPT'][0]['#']);
         $newentry->definition = trusttext_strip($xmlentry['#']['DEFINITION'][0]['#']);
         if ( isset($xmlentry['#']['CASESENSITIVE'][0]['#']) ) {
@@ -210,7 +213,7 @@ if ($xml = glossary_read_imported_file($result)) {
                     $dupentry = $DB->record_exists_select('glossary_entries',
                                     'glossaryid = :glossaryid AND LOWER(concept) = :concept', array(
                                         'glossaryid' => $glossary->id,
-                                        'concept'    => textlib::strtolower($newentry->concept)));
+                                        'concept'    => moodle_strtolower($newentry->concept)));
                 }
                 if ($dupentry) {
                     $permissiongranted = 0;

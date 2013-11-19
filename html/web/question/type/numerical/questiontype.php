@@ -27,7 +27,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once($CFG->libdir . '/questionlib.php');
 require_once($CFG->dirroot . '/question/type/numerical/question.php');
 
 
@@ -105,7 +104,7 @@ class qtype_numerical extends question_type {
             $units = array();
         }
         foreach ($units as $key => $unit) {
-            $units[$key]->multiplier = clean_param($unit->multiplier, PARAM_FLOAT);
+            $units[$key]->multiplier = clean_param($unit->multiplier, PARAM_NUMBER);
         }
         $question->options->units = $units;
         return true;
@@ -282,9 +281,7 @@ class qtype_numerical extends question_type {
         } else if (isset($question->showunits)) {
             // Updated import, e.g. Moodle XML.
             $options->showunits = $question->showunits;
-            if (isset($question->unitgradingtype)) {
-                $options->unitgradingtype = $question->unitgradingtype;
-            }
+
         } else {
             // Legacy import.
             if ($defaultunit = $this->get_default_numerical_unit($question)) {

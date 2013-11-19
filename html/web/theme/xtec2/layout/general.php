@@ -9,6 +9,9 @@ $showsidepost = $hassidepost && !$PAGE->blocks->region_completely_docked('side-p
 $custommenu = $OUTPUT->custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
 
+// Check the theme settings to show the user profile picture
+$logourl = $PAGE->theme->settings->logourl;
+
 $bodyclasses = array();
 if ($showsidepre && !$showsidepost) {
     $bodyclasses[] = 'side-pre-only';
@@ -118,8 +121,8 @@ echo $OUTPUT->doctype()
             <?php } ?>
             <div class="clearfix"></div>
             <div class="footerlogos">
-                <?php if (is_agora()) { ?> <a href="http://agora.xtec.cat" target="_blank"><?php } ?><img src="<?php echo $OUTPUT->pix_url('theme/logo_main', 'theme'); ?>" alt="" title="" /><?php if (is_agora()) { ?></a> <?php } ?>
-                <a href="http://moodle.org" target="_blank"><img src="<?php echo $OUTPUT->pix_url('theme/logo_moodle', 'theme'); ?>" alt="Moodle" title="Moodle" /></a>
+                <img src="<?php echo $OUTPUT->pix_url('theme/logo_agora', 'theme'); ?>" alt="" title="" />
+                <img src="<?php echo $OUTPUT->pix_url('theme/logo_moodle', 'theme'); ?>" alt="" title="" />
             </div>           
         </div>
         <?php echo $OUTPUT->standard_end_of_body_html() ?>

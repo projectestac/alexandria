@@ -26,28 +26,25 @@ The HotPot module for Moodle 2.x
 
     Note: This plugin does NOT include the HotPot question import script.
     If you want the HotPot question import script, it can be downloaded
-    from any of the following locations:
+    from either of the following locations:
 
-        (a) GIT: https://github.com/gbateson/moodle-qformat_hotpot.git
-        (b) zip: the Moodle.org -> Plugins repository (search for HotPot)
-        (c) zip: http://bateson.kanazawa-gu.ac.jp/zip/plugins_qformat_hotpot.zip
+        (i) the Moodle.org plugins repository
+        (ii) http://bateson.kanazawa-gu.ac.jp/moodle/zip/plugins_qformat_hotpot.zip
 
 ======================================
 To INSTALL or UPDATE the HotPot module
 ======================================
 
-    1. get the files for this plugin from any one of the following locations:
+    1. download zip file for this plugin from either of the following locations:
 
-        (a) GIT: https://github.com/gbateson/moodle-mod_hotpot.git
-        (b) CVS: the Moodle CVS repository (contrib/plugins/mod/hotpot)
-        (c) zip: the Moodle.org -> Plugins repository (search for HotPot)
-        (d) zip: http://bateson.kanazawa-gu.ac.jp/zip/plugins_mod_hotpot.zip
+        (i) the Moodle.org plugins repository
+        (ii) http://bateson.kanazawa-gu.ac.jp/moodle/zip/plugins_mod_hotpot.zip
 
-       If you are installing from a zip file, unzip the zip file, to create a folder called "hotpot"
-       and upload or move this "hotpot" folder to the "mod" folder on your Moodle 2.x site
-       to create a new folder at "mod/hotpot" - not "mod/hotpot/hotpot" :-)
+    2. unzip the zip file, to create a folder called "hotpot"
 
-    2. log in to Moodle as administrator to initiate install/upgrade
+    3. upload this "hotpot" folder to "mod/hotpot" on your Moodle 2.x site
+
+    4. log in to Moodle as administrator to initiate install/upgrade
 
         if install/upgrade does not begin automatically, you can initiate it manually by navigating to the following link:
         Settings -> Site administration -> Notifications

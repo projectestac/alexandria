@@ -33,7 +33,7 @@ $id = required_param('id', PARAM_INT);
 $subject = optional_param('subject', '', PARAM_CLEANHTML);
 $message = optional_param('message', '', PARAM_CLEANHTML);
 $format = optional_param('format', FORMAT_MOODLE, PARAM_INT);
-$messageuser = optional_param_array('messageuser', false, PARAM_INT);
+$messageuser = optional_param('messageuser', false, PARAM_INT);
 $action = optional_param('action', '', PARAM_ALPHA);
 $perpage = optional_param('perpage', FEEDBACK_DEFAULT_PAGE_COUNT, PARAM_INT);  // how many per page
 $showall = optional_param('showall', false, PARAM_INT);  // should we show all users
@@ -65,12 +65,16 @@ $url = new moodle_url('/mod/feedback/show_nonrespondents.php', array('id'=>$cm->
 
 $PAGE->set_url($url);
 
-$context = context_module::instance($cm->id);
+if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+        print_error('badcontext');
+}
 
 //we need the coursecontext to allow sending of mass mails
-$coursecontext = context_course::instance($course->id);
+if (!$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id)) {
+        print_error('badcontext');
+}
 
-require_login($course, true, $cm);
+require_login($course->id, true, $cm);
 
 if (($formdata = data_submitted()) AND !confirm_sesskey()) {
     print_error('invalidsesskey');
@@ -79,26 +83,6 @@ if (($formdata = data_submitted()) AND !confirm_sesskey()) {
 require_capability('mod/feedback:viewreports', $context);
 
 if ($action == 'sendmessage' AND has_capability('moodle/course:bulkmessaging', $coursecontext)) {
-    $shortname = format_string($course->shortname,
-                            true,
-                            array('context' => $coursecontext));
-    $strfeedbacks = get_string("modulenameplural", "feedback");
-
-    $htmlmessage = "<body id=\"email\">";
-
-    $link1 = $CFG->wwwroot.'/course/view.php?id='.$course->id;
-    $link2 = $CFG->wwwroot.'/mod/feedback/index.php?id='.$course->id;
-    $link3 = $CFG->wwwroot.'/mod/feedback/view.php?id='.$cm->id;
-
-    $htmlmessage .= '<div class="navbar">'.
-    '<a target="_blank" href="'.$link1.'">'.$shortname.'</a> &raquo; '.
-    '<a target="_blank" href="'.$link2.'">'.$strfeedbacks.'</a> &raquo; '.
-    '<a target="_blank" href="'.$link3.'">'.format_string($feedback->name, true).'</a>'.
-    '</div>';
-
-    $htmlmessage .= $message;
-    $htmlmessage .= '</body>';
-
     $good = 1;
     if (is_array($messageuser)) {
         foreach ($messageuser as $userid) {
@@ -109,9 +93,9 @@ if ($action == 'sendmessage' AND has_capability('moodle/course:bulkmessaging', $
             $eventdata->userfrom         = $USER;
             $eventdata->userto           = $senduser;
             $eventdata->subject          = $subject;
-            $eventdata->fullmessage      = html_to_text($htmlmessage);
+            $eventdata->fullmessage      = $message;
             $eventdata->fullmessageformat = FORMAT_PLAIN;
-            $eventdata->fullmessagehtml  = $htmlmessage;
+            $eventdata->fullmessagehtml  = '';
             $eventdata->smallmessage     = '';
             $good = $good && message_send($eventdata);
         }
@@ -130,6 +114,9 @@ if ($action == 'sendmessage' AND has_capability('moodle/course:bulkmessaging', $
 ////////////////////////////////////////////////////////
 
 /// Print the page header
+$strfeedbacks = get_string("modulenameplural", "feedback");
+$strfeedback  = get_string("modulename", "feedback");
+
 $PAGE->navbar->add(get_string('show_nonrespondents', 'feedback'));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_title(format_string($feedback->name));
@@ -284,7 +271,6 @@ if (!$students) {
             print_string('formathtml');
             echo '<input type="hidden" name="format" value="'.FORMAT_HTML.'" />';
         } else {
-            echo '<label for="menuformat" class="accesshide">'. get_string('format') .'</label>';
             choose_from_menu(format_text_menu(), "format", $format, "");
         }
         echo '<br /><div class="buttons">';

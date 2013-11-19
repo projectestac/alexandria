@@ -24,7 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-// NOTE: no MOODLE_INTERNAL test here, sometimes we use this before requiring Moodle libs!
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Get input from user

@@ -39,9 +39,6 @@ abstract class grade_export {
     public $updatedgradesonly; // only export updated grades
     public $displaytype; // display type (e.g. real, percentages, letter) for exports
     public $decimalpoints; // number of decimal points for exports
-    public $onlyactive; // only include users with an active enrolment
-    public $usercustomfields; // include users custom fields
-
     /**
      * Constructor should set up all the private variables ready to be pulled
      * @access public
@@ -49,14 +46,10 @@ abstract class grade_export {
      * @param int $groupid id of selected group, 0 means all
      * @param string $itemlist comma separated list of item ids, empty means all
      * @param boolean $export_feedback
-     * @param boolean $updatedgradesonly
-     * @param string $displaytype
-     * @param int $decimalpoints
-     * @param boolean $onlyactive
-     * @param boolean $usercustomfields include user custom field in export
+     * @param boolean $export_letters
      * @note Exporting as letters will lead to data loss if that exported set it re-imported.
      */
-    public function grade_export($course, $groupid=0, $itemlist='', $export_feedback=false, $updatedgradesonly = false, $displaytype = GRADE_DISPLAY_TYPE_REAL, $decimalpoints = 2, $onlyactive = false, $usercustomfields = false) {
+    public function grade_export($course, $groupid=0, $itemlist='', $export_feedback=false, $updatedgradesonly = false, $displaytype = GRADE_DISPLAY_TYPE_REAL, $decimalpoints = 2) {
         $this->course = $course;
         $this->groupid = $groupid;
         $this->grade_items = grade_item::fetch_all(array('courseid'=>$this->course->id));
@@ -90,8 +83,6 @@ abstract class grade_export {
 
         $this->displaytype = $displaytype;
         $this->decimalpoints = $decimalpoints;
-        $this->onlyactive = $onlyactive;
-        $this->usercustomfields = $usercustomfields;
     }
 
     /**
@@ -132,10 +123,6 @@ abstract class grade_export {
 
         if (isset($formdata->export_feedback)) {
             $this->export_feedback = $formdata->export_feedback;
-        }
-
-        if (isset($formdata->export_onlyactive)) {
-            $this->onlyactive = $formdata->export_onlyactive;
         }
 
         if (isset($formdata->previewrows)) {
@@ -212,18 +199,16 @@ abstract class grade_export {
      */
     public function display_preview($require_user_idnumber=false) {
         global $OUTPUT;
-
-        $userprofilefields = grade_helper::get_user_profile_fields($this->course->id, $this->usercustomfields);
-        $formatoptions = new stdClass();
-        $formatoptions->para = false;
-
         echo $OUTPUT->heading(get_string('previewrows', 'grades'));
 
         echo '<table>';
         echo '<tr>';
-        foreach ($userprofilefields as $field) {
-            echo '<th>' . $field->fullname . '</th>';
-        }
+        echo '<th>'.get_string("firstname")."</th>".
+             '<th>'.get_string("lastname")."</th>".
+             '<th>'.get_string("idnumber")."</th>".
+             '<th>'.get_string("institution")."</th>".
+             '<th>'.get_string("department")."</th>".
+             '<th>'.get_string("email")."</th>";
         foreach ($this->columns as $grade_item) {
             echo '<th>'.$this->format_column_name($grade_item).'</th>';
 
@@ -234,10 +219,9 @@ abstract class grade_export {
         }
         echo '</tr>';
         /// Print all the lines of data.
+
         $i = 0;
         $gui = new graded_users_iterator($this->course, $this->columns, $this->groupid);
-        $gui->require_active_enrolment($this->onlyactive);
-        $gui->allow_user_custom_fields($this->usercustomfields);
         $gui->init();
         while ($userdata = $gui->next_user()) {
             // number of preview rows
@@ -278,11 +262,7 @@ abstract class grade_export {
             }
 
             echo '<tr>';
-            foreach ($userprofilefields as $field) {
-                $fieldvalue = grade_helper::get_user_field_value($user, $field);
-                // @see profile_field_base::display_data().
-                echo '<td>' . format_text($fieldvalue, FORMAT_MOODLE, $formatoptions) . '</td>';
-            }
+            echo "<td>$user->firstname</td><td>$user->lastname</td><td>$user->idnumber</td><td>$user->institution</td><td>$user->department</td><td>$user->email</td>";
             echo $rowstr;
             echo "</tr>";
 
@@ -310,9 +290,7 @@ abstract class grade_export {
                         'export_feedback'   =>$this->export_feedback,
                         'updatedgradesonly' =>$this->updatedgradesonly,
                         'displaytype'       =>$this->displaytype,
-                        'decimalpoints'     =>$this->decimalpoints,
-                        'export_onlyactive' =>$this->onlyactive,
-                        'usercustomfields'  =>$this->usercustomfields);
+                        'decimalpoints'     =>$this->decimalpoints);
 
         return $params;
     }

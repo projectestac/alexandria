@@ -1,29 +1,27 @@
 <?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
-/**
- * Group of date input element
- *
- * Contains class for a group of elements used to input a date.
- *
- * @package   core_form
- * @copyright 2007 Jamie Pratt <me@jamiep.org>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+///////////////////////////////////////////////////////////////////////////
+//                                                                       //
+// NOTICE OF COPYRIGHT                                                   //
+//                                                                       //
+// Moodle - Modular Object-Oriented Dynamic Learning Environment         //
+//          http://moodle.org                                            //
+//                                                                       //
+// Copyright (C) 1999 onwards Martin Dougiamas  http://dougiamas.com     //
+//                                                                       //
+// This program is free software; you can redistribute it and/or modify  //
+// it under the terms of the GNU General Public License as published by  //
+// the Free Software Foundation; either version 2 of the License, or     //
+// (at your option) any later version.                                   //
+//                                                                       //
+// This program is distributed in the hope that it will be useful,       //
+// but WITHOUT ANY WARRANTY; without even the implied warranty of        //
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         //
+// GNU General Public License for more details:                          //
+//                                                                       //
+//          http://www.gnu.org/copyleft/gpl.html                         //
+//                                                                       //
+///////////////////////////////////////////////////////////////////////////
 
 global $CFG;
 require_once($CFG->libdir . '/form/group.php');
@@ -34,38 +32,38 @@ require_once($CFG->libdir . '/formslib.php');
  *
  * Emulates moodle print_date_selector function
  *
- * @package   core_form
- * @category  form
- * @copyright 2007 Jamie Pratt <me@jamiep.org>
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package formslib
  */
 class MoodleQuickForm_date_selector extends MoodleQuickForm_group
 {
     /**
-     * Control the fieldnames for form elements
-     * startyear => int start of range of years that can be selected
-     * stopyear => int last year that can be selected
-     * timezone => int|float|string (optional) timezone modifier used for edge case only.
-     *      If not specified, then date is caclulated based on current user timezone.
-     *      Note: dst will be calculated for string timezones only
-     *      {@link http://docs.moodle.org/dev/Time_API#Timezone}
-     * optional => if true, show a checkbox beside the date to turn it on (or off)
-     * @var array
-     */
+    * Control the fieldnames for form elements
+    *
+    * startyear => integer start of range of years that can be selected
+    * stopyear => integer last year that can be selected
+    * timezone => float/string timezone
+    * applydst => apply users daylight savings adjustment?
+    * optional => if true, show a checkbox beside the date to turn it on (or off)
+    */
     protected $_options = array('startyear' => 1970, 'stopyear' => 2020,
-            'timezone' => 99, 'optional' => false);
+            'timezone' => 99, 'applydst' => true, 'optional' => false);
 
-   /** @var array These complement separators, they are appended to the resultant HTML */
+   /**
+    * These complement separators, they are appended to the resultant HTML
+    * @access   private
+    * @var      array
+    */
     protected $_wrap = array('', '');
 
-    /**
-     * constructor
-     *
-     * @param string $elementName Element's name
-     * @param mixed $elementLabel Label(s) for an element
-     * @param array $options Options to control the element's display
-     * @param mixed $attributes Either a typical HTML attribute string or an associative array
-     */
+   /**
+    * Class constructor
+    *
+    * @access   public
+    * @param    string  Element's name
+    * @param    mixed   Label(s) for an element
+    * @param    array   Options to control the element's display
+    * @param    mixed   Either a typical HTML attribute string or an associative array
+    */
     function MoodleQuickForm_date_selector($elementName = null, $elementLabel = null, $options = array(), $attributes = null)
     {
         $this->HTML_QuickForm_element($elementName, $elementLabel, $attributes);
@@ -87,11 +85,9 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
         form_init_date_js();
     }
 
-    /**
-     * This will create date group element constisting of day, month and year.
-     *
-     * @access private
-     */
+    // }}}
+    // {{{ _createElements()
+
     function _createElements()
     {
         $this->_elements = array();
@@ -104,13 +100,12 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
         for ($i=$this->_options['startyear']; $i<=$this->_options['stopyear']; $i++) {
             $years[$i] = $i;
         }
-        // E_STRICT creating elements without forms is nasty because it internally uses $this
-        $this->_elements[] = @MoodleQuickForm::createElement('select', 'day', get_string('day', 'form'), $days, $this->getAttributes(), true);
-        $this->_elements[] = @MoodleQuickForm::createElement('select', 'month', get_string('month', 'form'), $months, $this->getAttributes(), true);
-        $this->_elements[] = @MoodleQuickForm::createElement('select', 'year', get_string('year', 'form'), $years, $this->getAttributes(), true);
+        $this->_elements[] =& MoodleQuickForm::createElement('select', 'day', get_string('day', 'form'), $days, $this->getAttributes(), true);
+        $this->_elements[] =& MoodleQuickForm::createElement('select', 'month', get_string('month', 'form'), $months, $this->getAttributes(), true);
+        $this->_elements[] =& MoodleQuickForm::createElement('select', 'year', get_string('year', 'form'), $years, $this->getAttributes(), true);
         // If optional we add a checkbox which the user can use to turn if on
         if($this->_options['optional']) {
-            $this->_elements[] =@MoodleQuickForm::createElement('checkbox', 'enabled', null, get_string('enable'), $this->getAttributes(), true);
+            $this->_elements[] =& MoodleQuickForm::createElement('checkbox', 'enabled', null, get_string('enable'), $this->getAttributes(), true);
         }
         foreach ($this->_elements as $element){
             if (method_exists($element, 'setHiddenLabel')){
@@ -120,13 +115,18 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
 
     }
 
+    // }}}
+    // {{{ onQuickFormEvent()
+
     /**
      * Called by HTML_QuickForm whenever form event is made on this element
      *
-     * @param string $event Name of event
-     * @param mixed $arg event arguments
-     * @param object $caller calling object
-     * @return bool
+     * @param     string    $event  Name of event
+     * @param     mixed     $arg    event arguments
+     * @param     object    $caller calling object
+     * @since     1.0
+     * @access    public
+     * @return    void
      */
     function onQuickFormEvent($event, $arg, &$caller)
     {
@@ -149,7 +149,7 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
                     $value = time();
                 }
                 if (!is_array($value)) {
-                    $currentdate = usergetdate($value, $this->_options['timezone']);
+                    $currentdate = usergetdate($value);
                     $value = array(
                         'day' => $currentdate['mday'],
                         'month' => $currentdate['mon'],
@@ -176,13 +176,10 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
             default:
                 return parent::onQuickFormEvent($event, $arg, $caller);
         }
-    }
+    } // end func onQuickFormEvent
 
-    /**
-     * Returns HTML for advchecbox form element.
-     *
-     * @return string
-     */
+    // {{{ toHtml()
+
     function toHtml()
     {
         include_once('HTML/QuickForm/Renderer/Default.php');
@@ -192,23 +189,21 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
         return $this->_wrap[0] . $renderer->toHtml() . $this->_wrap[1];
     }
 
-    /**
-     * Accepts a renderer
-     *
-     * @param HTML_QuickForm_Renderer $renderer An HTML_QuickForm_Renderer object
-     * @param bool $required Whether a group is required
-     * @param string $error An error message associated with a group
-     */
+    // }}}
+    // {{{ accept()
+
     function accept(&$renderer, $required = false, $error = null)
     {
         $renderer->renderElement($this, $required, $error);
     }
 
+    // }}}
+
     /**
      * Output a timestamp. Give it the name of the group.
      *
-     * @param array $submitValues values submitted.
-     * @param bool $assoc specifies if returned array is associative
+     * @param array $submitValues
+     * @param bool $assoc
      * @return array
      */
     function exportValue(&$submitValues, $assoc = false)
@@ -235,11 +230,13 @@ class MoodleQuickForm_date_selector extends MoodleQuickForm_group
                                    $valuearray['day'],
                                    0, 0, 0,
                                    $this->_options['timezone'],
-                                   true);
+                                   $this->_options['applydst']);
 
             return $value;
         } else {
             return null;
         }
     }
+
+    // }}}
 }

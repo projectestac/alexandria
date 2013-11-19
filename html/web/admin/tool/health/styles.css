@@ -3,7 +3,7 @@
     width: 60%;
     margin: auto;
     padding: 1em;
-    border: 1px solid black;
+    border: 1px black solid;
     -moz-border-radius: 6px;
 }
 .path-admin-tool-health dl.healthissues {
@@ -35,15 +35,15 @@
 .path-admin-tool-health dl.healthissues dd {
     margin: 0px;
     padding: 1em;
-    border: 1px solid black;
+    border: 1px black solid;
 }
 .path-admin-tool-health dl.healthissues dt {
     font-weight: bold;
-    border-bottom: 0;
+    border-bottom: none;
     padding-bottom: 0.5em;
 }
 .path-admin-tool-health dl.healthissues dd {
-    border-top: 0;
+    border-top: none;
     padding-top: 0.5em;
     margin-bottom: 10px;
 }

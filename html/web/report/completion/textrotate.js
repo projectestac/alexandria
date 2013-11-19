@@ -53,8 +53,7 @@ function textrotate_make_svg(el)
 }
 
 function textrotate_init() {
-YUI().use('yui2-dom', function(Y) {
-  var elements= Y.YUI2.util.Dom.getElementsByClassName('completion-criterianame', 'span');
+  var elements=YAHOO.util.Dom.getElementsByClassName('completion-criterianame', 'span');
   for(var i=0;i<elements.length;i++)
   {
     var el=elements[i];
@@ -63,5 +62,7 @@ YUI().use('yui2-dom', function(Y) {
 
     textrotate_make_svg(el);
   }
-});
 }
+
+YAHOO.util.Event.onDOMReady(textrotate_init);
+

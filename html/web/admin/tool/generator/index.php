@@ -28,7 +28,7 @@ require_once('locallib.php');
 
 
 require_login();
-$systemcontext = context_system::instance();
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/site:config', $systemcontext);
 if (!is_siteadmin()) {
     error('Only for admins');

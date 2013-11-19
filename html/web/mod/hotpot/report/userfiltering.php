@@ -48,33 +48,28 @@ class hotpot_user_filtering extends user_filtering {
         // hotpot version of standard function
 
         $default = get_user_preferences('hotpot_'.$fieldname, '');
-        $rawdata = data_submitted();
-        if ($rawdata && isset($rawdata->$fieldname) && ! is_array($rawdata->$fieldname)) {
-            $default = optional_param($fieldname, $default, PARAM_ALPHANUM);
-        }
-        unset($rawdata);
+        $selected = optional_param($fieldname, $default, PARAM_ALPHANUM);
 
         switch ($fieldname) {
             case 'group':
             case 'grouping':
-                return new hotpot_filter_group($fieldname, $advanced, $default);
+                return new hotpot_filter_group($fieldname, $advanced, $selected);
             case 'grade':
                 $label = get_string('grade');
-                return new hotpot_filter_grade($fieldname, $label, $advanced, $default);
+                return new hotpot_filter_number($fieldname, $label, $advanced, $selected);
             case 'timemodified':
-                $label = get_string('time', 'quiz');
-                return new user_filter_date($fieldname, $label, $advanced, $fieldname);
+                return new user_filter_date($fieldname, get_string('time', 'quiz'), $advanced, $fieldname);
             case 'status':
-                return new hotpot_filter_status($fieldname, $advanced, $default);
+                return new hotpot_filter_status($fieldname, $advanced, $selected);
             case 'duration':
                 $label = get_string('duration', 'hotpot');
-                return new hotpot_filter_duration($fieldname, $label, $advanced, $default);
+                return new hotpot_filter_duration($fieldname, $label, $advanced, $selected);
             case 'penalties':
                 $label = get_string('penalties', 'hotpot');
-                return new hotpot_filter_number($fieldname, $label, $advanced, $default);
+                return new hotpot_filter_number($fieldname, $label, $advanced, $selected);
             case 'score':
                 $label = get_string('score', 'quiz');
-                return new hotpot_filter_number($fieldname, $label, $advanced, $default);
+                return new hotpot_filter_number($fieldname, $label, $advanced, $selected);
             default:
                 // other fields (e.g. from user record)
                 return parent::get_field($fieldname, $advanced);
@@ -257,14 +252,11 @@ class hotpot_filter_group extends user_filter_select {
             if (count($userids)) {
                 switch($operator) {
                     case 1: // is equal to
-                        list($filter, $params) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED, '', true);
+                        list($filter, $params) = $DB->get_in_or_equal($userids, SQL_PARAMS_QM, '', true);
                         break;
                     case 2: // isn't equal to
-                        list($filter, $params) = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED, '', false);
+                        list($filter, $params) = $DB->get_in_or_equal($userids, SQL_PARAMS_QM, '', false);
                         break;
-                }
-                if ($filter) {
-                    $filter = 'id '.$filter;
                 }
             }
         }
@@ -313,20 +305,17 @@ class hotpot_filter_status extends user_filter_select {
      * @return xxx
      */
     function get_sql_filter_attempts($data)  {
-        static $counter = 0;
-        $name = 'ex_status'.$counter++;
-
         $filter = '';
         $params = array();
         if (($value = $data['value']) && ($operator = $data['operator'])) {
             switch($operator) {
                 case 1: // is equal to
-                    $filter = 'status=:'.$name;
-                    $params[$name] = $value;
+                    $filter = 'status=?';
+                    $params[] = $value;
                     break;
                 case 2: // isn't equal to
-                    $filter = 'status<>:'.$name;
-                    $params[$name] = $value;
+                    $filter = 'status<>?';
+                    $params[] = $value;
                     break;
             }
         }
@@ -427,25 +416,22 @@ class hotpot_filter_number extends user_filter_select {
      * @return xxx
      */
     function get_sql_filter_attempts($data)  {
-        static $counter = 0;
-        $name = 'ex_number'.$counter++;
-
         $filter = '';
         $params = array();
         if (($value = $data['value']) && ($operator = $data['operator'])) {
             $field = $this->_name;
             switch($operator) {
                 case 1: // less than
-                    $filter = $field.'>:'.$name;
-                    $params[$name] = $value;
+                    $filter = $field.'>?';
+                    $params[] = $value;
                     break;
                 case 2: // equal to
-                    $filter = $field.'=:'.$name;
-                    $params[$name] = $value;
+                    $filter = $field.'=?';
+                    $params[] = $value;
                     break;
                 case 3: // greater than
-                    $filter = $field.'>:'.$name;
-                    $params[$name] = $value;
+                    $filter = $field.'>?';
+                    $params[] = $value;
                     break;
             }
         }
@@ -473,48 +459,6 @@ class hotpot_filter_number extends user_filter_select {
         );
 
         return get_string('selectlabel', 'filters', $a);
-    }
-}
-
-/**
- * hotpot_filter_grade
- *
- * @copyright 2010 Gordon Bateson
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @since     Moodle 2.0
- */
-class hotpot_filter_grade extends hotpot_filter_number {
-
-    /**
-     * get_sql_filter_attempts
-     *
-     * @param xxx $data
-     * @return xxx
-     */
-    function get_sql_filter_attempts($data)  {
-        static $counter = 0;
-        $name = 'ex_grade'.$counter++;
-
-        $filter = '';
-        $params = array();
-        if (($value = $data['value']) && ($operator = $data['operator'])) {
-            $field = 'gg.rawgrade';
-            switch($operator) {
-                case 1: // less than
-                    $filter = $field.'>:'.$name;
-                    $params[$name] = $value;
-                    break;
-                case 2: // equal to
-                    $filter = $field.'=:'.$name;
-                    $params[$name] = $value;
-                    break;
-                case 3: // greater than
-                    $filter = $field.'>:'.$name;
-                    $params[$name] = $value;
-                    break;
-            }
-        }
-        return array($filter, $params);
     }
 }
 
@@ -574,37 +518,5 @@ class hotpot_filter_duration extends hotpot_filter_number {
         );
 
         return get_string('selectlabel', 'filters', $a);
-    }
-
-    /**
-     * get_sql_filter_attempts
-     *
-     * @param xxx $data
-     * @return xxx
-     */
-    function get_sql_filter_attempts($data)  {
-        static $counter = 0;
-        $name = 'ex_duration'.$counter++;
-
-        $filter = '';
-        $params = array();
-        if (($value = $data['value']) && ($operator = $data['operator'])) {
-            $field = '(timemodified - timestart)'; // $this->_name;
-            switch($operator) {
-                case 1: // less than
-                    $filter = $field.'>:'.$name;
-                    $params[$name] = $value;
-                    break;
-                case 2: // equal to
-                    $filter = $field.'=:'.$name;
-                    $params[$name] = $value;
-                    break;
-                case 3: // greater than
-                    $filter = $field.'>:'.$name;
-                    $params[$name] = $value;
-                    break;
-            }
-        }
-        return array($filter, $params);
     }
 }

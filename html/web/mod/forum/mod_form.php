@@ -108,7 +108,6 @@ class mod_forum_mod_form extends moodleform_mod {
             $choices[50] = '50';
             $mform->addElement('select', 'rssarticles', get_string('rssarticles'), $choices);
             $mform->addHelpButton('rssarticles', 'rssarticles', 'forum');
-            $mform->disabledIf('rssarticles', 'rsstype', 'eq', '0');
         }
 
 //-------------------------------------------------------------------------------
@@ -139,9 +138,6 @@ class mod_forum_mod_form extends moodleform_mod {
         $mform->addRule('warnafter', null, 'numeric', null, 'client');
         $mform->addHelpButton('warnafter', 'warnafter', 'forum');
         $mform->disabledIf('warnafter', 'blockperiod', 'eq', 0);
-
-        $coursecontext = context_course::instance($COURSE->id);
-        plagiarism_get_form_elements_module($mform, $coursecontext, 'mod_forum');
 
 //-------------------------------------------------------------------------------
 

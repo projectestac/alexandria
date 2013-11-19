@@ -36,14 +36,14 @@ class Minify_CSS_Compressor {
     }
     
     /**
-     * @var array
+     * @var array options
      */
     protected $_options = null;
     
     /**
-     * Are we "in" a hack? I.e. are some browsers targetted until the next comment?
-     *
-     * @var bool
+     * @var bool Are we "in" a hack?
+     * 
+     * I.e. are some browsers targetted until the next comment?
      */
     protected $_inHack = false;
     
@@ -52,6 +52,8 @@ class Minify_CSS_Compressor {
      * Constructor
      * 
      * @param array $options (currently ignored)
+     * 
+     * @return null
      */
     private function __construct($options) {
         $this->_options = $options;
@@ -106,7 +108,7 @@ class Minify_CSS_Compressor {
                 \\s*
                 :
                 \\s*
-                (\\b|[#\'"-])        # 3 = first character of a value
+                (\\b|[#\'"])        # 3 = first character of a value
             /x', '$1$2:$3', $css);
         
         // remove ws in selectors

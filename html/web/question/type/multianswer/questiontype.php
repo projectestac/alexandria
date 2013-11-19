@@ -165,7 +165,7 @@ class qtype_multianswer extends question_type {
             }
         }
 
-        $this->save_hints($question, true);
+        $this->save_hints($question);
     }
 
     public function save_question($authorizedquestion, $form) {
@@ -183,10 +183,6 @@ class qtype_multianswer extends question_type {
         return parent::save_question($question, $form);
     }
 
-    protected function make_hint($hint) {
-        return question_hint_with_parts::load_from_record($hint);
-    }
-
     public function delete_question($questionid, $contextid) {
         global $DB;
         $DB->delete_records('question_multianswer', array('question' => $questionid));
@@ -194,7 +190,7 @@ class qtype_multianswer extends question_type {
         parent::delete_question($questionid, $contextid);
     }
 
-    protected function initialise_question_instance(question_definition $question, $questiondata) {
+    protected function initialise_question_instance($question, $questiondata) {
         parent::initialise_question_instance($question, $questiondata);
 
         $bits = preg_split('/\{#(\d+)\}/', $question->questiontext,
@@ -303,12 +299,11 @@ function qtype_multianswer_extract_question($text) {
     $question->generalfeedback['format'] = FORMAT_HTML;
     $question->generalfeedback['itemid'] = '';
 
-    $question->options = new stdClass();
     $question->options->questions = array();
     $question->defaultmark = 0; // Will be increased for each answer norm
 
     for ($positionkey = 1;
-            preg_match('/'.ANSWER_REGEX.'/s', $question->questiontext['text'], $answerregs);
+            preg_match('/'.ANSWER_REGEX.'/', $question->questiontext['text'], $answerregs);
             ++$positionkey) {
         $wrapped = new stdClass();
         $wrapped->generalfeedback['text'] = '';
@@ -394,7 +389,7 @@ function qtype_multianswer_extract_question($text) {
         $answerindex = 0;
 
         $remainingalts = $answerregs[ANSWER_REGEX_ALTERNATIVES];
-        while (preg_match('/~?'.ANSWER_ALTERNATIVE_REGEX.'/s', $remainingalts, $altregs)) {
+        while (preg_match('/~?'.ANSWER_ALTERNATIVE_REGEX.'/', $remainingalts, $altregs)) {
             if ('=' == $altregs[ANSWER_ALTERNATIVE_REGEX_FRACTION]) {
                 $wrapped->fraction["$answerindex"] = '1';
             } else if ($percentile = $altregs[ANSWER_ALTERNATIVE_REGEX_PERCENTILE_FRACTION]) {
@@ -416,7 +411,7 @@ function qtype_multianswer_extract_question($text) {
 
             }
             if (!empty($answerregs[ANSWER_REGEX_ANSWER_TYPE_NUMERICAL])
-                    && preg_match('~'.NUMERICAL_ALTERNATIVE_REGEX.'~s',
+                    && preg_match('~'.NUMERICAL_ALTERNATIVE_REGEX.'~',
                             $altregs[ANSWER_ALTERNATIVE_REGEX_ANSWER], $numregs)) {
                 $wrapped->answer[] = $numregs[NUMERICAL_CORRECT_ANSWER];
                 if (array_key_exists(NUMERICAL_ABS_ERROR_MARGIN, $numregs)) {

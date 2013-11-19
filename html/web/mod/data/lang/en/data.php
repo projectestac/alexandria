@@ -32,7 +32,6 @@ $string['advancedsearch'] = 'Advanced search';
 $string['alttext'] = 'Alternative text';
 $string['approve'] = 'Approve';
 $string['approved'] = 'Approved';
-$string['areacontent'] = 'Fields';
 $string['ascending'] = 'Ascending';
 $string['asearchtemplate'] = 'Advanced search template';
 $string['atmaxentry'] = 'You have entered the maximum number of entries allowed!';
@@ -55,7 +54,6 @@ $string['cancel'] = 'Cancel';
 $string['cannotaccesspresentsother'] = 'You are not allowed to access presets from other users';
 $string['cannotadd'] = 'Can not add entries!';
 $string['cannotdeletepreset'] = 'Error deleting a preset!';
-$string['cannotoverwritepreset'] = 'Error overwriting preset';
 $string['cannotunziptopreset'] = 'Cannot unzip to the preset directory';
 $string['columns'] = 'columns';
 $string['comment'] = 'Comment';
@@ -74,13 +72,11 @@ $string['csvfile'] = 'CSV file';
 $string['csvimport'] = 'CSV file import';
 $string['csvimport_help'] = 'Entries may be imported via a plain text file with a list of field names as the first line, then the data, with one record per line.';
 $string['csvwithselecteddelimiter'] = '<acronym title="Comma Separated Values">CSV</acronym> text with selected delimiter:';
-$string['data:addinstance'] = 'Add a new database';
 $string['data:approve'] = 'Approve unapproved entries';
 $string['data:comment'] = 'Write comments';
 $string['data:exportallentries'] = 'Export all database entries';
 $string['data:exportentry'] = 'Export a database entry';
 $string['data:exportownentry'] = 'Export own database entry';
-$string['data:exportuserinfo'] = 'Export user information';
 $string['data:managecomments'] = 'Manage comments';
 $string['data:manageentries'] = 'Manage entries';
 $string['data:managetemplates'] = 'Manage templates';
@@ -115,7 +111,6 @@ $string['editordisable'] = 'Disable editor';
 $string['editorenable'] = 'Enable editor';
 $string['emptyadd'] = 'The Add template is empty, generating a default form...';
 $string['emptyaddform'] = 'You did not fill out any fields!';
-$string['fileencoding'] = 'Encoding';
 $string['entries'] = 'Entries';
 $string['entrieslefttoadd'] = 'You must add {$a->entriesleft} more entry/entries in order to complete this activity';
 $string['entrieslefttoaddtoview'] = 'You must add {$a->entrieslefttoview} more entry/entries before you can view other participants\' entries.';
@@ -178,11 +173,8 @@ $string['chooseorupload'] = 'Choose file';
 $string['expired'] = 'Sorry, this activity closed on {$a} and is no longer available';
 $string['importentries'] = 'Import entries';
 $string['importsuccess'] = 'The preset has been successfully applied.';
-$string['includeapproval'] = 'Include approval status';
-$string['includetime'] = 'Include time added/modified';
-$string['includeuserdetails'] = 'Include user details';
 $string['insufficiententries'] = 'more entries needed to view this database';
-$string['intro'] = 'Description';
+$string['intro'] = 'Introduction';
 $string['invalidaccess'] = 'This page was not accessed correctly';
 $string['invalidfieldid'] = 'Field ID is incorrect';
 $string['invalidfieldname'] = 'Please choose another name for this field';
@@ -212,19 +204,7 @@ $string['menuchoose'] = 'Choose...';
 $string['missingdata'] = 'Data id or object must be provided to field class';
 $string['missingfield'] = 'Programmer error: You must specify field and/or data when defining field class.';
 $string['modulename'] = 'Database';
-$string['modulename_help'] = 'The database activity module enables participants to create, maintain and search a collection of entries (i.e. records).  The structure of the entries is defined by the teacher as a number of fields. Field types include checkbox, radio buttons, dropdown menu, text area, URL, picture and uploaded file.
-
-The visual layout of information when listing, viewing or editing database entries may be controlled by database templates. Database activities may be shared between courses as presets and a teacher may also import and export database entries.
-
-If the database auto-linking filter is enabled, any entries in a database will be automatically linked where the words or phrases appear within the course.
-
-A teacher can allow comments on entries. Entries can also be rated by teachers or students (peer evaluation). Ratings can be aggregated to form a final grade which is recorded in the gradebook.
-
-Database activities have many uses, such as
-
-* A collaborative collection of web links, books, book reviews, journal references etc
-* For displaying student-created photos, posters, websites or poems for peer comment and review';
-$string['modulename_link'] = 'mod/data/view';
+$string['modulename_help'] = 'The database activity module enables participants to create, maintain and search a bank of record entries. The format and structure of these entries can be almost unlimited, including images, files, URLs, numbers and text amongst other things.';
 $string['modulenameplural'] = 'Databases';
 $string['more'] = 'More';
 $string['moreurl'] = 'More URL';
@@ -342,66 +322,8 @@ $string['uploadrecords_help'] = 'Entries may be uploaded via text file. The form
 The field enclosure is a character that surrounds each field in each record. It can normally be left unset.';
 $string['uploadrecords_link'] = 'mod/data/import';
 $string['url'] = 'Url';
-$string['usedate'] = 'Include in search.';
 $string['usestandard'] = 'Use a preset';
 $string['usestandard_help'] = 'To use a preset available to the whole site, select it from the list. (If you have added a preset to the list using the save as preset feature then you have the option of deleting it.)';
 $string['viewfromdate'] = 'Read only from';
 $string['viewtodate'] = 'Read only to';
 $string['wrongdataid'] = 'Wrong data id provided';
-
-//XTEC - ALEXANDRIA ************ AFEGIT - Additional english strings
-//2011 - @fcasanel
-//2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-$string['ispdipdf'] ='Is a PDF to show PDI materials?';
-$string['isscormfile'] ='Is a SCORM file?';
-$string['abusereports'] = 'Reports about inappropiate content';
-$string['reportabuse'] ='Report about inappropiate content';
-$string['data_never'] = 'never';
-$string['reportabuse_select'] ='Select the option that better describes the inappropiate content ';
-$string['reportabuse_copyrights'] ='Violates the author\'s rights';
-$string['reportabuse_nudity'] ='It has grave errors of form or content';
-$string['reportabuse_other'] ='Violates another condition (You must specify it)';
-$string['reportabuse_comments'] ='Add comments to help us to understand your report about inappropiate content.';
-$string['reportabuse_submit'] ='Send the report';
-$string['reportabuse_cancel'] ='Cancel';
-$string['reportabuse_mailsubject'] ='Report about inappropiate content in $a->coursename';
-$string['reportabuse_mail'] =' had reported the following inappropiate content in $a->coursename: $a->abuse';
-$string['reportabuse_intro'] ='Thank you for help the comunity reporting about contents that may violate the <a href=\"$a\" target=\"_blank\">terms of use</a> of this place! <br>Soon you\'ll recieve a copy of your report in your mailbox.';
-$string['licensefield'] = 'License';
-$string['creatorfield'] = 'Author';
-$string['coursesdataid'] = 'List of course IDs that contain course-based databases';
-$string['coursefieldid'] = 'Database course ID field';
-$string['fullnamefieldid'] = 'Database fullname field';
-$string['shortnamefieldid'] = 'Database shortname field';
-$string['summaryfieldid'] = 'Database summary field';
-$string['creatorfieldid'] = 'Database creator field';
-$string['categoryfieldid'] = 'Database category field';
-$string['urlfieldid'] = 'Database URL field';
-$string['licensefieldid'] = 'Database licence field';
-$string['creationdatefieldid'] = 'Database creation date field';
-$string['filefieldid'] = 'Database file field';
-$string['configfilefieldid'] = 'Field of the database containing the file';
-$string['configfullnamefieldid'] = 'Field of the database containing the fullname';
-$string['configshortnamefieldid'] = 'Field of the database containing the shortname';
-$string['configsummaryfieldid'] = 'Field of the database containing the summary';
-$string['configcreatorfieldid'] = 'Field of the database containing the creator';
-$string['configcategoryfieldid'] = 'Field of the database containing the category';
-$string['configurlfieldid'] = 'Field of the database containing the URL';
-$string['configlicensefieldid'] = 'Field of the database containing the licence';
-$string['configcreationdatefieldid'] = 'Field of the database containing the creation date';
-$string['configcoursesdataid'] = 'List of courses that should be handled as a course database.';
-//************ FI
-
-//XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer
-//2011.05.12 @fcasanel
-$string['abusereports'] = 'Reports about inappropiate content';
-$string['reports'] ='Reports';
-$string['pages'] ='Pages';
-$string['resource_reported'] ='Resource reported';
-$string['reporter'] ='Author of the report';
-$string['report_topic'] ='Topic';
-$string['report_desc'] ='Description';
-$string['report_date'] ='Date';
-
-//************ FI
-

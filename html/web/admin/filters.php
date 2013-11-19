@@ -34,11 +34,11 @@
     require_once(dirname(__FILE__) . '/../config.php');
     require_once($CFG->libdir . '/adminlib.php');
 
-    $action = optional_param('action', '', PARAM_ALPHANUMEXT);
+    $action = optional_param('action', '', PARAM_ACTION);
     $filterpath = optional_param('filterpath', '', PARAM_PATH);
 
     require_login();
-    $systemcontext = context_system::instance();
+    $systemcontext = get_context_instance(CONTEXT_SYSTEM);
     require_capability('moodle/site:config', $systemcontext);
 
     $returnurl = "$CFG->wwwroot/$CFG->admin/filters.php";
@@ -68,7 +68,7 @@
     switch ($action) {
 
     case 'setstate':
-        if ($newstate = optional_param('newstate', '', PARAM_INT)) {
+        if ($newstate = optional_param('newstate', '', PARAM_INTEGER)) {
             filter_set_global_state($filterpath, $newstate);
             if ($newstate == TEXTFILTER_DISABLED) {
                 filter_set_applies_to_strings($filterpath, false);
@@ -183,21 +183,8 @@
     $stringfilters = filter_get_string_filters();
 
     $table = new html_table();
-    //XTEC ************ MODIFICAT - To let access only to xtecadmin user
-    //2012.08.20 @sarjona
-    if (!get_protected_agora()) {
-        $strdelete = '';
-    } else{
-        $strdelete = get_string('delete');
-    }
-    $table->head  = array(get_string('filter'), get_string('isactive', 'filters'),
-            get_string('order'), get_string('applyto', 'filters'), get_string('settings'), $strdelete);
-    //************ ORIGINAL
-    /*
     $table->head  = array(get_string('filter'), get_string('isactive', 'filters'),
             get_string('order'), get_string('applyto', 'filters'), get_string('settings'), get_string('delete'));
-     */
-    //************ FI
     $table->align = array('left', 'left', 'center', 'left', 'left');
     $table->width = '100%';
     $table->data  = array();
@@ -255,20 +242,19 @@ function get_table_row($filterinfo, $isfirstrow, $islastactive, $applytostrings)
 
     // Disable/off/on
     $select = new single_select(filters_action_url($filter, 'setstate'), 'newstate', $activechoices, $filterinfo->active, null, 'active' . basename($filter));
-    $select->set_label(get_string('isactive', 'filters'), array('class' => 'accesshide'));
     $row[] = $OUTPUT->render($select);
 
     // Re-order
     $updown = '';
-    $spacer = '<img src="' . $OUTPUT->pix_url('spacer') . '" class="iconsmall" alt="" />';
+    $spacer = '<img src="' . $OUTPUT->pix_url('spacer') . '" class="iconsmall" alt="" /> ';
     if ($filterinfo->active != TEXTFILTER_DISABLED) {
         if (!$isfirstrow) {
-            $updown .= $OUTPUT->action_icon(filters_action_url($filter, 'up'), new pix_icon('t/up', get_string('up'), '', array('class' => 'iconsmall')));
+            $updown .= $OUTPUT->action_icon(filters_action_url($filter, 'up'), new pix_icon('t/up', get_string('up')));
         } else {
             $updown .= $spacer;
         }
         if (!$islastactive) {
-            $updown .= $OUTPUT->action_icon(filters_action_url($filter, 'down'), new pix_icon('t/down', get_string('down'), '', array('class' => 'iconsmall')));
+            $updown .= $OUTPUT->action_icon(filters_action_url($filter, 'down'), new pix_icon('t/down', get_string('down')));
         } else {
             $updown .= $spacer;
         }
@@ -277,7 +263,6 @@ function get_table_row($filterinfo, $isfirstrow, $islastactive, $applytostrings)
 
     // Apply to strings.
     $select = new single_select(filters_action_url($filter, 'setapplyto'), 'stringstoo', $applytochoices, $applytostrings, null, 'applyto' . basename($filter));
-    $select->set_label(get_string('applyto', 'filters'), array('class' => 'accesshide'));
     $select->disabled = $filterinfo->active == TEXTFILTER_DISABLED;
     $row[] = $OUTPUT->render($select);
 

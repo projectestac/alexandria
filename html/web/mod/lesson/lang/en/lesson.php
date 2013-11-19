@@ -117,7 +117,7 @@ $string['credit'] = 'Credit';
 $string['customscoring'] = 'Custom scoring';
 $string['customscoring_help'] = 'If enabled, then each answer may be given a numerical point value (positive or negative).';
 $string['deadline'] = 'Deadline';
-$string['defaultessayresponse'] = 'Your essay will be graded by your teacher.';
+$string['defaultessayresponse'] = 'Your essay will be graded by the course instructor.';
 $string['deleteallattempts'] = 'Delete all lesson attempts';
 $string['deletedefaults'] = 'Deleted {$a} x lesson default';
 $string['deletedpage'] = 'Deleted page';
@@ -193,6 +193,8 @@ $string['checkedthisone'] = 'Checked this one.';
 $string['checknavigation'] = 'Check navigation';
 $string['checkquestion'] = 'Check question';
 $string['importcount'] = 'Importing {$a} questions';
+$string['importppt'] = 'Import PowerPoint';
+$string['importppt_help'] = 'This feature enables a zip file of PowerPoint 2003 slides saved as web pages to be imported into the lesson.';
 $string['importquestions'] = 'Import questions';
 $string['importquestions_help'] = 'This feature enables questions in a variety of formats to be imported via text file.';
 $string['insertedpage'] = 'Inserted page';
@@ -204,10 +206,8 @@ $string['jump'] = 'Jump';
 $string['jumps'] = 'Jumps';
 $string['jumps_help'] = 'Each answer (for questions) or description (for content pages) has a corresponding jump. The jump can be relative, such as this page or next page, or absolute, specifying any one of the pages in the lesson.';
 $string['jumpsto'] = 'Jumps to <em>{$a}</em>';
-$string['leftduringtimedsession'] = 'You have left during a timed lesson.';
 $string['leftduringtimed'] = 'You have left during a timed lesson.<br />Please click on Continue to restart the lesson.';
 $string['leftduringtimednoretake'] = 'You have left during a timed lesson and you are<br />not allowed to retake or continue the lesson.';
-$string['lesson:addinstance'] = 'Add a new lesson';
 $string['lessonattempted'] = 'Lesson attempted';
 $string['lessonclosed'] = 'This lesson closed on {$a}.';
 $string['lessoncloses'] = 'Lesson closes';
@@ -256,16 +256,7 @@ $string['modattempts'] = 'Allow student review';
 $string['modattempts_help'] = 'If enabled, students can navigate through the lesson again from the start.';
 $string['modattemptsnoteacher'] = 'Student review only works for students.';
 $string['modulename'] = 'Lesson';
-$string['modulename_help'] = 'The lesson activity module enables a teacher to deliver content and/or practice activities in  interesting and flexible ways. A teacher can use the lesson to create a linear set of content pages or instructional activities that offer a variety of paths or options for the learner. In either case, teachers can choose to increase engagement and ensure understanding by including a variety of questions, such as multiple choice, matching and short answer. Depending on the student\'s choice of answer and how the teacher develops the lesson, students may progress to the next page, be taken back to a previous page or redirected down a different path entirely.
-
-A lesson may be graded, with the grade recorded in the gradebook.
-
-Lessons may be used
-
-* For self-directed learning of a new topic
-* For  scenarios or simulations/decision-making exercises
-* For differentiated revision, with different sets of revision questions depending upon answers given to initial questions';
-$string['modulename_link'] = 'mod/lesson/view';
+$string['modulename_help'] = 'The lesson module enables the teacher to create an adaptive learning experience consisting of a series of pages containing questions.';
 $string['modulenameplural'] = 'Lessons';
 $string['move'] = 'Move page';
 $string['movedpage'] = 'Moved page';
@@ -337,6 +328,7 @@ $string['pluginname'] = 'Lesson';
 $string['pointsearned'] = 'Points earned';
 $string['postprocesserror'] = 'Error occurred during post-processing!';
 $string['postsuccess'] = 'Post successful';
+$string['pptsuccessfullimport'] = 'Successfully imported pages from the uploaded PowerPoint Presentation';
 $string['practice'] = 'Practice lesson';
 $string['practice_help'] = 'A practice lesson does not appear in the gradebook.';
 $string['preprocesserror'] = 'Error occurred during pre-processing!';

@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,20 +18,21 @@
 /**
  * Cohort related management functions, this file needs to be included manually.
  *
- * @package    core_cohort
+ * @package    core
+ * @subpackage cohort
  * @copyright  2010 Petr Skoda  {@link http://skodak.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require('../config.php');
-require_once($CFG->dirroot.'/cohort/locallib.php');
+require_once('../config.php');
+require_once($CFG->dirroot.'/cohort/lib.php');
 
 $id = required_param('id', PARAM_INT);
 
 require_login();
 
 $cohort = $DB->get_record('cohort', array('id'=>$id), '*', MUST_EXIST);
-$context = context::instance_by_id($cohort->contextid, MUST_EXIST);
+$context = get_context_instance_by_id($cohort->contextid, MUST_EXIST);
 
 require_capability('moodle/cohort:assign', $context);
 
@@ -40,7 +42,7 @@ $PAGE->set_url('/cohort/assign.php', array('id'=>$id));
 $returnurl = new moodle_url('/cohort/index.php', array('contextid'=>$cohort->contextid));
 
 if (!empty($cohort->component)) {
-    // We can not manually edit cohorts that were created by external systems, sorry.
+    // we can not manually edit cohorts that were created by external systems, sorry
     redirect($returnurl);
 }
 
@@ -68,8 +70,8 @@ echo $OUTPUT->heading(get_string('assignto', 'cohort', format_string($cohort->na
 echo $OUTPUT->notification(get_string('removeuserwarning', 'core_cohort'));
 
 // Get the user_selector we will need.
-$potentialuserselector = new cohort_candidate_selector('addselect', array('cohortid'=>$cohort->id, 'accesscontext'=>$context));
-$existinguserselector = new cohort_existing_selector('removeselect', array('cohortid'=>$cohort->id, 'accesscontext'=>$context));
+$potentialuserselector = new cohort_candidate_selector('addselect', array('cohortid'=>$cohort->id));
+$existinguserselector = new cohort_existing_selector('removeselect', array('cohortid'=>$cohort->id));
 
 // Process incoming user assignments to the cohort
 
@@ -78,7 +80,10 @@ if (optional_param('add', false, PARAM_BOOL) && confirm_sesskey()) {
     if (!empty($userstoassign)) {
 
         foreach ($userstoassign as $adduser) {
-            cohort_add_member($cohort->id, $adduser->id);
+            // no duplicates please
+            if (!$DB->record_exists('cohort_members', array('cohortid'=>$cohort->id, 'userid'=>$adduser->id))) {
+                cohort_add_member($cohort->id, $adduser->id);
+            }
         }
 
         $potentialuserselector->invalidate_selected_users();

@@ -37,7 +37,7 @@ $PAGE->set_pagelayout('popup');
 $action = optional_param('action', null, PARAM_TEXT);
 $typeid = optional_param('typeid', null, PARAM_INT);
 
-require_capability('mod/lti:addcoursetool', context_course::instance($courseid));
+require_capability('mod/lti:addcoursetool', get_context_instance(CONTEXT_COURSE, $courseid));
 
 if (!empty($typeid)) {
     $type = lti_get_type($typeid);
@@ -47,8 +47,9 @@ if (!empty($typeid)) {
     }
 }
 
-$form = new mod_lti_edit_types_form();
-if ($data = $form->get_data()) {
+$data = data_submitted();
+
+if (isset($data->submitbutton) && confirm_sesskey()) {
     $type = new stdClass();
 
     if (!empty($typeid)) {
@@ -95,7 +96,7 @@ if ($data = $form->get_data()) {
 
         die;
     }
-} else if ($form->is_cancelled()) {
+} else if (isset($data->cancel)) {
     $script = "
         <html>
             <script type=\"text/javascript\">
@@ -119,8 +120,10 @@ echo $OUTPUT->header();
 echo $OUTPUT->heading(get_string('toolsetup', 'lti'));
 
 if ($action == 'add') {
+    $form = new mod_lti_edit_types_form();
     $form->display();
 } else if ($action == 'edit') {
+    $form = new mod_lti_edit_types_form();
     $type = lti_get_type_type_config($typeid);
     $form->set_data($type);
     $form->display();

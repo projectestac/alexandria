@@ -16,7 +16,7 @@
 // | Authors: Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: Rule.php,v 1.2 2010/12/14 17:35:24 moodlerobot Exp $
 
 class HTML_QuickForm_Rule
 {
@@ -33,18 +33,18 @@ class HTML_QuickForm_Rule
 
    /**
     * Validates a value
-    *
+    * 
     * @access public
     * @abstract
     */
-    function validate($value, $options = null)
+    function validate($value)
     {
         return true;
     }
 
    /**
     * Sets the rule name
-    *
+    * 
     * @access public
     */
     function setName($ruleName)

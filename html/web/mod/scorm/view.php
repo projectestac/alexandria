@@ -56,43 +56,10 @@ if (!empty($forcejs)) {
     $PAGE->add_body_class('forcejavascript');
 }
 
-require_login($course, false, $cm);
+require_login($course->id, false, $cm);
 
-$context = context_course::instance($course->id);
-$contextmodule = context_module::instance($cm->id);
-
-$launch = false; // Does this automatically trigger a launch based on skipview.
-if (!empty($scorm->popup)) {
-    $orgidentifier = '';
-    $scoid = 0;
-    if ($scorm->skipview >= SCORM_SKIPVIEW_FIRST &&
-        has_capability('mod/scorm:skipview', $contextmodule) &&
-        !has_capability('mod/scorm:viewreport', $contextmodule)) { // Don't skip users with the capability to view reports.
-
-        // do we launch immediately and redirect the parent back ?
-        if ($scorm->skipview == SCORM_SKIPVIEW_ALWAYS || !scorm_has_tracks($scorm->id, $USER->id)) {
-            $orgidentifier = '';
-            if ($sco = scorm_get_sco($scorm->launch, SCO_ONLY)) {
-                if (($sco->organization == '') && ($sco->launch == '')) {
-                    $orgidentifier = $sco->identifier;
-                } else {
-                    $orgidentifier = $sco->organization;
-                }
-                $scoid = $sco->id;
-            }
-            $launch = true;
-        }
-    }
-    $PAGE->requires->data_for_js('scormplayerdata', Array('launch' => $launch,
-                                                           'currentorg' => $orgidentifier,
-                                                           'sco' => $scoid,
-                                                           'scorm' => $scorm->id,
-                                                           'courseid' => $scorm->course,
-                                                           'cwidth' => $scorm->width,
-                                                           'cheight' => $scorm->height,
-                                                           'popupoptions' => $scorm->options), true);
-    $PAGE->requires->js('/mod/scorm/view.js', true);
-}
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
+$contextmodule = get_context_instance(CONTEXT_MODULE, $cm->id);
 
 if (isset($SESSION->scorm)) {
     unset($SESSION->scorm);
@@ -106,7 +73,7 @@ $pagetitle = strip_tags($shortname.': '.format_string($scorm->name));
 
 add_to_log($course->id, 'scorm', 'pre-view', 'view.php?id='.$cm->id, "$scorm->id", $cm->id);
 
-if (empty($launch) && (has_capability('mod/scorm:skipview', $contextmodule))) {
+if ((has_capability('mod/scorm:skipview', $contextmodule))) {
     scorm_simple_play($scorm, $USER, $contextmodule, $cm->id);
 }
 
@@ -137,8 +104,7 @@ require($CFG->dirroot . '/mod/scorm/tabs.php');
 // Print the main part of the page
 echo $OUTPUT->heading(format_string($scorm->name));
 $attemptstatus = '';
-if (empty($launch) && ($scorm->displayattemptstatus == SCORM_DISPLAY_ATTEMPTSTATUS_ALL ||
-         $scorm->displayattemptstatus == SCORM_DISPLAY_ATTEMPTSTATUS_ENTRY)) {
+if ($scorm->displayattemptstatus == 1) {
     $attemptstatus = scorm_get_attempt_status($USER, $scorm, $cm);
 }
 echo $OUTPUT->box(format_module_intro('scorm', $scorm, $cm->id).$attemptstatus, 'generalbox boxaligncenter boxwidthwide', 'intro');
@@ -153,15 +119,10 @@ if (!empty($scorm->timeclose) && $timenow > $scorm->timeclose) {
     echo $OUTPUT->box(get_string("expired", "scorm", userdate($scorm->timeclose)), "generalbox boxaligncenter");
     $scormopen = false;
 }
-if ($scormopen && empty($launch)) {
+if ($scormopen) {
     scorm_view_display($USER, $scorm, 'view.php?id='.$cm->id, $cm);
 }
 if (!empty($forcejs)) {
     echo $OUTPUT->box(get_string("forcejavascriptmessage", "scorm"), "generalbox boxaligncenter forcejavascriptmessage");
 }
-
-if (!empty($scorm->popup)) {
-    $PAGE->requires->js_init_call('M.mod_scormform.init');
-}
-
 echo $OUTPUT->footer();

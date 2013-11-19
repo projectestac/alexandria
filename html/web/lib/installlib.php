@@ -253,7 +253,6 @@ function install_print_help_page($help) {
     global $CFG, $OUTPUT; //TODO: MUST NOT USE $OUTPUT HERE!!!
 
     @header('Content-Type: text/html; charset=UTF-8');
-    @header('X-UA-Compatible: IE=edge');
     @header('Cache-Control: no-store, no-cache, must-revalidate');
     @header('Cache-Control: post-check=0, pre-check=0', false);
     @header('Pragma: no-cache');
@@ -300,7 +299,6 @@ function install_print_header($config, $stagename, $heading, $stagetext) {
     global $CFG;
 
     @header('Content-Type: text/html; charset=UTF-8');
-    @header('X-UA-Compatible: IE=edge');
     @header('Cache-Control: no-store, no-cache, must-revalidate');
     @header('Cache-Control: post-check=0, pre-check=0', false);
     @header('Pragma: no-cache');
@@ -404,18 +402,15 @@ function install_cli_database(array $options, $interactive) {
     require_once($CFG->libdir.'/upgradelib.php');
 
     // show as much debug as possible
-    @error_reporting(E_ALL | E_STRICT);
+    @error_reporting(1023);
     @ini_set('display_errors', '1');
-    $CFG->debug = (E_ALL | E_STRICT);
+    $CFG->debug = 38911;
     $CFG->debugdisplay = true;
 
     $CFG->version = '';
     $CFG->release = '';
-    $CFG->branch = '';
-
     $version = null;
     $release = null;
-    $branch = null;
 
     // read $version and $release
     require($CFG->dirroot.'/version.php');
@@ -455,12 +450,6 @@ function install_cli_database(array $options, $interactive) {
     // install core
     install_core($version, true);
     set_config('release', $release);
-    set_config('branch', $branch);
-
-    if (PHPUNIT_TEST) {
-        // mark as test database as soon as possible
-        set_config('phpunittest', 'na');
-    }
 
     // install all plugins types, local, etc.
     upgrade_noncore(true);
@@ -478,7 +467,9 @@ function install_cli_database(array $options, $interactive) {
     upgrade_finished();
 
     // log in as admin - we need do anything when applying defaults
-    session_set_user(get_admin());
+    $admins = get_admins();
+    $admin = reset($admins);
+    session_set_user($admin);
 
     // apply all default settings, do it twice to fill all defaults - some settings depend on other setting
     admin_apply_default_settings(NULL, true);

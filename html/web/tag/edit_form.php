@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * @package    core_tag
- * @category   tag
+ * @package    core
+ * @subpackage tag
  * @copyright  2007 Luiz Cruz <luiz.laydner@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,20 +28,8 @@ if (!defined('MOODLE_INTERNAL')) {
 
 require_once($CFG->dirroot.'/lib/formslib.php');
 
-/**
- * Defines the form for editing tags
- *
- * @package    core_tag
- * @category   tag
- * @copyright  2007 Luiz Cruz <luiz.laydner@gmail.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class tag_edit_form extends moodleform {
 
-    /**
-     * Overrides the abstract moodleform::definition method for defining what the form that is to be
-     * presented to the user.
-     */
     function definition () {
 
         $mform =& $this->_form;
@@ -51,7 +39,7 @@ class tag_edit_form extends moodleform {
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
 
-        $systemcontext   = context_system::instance();
+        $systemcontext   = get_context_instance(CONTEXT_SYSTEM);
 
         if (has_capability('moodle/tag:manage', $systemcontext)) {
             $mform->addElement('text', 'rawname', get_string('name', 'tag'),

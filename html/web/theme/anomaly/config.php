@@ -7,7 +7,7 @@
 
 $THEME->name = 'anomaly';
 
-$THEME->sheets = array('base', 'general', 'browser', 'dock', 'menu');
+$THEME->sheets = array('base', 'general', 'browser','dock');
 /// This variable is an array containing the names of all the
 /// stylesheet files you want included in this theme, and in what order
 ////////////////////////////////////////////////////////////////////////////////
@@ -21,6 +21,8 @@ $THEME->parents = array('base');  // TODO: new themes can not be based on standa
 /// is not used.
 ////////////////////////////////////////////////////////////////////////////////
 
+$THEME->parents_exclude_sheets = array('base'=>array('styles_moz'));
+
 $THEME->layouts = array(
     // Most pages - if we encounter an unknown or a missing page type, this one is used.
     'base' => array(
@@ -30,33 +32,33 @@ $THEME->layouts = array(
     'standard' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     // Course page
     'course' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     // Course page
     'coursecategory' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     'incourse' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     'frontpage' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     'admin' => array(
@@ -68,13 +70,13 @@ $THEME->layouts = array(
     'mydashboard' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     'mypublic' => array(
         'file' => 'general.php',
         'regions' => array('side-pre', 'side-post'),
-        'defaultregion' => 'side-pre',
+        'defaultregion' => 'side-post',
         'options' => array('langmenu' => true)
     ),
     'login' => array(
@@ -85,19 +87,19 @@ $THEME->layouts = array(
     'popup' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'noblocks'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'noblocks'=>true),
     ),
     // No blocks and minimal footer - used for legacy frame layouts only!
     'frametop' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter', 'noblocks'=>true, 'nocoursefooter'=>true),
+        'options' => array('nofooter', 'noblocks'=>true),
     ),
     // Embeded pages, like iframe embeded in moodleform
     'embedded' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'noblocks'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'noblocks'=>true),
     ),
     // Used during upgrade and install, and for the 'This site is undergoing maintenance' message.
     // This must not have any blocks, and it is good idea if it does not have links to
@@ -105,13 +107,13 @@ $THEME->layouts = array(
     'maintenance' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'noblocks'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>true, 'noblocks'=>true),
     ),
     // Should display the content and basic headers only.
     'print' => array(
         'file' => 'general.php',
         'regions' => array(),
-        'options' => array('nofooter'=>true, 'nonavbar'=>false, 'noblocks'=>true, 'nocourseheaderfooter'=>true),
+        'options' => array('nofooter'=>true, 'nonavbar'=>false, 'noblocks'=>true),
     ),
     'report' => array(
         'file' => 'report.php',

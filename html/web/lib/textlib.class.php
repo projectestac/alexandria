@@ -15,9 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines string apis
- *
  * @package    core
+ * @subpackage lib
  * @copyright  (C) 2001-3001 Eloy Lafuente (stronk7) {@link http://contiento.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -25,8 +24,18 @@
 defined('MOODLE_INTERNAL') || die();
 
 /**
- * defines string api's for manipulating strings
+ * Original singleton helper function, please use static methods instead,
+ * ex: textlib::convert()
  *
+ * @deprecated
+ * @return textlib instance
+ */
+function textlib_get_instance() {
+    return new textlib();
+}
+
+
+/**
  * This class is used to manipulate strings under Moodle 1.6 an later. As
  * utf-8 text become mandatory a pool of safe functions under this encoding
  * become necessary. The name of the methods is exactly the
@@ -41,26 +50,19 @@ defined('MOODLE_INTERNAL') || die();
  * its capabilities so, don't forget to make the conversion
  * from every wrapper function!
  *
- * @package   core
- * @category  string
+ * @package    core
+ * @subpackage lib
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class textlib {
 
     /**
-     * Return t3lib helper class, which is used for conversion between charsets
-     *
-     * @param bool $reset
+     * Return t3lib helper class
      * @return t3lib_cs
      */
-    protected static function typo3($reset = false) {
+    protected static function typo3() {
         static $typo3cs = null;
-
-        if ($reset) {
-            $typo3cs = null;
-            return null;
-        }
 
         if (isset($typo3cs)) {
             return $typo3cs;
@@ -71,8 +73,6 @@ class textlib {
         // Required files
         require_once($CFG->libdir.'/typo3/class.t3lib_cs.php');
         require_once($CFG->libdir.'/typo3/class.t3lib_div.php');
-        require_once($CFG->libdir.'/typo3/interface.t3lib_singleton.php');
-        require_once($CFG->libdir.'/typo3/class.t3lib_l10n_locales.php');
 
         // do not use mbstring or recode because it may return invalid results in some corner cases
         $GLOBALS['TYPO3_CONF_VARS']['SYS']['t3lib_cs_convMethod'] = 'iconv';
@@ -93,24 +93,14 @@ class textlib {
 
         // This full path constants must be defined too, transforming backslashes
         // to forward slashed because Typo3 requires it.
-        if (!defined('PATH_t3lib')) {
-            define('PATH_t3lib', str_replace('\\','/',$CFG->libdir.'/typo3/'));
-            define('PATH_typo3', str_replace('\\','/',$CFG->libdir.'/typo3/'));
-            define('PATH_site', str_replace('\\','/',$CFG->tempdir.'/'));
-            define('TYPO3_OS', stristr(PHP_OS,'win')&&!stristr(PHP_OS,'darwin')?'WIN':'');
-        }
+        define ('PATH_t3lib', str_replace('\\','/',$CFG->libdir.'/typo3/'));
+        define ('PATH_typo3', str_replace('\\','/',$CFG->libdir.'/typo3/'));
+        define ('PATH_site', str_replace('\\','/',$CFG->tempdir.'/'));
+        define ('TYPO3_OS', stristr(PHP_OS,'win')&&!stristr(PHP_OS,'darwin')?'WIN':'');
 
         $typo3cs = new t3lib_cs();
 
         return $typo3cs;
-    }
-
-    /**
-     * Reset internal textlib caches.
-     * @static
-     */
-    public static function reset_caches() {
-        self::typo3(true);
     }
 
     /**
@@ -161,7 +151,8 @@ class textlib {
 
     /**
      * Converts the text between different encodings. It uses iconv extension with //TRANSLIT parameter,
-     * falls back to typo3. If both source and target are utf-8 it tries to fix invalid characters only.
+     * falls back to typo3.
+     * Returns false if fails.
      *
      * @param string $text
      * @param string $fromCS source encoding
@@ -178,16 +169,12 @@ class textlib {
             return '';
         }
 
-        if ($toCS === 'utf-8' and $fromCS === 'utf-8') {
-            return fix_utf8($text);
-        }
-
         $result = iconv($fromCS, $toCS.'//TRANSLIT', $text);
 
         if ($result === false or $result === '') {
             // note: iconv is prone to return empty string when invalid char encountered, or false if encoding unsupported
             $oldlevel = error_reporting(E_PARSE);
-            $result = self::typo3()->conv((string)$text, $fromCS, $toCS);
+            $result = self::typo3()->conv($text, $fromCS, $toCS);
             error_reporting($oldlevel);
         }
 
@@ -197,11 +184,11 @@ class textlib {
     /**
      * Multibyte safe substr() function, uses mbstring or iconv for UTF-8, falls back to typo3.
      *
-     * @param string $text string to truncate
+     * @param string $text
      * @param int $start negative value means from end
-     * @param int $len maximum length of characters beginning from start
+     * @param int $len
      * @param string $charset encoding of the text
-     * @return string portion of string specified by the $start and $len
+     * @return string
      */
     public static function substr($text, $start, $len=null, $charset='utf-8') {
         $charset = self::parse_charset($charset);
@@ -229,9 +216,9 @@ class textlib {
 
         $oldlevel = error_reporting(E_PARSE);
         if ($len === null) {
-            $result = self::typo3()->substr($charset, (string)$text, $start);
+            $result = self::typo3()->substr($charset, $text, $start);
         } else {
-            $result = self::typo3()->substr($charset, (string)$text, $start, $len);
+            $result = self::typo3()->substr($charset, $text, $start, $len);
         }
         error_reporting($oldlevel);
 
@@ -241,7 +228,7 @@ class textlib {
     /**
      * Multibyte safe strlen() function, uses mbstring or iconv for UTF-8, falls back to typo3.
      *
-     * @param string $text input string
+     * @param string $text
      * @param string $charset encoding of the text
      * @return int number of characters
      */
@@ -257,7 +244,7 @@ class textlib {
         }
 
         $oldlevel = error_reporting(E_PARSE);
-        $result = self::typo3()->strlen($charset, (string)$text);
+        $result = self::typo3()->strlen($charset, $text);
         error_reporting($oldlevel);
 
         return $result;
@@ -266,7 +253,7 @@ class textlib {
     /**
      * Multibyte safe strtolower() function, uses mbstring, falls back to typo3.
      *
-     * @param string $text input string
+     * @param string $text
      * @param string $charset encoding of the text (may not work for all encodings)
      * @return string lower case text
      */
@@ -278,7 +265,7 @@ class textlib {
         }
 
         $oldlevel = error_reporting(E_PARSE);
-        $result = self::typo3()->conv_case($charset, (string)$text, 'toLower');
+        $result = self::typo3()->conv_case($charset, $text, 'toLower');
         error_reporting($oldlevel);
 
         return $result;
@@ -287,7 +274,7 @@ class textlib {
     /**
      * Multibyte safe strtoupper() function, uses mbstring, falls back to typo3.
      *
-     * @param string $text input string
+     * @param string $text
      * @param string $charset encoding of the text (may not work for all encodings)
      * @return string upper case text
      */
@@ -299,20 +286,19 @@ class textlib {
         }
 
         $oldlevel = error_reporting(E_PARSE);
-        $result = self::typo3()->conv_case($charset, (string)$text, 'toUpper');
+        $result = self::typo3()->conv_case($charset, $text, 'toUpper');
         error_reporting($oldlevel);
 
         return $result;
     }
 
     /**
-     * Find the position of the first occurrence of a substring in a string.
      * UTF-8 ONLY safe strpos(), uses mbstring, falls back to iconv.
      *
-     * @param string $haystack the string to search in
-     * @param string $needle one or more charachters to search for
-     * @param int $offset offset from begining of string
-     * @return int the numeric position of the first occurrence of needle in haystack.
+     * @param string $haystack
+     * @param string $needle
+     * @param int $offset
+     * @return string
      */
     public static function strpos($haystack, $needle, $offset=0) {
         if (function_exists('mb_strpos')) {
@@ -323,12 +309,11 @@ class textlib {
     }
 
     /**
-     * Find the position of the last occurrence of a substring in a string
      * UTF-8 ONLY safe strrpos(), uses mbstring, falls back to iconv.
      *
-     * @param string $haystack the string to search in
-     * @param string $needle one or more charachters to search for
-     * @return int the numeric position of the last occurrence of needle in haystack
+     * @param string $haystack
+     * @param string $needle
+     * @return string
      */
     public static function strrpos($haystack, $needle) {
         if (function_exists('mb_strpos')) {
@@ -342,14 +327,14 @@ class textlib {
      * Try to convert upper unicode characters to plain ascii,
      * the returned string may contain unconverted unicode characters.
      *
-     * @param string $text input string
+     * @param string $text
      * @param string $charset encoding of the text
-     * @return string converted ascii string
+     * @return string
      */
     public static function specialtoascii($text, $charset='utf-8') {
         $charset = self::parse_charset($charset);
         $oldlevel = error_reporting(E_PARSE);
-        $result = self::typo3()->specCharsToASCII($charset, (string)$text);
+        $result = self::typo3()->specCharsToASCII($charset, $text);
         error_reporting($oldlevel);
         return $result;
     }
@@ -359,9 +344,9 @@ class textlib {
      * This function seems to be 100% compliant with RFC1342. Credits go to:
      * paravoid (http://www.php.net/manual/en/function.mb-encode-mimeheader.php#60283).
      *
-     * @param string $text input string
+     * @param string $text
      * @param string $charset encoding of the text
-     * @return string base64 encoded header
+     * @return string
      */
     public static function encode_mimeheader($text, $charset='utf-8') {
         if (empty($text)) {
@@ -442,60 +427,36 @@ class textlib {
     }
 
     /**
-     * Returns HTML entity transliteration table.
-     * @return array with (html entity => utf-8) elements
-     */
-    protected static function get_entities_table() {
-        static $trans_tbl = null;
-
-        // Generate/create $trans_tbl
-        if (!isset($trans_tbl)) {
-            if (version_compare(phpversion(), '5.3.4') < 0) {
-                $trans_tbl = array();
-                foreach (get_html_translation_table(HTML_ENTITIES) as $val=>$key) {
-                    $trans_tbl[$key] = textlib::convert($val, 'ISO-8859-1', 'utf-8');
-                }
-
-            } else if (version_compare(phpversion(), '5.4.0') < 0) {
-                $trans_tbl = get_html_translation_table(HTML_ENTITIES, ENT_COMPAT, 'UTF-8');
-                $trans_tbl = array_flip($trans_tbl);
-
-            } else {
-                $trans_tbl = get_html_translation_table(HTML_ENTITIES, ENT_COMPAT | ENT_HTML401, 'UTF-8');
-                $trans_tbl = array_flip($trans_tbl);
-            }
-        }
-
-        return $trans_tbl;
-    }
-
-    /**
      * Converts all the numeric entities &#nnnn; or &#xnnn; to UTF-8
      * Original from laurynas dot butkus at gmail at:
      * http://php.net/manual/en/function.html-entity-decode.php#75153
      * with some custom mods to provide more functionality
      *
-     * @param string $str input string
-     * @param boolean $htmlent convert also html entities (defaults to true)
-     * @return string encoded UTF-8 string
+     * @param    string    $str      input string
+     * @param    boolean   $htmlent  convert also html entities (defaults to true)
+     * @return   string
+     *
+     * NOTE: we could have used typo3 entities_to_utf8() here
+     *       but the direct alternative used runs 400% quicker
+     *       and uses 0.5Mb less memory, so, let's use it
+     *       (tested against 10^6 conversions)
      */
     public static function entities_to_utf8($str, $htmlent=true) {
-        static $callback1 = null ;
-        static $callback2 = null ;
+        static $trans_tbl; // Going to use static transliteration table
 
-        if (!$callback1 or !$callback2) {
-            $callback1 = create_function('$matches', 'return textlib::code2utf8(hexdec($matches[1]));');
-            $callback2 = create_function('$matches', 'return textlib::code2utf8($matches[1]);');
-        }
-
-        $result = (string)$str;
-        $result = preg_replace_callback('/&#x([0-9a-f]+);/i', $callback1, $result);
-        $result = preg_replace_callback('/&#([0-9]+);/', $callback2, $result);
+        // Replace numeric entities
+        $result = preg_replace('~&#x([0-9a-f]+);~ei', 'textlib::code2utf8(hexdec("\\1"))', $str);
+        $result = preg_replace('~&#([0-9]+);~e', 'textlib::code2utf8(\\1)', $result);
 
         // Replace literal entities (if desired)
         if ($htmlent) {
-            $trans_tbl = self::get_entities_table();
-            // It should be safe to search for ascii strings and replace them with utf-8 here.
+            // Generate/create $trans_tbl
+            if (!isset($trans_tbl)) {
+                $trans_tbl = array();
+                foreach (get_html_translation_table(HTML_ENTITIES) as $val=>$key) {
+                    $trans_tbl[$key] = utf8_encode($val);
+                }
+            }
             $result = strtr($result, $trans_tbl);
         }
         // Return utf8-ised string
@@ -505,37 +466,30 @@ class textlib {
     /**
      * Converts all Unicode chars > 127 to numeric entities &#nnnn; or &#xnnn;.
      *
-     * @param string $str input string
-     * @param boolean $dec output decadic only number entities
-     * @param boolean $nonnum remove all non-numeric entities
-     * @return string converted string
+     * @param    string   $str      input string
+     * @param    boolean  $dec      output decadic only number entities
+     * @param    boolean  $nonnum   remove all non-numeric entities
+     * @return   string converted string
      */
     public static function utf8_to_entities($str, $dec=false, $nonnum=false) {
-        static $callback = null ;
-
-        if ($nonnum) {
-            $str = self::entities_to_utf8($str, true);
-        }
-
         // Avoid some notices from Typo3 code
         $oldlevel = error_reporting(E_PARSE);
-        $result = self::typo3()->utf8_to_entities((string)$str);
-        error_reporting($oldlevel);
-
-        if ($dec) {
-            if (!$callback) {
-                $callback = create_function('$matches', 'return \'&#\'.(hexdec($matches[1])).\';\';');
-            }
-            $result = preg_replace_callback('/&#x([0-9a-f]+);/i', $callback, $result);
+        if ($nonnum) {
+            $str = self::typo3()->entities_to_utf8($str, true);
         }
-
+        $result = self::typo3()->utf8_to_entities($str);
+        if ($dec) {
+            $result = preg_replace('/&#x([0-9a-f]+);/ie', "'&#'.hexdec('$1').';'", $result);
+        }
+        // Restore original debug level
+        error_reporting($oldlevel);
         return $result;
     }
 
     /**
-     * Removes the BOM from unicode string {@link http://unicode.org/faq/utf_bom.html}
+     * Removes the BOM from unicode string - see http://unicode.org/faq/utf_bom.html
      *
-     * @param string $str input string
+     * @param string $str
      * @return string
      */
     public static function trim_utf8_bom($str) {
@@ -548,7 +502,6 @@ class textlib {
 
     /**
      * Returns encoding options for select boxes, utf-8 and platform encoding first
-     *
      * @return array encodings
      */
     public static function get_encodings() {
@@ -595,7 +548,7 @@ class textlib {
      * Makes first letter of each word capital - words must be separated by spaces.
      * Use with care, this function does not work properly in many locales!!!
      *
-     * @param string $text input string
+     * @param string $text
      * @return string
      */
     public static function strtotitle($text) {
@@ -640,30 +593,15 @@ class textlib {
     }
 }
 
-
 /**
  * A collator class with static methods that can be used for sorting.
  *
- * @package   core
+ * @package    core
+ * @subpackage lib
  * @copyright 2011 Sam Hemelryk
- *            2012 Petr Skoda
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class collatorlib {
-    /** @const compare items using general PHP comparison, equivalent to Collator::SORT_REGULAR, this may bot be locale aware! */
-    const SORT_REGULAR = 0;
-
-    /** @const compare items as strings, equivalent to Collator::SORT_STRING */
-    const SORT_STRING = 1;
-
-    /** @const compare items as numbers, equivalent to Collator::SORT_NUMERIC */
-    const SORT_NUMERIC = 2;
-
-    /** @const compare items like natsort(), equivalent to SORT_NATURAL */
-    const SORT_NATURAL = 6;
-
-    /** @const do not ignore case when sorting, use bitwise "|" with SORT_NATURAL or SORT_STRING, equivalent to Collator::UPPER_FIRST */
-    const CASE_SENSITIVE = 64;
+abstract class collatorlib {
 
     /** @var Collator|false|null **/
     protected static $collator = null;
@@ -672,17 +610,13 @@ class collatorlib {
     protected static $locale = null;
 
     /**
-     * Prevent class instances, all methods are static.
-     */
-    private function __construct() {
-    }
-
-    /**
      * Ensures that a collator is available and created
      *
      * @return bool Returns true if collation is available and ready
      */
     protected static function ensure_collator_available() {
+        global $CFG;
+
         $locale = get_string('locale', 'langconfig');
         if (is_null(self::$collator) || $locale != self::$locale) {
             self::$collator = false;
@@ -719,7 +653,7 @@ class collatorlib {
                                 // to find the correct locale or to use UCA collation
                             }
                         } else {
-                            // We've received some other sort of non fatal warning - let the
+                            // We've recieved some other sort of non fatal warning - let the
                             // user know about it via debugging.
                             debugging('Problem with locale: "' . $locale . '", with message "' . $errormessage .
                                 '", falling back to "' . $collator->getLocale(Locale::VALID_LOCALE) . '"');
@@ -738,119 +672,38 @@ class collatorlib {
     }
 
     /**
-     * Restore array contents keeping new keys.
-     * @static
-     * @param array $arr
-     * @param array $original
-     * @return void modifies $arr
-     */
-    protected static function restore_array(array &$arr, array &$original) {
-        foreach ($arr as $key => $ignored) {
-            $arr[$key] = $original[$key];
-        }
-    }
-
-    /**
-     * Normalise numbers in strings for natural sorting comparisons.
-     * @static
-     * @param string $string
-     * @return string string with normalised numbers
-     */
-    protected static function naturalise($string) {
-        return preg_replace_callback('/[0-9]+/', array('collatorlib', 'callback_naturalise'), $string);
-    }
-
-    /**
-     * @internal
-     * @static
-     * @param array $matches
-     * @return string
-     */
-    public static function callback_naturalise($matches) {
-        return str_pad($matches[0], 20, '0', STR_PAD_LEFT);
-    }
-
-    /**
      * Locale aware sorting, the key associations are kept, values are sorted alphabetically.
      *
      * @param array $arr array to be sorted (reference)
-     * @param int $sortflag One of collatorlib::SORT_NUMERIC, collatorlib::SORT_STRING, collatorlib::SORT_NATURAL, collatorlib::SORT_REGULAR
-     *      optionally "|" collatorlib::CASE_SENSITIVE
-     * @return bool True on success
+     * @param int $sortflag One of Collator::SORT_REGULAR, Collator::SORT_NUMERIC, Collator::SORT_STRING
+     * @return void modifies parameter
      */
-    public static function asort(array &$arr, $sortflag = collatorlib::SORT_STRING) {
-        if (empty($arr)) {
-            // nothing to do
-            return true;
-        }
-
-        $original = null;
-
-        $casesensitive = (bool)($sortflag & collatorlib::CASE_SENSITIVE);
-        $sortflag = ($sortflag & ~collatorlib::CASE_SENSITIVE);
-        if ($sortflag != collatorlib::SORT_NATURAL and $sortflag != collatorlib::SORT_STRING) {
-            $casesensitive = false;
-        }
-
+    public static function asort(array &$arr, $sortflag = null) {
         if (self::ensure_collator_available()) {
-            if ($sortflag == collatorlib::SORT_NUMERIC) {
-                $flag = Collator::SORT_NUMERIC;
-
-            } else if ($sortflag == collatorlib::SORT_REGULAR) {
-                $flag = Collator::SORT_REGULAR;
-
-            } else {
-                $flag = Collator::SORT_STRING;
+            if (!isset($sortflag)) {
+                $sortflag = Collator::SORT_REGULAR;
             }
-
-            if ($sortflag == collatorlib::SORT_NATURAL) {
-                $original = $arr;
-                if ($sortflag == collatorlib::SORT_NATURAL) {
-                    foreach ($arr as $key => $value) {
-                        $arr[$key] = self::naturalise((string)$value);
-                    }
-                }
-            }
-            if ($casesensitive) {
-                self::$collator->setAttribute(Collator::CASE_FIRST, Collator::UPPER_FIRST);
-            } else {
-                self::$collator->setAttribute(Collator::CASE_FIRST, Collator::OFF);
-            }
-            $result = self::$collator->asort($arr, $flag);
-            if ($original) {
-                self::restore_array($arr, $original);
-            }
-            return $result;
+            self::$collator->asort($arr, $sortflag);
+            return;
         }
+        asort($arr, SORT_LOCALE_STRING);
+    }
 
-        // try some fallback that works at least for English
-
-        if ($sortflag == collatorlib::SORT_NUMERIC) {
-            return asort($arr, SORT_NUMERIC);
-
-        } else if ($sortflag == collatorlib::SORT_REGULAR) {
-            return asort($arr, SORT_REGULAR);
+    /**
+     * Locale aware comparison of two strings.
+     *
+     * Returns:
+     *   1 if str1 is greater than str2
+     *   0 if str1 is equal to str2
+     *  -1 if str1 is less than str2
+     *
+     * @return int
+     */
+    public static function compare($str1, $str2) {
+        if (self::ensure_collator_available()) {
+            return self::$collator->compare($str1, $str2);
         }
-
-        if (!$casesensitive) {
-            $original = $arr;
-            foreach ($arr as $key => $value) {
-                $arr[$key] = textlib::strtolower($value);
-            }
-        }
-
-        if ($sortflag == collatorlib::SORT_NATURAL) {
-            $result = natsort($arr);
-
-        } else {
-            $result = asort($arr, SORT_LOCALE_STRING);
-        }
-
-        if ($original) {
-            self::restore_array($arr, $original);
-        }
-
-        return $result;
+        return strcmp($str1, $str2);
     }
 
     /**
@@ -858,18 +711,11 @@ class collatorlib {
      *
      * @param array $objects An array of objects to sort (handled by reference)
      * @param string $property The property to use for comparison
-     * @param int $sortflag One of collatorlib::SORT_NUMERIC, collatorlib::SORT_STRING, collatorlib::SORT_NATURAL, collatorlib::SORT_REGULAR
-     *      optionally "|" collatorlib::CASE_SENSITIVE
      * @return bool True on success
      */
-    public static function asort_objects_by_property(array &$objects, $property, $sortflag = collatorlib::SORT_STRING) {
-        $original = $objects;
-        foreach ($objects as $key => $object) {
-            $objects[$key] = $object->$property;
-        }
-        $result = self::asort($objects, $sortflag);
-        self::restore_array($objects, $original);
-        return $result;
+    public static function asort_objects_by_property(array &$objects, $property) {
+        $comparison = new collatorlib_property_comparison($property);
+        return uasort($objects, array($comparison, 'compare'));
     }
 
     /**
@@ -877,41 +723,110 @@ class collatorlib {
      *
      * @param array $objects An array of objects to sort (handled by reference)
      * @param string $method The method to call to generate a value for comparison
-     * @param int $sortflag One of collatorlib::SORT_NUMERIC, collatorlib::SORT_STRING, collatorlib::SORT_NATURAL, collatorlib::SORT_REGULAR
-     *      optionally "|" collatorlib::CASE_SENSITIVE
      * @return bool True on success
      */
-    public static function asort_objects_by_method(array &$objects, $method, $sortflag = collatorlib::SORT_STRING) {
-        $original = $objects;
-        foreach ($objects as $key => $object) {
-            $objects[$key] = $object->{$method}();
-        }
-        $result = self::asort($objects, $sortflag);
-        self::restore_array($objects, $original);
-        return $result;
-    }
-
-    /**
-     * Locale aware sorting, the key associations are kept, keys are sorted alphabetically.
-     *
-     * @param array $arr array to be sorted (reference)
-     * @param int $sortflag One of collatorlib::SORT_NUMERIC, collatorlib::SORT_STRING, collatorlib::SORT_NATURAL, collatorlib::SORT_REGULAR
-     *      optionally "|" collatorlib::CASE_SENSITIVE
-     * @return bool True on success
-     */
-    public static function ksort(array &$arr, $sortflag = collatorlib::SORT_STRING) {
-        $keys = array_keys($arr);
-        if (!self::asort($keys, $sortflag)) {
-            return false;
-        }
-        // This is a bit slow, but we need to keep the references
-        $original = $arr;
-        $arr = array(); // Surprisingly this does not break references outside
-        foreach ($keys as $key) {
-            $arr[$key] = $original[$key];
-        }
-
-        return true;
+    public static function asort_objects_by_method(array &$objects, $method) {
+        $comparison = new collatorlib_method_comparison($method);
+        return uasort($objects, array($comparison, 'compare'));
     }
 }
 
+/**
+ * Abstract class to aid the sorting of objects with respect to proper language
+ * comparison using collator
+ *
+ * @package    core
+ * @subpackage lib
+ * @copyright 2011 Sam Hemelryk
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+abstract class collatorlib_comparison {
+    /**
+     * This function will perform the actual comparison of values
+     * It must be overridden by the deriving class.
+     *
+     * Returns:
+     *   1 if str1 is greater than str2
+     *   0 if str1 is equal to str2
+     *  -1 if str1 is less than str2
+     *
+     * @param mixed $a The first something to compare
+     * @param mixed $b The second something to compare
+     * @return int
+     */
+    public abstract function compare($a, $b);
+}
+
+/**
+ * A comparison helper for comparing properties of two objects
+ *
+ * @package    core
+ * @subpackage lib
+ * @copyright 2011 Sam Hemelryk
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class collatorlib_property_comparison extends collatorlib_comparison {
+
+    /** @var string The property to sort by **/
+    protected $property;
+
+    /**
+     * @param string $property
+     */
+    public function __construct($property) {
+        $this->property = $property;
+    }
+
+    /**
+     * Returns:
+     *   1 if str1 is greater than str2
+     *   0 if str1 is equal to str2
+     *  -1 if str1 is less than str2
+     *
+     * @param mixed $obja The first object to compare
+     * @param mixed $objb The second object to compare
+     * @return int
+     */
+    public function compare($obja, $objb) {
+        $resulta = $obja->{$this->property};
+        $resultb = $objb->{$this->property};
+        return collatorlib::compare($resulta, $resultb);
+    }
+}
+
+/**
+ * A comparison helper for comparing the result of a method on two objects
+ *
+ * @package    core
+ * @subpackage lib
+ * @copyright 2011 Sam Hemelryk
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class collatorlib_method_comparison extends collatorlib_comparison {
+
+    /** @var string The method to use for comparison **/
+    protected $method;
+
+    /**
+     * @param string $method The method to call against each object
+     */
+    public function __construct($method) {
+        $this->method = $method;
+    }
+
+    /**
+     * Returns:
+     *   1 if str1 is greater than str2
+     *   0 if str1 is equal to str2
+     *  -1 if str1 is less than str2
+     *
+     * @param mixed $obja The first object to compare
+     * @param mixed $objb The second object to compare
+     * @return int
+     */
+    public function compare($obja, $objb) {
+        $resulta = $obja->{$this->method}();
+        $resultb = $objb->{$this->method}();
+        return collatorlib::compare($resulta, $resultb);
+    }
+}

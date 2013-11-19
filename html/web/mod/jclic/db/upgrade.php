@@ -43,21 +43,24 @@ defined('MOODLE_INTERNAL') || die();
 function xmldb_jclic_upgrade($oldversion) {
     global $CFG, $DB;
 
+    $result = true;
+
     $dbman = $DB->get_manager(); // loads ddl manager and xmldb classes
+    $table = new xmldb_table('jclic');
 
     if ($oldversion < 2011011900) {
-        $table = new xmldb_table('jclic');
         /// Define lang field format to be added to jclic
         $field = new xmldb_field('lang');
         $field->set_attributes(XMLDB_TYPE_CHAR, '10', null, XMLDB_NOTNULL, null, 'ca', 'url');
         $result = $result && $dbman->add_field($table, $field);
-
-        /// Define exiturl field format to be added to jclic
-        $field = new xmldb_field('exiturl');
-        $field->set_attributes(XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'url');
-        $result = $result && $dbman->add_field($table, $field);
     }
-    
+    /// Define exiturl field format to be added to jclic
+    $field = new xmldb_field('exiturl');
+    $field->set_attributes(XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null, 'url');
+    if (!$dbman->field_exists($table, $field)) {
+        $result = $dbman->add_field($table, $field);
+    }
+ 
     if ($oldversion < 2011122902) {
 
         /// Define field introformat to be added to jclic
@@ -108,8 +111,7 @@ function xmldb_jclic_upgrade($oldversion) {
         // Update jclic.grade with the jclic.max_grade value
         if ($jclics = $DB->get_records('jclic')){
             foreach($jclics as $jclic){
-                if (empty($jclic->maxgrade)) $jclic->maxgrade = 10;
-                $jclic->grade= $jclic->maxgrade;
+                $jclic->grade= (int)$jclic->maxgrade;
                 $DB->update_record("jclic", $jclic);
             }
         }

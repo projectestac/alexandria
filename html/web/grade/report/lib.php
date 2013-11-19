@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,18 +16,16 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * File containing the grade_report class
- *
- * @package   core_grades
- * @copyright 2007 Moodle Pty Ltd (http://moodle.com)
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * File containing the grade_report class.
+ * @package gradebook
  */
 
 require_once($CFG->libdir.'/gradelib.php');
 
 /**
  * An abstract class containing variables and methods used by all or most reports.
- * @package core_grades
+ * @abstract
+ * @package gradebook
  */
 abstract class grade_report {
     /**
@@ -333,11 +332,10 @@ abstract class grade_report {
      */
     protected function get_sort_arrow($direction='move', $sortlink=null) {
         global $OUTPUT;
-        $pix = array('up' => 't/sort_desc', 'down' => 't/sort_asc', 'move' => 't/sort');
         $matrix = array('up' => 'desc', 'down' => 'asc', 'move' => 'desc');
         $strsort = $this->get_lang_string('sort' . $matrix[$direction]);
 
-        $arrow = $OUTPUT->pix_icon($pix[$direction], $strsort, '', array('class' => 'sorticon'));
+        $arrow = print_arrow($direction, $strsort, true);
         return html_writer::link($sortlink, $arrow, array('title'=>$strsort));
     }
 
@@ -352,21 +350,17 @@ abstract class grade_report {
         global $CFG, $DB;
         static $hiding_affected = null;//array of items in this course affected by hiding
 
-        // If we're dealing with multiple users we need to know when we've moved on to a new user.
+        //if we're dealing with multiple users we need to know when we've moved on to a new user
         static $previous_userid = null;
-
-        // If we're dealing with multiple courses we need to know when we've moved on to a new course.
-        static $previous_courseid = null;
 
         if( $this->showtotalsifcontainhidden==GRADE_REPORT_SHOW_REAL_TOTAL_IF_CONTAINS_HIDDEN ) {
             return $finalgrade;
         }
 
-        // If we've moved on to another course or user, reload the grades.
-        if ($previous_userid != $this->user->id || $previous_courseid != $courseid) {
+        //if we've moved on to another user don't return the previous user's affected grades
+        if ($previous_userid!=$this->user->id) {
             $hiding_affected = null;
             $previous_userid = $this->user->id;
-            $previous_courseid = $courseid;
         }
 
         if( !$hiding_affected ) {

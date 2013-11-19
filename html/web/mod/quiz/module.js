@@ -27,7 +27,6 @@ M.mod_quiz = M.mod_quiz || {};
 M.mod_quiz.init_attempt_form = function(Y) {
     M.core_question_engine.init_form(Y, '#responseform');
     Y.on('submit', M.mod_quiz.timer.stop, '#responseform');
-    M.core_formchangechecker.init({formid: 'responseform'});
 };
 
 M.mod_quiz.init_review_form = function(Y) {
@@ -51,22 +50,17 @@ M.mod_quiz.timer = {
     // Timestamp at which time runs out, according to the student's computer's clock.
     endtime: 0,
 
-    // Is this a quiz preview?
-    preview: 0,
-
     // This records the id of the timeout that updates the clock periodically,
     // so we can cancel.
     timeoutid: null,
 
     /**
      * @param Y the YUI object
-     * @param start, the timer starting time, in seconds.
-     * @param preview, is this a quiz preview?
+     * @param timeleft, the time remaining, in seconds.
      */
-    init: function(Y, start, preview) {
+    init: function(Y, timeleft) {
         M.mod_quiz.timer.Y = Y;
-        M.mod_quiz.timer.endtime = new Date().getTime() + start*1000;
-        M.mod_quiz.timer.preview = preview;
+        M.mod_quiz.timer.endtime = new Date().getTime() + timeleft*1000;
         M.mod_quiz.timer.update();
         Y.one('#quiz-timer').setStyle('display', 'block');
     },
@@ -95,12 +89,6 @@ M.mod_quiz.timer = {
     update: function() {
         var Y = M.mod_quiz.timer.Y;
         var secondsleft = Math.floor((M.mod_quiz.timer.endtime - new Date().getTime())/1000);
-        
-        // If this is a preview and time expired, display timeleft 0 and don't renew the timer.
-        if (M.mod_quiz.timer.preview && secondsleft < 0) {
-            Y.one('#quiz-time-left').setContent('0:00:00');
-            return;
-        }
 
         // If time has expired, Set the hidden form field that says time has expired.
         if (secondsleft < 0) {
@@ -108,12 +96,7 @@ M.mod_quiz.timer = {
             Y.one('#quiz-time-left').setContent(M.str.quiz.timesup);
             var input = Y.one('input[name=timeup]');
             input.set('value', 1);
-            var form = input.ancestor('form');
-            if (form.one('input[name=finishattempt]')) {
-                form.one('input[name=finishattempt]').set('value', 0);
-            }
-            M.core_formchangechecker.set_form_submitted();
-            form.submit();
+            input.ancestor('form').submit();
             return;
         }
 
@@ -160,29 +143,6 @@ M.mod_quiz.nav.init = function(Y) {
 
     var form = Y.one('#responseform');
     if (form) {
-        function find_enabled_submit() {
-            // This is rather inelegant, but the CSS3 selector
-            //     return form.one('input[type=submit]:enabled');
-            // does not work in IE7, 8 or 9 for me.
-            var enabledsubmit = null;
-            form.all('input[type=submit]').each(function(submit) {
-                if (!enabledsubmit && !submit.get('disabled')) {
-                    enabledsubmit = submit;
-                }
-            });
-            return enabledsubmit;
-        }
-
-        function nav_to_page(pageno) {
-            Y.one('#followingpage').set('value', pageno);
-
-            // Automatically submit the form. We do it this strange way because just
-            // calling form.submit() does not run the form's submit event handlers.
-            var submit = find_enabled_submit();
-            submit.set('name', '');
-            submit.getDOMNode().click();
-        };
-
         Y.delegate('click', function(e) {
             if (this.hasClass('thispage')) {
                 return;
@@ -197,20 +157,22 @@ M.mod_quiz.nav.init = function(Y) {
             } else {
                 pageno = 0;
             }
+            Y.one('#followingpage').set('value', pageno);
 
             var questionidmatch = this.get('href').match(/#q(\d+)/);
             if (questionidmatch) {
                 form.set('action', form.get('action') + '#q' + questionidmatch[1]);
             }
 
-            nav_to_page(pageno);
+            form.submit();
         }, document.body, '.qnbutton');
     }
 
     if (Y.one('a.endtestlink')) {
         Y.on('click', function(e) {
             e.preventDefault();
-            nav_to_page(-1);
+            Y.one('#followingpage').set('value', -1);
+            Y.one('#responseform').submit();
         }, 'a.endtestlink');
     }
 
@@ -225,13 +187,10 @@ M.mod_quiz.secure_window = {
             window.location = 'about:blank';
         }
         Y.delegate('contextmenu', M.mod_quiz.secure_window.prevent, document, '*');
-        Y.delegate('mousedown',   M.mod_quiz.secure_window.prevent_mouse, document, '*');
-        Y.delegate('mouseup',     M.mod_quiz.secure_window.prevent_mouse, document, '*');
-        Y.delegate('dragstart',   M.mod_quiz.secure_window.prevent, document, '*');
+        Y.delegate('mousedown', M.mod_quiz.secure_window.prevent_mouse, document, '*');
+        Y.delegate('mouseup', M.mod_quiz.secure_window.prevent_mouse, document, '*');
+        Y.delegate('dragstart', M.mod_quiz.secure_window.prevent, document, '*');
         Y.delegate('selectstart', M.mod_quiz.secure_window.prevent, document, '*');
-        Y.delegate('cut',         M.mod_quiz.secure_window.prevent, document, '*');
-        Y.delegate('copy',        M.mod_quiz.secure_window.prevent, document, '*');
-        Y.delegate('paste',       M.mod_quiz.secure_window.prevent, document, '*');
         M.mod_quiz.secure_window.clear_status;
         Y.on('beforeprint', function() {
             Y.one(document.body).setStyle('display', 'none');
@@ -288,7 +247,7 @@ M.mod_quiz.secure_window = {
         }, '#secureclosebutton');
     },
 
-    close: function(Y, url, delay) {
+    close: function(url, delay) {
         setTimeout(function() {
             if (window.opener) {
                 window.opener.document.location.reload();

@@ -12,7 +12,6 @@ $string['entries'] = 'Entries';
 $string['feedbackupdated'] = 'Feedback updated for {$a} entries';
 $string['gradeingradebook'] = 'Current grade in gradebook';
 $string['journal:addentries'] = 'Add journal entries';
-$string['journal:addinstance'] = 'Add journal instances';
 $string['journal:manageentries'] = 'Manage journal entries';
 $string['journalmail'] = '{$a->teacher} has posted some feedback on your
 journal entry for \'{$a->journal}\'
@@ -27,8 +26,6 @@ $string['journalname'] = 'Journal name';
 $string['journalquestion'] = 'Journal question';
 $string['mailsubject'] = 'Journal feedback';
 $string['modulename'] = 'Journal';
-$string['modulename_help'] = 'The journal activity enables teachers to obtain students feedback 
-about a specific topic'; 
 $string['modulenameplural'] = 'Journals';
 $string['newjournalentries'] = 'New journal entries';
 $string['noentriesmanagers'] = 'There are no teachers';

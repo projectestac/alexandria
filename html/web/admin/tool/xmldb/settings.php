@@ -17,7 +17,8 @@
 /**
  * Link to xmldb editor
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -28,9 +29,7 @@ defined('MOODLE_INTERNAL') || die;
 //2012.05.23  @sarjona
 if ( $hassiteconfig && get_protected_agora() ) { 
 //************ ORIGINAL
-/*
-if ($hassiteconfig) {
-*/
+//if ($hassiteconfig) {
 //************ FI
     $ADMIN->add('development', new admin_externalpage('toolxmld', get_string('pluginname', 'tool_xmldb'), "$CFG->wwwroot/$CFG->admin/tool/xmldb/"));
 }

@@ -25,8 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-defined('MOODLE_INTERNAL') || die;
-
 //XTEC ************ AFEGIT - To let access only to xtecadmin user
 //2012.06.20  @sarjona
 if (get_protected_agora() ) {

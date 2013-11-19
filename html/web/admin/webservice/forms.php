@@ -56,14 +56,13 @@ class external_service_form extends moodleform {
 
     function definition() {
         $mform = $this->_form;
-        $service = isset($this->_customdata) ? $this->_customdata : new stdClass();
+        $service = $this->_customdata;
 
         $mform->addElement('header', 'extservice',
                 get_string('externalservice', 'webservice'));
 
         $mform->addElement('text', 'name', get_string('name'));
         $mform->addRule('name', get_string('required'), 'required', null, 'client');
-        $mform->setType('name', PARAM_TEXT);
         $mform->addElement('advcheckbox', 'enabled', get_string('enabled', 'webservice'));
         $mform->addElement('advcheckbox', 'restrictedusers',
                 get_string('restrictedusers', 'webservice'));
@@ -82,7 +81,7 @@ class external_service_form extends moodleform {
         }
 
         // Prepare the list of capabilities to choose from
-        $systemcontext = context_system::instance();
+        $systemcontext = get_context_instance(CONTEXT_SYSTEM);
         $allcapabilities = fetch_context_capabilities($systemcontext);
         $capabilitychoices = array();
         $capabilitychoices['norequiredcapability'] = get_string('norequiredcapability',
@@ -113,7 +112,7 @@ class external_service_form extends moodleform {
         $mform->setType('id', PARAM_INT);
 
         if (!empty($service->id)) {
-            $buttonlabel = get_string('savechanges');
+            $buttonlabel = get_string('editaservice', 'webservice');
         } else {
             $buttonlabel = get_string('addaservice', 'webservice');
         }
@@ -163,13 +162,12 @@ class external_service_functions_form extends moodleform {
 
         $mform->addElement('searchableselector', 'fids', get_string('name'),
                 $functions, array('multiple'));
-        $mform->addRule('fids', get_string('required'), 'required', null, 'client');
 
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
 
         $mform->addElement('hidden', 'action');
-        $mform->setType('action', PARAM_ALPHANUMEXT);
+        $mform->setType('action', PARAM_ACTION);
 
         $this->add_action_buttons(true, get_string('addfunctions', 'webservice'));
 
@@ -195,18 +193,16 @@ class web_service_token_form extends moodleform {
                     array('deleted' => 0, 'suspended' => 0, 'confirmed' => 1));
 
             if ($usertotal < 500) {
-                list($sort, $params) = users_order_by_sql('u');
                 //user searchable selector - get all users (admin and guest included)
                 //user must be confirmed, not deleted, not suspended, not guest
                 $sql = "SELECT u.id, u.firstname, u.lastname
                             FROM {user} u
-                            WHERE u.deleted = 0 AND u.confirmed = 1 AND u.suspended = 0 AND u.id != :siteguestid
-                            ORDER BY $sort";
-                $params['siteguestid'] = $CFG->siteguest;
-                $users = $DB->get_records_sql($sql, $params);
+                            WHERE u.deleted = 0 AND u.confirmed = 1 AND u.suspended = 0 AND u.id != ?
+                            ORDER BY u.lastname";
+                $users = $DB->get_records_sql($sql, array($CFG->siteguest));
                 $options = array();
                 foreach ($users as $userid => $user) {
-                    $options[$userid] = fullname($user);
+                    $options[$userid] = $user->firstname . " " . $user->lastname;
                 }
                 $mform->addElement('searchableselector', 'user', get_string('user'), $options);
             } else {
@@ -219,7 +215,7 @@ class web_service_token_form extends moodleform {
         //service selector
         $services = $DB->get_records('external_services');
         $options = array();
-        $systemcontext = context_system::instance();
+        $systemcontext = get_context_instance(CONTEXT_SYSTEM);
         foreach ($services as $serviceid => $service) {
             //check that the user has the required capability
             //(only for generation by the profile page)
@@ -239,7 +235,7 @@ class web_service_token_form extends moodleform {
                 get_string('validuntil', 'webservice'), array('optional' => true));
 
         $mform->addElement('hidden', 'action');
-        $mform->setType('action', PARAM_ALPHANUMEXT);
+        $mform->setType('action', PARAM_ACTION);
 
         $this->add_action_buttons(true);
 
@@ -258,7 +254,7 @@ class web_service_token_form extends moodleform {
         return $data;
     }
 
-    function validation($data, $files) {
+    function validation(&$data, $files) {
         global $DB;
 
         $errors = parent::validation($data, $files);

@@ -33,7 +33,7 @@ require_once($CFG->libdir.'/environmentlib.php');
 require_once($CFG->libdir.'/componentlib.class.php');
 
 // Parameters
-$action  = optional_param('action', '', PARAM_ALPHANUMEXT);
+$action  = optional_param('action', '', PARAM_ACTION);
 $version = optional_param('version', '', PARAM_FILE); //
 
 $extraurlparams = array();

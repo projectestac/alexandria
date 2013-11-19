@@ -38,28 +38,20 @@ class mod_wiki_edit_form extends moodleform {
     protected function definition() {
         global $CFG;
 
-        $mform = $this->_form;
-        // BEWARE HACK: In order for things to work we need to override the form id and set it to mform1.
-        // The first form to be instantiated never gets displayed so this should be safe.
-        $mform->updateAttributes(array('id' => 'mform1'));
+        $mform =& $this->_form;
 
         $version = $this->_customdata['version'];
-        $format = $this->_customdata['format'];
+        $format  = $this->_customdata['format'];
+        $tags    = !isset($this->_customdata['tags'])?"":$this->_customdata['tags'];
 
-        if (empty($this->_customdata['contextid'])) {
-            // Hack alert
-            // This is being done ONLY to aid those who may have created there own wiki pages. It should be removed sometime
-            // after the release of 2.3 (not creating an issue because this whole thing should be reviewed)
-            debugging('You must always provide mod_wiki_edit_form with a contextid in its custom data', DEBUG_DEVELOPER);
-            global $PAGE;
-            $contextid = $PAGE->context->id;
-        } else {
-            $contextid = $this->_customdata['contextid'];
+        if ($format != 'html') {
+            $contextid  = $this->_customdata['contextid'];
+            $filearea   = $this->_customdata['filearea'];
+            $fileitemid = $this->_customdata['fileitemid'];
         }
 
         if (isset($this->_customdata['pagetitle'])) {
-            // Page title must be formatted properly here as this is output and not an element.
-            $pagetitle = get_string('editingpage', 'wiki', format_string($this->_customdata['pagetitle'], true, array('context' => context::instance_by_id($contextid, MUST_EXIST))));
+            $pagetitle = get_string('editingpage', 'wiki', $this->_customdata['pagetitle']);
         } else {
             $pagetitle = get_string('editing', 'wiki');
         }
@@ -70,9 +62,10 @@ class mod_wiki_edit_form extends moodleform {
         $fieldname = get_string('format' . $format, 'wiki');
         if ($format != 'html') {
             // Use wiki editor
-            $extensions = file_get_typegroup('extension', 'web_image');
+            $ft = new filetype_parser;
+            $extensions = $ft->get_extensions('image');
             $fs = get_file_storage();
-            $tree = $fs->get_area_tree($contextid, 'mod_wiki', $this->_customdata['filearea'], $this->_customdata['fileitemid']);
+            $tree = $fs->get_area_tree($contextid, 'mod_wiki', 'attachments', $fileitemid);
             $files = array();
             foreach ($tree['files'] as $file) {
                 $filename = $file->get_filename();
@@ -84,34 +77,30 @@ class mod_wiki_edit_form extends moodleform {
             }
             $mform->addElement('wikieditor', 'newcontent', $fieldname, array('cols' => 100, 'rows' => 20, 'wiki_format' => $format, 'files'=>$files));
             $mform->addHelpButton('newcontent', 'format'.$format, 'wiki');
-            $mform->setType('newcontent', PARAM_RAW); // processed by trust text or cleaned before the display
         } else {
             $mform->addElement('editor', 'newcontent_editor', $fieldname, null, page_wiki_edit::$attachmentoptions);
             $mform->addHelpButton('newcontent_editor', 'formathtml', 'wiki');
-            $mform->setType('newcontent_editor', PARAM_RAW); // processed by trust text or cleaned before the display
         }
 
         //hiddens
         if ($version >= 0) {
-            $mform->addElement('hidden', 'version', $version);
-            $mform->setType('version', PARAM_FLOAT);
+            $mform->addElement('hidden', 'version');
+            $mform->setDefault('version', $version);
         }
 
-        $mform->addElement('hidden', 'contentformat', $format);
-        $mform->setType('contentformat', PARAM_ALPHANUMEXT);
+        $mform->addElement('hidden', 'contentformat');
+        $mform->setDefault('contentformat', $format);
 
         if (!empty($CFG->usetags)) {
-            $tags = !isset($this->_customdata['tags'])?"":$this->_customdata['tags'];
             $mform->addElement('header', 'tagshdr', get_string('tags', 'tag'));
             $mform->addElement('tags', 'tags', get_string('tags'));
             $mform->setDefault('tags', $tags);
-            $mform->setType('tags', PARAM_TEXT);
         }
 
         $buttongroup = array();
-        $buttongroup[] = $mform->createElement('submit', 'editoption', get_string('save', 'wiki'), array('id' => 'save'));
-        $buttongroup[] = $mform->createElement('submit', 'editoption', get_string('preview'), array('id' => 'preview'));
-        $buttongroup[] = $mform->createElement('submit', 'editoption', get_string('cancel'), array('id' => 'cancel'));
+        $buttongroup[] =& $mform->createElement('submit', 'editoption', get_string('save', 'wiki'), array('id' => 'save'));
+        $buttongroup[] =& $mform->createElement('submit', 'editoption', get_string('preview'), array('id' => 'preview'));
+        $buttongroup[] =& $mform->createElement('submit', 'editoption', get_string('cancel'), array('id' => 'cancel'));
 
         $mform->addGroup($buttongroup, 'buttonar', '', array(' '), false);
         $mform->closeHeaderBefore('buttonar');

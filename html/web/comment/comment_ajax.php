@@ -16,13 +16,8 @@
 
 /*
  * Handling all ajax request for comments API
- *
- * @package   core
- * @copyright 2010 Dongsheng Cai {@link http://dongsheng.org}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 define('AJAX_SCRIPT', true);
-define('NO_DEBUG_DISPLAY', true);
 
 require_once('../config.php');
 require_once($CFG->dirroot . '/comment/lib.php');
@@ -35,10 +30,6 @@ if (empty($CFG->usecomments)) {
 }
 
 list($context, $course, $cm) = get_context_info_array($contextid);
-
-if ( $contextid == SYSCONTEXTID ) {
-    $course = $SITE;
-}
 
 $PAGE->set_url('/comment/comment_ajax.php');
 

@@ -89,16 +89,6 @@ $hasnavbar = (empty($PAGE->layout_options['nonavbar']) && $PAGE->has_navbar());
 $hasfooter = (empty($PAGE->layout_options['nofooter']));
 $hasmyblocks = $PAGE->blocks->region_has_content('myblocks', $OUTPUT);
 
-$courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
-if (empty($PAGE->layout_options['nocourseheaderfooter'])) {
-    $courseheader = $OUTPUT->course_header();
-    $coursecontentheader = $OUTPUT->course_content_header();
-    if (empty($PAGE->layout_options['nocoursefooter'])) {
-        $coursecontentfooter = $OUTPUT->course_content_footer();
-        $coursefooter = $OUTPUT->course_footer();
-    }
-}
-
 $bodyclasses = array();
 $bodyclasses[] = (string)$hasithumb;
 $bodyclasses[] = (string)$showsitetopic;
@@ -115,7 +105,7 @@ $usercol = (mymobile_get_colpos() == 'on');
 $renderer = $PAGE->get_renderer('theme_mymobile');
 
 echo $OUTPUT->doctype() ?>
-<html id="mymobile" <?php echo $OUTPUT->htmlattributes() ?>>
+<html <?php echo $OUTPUT->htmlattributes() ?>>
 <head>
     <title><?php echo $PAGE->title ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme')?>" />
@@ -132,16 +122,13 @@ echo $OUTPUT->doctype() ?>
     <?php echo $OUTPUT->standard_top_of_body_html() ?>
     <div id="<?php p($PAGE->bodyid) ?>PAGE" data-role="page" class="generalpage <?php echo 'ajaxedclass '; p($PAGE->bodyclasses.' '.join(' ', $bodyclasses));  ?> <?php if ($hasmyblocks && $usercol) { echo 'has-myblocks'; } ?> " data-title="<?php p($SITE->shortname) ?>">
         <!-- start header -->
-        <div data-role="header" <?php echo($datatheme);?> class="mymobileheader" data-position="fixed">
+        <div data-role="header" <?php echo($datatheme);?> class="mymobileheader">
             <h1><?php echo $PAGE->heading ?></h1>
             <?php if (isloggedin() && $mypagetype != 'site-index') { ?>
             <a class="ui-btn-right" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext" data-ajax="false"><?php p(get_string('home')); ?></a>
             <?php } else if (!isloggedin()) {
                 echo $OUTPUT->login_info();
             } ?>
-            <?php if (!empty($courseheader)) { ?>
-            <div data-role="course-header"><?php echo $courseheader; ?></div>
-            <?php } ?>
             <!-- start navbar -->
             <div data-role="navbar">
                 <ul>
@@ -186,9 +173,7 @@ echo $OUTPUT->doctype() ?>
                     <?php if ($hasshowmobileintro && $mypagetype == 'site-index') { ?>
                         <?php echo $PAGE->theme->settings->showmobileintro; ?>
                     <?php } ?>
-                    <?php echo $coursecontentheader; ?>
                     <?php echo $OUTPUT->main_content(); ?>
-                    <?php echo $coursecontentfooter; ?>
                 <?php } ?>
                 </div>
             </div>
@@ -225,7 +210,7 @@ echo $OUTPUT->doctype() ?>
 
                 <div data-role="fieldcontain" id="sliderdiv">
                     <label for="slider"><?php p(get_string('mtoggle','theme_mymobile')); ?>:</label>
-                    <select name="slider" class="slider" data-role="slider" id="slider">
+                    <select name="slider" class="slider" data-role="slider" data-track-theme="b">
                         <option value="on">On</option>
                         <option value="off">Off</option>
                     </select>
@@ -252,10 +237,6 @@ echo $OUTPUT->doctype() ?>
         <!-- end main content -->
 
         <!-- start footer -->
-        <?php if (!empty($coursefooter)) { ?>
-        <div data-role="course-footer"><?php echo $coursefooter; ?></div>
-        <?php } ?>
-
         <div data-role="footer" class="mobilefooter" <?php echo $datatheme;?>>
             <div data-role="navbar" class="jnav" >
                 <ul>

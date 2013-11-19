@@ -200,7 +200,7 @@ function choice_prepare_options($choice, $user, $coursemodule, $allresponses) {
     $cdisplay = array('options'=>array());
 
     $cdisplay['limitanswers'] = true;
-    $context = context_module::instance($coursemodule->id);
+    $context = get_context_instance(CONTEXT_MODULE, $coursemodule->id);
 
     foreach ($choice->option as $optionid => $text) {
         if (isset($text)) { //make sure there are no dud entries in the db with blank text values.
@@ -248,7 +248,7 @@ function choice_user_submit_response($formanswer, $choice, $userid, $course, $cm
     require_once($CFG->libdir.'/completionlib.php');
 
     $current = $DB->get_record('choice_answers', array('choiceid' => $choice->id, 'userid' => $userid));
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     $countanswers=0;
     if($choice->limitanswers) {
@@ -295,7 +295,7 @@ WHERE
             $DB->update_record("choice_answers", $newanswer);
             add_to_log($course->id, "choice", "choose again", "view.php?id=$cm->id", $choice->id, $cm->id);
         } else {
-            $newanswer = new stdClass();
+            $newanswer = NULL;
             $newanswer->choiceid = $choice->id;
             $newanswer->userid = $userid;
             $newanswer->optionid = $formanswer;
@@ -368,7 +368,7 @@ function prepare_choice_show_results($choice, $course, $cm, $allresponses, $forc
     unset($display->maxanswers);
 
     $display->numberofuser = $totaluser;
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     $display->viewresponsecapability = has_capability('mod/choice:readresponses', $context);
     $display->deleterepsonsecapability = has_capability('mod/choice:deleteresponses',$context);
     $display->fullnamecapability = has_capability('moodle/site:viewfullnames', $context);
@@ -385,6 +385,8 @@ function prepare_choice_show_results($choice, $course, $cm, $allresponses, $forc
             $totalresponsecount += count($userlist);
         }
     }
+
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     $hascapfullnames = has_capability('moodle/site:viewfullnames', $context);
 
@@ -499,11 +501,8 @@ function prepare_choice_show_results($choice, $course, $cm, $allresponses, $forc
                 echo '<a href="javascript:deselect_all_in(\'DIV\',null,\'tablecontainer\');">'.get_string('deselectall').'</a> ';
                 echo '&nbsp;&nbsp;';
                 echo html_writer::label(get_string('withselected', 'choice'), 'menuaction');
-                echo html_writer::select(array('delete' => get_string('delete')), 'action', '', array(''=>get_string('withselectedusers')), array('id'=>'menuaction', 'class' => 'autosubmit'));
-                $PAGE->requires->yui_module('moodle-core-formautosubmit',
-                    'M.core.init_formautosubmit',
-                    array(array('selectid' => 'menuaction'))
-                );
+                echo html_writer::select(array('delete' => get_string('delete')), 'action', '', array(''=>get_string('withselectedusers')), array('id'=>'menuaction'));
+                $PAGE->requires->js_init_call('M.util.init_select_autosubmit', array('attemptsform', 'menuaction', ''));
                 echo '<noscript id="noscriptmenuaction" style="display:inline">';
                 echo '<div>';
                 echo '<input type="submit" value="'.get_string('go').'" /></div></noscript>';
@@ -586,6 +585,29 @@ function choice_delete_instance($id) {
     }
 
     return $result;
+}
+
+/**
+ * Returns the users with data in one choice
+ * (users with records in choice_responses, students)
+ *
+ * @todo: deprecated - to be deleted in 2.2
+ *
+ * @param int $choiceid
+ * @return array
+ */
+function choice_get_participants($choiceid) {
+    global $DB;
+
+    //Get students
+    $students = $DB->get_records_sql("SELECT DISTINCT u.id, u.id
+                                 FROM {user} u,
+                                      {choice_answers} a
+                                 WHERE a.choiceid = ? AND
+                                       u.id = a.userid", array($choiceid));
+
+    //Return students array (it contains an array of unique users)
+    return ($students);
 }
 
 /**
@@ -709,7 +731,7 @@ function choice_reset_userdata($data) {
 function choice_get_response_data($choice, $cm, $groupmode) {
     global $CFG, $USER, $DB;
 
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
 /// Get the current group
     if ($groupmode > 0) {
@@ -723,7 +745,7 @@ function choice_get_response_data($choice, $cm, $groupmode) {
 
 /// First get all the users who have access here
 /// To start with we assume they are all "unanswered" then move them later
-    $allresponses[0] = get_enrolled_users($context, 'mod/choice:choose', $currentgroup, user_picture::fields('u', array('idnumber')));
+    $allresponses[0] = get_enrolled_users($context, 'mod/choice:choose', $currentgroup, user_picture::fields('u', array('idnumber')), 'u.lastname ASC,u.firstname ASC');
 
 /// Get all the recorded responses for this choice
     $rawresponses = $DB->get_records('choice_answers', array('choiceid' => $choice->id));

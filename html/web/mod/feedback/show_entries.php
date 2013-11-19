@@ -61,9 +61,11 @@ $url = new moodle_url('/mod/feedback/show_entries.php', array('id'=>$cm->id, 'do
 
 $PAGE->set_url($url);
 
-$context = context_module::instance($cm->id);
+if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+        print_error('badcontext');
+}
 
-require_login($course, true, $cm);
+require_login($course->id, true, $cm);
 
 if (($formdata = data_submitted()) AND !confirm_sesskey()) {
     print_error('invalidsesskey');
@@ -212,7 +214,9 @@ if ($do_show == 'showentries') {
         echo '<div class="clearer"></div>';
         echo $OUTPUT->box_start('mdl-align');
         if (!$students) {
-            $table->print_html();
+            if ($courseid != SITEID) {
+                echo $OUTPUT->notification(get_string('noexistingparticipants', 'enrol'));
+            }
         } else {
             echo print_string('non_anonymous_entries', 'feedback');
             echo ' ('.count($students).')<hr />';

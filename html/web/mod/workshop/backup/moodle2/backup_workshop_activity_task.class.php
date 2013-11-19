@@ -16,12 +16,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines {@link backup_workshop_activity_task} class
+ * Class {@link backup_workshop_activity_task} definition
  *
- * @package     mod_workshop
- * @category    backup
- * @copyright   2010 David Mudrak <david.mudrak@gmail.com>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod
+ * @subpackage workshop
+ * @copyright  2010 David Mudrak <david.mudrak@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -35,23 +35,22 @@ require_once($CFG->dirroot . '/mod/workshop/backup/moodle2/backup_workshop_steps
 class backup_workshop_activity_task extends backup_activity_task {
 
     /**
-     * No specific settings for this activity
+     * Define (add) particular settings this activity can have
      */
     protected function define_my_settings() {
+        // No particular settings for this activity
     }
 
     /**
-     * Defines a backup step to store the instance data in the workshop.xml file
+     * Define (add) particular steps this activity can have
      */
     protected function define_my_steps() {
         $this->add_step(new backup_workshop_activity_structure_step('workshop_structure', 'workshop.xml'));
     }
 
     /**
-     * Encodes URLs to the index.php and view.php scripts
-     *
-     * @param string $content some HTML text that eventually contains URLs to the activity instance scripts
-     * @return string the content with the URLs encoded
+     * Code the transformations to perform in the activity in
+     * order to get transportable (encoded) links
      */
     static public function encode_content_links($content) {
         global $CFG;

@@ -61,13 +61,10 @@ JClic community support:
 
 
 Translations:
-   Basque:
+  Basque:
      Abel Camacho  - didaktika@santurtzieus.com
      Pedro Lonbide - zuzen@santurtzieus.com
      
-   Brazilian
-     Kleber Calegario Batista - klebercal@gmail.com
-
    Greek:
      Yannis Kaskamanidis - kiolalis@gmail.com
      
@@ -76,12 +73,11 @@ Translations:
      
    Hebrew:
      Nadav Kavalerchik - nadavkav@gmail.com
- 
+   
 
 Special Thanks:
    Sandra Fernandez 
    Birgit Ferran
-   Pau Ferrer Ocana
    Silvia Garcia Yague
    Albert Gasset Romo
    Eva Gea

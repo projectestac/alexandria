@@ -25,12 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-if (empty($plugin) || ! is_object($plugin)) {
-    $plugin = new stdClass();
-}
-
 $plugin->component = 'qformat_hotpot';
-$plugin->maturity  = MATURITY_STABLE; // = 200
-$plugin->release   = 'v2.0.13';
+$module->maturity  = MATURITY_STABLE; // = 200
+$plugin->release   = 'v2.0.5';
 $plugin->requires  = 2010112400; // Moodle 2.0
-$plugin->version   = 2010112413;
+$plugin->version   = 2010112405;

@@ -22,7 +22,7 @@ if (!extension_loaded('openssl')) {
     print_error('requiresopenssl', 'mnet');
 }
 
-$sitecontext = context_system::instance();
+$sitecontext = get_context_instance(CONTEXT_SYSTEM);
 $sesskey = sesskey();
 $formerror = array();
 
@@ -103,7 +103,7 @@ if ($form = data_submitted() and confirm_sesskey()) {
         $usernames = explode(',', $form->username);
 
         foreach ($usernames as $username) {
-            $username = trim(textlib::strtolower($username));
+            $username = trim(moodle_strtolower($username));
             if (!empty($username)) {
                 if (mnet_update_sso_access_control($username, $form->mnet_host_id, $form->accessctrl)) {
                     if ($form->accessctrl == 'allow') {
@@ -203,18 +203,17 @@ echo get_string('username') . ":\n";
 if (!empty($formerror['username'])) {
     echo '<span class="error"> * </span>';
 }
-echo html_writer::label(get_string('username'), 'menuusername', false, array('class' => 'accesshide'));
-echo '<input id="menuusername" type="text" name="username" size="20" maxlength="100" />';
+echo '<input type="text" name="username" size="20" maxlength="100" />';
 
 // choose a remote host
-echo " " . html_writer::label(get_string('remotehost', 'mnet'), 'menumnet_host_id') . ":\n";
+echo " " . get_string('remotehost', 'mnet') . ":\n";
 if (!empty($formerror['mnet_host_id'])) {
     echo '<span class="error"> * </span>';
 }
 echo html_writer::select($mnethosts, 'mnet_host_id');
 
 // choose an access level
-echo " " . html_writer::label(get_string('accesslevel', 'mnet'), 'menuaccessctrl') . ":\n";
+echo " " . get_string('accesslevel', 'mnet') . ":\n";
 if (!empty($formerror['accessctrl'])) {
     echo '<span class="error"> * </span>';
 }

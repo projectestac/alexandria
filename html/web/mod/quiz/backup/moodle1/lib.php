@@ -18,7 +18,8 @@
  * Provides support for the conversion of moodle1 backup to the moodle2 format
  * Based off of a template @ http://docs.moodle.org/dev/Backup_1.9_conversion_for_developers
  *
- * @package    mod_quiz
+ * @package    mod
+ * @subpackage quiz
  * @copyright  2011 Aparup Banerjee <aparup@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -56,7 +57,7 @@ class moodle1_mod_quiz_handler extends moodle1_mod_handler {
                 array(
                     'newfields' => array(
                         'showuserpicture'   => 0,
-                        'questiondecimalpoints' => -1,
+                        'questiondecimalpoints' => -2,
                         'introformat'   => 0,
                         'showblocks'    => 0,
                     )
@@ -86,38 +87,38 @@ class moodle1_mod_quiz_handler extends moodle1_mod_handler {
     public function process_quiz($data) {
         global $CFG;
 
-        // Replay the upgrade step 2008081501.
+        // replay the upgrade step 2008081501
         if (is_null($data['sumgrades'])) {
             $data['sumgrades'] = 0;
-            // TODO for user data: quiz_attempts SET sumgrades=0 WHERE sumgrades IS NULL.
-            // TODO for user data: quiz_grades.grade should be not be null , convert to default 0.
+            //@todo for user data: quiz_attempts SET sumgrades=0 WHERE sumgrades IS NULL
+            //@todo for user data: quiz_grades.grade should be not be null , convert to default 0
         }
 
-        // Replay the upgrade step 2009042000.
+        // replay the upgrade step 2009042000
         if ($CFG->texteditors !== 'textarea') {
             $data['intro']       = text_to_html($data['intro'], false, false, true);
             $data['introformat'] = FORMAT_HTML;
         }
 
-        // Replay the upgrade step 2009031001.
+        // replay the upgrade step 2009031001
         $data['timelimit'] *= 60;
 
-        // Get the course module id and context id.
+        // get the course module id and context id
         $instanceid     = $data['id'];
         $cminfo         = $this->get_cminfo($instanceid);
         $this->moduleid = $cminfo['id'];
         $contextid      = $this->converter->get_contextid(CONTEXT_MODULE, $this->moduleid);
 
-        // Get a fresh new file manager for this instance.
+        // get a fresh new file manager for this instance
         $this->fileman = $this->converter->get_file_manager($contextid, 'mod_quiz');
 
-        // Convert course files embedded into the intro.
+        // convert course files embedded into the intro
         $this->fileman->filearea = 'intro';
         $this->fileman->itemid   = 0;
         $data['intro'] = moodle1_converter::migrate_referenced_files(
                 $data['intro'], $this->fileman);
 
-        // Start writing quiz.xml.
+        // start writing quiz.xml
         $this->open_xml_writer("activities/quiz_{$this->moduleid}/quiz.xml");
         $this->xmlwriter->begin_tag('activity', array('id' => $instanceid,
                 'moduleid' => $this->moduleid, 'modulename' => 'quiz',
@@ -154,7 +155,7 @@ class moodle1_mod_quiz_handler extends moodle1_mod_handler {
     }
 
     public function process_quiz_feedback($data) {
-        // Replay the upgrade step 2010122302.
+        // replay the upgrade step 2010122302
         if (is_null($data['mingrade'])) {
             $data['mingrade'] = 0;
         }
@@ -170,15 +171,15 @@ class moodle1_mod_quiz_handler extends moodle1_mod_handler {
      */
     public function on_quiz_end() {
 
-        // Append empty <overrides> subpath element.
+        // append empty <overrides> subpath element
         $this->write_xml('overrides', array());
 
-        // Finish writing quiz.xml.
+        // finish writing quiz.xml
         $this->xmlwriter->end_tag('quiz');
         $this->xmlwriter->end_tag('activity');
         $this->close_xml_writer();
 
-        // Write inforef.xml.
+        // write inforef.xml
         $this->open_xml_writer("activities/quiz_{$this->moduleid}/inforef.xml");
         $this->xmlwriter->begin_tag('inforef');
         $this->xmlwriter->begin_tag('fileref');

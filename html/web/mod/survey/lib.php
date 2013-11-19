@@ -267,6 +267,39 @@ function survey_print_recent_activity($course, $viewfullnames, $timestart) {
     return true;
 }
 
+/**
+ * Returns the users with data in one survey
+ * (users with records in survey_analysis and survey_answers, students)
+ *
+ * @todo: deprecated - to be deleted in 2.2
+ *
+ * @param int $surveyid
+ * @return array
+ */
+function survey_get_participants($surveyid) {
+    global $DB;
+
+    //Get students from survey_analysis
+    $st_analysis = $DB->get_records_sql("SELECT DISTINCT u.id, u.id
+                                           FROM {user} u, {survey_analysis} a
+                                          WHERE a.survey = ? AND
+                                                u.id = a.userid", array($surveyid));
+    //Get students from survey_answers
+    $st_answers = $DB->get_records_sql("SELECT DISTINCT u.id, u.id
+                                          FROM {user} u, {survey_answers} a
+                                         WHERE a.survey = ? AND
+                                               u.id = a.userid", array($surveyid));
+
+    //Add st_answers to st_analysis
+    if ($st_answers) {
+        foreach ($st_answers as $st_answer) {
+            $st_analysis[$st_answer->id] = $st_answer;
+        }
+    }
+    //Return st_analysis array (it contains an array of unique users)
+    return ($st_analysis);
+}
+
 // SQL FUNCTIONS ////////////////////////////////////////////////////////
 
 /**
@@ -778,6 +811,26 @@ function survey_supports($feature) {
 
         default: return null;
     }
+}
+
+/**
+ * This fucntion extends the global navigation for the site.
+ * It is important to note that you should not rely on PAGE objects within this
+ * body of code as there is no guarantee that during an AJAX request they are
+ * available
+ *
+ * @param navigation_node $navigation The quiz node within the global navigation
+ * @param stdClass $course The course object returned from the DB
+ * @param stdClass $module The module object returned from the DB
+ * @param stdClass $cm The course module instance returned from the DB
+ */
+function survey_extend_navigation($navigation, $course, $module, $cm) {
+    /**
+     * This is currently just a stub so  that it can be easily expanded upon.
+     * When expanding just remove this comment and the line below and then add
+     * you content.
+     */
+    $navigation->nodetype = navigation_node::NODETYPE_LEAF;
 }
 
 /**

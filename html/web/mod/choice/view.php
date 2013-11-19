@@ -31,7 +31,9 @@
     $strchoice = get_string('modulename', 'choice');
     $strchoices = get_string('modulenameplural', 'choice');
 
-    $context = context_module::instance($cm->id);
+    if (!$context = get_context_instance(CONTEXT_MODULE, $cm->id)) {
+        print_error('badcontext');
+    }
 
     if ($action == 'delchoice' and confirm_sesskey() and is_enrolled($context, NULL, 'mod/choice:choose') and $choice->allowupdate) {
         if ($answer = $DB->get_record('choice_answers', array('choiceid' => $choice->id, 'userid' => $USER->id))) {
@@ -98,16 +100,16 @@
         echo $OUTPUT->box(format_module_intro('choice', $choice, $cm->id), 'generalbox', 'intro');
     }
 
-    $timenow = time();
     $current = false;  // Initialise for later
-    //if user has already made a selection, and they are not allowed to update it or if choice is not open, show their selected answer.
+    //if user has already made a selection, and they are not allowed to update it, show their selected answer.
     if (isloggedin() && ($current = $DB->get_record('choice_answers', array('choiceid' => $choice->id, 'userid' => $USER->id))) &&
-        (empty($choice->allowupdate) || ($timenow > $choice->timeclose)) ) {
+        empty($choice->allowupdate) ) {
         echo $OUTPUT->box(get_string("yourselection", "choice", userdate($choice->timeopen)).": ".format_string(choice_get_option_text($choice, $current->optionid)), 'generalbox', 'yourselection');
     }
 
 /// Print the form
     $choiceopen = true;
+    $timenow = time();
     if ($choice->timeclose !=0) {
         if ($choice->timeopen > $timenow ) {
             echo $OUTPUT->box(get_string("notopenyet", "choice", userdate($choice->timeopen)), "generalbox notopenyet");
@@ -131,7 +133,7 @@
     }
 
     if (!$choiceformshown) {
-        $sitecontext = context_system::instance();
+        $sitecontext = get_context_instance(CONTEXT_SYSTEM);
 
         if (isguestuser()) {
             // Guest account
@@ -139,10 +141,10 @@
                          get_login_url(), new moodle_url('/course/view.php', array('id'=>$course->id)));
         } else if (!is_enrolled($context)) {
             // Only people enrolled can make a choice
-            $SESSION->wantsurl = qualified_me();
+            $SESSION->wantsurl = $FULLME;
             $SESSION->enrolcancel = (!empty($_SERVER['HTTP_REFERER'])) ? $_SERVER['HTTP_REFERER'] : '';
 
-            $coursecontext = context_course::instance($course->id);
+            $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
             $courseshortname = format_string($course->shortname, true, array('context' => $coursecontext));
 
             echo $OUTPUT->box_start('generalbox', 'notice');

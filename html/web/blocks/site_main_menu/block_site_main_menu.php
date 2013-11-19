@@ -27,12 +27,12 @@ class block_site_main_menu extends block_list {
 
         $course = $this->page->course;
         require_once($CFG->dirroot.'/course/lib.php');
-        $context = context_course::instance($course->id);
+        $context = get_context_instance(CONTEXT_COURSE, $course->id);
         $isediting = $this->page->user_is_editing() && has_capability('moodle/course:manageactivities', $context);
+        $modinfo = get_fast_modinfo($course);
 
 /// extra fast view mode
         if (!$isediting) {
-            $modinfo = get_fast_modinfo($course);
             if (!empty($modinfo->sections[0])) {
                 $options = array('overflowdiv'=>true);
                 foreach($modinfo->sections[0] as $cmid) {
@@ -50,7 +50,7 @@ class block_site_main_menu extends block_list {
                     } else {
                         $linkcss = $cm->visible ? '' : ' class="dimmed" ';
                         //Accessibility: incidental image - should be empty Alt text
-                        $icon = '<img src="' . $cm->get_icon_url() . '" class="icon" alt="" />';
+                        $icon = '<img src="' . $cm->get_icon_url() . '" class="icon" alt="" />&nbsp;';
                         $this->content->items[] = '<a title="'.$cm->modplural.'" '.$linkcss.' '.$cm->extra.
                                 ' href="' . $url . '">' . $icon . $instancename . '</a>';
                     }
@@ -61,9 +61,9 @@ class block_site_main_menu extends block_list {
 
 /// slow & hacky editing mode
         $ismoving = ismoving($course->id);
-        course_create_sections_if_missing($course, 0);
-        $modinfo = get_fast_modinfo($course);
-        $section = $modinfo->get_section_info(0);
+        $section  = get_course_section(0, $course->id);
+
+        get_all_mods($course->id, $mods, $modnames, $modnamesplural, $modnamesused);
 
         $groupbuttons = $course->groupmode;
         $groupbuttonslink = (!$course->groupmodeforce);
@@ -82,13 +82,14 @@ class block_site_main_menu extends block_list {
             $this->content->items[] = $USER->activitycopyname.'&nbsp;(<a href="'.$CFG->wwwroot.'/course/mod.php?cancelcopy=true&amp;sesskey='.sesskey().'">'.$strcancel.'</a>)';
         }
 
-        if (!empty($modinfo->sections[0])) {
+        if (!empty($section->sequence)) {
+            $sectionmods = explode(',', $section->sequence);
             $options = array('overflowdiv'=>true);
-            foreach ($modinfo->sections[0] as $modnumber) {
-                $mod = $modinfo->cms[$modnumber];
-                if (!$mod->uservisible) {
+            foreach ($sectionmods as $modnumber) {
+                if (empty($mods[$modnumber])) {
                     continue;
                 }
+                $mod = $mods[$modnumber];
                 if (!$ismoving) {
                     if ($groupbuttons) {
                         if (! $mod->groupmodelink = $groupbuttonslink) {
@@ -120,7 +121,7 @@ class block_site_main_menu extends block_list {
                         $this->content->icons[] = '';
                     } else {
                         //Accessibility: incidental image - should be empty Alt text
-                        $icon = '<img src="' . $mod->get_icon_url() . '" class="icon" alt="" />';
+                        $icon = '<img src="' . $mod->get_icon_url() . '" class="icon" alt="" />&nbsp;';
                         $this->content->items[] = '<a title="' . $mod->modfullname . '" ' . $linkcss . ' ' . $mod->extra .
                             ' href="' . $url . '">' . $icon . $instancename . '</a>' . $editbuttons;
                     }
@@ -134,7 +135,11 @@ class block_site_main_menu extends block_list {
             $this->content->icons[] = '';
         }
 
-        $this->content->footer = print_section_add_menus($course, 0, null, true, true);
+        if (!empty($modnames)) {
+            $this->content->footer = print_section_add_menus($course, 0, $modnames, true, true);
+        } else {
+            $this->content->footer = '';
+        }
 
         return $this->content;
     }

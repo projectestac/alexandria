@@ -66,32 +66,49 @@ function resource_display_embed($resource, $cm, $course, $file) {
 
     $clicktoopen = resource_get_clicktoopen($file, $resource->revision);
 
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     $path = '/'.$context->id.'/mod_resource/content/'.$resource->revision.$file->get_filepath().$file->get_filename();
     $fullurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', $path, false);
-    $moodleurl = new moodle_url('/pluginfile.php' . $path);
 
     $mimetype = $file->get_mimetype();
     $title    = $resource->name;
 
     $extension = resourcelib_get_extension($file->get_filename());
 
-    $mediarenderer = $PAGE->get_renderer('core', 'media');
-    $embedoptions = array(
-        core_media::OPTION_TRUSTED => true,
-        core_media::OPTION_BLOCK => true,
-    );
-
-    if (file_mimetype_in_typegroup($mimetype, 'web_image')) {  // It's an image
+    if (in_array($mimetype, array('image/gif','image/jpeg','image/png'))) {  // It's an image
         $code = resourcelib_embed_image($fullurl, $title);
 
     } else if ($mimetype === 'application/pdf') {
         // PDF document
         $code = resourcelib_embed_pdf($fullurl, $title, $clicktoopen);
 
-    } else if ($mediarenderer->can_embed_url($moodleurl, $embedoptions)) {
-        // Media (audio/video) file.
-        $code = $mediarenderer->embed_url($moodleurl, $title, 0, 0, $embedoptions);
+    } else if ($mimetype === 'audio/mp3') {
+        // MP3 audio file
+        $code = resourcelib_embed_mp3($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype === 'video/x-flv' or $extension === 'f4v') {
+        // Flash video file
+        $code = resourcelib_embed_flashvideo($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype === 'application/x-shockwave-flash') {
+        // Flash file
+        $code = resourcelib_embed_flash($fullurl, $title, $clicktoopen);
+
+    } else if (substr($mimetype, 0, 10) === 'video/x-ms') {
+        // Windows Media Player file
+        $code = resourcelib_embed_mediaplayer($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype === 'video/quicktime') {
+        // Quicktime file
+        $code = resourcelib_embed_quicktime($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype === 'video/mpeg') {
+        // Mpeg file
+        $code = resourcelib_embed_mpeg($fullurl, $title, $clicktoopen);
+
+    } else if ($mimetype === 'audio/x-pn-realaudio') {
+        // RealMedia file
+        $code = resourcelib_embed_real($fullurl, $title, $clicktoopen);
 
     } else {
         // anything else - just try object tag enlarged as much as possible
@@ -132,13 +149,12 @@ function resource_display_frame($resource, $cm, $course, $file) {
 
     } else {
         $config = get_config('resource');
-        $context = context_module::instance($cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $cm->id);
         $path = '/'.$context->id.'/mod_resource/content/'.$resource->revision.$file->get_filepath().$file->get_filename();
         $fileurl = file_encode_url($CFG->wwwroot.'/pluginfile.php', $path, false);
         $navurl = "$CFG->wwwroot/mod/resource/view.php?id=$cm->id&amp;frameset=top";
         $title = strip_tags(format_string($course->shortname.': '.$resource->name));
         $framesize = $config->framesize;
-        $contentframetitle = format_string($resource->name);
         $modulename = s(get_string('modulename','resource'));
         $dir = get_string('thisdirection', 'langconfig');
 
@@ -151,7 +167,7 @@ function resource_display_frame($resource, $cm, $course, $file) {
   </head>
   <frameset rows="$framesize,*">
     <frame src="$navurl" title="$modulename" />
-    <frame src="$fileurl" title="$contentframetitle" />
+    <frame src="$fileurl" title="$modulename" />
   </frameset>
 </html>
 EOF;
@@ -276,64 +292,6 @@ function resource_print_heading($resource, $cm, $course, $ignoresettings=false) 
 }
 
 /**
- * Gets optional details for a resource, depending on resource settings.
- *
- * Result may include the file size and type if those settings are chosen,
- * or blank if none.
- *
- * @param object $resource Resource table row
- * @param object $cm Course-module table row
- * @return string Size and type or empty string if show options are not enabled
- */
-function resource_get_optional_details($resource, $cm) {
-    global $DB;
-
-    $details = '';
-
-    $options = empty($resource->displayoptions) ? array() : unserialize($resource->displayoptions);
-    if (!empty($options['showsize']) || !empty($options['showtype'])) {
-        $context = context_module::instance($cm->id);
-        $size = '';
-        $type = '';
-        $fs = get_file_storage();
-        $files = $fs->get_area_files($context->id, 'mod_resource', 'content', 0, 'sortorder DESC, id ASC', false);
-        if (!empty($options['showsize']) && count($files)) {
-            $sizebytes = 0;
-            foreach ($files as $file) {
-                // this will also synchronize the file size for external files if needed
-                $sizebytes += $file->get_filesize();
-            }
-            if ($sizebytes) {
-                $size = display_size($sizebytes);
-            }
-        }
-        if (!empty($options['showtype']) && count($files)) {
-            // For a typical file resource, the sortorder is 1 for the main file
-            // and 0 for all other files. This sort approach is used just in case
-            // there are situations where the file has a different sort order
-            $mainfile = reset($files);
-            $type = get_mimetype_description($mainfile);
-            // Only show type if it is not unknown
-            if ($type === get_mimetype_description('document/unknown')) {
-                $type = '';
-            }
-        }
-
-        if ($size && $type) {
-            // Depending on language it may be necessary to show both options in
-            // different order, so use a lang string
-            $details = get_string('resourcedetails_sizetype', 'resource',
-                    (object)array('size'=>$size, 'type'=>$type));
-        } else {
-            // Either size or type is set, but not both, so just append
-            $details = $size . $type;
-        }
-    }
-
-    return $details;
-}
-
-/**
  * Print resource introduction.
  * @param object $resource
  * @param object $cm
@@ -345,21 +303,10 @@ function resource_print_intro($resource, $cm, $course, $ignoresettings=false) {
     global $OUTPUT;
 
     $options = empty($resource->displayoptions) ? array() : unserialize($resource->displayoptions);
-
-    $extraintro = resource_get_optional_details($resource, $cm);
-    if ($extraintro) {
-        // Put a paragaph tag around the details
-        $extraintro = html_writer::tag('p', $extraintro, array('class' => 'resourcedetails'));
-    }
-
-    if ($ignoresettings || !empty($options['printintro']) || $extraintro) {
-        $gotintro = trim(strip_tags($resource->intro));
-        if ($gotintro || $extraintro) {
+    if ($ignoresettings or !empty($options['printintro'])) {
+        if (trim(strip_tags($resource->intro))) {
             echo $OUTPUT->box_start('mod_introbox', 'resourceintro');
-            if ($gotintro) {
-                echo format_module_intro('resource', $resource, $cm->id);
-            }
-            echo $extraintro;
+            echo format_module_intro('resource', $resource, $cm->id);
             echo $OUTPUT->box_end();
         }
     }
@@ -413,11 +360,19 @@ function resource_print_filenotfound($resource, $cm, $course) {
  * @return int display type constant
  */
 function resource_get_final_display_type($resource) {
-    global $CFG, $PAGE;
+    global $CFG;
 
     if ($resource->display != RESOURCELIB_DISPLAY_AUTO) {
         return $resource->display;
     }
+
+    static $download = array('application/zip', 'application/x-tar', 'application/g-zip');    // binary formats
+    static $embed    = array('image/gif', 'image/jpeg', 'image/png', 'image/svg+xml',         // images
+                             'application/x-shockwave-flash', 'video/x-flv', 'video/x-ms-wm', // video formats
+                             'video/quicktime', 'video/mpeg', 'video/mp4',
+                             'audio/mp3', 'audio/x-realaudio-plugin', 'x-realaudio-plugin',   // audio formats
+                             'application/pdf', 'text/html',
+                            );
 
     if (empty($resource->mainfile)) {
         return RESOURCELIB_DISPLAY_DOWNLOAD;
@@ -425,10 +380,10 @@ function resource_get_final_display_type($resource) {
         $mimetype = mimeinfo('type', $resource->mainfile);
     }
 
-    if (file_mimetype_in_typegroup($mimetype, 'archive')) {
+    if (in_array($mimetype, $download)) {
         return RESOURCELIB_DISPLAY_DOWNLOAD;
     }
-    if (file_mimetype_in_typegroup($mimetype, array('web_image', '.pdf', '.htm', 'web_video', 'web_audio'))) {
+    if (in_array($mimetype, $embed)) {
         return RESOURCELIB_DISPLAY_EMBED;
     }
 
@@ -460,7 +415,7 @@ function resource_set_mainfile($data) {
     $cmid = $data->coursemodule;
     $draftitemid = $data->files;
 
-    $context = context_module::instance($cmid);
+    $context = get_context_instance(CONTEXT_MODULE, $cmid);
     if ($draftitemid) {
         file_save_draft_area_files($draftitemid, $context->id, 'mod_resource', 'content', 0, array('subdirs'=>true));
     }

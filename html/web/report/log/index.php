@@ -17,7 +17,8 @@
 /**
  * Displays different views of the logs.
  *
- * @package    report_log
+ * @package    report
+ * @subpackage log
  * @copyright  1999 onwards Martin Dougiamas (http://dougiamas.com)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -42,7 +43,7 @@ if (empty($host_course)) {
 
 $group       = optional_param('group', 0, PARAM_INT); // Group to display
 $user        = optional_param('user', 0, PARAM_INT); // User to display
-$date        = optional_param('date', 0, PARAM_INT); // Date to display
+$date        = optional_param('date', 0, PARAM_FILE); // Date to display - number or some string
 $modname     = optional_param('modname', '', PARAM_PLUGIN); // course_module->id
 $modid       = optional_param('modid', 0, PARAM_FILE); // number or 'site_errors'
 $modaction   = optional_param('modaction', '', PARAM_PATH); // an action as recorded in the logs
@@ -111,25 +112,16 @@ if ($hostid == $CFG->mnet_localhost_id) {
 
 require_login($course);
 
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
 require_capability('report/log:view', $context);
 
 add_to_log($course->id, "course", "report log", "report/log/index.php?id=$course->id", $course->id);
 
-if (!empty($page)) {
-    $strlogs = get_string('logs'). ": ". get_string('page', 'report_log', $page+1);
-} else {
-    $strlogs = get_string('logs');
-}
+$strlogs = get_string('logs');
 $stradministration = get_string('administration');
 $strreports = get_string('reports');
 
-// Before we close session, make sure we have editing information in session.
-$adminediting = optional_param('adminedit', -1, PARAM_BOOL);
-if ($PAGE->user_allowed_editing() && $adminediting != -1) {
-    $USER->editing = $adminediting;
-}
 session_get_instance()->write_close();
 
 if (!empty($chooselog)) {
@@ -148,7 +140,6 @@ if (!empty($chooselog)) {
         case 'showashtml':
             if ($hostid != $CFG->mnet_localhost_id || $course->id == SITEID) {
                 admin_externalpage_setup('reportlog');
-                $PAGE->set_title($course->shortname .': '. $strlogs);
                 echo $OUTPUT->header();
 
             } else {

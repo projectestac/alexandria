@@ -41,11 +41,11 @@ if (!$course = $DB->get_record('course', array('id' => $id))) {
     print_error('invalidcourseid');
 }
 
-require_login($course, true);
+require_login($course->id, true);
 $PAGE->set_pagelayout('incourse');
-$context = context_course::instance($course->id);
+$context = get_context_instance(CONTEXT_COURSE, $course->id);
 
-add_to_log($course->id, 'wiki', 'view', "index.php?id=".$id, "");
+add_to_log($course->id, 'wiki', 'view all', "index.php?id=$course->id", "");
 
 /// Get all required stringswiki
 $strwikis = get_string("modulenameplural", "wiki");
@@ -64,6 +64,9 @@ if (!$wikis = get_all_instances_in_course("wiki", $course)) {
 }
 
 $usesections = course_format_uses_sections($course->format);
+if ($usesections) {
+    $sections = get_all_sections($course->id);
+}
 
 /// Print the list of instances (your module will probably extend this)
 
@@ -86,7 +89,7 @@ foreach ($wikis as $wiki) {
     $link = html_writer::link(new moodle_url('/mod/wiki/view.php', array('id' => $wiki->coursemodule)), $wiki->name, $linkcss);
 
     if ($usesections) {
-        $table->data[] = array(get_section_name($course, $wiki->section), $link);
+        $table->data[] = array(get_section_name($course, $sections[$wiki->section]), $link);
     } else {
         $table->data[] = array($link);
     }

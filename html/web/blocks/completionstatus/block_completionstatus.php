@@ -19,14 +19,15 @@
  *
  * @package    block
  * @subpackage completion
- * @copyright  2009-2012 Catalyst IT Ltd
+ * @copyright  2009 Catalyst IT Ltd
  * @author     Aaron Barnes <aaronb@catalyst.net.nz>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-require_once("{$CFG->libdir}/completionlib.php");
+
+require_once($CFG->libdir.'/completionlib.php');
 
 /**
  * Course completion status
@@ -35,32 +36,25 @@ require_once("{$CFG->libdir}/completionlib.php");
 class block_completionstatus extends block_base {
 
     public function init() {
-        $this->title = get_string('pluginname', 'block_completionstatus');
-    }
-
-    function applicable_formats() {
-        return array('all' => true, 'mod' => false, 'tag' => false, 'my' => false);
+        $this->title   = get_string('completionstatus', 'block_completionstatus');
     }
 
     public function get_content() {
-        global $USER;
+        global $USER, $CFG, $DB, $COURSE;
 
         // If content is cached
         if ($this->content !== NULL) {
             return $this->content;
         }
 
-        $course  = $this->page->course;
-        $context = context_course::instance($course->id);
-
         // Create empty content
-        $this->content = new stdClass();
+        $this->content = new stdClass;
 
         // Can edit settings?
-        $can_edit = has_capability('moodle/course:update', $context);
+        $can_edit = has_capability('moodle/course:update', get_context_instance(CONTEXT_COURSE, $this->page->course->id));
 
         // Get course completion data
-        $info = new completion_info($course);
+        $info = new completion_info($this->page->course);
 
         // Don't display if completion isn't enabled!
         if (!completion_info::is_enabled_for_site()) {
@@ -88,146 +82,146 @@ class block_completionstatus extends block_base {
         }
 
         // Check this user is enroled
-        if ($info->is_tracked_user($USER->id)) {
+        if (!$info->is_tracked_user($USER->id)) {
+            // If not enrolled, but are can view the report:
+            if (has_capability('report/completion:view', get_context_instance(CONTEXT_COURSE, $COURSE->id))) {
+                $this->content->text = '<a href="'.$CFG->wwwroot.'/report/completion/index.php?course='.$COURSE->id.
+                                       '">'.get_string('viewcoursereport', 'completion').'</a>';
+                return $this->content;
+            }
 
-            // Generate markup for criteria statuses
-            $shtml = '';
+            // Otherwise, show error
+            $this->content->text = get_string('notenroled', 'completion');
+            return $this->content;
+        }
 
-            // For aggregating activity completion
-            $activities = array();
-            $activities_complete = 0;
+        // Generate markup for criteria statuses
+        $shtml = '';
 
-            // For aggregating course prerequisites
-            $prerequisites = array();
-            $prerequisites_complete = 0;
+        // For aggregating activity completion
+        $activities = array();
+        $activities_complete = 0;
 
-            // Flag to set if current completion data is inconsistent with
-            // what is stored in the database
-            $pending_update = false;
+        // For aggregating course prerequisites
+        $prerequisites = array();
+        $prerequisites_complete = 0;
 
-            // Loop through course criteria
-            foreach ($completions as $completion) {
+        // Flag to set if current completion data is inconsistent with
+        // what is stored in the database
+        $pending_update = false;
 
-                $criteria = $completion->get_criteria();
-                $complete = $completion->is_complete();
+        // Loop through course criteria
+        foreach ($completions as $completion) {
 
-                if (!$pending_update && $criteria->is_pending($completion)) {
-                    $pending_update = true;
+            $criteria = $completion->get_criteria();
+            $complete = $completion->is_complete();
+
+            if (!$pending_update && $criteria->is_pending($completion)) {
+                $pending_update = true;
+            }
+
+            // Activities are a special case, so cache them and leave them till last
+            if ($criteria->criteriatype == COMPLETION_CRITERIA_TYPE_ACTIVITY) {
+                $activities[$criteria->moduleinstance] = $complete;
+
+                if ($complete) {
+                    $activities_complete++;
                 }
 
-                // Activities are a special case, so cache them and leave them till last
-                if ($criteria->criteriatype == COMPLETION_CRITERIA_TYPE_ACTIVITY) {
-                    $activities[$criteria->moduleinstance] = $complete;
+                continue;
+            }
 
-                    if ($complete) {
-                        $activities_complete++;
-                    }
+            // Prerequisites are also a special case, so cache them and leave them till last
+            if ($criteria->criteriatype == COMPLETION_CRITERIA_TYPE_COURSE) {
+                $prerequisites[$criteria->courseinstance] = $complete;
 
-                    continue;
+                if ($complete) {
+                    $prerequisites_complete++;
                 }
 
-                // Prerequisites are also a special case, so cache them and leave them till last
-                if ($criteria->criteriatype == COMPLETION_CRITERIA_TYPE_COURSE) {
-                    $prerequisites[$criteria->courseinstance] = $complete;
-
-                    if ($complete) {
-                        $prerequisites_complete++;
-                    }
-
-                    continue;
-                }
-
-                $shtml .= '<tr><td>';
-                $shtml .= $criteria->get_title();
-                $shtml .= '</td><td style="text-align: right">';
-                $shtml .= $completion->get_status();
-                $shtml .= '</td></tr>';
+                continue;
             }
 
-            // Aggregate activities
-            if (!empty($activities)) {
+            $shtml .= '<tr><td>';
+            $shtml .= $criteria->get_title();
+            $shtml .= '</td><td style="text-align: right">';
+            $shtml .= $completion->get_status();
+            $shtml .= '</td></tr>';
+        }
 
-                $shtml .= '<tr><td>';
-                $shtml .= get_string('activitiescompleted', 'completion');
-                $shtml .= '</td><td style="text-align: right">';
-                $a = new stdClass();
-                $a->first = $activities_complete;
-                $a->second = count($activities);
-                $shtml .= get_string('firstofsecond', 'block_completionstatus', $a);
-                $shtml .= '</td></tr>';
-            }
+        // Aggregate activities
+        if (!empty($activities)) {
 
-            // Aggregate prerequisites
-            if (!empty($prerequisites)) {
+            $shtml .= '<tr><td>';
+            $shtml .= get_string('activitiescompleted', 'completion');
+            $shtml .= '</td><td style="text-align: right">';
+            $a = new stdClass();
+            $a->first = $activities_complete;
+            $a->second = count($activities);
+            $shtml .= get_string('firstofsecond', 'block_completionstatus', $a);
+            $shtml .= '</td></tr>';
+        }
 
-                $phtml  = '<tr><td>';
-                $phtml .= get_string('dependenciescompleted', 'completion');
-                $phtml .= '</td><td style="text-align: right">';
-                $a = new stdClass();
-                $a->first = $prerequisites_complete;
-                $a->second = count($prerequisites);
-                $phtml .= get_string('firstofsecond', 'block_completionstatus', $a);
-                $phtml .= '</td></tr>';
+        // Aggregate prerequisites
+        if (!empty($prerequisites)) {
 
-                $shtml = $phtml . $shtml;
-            }
+            $phtml  = '<tr><td>';
+            $phtml .= get_string('prerequisitescompleted', 'completion');
+            $phtml .= '</td><td style="text-align: right">';
+            $a = new stdClass();
+            $a->first = $prerequisites_complete;
+            $a->second = count($prerequisites);
+            $shtml .= get_string('firstofsecond', 'block_completionstatus', $a);
+            $phtml .= '</td></tr>';
 
-            // Display completion status
-            $this->content->text  = '<table width="100%" style="font-size: 90%;"><tbody>';
-            $this->content->text .= '<tr><td colspan="2"><b>'.get_string('status').':</b> ';
+            $shtml = $phtml . $shtml;
+        }
 
-            // Is course complete?
-            $coursecomplete = $info->is_course_complete($USER->id);
+        // Display completion status
+        $this->content->text  = '<table width="100%" style="font-size: 90%;"><tbody>';
+        $this->content->text .= '<tr><td colspan="2"><b>'.get_string('status').':</b> ';
 
-            // Load course completion
-            $params = array(
-                'userid' => $USER->id,
-                'course' => $course->id
-            );
-            $ccompletion = new completion_completion($params);
+        // Is course complete?
+        $coursecomplete = $info->is_course_complete($USER->id);
 
-            // Has this user completed any criteria?
-            $criteriacomplete = $info->count_course_user_data($USER->id);
+        // Load course completion
+        $params = array(
+            'userid' => $USER->id,
+            'course' => $COURSE->id
+        );
+        $ccompletion = new completion_completion($params);
 
-            if ($pending_update) {
-                $this->content->text .= '<i>'.get_string('pending', 'completion').'</i>';
-            } else if ($coursecomplete) {
-                $this->content->text .= get_string('complete');
-            } else if (!$criteriacomplete && !$ccompletion->timestarted) {
-                $this->content->text .= '<i>'.get_string('notyetstarted', 'completion').'</i>';
-            } else {
-                $this->content->text .= '<i>'.get_string('inprogress','completion').'</i>';
-            }
+        // Has this user completed any criteria?
+        $criteriacomplete = $info->count_course_user_data($USER->id);
 
-            $this->content->text .= '</td></tr>';
-            $this->content->text .= '<tr><td colspan="2">';
-
-            // Get overall aggregation method
-            $overall = $info->get_aggregation_method();
-
-            if ($overall == COMPLETION_AGGREGATION_ALL) {
-                $this->content->text .= get_string('criteriarequiredall', 'completion');
-            } else {
-                $this->content->text .= get_string('criteriarequiredany', 'completion');
-            }
-
-            $this->content->text .= ':</td></tr>';
-            $this->content->text .= '<tr><td><b>'.get_string('requiredcriteria', 'completion').'</b></td><td style="text-align: right"><b>'.get_string('status').'</b></td></tr>';
-            $this->content->text .= $shtml.'</tbody></table>';
-
-            // Display link to detailed view
-            $details = new moodle_url('/blocks/completionstatus/details.php', array('course' => $course->id));
-            $this->content->footer = '<br><a href="'.$details->out().'">'.get_string('moredetails', 'completion').'</a>';
+        if ($pending_update) {
+            $this->content->text .= '<i>'.get_string('pending', 'completion').'</i>';
+        } else if ($coursecomplete) {
+            $this->content->text .= get_string('complete');
+        } else if (!$criteriacomplete && !$ccompletion->timestarted) {
+            $this->content->text .= '<i>'.get_string('notyetstarted', 'completion').'</i>';
         } else {
-            // If user is not enrolled, show error
-            $this->content->text = get_string('nottracked', 'completion');
+            $this->content->text .= '<i>'.get_string('inprogress','completion').'</i>';
         }
 
-        if (has_capability('report/completion:view', $context)) {
-            $report = new moodle_url('/report/completion/index.php', array('course' => $course->id));
-            $this->content->footer .= '<br /><a href="'.$report->out().'">'.get_string('viewcoursereport', 'completion').'</a>';
+        $this->content->text .= '</td></tr>';
+        $this->content->text .= '<tr><td colspan="2">';
+
+        // Get overall aggregation method
+        $overall = $info->get_aggregation_method();
+
+        if ($overall == COMPLETION_AGGREGATION_ALL) {
+            $this->content->text .= get_string('criteriarequiredall', 'completion');
+        } else {
+            $this->content->text .= get_string('criteriarequiredany', 'completion');
         }
 
+        $this->content->text .= ':</td></tr>';
+        $this->content->text .= '<tr><td><b>'.get_string('requiredcriteria', 'completion').'</b></td><td style="text-align: right"><b>'.get_string('status').'</b></td></tr>';
+        $this->content->text .= $shtml.'</tbody></table>';
+
+        // Display link to detailed view
+        $this->content->footer = '<br><a href="'.$CFG->wwwroot.'/blocks/completionstatus/details.php?course='.$COURSE->id.'">'.get_string('moredetails', 'completion').'</a>';
 
         return $this->content;
     }

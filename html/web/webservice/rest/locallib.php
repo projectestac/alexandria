@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,38 +15,32 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * REST web service implementation classes and methods.
  *
- * @package    webservice_rest
- * @copyright  2009 Jerome Mouneyrac
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   webservice
+ * @copyright 2009 Moodle Pty Ltd (http://moodle.com)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once("$CFG->dirroot/webservice/lib.php");
 
 /**
  * REST service server implementation.
- *
- * @package    webservice_rest
- * @copyright  2009 Petr Skoda (skodak)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Petr Skoda (skodak)
  */
 class webservice_rest_server extends webservice_base_server {
 
-    /** @var string return method ('xml' or 'json') */
+    /** @property string $alt return method (XML / JSON) */
     protected $restformat;
 
     /**
      * Contructor
-     *
-     * @param string $authmethod authentication method of the web service (WEBSERVICE_AUTHMETHOD_PERMANENT_TOKEN, ...)
-     * @param string $restformat Format of the return values: 'xml' or 'json'
      */
-    public function __construct($authmethod) {
+    public function __construct($authmethod, $restformat = 'xml') {
         parent::__construct($authmethod);
         $this->wsname = 'rest';
+        $this->restformat = ($restformat != 'xml' && $restformat != 'json')?'xml':$restformat; //sanity check, we accept only xml or json
     }
 
     /**
@@ -54,22 +49,13 @@ class webservice_rest_server extends webservice_base_server {
      *  1/ user authentication - username+password or token (wsusername, wspassword and wstoken parameters)
      *  2/ function name (wsfunction parameter)
      *  3/ function parameters (all other parameters except those above)
-     *  4/ text format parameters
-     *  5/ return rest format xml/json
+     *
+     * @return void
      */
     protected function parse_request() {
 
-        // Retrieve and clean the POST/GET parameters from the parameters specific to the server.
-        parent::set_web_service_call_settings();
-
-        // Get GET and POST parameters.
-        $methodvariables = array_merge($_GET, $_POST);
-
-        // Retrieve REST format parameter - 'xml' (default) or 'json'.
-        $restformatisset = isset($methodvariables['moodlewsrestformat'])
-                && (($methodvariables['moodlewsrestformat'] == 'xml' || $methodvariables['moodlewsrestformat'] == 'json'));
-        $this->restformat = $restformatisset ? $methodvariables['moodlewsrestformat'] : 'xml';
-        unset($methodvariables['moodlewsrestformat']);
+        //Get GET and POST paramters
+        $methodvariables = array_merge($_GET,$_POST);
 
         if ($this->authmethod == WEBSERVICE_AUTHMETHOD_USERNAME) {
             $this->username = isset($methodvariables['wsusername']) ? $methodvariables['wsusername'] : null;
@@ -97,6 +83,7 @@ class webservice_rest_server extends webservice_base_server {
     /**
      * Send the result of function call to the WS client
      * formatted as XML document.
+     * @return void
      */
     protected function send_response() {
 
@@ -120,7 +107,7 @@ class webservice_rest_server extends webservice_base_server {
             } else {
                 $response = '<?xml version="1.0" encoding="UTF-8" ?>'."\n";
                 $response .= '<RESPONSE>'."\n";
-                $response .= self::xmlize_result($validatedvalues, $this->function->returns_desc);
+                $response .= self::xmlize_result($this->returns, $this->function->returns_desc);
                 $response .= '</RESPONSE>'."\n";
             }
         }
@@ -134,7 +121,8 @@ class webservice_rest_server extends webservice_base_server {
      * formatted as XML document.
      * Note: the exception is never passed as null,
      *       it only matches the abstract function declaration.
-     * @param exception $ex the exception that we are sending
+     * @param exception $ex
+     * @return void
      */
     protected function send_error($ex=null) {
         $this->send_headers();
@@ -143,14 +131,13 @@ class webservice_rest_server extends webservice_base_server {
 
     /**
      * Build the error information matching the REST returned value format (JSON or XML)
-     * @param exception $ex the exception we are converting in the server rest format
+     * @param exception $ex
      * @return string the error in the requested REST format
      */
     protected function generate_error($ex) {
         if ($this->restformat == 'json') {
             $errorobject = new stdClass;
             $errorobject->exception = get_class($ex);
-            $errorobject->errorcode = $ex->errorcode;
             $errorobject->message = $ex->getMessage();
             if (debugging() and isset($ex->debuginfo)) {
                 $errorobject->debuginfo = $ex->debuginfo;
@@ -159,8 +146,6 @@ class webservice_rest_server extends webservice_base_server {
         } else {
             $error = '<?xml version="1.0" encoding="UTF-8" ?>'."\n";
             $error .= '<EXCEPTION class="'.get_class($ex).'">'."\n";
-            $error .= '<ERRORCODE>' . htmlspecialchars($ex->errorcode, ENT_COMPAT, 'UTF-8')
-                    . '</ERRORCODE>' . "\n";
             $error .= '<MESSAGE>'.htmlspecialchars($ex->getMessage(), ENT_COMPAT, 'UTF-8').'</MESSAGE>'."\n";
             if (debugging() and isset($ex->debuginfo)) {
                 $error .= '<DEBUGINFO>'.htmlspecialchars($ex->debuginfo, ENT_COMPAT, 'UTF-8').'</DEBUGINFO>'."\n";
@@ -172,6 +157,7 @@ class webservice_rest_server extends webservice_base_server {
 
     /**
      * Internal implementation - sending of page headers.
+     * @return void
      */
     protected function send_headers() {
         if ($this->restformat == 'json') {
@@ -188,10 +174,9 @@ class webservice_rest_server extends webservice_base_server {
 
     /**
      * Internal implementation - recursive function producing XML markup.
-     *
-     * @param mixed $returns the returned values
-     * @param external_description $desc
-     * @return string
+     * @param mixed $returns
+     * @param $desc
+     * @return unknown_type
      */
     protected static function xmlize_result($returns, $desc) {
         if ($desc === null) {
@@ -232,17 +217,13 @@ class webservice_rest_server extends webservice_base_server {
 
 /**
  * REST test client class
- *
- * @package    webservice_rest
- * @copyright  2009 Petr Skoda (skodak)
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class webservice_rest_test_client implements webservice_test_client_interface {
     /**
      * Execute test client WS request
-     * @param string $serverurl server url (including token parameter or username/password parameters)
-     * @param string $function function name
-     * @param array $params parameters of the called function
+     * @param string $serverurl
+     * @param string $function
+     * @param array $params
      * @return mixed
      */
     public function simpletest($serverurl, $function, $params) {

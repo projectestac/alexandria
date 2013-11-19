@@ -1,6 +1,5 @@
 <form id="theform" method="post" action="messageselect.php">
 <input type="hidden" name="id" value="<?php p($id) ?>" />
-<input type="hidden" name="sesskey" value="<?php echo sesskey() ?>" />
 <input type="hidden" name="returnto" value="<?php p($returnto) ?>" />
 <input type="hidden" name="deluser" value="" />
 <?php echo $OUTPUT->box_start(); ?>
@@ -15,7 +14,7 @@
 </tr>
 
 <tr valign="top">
-    <td align="right"><label for="menuformat"><b><?php print_string("formattexttype"); ?>:</b></label></td>
+    <td align="right"><b><?php print_string("formattexttype"); ?>:</b></td>
     <td>
     <?php
         if ($usehtmleditor) {   /// Trying this out for a while
@@ -46,7 +45,7 @@
                 $error = get_string('emailempty');
             }
             if (!empty($error)) {
-                echo '<img src="'.$OUTPUT->pix_url('t/emailno') . '" alt="'.$error.'" class="iconsmall" title="'.$error.'"/>';
+                echo '<img src="'.$OUTPUT->pix_url('t/emailno') . '" alt="'.$error.'" title="'.$error.'"/>';
                 unset($error);
             }
             echo '</td><td><input type="submit" onClick="this.form.deluser.value='.$user->id.';" value="' . get_string('remove') . '" /></td></tr>';

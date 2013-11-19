@@ -5,7 +5,6 @@ define('BGR_LASTMODIFIED', '1');
 define('BGR_NEXTONE',      '2');
 
 class block_glossary_random extends block_base {
-
     function init() {
         $this->title = get_string('pluginname','block_glossary_random');
     }
@@ -46,7 +45,7 @@ class block_glossary_random extends block_base {
             if (! $cm = get_coursemodule_from_instance("glossary", $this->config->glossary, $this->course->id)) {
                 return false;
             }
-            $glossaryctx = context_module::instance($cm->id);
+            $glossaryctx = get_context_instance(CONTEXT_MODULE, $cm->id);
 
             $limitfrom = 0;
             $limitnum = 1;
@@ -126,10 +125,12 @@ class block_glossary_random extends block_base {
             return $this->content;
         }
 
-        require_once($CFG->dirroot.'/course/lib.php');
-        $course = $this->page->course;
-        $modinfo = get_fast_modinfo($course);
         $glossaryid = $this->config->glossary;
+
+        $course = $this->page->course;
+
+        require_once($CFG->dirroot.'/course/lib.php');
+        $modinfo = get_fast_modinfo($course);
 
         if (!isset($modinfo->instances['glossary'][$glossaryid])) {
             // we can get here if the glossary has been deleted, so
@@ -138,17 +139,12 @@ class block_glossary_random extends block_base {
             $this->config->cache = '';
             $this->instance_config_commit();
 
-            $this->content = new stdClass();
             $this->content->text   = get_string('notyetconfigured','block_glossary_random');
             $this->content->footer = '';
             return $this->content;
         }
 
         $cm = $modinfo->instances['glossary'][$glossaryid];
-
-        if (!has_capability('mod/glossary:view', context_module::instance($cm->id))) {
-            return '';
-        }
 
         if (empty($this->config->cache)) {
             $this->config->cache = '';
@@ -165,7 +161,7 @@ class block_glossary_random extends block_base {
 
         //Obtain the visible property from the instance
         if ($cm->uservisible) {
-            if (has_capability('mod/glossary:write', context_module::instance($cm->id))) {
+            if (has_capability('mod/glossary:write', get_context_instance(CONTEXT_MODULE, $cm->id))) {
                 $this->content->footer = '<a href="'.$CFG->wwwroot.'/mod/glossary/edit.php?cmid='.$cm->id
                 .'" title="'.$this->config->addentry.'">'.$this->config->addentry.'</a><br />';
             } else {

@@ -152,7 +152,7 @@ foreach($events as $event) {
     $ev = new iCalendar_event;
     $ev->add_property('uid', $event->id.'@'.$hostaddress);
     $ev->add_property('summary', $event->name);
-    $ev->add_property('description', clean_param($event->description, PARAM_NOTAGS));
+    $ev->add_property('description', $event->description);
     $ev->add_property('class', 'PUBLIC'); // PUBLIC / PRIVATE / CONFIDENTIAL
     $ev->add_property('last-modified', Bennu::timestamp_to_datetime($event->timemodified));
     $ev->add_property('dtstamp', Bennu::timestamp_to_datetime()); // now
@@ -162,7 +162,7 @@ foreach($events as $event) {
         $ev->add_property('dtend', Bennu::timestamp_to_datetime($event->timestart + $event->timeduration));
     }
     if ($event->courseid != 0) {
-        $coursecontext = context_course::instance($event->courseid);
+        $coursecontext = get_context_instance(CONTEXT_COURSE, $event->courseid);
         $ev->add_property('categories', format_string($courses[$event->courseid]->shortname, true, array('context' => $coursecontext)));
     }
     $ical->add_component($ev);
@@ -172,6 +172,11 @@ $serialized = $ical->serialize();
 if(empty($serialized)) {
     // TODO
     die('bad serialization');
+}
+
+//IE compatibility HACK!
+if (ini_get_bool('zlib.output_compression')) {
+    ini_set('zlib.output_compression', 'Off');
 }
 
 $filename = 'icalexport.ics';

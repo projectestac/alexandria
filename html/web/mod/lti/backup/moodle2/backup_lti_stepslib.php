@@ -56,13 +56,11 @@ class backup_lti_activity_structure_step extends backup_activity_structure_step 
 
     protected function define_structure() {
 
-        // TODO: MDL-34161 - Fix restore to support course/site tools & submissions.
-
         // To know if we are including userinfo
         $userinfo = $this->get_setting_value('userinfo');
 
         // Define each element separated
-        $lti = new backup_nested_element('lti', array('id'), array(
+        $basiclti = new backup_nested_element('lti', array('id'), array(
             'name',
             'intro',
             'introformat',
@@ -70,7 +68,6 @@ class backup_lti_activity_structure_step extends backup_activity_structure_step 
             'timemodified',
             'typeid',
             'toolurl',
-            'securetoolurl',
             'preferheight',
             'launchcontainer',
             'instructorchoicesendname',
@@ -80,11 +77,8 @@ class backup_lti_activity_structure_step extends backup_activity_structure_step 
             'instructorchoiceallowsetting',
             'grade',
             'instructorcustomparameters',
-            'debuglaunch',
             'showtitlelaunch',
-            'showdescriptionlaunch',
-            'icon',
-            'secureicon',
+            'showdescriptionlaunch'
             )
         );
 
@@ -92,15 +86,15 @@ class backup_lti_activity_structure_step extends backup_activity_structure_step 
         // (none)
 
         // Define sources
-        $lti->set_source_table('lti', array('id' => backup::VAR_ACTIVITYID));
+        $basiclti->set_source_table('lti', array('id' => backup::VAR_ACTIVITYID));
 
         // Define id annotations
         // (none)
 
         // Define file annotations
-        $lti->annotate_files('mod_lti', 'intro', null); // This file areas haven't itemid
+        $basiclti->annotate_files('mod_lti', 'intro', null); // This file areas haven't itemid
 
-        // Return the root element (lti), wrapped into standard activity structure
-        return $this->prepare_activity_structure($lti);
+        // Return the root element (basiclti), wrapped into standard activity structure
+        return $this->prepare_activity_structure($basiclti);
     }
 }

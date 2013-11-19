@@ -59,7 +59,7 @@ class feedback_item_label extends feedback_item_base {
                              'items'=>$feedbackitems,
                              'feedback'=>$feedback->id);
 
-        $this->context = context_module::instance($cm->id);
+        $this->context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
         //preparing the editor for new file-api
         $item->presentationformat = FORMAT_HTML;
@@ -148,12 +148,12 @@ class feedback_item_label extends feedback_item_base {
             if ($template->ispublic) {
                 $context = get_system_context();
             } else {
-                $context = context_course::instance($template->course);
+                $context = get_context_instance(CONTEXT_COURSE, $template->course);
             }
             $filearea = 'template';
         } else {
             $cm = get_coursemodule_from_instance('feedback', $item->feedback);
-            $context = context_module::instance($cm->id);
+            $context = get_context_instance(CONTEXT_MODULE, $cm->id);
             $filearea = 'item';
         }
 
@@ -167,8 +167,7 @@ class feedback_item_label extends feedback_item_base {
                                                $filearea,
                                                $item->id);
 
-        $formatoptions = array('overflowdiv'=>true, 'trusted'=>$CFG->enabletrusttext);
-        echo format_text($output, FORMAT_HTML, $formatoptions);
+        echo format_text($output, FORMAT_HTML, array('overflowdiv'=>true));
     }
 
     /**
@@ -232,7 +231,7 @@ class feedback_item_label extends feedback_item_base {
     public function postupdate($item) {
         global $DB;
 
-        $context = context_module::instance($item->cmid);
+        $context = get_context_instance(CONTEXT_MODULE, $item->cmid);
         $item = file_postupdate_standard_editor($item,
                                                 'presentation',
                                                 $this->presentationoptions,
@@ -269,11 +268,5 @@ class feedback_item_label extends feedback_item_base {
     public function get_printval($item, $value) {
     }
     public function get_analysed($item, $groupid = false, $courseid = false) {
-    }
-    public function value_type() {
-        return PARAM_BOOL;
-    }
-    public function clean_input_value($value) {
-        return '';
     }
 }

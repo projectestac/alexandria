@@ -122,11 +122,6 @@ class question_import_form extends moodleform {
             return $errors;
         }
 
-        if (empty($data['format'])) {
-            $errors['format'] = get_string('required');
-            return $errors;
-        }
-
         $formatfile = 'format/' . $data['format'] . '/format.php';
         if (!is_readable($formatfile)) {
             throw new moodle_exception('formatnotfound', 'question', '', $data['format']);

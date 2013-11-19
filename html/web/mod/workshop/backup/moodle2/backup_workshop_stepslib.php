@@ -18,10 +18,10 @@
 /**
  * Defines all the backup steps that will be used by {@link backup_workshop_activity_task}
  *
- * @package     mod_workshop
- * @category    backup
- * @copyright   2010 David Mudrak <david.mudrak@gmail.com>
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    mod
+ * @subpackage workshop
+ * @copyright  2010 David Mudrak <david.mudrak@gmail.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -29,15 +29,10 @@ defined('MOODLE_INTERNAL') || die();
 /**
  * Defines the complete workshop structure for backup, with file and id annotations
  *
- * @link http://docs.moodle.org/dev/Workshop for XML structure diagram
+ * @see http://docs.moodle.org/dev/Workshop for XML structure diagram
  */
 class backup_workshop_activity_structure_step extends backup_activity_structure_step {
 
-    /**
-     * Defines the structure of the 'workshop' element inside the workshop.xml file
-     *
-     * @return backup_nested_element
-     */
     protected function define_structure() {
 
         // are we including userinfo?
@@ -55,8 +50,7 @@ class backup_workshop_activity_structure_step extends backup_activity_structure_
             'usepeerassessment', 'useselfassessment', 'grade', 'gradinggrade',
             'strategy', 'evaluation', 'gradedecimals', 'nattachments',
             'latesubmissions', 'maxbytes', 'examplesmode', 'submissionstart',
-            'submissionend', 'assessmentstart', 'assessmentend',
-            'conclusion', 'conclusionformat'));
+            'submissionend', 'assessmentstart', 'assessmentend'));
 
         // assessment forms definition
         $this->add_subplugin_structure('workshopform', $workshop, true);
@@ -195,7 +189,6 @@ class backup_workshop_activity_structure_step extends backup_activity_structure_
         $workshop->annotate_files('mod_workshop', 'intro', null); // no itemid used
         $workshop->annotate_files('mod_workshop', 'instructauthors', null); // no itemid used
         $workshop->annotate_files('mod_workshop', 'instructreviewers', null); // no itemid used
-        $workshop->annotate_files('mod_workshop', 'conclusion', null); // no itemid used
 
         $examplesubmission->annotate_files('mod_workshop', 'submission_content', 'id');
         $examplesubmission->annotate_files('mod_workshop', 'submission_attachment', 'id');

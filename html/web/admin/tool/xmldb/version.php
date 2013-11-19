@@ -17,14 +17,15 @@
 /**
  * Plugin version info
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2012112900; // The current plugin version (Date: YYYYMMDDXX)
-$plugin->requires  = 2012112900; // Requires this Moodle version
+$plugin->version   = 2011092500; // The current plugin version (Date: YYYYMMDDXX)
+$plugin->requires  = 2011092100; // Requires this Moodle version
 $plugin->component = 'tool_xmldb'; // Full name of the plugin (used for diagnostics)
 

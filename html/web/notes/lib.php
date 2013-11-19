@@ -100,11 +100,10 @@ function note_save(&$note) {
         // insert new note
         $note->created = $note->lastmodified;
         $id = $DB->insert_record('post', $note);
-        $note = note_load($id);
+        $note = $DB->get_record('post', array('id'=>$id));
     } else {
         // update old note
         $DB->update_record('post', $note);
-        $note = note_load($note->id);
     }
     unset($note->module);
     return true;
@@ -171,8 +170,8 @@ function note_print($note, $detail = NOTES_SHOW_FULL) {
         debugging("User $note->usermodified not found");
         return;
     }
-    $context = context_course::instance($note->courseid);
-    $systemcontext = context_system::instance();
+    $context = get_context_instance(CONTEXT_COURSE, $note->courseid);
+    $systemcontext = get_context_instance(CONTEXT_SYSTEM);
 
     $authoring = new stdClass();
     $authoring->name = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$author->id.'&amp;course='.$note->courseid.'">'.fullname($author).'</a>';

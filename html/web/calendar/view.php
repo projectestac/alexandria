@@ -98,11 +98,11 @@ $time = make_timestamp($yr, $mon, $day);
 switch($view) {
     case 'day':
         $PAGE->navbar->add(userdate($time, get_string('strftimedate')));
-        $pagetitle = get_string('dayviewtitle', 'calendar', userdate($time, get_string('strftimedaydate')));
+        $pagetitle = get_string('dayview', 'calendar');
     break;
     case 'month':
         $PAGE->navbar->add(userdate($time, get_string('strftimemonthyear')));
-        $pagetitle = get_string('detailedmonthviewtitle', 'calendar', userdate($time, get_string('strftimemonthyear')));
+        $pagetitle = get_string('detailedmonthview', 'calendar');
     break;
     case 'upcoming':
         $pagetitle = get_string('upcomingevents', 'calendar');
@@ -127,7 +127,7 @@ switch($view) {
         echo $renderer->show_day($calendar);
     break;
     case 'month':
-        echo $renderer->show_month_detailed($calendar, $url);
+        echo $renderer->show_month_detailed($calendar);
     break;
     case 'upcoming':
         $defaultlookahead = CALENDAR_DEFAULT_UPCOMING_LOOKAHEAD;
@@ -145,13 +145,10 @@ switch($view) {
     break;
 }
 
-//Link to calendar export page.
+//Link to calendar export page
 echo $OUTPUT->container_start('bottom');
 if (!empty($CFG->enablecalendarexport)) {
     echo $OUTPUT->single_button(new moodle_url('export.php', array('course'=>$courseid)), get_string('exportcalendar', 'calendar'));
-    if (calendar_user_can_add_event($course)) {
-        echo $OUTPUT->single_button(new moodle_url('/calendar/managesubscriptions.php', array('course'=>$courseid)), get_string('managesubscriptions', 'calendar'));
-    }
     if (isloggedin()) {
         $authtoken = sha1($USER->id . $USER->password . $CFG->calendar_exportsalt);
         $link = new moodle_url('/calendar/export_execute.php', array('preset_what'=>'all', 'preset_time'=>'recentupcoming', 'userid' => $USER->id, 'authtoken'=>$authtoken));

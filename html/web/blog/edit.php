@@ -45,7 +45,7 @@ $returnurl = new moodle_url('/blog/index.php');
 
 if (!empty($courseid) && empty($modid)) {
     $returnurl->param('courseid', $courseid);
-    $PAGE->set_context(context_course::instance($courseid));
+    $PAGE->set_context(get_context_instance(CONTEXT_COURSE, $courseid));
 }
 
 // If a modid is given, guess courseid
@@ -53,12 +53,12 @@ if (!empty($modid)) {
     $returnurl->param('modid', $modid);
     $courseid = $DB->get_field('course_modules', 'course', array('id' => $modid));
     $returnurl->param('courseid', $courseid);
-    $PAGE->set_context(context_module::instance($modid));
+    $PAGE->set_context(get_context_instance(CONTEXT_MODULE, $modid));
 }
 
 // If courseid is empty use the system context
 if (empty($courseid)) {
-    $PAGE->set_context(context_system::instance());
+    $PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
 }
 
 $blogheaders = blog_get_headers();
@@ -69,7 +69,7 @@ if ($action == 'edit') {
     $id = required_param('entryid', PARAM_INT);
 }
 
-if (empty($CFG->enableblogs)) {
+if (empty($CFG->bloglevel)) {
     print_error('blogdisable', 'blog');
 }
 
@@ -77,7 +77,7 @@ if (isguestuser()) {
     print_error('noguestentry', 'blog');
 }
 
-$sitecontext = context_system::instance();
+$sitecontext = get_context_instance(CONTEXT_SYSTEM);
 if (!has_capability('moodle/blog:create', $sitecontext) && !has_capability('moodle/blog:manageentries', $sitecontext)) {
     print_error('cannoteditentryorblog');
 }
@@ -105,9 +105,6 @@ if ($id) {
 }
 $returnurl->param('userid', $userid);
 
-// Blog renderer.
-$output = $PAGE->get_renderer('blog');
-
 $strblogs = get_string('blogs','blog');
 
 if ($action === 'delete'){
@@ -128,11 +125,7 @@ if ($action === 'delete'){
         $PAGE->set_title("$SITE->shortname: $strblogs");
         $PAGE->set_heading($SITE->fullname);
         echo $OUTPUT->header();
-
-        // Output the entry.
-        $entry->prepare_render();
-        echo $output->render($entry);
-
+        $entry->print_html();
         echo '<br />';
         echo $OUTPUT->confirm(get_string('blogdeleteconfirm', 'blog'), new moodle_url('edit.php', $optionsyes),new moodle_url( 'index.php', $optionsno));
         echo $OUTPUT->footer();
@@ -150,7 +143,7 @@ if (!empty($entry->id)) {
     if ($CFG->useblogassociations && ($blogassociations = $DB->get_records('blog_association', array('blogid' => $entry->id)))) {
 
         foreach ($blogassociations as $assocrec) {
-            $context = context::instance_by_id($assocrec->contextid);
+            $context = get_context_instance_by_id($assocrec->contextid);
 
             switch ($context->contextlevel) {
                 case CONTEXT_COURSE:
@@ -222,13 +215,13 @@ switch ($action) {
 
             //pre-select the course for associations
             if ($courseid) {
-                $context = context_course::instance($courseid);
+                $context = get_context_instance(CONTEXT_COURSE, $courseid);
                 $entry->courseassoc = $context->id;
             }
 
             //pre-select the mod for associations
             if ($modid) {
-                $context = context_module::instance($modid);
+                $context = get_context_instance(CONTEXT_MODULE, $modid);
                 $entry->modassoc = $context->id;
             }
         }

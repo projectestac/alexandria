@@ -140,14 +140,14 @@ abstract class base_ui {
     /**
      * Displays the UI for the backup!
      *
-     * @param core_backup_renderer $renderer
-     * @return string HTML code to echo
+     * @throws base_ui_exception
+     * @return string HTML code
      */
-    public function display(core_backup_renderer $renderer) {
+    public function display() {
         if ($this->progress < self::PROGRESS_SAVED) {
             throw new base_ui_exception('backupsavebeforedisplay');
         }
-        return $this->stage->display($renderer);
+        return $this->stage->display();
     }
     /**
      * Gets all backup tasks from the controller

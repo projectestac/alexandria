@@ -12,16 +12,6 @@ $showsidepost = ($hassidepost && !$PAGE->blocks->region_completely_docked('side-
 $custommenu = $OUTPUT->custom_menu();
 $hascustommenu = (empty($PAGE->layout_options['nocustommenu']) && !empty($custommenu));
 
-$courseheader = $coursecontentheader = $coursecontentfooter = $coursefooter = '';
-if (empty($PAGE->layout_options['nocourseheaderfooter'])) {
-    $courseheader = $OUTPUT->course_header();
-    $coursecontentheader = $OUTPUT->course_content_header();
-    if (empty($PAGE->layout_options['nocoursefooter'])) {
-        $coursecontentfooter = $OUTPUT->course_content_footer();
-        $coursefooter = $OUTPUT->course_footer();
-    }
-}
-
 $bodyclasses = array();
 if ($showsidepre && !$showsidepost) {
     $bodyclasses[] = 'side-pre-only';
@@ -58,9 +48,6 @@ echo $OUTPUT->doctype() ?>
         <?php if ($hascustommenu) { ?>
         <div id="custommenu"><?php echo $custommenu; ?></div>
         <?php } ?>
-        <?php if (!empty($courseheader)) { ?>
-        <div id="course-header"><?php echo $courseheader; ?></div>
-        <?php } ?>
         <?php if ($hasnavbar) { ?>
             <div class="navbar clearfix">
                 <div class="breadcrumb"><?php echo $OUTPUT->navbar(); ?></div>
@@ -84,9 +71,7 @@ echo $OUTPUT->doctype() ?>
                 <td id="region-main-wrap">
                     <div id="region-main">
                         <div class="region-content">
-                            <?php echo $coursecontentheader; ?>
                             <?php echo $OUTPUT->main_content() ?>
-                            <?php echo $coursecontentfooter; ?>
                         </div>
                     </div>
                 </td>
@@ -100,9 +85,6 @@ echo $OUTPUT->doctype() ?>
             </tr>
         </table>
     </div>
-    <?php if (!empty($coursefooter)) { ?>
-    <div id="course-footer"><?php echo $coursefooter; ?></div>
-    <?php } ?>
 
 <!-- START OF FOOTER -->
     <?php if ($hasfooter) { ?>

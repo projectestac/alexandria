@@ -47,9 +47,6 @@ class quizaccess_openclosedate extends quiz_access_rule_base {
         if ($this->timenow < $this->quiz->timeopen) {
             $result[] = get_string('quiznotavailable', 'quizaccess_openclosedate',
                     userdate($this->quiz->timeopen));
-            if ($this->quiz->timeclose) {
-                $result[] = get_string('quizcloseson', 'quiz', userdate($this->quiz->timeclose));
-            }
 
         } else if ($this->quiz->timeclose && $this->timenow > $this->quiz->timeclose) {
             $result[] = get_string('quizclosed', 'quiz', userdate($this->quiz->timeclose));
@@ -67,53 +64,31 @@ class quizaccess_openclosedate extends quiz_access_rule_base {
     }
 
     public function prevent_access() {
-        $message = get_string('notavailable', 'quizaccess_openclosedate');
-
-        if ($this->timenow < $this->quiz->timeopen) {
-            return $message;
+        if ($this->timenow < $this->quiz->timeopen ||
+        ($this->quiz->timeclose && $this->timenow > $this->quiz->timeclose)) {
+            return get_string('notavailable', 'quizaccess_openclosedate');
         }
-
-        if (!$this->quiz->timeclose) {
-            return false;
-        }
-
-        if ($this->timenow <= $this->quiz->timeclose) {
-            return false;
-        }
-
-        if ($this->quiz->overduehandling != 'graceperiod') {
-            return $message;
-        }
-
-        if ($this->timenow <= $this->quiz->timeclose + $this->quiz->graceperiod) {
-            return false;
-        }
-
-        return $message;
+        return false;
     }
 
     public function is_finished($numprevattempts, $lastattempt) {
         return $this->quiz->timeclose && $this->timenow > $this->quiz->timeclose;
     }
 
-    public function end_time($attempt) {
-        if ($this->quiz->timeclose) {
-            return $this->quiz->timeclose;
-        }
-        return false;
-    }
-
-    public function time_left_display($attempt, $timenow) {
+    public function time_left($attempt, $timenow) {
         // If this is a teacher preview after the close date, do not show
         // the time.
         if ($attempt->preview && $timenow > $this->quiz->timeclose) {
             return false;
         }
-        // Otherwise, return to the time left until the close date, providing that is
-        // less than QUIZ_SHOW_TIME_BEFORE_DEADLINE.
-        $endtime = $this->end_time($attempt);
-        if ($endtime !== false && $timenow > $endtime - QUIZ_SHOW_TIME_BEFORE_DEADLINE) {
-            return $endtime - $timenow;
+
+        // Otherwise, return to the time left until the close date, providing
+        // that is less than QUIZ_SHOW_TIME_BEFORE_DEADLINE
+        if ($this->quiz->timeclose) {
+            $timeleft = $this->quiz->timeclose - $timenow;
+            if ($timeleft < QUIZ_SHOW_TIME_BEFORE_DEADLINE) {
+                return $timeleft;
+            }
         }
         return false;
     }

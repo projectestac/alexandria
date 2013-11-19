@@ -71,13 +71,11 @@ class qtype_shortanswer_renderer extends qtype_renderer {
             $placeholder = $matches[0];
             $inputattributes['size'] = round(strlen($placeholder) * 1.1);
         }
+
         $input = html_writer::empty_tag('input', $inputattributes) . $feedbackimg;
 
         if ($placeholder) {
-            $inputinplace = html_writer::tag('label', get_string('answer'),
-                    array('for' => $inputattributes['id'], 'class' => 'accesshide'));
-            $inputinplace .= $input;
-            $questiontext = substr_replace($questiontext, $inputinplace,
+            $questiontext = substr_replace($questiontext, $input,
                     strpos($questiontext, $placeholder), strlen($placeholder));
         }
 
@@ -85,9 +83,8 @@ class qtype_shortanswer_renderer extends qtype_renderer {
 
         if (!$placeholder) {
             $result .= html_writer::start_tag('div', array('class' => 'ablock'));
-            $result .= html_writer::tag('label', get_string('answer', 'qtype_shortanswer',
-                    html_writer::tag('span', $input, array('class' => 'answer'))),
-                    array('for' => $inputattributes['id']));
+            $result .= get_string('answer', 'qtype_shortanswer',
+                    html_writer::tag('div', $input, array('class' => 'answer')));
             $result .= html_writer::end_tag('div');
         }
 
@@ -120,7 +117,6 @@ class qtype_shortanswer_renderer extends qtype_renderer {
             return '';
         }
 
-        return get_string('correctansweris', 'qtype_shortanswer',
-                s($question->clean_response($answer->answer)));
+        return get_string('correctansweris', 'qtype_shortanswer', s($answer->answer));
     }
 }

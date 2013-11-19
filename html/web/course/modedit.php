@@ -35,10 +35,8 @@ $add    = optional_param('add', '', PARAM_ALPHA);     // module name
 $update = optional_param('update', 0, PARAM_INT);
 $return = optional_param('return', 0, PARAM_BOOL);    //return to course/view.php if false or mod/modname/view.php if true
 $type   = optional_param('type', '', PARAM_ALPHANUM); //TODO: hopefully will be removed in 2.0
-$sectionreturn = optional_param('sr', null, PARAM_INT);
 
 $url = new moodle_url('/course/modedit.php');
-$url->param('sr', $sectionreturn);
 if (!empty($return)) {
     $url->param('return', $return);
 }
@@ -56,13 +54,12 @@ if (!empty($add)) {
     $module = $DB->get_record('modules', array('name'=>$add), '*', MUST_EXIST);
 
     require_login($course);
-    $context = context_course::instance($course->id);
+    $context = get_context_instance(CONTEXT_COURSE, $course->id);
     require_capability('moodle/course:manageactivities', $context);
 
-    course_create_sections_if_missing($course, $section);
-    $cw = get_fast_modinfo($course)->get_section_info($section);
+    $cw = get_course_section($section, $course->id);
 
-    if (!course_allowed_module($course, $module->name)) {
+    if (!course_allowed_module($course, $module->id)) {
         print_error('moduledisable');
     }
 
@@ -82,7 +79,6 @@ if (!empty($add)) {
     $data->coursemodule     = '';
     $data->add              = $add;
     $data->return           = 0; //must be false if this is an add, go back to course view on cancel
-    $data->sr               = $sectionreturn;
 
     if (plugin_supports('mod', $data->modulename, FEATURE_MOD_INTRO, true)) {
         $draftid_editor = file_get_submitted_draft_itemid('introeditor');
@@ -132,7 +128,7 @@ if (!empty($add)) {
     $course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
 
     require_login($course, false, $cm); // needed to setup proper $COURSE
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     require_capability('moodle/course:manageactivities', $context);
 
     $module = $DB->get_record('modules', array('id'=>$cm->module), '*', MUST_EXIST);
@@ -151,7 +147,6 @@ if (!empty($add)) {
     $data->modulename         = $module->name;
     $data->instance           = $cm->instance;
     $data->return             = $return;
-    $data->sr                 = $sectionreturn;
     $data->update             = $update;
     $data->completion         = $cm->completion;
     $data->completionview     = $cm->completionview;
@@ -265,7 +260,7 @@ if ($mform->is_cancelled()) {
     if ($return && !empty($cm->id)) {
         redirect("$CFG->wwwroot/mod/$module->name/view.php?id=$cm->id");
     } else {
-        redirect(course_get_url($course, $cw->section, array('sr' => $sectionreturn)));
+        redirect("$CFG->wwwroot/course/view.php?id=$course->id#section-".$cw->section);
     }
 } else if ($fromform = $mform->get_data()) {
     if (empty($fromform->coursemodule)) {
@@ -283,9 +278,9 @@ if ($mform->is_cancelled()) {
     }
 
     if (!empty($fromform->coursemodule)) {
-        $context = context_module::instance($fromform->coursemodule);
+        $context = get_context_instance(CONTEXT_MODULE, $fromform->coursemodule);
     } else {
-        $context = context_course::instance($course->id);
+        $context = get_context_instance(CONTEXT_COURSE, $course->id);
     }
 
     $fromform->course = $course->id;
@@ -357,7 +352,7 @@ if ($mform->is_cancelled()) {
 
         $DB->update_record('course_modules', $cm);
 
-        $modcontext = context_module::instance($fromform->coursemodule);
+        $modcontext = get_context_instance(CONTEXT_MODULE, $fromform->coursemodule);
 
         // update embedded links and save files
         if (plugin_supports('mod', $fromform->modulename, FEATURE_MOD_INTRO, true)) {
@@ -369,7 +364,7 @@ if ($mform->is_cancelled()) {
         }
 
         if (!$updateinstancefunction($fromform, $mform)) {
-            print_error('cannotupdatemod', '', course_get_url($course, $cw->section), $fromform->modulename);
+            print_error('cannotupdatemod', '', "view.php?id={$course->id}#section-{$cw->section}", $fromform->modulename);
         }
 
         // make sure visibility is set correctly (in particular in calendar)
@@ -387,17 +382,6 @@ if ($mform->is_cancelled()) {
         if ($completion->is_enabled() && !empty($fromform->completionunlocked)) {
             $completion->reset_all_state($cm);
         }
-
-//XTEC ************ AFEGIT - Added patch for course format "Simple"
-//2010.07.12 @aginard (patch provided by UPCnet)
-
-		//@PATCH SIMPLE: Actualitza la icona al sistema de fitxers
-		if(isset($fromform->simple_image)){
-			require_once($CFG->dirroot.'/course/format/simple/lib.php');
-			simple_update_module_image($fromform);
-		}
-
-//************ FI                                                        
 
         $eventname = 'mod_updated';
 
@@ -460,14 +444,14 @@ if ($mform->is_cancelled()) {
 
         if (!$returnfromfunc or !is_number($returnfromfunc)) {
             // undo everything we can
-            $modcontext = context_module::instance($fromform->coursemodule);
+            $modcontext = get_context_instance(CONTEXT_MODULE, $fromform->coursemodule);
             delete_context(CONTEXT_MODULE, $fromform->coursemodule);
             $DB->delete_records('course_modules', array('id'=>$fromform->coursemodule));
 
             if (!is_number($returnfromfunc)) {
-                print_error('invalidfunction', '', course_get_url($course, $cw->section));
+                print_error('invalidfunction', '', "view.php?id={$course->id}#section-{$cw->section}");
             } else {
-                print_error('cannotaddnewmodule', '', course_get_url($course, $cw->section), $fromform->modulename);
+                print_error('cannotaddnewmodule', '', "view.php?id={$course->id}#section-{$cw->section}", $fromform->modulename);
             }
         }
 
@@ -476,7 +460,7 @@ if ($mform->is_cancelled()) {
         $DB->set_field('course_modules', 'instance', $returnfromfunc, array('id'=>$fromform->coursemodule));
 
         // update embedded links and save files
-        $modcontext = context_module::instance($fromform->coursemodule);
+        $modcontext = get_context_instance(CONTEXT_MODULE, $fromform->coursemodule);
         if (!empty($introeditor)) {
             $fromform->intro = file_save_draft_area_files($introeditor['itemid'], $modcontext->id,
                                                           'mod_'.$fromform->modulename, 'intro', 0,
@@ -486,12 +470,13 @@ if ($mform->is_cancelled()) {
 
         // course_modules and course_sections each contain a reference
         // to each other, so we have to update one of them twice.
-        $sectionid = course_add_cm_to_section($course, $fromform->coursemodule, $fromform->section);
+        $sectionid = add_mod_to_section($fromform);
+
+        $DB->set_field('course_modules', 'section', $sectionid, array('id'=>$fromform->coursemodule));
 
         // make sure visibility is set correctly (in particular in calendar)
         // note: allow them to set it even without moodle/course:activityvisibility
         set_coursemodule_visible($fromform->coursemodule, $fromform->visible);
-        $DB->set_field('course_modules', 'visibleold', 1, array('id' => $fromform->coursemodule));
 
         if (isset($fromform->cmidnumber)) { //label
             // set cm idnumber - uniqueness is already verified by form validation
@@ -502,17 +487,6 @@ if ($mform->is_cancelled()) {
         if ($CFG->enableavailability) {
             condition_info::update_cm_from_form((object)array('id'=>$fromform->coursemodule), $fromform, false);
         }
-
-//XTEC ************ AFEGIT - Added patch for course format "Simple"
-//2010.07.12 @aginard (patch provided by UPCnet)
-
-		//@PATCH SIMPLE: Actualitza la icona al sistema de fitxers
-			if(isset($fromform->simple_image)){
-				require_once($CFG->dirroot.'/course/format/simple/lib.php');
-				simple_add_module_image($fromform);
-			}
-
-//************ FI 
 
         $eventname = 'mod_created';
 
@@ -655,7 +629,7 @@ if ($mform->is_cancelled()) {
             redirect($gradingman->get_management_url($returnurl));
         }
     } else {
-        redirect(course_get_url($course, $cw->section, array('sr' => $sectionreturn)));
+        redirect("$CFG->wwwroot/course/view.php?id={$course->id}#section-{$cw->section}");
     }
     exit;
 
@@ -665,9 +639,9 @@ if ($mform->is_cancelled()) {
     $strmodulenameplural = get_string('modulenameplural', $module->name);
 
     if (!empty($cm->id)) {
-        $context = context_module::instance($cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     } else {
-        $context = context_course::instance($course->id);
+        $context = get_context_instance(CONTEXT_COURSE, $course->id);
     }
 
     $PAGE->set_heading($course->fullname);

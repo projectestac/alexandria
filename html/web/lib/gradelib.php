@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,9 +18,10 @@
 /**
  * Library of functions for gradebook - both public and internal
  *
- * @package   core_grades
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    core
+ * @subpackage grade
+ * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -39,24 +41,25 @@ require_once($CFG->libdir . '/grade/grade_outcome.php');
 
 /**
  * Submit new or update grade; update/create grade_item definition. Grade must have userid specified,
- * rawgrade and feedback with format are optional. rawgrade NULL means 'Not graded'.
- * Missing property or key means does not change the existing value.
+ * rawgrade and feedback with format are optional. rawgrade NULL means 'Not graded', missing property
+ * or key means do not change existing.
  *
  * Only following grade item properties can be changed 'itemname', 'idnumber', 'gradetype', 'grademax',
  * 'grademin', 'scaleid', 'multfactor', 'plusfactor', 'deleted' and 'hidden'. 'reset' means delete all current grades including locked ones.
  *
  * Manual, course or category items can not be updated by this function.
- *
- * @category grade
- * @param string $source Source of the grade such as 'mod/assignment'
- * @param int    $courseid ID of course
- * @param string $itemtype Type of grade item. For example, mod or block
- * @param string $itemmodule More specific then $itemtype. For example, assignment or forum. May be NULL for some item types
- * @param int    $iteminstance Instance ID of graded item
- * @param int    $itemnumber Most probably 0. Modules can use other numbers when having more than one grade for each user
- * @param mixed  $grades Grade (object, array) or several grades (arrays of arrays or objects), NULL if updating grade_item definition only
- * @param mixed  $itemdetails Object or array describing the grading item, NULL if no change
- * @return int Returns GRADE_UPDATE_OK, GRADE_UPDATE_FAILED, GRADE_UPDATE_MULTIPLE or GRADE_UPDATE_ITEM_LOCKED
+ * @access public
+ * @global object
+ * @global object
+ * @global object
+ * @param string $source source of the grade such as 'mod/assignment'
+ * @param int $courseid id of course
+ * @param string $itemtype type of grade item - mod, block
+ * @param string $itemmodule more specific then $itemtype - assignment, forum, etc.; maybe NULL for some item types
+ * @param int $iteminstance instance it of graded subject
+ * @param int $itemnumber most probably 0, modules can use other numbers when having more than one grades for each user
+ * @param mixed $grades grade (object, array) or several grades (arrays of arrays or objects), NULL if updating grade_item definition only
+ * @param mixed $itemdetails object or array describing the grading item, NULL if no change
  */
 function grade_update($source, $courseid, $itemtype, $itemmodule, $iteminstance, $itemnumber, $grades=NULL, $itemdetails=NULL) {
     global $USER, $CFG, $DB;
@@ -298,17 +301,18 @@ function grade_update($source, $courseid, $itemtype, $itemmodule, $iteminstance,
 }
 
 /**
- * Updates a user's outcomes. Manual outcomes can not be updated.
+ * Updates outcomes of user
+ * Manual outcomes can not be updated.
  *
- * @category grade
- * @param string $source Source of the grade such as 'mod/assignment'
- * @param int    $courseid ID of course
- * @param string $itemtype Type of grade item. For example, 'mod' or 'block'
- * @param string $itemmodule More specific then $itemtype. For example, 'forum' or 'quiz'. May be NULL for some item types
- * @param int    $iteminstance Instance ID of graded item. For example the forum ID.
- * @param int    $userid ID of the graded user
- * @param array  $data Array consisting of grade item itemnumber ({@link grade_update()}) => outcomegrade
- * @return bool returns true if grade items were found and updated successfully
+ * @access public
+ * @param string $source source of the grade such as 'mod/assignment'
+ * @param int $courseid id of course
+ * @param string $itemtype 'mod', 'block'
+ * @param string $itemmodule 'forum, 'quiz', etc.
+ * @param int $iteminstance id of the item module
+ * @param int $userid ID of the graded user
+ * @param array $data array itemnumber=>outcomegrade
+ * @return boolean returns true if grade items were found and updated successfully
  */
 function grade_update_outcomes($source, $courseid, $itemtype, $itemmodule, $iteminstance, $userid, $data) {
     if ($items = grade_item::fetch_all(array('itemtype'=>$itemtype, 'itemmodule'=>$itemmodule, 'iteminstance'=>$iteminstance, 'courseid'=>$courseid))) {
@@ -326,15 +330,16 @@ function grade_update_outcomes($source, $courseid, $itemtype, $itemmodule, $item
 }
 
 /**
- * Returns grading information for given activity, optionally with user grades
+ * Returns grading information for given activity - optionally with users grades
  * Manual, course or category items can not be queried.
  *
- * @category grade
- * @param int    $courseid ID of course
- * @param string $itemtype Type of grade item. For example, 'mod' or 'block'
- * @param string $itemmodule More specific then $itemtype. For example, 'forum' or 'quiz'. May be NULL for some item types
- * @param int    $iteminstance ID of the item module
- * @param mixed  $userid_or_ids Either a single user ID, an array of user IDs or null. If user ID or IDs are not supplied returns information about grade_item
+ * @access public
+ * @global object
+ * @param int $courseid id of course
+ * @param string $itemtype 'mod', 'block'
+ * @param string $itemmodule 'forum, 'quiz', etc.
+ * @param int $iteminstance id of the item module
+ * @param array|int $userid_or_ids optional id of the graded user or array of ids; if userid not used, returns only information about grade_item
  * @return array Array of grade information objects (scaleid, name, grade and locked status, etc.) indexed with itemnumbers
  */
 function grade_get_grades($courseid, $itemtype, $itemmodule, $iteminstance, $userid_or_ids=null) {
@@ -547,13 +552,14 @@ function grade_get_grades($courseid, $itemtype, $itemmodule, $iteminstance, $use
 ///////////////////////////////////////////////////////////////////
 
 /**
- * Returns a  course gradebook setting
+ * Returns course gradebook setting
  *
+ * @global object
  * @param int $courseid
  * @param string $name of setting, maybe null if reset only
- * @param string $default value to return if setting is not found
+ * @param string $default
  * @param bool $resetcache force reset of internal static cache
- * @return string value of the setting, $default if setting not found, NULL if supplied $name is null
+ * @return string value, NULL if no setting
  */
 function grade_get_setting($courseid, $name, $default=null, $resetcache=false) {
     global $DB;
@@ -587,6 +593,7 @@ function grade_get_setting($courseid, $name, $default=null, $resetcache=false) {
 /**
  * Returns all course gradebook settings as object properties
  *
+ * @global object
  * @param int $courseid
  * @return object
  */
@@ -606,11 +613,13 @@ function grade_get_settings($courseid) {
 }
 
 /**
- * Add, update or delete a course gradebook setting
+ * Add/update course gradebook setting
  *
- * @param int $courseid The course ID
- * @param string $name Name of the setting
- * @param string $value Value of the setting. NULL means delete the setting.
+ * @global object
+ * @param int $courseid
+ * @param string $name of setting
+ * @param string value, NULL means no setting==remove
+ * @return void
  */
 function grade_set_setting($courseid, $name, $value) {
     global $DB;
@@ -638,11 +647,11 @@ function grade_set_setting($courseid, $name, $value) {
 /**
  * Returns string representation of grade value
  *
- * @param float $value The grade value
- * @param object $grade_item Grade item object passed by reference to prevent scale reloading
+ * @param float $value grade value
+ * @param object $grade_item - by reference to prevent scale reloading
  * @param bool $localized use localised decimal separator
- * @param int $displaytype type of display. For example GRADE_DISPLAY_TYPE_REAL, GRADE_DISPLAY_TYPE_PERCENTAGE, GRADE_DISPLAY_TYPE_LETTER
- * @param int $decimals The number of decimal places when displaying float values
+ * @param int $displaytype type of display - GRADE_DISPLAY_TYPE_REAL, GRADE_DISPLAY_TYPE_PERCENTAGE, GRADE_DISPLAY_TYPE_LETTER
+ * @param int $decimals number of decimal places when displaying float values
  * @return string
  */
 function grade_format_gradevalue($value, &$grade_item, $localized=true, $displaytype=null, $decimals=null) {
@@ -707,13 +716,7 @@ function grade_format_gradevalue($value, &$grade_item, $localized=true, $display
 }
 
 /**
- * Returns a float representation of a grade value
- *
- * @param float $value The grade value
- * @param object $grade_item Grade item object
- * @param int $decimals The number of decimal places
- * @param bool $localized use localised decimal separator
- * @return string
+ * @todo Document this function
  */
 function grade_format_gradevalue_real($value, $grade_item, $decimals, $localized) {
     if ($grade_item->gradetype == GRADE_TYPE_SCALE) {
@@ -728,15 +731,8 @@ function grade_format_gradevalue_real($value, $grade_item, $decimals, $localized
         return format_float($value, $decimals, $localized);
     }
 }
-
 /**
- * Returns a percentage representation of a grade value
- *
- * @param float $value The grade value
- * @param object $grade_item Grade item object
- * @param int $decimals The number of decimal places
- * @param bool $localized use localised decimal separator
- * @return string
+ * @todo Document this function
  */
 function grade_format_gradevalue_percentage($value, $grade_item, $decimals, $localized) {
     $min = $grade_item->grademin;
@@ -748,17 +744,11 @@ function grade_format_gradevalue_percentage($value, $grade_item, $decimals, $loc
     $percentage = (($value-$min)*100)/($max-$min);
     return format_float($percentage, $decimals, $localized).' %';
 }
-
 /**
- * Returns a letter grade representation of a grade value
- * The array of grade letters used is produced by {@link grade_get_letters()} using the course context
- *
- * @param float $value The grade value
- * @param object $grade_item Grade item object
- * @return string
+ * @todo Document this function
  */
 function grade_format_gradevalue_letter($value, $grade_item) {
-    $context = context_course::instance($grade_item->courseid, IGNORE_MISSING);
+    $context = get_context_instance(CONTEXT_COURSE, $grade_item->courseid);
     if (!$letters = grade_get_letters($context)) {
         return ''; // no letters??
     }
@@ -779,10 +769,10 @@ function grade_format_gradevalue_letter($value, $grade_item) {
 
 
 /**
- * Returns grade options for gradebook grade category menu
+ * Returns grade options for gradebook category menu
  *
- * @param int $courseid The course ID
- * @param bool $includenew Include option for new category at array index -1
+ * @param int $courseid
+ * @param bool $includenew include option for new category (-1)
  * @return array of grade categories in course
  */
 function grade_get_categories_menu($courseid, $includenew=false) {
@@ -814,10 +804,10 @@ function grade_get_categories_menu($courseid, $includenew=false) {
 }
 
 /**
- * Returns the array of grade letters to be used in the supplied context
+ * Returns grade letters array used in context
  *
- * @param object $context Context object or null for defaults
- * @return array of grade_boundary (minimum) => letter_string
+ * @param object $context object or null for defaults
+ * @return array of grade_boundary=>letter_string
  */
 function grade_get_letters($context=null) {
     global $DB;
@@ -862,13 +852,14 @@ function grade_get_letters($context=null) {
 
 
 /**
- * Verify new value of grade item idnumber. Checks for uniqueness of new ID numbers. Old ID numbers are kept intact.
+ * Verify new value of idnumber - checks for uniqueness of new idnumbers, old are kept intact
  *
- * @param string $idnumber string (with magic quotes)
- * @param int $courseid ID numbers are course unique only
- * @param grade_item $grade_item The grade item this idnumber is associated with
- * @param stdClass $cm used for course module idnumbers and items attached to modules
- * @return bool true means idnumber ok
+ * @global object
+ * @param string idnumber string (with magic quotes)
+ * @param int $courseid id numbers are course unique only
+ * @param object $grade_item is item idnumber
+ * @param object $cm used for course module idnumbers and items attached to modules
+ * @return boolean true means idnumber ok
  */
 function grade_verify_idnumber($idnumber, $courseid, $grade_item=null, $cm=null) {
     global $DB;
@@ -904,7 +895,8 @@ function grade_verify_idnumber($idnumber, $courseid, $grade_item=null, $cm=null)
 /**
  * Force final grade recalculation in all course items
  *
- * @param int $courseid The course ID to recalculate
+ * @global object
+ * @param int $courseid
  */
 function grade_force_full_regrading($courseid) {
     global $DB;
@@ -912,7 +904,9 @@ function grade_force_full_regrading($courseid) {
 }
 
 /**
- * Forces regrading of all site grades. Used when changing site setings
+ * Forces regrading of all site grades - usualy when chanign site setings
+ * @global object
+ * @global object
  */
 function grade_force_site_regrading() {
     global $CFG, $DB;
@@ -939,7 +933,7 @@ function grade_recover_history_grades($userid, $courseid) {
     //Check the user is enrolled in this course
     //Dont bother checking if they have a gradeable role. They may get one later so recover
     //whatever grades they have now just in case.
-    $course_context = context_course::instance($courseid);
+    $course_context = get_context_instance(CONTEXT_COURSE, $courseid);
     if (!is_enrolled($course_context, $userid)) {
         debugging('Attempting to recover the grades of a user who is deleted or not enrolled. Skipping recover.');
         return false;
@@ -1000,10 +994,10 @@ function grade_recover_history_grades($userid, $courseid) {
 /**
  * Updates all final grades in course.
  *
- * @param int $courseid The course ID
- * @param int $userid If specified try to do a quick regrading of the grades of this user only
- * @param object $updated_item Optional grade item to be marked for regrading
- * @return bool true if ok, array of errors if problems found. Grade item id => error message
+ * @param int $courseid
+ * @param int $userid if specified, try to do a quick regrading of grades of this user only
+ * @param object $updated_item the item in which
+ * @return boolean true if ok, array of errors if problems found (item id is used as key)
  */
 function grade_regrade_final_grades($courseid, $userid=null, $updated_item=null) {
 
@@ -1115,11 +1109,11 @@ function grade_regrade_final_grades($courseid, $userid=null, $updated_item=null)
 }
 
 /**
- * Refetches grade data from course activities
- *
- * @param int $courseid The course ID
- * @param string $modname Limit the grade fetch to a single module type. For example 'forum'
+ * Refetches data from all course activities
+ * @param int $courseid the course ID
+ * @param string $modname limit the grade fetch to a single module type
  * @param int $userid limit the grade fetch to a single user
+ * @return void
  */
 function grade_grab_course_grades($courseid, $modname=null, $userid=0) {
     global $CFG, $DB;
@@ -1167,9 +1161,11 @@ function grade_grab_course_grades($courseid, $modname=null, $userid=0) {
 /**
  * Force full update of module grades in central gradebook
  *
- * @param object $modinstance Module object with extra cmidnumber and modname property
- * @param int $userid Optional user ID if limiting the update to a single user
- * @return bool True if success
+ * @global object
+ * @global object
+ * @param object $modinstance object with extra cmidnumber and modname property
+ * @param int $userid
+ * @return boolean success
  */
 function grade_update_mod_grades($modinstance, $userid=0) {
     global $CFG, $DB;
@@ -1181,8 +1177,8 @@ function grade_update_mod_grades($modinstance, $userid=0) {
     }
     include_once($fullmod.'/lib.php');
 
-    $updateitemfunc   = $modinstance->modname.'_grade_item_update';
     $updategradesfunc = $modinstance->modname.'_update_grades';
+    $updateitemfunc   = $modinstance->modname.'_grade_item_update';
 
     if (function_exists($updategradesfunc) and function_exists($updateitemfunc)) {
         //new grading supported, force updating of grades
@@ -1190,7 +1186,7 @@ function grade_update_mod_grades($modinstance, $userid=0) {
         $updategradesfunc($modinstance, $userid);
 
     } else {
-        // Module does not support grading?
+        // mudule does not support grading??
     }
 
     return true;
@@ -1199,8 +1195,8 @@ function grade_update_mod_grades($modinstance, $userid=0) {
 /**
  * Remove grade letters for given context
  *
- * @param context $context The context
- * @param bool $showfeedback If true a success notification will be displayed
+ * @param context $context
+ * @param bool $showfeedback
  */
 function remove_grade_letters($context, $showfeedback) {
     global $DB, $OUTPUT;
@@ -1214,11 +1210,10 @@ function remove_grade_letters($context, $showfeedback) {
 }
 
 /**
- * Remove all grade related course data
- * Grade history is kept
+ * Remove all grade related course data - history is kept
  *
- * @param int $courseid The course ID
- * @param bool $showfeedback If true success notifications will be displayed
+ * @param int $courseid
+ * @param bool $showfeedback print feedback
  */
 function remove_course_grades($courseid, $showfeedback) {
     global $DB, $OUTPUT;
@@ -1228,7 +1223,7 @@ function remove_course_grades($courseid, $showfeedback) {
 
     $course_category = grade_category::fetch_course_category($courseid);
     $course_category->delete('coursedelete');
-    $fs->delete_area_files(context_course::instance($courseid)->id, 'grade', 'feedback');
+    $fs->delete_area_files(get_context_instance(CONTEXT_COURSE, $courseid)->id, 'grade', 'feedback');
     if ($showfeedback) {
         echo $OUTPUT->notification($strdeleted.' - '.get_string('grades', 'grades').', '.get_string('items', 'grades').', '.get_string('categories', 'grades'), 'notifysuccess');
     }
@@ -1259,25 +1254,26 @@ function remove_course_grades($courseid, $showfeedback) {
 }
 
 /**
- * Called when course category is deleted
- * Cleans the gradebook of associated data
+ * Called when course category deleted - cleanup gradebook
  *
- * @param int $categoryid The course category id
- * @param int $newparentid If empty everything is deleted. Otherwise the ID of the category where content moved
+ * @global object
+ * @param int $categoryid course category id
+ * @param int $newparentid empty means everything deleted, otherwise id of category where content moved
  * @param bool $showfeedback print feedback
  */
 function grade_course_category_delete($categoryid, $newparentid, $showfeedback) {
     global $DB;
 
-    $context = context_coursecat::instance($categoryid);
+    $context = get_context_instance(CONTEXT_COURSECAT, $categoryid);
     $DB->delete_records('grade_letters', array('contextid'=>$context->id));
 }
 
 /**
- * Does gradebook cleanup when a module is uninstalled
- * Deletes all associated grade items
+ * Does gradebook cleanup when module uninstalled.
  *
- * @param string $modname The grade item module name to remove. For example 'forum'
+ * @global object
+ * @global object
+ * @param string $modname
  */
 function grade_uninstalled_module($modname) {
     global $CFG, $DB;
@@ -1296,9 +1292,8 @@ function grade_uninstalled_module($modname) {
 }
 
 /**
- * Deletes all of a user's grade data from gradebook
- *
- * @param int $userid The user whose grade data should be deleted
+ * Deletes all user data from gradebook.
+ * @param $userid
  */
 function grade_user_delete($userid) {
     if ($grades = grade_grade::fetch_all(array('userid'=>$userid))) {
@@ -1309,10 +1304,8 @@ function grade_user_delete($userid) {
 }
 
 /**
- * Purge course data when user unenrolls from a course
- *
- * @param int $courseid The ID of the course the user has unenrolled from
- * @param int $userid The ID of the user unenrolling
+ * Purge course data when user unenrolled.
+ * @param $userid
  */
 function grade_user_unenrol($courseid, $userid) {
     if ($items = grade_item::fetch_all(array('courseid'=>$courseid))) {
@@ -1327,7 +1320,10 @@ function grade_user_unenrol($courseid, $userid) {
 }
 
 /**
- * Grading cron job. Performs background clean up on the gradebook
+ * Grading cron job
+ *
+ * @global object
+ * @global object
  */
 function grade_cron() {
     global $CFG, $DB;
@@ -1379,9 +1375,9 @@ function grade_cron() {
 }
 
 /**
- * Reset all course grades, refetch from the activities and recalculate
+ * Resel all course grades
  *
- * @param int $courseid The course to reset
+ * @param int $courseid
  * @return bool success
  */
 function grade_course_reset($courseid) {
@@ -1403,10 +1399,10 @@ function grade_course_reset($courseid) {
 }
 
 /**
- * Convert a number to 5 decimal point float, an empty string or a null db compatible format
+ * Convert number to 5 decimalfloat, empty string or null db compatible format
  * (we need this to decide if db value changed)
  *
- * @param mixed $number The number to convert
+ * @param mixed $number
  * @return mixed float or null
  */
 function grade_floatval($number) {
@@ -1419,12 +1415,12 @@ function grade_floatval($number) {
 }
 
 /**
- * Compare two float numbers safely. Uses 5 decimals php precision using {@link grade_floatval()}. Nulls accepted too.
- * Used for determining if a database update is required
+ * Compare two float numbers safely. Uses 5 decimals php precision. Nulls accepted too.
+ * Used for skipping of db updates
  *
- * @param float $f1 Float one to compare
- * @param float $f2 Float two to compare
- * @return bool True if the supplied values are different
+ * @param float $f1
+ * @param float $f2
+ * @return bool true if different
  */
 function grade_floats_different($f1, $f2) {
     // note: db rounding for 10,5 is different from php round() function
@@ -1432,15 +1428,15 @@ function grade_floats_different($f1, $f2) {
 }
 
 /**
- * Compare two float numbers safely. Uses 5 decimals php precision using {@link grade_floatval()}
+ * Compare two float numbers safely. Uses 5 decimals php precision.
  *
  * Do not use rounding for 10,5 at the database level as the results may be
  * different from php round() function.
  *
  * @since 2.0
- * @param float $f1 Float one to compare
- * @param float $f2 Float two to compare
- * @return bool True if the values should be considered as the same grades
+ * @param float $f1
+ * @param float $f2
+ * @return bool true if the values should be considered as the same grades
  */
 function grade_floats_equal($f1, $f2) {
     return (grade_floatval($f1) === grade_floatval($f2));

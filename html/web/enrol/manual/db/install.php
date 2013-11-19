@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,7 +18,8 @@
 /**
  * Manual enrol plugin installation script
  *
- * @package    enrol_manual
+ * @package    enrol
+ * @subpackage manual
  * @copyright  2010 Petr Skoda {@link http://skodak.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 
 function xmldb_enrol_manual_install() {
     global $CFG;
+
+    // migrate settings during 2.0 upgrade
 
 }
 

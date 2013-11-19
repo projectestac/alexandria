@@ -18,7 +18,8 @@
 /**
  * Strings for component 'workshopform_accumulative', language 'en', branch 'MOODLE_20_STABLE'
  *
- * @package    workshopform_accumulative
+ * @package    workshopform
+ * @subpackage accumulative
  * @copyright  2009 David Mudrak <david@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */

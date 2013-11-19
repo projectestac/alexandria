@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -25,8 +26,11 @@
 
 function xmldb_filter_mediaplugin_install() {
     global $CFG;
-    require_once("$CFG->libdir/filterlib.php");
 
-    filter_set_global_state('filter/mediaplugin', TEXTFILTER_ON);
+    //enable by default in new installs and upgrades (because we did not have version.php before)
+    // but only if insecure swf embedding is off - we definitely do not want to open security hopes on existing sites
+    if (empty($CFG->filter_mediaplugin_enable_swf)) {
+        filter_set_global_state('filter/mediaplugin', TEXTFILTER_ON);
+    }
 }
 

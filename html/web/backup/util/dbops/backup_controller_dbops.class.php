@@ -32,29 +32,15 @@
  */
 abstract class backup_controller_dbops extends backup_dbops {
 
-    /**
-     * Send one backup controller to DB
-     *
-     * @param backup_controller $controller controller to send to DB
-     * @param string $checksum hash of the controller to be checked
-     * @param bool $includeobj to decide if the object itself must be updated (true) or no (false)
-     * @param bool $cleanobj to decide if the object itself must be cleaned (true) or no (false)
-     * @return int id of the controller record in the DB
-     * @throws backup_controller_exception|backup_dbops_exception
-     */
-    public static function save_controller($controller, $checksum, $includeobj = true, $cleanobj = false) {
+    public static function save_controller($controller, $checksum) {
         global $DB;
         // Check we are going to save one backup_controller
         if (! $controller instanceof backup_controller) {
             throw new backup_controller_exception('backup_controller_expected');
         }
-        // Check checksum is ok. Only if we are including object info. Sounds silly but it isn't ;-).
-        if ($includeobj and !$controller->is_checksum_correct($checksum)) {
+        // Check checksum is ok. Sounds silly but it isn't ;-)
+        if (!$controller->is_checksum_correct($checksum)) {
             throw new backup_dbops_exception('backup_controller_dbops_saving_checksum_mismatch');
-        }
-        // Cannot request to $includeobj and $cleanobj at the same time.
-        if ($includeobj and $cleanobj) {
-            throw new backup_dbops_exception('backup_controller_dbops_saving_cannot_include_and_delete');
         }
         // Get all the columns
         $rec = new stdclass();
@@ -71,11 +57,7 @@ abstract class backup_controller_dbops extends backup_dbops {
         $rec->executiontime= $controller->get_executiontime();
         $rec->checksum     = $checksum;
         // Serialize information
-        if ($includeobj) {
-            $rec->controller = base64_encode(serialize($controller));
-        } else if ($cleanobj) {
-            $rec->controller = '';
-        }
+        $rec->controller = base64_encode(serialize($controller));
         // Send it to DB
         if ($recexists = $DB->get_record('backup_controllers', array('backupid' => $rec->backupid))) {
             $rec->id = $recexists->id;
@@ -165,7 +147,7 @@ abstract class backup_controller_dbops extends backup_dbops {
 
         $targettablename = 'backup_ids_temp';
         $table = new xmldb_table($targettablename);
-        $dbman->drop_table($table); // And drop it
+        $dbman->drop_temp_table($table); // And drop it
     }
 
     /**
@@ -406,27 +388,6 @@ abstract class backup_controller_dbops extends backup_dbops {
                    AND b.itemname = 'userfinal'
                    AND u.mnethostid != ?";
         $count = $DB->count_records_sql($sql, array($backupid, $CFG->mnet_localhost_id));
-        return (int)(bool)$count;
-    }
-
-    /**
-     * Given the backupid, detect if the backup contains references to external contents
-     *
-     * @copyright 2012 Dongsheng Cai {@link http://dongsheng.org}
-     * @return int
-     */
-    public static function backup_includes_file_references($backupid) {
-        global $CFG, $DB;
-
-        $sql = "SELECT count(r.repositoryid)
-                  FROM {files} f
-                  LEFT JOIN {files_reference} r
-                       ON r.id = f.referencefileid
-                  JOIN {backup_ids_temp} bi
-                       ON f.id = bi.itemid
-                 WHERE bi.backupid = ?
-                       AND bi.itemname = 'filefinal'";
-        $count = $DB->count_records_sql($sql, array($backupid));
         return (int)(bool)$count;
     }
 

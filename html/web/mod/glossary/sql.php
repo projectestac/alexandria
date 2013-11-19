@@ -11,6 +11,7 @@
 /// Initialise some variables
     $sqlorderby = '';
     $sqlsortkey = NULL;
+    $textlib = textlib_get_instance();
 
     // For cases needing inner view
     $sqlwrapheader = '';
@@ -88,14 +89,14 @@
     case GLOSSARY_AUTHOR_VIEW:
 
         $where = '';
-        $params['hookup'] = textlib::strtoupper($hook);
+        $params['hookup'] = $textlib->strtoupper($hook);
 
         if ( $sqlsortkey == 'firstname' ) {
             $usernamefield = $DB->sql_fullname('u.firstname' , 'u.lastname');
         } else {
             $usernamefield = $DB->sql_fullname('u.lastname' , 'u.firstname');
         }
-        $where = "AND " . $DB->sql_substr("upper($usernamefield)", 1, textlib::strlen($hook)) . " = :hookup";
+        $where = "AND " . $DB->sql_substr("upper($usernamefield)", 1, $textlib->strlen($hook)) . " = :hookup";
 
         if ( $hook == 'ALL' ) {
             $where = '';
@@ -114,10 +115,10 @@
         $printpivot = 0;
 
         $where = '';
-        $params['hookup'] = textlib::strtoupper($hook);
+        $params['hookup'] = $textlib->strtoupper($hook);
 
         if ($hook != 'ALL' and $hook != 'SPECIAL') {
-            $where = "AND " . $DB->sql_substr("upper(concept)", 1, textlib::strlen($hook)) . " = :hookup";
+            $where = "AND " . $DB->sql_substr("upper(concept)", 1, $textlib->strlen($hook)) . " = :hookup";
         }
 
         $sqlselect  = "SELECT ge.*, ge.concept AS glossarypivot";
@@ -175,7 +176,7 @@
 
                 if (substr($searchterm,0,1) == '+') {
                     $searchterm = trim($searchterm, '+-');
-                    if (textlib::strlen($searchterm) < 2) {
+                    if ($textlib->strlen($searchterm) < 2) {
                         continue;
                     }
                     $searchterm = preg_quote($searchterm, '|');
@@ -184,7 +185,7 @@
 
                 } else if (substr($searchterm,0,1) == "-") {
                     $searchterm = trim($searchterm, '+-');
-                    if (textlib::strlen($searchterm) < 2) {
+                    if ($textlib->strlen($searchterm) < 2) {
                         continue;
                     }
                     $searchterm = preg_quote($searchterm, '|');
@@ -192,7 +193,7 @@
                     $params['ss'.$i] = "(^|[^a-zA-Z0-9])$searchterm([^a-zA-Z0-9]|$)";
 
                 } else {
-                    if (textlib::strlen($searchterm) < 2) {
+                    if ($textlib->strlen($searchterm) < 2) {
                         continue;
                     }
                     $searchcond[] = $DB->sql_like($concat, ":ss$i", false, true, $NOT);
@@ -234,8 +235,8 @@
 
         case 'letter':
             if ($hook != 'ALL' and $hook != 'SPECIAL') {
-                $params['hookup'] = textlib::strtoupper($hook);
-                $where = "AND " . $DB->sql_substr("upper(concept)", 1, textlib::strlen($hook)) . " = :hookup";
+                $params['hookup'] = $textlib->strtoupper($hook);
+                $where = "AND " . $DB->sql_substr("upper(concept)", 1, $textlib->strlen($hook)) . " = :hookup";
             }
             if ($hook == 'SPECIAL') {
                 //Create appropiate IN contents

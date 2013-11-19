@@ -35,11 +35,10 @@ if ($showswatch == "light") {
     $datatheme = 'a';
     $databodytheme = 'c';
 }
-$bodyclasses = array();
 $mypagetype = $PAGE->pagetype;
 
 echo $OUTPUT->doctype() ?>
-<html id="mymobile" <?php echo $OUTPUT->htmlattributes() ?>>
+<html <?php echo $OUTPUT->htmlattributes() ?>>
 <head>
     <title><?php echo $PAGE->title ?></title>
     <link rel="shortcut icon" href="<?php echo $OUTPUT->pix_url('favicon', 'theme')?>" />
@@ -53,7 +52,7 @@ echo $OUTPUT->doctype() ?>
     <!-- END OF HEADER -->
     <?php if ($mypagetype == 'mod-chat-gui_ajax-index') { ?>
     <div data-role="page" id="chatpage" data-fullscreen="true" data-title="<?php p($SITE->shortname) ?>">
-        <?php echo $OUTPUT->main_content(); ?>
+        <?php echo core_renderer::MAIN_CONTENT_TOKEN ?>
         <input type="button" value="back" data-role="none" id="chatback" onClick="history.back()">
     </div>
     <?php } else { ?>
@@ -64,8 +63,8 @@ echo $OUTPUT->doctype() ?>
                 <a class="ui-btn-right" data-ajax="false" data-icon="home" href="<?php p($CFG->wwwroot) ?>" data-iconpos="notext"><?php p(get_string('home')); ?></a>
             <?php } ?>
         </div>
-        <div data-role="content" class="mymobilecontent" data-theme="<?php echo $databodytheme;?>">
-            <?php echo $OUTPUT->main_content(); ?>
+        <div data-role="content" data-theme="<?php echo $databodytheme;?>">
+            <?php echo core_renderer::MAIN_CONTENT_TOKEN ?>
         </div>
     </div>
     <?php } ?>

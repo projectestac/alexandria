@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,11 +16,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Definition of the grade_overview_report class
- *
- * @package gradereport_overview
- * @copyright 2007 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * File in which the overview_report class is defined.
+ * @package gradebook
  */
 
 require_once($CFG->dirroot . '/grade/report/lib.php');
@@ -28,7 +26,7 @@ require_once($CFG->libdir.'/tablelib.php');
 /**
  * Class providing an API for the overview report building and displaying.
  * @uses grade_report
- * @package gradereport_overview
+ * @package gradebook
  */
 class grade_report_overview extends grade_report {
 
@@ -39,20 +37,13 @@ class grade_report_overview extends grade_report {
     public $user;
 
     /**
-     * The user's courses
-     * @var array $courses
-     */
-    public $courses;
-
-    /**
      * A flexitable to hold the data.
      * @var object $table
      */
     public $table;
 
     /**
-     * Show student ranks within each course.
-     * @var array $showrank
+     * show student ranks
      */
     public $showrank;
 
@@ -71,25 +62,11 @@ class grade_report_overview extends grade_report {
         global $CFG, $COURSE, $DB;
         parent::__construct($COURSE->id, $gpr, $context);
 
+        $this->showrank = grade_get_setting($this->courseid, 'report_overview_showrank', !empty($CFG->grade_report_overview_showrank));
         $this->showtotalsifcontainhidden = grade_get_setting($this->courseid, 'report_overview_showtotalsifcontainhidden', $CFG->grade_report_overview_showtotalsifcontainhidden);
 
-        // Get the user (for full name).
+        // get the user (for full name)
         $this->user = $DB->get_record('user', array('id' => $userid));
-
-        // Load the user's courses.
-        $this->courses = enrol_get_users_courses($this->user->id, false, 'id, shortname, showgrades');
-
-        $this->showrank = array();
-        $this->showrank['any'] = false;
-        if ($this->courses) {
-            foreach ($this->courses as $course) {
-                $this->showrank[$course->id] = grade_get_setting($course->id, 'report_overview_showrank', !empty($CFG->grade_report_overview_showrank));
-                if ($this->showrank[$course->id]) {
-                    $this->showrank['any'] = true;
-                }
-            }
-        }
-
 
         // base url for sorting by first/last name
         $this->baseurl = $CFG->wwwroot.'/grade/overview/index.php?id='.$userid;
@@ -108,7 +85,7 @@ class grade_report_overview extends grade_report {
          */
 
         // setting up table headers
-        if ($this->showrank['any']) {
+        if ($this->showrank) {
             $tablecolumns = array('coursename', 'grade', 'rank');
             $tableheaders = array($this->get_lang_string('coursename', 'grades'),
                                   $this->get_lang_string('grade'),
@@ -134,16 +111,16 @@ class grade_report_overview extends grade_report {
     public function fill_table() {
         global $CFG, $DB, $OUTPUT;
 
-        // Only show user's courses instead of all courses.
-        if ($this->courses) {
+        // MDL-11679, only show user's courses instead of all courses
+        if ($courses = enrol_get_users_courses($this->user->id, false, 'id, shortname, showgrades')) {
             $numusers = $this->get_numusers(false);
 
-            foreach ($this->courses as $course) {
+            foreach ($courses as $course) {
                 if (!$course->showgrades) {
                     continue;
                 }
 
-                $coursecontext = context_course::instance($course->id);
+                $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
                 if (!$course->visible && !has_capability('moodle/course:viewhiddencourses', $coursecontext)) {
                     // The course is hidden and the user isn't allowed to see it
@@ -172,10 +149,10 @@ class grade_report_overview extends grade_report {
 
                 $data = array($courselink, grade_format_gradevalue($finalgrade, $course_item, true));
 
-                if (!$this->showrank['any']) {
+                if (!$this->showrank) {
                     //nothing to do
 
-                } else if ($this->showrank[$course->id] && !is_null($finalgrade)) {
+                } else if (!is_null($finalgrade)) {
                     /// find the number of users with a higher grade
                     /// please note this can not work if hidden grades involved :-( to be fixed in 2.0
                     $params = array($finalgrade, $course_item->id);
@@ -188,8 +165,7 @@ class grade_report_overview extends grade_report {
                     $data[] = "$rank/$numusers";
 
                 } else {
-                    // No grade, no rank.
-                    // Or this course wants rank hidden.
+                    // no grade, no rank
                     $data[] = '-';
                 }
 

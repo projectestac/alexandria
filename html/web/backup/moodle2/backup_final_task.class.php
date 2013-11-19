@@ -16,16 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_final_task class
- *
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Final task that provides all the final steps necessary in order to finish one
@@ -43,7 +38,7 @@ class backup_final_task extends backup_task {
         global $CFG;
 
         // Set the backup::VAR_CONTEXTID setting to course context as far as next steps require that
-        $coursectxid = context_course::instance($this->get_courseid())->id;
+        $coursectxid = get_context_instance(CONTEXT_COURSE, $this->get_courseid())->id;
         $this->add_setting(new backup_activity_generic_setting(backup::VAR_CONTEXTID, base_setting::IS_INTEGER, $coursectxid));
 
         // Set the backup::VAR_COURSEID setting to course, we'll need that in some steps
@@ -113,26 +108,26 @@ class backup_final_task extends backup_task {
 
         require_once($CFG->dirroot . '/backup/util/helper/convert_helper.class.php');
 
-        // Look for converter steps only in type course and mode general backup operations.
+        //Checking if we have some converter involved in the process
+        $converters = convert_helper::available_converters(false);
+        //Conversion status
         $conversion = false;
-        if ($this->plan->get_type() == backup::TYPE_1COURSE and $this->plan->get_mode() == backup::MODE_GENERAL) {
-            $converters = convert_helper::available_converters(false);
-            foreach ($converters as $value) {
-                if ($this->get_setting_value($value)) {
-                    // Zip class.
-                    $zip_contents      = "{$value}_zip_contents";
-                    $store_backup_file = "{$value}_store_backup_file";
-                    $convert           = "{$value}_backup_convert";
+        foreach ($converters as $value) {
+            if ($this->get_setting_value($value)) {
+                //zip class
+                $zip_contents      = "{$value}_zip_contents";
+                $store_backup_file = "{$value}_store_backup_file";
+                $convert           = "{$value}_backup_convert";
 
-                    $this->add_step(new $convert("package_convert_{$value}"));
-                    $this->add_step(new $zip_contents("zip_contents_{$value}"));
-                    $this->add_step(new $store_backup_file("save_backupfile_{$value}"));
-                    if (!$conversion) {
-                        $conversion = true;
-                    }
+                $this->add_step(new $convert("package_convert_{$value}"));
+                $this->add_step(new $zip_contents("zip_contents_{$value}"));
+                $this->add_step(new $store_backup_file("save_backupfile_{$value}"));
+                if (!$conversion) {
+                    $conversion = true;
                 }
             }
         }
+
 
         // On backup::MODE_IMPORT, we don't have to zip nor store the the file, skip these steps
         if (($this->plan->get_mode() != backup::MODE_IMPORT) && !$conversion) {

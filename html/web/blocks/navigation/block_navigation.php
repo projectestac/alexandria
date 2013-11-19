@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -18,8 +19,8 @@
  * This file contains classes used to manage the navigation structures in Moodle
  * and was introduced as part of the changes occuring in Moodle 2.0
  *
- * @since     2.0
- * @package   block_navigation
+ * @since 2.0
+ * @package blocks
  * @copyright 2009 Sam Hemelryk
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -29,20 +30,19 @@
  *
  * Used to produce the global navigation block new to Moodle 2.0
  *
- * @package   block_navigation
- * @category  navigation
+ * @package blocks
  * @copyright 2009 Sam Hemelryk
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class block_navigation extends block_base {
 
-    /** @var int This allows for multiple navigation trees */
+    /** @var int */
     public static $navcount;
-    /** @var string The name of the block */
+    /** @var string */
     public $blockname = null;
-    /** @var bool A switch to indicate whether content has been generated or not. */
+    /** @var bool */
     protected $contentgenerated = false;
-    /** @var bool|null variable for checking if the block is docked*/
+    /** @var bool|null */
     protected $docked = null;
 
     /** @var int Trim characters from the right */
@@ -63,7 +63,7 @@ class block_navigation extends block_base {
 
     /**
      * All multiple instances of this block
-     * @return bool Returns false
+     * @return bool Returns true
      */
     function instance_allow_multiple() {
         return false;
@@ -95,18 +95,10 @@ class block_navigation extends block_base {
         return false;
     }
 
-    /**
-     * Find out if an instance can be docked.
-     *
-     * @return bool true or false depending on whether the instance can be docked or not.
-     */
     function instance_can_be_docked() {
         return (parent::instance_can_be_docked() && (empty($this->config->enabledock) || $this->config->enabledock=='yes'));
     }
 
-    /**
-     * Gets Javascript that may be required for navigation
-     */
     function get_required_javascript() {
         global $CFG;
         user_preference_allow_ajax_update('docked_block_instance_'.$this->instance->id, PARAM_INT);
@@ -132,8 +124,6 @@ class block_navigation extends block_base {
 
     /**
      * Gets the content for this block by grabbing it from $this->page
-     *
-     * @return object $this->content
      */
     function get_content() {
         global $CFG, $OUTPUT;
@@ -144,7 +134,7 @@ class block_navigation extends block_base {
         // JS for navigation moved to the standard theme, the code will probably have to depend on the actual page structure
         // $this->page->requires->js('/lib/javascript-navigation.js');
         // Navcount is used to allow us to have multiple trees although I dont' know why
-        // you would want two trees the same
+        // you would want to trees the same
 
         block_navigation::$navcount++;
 
@@ -177,10 +167,9 @@ class block_navigation extends block_base {
             $trimlength = (int)$this->config->trimlength;
         }
 
-        // Get the navigation object or don't display the block if none provided.
-        if (!$navigation = $this->get_navigation()) {
-            return null;
-        }
+        // Initialise (only actually happens if it hasn't already been done yet
+        $this->page->navigation->initialise();
+        $navigation = clone($this->page->navigation);
         $expansionlimit = null;
         if (!empty($this->config->expansionlimit)) {
             $expansionlimit = $this->config->expansionlimit;
@@ -205,7 +194,7 @@ class block_navigation extends block_base {
         $options['linkcategories'] = (!empty($this->config->linkcategories) && $this->config->linkcategories == 'yes');
 
         // Grab the items to display
-        $renderer = $this->page->get_renderer($this->blockname);
+        $renderer = $this->page->get_renderer('block_navigation');
         $this->content = new stdClass();
         $this->content->text = $renderer->navigation_tree($navigation, $expansionlimit, $options);
 
@@ -216,24 +205,13 @@ class block_navigation extends block_base {
     }
 
     /**
-     * Returns the navigation
-     *
-     * @return navigation_node The navigation object to display
-     */
-    protected function get_navigation() {
-        // Initialise (only actually happens if it hasn't already been done yet)
-        $this->page->navigation->initialise();
-        return clone($this->page->navigation);
-    }
-
-    /**
      * Returns the attributes to set for this block
      *
      * This function returns an array of HTML attributes for this block including
-     * the defaults.
-     * {@link block_tree::html_attributes()} is used to get the default arguments
+     * the defaults
+     * {@link block_tree->html_attributes()} is used to get the default arguments
      * and then we check whether the user has enabled hover expansion and add the
-     * appropriate hover class if it has.
+     * appropriate hover class if it has
      *
      * @return array An array of HTML attributes
      */
@@ -249,89 +227,86 @@ class block_navigation extends block_base {
      * Trims the text and shorttext properties of this node and optionally
      * all of its children.
      *
-     * @param navigation_node $node
      * @param int $mode One of navigation_node::TRIM_*
      * @param int $long The length to trim text to
      * @param int $short The length to trim shorttext to
      * @param bool $recurse Recurse all children
+     * @param textlib|null $textlib
      */
-    public function trim(navigation_node $node, $mode=1, $long=50, $short=25, $recurse=true) {
+    public function trim(navigation_node $node, $mode=1, $long=50, $short=25, $recurse=true, $textlib=null) {
+        if ($textlib == null) {
+            $textlib = textlib_get_instance();
+        }
         switch ($mode) {
             case self::TRIM_RIGHT :
-                if (textlib::strlen($node->text)>($long+3)) {
+                if ($textlib->strlen($node->text)>($long+3)) {
                     // Truncate the text to $long characters
-                    $node->text = $this->trim_right($node->text, $long);
+                    $node->text = $this->trim_right($textlib, $node->text, $long);
                 }
-                if (is_string($node->shorttext) && textlib::strlen($node->shorttext)>($short+3)) {
+                if (is_string($node->shorttext) && $textlib->strlen($node->shorttext)>($short+3)) {
                     // Truncate the shorttext
-                    $node->shorttext = $this->trim_right($node->shorttext, $short);
+                    $node->shorttext = $this->trim_right($textlib, $node->shorttext, $short);
                 }
                 break;
             case self::TRIM_LEFT :
-                if (textlib::strlen($node->text)>($long+3)) {
+                if ($textlib->strlen($node->text)>($long+3)) {
                     // Truncate the text to $long characters
-                    $node->text = $this->trim_left($node->text, $long);
+                    $node->text = $this->trim_left($textlib, $node->text, $long);
                 }
-                if (is_string($node->shorttext) && textlib::strlen($node->shorttext)>($short+3)) {
+                if (is_string($node->shorttext) && $textlib->strlen($node->shorttext)>($short+3)) {
                     // Truncate the shorttext
-                    $node->shorttext = $this->trim_left($node->shorttext, $short);
+                    $node->shorttext = $this->trim_left($textlib, $node->shorttext, $short);
                 }
                 break;
             case self::TRIM_CENTER :
-                if (textlib::strlen($node->text)>($long+3)) {
+                if ($textlib->strlen($node->text)>($long+3)) {
                     // Truncate the text to $long characters
-                    $node->text = $this->trim_center($node->text, $long);
+                    $node->text = $this->trim_center($textlib, $node->text, $long);
                 }
-                if (is_string($node->shorttext) && textlib::strlen($node->shorttext)>($short+3)) {
+                if (is_string($node->shorttext) && $textlib->strlen($node->shorttext)>($short+3)) {
                     // Truncate the shorttext
-                    $node->shorttext = $this->trim_center($node->shorttext, $short);
+                    $node->shorttext = $this->trim_center($textlib, $node->shorttext, $short);
                 }
                 break;
         }
         if ($recurse && $node->children->count()) {
             foreach ($node->children as &$child) {
-                $this->trim($child, $mode, $long, $short, true);
+                $this->trim($child, $mode, $long, $short, true, $textlib);
             }
         }
     }
     /**
      * Truncate a string from the left
+     * @param textlib $textlib
      * @param string $string The string to truncate
      * @param int $length The length to truncate to
      * @return string The truncated string
      */
-    protected function trim_left($string, $length) {
-        return '...'.textlib::substr($string, textlib::strlen($string)-$length, $length);
+    protected function trim_left($textlib, $string, $length) {
+        return '...'.$textlib->substr($string, $textlib->strlen($string)-$length, $length);
     }
     /**
      * Truncate a string from the right
+     * @param textlib $textlib
      * @param string $string The string to truncate
      * @param int $length The length to truncate to
      * @return string The truncated string
      */
-    protected function trim_right($string, $length) {
-        return textlib::substr($string, 0, $length).'...';
+    protected function trim_right($textlib, $string, $length) {
+        return $textlib->substr($string, 0, $length).'...';
     }
     /**
      * Truncate a string in the center
+     * @param textlib $textlib
      * @param string $string The string to truncate
      * @param int $length The length to truncate to
      * @return string The truncated string
      */
-    protected function trim_center($string, $length) {
+    protected function trim_center($textlib, $string, $length) {
         $trimlength = ceil($length/2);
-        $start = textlib::substr($string, 0, $trimlength);
-        $end = textlib::substr($string, textlib::strlen($string)-$trimlength);
+        $start = $textlib->substr($string, 0, $trimlength);
+        $end = $textlib->substr($string, $textlib->strlen($string)-$trimlength);
         $string = $start.'...'.$end;
         return $string;
-    }
-
-    /**
-     * Returns the role that best describes the navigation block... 'navigation'
-     *
-     * @return string 'navigation'
-     */
-    public function get_aria_role() {
-        return 'navigation';
     }
 }

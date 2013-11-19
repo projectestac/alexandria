@@ -173,7 +173,7 @@
     bottom:0;
     right:0;
     opacity:0.35;
-    filter:alpha(opacity=35);
+    filter:alpha(opacity:35);
     background:#000;
 }
 
@@ -213,7 +213,6 @@
     background-color:#F6F6F6;
     border:1px solid #CCCCCC;
     overflow: auto;
-    padding: 7px 6px;
 }
 
 #page-blocks-community-communitycourse .moodle-dialogue-base .moodle-dialogue-bd {
@@ -223,5 +222,5 @@
 
 #page-blocks-community-communitycourse .moodle-dialogue-base .closebutton {
     margin-top:4px;
-    margin-right: 4px;
+    width:30px;
 }

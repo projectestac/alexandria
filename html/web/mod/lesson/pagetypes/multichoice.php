@@ -126,7 +126,7 @@ class lesson_page_type_multichoice extends lesson_page {
         }
 
         if ($this->properties->qoption) {
-            // Multianswer allowed, user's answer is an array
+            // MULTIANSWER allowed, user's answer is an array
 
             if (empty($data->answer) || !is_array($data->answer)) {
                 $result->noanswer = true;
@@ -145,7 +145,8 @@ class lesson_page_type_multichoice extends lesson_page {
             $answers = $this->get_used_answers();
             $ncorrect = 0;
             $nhits = 0;
-            $responses = array();
+            $correctresponse = '';
+            $wrongresponse = '';
             $correctanswerid = 0;
             $wronganswerid = 0;
             // store student's answers for displaying on feedback page
@@ -154,9 +155,6 @@ class lesson_page_type_multichoice extends lesson_page {
                 foreach ($studentanswers as $answerid) {
                     if ($answerid == $answer->id) {
                         $result->studentanswer .= '<br />'.format_text($answer->answer, $answer->answerformat, $formattextdefoptions);
-                        if (trim(strip_tags($answer->response))) {
-                            $responses[$answerid] = format_text($answer->response, $answer->responseformat, $formattextdefoptions);
-                        }
                     }
                 }
             }
@@ -184,6 +182,10 @@ class lesson_page_type_multichoice extends lesson_page {
                         if ($correctanswerid == 0) {
                             $correctanswerid = $answer->id;
                         }
+                        // ...also save any response from the correct answers...
+                        if (trim(strip_tags($answer->response))) {
+                            $correctresponse = format_text($answer->response, $answer->responseformat, $formattextdefoptions);
+                        }
                     } else {
                         // save the first jumpto page id, may be needed!...
                         if (!isset($wrongpageid)) {
@@ -193,6 +195,10 @@ class lesson_page_type_multichoice extends lesson_page {
                         // save the answer id for scoring
                         if ($wronganswerid == 0) {
                             $wronganswerid = $answer->id;
+                        }
+                        // ...and from the incorrect ones, don't know which to use at this stage
+                        if (trim(strip_tags($answer->response))) {
+                            $wrongresponse = format_text($answer->response, $answer->responseformat, $formattextdefoptions);
                         }
                     }
                 }
@@ -214,6 +220,10 @@ class lesson_page_type_multichoice extends lesson_page {
                         if ($correctanswerid == 0) {
                             $correctanswerid = $answer->id;
                         }
+                        // ...also save any response from the correct answers...
+                        if (trim(strip_tags($answer->response))) {
+                            $correctresponse = format_text($answer->response, $answer->responseformat, $formattextdefoptions);
+                        }
                     } else {
                         // save the first jumpto page id, may be needed!...
                         if (!isset($wrongpageid)) {
@@ -224,16 +234,20 @@ class lesson_page_type_multichoice extends lesson_page {
                         if ($wronganswerid == 0) {
                             $wronganswerid = $answer->id;
                         }
+                        // ...and from the incorrect ones, don't know which to use at this stage
+                        if (trim(strip_tags($answer->response))) {
+                            $wrongresponse = format_text($answer->response, $answer->responseformat, $formattextdefoptions);
+                        }
                     }
                 }
             }
             if ((count($studentanswers) == $ncorrect) and ($nhits == $ncorrect)) {
                 $result->correctanswer = true;
-                $result->response  = implode('<br />', $responses);
+                $result->response  = $correctresponse;
                 $result->newpageid = $correctpageid;
                 $result->answerid  = $correctanswerid;
             } else {
-                $result->response  = implode('<br />', $responses);
+                $result->response  = $wrongresponse;
                 $result->newpageid = $wrongpageid;
                 $result->answerid  = $wronganswerid;
             }

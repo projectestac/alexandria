@@ -74,7 +74,11 @@ class question_type {
      * You should not need to override this method, the default behaviour should be fine.
      */
     public function local_name() {
-        return get_string('pluginname', $this->plugin_name());
+        if (get_string_manager()->string_exists('pluginname', $this->plugin_name())) {
+            return get_string('pluginname', $this->plugin_name());
+        } else {
+            return get_string($this->name(), $this->plugin_name());
+        }
     }
 
     /**
@@ -245,7 +249,11 @@ class question_type {
         global $OUTPUT;
         $heading = $this->get_heading(empty($question->id));
 
-        echo $OUTPUT->heading_with_help($heading, 'pluginname', $this->plugin_name());
+        if (get_string_manager()->string_exists('pluginname_help', $this->plugin_name())) {
+            echo $OUTPUT->heading_with_help($heading, 'pluginname', $this->plugin_name());
+        } else {
+            echo $OUTPUT->heading_with_help($heading, $this->name(), $this->plugin_name());
+        }
 
         $permissionstrs = array();
         if (!empty($question->id)) {
@@ -280,10 +288,16 @@ class question_type {
     public function get_heading($adding = false) {
         if ($adding) {
             $string = 'pluginnameadding';
+            $fallback = 'adding' . $this->name();
         } else {
             $string = 'pluginnameediting';
+            $fallback = 'editing' . $this->name();
         }
-        return get_string($string, $this->plugin_name());
+        if (get_string_manager()->string_exists($string, $this->plugin_name())) {
+            return get_string($string, $this->plugin_name());
+        } else {
+            return get_string($fallback, $this->plugin_name());
+        }
     }
 
     /**
@@ -454,12 +468,21 @@ class question_type {
                 $options->$questionidcolname = $question->id;
             }
             foreach ($extraquestionfields as $field) {
-                if (property_exists($question, $field)) {
-                    $options->$field = $question->$field;
+                if (!isset($question->$field)) {
+                    $result = new stdClass();
+                    $result->error = "No data for field $field when saving " .
+                            $this->name() . ' question id ' . $question->id;
+                    return $result;
                 }
+                $options->$field = $question->$field;
             }
 
-            $DB->{$function}($question_extension_table, $options);
+            if (!$DB->{$function}($question_extension_table, $options)) {
+                $result = new stdClass();
+                $result->error = 'Could not save question options for ' .
+                        $this->name() . ' question id ' . $question->id;
+                return $result;
+            }
         }
 
         $extraanswerfields = $this->extra_answer_fields();
@@ -897,7 +920,7 @@ class question_type {
      * Imports question using information from extra_question_fields function
      * If some of you fields contains id's you'll need to reimplement this
      */
-    public function import_from_xml($data, $question, qformat_xml $format, $extra=null) {
+    public function import_from_xml($data, $question, $format, $extra=null) {
         $question_type = $data['@']['type'];
         if ($question_type != $this->name()) {
             return false;
@@ -950,7 +973,7 @@ class question_type {
      * Export question using information from extra_question_fields function
      * If some of you fields contains id's you'll need to reimplement this
      */
-    public function export_to_xml($question, qformat_xml $format, $extra=null) {
+    public function export_to_xml($question, $format, $extra=null) {
         $extraquestionfields = $this->extra_question_fields();
         if (!is_array($extraquestionfields)) {
             return false;
@@ -969,15 +992,21 @@ class question_type {
             array_shift($extraanswersfields);
         }
         foreach ($question->options->answers as $answer) {
-            $extra = '';
+            // TODO this should be re-factored to use $format->write_answer().
+            $percent = 100 * $answer->fraction;
+            $expout .= "    <answer fraction=\"$percent\" {$format->format($answer->answerformat)}>\n";
+            $expout .= $format->writetext($answer->answer, 3, false);
+            $expout .= "      <feedback {$format->format($answer->feedbackformat)}>\n";
+            $expout .= $format->writetext($answer->feedback, 4, false);
+            $expout .= "      </feedback>\n";
             if (is_array($extraanswersfields)) {
                 foreach ($extraanswersfields as $field) {
                     $exportedvalue = $format->xml_escape($answer->$field);
-                    $extra .= "      <{$field}>{$exportedvalue}</{$field}>\n";
+                    $expout .= "      <{$field}>{$exportedvalue}</{$field}>\n";
                 }
             }
 
-            $expout .= $format->write_answer($answer, $extra);
+            $expout .= "    </answer>\n";
         }
         return $expout;
     }
@@ -996,7 +1025,7 @@ class question_type {
         $form->penalty = 0.3333333;
         $form->generalfeedback = "Well done";
 
-        $context = context_course::instance($courseid);
+        $context = get_context_instance(CONTEXT_COURSE, $courseid);
         $newcategory = question_make_default_categories(array($context));
         $form->category = $newcategory->id . ',1';
 
@@ -1014,7 +1043,7 @@ class question_type {
     protected function get_context_by_category_id($category) {
         global $DB;
         $contextid = $DB->get_field('question_categories', 'contextid', array('id'=>$category));
-        $context = context::instance_by_id($contextid, IGNORE_MISSING);
+        $context = get_context_instance_by_id($contextid);
         return $context;
     }
 
@@ -1238,10 +1267,8 @@ class question_possible_response {
      * {@link question_type::get_possible_responses()}.
      */
     public $responseclass;
-
-    /** @var string the (partial) credit awarded for this responses. */
+    /** @var string the actual response the student gave to this part. */
     public $fraction;
-
     /**
      * Constructor, just an easy way to set the fields.
      * @param string $responseclassid see the field descriptions above.

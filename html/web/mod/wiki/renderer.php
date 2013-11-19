@@ -44,7 +44,7 @@ class mod_wiki_renderer extends plugin_renderer_base {
         $pages = wiki_get_page_list($swid);
         $selectoptions = array();
         foreach ($pages as $page) {
-            $selectoptions[$page->id] = format_string($page->title, true, array('context' => $this->page->context));
+            $selectoptions[$page->id] = $page->title;
         }
         $label = get_string('pageindex', 'wiki') . ': ';
         $select = new single_select(new moodle_url('/mod/wiki/view.php'), 'pageid', $selectoptions);
@@ -55,7 +55,7 @@ class mod_wiki_renderer extends plugin_renderer_base {
     public function search_result($records, $subwiki) {
         global $CFG, $PAGE;
         $table = new html_table();
-        $context = context_module::instance($PAGE->cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $PAGE->cm->id);
         $strsearchresults = get_string('searchresult', 'wiki');
         $totalcount = count($records);
         $html = $this->output->heading("$strsearchresults $totalcount");
@@ -243,7 +243,7 @@ class mod_wiki_renderer extends plugin_renderer_base {
         global $CFG;
         $tabs = array();
         $baseurl = $CFG->wwwroot . '/mod/wiki/';
-        $context = context_module::instance($this->page->cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $this->page->cm->id);
 
         $pageid = null;
         if (!empty($page)) {
@@ -315,7 +315,7 @@ class mod_wiki_renderer extends plugin_renderer_base {
         }
 
         $cm = get_coursemodule_from_instance('wiki', $wiki->id);
-        $context = context_module::instance($cm->id);
+        $context = get_context_instance(CONTEXT_MODULE, $cm->id);
         // @TODO: A plenty of duplicated code below this lines.
         // Create private functions.
         switch (groups_get_activity_groupmode($cm)) {
@@ -365,7 +365,7 @@ class mod_wiki_renderer extends plugin_renderer_base {
                 $baseurl->params($params);
 
                 echo $this->output->container_start('wiki_right');
-                groups_print_activity_menu($cm, $baseurl);
+                groups_print_activity_menu($cm, $baseurl->out());
                 echo $this->output->container_end();
                 return;
             } else if ($wiki->wikimode == 'individual') {
@@ -390,9 +390,6 @@ class mod_wiki_renderer extends plugin_renderer_base {
                     }
                 } else {
                     $group = groups_get_group($subwiki->groupid);
-                    if (!$group) {
-                        return;
-                    }
                     $users = groups_get_members($subwiki->groupid);
                     foreach ($users as $user) {
                         $options[$group->id][$group->name][$group->id . '-' . $user->id] = fullname($user);
@@ -418,15 +415,14 @@ class mod_wiki_renderer extends plugin_renderer_base {
         CASE VISIBLEGROUPS:
             if ($wiki->wikimode == 'collaborative') {
                 // We need to print a select to choose a course group
-                // moodle_url will take care of encoding for us
-                $params = array('wid'=>$wiki->id, 'title'=>$page->title);
+                $params = array('wid'=>$wiki->id, 'title'=>urlencode($page->title));
                 if ($pagetype == 'files') {
                     $params['pageid'] = $page->id;
                 }
                 $baseurl->params($params);
 
                 echo $this->output->container_start('wiki_right');
-                groups_print_activity_menu($cm, $baseurl);
+                groups_print_activity_menu($cm, $baseurl->out());
                 echo $this->output->container_end();
                 return;
 
@@ -529,13 +525,14 @@ class mod_wiki_renderer extends plugin_renderer_base {
         }
         $result = '<ul>';
         foreach ($dir['subdirs'] as $subdir) {
-            $image = $this->output->pix_icon(file_folder_icon(), $subdir['dirname'], 'moodle', array('class'=>'icon'));
+            $image = $this->output->pix_icon("f/folder", $subdir['dirname'], 'moodle', array('class'=>'icon'));
             $result .= '<li yuiConfig=\''.json_encode($yuiconfig).'\'><div>'.$image.' '.s($subdir['dirname']).'</div> '.$this->htmllize_tree($tree, $subdir).'</li>';
         }
         foreach ($dir['files'] as $file) {
             $url = file_encode_url("$CFG->wwwroot/pluginfile.php", '/'.$tree->context->id.'/mod_wiki/attachments/' . $tree->subwiki->id . '/'. $file->get_filepath() . $file->get_filename(), true);
             $filename = $file->get_filename();
-            $image = $this->output->pix_icon(file_file_icon($file), $filename, 'moodle', array('class'=>'icon'));
+            $icon = mimeinfo("icon", $filename);
+            $image = $this->output->pix_icon("f/$icon", $filename, 'moodle', array('class'=>'icon'));
             $result .= '<li yuiConfig=\''.json_encode($yuiconfig).'\'><div>'.$image.' '.html_writer::link($url, $filename).'</div></li>';
         }
         $result .= '</ul>';

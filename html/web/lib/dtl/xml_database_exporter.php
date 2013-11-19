@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+
 /**
  * XML format exporter class
  *
- * @package    core_dtl
+ * @package    core
+ * @subpackage dtl
  * @copyright  2008 Andrei Bautu
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -48,7 +51,7 @@ abstract class xml_database_exporter extends database_exporter {
     public function begin_database_export($version, $release, $timestamp, $description) {
         $this->output('<?xml version="1.0" encoding="utf-8"?>');
         //TODO add xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" and schema information
-        $this->output('<moodle_database version="'.$version.'" release="'.$release.'" timestamp="'.$timestamp.'"'.(empty ($description) ? '' : ' comment="'.htmlspecialchars($description, ENT_QUOTES, 'UTF-8').'"').'>');
+        $this->output('<moodle_database version="'.$version.'" release="'.$release.'" timestamp="'.$timestamp.'"'.(empty ($description) ? '' : ' comment="'.htmlspecialchars($description, ENT_QUOTES).'"').'>');
     }
 
     /**
@@ -90,7 +93,7 @@ abstract class xml_database_exporter extends database_exporter {
             if (is_null($value)) {
                 $this->output('<field name="'.$key.'" value="null" />');
             } else {
-                $this->output('<field name="'.$key.'">'.htmlspecialchars($value, ENT_NOQUOTES, 'UTF-8').'</field>');
+                $this->output('<field name="'.$key.'">'.htmlspecialchars($value, ENT_NOQUOTES).'</field>');
             }
         }
         $this->output('</record>');

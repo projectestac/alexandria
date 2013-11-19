@@ -4,7 +4,7 @@ if (is_file($CFG->dirroot.'/mod/feedback/lib.php')) {
     define('FEEDBACK_BLOCK_LIB_IS_OK', true);
 }
 
-class block_feedback extends block_list {
+class block_feedback extends block_base {
 
     function init() {
         $this->title = get_string('feedback', 'block_feedback');
@@ -21,13 +21,10 @@ class block_feedback extends block_list {
             return $this->content;
         }
 
-        $this->content = new stdClass;
-        $this->content->items = array();
-        $this->content->icons = array();
-        $this->content->footer = '';
-
         if (!defined('FEEDBACK_BLOCK_LIB_IS_OK')) {
-            $this->content->items = array(get_string('missing_feedback_module', 'block_feedback'));
+            $this->content = new stdClass;
+            $this->content->text = get_string('missing_feedback_module', 'block_feedback');
+            $this->content->footer = '';
             return $this->content;
         }
 
@@ -36,7 +33,9 @@ class block_feedback extends block_list {
             $courseid = SITEID;
         }
 
-        $icon = '<img src="'.$OUTPUT->pix_url('icon', 'feedback') . '" class="icon" alt="" />';
+        $this->content = new stdClass;
+        $this->content->text = '';
+        $this->content->footer = '';
 
 
         if (empty($this->instance->pageid)) {
@@ -48,7 +47,8 @@ class block_feedback extends block_list {
             foreach ($feedbacks as $feedback) {
                 $url = new moodle_url($baseurl);
                 $url->params(array('id'=>$feedback->cmid, 'courseid'=>$courseid));
-                $this->content->items[] = '<a href="'.$url->out().'">'.$icon.$feedback->name.'</a>';
+                $icon = '<img src="'.$OUTPUT->pix_url('icon', 'feedback') . '" class="icon" alt="" />&nbsp;';
+                $this->content->text = ' <a href="'.$url->out().'">'.$icon.$feedback->name.'</a>';
             }
         }
 

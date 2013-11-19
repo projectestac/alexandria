@@ -26,6 +26,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+require_once($CFG->dirroot . '/question/type/numerical/questiontype.php');
+
+
 /**
  * Represents a numerical question.
  *
@@ -179,10 +182,6 @@ class qtype_numerical_question extends question_graded_automatically {
      * @return question_answer the matching answer.
      */
     public function get_matching_answer($value, $multiplier) {
-        if (is_null($value) || $value === '') {
-            return null;
-        }
-
         if (!is_null($multiplier)) {
             $scaledvalue = $value * $multiplier;
         } else {
@@ -197,7 +196,6 @@ class qtype_numerical_question extends question_graded_automatically {
                 return $answer;
             }
         }
-
         return null;
     }
 
@@ -278,17 +276,18 @@ class qtype_numerical_question extends question_graded_automatically {
     public function check_file_access($qa, $options, $component, $filearea, $args,
             $forcedownload) {
         if ($component == 'question' && $filearea == 'answerfeedback') {
+            $question = $qa->get_question();
             $currentanswer = $qa->get_last_qt_var('answer');
             if ($this->has_separate_unit_field()) {
                 $selectedunit = $qa->get_last_qt_var('unit');
             } else {
                 $selectedunit = null;
             }
-            list($value, $unit, $multiplier) = $this->ap->apply_units(
+            list($value, $unit, $multiplier) = $question->ap->apply_units(
                     $currentanswer, $selectedunit);
-            $answer = $this->get_matching_answer($value, $multiplier);
+            $answer = $question->get_matching_answer($value, $multiplier);
             $answerid = reset($args); // itemid is answer id.
-            return $options->feedback && $answer && $answerid == $answer->id;
+            return $options->feedback && $answerid == $answer->id;
 
         } else if ($component == 'question' && $filearea == 'hint') {
             return $this->check_hint_file_access($qa, $options, $args);
@@ -324,13 +323,10 @@ class qtype_numerical_answer extends question_answer {
             throw new coding_exception('Cannot work out tolerance interval for answer *.');
         }
 
-        // Smallest number that, when added to 1, is different from 1.
-        $epsilon = pow(10, -1 * ini_get('precision'));
-
         // We need to add a tiny fraction depending on the set precision to make
         // the comparison work correctly, otherwise seemingly equal values can
         // yield false. See MDL-3225.
-        $tolerance = abs($this->tolerance) + $epsilon;
+        $tolerance = (float) $this->tolerance + pow(10, -1 * ini_get('precision'));
 
         switch ($this->tolerancetype) {
             case 1: case 'relative':
@@ -338,7 +334,8 @@ class qtype_numerical_answer extends question_answer {
                 return array($this->answer - $range, $this->answer + $range);
 
             case 2: case 'nominal':
-                $tolerance = $this->tolerance + $epsilon * max(abs($this->tolerance), abs($this->answer), $epsilon);
+                $tolerance = $this->tolerance + pow(10, -1 * ini_get('precision')) *
+                        max(1, abs($this->answer));
                 return array($this->answer - $tolerance, $this->answer + $tolerance);
 
             case 3: case 'geometric':

@@ -34,23 +34,20 @@
 
     redirect_if_major_upgrade_required();
 
-    $urlparams = array();
-    if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_MY) && optional_param('redirect', 1, PARAM_BOOL) === 0) {
-        $urlparams['redirect'] = 0;
-    }
-    $PAGE->set_url('/', $urlparams);
-    $PAGE->set_course($SITE);
-
-    // Prevent caching of this page to stop confusion when changing page after making AJAX changes
-    $PAGE->set_cacheable(false);
-
     if ($CFG->forcelogin) {
         require_login();
     } else {
         user_accesstime_log();
     }
 
-    $hassiteconfig = has_capability('moodle/site:config', context_system::instance());
+    $hassiteconfig = has_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
+
+    $urlparams = array();
+    if ($CFG->defaulthomepage == HOMEPAGE_MY && optional_param('redirect', 1, PARAM_BOOL) === 0) {
+        $urlparams['redirect'] = 0;
+    }
+    $PAGE->set_url('/', $urlparams);
+    $PAGE->set_course($SITE);
 
 /// If the site is currently under maintenance, then print a message
     if (!empty($CFG->maintenance_enabled) and !$hassiteconfig) {
@@ -65,9 +62,9 @@
         // Redirect logged-in users to My Moodle overview if required
         if (optional_param('setdefaulthome', false, PARAM_BOOL)) {
             set_user_preference('user_home_page_preference', HOMEPAGE_SITE);
-        } else if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_MY) && optional_param('redirect', 1, PARAM_BOOL) === 1) {
+        } else if ($CFG->defaulthomepage == HOMEPAGE_MY && optional_param('redirect', 1, PARAM_BOOL) === 1) {
             redirect($CFG->wwwroot .'/my/');
-        } else if (!empty($CFG->defaulthomepage) && ($CFG->defaulthomepage == HOMEPAGE_USER)) {
+        } else if (!empty($CFG->defaulthomepage) && $CFG->defaulthomepage == HOMEPAGE_USER) {
             $PAGE->settingsnav->get('usercurrentsettings')->add(get_string('makethismyhome'), new moodle_url('/', array('setdefaulthome'=>true)), navigation_node::TYPE_SETTING);
         }
     }
@@ -77,7 +74,7 @@
     }
 
 /// If the hub plugin is installed then we let it take over the homepage here
-    if (file_exists($CFG->dirroot.'/local/hub/lib.php') and get_config('local_hub', 'hubenabled')) {
+    if (get_config('local_hub', 'hubenabled') && file_exists($CFG->dirroot.'/local/hub/lib.php')) {
         require_once($CFG->dirroot.'/local/hub/lib.php');
         $hub = new local_hub();
         $continue = $hub->display_homepage();
@@ -98,25 +95,23 @@
     echo $OUTPUT->header();
 
 /// Print Section or custom info
-    $siteformatoptions = course_get_format($SITE)->get_format_options();
-    $modinfo = get_fast_modinfo($SITE);
-    $modnames = get_module_types_names();
-    $modnamesplural = get_module_types_names(true);
-    $modnamesused = $modinfo->get_used_module_names();
-    $mods = $modinfo->get_cms();
-
     if (!empty($CFG->customfrontpageinclude)) {
         include($CFG->customfrontpageinclude);
 
-    } else if ($siteformatoptions['numsections'] > 0) {
-        if ($editing) {
-            // make sure section with number 1 exists
-            course_create_sections_if_missing($SITE, 1);
-            // re-request modinfo in case section was created
-            $modinfo = get_fast_modinfo($SITE);
+    } else if ($SITE->numsections > 0) {
+
+        if (!$section = $DB->get_record('course_sections', array('course'=>$SITE->id, 'section'=>1))) {
+            $DB->delete_records('course_sections', array('course'=>$SITE->id, 'section'=>1)); // Just in case
+            $section->course = $SITE->id;
+            $section->section = 1;
+            $section->summary = '';
+            $section->summaryformat = FORMAT_HTML;
+            $section->sequence = '';
+            $section->visible = 1;
+            $section->id = $DB->insert_record('course_sections', $section);
         }
-        $section = $modinfo->get_section_info(1);
-        if (($section && (!empty($modinfo->sections[1]) or !empty($section->summary))) or $editing) {
+
+        if (!empty($section->sequence) or !empty($section->summary) or $editing) {
             echo $OUTPUT->box_start('generalbox sitetopic');
 
             /// If currently moving a file then show the current clipboard
@@ -127,7 +122,7 @@
                 echo '</font></p>';
             }
 
-            $context = context_course::instance(SITEID);
+            $context = get_context_instance(CONTEXT_COURSE, SITEID);
             $summarytext = file_rewrite_pluginfile_urls($section->summary, 'pluginfile.php', $context->id, 'course', 'section', $section->id);
             $summaryformatoptions = new stdClass();
             $summaryformatoptions->noclean = true;
@@ -142,6 +137,7 @@
                      " class=\"iconsmall\" alt=\"$streditsummary\" /></a><br /><br />";
             }
 
+            get_all_mods($SITE->id, $mods, $modnames, $modnamesplural, $modnamesused);
             print_section($SITE, $section, $mods, $modnamesused, true);
 
             if ($editing) {
@@ -149,12 +145,6 @@
             }
             echo $OUTPUT->box_end();
         }
-    }
-    // Include course AJAX
-    if (include_course_ajax($SITE, $modnamesused)) {
-        // Add the module chooser
-        $renderer = $PAGE->get_renderer('core', 'course');
-        echo $renderer->course_modchooser(get_module_metadata($SITE, $modnames), $SITE);
     }
 
     if (isloggedin() and !isguestuser() and isset($CFG->frontpageloggedin)) {
@@ -175,10 +165,10 @@
 
                     // fetch news forum context for proper filtering to happen
                     $newsforumcm = get_coursemodule_from_instance('forum', $newsforum->id, $SITE->id, false, MUST_EXIST);
-                    $newsforumcontext = context_module::instance($newsforumcm->id, MUST_EXIST);
+                    $newsforumcontext = get_context_instance(CONTEXT_MODULE, $newsforumcm->id, MUST_EXIST);
 
                     $forumname = format_string($newsforum->name, true, array('context' => $newsforumcontext));
-                    echo html_writer::tag('a', get_string('skipa', 'access', textlib::strtolower(strip_tags($forumname))), array('href'=>'#skipsitenews', 'class'=>'skip-block'));
+                    echo html_writer::tag('a', get_string('skipa', 'access', moodle_strtolower(strip_tags($forumname))), array('href'=>'#skipsitenews', 'class'=>'skip-block'));
 
                     if (isloggedin()) {
                         $SESSION->fromdiscussion = $CFG->wwwroot;
@@ -203,26 +193,22 @@
             break;
 
             case FRONTPAGECOURSELIST:
-                $ncourses = $DB->count_records('course');
                 if (isloggedin() and !$hassiteconfig and !isguestuser() and empty($CFG->disablemycourses)) {
-                    echo html_writer::tag('a', get_string('skipa', 'access', textlib::strtolower(get_string('mycourses'))), array('href'=>'#skipmycourses', 'class'=>'skip-block'));
+                    echo html_writer::tag('a', get_string('skipa', 'access', moodle_strtolower(get_string('mycourses'))), array('href'=>'#skipmycourses', 'class'=>'skip-block'));
                     echo $OUTPUT->heading(get_string('mycourses'), 2, 'headingblock header');
                     print_my_moodle();
                     echo html_writer::tag('span', '', array('class'=>'skip-block-to', 'id'=>'skipmycourses'));
-                } else if ((!$hassiteconfig and !isguestuser()) or ($ncourses <= FRONTPAGECOURSELIMIT)) {
+                } else if ((!$hassiteconfig and !isguestuser()) or ($DB->count_records('course') <= FRONTPAGECOURSELIMIT)) {
                     // admin should not see list of courses when there are too many of them
-                    echo html_writer::tag('a', get_string('skipa', 'access', textlib::strtolower(get_string('availablecourses'))), array('href'=>'#skipavailablecourses', 'class'=>'skip-block'));
+                    echo html_writer::tag('a', get_string('skipa', 'access', moodle_strtolower(get_string('availablecourses'))), array('href'=>'#skipavailablecourses', 'class'=>'skip-block'));
                     echo $OUTPUT->heading(get_string('availablecourses'), 2, 'headingblock header');
                     print_courses(0);
                     echo html_writer::tag('span', '', array('class'=>'skip-block-to', 'id'=>'skipavailablecourses'));
-                } else {
-                    echo html_writer::tag('div', get_string('therearecourses', '', $ncourses), array('class' => 'notifyproblem'));
-                    print_course_search('', false, 'short');
                 }
             break;
 
             case FRONTPAGECATEGORYNAMES:
-                echo html_writer::tag('a', get_string('skipa', 'access', textlib::strtolower(get_string('categories'))), array('href'=>'#skipcategories', 'class'=>'skip-block'));
+                echo html_writer::tag('a', get_string('skipa', 'access', moodle_strtolower(get_string('categories'))), array('href'=>'#skipcategories', 'class'=>'skip-block'));
                 echo $OUTPUT->heading(get_string('categories'), 2, 'headingblock header');
                 echo $OUTPUT->box_start('generalbox categorybox');
                 print_whole_category_list(NULL, NULL, NULL, -1, false);
@@ -232,7 +218,7 @@
             break;
 
             case FRONTPAGECATEGORYCOMBO:
-                echo html_writer::tag('a', get_string('skipa', 'access', textlib::strtolower(get_string('courses'))), array('href'=>'#skipcourses', 'class'=>'skip-block'));
+                echo html_writer::tag('a', get_string('skipa', 'access', moodle_strtolower(get_string('courses'))), array('href'=>'#skipcourses', 'class'=>'skip-block'));
                 echo $OUTPUT->heading(get_string('courses'), 2, 'headingblock header');
                 $renderer = $PAGE->get_renderer('core','course');
                 // if there are too many courses, budiling course category tree could be slow,

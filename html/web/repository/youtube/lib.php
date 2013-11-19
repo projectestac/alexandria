@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -15,27 +16,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * This plugin is used to access youtube videos
- *
- * @since 2.0
- * @package    repository_youtube
- * @copyright  2010 Dongsheng Cai {@link http://dongsheng.org}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-require_once($CFG->dirroot . '/repository/lib.php');
-
-/**
  * repository_youtube class
  *
  * @since 2.0
- * @package    repository_youtube
- * @copyright  2009 Dongsheng Cai {@link http://dongsheng.org}
+ * @package    repository
+ * @subpackage youtube
+ * @copyright  2009 Dongsheng Cai
+ * @author     Dongsheng Cai <dongsheng@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 class repository_youtube extends repository {
-    /** @var int maximum number of thumbs per page */
-    const YOUTUBE_THUMBS_PER_PAGE = 27;
 
     /**
      * Youtube plugin constructor
@@ -44,6 +35,9 @@ class repository_youtube extends repository {
      * @param array $options
      */
     public function __construct($repositoryid, $context = SYSCONTEXTID, $options = array()) {
+        $this->start =1;
+        $this->max = 27;
+        $this->sort = optional_param('youtube_sort', 'relevance', PARAM_TEXT);
         parent::__construct($repositoryid, $context, $options);
     }
 
@@ -56,40 +50,11 @@ class repository_youtube extends repository {
      * @param string $search_text
      * @return array
      */
-    public function search($search_text, $page = 0) {
-        global $SESSION;
-        $sort = optional_param('youtube_sort', '', PARAM_TEXT);
-        $sess_keyword = 'youtube_'.$this->id.'_keyword';
-        $sess_sort = 'youtube_'.$this->id.'_sort';
-
-        // This is the request of another page for the last search, retrieve the cached keyword and sort
-        if ($page && !$search_text && isset($SESSION->{$sess_keyword})) {
-            $search_text = $SESSION->{$sess_keyword};
-        }
-        if ($page && !$sort && isset($SESSION->{$sess_sort})) {
-            $sort = $SESSION->{$sess_sort};
-        }
-        if (!$sort) {
-            $sort = 'relevance'; // default
-        }
-
-        // Save this search in session
-        $SESSION->{$sess_keyword} = $search_text;
-        $SESSION->{$sess_sort} = $sort;
-
+    public function search($search_text) {
         $this->keyword = $search_text;
         $ret  = array();
         $ret['nologin'] = true;
-        $ret['page'] = (int)$page;
-        if ($ret['page'] < 1) {
-            $ret['page'] = 1;
-        }
-        $start = ($ret['page'] - 1) * self::YOUTUBE_THUMBS_PER_PAGE + 1;
-        $max = self::YOUTUBE_THUMBS_PER_PAGE;
-        $ret['list'] = $this->_get_collection($search_text, $start, $max, $sort);
-        $ret['norefresh'] = true;
-        $ret['nosearch'] = true;
-        $ret['pages'] = -1;
+        $ret['list'] = $this->_get_collection($search_text, $this->start, $this->max, $this->sort);
         return $ret;
     }
 
@@ -111,23 +76,17 @@ class repository_youtube extends repository {
         $links = $xml->children('http://www.w3.org/2005/Atom');
         foreach ($xml->entry as $entry) {
             $media = $entry->children('http://search.yahoo.com/mrss/');
-            $title = (string)$media->group->title;
-            $description = (string)$media->group->description;
-            if (empty($description)) {
-                $description = $title;
-            }
+            $title = $media->group->title;
             $attrs = $media->group->thumbnail[2]->attributes();
             $thumbnail = $attrs['url'];
             $arr = explode('/', $entry->id);
             $id = $arr[count($arr)-1];
             $source = 'http://www.youtube.com/v/' . $id . '#' . $title;
             $list[] = array(
-                'shorttitle'=>$title,
-                'thumbnail_title'=>$description,
-                'title'=>$title.'.avi', // this is a hack so we accept this file by extension
+                'title'=>(string)$title,
                 'thumbnail'=>(string)$attrs['url'],
-                'thumbnail_width'=>(int)$attrs['width'],
-                'thumbnail_height'=>(int)$attrs['height'],
+                'thumbnail_width'=>150,
+                'thumbnail_height'=>120,
                 'size'=>'',
                 'date'=>'',
                 'source'=>$source
@@ -183,7 +142,6 @@ class repository_youtube extends repository {
         $ret['login'] = array($search, $sort);
         $ret['login_btn_label'] = get_string('search');
         $ret['login_btn_action'] = 'search';
-        $ret['allowcaching'] = true; // indicates that login form can be cached in filepicker.js
         return $ret;
     }
 
@@ -192,7 +150,7 @@ class repository_youtube extends repository {
      * @return array
      */
     public function supported_filetypes() {
-        return array('video');
+        return array('web_video');
     }
 
     /**

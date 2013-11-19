@@ -55,11 +55,11 @@ class qtype_essay_question extends question_with_responses {
 
     public function get_expected_data() {
         if ($this->responseformat == 'editorfilepicker') {
-            $expecteddata = array('answer' => question_attempt::PARAM_RAW_FILES);
+            $expecteddata = array('answer' => question_attempt::PARAM_CLEANHTML_FILES);
         } else {
-            $expecteddata = array('answer' => PARAM_RAW);
+            $expecteddata = array('answer' => PARAM_CLEANHTML);
         }
-        $expecteddata['answerformat'] = PARAM_ALPHANUMEXT;
+        $expecteddata['answerformat'] = PARAM_FORMAT;
         if ($this->attachments != 0) {
             $expecteddata['attachments'] = question_attempt::PARAM_FILES;
         }

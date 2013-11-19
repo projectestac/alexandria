@@ -33,7 +33,7 @@ $numcourses = required_param('numcourses', PARAM_INT);
 
 require_login();
 
-require_capability('report/courseoverview:view', context_system::instance());
+require_capability('report/courseoverview:view', get_context_instance(CONTEXT_SYSTEM));
 
 stats_check_uptodate();
 

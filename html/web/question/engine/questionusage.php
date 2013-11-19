@@ -63,7 +63,7 @@ class question_usage_by_activity {
      */
     protected $preferredbehaviour = null;
 
-    /** @var context the context this usage belongs to. */
+    /** @var object the context this usage belongs to. */
     protected $context;
 
     /** @var string plugin name of the plugin this usage belongs to. */
@@ -104,7 +104,7 @@ class question_usage_by_activity {
         return $this->preferredbehaviour;
     }
 
-    /** @return context the context this usage belongs to. */
+    /** @return object the context this usage belongs to. */
     public function get_owning_context() {
         return $this->context;
     }
@@ -171,8 +171,7 @@ class question_usage_by_activity {
         } else {
             $this->questionattempts[] = $qa;
         }
-        end($this->questionattempts); // Ready to get the last key on the next line.
-        $qa->set_slot(key($this->questionattempts));
+        $qa->set_slot(end(array_keys($this->questionattempts)));
         $this->observer->notify_attempt_added($qa);
         return $qa->get_slot();
     }
@@ -511,14 +510,7 @@ class question_usage_by_activity {
      * instead of the data from $_POST.
      */
     public function process_all_actions($timestamp = null, $postdata = null) {
-        // note: we must not use "question_attempt::get_submitted_var()" because there is no attempt instance!!!
-        if (is_null($postdata)) {
-            $slots = optional_param('slots', null, PARAM_SEQUENCE);
-        } else if (array_key_exists('slots', $postdata)) {
-            $slots = clean_param($postdata['slots'], PARAM_SEQUENCE);
-        } else {
-            $slots = null;
-        }
+        $slots = question_attempt::get_submitted_var('slots', PARAM_SEQUENCE, $postdata);
         if (is_null($slots)) {
             $slots = $this->get_slots();
         } else if (!$slots) {
@@ -646,11 +638,10 @@ class question_usage_by_activity {
      * @param string $comment the comment being added to the question attempt.
      * @param number $mark the mark that is being assigned. Can be null to just
      * add a comment.
-     * @param int $commentformat one of the FORMAT_... constants. The format of $comment.
      */
-    public function manual_grade($slot, $comment, $mark, $commentformat = null) {
+    public function manual_grade($slot, $comment, $mark) {
         $qa = $this->get_question_attempt($slot);
-        $qa->manual_grade($comment, $mark, $commentformat);
+        $qa->manual_grade($comment, $mark);
         $this->observer->notify_attempt_modified($qa);
     }
 
@@ -709,19 +700,11 @@ class question_usage_by_activity {
         }
 
         $quba = new question_usage_by_activity($record->component,
-            context::instance_by_id($record->contextid, IGNORE_MISSING));
+            get_context_instance_by_id($record->contextid));
         $quba->set_id_from_database($record->qubaid);
         $quba->set_preferred_behaviour($record->preferredbehaviour);
 
         $quba->observer = new question_engine_unit_of_work($quba);
-
-        // If slot is null then the current pointer in $records will not be
-        // advanced in the while loop below, and we get stuck in an infinite loop,
-        // since this method is supposed to always consume at least one record.
-        // Therefore, in this case, advance the record here.
-        if (is_null($record->slot)) {
-            $records->next();
-        }
 
         while ($record && $record->qubaid == $qubaid && !is_null($record->slot)) {
             $quba->questionattempts[$record->slot] =

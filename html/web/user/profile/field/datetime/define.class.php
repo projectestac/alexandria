@@ -47,10 +47,9 @@ class profile_define_datetime extends profile_define_base {
      * Validate the data from the profile field form
      *
      * @param   object   data from the add/edit profile field form
-     * @param   array    files
      * @return  array    associative array of error messages
      */
-    function define_validate_specific($data, $files) {
+    function define_validate_specific($data) {
         $errors = array();
 
         // Make sure the start year is not greater than the end year

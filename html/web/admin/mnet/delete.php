@@ -36,7 +36,7 @@ $hostid = required_param('hostid', PARAM_INT);
 
 require_login();
 
-$context = context_system::instance();
+$context = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/site:config', $context, $USER->id, true, "nopermissions");
 
 $mnet = get_mnet_environment();

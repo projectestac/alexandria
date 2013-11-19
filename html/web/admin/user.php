@@ -19,7 +19,7 @@
 
     admin_externalpage_setup('editusers');
 
-    $sitecontext = context_system::instance();
+    $sitecontext = get_context_instance(CONTEXT_SYSTEM);
     $site = get_site();
 
     if (!has_capability('moodle/user:update', $sitecontext) and !has_capability('moodle/user:delete', $sitecontext)) {
@@ -167,48 +167,25 @@
         } else {
             $columndir = $dir == "ASC" ? "DESC":"ASC";
             if ($column == "lastaccess") {
-                $columnicon = ($dir == "ASC") ? "sort_desc" : "sort_asc";
+                $columnicon = $dir == "ASC" ? "up":"down";
             } else {
-                $columnicon = ($dir == "ASC") ? "sort_asc" : "sort_desc";
+                $columnicon = $dir == "ASC" ? "down":"up";
             }
-            $columnicon = "<img class='iconsort' src=\"" . $OUTPUT->pix_url('t/' . $columnicon) . "\" alt=\"\" />";
+            $columnicon = " <img src=\"" . $OUTPUT->pix_url('t/' . $columnicon) . "\" alt=\"\" />";
 
         }
         $$column = "<a href=\"user.php?sort=$column&amp;dir=$columndir\">".$string[$column]."</a>$columnicon";
     }
 
-    $override = new stdClass();
-    $override->firstname = 'firstname';
-    $override->lastname = 'lastname';
-    $fullnamelanguage = get_string('fullnamedisplay', '', $override);
-    if (($CFG->fullnamedisplay == 'firstname lastname') or
-        ($CFG->fullnamedisplay == 'firstname') or
-        ($CFG->fullnamedisplay == 'language' and $fullnamelanguage == 'firstname lastname' )) {
-        $fullnamedisplay = "$firstname / $lastname";
-        if ($sort == "name") { // If sort has already been set to something else then ignore.
-            $sort = "firstname";
-        }
-    } else { // ($CFG->fullnamedisplay == 'language' and $fullnamelanguage == 'lastname firstname').
-        $fullnamedisplay = "$lastname / $firstname";
-        if ($sort == "name") { // This should give the desired sorting based on fullnamedisplay.
-            $sort = "lastname";
-        }
+    if ($sort == "name") {
+        $sort = "firstname";
     }
 
     list($extrasql, $params) = $ufiltering->get_sql_filter();
-
+    $users = get_users_listing($sort, $dir, $page*$perpage, $perpage, '', '', '',
+            $extrasql, $params, $context);
     $usercount = get_users(false);
     $usersearchcount = get_users(false, '', false, null, "", '', '', '', '', '*', $extrasql, $params);
-
-    // Exclude guest user from list.
-    $noguestsql = '';
-    if (!empty($extrasql)) {
-        $noguestsql .= ' AND';
-    }
-    $noguestsql .= " id <> :guestid";
-    $params['guestid'] = $CFG->siteguest;
-    $users = get_users_listing($sort, $dir, $page*$perpage, $perpage, '', '', '',
-            $extrasql.$noguestsql, $params, $context);
 
     if ($extrasql !== '') {
         echo $OUTPUT->heading("$usersearchcount / $usercount ".get_string('users'));
@@ -252,6 +229,18 @@
                 $nusers[] = $users[$key];
             }
             $users = $nusers;
+        }
+
+        $override = new stdClass();
+        $override->firstname = 'firstname';
+        $override->lastname = 'lastname';
+        $fullnamelanguage = get_string('fullnamedisplay', '', $override);
+        if (($CFG->fullnamedisplay == 'firstname lastname') or
+            ($CFG->fullnamedisplay == 'firstname') or
+            ($CFG->fullnamedisplay == 'language' and $fullnamelanguage == 'firstname lastname' )) {
+            $fullnamedisplay = "$firstname / $lastname";
+        } else { // ($CFG->fullnamedisplay == 'language' and $fullnamelanguage == 'lastname firstname')
+            $fullnamedisplay = "$lastname / $firstname";
         }
 
         $table = new html_table();
@@ -322,11 +311,9 @@
                 // prevent editing of admins by non-admins
                 //XTEC ************ MODIFICAT - To let access only to xtecadmin user
                 //2012.07.17  @sarjona
-                if ( (is_siteadmin($USER) or !is_siteadmin($user) ) && (is_xtecadmin($USER) or !is_xtecadmin($user)) ) {                     
+                if ( (is_siteadmin($USER) or !is_siteadmin($user) ) && (is_xtecadmin($USER) or !is_xtecadmin($user)) ) {
                 //************ ORIGINAL
-                /*
-                if (is_siteadmin($USER) or !is_siteadmin($user)) {
-                */
+                //if (is_siteadmin($USER) or !is_siteadmin($user)) {
                 //************ FI
                     $buttons[] = html_writer::link(new moodle_url($securewwwroot.'/user/editadvanced.php', array('id'=>$user->id, 'course'=>$site->id)), html_writer::empty_tag('img', array('src'=>$OUTPUT->pix_url('t/edit'), 'alt'=>$stredit, 'class'=>'iconsmall')), array('title'=>$stredit));
                 }

@@ -60,7 +60,6 @@ class flexible_table {
     var $column_class    = array();
     var $column_suppress = array();
     var $column_nosort   = array('userpic');
-    private $column_textsort = array();
     var $setup           = false;
     var $sess            = NULL;
     var $baseurl         = NULL;
@@ -130,6 +129,17 @@ class flexible_table {
             TABLE_VAR_ILAST  => 'tilast',
             TABLE_VAR_PAGE   => 'page',
         );
+    }
+
+    /**
+     * Backwards-compatible constructor, so that legacy code subclassing
+     * flexible_table does not break.
+     * @deprecated since Moodle 2.0. Will be removed in Moodle 2.1.
+     */
+    function flexible_table($uniqueid) {
+        debugging('Please update your code to user PHP5-style parent::__construct(...), ' .
+                'not parent::flexible_table(...).');
+        $this->__construct($uniqueid);
     }
 
     /**
@@ -213,14 +223,6 @@ class flexible_table {
         $this->is_sortable = $bool;
         $this->sort_default_column = $defaultcolumn;
         $this->sort_default_order  = $defaultorder;
-    }
-
-    /**
-     * Use text sorting functions for this column (required for text columns with Oracle).
-     * @param string column name
-     */
-    function text_sorting($column) {
-        $this->column_textsort[] = $column;
     }
 
     /**
@@ -419,7 +421,6 @@ class flexible_table {
             $SESSION->flextable[$this->uniqueid]->sortby   = array();
             $SESSION->flextable[$this->uniqueid]->i_first  = '';
             $SESSION->flextable[$this->uniqueid]->i_last   = '';
-            $SESSION->flextable[$this->uniqueid]->textsort = $this->column_textsort;
         }
 
         $this->sess = &$SESSION->flextable[$this->uniqueid];
@@ -461,13 +462,9 @@ class flexible_table {
             $this->sess->sortby = array_slice($this->sess->sortby, 0, $this->maxsortkeys);
         }
 
-        // MDL-35375 - If a default order is defined and it is not in the current list of order by columns, add it at the end.
-        // This prevents results from being returned in a random order if the only order by column contains equal values.
-        if (!empty($this->sort_default_column))  {
-            if (!array_key_exists($this->sort_default_column, $this->sess->sortby)) {
-                $defaultsort = array($this->sort_default_column => $this->sort_default_order);
-                $this->sess->sortby = array_merge($this->sess->sortby, $defaultsort);
-            }
+        // If we didn't sort just now, then use the default sort order if one is defined and the column exists
+        if (empty($this->sess->sortby) && !empty($this->sort_default_column))  {
+            $this->sess->sortby = array ($this->sort_default_column => ($this->sort_default_order == SORT_DESC ? SORT_DESC : SORT_ASC));
         }
 
         $ilast = optional_param($this->request[TABLE_VAR_ILAST], null, PARAM_RAW);
@@ -514,11 +511,8 @@ class flexible_table {
         if (empty($sess->sortby)) {
             return '';
         }
-        if (empty($sess->textsort)) {
-            $sess->textsort = array();
-        }
 
-        return self::construct_order_by($sess->sortby, $sess->textsort);
+        return self::construct_order_by($sess->sortby);
     }
 
     /**
@@ -526,14 +520,10 @@ class flexible_table {
      * @param array $cols column name => SORT_ASC or SORT_DESC
      * @return SQL fragment that can be used in an ORDER BY clause.
      */
-    public static function construct_order_by($cols, $textsortcols=array()) {
-        global $DB;
+    public static function construct_order_by($cols) {
         $bits = array();
 
         foreach ($cols as $column => $order) {
-            if (in_array($column, $textsortcols)) {
-                $column = $DB->sql_order_by_text($column);
-            }
             if ($order == SORT_ASC) {
                 $bits[] = $column . ' ASC';
             } else {
@@ -548,7 +538,7 @@ class flexible_table {
      * @return SQL fragment that can be used in an ORDER BY clause.
      */
     public function get_sql_sort() {
-        return self::construct_order_by($this->get_sort_columns(), $this->column_textsort);
+        return self::construct_order_by($this->get_sort_columns());
     }
 
     /**
@@ -744,19 +734,16 @@ class flexible_table {
     function col_fullname($row) {
         global $COURSE, $CFG;
 
-        $name = fullname($row);
-        if ($this->download) {
-            return $name;
-        }
+        if (!$this->download) {
+            $profileurl = new moodle_url('/user/profile.php', array('id' => $row->{$this->useridfield}));
+            if ($COURSE->id != SITEID) {
+                $profileurl->param('course', $COURSE->id);
+            }
+            return html_writer::link($profileurl, fullname($row));
 
-        $userid = $row->{$this->useridfield};
-        if ($COURSE->id == SITEID) {
-            $profileurl = new moodle_url('/user/profile.php', array('id' => $userid));
         } else {
-            $profileurl = new moodle_url('/user/view.php',
-                    array('id' => $userid, 'course' => $COURSE->id));
+            return fullname($row);
         }
-        return html_writer::link($profileurl, $name);
     }
 
     /**
@@ -939,15 +926,10 @@ class flexible_table {
     function download_buttons() {
         if ($this->is_downloadable() && !$this->is_downloading()) {
             $downloadoptions = $this->get_download_menu();
-
-            $downloadelements = new stdClass();
-            $downloadelements->formatsmenu = html_writer::select($downloadoptions,
-                    'download', $this->defaultdownloadformat, false);
-            $downloadelements->downloadbutton = '<input type="submit" value="'.
-                    get_string('download').'"/>';
             $html = '<form action="'. $this->baseurl .'" method="post">';
             $html .= '<div class="mdl-align">';
-            $html .= html_writer::tag('label', get_string('downloadas', 'table', $downloadelements));
+            $html .= '<input type="submit" value="'.get_string('downloadas', 'table').'"/>';
+            $html .= html_writer::select($downloadoptions, 'download', $this->defaultdownloadformat, false);
             $html .= '</div></form>';
 
             return $html;
@@ -969,7 +951,6 @@ class flexible_table {
         } else {
             $this->start_html();
             $this->print_headers();
-            echo html_writer::start_tag('tbody');
         }
     }
 
@@ -1033,7 +1014,6 @@ class flexible_table {
             $this->print_nothing_to_display();
 
         } else {
-            echo html_writer::end_tag('tbody');
             echo html_writer::end_tag('table');
             echo html_writer::end_tag('div');
             $this->wrap_html_finish();
@@ -1081,7 +1061,6 @@ class flexible_table {
     function print_headers() {
         global $CFG, $OUTPUT;
 
-        echo html_writer::start_tag('thead');
         echo html_writer::start_tag('tr');
         foreach ($this->columns as $column => $index) {
 
@@ -1152,7 +1131,6 @@ class flexible_table {
         }
 
         echo html_writer::end_tag('tr');
-        echo html_writer::end_tag('thead');
     }
 
     /**
@@ -1170,10 +1148,10 @@ class flexible_table {
 
         if ($order == SORT_ASC) {
             return html_writer::empty_tag('img',
-                    array('src' => $OUTPUT->pix_url('t/sort_asc'), 'alt' => get_string('asc'), 'class' => 'iconsort'));
+                    array('src' => $OUTPUT->pix_url('t/down'), 'alt' => get_string('asc')));
         } else {
             return html_writer::empty_tag('img',
-                    array('src' => $OUTPUT->pix_url('t/sort_desc'), 'alt' => get_string('desc'), 'class' => 'iconsort'));
+                    array('src' => $OUTPUT->pix_url('t/up'), 'alt' => get_string('desc')));
         }
     }
 
@@ -1290,6 +1268,17 @@ class table_sql extends flexible_table {
         // some sensible defaults
         $this->set_attribute('cellspacing', '0');
         $this->set_attribute('class', 'generaltable generalbox');
+    }
+
+    /**
+     * Backwards-compatible constructor, so that legacy code subclassing
+     * table_sql does not break.
+     * @deprecated since Moodle 2.0. Will be removed in Moodle 2.1.
+     */
+    function table_sql($uniqueid) {
+        debugging('Please update your code to user PHP5-style parent::__construct(...), ' .
+                'not parent::table_sql(...).');
+        $this->__construct($uniqueid);
     }
 
     /**
@@ -1512,7 +1501,7 @@ class table_spreadsheet_export_format_parent extends table_default_export_format
     }
 
     function start_table($sheettitle) {
-        $this->worksheet = $this->workbook->add_worksheet($sheettitle);
+        $this->worksheet =& $this->workbook->add_worksheet($sheettitle);
         $this->rownum=0;
     }
 
@@ -1590,19 +1579,18 @@ class table_ods_export_format extends table_spreadsheet_export_format_parent {
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class table_text_export_format_parent extends table_default_export_format_parent {
-    protected $seperator = "tab";
+    protected $seperator = "\t";
     protected $mimetype = 'text/tab-separated-values';
     protected $ext = '.txt';
-    protected $myexporter;
-
-    public function __construct() {
-        $this->myexporter = new csv_export_writer($this->seperator, '"', $this->mimetype);
-    }
 
     public function start_document($filename) {
-        $this->filename = $filename;
+        $this->filename = $filename . $this->ext;
+        header('Content-Type: ' . $this->mimetype . '; charset=UTF-8');
+        header('Content-Disposition: attachment; filename="' . $this->filename . '"');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate,post-check=0,pre-check=0');
+        header('Pragma: public');
         $this->documentstarted = true;
-        $this->myexporter->set_filename($filename, $this->ext);
     }
 
     public function start_table($sheettitle) {
@@ -1610,20 +1598,19 @@ class table_text_export_format_parent extends table_default_export_format_parent
     }
 
     public function output_headers($headers) {
-        $this->myexporter->add_data($headers);
+        echo $this->format_row($headers);
     }
 
     public function add_data($row) {
-        $this->myexporter->add_data($row);
+        echo $this->format_row($row);
         return true;
     }
 
     public function finish_table() {
-        //nothing to do here
+        echo "\n\n";
     }
 
     public function finish_document() {
-        $this->myexporter->download_file();
         exit;
     }
 
@@ -1647,22 +1634,23 @@ class table_text_export_format_parent extends table_default_export_format_parent
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class table_tsv_export_format extends table_text_export_format_parent {
-    protected $seperator = "tab";
+    protected $seperator = "\t";
     protected $mimetype = 'text/tab-separated-values';
     protected $ext = '.txt';
 }
 
-require_once($CFG->libdir . '/csvlib.class.php');
+
 /**
  * @package   moodlecore
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class table_csv_export_format extends table_text_export_format_parent {
-    protected $seperator = "comma";
+    protected $seperator = ",";
     protected $mimetype = 'text/csv';
     protected $ext = '.csv';
 }
+
 
 /**
  * @package   moodlecore
@@ -1749,7 +1737,6 @@ EOF;
 
     function output_headers($headers) {
         $this->table->print_headers();
-        echo html_writer::start_tag('tbody');
     }
 
     function add_data($row) {

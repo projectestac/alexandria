@@ -73,7 +73,6 @@ $strname  = get_string('name');
 $strweek  = get_string('week');
 $strtopic = get_string('topic');
 
-$table = new html_table();
 if ($course->format == 'weeks') {
     $table->head  = array ($strweek, $strname);
     $table->align = array ('center', 'left');
@@ -102,7 +101,7 @@ foreach ($jclics as $jclic) {
 }
 
 echo $OUTPUT->heading(get_string('modulenameplural', 'jclic'), 2);
-echo html_writer::table($table);
+print_table($table);
 
 /// Finish the page
 

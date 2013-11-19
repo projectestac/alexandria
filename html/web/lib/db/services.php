@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,22 +15,12 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * Core external functions and service definitions.
  *
- * The functions and services defined on this file are
- * processed and registered into the Moodle DB after any
- * install or upgrade operation. All plugins support this.
- *
- * For more information, take a look to the documentation available:
- *     - Webservices API: {@link http://docs.moodle.org/dev/Web_services_API}
- *     - External API: {@link http://docs.moodle.org/dev/External_functions_API}
- *     - Upgrade API: {@link http://docs.moodle.org/dev/Upgrade_API}
- *
- * @package    core_webservice
- * @category   webservice
- * @copyright  2009 Petr Skodak
+ * @package    core
+ * @subpackage webservice
+ * @copyright  2009 Petr Skoda (http://skodak.org)
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
@@ -161,62 +152,6 @@ $functions = array(
         'description' => 'Deletes group members.',
         'type'        => 'delete',
         'capabilities'=> 'moodle/course:managegroups',
-    ),
-
-    'core_group_create_groupings' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'create_groupings',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Creates new groupings',
-        'type'        => 'write',
-    ),
-
-    'core_group_update_groupings' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'update_groupings',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Updates existing groupings',
-        'type'        => 'write',
-    ),
-
-    'core_group_get_groupings' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'get_groupings',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Returns groupings details.',
-        'type'        => 'read',
-    ),
-
-    'core_group_get_course_groupings' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'get_course_groupings',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Returns all groupings in specified course.',
-        'type'        => 'read',
-    ),
-
-    'core_group_delete_groupings' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'delete_groupings',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Deletes all specified groupings.',
-        'type'        => 'write',
-    ),
-
-    'core_group_assign_grouping' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'assign_grouping',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Assing groups from groupings',
-        'type'        => 'write',
-    ),
-
-    'core_group_unassign_grouping' => array(
-        'classname'   => 'core_group_external',
-        'methodname'  => 'unassign_grouping',
-        'classpath'   => 'group/externallib.php',
-        'description' => 'Unassing groups from groupings',
-        'type'        => 'write',
     ),
 
     // === file related functions ===
@@ -356,15 +291,6 @@ $functions = array(
 
     // === enrol related functions ===
 
-    'core_enrol_get_enrolled_users_with_capability' => array(
-        'classname'   => 'core_enrol_external',
-        'methodname'  => 'get_enrolled_users_with_capability',
-        'classpath'   => 'enrol/externallib.php',
-        'description' => 'For each course and capability specified, return a list of the users that are enrolled in the course
-                          and have that capability',
-        'type'        => 'read',
-    ),
-
     'moodle_enrol_get_enrolled_users' => array(
         'classname'   => 'moodle_enrol_external',
         'methodname'  => 'get_enrolled_users',
@@ -442,15 +368,6 @@ $functions = array(
 
     // === course related functions ===
 
-    'core_course_get_contents' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'get_course_contents',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Get course contents',
-        'type'        => 'read',
-        'capabilities'=> 'moodle/course:update,moodle/course:viewhiddencourses',
-    ),
-
     'moodle_course_get_courses' => array(
         'classname'   => 'core_course_external',
         'methodname'  => 'get_courses',
@@ -487,69 +404,13 @@ $functions = array(
         'capabilities'=> 'moodle/course:create,moodle/course:visibility',
     ),
 
-    'core_course_delete_courses' => array(
+    'core_course_get_contents' => array(
         'classname'   => 'core_course_external',
-        'methodname'  => 'delete_courses',
+        'methodname'  => 'get_course_contents',
         'classpath'   => 'course/externallib.php',
-        'description' => 'Deletes all specified courses',
-        'type'        => 'write',
-        'capabilities'=> 'moodle/course:delete',
-    ),
-
-    'core_course_duplicate_course' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'duplicate_course',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Duplicate an existing course (creating a new one) without user data',
-        'type'        => 'write',
-        'capabilities'=> 'moodle/backup:backupcourse,moodle/restore:restorecourse,moodle/course:create',
-    ),
-
-    // === course category related functions ===
-
-    'core_course_get_categories' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'get_categories',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Return category details',
+        'description' => 'Get course contents',
         'type'        => 'read',
-        'capabilities'=> 'moodle/category:viewhiddencategories',
-    ),
-
-    'core_course_create_categories' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'create_categories',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Create course categories',
-        'type'        => 'write',
-        'capabilities'=> 'moodle/category:manage',
-    ),
-
-    'core_course_update_categories' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'update_categories',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Update categories',
-        'type'        => 'write',
-        'capabilities'=> 'moodle/category:manage',
-    ),
-
-    'core_course_delete_categories' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'delete_categories',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Delete course categories',
-        'type'        => 'write',
-        'capabilities'=> 'moodle/category:manage',
-    ),
-
-    'core_course_import_course' => array(
-        'classname'   => 'core_course_external',
-        'methodname'  => 'import_course',
-        'classpath'   => 'course/externallib.php',
-        'description' => 'Import course data from a course into another course. Does not include any user data.',
-        'type'        => 'write',
-        'capabilities'=> 'moodle/backup:backuptargetimport, moodle/restore:restoretargetimport',
+        'capabilities'=> 'moodle/course:update,moodle/course:viewhiddencourses',
     ),
 
     // === message related functions ===
@@ -610,30 +471,6 @@ $functions = array(
         'type'        => 'read',
     ),
 
-    'core_get_string' => array(
-        'classname'   => 'core_external',
-        'methodname'  => 'get_string',
-        'classpath'   => 'lib/external/externallib.php',
-        'description' => 'Return a translated string - similar to core get_string() call',
-        'type'        => 'read',
-    ),
-
-    'core_get_strings' => array(
-        'classname'   => 'core_external',
-        'methodname'  => 'get_strings',
-        'classpath'   => 'lib/external/externallib.php',
-        'description' => 'Return some translated strings - like several core get_string() calls',
-        'type'        => 'read',
-    ),
-
-    'core_get_component_strings' => array(
-        'classname'   => 'core_external',
-        'methodname'  => 'get_component_strings',
-        'classpath'   => 'lib/external/externallib.php',
-        'description' => 'Return all raw strings (with {$a->xxx}) for a specific component
-            - similar to core get_component_strings() call',
-        'type'        => 'read',
-    ),
 );
 
 $services = array(
@@ -647,8 +484,7 @@ $services = array(
             'moodle_user_get_course_participants_by_id',
             'moodle_user_get_users_by_courseid',
             'moodle_message_send_instantmessages',
-            'core_course_get_contents',
-            'core_get_component_strings'),
+            'core_course_get_contents'),
         'enabled' => 0,
         'restrictedusers' => 0,
         'shortname' => MOODLE_OFFICIAL_MOBILE_SERVICE,

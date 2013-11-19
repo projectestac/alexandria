@@ -16,7 +16,7 @@
 // | Authors: Bertrand Mansion <bmansion@mamasam.com>                     |
 // +----------------------------------------------------------------------+
 //
-// $Id$
+// $Id: Range.php,v 1.2 2010/12/14 17:35:59 moodlerobot Exp $
 
 require_once('HTML/QuickForm/Rule.php');
 
@@ -34,7 +34,7 @@ class HTML_QuickForm_Rule_Range extends HTML_QuickForm_Rule
      * @access    public
      * @return    boolean   true if value is valid
      */
-    function validate($value, $options = null)
+    function validate($value, $options)
     {
         $length = strlen($value);
         switch ($this->name) {
@@ -48,13 +48,13 @@ class HTML_QuickForm_Rule_Range extends HTML_QuickForm_Rule
     function getValidationScript($options = null)
     {
         switch ($this->name) {
-            case 'minlength':
+            case 'minlength': 
                 $test = '{jsVar}.length < '.$options;
                 break;
-            case 'maxlength':
+            case 'maxlength': 
                 $test = '{jsVar}.length > '.$options;
                 break;
-            default:
+            default: 
                 $test = '({jsVar}.length < '.$options[0].' || {jsVar}.length > '.$options[1].')';
         }
         return array('', "{jsVar} != '' && {$test}");

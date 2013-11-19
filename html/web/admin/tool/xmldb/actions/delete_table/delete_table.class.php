@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will delete completely one table
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -93,10 +95,10 @@ class delete_table extends XMLDBAction {
             // Get the edited dir
             if (!empty($XMLDB->editeddirs)) {
                 if (isset($XMLDB->editeddirs[$dirpath])) {
-                    $dbdir = $XMLDB->dbdirs[$dirpath];
-                    $editeddir = $XMLDB->editeddirs[$dirpath];
+                    $dbdir =& $XMLDB->dbdirs[$dirpath];
+                    $editeddir =& $XMLDB->editeddirs[$dirpath];
                     if ($editeddir) {
-                        $structure = $editeddir->xml_file->getStructure();
+                        $structure =& $editeddir->xml_file->getStructure();
                         // Remove the table
                         $structure->deleteTable($tableparam);
                     }

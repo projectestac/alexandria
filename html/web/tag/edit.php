@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,10 +15,9 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
- * @package    core_tag
- * @category   tag
+ * @package    core
+ * @subpackage tag
  * @copyright  2007 Luiz Cruz <luiz.laydner@gmail.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -36,7 +36,7 @@ if (empty($CFG->usetags)) {
 }
 
 //Editing a tag requires moodle/tag:edit capability
-$systemcontext   = context_system::instance();
+$systemcontext   = get_context_instance(CONTEXT_SYSTEM);
 require_capability('moodle/tag:edit', $systemcontext);
 
 if ($tag_name) {
@@ -54,6 +54,11 @@ $PAGE->set_subpage($tag->id);
 $PAGE->set_context($systemcontext);
 $PAGE->set_blocks_editing_capability('moodle/tag:editblocks');
 $PAGE->set_pagelayout('base');
+
+$PAGE->requires->yui2_lib('connection');
+$PAGE->requires->yui2_lib('animation');
+$PAGE->requires->yui2_lib('datasource');
+$PAGE->requires->yui2_lib('autocomplete');
 
 $tagname = tag_display_name($tag);
 
@@ -106,8 +111,7 @@ if ($tagnew = $tagform->get_data()) {
         unset($tagnew->rawname);
 
     } else {  // They might be trying to change the rawname, make sure it's a change that doesn't affect name
-        $norm = tag_normalize($tagnew->rawname, TAG_CASE_LOWER);
-        $tagnew->name = array_shift($norm);
+        $tagnew->name = array_shift(tag_normalize($tagnew->rawname, TAG_CASE_LOWER));
 
         if ($tag->name != $tagnew->name) {  // The name has changed, let's make sure it's not another existing tag
             if (tag_get_id($tagnew->name)) {   // Something exists already, so flag an error

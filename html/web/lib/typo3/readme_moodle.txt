@@ -1,11 +1,7 @@
-Description of Typo3 libraries (v 4.7.4) import into Moodle
-
-Changes: none
+Description of Typo3 libraries (v 4.5.0) import into Moodle
 
 skodak, stronk7
 
-
-Previous changes:
 
 25 June 2010 - Martin D (4.3.0RC1)
   I renamed getURL to getUrl since it was being called that way everywhere.

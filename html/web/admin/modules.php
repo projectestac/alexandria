@@ -121,6 +121,7 @@
         $strdelete = '';
     }
     //************ FI    
+    
     $table->define_headers(array($stractivitymodule, $stractivities, $strversion, "$strhide/$strshow", $strdelete, $strsettings));
     $table->define_baseurl($CFG->wwwroot.'/'.$CFG->admin.'/modules.php');
     $table->set_attribute('id', 'modules');
@@ -128,13 +129,6 @@
     $table->setup();
 
     foreach ($modules as $module) {
-        
-        //XTEC ************ AFEGIT - Only enabled modules has to be showed
-        //2012.11.06  @sarjona
-        if (!is_enabled_in_agora($module->name) ){
-            continue;
-        }
-        //************ FI
 
         if (!file_exists("$CFG->dirroot/mod/$module->name/lib.php")) {
             $strmodulename = '<span class="notifyproblem">'.$module->name.' ('.get_string('missingfromdisk').')</span>';
@@ -146,7 +140,15 @@
             $missing = false;
         }
 
-        $delete = "<a href=\"modules.php?delete=$module->name&amp;sesskey=".sesskey()."\">$strdelete</a>";
+        //XTEC ************ AFEGIT - To let access only to xtecadmin user
+        //2012.06.25  @sarjona
+        if (get_protected_agora()) {
+        //************ FI    
+            $delete = "<a href=\"modules.php?delete=$module->name&amp;sesskey=".sesskey()."\">$strdelete</a>";
+        //XTEC ************ AFEGIT - To let access only to xtecadmin user
+        //2012.06.25  @sarjona
+        }
+        //************ FI    
 
         if (file_exists("$CFG->dirroot/mod/$module->name/settings.php") ||
                 file_exists("$CFG->dirroot/mod/$module->name/settingstree.php")) {
@@ -174,11 +176,11 @@
             $class   = '';
         } else if ($module->visible) {
             $visible = "<a href=\"modules.php?hide=$module->name&amp;sesskey=".sesskey()."\" title=\"$strhide\">".
-                       "<img src=\"" . $OUTPUT->pix_url('t/hide') . "\" class=\"iconsmall\" alt=\"$strhide\" /></a>";
+                       "<img src=\"" . $OUTPUT->pix_url('i/hide') . "\" class=\"icon\" alt=\"$strhide\" /></a>";
             $class   = '';
         } else {
             $visible = "<a href=\"modules.php?show=$module->name&amp;sesskey=".sesskey()."\" title=\"$strshow\">".
-                       "<img src=\"" . $OUTPUT->pix_url('t/show') . "\" class=\"iconsmall\" alt=\"$strshow\" /></a>";
+                       "<img src=\"" . $OUTPUT->pix_url('i/show') . "\" class=\"icon\" alt=\"$strshow\" /></a>";
             $class =   ' class="dimmed_text"';
         }
         if ($module->name == "forum") {

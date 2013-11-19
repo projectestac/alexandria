@@ -58,7 +58,7 @@ if ($deluser !== 0) {
     $url->param('deluser', $deluser);
 }
 $PAGE->set_url($url);
-$PAGE->set_context(context_system::instance());
+$PAGE->set_context(get_context_instance(CONTEXT_SYSTEM));
 
 if (!$course = $DB->get_record('course', array('id'=>$id))) {
     print_error('invalidcourseid');
@@ -66,8 +66,8 @@ if (!$course = $DB->get_record('course', array('id'=>$id))) {
 
 require_login();
 
-$coursecontext = context_course::instance($id);   // Course context
-$systemcontext = context_system::instance();   // SYSTEM context
+$coursecontext = get_context_instance(CONTEXT_COURSE, $id);   // Course context
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);   // SYSTEM context
 require_capability('moodle/course:bulkmessaging', $coursecontext);
 
 if (empty($SESSION->emailto)) {
@@ -92,7 +92,6 @@ $messagebody = $SESSION->emailselect[$id]['messagebody'];
 $count = 0;
 
 if ($data = data_submitted()) {
-    require_sesskey();
     foreach ($data as $k => $v) {
         if (preg_match('/^(user|teacher)(\d+)$/',$k,$m)) {
             if (!array_key_exists($m[2],$SESSION->emailto[$id])) {
@@ -131,14 +130,12 @@ if ($count) {
 }
 
 if (!empty($messagebody) && !$edit && !$deluser && ($preview || $send)) {
-    require_sesskey();
     if (count($SESSION->emailto[$id])) {
         if (!empty($preview)) {
             echo '<form method="post" action="messageselect.php" style="margin: 0 20px;">
 <input type="hidden" name="returnto" value="'.s($returnto).'" />
 <input type="hidden" name="id" value="'.$id.'" />
 <input type="hidden" name="format" value="'.$format.'" />
-<input type="hidden" name="sesskey" value="' . sesskey() . '" />
 ';
             echo "<h3>".get_string('previewhtml')."</h3><div class=\"messagepreview\">\n".format_text($messagebody,$format)."\n</div>\n";
             echo '<p align="center"><input type="submit" name="send" value="'.get_string('sendmessage', 'message').'" />'."\n";
@@ -172,7 +169,6 @@ if ((!empty($send) || !empty($preview) || !empty($edit)) && (empty($messagebody)
 }
 
 if (count($SESSION->emailto[$id])) {
-    require_sesskey();
     $usehtmleditor = can_use_html_editor();
     require("message.html");
 }

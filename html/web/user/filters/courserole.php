@@ -21,7 +21,7 @@ class user_filter_courserole extends user_filter_type {
      * @return array of availble roles
      */
     function get_roles() {
-        $context = context_system::instance();
+        $context = get_context_instance(CONTEXT_SYSTEM);
         $roles = array(0=> get_string('anyrole','filters')) + get_default_enrol_roles($context);
         return $roles;
     }
@@ -84,7 +84,7 @@ class user_filter_courserole extends user_filter_type {
     function get_sql_filter($data) {
         global $CFG, $DB;
         static $counter = 0;
-        $pref = 'ex_courserole'.($counter++).'_';
+        $name = 'ex_courserole'.$counter++;
 
         $value      = $data['value'];
         $roleid     = $data['roleid'];
@@ -98,16 +98,17 @@ class user_filter_courserole extends user_filter_type {
 
         $where = "b.contextlevel=50";
         if ($roleid) {
-            $where .= " AND a.roleid = :{$pref}roleid";
-            $params[$pref.'roleid'] = $roleid;
+            $where .= " AND a.roleid = :roleid";
+            $params['roleid'] = $roleid;
+
         }
         if ($categoryid) {
-            $where .= " AND c.category = :{$pref}categoryid";
-            $params[$pref.'categoryid'] = $categoryid;
+            $where .= " AND c.category = :categoryid";
+            $params['categoryid'] = $categoryid;
         }
         if ($value) {
-            $where .= " AND c.shortname = :{$pref}course";
-            $params[$pref.'course'] = $value;
+            $where .= " AND c.shortname = :$name";
+            $params[$name] = $value;
         }
         return array("id IN (SELECT userid
                                FROM {role_assignments} a

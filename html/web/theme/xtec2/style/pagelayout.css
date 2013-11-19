@@ -1,13 +1,11 @@
-[[setting:importcss]]
-
 @font-face {
     font-family: Abecedario;
-    src: url('[[url]]/theme/xtec2/fonts/Abecedario.ttf');
+    src: url('xtec2/fonts/Abecedario.ttf');
 }
 
 @font-face {
     font-family: Abecedario;
-    src: url('[[url]]/theme/xtec2/fonts/AbecedarioNegrita.ttf');
+    src: url('xtec2/fonts/AbecedarioNegrita.ttf');
     font-weight: bold;
 }
 
@@ -17,15 +15,8 @@ body {
     padding-bottom: 15px;
     margin-bottom: 0px;
     color:#555555;
-    overflow-x:hidden!important;
     font-size: [[setting:fontsize]];
     [[setting:fontstyle]]
-}
-
-html, body {
-    margin: 0;
-    padding: 0;
-    height: 100%;
 }
 
 h2 {
@@ -50,10 +41,10 @@ legend {
 }
 
 input[type="button"], input[type="submit"], input[type="reset"], button {
-    /* background-image: url([[pix:theme|theme/button]]);*/
+    background-image: url([[pix:theme|theme/button]]);
     background-position: bottom;
     background-repeat: repeat-x;
-    padding: 3px;
+    padding: 2px;
     margin-left: 2px;
     margin-right: 2px;
     border-width: 1px;
@@ -63,30 +54,15 @@ input[type="button"], input[type="submit"], input[type="reset"], button {
     background-color: [[setting:color2]];
     color: [[setting:color3]];
     border-color: [[setting:color2]];
-    cursor:pointer;
-}
-
-/* Make disabled buttons really look like a disabled button */
-.fitem.disabled .fp-btn-choose {
-    background-color: #ccc;
-    border-color: #ccc;
-    cursor: default;
-}
-
-/*button.fp-upload-btn, button.fp-login-popup-but, button.fp-select-confirm, button.fp-select-cancel, button.fp-msg-butok {
-    color:[[setting:color3]]!important;
-}*/
-
-button {
-    color:[[setting:color3]]!important;
 }
 
 table {
     border: 1px solid #ddd;
-    border-radius: 5px;
 }
 
-tr, th, td { 
+tr, 
+th, 
+td { 
     border: none !important; 
 }
 
@@ -95,77 +71,6 @@ th {
     background-color: [[setting:color2]];
     font-weight: bold;
 }
-
-tbody th {
-    color: #555555;
-    background-color:#FFF!important;
-    font-weight: bold;
-}
-
-tbody tr {
-    border-bottom:1px solid #DDDDDD!important;
-}
-
-tr.header {
-    background-color:#DDDDDD!important;
-}
-
-th.header a {
-    color: [[setting:color5]]!important;
-}
-
-th.header {
-    background-color: [[setting:color6]]!important;
-    color:[[setting:color4]]!important;
-}
-
-#page {
-    margin: 0; padding: 0;
-    min-height: 100%; _height: 100%; /* min-height for smart browsers
-                                     _height for Internet Explorer ;-)*/
-}
-
-#content {
-    padding-bottom: 105px;
-}
-
-.pagelayout-report #page-content #region-main-box #region-post-box #region-main-wrap #region-main-pad #region-main .region-content .no-overflow { overflow:auto!important; }
-
-.pagelayout-report #page-content .region-content { overflow:auto!important; }
-
-.pagelayout-report .no-overflow { overflow-y: auto!important; margin-top: 10px; margin-bottom: 10px; }
-
-
-/* Styles for gradebook */
-
-.flexible th,
-.flexible td,
-.flexible th a,
-.flexible td a,
-.path-grade-report-grader .heading_name_row th {
-    white-space: normal!important;
-    min-width: 60px;
-}
-
-/* The following styles are for grade_report_fixedstudents being set */
-.path-grade-report-grader div.left_scroller tr,
-.path-grade-report-grader div.right_scroller tr,
-.path-grade-report-grader div.left_scroller td,
-.path-grade-report-grader div.right_scroller td,
-.path-grade-report-grader div.left_scroller th,
-.path-grade-report-grader div.right_scroller th {
-    padding-top: 0px!important;
-    padding-bottom: 0px!important;
-}
-
-.path-grade-report-grader div.left_scroller tr.heading,
-.path-grade-report-grader div.right_scroller tr.heading_name_row,
-.path-grade-report-grader div.left_scroller td.fixedcolumn {
-    height: 70px!important;
-    min-height: 70px!important;
-    max-height: 70px!important;
-}
-
 
 .box {
     font-size: 1.1em;
@@ -176,10 +81,9 @@ th.header {
 
 .generalbox {
     margin-top: 10px;
+    background-image: url([[pix:theme|theme/borderbottom]]);
     background-position: bottom;
     background-repeat: repeat-x;
-    background-image: none!important;
-    background-color: #fff;
     border-radius: 5px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -198,16 +102,12 @@ th.header {
 .mform {
     margin: auto;
     margin-top: 20px;
-    width: 100%;
-}
-
-.quickgradingform {
-    font-size: 1em; /* Avoid too-big font size in gradebook */
+    width: 75%;
 }
 
 #page-header {
     height: 139px;
-    background-image: url([[setting:logo]]);
+    background-image: url([[setting:logourl]]);
     background-position: right bottom;
     background-repeat: no-repeat;
     background-color: #fff;
@@ -225,6 +125,10 @@ th.header {
     width: 100%;
     padding-top: 10px;
     clear: both; 
+    /*   background-image: url([[pix:theme|theme/menubar]]);
+       background-color: [[setting:color4]];
+       background-position: top;
+       background-repeat: repeat-x;*/
     margin: 0px;
     border-bottom: 2px solid #ad2114;
     text-align: left;
@@ -259,9 +163,10 @@ th.header {
 
 .navbar {
     color: [[setting:color3]];
-    height: 30px;
-    padding-top: 5px;
-    padding-bottom:5px;
+    background-color: [[setting:color6]];
+    background-image: url([[pix:theme|theme/navigation]]);
+    background-repeat: repeat-x;
+    height:34px;
 }
 
 .navbutton {
@@ -272,8 +177,11 @@ th.header {
 .breadcrumb {
     color: [[setting:color5]];
     padding: 7px 10px 10px 10px ;
-    font-size: 90%;
 }
+
+/*.arrow {
+    color: [[setting:color1]];
+}*/
 
 .arrow {
     color:#686868;
@@ -303,32 +211,22 @@ h2.main {
     -moz-border-radius: 5px;
 }
 
-.initialbar {
-    text-align: left;
-    margin-bottom:5px;
-}
-
 #custommenu {
     color: [[setting:color5]];
-    background-color: #eee;
+    background-color: #ddd;
     font-weight: bold;
-    padding: 0px 0px 0px 0px;
-    border-bottom:1px solid #ddd;
+    padding: 5px 0px 5px 0px;
 }
 
 #custommenu a {
     color: [[setting:color5]];
 }
 
-#custommenu a:hover {
-    color: [[setting:color2]];
-}
-
 .custom_menu_submenu, 
 .yui3-menu, 
 .first-of-type, 
 .yui3-menuitem-active {
-    /*background-color: #ddd;*/
+    background-color: #ddd;
     font-weight: bold;
 }
 
@@ -338,27 +236,21 @@ h2.main {
 }
 
 
-li a.yui3-menu-label {
-    padding-bottom: 5px ! important;
-    padding-top: 5px ! important;
-    /*background: url(../theme/xtec2/pix/theme/ralla_menu.png) no-repeat right!important; */
-}
-
-ul li a.yui3-menuitem-content {  
-    padding-bottom: 5px ! important;
-    padding-top: 5px ! important;
-}
-
-.yui3-menu-content {
-    margin:0px!important;
-    padding:0px!important;
-}
-
-#custommenu a:hover{color: [[setting:color3]]!important; background-color: [[setting:color2]]!important;}
-#custommenu a:active{color: [[setting:color3]]!important; background-color: [[setting:color2]]!important;}
-
 
 /* Courses */
+
+ul.weeks,
+ul.unlist,
+ul.topics {
+    margin: 0px;
+    border: 1px solid #ddd;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    /*  box-shadow: 3px 3px 3px #bbb;*/
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    /*  -moz-box-shadow: 3px 3px 3px #bbb;*/
+}
 
 .weeks .section,
 .weeks #section-0,
@@ -390,6 +282,7 @@ ul li a.yui3-menuitem-content {
 .course-content .section .left,
 .weeks .section,
 .topics .section {
+    /* background-image: url([[pix:theme|theme/borderbottom]]);*/
     background-position: bottom;
     background-repeat: repeat-x;
     padding-top: 5px;
@@ -407,9 +300,6 @@ ul li a.yui3-menuitem-content {
     /* width: 80px !important;*/
 }
 
-.section.main.clearfix {border-bottom:1px solid #DDDDDD; }
-.section.main.clearfix.current { border: 3px solid [[setting:color1]];}
-
 .topics .current {
     border: 3px solid [[setting:color1]];
     background-color: #fff;
@@ -426,7 +316,7 @@ ul li a.yui3-menuitem-content {
 
 .weeks #section-0,
 .topics #section-0 {
-    background-color: #fff;    
+    background-color: #eee;    
 }
 
 .weeks #section-0 .left,
@@ -475,37 +365,76 @@ ul li a.yui3-menuitem-content {
 
 .course-content .section .left {
     min-width:40px;
+
 }
 
 .section .left {
+
     color: #ccc ;
 }
+
 
 .section li {
     margin-bottom:5px!important;
 }
 
-.current .left {
-    color: [[setting:color3]];
+.current .left { color: [[setting:color3]];
 }
+
+
 
 #page-footer a {
     text-decoration: none;
 }
 
-#page-footer {
-    border-top: 1px dotted #B3B3B3;
-    padding-top:10px;
-}
+#page-footer  {border-top: 1px dotted #B3B3B3; padding-top:10px;}
 
 .footerlogos {
     text-align: center;
     margin-top: 10px;
 }
 
-.section-title a {
-    text-decoration: underline;
+/* Hidden topics *//*
+#course-view .index .content,
+#course-view .index .right,
+#course-view .weeks .index,
+#course-view .hidden .content,
+#course-view .hidden .right,
+#course-view .weeks .hidden {
+    background-color: #EEE;
 }
+
+#course-view .current .content,
+#course-view .current .right {
+    background-color: #FFFFFF;
+}
+
+#course-view .current .content {
+    border-left-style: none;
+    border-right-style: none;
+}
+
+#course-view .current .right {
+    border-left-style: none;
+}
+
+#course-view .current .left {
+    border-right-style: none;
+    background-color: [[setting:color2]];
+    color: [[setting:color6]];
+}
+
+.topics, 
+#course-view ul.weeks,
+#course-view .weeks {
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -moz-box-shadow: 3px 3px 3px 3px #bbb;
+    box-shadow: 3px 3px 3px 3px #bbb;
+}
+*/
+
+
 
 /* Modules: Forum */
 
@@ -514,14 +443,17 @@ ul li a.yui3-menuitem-content {
     margin: auto;
     padding-bottom: 15px;
     padding-top: 10px;
+    background-image: url([[pix:theme|theme/borderbottom]]);
+    background-position: bottom;
+    background-repeat: repeat-x;
     border: 1px solid #ddd;
+    width: 98%;
 }
 
 .forumnodiscuss {
     text-align: center;
     font-size: 1.2em;
     font-weight: bold;
-    margin-top: 10px;
 }
 
 .fcontainer textarea {
@@ -531,34 +463,22 @@ ul li a.yui3-menuitem-content {
 .forumheaderlist,
 .forumpost {
     border: 1px solid #ddd;
+    background-color: #eee;
+    width: 98%;
     margin: auto;
-    border-top: 0px;
-}
-
-div.forumheaderlist:last-of-type, div.forumpost:last-of-type {
+    margin-top: 2px;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
+    /* box-shadow: 3px 3px 3px #bbb;*/
     -moz-border-radius-bottomleft: 5px;
     -moz-border-radius-bottomright: 5px;
-    border: 1px solid #ddd;
-    margin: auto;
-   	border-top: 0px;
-}
-
-div.content div.coursebox:only-of-type {
-    border-bottom: white solid 0px!important;
+    /*-moz-box-shadow: 3px 3px 3px #bbb;*/
 }
 
 .subscribelink {
     border-style: solid;
-    border-width: 0px 1px 0px 1px;
-    border-color: #DDDDDD;
-    padding:10px;
+    border-width: 1px 1px 0px 1px;
 }
-
-.hidden .header { -moz-border-radius: 5px; border-radius: 5px; }
-
-.link { padding:5px; }
 
 .forumpost .content {
     padding: 0px 10px 10px 10px;
@@ -583,6 +503,7 @@ div.content div.coursebox:only-of-type {
 
 .forumpost .commands {
     padding: 10px;
+    background-image: url([[pix:theme|theme/borderbottom]]);
     background-position: bottom;
     background-repeat: repeat-x;
 }
@@ -597,6 +518,7 @@ div.content div.coursebox:only-of-type {
     background-color: #fff;
 }
 
+
 .adminwarning {
     margin: auto;
     margin-top: 20px;
@@ -610,14 +532,24 @@ div.content div.coursebox:only-of-type {
     margin-top: 40px;
 }
 
-.initialbar a { margin-left: 5px; }
+.initialbar a{margin-left:5px; }
 
-.capsula-footer { 
-    display: block;
-    overflow: auto;
-    width: 100%;
-    bottom: 0;
-    clear: both;
+.capsula-footer{ display:block; overflow:auto; width:100%; position:; bottom:0; clear:both;}
+
+
+html, body {
+    margin: 0; padding: 0;
+    height: 100%;
+}
+
+#page {
+    margin: 0; padding: 0;
+    min-height: 100%; _height: 100%; /* min-height for smart browsers
+                                     _height for Internet Explorer ;-)*/
+}
+
+#content {
+    padding-bottom: 105px;
 }
 
 .foot {
@@ -625,6 +557,8 @@ div.content div.coursebox:only-of-type {
     height: 100px;
     margin-top: -100px;
     position: relative;
+    z-index: 10;
+
 }
 .summary {
     padding-top: 15px!important;
@@ -635,352 +569,8 @@ div.content div.coursebox:only-of-type {
 .forgetpass{ margin-top:0px; margin-bottom:10px}
 .rememberpass{margin-top:15px;}
 
-li.yui3-menuitem:hover{
-    background-color:#aaa!important;
-}
-
-.yui3-skin-sam .yui3-menu-label-active, .yui3-skin-sam .yui3-menu-label-menuvisible, .yui3-skin-sam .yui3-menu .yui3-menu .yui3-menu-label-active, .yui3-skin-sam .yui3-menu .yui3-menu .yui3-menu-label-menuvisible {
-    background-color: #eeeeee!important;
-}
-
-.yui3-skin-sam .yui3-menuitem-active .yui3-menuitem-content, .yui3-skin-sam .yui3-menu .yui3-menu .yui3-menuitem-active .yui3-menuitem-content {
-    background-color: #eeeeee!important;
-    background-image: none;
-    border-left-width: 0px;
-    margin-left: 0px;
-}
-
-#custommenu ul li ul li a{ padding-right:20px!important; border-bottom:1px solid #DDDDDD!important;}
-
-#custommenu ul li a{ border-right:1px solid #DDD!important;}
-
-
-.first-of-type ul li:first-of-type{border-top:1px solid #DDDDDD!important;}
-
-.rolecap { width:95%;}
-
-.capabilitysearchui { margin-top:20px; margin-bottom:20px;}
-
-.advancedbutton {margin-left:20px}
-
-.coursebox {
-    border-bottom:1px solid #DDDDDD!important;
-}
-
-.form-overridden {
-    color: #ff0000;
-    font-weight: bold;
-}
-
-#page-mod-quiz-edit .questionbankwindow div.header {
-    background-color: [[setting:color2]]!important;
-    color: [[setting:color3]]!important;
-}
-
-#page-mod-quiz-edit div.questionbank {
-    background-color: #EEEEEE!important;
-}
-
-#page-mod-quiz-edit div.quizpage .pagecontent {
-    background-color: #ffffff;
-    border-bottom-left-radius: 0.6em;
-    border-bottom-right-radius: 0.6em;
-    border-left-color-ltr-source: physical;
-    border-left-color-rtl-source: physical;
-    border-left-color-value: #777777;
-    border-left-style-ltr-source: physical;
-    border-left-style-rtl-source: physical;
-    border-left-style-value: solid;
-    border-left-width-ltr-source: physical;
-    border-left-width-rtl-source: physical;
-    border-left-width-value: thin;
-    border-top-left-radius: 0.6em;
-    border-top-right-radius: 0.6em;
-    display: block;
-    float: left;
-    line-height: 1.3em;
-    margin-bottom: 0.2em;
-    margin-left: 0.3em;
-    margin-top: 0.3em;
-    padding-bottom: 0.3em;
-    padding-left: 0;
-    padding-right: 0;
-    padding-top: 0.15em;
-    position: relative;
-    width: 88%;
-}
-
-#page-content #region-main ul.weeks, 
-#page-content #region-main ul.unlist, 
-#page-content #region-main ul.topics {
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    border: 1px solid #DDDDDD;
-    margin: 0px;
-}
-
-
-/*TAB*/
-
-.tabtree ul {
-    text-align: center;
-}
-
-.tabtree .tabrow0 {
-    width: 100%;
-    margin: 1em 0px;
-}
-
-.tabtree .tabrow0 li {
-    margin-right: -4px;
-}
-
-.tabtree .tabrow0 li.here {
-    font-weight: bold;
-}
-
-.tabtree .tabrow0 li.here a {
-    position: relative;
-    z-index: 102;
-}
-
-.tabtree .tabrow0 li a {
-    background: #f7f7f7;
-    padding: 5px 10px 5px;
-    border-width: 1px 1px 0;
-    border-radius:5px 5px 0px 0px;
-    border-style: solid;
-    border-color: #ddd;
-    margin: 0 2px;
-}
-
-.tabtree .tabrow0 .here a {
-    background: #fff;
-    padding: 8px 10px 5px;
-}
-
-.tabtree .tabrow0 li a:hover {
-    background: #fff;
-}
-
-.tabtree .tabrow0 ul,
-.tabtree .tabrow0 div {
-    font-weight: normal;
-    border-top: 1px solid #ddd;
-    padding: 0.25em 0px;
-    margin: 0px;
-}
-
-.tabtree .tabrow0 li.here .empty {
-    display: block;
-    height: 1px;
-    overflow: hidden;
-    padding: 0px;
-    position: absolute;
-    width: 100%;
-    bottom: -5px;
-}
-
-.tabtree .tabrow0 .tabrow1 {
-    padding: 5px 0 2px;
-    margin-top: 1px;
-}
-
-.tabtree .tabrow1 li a,
-.tabtree .tabrow1 li a:hover,
-.tabtree .tabrow1 li a span,
-.tabtree .tabrow1 li a:hover span {
-    padding: 0 10px;
-    border: none;
-}
-
-.tabtree a.nolink,
-.tabtree .here ul a.nolink,
-.tabtree a.nolink:hover,
-.tabtree .here ul a.nolink:hover {
-    color: #888;
-    text-decoration: none;
-}
-
-.tabtree .here a.nolink,
-.tabtree .here ul .here a.nolink,
-.tabtree .here a.nolink:hover,
-.tabtree .here ul .here a.nolink:hover {
-    color: #555555;
-    text-decoration: none;
-}
-
-.ie7 .tabtree .tabrow0 li {
-    margin-left: 0;
-}
-
-.ie7 .tabtree .tabrow0 li.first {
-    margin-right: -4px;
-}
-
-.ie7 .tabtree .tabrow0 li.onerow {
-    margin-right: 0;
-}
-
-.ie7 .tabtree .tabrow0 a {
-    display: inline-block;
-    padding: 8px 0 0.35em 13px;
-    line-height: 1.5em;
-}
-
-.ie7 .tabtree .tabrow0 a span {
-    padding: 10px 1em 10px 0;
-}
-
-.ie7 .tabtree .tabrow0 div {
-    top: 2.6em;
-    padding: 0.2em 0;
-}
-
-.ie7 .tabtree .tabrow0 div.empty {
-    margin-right: 0;
-}
-
-.ie7.mod-quiz div.tabtree a span img.iconsmall {
-    margin: 0;
-    vertical-align: baseline;
-    position: relative;
-    top: 2px;
-}
-
-.ie6 .tabtree {
-    height: 100%;
-}
-
-.ie6 .tabtree .tabrow0 {
-    padding-top: 10px;
-}
-
-.ie6 .tabtree .tabrow0 li {
-    margin-left: 0;
-}
-
-.ie6 .tabtree .tabrow0 li.first {
-    margin-left: -4px;
-    margin-right: -4px;
-}
-
-.ie6 .tabtree .tabrow0 li.last a {
-    margin-right: 0;
-}
-
-.ie6 .tabtree .tabrow0 li.onerow {
-    margin-right: 0;
-}
-
-.ie6 .tabtree .tabrow0 a {
-    padding: 0 0 0 13px;
-}
-
-.ie6 .tabtree .tabrow0 a span {
-    padding: 12px 1em 4px 0;
-}
-
-.ie6 .tabtree .tabrow0 div {
-    top: 3.5em;
-    padding: 0.2em 0;
-}
-
-
-/*calendar*/
-
-.minicalendar tbody tr{
-    border-bottom: 0px solid #DDDDDD ! important;
-}
-
-.minicalendar .today {
-    border-radius: 2px 2px 2px 2px;
-    background-color:#ddd
-}
-
-.minicalendar {
-    border: 0px solid #DDDDDD!important;
-}
-
-fieldset div {margin-top:5px }
-
-.yui3-menu li {
-    list-style-type: none; 
-}
-
-.yui3-menu li:hover {
-}
-
-#page-content .region-content{ padding-top:0px;}
-
-
-#page-content a:hover { text-decoration:underline!important;}
-
-
-.custom_menu_submenu .yui3-menu-content li{border-left:1px solid #ddd; background-color:#EEEEEE!important; }
-/*.custom_menu_submenu ul li{position:relative; left:-1px; top:-1px;}*/
-
-
-/* Styles for coursequotas */
-.yui3-tabview-panel {
-    background-color: #fff!important;
-    border: 1px solid #ddd!important;
-    border-radius: 0px;
-    border-bottom-left-radius: 5px;
-    border-bottom-right-radius: 5px;
-    box-shadow: 3px 3px 3px #bbb;
-    -moz-border-radius-bottomleft: 5px;
-    -moz-border-radius-bottomright: 5px;
-    -moz-box-shadow: 3px 3px 3px #bbb;
-}
-.yui3-tabview-list {
-    font-size: 1.2em;
-    border: none!important;
-}
-.yui3-tab .yui3-tab-content {
-    font-weight: bold;
-    border-radius: 0px;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    -moz-border-radius-topleft: 5px;
-    -moz-border-radius-topright: 5px;   
-}
-/* Additional styles for selected tab */
-.yui3-tab-selected .yui3-tab-content {
-    font-weight: bold;
-    background: none!important;
-    background-color: [[setting:color2]]!important;
-    border-color: [[setting:color2]]!important;
-    color: #fff!important;   
-}
-/* Additional styles when mouse is over the tab */
-.yui3-tab .yui3-tab-content:hover {
-    color: #fff!important;   
-    background: [[setting:color2]]!important;
-}
-
-#dates.generalbox{ height:auto!important; min-height:30px!important;}
-
-input#username, input#password {
-    width: 160px !important;
-}
-
-/* Styles for calendar selector in 'new assign' */
-.calnavleft {
-    margin: 10px 0px 0px 20px!important;
-}
-.calnavright {
-    margin: 10px 20px 0px 0px!important;
-}
-.calheader {
-    color: black;
-    text-transform: capitalize;
-    padding-top: 8px!important;
-}
-.calweekdaycell {
-    color: [[setting:color3]]!important;
-}
-
-
 /* Must be at the end in order to override any previous style */
 [[setting:customcss]]
+
+
+

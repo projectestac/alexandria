@@ -29,11 +29,11 @@ require_once("$CFG->dirroot/enrol/renderer.php");
 require_once("$CFG->dirroot/group/lib.php");
 
 $id      = required_param('id', PARAM_INT); // course id
-$action  = optional_param('action', '', PARAM_ALPHANUMEXT);
+$action  = optional_param('action', '', PARAM_ACTION);
 $filter  = optional_param('ifilter', 0, PARAM_INT);
 
 $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
-$context = context_course::instance($course->id, MUST_EXIST);
+$context = get_context_instance(CONTEXT_COURSE, $course->id, MUST_EXIST);
 
 require_login($course);
 require_capability('moodle/role:assign', $context);
@@ -47,32 +47,34 @@ $PAGE->set_pagelayout('admin');
 $manager = new course_enrolment_manager($PAGE, $course, $filter);
 $table = new course_enrolment_other_users_table($manager, $PAGE);
 $PAGE->set_url('/enrol/otherusers.php', $manager->get_url_params()+$table->get_url_params());
-navigation_node::override_active_url(new moodle_url('/enrol/otherusers.php', array('id' => $id)));
 
-$userdetails = array (
-    'picture' => false,
-    'firstname' => get_string('firstname'),
-    'lastname' => get_string('lastname'),
-);
-$extrafields = get_extra_user_fields($context);
-foreach ($extrafields as $field) {
-    $userdetails[$field] = get_user_field_name($field);
-}
+/***
+ * Actions will go here
+ */
 
+/*$fields = array(
+    'userdetails' => array (
+        'picture' => false,
+        'firstname' => get_string('firstname'),
+        'lastname' => get_string('lastname'),
+        'email' => get_string('email')
+    ),
+    'lastseen' => get_string('lastaccess'),
+    'role' => array(
+        'roles' => get_string('roles', 'role'),
+        'context' => get_string('context')
+    )
+);*/
 $fields = array(
-    'userdetails' => $userdetails,
+    'userdetails' => array (
+        'picture' => false,
+        'firstname' => get_string('firstname'),
+        'lastname' => get_string('lastname'),
+        'email' => get_string('email')
+    ),
     'lastseen' => get_string('lastaccess'),
     'role' => get_string('roles', 'role')
 );
-
-// Remove hidden fields if the user has no access
-if (!has_capability('moodle/course:viewhiddenuserfields', $context)) {
-    $hiddenfields = array_flip(explode(',', $CFG->hiddenuserfields));
-    if (isset($hiddenfields['lastaccess'])) {
-        unset($fields['lastseen']);
-    }
-}
-
 $table->set_fields($fields, $OUTPUT);
 
 //$users = $manager->get_other_users($table->sort, $table->sortdirection, $table->page, $table->perpage);

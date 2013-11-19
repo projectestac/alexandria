@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -13,31 +14,21 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
 /**
- * Definition of a grade object class for grade item, grade category etc to inherit from
+ * Definitions of grade object class
  *
- * @package   core_grades
- * @category  grade
- * @copyright 2006 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    core
+ * @subpackage grade
+ * @copyright  2006 Nicolas Connault
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
-
 /**
  * An abstract object that holds methods and attributes common to all grade_* objects defined here.
- *
- * @package   core_grades
- * @category  grade
- * @copyright 2006 Nicolas Connault
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @abstract
  */
 abstract class grade_object {
-    /**
-     * The database table this grade object is stored in
-     * @var string $table
-     */
     public $table;
 
     /**
@@ -78,10 +69,9 @@ abstract class grade_object {
     var $hidden = 0;
 
     /**
-     * Constructor. Optionally (and by default) attempts to fetch corresponding row from the database
-     *
-     * @param array $params An array with required parameters for this grade object.
-     * @param bool $fetch Whether to fetch corresponding row from the database or not,
+     * Constructor. Optionally (and by default) attempts to fetch corresponding row from DB.
+     * @param array $params an array with required parameters for this grade object.
+     * @param boolean $fetch Whether to fetch corresponding row from DB or not,
      *        optional fields might not be defined if false used
      */
     public function __construct($params=NULL, $fetch=true) {
@@ -105,8 +95,7 @@ abstract class grade_object {
 
     /**
      * Makes sure all the optional fields are loaded.
-     *
-     * If id present, meaning the instance exists in the database, then data will be fetched from the database.
+     * If id present (==instance exists in db) fetches data from db.
      * Defaults are used for new instances.
      */
     public function load_optional_fields() {
@@ -125,9 +114,8 @@ abstract class grade_object {
 
     /**
      * Finds and returns a grade_object instance based on params.
+     * @static abstract
      *
-     * @static
-     * @abstract
      * @param array $params associative arrays varname=>value
      * @return object grade_object instance or false if none found.
      */
@@ -136,25 +124,20 @@ abstract class grade_object {
     }
 
     /**
-     * Finds and returns all grade_object instances based on $params.
+     * Finds and returns all grade_object instances based on params.
+     * @static abstract
      *
-     * @static
-     * @abstract
-     * @throws coding_exception Throws a coding exception if fetch_all() has not been overriden by the grade object subclass
-     * @param array $params Associative arrays varname=>value
-     * @return array|bool Array of grade_object instances or false if none found.
+     * @param array $params associative arrays varname=>value
+     * @return array array of grade_object instances or false if none found.
      */
     public static function fetch_all($params) {
         throw new coding_exception('fetch_all() method needs to be overridden in each subclass of grade_object');
     }
 
     /**
-     * Factory method which uses the parameters to retrieve matching instances from the database
-     *
-     * @param string $table The table to retrieve from
-     * @param string $classname The name of the class to instantiate
-     * @param array $params An array of conditions like $fieldname => $fieldvalue
-     * @return mixed An object instance or false if not found
+     * Factory method - uses the parameters to retrieve matching instance from the DB.
+     * @static final protected
+     * @return mixed object instance or false if not found
      */
     protected static function fetch_helper($table, $classname, $params) {
         if ($instances = grade_object::fetch_all_helper($table, $classname, $params)) {
@@ -169,12 +152,9 @@ abstract class grade_object {
     }
 
     /**
-     * Factory method which uses the parameters to retrieve all matching instances from the database
-     *
-     * @param string $table The table to retrieve from
-     * @param string $classname The name of the class to instantiate
-     * @param array $params An array of conditions like $fieldname => $fieldvalue
-     * @return array|bool Array of object instances or false if not found
+     * Factory method - uses the parameters to retrieve all matching instances from the DB.
+     * @static final protected
+     * @return mixed array of object instances or false if not found
      */
     public static function fetch_all_helper($table, $classname, $params) {
         $instance = new $classname();
@@ -224,9 +204,8 @@ abstract class grade_object {
 
     /**
      * Updates this object in the Database, based on its object variables. ID must be set.
-     *
      * @param string $source from where was the object updated (mod/forum, manual, etc.)
-     * @return bool success
+     * @return boolean success
      */
     public function update($source=null) {
         global $USER, $CFG, $DB;
@@ -256,9 +235,8 @@ abstract class grade_object {
 
     /**
      * Deletes this object from the database.
-     *
-     * @param string $source From where was the object deleted (mod/forum, manual, etc.)
-     * @return bool success
+     * @param string $source from where was the object deleted (mod/forum, manual, etc.)
+     * @return boolean success
      */
     public function delete($source=null) {
         global $USER, $CFG, $DB;
@@ -291,8 +269,6 @@ abstract class grade_object {
 
     /**
      * Returns object with fields and values that are defined in database
-     *
-     * @return stdClass
      */
     public function get_record_data() {
         $data = new stdClass();
@@ -313,9 +289,8 @@ abstract class grade_object {
      * Records this object in the Database, sets its id to the returned value, and returns that value.
      * If successful this function also fetches the new object data from database and stores it
      * in object properties.
-     *
-     * @param string $source From where was the object inserted (mod/forum, manual, etc.)
-     * @return int The new grade object ID if successful, false otherwise
+     * @param string $source from where was the object inserted (mod/forum, manual, etc.)
+     * @return int PK ID if successful, false otherwise
      */
     public function insert($source=null) {
         global $USER, $CFG, $DB;
@@ -353,8 +328,6 @@ abstract class grade_object {
      * each variable in turn. If the DB has different data, the db's data is used to update
      * the object. This is different from the update() function, which acts on the DB record
      * based on the object.
-     *
-     * @return bool True if successful
      */
     public function update_from_db() {
         if (empty($this->id)) {
@@ -375,10 +348,7 @@ abstract class grade_object {
     /**
      * Given an associated array or object, cycles through each key/variable
      * and assigns the value to the corresponding variable in this object.
-     *
-     * @param stdClass $instance The object to set the properties on
-     * @param array $params An array of properties to set like $propertyname => $propertyvalue
-     * @return array|stdClass Either an associative array or an object containing property name, property value pairs
+     * @static final
      */
     public static function set_properties(&$instance, $params) {
         $params = (array) $params;
@@ -400,40 +370,29 @@ abstract class grade_object {
     }
 
     /**
-     * Returns the current hidden state of this grade_item
-     *
-     * This depends on the grade object hidden setting and the current time if hidden is set to a "hidden until" timestamp
-     *
-     * @return bool Current hidden state
+     * Returns the hidden state of this grade_item
+     * @return boolean hidden state
      */
     function is_hidden() {
         return ($this->hidden == 1 or ($this->hidden != 0 and $this->hidden > time()));
     }
 
     /**
-     * Check grade object hidden status
-     *
-     * @return bool True if a "hidden until" timestamp is set, false if grade object is set to always visible or always hidden.
+     * Check grade hidden status. Uses data from both grade item and grade.
+     * @return boolean true if hiddenuntil, false if not
      */
     function is_hiddenuntil() {
         return $this->hidden > 1;
     }
 
     /**
-     * Check a grade item hidden status.
-     *
-     * @return int 0 means visible, 1 hidden always, a timestamp means "hidden until"
+     * Check grade item hidden status.
+     * @return int 0 means visible, 1 hidden always, timestamp hidden until
      */
     function get_hidden() {
         return $this->hidden;
     }
 
-    /**
-     * Set a grade object hidden status
-     *
-     * @param int $hidden 0 means visiable, 1 means hidden always, a timestamp means "hidden until"
-     * @param bool $cascade Ignored
-     */
     function set_hidden($hidden, $cascade=false) {
         $this->hidden = $hidden;
         $this->update();

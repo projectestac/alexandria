@@ -16,16 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines various element classes used in specific areas
- *
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package    moodlecore
+ * @subpackage backup-moodle2
+ * @copyright  2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Implementation of backup_final_element that provides one interceptor for anonymization of data
@@ -96,19 +91,14 @@ class file_nested_element extends backup_nested_element {
         if (is_null($this->backupid)) {
             $this->backupid = $processor->get_var(backup::VAR_BACKUPID);
         }
-        return parent::process($processor);
+        parent::process($processor);
     }
 
     public function fill_values($values) {
         // Fill values
         parent::fill_values($values);
         // Do our own tasks (copy file from moodle to backup)
-        try {
-            backup_file_manager::copy_file_moodle2backup($this->backupid, $values);
-        } catch (file_exception $e) {
-            $this->add_result(array('missing_files_in_pool' => true));
-            $this->add_log('missing file in pool: ' . $e->debuginfo, backup::LOG_WARNING);
-        }
+        backup_file_manager::copy_file_moodle2backup($this->backupid, $values);
     }
 }
 

@@ -35,12 +35,12 @@ function quiz_edit_init(Y) {
         }, '.quizsavegradesform');
 
     // Add random question dialogue --------------------------------------------
-    var randomquestiondialog = Y.YUI2.util.Dom.get('randomquestiondialog');
+    var randomquestiondialog = YAHOO.util.Dom.get('randomquestiondialog');
     if (randomquestiondialog) {
-        Y.YUI2.util.Dom.get(document.body).appendChild(randomquestiondialog);
+        YAHOO.util.Dom.get(document.body).appendChild(randomquestiondialog);
     }
 
-    quiz_edit.randomquestiondialog = new Y.YUI2.widget.Dialog('randomquestiondialog', {
+    quiz_edit.randomquestiondialog = new YAHOO.widget.Dialog('randomquestiondialog', {
             modal: true,
             width: '100%',
             iframe: true,
@@ -58,34 +58,34 @@ function quiz_edit_init(Y) {
     }
 
     // Show the form on button click.
-    Y.YUI2.util.Event.addListener(quiz_edit_config.dialoglisteners, 'click', function(e) {
+    YAHOO.util.Event.addListener(quiz_edit_config.dialoglisteners, 'click', function(e) {
         // Transfer the page number from the button form to the pop-up form.
-        var addrandombutton = Y.YUI2.util.Event.getTarget(e);
-        var addpagehidden = Y.YUI2.util.Dom.getElementsByClassName('addonpage_formelement', 'input', addrandombutton.form);
+        var addrandombutton = YAHOO.util.Event.getTarget(e);
+        var addpagehidden = YAHOO.util.Dom.getElementsByClassName('addonpage_formelement', 'input', addrandombutton.form);
         document.getElementById('rform_qpage').value = addpagehidden[0].value;
 
         // Show the dialogue and stop the default action.
         quiz_edit.randomquestiondialog.show();
-        Y.YUI2.util.Event.stopEvent(e);
+        YAHOO.util.Event.stopEvent(e);
     });
 
     // Make escape close the dialogue.
-    quiz_edit.randomquestiondialog.cfg.setProperty('keylisteners', [new Y.YUI2.util.KeyListener(
+    quiz_edit.randomquestiondialog.cfg.setProperty('keylisteners', [new YAHOO.util.KeyListener(
             document, {keys:[27]}, function(types, args, obj) { quiz_edit.randomquestiondialog.hide();
     })]);
 
     // Make the form cancel button close the dialogue.
-    Y.YUI2.util.Event.addListener('id_cancel', 'click', function(e) {
+    YAHOO.util.Event.addListener('id_cancel', 'click', function(e) {
         quiz_edit.randomquestiondialog.hide();
-        Y.YUI2.util.Event.preventDefault(e);
+        YAHOO.util.Event.preventDefault(e);
     });
 
-    Y.YUI2.util.Event.addListener('id_existingcategory', 'click', quiz_yui_workaround);
+    YAHOO.util.Event.addListener('id_existingcategory', 'click', quiz_yui_workaround);
 
-    Y.YUI2.util.Event.addListener('id_newcategory', 'click', quiz_yui_workaround);
+    YAHOO.util.Event.addListener('id_newcategory', 'click', quiz_yui_workaround);
 
     // Repaginate dialogue -----------------------------------------------------
-    quiz_edit.repaginatedialog = new Y.YUI2.widget.Dialog('repaginatedialog', {
+    quiz_edit.repaginatedialog = new YAHOO.widget.Dialog('repaginatedialog', {
             modal: true,
             width: '30em',
             iframe: true,
@@ -104,17 +104,17 @@ function quiz_edit_init(Y) {
     }
 
     // Show the form on button click.
-    Y.YUI2.util.Event.addListener('repaginatecommand', 'click', function() {
+    YAHOO.util.Event.addListener('repaginatecommand', 'click', function() {
         quiz_edit.repaginatedialog.show();
     });
 
     // Reposition the dialogue when the window resizes. For some reason this was not working automatically.
-    Y.YUI2.widget.Overlay.windowResizeEvent.subscribe(function() {
+    YAHOO.widget.Overlay.windowResizeEvent.subscribe(function() {
       quiz_edit.repaginatedialog.cfg.setProperty('context', ['repaginatecommand', 'tr', 'br', ['beforeShow']]);
     });
 
     // Make escape close the dialogue.
-    quiz_edit.repaginatedialog.cfg.setProperty('keylisteners', [new Y.YUI2.util.KeyListener(
+    quiz_edit.repaginatedialog.cfg.setProperty('keylisteners', [new YAHOO.util.KeyListener(
             document, {keys:[27]}, function(types, args, obj) { quiz_edit.repaginatedialog.hide();
     })]);
 
@@ -127,20 +127,18 @@ function quiz_edit_init(Y) {
 }
 
 function quiz_yui_workaround(e) {
-YUI().use('yui2-event', function(Y) {
     // YUI does not send the button pressed with the form submission, so copy
     // the button name to a hidden input.
-    var submitbutton = Y.YUI2.util.Event.getTarget(e);
+    var submitbutton = YAHOO.util.Event.getTarget(e);
     var input = document.createElement('input');
     input.type = 'hidden';
     input.name = submitbutton.name;
     input.value = 1;
     submitbutton.form.appendChild(input);
-});
 }
 
 // Initialise everything on the quiz settings form.
-function quiz_settings_init(Y) {
+function quiz_settings_init() {
     var repaginatecheckbox = document.getElementById('id_repaginatenow');
     if (!repaginatecheckbox) {
         // This checkbox does not appear on the create new quiz form.
@@ -148,7 +146,7 @@ function quiz_settings_init(Y) {
     }
     var qppselect = document.getElementById('id_questionsperpage');
     var qppinitialvalue = qppselect.value;
-    Y.YUI2.util.Event.addListener([qppselect, 'id_shufflequestions'] , 'change', function() {
+    YAHOO.util.Event.addListener([qppselect, 'id_shufflequestions'] , 'change', function() {
         setTimeout(function() { // Annoyingly, this handler runs before the formlib disabledif code, hence the timeout.
             if (!repaginatecheckbox.disabled) {
                 repaginatecheckbox.checked = qppselect.value != qppinitialvalue;

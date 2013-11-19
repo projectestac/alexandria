@@ -32,7 +32,7 @@ require_once("$CFG->dirroot/repository/lib.php");
 $id = required_param('id', PARAM_INT);  // Course module ID
 
 $cm = get_coursemodule_from_id('folder', $id, 0, false, MUST_EXIST);
-$context = context_module::instance($cm->id, MUST_EXIST);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id, MUST_EXIST);
 $folder = $DB->get_record('folder', array('id'=>$cm->instance), '*', MUST_EXIST);
 $course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
 
@@ -48,7 +48,7 @@ $PAGE->set_activity_record($folder);
 
 $data = new stdClass();
 $data->id = $cm->id;
-$options = array('subdirs'=>1, 'maxbytes'=>$CFG->maxbytes, 'maxfiles'=>-1, 'accepted_types'=>'*');
+$options = array('mainfile'=>true, 'subdirs'=>1, 'maxbytes'=>$CFG->maxbytes, 'maxfiles'=>-1, 'accepted_types'=>'*', 'return_types'=>FILE_INTERNAL);
 file_prepare_standard_filemanager($data, 'files', $options, $context, 'mod_folder', 'content', 0);
 
 $mform = new mod_folder_edit_form(null, array('data'=>$data, 'options'=>$options));
@@ -58,7 +58,6 @@ if ($mform->is_cancelled()) {
 
 } else if ($formdata = $mform->get_data()) {
     $formdata = file_postupdate_standard_filemanager($formdata, 'files', $options, $context, 'mod_folder', 'content', 0);
-    $DB->set_field('folder', 'revision', $folder->revision+1, array('id'=>$folder->id));
     redirect(new moodle_url('/mod/folder/view.php', array('id'=>$cm->id)));
 }
 

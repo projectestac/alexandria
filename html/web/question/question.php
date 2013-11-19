@@ -100,10 +100,10 @@ if ($movecontext && !$id){
 if ($cmid){
     list($module, $cm) = get_module_from_cmid($cmid);
     require_login($cm->course, false, $cm);
-    $thiscontext = context_module::instance($cmid);
+    $thiscontext = get_context_instance(CONTEXT_MODULE, $cmid);
 } elseif ($courseid) {
     require_login($courseid, false);
-    $thiscontext = context_course::instance($courseid);
+    $thiscontext = get_context_instance(CONTEXT_COURSE, $courseid);
     $module = null;
     $cm = null;
 } else {
@@ -126,7 +126,6 @@ if ($id) {
     $question = new stdClass();
     $question->category = $categoryid;
     $question->qtype = $qtype;
-    $question->createdby = $USER->id;
 
     // Check that users are allowed to create this question type at the moment.
     if (!question_bank::qtype_enabled($qtype)) {
@@ -154,10 +153,11 @@ if (!$category = $DB->get_record('question_categories', array('id' => $question-
 // Check permissions
 $question->formoptions = new stdClass();
 
-$categorycontext = context::instance_by_id($category->contextid);
+$categorycontext = get_context_instance_by_id($category->contextid);
 $addpermission = has_capability('moodle/question:add', $categorycontext);
 
 if ($id) {
+    $canview = question_has_capability_on($question, 'view');
     if ($movecontext){
         $question->formoptions->canedit = false;
         $question->formoptions->canmove = (question_has_capability_on($question, 'move') && $contexts->have_cap('moodle/question:add'));
@@ -165,30 +165,27 @@ if ($id) {
         $question->formoptions->repeatelements = false;
         $question->formoptions->movecontext = true;
         $formeditable = true;
-        question_require_capability_on($question, 'move');
+        question_require_capability_on($question, 'view');
     } else {
         $question->formoptions->canedit = question_has_capability_on($question, 'edit');
-        $question->formoptions->canmove = $addpermission && question_has_capability_on($question, 'move');
-        $question->formoptions->cansaveasnew = $addpermission &&
-                (question_has_capability_on($question, 'view') || $question->formoptions->canedit);
-        $question->formoptions->repeatelements = $question->formoptions->canedit || $question->formoptions->cansaveasnew;
+        $question->formoptions->canmove = (question_has_capability_on($question, 'move') && $addpermission);
+        $question->formoptions->cansaveasnew = (($canview ||question_has_capability_on($question, 'edit')) && $addpermission);
+        $question->formoptions->repeatelements = ($question->formoptions->canedit || $question->formoptions->cansaveasnew);
         $formeditable =  $question->formoptions->canedit || $question->formoptions->cansaveasnew || $question->formoptions->canmove;
         $question->formoptions->movecontext = false;
-        if (!$formeditable) {
+        if (!$formeditable){
             question_require_capability_on($question, 'view');
         }
     }
 
 } else  { // creating a new question
+    require_capability('moodle/question:add', $categorycontext);
+    $formeditable = true;
     $question->formoptions->canedit = question_has_capability_on($question, 'edit');
     $question->formoptions->canmove = (question_has_capability_on($question, 'move') && $addpermission);
-    $question->formoptions->cansaveasnew = false;
     $question->formoptions->repeatelements = true;
     $question->formoptions->movecontext = false;
-    $formeditable = true;
-    require_capability('moodle/question:add', $categorycontext);
 }
-$question->formoptions->mustbeusable = (bool) $appendqnumstring;
 
 // Validate the question type.
 $PAGE->set_pagetype('question-type-' . $question->qtype);
@@ -248,7 +245,7 @@ if ($mform->is_cancelled()) {
 
     /// If we are moving a question, check we have permission to move it from
     /// whence it came. (Where we are moving to is validated by the form.)
-    list($newcatid, $newcontextid) = explode(',', $fromform->category);
+    list($newcatid) = explode(',', $fromform->category);
     if (!empty($question->id) && $newcatid != $question->category) {
         question_require_capability_on($question, 'move');
     }
@@ -259,19 +256,11 @@ if ($mform->is_cancelled()) {
     if ($movecontext) {
         // We are just moving the question to a different context.
         list($tocatid, $tocontextid) = explode(',', $fromform->categorymoveto);
-        require_capability('moodle/question:add', context::instance_by_id($tocontextid));
+        require_capability('moodle/question:add', get_context_instance_by_id($tocontextid));
         question_move_questions_to_category(array($question->id), $tocatid);
 
     } else {
         // We are acutally saving the question.
-        if (!empty($question->id)) {
-            question_require_capability_on($question, 'edit');
-        } else {
-            require_capability('moodle/question:add', context::instance_by_id($newcontextid));
-            if (!empty($fromform->makecopy) && !$question->formoptions->cansaveasnew) {
-                print_error('nopermissions', '', '', 'edit');
-            }
-        }
         $question = $qtypeobj->save_question($question, $fromform);
         if (!empty($CFG->usetags) && isset($fromform->tags)) {
             // A wizardpage from multipe pages questiontype like calculated may not
@@ -280,9 +269,6 @@ if ($mform->is_cancelled()) {
             tag_set('question', $question->id, $fromform->tags);
         }
     }
-
-    // Purge this question from the cache.
-    question_bank::notify_question_edited($question->id);
 
     if (($qtypeobj->finished_edit_wizard($fromform)) || $movecontext) {
         if ($inpopup) {

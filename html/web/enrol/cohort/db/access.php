@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -17,7 +18,8 @@
 /**
  * Capabilities for cohort access plugin.
  *
- * @package    enrol_cohort
+ * @package    enrol
+ * @subpackage cohort
  * @copyright  2010 Petr Skoda {@link http://skodak.org}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -36,14 +38,9 @@ $capabilities = array(
         )
     ),
 
-    /* This is used only when sync suspends users instead of full unenrolment. */
-    'enrol/cohort:unenrol' => array(
-
-        'captype' => 'write',
-        'contextlevel' => CONTEXT_COURSE,
-        'archetypes' => array(
-            'manager' => CAP_ALLOW,
-        )
-    ),
-
 );
+
+
+
+
+

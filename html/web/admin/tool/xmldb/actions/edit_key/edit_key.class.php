@@ -15,7 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -23,7 +24,8 @@
 /**
  * This class will provide the interface for all the edit key actions
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  2003 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -72,30 +74,30 @@ class edit_key extends XMLDBAction {
 
         // Get the correct dirs
         if (!empty($XMLDB->dbdirs)) {
-            $dbdir = $XMLDB->dbdirs[$dirpath];
+            $dbdir =& $XMLDB->dbdirs[$dirpath];
         } else {
             return false;
         }
         if (!empty($XMLDB->editeddirs)) {
-            $editeddir = $XMLDB->editeddirs[$dirpath];
-            $structure = $editeddir->xml_file->getStructure();
+            $editeddir =& $XMLDB->editeddirs[$dirpath];
+            $structure =& $editeddir->xml_file->getStructure();
         }
 
         // Fetch request data
         $tableparam = required_param('table', PARAM_CLEAN);
-        if (!$table = $structure->getTable($tableparam)) {
+        if (!$table =& $structure->getTable($tableparam)) {
             $this->errormsg = 'Wrong table specified: ' . $tableparam;
             return false;
         }
         $keyparam = required_param('key', PARAM_CLEAN);
-        if (!$key = $table->getKey($keyparam)) {
+        if (!$key =& $table->getKey($keyparam)) {
             // Arriving here from a name change, looking for the new key name
             $keyparam = required_param('name', PARAM_CLEAN);
-            $key = $table->getKey($keyparam);
+            $key =& $table->getKey($keyparam);
         }
 
-        $dbdir = $XMLDB->dbdirs[$dirpath];
-        $origstructure = $dbdir->xml_file->getStructure();
+        $dbdir =& $XMLDB->dbdirs[$dirpath];
+        $origstructure =& $dbdir->xml_file->getStructure();
 
         // Add the main form
         $o = '<form id="form" action="index.php" method="post">';

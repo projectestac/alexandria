@@ -17,12 +17,11 @@
 /**
  * Capabilities
  *
- * @package    report_security
- * @copyright  2008 Petr Skoda
+ * @package    report
+ * @subpackage security
+ * @copyright  2008 petr Skoda
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
 

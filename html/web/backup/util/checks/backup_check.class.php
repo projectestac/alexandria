@@ -95,7 +95,7 @@ abstract class backup_check {
         $type     = $backup_controller->get_type();
         $mode     = $backup_controller->get_mode();
         $courseid = $backup_controller->get_courseid();
-        $coursectx= context_course::instance($courseid);
+        $coursectx= get_context_instance(CONTEXT_COURSE, $courseid);
         $userid   = $backup_controller->get_userid();
         $id       = $backup_controller->get_id(); // courseid / sectionid / cmid
 
@@ -118,7 +118,7 @@ abstract class backup_check {
                 break;
             case backup::TYPE_1ACTIVITY :
                 get_coursemodule_from_id(null, $id, $courseid, false, MUST_EXIST); // cm exists
-                $modulectx = context_module::instance($id);
+                $modulectx = get_context_instance(CONTEXT_MODULE, $id);
                 $typecapstocheck['moodle/backup:backupactivity'] = $modulectx;
                 break;
             default :
@@ -168,9 +168,9 @@ abstract class backup_check {
         $hasusercap   = has_capability('moodle/backup:userinfo', $coursectx, $userid);
 
         // If setting is enabled but user lacks permission
-        if (!$hasusercap) { // If user has not the capability
+        if (!$hasusercap && $prevvalue) { // If user has not the capability and setting is enabled
             // Now analyse if we are allowed to apply changes or must stop with exception
-            if (!$apply && $prevvalue) { // Cannot apply changes and the value is set, throw exception
+            if (!$apply) { // Cannot apply changes, throw exception
                 $a = new stdclass();
                 $a->setting = 'users';
                 $a->value = $prevvalue;
@@ -178,12 +178,7 @@ abstract class backup_check {
                 throw new backup_controller_exception('backup_setting_value_wrong_for_capability', $a);
 
             } else { // Can apply changes
-                // If it is already false, we don't want to try and set it again, because if it is
-                // already locked, and exception will occur. The side benifit is if it is true and locked
-                // we will get an exception...
-                if ($prevvalue) {
-                    $userssetting->set_value(false);                              // Set the value to false
-                }
+                $userssetting->set_value(false);                              // Set the value to false
                 $userssetting->set_status(base_setting::LOCKED_BY_PERMISSION);// Set the status to locked by perm
             }
         }
@@ -196,9 +191,9 @@ abstract class backup_check {
         $hasanoncap  = has_capability('moodle/backup:anonymise', $coursectx, $userid);
 
         // If setting is enabled but user lacks permission
-        if (!$hasanoncap) { // If user has not the capability
+        if (!$hasanoncap && $prevvalue) { // If user has not the capability and setting is enabled
             // Now analyse if we are allowed to apply changes or must stop with exception
-            if (!$apply && $prevvalue) { // Cannot apply changes and the value is set, throw exception
+            if (!$apply) { // Cannot apply changes, throw exception
                 $a = new stdclass();
                 $a->setting = 'anonymize';
                 $a->value = $prevvalue;
@@ -206,9 +201,7 @@ abstract class backup_check {
                 throw new backup_controller_exception('backup_setting_value_wrong_for_capability', $a);
 
             } else { // Can apply changes
-                if ($prevvalue) { // If we try and set it back to false and it has already been locked, error will occur
-                    $anonsetting->set_value(false);                              // Set the value to false
-                }
+                $anonsetting->set_value(false);                              // Set the value to false
                 $anonsetting->set_status(base_setting::LOCKED_BY_PERMISSION);// Set the status to locked by perm
             }
         }

@@ -75,7 +75,6 @@ if ($data = data_submitted()) {
         $entry = $entrybyentry[$num];
         // Only update entries where feedback has actually changed.
         if (($vals['r'] <> $entry->rating) || ($vals['c'] <> addslashes($entry->entrycomment))) {
-            $newentry = new StdClass();
             $newentry->rating     = $vals['r'];
             $newentry->entrycomment    = $vals['c'];
             $newentry->teacher    = $USER->id;
@@ -100,7 +99,7 @@ if ($data = data_submitted()) {
     }
     add_to_log($course->id, "journal", "update feedback", "report.php?id=$cm->id", "$count users", $cm->id);
     notify(get_string("feedbackupdated", "journal", "$count"), "notifysuccess");
-
+    
 } else {
     add_to_log($course->id, "journal", "view responses", "report.php?id=$cm->id", "$journal->id", $cm->id);
 }
@@ -118,7 +117,7 @@ if (!$users) {
 	echo $OUTPUT->heading(get_string("nousersyet"));
 
 } else {
-
+    
     groups_print_activity_menu($cm, $CFG->wwwroot . "/mod/journal/report.php?id=$cm->id");
 
     $grades = make_grades_menu($journal->grade);
@@ -144,10 +143,10 @@ if (!$users) {
     }
 
     if ($allowedtograde) {
-        echo "<p class=\"feedbacksave\">";
+        echo "<center>";
         echo "<input type=\"hidden\" name=\"id\" value=\"$cm->id\" />";
         echo "<input type=\"submit\" value=\"".get_string("saveallfeedback", "journal")."\" />";
-        echo "</p>";
+        echo "</center>";
         echo "</form>";
     }
 }

@@ -22,10 +22,8 @@ $string['backoldversion'] = 'Back to old version';
 $string['backpage'] = 'Back to page';
 $string['backtomapmenu'] = 'Back to map menu';
 $string['changerate'] = 'Do you wish to change it?';
-$string['cannoteditpage'] = 'You can not edit this page.';
 $string['cannotmanagefiles'] = 'You don\'t have permission to manage the wiki files.';
 $string['cannotviewfiles'] = 'You don\'t have permission to view the wiki files.';
-$string['cannotviewpage'] = 'You can not view this page.';
 $string['comparesel'] = 'Compare selected';
 $string['comments'] = 'Comments';
 $string['commentscount'] = 'Comments ({$a})';
@@ -61,7 +59,6 @@ $string['editfiles'] = 'Edit wiki files';
 $string['editing'] = 'Editing wiki page';
 $string['editingcomment'] = 'Editing comment';
 $string['editingpage'] = 'Editing this page \'{$a}\'';
-$string['editsection'] = 'edit';
 $string['files'] = 'Files';
 $string['filenotuploadederror'] = 'File \'{$a}\' could not be uploaded correctly.';
 $string['filtername'] = 'Wiki auto-linking';
@@ -112,18 +109,6 @@ $string['migrationfinishednowikis'] = 'Migration finished, no wikis were migrate
 $string['missingpages'] = 'Pages without content';
 $string['modified'] = 'Modified';
 $string['modulename'] = 'Wiki';
-$string['modulename_help'] = 'The wiki activity module enables participants to add and edit a collection of web pages. A wiki can be collaborative, with everyone being able to edit it, or individual, where everyone has their own wiki which only they can edit.
-
-A history of previous versions of each page in the wiki is kept, listing the edits made by each participant.
-
-Wikis have many uses, such as
-
-* For group lecture notes or study guides
-* For members of a faculty to plan a scheme of work or meeting agenda together
-* For students to collaboratively author an online book, creating content on a topic set by their tutor
-* For collaborative storytelling or poetry creation, where each participant writes a line or verse
-* As a personal journal for examination notes or revision (using an individual wiki)';
-$string['modulename_link'] = 'mod/wiki/view';
 $string['modulenameplural'] = 'Wikis';
 $string['navigation'] = 'Navigation';
 $string['navigationfrom'] = 'This page comes from';
@@ -172,7 +157,6 @@ $string['pageindex_help'] = 'This wiki\'s page tree';
 $string['pageislocked'] = 'Someone is editing this page right now. Try to edit it in a few minutes.';
 $string['pagelist'] = 'Page list';
 $string['pagelist_help'] = 'Page list categorized by alphabetical order';
-$string['pagename'] = 'Page name';
 $string['peerreview'] = 'Peer review';
 $string['pluginadministration'] = 'Wiki administration';
 $string['pluginname'] = 'Wiki';
@@ -197,10 +181,8 @@ $string['saving'] = 'Saving wiki page';
 $string['savingerror'] = 'Saving error';
 $string['searchcontent'] = 'Search in page content';
 $string['searchresult'] = 'Search results:';
-$string['searchterms'] = 'Search terms';
 $string['searchwikis'] = 'Search wikis';
 $string['special'] = 'Special';
-$string['tableofcontents'] = 'Table of contents';
 $string['tagsdeleted'] = 'Wiki tags have been deleted';
 $string['tagtitle'] = 'See the "{$a}" tag';
 $string['teacherrating'] = 'Teacher rating';
@@ -231,7 +213,7 @@ $string['wikiheader'] = 'Level {$a} Header';
 $string['wikihr'] = 'Horizontal rule';
 $string['wikiimage'] = 'Image';
 $string['wikiinternalurl'] = 'Internal link';
-$string['wikiintro'] = 'Description';
+$string['wikiintro'] = 'Wiki description';
 $string['wikiitalictext'] = 'Italic text';
 $string['wikilockingsettings'] = 'Locking and reparsing timeouts';
 $string['wikimode'] = 'Wiki mode';
@@ -243,7 +225,6 @@ $string['wikinowikitext'] = 'No wiki text';
 $string['wikiorderedlist'] = 'Ordered list';
 $string['wikisettings'] = 'Wiki settings';
 $string['wikiunorderedlist'] = 'Unordered list';
-$string['wiki:addinstance'] = 'Add a new wiki';
 $string['wiki:createpage'] = 'Create new wiki pages';
 $string['wiki:editcomment'] = 'Add comments to pages';
 $string['wiki:editpage'] = 'Save wiki pages';

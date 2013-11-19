@@ -1,4 +1,5 @@
 <?php
+
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,33 +15,24 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-
 /**
  * AMF web service implementation classes and methods.
  *
- * @package    webservice_amf
- * @copyright  2009 Petr Skodak
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   webservice
+ * @copyright 2009 Moodle Pty Ltd (http://moodle.com)
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 require_once("$CFG->dirroot/webservice/lib.php");
 require_once( "{$CFG->dirroot}/webservice/amf/introspector.php");
 require_once 'Zend/Amf/Server.php';
-
 /**
  * Exception indicating an invalid return value from a function.
- *
- * Used when an externallib function does not return values of the expected structure.
- *
- * @package    webservice_amf
- * @copyright  2010 Jamie Pratt
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * Used when an externallib function does not return values of the expected structure. 
  */
 class invalid_return_value_exception extends moodle_exception {
-
     /**
      * Constructor
-     *
      * @param string $debuginfo some detailed information
      */
     function __construct($debuginfo=null) {
@@ -50,26 +42,17 @@ class invalid_return_value_exception extends moodle_exception {
 
 /**
  * AMF service server implementation.
- *
- * @package    webservice_amf
- * @copyright  2009 Petr Skodak
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author Petr Skoda (skodak)
  */
 class webservice_amf_server extends webservice_zend_server {
-
     /**
      * Contructor
-     *
      * @param integer $authmethod authentication method - one of WEBSERVICE_AUTHMETHOD_*
      */
     public function __construct($authmethod) {
         parent::__construct($authmethod, 'Moodle_Amf_Server');
         $this->wsname = 'amf';
     }
-
-    /**
-     * Load virtual class needed for Zend api
-     */
     protected function init_service_class(){
         parent::init_service_class();
         //allow access to data about methods available.
@@ -77,13 +60,6 @@ class webservice_amf_server extends webservice_zend_server {
         MethodDescriptor::$classnametointrospect = $this->service_class;
     }
     
-    /**
-     * Get the generated web service function code.
-     *
-     * @param stdClass $function contains function name and class name
-     * @param array $params all the function parameters
-     * @return string the generate web service function code
-     */
     protected function service_class_method_body($function, $params){
         //cast the param from object to array (validate_parameters except array only)
         $castingcode = '';
@@ -103,16 +79,15 @@ class webservice_amf_server extends webservice_zend_server {
         return $castingcode . 
 '        return webservice_amf_server::validate_and_cast_values('.$callforreturnvaluedesc.', '.$externallibcall.');';
     }
-
     /**
      * Validates submitted value, comparing it to a description. If anything is incorrect
      * invalid_return_value_exception is thrown. Also casts the values to the type specified in
      * the description.
-     *
-     * @param external_description $description description of parameters or null if no return value
+     * @param mixed $description description of parameters or null if no return value
      * @param mixed $value the actual values
-     * @return mixed params with added defaults for optional items
-     * @throws invalid_return_value_exception
+     * @param boolean $singleasobject specifies whether a external_single_structure should be cast to a stdClass object
+     *                                 should always be false for use in validating parameters in externallib functions.
+     * @return mixed params with added defaults for optional items, invalid_parameters_exception thrown if any problem found
      */
     public static function validate_and_cast_values($description, $value) {
         if (is_null($description)){
@@ -151,7 +126,10 @@ class webservice_amf_server extends webservice_zend_server {
                 }
                 unset($value[$key]);
             }
-
+/*          Was decided that extra keys should just be ignored and not returned.
+ *          if (!empty($value)) {
+                throw new invalid_return_value_exception('Unexpected keys detected in parameter array.');
+            }*/
             return (object)$result;
 
         } else if ($description instanceof external_multiple_structure) {
@@ -171,28 +149,23 @@ class webservice_amf_server extends webservice_zend_server {
     
     /**
      * Set up zend service class
+     * @return void
      */
     protected function init_zend_server() {
         parent::init_zend_server();
         $this->zend_server->setProduction(false); //set to false for development mode
                                                  //(complete error message displayed into your AMF client)
+        // TODO: add some exception handling
     }
+
+
 }
-
-/**
- * Zend Amf server with a different fault management
- *
- * @package    webservice_amf
- * @copyright  2010 Jamie Pratt
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
 class Moodle_Amf_Server extends Zend_Amf_Server{
-
     /**
      * Raise a server fault
      *
-     * @param string|Exception $fault
-     * @param int $code fault code
+     * @param  string|Exception $fault
+     * @return void
      */
     public function fault($fault = null, $code = 404)
     {
@@ -225,3 +198,5 @@ class Moodle_Amf_Server extends Zend_Amf_Server{
         echo $response;
     }
 }
+
+// TODO: implement AMF test client somehow, maybe we could use moodle form to feed the data to the flash app somehow

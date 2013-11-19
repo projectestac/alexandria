@@ -36,7 +36,7 @@ $p_username = optional_param('s', false, PARAM_RAW);
 $PAGE->https_required();
 
 $PAGE->set_url('/login/forgot_password.php');
-$systemcontext = context_system::instance();
+$systemcontext = get_context_instance(CONTEXT_SYSTEM);
 $PAGE->set_context($systemcontext);
 
 // setup text strings
@@ -126,7 +126,7 @@ if ($mform->is_cancelled()) {
 
     // first try the username
     if (!empty($data->username)) {
-        $username = textlib::strtolower($data->username); // mimic the login page process, if they forget username they need to use email for reset
+        $username = textlib_get_instance()->strtolower($data->username); // mimic the login page process, if they forget username they need to use email for reset
         $user = $DB->get_record('user', array('username'=>$username, 'mnethostid'=>$CFG->mnet_localhost_id, 'deleted'=>0, 'suspended'=>0));
 
     } else {

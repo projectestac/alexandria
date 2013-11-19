@@ -16,15 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines restore_root_task class
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Start task that provides all the settings common to all restores and other initial steps
@@ -112,12 +108,6 @@ class restore_root_task extends restore_task {
         $users->get_ui()->set_changeable($changeable);
         $this->add_setting($users);
 
-        $rootenrolmanual = new restore_users_setting('enrol_migratetomanual', base_setting::IS_BOOLEAN, false);
-        $rootenrolmanual->set_ui(new backup_setting_ui_checkbox($rootenrolmanual, get_string('rootenrolmanual', 'backup')));
-        $rootenrolmanual->get_ui()->set_changeable(enrol_is_enabled('manual'));
-        $this->add_setting($rootenrolmanual);
-        $users->add_dependency($rootenrolmanual);
-
         // Define role_assignments (dependent of users)
         $defaultvalue = false;                      // Safer default
         $changeable = false;
@@ -179,19 +169,6 @@ class restore_root_task extends restore_task {
         $comments->get_ui()->set_changeable($changeable);
         $this->add_setting($comments);
         $users->add_dependency($comments);
-
-        // Define Calendar events (dependent of users)
-        $defaultvalue = false;                      // Safer default
-        $changeable = false;
-        if (isset($rootsettings['calendarevents']) && $rootsettings['calendarevents']) { // Only enabled when available
-            $defaultvalue = true;
-            $changeable = true;
-        }
-        $events = new restore_calendarevents_setting('calendarevents', base_setting::IS_BOOLEAN, $defaultvalue);
-        $events->set_ui(new backup_setting_ui_checkbox($events, get_string('rootsettingcalendarevents', 'backup')));
-        $events->get_ui()->set_changeable($changeable);
-        $this->add_setting($events);
-        $users->add_dependency($events);
 
         // Define completion (dependent of users)
         $defaultvalue = false;                      // Safer default

@@ -16,16 +16,11 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_root_task class
- *
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
-defined('MOODLE_INTERNAL') || die();
 
 /**
  * Start task that provides all the settings common to all backups and some initialization steps
@@ -67,18 +62,15 @@ class backup_root_task extends backup_task {
         require_once($CFG->dirroot . '/backup/util/helper/convert_helper.class.php');
         // Define filename setting
         $filename = new backup_filename_setting('filename', base_setting::IS_FILENAME, 'backup.mbz');
-        $filename->set_ui_filename(get_string('filename', 'backup'), 'backup.mbz', array('size'=>50));
+        $filename->set_ui(get_string('filename', 'backup'), 'backup.mbz', array('size'=>50));
         $this->add_setting($filename);
 
-        // Present converter settings only in type course and mode general backup operations.
-        $converters = array();
-        if ($this->plan->get_type() == backup::TYPE_1COURSE and $this->plan->get_mode() == backup::MODE_GENERAL) {
-            $converters = convert_helper::available_converters(false);
-            foreach ($converters as $cnv) {
-                $formatcnv = new backup_users_setting($cnv, base_setting::IS_BOOLEAN, false);
-                $formatcnv->set_ui(new backup_setting_ui_checkbox($formatcnv, get_string('backupformat'.$cnv, 'backup')));
-                $this->add_setting($formatcnv);
-            }
+        //Sample custom settings
+        $converters = convert_helper::available_converters(false);
+        foreach ($converters as $cnv) {
+            $formatcnv = new backup_users_setting($cnv, base_setting::IS_BOOLEAN, false);
+            $formatcnv->set_ui(new backup_setting_ui_checkbox($formatcnv, get_string('backupformat'.$cnv, 'backup')));
+            $this->add_setting($formatcnv);
         }
 
         // Define users setting (keeping it on hand to define dependencies)
@@ -121,12 +113,6 @@ class backup_root_task extends backup_task {
         $comments->set_ui(new backup_setting_ui_checkbox($comments, get_string('rootsettingcomments', 'backup')));
         $this->add_setting($comments);
         $users->add_dependency($comments);
-
-        // Define calendar events (dependent of users)
-        $events = new backup_calendarevents_setting('calendarevents', base_setting::IS_BOOLEAN, true);
-        $events->set_ui(new backup_setting_ui_checkbox($events, get_string('rootsettingcalendarevents', 'backup')));
-        $this->add_setting($events);
-        $users->add_dependency($events);
 
         // Define completion (dependent of users)
         $completion = new backup_userscompletion_setting('userscompletion', base_setting::IS_BOOLEAN, true);

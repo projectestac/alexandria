@@ -23,5 +23,4 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['activity_modules:addinstance'] = 'Add a new activities block';
 $string['pluginname'] = 'Activities';

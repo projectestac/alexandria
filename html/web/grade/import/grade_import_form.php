@@ -41,13 +41,14 @@ class grade_import_form extends moodleform {
         // file upload
         $mform->addElement('filepicker', 'userfile', get_string('file'));
         $mform->addRule('userfile', null, 'required');
-        $encodings = textlib::get_encodings();
+        $textlib = textlib_get_instance();
+        $encodings = $textlib->get_encodings();
         $mform->addElement('select', 'encoding', get_string('encoding', 'grades'), $encodings);
 
         if (!empty($features['includeseparator'])) {
             $radio = array();
-            $radio[] = $mform->createElement('radio', 'separator', null, get_string('septab', 'grades'), 'tab');
-            $radio[] = $mform->createElement('radio', 'separator', null, get_string('sepcomma', 'grades'), 'comma');
+            $radio[] = &MoodleQuickForm::createElement('radio', 'separator', null, get_string('septab', 'grades'), 'tab');
+            $radio[] = &MoodleQuickForm::createElement('radio', 'separator', null, get_string('sepcomma', 'grades'), 'comma');
             $mform->addGroup($radio, 'separator', get_string('separator', 'grades'), ' ', false);
             $mform->setDefault('separator', 'comma');
         }
@@ -118,11 +119,11 @@ class grade_import_mapping_form extends moodleform {
         $mform->setType('map', PARAM_INT);
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
-        $mform->addElement('hidden', 'iid');
-        $mform->setType('iid', PARAM_INT);
         $mform->addElement('hidden', 'importcode');
         $mform->setType('importcode', PARAM_FILE);
         $mform->addElement('hidden', 'verbosescales', 1);
+        $mform->setType('separator', PARAM_ALPHA);
+        $mform->addElement('hidden', 'separator', 'comma');
         $mform->setType('verbosescales', PARAM_INT);
         $mform->addElement('hidden', 'groupid', groups_get_course_group($COURSE));
         $mform->setType('groupid', PARAM_INT);

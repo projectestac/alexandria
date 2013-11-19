@@ -17,13 +17,14 @@
 /**
  * Version details.
  *
- * @package    tool_dbtransfer
- * @copyright  2008 Petr Skoda {@link http://skodak.org/}
+ * @package    tool
+ * @subpackage dbtransfer
+ * @copyright  2008 Petr Skoda
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2012112900; // The current plugin version (Date: YYYYMMDDXX).
-$plugin->requires  = 2012112900; // Requires this Moodle version.
-$plugin->component = 'tool_dbtransfer'; // Full name of the plugin (used for diagnostics).
+$plugin->version   = 2011092500; // The current plugin version (Date: YYYYMMDDXX)
+$plugin->requires  = 2011092100; // Requires this Moodle version
+$plugin->component = 'tool_dbtransfer'; // Full name of the plugin (used for diagnostics)

@@ -28,6 +28,12 @@ $currentorg = optional_param('currentorg', '', PARAM_RAW); // selected organizat
 $newattempt = optional_param('newattempt', 'off', PARAM_ALPHA); // the user request to start a new attempt
 $displaymode = optional_param('display','',PARAM_ALPHA);
 
+//IE 6 Bug workaround
+if (strpos($_SERVER['HTTP_USER_AGENT'], 'MSIE 6') !== false) {
+    @ini_set('zlib.output_compression', 'Off');
+    @apache_setenv('no-gzip', 1);
+}
+
 // IE 9 workaround for Flash bug: MDL-29213
 // Note that it's not clear if appending the meta tag via $CFG->additionalhtmlhead
 // is correct at all, both because of the mechanism itself and because MS says
@@ -80,14 +86,14 @@ if (!empty($forcejs)) {
     $PAGE->add_body_class('forcejavascript');
 }
 
-require_login($course, false, $cm);
+require_login($course->id, false, $cm);
 
 $strscorms = get_string('modulenameplural', 'scorm');
 $strscorm  = get_string('modulename', 'scorm');
 $strpopup = get_string('popup', 'scorm');
 $strexit = get_string('exitactivity', 'scorm');
 
-$coursecontext = context_course::instance($course->id);
+$coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
 if ($displaymode == 'popup') {
     $PAGE->set_pagelayout('popup');
@@ -164,7 +170,6 @@ if ($mode == 'browse') {
 }
 $orgstr = '&currentorg='.$currentorg;
 
-$SESSION->scorm = new stdClass();
 $SESSION->scorm->scoid = $sco->id;
 $SESSION->scorm->scormstatus = 'Not Initialized';
 $SESSION->scorm->scormmode = $mode;
@@ -180,14 +185,10 @@ if (empty($scorm->popup) || $displaymode=='popup') {
     $PAGE->set_button($exitlink);
 }
 
-$PAGE->requires->data_for_js('scormplayerdata', Array('launch' => false,
-                                                       'currentorg' => '',
-                                                       'sco' => 0,
-                                                       'scorm' => 0,
-                                                       'courseid' => $scorm->course,
-                                                       'cwidth' => $scorm->width,
-                                                       'cheight' => $scorm->height,
-                                                       'popupoptions' => $scorm->options), true);
+$PAGE->requires->yui2_lib('connection');
+$PAGE->requires->data_for_js('scormplayerdata', Array('cwidth'=>$scorm->width,
+                                                      'cheight'=>$scorm->height,
+                                                      'popupoptions' => $scorm->options), true);
 $PAGE->requires->js('/mod/scorm/request.js', true);
 $PAGE->requires->js('/lib/cookies.js', true);
 $PAGE->requires->css('/mod/scorm/styles.css');
@@ -269,14 +270,12 @@ if ($result->prerequisites) {
 ?>
     </div> <!-- SCORM page -->
 <?php
-$scoes = scorm_get_toc_object($USER, $scorm, "", $sco->id, $mode, $attempt);
-$adlnav = scorm_get_adlnav_json($scoes['scoes']);
 // NEW IMS TOC
 if (empty($scorm->popup) || $displaymode == 'popup') {
     if (!isset($result->toctitle)) {
         $result->toctitle = get_string('toc', 'scorm');
     }
-    $PAGE->requires->js_init_call('M.mod_scorm.init', array($scorm->hidenav, $scorm->hidetoc, $result->toctitle, $name, $sco->id, $adlnav));
+    $PAGE->requires->js_init_call('M.mod_scorm.init', array($scorm->hidenav, $scorm->hidetoc, $result->toctitle, $name, $sco->id));
 }
 if (!empty($forcejs)) {
     echo $OUTPUT->box(get_string("forcejavascriptmessage", "scorm"), "generalbox boxaligncenter forcejavascriptmessage");

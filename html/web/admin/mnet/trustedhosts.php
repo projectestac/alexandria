@@ -8,7 +8,7 @@
     require_login();
     admin_externalpage_setup('trustedhosts');
 
-    $context = context_system::instance();
+    $context = get_context_instance(CONTEXT_SYSTEM);
 
     require_capability('moodle/site:config', $context, $USER->id, true, "nopermissions");
 

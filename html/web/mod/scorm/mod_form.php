@@ -124,14 +124,7 @@ class mod_scorm_mod_form extends moodleform_mod {
         $mform->setAdvanced('winoptgrp', $cfg_scorm->winoptgrp_adv);
 
         // Skip view page
-        $skipviewoptions = scorm_get_skip_view_array();
-        if ($COURSE->format == 'scorm') { // Remove option that would cause a constant redirect.
-            unset($skipviewoptions[SCORM_SKIPVIEW_ALWAYS]);
-            if ($cfg_scorm->skipview == SCORM_SKIPVIEW_ALWAYS) {
-                $cfg_scorm->skipview = SCORM_SKIPVIEW_FIRST;
-            }
-        }
-        $mform->addElement('select', 'skipview', get_string('skipview', 'scorm'), $skipviewoptions);
+        $mform->addElement('select', 'skipview', get_string('skipview', 'scorm'), scorm_get_skip_view_array());
         $mform->addHelpButton('skipview', 'skipview', 'scorm');
         $mform->setDefault('skipview', $cfg_scorm->skipview);
         $mform->setAdvanced('skipview', $cfg_scorm->skipview_adv);
@@ -184,8 +177,8 @@ class mod_scorm_mod_form extends moodleform_mod {
         // Max Attempts
         $mform->addElement('select', 'maxattempt', get_string('maximumattempts', 'scorm'), scorm_get_attempts_array());
         $mform->addHelpButton('maxattempt', 'maximumattempts', 'scorm');
-        $mform->setDefault('maxattempt', $cfg_scorm->maxattempt);
-        $mform->setAdvanced('maxattempt', $cfg_scorm->maxattempt_adv);
+        $mform->setDefault('maxattempt', $cfg_scorm->maxattempts);
+        $mform->setAdvanced('maxattempt', $cfg_scorm->maxattempts_adv);
 
         // What Grade
         $mform->addElement('select', 'whatgrade', get_string('whatgrade', 'scorm'),  scorm_get_what_grade_array());
@@ -195,7 +188,7 @@ class mod_scorm_mod_form extends moodleform_mod {
         $mform->setAdvanced('whatgrade', $cfg_scorm->whatgrade_adv);
 
         // Display attempt status
-        $mform->addElement('select', 'displayattemptstatus', get_string('displayattemptstatus', 'scorm'), scorm_get_attemptstatus_array());
+        $mform->addElement('selectyesno', 'displayattemptstatus', get_string('displayattemptstatus', 'scorm'));
         $mform->addHelpButton('displayattemptstatus', 'displayattemptstatus', 'scorm');
         $mform->setDefault('displayattemptstatus', $cfg_scorm->displayattemptstatus);
         $mform->setAdvanced('displayattemptstatus', $cfg_scorm->displayattemptstatus_adv);
@@ -322,24 +315,6 @@ class mod_scorm_mod_form extends moodleform_mod {
         if (empty($default_values['timeclose'])) {
             $default_values['timeclose'] = 0;
         }
-
-        // Set some completion default data
-        if (!empty($default_values['completionstatusrequired']) && !is_array($default_values['completionstatusrequired'])) {
-            // Unpack values
-            $cvalues = array();
-            foreach (scorm_status_options() as $key => $value) {
-                if (($default_values['completionstatusrequired'] & $key) == $key) {
-                    $cvalues[$key] = 1;
-                }
-            }
-
-            $default_values['completionstatusrequired'] = $cvalues;
-        }
-
-        if (!isset($default_values['completionscorerequired']) || !strlen($default_values['completionscorerequired'])) {
-            $default_values['completionscoredisabled'] = 1;
-        }
-
     }
 
     function validation($data, $files) {
@@ -393,28 +368,14 @@ class mod_scorm_mod_form extends moodleform_mod {
 
         } else if ($type === SCORM_TYPE_EXTERNAL) {
             $reference = $data['packageurl'];
-            // Syntax check.
             if (!preg_match('/(http:\/\/|https:\/\/|www).*\/imsmanifest.xml$/i', $reference)) {
                 $errors['packageurl'] = get_string('invalidurl', 'scorm');
-            } else {
-                // Availability check.
-                $result = scorm_check_url($reference);
-                if (is_string($result)) {
-                    $errors['packageurl'] = $result;
-                }
             }
 
         } else if ($type === 'packageurl') {
             $reference = $data['reference'];
-            // Syntax check.
             if (!preg_match('/(http:\/\/|https:\/\/|www).*(\.zip|\.pif)$/i', $reference)) {
                 $errors['packageurl'] = get_string('invalidurl', 'scorm');
-            } else {
-                // Availability check.
-                $result = scorm_check_url($reference);
-                if (is_string($result)) {
-                    $errors['packageurl'] = $result;
-                }
             }
 
         } else if ($type === SCORM_TYPE_IMSREPOSITORY) {
@@ -422,20 +383,11 @@ class mod_scorm_mod_form extends moodleform_mod {
             if (stripos($reference, '#') !== 0) {
                 $errors['packageurl'] = get_string('invalidurl', 'scorm');
             }
-
         } else if ($type === SCORM_TYPE_AICCURL) {
             $reference = $data['packageurl'];
-            // Syntax check.
             if (!preg_match('/(http:\/\/|https:\/\/|www).*/', $reference)) {
                 $errors['packageurl'] = get_string('invalidurl', 'scorm');
-            } else {
-                // Availability check.
-                $result = scorm_check_url($reference);
-                if (is_string($result)) {
-                    $errors['packageurl'] = $result;
-                }
             }
-
         }
 
         return $errors;
@@ -468,79 +420,5 @@ class mod_scorm_mod_form extends moodleform_mod {
 
         $this->data_preprocessing($default_values);
         parent::set_data($default_values);
-    }
-
-    function add_completion_rules() {
-        $mform =& $this->_form;
-        $items = array();
-
-        // Require score
-        $group = array();
-        $group[] =& $mform->createElement('text', 'completionscorerequired', '', array('size' => 5));
-        $group[] =& $mform->createElement('checkbox', 'completionscoredisabled', null, get_string('disable'));
-        $mform->setType('completionscorerequired', PARAM_INT);
-        $mform->addGroup($group, 'completionscoregroup', get_string('completionscorerequired', 'scorm'), '', false);
-        $mform->addHelpButton('completionscoregroup', 'completionscorerequired', 'scorm');
-        $mform->disabledIf('completionscorerequired', 'completionscoredisabled', 'checked');
-        $mform->setDefault('completionscorerequired', 0);
-
-        $items[] = 'completionscoregroup';
-
-
-        // Require status
-        $first = true;
-        $firstkey = null;
-        foreach (scorm_status_options(true) as $key => $value) {
-            $name = null;
-            $key = 'completionstatusrequired['.$key.']';
-            if ($first) {
-                $name = get_string('completionstatusrequired', 'scorm');
-                $first = false;
-                $firstkey = $key;
-            }
-            $mform->addElement('checkbox', $key, $name, $value);
-            $mform->setType($key, PARAM_BOOL);
-            $items[] = $key;
-        }
-        $mform->addHelpButton($firstkey, 'completionstatusrequired', 'scorm');
-
-        return $items;
-    }
-
-    function completion_rule_enabled($data) {
-        $status = !empty($data['completionstatusrequired']);
-        $score = empty($data['completionscoredisabled']) && strlen($data['completionscorerequired']);
-
-        return $status || $score;
-    }
-
-    function get_data($slashed = true) {
-        $data = parent::get_data($slashed);
-
-        if (!$data) {
-            return false;
-        }
-
-        // Turn off completion settings if the checkboxes aren't ticked
-        $autocompletion = isset($data->completion) && $data->completion == COMPLETION_TRACKING_AUTOMATIC;
-
-        if (isset($data->completionstatusrequired) && is_array($data->completionstatusrequired)) {
-            $total = 0;
-            foreach (array_keys($data->completionstatusrequired) as $state) {
-                $total |= $state;
-            }
-
-            $data->completionstatusrequired = $total;
-        }
-
-        if (!$autocompletion) {
-            $data->completionstatusrequired = null;
-        }
-
-        if (!empty($data->completionscoredisabled) || !$autocompletion) {
-            $data->completionscorerequired = null;
-        }
-
-        return $data;
     }
 }

@@ -1,22 +1,8 @@
-<?php
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
+<?php // $Id$
 /**
 * print the form to add or edit a questionnaire-instance
 *
+* @version $Id$
 * @author Mike Churchward
 * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
 * @package questionnaire
@@ -28,7 +14,7 @@ require_once($CFG->dirroot.'/mod/questionnaire/lib.php');
 class mod_questionnaire_mod_form extends moodleform_mod {
 
     function definition() {
-        global $COURSE;
+        global $CFG, $COURSE;
 
         $questionnaire = new questionnaire($this->_instance, null, $COURSE, $this->_cm);
 
@@ -67,23 +53,21 @@ class mod_questionnaire_mod_form extends moodleform_mod {
 
         $mform->addElement('select', 'qtype', get_string('qtype', 'questionnaire'), $QUESTIONNAIRE_TYPES);
         $mform->addHelpButton('qtype', 'qtype', 'questionnaire');
-
-        $mform->addElement('hidden', 'cannotchangerespondenttype');
+        
         $mform->addElement('select', 'respondenttype', get_string('respondenttype', 'questionnaire'), $QUESTIONNAIRE_RESPONDENTS);
         $mform->addHelpButton('respondenttype', 'respondenttype', 'questionnaire');
-        $mform->disabledIf('respondenttype', 'cannotchangerespondenttype', 'eq', 1);
-
+        
         $mform->addElement('static', 'old_resp_eligible', get_string('respondenteligible', 'questionnaire'),
                            get_string('respeligiblerepl', 'questionnaire'));
         $mform->addHelpButton('old_resp_eligible', 'respondenteligible', 'questionnaire');
-
+        
         $mform->addElement('select', 'resp_view', get_string('responseview', 'questionnaire'), $QUESTIONNAIRE_RESPONSEVIEWERS);
         $mform->addHelpButton('resp_view', 'responseview', 'questionnaire');
-
+        
         $options = array('0'=>get_string('no'),'1'=>get_string('yes'));
         $mform->addElement('select', 'resume', get_string('resume', 'questionnaire'), $options);
         $mform->addHelpButton('resume', 'resume', 'questionnaire');
-
+        
         $mform->addElement('modgrade', 'grade', get_string('grade', 'questionnaire'), false);
         $mform->setDefault('grade', 0);
 
@@ -95,7 +79,7 @@ class mod_questionnaire_mod_form extends moodleform_mod {
 
             $mform->addElement('header', 'contenthdr', get_string('contentoptions', 'questionnaire'));
             $mform->addHelpButton('contenthdr', 'createcontent', 'questionnaire');
-
+            
             $mform->addElement('radio', 'create', get_string('createnew', 'questionnaire'), '', 'new-0');
 
             $surveys = questionnaire_get_survey_select($questionnaire->id, $COURSE->id, 0, 'template');
@@ -140,7 +124,6 @@ class mod_questionnaire_mod_form extends moodleform_mod {
     }
 
     function data_preprocessing(&$default_values){
-        global $DB;
         if (empty($default_values['opendate'])) {
             $default_values['useopendate'] = 0;
         } else {
@@ -151,19 +134,12 @@ class mod_questionnaire_mod_form extends moodleform_mod {
         } else {
             $default_values['useclosedate'] = 1;
         }
-        // prevent questionnaire set to "anonymous" to be reverted to "full name"
-        $default_values['cannotchangerespondenttype'] = 0;
-        if (!empty($default_values['respondenttype']) && $default_values['respondenttype'] == "anonymous") {
-            // if this questionnaire has responses
-            $numresp = $DB->count_records('questionnaire_response', array('survey_id' => $default_values['sid'],'complete' => 'y'));
-            if ($numresp) {
-                $default_values['cannotchangerespondenttype'] = 1;
-            }
-        }
+
     }
 
-    function validation($data, $files){
-        return parent::validation($data, $files);
+    function validation($data){
+
     }
 
 }
+?>

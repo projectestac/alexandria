@@ -27,6 +27,29 @@
 defined('MOODLE_INTERNAL') || die();
 
 
+/**#@+
+ * The core question types.
+ *
+ * These used to be in lib/questionlib.php, but are being deprecated. Copying
+ * them here to keep the import/export code working for now (there are 135
+ * references to these constants which I don't want to try to fix at the moment.)
+ */
+if (!defined('SHORTANSWER')) {
+    define("SHORTANSWER",   "shortanswer");
+    define("TRUEFALSE",     "truefalse");
+    define("MULTICHOICE",   "multichoice");
+    define("RANDOM",        "random");
+    define("MATCH",         "match");
+    define("RANDOMSAMATCH", "randomsamatch");
+    define("DESCRIPTION",   "description");
+    define("NUMERICAL",     "numerical");
+    define("MULTIANSWER",   "multianswer");
+    define("CALCULATED",    "calculated");
+    define("ESSAY",         "essay");
+}
+/**#@-*/
+
+
 /**
  * Base class for question import and export formats.
  *
@@ -105,7 +128,6 @@ class qformat_default {
             debugging('You shouldn\'t call setCategory after setQuestions');
         }
         $this->category = $category;
-        $this->importcontext = context::instance_by_id($this->category->contextid);
     }
 
     /**
@@ -289,6 +311,9 @@ class qformat_default {
     public function importprocess($category) {
         global $USER, $CFG, $DB, $OUTPUT;
 
+        $context = $category->context;
+        $this->importcontext = $context;
+
         // reset the timer in case file upload was slow
         set_time_limit(0);
 
@@ -300,7 +325,7 @@ class qformat_default {
             return false;
         }
 
-        if (!$questions = $this->readquestions($lines)) {   // Extract all the questions
+        if (!$questions = $this->readquestions($lines, $context)) {   // Extract all the questions
             echo $OUTPUT->notification(get_string('noquestionsinfile', 'question'));
             return false;
         }
@@ -325,19 +350,18 @@ class qformat_default {
         foreach ($questions as $question) {
             if (!empty($question->fraction) and (is_array($question->fraction))) {
                 $fractions = $question->fraction;
-                $invalidfractions = array();
+                $answersvalid = true; // in case they are!
                 foreach ($fractions as $key => $fraction) {
                     $newfraction = match_grade_options($gradeoptionsfull, $fraction,
                             $this->matchgrades);
                     if ($newfraction === false) {
-                        $invalidfractions[] = $fraction;
+                        $answersvalid = false;
                     } else {
                         $fractions[$key] = $newfraction;
                     }
                 }
-                if ($invalidfractions) {
-                    echo $OUTPUT->notification(get_string('invalidgrade', 'question',
-                            implode(', ', $invalidfractions)));
+                if (!$answersvalid) {
+                    echo $OUTPUT->notification(get_string('invalidgrade', 'question'));
                     ++$gradeerrors;
                     continue;
                 } else {
@@ -373,7 +397,7 @@ class qformat_default {
                 }
                 continue;
             }
-            $question->context = $this->importcontext;
+            $question->context = $context;
 
             $count++;
 
@@ -386,35 +410,20 @@ class qformat_default {
             $question->timecreated = time();
             $question->modifiedby = $USER->id;
             $question->timemodified = time();
-            $fileoptions = array(
-                    'subdirs' => false,
-                    'maxfiles' => -1,
-                    'maxbytes' => 0,
-                );
 
             $question->id = $DB->insert_record('question', $question);
-
-            if (isset($question->questiontextitemid)) {
-                $question->questiontext = file_save_draft_area_files($question->questiontextitemid,
-                        $this->importcontext->id, 'question', 'questiontext', $question->id,
-                        $fileoptions, $question->questiontext);
-            } else if (isset($question->questiontextfiles)) {
+            if (isset($question->questiontextfiles)) {
                 foreach ($question->questiontextfiles as $file) {
                     question_bank::get_qtype($question->qtype)->import_file(
-                            $this->importcontext, 'question', 'questiontext', $question->id, $file);
+                            $context, 'question', 'questiontext', $question->id, $file);
                 }
             }
-            if (isset($question->generalfeedbackitemid)) {
-                $question->generalfeedback = file_save_draft_area_files($question->generalfeedbackitemid,
-                        $this->importcontext->id, 'question', 'generalfeedback', $question->id,
-                        $fileoptions, $question->generalfeedback);
-            } else if (isset($question->generalfeedbackfiles)) {
+            if (isset($question->generalfeedbackfiles)) {
                 foreach ($question->generalfeedbackfiles as $file) {
                     question_bank::get_qtype($question->qtype)->import_file(
-                            $this->importcontext, 'question', 'generalfeedback', $question->id, $file);
+                            $context, 'question', 'generalfeedback', $question->id, $file);
                 }
             }
-            $DB->update_record('question', $question);
 
             $this->questionids[] = $question->id;
 
@@ -493,12 +502,11 @@ class qformat_default {
         }
 
         if ($this->contextfromfile && $contextid !== false) {
-            $context = context::instance_by_id($contextid);
+            $context = get_context_instance_by_id($contextid);
             require_capability('moodle/question:add', $context);
         } else {
-            $context = context::instance_by_id($this->category->contextid);
+            $context = get_context_instance_by_id($this->category->contextid);
         }
-        $this->importcontext = $context;
 
         // Now create any categories that need to be created.
         foreach ($catnames as $catname) {
@@ -532,10 +540,7 @@ class qformat_default {
         if (is_readable($filename)) {
             $filearray = file($filename);
 
-            // If the first line of the file starts with a UTF-8 BOM, remove it.
-            $filearray[0] = textlib::trim_utf8_bom($filearray[0]);
-
-            // Check for Macintosh OS line returns (ie file on one line), and fix.
+            /// Check for Macintosh OS line returns (ie file on one line), and fix
             if (preg_match("~\r~", $filearray[0]) AND !preg_match("~\n~", $filearray[0])) {
                 return explode("\r", $filearray[0]);
             } else {
@@ -551,19 +556,14 @@ class qformat_default {
      * readquestion().   Questions are defined as anything
      * between blank lines.
      *
-     * NOTE this method used to take $context as a second argument. However, at
-     * the point where this method was called, it was impossible to know what
-     * context the quetsions were going to be saved into, so the value could be
-     * wrong. Also, none of the standard question formats were using this argument,
-     * so it was removed. See MDL-32220.
-     *
      * If your format does not use blank lines as a delimiter
      * then you will need to override this method. Even then
      * try to use readquestion for each question
      * @param array lines array of lines from readdata
+     * @param object $context
      * @return array array of question objects
      */
-    protected function readquestions($lines) {
+    protected function readquestions($lines, $context) {
 
         $questions = array();
         $currentquestion = array();
@@ -583,7 +583,7 @@ class qformat_default {
         }
 
         if (!empty($currentquestion)) {  // There may be a final question
-            if ($question = $this->readquestion($currentquestion)) {
+            if ($question = $this->readquestion($currentquestion, $context)) {
                 $questions[] = $question;
             }
         }
@@ -626,55 +626,6 @@ class qformat_default {
         $question->export_process = true;
         $question->import_process = true;
 
-        return $question;
-    }
-
-    /**
-     * Construct a reasonable default question name, based on the start of the question text.
-     * @param string $questiontext the question text.
-     * @param string $default default question name to use if the constructed one comes out blank.
-     * @return string a reasonable question name.
-     */
-    public function create_default_question_name($questiontext, $default) {
-        $name = $this->clean_question_name(shorten_text($questiontext, 80));
-        if ($name) {
-            return $name;
-        } else {
-            return $default;
-        }
-    }
-
-    /**
-     * Ensure that a question name does not contain anything nasty, and will fit in the DB field.
-     * @param string $name the raw question name.
-     * @return string a safe question name.
-     */
-    public function clean_question_name($name) {
-        $name = clean_param($name, PARAM_TEXT); // Matches what the question editing form does.
-        $name = trim($name);
-        $trimlength = 251;
-        while (textlib::strlen($name) > 255 && $trimlength > 0) {
-            $name = shorten_text($name, $trimlength);
-            $trimlength -= 10;
-        }
-        return $name;
-    }
-
-    /**
-     * Add a blank combined feedback to a question object.
-     * @param object question
-     * @return object question
-     */
-    protected function add_blank_combined_feedback($question) {
-        $question->correctfeedback['text'] = '';
-        $question->correctfeedback['format'] = $question->questiontextformat;
-        $question->correctfeedback['files'] = array();
-        $question->partiallycorrectfeedback['text'] = '';
-        $question->partiallycorrectfeedback['format'] = $question->questiontextformat;
-        $question->partiallycorrectfeedback['files'] = array();
-        $question->incorrectfeedback['text'] = '';
-        $question->incorrectfeedback['format'] = $question->questiontextformat;
-        $question->incorrectfeedback['files'] = array();
         return $question;
     }
 
@@ -891,7 +842,7 @@ class qformat_default {
      * Convert a string, as returned by {@link assemble_category_path()},
      * back into an array of category names.
      *
-     * Each category name is cleaned by a call to clean_param(, PARAM_TEXT),
+     * Each category name is cleaned by a call to clean_param(, PARAM_MULTILANG),
      * which matches the cleaning in question/category_form.php.
      *
      * @param string $path
@@ -901,7 +852,7 @@ class qformat_default {
         $rawnames = preg_split('~(?<!/)/(?!/)~', $path);
         $names = array();
         foreach ($rawnames as $rawname) {
-            $names[] = clean_param(trim(str_replace('//', '/', $rawname)), PARAM_TEXT);
+            $names[] = clean_param(trim(str_replace('//', '/', $rawname)), PARAM_MULTILANG);
         }
         return $names;
     }
@@ -938,81 +889,5 @@ class qformat_default {
         $formatoptions->noclean = true;
         return html_to_text(format_text($question->questiontext,
                 $question->questiontextformat, $formatoptions), 0, false);
-    }
-}
-
-class qformat_based_on_xml extends qformat_default {
-
-    /**
-     * A lot of imported files contain unwanted entities.
-     * This method tries to clean up all known problems.
-     * @param string str string to correct
-     * @return string the corrected string
-     */
-    public function cleaninput($str) {
-
-        $html_code_list = array(
-            "&#039;" => "'",
-            "&#8217;" => "'",
-            "&#8220;" => "\"",
-            "&#8221;" => "\"",
-            "&#8211;" => "-",
-            "&#8212;" => "-",
-        );
-        $str = strtr($str, $html_code_list);
-        // Use textlib entities_to_utf8 function to convert only numerical entities.
-        $str = textlib::entities_to_utf8($str, false);
-        return $str;
-    }
-
-    /**
-     * Return the array moodle is expecting
-     * for an HTML text. No processing is done on $text.
-     * qformat classes that want to process $text
-     * for instance to import external images files
-     * and recode urls in $text must overwrite this method.
-     * @param array $text some HTML text string
-     * @return array with keys text, format and files.
-     */
-    public function text_field($text) {
-        return array(
-            'text' => trim($text),
-            'format' => FORMAT_HTML,
-            'files' => array(),
-        );
-    }
-
-    /**
-     * Return the value of a node, given a path to the node
-     * if it doesn't exist return the default value.
-     * @param array xml data to read
-     * @param array path path to node expressed as array
-     * @param mixed default
-     * @param bool istext process as text
-     * @param string error if set value must exist, return false and issue message if not
-     * @return mixed value
-     */
-    public function getpath($xml, $path, $default, $istext=false, $error='') {
-        foreach ($path as $index) {
-            if (!isset($xml[$index])) {
-                if (!empty($error)) {
-                    $this->error($error);
-                    return false;
-                } else {
-                    return $default;
-                }
-            }
-
-            $xml = $xml[$index];
-        }
-
-        if ($istext) {
-            if (!is_string($xml)) {
-                $this->error(get_string('invalidxml', 'qformat_xml'));
-            }
-            $xml = trim($xml);
-        }
-
-        return $xml;
     }
 }

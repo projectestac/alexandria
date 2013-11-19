@@ -9,18 +9,16 @@
  */
 function xtec2_process_css($css, $theme) {
 
-    global $OUTPUT, $CFG;
+    global $OUTPUT;
     
     // Configure site logo
-    $logo = $theme->setting_file_url('logo', 'logo');
-    if (!empty($logo)) {
-        // Image uploaded
-        $css = xtec2_set_logo($css, $logo);
+    if (!empty($theme->settings->logourl)) {
+        $logourl = $theme->settings->logourl;
     } else {
-        // No image uploaded. Show background image (top.jpg)
-        $logo = $OUTPUT->pix_url('theme/top', 'theme'); // Default background image
-        $css = str_replace('[[setting:logo]]', $logo, $css);
+        $logourl = $OUTPUT->pix_url('theme/top', 'theme'); // Default value
     }
+    $css = str_replace('[[setting:logourl]]', $logourl, $css);
+
 
     // Set the font size
     if (!empty($theme->settings->fontsize)) {
@@ -59,22 +57,13 @@ function xtec2_process_css($css, $theme) {
             $fontstyle = 'font-family: arial, helvetica, clean, sans-serif;';
             break;
         case 'lligada':
-            $fontstyle = 'font-family: Abecedario!important;';
+            $fontstyle = 'font-family: Abecedario;';
             break;
         case 'majuscules':
-            $fontstyle = 'text-transform: uppercase;';
+            $fontstyle = 'text-transform: uppercase';
             break;
     }
     $css = str_replace('[[setting:fontstyle]]', $fontstyle, $css);
-
-
-    // Configure import CSS
-    if (!empty($theme->settings->importcss)) {
-        $importcss = "@import url('" . $theme->settings->importcss . "');";
-    } else {
-        $importcss = ''; // Default value
-    }
-    $css = str_replace('[[setting:importcss]]', $importcss, $css);
 
 
     // Get extra css from theme settings
@@ -140,33 +129,7 @@ function xtec2_process_css($css, $theme) {
     $css = str_replace('[[setting:color6]]', $color6, $css);
 
 
-    // Fix for @font-face: when style sheets are minimized, @font-face only
-    // work if the URL are absolute
-    $css = str_replace('[[url]]', $CFG->wwwroot, $css);
     
     return $css;
 }
 
-
-function xtec2_set_logo($css, $logo) {
-    global $OUTPUT;
-    $tag = '[[setting:logo]]';
-    $replacement = $logo;
-    if (is_null($replacement)) {
-        $replacement = $OUTPUT->pix_url('images/logo','theme');
-    }
-
-    $css = str_replace($tag, $replacement, $css);
-
-    return $css;
-}
-
-
-function theme_xtec2_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, array $options = array()) {
-    if ($context->contextlevel == CONTEXT_SYSTEM and $filearea === 'logo') {
-        $theme = theme_config::load('xtec2');
-        return $theme->setting_file_serve('logo', $args, $forcedownload, $options);
-    } else {
-        send_file_not_found();
-    }
-}

@@ -5,7 +5,7 @@ require_once($CFG->libdir . '/portfoliolib.php');
 require_once($CFG->libdir . '/portfolio/forms.php');
 require_once($CFG->libdir . '/adminlib.php');
 
-$portfolio     = optional_param('pf', '', PARAM_ALPHANUMEXT);
+$portfolio     = optional_param('pf', '', PARAM_FORMAT);
 $action        = optional_param('action', '', PARAM_ALPHA);
 $sure          = optional_param('sure', '', PARAM_ALPHA);
 
@@ -35,7 +35,7 @@ if ($action == 'newon') {
 
 admin_externalpage_setup($pagename);
 
-require_capability('moodle/site:config', context_system::instance());
+require_capability('moodle/site:config', get_context_instance(CONTEXT_SYSTEM));
 
 $baseurl    = "$CFG->wwwroot/$CFG->admin/portfolio.php";
 $sesskeyurl = "$CFG->wwwroot/$CFG->admin/portfolio.php?sesskey=" . sesskey();
@@ -197,7 +197,6 @@ if (($action == 'edit') || ($action == 'new')) {
                 $currentaction = 'hide';
             }
             $select = new single_select(portfolio_action_url($pluginid, 'pf'), 'action', $actionchoicesforexisting, $currentaction, null, 'applyto' . $pluginid);
-            $select->set_label(get_string('action'), array('class' => 'accesshide'));
             $table->data[] = array($pluginname, $OUTPUT->render($select), $settings);
         }
         if (!in_array($plugin, $usedplugins)) {
@@ -219,7 +218,6 @@ if (($action == 'edit') || ($action == 'new')) {
                 $insaneplugins[] = $p;
             } else {
                 $select = new single_select(portfolio_action_url($p, 'pf'), 'action', $actionchoicesfornew, 'delete', null, 'applyto' . $p);
-                $select->set_label(get_string('action'), array('class' => 'accesshide'));
                 $table->data[] = array(portfolio_static_function($p, 'get_name'), $OUTPUT->render($select), '');
             }
         }

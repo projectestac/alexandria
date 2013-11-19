@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -16,32 +15,30 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_feedback_activity_task class
- *
- * @package     mod_feedback
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-require_once($CFG->dirroot . '/mod/feedback/backup/moodle2/backup_feedback_stepslib.php');
-require_once($CFG->dirroot . '/mod/feedback/backup/moodle2/backup_feedback_settingslib.php');
+require_once($CFG->dirroot . '/mod/feedback/backup/moodle2/backup_feedback_stepslib.php'); // Because it exists (must)
+require_once($CFG->dirroot . '/mod/feedback/backup/moodle2/backup_feedback_settingslib.php'); // Because it exists (optional)
 
 /**
- * Provides the steps to perform one complete backup of the Feedback instance
+ * feedback backup task that provides all the settings and steps to perform one
+ * complete backup of the activity
  */
 class backup_feedback_activity_task extends backup_activity_task {
 
     /**
-     * No specific settings for this activity
+     * Define (add) particular settings this activity can have
      */
     protected function define_my_settings() {
+        // No particular settings for this activity
     }
 
     /**
-     * Defines a backup step to store the instance data in the feedback.xml file
+     * Define (add) particular steps this activity can have
      */
     protected function define_my_steps() {
         // feedback only has one structure step
@@ -49,10 +46,8 @@ class backup_feedback_activity_task extends backup_activity_task {
     }
 
     /**
-     * Encodes URLs to the index.php and view.php scripts
-     *
-     * @param string $content some HTML text that eventually contains URLs to the activity instance scripts
-     * @return string the content with the URLs encoded
+     * Code the transformations to perform in the activity in
+     * order to get transportable (encoded) links
      */
     static public function encode_content_links($content) {
         global $CFG;

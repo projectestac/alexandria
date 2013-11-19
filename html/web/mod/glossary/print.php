@@ -11,7 +11,7 @@ $offset        = optional_param('offset', 0, PARAM_INT);              // number 
 $displayformat = optional_param('displayformat',-1, PARAM_INT);
 
 $mode    = required_param('mode', PARAM_ALPHA);             // mode to show the entries
-$hook    = optional_param('hook','ALL', PARAM_CLEAN);       // what to show
+$hook    = optional_param('hook','ALL', PARAM_ALPHANUM);   // what to show
 $sortkey = optional_param('sortkey','UPDATE', PARAM_ALPHA); // Sorting key
 
 $url = new moodle_url('/mod/glossary/print.php', array('id'=>$id));
@@ -52,7 +52,7 @@ if ( !$entriesbypage = $glossary->entbypage ) {
 }
 
 require_course_login($course, true, $cm);
-$context = context_module::instance($cm->id);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
 // Prepare format_string/text options
 $fmtoptions = array(
@@ -62,6 +62,9 @@ $PAGE->set_pagelayout('print');
 $PAGE->set_title(get_string("modulenameplural", "glossary"));
 $PAGE->set_heading($course->fullname);
 echo $OUTPUT->header();
+
+/// Loading the textlib singleton instance. We are going to need it.
+$textlib = textlib_get_instance();
 
 if (!has_capability('mod/glossary:manageentries', $context) and !$glossary->allowprintview) {
     notice(get_string('printviewnotallowed', 'glossary'));
@@ -164,6 +167,9 @@ include_once("sql.php");
 
 $entriesshown = 0;
 $currentpivot = '';
+if ( $hook == 'SPECIAL' ) {
+    $alphabet = explode(",", get_string("alphabet"));
+}
 
 $site = $DB->get_record("course", array("id"=>1));
 echo '<p style="text-align:right"><span style="font-size:0.75em">' . userdate(time()) . '</span></p>';
@@ -175,12 +181,12 @@ if ( $allentries ) {
 
         // Setting the pivot for the current entry
         $pivot = $entry->glossarypivot;
-        $upperpivot = textlib::strtoupper($pivot);
-        $pivottoshow = textlib::strtoupper(format_string($pivot, true, $fmtoptions));
+        $upperpivot = $textlib->strtoupper($pivot);
+        $pivottoshow = $textlib->strtoupper(format_string($pivot, true, $fmtoptions));
         // Reduce pivot to 1cc if necessary
         if ( !$fullpivot ) {
-            $upperpivot = textlib::substr($upperpivot, 0, 1);
-            $pivottoshow = textlib::substr($pivottoshow, 0, 1);
+            $upperpivot = $textlib->substr($upperpivot, 0, 1);
+            $pivottoshow = $textlib->substr($pivottoshow, 0, 1);
         }
 
         // If there's  group break
@@ -200,7 +206,7 @@ if ( $allentries ) {
             }
         }
 
-        glossary_print_entry($course, $cm, $glossary, $entry, $mode, $hook, 1, $displayformat, true);
+        glossary_print_entry($course, $cm, $glossary, $entry, $mode, $hook,1,$displayformat,false,true);
     }
 }
 

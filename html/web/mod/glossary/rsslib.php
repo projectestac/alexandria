@@ -1,37 +1,8 @@
 <?php
+    //This file adds support to rss feeds generation
 
-// This file is part of Moodle - http://moodle.org/
-//
-// Moodle is free software: you can redistribute it and/or modify
-// it under the terms of the GNU General Public License as published by
-// the Free Software Foundation, either version 3 of the License, or
-// (at your option) any later version.
-//
-// Moodle is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-
-/**
- * This file adds support to rss feeds generation
- *
- * @package mod_glossary
- * @category rss
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-/**
- * Returns the path to the cached rss feed contents. Creates/updates the cache if necessary.
- *
- * @param stdClass $context the context
- * @param array    $args    the arguments received in the url
- * @return string the full path to the cached RSS feed directory. Null if there is a problem.
- */
+    //This function is the main entry point to glossary
+    //rss feeds generation.
     function glossary_rss_get_feed($context, $args) {
         global $CFG, $DB, $COURSE, $USER;
 
@@ -44,16 +15,18 @@
 
         $glossaryid  = clean_param($args[3], PARAM_INT);
         $cm = get_coursemodule_from_instance('glossary', $glossaryid, 0, false, MUST_EXIST);
-        $modcontext = context_module::instance($cm->id);
-
-        if ($COURSE->id == $cm->course) {
-            $course = $COURSE;
-        } else {
-            $course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
-        }
-        //context id from db should match the submitted one
-        if ($context->id != $modcontext->id || !has_capability('mod/glossary:view', $modcontext)) {
-            return null;
+        if ($cm) {
+            $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
+            if ($COURSE->id == $cm->course) {
+                $course = $COURSE;
+            } else {
+                $course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
+            }
+            //context id from db should match the submitted one
+            //no specific capability required to view glossary entries so just check user is enrolled
+            if ($context->id != $modcontext->id || !can_access_course($course, $USER)) {
+                return null;
+            }
         }
 
         $glossary = $DB->get_record('glossary', array('id' => $glossaryid), '*', MUST_EXIST);
@@ -98,10 +71,7 @@
 
                 $item->pubdate = $rec->entrytimecreated;
                 $item->link = $CFG->wwwroot."/mod/glossary/showentry.php?courseid=".$glossary->course."&eid=".$rec->entryid;
-
-                $definition = file_rewrite_pluginfile_urls($rec->entrydefinition, 'pluginfile.php',
-                    $modcontext->id, 'mod_glossary', 'entry', $rec->entryid);
-                $item->description = format_text($definition, $rec->entryformat, $formatoptions, $glossary->course);
+                $item->description = format_text($rec->entrydefinition,$rec->entryformat,$formatoptions,$glossary->course);
                 $items[] = $item;
             }
 
@@ -133,13 +103,6 @@
         return $cachedfilepath;
     }
 
-    /**
-     * The appropriate SQL query for the glossary items to go into the RSS feed
-     *
-     * @param stdClass $glossary the glossary object
-     * @param int      $time     check for items since this epoch timestamp
-     * @return string the SQL query to be used to get the entried from the glossary table of the database
-     */
     function glossary_rss_get_sql($glossary, $time=0) {
         //do we only want new items?
         if ($time) {
@@ -187,9 +150,9 @@
      * If there is new stuff in since $time this returns true
      * Otherwise it returns false.
      *
-     * @param stdClass $glossary the glossary activity object
-     * @param int      $time     epoch timestamp to compare new items against, 0 for everyting
-     * @return bool true if there are new items
+     * @param object $glossary the glossary activity object
+     * @param int $time timestamp
+     * @return bool
      */
     function glossary_rss_newstuff($glossary, $time) {
         global $DB;

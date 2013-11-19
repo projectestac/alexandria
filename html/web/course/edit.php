@@ -32,11 +32,7 @@ $categoryid = optional_param('category', 0, PARAM_INT); // course category - can
 $returnto = optional_param('returnto', 0, PARAM_ALPHANUM); // generic navigation return page switch
 
 $PAGE->set_pagelayout('admin');
-$pageparams = array('id'=>$id);
-if (empty($id)) {
-    $pageparams = array('category'=>$categoryid);
-}
-$PAGE->set_url('/course/edit.php', $pageparams);
+$PAGE->set_url('/course/edit.php');
 
 // basic access control checks
 if ($id) { // editing course
@@ -45,18 +41,20 @@ if ($id) { // editing course
         print_error('cannoteditsiteform');
     }
 
-    $course = course_get_format($id)->get_course();
+    $course = $DB->get_record('course', array('id'=>$id), '*', MUST_EXIST);
     require_login($course);
     $category = $DB->get_record('course_categories', array('id'=>$course->category), '*', MUST_EXIST);
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
     require_capability('moodle/course:update', $coursecontext);
+    $PAGE->url->param('id',$id);
 
 } else if ($categoryid) { // creating new course in this category
     $course = null;
     require_login();
     $category = $DB->get_record('course_categories', array('id'=>$categoryid), '*', MUST_EXIST);
-    $catcontext = context_coursecat::instance($category->id);
+    $catcontext = get_context_instance(CONTEXT_COURSECAT, $category->id);
     require_capability('moodle/course:create', $catcontext);
+    $PAGE->url->param('category',$categoryid);
     $PAGE->set_context($catcontext);
 
 } else {
@@ -67,15 +65,21 @@ if ($id) { // editing course
 // Prepare course and the editor
 $editoroptions = array('maxfiles' => EDITOR_UNLIMITED_FILES, 'maxbytes'=>$CFG->maxbytes, 'trusttext'=>false, 'noclean'=>true);
 if (!empty($course)) {
+    $allowedmods = array();
+    if ($am = $DB->get_records('course_allowed_modules', array('course'=>$course->id))) {
+        foreach ($am as $m) {
+            $allowedmods[] = $m->module;
+        }
+    } else {
+        // this happens in case we edit course created before enabling module restrictions or somebody disabled everything :-(
+        if (empty($course->restrictmodules) and !empty($CFG->defaultallowedmodules)) {
+            $allowedmods = explode(',', $CFG->defaultallowedmodules);
+        }
+    }
+    $course->allowedmods = $allowedmods;
     //add context for editor
     $editoroptions['context'] = $coursecontext;
     $course = file_prepare_standard_editor($course, 'summary', $editoroptions, $coursecontext, 'course', 'summary', 0);
-
-    // Inject current aliases
-    $aliases = $DB->get_records('role_names', array('contextid'=>$coursecontext->id));
-    foreach($aliases as $alias) {
-        $course->{'role_'.$alias->roleid} = $alias->name;
-    }
 
 } else {
     //editor should respect category context if course context is not set.
@@ -111,7 +115,7 @@ if ($editform->is_cancelled()) {
         $course = create_course($data, $editoroptions);
 
         // Get the context of the newly created course
-        $context = context_course::instance($course->id, MUST_EXIST);
+        $context = get_context_instance(CONTEXT_COURSE, $course->id, MUST_EXIST);
 
         if (!empty($CFG->creatornewroleid) and !is_viewing($context, NULL, 'moodle/role:assign') and !is_enrolled($context, NULL, 'moodle/role:assign')) {
             // deal with course creators - enrol them internally with default role
@@ -135,8 +139,16 @@ if ($editform->is_cancelled()) {
         update_course($data, $editoroptions);
     }
 
-    // Redirect user to newly created/updated course.
-    redirect(new moodle_url('/course/view.php', array('id' => $course->id)));
+    switch ($returnto) {
+        case 'category':
+        case 'topcat': //redirecting to where the new course was created by default.
+            $url = new moodle_url($CFG->wwwroot.'/course/category.php', array('id'=>$categoryid));
+            break;
+        default:
+            $url = new moodle_url($CFG->wwwroot.'/course/view.php', array('id'=>$course->id));
+            break;
+    }
+    redirect($url);
 }
 
 

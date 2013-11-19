@@ -10,29 +10,29 @@ $string['notesdesc'] = '<p>To apply any settings simply press "Save Changes" at 
 
 $string['headerinfo'] = 'Theme settings';
 
-$string['logo'] = 'Image for the header';
-$string['logodesc'] = 'Upload an imatge with extension png, jpg or gif';
+$string['logourl'] = 'Logo name';
+$string['logourldesc'] = '';
 
 $string['colorset'] = 'Color set';
 $string['colorsetdesc'] = '';
 
 $string['color1'] = 'Color 1';
-$string['color1desc'] = 'Description for color 1';
+$string['color1desc'] = 'Descripció del color 1';
 
 $string['color2'] = 'Color 2';
-$string['color2desc'] = 'Description for color 2';
+$string['color2desc'] = 'Descripció del color 2';
 
 $string['color3'] = 'Color 3';
-$string['color3desc'] = 'Description for color 3';
+$string['color3desc'] = 'Descripció del color 3';
 
 $string['color4'] = 'Color 4';
-$string['color4desc'] = 'Description for color 4';
+$string['color4desc'] = 'Descripció del color 4';
 
 $string['color5'] = 'Color 5';
-$string['color5desc'] = 'Description for color 5';
+$string['color5desc'] = 'Descripció del color 5';
 
 $string['color6'] = 'Color 6';
-$string['color6desc'] = 'Description for color 6';
+$string['color6desc'] = 'Descripció del color 6';
 
 $string['fontsize'] = 'Font size';
 $string['fontsizedesc'] = '';
@@ -52,9 +52,6 @@ $string['iconset'] = 'Icon set';
 $string['iconsetdesc'] = '';
 $string['iconsetdesc1'] = '';
 $string['iconsetdesc2'] = '';
-
-$string['importcss'] = 'Import external CSS';
-$string['importcssdesc'] = 'Introduce an absolute URL to a CSS file. It will be loaded before theme styles';
 
 $string['customcss'] = 'Custom CSS';
 $string['customcssdesc'] = '<p>Input any custom CSS here.</p><p>CSS input here is the very last thing called on the page and should not be overwritten by any other rules.  If your rules are not displaying please try the following:<ol><li>check your syntax</li><li>add <code>!important</code> to your rule</li></ol></p>';

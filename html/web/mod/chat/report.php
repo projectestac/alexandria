@@ -37,11 +37,10 @@
         print_error('coursemisconf');
     }
 
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     $PAGE->set_context($context);
-    $PAGE->set_heading($course->fullname);
 
-    require_login($course, false, $cm);
+    require_login($course->id, false, $cm);
 
     if (empty($chat->studentlogs) && !has_capability('mod/chat:readlog', $context)) {
         notice(get_string('nopermissiontoseethechatlog', 'chat'));
@@ -113,7 +112,7 @@
                     'end'   => $end,
                 );
                 $button = new portfolio_add_button();
-                $button->set_callback_options('chat_portfolio_caller', $buttonoptions, 'mod_chat');
+                $button->set_callback_options('chat_portfolio_caller', $buttonoptions, '/mod/chat/locallib.php');
                 $button->render();
             }
             echo $OUTPUT->box_end();
@@ -239,7 +238,7 @@
                         'end'   => $sessionend,
                     );
                     $button = new portfolio_add_button();
-                    $button->set_callback_options('chat_portfolio_caller', $buttonoptions, 'mod_chat');
+                    $button->set_callback_options('chat_portfolio_caller', $buttonoptions, '/mod/chat/locallib.php');
                     $portfoliobutton = $button->to_html(PORTFOLIO_ADD_TEXT_LINK);
                     if (!empty($portfoliobutton)) {
                         echo '<br />' . $portfoliobutton;
@@ -265,7 +264,7 @@
     if (!empty($CFG->enableportfolios) && $canexportsess) {
         require_once($CFG->libdir . '/portfoliolib.php');
         $button = new portfolio_add_button();
-        $button->set_callback_options('chat_portfolio_caller', array('id' => $cm->id), 'mod_chat');
+        $button->set_callback_options('chat_portfolio_caller', array('id' => $cm->id), '/mod/chat/locallib.php');
         $button->render(null, get_string('addalltoportfolio', 'portfolio'));
     }
 

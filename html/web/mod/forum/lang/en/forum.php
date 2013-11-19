@@ -23,7 +23,6 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['activityoverview'] = 'There are new forum posts';
 $string['addanewdiscussion'] = 'Add a new discussion topic';
 $string['addanewquestion'] = 'Add a new question';
 $string['addanewtopic'] = 'Add a new topic';
@@ -36,8 +35,6 @@ $string['allsubscribe'] = 'Subscribe to all forums';
 $string['allunsubscribe'] = 'Unsubscribe from all forums';
 $string['alreadyfirstpost'] = 'This is already the first post in the discussion';
 $string['anyfile'] = 'Any file';
-$string['areaattachment'] = 'Attachments';
-$string['areapost'] = 'Messages';
 $string['attachment'] = 'Attachment';
 $string['attachment_help'] = 'You can optionally attach one or more files to a forum post. If you attach an image, it will be displayed after the message.';
 $string['attachmentnopost'] = 'You cannot export attachments without a post id';
@@ -138,7 +135,6 @@ $string['displaystart_help'] = 'This setting specifies whether a forum post shou
 $string['eachuserforum'] = 'Each person posts one discussion';
 $string['edit'] = 'Edit';
 $string['editedby'] = 'Edited by {$a->name} - original submission {$a->date}';
-$string['editedpostupdated'] = '{$a}\'s post was updated';
 $string['editing'] = 'Editing';
 $string['emptymessage'] = 'Something was wrong with your post. Perhaps you left it blank, or the attachment was too big. Your changes have NOT been saved.';
 $string['erroremptymessage'] = 'Post message cannot be empty';
@@ -153,13 +149,11 @@ $string['existingsubscribers'] = 'Existing subscribers';
 $string['exportdiscussion'] = 'Export whole discussion';
 $string['forcessubscribe'] = 'This forum forces everyone to be subscribed';
 $string['forum'] = 'Forum';
-$string['forum:addinstance'] = 'Add a new forum';
 $string['forum:addnews'] = 'Add news';
 $string['forum:addquestion'] = 'Add question';
-$string['forum:allowforcesubscribe'] = 'Allow force subscribe';
 $string['forumauthorhidden'] = 'Author (hidden)';
 $string['forumblockingalmosttoomanyposts'] = 'You are approaching the posting threshold. You have posted {$a->numposts} times in the last {$a->blockperiod} and the limit is {$a->blockafter} posts.';
-$string['forumbodyhidden'] = 'This post cannot be viewed by you, probably because you have not posted in the discussion, the maximum editing time hasn\'t passed yet, the discussion has not started or the discussion has expired.';
+$string['forumbodyhidden'] = 'This post cannot be viewed by you, probably because you have not posted in the discussion or the maximum editing time hasn\'t passed yet.';
 $string['forum:createattachment'] = 'Create attachments';
 $string['forum:deleteanypost'] = 'Delete any posts (anytime)';
 $string['forum:deleteownpost'] = 'Delete own posts (within deadline)';
@@ -167,7 +161,7 @@ $string['forum:editanypost'] = 'Edit any post';
 $string['forum:exportdiscussion'] = 'Export whole discussion';
 $string['forum:exportownpost'] = 'Export own post';
 $string['forum:exportpost'] = 'Export post';
-$string['forumintro'] = 'Description';
+$string['forumintro'] = 'Forum introduction';
 $string['forum:managesubscriptions'] = 'Manage subscriptions';
 $string['forum:movediscussions'] = 'Move discussions';
 $string['forum:postwithoutthrottling'] = 'Exempt from post threshold';
@@ -180,12 +174,13 @@ $string['forums'] = 'Forums';
 $string['forum:splitdiscussions'] = 'Split discussions';
 $string['forum:startdiscussion'] = 'Start new discussions';
 $string['forumsubjecthidden'] = 'Subject (hidden)';
+$string['forum:throttlingapplies'] = 'Throttling applies';
 $string['forumtracked'] = 'Unread posts are being tracked';
 $string['forumtrackednot'] = 'Unread posts are not being tracked';
 $string['forumtype'] = 'Forum type';
 $string['forumtype_help'] = 'There are 5 forum types:
 
-* A single simple discussion - A single discussion topic which everyone can reply to (cannot be used with separate groups)
+* A single simple discussion - A single discussion topic which everyone can reply to
 * Each person posts one discussion - Each student can post exactly one new discussion topic, which everyone can then reply to
 * Q and A forum - Students must first post their perspectives before viewing other students\' posts
 * Standard forum displayed in a blog-like format - An open forum where anyone can start a new discussion at any time, and in which discussion topics are displayed on one page with "Discuss this topic" links
@@ -235,25 +230,8 @@ $string['modeflatoldestfirst'] = 'Display replies flat, with oldest first';
 $string['modenested'] = 'Display replies in nested form';
 $string['modethreaded'] = 'Display replies in threaded form';
 $string['modulename'] = 'Forum';
-$string['modulename_help'] = 'The forum activity module enables participants to have asynchronous discussions i.e. discussions that take place over an extended period of time.
-
-There are several forum types to choose from, such as a standard forum where anyone can start a new discussion at any time; a forum where each student can post exactly one discussion; or a question and answer forum where students must first post before being able to view other students\' posts. A teacher can allow files to be attached to forum posts. Attached images are displayed in the forum post.
-
-Participants can subscribe to a forum to receive notifications of new forum posts. A teacher can set the subscription mode to optional, forced or auto, or prevent subscription completely. If required, students can be blocked from posting more than a given number of posts in a given time period; this can prevent individuals from dominating discussions.
-
-Forum posts can be rated by teachers or students (peer evaluation). Ratings can be aggregated to form a final grade which is recorded in the gradebook.
-
-Forums have many uses, such as
-
-* A social space for students to get to know each other
-* For course announcements (using a news forum with forced subscription)
-* For discussing course content or reading materials
-* For continuing online an issue raised previously in a face-to-face session
-* For teacher-only discussions (using a hidden forum)
-* A help centre where tutors and students can give advice
-* A one-on-one support area for private student-teacher communications (using a forum with separate groups and with one student per group)
-* For extension activities, for example ‘brain teasers’ for students to ponder and suggest solutions to';
-$string['modulename_link'] = 'mod/forum/view';
+$string['modulename_help'] = 'The forum module enables participants to have asynchronous discussions.';
+$string['modulename_link'] = 'forum';
 $string['modulenameplural'] = 'Forums';
 $string['more'] = 'more';
 $string['movedmarker'] = '(Moved)';
@@ -291,9 +269,9 @@ $string['notrackforum'] = 'Don\'t track unread posts';
 $string['noviewdiscussionspermission'] = 'You do not have the permission to view discussions in this forum';
 $string['nowallsubscribed'] = 'All forums in {$a} are subscribed.';
 $string['nowallunsubscribed'] = 'All forums in {$a} are not subscribed.';
-$string['nownotsubscribed'] = '{$a->name} will NOT be notified of new posts in \'{$a->forum}\'';
+$string['nownotsubscribed'] = '{$a->name} will NOT receive copies of \'{$a->forum}\' by email.';
 $string['nownottracking'] = '{$a->name} is no longer tracking \'{$a->forum}\'.';
-$string['nowsubscribed'] = '{$a->name} will be notified of new posts in \'{$a->forum}\'';
+$string['nowsubscribed'] = '{$a->name} will receive copies of \'{$a->forum}\' by email.';
 $string['nowtracking'] = '{$a->name} is now tracking \'{$a->forum}\'.';
 $string['numposts'] = '{$a} posts';
 $string['olderdiscussions'] = 'Older discussions';
@@ -302,8 +280,8 @@ $string['oldpostdays'] = 'Read after days';
 $string['openmode0'] = 'No discussions, no replies';
 $string['openmode1'] = 'No discussions, but replies are allowed';
 $string['openmode2'] = 'Discussions and replies are allowed';
-$string['overviewnumpostssince'] = '{$a} posts since last login';
-$string['overviewnumunread'] = '{$a} total unread';
+$string['overviewnumpostssince'] = 'posts since last login';
+$string['overviewnumunread'] = 'total unread';
 $string['page-mod-forum-x'] = 'Any forum module page';
 $string['page-mod-forum-view'] = 'Forum module main page';
 $string['page-mod-forum-discuss'] = 'Forum module discussion thread page';
@@ -377,7 +355,7 @@ $string['startedby'] = 'Started by';
 $string['subject'] = 'Subject';
 $string['subscribe'] = 'Subscribe to this forum';
 $string['subscribeall'] = 'Subscribe everyone to this forum';
-$string['subscribeenrolledonly'] = 'Sorry, only enrolled users are allowed to subscribe to forum post notifications.';
+$string['subscribeenrolledonly'] = 'Sorry, only enrolled users are allowed to subscribe to receive forum postings by email.';
 $string['subscribed'] = 'Subscribed';
 $string['subscribenone'] = 'Unsubscribe everyone from this forum';
 $string['subscribers'] = 'Subscribers';
@@ -423,8 +401,8 @@ $string['unreadpostsone'] = '1 unread post';
 $string['unsubscribe'] = 'Unsubscribe from this forum';
 $string['unsubscribeall'] = 'Unsubscribe from all forums';
 $string['unsubscribeallconfirm'] = 'You are subscribed to {$a} forums now. Do you really want to unsubscribe from all forums and disable forum auto-subscribe?';
-$string['unsubscribealldone'] = 'All optional forum subscriptions were removed. You will still receive notifications from forums with forced subscription. To manage forum notifications go to Messaging in My Profile Settings.';
-$string['unsubscribeallempty'] = 'You are not subscribed to any forums. To disable all notifications from this server go to Messaging in My Profile Settings.';
+$string['unsubscribealldone'] = 'All your forum subscriptions were removed, you might still receive notifications from forums with forced subscription. If you do not want to receive any emails from this server please go to your profile and disable email address there.';
+$string['unsubscribeallempty'] = 'Sorry, you are not subscribed to any forums. If you do not want to receive any emails from this server please go to your profile and disable email address there.';
 $string['unsubscribed'] = 'Unsubscribed';
 $string['unsubscribeshort'] = 'Unsubscribe';
 $string['usermarksread'] = 'Manual message read marking';

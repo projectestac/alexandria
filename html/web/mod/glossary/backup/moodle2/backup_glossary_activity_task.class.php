@@ -16,41 +16,38 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_glossary_activity_task class
- *
- * @package     mod_glossary
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
-require_once($CFG->dirroot . '/mod/glossary/backup/moodle2/backup_glossary_stepslib.php');
+require_once($CFG->dirroot . '/mod/glossary/backup/moodle2/backup_glossary_stepslib.php'); // Because it exists (must)
 
 /**
- * Provides the steps to perform one complete backup of the Glossary instance
+ * glossary backup task that provides all the settings and steps to perform one
+ * complete backup of the activity
  */
 class backup_glossary_activity_task extends backup_activity_task {
 
     /**
-     * No specific settings for this activity
+     * Define (add) particular settings this activity can have
      */
     protected function define_my_settings() {
+        // No particular settings for this activity
     }
 
     /**
-     * Defines a backup step to store the instance data in the glossary.xml file
+     * Define (add) particular steps this activity can have
      */
     protected function define_my_steps() {
+        // Choice only has one structure step
         $this->add_step(new backup_glossary_activity_structure_step('glossary_structure', 'glossary.xml'));
     }
 
     /**
-     * Encodes URLs to the index.php and view.php scripts
-     *
-     * @param string $content some HTML text that eventually contains URLs to the activity instance scripts
-     * @return string the content with the URLs encoded
+     * Code the transformations to perform in the activity in
+     * order to get transportable (encoded) links
      */
     static public function encode_content_links($content) {
         global $CFG;
@@ -64,10 +61,6 @@ class backup_glossary_activity_task extends backup_activity_task {
         // Link to glossary view by moduleid
         $search="/(".$base."\/mod\/glossary\/view.php\?id\=)([0-9]+)/";
         $content= preg_replace($search, '$@GLOSSARYVIEWBYID*$2@$', $content);
-
-        // Link to glossary entry
-        $search="/(".$base."\/mod\/glossary\/showentry.php\?courseid=)([0-9]+)(&|&amp;)eid=([0-9]+)/";
-        $content = preg_replace($search, '$@GLOSSARYSHOWENTRY*$2*$4@$', $content);
 
         return $content;
     }

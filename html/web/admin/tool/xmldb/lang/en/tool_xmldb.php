@@ -17,7 +17,8 @@
 /**
  * Strings for component 'tool_xmldb', language 'en', branch 'MOODLE_22_STABLE'
  *
- * @package    tool_xmldb
+ * @package    tool
+ * @subpackage xmldb
  * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -26,6 +27,7 @@ $string['actual'] = 'Actual';
 $string['aftertable'] = 'After table:';
 $string['back'] = 'Back';
 $string['backtomainview'] = 'Back to main';
+$string['binaryincorrectlength'] = 'Incorrect length for binary field';
 $string['cannotuseidfield'] = 'Cannot insert the "id" field. It is an autonumeric column';
 $string['completelogbelow'] = '(see the complete log of the search below)';
 $string['confirmdeletefield'] = 'Are you absolutely sure that you want to delete the field:';
@@ -68,7 +70,6 @@ $string['documentationintro'] = 'This documentation is generated automatically f
 $string['down'] = 'Down';
 $string['duplicate'] = 'Duplicate';
 $string['duplicatefieldname'] = 'Another field with that name exists';
-$string['duplicatefieldsused'] = 'Duplicate fields used';
 $string['duplicatekeyname'] = 'Another key with that name exists';
 $string['duplicatetablename'] = 'Another table with that name exists';
 $string['edit'] = 'Edit';
@@ -88,9 +89,7 @@ $string['field'] = 'Field';
 $string['fieldnameempty'] = 'Name field empty';
 $string['fields'] = 'Fields';
 $string['fieldsnotintable'] = 'Field doesn\'t exist in table';
-$string['fieldsusedinindex'] = 'This field is used as index';
 $string['fieldsusedinkey'] = 'This field is used as key.';
-$string['filemodifiedoutfromeditor'] = 'Warning: File locally modified while using the XMLDB Editor. Saving will overwrite local changes.';
 $string['filenotwriteable'] = 'File not writeable';
 $string['fkviolationdetails'] = 'Foreign key {$a->keyname} on table {$a->tablename} is violated by {$a->numviolations} out of {$a->numrows} rows.';
 $string['floatincorrectdecimals'] = 'Incorrect number of decimals for float field';
@@ -101,7 +100,7 @@ $string['generate_documentation'] = 'Documentation';
 $string['gotolastused'] = 'Go to last used file';
 $string['change'] = 'Change';
 $string['charincorrectlength'] = 'Incorrect length for char field';
-$string['checkbigints'] = 'Check integers';
+$string['checkbigints'] = 'Check bigints';
 $string['check_bigints'] = 'Look for incorrect DB integers';
 $string['checkdefaults'] = 'Check defaults';
 $string['check_defaults'] = 'Look for inconsistent default values';
@@ -111,17 +110,12 @@ $string['checkindexes'] = 'Check indexes';
 $string['check_indexes'] = 'Look for missing DB indexes';
 $string['checkoraclesemantics'] = 'Check semantics';
 $string['check_oracle_semantics'] = 'Look for incorrect length semantics';
-$string['duplicateindexname'] = 'Duplicate index name';
 $string['incorrectfieldname'] = 'Incorrect name';
 $string['index'] = 'Index';
 $string['indexes'] = 'Indexes';
-$string['indexnameempty'] = 'Index name is empty';
 $string['integerincorrectlength'] = 'Incorrect length for integer field';
-$string['incorrectindexname'] = 'Incorrect index name';
-$string['incorrectkeyname'] = 'Incorrect key name';
 $string['incorrecttablename'] = 'Incorrect table name';
 $string['key'] = 'Key';
-$string['keynameempty'] = 'The key name cannot be empty';
 $string['keys'] = 'Keys';
 $string['listreservedwords'] = 'List of Reserved Words<br />(used to keep <a href="http://docs.moodle.org/en/XMLDB_reserved_words" target="_blank">XMLDB_reserved_words</a> updated)';
 $string['load'] = 'Load';
@@ -132,17 +126,15 @@ $string['missingindexes'] = 'Missing indexes found';
 $string['mustselectonefield'] = 'You must select one field to see field related actions!';
 $string['mustselectoneindex'] = 'You must select one index to see index related actions!';
 $string['mustselectonekey'] = 'You must select one key to see key related actions!';
+$string['mysqlextracheckbigints'] = 'Under MySQL it also looks for incorrectly signed bigints, generating the required SQL to be executed in order to fix all them.';
 $string['newfield'] = 'New field';
 $string['newindex'] = 'New index';
 $string['newkey'] = 'New key';
 $string['newtable'] = 'New table';
 $string['newtablefrommysql'] = 'New table from MySQL';
 $string['new_table_from_mysql'] = 'New table from MySQL';
-$string['nofieldsspecified'] = 'No fields specified';
 $string['nomasterprimaryuniquefound'] = 'The column(s) that you foreign key references must be included in a primary or unique KEY in the referenced table. Note, the column being in a UNIQUE INDEX is not good enough.';
 $string['nomissingindexesfound'] = 'No missing indexes have been found, your DB doesn\'t need further actions.';
-$string['noreffieldsspecified'] = 'No reference fields specified';
-$string['noreftablespecified'] = 'Specified reference table not found';
 $string['noviolatedforeignkeysfound'] = 'No violated foreign keys found';
 $string['nowrongdefaultsfound'] = 'No inconsistent default values have been found, your DB does not need further actions.';
 $string['nowrongintsfound'] = 'No wrong integers have been found, your DB doesn\'t need further actions.';
@@ -153,7 +145,6 @@ $string['pendingchanges'] = 'Note: You have performed changes to this file. They
 $string['pendingchangescannotbesaved'] = 'There are changes in this file but they cannot be saved! Please verify that both the directory and the "install.xml" within it have write permissions for the web server.';
 $string['pendingchangescannotbesavedreload'] = 'There are changes in this file but they cannot be saved! Please verify that both the directory and the "install.xml" within it have write permissions for the web server. Then reload this page and you should be able to save those changes.';
 $string['pluginname'] = 'XMLDB editor';
-$string['primarykeyonlyallownotnullfields'] = 'Primary keys cannot be null';
 $string['reserved'] = 'Reserved';
 $string['reservedwords'] = 'Reserved words';
 $string['revert'] = 'Revert';
@@ -169,6 +160,7 @@ $string['selecttable'] = 'Select table:';
 $string['table'] = 'Table';
 $string['tablenameempty'] = 'The table name cannot be empty';
 $string['tables'] = 'Tables';
+$string['textincorrectlength'] = 'Incorrect length for text field';
 $string['unload'] = 'Unload';
 $string['up'] = 'Up';
 $string['view'] = 'View';
@@ -189,7 +181,6 @@ $string['wrong'] = 'Wrong';
 $string['wrongdefaults'] = 'Wrong defaults found';
 $string['wrongints'] = 'Wrong integers found';
 $string['wronglengthforenum'] = 'Incorrect length for enum field';
-$string['wrongnumberofreffields'] = 'Wrong number of reference fields';
 $string['wrongreservedwords'] = 'Currently used reserved words<br />(note that table names aren\'t important if using $CFG->prefix)';
 $string['wrongoraclesemantics'] = 'Wrong Oracle BYTE semantics found';
 $string['yesmissingindexesfound'] = 'Some missing indexes have been found in your DB. Here are their details and the needed SQL statements to be executed with your favourite SQL interface to create all them (don\'t forget to backup your data before doing that).<br /><br />After doing that, it\'s highly recommended to execute this utility again to check that no more missing indexes are found.';

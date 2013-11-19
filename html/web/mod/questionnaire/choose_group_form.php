@@ -33,7 +33,7 @@ class questionnaire_choose_group_form extends moodleform {
     //this function have to be called manually
     //the advantage is that the data are already set
     function set_form_elements(){
-        global $SESSION, $DB;
+        global $CFG, $SESSION, $DB;
         $mform =& $this->_form;
         $sid = $SESSION->questionnaire_survey_id;
         $elementgroup = array();
@@ -43,7 +43,7 @@ class questionnaire_choose_group_form extends moodleform {
         // visible elements
         $groups_options = array();
         if(isset($this->questionnairedata->currentgroupid)){
-            $currentgroupid = $this->questionnairedata->currentgroupid;
+        	$currentgroupid = $this->questionnairedata->currentgroupid;
         }
         if(isset($this->questionnairedata->groups)){
             $canviewallgroups =  $this->questionnairedata->canviewallgroups;
@@ -55,11 +55,11 @@ class questionnaire_choose_group_form extends moodleform {
             $castsql = $DB->sql_cast_char2int('R.username');
             foreach($this->questionnairedata->groups as $group) {
                 $sql = "SELECT R.id, GM.id as groupid
-                    FROM {questionnaire_response} R, {groups_members} GM
-                    WHERE R.survey_id= ? AND
+                    FROM ".$CFG->prefix."questionnaire_response R, ".$CFG->prefix."groups_members GM
+                    WHERE R.survey_id=".$sid." AND
                           R.complete='y' AND
-                          GM.groupid= ? AND " . $castsql . "=GM.userid";
-                if (!($resps = $DB->get_records_sql($sql, array($sid, $group->id)))) {
+                          GM.groupid=".$group->id." AND " . $castsql . "=GM.userid";
+                if (!($resps = $DB->get_records_sql($sql))) {
                     $resps = array();
                 }
                 if (!empty ($resps)) {
@@ -70,14 +70,14 @@ class questionnaire_choose_group_form extends moodleform {
                 $groups_options[$group->id] = get_string('group').': '.$group->name.' ('.$respscount.')';
             }
             if ($canviewallgroups) {
-                $groups_options['-2'] = '---'.get_string('membersofselectedgroup','group').' '.get_string('allgroups').'---';
-                $groups_options['-3'] = '---'.get_string('groupnonmembers').'---';
+                $groups_options['-2'] = '---'.get_string('membersofselectedgroup','group').' '.get_string('allgroups').'---'; 
+                $groups_options['-3'] = '---'.get_string('groupnonmembers').'---'; 
             }
 			if ($groupmode == 2) {
 				$groups_options['-2'] = '---'.get_string('membersofselectedgroup','group').' '.get_string('allgroups').'---';
 			}
         }
-        $attributes = 'onChange="M.core_formchangechecker.set_form_submitted(); this.form.submit()"';
+        $attributes = 'onChange="this.form.submit()"';
         $elementgroup[] =& $mform->createElement('select', 'currentgroupid', '', $groups_options, $attributes);
         // buttons
 		$mform->setDefault('currentgroupid', $currentgroupid);
@@ -87,3 +87,4 @@ class questionnaire_choose_group_form extends moodleform {
     }
 
 }
+?>

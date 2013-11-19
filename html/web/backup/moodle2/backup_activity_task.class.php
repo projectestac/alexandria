@@ -16,23 +16,17 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Defines backup_activity_task class
- *
- * @package     core_backup
- * @subpackage  moodle2
- * @category    backup
- * @copyright   2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package moodlecore
+ * @subpackage backup-moodle2
+ * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
-
 /**
- * Provides all the settings and steps to perform one complete backup of the activity
+ * abstract activity task that provides all the properties and common tasks to be performed
+ * when one activity is being backup
  *
- * Activities are supposed to provide the subclass of this class in their file
- * mod/MODULENAME/backup/moodle2/backup_MODULENAME_activity_task.class.php
- * The expected name of the subclass is backup_MODULENAME_activity_task
+ * TODO: Finish phpdocs
  */
 abstract class backup_activity_task extends backup_task {
 
@@ -44,10 +38,6 @@ abstract class backup_activity_task extends backup_task {
 
     /**
      * Constructor - instantiates one object of this class
-     *
-     * @param string $name the task identifier
-     * @param int $moduleid course module id (id in course_modules table)
-     * @param backup_plan|null $plan the backup plan instance this task is part of
      */
     public function __construct($name, $moduleid, $plan = null) {
 
@@ -64,48 +54,33 @@ abstract class backup_activity_task extends backup_task {
         $this->sectionid  = $coursemodule->section;
         $this->modulename = $coursemodule->modname;
         $this->activityid = $coursemodule->instance;
-        $this->contextid  = context_module::instance($this->moduleid)->id;
+        $this->contextid  = get_context_instance(CONTEXT_MODULE, $this->moduleid)->id;
 
         parent::__construct($name, $plan);
     }
 
-    /**
-     * @return int the course module id (id in the course_modules table)
-     */
     public function get_moduleid() {
         return $this->moduleid;
     }
 
-    /**
-     * @return int the course section id (id in the course_sections table)
-     */
     public function get_sectionid() {
         return $this->sectionid;
     }
 
-    /**
-     * @return string the name of the module, eg 'workshop' (from the modules table)
-     */
     public function get_modulename() {
         return $this->modulename;
     }
 
-    /**
-     * @return int the id of the activity instance (id in the activity's instances table)
-     */
     public function get_activityid() {
         return $this->activityid;
     }
 
-    /**
-     * @return int the id of the associated CONTEXT_MODULE instance
-     */
     public function get_contextid() {
         return $this->contextid;
     }
 
     /**
-     * @return string full path to the directory where this task writes its files
+     * Activity tasks have their own directory to write files
      */
     public function get_taskbasepath() {
         return $this->get_basepath() . '/activities/' . $this->modulename . '_' . $this->moduleid;
@@ -167,11 +142,6 @@ abstract class backup_activity_task extends backup_task {
             $this->add_step(new backup_activity_logs_structure_step('activity_logs', 'logs.xml'));
         }
 
-        // Generate the calendar events file (conditionally)
-        if ($this->get_setting_value('calendarevents')) {
-            $this->add_step(new backup_calendarevents_structure_step('activity_calendar', 'calendar.xml'));
-        }
-
         // Fetch all the activity grade items and put them to backup_ids
         $this->add_step(new backup_activity_grade_items_to_ids('fetch_activity_grade_items'));
 
@@ -214,11 +184,9 @@ abstract class backup_activity_task extends backup_task {
 
 
     /**
-     * Tries to look for the instance specific setting value, task specific setting value or the
-     * common plan setting value - in that order
-     *
-     * @param string $name the name of the setting
-     * @return mixed|null the value of the setting or null if not found
+     * Specialisation that, first of all, looks for the setting within
+     * the task with the the prefix added and later, delegates to parent
+     * without adding anything
      */
     public function get_setting($name) {
         $namewithprefix = $this->modulename . '_' . $this->moduleid . '_' . $name;
@@ -243,7 +211,7 @@ abstract class backup_activity_task extends backup_task {
 // Protected API starts here
 
     /**
-     * Defines the common setting that any backup activity will have
+     * Define the common setting that any backup activity will have
      */
     protected function define_settings() {
 
@@ -258,8 +226,7 @@ abstract class backup_activity_task extends backup_task {
         // - section_included setting (if exists)
         $settingname = $settingprefix . 'included';
         $activity_included = new backup_activity_generic_setting($settingname, base_setting::IS_BOOLEAN, true);
-        $activity_included->get_ui()->set_icon(new pix_icon('icon', get_string('pluginname', $this->modulename),
-            $this->modulename, array('class' => 'iconlarge icon-post')));
+        $activity_included->get_ui()->set_icon(new pix_icon('icon', get_string('pluginname', $this->modulename), $this->modulename));
         $this->add_setting($activity_included);
         // Look for "activities" root setting
         $activities = $this->plan->get_setting('activities');
@@ -297,44 +264,21 @@ abstract class backup_activity_task extends backup_task {
     }
 
     /**
-     * Defines activity specific settings to be added to the common ones
-     *
-     * This method is called from {@link self::define_settings()}. The activity module
-     * author may use it to define additional settings that influence the execution of
-     * the backup.
-     *
-     * Most activities just leave the method empty.
-     *
-     * @see self::define_settings() for the example how to define own settings
+     * Define (add) particular settings that each activity can have
      */
     abstract protected function define_my_settings();
 
     /**
-     * Defines activity specific steps for this task
-     *
-     * This method is called from {@link self::build()}. Activities are supposed
-     * to call {self::add_step()} in it to include their specific steps in the
-     * backup plan.
+     * Define (add) particular steps that each activity can have
      */
     abstract protected function define_my_steps();
 
     /**
-     * Encodes URLs to the activity instance's scripts into a site-independent form
-     *
-     * The current instance of the activity may be referenced from other places in
-     * the course by URLs like http://my.moodle.site/mod/workshop/view.php?id=42
-     * Obvisouly, such URLs are not valid any more once the course is restored elsewhere.
-     * For this reason the backup file does not store the original URLs but encodes them
-     * into a transportable form. During the restore, the reverse process is applied and
-     * the encoded URLs are replaced with the new ones valid for the target site.
-     *
-     * Every plugin must override this method in its subclass.
-     *
-     * @see backup_xml_transformer class that actually runs the transformation
-     * @param string $content some HTML text that eventually contains URLs to the activity instance scripts
-     * @return string the content with the URLs encoded
+     * Code the transformations to perform in the activity in
+     * order to get transportable (encoded) links
      */
     static public function encode_content_links($content) {
         throw new coding_exception('encode_content_links() method needs to be overridden in each subclass of backup_activity_task');
     }
+
 }

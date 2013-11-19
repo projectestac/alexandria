@@ -58,7 +58,9 @@ if (!$cm = get_coursemodule_from_instance('wiki', $wiki->id)) {
 
 $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
 
-require_login($course, true, $cm);
+require_login($course->id, true, $cm);
+
+add_to_log($course->id, "restore", "restore", "view.php?id=$cm->id", "$wiki->id");
 
 if ($confirm) {
     if (!confirm_sesskey()) {
@@ -75,7 +77,6 @@ if ($confirm) {
     $wikipage->set_versionid($versionid);
 
 }
-add_to_log($course->id, "wiki", "restore", "view.php?pageid=".$pageid, $pageid, $cm->id);
 
 $wikipage->print_header();
 $wikipage->print_content();

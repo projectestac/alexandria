@@ -49,7 +49,7 @@ $PAGE->set_url('/mod/forum/post.php', array(
 //these page_params will be passed as hidden variables later in the form.
 $page_params = array('reply'=>$reply, 'forum'=>$forum, 'edit'=>$edit);
 
-$sitecontext = context_system::instance();
+$sitecontext = get_context_instance(CONTEXT_SYSTEM);
 
 if (!isloggedin() or isguestuser()) {
 
@@ -80,7 +80,7 @@ if (!isloggedin() or isguestuser()) {
     if (!$cm = get_coursemodule_from_instance('forum', $forum->id, $course->id)) { // For the logs
         print_error('invalidcoursemodule');
     } else {
-        $modcontext = context_module::instance($cm->id);
+        $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
     }
 
     $PAGE->set_cm($cm, $course, $forum);
@@ -107,13 +107,13 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
         print_error("invalidcoursemodule");
     }
 
-    $coursecontext = context_course::instance($course->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
 
     if (! forum_user_can_post_discussion($forum, $groupid, -1, $cm)) {
         if (!isguestuser()) {
             if (!is_enrolled($coursecontext)) {
                 if (enrol_selfenrol_available($course->id)) {
-                    $SESSION->wantsurl = qualified_me();
+                    $SESSION->wantsurl = $FULLME;
                     $SESSION->enrolcancel = $_SERVER['HTTP_REFERER'];
                     redirect($CFG->wwwroot.'/enrol/index.php?id='.$course->id, get_string('youneedtoenrol'));
                 }
@@ -175,13 +175,13 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
     // Ensure lang, theme, etc. is set up properly. MDL-6926
     $PAGE->set_cm($cm, $course, $forum);
 
-    $coursecontext = context_course::instance($course->id);
-    $modcontext    = context_module::instance($cm->id);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $course->id);
+    $modcontext    = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     if (! forum_user_can_post($forum, $discussion, $USER, $cm, $course, $modcontext)) {
         if (!isguestuser()) {
             if (!is_enrolled($coursecontext)) {  // User is a guest here!
-                $SESSION->wantsurl = qualified_me();
+                $SESSION->wantsurl = $FULLME;
                 $SESSION->enrolcancel = $_SERVER['HTTP_REFERER'];
                 redirect($CFG->wwwroot.'/enrol/index.php?id='.$course->id, get_string('youneedtoenrol'));
             }
@@ -252,7 +252,7 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
     if (!$cm = get_coursemodule_from_instance("forum", $forum->id, $course->id)) {
         print_error('invalidcoursemodule');
     } else {
-        $modcontext = context_module::instance($cm->id);
+        $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
     }
 
     $PAGE->set_cm($cm, $course, $forum);
@@ -299,7 +299,7 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
     }
 
     require_login($course, false, $cm);
-    $modcontext = context_module::instance($cm->id);
+    $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     if ( !(($post->userid == $USER->id && has_capability('mod/forum:deleteownpost', $modcontext))
                 || has_capability('mod/forum:deleteanypost', $modcontext)) ) {
@@ -416,7 +416,7 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
     if (!$cm = get_coursemodule_from_instance("forum", $forum->id, $forum->course)) { // For the logs
         print_error('invalidcoursemodule');
     } else {
-        $modcontext = context_module::instance($cm->id);
+        $modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
     }
     if (!has_capability('mod/forum:splitdiscussions', $modcontext)) {
         print_error('cannotsplit', 'forum');
@@ -484,7 +484,7 @@ if (!empty($forum)) {      // User is starting a new discussion in a forum
 
 if (!isset($coursecontext)) {
     // Has not yet been set by post.php.
-    $coursecontext = context_course::instance($forum->course);
+    $coursecontext = get_context_instance(CONTEXT_COURSE, $forum->course);
 }
 
 
@@ -493,7 +493,7 @@ if (!isset($coursecontext)) {
 if (!$cm = get_coursemodule_from_instance('forum', $forum->id, $course->id)) { // For the logs
     print_error('invalidcoursemodule');
 }
-$modcontext = context_module::instance($cm->id);
+$modcontext = get_context_instance(CONTEXT_MODULE, $cm->id);
 require_login($course, false, $cm);
 
 if (isguestuser()) {
@@ -507,31 +507,27 @@ if (!isset($forum->maxattachments)) {  // TODO - delete this once we add a field
 
 require_once('post_form.php');
 
-$mform_post = new mod_forum_post_form('post.php', array('course'=>$course, 'cm'=>$cm, 'coursecontext'=>$coursecontext, 'modcontext'=>$modcontext, 'forum'=>$forum, 'post'=>$post), 'post', '', array('id' => 'mformforum'));
+$mform_post = new mod_forum_post_form('post.php', array('course'=>$course, 'cm'=>$cm, 'coursecontext'=>$coursecontext, 'modcontext'=>$modcontext, 'forum'=>$forum, 'post'=>$post));
 
 $draftitemid = file_get_submitted_draft_itemid('attachments');
-file_prepare_draft_area($draftitemid, $modcontext->id, 'mod_forum', 'attachment', empty($post->id)?null:$post->id, mod_forum_post_form::attachment_options($forum));
+file_prepare_draft_area($draftitemid, $modcontext->id, 'mod_forum', 'attachment', empty($post->id)?null:$post->id);
 
 //load data into form NOW!
 
 if ($USER->id != $post->userid) {   // Not the original author, so add a message to the end
-    $data = new stdClass();
     $data->date = userdate($post->modified);
     if ($post->messageformat == FORMAT_HTML) {
         $data->name = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$USER->id.'&course='.$post->course.'">'.
                        fullname($USER).'</a>';
-        $post->message .= '<p><span class="edited">('.get_string('editedby', 'forum', $data).')</span></p>';
+        $post->message .= '<p>(<span class="edited">'.get_string('editedby', 'forum', $data).'</span>)</p>';
     } else {
         $data->name = fullname($USER);
         $post->message .= "\n\n(".get_string('editedby', 'forum', $data).')';
     }
-    unset($data);
 }
 
-$formheading = '';
 if (!empty($parent)) {
     $heading = get_string("yourreply", "forum");
-    $formheading = get_string('reply', 'forum');
 } else {
     if ($forum->type == 'qanda') {
         $heading = get_string('yournewquestion', 'forum');
@@ -552,7 +548,7 @@ if (forum_is_subscribed($USER->id, $forum->id)) {
 }
 
 $draftid_editor = file_get_submitted_draft_itemid('message');
-$currenttext = file_prepare_draft_area($draftid_editor, $modcontext->id, 'mod_forum', 'post', empty($post->id) ? null : $post->id, mod_forum_post_form::editor_options(), $post->message);
+$currenttext = file_prepare_draft_area($draftid_editor, $modcontext->id, 'mod_forum', 'post', empty($post->id) ? null : $post->id, array('subdirs'=>true), $post->message);
 $mform_post->set_data(array(        'attachments'=>$draftitemid,
                                     'general'=>$heading,
                                     'subject'=>$post->subject,
@@ -629,9 +625,6 @@ if ($fromform = $mform_post->get_data()) {
 
         // If the user has access to all groups and they are changing the group, then update the post.
         if ($contextcheck) {
-            if (empty($fromform->groupinfo)) {
-                $fromform->groupinfo = -1;
-            }
             $DB->set_field('forum_discussions' ,'groupid' , $fromform->groupinfo, array('firstpost' => $fromform->id));
         }
 
@@ -652,13 +645,7 @@ if ($fromform = $mform_post->get_data()) {
         if (!empty($message)) { // if we're printing stuff about the file upload
             $timemessage = 4;
         }
-
-        if ($realpost->userid == $USER->id) {
-            $message .= '<br />'.get_string("postupdated", "forum");
-        } else {
-            $realuser = $DB->get_record('user', array('id' => $realpost->userid));
-            $message .= '<br />'.get_string("editedpostupdated", "forum", fullname($realuser));
-        }
+        $message .= '<br />'.get_string("postupdated", "forum");
 
         if ($subscribemessage = forum_post_subscription($fromform, $forum)) {
             $timemessage = 4;
@@ -882,17 +869,9 @@ if (!empty($parent)) {
 } else {
     if (!empty($forum->intro)) {
         echo $OUTPUT->box(format_module_intro('forum', $forum, $cm->id), 'generalbox', 'intro');
-
-        if (!empty($CFG->enableplagiarism)) {
-            require_once($CFG->libdir.'/plagiarismlib.php');
-            echo plagiarism_print_disclosure($cm->id);
-        }
     }
 }
 
-if (!empty($formheading)) {
-    echo $OUTPUT->heading($formheading, 2, array('class' => 'accesshide'));
-}
 $mform_post->display();
 
 echo $OUTPUT->footer();

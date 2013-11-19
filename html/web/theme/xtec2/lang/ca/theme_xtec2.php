@@ -10,8 +10,8 @@ $string['notesdesc'] = '<p>Per fer efectius els canvis a la configuració, cliqu
 
 $string['headerinfo'] = 'Paràmetres del tema';
 
-$string['logo'] = 'Imatge de la capçalera';
-$string['logodesc'] = 'Pugeu una imatge amb extensió png, jpg o gif.';
+$string['logourl'] = 'Nom de la imatge';
+$string['logourldesc'] = 'Introduïu l\'URL absolut de la imatge (Exemple: <em>http://servidor/directori/imatge.png</em>). Heu de pujar la imatge a un lloc web accessible sense validació.';
 
 $string['colorset'] = 'Combinació de colors';
 $string['colorsetdesc'] = 'Trieu la combinació de colors que utilitzarà el tema. Podeu modificar qualsevol dels colors de les combinacions predefinides.';
@@ -52,9 +52,6 @@ $string['iconset'] = 'Conjunt d\'icones';
 $string['iconsetdesc'] = 'Indiqueu si voleu utilitzar les icones personalitzades del tema o les estàndard del Moodle';
 $string['iconsetdesc1'] = '<li>Estàndard del Moodle {$a}</li>';
 $string['iconsetdesc2'] = '<li>Personalitzades del tema {$a}</li>';
-
-$string['importcss'] = 'Full d\'estils extern';
-$string['importcssdesc'] = 'Introduïu un URL absolut d\'un fitxer de fulls d\'estils CSS. Es carregarà abans dels estils del tema';
 
 $string['customcss'] = 'Estils personalitzats';
 $string['customcssdesc'] = 'Les regles definides aquí seran les darreres que s\'aplicaran i, per tant, els seus valors haurien de prevaldre per sobre dels que puguin estar definits prèviament. Si no és així, reviseu la sintaxi o proveu afegir <code>!important</code> a la regla.';

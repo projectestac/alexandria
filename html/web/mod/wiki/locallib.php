@@ -145,8 +145,7 @@ function wiki_get_current_version($pageid) {
             FROM {wiki_versions}
             WHERE pageid = ?
             ORDER BY version DESC";
-    $records = $DB->get_records_sql($sql, array($pageid), 0, 1);
-    return array_pop($records);
+    return array_pop($DB->get_records_sql($sql, array($pageid), 0, 1));
 
 }
 
@@ -213,7 +212,7 @@ function wiki_save_section($wikipage, $sectiontitle, $sectioncontent, $userid) {
 
     $wiki = wiki_get_wiki_from_pageid($wikipage->id);
     $cm = get_coursemodule_from_instance('wiki', $wiki->id);
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     if (has_capability('mod/wiki:editpage', $context)) {
         $version = wiki_get_current_version($wikipage->id);
@@ -238,7 +237,7 @@ function wiki_save_page($wikipage, $newcontent, $userid) {
 
     $wiki = wiki_get_wiki_from_pageid($wikipage->id);
     $cm = get_coursemodule_from_instance('wiki', $wiki->id);
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     if (has_capability('mod/wiki:editpage', $context)) {
         $version = wiki_get_current_version($wikipage->id);
@@ -321,10 +320,10 @@ function wiki_refresh_page_links($page, $links) {
  * @param int $userid
  */
 function wiki_create_page($swid, $title, $format, $userid) {
-    global $DB;
+    global $DB, $PAGE;
     $subwiki = wiki_get_subwiki($swid);
     $cm = get_coursemodule_from_instance('wiki', $subwiki->wikiid);
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
     require_capability('mod/wiki:editpage', $context);
     // if page exists
     if ($page = wiki_get_page_by_title($swid, $title)) {
@@ -577,7 +576,7 @@ function wiki_parse_content($markup, $pagecontent, $options = array()) {
 
     $subwiki = wiki_get_subwiki($options['swid']);
     $cm = get_coursemodule_from_instance("wiki", $subwiki->wikiid);
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     $parser_options = array(
         'link_callback' => '/mod/wiki/locallib.php:wiki_parser_link',
@@ -606,12 +605,10 @@ function wiki_parse_content($markup, $pagecontent, $options = array()) {
  *
  * NOTE: Empty pages and non-existent pages must be print in red color.
  *
- * !!!!!! IMPORTANT !!!!!!
- * It is critical that you call format_string on the content before it is used.
+ * @param link name of a page
+ * @param $options
  *
- * @param string|page_wiki $link name of a page
- * @param array $options
- * @return array Array('content' => string, 'url' => string, 'new' => bool, 'link_info' => array)
+ * @return
  *
  * @TODO Doc return and options
  */
@@ -726,7 +723,7 @@ function wiki_user_can_view($subwiki) {
 
     $wiki = wiki_get_wiki($subwiki->wikiid);
     $cm = get_coursemodule_from_instance('wiki', $wiki->id);
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     // Working depending on activity groupmode
     switch (groups_get_activity_groupmode($cm)) {
@@ -767,7 +764,7 @@ function wiki_user_can_view($subwiki) {
         //      Each person owns a wiki.
         if ($wiki->wikimode == 'collaborative' || $wiki->wikimode == 'individual') {
             // Only members of subwiki group could view that wiki
-            if (groups_is_member($subwiki->groupid)) {
+            if ($subwiki->groupid == groups_get_activity_group($cm)) {
                 // Only view capability needed
                 return has_capability('mod/wiki:viewpage', $context);
 
@@ -818,7 +815,7 @@ function wiki_user_can_edit($subwiki) {
 
     $wiki = wiki_get_wiki($subwiki->wikiid);
     $cm = get_coursemodule_from_instance('wiki', $wiki->id);
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     // Working depending on activity groupmode
     switch (groups_get_activity_groupmode($cm)) {
@@ -1232,7 +1229,7 @@ function wiki_delete_comments_wiki() {
     global $PAGE, $DB;
 
     $cm = $PAGE->cm;
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     $table = 'comments';
     $select = 'contextid = ?';
@@ -1274,7 +1271,7 @@ function wiki_print_page_content($page, $context, $subwikiid) {
         }
     }
     $html = file_rewrite_pluginfile_urls($page->cachedcontent, 'pluginfile.php', $context->id, 'mod_wiki', 'attachments', $subwikiid);
-    $html = format_text($html, FORMAT_MOODLE, array('overflowdiv'=>true, 'allowid'=>true));
+    $html = format_text($html, FORMAT_MOODLE, array('overflowdiv'=>true));
     echo $OUTPUT->box($html);
 
     if (!empty($CFG->usetags)) {
@@ -1345,7 +1342,7 @@ function wiki_print_edit_form_default_fields($format, $pageid, $version = -1, $u
     echo $OUTPUT->container_end();
 
     $cm = $PAGE->cm;
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     echo $OUTPUT->container_start('mdl-align wiki-form-center wiki-upload-table');
     wiki_print_upload_table($context, 'wiki_upload', $pageid, $deleteuploads);
@@ -1397,9 +1394,9 @@ function wiki_print_upload_table($context, $filearea, $fileitemid, $deleteupload
 /**
  * Generate wiki's page tree
  *
- * @param page_wiki $page. A wiki page object
- * @param navigation_node $node. Starting navigation_node
- * @param array $keys. An array to store keys
+ * @param $page. A wiki page object
+ * @param $node. Starting navigation_node
+ * @param $keys. An array to store keys
  * @return an array with all tree nodes
  */
 function wiki_build_tree($page, $node, &$keys) {
@@ -1415,7 +1412,6 @@ function wiki_build_tree($page, $node, &$keys) {
         array_push($keys, $key);
         $l = wiki_parser_link($p);
         $link = new moodle_url('/mod/wiki/view.php', array('pageid' => $p->id));
-        // navigation_node::get_content will format the title for us
         $nodeaux = $node->add($p->title, $link, null, null, null, $icon);
         if ($l['new']) {
             $nodeaux->add_class('wiki_newentry');

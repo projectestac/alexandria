@@ -5,7 +5,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
         /** Properties **/
         BASE : 'base',
         SEARCH : 'search',
-        SEARCHBTN : 'searchbtn',
         PARAMS : 'params',
         URL : 'url',
         AJAXURL : 'ajaxurl',
@@ -22,10 +21,7 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
         DEFAULTSTARTDATE : 'defaultStartDate',
         DEFAULTDURATION : 'defaultDuration',
         ASSIGNABLEROLES : 'assignableRoles',
-        DISABLEGRADEHISTORY : 'disableGradeHistory',
-        RECOVERGRADESDEFAULT : 'recoverGradesDefault',
-        ENROLCOUNT : 'enrolCount',
-        PERPAGE : 'perPage'
+        DISABLEGRADEHISTORY : 'disableGradeHistory'
     };
     /** CSS classes for nodes in structure **/
     var CSS = {
@@ -65,7 +61,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
         DURATION : 'duration',
         ACTIVE : 'active',
         SEARCH : 'uep-search',
-        SEARCHBTN : 'uep-search-btn',
         CLOSE : 'close',
         CLOSEBTN : 'close-button'
     };
@@ -83,7 +78,7 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             if (this.get(UEP.DISABLEGRADEHISTORY) != true) {
                 recovergrades = create('<div class="'+CSS.ENROLMENTOPTION+' '+CSS.RECOVERGRADES+'"></div>')
                     .append(create('<label class="'+CSS.RECOVERGRADESTITLE+'" for="'+CSS.RECOVERGRADES+'">'+M.str.enrol.recovergrades+'</label>'))
-                    .append(create('<input type="checkbox" id="'+CSS.RECOVERGRADES+'" name="'+CSS.RECOVERGRADES+'"'+ this.get(UEP.RECOVERGRADESDEFAULT) +' />'))
+                    .append(create('<input type="checkbox" id="'+CSS.RECOVERGRADES+'" name="'+CSS.RECOVERGRADES+'" />'))
             }
 
             this.set(UEP.BASE, create('<div class="'+CSS.PANEL+' '+CSS.HIDDEN+'"></div>')
@@ -93,8 +88,8 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                         .append(create('<h2>'+M.str.enrol.enrolusers+'</h2>')))
                     .append(create('<div class="'+CSS.CONTENT+'"></div>')
                         .append(create('<div class="'+CSS.SEARCHCONTROLS+'"></div>')
-                            .append(create('<div class="'+CSS.ENROLMENTOPTION+' '+CSS.ROLE+'"><label for="id_enrol_manual_assignable_roles">'+M.str.role.assignroles+'</label></div>')
-                                    .append(create('<select id="id_enrol_manual_assignable_roles"><option value="">'+M.str.enrol.none+'</option></select>'))
+                            .append(create('<div class="'+CSS.ENROLMENTOPTION+' '+CSS.ROLE+'">'+M.str.role.assignroles+'</div>')
+                                    .append(create('<select><option value="">'+M.str.enrol.none+'</option></select>'))
                             )
                             .append(create('<div class="'+CSS.SEARCHOPTIONS+'"></div>')
                                 .append(create('<div class="'+CSS.COLLAPSIBLEHEADING+'"><img alt="" />'+M.str.enrol.enrolmentoptions+'</div>'))
@@ -113,9 +108,8 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                                 .setAttribute('src', M.util.image_url('i/loading', 'moodle')))
                             .setStyle('opacity', 0.5)))
                     .append(create('<div class="'+CSS.FOOTER+'"></div>')
-                        .append(create('<div class="'+CSS.SEARCH+'"><label for="enrolusersearch" class="accesshide">'+M.str.enrol.usersearch+'</label></div>')
+                        .append(create('<div class="'+CSS.SEARCH+'"><label>'+M.str.enrol.usersearch+'</label></div>')
                             .append(create('<input type="text" id="enrolusersearch" value="" />'))
-                                .append(create('<input type="button" id="searchbtn" class="'+CSS.SEARCHBTN+'" value="'+M.str.enrol.usersearch+'" />'))
                         )
                         .append(create('<div class="'+CSS.CLOSEBTN+'"></div>')
                             .append(create('<input type="button" value="'+M.str.enrol.finishenrollingusers+'" />'))
@@ -125,7 +119,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             );
 
             this.set(UEP.SEARCH, this.get(UEP.BASE).one('#enrolusersearch'));
-            this.set(UEP.SEARCHBTN, this.get(UEP.BASE).one('#searchbtn'));
             Y.all('.enrol_manual_plugin input').each(function(node){
                 if (node.getAttribute('type', 'submit')) {
                     node.on('click', this.show, this);
@@ -139,7 +132,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             this.set(UEP.PARAMS, params);
 
             Y.on('key', this.preSearch, this.get(UEP.SEARCH), 'down:13', this);
-            this.get(UEP.SEARCHBTN).on('click', this.preSearch, this);
 
             Y.one(document.body).append(this.get(UEP.BASE));
 
@@ -148,29 +140,20 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             base.dd.addHandle('.'+CSS.HEADER+' h2');
             base.one('.'+CSS.HEADER+' h2').setStyle('cursor', 'move');
 
-            var collapsedimage = 't/collapsed'; // ltr mode
-            if ( Y.one(document.body).hasClass('dir-rtl') ) {
-                collapsedimage = 't/collapsed_rtl';
-            } else {
-                collapsedimage = 't/collapsed';
-            }
-
-            this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).one('img').setAttribute('src', M.util.image_url(collapsedimage, 'moodle'));
-            this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).once('click', function() {
-                // We want to do this just once, the first time the controls are shown.
-                this.populateStartDates();
-                this.populateDuration();
-            }, this);
+            this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).one('img').setAttribute('src', M.util.image_url('t/collapsed', 'moodle'));
             this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).on('click', function(){
                 this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).toggleClass(CSS.ACTIVE);
                 this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEAREA).toggleClass(CSS.HIDDEN);
                 if (this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEAREA).hasClass(CSS.HIDDEN)) {
-                    this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).one('img').setAttribute('src', M.util.image_url(collapsedimage, 'moodle'));
+                    this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).one('img').setAttribute('src', M.util.image_url('t/collapsed', 'moodle'));
                 } else {
                     this.get(UEP.BASE).one('.'+CSS.SEARCHOPTIONS+' .'+CSS.COLLAPSIBLEHEADING).one('img').setAttribute('src', M.util.image_url('t/expanded', 'moodle'));
                 }
             }, this);
+
             this.populateAssignableRoles();
+            this.populateStartDates();
+            this.populateDuration();
         },
         populateAssignableRoles : function() {
             this.on('assignablerolesloaded', function(){
@@ -187,7 +170,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                     s.append(option);
                 }
                 s.set('selectedIndex', index);
-                Y.one('#id_enrol_manual_assignable_roles').focus();
             }, this);
             this.getAssignableRoles();
         },
@@ -210,10 +192,9 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             var select = this.get(UEP.BASE).one('.'+CSS.ENROLMENTOPTION+'.'+CSS.DURATION+' select');
             var defaultvalue = this.get(UEP.DEFAULTDURATION);
             var index = 0, count = 0;
-            var durationdays = M.util.get_string('durationdays', 'enrol', '{a}');
             for (var i = 1; i <= 365; i++) {
                 count++;
-                var option = create('<option value="'+i+'">'+durationdays.replace('{a}', i)+'</option>');
+                var option = create('<option value="'+i+'">'+M.util.get_string('durationdays', 'enrol', i)+'</option>');
                 if (i == defaultvalue) {
                     index = count;
                 }
@@ -279,10 +260,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             }
 
             this._escCloseEvent = Y.on('key', this.hide, document.body, 'down:27', this);
-            var rolesselect = Y.one('#id_enrol_manual_assignable_roles');
-            if (rolesselect) {
-                rolesselect.focus();
-            }
         },
         hide : function(e) {
             if (this._escCloseEvent) {
@@ -311,9 +288,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             params['action'] = 'searchusers';
             params['search'] = this.get(UEP.SEARCH).get('value');
             params['page'] = this.get(UEP.PAGE);
-            params['enrolcount'] = this.get(UEP.ENROLCOUNT);
-            params['perpage'] = this.get(UEP.PERPAGE);
-
             if (this.get(UEP.MULTIPLE)) {
                 alert('oh no there are multiple');
             } else {
@@ -364,7 +338,7 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                 count++;
                 var user = result.response.users[i];
                 users.append(create('<div class="'+CSS.USER+' clearfix" rel="'+user.id+'"></div>')
-                    .addClass((count%2)?CSS.ODD:CSS.EVEN)
+                    .addClass((i%2)?CSS.ODD:CSS.EVEN)
                     .append(create('<div class="'+CSS.COUNT+'">'+count+'</div>'))
                     .append(create('<div class="'+CSS.PICTURE+'"></div>')
                         .append(create(user.picture)))
@@ -381,7 +355,7 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                 var content = create('<div class="'+CSS.SEARCHRESULTS+'"></div>')
                     .append(create('<div class="'+CSS.TOTALUSERS+'">'+usersstr+'</div>'))
                     .append(users);
-                if (result.response.totalusers > (this.get(UEP.PAGE)+1)*this.get(UEP.PERPAGE)) {
+                if (result.response.totalusers > (this.get(UEP.PAGE)+1)*25) {
                     var fetchmore = create('<div class="'+CSS.MORERESULTS+'"><a href="#">'+M.str.enrol.ajaxnext25+'</a></div>');
                     fetchmore.on('click', this.search, this, true);
                     content.append(fetchmore)
@@ -389,7 +363,7 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                 this.setContent(content);
                 Y.delegate("click", this.enrolUser, users, '.'+CSS.USER+' .'+CSS.ENROL, this, args);
             } else {
-                if (result.response.totalusers <= (this.get(UEP.PAGE)+1)*this.get(UEP.PERPAGE)) {
+                if (result.response.totalusers <= (this.get(UEP.PAGE)+1)*25) {
                     this.get(UEP.BASE).one('.'+CSS.MORERESULTS).remove();
                 }
             }
@@ -405,11 +379,17 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             params['role'] = this.get(UEP.BASE).one('.'+CSS.ENROLMENTOPTION+'.'+CSS.ROLE+' select').get('value');
             params['startdate'] = this.get(UEP.BASE).one('.'+CSS.ENROLMENTOPTION+'.'+CSS.STARTDATE+' select').get('value');
             params['duration'] = this.get(UEP.BASE).one('.'+CSS.ENROLMENTOPTION+'.'+CSS.DURATION+' select').get('value');
+
+
+            //XTEC ************ MODIFICAT - Fix for MDL-30751 http://tracker.moodle.org/browse/MDL-30751
+            //2012.04.11 @aginard 
             if (this.get(UEP.DISABLEGRADEHISTORY) != true) {
                 params['recovergrades'] = this.get(UEP.BASE).one('#'+CSS.RECOVERGRADES).get('checked')?1:0;
-            } else {
-                params['recovergrades'] = 0;
             }
+           //************ ORIGINAL
+           //    params['recovergrades'] = this.get(UEP.BASE).one('#'+CSS.RECOVERGRADES).get('checked')?1:0;
+           //************ FI
+
 
             Y.io(M.cfg.wwwroot+this.get(UEP.AJAXURL), {
                 method:'POST',
@@ -425,8 +405,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
                                 args.userNode.addClass(CSS.ENROLLED);
                                 args.userNode.one('.'+CSS.ENROL).remove();
                                 this.set(UEP.REQUIREREFRESH, true);
-                                var countenrol = this.get(UEP.ENROLCOUNT)+1;
-                                this.set(UEP.ENROLCOUNT, countenrol);
                             }
                         } catch (e) {
                             new M.core.exception(e);
@@ -536,17 +514,6 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
             },
             disableGradeHistory : {
                 value : 0
-            },
-            recoverGradesDefault : {
-                value : ''
-            },
-            enrolCount : {
-                value : 0,
-                validator : Y.Lang.isNumber
-            },
-            perPage : {
-                value: 25,
-                Validator: Y.Lang.isNumber
             }
         }
     });
@@ -559,4 +526,4 @@ YUI.add('moodle-enrol_manual-quickenrolment', function(Y) {
         }
     }
 
-}, '@VERSION@', {requires:['base','node', 'overlay', 'io-base', 'test', 'json-parse', 'event-delegate', 'dd-plugin', 'event-key', 'moodle-core-notification']});
+}, '@VERSION@', {requires:['base','node', 'overlay', 'io-base', 'test', 'json-parse', 'event-delegate', 'dd-plugin', 'event-key', 'moodle-enrol-notification']});

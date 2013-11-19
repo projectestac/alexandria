@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 require_once('../../config.php');
 require_once($CFG->dirroot.'/mod/scorm/locallib.php');
 
@@ -31,18 +46,10 @@ if (!empty($id)) {
 } else {
     print_error('missingparameter');
 }
+
 $PAGE->set_url('/mod/scorm/loadSCO.php', array('scoid'=>$scoid, 'id'=>$cm->id));
 
-if (!isloggedin()) { // Prevent login page from being shown in iframe.
-    // Using simple html instead of exceptions here as shown inside iframe/object.
-    echo html_writer::start_tag('html');
-    echo html_writer::tag('head', '');
-    echo html_writer::tag('body', get_string('loggedinnot'));
-    echo html_writer::end_tag('html');
-    exit;
-}
-
-require_login($course, false, $cm, false); // Call require_login anyway to set up globals correctly.
+require_login($course->id, false, $cm);
 
 //check if scorm closed
 $timenow = time();
@@ -54,7 +61,7 @@ if ($scorm->timeclose !=0) {
     }
 }
 
-$context = context_module::instance($cm->id);
+$context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
 if (!empty($scoid)) {
     //
@@ -63,11 +70,7 @@ if (!empty($scoid)) {
     if ($sco = scorm_get_sco($scoid)) {
         if ($sco->launch == '') {
             // Search for the next launchable sco
-            if ($scoes = $DB->get_records_select(
-                    'scorm_scoes',
-                    'scorm = ? AND '.$DB->sql_isnotempty('scorm_scoes', 'launch', false, true).' AND id > ?',
-                    array($scorm->id, $sco->id),
-                    'id ASC')) {
+            if ($scoes = $DB->get_records_select('scorm_scoes', "scorm = ? AND '.$DB->sql_isnotempty('scorm_scoes', 'launch', false, true).' AND id > ?", array($scorm->id, $sco->id), 'id ASC')) {
                 $sco = current($scoes);
             }
         }
@@ -77,12 +80,7 @@ if (!empty($scoid)) {
 // If no sco was found get the first of SCORM package
 //
 if (!isset($sco)) {
-    $scoes = $DB->get_records_select(
-        'scorm_scoes',
-        'scorm = ? AND '.$DB->sql_isnotempty('scorm_scoes', 'launch', false, true),
-        array($scorm->id),
-        'id ASC'
-    );
+    $scoes = $DB->get_records_select('scorm_scoes', "scorm = ? AND ".$DB->sql_isnotempty('scorm_scoes', 'launch', false, true), array($scorm->id), 'id ASC');
     $sco = current($scoes);
 }
 
@@ -147,9 +145,6 @@ add_to_log($course->id, 'scorm', 'launch', 'view.php?id='.$cm->id, $result, $cm-
 
 // which API are we looking for
 $LMS_api = (scorm_version_check($scorm->version, SCORM_12) || empty($scorm->version)) ? 'API' : 'API_1484_11';
-
-header('Content-Type: text/html; charset=UTF-8');
-
 ?>
 <html>
     <head>
@@ -168,7 +163,7 @@ header('Content-Type: text/html; charset=UTF-8');
         }
 
         function myFindAPI(win) {
-           while ((win.<?php echo $LMS_api; ?> == null) && (win.parent != null) && (win.parent != win)) {	
+           while ((win.<?php echo $LMS_api; ?> == null) && (win.parent != null) && (win.parent != win)) {
               myFindAPITries++;
               // Note: 7 is an arbitrary number, but should be more than sufficient
               if (myFindAPITries > 7) {
@@ -180,7 +175,7 @@ header('Content-Type: text/html; charset=UTF-8');
         }
 
         // hun for the API - needs to be loaded before we can launch the package
-function myGetAPI() {
+        function myGetAPI() {
            var theAPI = myFindAPI(window);
            if ((theAPI == null) && (window.opener != null) && (typeof(window.opener) != "undefined")) {
               theAPI = myFindAPI(window.opener);

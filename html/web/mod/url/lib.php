@@ -236,6 +236,18 @@ function url_user_complete($course, $user, $mod, $url) {
 }
 
 /**
+ * Returns the users with data in one url
+ *
+ * @todo: deprecated - to be deleted in 2.2
+ *
+ * @param int $urlid
+ * @return bool false
+ */
+function url_get_participants($urlid) {
+    return false;
+}
+
+/**
  * Given a course_module object, this function returns any
  * "extra" information that may be needed when printing
  * this activity in a course listing.
@@ -258,7 +270,7 @@ function url_get_coursemodule_info($coursemodule) {
     $info->name = $url->name;
 
     //note: there should be a way to differentiate links from normal resources
-    $info->icon = url_guess_icon($url->externalurl, 24);
+    $info->icon = url_guess_icon($url->externalurl);
 
     $display = url_get_final_display_type($url);
 
@@ -285,6 +297,26 @@ function url_get_coursemodule_info($coursemodule) {
 }
 
 /**
+ * This function extends the global navigation for the site.
+ * It is important to note that you should not rely on PAGE objects within this
+ * body of code as there is no guarantee that during an AJAX request they are
+ * available
+ *
+ * @param navigation_node $navigation The url node within the global navigation
+ * @param stdClass $course The course object returned from the DB
+ * @param stdClass $module The module object returned from the DB
+ * @param stdClass $cm The course module instance returned from the DB
+ */
+function url_extend_navigation($navigation, $course, $module, $cm) {
+    /**
+     * This is currently just a stub so that it can be easily expanded upon.
+     * When expanding just remove this comment and the line below and then add
+     * you content.
+     */
+    $navigation->nodetype = navigation_node::NODETYPE_LEAF;
+}
+
+/**
  * Return a list of page types
  * @param string $pagetype current page type
  * @param stdClass $parentcontext Block's parent context
@@ -304,7 +336,7 @@ function url_export_contents($cm, $baseurl) {
     global $CFG, $DB;
     require_once("$CFG->dirroot/mod/url/locallib.php");
     $contents = array();
-    $context = context_module::instance($cm->id);
+    $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
     $course = $DB->get_record('course', array('id'=>$cm->course), '*', MUST_EXIST);
     $url = $DB->get_record('url', array('id'=>$cm->instance), '*', MUST_EXIST);
@@ -330,40 +362,4 @@ function url_export_contents($cm, $baseurl) {
     $contents[] = $url;
 
     return $contents;
-}
-
-/**
- * Register the ability to handle drag and drop file uploads
- * @return array containing details of the files / types the mod can handle
- */
-function url_dndupload_register() {
-    return array('types' => array(
-                     array('identifier' => 'url', 'message' => get_string('createurl', 'url'))
-                 ));
-}
-
-/**
- * Handle a file that has been uploaded
- * @param object $uploadinfo details of the file / content that has been uploaded
- * @return int instance id of the newly created mod
- */
-function url_dndupload_handle($uploadinfo) {
-    // Gather all the required data.
-    $data = new stdClass();
-    $data->course = $uploadinfo->course->id;
-    $data->name = $uploadinfo->displayname;
-    $data->intro = '<p>'.$uploadinfo->displayname.'</p>';
-    $data->introformat = FORMAT_HTML;
-    $data->externalurl = clean_param($uploadinfo->content, PARAM_URL);
-    $data->timemodified = time();
-
-    // Set the display options to the site defaults.
-    $config = get_config('url');
-    $data->display = $config->display;
-    $data->popupwidth = $config->popupwidth;
-    $data->popupheight = $config->popupheight;
-    $data->printheading = $config->printheading;
-    $data->printintro = $config->printintro;
-
-    return url_add_instance($data, null);
 }
