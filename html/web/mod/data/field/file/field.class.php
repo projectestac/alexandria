@@ -292,7 +292,7 @@ class data_field_file extends data_field_base {
     	}
 	// delete existing files
         $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
-	if ($this->field->param5 && $odscormcontext) {
+	if ($this->field->param5 && !empty($oldscormcontext)) {
 		$fs->delete_area_files($oldscormcontext->id, 'mod_scorm');
 	}
 
@@ -347,7 +347,6 @@ class data_field_file extends data_field_base {
         	$DB->update_record('course_modules',$cm);
 	        $content->content2 = $scorm_id;
         	$DB->update_record('data_content',$content);
-	        rebuild_course_cache($course->id,true);
 	}
 	//*************** FI
 

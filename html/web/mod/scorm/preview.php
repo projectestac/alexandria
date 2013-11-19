@@ -1,4 +1,4 @@
-<?phip
+<?php
 //XTEC - ALEXANDRIA ************ FITXER AFEGIT - File added for SCO preview
 // This file is part of Moodle - http://moodle.org/
 //
@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/// This page prints a particular instance of aicc/scorm package
+// This page prints a particular instance of aicc/scorm package
 
 require_once('../../config.php');
 require_once($CFG->dirroot.'/mod/scorm/locallib.php');
@@ -77,6 +77,8 @@ if ($currentorg !== '') {
 if ($newattempt !== 'off') {
     $url->param('newattempt', $newattempt);
 }
+
+$PAGE->set_context(context_module::instance($cm->id));
 $PAGE->set_url($url);
 $forcejs = get_config('scorm', 'forcejavascript');
 if (!empty($forcejs)) {
