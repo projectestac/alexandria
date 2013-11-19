@@ -3807,7 +3807,7 @@ function update_backup_file($file,$courseid) {
 	return true;
 }	
 
-function override_course_values($courseid, $recordid) {
+function override_course_values($courseid, $recordid, $updateshortname = true) {
 	global $DB,$CFG;
 	$ccid = 1;
 	$cat = explode('-',get_data_field_by_name($CFG->data_categoryfieldid,$recordid));
@@ -3821,25 +3821,26 @@ function override_course_values($courseid, $recordid) {
 		$category->depth = 1;
 		$category = create_course_category($category);
 	}
-	$ccid = $DB->get_field_sql('SELECT IFNULL(MAX(
-		IFNULL(CAST(
-			REPLACE(
-				SUBSTRING(
-					SUBSTRING_INDEX(shortname, \'_\', 3), 
-					LENGTH(
-						SUBSTRING_INDEX(shortname, \'_\', 3 - 1)
-					)+1
-				), \'_\', \'\')
-			 AS UNSIGNED 
-		),0)
-	),0)+1 FROM mdl_course WHERE category = '.$category->id);
-
 	$course = $DB->get_record('course', array('id' => $courseid));
-	$course->fullname = get_data_field_by_name($CFG->data_fullnamefieldid,$recordid);
-	$course->shortname = $cat[0]
-		.'_'.date('my',get_data_field_by_name($CFG->data_creationdatefieldid,$recordid))
-		.'_'.str_pad($ccid,3,'0',STR_PAD_LEFT)
-		.'_1.0';
+        $course->fullname = get_data_field_by_name($CFG->data_fullnamefieldid,$recordid);
+	if ($updateshortname) {
+		$ccid = $DB->get_field_sql('SELECT IFNULL(MAX(
+			IFNULL(CAST(
+				REPLACE(
+					SUBSTRING(
+						SUBSTRING_INDEX(shortname, \'_\', 3), 
+						LENGTH(
+							SUBSTRING_INDEX(shortname, \'_\', 3 - 1)
+						)+1
+					), \'_\', \'\')
+				 AS UNSIGNED 
+			),0)
+		),0)+1 FROM mdl_course WHERE category = '.$category->id);
+		$course->shortname = $cat[0]
+			.'_'.date('my',get_data_field_by_name($CFG->data_creationdatefieldid,$recordid))
+			.'_'.str_pad($ccid,3,'0',STR_PAD_LEFT)
+			.'_1.0';
+	}
 	$course->summary = get_data_field_by_name($CFG->data_summaryfieldid,$recordid).'<br/>';
 	if ($creator = get_data_field_by_name($CFG->data_creatorfieldid,$recordid))
 		$course->summary .= '<br/><strong>'.get_string('creatorfield','mod_data').': </strong>'.$creator;

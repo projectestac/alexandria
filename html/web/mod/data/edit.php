@@ -200,7 +200,13 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
                 }
             }
         }
-
+	//XTEC - ALEXANDRIA ************ AFEGIT - If the database updated is a courses database, we update de course as well
+	if (in_array($record->dataid,explode(',',$CFG->data_coursesdataid))) {
+		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
+		$courseid = $DB->get_field('data_content','content',array('recordid' => $record->id, 'fieldid' => $coursefieldid));
+		override_course_values($courseid,$record->id,false);	
+	}
+	//
         add_to_log($course->id, 'data', 'update', "view.php?d=$data->id&amp;rid=$rid", $data->id, $cm->id);
 
         redirect($CFG->wwwroot.'/mod/data/view.php?d='.$data->id.'&rid='.$rid);
