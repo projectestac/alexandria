@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$module->version   = 2013050100;       // The current module version (Date: YYYYMMDDXX)
+$module->version   = 2012112900;       // The current module version (Date: YYYYMMDDXX)
 $module->requires  = 2012112900;       // Requires this Moodle version
 $module->component = 'mod_data';       // Full name of the plugin (used for diagnostics)
 //XTEC - ALEXANDRIA ************ MODIFICAT - CRON configuration
@@ -34,5 +34,5 @@ $module->component = 'mod_data';       // Full name of the plugin (used for diag
 //$module->cron      = 0;
 // ******** CODI MODIFICAT
 $module->cron      = 3600;
-$module->version   = 2013110704;       // The current module version (Date: YYYYMMDDXX)
+$module->version   = 2013112000;       // The current module version (Date: YYYYMMDDXX)
 // ******** FI

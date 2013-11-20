@@ -24,8 +24,56 @@ function xmldb_data_upgrade($oldversion) {
     global $CFG, $DB, $OUTPUT;
 
     $dbman = $DB->get_manager();
+    //XTEC - ALEXANDRIA ************ AFEGIT - Old downloads and fields info migration
+    //2013.11.20 
+    $dataconfigs = array(
+	'data_categoryfieldid',
+	'data_coursefieldid',
+	'data_creationdatefieldid',
+	'data_creatorfieldid',
+	'data_filefieldid',
+	'data_fullnamefieldid',
+	'data_licensefieldid',
+	'data_shortnamefieldid',
+	'data_summaryfieldid',
+	'data_urlfieldid',
+    );
+    foreach($dataconfigs as $config) {
+	if (!empty($CFG->$config) && is_numeric($CFG->$config)) {
+		$fieldname = $DB->get_field('data_fields','name',array('id' => $CFG->$config));
+		set_config($config,$fieldname);		
+	}
+    }
 
-
+    if ($oldversion < 2013112000) {
+	$sql = "SELECT dc.id,
+	IFNULL(dc.content4,0)  + IFNULL((
+	        SELECT downloading FROM mdl_block_download_course bdc
+        	WHERE bdc.course IN (
+                	SELECT content FROM mdl_data_content dc2
+	                WHERE dc2.fieldid IN (
+        	                SELECT id FROM mdl_data_fields df
+                	        WHERE df.name =  '".$CFG->data_coursefieldid."'
+	                ) AND dc2.recordid = dc.recordid
+        	)
+	),0) as downloads
+	FROM mdl_data_content dc
+	WHERE dc.fieldid IN (
+        	SELECT df.id FROM mdl_data_fields df
+	        WHERE df.name =  '".$CFG->data_filefieldid."'
+	) AND dc.recordid IN (
+        	SELECT id FROM mdl_data_records dr
+        	WHERE dr.dataid = 2
+	)";
+	
+	$records = $DB->get_records_sql($sql);
+	foreach($records as $record) {
+		$content = $DB->get_record('data_content',array('id' => $record->id));
+		$content->content4 = $record->id;
+		$DB->update_record('data_content',$content);
+	}
+    }
+    // *************** FI
     // Moodle v2.2.0 release upgrade line
     // Put any upgrade step following this
 
