@@ -38,6 +38,8 @@ function xmldb_hotpot_upgrade($oldversion) {
     $empty_cache = false;
 
     $dbman = $DB->get_manager();
+    
+    $DB->delete_records_select('hotpot','course NOT IN (SELECT id FROM {course})');
 
     //===== 1.9.0 upgrade line ======//
 
