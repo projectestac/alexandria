@@ -318,8 +318,13 @@ class data_field_file extends data_field_base {
                         $fs->create_file_from_storedfile($file_record, $draftfile);
                     }
 		    $file_parts = pathinfo($draftfile->get_filename());
-		    if ($file_parts['extension'] != 'mbz' && $CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-			$draftfile->rename($draftfile->get_filepath(),str_replace('.zip','.mbz',$draftfile->get_filename()));
+		    if ((empty($file_parts['extension']) || $file_parts['extension'] != 'mbz') && $CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+			if (empty($file_parts['extension'])) {
+				$newname = $draftfile->get_filename().'.mbz';	
+			} else {
+				$newname = str_replace('.'.$file_parts['extension'],'.mbz',$draftfile->get_filename());
+			}
+			$draftfile->rename($draftfile->get_filepath(),$newname);
 		    }
                     $file_record = array(
                         'contextid' => $this->context->id,
