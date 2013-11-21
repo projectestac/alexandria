@@ -89,21 +89,24 @@ class block_about_course extends block_list {
 		$contextid = context_module::instance($cmid)->id;
 		$fs = get_file_storage();
 		$file = $fs->get_file($contextid, 'mod_data', 'content', $content->id, '/', $content->content);
-		$filesize = block_about_course_formatBytes($file->get_filesize());
-		$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$contextid.'/mod_data/content/'.$content->id.'/'.$content->content);
-		$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/rate_course/metainfo.gif" height="16" />';
-		$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
-         	.get_string('download_course','block_about_course').'</a> ('.$filesize.')'.
-		'<p id="download_text"><span id="download_counter">'.(int)$content->content4.'</span> descàrregues</p>'.
-		'<script>
-			function increase_counter(fieldid, recordid){
-				var xhReq = new XMLHttpRequest();
-			        xhReq.open("GET", M.cfg.wwwroot + "/mod/data/counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
-			        xhReq.send(null);
-				var serverResponse = xhReq.responseText;
-			        document.getElementById(\'download_counter\').innerHTML=serverResponse;
-			}
-		</script>';
+		if ($file) {
+			$filesize = block_about_course_formatBytes($file->get_filesize());
+		
+			$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$contextid.'/mod_data/content/'.$content->id.'/'.$content->content);
+			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/rate_course/metainfo.gif" height="16" />';
+			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
+         		.get_string('download_course','block_about_course').'</a> ('.$filesize.')'.
+			'<p id="download_text"><span id="download_counter">'.(int)$content->content4.'</span> descàrregues</p>'.
+			'<script>
+				function increase_counter(fieldid, recordid){
+					var xhReq = new XMLHttpRequest();
+			        	xhReq.open("GET", M.cfg.wwwroot + "/mod/data/counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
+				        xhReq.send(null);
+					var serverResponse = xhReq.responseText;
+				        document.getElementById(\'download_counter\').innerHTML=serverResponse;
+				}
+			</script>';
+		}
 	}
         
         $this->content->footer = '<br/><a style = "font-size: 11px;" href="'.$CFG->wwwroot.'/mod/data/report_abuse.php?recordid='.$rid.'">'.

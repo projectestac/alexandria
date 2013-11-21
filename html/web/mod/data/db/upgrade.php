@@ -45,7 +45,7 @@ function xmldb_data_upgrade($oldversion) {
 	}
     }
 
-    if ($oldversion < 2013112000) {
+    if ($oldversion < 2013112000 && $dbman->table_exists('block_download_course')) {
 	$sql = "SELECT dc.id,
 	IFNULL(dc.content4,0)  + IFNULL((
 	        SELECT downloading FROM mdl_block_download_course bdc
