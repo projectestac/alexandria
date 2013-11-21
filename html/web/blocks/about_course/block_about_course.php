@@ -84,7 +84,8 @@ class block_about_course extends block_list {
         $this->content->items[] = '<a href="'.$CFG->wwwroot.'/mod/data/view.php?d='.$dataid.'&mode=single&rid='.$rid.'" >'
          .get_string('metainfo','block_about_course').'</a>';
 	
-	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => 6));
+	$module = $DB->get_field('modules','id',array('name' => 'data'));
+	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => $module));
 	if ($cmid) {
 		$contextid = context_module::instance($cmid)->id;
 		$fs = get_file_storage();

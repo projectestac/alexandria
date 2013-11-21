@@ -317,7 +317,8 @@ class data_field_file extends data_field_base {
                         );
                         $fs->create_file_from_storedfile($file_record, $draftfile);
                     }
-		    if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+		    $file_parts = pathinfo($draftfile->get_filename());
+		    if ($file_parts['extension'] != 'mbz' && $CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 			$draftfile->rename($draftfile->get_filepath(),str_replace('.zip','.mbz',$draftfile->get_filename()));
 		    }
                     $file_record = array(
