@@ -1200,12 +1200,12 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
             //XTEC - ALEXANDRIA **************** MODIFICAT - If it's empty, we tag it
             //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 	    // ***** CODI ORIGINAL
-            $replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
+ //           $replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
 	    // ***** CODI MODIFICAT
-	    //$value = highlight($search, $field->display_browse_field($record->id, $template));
-	    //if (!$value)
-	    //$value = '<div class="dataEmptyField"></div>';
-	    //$replacement[] = $value;
+	    $value = highlight($search, $field->display_browse_field($record->id, $template));
+	    if (!$value && $template == 'singletemplate')
+		    $value = '<div class="dataEmptyField"></div>';
+	    $replacement[] = $value;
 	    // ***** FI
         }
 
@@ -1340,12 +1340,23 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
     //XTEC - ALEXANDRIA ***** AFEGIT - Hide previously tagged rows of empty fields
     //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
     // ***** CODI AFEGIT
-    //echo '<script>
-    //	var emptyFields = Y.all(\'.dataEmptyField\');
-    //	emptyFields.each(function (node) {	
-    //		node.ancestor(\'tr\').setStyle(\'display\', \'none\');
-    //	});		
-    //</script>'; 
+    if ($template == 'singletemplate') {
+    	echo '<script>
+    		var emptyFields = Y.all(\'.dataEmptyField\');
+	    	emptyFields.each(function (node) {	
+    			var tr = node.ancestor(\'tr\');
+			tr.setStyle(\'display\', \'none\');
+			var table = tr.ancestor(\'table\');
+			var nodelist = table.all(\'td\');
+			for(var i=0;i<nodelist.size();i++) {
+		 		var cell = nodelist.item(i).getDOMNode();
+				if (cell.rowSpan > 1) {
+					cell.rowSpan = cell.rowSpan - 1;
+				}
+			}
+    		});		
+	</script>'; 
+    }
     // ***** FI
 }
 

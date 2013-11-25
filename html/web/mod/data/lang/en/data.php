@@ -366,7 +366,7 @@ $string['reportabuse_submit'] ='Send the report';
 $string['reportabuse_cancel'] ='Cancel';
 $string['reportabuse_mailsubject'] ='Report about inappropiate content in $a->coursename';
 $string['reportabuse_mail'] =' had reported the following inappropiate content in $a->coursename: $a->abuse';
-$string['reportabuse_intro'] ='Thank you for help the comunity reporting about contents that may violate the <a href=\"$a\" target=\"_blank\">terms of use</a> of this place! <br>Soon you\'ll recieve a copy of your report in your mailbox.';
+$string['reportabuse_intro'] ='Thank you for help the comunity reporting about contents that may violate the <a href="{$a}" target="_blank">terms of use</a> of this place! <br>Soon you\'ll recieve a copy of your report in your mailbox.';
 $string['licensefield'] = 'License';
 $string['creatorfield'] = 'Author';
 $string['coursesdataid'] = 'List of course IDs that contain course-based databases';
@@ -394,6 +394,7 @@ $string['configcoursesdataid'] = 'List of courses that should be handled as a co
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer
 //2011.05.12 @fcasanel
+//2013.11.25 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['abusereports'] = 'Reports about inappropiate content';
 $string['reports'] ='Reports';
 $string['pages'] ='Pages';
@@ -402,6 +403,8 @@ $string['reporter'] ='Author of the report';
 $string['report_topic'] ='Topic';
 $string['report_desc'] ='Description';
 $string['report_date'] ='Date';
-
+$string['reportabuse_noguestuseage'] = 'Guests are not allowed to report.';
+$string['reportabuse_no_comments'] = 'No comments';
+$string['reportabuse_no_topic'] = 'No topic';
 //************ FI
 

@@ -43,19 +43,18 @@ if (isset($tmp) && isset($tmp->content)){
 
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($CFG->wwwroot.'/mod/data/report_abuse.php?record'.(!empty($recordid)?'id='.$recordid:''));
+$PAGE->set_title($title);
+$PAGE->set_heading($title);
 
 $navigation = build_navigation($recordtitle, $cm);
-print_header_simple($recordtitle, '', $navigation,
-            '', '', true, update_module_button($cm->id, $course->id, get_string('modulename', 'data'),$recordtitle),
-            navmenu($course, $cm));
+echo $OUTPUT->header();
 
-$OUTPUT->heading($title);
+echo $OUTPUT->heading($title);
 
 //  Require user to be logged in to view this page
 if((!isloggedin() || isguestuser())) {
-    notice_yesno(get_string('reportabuse_noguestuseage', 'data').'<br /><br />'.get_string('liketologin'),
-    $CFG->wwwroot.'/login/index.php', get_referer(false));
-    print_footer();
+    echo $OUTPUT->confirm(get_string('reportabuse_noguestuseage', 'data').'<br /><br />'.get_string('liketologin'),$CFG->wwwroot.'/login/index.php', get_referer(false));
+    echo $OUTPUT->footer();
     exit();
 }
 
@@ -66,6 +65,7 @@ if ($report){
 	$abusetopic = optional_param( 'abusetopic','',PARAM_TEXT);
     $abusedescription = optional_param( 'abusedescription','',PARAM_TEXT);
     if (empty($abusedescription)) $abusedescription = get_string('reportabuse_no_comments','data');
+	$content = new stdClass;
 	$content->recordid = $recordid;
 	$content->abusetopic = $abusetopic;
 	$content->report_author = $USER->id;
@@ -105,7 +105,7 @@ if ($report){
     // Send a copy of the generated mail to the content owner
     //echo "<br><br>RESOURCE OWNER...<br>";
     data_send_mail($recordid, $owneruser, $adminuser);
-    echo "<div style=\"text-align:center;\"><p><br>".get_string('reportabuse_intro','data',$CFG->thememenuconditions)."<br><br>";    
+    echo "<div style=\"text-align:center;\"><p><br>".get_string('reportabuse_intro','data',$CFG->wwwroot.'/mod/resource/view.php?id=20686')."<br><br>";    
     echo "<a href=\"view.php?d=".$record->dataid."&rid=".$rid."\">".get_string('continue')."</a><br><br></p></div>";
 } else{
     echo '<script>';
@@ -134,7 +134,7 @@ if ($report){
     echo '</form></div></div>';    
 }
 
-$OUTPUT->footer();
+echo $OUTPUT->footer();
 
 
 function data_send_mail($recordid, $user, $fromuser){
@@ -149,7 +149,10 @@ function data_send_mail($recordid, $user, $fromuser){
     if ($info->contentname == '') $info->contentname = $CFG->wwwroot.'/mod/data/view.php?rid='.$recordid;
     $abusetopic = optional_param( 'abusetopic','',PARAM_TEXT);
     $abusedescription = optional_param( 'abusedescription','',PARAM_TEXT);
-    $info->abuse = get_string('reportabuse_'.$abusetopic,'data').($abusedescription!=''?" - ".$abusedescription:"");
+    if ($abusetopic)
+	$info->abuse = get_string('reportabuse_'.$abusetopic,'data').($abusedescription!=''?" - ".$abusedescription:"");
+    else
+	$info->abuse = get_string('reportabuse_no_topic','data');
     $postsubject = get_string('reportabuse_mailsubject', 'data', $info);
     $posttext = data_email_receivers_text($info, 'text', $fromuser);
     $posthtml = ($user->mailformat == 1)?data_email_receivers_text($info, 'html', $fromuser): '';

@@ -16,13 +16,14 @@ $string['reportabuse_submit'] ='Envia l\'informe';
 $string['reportabuse_cancel'] ='Cancel·la';
 $string['reportabuse_mailsubject'] ='Notificació de contingut inadequat a $a->contentname';
 $string['reportabuse_mail'] =' ha notificat el contingut inadequat següent al recurs $a->coursename: $a->abuse';
-$string['reportabuse_intro'] ='Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href=\"$a\" target=\"_blank\">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
+$string['reportabuse_intro'] ='Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href="{$a}" target="_blank">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
 $string['licensefield'] = 'Llicència';
 $string['creatorfield'] = 'Autor/a';
 //*********** FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewrer
 //2011.05.12 @fcasanel
+//2013.11.25 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['abusereports'] = 'Informes de contingut inadequat';
 $string['reports'] ='Informes';
 $string['pages'] ='Pàgines';
@@ -54,5 +55,8 @@ $string['configurlfieldid'] = 'Camp de la base de dades que cont&eacute; la URL'
 $string['configlicensefieldid'] = 'Camp de la base de dades que cont&eacute; la llic&egrave;ncia';
 $string['configcreationdatefieldid'] = 'Camp de la base de dades que cont&eacute; la data de creaci&oacute;';
 $string['configcoursesdataid'] = 'Llista de base de dades que estractaran com a base de dades de cursos.';
+$string['reportabuse_noguestuseage'] = 'Els usuaris invitats no tenen accès a aquesta pàgina.';
+$string['reportabuse_no_comments'] = 'Sense comentaris';
+$string['reportabuse_no_topic'] = 'Sense categoria';
 
 //*********** FI

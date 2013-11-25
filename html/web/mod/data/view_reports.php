@@ -8,6 +8,9 @@ require_once('../../config.php');
 $context = context_system::instance();
 require_login();
 require_capability('moodle/site:config', $context);
+
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url($CFG->wwwroot.'/mod/data/view_reports.php');
     
 //print_header_simple('View Reports', '', '');
 $links = array(array('name' => 'alexandria', 'link' => $CFG->wwwroot, 'type' => 'title'));
@@ -15,6 +18,7 @@ $navigation = build_navigation($links);
 print_header_simple(get_string("abusereports", "data"), get_string("abusereports", "data"), $navigation);
 
 //Table with report contents
+$table = new html_table();
 $table->class = 'generaltable';
 $table->head = array(get_string("resource_reported", "data"),get_string("reporter","data"),  get_string("report_topic", "data"), get_string("report_desc", "data"), get_string("report_date","data"));
 $table->align = array('center', 'center', 'center', 'center', 'center');
@@ -71,11 +75,15 @@ foreach ($reports as $report){
     $resource = '<a href="'.$CFG->wwwroot.'/mod/data/view.php?rid='.$report->recordid.'">'.$resource.'</a>';
     $reporter_record = $DB->get_record("user", array("id" => $report->report_author));
     $reporter = '<a href="'.$CFG->wwwroot.'/user/view.php?id='.$report->report_author.'">'.$reporter_record->firstname." ".$reporter_record->lastname.'</a>';
-    $report_topic = get_string("reportabuse_".$report->abusetopic, "data");
+    if (!empty($report_abusetopic))
+	$report_topic = get_string('reportabuse_'.$report->abusetopic, 'data');
+    else
+	$report_topic = get_string('reportabuse_no_topic','data');
+
     $report_desc = $report->abusedescription;
     $report_date = date("d-m-Y", $report->created);
     $table->data[] = array($resource, $reporter, $report_topic, $report_desc, $report_date);
 }
 
-print_table($table);
-print_footer();
+echo html_writer::table($table);
+echo $OUTPUT->footer();

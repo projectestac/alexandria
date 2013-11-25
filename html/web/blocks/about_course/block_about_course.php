@@ -80,7 +80,7 @@ class block_about_course extends block_list {
         // Metainformation (link to database entry)
         $this->content->icons[] = '';
         $this->content->items[] = '';
-        $this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/rate_course/metainfo.gif" height="16" />';
+        $this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/metainfo.gif" height="16" />';
         $this->content->items[] = '<a href="'.$CFG->wwwroot.'/mod/data/view.php?d='.$dataid.'&mode=single&rid='.$rid.'" >'
          .get_string('metainfo','block_about_course').'</a>';
 	
@@ -94,7 +94,7 @@ class block_about_course extends block_list {
 			$filesize = block_about_course_formatBytes($file->get_filesize());
 		
 			$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$contextid.'/mod_data/content/'.$content->id.'/'.$content->content);
-			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/rate_course/metainfo.gif" height="16" />';
+			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
 			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
          		.get_string('download_course','block_about_course').'</a> ('.$filesize.')'.
 			'<p id="download_text"><span id="download_counter">'.(int)$content->content4.'</span> descàrregues</p>'.
