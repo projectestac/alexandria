@@ -29,6 +29,7 @@ $CFG->defaultblocks_override = 'about_course';
 $CFG->isagora = 0;
 $CFG->iseoi = 0;
 $CFG->isportal = 0;
+$CFG->langotherroot = dirname(__FILE__) . '/lang/';
 
 // There is no php closing tag in this file,
 // it is intentional because it prevents trailing whitespace problems!
