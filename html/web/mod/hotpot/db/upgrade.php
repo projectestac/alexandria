@@ -39,9 +39,9 @@ function xmldb_hotpot_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
-    $DB->delete_records_select('hotpot','course NOT IN (SELECT id FROM {course})');    
-
     //===== 1.9.0 upgrade line ======//
+    
+    $DB->delete_records_select('hotpot','course NOT IN (SELECT id FROM {course})');
 
     // update hotpot grades from sites earlier than Moodle 1.9, 27th March 2008
     $newversion = 2007101511;
