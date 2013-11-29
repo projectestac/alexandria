@@ -3753,7 +3753,6 @@ function restore_backup_file($file,$courseid = NULL) {
         mkdir($folder);
         $zip = new ZipArchive;
         $res = $zip->open($filename);
-	$rebuildfile = false;
         if ($res === TRUE) { 
 		$zip->extractTo($folder);
                 $zip->close();
@@ -3762,7 +3761,6 @@ function restore_backup_file($file,$courseid = NULL) {
         	        $DB->get_field('user','id',array('username' => $CFG->admin)),
                 	backup::TARGET_NEW_COURSE);
 		if ($controller->get_status() == backup::STATUS_REQUIRE_CONV) {
-		    $rebuildfile = true;
         	    $controller->convert();
 	        }
         	if ($controller->get_status() == backup::STATUS_SETTING_UI) {
@@ -3771,8 +3769,6 @@ function restore_backup_file($file,$courseid = NULL) {
                 $controller->execute_precheck();
                 $controller->execute_plan();
         }
-	if ($rebuildfile) 
-		update_backup_file($file,$courseid);
         unlink($filename);
 	return $courseid;
 }
@@ -3789,40 +3785,12 @@ function create_backup_folder($dirname) {
 	if (!file_exists($folder))
                 mkdir($folder);
 }
-function update_backup_file($file,$courseid) {
-	global $CFG;
-	require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
-    	require_once($CFG->dirroot . '/backup/controller/backup_controller.class.php');
-
-    	$bc = new backup_controller(backup::TYPE_1COURSE, $courseid,
-        	backup::FORMAT_MOODLE, backup::INTERACTIVE_NO, backup::MODE_AUTOMATED, 2);
-
-    	$bc->execute_plan();
-   	$results = $bc->get_results();
-	
-    	$backup = $results['backup_destination'];
-	
-	$fileinfo = array(
-		'contextid' => $file->get_contextid(),
-		'component' => $file->get_component(),
-		'filearea' => $file->get_filearea(),
-		'itemid' => $file->get_itemid(),
-		'filepath' => $file->get_filepath(),
-		'filename' => $file->get_filename(),
-	);
-	$file->delete();
-	$fs = get_file_storage();
-	$fs->create_file_from_storedfile($fileinfo, $backup);
-	$backup->delete();
-    	$bc->destroy();
-	return true;
-}	
 
 function override_course_values($courseid, $recordid, $updateshortname = true) {
 	global $DB,$CFG;
 	$ccid = 1;
 	$cat = explode('-',get_data_field_by_name($CFG->data_categoryfieldid,$recordid));
-	$category = $DB->get_record('course_categories',array('idnumber' => $cat[0]));
+	$category = $DB->get_record('course_categories',array('name' => $cat[1]));
 	if (!$category) {
 		$category = new stdClass();
 		$category->name = $cat[1];
@@ -3884,28 +3852,3 @@ function sort_datarecord_files_last($a,$b) {
 
 //*************** FI
 
-//XTEC - ALEXANDRIA ************ AFEGIT - CRON functions
-//2013.11.07 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-function data_cron() {
-	global $DB,$CFG;
-	$fs = get_file_storage();
-	$fields = array_keys($DB->get_records_sql('SELECT id FROM {data_fields} WHERE dataid IN ('.$CFG->data_coursesdataid.') AND name = \''.$CFG->data_filefieldid.'\''));
-	$updatefiles = $DB->get_records_sql('SELECT * FROM {data_content} WHERE fieldid IN ('.implode(',',$fields).')');
-	foreach($updatefiles as $file) {
-		if ((time()-$file->content3) > 3600) {
-			$fields = array_keys($DB->get_records_sql('SELECT id FROM {data_fields} WHERE dataid IN ('.$CFG->data_coursesdataid.') AND name = \''.$CFG->data_coursefieldid.'\''));
-			$course = $DB->get_record_sql('SELECT * FROM {data_content} WHERE fieldid IN ('.implode(',',$fields).') AND recordid = '.$file->recordid);
-			$cmid = $DB->get_field_sql('SELECT id FROM {course_modules} WHERE module = 6 AND instance IN (
-				SELECT dataid FROM {data_records}
-				WHERE id = '.$file->recordid.'
-			)');
-			$storedfile = $fs->get_file(context_module::instance($cmid)->id, 'mod_data', 'content', $file->id, '/', $file->content);
-			$result = update_backup_file($storedfile,$course->content);
-			if ($result) {
-				$file->content3 = time();
-				$DB->update_record('data_content',$file);
-			}
-		}
-	}
-}
-//*************** FI

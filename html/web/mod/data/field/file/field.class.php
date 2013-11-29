@@ -136,18 +136,37 @@ class data_field_file extends data_field_base {
     }
 
     function get_file($recordid, $content=null) {
-        global $DB;
+        global $DB,$CFG;
         if (empty($content)) {
             if (!$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
                 return null;
             }
         }
+	
         $fs = get_file_storage();
-        if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
-            return null;
-        }
-
-        return $file;
+	//XTEC - ALEXANDRIA ************ MODIFICAT - If it's a course, we get the file from automated backups area
+	//2013.11.29 @mespinosa
+	// ******* CODI ORIGINAL
+	//if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
+        //    return null;
+        //}
+	// return $file;
+	// ******* CODI MODIFICAT
+	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
+		$courseid = $DB->get_field('data_content','content',array('fieldid' => $coursefieldid, 'recordid' => $recordid));	
+		$files = $fs->get_area_files(context_course::instance($courseid)->id, 'backup', 'automated', false, 'timecreated DESC');
+		foreach($files as $file) {
+        	    if (!$file->is_directory())
+			return $file;
+        	}
+	} else {
+		if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
+	            return $file;
+        	}	
+	}
+	// ******** FI
+        return null;
     }
 
     function display_browse_field($recordid, $template) {
@@ -177,7 +196,7 @@ class data_field_file extends data_field_base {
 	} else {
 		$dwnldinfo = download_info($this->field->id, $recordid);
 		$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
-        	$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
+        	$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
 	        $width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
         	$height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
 	
@@ -215,7 +234,6 @@ class data_field_file extends data_field_base {
     function update_content($recordid, $value, $name='') {
         global $CFG, $DB, $USER;
         $fs = get_file_storage();
-
         if (!$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
 
         // Quickly make one now!
@@ -225,7 +243,6 @@ class data_field_file extends data_field_base {
             $id = $DB->insert_record('data_content', $content);
             $content = $DB->get_record('data_content', array('id'=>$id));
         }
-
 	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a SCORM file insert as a new scorm object
         //2011.05.23 @fcasanel
 	//2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
@@ -317,28 +334,23 @@ class data_field_file extends data_field_base {
                         );
                         $fs->create_file_from_storedfile($file_record, $draftfile);
                     }
-		    $file_parts = pathinfo($draftfile->get_filename());
-		    if ((empty($file_parts['extension']) || $file_parts['extension'] != 'mbz') && $CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-			if (empty($file_parts['extension'])) {
-				$newname = $draftfile->get_filename().'.mbz';	
-			} else {
-				$newname = str_replace('.'.$file_parts['extension'],'.mbz',$draftfile->get_filename());
-			}
-			$draftfile->rename($draftfile->get_filepath(),$newname);
-		    }
-                    $file_record = array(
-                        'contextid' => $this->context->id,
-                        'component' => 'mod_data',
-                        'filearea' => 'content',
-                        'itemid' => $content->id,
-                        'filepath' => '/',
-                        'filename' => $draftfile->get_filename(),
-                    );
+		    if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+			$content->content = $draftfile->get_filename();
+		    } else {
+                    	$file_record = array(
+                        	'contextid' => $this->context->id,
+	                        'component' => 'mod_data',
+        	                'filearea' => 'content',
+                	        'itemid' => $content->id,
+	                	'filepath' => '/',
+        	       		'filename' => $draftfile->get_filename(),
+                	);
 
-                    $content->content = $file_record['filename'];
+                    	$content->content = $file_record['filename'];
 		    
-                    $fs->create_file_from_storedfile($file_record, $draftfile);
-                    $DB->update_record('data_content', $content);
+	                $fs->create_file_from_storedfile($file_record, $draftfile);
+		    }
+		    $DB->update_record('data_content', $content);
                     // Break from the loop now to avoid overwriting the uploaded file record
                     break;
                 }
@@ -360,7 +372,7 @@ class data_field_file extends data_field_base {
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 		require_once( $CFG->dirroot . '/backup/util/includes/restore_includes.php' );
-		$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content);
+		$file = $draftfile;
 		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
 		$fieldcontent = $DB->get_record('data_content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
 		if (!$fieldcontent) {
@@ -386,7 +398,11 @@ class data_field_file extends data_field_base {
 			$guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid));
 			$guestenrol->status = 0;
 			$DB->update_record('enrol',$guestenrol);
-		}			
+		}
+		$backup = new stdclass();
+		$backup->courseid = $courseid;
+		$backup->nextstarttime = time();
+		$DB->insert_record('backup_courses', $backup);
 	} 
 	//*************** FI
     }
