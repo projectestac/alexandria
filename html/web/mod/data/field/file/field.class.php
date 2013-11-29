@@ -196,7 +196,11 @@ class data_field_file extends data_field_base {
 	} else {
 		$dwnldinfo = download_info($this->field->id, $recordid);
 		$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
-        	$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
+		if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+	        	$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
+		} else {
+			$src = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
+		}
 	        $width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
         	$height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
 	
