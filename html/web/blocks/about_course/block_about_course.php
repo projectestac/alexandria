@@ -87,13 +87,17 @@ class block_about_course extends block_list {
 	$module = $DB->get_field('modules','id',array('name' => 'data'));
 	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => $module));
 	if ($cmid) {
-		$contextid = context_module::instance($cmid)->id;
+		$contextid = context_course::instance($COURSE->id)->id;
 		$fs = get_file_storage();
-		$file = $fs->get_file($contextid, 'mod_data', 'content', $content->id, '/', $content->content);
-		if ($file) {
+		$files = $fs->get_area_files($contextid, 'backup', 'automated', false, 'timecreated DESC');
+                foreach($files as $file) {
+                    if (!$file->is_directory())
+                        break;
+                }
+
+		if (!empty($file) && !$file->is_directory()) {
 			$filesize = block_about_course_formatBytes($file->get_filesize());
-		
-			$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$contextid.'/mod_data/content/'.$content->id.'/'.$content->content);
+			$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
 			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
 			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
          		.get_string('download_course','block_about_course').'</a> ('.$filesize.')'.

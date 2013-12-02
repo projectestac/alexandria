@@ -393,13 +393,6 @@ class data_field_file extends data_field_base {
 			$DB->update_record('data_content',$fieldcontent);
 			override_course_values($courseid,$recordid);
 			require_once($CFG->dirroot.'/enrol/manual/externallib.php');
-/*			$enrol = new enrol_manual_external();
-			$roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
-			$enrolments = array(
-				array('userid' => $USER->id,'roleid' => $roleid,'courseid' => $courseid)
-			);
-			$enrol->enrol_users($enrolments);
-			role_assign($roleid,$USER->id,context_course::instance($courseid)->id);*/
 			$enrol = enrol_get_plugin('manual');
 			$instance = $DB->get_record('enrol',array('courseid' => $courseid, 'enrol' => 'manual'));
 			$roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
