@@ -390,6 +390,7 @@ $string['configurlfieldid'] = 'Field of the database containing the URL';
 $string['configlicensefieldid'] = 'Field of the database containing the licence';
 $string['configcreationdatefieldid'] = 'Field of the database containing the creation date';
 $string['configcoursesdataid'] = 'List of courses that should be handled as a course database.';
+$string['fileunavailable'] = 'File not available at this moment';
 //************ FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer

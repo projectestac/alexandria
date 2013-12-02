@@ -19,6 +19,8 @@ $string['reportabuse_mail'] =' ha notificat el contingut inadequat següent al r
 $string['reportabuse_intro'] ='Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href="{$a}" target="_blank">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
 $string['licensefield'] = 'Llicència';
 $string['creatorfield'] = 'Autor/a';
+$string['fileunavailable'] = 'Fitxer no disponible en aquest moments';
+
 //*********** FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewrer

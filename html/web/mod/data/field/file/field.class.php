@@ -385,6 +385,7 @@ class data_field_file extends data_field_base {
                         $fieldcontent->recordid = $recordid;
                         $fieldcontent->id = $DB->insert_record('data_content',$fieldcontent);
                 }
+		$approved = $DB->get_field('data_records','approved',array('id' => $recordid));
 		if (!$fieldcontent->content || !$course = $DB->get_record('course',array('id' => $fieldcontent->content))) {
 			$courseid = restore_backup_file($file,null,$recordid);
 			$fieldcontent->content = $courseid;
@@ -392,21 +393,32 @@ class data_field_file extends data_field_base {
 			$DB->update_record('data_content',$fieldcontent);
 			override_course_values($courseid,$recordid);
 			require_once($CFG->dirroot.'/enrol/manual/externallib.php');
-			$enrol = new enrol_manual_external();
+/*			$enrol = new enrol_manual_external();
 			$roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
 			$enrolments = array(
 				array('userid' => $USER->id,'roleid' => $roleid,'courseid' => $courseid)
 			);
 			$enrol->enrol_users($enrolments);
-			role_assign($roleid,$USER->id,context_course::instance($courseid)->id);
+			role_assign($roleid,$USER->id,context_course::instance($courseid)->id);*/
+			$enrol = enrol_get_plugin('manual');
+			$instance = $DB->get_record('enrol',array('courseid' => $courseid, 'enrol' => 'manual'));
+			$roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
+			$enrol->enrol_user($instance, $USER->id, $roleid, time(), 0, ENROL_USER_ACTIVE);
 			$guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid));
-			$guestenrol->status = 0;
+			if (!$approved) {
+			// Forbid guest to access the course until it's approved
+				$guestenrol->status = 1;
+			} else {
+				$guestenrol->status = 0;
+			}
 			$DB->update_record('enrol',$guestenrol);
 		}
-		$backup = new stdclass();
-		$backup->courseid = $courseid;
-		$backup->nextstarttime = time();
-		$DB->insert_record('backup_courses', $backup);
+		if ($approved) {
+			$backup = new stdclass();
+			$backup->courseid = $courseid;
+			$backup->nextstarttime = time();
+			$DB->insert_record('backup_courses', $backup);
+		}
 	} 
 	//*************** FI
     }
