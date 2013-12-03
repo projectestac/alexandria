@@ -155,6 +155,7 @@ class data_field_file extends data_field_base {
 	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
 		$courseid = $DB->get_field('data_content','content',array('fieldid' => $coursefieldid, 'recordid' => $recordid));	
+		if (!$courseid) return null;
 		$files = $fs->get_area_files(context_course::instance($courseid)->id, 'backup', 'automated', false, 'timecreated DESC');
 		foreach($files as $file) {
         	    if (!$file->is_directory())
@@ -362,7 +363,6 @@ class data_field_file extends data_field_base {
         }
 	if ($this->field->param5) {
 		$scorm_id = scorm_add_instance($scorm_object);
-        	course_add_cm_to_section(1, $cmid, 0);
 	        $cm = new stdClass();
         	$cm->id = $cmid;
 	        $cm->instance = $scorm_id;
