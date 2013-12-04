@@ -3,7 +3,19 @@
 function block_download_statistics_fields() {
 	global $CFG,$DB;
 	
-    $sql = 'SELECT id, dataid, name  FROM {data_fields} WHERE type=\'file\'';
+    $sql = "
+	SELECT df.id, df.dataid, df.name  FROM {data_fields} df
+	WHERE df.type='file'
+	AND df.dataid IN (
+		SELECT cm.instance FROM {course_modules} cm
+		WHERE df.dataid = cm.instance
+		AND cm.course = 1
+		AND cm.module IN (
+			SELECT id FROM {modules} m
+			WHERE m.name = 'data'
+		)
+	)	
+    ";
     if (! $result = $DB->get_records_sql($sql)){
         return false;
     } 
