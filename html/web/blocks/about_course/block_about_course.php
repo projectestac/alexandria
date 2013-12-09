@@ -75,7 +75,7 @@ class block_about_course extends block_list {
         }
         
         $license_img = '<img src="'.$CFG->wwwroot.'/blocks/about_course/images/'.$license_img.'" title="'.$license.'" weight="88" />';
-        $this->content->items[] = '<center>'.$license_img.'<br><span style="font-size:0.8em">'.get_string('license_warning','block_about_course').'</span></center>';
+        $this->content->items[] = '<br/><center>'.$license_img.'<br><span style="font-size:0.8em">'.get_string('license_warning','block_about_course').'</span></center>';
 
         // Metainformation (link to database entry)
         $this->content->icons[] = '';
@@ -100,8 +100,9 @@ class block_about_course extends block_list {
 			$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
 			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
 			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
-         		.get_string('download_course','block_about_course').'</a> ('.$filesize.')'.
-			'<p id="download_text"><span id="download_counter">'.(int)$content->content4.'</span> descàrregues</p>'.
+         		.get_string('download_course','block_about_course').'</a>';
+			$this->content->icons[] = '';
+			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - <span id="download_counter">'.(int)$content->content4.'</span> descàrregues)</p>'.
 			'<script>
 				function increase_counter(fieldid, recordid){
 					var xhReq = new XMLHttpRequest();
