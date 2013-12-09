@@ -439,6 +439,7 @@ class data_field_file extends data_field_base {
     function delete_content($recordid = 0) {
 	global $DB,$CFG;
 	if($this->field->param5){
+		require_once $CFG->dirroot.'/mod/scorm/lib.php';
                 $scorm_id = $DB->get_field('data_content','content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));
                 $module_scorm_id = $DB->get_field('modules', 'id',array('name' => 'scorm'));
                 $cmid = $DB->get_field('course_modules', 'id',array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
