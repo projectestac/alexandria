@@ -391,6 +391,7 @@ $string['configlicensefieldid'] = 'Field of the database containing the licence'
 $string['configcreationdatefieldid'] = 'Field of the database containing the creation date';
 $string['configcoursesdataid'] = 'List of courses that should be handled as a course database.';
 $string['fileunavailable'] = 'File not available at this moment';
+$string['recordmissingfield'] = 'Missing necessary field: {$a}';
 //************ FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewer

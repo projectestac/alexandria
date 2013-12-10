@@ -384,6 +384,16 @@ class data_field_file extends data_field_base {
 	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+		if(empty($draftfile)) {
+                        $this->delete_content($recordid);
+			$DB->delete_records('data_records', array('id' => $recordid));
+                        throw new Exception(get_string('recordmissingfield','mod_data',$CFG->data_filefieldid));
+                }
+		if(!get_data_field_by_name($CFG->data_categoryfieldid,$recordid)) {
+			$this->delete_content($recordid);
+			$DB->delete_records('data_records', array('id' => $recordid));
+			throw new Exception(get_string('recordmissingfield','mod_data',$CFG->data_categoryfieldid));
+		}
 		require_once( $CFG->dirroot . '/backup/util/includes/restore_includes.php' );
 		$file = $draftfile;
 		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
@@ -450,7 +460,8 @@ class data_field_file extends data_field_base {
 	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
 		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
                 $courseid = $DB->get_field('data_content','content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
-		delete_course($courseid,false);
+		if (!empty($courseid))
+			delete_course($courseid,false);
 	}
  	parent::delete_content($recordid);
     } 

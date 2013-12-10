@@ -20,7 +20,7 @@ $string['reportabuse_intro'] ='Gràcies per ajudar a la comunitat informant sobr
 $string['licensefield'] = 'Llicència';
 $string['creatorfield'] = 'Autor/a';
 $string['fileunavailable'] = 'Fitxer no disponible en aquest moments';
-
+$string['recordmissingfield'] = 'Falta omplir un camp necessari: {$a}';
 //*********** FI
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Messages for abuse reports viewrer
