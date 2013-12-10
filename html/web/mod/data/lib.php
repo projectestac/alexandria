@@ -3833,6 +3833,7 @@ function override_course_values($courseid, $recordid, $updateshortname = true) {
                 $course->summary .= '<br/><strong>'.get_string('licensefield','mod_data').': </strong>'.$license;
 	
 	$course->category = $category->id;
+	$course->coursedisplay = 0;
 	update_course($course);
 }
 
