@@ -899,6 +899,13 @@ function data_delete_instance($id) {    // takes the dataid
     }
 
     $cm = get_coursemodule_from_instance('data', $data->id);
+    
+    //XTEC - ALEXANDRIA ***** AFEGIT - Patch to prevent crash when deleting a course with a missing course module context
+    //2013.12.11 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    // ***** CODI AFEGIT
+    if (!$cm) return false;    
+    // ***** FI
+
     $context = context_module::instance($cm->id);
 
 /// Delete all the associated information
