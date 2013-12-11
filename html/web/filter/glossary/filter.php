@@ -186,6 +186,7 @@ class filter_glossary extends moodle_text_filter {
 			// ***** CODI ORIGINAL
                         //'class'=> 'glossary autolink concept glossaryid'.$concept->glossaryid);
 			// ***** CODI MODIFICAT
+			'target' => '_blank',
                         'class'=> 'glossary concept glossaryid'.$concept->glossaryid);
 			// ***** FI
 
