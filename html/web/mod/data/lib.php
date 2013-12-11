@@ -3841,6 +3841,7 @@ function override_course_values($courseid, $recordid, $updateshortname = true) {
 	
 	$course->category = $category->id;
 	$course->coursedisplay = 0;
+	$course->legacyfiles = 1;
 	update_course($course);
 }
 
