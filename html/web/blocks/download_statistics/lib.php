@@ -5,7 +5,7 @@ function block_download_statistics_fields() {
 	
     $sql = "
 	SELECT df.id, df.dataid, df.name  FROM {data_fields} df
-	WHERE df.type='file'
+	WHERE df.name IN ('Fitxer','Fitxer SCORM')
 	AND df.dataid IN (
 		SELECT cm.instance FROM {course_modules} cm
 		WHERE df.dataid = cm.instance
