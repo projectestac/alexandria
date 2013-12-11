@@ -1,7 +1,7 @@
 <?php 
 
 function block_download_statistics_fields() {
-	global $CFG,$DB;
+    global $CFG,$DB;
 	
     $sql = "
 	SELECT df.id, df.dataid, df.name  FROM {data_fields} df
@@ -58,11 +58,26 @@ function get_data_records($limitfrom = 0,$limitnum = 0,$order = null, $direction
 			$sql .= "SELECT dc.content FROM {data_content} dc
 				WHERE dc.recordid = dr.id
 				AND dc.fieldid IN (
-					SELECT df.id FROm {data_fields} df
+					SELECT df.id FROM {data_fields} df
 					WHERE df.dataid = dr.dataid
 					AND df.name = 'Nom'
 				)
 			";
+			break;
+		case 'database':
+			$sql .= "SELECT d.name FROM {data} d
+				WHERE d.id = dr.dataid
+			";
+			break;
+		case 'downloads':	
+			$sql .= "SELECT CAST(dc.content4 as UNSIGNED) FROM {data_content} dc
+                                WHERE dc.recordid = dr.id
+                                AND dc.fieldid IN (
+                                        SELECT df.id FROM {data_fields} df
+                                        WHERE df.dataid = dr.dataid
+                                        AND df.name IN ('Fitxer','Fitxer SCORM')
+                                )
+                        ";
 			break;
 	}
 
