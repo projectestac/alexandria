@@ -224,7 +224,7 @@ class data_field_file extends data_field_base {
                         	</div>';
 				$str .= '<div id="image" style="display: none;">
 					<br />
-					<img src="'.$OUTPUT->pix_url('t/hide').'" alt="Previsualitza" title="Previsualitza" />
+					<img src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" title="Previsualitza" />
 					 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
 				</div>';
 			} else {
