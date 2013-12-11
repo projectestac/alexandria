@@ -1,12 +1,12 @@
 //XTEC - ALEXANDRIA ************ FITXER AFEGIT
 //2010.09.01
 //2013.10.31 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-function show_preview_button(url,popup){
+function show_preview_button(url,icon,popup){
 	if (url!='') {
 		if (popup) {
-			document.writeln('<div id="previewButton"><img src="http://alexandria.xtec.cat/pix/i/hide.gif" alt="Previsualitza" title="Previsualitza" id="previewImg"/> <a id="show" name="presentacio" href="#presentacio" onclick="window.open( \''+url+'\')">Previsualitza el recurs</a></div>');
+			document.writeln('<div id="previewButton"><img src="'+icon+'" alt="Previsualitza" title="Previsualitza" id="previewImg"/> <a id="show" name="presentacio" href="#presentacio" onclick="window.open( \''+url+'\')">Previsualitza el recurs</a></div>');
 		} else {
-			document.writeln('<div id="previewButton"><img src="http://alexandria.xtec.cat/pix/i/hide.gif" alt="Previsualitza" title="Previsualitza" id="previewImg"/> <a id="show" name="presentacio" href="#presentacio" onclick="document.getElementById(\'image\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">Previsualitza el recurs</a></div>');
+			document.writeln('<div id="previewButton"><img src="'+icon+'" alt="Previsualitza" title="Previsualitza" id="previewImg"/> <a id="show" name="presentacio" href="#presentacio" onclick="document.getElementById(\'image\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">Previsualitza el recurs</a></div>');
 		} 
 	} else {
 		document.writeln('<b>Previsualització no disponible</b>');
