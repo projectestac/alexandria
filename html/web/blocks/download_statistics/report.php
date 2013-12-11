@@ -56,7 +56,7 @@ if ($num_pages > 1) {
 	        echo '<a href="'.$CFG->wwwroot.'/blocks/download_statistics/report.php?page='.$i.'">'.$i.'</a>&nbsp;&nbsp;';
 	    }
 	}
-	if(!$last && ($num_pages>11)) echo '...&nbsp;<a href="'.$CFG->wwwroot.'/blocks/download_statistics/reports.php?page='.($num_pages).'">'.($num_pages).'</a>';
+	if(!$last && ($num_pages>11)) echo '...&nbsp;<a href="'.$CFG->wwwroot.'/blocks/download_statistics/report.php?page='.($num_pages).'">'.($num_pages).'</a>';
 	echo '</div>';
 }
 
