@@ -50,6 +50,7 @@ class block_download_statistics extends block_list {
             }
             $content.="</ul>";
             $this->content->items[] = $content;
+	    $this->content->items[] = '<a href="'.$CFG->wwwroot.'/blocks/download_statistics/report.php">'.get_string('viewreport','block_download_statistics').'</a>';
             return $this->content;    
         }                  
     }

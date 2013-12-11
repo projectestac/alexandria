@@ -47,5 +47,52 @@ function block_download_statistics_fields() {
     return $fields;
 }
 
+function get_data_records($limitfrom = 0,$limitnum = 0,$order = null, $direction='ASC') {
+	global $DB;
+	
+	$sql = 'SELECT * FROM {data_records} dr';
+
+	$sql .= ' ORDER BY (';
+	switch($order) {
+		default: case 'name':
+			$sql .= "SELECT dc.content FROM {data_content} dc
+				WHERE dc.recordid = dr.id
+				AND dc.fieldid IN (
+					SELECT df.id FROm {data_fields} df
+					WHERE df.dataid = dr.dataid
+					AND df.name = 'Nom'
+				)
+			";
+			break;
+	}
+
+	$sql .= ') '.$direction;
+
+	if (!empty($limitnum)) 
+		$sql .= ' LIMIT '.$limitfrom.','.$limitnum;
+
+	$records = $DB->get_records_sql($sql);
+
+	$filefields = array('Fitxer','Fitxer SCORM');	
+
+	$items = array();
+	foreach($records as $record) {
+		$item = new stdClass();
+		$contents = $DB->get_records('data_content',array('recordid' => $record->id));
+		foreach($contents as $content) {
+			$field = $DB->get_field('data_fields','name',array('id' => $content->fieldid));
+			$item->$field = $content->content;
+			if (in_array($field,$filefields))
+				$item->downloads = $content->content4;
+		}
+		if (empty($item->downloads)) $item->downloads = 0;
+		$item->id = $record->id;
+		$item->dataid = $record->dataid;
+		$item->database = $DB->get_field('data','name',array('id' => $record->dataid));
+		$items[] = $item;
+	}	
+	return $items;
+}
+
 
 ?>
