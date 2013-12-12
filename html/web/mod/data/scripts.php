@@ -3,6 +3,7 @@
 include("../../config.php");
 
 
+if (!is_siteadmin($USER)) exit;
 if (empty($_GET["op"])) exit;
 
 
