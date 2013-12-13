@@ -31,19 +31,13 @@ $CFG->iseoi = 0;
 $CFG->isportal = 0;
 $CFG->langotherroot = dirname(__FILE__) . '/lang/';
 
-// There is no php closing tag in this file,
-// it is intentional because it prevents trailing whitespace problems!
-/*
-@ini_set('display_errors', '1'); // NOT FOR PRODUCTION SERVERS!
-$CFG->debug = 32767;         // DEBUG_DEVELOPER // NOT FOR PRODUCTION SERVERS!
-// for Moodle 2.0 - 2.2, use:  $CFG->debug = 38911;  
-$CFG->debugdisplay = true;   // NOT FOR PRODUCTION SERVERS!
-
-define('MDL_PERF', true);
-define('MDL_PERFDB', true);
-define('MDL_PERFTOLOG', true);
-define('MDL_PERFTOFOOT', true);
-*/
+//Mail information
+$CFG->apligestenv = 'INT';
+$CFG->apligestaplic = 'ALEXANDRI';
+$CFG->apligestlogpath = $CFG->dataroot.'/1/backupdata/log/mailsender.log';
+//$CFG->apligestmail = 1;
+//$CFG->apligestlog = 'true';
+//$CFG->apligestlogdebug = 'true';
 
 require_once(dirname(__FILE__) . '/local/agora/lib.php');
 require_once(dirname(__FILE__) . '/lib/setup.php');
