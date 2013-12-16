@@ -207,7 +207,7 @@ class data_field_file extends data_field_base {
 		$dwnldinfo = download_info($this->field->id, $recordid);
 		$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
 		if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-	        	$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
+			$src = $CFG->wwwroot.'/mod/data/download.php?rid='.$recordid;
 		} else {
 			$src = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
 		}

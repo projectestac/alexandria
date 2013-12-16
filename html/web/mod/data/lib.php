@@ -3696,16 +3696,17 @@ function data_display_downloads($data, $record){
     return (int)$DB->get_field('data_content', 'MAX(content4)', array('recordid' => $record->id));
 }
 
-function data_download_file($filename){
+function data_download_file($file){
+	$content = $file->get_content();
         @header("Pragma: public"); // required
         @header("Expires: 0");
         @header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         @header("Cache-Control: private",false); // required for certain browsers
         @header("Content-Type: application/x-forcedownload");
         @header("Content-Transfer-Encoding: binary");
-        @header("Content-Disposition: attachment; filename=\"".basename($filename)."\";" );
-        @header("Content-Length: ".filesize($filename));
-        readfile($filename);
+        @header("Content-Disposition: attachment; filename=\"".basename($file->get_filename())."\";" );
+        @header("Content-Length: ".strlen($content));
+        echo $content;
 }
 
 function download_info($fieldid, $recordid){

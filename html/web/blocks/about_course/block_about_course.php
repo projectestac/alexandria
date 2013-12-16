@@ -97,7 +97,7 @@ class block_about_course extends block_list {
 
 		if (!empty($file) && !$file->is_directory()) {
 			$filesize = block_about_course_formatBytes($file->get_filesize());
-			$url = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$file->get_contextid().'/'.$file->get_component().'/'.$file->get_filearea().'/'.$file->get_filename());
+			$url = $CFG->wwwroot.'/mod/data/download.php?rid='.$rid;
 			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
 			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
          		.get_string('download_course','block_about_course').'</a>';
