@@ -2,7 +2,7 @@
 //2010.09.01
 //2013.10.31 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 function show_preview_button(url,icon,popup){
-	if (url!='') {
+	if (IsURL(url)) {
 		if (popup) {
 			document.writeln('<div id="previewButton"><img src="'+icon+'" alt="Previsualitza" title="Previsualitza" id="previewImg"/> <a id="show" name="presentacio" href="#presentacio" onclick="window.open( \''+url+'\')">Previsualitza el recurs</a></div>');
 		} else {
@@ -13,6 +13,20 @@ function show_preview_button(url,icon,popup){
 	}
 }
 
+function IsURL(url) {
+    var strRegex = "^((https|http|ftp|rtsp|mms)?://)"
+        + "?(([0-9a-z_!~*'().&=+$%-]+: )?[0-9a-z_!~*'().&=+$%-]+@)?" //ftp的user@
+        + "(([0-9]{1,3}\.){3}[0-9]{1,3}" // IP形式的URL- 199.194.52.184
+        + "|" // 允许IP和DOMAIN（域名）
+        + "([0-9a-z_!~*'()-]+\.)*" // 域名- www.
+        + "([0-9a-z][0-9a-z-]{0,61})?[0-9a-z]\." // 二级域名
+        + "[a-z]{2,6})" // first level domain- .com or .museum
+        + "(:[0-9]{1,4})?" // 端口- :80
+        + "((/?)|" // a slash isn't required if there is no file name
+        + "(/[0-9a-z_!~*'().;?:@&=+$,%#-]+)+/?)$";
+     var re=new RegExp(strRegex);
+     return re.test(url);
+}
 
 function create_iframe_scorm_preview(url) {
 	if (document.getElementById('scorm_iframe_preview')) return;
