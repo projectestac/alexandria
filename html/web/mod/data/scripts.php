@@ -11,19 +11,6 @@ switch($_GET["op"]) {
 	case "llistar_cursos_orfes":
 		print_object(get_orphan_courses());
 		break;
-	case "borrar_cursos_orfes":
-		$courses = get_orphan_courses();		
-		print_object($courses);
-		foreach($courses as $courseid) {
-			delete_course($courseid);
-		}
-		break;
-	case "desbloquejar_backups":
-		echo "desbloquejem backups....";
-		set_config('backup_auto_running', '0', 'backup');
-		echo "Fet.";
-		
-		break;
 }
 exit;
 function get_orphan_courses() {
