@@ -5,7 +5,8 @@ development home at https://projectes.lafarga.cat/projects/alexandria/
 
 Changes in progress
 ---------------------------------------------------------------------------------------
-
+- Fixed bug that prevented database record edit
+- Fixed bug when creating/updating a record that made the shortname to not be saved in the database
 
 Changes 13.12.13
 ---------------------------------------------------------------------------------------

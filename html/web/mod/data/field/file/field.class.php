@@ -95,9 +95,11 @@ class data_field_file extends data_field_base {
         //$PAGE->requires->js_init_call('M.data_filepicker.init', array($fp->options), true, $module);
 	// ***** CODI MODIFICAT
 	if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid)) && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid)) && $this->field->name == $CFG->data_filefieldid) {
-		$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid));
-		$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content);
-		$html .= '<a href="'.file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename()).'">'.$file->get_filename().'</a>';
+		$file = $this->get_file($recordid);
+		if ($file)
+			$html .= '<a href="'.$CFG->wwwroot.'/mod/data/download.php?rid='.$recordid.'">'.$file->get_filename().'</a>';
+		else
+			$html .= 'Fitxer no disponible'; 
 	} else {
 		// database entry label
         	$html .= '<div title="'.s($this->field->description).'">';

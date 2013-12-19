@@ -707,7 +707,6 @@ function data_get_field_new($type, $data) {
  */
 function data_get_field($field, $data, $cm=null) {
     global $CFG;
-
     if ($field) {
         require_once('field/'.$field->type.'/field.class.php');
         $newfield = 'data_field_'.$field->type;
@@ -3834,6 +3833,10 @@ function override_course_values($courseid, $recordid, $updateshortname = true) {
 			.'_'.str_pad($ccid,3,'0',STR_PAD_LEFT)
 			.'_1.0';
 	}
+	$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));
+	$field = $DB->get_record('data_fields',array('dataid' => $dataid, 'name' => $CFG->data_shortnamefieldid));
+	$shortname = data_get_field($field,$dataid);
+	$shortname->update_content($recordid,$course->shortname);
 	$course->summary = get_data_field_by_name($CFG->data_summaryfieldid,$recordid).'<br/>';
 	if ($creator = get_data_field_by_name($CFG->data_creatorfieldid,$recordid))
 		$course->summary .= '<br/><strong>'.get_string('creatorfield','mod_data').': </strong>'.$creator;
