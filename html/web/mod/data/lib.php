@@ -3718,6 +3718,8 @@ function download_info($fieldid, $recordid){
          }else{
              $values = array ("last" => date("d/m/Y, G:i" ,(int)$object->content3),
                                   "total" => $object->content4);
+	     if (empty($object->content3)) 
+		$values["last"] = "-";
          }
          return $values;
 }
