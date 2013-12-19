@@ -7,6 +7,7 @@ Changes in progress
 ---------------------------------------------------------------------------------------
 - Fixed bug that prevented database record edit
 - Fixed bug when creating/updating a record that made the shortname to not be saved in the database
+- Fixed incorrect presentation of file fields at data record view when the field was a common file.
 
 Changes 13.12.13
 ---------------------------------------------------------------------------------------

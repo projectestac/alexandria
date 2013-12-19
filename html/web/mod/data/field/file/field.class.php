@@ -205,6 +205,8 @@ class data_field_file extends data_field_base {
 	// CODI MODIFICAT
 	if (!empty($this->field->param4)) {
 		$str = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
+	} else if (!in_array($this->field->name,array('Fitxer','Fitxer SCORM'))) {
+		$str = '<a href="'.file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename()).'">'.$file->get_filename().'</a>';
 	} else {
 		$dwnldinfo = download_info($this->field->id, $recordid);
 		$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
