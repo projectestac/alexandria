@@ -1,12 +1,14 @@
 <?php
-//XTEC ************ FITXER AFEGIT
+//XTEC - ALEXANDRIA ************ FITXER AFEGIT
 //2010.09.01
+//2013.12.17 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 
 /**
  * Download this course
  *
  * @copyright &copy; 2009 Education Department of Catalonia
  * @author sara.arjona@gmail.com
+ * @author marc.espinosa.zamora@upcnet.es
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
