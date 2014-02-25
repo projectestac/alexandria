@@ -146,7 +146,7 @@ function report_coursequotas_addContextElemsToTree($categoryTree, $systemContext
             $dbRecord = $DB->get_record_select('context', "contextlevel='50' and path like '/$systemContextId/%' and depth='2'", null, 'ID, PATH, INSTANCEID');
 
             // Get context id of everything belonging to the site course
-            $path = $dbRecord->path;
+            $path = $dbRecord->path . '/';
             $courseId = $dbRecord->instanceid;
 
             // Calculate size of all the files inside the front page avoiding duplicates
@@ -181,7 +181,7 @@ function report_coursequotas_addContextElemsToTree($categoryTree, $systemContext
                 $sql = "SELECT sum(total) as total FROM (
                                SELECT DISTINCT f.contenthash, f.filesize as total
                                FROM {context} c, {files} f 
-                               WHERE f.contextid=c.id AND c.path like '" . $coursePath . "%'
+                               WHERE f.contextid=c.id AND c.path like '" . $coursePath . "/%'
                         )";
                 $courseSize = $DB->get_record_sql($sql, null);
 
@@ -390,6 +390,8 @@ function report_coursequotas_getTempTrashUsage() {
         $tempSize = explode('/', $tempSize);
         $tempSize = $tempSize[0]; // Size in kB
         $size['temp'] = report_coursequotas_formatSize($tempSize * 1024);
+    } else {
+        $size['temp'] = 0;
     }
 
     if (file_exists($CFG->dataroot . '/trashdir/')) {
@@ -397,6 +399,8 @@ function report_coursequotas_getTempTrashUsage() {
         $tempSize = explode('/', $tempSize);
         $tempSize = $tempSize[0]; // Size in kB
         $size['trashdir'] = report_coursequotas_formatSize($tempSize * 1024);
+    } else {
+        $size['trashdir'] = 0;
     }
 
     return $size;

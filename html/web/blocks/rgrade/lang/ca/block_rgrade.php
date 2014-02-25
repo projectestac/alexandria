@@ -9,5 +9,3 @@ $string['error_saving_grade'] = 'S\'ha produït un error i no s\'ha pogut salvar
 $string['alert_units_table'] = "Les dades que es visualitzen corresponen a les de les dues darreres unitats per a les quals hi ha hagut activitat. Per a seleccionar-ne una/es altra/es, cal usar el selector d'unitats.";
 $string['alert_units_table_hide'] = "No vull tornar a veure l'avís.";
 $string['alert_units_table_ok'] = 'Accepta';
-$string['rgrade:myaddinstance'] = 'Afegir instancia del bloc Qualificacions continguts remots a la pàgina del «meu Moodle»';
-$string['rgrade:addinstance'] = 'Afegir instancia del bloc Qualificacions continguts remots';

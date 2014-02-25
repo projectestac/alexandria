@@ -91,9 +91,3 @@ $string['keymanager_selectall'] = 'Select all';
 $string['keymanager_unselectall'] = 'Unselect all';
 $string['keymanager_messageunassing2'] = 'Are you sure you want to unassign the selected credential?';
 // *********** FI
-// *********** AFEGIT - Capabilities strings
-// 2013.11.19 @mespinosa
-$string['my_books:myaddinstance'] = 'Add My Books block instance to My Moodle';
-$string['my_books:addinstance'] = 'Add My Books block instance';
-// *********** FI
-?>

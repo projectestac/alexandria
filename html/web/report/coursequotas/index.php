@@ -85,22 +85,24 @@ if (!get_protected_agora() && is_rush_hour()) {
     // Get quota used in files in moodledata/temp/ and in moodledata/trashdir/
     $tempUsage = report_coursequotas_getTempTrashUsage();
 
+    // Format the information
     $e = new stdClass;
     $f = new stdClass;
     $e->figure = number_format($tempUsage['temp']['figure'], 1, ',', '.');
-    $e->unit = $tempUsage['temp']['unit'];   
+    $e->unit = $tempUsage['temp']['unit'];
     $f->figure = number_format($tempUsage['trashdir']['figure'], 1, ',', '.');
     $f->unit = $tempUsage['trashdir']['unit'];
 
+    $tempInfo = $trashInfo = '';
+    if (isset($e->figure) && !empty($e->figure)) {
+        $tempInfo = '<li>' . get_string('disk_consume_temp', 'report_coursequotas', $e) . '</li>';
+    }
+    if (isset($f->figure) && !empty($f->figure)) {
+        $trashInfo = '<li>' . get_string('disk_consume_trash', 'report_coursequotas', $f) . '</li>';
+    }
+
     // Content for first tab (general)
     if ($isAgora) {
-        $tempInfo = $trashInfo = '';
-        if (isset($e->figure) && !empty($e->figure)) {
-            $tempInfo = '<li>' . get_string('disk_consume_temp', 'report_coursequotas', $e) . '</li>';
-        }
-        if (isset($f->figure) && !empty($f->figure)) {
-            $trashInfo = '<li>' . get_string('disk_consume_trash', 'report_coursequotas', $f) . '</li>';
-        }
         $generalContent = '<h3 style="text-align:center;">' . get_string('total_description', 'report_coursequotas') . '</h3>
                             <p style="text-align:center; margin-bottom:20px;"><img src="graph.php?diskSpace=' . $diskSpace . '&diskConsume=' . $diskConsume . '" /></p>
                             <p style="text-align:center;">' . get_string('disk_consume_explain', 'report_coursequotas', $a) .
@@ -117,6 +119,8 @@ if (!get_protected_agora() && is_rush_hour()) {
                 '<ul style="margin:auto; width:400px; margin-bottom:20px;">' .
                 '<li>' . get_string('disk_consume_courses', 'report_coursequotas', $c) . '</li>' .
                 '<li>' . get_string('disk_consume_backups', 'report_coursequotas', $d) . '</li>' .
+                $tempInfo .
+                $trashInfo .
                 '</ul>' .
                 '</p>';
     }

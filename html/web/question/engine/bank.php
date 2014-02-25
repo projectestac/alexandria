@@ -380,14 +380,15 @@ abstract class question_bank {
 
         // The the positive grades in descending order.
         foreach ($rawfractions as $fraction) {
-            $percentage = (100 * $fraction) . '%';
+            $percentage = format_float(100 * $fraction, 5, true, true) . '%';
             self::$fractionoptions["$fraction"] = $percentage;
             self::$fractionoptionsfull["$fraction"] = $percentage;
         }
 
         // The the negative grades in descending order.
         foreach (array_reverse($rawfractions) as $fraction) {
-            self::$fractionoptionsfull['' . (-$fraction)] = (-100 * $fraction) . '%';
+            self::$fractionoptionsfull['' . (-$fraction)] =
+                    format_float(-100 * $fraction, 5, true, true) . '%';
         }
 
         self::$fractionoptionsfull['-1.0'] = '-100%';
@@ -434,8 +435,11 @@ class question_finder implements cache_data_source {
     /** @var question_finder the singleton instance of this class. */
     protected static $questionfinder = null;
 
-    /** @var cache the question definition cache. */
-    protected $cache = null;
+// XTEC ELIMINAT MDL-43511 do not cache the MUC cache in question code 
+//2014.02.05 @pferre22
+//    /** @var cache the question definition cache. */
+//    protected $cache = null;
+//************ FI
 
     /**
      * @return question_finder a question finder.
@@ -456,10 +460,15 @@ class question_finder implements cache_data_source {
      * @return get the question definition cache we are using.
      */
     protected function get_data_cache() {
-        if ($this->cache == null) {
-            $this->cache = cache::make('core', 'questiondata');
-        }
-        return $this->cache;
+// XTEC MODIFICAT MDL-43511 do not cache the MUC cache in question code 
+//2014.02.05 @pferre22
+//        if ($this->cache == null) {
+//            $this->cache = cache::make('core', 'questiondata');
+//        }
+//        return $this->cache;
+          // Do not double cache here because it may break cache resetting.
+          return cache::make('core', 'questiondata');
+//************ FI
     }
 
     /**

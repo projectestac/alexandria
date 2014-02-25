@@ -91,10 +91,3 @@ $string['keymanager_selectall'] = 'Selecciona-ho tot';
 $string['keymanager_unselectall'] = 'Desmarca-ho tot';
 $string['keymanager_messageunassing2'] = 'Esteu segur/a que voleu desassignar la credencial seleccionada?';
 // *********** FI
-// *********** AFEGIT - Capabilities strings
-// 2013.11.19 @mespinosa
-$string['my_books:myaddinstance'] = 'Afegir instancia del bloc My Books a la pàgina del «meu Moodle»';
-$string['my_books:addinstance'] = 'Afegir instancia del bloc My Books';
-// *********** FI
-
-?>

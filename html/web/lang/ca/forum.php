@@ -169,7 +169,7 @@ $string['forum:editanypost'] = 'Editar qualsevol missatge';
 $string['forum:exportdiscussion'] = 'Exportar el debat sencer';
 $string['forum:exportownpost'] = 'Exportar les pròpies contribucions';
 $string['forum:exportpost'] = 'Exportar les contribucions';
-$string['forumintro'] = 'Introducció al fòrum';
+$string['forumintro'] = 'Descripció';
 $string['forum:managesubscriptions'] = 'Gestionar les subscripcions';
 $string['forum:movediscussions'] = 'Traslladar els debats';
 $string['forumname'] = 'Nom del fòrum';
@@ -377,7 +377,7 @@ $string['subscribersto'] = 'Subscriptors de \'{$a}\'';
 $string['subscribestart'] = 'Envia\'m còpia dels missatges d\'aquest fòrum per correu electrònic';
 $string['subscribestop'] = 'No vull rebre còpies per correu dels missatges d\'aquest fòrum';
 $string['subscription'] = 'Subscripció';
-$string['subscriptionauto'] = 'Subscripció automàtica (l\'usuari la podrà canceŀlar)';
+$string['subscriptionauto'] = 'Subscripció inicial (l\'usuari la podrà canceŀlar)';
 $string['subscriptiondisabled'] = 'No es permet la subscripció';
 $string['subscriptionforced'] = 'Subscripció obligatòria';
 $string['subscription_help'] = 'La subscripció a un fòrum significa que la persona rebrà còpies per correu electrònic dels missatges del fòrum. Normalment la gent pot triar si vol subscriure\'s a un fòrum o no. A vegades, la subscripció a un fòrum pot ser obligatòria, i tots els membres del curs rebran còpies dels missatges al seu correu electrònic.';
@@ -401,15 +401,12 @@ $string['trackingoff'] = 'Inactiu';
 $string['trackingon'] = 'Actiu';
 $string['trackingoptional'] = 'Opcional';
 $string['trackingtype'] = 'Voleu fer el seguiment de missatges llegits en aquest fòrum?';
-$string['trackingtype_help'] = '<p>Si els fòrums tenen habilitada l\'opció de seguiment, els usuaris poden realitzar el seguiment dels missatges llegits i no llegits en el fòrum i en els debats. </p>
-
-<p>Aquest paràmetre admet tres possibilitats:</p>
+$string['trackingtype_help'] = '<p>Si s\'habilita aquesta opció, els usuaris poden realitzar el seguiment dels missatges llegits i no llegits en el fòrum i en els debats. Hi ha tres possibilitats:</p>
 <ul>
-<li>Opcional [per defecte]: els estudiants poden activar o desactivar el seguiment com i quan vulguin.</li>
-<li>Inactiu: el seguiment no està mai actiu.</li>
+<li>Opcional: els estudiants poden triar si activen o no el seguiment, mitjançant un enllaç en el bloc d\'administració.</li>
 <li>Actiu: el seguiment està sempre actiu.</li>
-
-</ul';
+<li>Inactiu: no es fa seguiment de missatges llegits i no llegits.</li>
+</ul>';
 $string['unread'] = 'No llegit';
 $string['unreadposts'] = 'Missatges no llegits';
 $string['unreadpostsnumber'] = '{$a} missatges no llegits';
