@@ -934,8 +934,12 @@ function scorm_pluginfile($course, $cm, $context, $filearea, $args, $forcedownlo
     if ($context->contextlevel != CONTEXT_MODULE) {
         return false;
     }
-
-    require_login($course, true, $cm);
+    // XTEC - ALEXANDRIA ******* MODIFICAT - Remove the course module from require_login so it doesn't crash with orphaned course scorms
+    // ***** CODI ORIGINAL
+    //require_login($course, true, $cm);
+    // ***** CODI MODIFICAT
+    require_login($course, true);
+    // ***** FI
 
     $lifetime = isset($CFG->filelifetime) ? $CFG->filelifetime : 86400;
 

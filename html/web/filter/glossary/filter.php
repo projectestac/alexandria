@@ -190,7 +190,14 @@ class filter_glossary extends moodle_text_filter {
                     $attributes = array(
                         'href' => $link,
                         'title'=> $title,
-                        'class'=> 'glossary autolink concept glossaryid'.$concept->glossaryid);
+            			//XTEC - ALEXANDRIA ***** MODIFICAT - Remove autolink class from tag. This way glossary links will work as a normal link
+            			// 2013.12.10 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+                        // ***** CODI ORIGINAL
+                        //'class'=> 'glossary autolink concept glossaryid'.$concept->glossaryid);
+                        // ***** CODI MODIFICAT
+                        'target' => '_blank',
+                        'class'=> 'glossary concept glossaryid'.$concept->glossaryid);
+                        // ***** FI
 
                     // this flag is optionally set by resource_pluginfile()
                     // if processing an embedded file use target to prevent getting nested Moodles
