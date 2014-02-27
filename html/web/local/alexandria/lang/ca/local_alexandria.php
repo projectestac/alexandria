@@ -1,4 +1,7 @@
 <?php
+$string['pluginname'] = 'Alexandria';
+$string['alexandria'] = 'Alexandria';
+
 //2011 - @fcasanel
 //2013.10.30 @author - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 $string['ispdipdf'] = 'És un PDF de previsualització de materials PDI?';

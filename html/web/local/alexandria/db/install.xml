@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="local/alexandria/db" VERSION="20120122" COMMENT="XMLDB file for Moodle local/alexandria"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd"
->
+<XMLDB PATH="local/alexandria/db" VERSION="20120122" COMMENT="XMLDB file for Moodle local/alexandria" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../lib/xmldb/xmldb.xsd">
   <TABLES>
     <TABLE NAME="data_abuse_reports" COMMENT="to data abuse reports">
       <FIELDS>
@@ -19,3 +16,4 @@
       </KEYS>
     </TABLE>
 </TABLES>
+</XMLDB>

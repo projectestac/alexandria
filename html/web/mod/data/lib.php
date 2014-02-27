@@ -22,7 +22,7 @@
  */
 
 //XTEC - ALEXANDRIA ************ AFEGIT - Functions to report an abuse of the content and show downloads
-require_once($CFG->dirroot.'/local/alexandria/datalib.php');
+require_once($CFG->dirroot.'/local/alexandria/data/datalib.php');
 //*************** FI
 
 // Some constants

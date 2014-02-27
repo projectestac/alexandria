@@ -1,4 +1,7 @@
 <?php
+$string['pluginname'] = 'Alexandria';
+$string['alexandria'] = 'Alexandria';
+
 //2011.05.12 @fcasanel
 //2013.11.25 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 
