@@ -56,7 +56,7 @@ class restore_data_activity_structure_step extends restore_activity_structure_st
         $data->course = $this->get_courseid();
 
         //XTEC - ALEXANDRIA ************** MODIFICAT - Les bases de dades importades sempre estan disponibles
-        //2011.02.03 @fcasanel
+        //2014.02.26 @pferre22
         $data->timeavailablefrom = '0';
         $data->timeavailableto = '0';
         $data->timeviewfrom = '0';
