@@ -13,7 +13,6 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package    moodlecore
@@ -902,6 +901,10 @@ abstract class restore_dbops {
                 continue;
             }
 
+            // set the best possible user
+            $mappeduser = self::get_backup_ids_record($restoreid, 'user', $file->userid);
+            $mappeduserid = !empty($mappeduser) ? $mappeduser->newitemid : $dfltuserid;
+
 			// XTEC AFEGIT MDL-37761 Improve backup/restore within Moodle (e.g. course and activity duplication)
 			//2013.12.09 @pferre22
             // The file record to restore.
@@ -920,11 +923,6 @@ abstract class restore_dbops {
                 'sortorder'   => $file->sortorder
             );
 			//************ FI
-
-
-            // set the best possible user
-            $mappeduser = self::get_backup_ids_record($restoreid, 'user', $file->userid);
-            $mappeduserid = !empty($mappeduser) ? $mappeduser->newitemid : $dfltuserid;
 
             // dir found (and not root one), let's create it
             if ($file->filename == '.') {
