@@ -3,7 +3,7 @@
 function data_abuse_report_button($recordid){
 	global $CFG;
 	$content = '<a href="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php?recordid='.$recordid.'">'.
-	get_string('reportabuse','data').'</a>';
+	get_string('reportabuse','local_alexandria').'</a>';
 	return $content;
 }
 
@@ -30,7 +30,7 @@ function download_info($fieldid, $recordid){
          $object = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid'=> $recordid));
 
          if (empty($object->content4)){
-             $values = array ("last" => get_string('data_never','data'),
+             $values = array ("last" => get_string('data_never','local_alexandria'),
                                   "total" => "0" );
          }else{
              $values = array ("last" => date("d/m/Y, G:i" ,(int)$object->content3),
