@@ -1217,7 +1217,7 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
 	    if (!$value && $template == 'singletemplate') {
 		    $filefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_filefieldid, 'dataid' => $field->data->id));
 		    if ($field->field->id == $filefieldid) {
-			    $value = '<div>'.get_string('fileunavailable','mod_data').'</div>';
+			    $value = '<div>'.get_string('fileunavailable','local_alexandria').'</div>';
 		    } else {
 			    $value = '<div class="dataEmptyField"></div>';
 		    }
