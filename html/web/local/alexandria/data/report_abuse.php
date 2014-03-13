@@ -28,7 +28,7 @@ if (! $cm = get_coursemodule_from_instance('data', $data->id, $course->id)) {
     error('Course Module ID was incorrect');
 }
 
-$title = get_string('reportabuse','data');
+$title = get_string('reportabuse','local_alexandria');
 
 $sql = "SELECT dc.content FROM ".$CFG->prefix."data_fields df, ".$CFG->prefix."data_content dc WHERE df.id=dc.fieldid AND df.name='Nom' AND df.dataid=".$data->id." AND dc.recordid=".$recordid;
 
@@ -50,7 +50,7 @@ echo $OUTPUT->heading($title);
 
 //  Require user to be logged in to view this page
 if((!isloggedin() || isguestuser())) {
-    echo $OUTPUT->confirm(get_string('reportabuse_noguestuseage', 'data').'<br /><br />'.get_string('liketologin'),$CFG->wwwroot.'/login/index.php', get_referer(false));
+    echo $OUTPUT->confirm(get_string('reportabuse_noguestuseage', 'local_alexandria').'<br /><br />'.get_string('liketologin'),$CFG->wwwroot.'/login/index.php', get_referer(false));
     echo $OUTPUT->footer();
     exit();
 }
@@ -61,7 +61,7 @@ if ($report){
 	// Create an entry in the abuse_reports table of the database
 	$abusetopic = optional_param( 'abusetopic','',PARAM_TEXT);
     $abusedescription = optional_param( 'abusedescription','',PARAM_TEXT);
-    if (empty($abusedescription)) $abusedescription = get_string('reportabuse_no_comments','data');
+    if (empty($abusedescription)) $abusedescription = get_string('reportabuse_no_comments','local_alexandria');
 	$content = new stdClass;
 	$content->recordid = $recordid;
 	$content->abusetopic = $abusetopic;
@@ -102,30 +102,30 @@ if ($report){
     // Send a copy of the generated mail to the content owner
     //echo "<br><br>RESOURCE OWNER...<br>";
     data_send_mail($recordid, $owneruser, $adminuser);
-    echo "<div style=\"text-align:center;\"><p><br>".get_string('reportabuse_intro','data',$CFG->wwwroot.'/mod/resource/view.php?id=20686')."<br><br>";
+    echo "<div style=\"text-align:center;\"><p><br>".get_string('reportabuse_intro','local_alexandria',$CFG->wwwroot.'/mod/resource/view.php?id=20686')."<br><br>";
     echo "<a href=\"view.php?d=".$record->dataid."&rid=".$rid."\">".get_string('continue')."</a><br><br></p></div>";
 } else{
     echo '<script>';
-    echo 'function checkAbuseReportForm(form){var selectedtopic = -1; var i=0; while (selectedtopic<0 && i<form.abusetopic.length){if (form.abusetopic[i].checked) selectedtopic=i; i++;};if (selectedtopic < 0 || (form.abusetopic[4].checked && form.abusedescription.value==\'\') ){alert(\''.get_string('reportabuse_mandatory','data').'\');return false;} return true;}';
+    echo 'function checkAbuseReportForm(form){var selectedtopic = -1; var i=0; while (selectedtopic<0 && i<form.abusetopic.length){if (form.abusetopic[i].checked) selectedtopic=i; i++;};if (selectedtopic < 0 || (form.abusetopic[4].checked && form.abusedescription.value==\'\') ){alert(\''.get_string('reportabuse_mandatory','local_alexandria').'\');return false;} return true;}';
     echo '</script>';
     // now output the form
     echo '<div ><form id="reportabuseform" name="form" method="post" action="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php">
     	<input name="recordid" type="hidden" value="'.$recordid.'" />';
 
-        echo '<b>'.get_string('reportabuse_select','data').' *</b><br><br>';
+        echo '<b>'.get_string('reportabuse_select','local_alexandria').' *</b><br><br>';
 
-        echo '<input type="radio" name="abusetopic" value="copyrights">'.get_string('reportabuse_copyrights','data').'<br>';
-        echo '<input type="radio" name="abusetopic" value="nudity">'.get_string('reportabuse_nudity','data').'<br>';
-        echo '<input type="radio" name="abusetopic" value="other">'.get_string('reportabuse_other','data').'<br>';
+        echo '<input type="radio" name="abusetopic" value="copyrights">'.get_string('reportabuse_copyrights','local_alexandria').'<br>';
+        echo '<input type="radio" name="abusetopic" value="nudity">'.get_string('reportabuse_nudity','local_alexandria').'<br>';
+        echo '<input type="radio" name="abusetopic" value="other">'.get_string('reportabuse_other','local_alexandria').'<br>';
 
     //Please add comments to help us understand your report. Comments are required for this option.
 
-        echo '<br><br>'.get_string('reportabuse_comments','data').'<br>';
+        echo '<br><br>'.get_string('reportabuse_comments','local_alexandria').'<br>';
         echo '<textarea name="abusedescription" cols="70" rows="5"></textarea><br>';
 
     	echo '<p>';
-        echo ' <input type="submit" name="report" value="'.get_string('reportabuse_submit','data').'" onclick="return checkAbuseReportForm(this.form);"/>&nbsp;&nbsp;&nbsp;';
-        echo ' <input type="button" name="cancel" value="'.get_string('reportabuse_cancel','data').'" onclick="history.back()"/>';
+        echo ' <input type="submit" name="report" value="'.get_string('reportabuse_submit','local_alexandria').'" onclick="return checkAbuseReportForm(this.form);"/>&nbsp;&nbsp;&nbsp;';
+        echo ' <input type="button" name="cancel" value="'.get_string('reportabuse_cancel','local_alexandria').'" onclick="history.back()"/>';
         echo '</p>';
 
     echo '</form></div></div>';
@@ -147,10 +147,10 @@ function data_send_mail($recordid, $user, $fromuser){
     $abusetopic = optional_param( 'abusetopic','',PARAM_TEXT);
     $abusedescription = optional_param( 'abusedescription','',PARAM_TEXT);
     if ($abusetopic)
-	$info->abuse = get_string('reportabuse_'.$abusetopic,'data').($abusedescription!=''?" - ".$abusedescription:"");
+	$info->abuse = get_string('reportabuse_'.$abusetopic,'local_alexandria').($abusedescription!=''?" - ".$abusedescription:"");
     else
-	$info->abuse = get_string('reportabuse_no_topic','data');
-    $postsubject = get_string('reportabuse_mailsubject', 'data', $info);
+	$info->abuse = get_string('reportabuse_no_topic','local_alexandria');
+    $postsubject = get_string('reportabuse_mailsubject', 'local_alexandria', $info);
     $posttext = data_email_receivers_text($info, 'text', $fromuser);
     $posthtml = ($user->mailformat == 1)?data_email_receivers_text($info, 'html', $fromuser): '';
     //echo "<br>Sending email to ".$user->username." from ".$fromuser->username."   ";//." with the subject '$postsubject' and the text '$posttext'";

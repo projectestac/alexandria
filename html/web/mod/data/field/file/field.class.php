@@ -167,23 +167,11 @@ class data_field_file extends data_field_base {
 	    //}
 		// return $file;
 		// ******* CODI MODIFICAT
-		global $CFG;
-		if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-			$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
-			$courseid = $DB->get_field('data_content','content',array('fieldid' => $coursefieldid, 'recordid' => $recordid));
-			if (!$courseid) return null;
-			$files = $fs->get_area_files(context_course::instance($courseid)->id, 'backup', 'automated', false, 'timecreated DESC');
-			foreach($files as $file) {
-		    	    if (!$file->is_directory())
-				return $file;
-		    	}
-		} else {
-			if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
-			        return $file;
-		    	}
-		}
+        if (!$file = alexandria_get_file($recordid, $this->field->id)) {
+            return null;
+        }
+        return $file;
 		// ******** FI
-        return null;
     }
 
     function display_browse_field($recordid, $template) {
@@ -200,56 +188,47 @@ class data_field_file extends data_field_base {
         if (!$file = $this->get_file($recordid, $content)) {
             return '';
         }
+
+        $name   = empty($content->content1) ? $file->get_filename() : $content->content1;
+        $src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
+        $width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
+        $height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
         //XTEC - ALEXANDRIA ************ MODIFICAT - If it's a preview only return the file link
         // CODI ORIGINAL
-        //$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
-        //$src    = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
-        //$width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
-        //$height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
         //$str = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;'.
         //       '<a href="'.$src.'" >'.s($name).'</a>';
         // CODI MODIFICAT
-        if (!empty($this->field->param4)) {
-            $str = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
-        } else if (!in_array($this->field->name,array('Fitxer','Fitxer SCORM'))) {
-        	$str = '<a href="'.file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename()).'">'.$file->get_filename().'</a>';
-        } else {
-        	$dwnldinfo = download_info($this->field->id, $recordid);
-        	$name   = empty($content->content1) ? $file->get_filename() : $content->content1;
-        	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-        		$src = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid;
-        	} else {
-        		$src = file_encode_url($CFG->wwwroot.'/pluginfile.php', '/'.$this->context->id.'/mod_data/content/'.$content->id.'/'.$file->get_filename());
-        	}
-            $width  = $this->field->param1 ? ' width  = "'.s($this->field->param1).'" ':' ';
-        	$height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
+        if(!empty($this->field->param4)){
+            $src = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id;
+            $str  = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;';
 
-        	$str  = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;';
+            $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
             $str .=  '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
-            $str .=  '<a href="'.$src.'" onclick="increase_counter('.$this->field->id.','.$recordid.')">'.s($name).'</a>';
-        	$str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
-        	if (!in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
-        		if (!empty($this->field->param5)) {
-        			$str .= '<div id="text" onclick="create_iframe_scorm_preview(\''.$CFG->wwwroot.'/local/alexadria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\');">
-        				<script>show_preview_button(\''.$CFG->wwwroot.'/local/alexadria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\',\''.$OUTPUT->pix_url('t/hide').'\',false);</script>
-                            	</div>';
-        			$str .= '<div id="image" style="display: none;">
-        				<br />
-        				<img src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" title="Previsualitza" />
-        				 <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-        			</div>';
-        		} else {
-        			$str .= '<div id="text">
-        				<script>show_preview_button(\'[[pdf]]\',\''.$OUTPUT->pix_url('t/hide').'\',false);</script>
-        			</div>';
-        			$str .= '<div id="image" style="display: none;">
-        				<iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe>
-        				<br/>
-        				<img title="Previsualitza" src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" />
-        			 	<a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-        			</div>';
-        		}
-        	}
+            $str .=  '<a href="'.$src.'" onclick="increase_counter('.$recordid.')">'.s($name).'</a>';
+            $str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
+            switch($this->field->param4){
+                case ALEXANDRIA_SCORM:
+                    $str .= '<div id="text" onclick="create_iframe_scorm_preview(\''.$CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\');">
+                        <script>show_preview_button(\''.$CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\',\''.$OUTPUT->pix_url('t/hide').'\',false);</script>
+                                </div>';
+                    $str .= '<div id="image" style="display: none;"><br />
+                        <img src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" title="Previsualitza" />
+                         <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
+                    </div>';
+                    break;
+                case ALEXANDRIA_PDI_PDF:
+                    $str .= '<div id="text"> <script>show_preview_button(\'[[pdf]]\',\''.$OUTPUT->pix_url('t/hide').'\',false);</script></div>';
+                    $str .= '<div id="image" style="display: none;">
+                        <iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe>
+                        <br/>
+                        <img title="Previsualitza" src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" />
+                        <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
+                    </div>';
+                    break;
+            }
+        } else {
+            $str = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;'.
+                    '<a href="'.$src.'" >'.s($name).'</a>';
         }
         //FI
         return $str;
@@ -416,7 +395,10 @@ class data_field_file extends data_field_base {
             }
             $approved = $DB->get_field('data_records','approved',array('id' => $recordid));
             if (!$fieldcontent->content || !$course = $DB->get_record('course',array('id' => $fieldcontent->content))) {
-                $courseid = restore_backup_file($file,null,$recordid);
+                //OLD
+                //$courseid = alexandria_restore_backup_file($file);
+                $courseid = alexandria_restore_course($file, $recordid);
+                if(!$courseid) throw new Exception(get_string('error_restoringcourse','local_alexandria'));
                 $fieldcontent->content = $courseid;
                 $fieldcontent->content3 = time();
                 $DB->update_record('data_content',$fieldcontent);

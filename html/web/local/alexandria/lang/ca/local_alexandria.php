@@ -24,6 +24,7 @@ $string['creatorfield'] = 'Autor/a';
 $string['fileunavailable'] = 'Fitxer no disponible en aquest moments';
 $string['recordmissingfield'] = 'Falta omplir un camp necessari: {$a}';
 
+
 $string['reports'] ='Informes';
 $string['pages'] ='Pàgines';
 $string['resource_reported'] ='Recurs afectat';
@@ -44,6 +45,8 @@ $string['urlfieldid'] = 'Camp de la URL';
 $string['licensefieldid'] = 'Camp de la llicència';
 $string['creationdatefieldid'] = 'Camp de la data de creació';
 $string['filefieldid'] = 'Camp del fitxer';
+$string['moodleversionfieldid'] ='Camp de la versió de Moodle';
+$string['configmoodleversionfieldid'] ='Camp de la base de dades que conté la versió de Moodle del fitxer';
 $string['configfilefieldid'] = 'Camp de la base de dades que conté el fitxer';
 $string['configfullnamefieldid'] = 'Camp de la base de dades que conté el nom complet';
 $string['configshortnamefieldid'] = 'Camp de la base de dades que conté el nomm curt';
@@ -57,6 +60,9 @@ $string['configcoursesdataid'] = 'Llista de base de dades que estractaran com a 
 $string['reportabuse_noguestuseage'] = 'Els usuaris invitats no tenen accès a aquesta pàgina.';
 $string['reportabuse_no_comments'] = 'Sense comentaris';
 $string['reportabuse_no_topic'] = 'Sense categoria';
+
+$string['show_course'] = 'Visualitza el curs';
+$string['nocourse'] = 'No hi ha un curs vàlid';
 
 //SCORM
 $string['show_index'] = "Mostra l\'índex >>";

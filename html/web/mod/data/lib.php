@@ -1208,22 +1208,14 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
     // Then we generate strings to replace for normal tags
         foreach ($fields as $field) {
             $patterns[]='[['.$field->field->name.']]';
-        //XTEC - ALEXANDRIA **************** MODIFICAT - If it's empty, we tag it
-        //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-	    // ***** CODI ORIGINAL
- 		//$replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
-	    // ***** CODI MODIFICAT
-	    $value = highlight($search, $field->display_browse_field($record->id, $template));
-	    if (!$value && $template == 'singletemplate') {
-		    $filefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_filefieldid, 'dataid' => $field->data->id));
-		    if ($field->field->id == $filefieldid) {
-			    $value = '<div>'.get_string('fileunavailable','local_alexandria').'</div>';
-		    } else {
-			    $value = '<div class="dataEmptyField"></div>';
-		    }
-	    }
-	    $replacement[] = $value;
-	    // ***** FI
+            //XTEC - ALEXANDRIA **************** MODIFICAT - If it's empty, we tag it
+            //2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    	    // ***** CODI ORIGINAL
+     		//$replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
+    	    // ***** CODI MODIFICAT
+    	    $value = highlight($search, $field->display_browse_field($record->id, $template));
+            $replacement[] = alexandria_get_replacement($value, $field->field->name, $template);
+    	    // ***** FI
         }
 
     // Replacing special tags (##Edit##, ##Delete##, ##More##)
@@ -1310,10 +1302,10 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
         //XTEC - ALEXANDRIA ************ AFEGIT - Added course ratings, downloads information and recordid
         //2013.10.29
         $patterns[]='##downloads##';
-        $replacement[] = data_display_downloads($data, $record);
+        $replacement[] = alexandria_get_downloads($record->id);
 
         $patterns[]='##abuse_report##';
-        $replacement[] = data_abuse_report_button($record->id);
+        $replacement[] = alexandria_abuse_report_button($record->id);
         //************ FI
 
         // actual replacement of the tags

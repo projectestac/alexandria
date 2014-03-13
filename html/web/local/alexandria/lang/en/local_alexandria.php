@@ -33,6 +33,8 @@ $string['urlfieldid'] = 'Database URL field';
 $string['licensefieldid'] = 'Database licence field';
 $string['creationdatefieldid'] = 'Database creation date field';
 $string['filefieldid'] = 'Database file field';
+$string['moodleversionfieldid'] = 'Database Moodle Version field';
+$string['configmoodleversionfieldid'] ='Field of the database containing the version of Moodle of the backup file';
 $string['configfilefieldid'] = 'Field of the database containing the file';
 $string['configfullnamefieldid'] = 'Field of the database containing the fullname';
 $string['configshortnamefieldid'] = 'Field of the database containing the shortname';
@@ -45,6 +47,7 @@ $string['configcreationdatefieldid'] = 'Field of the database containing the cre
 $string['configcoursesdataid'] = 'List of courses that should be handled as a course database.';
 $string['fileunavailable'] = 'File not available at this moment';
 $string['recordmissingfield'] = 'Missing necessary field: {$a}';
+$string['error_restoringcourse'] = 'Error restoring course';
 
 $string['abusereports'] = 'Reports about inappropiate content';
 $string['reports'] ='Reports';
@@ -57,6 +60,15 @@ $string['report_date'] ='Date';
 $string['reportabuse_noguestuseage'] = 'Guests are not allowed to report.';
 $string['reportabuse_no_comments'] = 'No comments';
 $string['reportabuse_no_topic'] = 'No topic';
+
+$string['show_course'] = 'Show course';
+$string['nocourse'] = 'No course';
+
+$string['filetype'] = 'File Type';
+$string['otherfile'] = 'Other';
+$string['pdipdffile'] = 'PDI PDF File';
+$string['scormfile'] = 'SCORM File';
+$string['coursebackupfile'] = 'Course Backup File';
 
 //SCORM
 $string['show_index'] = 'Show index >>';

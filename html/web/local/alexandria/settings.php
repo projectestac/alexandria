@@ -1,7 +1,7 @@
 <?php
 
 defined('MOODLE_INTERNAL') || die;
-if (isset($ADMIN) && $ADMIN->fulltree) {
+//if (isset($ADMIN) && $ADMIN->fulltree) {
       $hassiteconfig = has_capability('moodle/site:config', context_system::instance());
       if ($hassiteconfig) {
             $settings = new admin_settingpage('local_alexandria', get_string('alexandria','local_alexandria'));
@@ -37,5 +37,8 @@ if (isset($ADMIN) && $ADMIN->fulltree) {
 
             $settings->add(new admin_setting_configtext('data_creationdatefieldid', get_string('creationdatefieldid', 'local_alexandria'),
                                get_string('configcreationdatefieldid', 'local_alexandria'), 'Data de creació', PARAM_TEXT));
+
+            $settings->add(new admin_setting_configtext('data_moodleversionfieldid', get_string('moodleversionfieldid', 'local_alexandria'),
+                               get_string('configmoodleversionfieldid', 'local_alexandria'), 'Versió de Moodle', PARAM_TEXT));
       }
-}
+//}

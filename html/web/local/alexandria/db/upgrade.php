@@ -106,6 +106,24 @@ function xmldb_local_alexandria_upgrade($oldversion) {
 		upgrade_plugin_savepoint(true, 2014022400, 'local', 'alexandria');
     }
 
+    if ($oldversion < 2014031300) {
+    	require_once($CFG->dirroot.'/local/alexandria/data/datalib.php');
+    	$file_fields = $DB->get_records('data_fields', array('type'=>'file'));
+    	foreach($file_fields as $file_field) {
+    		if(!empty($file_field->param4)){
+				$file_field->param4 = ALEXANDRIA_PDI_PDF;
+				$file_field->param5 = '';
+				$DB->update_record('data_fields',$file_field);
+    		} else if(!empty($file_field->param5)){
+    			$file_field->param4 = ALEXANDRIA_SCORM;
+				$file_field->param5 = '';
+				$DB->update_record('data_fields',$file_field);
+    		}
+    	}
+
+		upgrade_plugin_savepoint(true, 2014031300, 'local', 'alexandria');
+    }
+
     return true;
 }
 

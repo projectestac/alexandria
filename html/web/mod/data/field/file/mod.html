@@ -23,24 +23,16 @@
 	2013.10.30 @mespinosa
 	-->
     <tr>
-        <td class="c0"><label for="param4"><?php echo get_string('ispdipdf', 'local_alexandria'); ?></label></td>
+        <td class="c0"><label for="param4"><?php echo get_string('filetype', 'local_alexandria'); ?></label></td>
         <td class="c1">
             <?php
-		      echo html_writer::select(array(1 => 'Yes', 0 => 'No'),'param4',$this->field->param4,false);
-            ?>
-        </td>
-    </tr>
-    <!-- ***************** FI -->
-
-    <!-- XTEC - ALEXANDRIA **************** AFEGIT - If the file is a SCORM save it in the SCORM table
-        2011.05.23 @fcasanel
-	2013.10.30 @mespinosa
-	-->
-    <tr>
-        <td class="c0"><label for="param5"><?php echo get_string('isscormfile', 'local_alexandria'); ?></label></td>
-        <td class="c1">
-            <?php
-		      echo html_writer::select(array(1 => 'Yes', 0 => 'No'),'param5',$this->field->param5,false);
+                $filetypes = array(
+                        ALEXANDRIA_OTHER => get_string('otherfile', 'local_alexandria'),
+                        ALEXANDRIA_PDI_PDF => get_string('pdipdffile', 'local_alexandria'),
+                        ALEXANDRIA_SCORM => get_string('scormfile', 'local_alexandria'),
+                        ALEXANDRIA_COURSE_BACKUP => get_string('coursebackupfile', 'local_alexandria')
+                    );
+                echo html_writer::select($filetypes,'param4',$this->field->param4,false);
             ?>
         </td>
     </tr>

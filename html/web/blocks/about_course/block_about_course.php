@@ -34,22 +34,20 @@ class block_about_course extends block_list {
         $this->content->icons = array();
 
         $rid = $DB->get_field_sql('SELECT recordid FROM {data_content} WHERE content = '.$COURSE->id.' AND fieldid IN (
-		SELECT id FROM {data_fields}
-		WHERE  name = \''.$CFG->data_coursefieldid.'\'
-	)');
-	if (!$rid) return $this->content;
+    	  SELECT id FROM {data_fields} WHERE  name = \''.$CFG->data_coursefieldid.'\')');
+    	if (!$rid) return $this->content;
 
-	$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
-	$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (
-	      SELECT id FROM {data_fields}
-              WHERE  name = \''.$CFG->data_creatorfieldid.'\'
-	)');
-	$license = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (
-	      SELECT id FROM {data_fields}
-              WHERE  name = \''.$CFG->data_licensefieldid.'\'
-	)');
-	$filefieldid = $DB->get_field('data_fields','id',array('dataid' => $dataid, 'name' => $CFG->data_filefieldid));
-	$content = $DB->get_record('data_content', array('recordid' => $rid, 'fieldid' => $filefieldid));
+    	$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
+    	$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (
+    	      SELECT id FROM {data_fields}
+                  WHERE  name = \''.$CFG->data_creatorfieldid.'\'
+    	)');
+    	$license = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (
+    	      SELECT id FROM {data_fields}
+                  WHERE  name = \''.$CFG->data_licensefieldid.'\'
+    	)');
+    	$filefieldid = $DB->get_field('data_fields','id',array('dataid' => $dataid, 'name' => $CFG->data_filefieldid));
+    	$content = $DB->get_record('data_content', array('recordid' => $rid, 'fieldid' => $filefieldid));
 
         // License
         $this->content->icons[] = '';
@@ -90,37 +88,35 @@ class block_about_course extends block_list {
 		$contextid = context_course::instance($COURSE->id)->id;
 		$fs = get_file_storage();
 		$files = $fs->get_area_files($contextid, 'backup', 'automated', false, 'timecreated DESC');
-                foreach($files as $file) {
-                    if (!$file->is_directory())
-                        break;
-                }
+        foreach($files as $file) {
+            if (!$file->is_directory())
+                break;
+        }
 
 		if (!empty($file) && !$file->is_directory()) {
 			$filesize = block_about_course_formatBytes($file->get_filesize());
-			$url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$rid;
+            $counter = alexandria_get_downloads($rid, $filefieldid);
+			$url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$rid.'&fid='.$filefieldid;
 			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
-			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$filefieldid.','.$rid.');">'
-         		.get_string('download_course','block_about_course').'</a>';
+			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$rid.','.$filefieldid.');">'.get_string('download_course','block_about_course').'</a>';
 			$this->content->icons[] = '';
-			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - <span id="download_counter">'.(int)$content->content4.'</span> descàrregues)</p>'.
+			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - <span id="download_counter">'.(int)$counter.'</span> descàrregues)</p>'.
 			'<script>
-				function increase_counter(fieldid, recordid){
+				function increase_counter(recordid){
 					var xhReq = new XMLHttpRequest();
-			        	xhReq.open("GET", M.cfg.wwwroot + "/local/alexandria/data/counter.php?fieldid="+fieldid+"&recordid="+recordid, false);
-				        xhReq.send(null);
-					var serverResponse = xhReq.responseText;
-				        document.getElementById(\'download_counter\').innerHTML=serverResponse;
+		        	xhReq.open("GET", M.cfg.wwwroot + "/local/alexandria/data/counter.php?recordid="+recordid, false);
+			        xhReq.send(null);
+				    var serverResponse = xhReq.responseText;
+			        document.getElementById(\'download_counter\').innerHTML=serverResponse;
 				}
 			</script>';
 		}
 	}
 
         $this->content->footer = '<br/><a style = "font-size: 11px;" href="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php?recordid='.$rid.'">'.
-        get_string('reportabuse','data').'</a>';
+        get_string('reportabuse','local_alexandria').'</a>';
         return $this->content;
 
     }
 
 }
-
-?>

@@ -7,13 +7,9 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
-include_once('../../../config.php');
-include_once($CFG->wwwroot.'/mod/data/lib.php');
+require_once('../../../config.php');
+require_once('datalib.php');
 
-$fieldid = required_param( 'fieldid', PARAM_INT );
 $recordid = required_param( 'recordid', PARAM_INT );
-
-if (strrpos($_SERVER['HTTP_REFERER'], $CFG->wwwroot)!==FALSE){
-	echo data_update_downloadings($fieldid, $recordid);
-}
-
+$fid = required_param( 'fid', PARAM_INT );
+echo alexandria_get_downloads($recordid, $fid) + 1;
