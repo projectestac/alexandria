@@ -50,7 +50,7 @@ function block_download_statistics_fields() {
 function get_data_records($limitfrom = 0,$limitnum = 0,$order = null, $direction='ASC') {
 	global $DB;
 
-	$sql = 'SELECT * FROM {data_records} dr';
+	$sql = 'SELECT id, dataid FROM {data_records} dr';
 
 	$sql .= ' ORDER BY (';
 	switch($order) {
@@ -94,13 +94,13 @@ function get_data_records($limitfrom = 0,$limitnum = 0,$order = null, $direction
 	foreach($records as $record) {
 		$item = new stdClass();
 		$contents = $DB->get_records('data_content',array('recordid' => $record->id));
+		$item->downloads = 0;
 		foreach($contents as $content) {
 			$field = $DB->get_field('data_fields','name',array('id' => $content->fieldid));
 			$item->$field = $content->content;
 			if (in_array($field,$filefields))
-				$item->downloads = $content->content4;
+				$item->downloads += (int)$content->content4;
 		}
-		if (empty($item->downloads)) $item->downloads = 0;
 		$item->id = $record->id;
 		$item->dataid = $record->dataid;
 		$item->database = $DB->get_field('data','name',array('id' => $record->dataid));
