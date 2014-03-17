@@ -82,39 +82,25 @@ class block_about_course extends block_list {
         $this->content->items[] = '<a href="'.$CFG->wwwroot.'/mod/data/view.php?d='.$dataid.'&mode=single&rid='.$rid.'" >'
          .get_string('metainfo','block_about_course').'</a>';
 
-	$module = $DB->get_field('modules','id',array('name' => 'data'));
-	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => $module));
-	if ($cmid) {
-		$contextid = context_course::instance($COURSE->id)->id;
-		$fs = get_file_storage();
-		$files = $fs->get_area_files($contextid, 'backup', 'automated', false, 'timecreated DESC');
-        foreach($files as $file) {
-            if (!$file->is_directory())
-                break;
-        }
+    	$module = $DB->get_field('modules','id',array('name' => 'data'));
+    	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => $module));
+    	if ($cmid) {
+            $file = alexandria_get_course_file($COURSE->id);
 
-		if (!empty($file) && !$file->is_directory()) {
-			$filesize = block_about_course_formatBytes($file->get_filesize());
-            $counter = alexandria_get_downloads($rid, $filefieldid);
-			$url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$rid.'&fid='.$filefieldid;
-			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
-			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$rid.','.$filefieldid.');">'.get_string('download_course','block_about_course').'</a>';
-			$this->content->icons[] = '';
-			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - <span id="download_counter">'.(int)$counter.'</span> descàrregues)</p>'.
-			'<script>
-				function increase_counter(recordid){
-					var xhReq = new XMLHttpRequest();
-		        	xhReq.open("GET", M.cfg.wwwroot + "/local/alexandria/data/counter.php?recordid="+recordid, false);
-			        xhReq.send(null);
-				    var serverResponse = xhReq.responseText;
-			        document.getElementById(\'download_counter\').innerHTML=serverResponse;
-				}
-			</script>';
-		}
-	}
+    		if (!empty($file)) {
+    			$filesize = block_about_course_formatBytes($file->get_filesize());
+                $counter = alexandria_get_downloads($rid, $filefieldid);
+    			$url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$rid.'&fid='.$filefieldid;
+    			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
+    			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$rid.','.$filefieldid.');">'.get_string('download_course','block_about_course').'</a>';
+    			$this->content->icons[] = '';
+    			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - <span id="download_counter">'.$counter.'</span> descàrregues)</p>'.
+                                '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
+    		}
+    	}
 
         $this->content->footer = '<br/><a style = "font-size: 11px;" href="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php?recordid='.$rid.'">'.
-        get_string('reportabuse','local_alexandria').'</a>';
+                        get_string('reportabuse','local_alexandria').'</a>';
         return $this->content;
 
     }

@@ -37,14 +37,17 @@ function create_iframe_scorm_preview(url) {
                 node.insertBefore(ifrm,node.firstChild);
 }
 
-function increase_counter(recordid){
+function increase_counter(recordid, fid){
 	 var xhReq = new XMLHttpRequest();
-	 xhReq.open("GET", M.cfg.wwwroot + "/local/alexandria/data/counter.php?recordid="+recordid, false);
+	 xhReq.open("GET", M.cfg.wwwroot + "/local/alexandria/data/counter.php?recordid="+recordid+"&fid="+fid, false);
 	 xhReq.send(null);
 	 var serverResponse = xhReq.responseText;
-	 document.getElementById('downloads').innerHTML = serverResponse;
-	 var now = new Date();
-	 document.getElementById('lastdownload').innerHTML = now.format('d/m/Y, H:i');
+	 document.getElementById('download_counter').innerHTML = serverResponse;
+	 var last = document.getElementById('download_last');
+	 if(last){
+	 	var now = new Date();
+	 	last.innerHTML = now.format('d/m/Y, H:i');
+	 }
 }
 
 //Simulates PHP's date function

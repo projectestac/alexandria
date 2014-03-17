@@ -66,7 +66,7 @@ if (!empty($id)) {
     print_error('missingparameter');
 }
 
-$url = new moodle_url('/local/alexadria/scorm/preview.php', array('scoid'=>$scoid, 'cm'=>$cm->id));
+$url = new moodle_url('/local/alexandria/scorm/preview.php', array('scoid'=>$scoid, 'cm'=>$cm->id));
 if ($mode !== 'normal') {
     $url->param('mode', $mode);
 }

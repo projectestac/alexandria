@@ -204,8 +204,8 @@ class data_field_file extends data_field_base {
 
             $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
             $str .=  '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
-            $str .=  '<a href="'.$src.'" onclick="increase_counter('.$recordid.')">'.s($name).'</a>';
-            $str .= '<p><strong>Última descàrrega:</strong> <span id="lastdownload">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="downloads">'.$dwnldinfo['total'].'</span></p>';
+            $str .=  '<a href="'.$src.'" onclick="increase_counter('.$recordid.','.$this->field->id.')">'.s($name).'</a>';
+            $str .= '<p><strong>Última descàrrega:</strong> <span id="download_last">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="download_counter">'.$dwnldinfo['total'].'</span></p>';
             switch($this->field->param4){
                 case ALEXANDRIA_SCORM:
                     $str .= '<div id="text" onclick="create_iframe_scorm_preview(\''.$CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\');">
@@ -252,7 +252,7 @@ class data_field_file extends data_field_base {
         //XTEC - ALEXANDRIA ************ AFEGIT - If it's a SCORM file insert as a new scorm object
         //2011.05.23 @fcasanel
         //2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-        if ($this->field->param5){
+        if ($this->field->param4 == ALEXANDRIA_SCORM){
             require_once($CFG->dirroot.'/mod/scorm/lib.php');
             require_once($CFG->dirroot.'/course/lib.php');
 
@@ -313,7 +313,7 @@ class data_field_file extends data_field_base {
     	}
         // delete existing files
         $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
-        if ($this->field->param5 && !empty($oldscormcontext)) {
+        if ($this->field->param4 == ALEXANDRIA_SCORM && !empty($oldscormcontext)) {
             $fs->delete_area_files($oldscormcontext->id, 'mod_scorm');
         }
 
@@ -323,7 +323,7 @@ class data_field_file extends data_field_base {
         if (count($files) >= 2) {
             foreach ($files as $draftfile) {
                 if (!$draftfile->is_directory()) {
-                    if ($this->field->param5) {
+                    if ($this->field->param4 == ALEXANDRIA_SCORM) {
                         $filename = explode('.',$draftfile->get_filename());
                         $extension = array_pop($filename);
                         $filename = implode('.',$filename).'_scorm.'.$extension;
@@ -338,7 +338,8 @@ class data_field_file extends data_field_base {
                         );
                         $fs->create_file_from_storedfile($file_record, $draftfile);
                     }
-                    if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+
+                    if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
                         $content->content = $draftfile->get_filename();
                     } else {
                     	$file_record = array(
@@ -359,7 +360,7 @@ class data_field_file extends data_field_base {
                 }
             }
         }
-    	if ($this->field->param5) {
+    	if ($this->field->param4 == ALEXANDRIA_SCORM) {
     		$scorm_id = scorm_add_instance($scorm_object);
 	        $cm = new stdClass();
         	$cm->id = $cmid;
@@ -372,7 +373,7 @@ class data_field_file extends data_field_base {
 
     	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-        if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+        if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
             if(empty($draftfile)) {
                 $this->delete_content($recordid);
                 $DB->delete_records('data_records', array('id' => $recordid));
@@ -440,7 +441,7 @@ class data_field_file extends data_field_base {
     // ******** CODI AFEGIT
     function delete_content($recordid = 0) {
     	global $DB,$CFG;
-    	if($this->field->param5){
+    	if($this->field->param4 == ALEXANDRIA_SCORM){
     		require_once $CFG->dirroot.'/mod/scorm/lib.php';
             $scorm_id = $DB->get_field('data_content','content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));
             $module_scorm_id = $DB->get_field('modules', 'id',array('name' => 'scorm'));
@@ -448,11 +449,12 @@ class data_field_file extends data_field_base {
             scorm_delete_instance($scorm_id);
             delete_course_module($cmid);
         }
-    	if ($CFG->data_filefieldid == $this->field->name && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid))) {
+    	if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
     		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
             $courseid = $DB->get_field('data_content','content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
-    		if (!empty($courseid))
+    		if (!empty($courseid)) {
                 delete_course($courseid,false);
+            }
     	}
      	parent::delete_content($recordid);
     }

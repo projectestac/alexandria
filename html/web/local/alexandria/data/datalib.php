@@ -51,16 +51,7 @@ function alexandria_get_file($recordid, $fieldid){
 			//Course from automated backup area
 			$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
 			$courseid = $DB->get_field('data_content','content',array('fieldid' => $coursefieldid, 'recordid' => $recordid));
-
- 			if (!$courseid) return null;
-			//Course from automated backup area
-			$files = $fs->get_area_files(context_course::instance($courseid)->id, 'backup', 'automated', false, 'timecreated DESC');
-			foreach($files as $file) {
-				if (!$file->is_directory()){
-			        return $file;
-				}
-			}
-			return null;
+			return alexandria_get_course_file($courseid);
 		} else {
 			// Get other files
             if (!$content = $DB->get_record('data_content', array('fieldid'=>$fieldid, 'recordid'=>$recordid))) {
@@ -69,6 +60,24 @@ function alexandria_get_file($recordid, $fieldid){
             $cm = get_coursemodule_from_instance('data', $dataid);
             $context = context_module::instance($cm->id);
 		    return $fs->get_file($context->id, 'mod_data', 'content', $content->id, '/', $content->content);
+		}
+	}
+	return null;
+}
+
+function alexandria_get_course_file($courseid){
+	global $CFG;
+	require_once($CFG->libdir.'/filelib.php');
+
+	if (!$courseid) return null;
+
+	$fs = get_file_storage();
+	$contextid = context_course::instance($courseid)->id;
+	//Course from automated backup area
+	$files = $fs->get_area_files($contextid, 'backup', 'automated', false, 'timecreated DESC');
+	foreach($files as $file) {
+		if (!$file->is_directory()){
+	        return $file;
 		}
 	}
 	return null;

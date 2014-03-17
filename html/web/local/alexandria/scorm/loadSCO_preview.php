@@ -31,7 +31,7 @@ if (!empty($id)) {
 } else {
     print_error('missingparameter');
 }
-$PAGE->set_url('/local/alexadria/scorm/loadSCO_preview.php', array('scoid'=>$scoid, 'id'=>$cm->id));
+$PAGE->set_url('/local/alexandria/scorm/loadSCO_preview.php', array('scoid'=>$scoid, 'id'=>$cm->id));
 
 //check if scorm closed
 $timenow = time();

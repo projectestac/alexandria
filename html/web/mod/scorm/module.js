@@ -569,7 +569,7 @@ M.mod_scorm.init_preview = function(Y,toc_title, window_name, launch_sco, scoes_
             if (window.API_1484_11) {
                 window.API_1484_11 = null;
             }
-            var url_prefix = M.cfg.wwwroot + '/local/alexadria/scorm/loadSCO_preview.php?';
+            var url_prefix = M.cfg.wwwroot + '/local/alexandria/scorm/loadSCO_preview.php?';
             var el_old_api = document.getElementById('scormapi123');
             if (el_old_api) {
                 el_old_api.parentNode.removeChild(el_old_api);
@@ -583,7 +583,7 @@ M.mod_scorm.init_preview = function(Y,toc_title, window_name, launch_sco, scoes_
                 el_scorm_api.setAttribute('type','text/javascript');
                 var pel_scorm_api = document.getElementById('scormapi-parent');
                 pel_scorm_api.appendChild(el_scorm_api);
-                var api_url = M.cfg.wwwroot + '/local/alexadria/scorm/loaddatamodel_preview.php?' + node.title;
+                var api_url = M.cfg.wwwroot + '/local/alexandria/scorm/loaddatamodel_preview.php?' + node.title;
                 document.getElementById('external-scormapi').src = api_url;
             }
 
