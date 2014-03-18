@@ -182,10 +182,30 @@ class data_field_file extends data_field_base {
         }
 
         if (empty($content->content)) {
+            if(!empty($this->field->param4)){
+                switch($this->field->param4){
+                    case ALEXANDRIA_SCORM:
+                    case ALEXANDRIA_COURSE_BACKUP:
+                    case ALEXANDRIA_PDI:
+                        return '<b>Error greu: No s\'ha trobat el fitxer</b>';
+                    case ALEXANDRIA_PDI_PDF:
+                        return '<b>Previsualització no disponible</b>';
+                }
+            }
             return '';
         }
 
         if (!$file = $this->get_file($recordid, $content)) {
+            if(!empty($this->field->param4)){
+                switch($this->field->param4){
+                    case ALEXANDRIA_SCORM:
+                    case ALEXANDRIA_COURSE_BACKUP:
+                    case ALEXANDRIA_PDI:
+                        return '<b>Error greu: No s\'ha trobat el fitxer</b>';
+                    case ALEXANDRIA_PDI_PDF:
+                        return '<b>Previsualització no disponible</b>';
+                }
+            }
             return '';
         }
 
@@ -199,32 +219,40 @@ class data_field_file extends data_field_base {
         //       '<a href="'.$src.'" >'.s($name).'</a>';
         // CODI MODIFICAT
         if(!empty($this->field->param4)){
-            $src = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id;
-            $str  = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;';
+            if($this->field->param4 == ALEXANDRIA_PDI_PDF){
+                $url = urlencode($src);
+                $icon = $OUTPUT->pix_icon('t/hide', 'Previsualitza', null, array('id'=>'previewImg', 'title'=>'Previsualitza'));
+                $str = '<div id="previewButton">'.$icon.'
+                        <a id="show" href="#show" onclick="document.getElementById(\'image\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">Previsualitza el recurs</a></div>';
+                $str .= '<div id="image" style="display: none;">
+                    <iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url='.$url.'&amp;embedded=true&amp;authuser=xtec.cat&amp;output=embed" frameborder="0"></iframe><br/>
+                    <img title="Previsualitza" src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" />
+                    <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
+                </div>';
+            } else {
+                $src = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id;
+                $str  = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;';
 
-            $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
-            $str .=  '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
-            $str .=  '<a href="'.$src.'" onclick="increase_counter('.$recordid.','.$this->field->id.')">'.s($name).'</a>';
-            $str .= '<p><strong>Última descàrrega:</strong> <span id="download_last">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="download_counter">'.$dwnldinfo['total'].'</span></p>';
-            switch($this->field->param4){
-                case ALEXANDRIA_SCORM:
-                    $str .= '<div id="text" onclick="create_iframe_scorm_preview(\''.$CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\');">
-                        <script>show_preview_button(\''.$CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup\',\''.$OUTPUT->pix_url('t/hide').'\',false);</script>
-                                </div>';
-                    $str .= '<div id="image" style="display: none;"><br />
-                        <img src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" title="Previsualitza" />
-                         <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-                    </div>';
-                    break;
-                case ALEXANDRIA_PDI_PDF:
-                    $str .= '<div id="text"> <script>show_preview_button(\'[[pdf]]\',\''.$OUTPUT->pix_url('t/hide').'\',false);</script></div>';
-                    $str .= '<div id="image" style="display: none;">
-                        <iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url=[[pdf]]&amp;embedded=true&amp;authuser=xtec.cat&amp;&amp;output=embed" frameborder="0"></iframe>
-                        <br/>
-                        <img title="Previsualitza" src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" />
-                        <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
-                    </div>';
-                    break;
+                $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
+                $str .=  '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
+                $str .=  '<a href="'.$src.'" onclick="increase_counter('.$recordid.','.$this->field->id.')">'.s($name).'</a>';
+                $str .= '<p><strong>Última descàrrega:</strong> <span id="download_last">'.$dwnldinfo['last'].'</span> · <strong>Descàrregues totals:</strong> <span id="download_counter">'.$dwnldinfo['total'].'</span></p>';
+                switch($this->field->param4){
+                    case ALEXANDRIA_SCORM:
+                        $url = $CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup';
+                        $icon = $OUTPUT->pix_icon('t/hide', 'Previsualitza', null, array('id'=>'previewImg', 'title'=>'Previsualitza'));
+                        $str .= '<div id="previewButton">'.$icon.'
+                                <a id="show" href="#show" onclick="document.getElementById(\'image\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">Previsualitza el recurs</a></div>';
+                        $str .= '<div id="image" style="display: none;">
+                             <iframe style="width: 95%; height: 500px;" src="'.$url.'" frameborder="0"></iframe><br/>
+                             <img src="'.$OUTPUT->pix_url('t/show').'" alt="Previsualitza" title="Previsualitza" />
+                             <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">Amaga la previsualització</a>
+                        </div>';
+                        break;
+                    case ALEXANDRIA_PDI:
+                        $str .= '[[pdf]]';
+                        break;
+                }
             }
         } else {
             $str = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;'.

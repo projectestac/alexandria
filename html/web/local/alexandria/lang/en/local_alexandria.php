@@ -66,7 +66,8 @@ $string['nocourse'] = 'No course';
 
 $string['filetype'] = 'File Type';
 $string['otherfile'] = 'Other';
-$string['pdipdffile'] = 'PDI PDF File';
+$string['pdipdffile'] = 'PDI PDF preview File';
+$string['pdifile'] = 'PDI File';
 $string['scormfile'] = 'SCORM File';
 $string['coursebackupfile'] = 'Course Backup File';
 
