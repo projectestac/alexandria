@@ -114,24 +114,23 @@ function alexandria_get_download_info($recordid, $fieldid){
 }
 
 function alexandria_get_replacement($value, $fieldname, $template){
-	global $CFG;
+	global $CFG, $DB;
 
     switch($fieldname){
         case $CFG->data_filefieldid:
             if (!$value && $template == 'singletemplate') {
-                $value = '<div>'.get_string('fileunavailable','local_alexandria').'</div>';
+                return '<div>'.get_string('fileunavailable','local_alexandria').'</div>';
             }
             break;
         case $CFG->data_coursefieldid:
-            if($value){
-                $value = '<a href="'.$CFG->wwwroot.'/course/view.php?id='.$value.'">'.get_string('show_course','local_alexandria').'</a>';
-            } else {
-            	$value = get_string('nocourse','local_alexandria');
+            if ($value && $DB->record_exists('course',array('id'=>$value))){
+                return '<a href="'.$CFG->wwwroot.'/course/view.php?id='.$value.'">'.get_string('show_course','local_alexandria').'</a>';
             }
+            return get_string('nocourse','local_alexandria');
             break;
     }
     if (!$value){
-        $value = '<div class="dataEmptyField"></div>';
+        return '<div class="dataEmptyField"></div>';
     }
     return $value;
 }
@@ -149,6 +148,19 @@ function alexandria_update_moodle_version($recordid, $version){
 	}
 }
 
+function alexandria_get_admin(){
+	global $DB;
+	$admin = $DB->get_record('user',array('username' => 'xtecadmin'));
+	if(!$admin){
+		$admin = $DB->get_record('user',array('username' => 'admin'));
+	}
+	if(!$admin){
+		$admin = $DB->get_record('user',array('id' => 2));
+	}
+	if($admin && is_siteadmin($admin)) return $admin;
+	return false;
+}
+
 //RESTORE FUNCTIONS
 
 function alexandria_restore_course($file, $recordid) {
@@ -160,8 +172,8 @@ function alexandria_restore_course($file, $recordid) {
 		throw new moodle_exception('filenotfound');
 	}
 
-	$useradminid = $DB->get_field('user','id',array('username' => 'admin'));
-	$userid = (isset($USER->id) && $USER->id != 0) ? $USER->id : ($useradminid ? $useradminid :2);
+	$useradmin = alexandria_get_admin();
+	$userid = (isset($USER->id) && $USER->id != 0) ? $USER->id : ($useradmin ? $useradmin->id : false);
 
 
 	$category = alexandria_get_course_category($recordid);

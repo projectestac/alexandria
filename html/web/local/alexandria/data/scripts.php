@@ -4,15 +4,17 @@ include("../../../config.php");
 
 
 if (!is_siteadmin($USER)) exit;
-if (empty($_GET["op"])) exit;
+$op = required_param('op',PARAM_TEXT);
 
-
-switch($_GET["op"]) {
+switch($op) {
 	case "llistar_cursos_orfes":
 		print_object(get_orphan_courses());
 		break;
 }
+
 exit;
+
+
 function get_orphan_courses() {
 	global $DB;
 	$courses = $DB->get_records('course');

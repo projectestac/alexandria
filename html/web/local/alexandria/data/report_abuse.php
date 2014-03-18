@@ -14,23 +14,23 @@ require_once( $CFG->dirroot .'/lib/pagelib.php' );
 $recordid = required_param( 'recordid', PARAM_INT );
 $rid = $recordid;
 if (! $record = $DB->get_record('data_records', array('id'=>  $rid))) {
-    error('Record ID is incorrect');
+    print_error('Record ID is incorrect');
 }
 if (! $data = $DB->get_record('data', array('id' =>  $record->dataid))) {
-    error('Data ID is incorrect');
+    print_error('Data ID is incorrect');
 }
 if (! $course = $DB->get_record('course', array('id' => $data->course))) {
-    error('Course is misconfigured');
+    print_error('Course is misconfigured');
 
 }
 
 if (! $cm = get_coursemodule_from_instance('data', $data->id, $course->id)) {
-    error('Course Module ID was incorrect');
+    print_error('Course Module ID was incorrect');
 }
 
 $title = get_string('reportabuse','local_alexandria');
 
-$sql = "SELECT dc.content FROM ".$CFG->prefix."data_fields df, ".$CFG->prefix."data_content dc WHERE df.id=dc.fieldid AND df.name='Nom' AND df.dataid=".$data->id." AND dc.recordid=".$recordid;
+$sql = "SELECT dc.content FROM {data_fields} df, {data_content} dc WHERE df.id=dc.fieldid AND df.name='Nom' AND df.dataid=".$data->id." AND dc.recordid=".$recordid;
 
 $tmp = $DB->get_record_sql($sql);
 $recordtitle = $data->name;
@@ -73,7 +73,7 @@ if ($report){
 
     // Send email only to users with reportabusereceiver permission
     // If there is no user to send the abuse, add admin user to the list
-    $adminuser = $DB->get_record("user", array("username" => $CFG->admin));
+    $adminuser = alexandria_get_admin();
     $receiverroles = get_roles_with_capability('block/rate_course:reportabusereceiver', CAP_ALLOW);
     $receiverusers = array();
     if (!empty($receiverroles)) $receiverusers = get_role_users(array_keys($receiverroles), $context, true, 'u.*', 'u.id ASC');
@@ -103,7 +103,7 @@ if ($report){
     //echo "<br><br>RESOURCE OWNER...<br>";
     data_send_mail($recordid, $owneruser, $adminuser);
     echo "<div style=\"text-align:center;\"><p><br>".get_string('reportabuse_intro','local_alexandria',$CFG->wwwroot.'/mod/resource/view.php?id=20686')."<br><br>";
-    echo "<a href=\"view.php?d=".$record->dataid."&rid=".$rid."\">".get_string('continue')."</a><br><br></p></div>";
+    echo "<a href=\"".$CFG->wwwroot."/mod/data/view.php?d=".$record->dataid."&rid=".$rid."\">".get_string('continue')."</a><br><br></p></div>";
 } else{
     echo '<script>';
     echo 'function checkAbuseReportForm(form){var selectedtopic = -1; var i=0; while (selectedtopic<0 && i<form.abusetopic.length){if (form.abusetopic[i].checked) selectedtopic=i; i++;};if (selectedtopic < 0 || (form.abusetopic[4].checked && form.abusedescription.value==\'\') ){alert(\''.get_string('reportabuse_mandatory','local_alexandria').'\');return false;} return true;}';
@@ -171,13 +171,11 @@ function data_email_receivers_text($info, $format='text', $fromuser) {
     if (isset($format) && $format == 'html'){
         $info->abuse="<center>".$info->abuse."</center>";
         $info->coursename='<a href="'.$CFG->wwwroot.'/mod/data/view.php?rid='.$info->recordid.'">'.$info->contentname.'</a>';
-        $msgtext .= '<p>'.$fromuser->firstname.' '.$fromuser->lastname.get_string("reportabuse_mail", "data", $info).'</p>';
+        $msgtext .= '<p>'.$fromuser->firstname.' '.$fromuser->lastname.get_string("reportabuse_mail", "local_alexandria", $info).'</p>';
     }else{
         $info->abuse="\n".$info->abuse."\n";
         $info->coursename="\"".$info->contentname.'" ['.$CFG->wwwroot.'/mod/data/view.php?rid='.$info->recordid.']';
-        $msgtext .= $fromuser->firstname.' '.$fromuser->lastname.get_string("reportabuse_mail", "data", $info)."\n\n";
+        $msgtext .= $fromuser->firstname.' '.$fromuser->lastname.get_string("reportabuse_mail", "local_alexandria", $info)."\n\n";
     }
     return $msgtext;
 }
-
-?>
