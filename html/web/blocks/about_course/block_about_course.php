@@ -94,7 +94,7 @@ class block_about_course extends block_list {
     			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
     			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$rid.','.$filefieldid.');">'.get_string('download_course','block_about_course').'</a>';
     			$this->content->icons[] = '';
-    			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - <span id="download_counter">'.$counter.'</span> descàrregues)</p>'.
+    			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - '.get_strign('downloads','local_alexandria',$counter).')</p>'.
                                 '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
     		}
     	}
