@@ -23,4 +23,3 @@ function block_abuse_reports_reports(){
     return $reports_content;
 }
 
-?>

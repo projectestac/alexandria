@@ -60,4 +60,4 @@ class block_abuse_reports extends block_list {
         }
     }
 }
-?>
+

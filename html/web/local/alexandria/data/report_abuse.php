@@ -14,18 +14,16 @@ require_once( $CFG->dirroot .'/lib/pagelib.php' );
 $recordid = required_param( 'recordid', PARAM_INT );
 $rid = $recordid;
 if (! $record = $DB->get_record('data_records', array('id'=>  $rid))) {
-    print_error('Record ID is incorrect');
+    print_error('invalidcoursemodule');
 }
 if (! $data = $DB->get_record('data', array('id' =>  $record->dataid))) {
-    print_error('Data ID is incorrect');
+    print_error('invalidcoursemodule');
 }
 if (! $course = $DB->get_record('course', array('id' => $data->course))) {
-    print_error('Course is misconfigured');
-
+    print_error('coursemisconf');
 }
-
 if (! $cm = get_coursemodule_from_instance('data', $data->id, $course->id)) {
-    print_error('Course Module ID was incorrect');
+    print_error('invalidcoursemodule');
 }
 
 $title = get_string('reportabuse','local_alexandria');
