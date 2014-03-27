@@ -187,7 +187,14 @@ class data_field_file extends data_field_base {
                     case ALEXANDRIA_SCORM:
                     case ALEXANDRIA_COURSE_BACKUP:
                     case ALEXANDRIA_PDI:
-                        return '<b>'.get_string('file_notfound','local_alexandria').'</b>';
+                        // Es desaprova perquè el fitxer no existeix i així ho pot revisar el revisor
+                        $data_record = $DB->get_record('data_records',array('id' => $recordid));
+                        if($data_record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $this->context)) {
+                            $data_record->approved = 0;
+                            $data_record->timemodified = time();
+                            $DB->update_record('data_records',$data_record);
+                        }
+                        return '<b>'.get_string('file_notavalaible','local_alexandria').'</b>';
                     case ALEXANDRIA_PDI_PDF:
                         return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
                 }
@@ -201,7 +208,14 @@ class data_field_file extends data_field_base {
                     case ALEXANDRIA_SCORM:
                     case ALEXANDRIA_COURSE_BACKUP:
                     case ALEXANDRIA_PDI:
-                        return '<b>'.get_string('file_notfound','local_alexandria').'</b>';
+                        // Es desaprova perquè el fitxer no existeix i així ho pot revisar el revisor
+                        $data_record = $DB->get_record('data_records',array('id' => $recordid));
+                        if($data_record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $this->context)) {
+                            $data_record->approved = 0;
+                            $data_record->timemodified = time();
+                            $DB->update_record('data_records',$data_record);
+                        }
+                        return '<b>'.get_string('file_notavalaible','local_alexandria').'</b>';
                     case ALEXANDRIA_PDI_PDF:
                         return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
                 }
@@ -425,8 +439,7 @@ class data_field_file extends data_field_base {
             }
             $approved = $DB->get_field('data_records','approved',array('id' => $recordid));
             if (!$fieldcontent->content || !$course = $DB->get_record('course',array('id' => $fieldcontent->content))) {
-                //OLD
-                //$courseid = alexandria_restore_backup_file($file);
+                //Restore de course
                 $courseid = alexandria_restore_course($file, $recordid);
                 if(!$courseid) throw new Exception(get_string('error_restoringcourse','local_alexandria'));
                 $fieldcontent->content = $courseid;
@@ -438,14 +451,11 @@ class data_field_file extends data_field_base {
                 $instance = $DB->get_record('enrol',array('courseid' => $courseid, 'enrol' => 'manual'));
                 $roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
                 $enrol->enrol_user($instance, $USER->id, $roleid, time(), 0, ENROL_USER_ACTIVE);
-                $guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid));
-                if (!$approved) {
+                if($guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid))){
                     // Forbid guest to access the course until it's approved
-                    $guestenrol->status = 1;
-                } else {
-                    $guestenrol->status = 0;
+                    $guestenrol->status = $approved ? 0 : 1;
+                    $DB->update_record('enrol',$guestenrol);
                 }
-                $DB->update_record('enrol',$guestenrol);
             }
     		if ($approved) {
     			$backup = new stdclass();

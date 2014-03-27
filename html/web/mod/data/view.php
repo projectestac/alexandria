@@ -448,19 +448,22 @@ if ($showactivity) {
                     $DB->update_record('data_records', $newrecord);
                     //XTEC - ALEXANDRIA ***** AFEGIT - When it's approved, allow guest access and schedule the backup
                     // ***** CODI AFEGIT
-                    $fieldid = $DB->get_field('data_fields','id',array('dataid' => $approverecord->dataid,'name' => $CFG->data_coursefieldid));
-                    $courseid = $DB->get_field('data_content','content',array('recordid' => $approverecord->id, 'fieldid' => $fieldid));
-                    $guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid));
-                    $guestenrol->status = 0;
-                    $DB->update_record('enrol',$guestenrol);
-                    if ($backup = $DB->get_record('backup_courses',array('courseid' => $courseid))) {
-                        $backup->nextstarttime = time();
-                        $DB->update_record('backup_courses',$backup);
-                    } else {
-                        $backup = new stdclass();
-                        $backup->courseid = $courseid;
-                        $backup->nextstarttime = time();
-                        $DB->insert_record('backup_courses', $backup);
+                    if($fieldid = $DB->get_field('data_fields','id',array('dataid' => $approverecord->dataid,'name' => $CFG->data_coursefieldid))){
+                        if($courseid = $DB->get_field('data_content','content',array('recordid' => $approverecord->id, 'fieldid' => $fieldid))){
+                            if($guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid))){
+                                $guestenrol->status = 0;
+                                $DB->update_record('enrol',$guestenrol);
+                            }
+                            if ($backup = $DB->get_record('backup_courses',array('courseid' => $courseid))) {
+                                $backup->nextstarttime = time();
+                                $DB->update_record('backup_courses',$backup);
+                            } else {
+                                $backup = new stdclass();
+                                $backup->courseid = $courseid;
+                                $backup->nextstarttime = time();
+                                $DB->insert_record('backup_courses', $backup);
+                            }
+                        }
                     }
                     // ***** FI
 
