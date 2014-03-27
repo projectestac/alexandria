@@ -1214,7 +1214,7 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
      		//$replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
     	    // ***** CODI MODIFICAT
     	    $value = highlight($search, $field->display_browse_field($record->id, $template));
-            $replacement[] = alexandria_get_replacement($value, $field->field->name, $template);
+            $replacement[] = alexandria_get_replacement($value, $field->field->name, $template, $record, $context);
     	    // ***** FI
         }
 

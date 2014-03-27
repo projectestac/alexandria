@@ -113,7 +113,7 @@ function alexandria_get_download_info($recordid, $fieldid){
 	return $values;
 }
 
-function alexandria_get_replacement($value, $fieldname, $template){
+function alexandria_get_replacement($value, $fieldname, $template, $record, $context){
 	global $CFG, $DB;
 
     switch($fieldname){
@@ -125,6 +125,12 @@ function alexandria_get_replacement($value, $fieldname, $template){
         case $CFG->data_coursefieldid:
             if ($value && $DB->record_exists('course',array('id'=>$value))){
                 return '<a href="'.$CFG->wwwroot.'/course/view.php?id='.$value.'">'.get_string('show_course','local_alexandria').'</a>';
+            }
+            // Es desaprova el curss perquè el curs no existeix i així ho pot revisar el revisor
+            if($record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $context)) {
+                $record->approved = 0;
+                $record->timemodified = time();
+                $DB->update_record('data_records',$record);
             }
             return get_string('nocourse','local_alexandria');
             break;

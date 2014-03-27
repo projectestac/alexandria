@@ -185,15 +185,15 @@ class data_field_file extends data_field_base {
             if(!empty($this->field->param4)){
                 switch($this->field->param4){
                     case ALEXANDRIA_SCORM:
-                    case ALEXANDRIA_COURSE_BACKUP:
                     case ALEXANDRIA_PDI:
-                        // Es desaprova perquè el fitxer no existeix i així ho pot revisar el revisor
+                        // Es desaprova SCORM i PDI perquè el fitxer no existeix i així ho pot revisar el revisor
                         $data_record = $DB->get_record('data_records',array('id' => $recordid));
                         if($data_record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $this->context)) {
                             $data_record->approved = 0;
                             $data_record->timemodified = time();
                             $DB->update_record('data_records',$data_record);
                         }
+                    case ALEXANDRIA_COURSE_BACKUP:
                         return '<b>'.get_string('file_notavalaible','local_alexandria').'</b>';
                     case ALEXANDRIA_PDI_PDF:
                         return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
@@ -206,15 +206,15 @@ class data_field_file extends data_field_base {
             if(!empty($this->field->param4)){
                 switch($this->field->param4){
                     case ALEXANDRIA_SCORM:
-                    case ALEXANDRIA_COURSE_BACKUP:
                     case ALEXANDRIA_PDI:
-                        // Es desaprova perquè el fitxer no existeix i així ho pot revisar el revisor
+                        // Es desaprova SCORM i PDI perquè el fitxer no existeix i així ho pot revisar el revisor
                         $data_record = $DB->get_record('data_records',array('id' => $recordid));
                         if($data_record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $this->context)) {
                             $data_record->approved = 0;
                             $data_record->timemodified = time();
                             $DB->update_record('data_records',$data_record);
                         }
+                    case ALEXANDRIA_COURSE_BACKUP:
                         return '<b>'.get_string('file_notavalaible','local_alexandria').'</b>';
                     case ALEXANDRIA_PDI_PDF:
                         return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
@@ -456,13 +456,14 @@ class data_field_file extends data_field_base {
                     $guestenrol->status = $approved ? 0 : 1;
                     $DB->update_record('enrol',$guestenrol);
                 }
+
+                // Start doing the backup (approved or not)
+                $backup = new stdclass();
+                $backup->courseid = $courseid;
+                $backup->nextstarttime = time();
+                $DB->insert_record('backup_courses', $backup);
             }
-    		if ($approved) {
-    			$backup = new stdclass();
-    			$backup->courseid = $courseid;
-    			$backup->nextstarttime = time();
-    			$DB->insert_record('backup_courses', $backup);
-    		}
+
 	   }
 	   //*************** FI
     }
