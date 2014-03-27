@@ -1306,6 +1306,13 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
 
         $patterns[]='##abuse_report##';
         $replacement[] = alexandria_abuse_report_button($record->id);
+
+        $patterns[]='##approved##';
+        if (has_capability('mod/data:approve', $context) && ($data->approval) && (!$record->approved)) {
+            $replacement[] = 'tobeapproved';
+        } else {
+            $replacement[] = '';
+        }
         //************ FI
 
         // actual replacement of the tags
