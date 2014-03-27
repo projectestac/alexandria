@@ -173,8 +173,13 @@ function alexandria_restore_course($file, $recordid) {
 	}
 
 	$useradmin = alexandria_get_admin();
-	$userid = (isset($USER->id) && $USER->id != 0) ? $USER->id : ($useradmin ? $useradmin->id : false);
-
+	if($useradmin){
+		$userid = $useradmin->id;
+	} else if(isset($USER->id) && $USER->id != 0) {
+		$userid = $USER->id;
+	} else {
+		print_error('user_not_found');
+	}
 
 	$category = alexandria_get_course_category($recordid);
 	$fullname = get_data_field_by_name($CFG->data_fullnamefieldid, $recordid);
