@@ -3,12 +3,25 @@ Release notes for Alexandria (http://alexandria.xtec.cat)
 More information on each of the fixes can be found in the project 
 development home at https://projectes.lafarga.cat/projects/alexandria/
 
-Changes in progress
+Changes 14.04.01
 ---------------------------------------------------------------------------------------
+- Upgrade to Moodle 2.4.8
 - Fixed bug that prevented database record edit
 - Fixed bug when creating/updating a record that made the shortname to not be saved in the database
 - Fixed incorrect presentation of file fields at data record view when the field was a common file.
 - Fixed view of last date download so it don't show a 1970 date when the field is empty
+- Revision of count of downloads
+- Revision of upload of PDI materials
+- Revision of backup generation
+- Revision of Terms of use Styling
+- Pending to approve records now are grayed out
+- Reporting pages now have blocks
+- Added sorting default options of databases
+- More useful error information
+- Backup and restore improvements
+- Autodetecting of moodle version of course records.
+- Translation
+- Now if one record remains without file or course target for 24h and it is visited, it becomes pending to approve
 
 Changes 13.12.13
 ---------------------------------------------------------------------------------------
