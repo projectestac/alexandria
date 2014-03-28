@@ -32,8 +32,8 @@ class block_abuse_reports extends block_list {
             $this->content = new stdClass;
             $this->content->items = array();
             $this->content->icons = array();
-            $this->content->footer = '<a href="'.$CFG->wwwroot.'/mod/data/view_reports.php">'.get_string('more_info','block_abuse_reports').'</a>';
-            
+            $this->content->footer = '<a href="'.$CFG->wwwroot.'/local/alexandria/data/view_reports.php">'.get_string('more_info','block_abuse_reports').'</a>';
+
             $content = get_string('last_five_reports','block_abuse_reports');
 
             $reports = block_abuse_reports_reports();
@@ -54,10 +54,10 @@ class block_abuse_reports extends block_list {
                 $content .= '<br/><a href="'.$CFG->wwwroot.'/user/view.php?id='.$report['reporter_id'].'" style="font-size:x-small;">'.$report['reporter_name'].'</a>';
                 $content .= ' <span style="font-size:x-small;">('.date("d-m-Y", $report['date']).')</span></div>';
             }
-            
+
             $this->content->items[] = $content;
             return $this->content;
         }
     }
 }
-?>
+

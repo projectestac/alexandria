@@ -39,7 +39,7 @@ class data_field_picture extends data_field_base {
 
         if ($recordid) {
             if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
-		//XTEC - ALEXANDRIA ***** MODIFICAT - Capture error if cannot read the file
+                //XTEC - ALEXANDRIA ***** MODIFICAT - Capture error if cannot read the file
                 // ***** CODI ORIGINAL
                 //file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
                 // ***** CODI MODIFICAT
@@ -238,6 +238,13 @@ class data_field_picture extends data_field_base {
                             $content->content = $draftfile->get_filename();
 
                             $file = $fs->create_file_from_storedfile($file_record, $draftfile);
+
+                            // If the file is not a valid image, redirect back to the upload form.
+                            if ($file->get_imageinfo() === false) {
+                                $url = new moodle_url('/mod/data/edit.php', array('d' => $this->field->dataid));
+                                redirect($url, get_string('invalidfiletype', 'error', $file->get_filename()));
+                            }
+
                             $DB->update_record('data_content', $content);
                             $this->update_thumbnail($content, $file);
 

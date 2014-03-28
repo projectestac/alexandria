@@ -13,7 +13,6 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
  * @package    moodlecore
@@ -614,13 +613,20 @@ abstract class restore_dbops {
                 } else {
                     self::set_backup_ids_record($restoreid, 'question_category', $category->id, $matchcat->id, $targetcontext->id);
                     $questions = self::restore_get_questions($restoreid, $category->id);
+
+                    // Collect all the questions for this category into memory so we only talk to the DB once.
+                    $questioncache = $DB->get_records_sql_menu("SELECT ".$DB->sql_concat('stamp', "' '", 'version').", id
+                                                                  FROM {question}
+                                                                 WHERE category = ?", array($matchcat->id));
+
                     foreach ($questions as $question) {
-                        $matchq = $DB->get_record('question', array(
-                                      'category' => $matchcat->id,
-                                      'stamp' => $question->stamp,
-                                      'version' => $question->version));
+                        if (isset($questioncache[$question->stamp." ".$question->version])) {
+                            $matchqid = $questioncache[$question->stamp." ".$question->version];
+                        } else {
+                            $matchqid = false;
+                        }
                         // 5a) No match, check if user can add q
-                        if (!$matchq) {
+                        if (!$matchqid) {
                             // 6a) User can, mark the q to be created
                             if ($canadd) {
                                 // Nothing to mark, newitemid means create
@@ -645,7 +651,7 @@ abstract class restore_dbops {
 
                         // 5b) Match, mark q to be mapped
                         } else {
-                            self::set_backup_ids_record($restoreid, 'question', $question->id, $matchq->id);
+                            self::set_backup_ids_record($restoreid, 'question', $question->id, $matchqid);
                         }
                     }
                 }
@@ -821,7 +827,12 @@ abstract class restore_dbops {
      * @return array of result object
      */
     public static function send_files_to_pool($basepath, $restoreid, $component, $filearea, $oldcontextid, $dfltuserid, $itemname = null, $olditemid = null, $forcenewcontextid = null, $skipparentitemidctxmatch = false) {
-        global $DB;
+        global $DB, $CFG;
+		// XTEC AFEGIT MDL-37761 Improve backup/restore within Moodle (e.g. course and activity duplication)
+		//2013.12.09 @pferre22
+        $backupinfo = backup_general_helper::get_backup_information(basename($basepath));
+        $includesfiles = $backupinfo->include_files;
+		//************ FI
 
         $results = array();
 
@@ -894,6 +905,25 @@ abstract class restore_dbops {
             $mappeduser = self::get_backup_ids_record($restoreid, 'user', $file->userid);
             $mappeduserid = !empty($mappeduser) ? $mappeduser->newitemid : $dfltuserid;
 
+			// XTEC AFEGIT MDL-37761 Improve backup/restore within Moodle (e.g. course and activity duplication)
+			//2013.12.09 @pferre22
+            // The file record to restore.
+            $file_record = array(
+                'contextid'   => $newcontextid,
+                'component'   => $component,
+                'filearea'    => $filearea,
+                'itemid'      => $rec->newitemid,
+                'filepath'    => $file->filepath,
+                'filename'    => $file->filename,
+                'timecreated' => $file->timecreated,
+                'timemodified'=> $file->timemodified,
+                'userid'      => $mappeduserid,
+                'author'      => $file->author,
+                'license'     => $file->license,
+                'sortorder'   => $file->sortorder
+            );
+			//************ FI
+
             // dir found (and not root one), let's create it
             if ($file->filename == '.') {
                 $fs->create_directory($newcontextid, $component, $filearea, $rec->newitemid, $file->filepath, $mappeduserid);
@@ -901,37 +931,110 @@ abstract class restore_dbops {
             }
 
             if (empty($file->repositoryid)) {
-                // this is a regular file, it must be present in the backup pool
-                $backuppath = $basepath . backup_file_manager::get_backup_content_file_location($file->contenthash);
-
-                // The file is not found in the backup.
-                if (!file_exists($backuppath)) {
+                // If contenthash is empty then gracefully skip adding file.
+                if (empty($file->contenthash)) {
                     $result = new stdClass();
                     $result->code = 'file_missing_in_backup';
-                    $result->message = sprintf('missing file %s%s in backup', $file->filepath, $file->filename);
+                    $result->message = sprintf('missing file (%s) contenthash in backup for component %s', $file->filename, $component);
                     $result->level = backup::LOG_WARNING;
                     $results[] = $result;
                     continue;
                 }
+                // this is a regular file, it must be present in the backup pool
+				// XTEC MODIFICAT MDL-37761 Improve backup/restore within Moodle (e.g. course and activity duplication)
+				//2013.12.09 @pferre22
+                // this is a regular file, it must be present in the backup pool
+                //$backuppath = $basepath . backup_file_manager::get_backup_content_file_location($file->contenthash);
+
+                // The file is not found in the backup.
+                //if (!file_exists($backuppath)) {
+                //    $result = new stdClass();
+                //    $result->code = 'file_missing_in_backup';
+                //    $result->message = sprintf('missing file %s%s in backup', $file->filepath, $file->filename);
+                //    $result->level = backup::LOG_WARNING;
+                //    $results[] = $result;
+                //    continue;
+                //}
 
                 // create the file in the filepool if it does not exist yet
-                if (!$fs->file_exists($newcontextid, $component, $filearea, $rec->newitemid, $file->filepath, $file->filename)) {
-                    $file_record = array(
-                        'contextid'   => $newcontextid,
-                        'component'   => $component,
-                        'filearea'    => $filearea,
-                        'itemid'      => $rec->newitemid,
-                        'filepath'    => $file->filepath,
-                        'filename'    => $file->filename,
-                        'timecreated' => $file->timecreated,
-                        'timemodified'=> $file->timemodified,
-                        'userid'      => $mappeduserid,
-                        'author'      => $file->author,
-                        'license'     => $file->license,
-                        'sortorder'   => $file->sortorder
-                    );
-                    $fs->create_file_from_pathname($file_record, $backuppath);
-                }
+                //if (!$fs->file_exists($newcontextid, $component, $filearea, $rec->newitemid, $file->filepath, $file->filename)) {
+
+                    // If no license found, use default.
+                //    if ($file->license == null){
+                //        $file->license = $CFG->sitedefaultlicense;
+                //    }
+
+                //    $file_record = array(
+                //        'contextid'   => $newcontextid,
+                //        'component'   => $component,
+                //        'filearea'    => $filearea,
+                //        'itemid'      => $rec->newitemid,
+                //        'filepath'    => $file->filepath,
+                //        'filename'    => $file->filename,
+                //        'timecreated' => $file->timecreated,
+                //        'timemodified'=> $file->timemodified,
+                //        'userid'      => $mappeduserid,
+                //        'author'      => $file->author,
+                //        'license'     => $file->license,
+                //        'sortorder'   => $file->sortorder
+                //    );
+                //    $fs->create_file_from_pathname($file_record, $backuppath);
+                //}
+				if (!$fs->file_exists($newcontextid, $component, $filearea, $rec->newitemid, $file->filepath, $file->filename)) {
+	                // this is a regular file, it must be present in the backup pool
+	                $backuppath = $basepath . backup_file_manager::get_backup_content_file_location($file->contenthash);
+
+	                // Some file types do not include the files as they should already be
+	                // present. We still need to create entries into the files table.
+	                if ($includesfiles) {
+	                    // The file is not found in the backup.
+	                    if (!file_exists($backuppath)) {
+	                        $result = new stdClass();
+	                        $result->code = 'file_missing_in_backup';
+	                        $result->message = sprintf('missing file %s%s in backup', $file->filepath, $file->filename);
+	                        $result->level = backup::LOG_WARNING;
+	                        $results[] = $result;
+	                        continue;
+	                    }
+
+	                    // create the file in the filepool if it does not exist yet
+	                    if (!$fs->file_exists($newcontextid, $component, $filearea, $rec->newitemid, $file->filepath, $file->filename)) {
+	                        // If no license found, use default.
+	                        if ($file->license == null){
+	                            $file->license = $CFG->sitedefaultlicense;
+	                        }
+
+	                        $fs->create_file_from_pathname($file_record, $backuppath);
+	                    }
+	                } else {
+	                    // This backup does not include the files - they should be available in moodle filestorage already.
+
+	                    // Even if a file has been deleted since the backup was made, the file metadata will remain in the
+	                    // files table, and the file will not be moved to the trashdir.
+	                    // Files are not cleared from the files table by cron until several days after deletion.
+	                    if ($foundfiles = $DB->get_records('files', array('contenthash' => $file->contenthash))) {
+	                        // Only grab one of the foundfiles - the file content should be the same for all entries.
+	                        $foundfile = reset($foundfiles);
+	                        $fs->create_file_from_storedfile($file_record, $foundfile->id);
+	                    } else {
+	                        // A matching existing file record was not found in the database.
+	                        $result = new stdClass();
+	                        $result->code = 'file_missing_in_backup';
+	                        $result->message = sprintf('missing file %s%s in backup', $file->filepath, $file->filename);
+	                        $result->level = backup::LOG_WARNING;
+	                        $results[] = $result;
+	                        continue;
+	                    }
+	                }
+            	} else {
+            		$result = new stdClass();
+            		$result->code = 'file_already_exist';
+            		$result->message = sprintf('file %s%s already exists', $file->filepath, $file->filename);
+            		$result->level = backup::LOG_INFO;
+            		$results[] = $result;
+            		continue;
+            	}
+				//************ FI
 
                 // store the the new contextid and the new itemid in case we need to remap
                 // references to this file later
@@ -948,20 +1051,24 @@ abstract class restore_dbops {
                     // oldfile holds the raw information stored in MBZ (including reference-related info)
                     $info->oldfile = $file;
                     // newfile holds the info for the new file_record with the context, user and itemid mapped
-                    $info->newfile = (object)array(
-                        'contextid'   => $newcontextid,
-                        'component'   => $component,
-                        'filearea'    => $filearea,
-                        'itemid'      => $rec->newitemid,
-                        'filepath'    => $file->filepath,
-                        'filename'    => $file->filename,
-                        'timecreated' => $file->timecreated,
-                        'timemodified'=> $file->timemodified,
-                        'userid'      => $mappeduserid,
-                        'author'      => $file->author,
-                        'license'     => $file->license,
-                        'sortorder'   => $file->sortorder
-                    );
+					// XTEC MODIFICAT MDL-37761 Improve backup/restore within Moodle (e.g. course and activity duplication)
+					//2013.12.09 @pferre22
+                    //$info->newfile = (object)array(
+                    //    'contextid'   => $newcontextid,
+                    //    'component'   => $component,
+                    //    'filearea'    => $filearea,
+                    //    'itemid'      => $rec->newitemid,
+                    //    'filepath'    => $file->filepath,
+                    //    'filename'    => $file->filename,
+                    //    'timecreated' => $file->timecreated,
+                    //    'timemodified'=> $file->timemodified,
+                    //    'userid'      => $mappeduserid,
+                    //    'author'      => $file->author,
+                    //    'license'     => $file->license,
+                    //    'sortorder'   => $file->sortorder
+                    //);
+					$info->newfile = (object) $file_record;
+					//************ FI
 
                     restore_dbops::set_backup_ids_record($restoreid, 'file_aliases_queue', $file->id, 0, null, $info);
                 }
