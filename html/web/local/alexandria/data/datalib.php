@@ -73,12 +73,14 @@ function alexandria_get_course_file($courseid){
 	if (!$courseid) return null;
 
 	$fs = get_file_storage();
-	$contextid = context_course::instance($courseid)->id;
-	//Course from automated backup area
-	$files = $fs->get_area_files($contextid, 'backup', 'automated', false, 'timecreated DESC');
-	foreach($files as $file) {
-		if (!$file->is_directory()){
-	        return $file;
+	$context = context_course::instance($courseid,IGNORE_MISSING);
+	if($context){
+		//Course from automated backup area
+		$files = $fs->get_area_files($context->id, 'backup', 'automated', false, 'timecreated DESC');
+		foreach($files as $file) {
+			if (!$file->is_directory()){
+		        return $file;
+			}
 		}
 	}
 	return null;
