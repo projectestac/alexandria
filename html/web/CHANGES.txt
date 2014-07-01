@@ -3,6 +3,10 @@ Release notes for Alexandria (http://alexandria.xtec.cat)
 More information on each of the fixes can be found in the project 
 development home at https://projectes.lafarga.cat/projects/alexandria/
 
+Changes 14.04.03
+---------------------------------------------------------------------------------------
+- Allow guest reading RSS feeds
+
 Changes 14.04.01
 ---------------------------------------------------------------------------------------
 - Upgrade to Moodle 2.4.8
