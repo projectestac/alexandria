@@ -7,14 +7,14 @@
  * @author marc.espinosa.zamora@upcnet.es (2013)
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
-$string['courseabout'] = 'Information';
+$string['courseabout'] = 'About course';
 
-$string['author'] = 'Author';
+$string['author'] = 'Author: <strong>{$a}</strong>';
 $string['license'] = 'License';
-$string['license_warning'] = 'The use of this material is subject to the terms of a <a href=\"http://creativecommons.org\" target=\"_blank\">Creative Commons License</a>';
+$string['license_warning'] = 'The use of this material is subject to the terms of a <a rel="license" href="{$a}" target="_blank">Creative Commons License</a>';
 $string['metainfo'] = 'Complete record';
 $string['download_course'] = 'Download course';
 $string['pluginname'] = 'About course';
+$string['share'] = 'Share course';
 
 $string['about_course:addinstance'] = 'Add About Course block instance';
-?>

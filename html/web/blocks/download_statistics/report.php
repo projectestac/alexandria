@@ -4,6 +4,7 @@
 //2010.09.01
 
 require_once('../../config.php');
+require_once('lib.php');
 require_once($CFG->libdir.'/tablelib.php');
 
 $context = context_system::instance();

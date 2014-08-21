@@ -10,7 +10,7 @@
 
 include_once("$CFG->dirroot/blocks/about_course/lib.php");
 
-class block_about_course extends block_list {
+class block_about_course extends block_base {
 
     function init() {
         $this->title = get_string('courseabout','block_about_course');
@@ -23,15 +23,13 @@ class block_about_course extends block_list {
     function has_config() {return false;}
 
     function get_content() {
-        global $CFG, $COURSE, $USER, $DB;
+        global $CFG, $COURSE, $DB, $OUTPUT;
 
         if ($this->content !== NULL) {
             return $this->content;
         }
 
-        $this->content = new stdClass;
-        $this->content->items = array();
-        $this->content->icons = array();
+        $this->content = new stdClass();
 
         $rid = $DB->get_field_sql('SELECT recordid FROM {data_content} WHERE content = '.$COURSE->id.' AND fieldid IN (
     	  SELECT id FROM {data_fields} WHERE  name = \''.$CFG->data_coursefieldid.'\')');
@@ -49,38 +47,38 @@ class block_about_course extends block_list {
     	$filefieldid = $DB->get_field('data_fields','id',array('dataid' => $dataid, 'name' => $CFG->data_filefieldid));
     	$content = $DB->get_record('data_content', array('recordid' => $rid, 'fieldid' => $filefieldid));
 
-        // License
-        $this->content->icons[] = '';
-        $this->content->items[] = get_string('author','block_about_course').': <b>'.$author.'</b>';
+        // Authos
+        $content_text = '<p>'.get_string('author','block_about_course',$author).'</p>';
 
         // License
-        $this->content->icons[] = '';
-        $license_img = '';
         if ($license=='' || strpos($license, "by-nc-sa")!==FALSE){
-            $license_img.= 'byncsa.png';
+            $license_type = 'by-nc-sa';
         }else if (strpos($license, "by-nc-nd")!==FALSE){
-            $license_img.= 'byncnd.png';
+            $license_type = 'by-nc-nd';
         }else if (strpos($license, "by-sa")!==FALSE){
-            $license_img.= 'bysa.png';
+            $license_type = 'by-sa';
         }else if (strpos($license, "by-nd")!==FALSE){
-            $license_img.= 'bynd.png';
+            $license_type = 'by-nd';
         }else if (strpos($license, "cc-by-nc")!==FALSE){
-            $license_img.= 'bync.png';
+            $license_type = 'by-nc';
         }else if (strpos($license, "cc-by")!==FALSE){
-            $license_img.= 'by.png';
+            $license_type = 'by';
         }else {
-            $license_img.= 'generic.gif';
+            $license_type = 'generic';
         }
 
-        $license_img = '<img src="'.$CFG->wwwroot.'/blocks/about_course/images/'.$license_img.'" title="'.$license.'" weight="88" />';
-        $this->content->items[] = '<br/><center>'.$license_img.'<br><span style="font-size:0.8em">'.get_string('license_warning','block_about_course').'</span></center>';
+        if($license_type != 'generic'){
+            $license_url = 'http://creativecommons.org/licenses/'.$license_type.'/4.0/';
+            $license_img = '<a rel="license" href="'.$license_url.'"><img src="'.$CFG->wwwroot.'/blocks/about_course/images/'.$license_type.'.png" title="'.$license.'" align="left" style="margin-right: 6px;"/></a>';
+        } else {
+            $license_url = 'http://creativecommons.org/licenses/';
+            $license_img = '<a rel="license" href="'.$license_url.'"><img src="'.$CFG->wwwroot.'/blocks/about_course/images/generic.gif" title="'.$license.'" align="left" style="margin-right: 6px;"/></a>';
+        }
+
+        $content_text .= '<p>'.$license_img.'<span style="font-size:0.9em">'.get_string('license_warning','block_about_course', $license_url).'</span></p>';
 
         // Metainformation (link to database entry)
-        $this->content->icons[] = '';
-        $this->content->items[] = '';
-        $this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/metainfo.gif" height="16" />';
-        $this->content->items[] = '<a href="'.$CFG->wwwroot.'/mod/data/view.php?d='.$dataid.'&mode=single&rid='.$rid.'" >'
-         .get_string('metainfo','block_about_course').'</a>';
+        $content_text .= '<a href="'.$CFG->wwwroot.'/mod/data/view.php?d='.$dataid.'&mode=single&rid='.$rid.'" >'.$OUTPUT->pix_icon('i/info','','moodle',array('class'=>'iconlarge', 'style'=>'margin-right:6px;vertical-align: text-bottom;')).get_string('metainfo','block_about_course').'</a>';
 
     	$module = $DB->get_field('modules','id',array('name' => 'data'));
     	$cmid = $DB->get_field('course_modules','id',array('instance' => $dataid, 'module' => $module));
@@ -91,16 +89,20 @@ class block_about_course extends block_list {
     			$filesize = block_about_course_formatBytes($file->get_filesize());
                 $counter = alexandria_get_downloads($rid, $filefieldid);
     			$url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$rid.'&fid='.$filefieldid;
-    			$this->content->icons[] = '<img src="'.$CFG->wwwroot.'/blocks/about_course/pix/download_icon.png" height="16" />';
-    			$this->content->items[] = '<a href="'.$url.'" onclick="increase_counter('.$rid.','.$filefieldid.');">'.get_string('download_course','block_about_course').'</a>';
-    			$this->content->icons[] = '';
-    			$this->content->items[] = '<p id="download_text" style="font-size: 10px;">('.$filesize.' - '.get_string('downloads','local_alexandria',$counter).')</p>'.
+    			$content_text .= '<br><a href="'.$url.'" onclick="increase_counter('.$rid.','.$filefieldid.');">'.$OUTPUT->pix_icon('a/download_all','','moodle',array('class'=>'iconlarge', 'style'=>'margin-right:6px;vertical-align: text-bottom;')).get_string('download_course','block_about_course').'</a>';
+    			$content_text .= '<p id="download_text" style="font-size: 0.9em; margin-left: 32px;">('.$filesize.' - '.get_string('downloads','local_alexandria',$counter).')</p>'.
                                 '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
     		}
     	}
 
-        $this->content->footer = '<br/><a style = "font-size: 11px;" href="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php?recordid='.$rid.'">'.
-                        get_string('reportabuse','local_alexandria').'</a>';
+        $content_text .= '<strong>'.get_string('share','block_about_course').'</strong>'.'<!-- AddThis Button BEGIN -->
+                    <div class="addthis_toolbox addthis_default_style "><a class="addthis_button_preferred_1"> </a> <a class="addthis_button_preferred_2"> </a> <a class="addthis_button_preferred_3"> </a> <a class="addthis_button_preferred_4"> </a> <a class="addthis_button_compact"> </a> <a class="addthis_counter addthis_bubble_style"> </a></div>
+                    <script src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=xa-5284bae877c8c08c" type="text/javascript"></script>
+                    <!-- AddThis Button END -->';
+
+        $this->content->text = $content_text;
+
+        $this->content->footer = '<a style = "font-size: 0.9em;" href="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php?recordid='.$rid.'">'.get_string('reportabuse','local_alexandria').'</a>';
         return $this->content;
 
     }

@@ -6,11 +6,13 @@
  * @author sara.arjona@gmail.com
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
-$string['courseabout'] = 'Información';
+$string['courseabout'] = 'Información del curso';
 
-$string['author'] = 'Autor/a';
+$string['author'] = 'Autor/a: <strong>{$a}</strong>';
 $string['license'] = 'Licéncia de uso';
-$string['license_warning'] = 'Esta obra está sujeta a una <a href=\"http://creativecommons.org\" target=\"_blank\">Licéncia Creative Commons</a>';
+$string['license_warning'] = 'Esta obra está sujeta a una <a rel="license" href="{$a}" target="_blank">Licéncia Creative Commons</a>';
 $string['metainfo'] = 'Ficha completa';
 $string['pluginname'] = 'Información del curso';
-?>
+$string['share'] = 'Compartir el curso';
+
+$string['about_course:addinstance'] = 'Añadir una instáncia del bloque de Información del curso';
