@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'ca', branch 'MOODLE_24_STABLE'
+ * Strings for component 'grades', language 'ca', branch 'MOODLE_26_STABLE'
  *
  * @package   grades
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -216,7 +216,7 @@ $string['dropxlowestwarning'] = 'Nota: si ometeu els x més baixos la qualificac
 $string['duplicatescale'] = 'Duplica escala';
 $string['edit'] = 'Edita';
 $string['editcalculation'] = 'Edita càlcul';
-$string['editcalculationverbose'] = 'Edita càlcul en {$a->category}$a->itemmodule {$a->itemname}';
+$string['editcalculationverbose'] = 'Edita càlcul en {$a->category}{$a->itemmodule} {$a->itemname}';
 $string['editfeedback'] = 'Edita retroacció';
 $string['editgrade'] = 'Edita qualificació';
 $string['editgradeletters'] = 'Edita quaificacions alfabètiques';
@@ -224,7 +224,7 @@ $string['editoutcome'] = 'Edita competència';
 $string['editoutcomes'] = 'Edita competències';
 $string['editscale'] = 'Edita l\'escala';
 $string['edittree'] = 'Categories i elements';
-$string['editverbose'] = 'Edita {$a->category}$a->itemmodule {$a->itemname}';
+$string['editverbose'] = 'Edita {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['enableajax'] = 'Habilita AJAX';
 $string['enableajax_help'] = 'Afegeix una capa de funcions AJAX en l\'informe de qualificacions, cosa que simplifica i agilita les operacions més habituals. Requereix que el Javascript estigui activat en el navegador de l\'usuari.';
 $string['enableoutcomes'] = 'Habilita competències';
@@ -239,6 +239,7 @@ $string['errornocategorisedid'] = 'No s\'ha pogut obtenir un ID no categoritzat'
 $string['errornocourse'] = 'No s\'ha pogut obtenir la informació del curs';
 $string['errorreprintheadersnonnumeric'] = 'S\'ha rebut un valor no-numèric per a les capçaleres reimpreses';
 $string['errorsavegrade'] = 'No es pot desar la qualificació.';
+$string['errorsettinggrade'] = 'S\'ha produït un error en desar la qualificació  "{$a->itemname}" per a l\'usuari {$a->userid}';
 $string['errorupdatinggradecategoryaggregateonlygraded'] = 'S\'ha produït un error en actualitzar l\'opció "Agrega només les qualificacions no buides" de la categoria de qualificació ID {$a->id}';
 $string['errorupdatinggradecategoryaggregateoutcomes'] = 'S\'ha produït un error en actualitzar l\'opció "Inclou les competències en l\'agregació" de la categoria de qualificació ID {$a->id}';
 $string['errorupdatinggradecategoryaggregatesubcats'] = 'S\'ha produït un error en actualitzar l\'opció "Agrega incloent les subcategories" de la categoria de qualificació ID {$a->id}';
@@ -266,7 +267,7 @@ $string['feedbacks'] = 'Retroaccions';
 $string['feedbacksaved'] = 'S\'ha desat la retroacció';
 $string['feedbackview'] = 'Visualitza la retroacció';
 $string['finalgrade'] = 'Qualificació final';
-$string['finalgrade_help'] = '<p> La qualificació final (desada en memòria cau) després de realitzar tots els càlculs. </p>';
+$string['finalgrade_help'] = 'Si la casella «rectificada» està marcada, es pot afegir o rectificar la nota.';
 $string['fixedstudents'] = 'Columna dels estudiants estàtica';
 $string['fixedstudents_help'] = 'Permet desplaçar horitzontalment les qualificacions sense perdre de vista la columna dels estudiants tot fent-la estàtica.';
 $string['forceoff'] = 'Imposa: activat';
@@ -308,6 +309,7 @@ $string['gradehelp'] = 'Ajuda referent a la qualificació';
 $string['gradehistorylifetime'] = 'Durada de l\'històric de qualificacions';
 $string['gradehistorylifetime_help'] = 'Especifica quant temps voleu mantenir l\'històric de canvis de les taules de qualificacions. Es recomana mantenir-lo tant temps com sigui possible. Si experimenteu problemes de rendiment o teniu limitacions d\'espai per a la base de dades, proveu un valor més baix.';
 $string['gradeimport'] = 'Importa qualificacions';
+$string['gradeimportfailed'] = 'La importació de qualificacions ha fallat durant la validació. Detalls:';
 $string['gradeitem'] = 'Element de qualificació';
 $string['gradeitemaddusers'] = 'Exclou de la qualificació';
 $string['gradeitemadvanced'] = 'Opcions avançades de l\'element de qualificació';
@@ -378,7 +380,7 @@ $string['hidetotalshowexhiddenitems'] = 'Mostra els totals excloent els
 elements ocults';
 $string['hidetotalshowinchiddenitems'] = 'Mostra els totals incloent els
 elements ocults';
-$string['hideverbose'] = 'Oculta {$a->category}$a->itemmodule {$a->itemname}';
+$string['hideverbose'] = 'Oculta {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['highgradeascending'] = 'Ordena per qualificació més alta ascendent';
 $string['highgradedescending'] = 'Ordena per qualificació més alta descendent';
 $string['highgradeletter'] = 'Alta';
@@ -438,7 +440,7 @@ $string['locked'] = 'Blocat';
 $string['locked_help'] = 'Si està marcat les qualificacions no es tornaran a actualitzar automàticament per l\'activitat relacionada.';
 $string['locktime'] = 'Bloca després de';
 $string['locktimedate'] = 'Blocat després de: {$a}';
-$string['lockverbose'] = 'Bloca {$a->category}$a->itemmodule {$a->itemname}';
+$string['lockverbose'] = 'Bloca {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['lowest'] = 'La més baixa';
 $string['lowgradeletter'] = 'Baixa';
 $string['manualitem'] = 'Element manual';
@@ -588,7 +590,9 @@ $string['selectalloroneuser'] = 'Selecciona tots els usuaris o un usuari';
 $string['selectauser'] = 'Seleccioneu un usuari';
 $string['selectdestination'] = 'Selecciona una destinació per a {$a}';
 $string['separator'] = 'Separador';
+$string['sepcolon'] = 'Dos punts';
 $string['sepcomma'] = 'Coma';
+$string['sepsemicolon'] = 'Punt i coma';
 $string['septab'] = 'Tabulació';
 $string['setcategories'] = 'Categories';
 $string['setcategorieserror'] = 'Heu de seleccionar les categories per al vostre curs abans de ponderar-les.';
@@ -634,6 +638,8 @@ $string['shownohidden'] = 'No mostris cap element ocult';
 $string['shownooutcomes'] = 'Oculta competències';
 $string['shownumberofgrades'] = 'Mostra el nombre de qualificacions en les mitjanes';
 $string['shownumberofgrades_help'] = 'Mostrar o no entre parèntesis, a continuació de cada mitjana, el nombre de qualificacions utilitzades per a calcular-la. P. ex. 45 (34).';
+$string['showonlyactiveenrol'] = 'Mostra sols les inscripcions actives';
+$string['showonlyactiveenrol_help'] = 'Aquest paràmetre determina, si sols els usuaris inscrits són visibles al butlletí de notes. Si s\'habilita, els usuaris suspesos no es mostraran al butlletí.';
 $string['showpercentage'] = 'Mostra percentatge';
 $string['showpercentage_help'] = 'Cal mostrar el valor en percentatge de cada element de qualificació?';
 $string['showquickfeedback'] = 'Mostra retroacció ràpida';
@@ -646,7 +652,7 @@ $string['showrank'] = 'Mostra posició';
 $string['showrank_help'] = 'Mostrar o no la posició de l\'usuari amb relació a la resta de la classe, en cada element de qualificació.';
 $string['showuserimage'] = 'Mostra la imatge del perfil de l\'usuari';
 $string['showuserimage_help'] = 'Mostrar o no la imatge del perfil de l\'usuari, al costat del nom, en l\'informe del qualificador.';
-$string['showverbose'] = 'Mostra {$a->category}$a->itemmodule {$a->itemname}';
+$string['showverbose'] = 'Mostra {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['showweight'] = 'Mostra ponderacions';
 $string['showweight_help'] = 'Voleu mostrar la columna de ponderacions de les qualificacions?';
 $string['simpleview'] = 'Vista simple';
@@ -686,7 +692,7 @@ $string['unenrolledusersinimport'] = 'Aquesta importació incloïa les qualifica
 $string['unlimitedgrades'] = 'Qualficacions il·limitades';
 $string['unlimitedgrades_help'] = 'Per defecte les qualificacions estan limitades pels valors màxim i mínim dels element de qualificació. Si habiliteu aquesta opció eliminareu aquest límit, i podreu introduir  directament al butlletí de qualificacions qualificacions superiors al 100%. Es recomana que aquesta opció s\'activi en un horari de poca activitat perquè es tornaran a calcular totes les qualificacions, acció que pot provocar una sobrecàrrega del servidor.';
 $string['unlock'] = 'Desbloca';
-$string['unlockverbose'] = 'Desbloca {$a->category}$a->itemmodule {$a->itemname}';
+$string['unlockverbose'] = 'Desbloca {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['unused'] = 'No utilitzat';
 $string['updatedgradesonly'] = 'Exporta només les qualificacions noves o actualitzades';
 $string['uploadgrades'] = 'Carrega qualificacions';
@@ -700,6 +706,9 @@ $string['user'] = 'Usuari';
 $string['userenrolmentsuspended'] = 'S\'ha suspès la inscripció d\'usuaris';
 $string['usergrade'] = 'Usuari {$a->fullname} ({$a->useridnumber}) en l\'element {$a->gradeidnumber}';
 $string['userid'] = 'ID d\'usuari';
+$string['usermappingerror'] = 'Error de mapatge de l\'usuari: no s\'ha pogut trobar l\'usuari amb {$a->field} igual a "{$a->value}".';
+$string['usermappingerrorcurrentgroup'] = 'L\'usuari no és membre del grup actual.';
+$string['usermappingerrorusernotfound'] = 'Error de mapatge de l\'usuari: no s\'ha pogut trobar l\'usuari.';
 $string['userpreferences'] = 'Preferències de l\'usuari';
 $string['useweighted'] = 'Utilitza ponderació';
 $string['verbosescales'] = 'Escales detallades';

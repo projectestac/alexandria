@@ -74,31 +74,7 @@ class data_field_file extends data_field_base {
         $html = '';
 		 //XTEC - ALEXANDRIA **************** MODIFICAT - If the file is already uploaded, disable upload
         //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-        // ***** CODI ORIGINAL
-        // database entry label
-        //$html .= '<div title="'.s($this->field->description).'">';
-        //$html .= '<fieldset><legend><span class="accesshide">'.$this->field->name.'</span></legend>';
-
-        // itemid element
-        //$html .= '<input type="hidden" name="field_'.$this->field->id.'_file" value="'.$itemid.'" />';
-
-        //$options = new stdClass();
-        //$options->maxbytes  = $this->field->param3;
-        //$options->itemid    = $itemid;
-        //$options->accepted_types = '*';
-        //$options->return_types = FILE_INTERNAL;
-        //$options->context = $PAGE->context;
-
-        //$fp = new file_picker($options);
-        // print out file picker
-        //$html .= $OUTPUT->render($fp);
-
-        //$html .= '</fieldset>';
-        //$html .= '</div>';
-
-        //$module = array('name'=>'data_filepicker', 'fullpath'=>'/mod/data/data.js', 'requires'=>array('core_filepicker'));
-        //$PAGE->requires->js_init_call('M.data_filepicker.init', array($fp->options), true, $module);
-		// ***** CODI MODIFICAT
+        // ***** CODI AFEGIT
 		if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid)) && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid)) && $this->field->name == $CFG->data_filefieldid) {
 			$file = $this->get_file($recordid);
 			if ($file)
@@ -106,27 +82,48 @@ class data_field_file extends data_field_base {
 			else
 				$html .= get_string('file_notavalaible','local_alexandria');
 		} else {
-			// database entry label
-	    	$html .= '<div title="'.s($this->field->description).'">';
-		    $html .= '<fieldset><legend><span class="accesshide">'.$this->field->name.'</span></legend>';
+		// ***** CONTINUA
+        // database entry label
+        $html .= '<div title="'.s($this->field->description).'">';
+        $html .= '<fieldset><legend><span class="accesshide">'.$this->field->name.'</span></legend>';
 
-	    	// itemid element
-		    $html .= '<input type="hidden" name="field_'.$this->field->id.'_file" value="'.$itemid.'" />';
+        // itemid element
+        $html .= '<input type="hidden" name="field_'.$this->field->id.'_file" value="'.$itemid.'" />';
 
-			$options = new stdClass();
-	    	$options->maxbytes  = $this->field->param3;
-		    $options->itemid    = $itemid;
-	    	$options->accepted_types = '*';
-		    $options->return_types = FILE_INTERNAL;
-	    	$options->context = $PAGE->context;
+        $options = new stdClass();
+        $options->maxbytes = $this->field->param3;
+        $options->maxfiles  = 1; // Limit to one file for the moment, this may be changed if requested as a feature in the future.
+        $options->itemid    = $itemid;
+        $options->accepted_types = '*';
+        $options->return_types = FILE_INTERNAL;
+        $options->context = $PAGE->context;
 
-		    $fp = new file_picker($options);
-	    	// print out file picker
-		    $html .= $OUTPUT->render($fp);
-			$module = array('name'=>'data_filepicker', 'fullpath'=>'/mod/data/data.js', 'requires'=>array('core_filepicker'));
-		    $PAGE->requires->js_init_call('M.data_filepicker.init', array($fp->options), true, $module);
-		    $html .= '</fieldset>';
-	    	$html .= '</div>';
+        $fm = new form_filemanager($options);
+        // Print out file manager.
+
+        $output = $PAGE->get_renderer('core', 'files');
+        $html .= $output->render($fm);
+
+        $html .= '</fieldset>';
+        $html .= '</div>';
+
+        $module = array(
+            'name'=>'form_filemanager',
+            'fullpath'=>'/lib/form/filemanager.js',
+            'requires' => array('core_filepicker', 'base', 'io-base', 'node',
+                    'json', 'core_dndupload', 'panel', 'resize-plugin', 'dd-plugin'),
+            'strings' => array(
+                array('error', 'moodle'), array('info', 'moodle'), array('confirmdeletefile', 'repository'),
+                array('draftareanofiles', 'repository'), array('entername', 'repository'), array('enternewname', 'repository'),
+                array('invalidjson', 'repository'), array('popupblockeddownload', 'repository'),
+                array('unknownoriginal', 'repository'), array('confirmdeletefolder', 'repository'),
+                array('confirmdeletefilewithhref', 'repository'), array('confirmrenamefolder', 'repository'),
+                array('confirmrenamefile', 'repository'), array('edit', 'moodle')
+            )
+        );
+
+        $PAGE->requires->js_init_call('M.form_filemanager.init', array($fm->options), true, $module);
+		// ***** CODI AFEGIT
 		}
 		// ***** FI
 
@@ -165,13 +162,12 @@ class data_field_file extends data_field_base {
 		//if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
 	    //    return null;
 	    //}
-		// return $file;
 		// ******* CODI MODIFICAT
         if (!$file = alexandria_get_file($recordid, $this->field->id)) {
             return null;
         }
-        return $file;
 		// ******** FI
+        return $file;
     }
 
     function display_browse_field($recordid, $template) {
@@ -182,6 +178,9 @@ class data_field_file extends data_field_base {
         }
 
         if (empty($content->content)) {
+			//XTEC - ALEXANDRIA ************ AFEGIT
+			//2013.11.29 @mespinosa
+			// ******* CODI AFEGIT
             if(!empty($this->field->param4)){
                 switch($this->field->param4){
                     case ALEXANDRIA_SCORM:
@@ -199,10 +198,14 @@ class data_field_file extends data_field_base {
                         return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
                 }
             }
+			// ******** FI
             return '';
         }
 
         if (!$file = $this->get_file($recordid, $content)) {
+			//XTEC - ALEXANDRIA ************ AFEGIT
+			//2013.11.29 @mespinosa
+			// ******* CODI AFEGIT
             if(!empty($this->field->param4)){
                 switch($this->field->param4){
                     case ALEXANDRIA_SCORM:
@@ -220,6 +223,7 @@ class data_field_file extends data_field_base {
                         return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
                 }
             }
+			// ******** FI
             return '';
         }
 
@@ -292,7 +296,7 @@ class data_field_file extends data_field_base {
             $id = $DB->insert_record('data_content', $content);
             $content = $DB->get_record('data_content', array('id'=>$id));
         }
-        //XTEC - ALEXANDRIA ************ AFEGIT - If it's a SCORM file insert as a new scorm object
+		//XTEC - ALEXANDRIA ************ MODIFICAT - If it's a SCORM file insert as a new scorm object
         //2011.05.23 @fcasanel
         //2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         if ($this->field->param4 == ALEXANDRIA_SCORM){
@@ -412,9 +416,41 @@ class data_field_file extends data_field_base {
 	        $content->content2 = $scorm_id;
         	$DB->update_record('data_content',$content);
     	}
-	   //*************** FI
+		// ******** CODI ORIGINAL
+		/*
+        // delete existing files
+        $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
 
-    	//XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
+        $usercontext = context_user::instance($USER->id);
+        $files = $fs->get_area_files($usercontext->id, 'user', 'draft', $value, 'timecreated DESC');
+
+        if (count($files)<2) {
+            // no file
+        } else {
+            foreach ($files as $draftfile) {
+                if (!$draftfile->is_directory()) {
+                    $file_record = array(
+                        'contextid' => $this->context->id,
+                        'component' => 'mod_data',
+                        'filearea' => 'content',
+                        'itemid' => $content->id,
+                        'filepath' => '/',
+                        'filename' => $draftfile->get_filename(),
+                    );
+
+                    $content->content = $file_record['filename'];
+
+                    $fs->create_file_from_storedfile($file_record, $draftfile);
+                    $DB->update_record('data_content', $content);
+
+                    // Break from the loop now to avoid overwriting the uploaded file record
+                    break;
+                }
+            }
+        }*/
+		//*************** FI
+
+		//XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
             if(empty($draftfile)) {

@@ -134,7 +134,7 @@ $string['header_score']='Paràmetres d\'avaluació del GeoGebra';
 $string['filetype'] = 'Tipus';
 $string['filetype_help'] = 'Aquest paràmetre determina com s\'incorporarà l\'activitat GeoGebra al curs. Hi ha dues opcions:
 
-* Fitxer pujat - Permet escollir un fitxer ".ggb" vàlid mitjançant el selector d\'arxius. 
+* Fitxer pujat - Permet escollir un fitxer ".ggb" vàlid mitjançant el selector d\'arxius.
 * URL extern - Permet especificar el URL d\'una activitat GeoGebra. Nota: El URL ha de començar amb http(s) o www i contenir un fitxer ".ggb" vàlid.';
 $string['filetypeexternal'] = 'URL extern';
 $string['filetypelocal'] = 'Fitxer pujat';
@@ -159,3 +159,4 @@ $string['msg_noattempts']= 'Ja has fet aquesta activitat el nombre m&agrave;xim 
 $string['lastmodifiedsubmission'] = $string['datestudent'];
 $string['lastmodifiedgrade'] = $string['dateteacher'];
 $string['viewattempttab'] = 'Intent';
+$string['extractedfromggb'] = 'arxius extrets des del ggb';

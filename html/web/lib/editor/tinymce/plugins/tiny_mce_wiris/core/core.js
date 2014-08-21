@@ -516,11 +516,18 @@ function wrs_endParseEditMode(code, wirisProperties, language) {
 			
 			if (endPosition != -1) {
 				var latex = code.substring(startPosition + 2, endPosition);
-				latex = wrs_htmlentitiesDecode(latex);
-				var mathml = wrs_getMathMLFromLatex(latex, true);
-				var imgObject = wrs_mathmlToImgObject(document, mathml, wirisProperties, language);
-				output += wrs_createObjectCode(imgObject);
-				endPosition += 2;
+
+				if (latex.indexOf('<') == -1) {
+					latex = wrs_htmlentitiesDecode(latex);
+					var mathml = wrs_getMathMLFromLatex(latex, true);
+					var imgObject = wrs_mathmlToImgObject(document, mathml, wirisProperties, language);
+					output += wrs_createObjectCode(imgObject);
+					endPosition += 2;
+				}
+				else {
+					output += '$$';
+					endPosition = startPosition + 2;
+				}
 			}
 			else {
 				output += '$$';
@@ -970,9 +977,10 @@ function wrs_getQueryParams(windowObject) {
  * If the caret is on a text node, concatenates it with all the previous and next text nodes.
  * @param object target The editable element
  * @param boolean isIframe Specifies if the target is an iframe or not
+ * @param forceGetSelection If true, ignores IE system to get the current selection and uses window.getSelection()
  * @return object An object with the 'node' key setted if the item is an element or the keys 'node' and 'caretPosition' if the element is text
  */
-function wrs_getSelectedItem(target, isIframe) {
+function wrs_getSelectedItem(target, isIframe, forceGetSelection) {
 	var windowTarget;
 	
 	if (isIframe) {
@@ -983,12 +991,16 @@ function wrs_getSelectedItem(target, isIframe) {
 		windowTarget = window;
 		target.focus();
 	}
-	
-	if (document.selection) {
+
+	if (document.selection && !forceGetSelection) {
 		var range = windowTarget.document.selection.createRange();
 
 		if (range.parentElement) {
-			if (range.text.length > 0) {
+			if (range.htmlText.length > 0) {
+				if (range.text.length == 0) {
+					return wrs_getSelectedItem(target, isIframe, true);
+				}
+
 				return null;
 			}
 
@@ -1003,7 +1015,7 @@ function wrs_getSelectedItem(target, isIframe) {
 			
 			var node;
 			var caretPosition;
-			
+
 			if (temporalObject.nextSibling && temporalObject.nextSibling.nodeType == 3) {				// TEXT_NODE
 				node = temporalObject.nextSibling;
 				caretPosition = 0;
@@ -1035,35 +1047,37 @@ function wrs_getSelectedItem(target, isIframe) {
 		};
 	}
 	
-	var selection = windowTarget.getSelection();
-	
-	try {
-		var range = selection.getRangeAt(0);
-	}
-	catch (e) {
-		var range = windowTarget.document.createRange();
-	}
-	
-	var node = range.startContainer;
-	
-	if (node.nodeType == 3) {		// TEXT_NODE
-		if (range.startOffset != range.endOffset) {
-			return null;
+	if (windowTarget.getSelection) {
+		var selection = windowTarget.getSelection();
+		
+		try {
+			var range = selection.getRangeAt(0);
+		}
+		catch (e) {
+			var range = windowTarget.document.createRange();
 		}
 		
-		return {
-			'node': node,
-			'caretPosition': range.startOffset
-		};
-	}
-	
-	if (node.nodeType == 1) {	// ELEMENT_NODE
-		var position = range.startOffset;
+		var node = range.startContainer;
 		
-		if (node.childNodes[position]) {
+		if (node.nodeType == 3) {		// TEXT_NODE
+			if (range.startOffset != range.endOffset) {
+				return null;
+			}
+			
 			return {
-				'node': node.childNodes[position]
+				'node': node,
+				'caretPosition': range.startOffset
 			};
+		}
+
+		if (node.nodeType == 1) {	// ELEMENT_NODE
+			var position = range.startOffset;
+			
+			if (node.childNodes[position]) {
+				return {
+					'node': node.childNodes[position]
+				};
+			}
 		}
 	}
 	
@@ -1499,10 +1513,38 @@ function wrs_mathmlDecode(input) {
 	input = input.split(_wrs_safeXmlCharacters.ampersand).join(_wrs_xmlCharacters.ampersand);
 	input = input.split(_wrs_safeXmlCharacters.quote).join(_wrs_xmlCharacters.quote);
 	
-	// We are replacing $ by & for retrocompatibility. Now, the standard is replace § by &
-	input = input.split('$').join('&');
+	// We are replacing $ by & when its part of an entity for retrocompatibility. Now, the standard is replace § by &
+	var returnValue = '';
+	var currentEntity = null;
+
+	for (var i = 0; i < input.length; ++i) {
+		var character = input.charAt(i);
+
+		if (currentEntity == null) {
+			if (character == '$') {
+				currentEntity = '';
+			}
+			else {
+				returnValue += character;
+			}
+		}
+		else {
+			if (character == ';') {
+				returnValue += '&' + currentEntity + ';';
+				currentEntity = null;
+			}
+			else if (character.match(/([a-zA-Z0-9#._-] | '-')/)) {	// character is part of an entity
+				currentEntity += character;
+			}
+			else {
+				returnValue += '$' + currentEntity;		// Is not an entity
+				currentEntity = null;
+				--i;									// Parse again the current character
+			}
+		}
+	}
 	
-	return input;
+	return returnValue;
 }
 
 /**

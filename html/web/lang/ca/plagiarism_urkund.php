@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plagiarism_urkund', language 'ca', branch 'MOODLE_24_STABLE'
+ * Strings for component 'plagiarism_urkund', language 'ca', branch 'MOODLE_26_STABLE'
  *
  * @package   plagiarism_urkund
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -70,4 +70,4 @@ $string['urkund_studentemail'] = 'Envia un correu electrònic a l\'alumne';
 $string['urkund_studentemail_help'] = 'En processar un fitxer s\'enviarà un correu electrònic a l\'alumne per fer-li saber que hi ha un informe disponible, el correu electrònic també inclou l\'enllaç opt-out.';
 $string['urkund_username'] = 'Nom d\'usuari';
 $string['urkund_username_help'] = 'Nom d\'usuari proporcionat per URKUND per accedir a API';
-$string['useurkund'] = 'Desactiva  URKUND';
+$string['useurkund'] = 'Activa URKUND';
