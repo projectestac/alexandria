@@ -46,7 +46,7 @@ function generate_wsdl() {
             mkdir("$CFG->dataroot/1/WebServices/WsSeguimiento");
         }
         $f = fopen("$CFG->dataroot/1/WebServices/WsSeguimiento/wsSeguimiento.wsdl", "w");
-        $strwsdl = file_get_contents("$CFG->wwwroot/mod/rcontent/WebServices/wsSeguimiento_wsdl.php");
+        $strwsdl = rcommon_get_wsdl("$CFG->wwwroot/mod/rcontent/WebServices/wsSeguimiento_wsdl.php");
         fwrite($f, $strwsdl);
         fclose($f);
         log_to_file("wsSeguimiento: WSDL created");
@@ -54,12 +54,12 @@ function generate_wsdl() {
 }
 
 /* test is isset the wsdl file if not create it */
-generate_wsdl();
+//generate_wsdl();
 
 if (isset($_REQUEST['wsdl']) || isset($_REQUEST['WSDL'])) {
     header('Content-type: text/xml');
-    //$wsdl = file_get_contents("$CFG->wwwroot/mod/rcontent/WebServices/wsSeguimiento_wsdl.php");
-    $wsdl = file_get_contents("$CFG->dataroot/1/WebServices/WsSeguimiento/wsSeguimiento.wsdl");
+    $wsdl = rcommon_get_wsdl("$CFG->wwwroot/mod/rcontent/WebServices/wsSeguimiento_wsdl.php");
+    //$wsdl = file_get_contents("$CFG->dataroot/1/WebServices/WsSeguimiento/wsSeguimiento.wsdl");
     print($wsdl);
 } else {
     ini_set("soap.wsdl_cache_enabled", "0"); // disabling WSDL cache
@@ -69,8 +69,8 @@ if (isset($_REQUEST['wsdl']) || isset($_REQUEST['WSDL'])) {
                         'DetalleResultado' => 'DetalleResultado',
                         'RespuestaResultadoExtendido' => 'RespuestaResultadoExtendido',
                         'ResultadoDetalleExtendidoResponse' => 'ResultadoDetalleExtendidoResponse');
-    //$server = new SoapServer("$CFG->wwwroot/mod/rcontent/WebServices/wsSeguimiento_wsdl.php");
-    $server = new SoapServer("$CFG->dataroot/1/WebServices/WsSeguimiento/wsSeguimiento.wsdl");
+    $server = new SoapServer("$CFG->wwwroot/mod/rcontent/WebServices/wsSeguimiento_wsdl.php");
+    //$server = new SoapServer("$CFG->dataroot/1/WebServices/WsSeguimiento/wsSeguimiento.wsdl");
 
     $server->setClass("wsSeguimiento");
     $server->addFunction("ResultadoDetalleExtendido");

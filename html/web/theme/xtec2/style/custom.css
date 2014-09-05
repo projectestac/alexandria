@@ -14,9 +14,12 @@
 body{
 	padding-top: 41px;
 	font-size: [[setting:fontsize]];
-    [[setting:fontstyle]]
+    [[setting:fontstyle]];
 }
 
+a {
+	color: [[setting:color5]]; /* Color*/
+}
 
 h2,h3,h4{
 	color: [[setting:color4]];
@@ -26,21 +29,6 @@ h2,h3,h4{
 	display: none !important;
 }
 
-.navbar .brand{
-	padding: 6px 20px;
-}
-
-.navbar .mainbrand{
-	line-height: 28px;
-}
-
-.navbar .brand.xtec{
-	padding-right: 40px;
-}
-
-.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner{
-	border-bottom: 2px solid [[setting:color2]]; /* Color*/
-}
 
 #title-header{
     position: relative;
@@ -91,6 +79,8 @@ h2,h3,h4{
 	color: #fff;
 }
 
+/*Blocks */
+
 .block{
 	padding-top: 0px;
 }
@@ -99,18 +89,133 @@ h2,h3,h4{
 	padding-top: 8px;
 }
 
-.block .header h2{
+.block .header h2, #dockeditempanel .dockeditempanel_hd h2{
 	color: [[setting:color3]];
-	text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+	text-shadow: 0 1px 0 [[setting:color3a]];
 }
 
-.block .header{
+.block .header a,  #dockeditempanel .dockeditempanel_hd a{
+	color: [[setting:color3]];
+}
+
+.block .header img,
+.block .header input,
+#dockeditempanel .dockeditempanel_hd img{
+	-webkit-filter: brightness(0) [[setting:color3b]];
+	-moz-filter: brightness(0) [[setting:color3b]];
+	filter: brightness(0) [[setting:color3b]];
+}
+
+
+.block .header, #dockeditempanel .dockeditempanel_hd{
 	color: [[setting:color3]];
 	padding: 8px 0;
 	background-color: [[setting:color2]]; /* Color*/
 	border-radius: 4px 4px 0 0;
 	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
+
+.block_course_overview .content h2.title{
+	font-size: 20px;
+}
+
+.block .content {
+	transition: all 0.5s ease;
+	visibility: visible;
+	opacity: 1;
+	max-height: 200000px;
+}
+
+.jsenabled .block.hidden .content {
+	visibility: hidden;
+	opacity: 0;
+	max-height: 0;
+	display: block;
+}
+
+.block .minicalendar {
+	max-width: none;
+}
+
+.block .minicalendar .calendar-controls{
+	text-transform: uppercase;
+	height: 2em;
+	line-height: 2em;
+}
+/*
+.block .minicalendar tr.weekdays{
+	color: [[setting:color3]];
+    background-color: [[setting:color2]];
+    box-shadow:inset -3px -3px 10px 0 #e0e0e0;
+}
+
+.block .minicalendar td.day, .block .minicalendar td.dayblank{
+	box-shadow:inset -3px -3px 10px 0 #e0e0e0;
+	background-color: #f5f5f5;
+}
+
+.block .minicalendar td.today{
+	background-color: [[setting:color5]];
+	box-shadow:inset 3px 3px 10px 0 #666;
+}
+
+.block .minicalendar td.today>a{
+	color: white;
+}*/
+
+/* DOCK */
+#dockeditempanel .dockeditempanel_hd{
+	padding: 11px 15px;
+}
+
+#dock .dockeditem_container {
+	margin-top: 42px;
+}
+
+#dock .dockedtitle{
+	margin: 0;
+	border-radius: 0;
+	border: 0;
+	border-bottom: 1px solid [[setting:color3]];
+	border-right: 1px solid [[setting:color3]];
+}
+
+#dock .dockedtitle>div{
+
+	color: [[setting:color3]];
+	padding: 8px 0;
+	background-color: [[setting:color2]]; /* Color*/
+	-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+}
+
+#dock .dockedtitle h2 {
+	color: [[setting:color3]];
+	text-shadow: 0 1px 0 [[setting:color3a]];
+}
+
+#dockeditempanel .dockeditempanel_content{
+	-webkit-box-shadow: 2px 2px 10px -5px #000;
+	-moz-box-shadow: 2px 2px 10px -5px #000;
+	box-shadow: 2px 2px 10px -5px #000;
+}
+
+/* Navigation */
+.navbar .brand{
+	padding: 6px 20px;
+}
+
+.navbar .mainbrand{
+	line-height: 28px;
+}
+
+.navbar .brand.xtec{
+	padding-right: 40px;
+}
+
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner{
+	border-bottom: 2px solid [[setting:color2]]; /* Color*/
 }
 
 #page-navbar{
@@ -189,9 +294,7 @@ h2,h3,h4{
 	vertical-align: top;
 }
 
-a {
-	color: [[setting:color5]]; /* Color*/
-}
+/* Footer */
 
 #page-footer{
     border-top: 0;
@@ -201,6 +304,77 @@ a {
 	background-color: [[setting:color2]]; /* Color*/
 	color: [[setting:color3]];
     padding: 1em;
+    text-align: center;
+}
+
+@media (min-width: 767px){
+	#page-footer-top .social-icons{
+		text-align: left;
+	}
+}
+
+#page-footer-top .social-icons img,
+#page-footer-top .social-icons i{
+	margin-left: 3px;
+	margin-bottom: 3px;
+	height: 32px;
+    width: 32px;
+    line-height: 32px;
+    font-size: 20px;
+    color: white;
+}
+
+#page-footer-top .social-icons  i.fa-globe{
+	background-color: [[setting:color3]];
+	color: [[setting:color2]];
+}
+
+#page-footer-top .social-icons  i.fa-phone{
+	background-color: #34af23;
+}
+
+#page-footer-top .social-icons  i.fa-envelope{
+	background-color: #9B90C8;
+}
+
+#page-footer-top .social-icons .nodes img{
+	background-color: #1b393a;
+}
+
+#page-footer-top .social-icons .intranet img{
+	background-color: #739cce;
+}
+
+#page-footer-top .social-icons  i.fa-facebook{
+	background-color: #3b5998;
+}
+
+#page-footer-top .social-icons i.fa-twitter{
+	background-color: #55acee;
+}
+
+#page-footer-top .social-icons i.fa-google-plus{
+	background-color: #d34836;
+}
+
+#page-footer-top .social-icons i.fa-pinterest{
+	background-color: #cb2027;
+}
+
+#page-footer-top .social-icons i.fa-instagram{
+	background-color: #517fa4;
+}
+
+#page-footer-top .social-icons i.fa-flickr{
+	background-color: #ff0084;
+}
+
+#page-footer-top .social-icons i.fa-youtube{
+	background-color: #cd201f;
+}
+
+#page-footer-top .social-icons i.fa-linkedin{
+	background-color: #007bb6;
 }
 
 #page-footer-top a{
@@ -279,21 +453,6 @@ a {
     display: none;
 }
 
-/* Animations */
-.block .content {
-	transition: all 0.5s ease;
-	visibility: visible;
-	opacity: 1;
-	max-height: 200000px;
-}
-
-.jsenabled .block.hidden .content {
-	visibility: hidden;
-	opacity: 0;
-	max-height: 0;
-	display: block;
-}
-
 .nav-tabs>.active>a, .nav-tabs>.active>a:hover, .nav-tabs>.active>a:focus,
 .nav-tabs>.ui-state-active>a, .nav-tabs>.ui-state-active>a:hover, .nav-tabs>.ui-state-active>a:focus {
 	color: #555;
@@ -301,6 +460,111 @@ a {
 	background-color: #fff;
 	border: 1px solid #ddd;
 	border-bottom-color: transparent;
+}
+
+#showhideblocks, #showhideblocks i {
+    height: 36px;
+    width: 36px;
+    cursor: pointer;
+    text-align: center;
+}
+
+#showhideblocks:before{
+	display: inline-block;
+	font: normal normal normal 24px/1 FontAwesome;
+	text-rendering: auto;
+	line-height: 36px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+#showhideblocks.expanded:before{
+    content:"\f066";
+}
+#showhideblocks.collapsed:before{
+    content:"\f065";
+}
+
+
+input.form-submit, input#id_submitbutton, input#id_submitbutton2, .path-admin .buttons input[type="submit"], td.submit input {
+	color: [[setting:color3]];
+	background-color: [[setting:color2]];
+	background-image: -moz-linear-gradient(top,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+	background-image: -webkit-gradient(linear,0 0,0 150%,from(rgba(255,255,255,0.2)),to(rgba(0,0,0,0.2)));
+	background-image: -webkit-linear-gradient(top,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+	background-image: -o-linear-gradient(top,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+	background-image: linear-gradient(to bottom,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+	background-image: linear-gradient(to bottom,rgba(255,255,255,0.2),rgba(0,0,0,0.2));
+	border-color: [[setting:color2]];
+	border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25);
+	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='[[setting:color2]]',endColorstr='[[setting:color2]]',GradientType=0);
+	filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+input.form-submit:hover, input#id_submitbutton:hover, input#id_submitbutton2:hover, .path-admin .buttons input[type="submit"]:hover, td.submit input:hover, input.form-submit:focus, input#id_submitbutton:focus, input#id_submitbutton2:focus, .path-admin .buttons input[type="submit"]:focus, td.submit input:focus, input.form-submit:active, input#id_submitbutton:active, input#id_submitbutton2:active, .path-admin .buttons input[type="submit"]:active, td.submit input:active, input.form-submit.active, input#id_submitbutton.active, input#id_submitbutton2.active, .path-admin .buttons input[type="submit"].active, td.submit input.active, input.form-submit.disabled, input#id_submitbutton.disabled, input#id_submitbutton2.disabled, .path-admin .buttons input[type="submit"].disabled, td.submit input.disabled, input.form-submit[disabled], input#id_submitbutton[disabled], input#id_submitbutton2[disabled], .path-admin .buttons input[type="submit"][disabled], td.submit input[disabled]{
+	color: [[setting:color3]];
+	background-color: [[setting:color2]];
+	background-image: none;
+	-webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+	-moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+	box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+}
+
+.path-mod-forum .forumheaderlist .discussion .topic,
+.path-mod-forum .forumheaderlist .discussion .topic.starter,
+.path-mod-forum .forumheaderlist .discussion .picture,
+.path-mod-forum .forumheaderlist .discussion .author,
+.path-mod-forum .forumheaderlist .discussion .replies,
+.path-mod-forum .forumheaderlist .discussion .lastpost {
+	vertical-align: middle;
+	padding: 5px;
+}
+
+table#explaincaps tbody>tr:nth-child(odd)>td,
+table#defineroletable tbody>tr:nth-child(odd)>td,
+table.grading-report tbody>tr:nth-child(odd)>td,
+table#listdirectories tbody>tr:nth-child(odd)>td,
+table.rolecaps tbody>tr:nth-child(odd)>td,
+table.userenrolment tbody>tr:nth-child(odd)>td,
+table#form tbody>tr:nth-child(odd)>td,
+form#movecourses table tbody>tr:nth-child(odd)>td,
+#page-admin-course-index .editcourse tbody>tr:nth-child(odd)>td,
+.forumheaderlist tbody>tr:nth-child(odd)>td,
+table.flexible tbody>tr:nth-child(odd)>td,
+.generaltable tbody>tr:nth-child(odd)>td,
+table#explaincaps tbody>tr:nth-child(odd)>th,
+table#defineroletable tbody>tr:nth-child(odd)>th,
+table.grading-report tbody>tr:nth-child(odd)>th,
+table#listdirectories tbody>tr:nth-child(odd)>th,
+table.rolecaps tbody>tr:nth-child(odd)>th,
+table.userenrolment tbody>tr:nth-child(odd)>th,
+table#form tbody>tr:nth-child(odd)>th,
+form#movecourses table tbody>tr:nth-child(odd)>th,
+#page-admin-course-index .editcourse tbody>tr:nth-child(odd)>th,
+.forumheaderlist tbody>tr:nth-child(odd)>th,
+table.flexible tbody>tr:nth-child(odd)>th,
+.generaltable tbody>tr:nth-child(odd)>th {
+	background-color: #f6f6f6;
+}
+
+.user-enroller-panel .uep-search-results .users tbody tr:hover>td,
+table.grading-report tbody tr:hover>td,
+.forumheaderlist tbody tr:hover>td,
+.generaltable tbody tr:hover>td,
+table.flexible tbody tr:hover>td,
+.category_subcategories tbody tr:hover>td,
+table#modules tbody tr:hover>td,
+table#permissions tbody tr:hover>td,
+.user-enroller-panel .uep-search-results
+.users tbody tr:hover>th,
+table.grading-report tbody tr:hover>th,
+.forumheaderlist tbody tr:hover>th,
+.generaltable tbody tr:hover>th,
+table.flexible tbody tr:hover>th,
+.category_subcategories tbody tr:hover>th,
+table#modules tbody tr:hover>th,
+table#permissions tbody tr:hover>th {
+	background-color: #f2f2f2;
 }
 
 /* Custom CSS Settings

@@ -16,13 +16,16 @@
     $centre = false;
     if(isset($_REQUEST['ccentre'])){
         $centre = $_REQUEST['ccentre'];
-    } else if(isset($_SERVER['argv'])){
-        $argvs = $_SERVER['argv'];
-        foreach($argvs as $arg){
-            $parts = explode('=', $arg);
-            if($parts[0] == '--ccentre'){
-                $centre = $parts[1];
-                $agora_cli = true;
+    } else if(defined('CLI_SCRIPT')) {
+        $agora_cli = true;
+        if (isset($_SERVER['argv'])){
+            $argvs = $_SERVER['argv'];
+            foreach($argvs as $arg){
+                $parts = explode('=', $arg);
+                if($parts[0] == '--ccentre'){
+                    $centre = $parts[1];
+
+                }
             }
         }
     }
@@ -33,6 +36,7 @@
         exit(0);
     }
 
+    global $school_info;
     $school_info = getSchoolInfoFromFile($centre, $dbsource, 'moodle2');
     xtec_debug($school_info['source']);
 
@@ -42,7 +46,7 @@
     }
 
     // Get the correct domain for the school (it's different if the school uses marsupial modules)
-    $CFG->ismarsupial = array_key_exists('is_marsupial', $school_info) && $school_info['is_marsupial'];
+    $CFG->ismarsupial = isset($school_info['is_marsupial']) && $school_info['is_marsupial'];
 
     if (isset($CFG->ismarsupial) && $CFG->ismarsupial) {
         $moodle_wwwserver = $agora['server']['marsupial'];
@@ -50,24 +54,23 @@
         $moodle_wwwserver = $agora['server']['server'];
     }
 
-    $moodle_wwwroot = $moodle_wwwserver . $agora['server']['base'];
+     $moodle_wwwroot = $moodle_wwwserver . $agora['server']['base'];
 
     // Check if the domain is not the correct one and move if it isn't
-    if (endsWith($moodle_wwwserver, $_SERVER['HTTP_HOST']) === false) {
+    if (!$agora_cli && endsWith($moodle_wwwserver, $_SERVER['HTTP_HOST']) === false) {
         $location = $moodle_wwwserver.$_SERVER['REQUEST_URI'];
         header ('HTTP/1.1 301 Moved Permanently');
         header ('Location: '.$location);
         exit;
     }
 
-    $moodle_dirroot = getMoodleDirrot($school_info, 'moodle2');
-    if (!empty($school_info['new_dns'])) {
-         $newadress = $moodle_wwwroot . $school_info['new_dns'] . '/' . $moodle_dirroot;
+    if (!$agora_cli && !empty($school_info['new_dns'])) {
+         $newadress = $moodle_wwwroot . $school_info['new_dns'] . '/moodle';
          header('location: '.$moodle_wwwroot.'error.php?newaddress='.$newadress);
          exit(0);
     }
 
-    if (!isset($school_info['id_moodle2']) || empty($school_info['id_moodle2'])) {
+    if (!$agora_cli && !isset($school_info['id_moodle2']) || empty($school_info['id_moodle2'])) {
         header('location: '.WWWROOT.'error.php?s=moodle2&dns='.$_REQUEST['ccentre']);
         exit(0);
     } else {
@@ -82,7 +85,6 @@
 
     $CFG->dbname    = $school_info['database_moodle2'];
     $CFG->dbuser    = $agora['moodle']['username'] . $school_info['id_moodle2'];
-    $CFG->wwwroot   = $moodle_wwwroot.$centre . '/' . $moodle_dirroot;
-    $CFG->wwwroot19 = $moodle_wwwroot.$centre . '/' . getMoodleDirrot($school_info, 'moodle');
+    $CFG->wwwroot   = $moodle_wwwroot.$centre . '/moodle';
     $CFG->dataroot  = INSTALL_BASE . $agora['moodle2']['datadir'] . $agora['moodle']['username'] . $school_info['id_moodle2'];
     $CFG->dnscentre = $centre;
