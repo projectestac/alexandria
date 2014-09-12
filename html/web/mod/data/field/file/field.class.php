@@ -94,7 +94,29 @@ class data_field_file extends data_field_base {
         $options->maxbytes = $this->field->param3;
         $options->maxfiles  = 1; // Limit to one file for the moment, this may be changed if requested as a feature in the future.
         $options->itemid    = $itemid;
-        $options->accepted_types = '*';
+        //XTEC - ALEXANDRIA ***** MODIFICAT - Only admited filetypes
+        // 2014.09.12 @pferre22
+        // $options->accepted_types = '*';
+        // ***** CODI MODIFICAT
+        switch($this->field->param4){
+            case ALEXANDRIA_COURSE_BACKUP:
+                $options->accepted_types = 'application/vnd.moodle.backup';
+                break;
+            case ALEXANDRIA_PDI_PDF:
+                $options->accepted_types = 'application/pdf';
+                break;
+            case ALEXANDRIA_SCORM:
+                $options->accepted_types = array('.zip', '.xml');
+                break;
+            case ALEXANDRIA_PDI:
+                $options->accepted_types = array('.xbk', '.notebook', '.gwb', '.ink', '.flp', '.flipchart', '.ubz', '.iwb', 'presentation', 'video');
+                break;
+            default:
+                $options->accepted_types = '*';
+                break;
+        }
+        // ***** FI
+
         $options->return_types = FILE_INTERNAL;
         $options->context = $PAGE->context;
 

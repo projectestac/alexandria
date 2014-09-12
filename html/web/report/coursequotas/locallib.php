@@ -186,7 +186,6 @@ function report_coursequotas_addContextElemsToTree($categoryTree, $systemContext
 
                 $totalCourseSize = $courseSize->total;
                 $totalSize += $courseSize->total;
-
                 $categoryTree[$key]['courses'][$courseId]['coursesize'] = $totalCourseSize;
             }
         }

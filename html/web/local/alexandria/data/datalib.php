@@ -1,37 +1,37 @@
 <?php
 
-define ('ALEXANDRIA_OTHER',0);
-define ('ALEXANDRIA_PDI_PDF',1);
-define ('ALEXANDRIA_SCORM',2);
-define ('ALEXANDRIA_COURSE_BACKUP',3);
-define ('ALEXANDRIA_PDI',4);
+define ('ALEXANDRIA_OTHER', 0);
+define ('ALEXANDRIA_PDI_PDF', 1);
+define ('ALEXANDRIA_SCORM', 2);
+define ('ALEXANDRIA_COURSE_BACKUP', 3);
+define ('ALEXANDRIA_PDI', 4);
 
 
 // REPORT ABUSE FUNCTIONS
 
-function alexandria_abuse_report_button($recordid){
+function alexandria_abuse_report_button($recordid) {
 	global $CFG;
 	$content = '<a href="'.$CFG->wwwroot.'/local/alexandria/data/report_abuse.php?recordid='.$recordid.'">'.
-	get_string('reportabuse','local_alexandria').'</a>';
+	get_string('reportabuse', 'local_alexandria').'</a>';
 	return $content;
 }
 
 // DOWNLOAD FUNCTIONS
-function alexandria_get_downloads($recordid, $fieldid = false){
-    global $CFG,$DB;
-    if(!$fieldid){
-    	$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));
+function alexandria_get_downloads($recordid, $fieldid = false) {
+    global $CFG, $DB;
+    if (!$fieldid) {
+    	$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
     	$fieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_filefieldid, 'dataid' => $dataid));
     }
     return (int)$DB->get_field('data_content', 'content4', array('recordid' => $recordid, 'fieldid' => $fieldid));
 }
 
-function alexandria_download_file($recordid, $fieldid){
+function alexandria_download_file($recordid, $fieldid) {
 	global $CFG, $DB;
 	require_once($CFG->libdir.'/filelib.php');
 
 	$file = alexandria_get_file($recordid, $fieldid);
-	if($file) {
+	if ($file) {
 		alexandria_update_downloadings($recordid, $fieldid);
 		send_stored_file($file, 0, 0, true);
 		return;
@@ -39,23 +39,23 @@ function alexandria_download_file($recordid, $fieldid){
 	send_file_not_found();
 }
 
-function alexandria_get_file($recordid, $fieldid){
+function alexandria_get_file($recordid, $fieldid) {
 	global $CFG, $DB;
 	require_once($CFG->libdir.'/filelib.php');
 
 	$record = $DB->get_record('data_records', array('id' => $recordid));
 	$field = $DB->get_record('data_fields', array('id' => $fieldid));
-	if($record && $field) {
+	if ($record && $field) {
 		$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
 		$fs = get_file_storage();
-		if($field->param4 == ALEXANDRIA_COURSE_BACKUP){
-			//Course from automated backup area
-			$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
-			$courseid = $DB->get_field('data_content','content',array('fieldid' => $coursefieldid, 'recordid' => $recordid));
+		if ($field->param4 == ALEXANDRIA_COURSE_BACKUP) {
+			// Course from automated backup area
+			$coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
+			$courseid = $DB->get_field('data_content', 'content', array('fieldid' => $coursefieldid, 'recordid' => $recordid));
 			return alexandria_get_course_file($courseid);
 		} else {
 			// Get other files
-            if (!$content = $DB->get_record('data_content', array('fieldid'=>$fieldid, 'recordid'=>$recordid))) {
+            if (!$content = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid' => $recordid))) {
                 return null;
             }
             $cm = get_coursemodule_from_instance('data', $dataid);
@@ -66,19 +66,21 @@ function alexandria_get_file($recordid, $fieldid){
 	return null;
 }
 
-function alexandria_get_course_file($courseid){
+function alexandria_get_course_file($courseid) {
 	global $CFG;
 	require_once($CFG->libdir.'/filelib.php');
 
-	if (!$courseid) return null;
+	if (!$courseid) {
+		return null;
+	}
 
 	$fs = get_file_storage();
-	$context = context_course::instance($courseid,IGNORE_MISSING);
-	if($context){
-		//Course from automated backup area
+	$context = context_course::instance($courseid, IGNORE_MISSING);
+	if ($context) {
+		// Course from automated backup area
 		$files = $fs->get_area_files($context->id, 'backup', 'automated', false, 'timecreated DESC');
-		foreach($files as $file) {
-			if (!$file->is_directory()){
+		foreach ($files as $file) {
+			if (!$file->is_directory()) {
 		        return $file;
 			}
 		}
@@ -86,9 +88,9 @@ function alexandria_get_course_file($courseid){
 	return null;
 }
 
-function alexandria_update_downloadings($recordid, $fieldid){
+function alexandria_update_downloadings($recordid, $fieldid) {
     global $CFG, $DB;
-	$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));
+	$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
     $record = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid' => $recordid));
 
     $value = $record->content4;
@@ -105,85 +107,86 @@ function alexandria_update_downloadings($recordid, $fieldid){
     return $value;
 }
 
-function alexandria_get_download_info($recordid, $fieldid){
+function alexandria_get_download_info($recordid, $fieldid) {
 	global $DB;
-	$object = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid'=> $recordid));
+	$object = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid' => $recordid));
 
 	$values = array ();
-	$values['total'] = empty($object->content4) ? 0 : $object->content4 ;
-	$values['last'] = empty($object->content3) ? get_string('data_never','local_alexandria') : date("d/m/Y, G:i" ,(int)$object->content3);
+	$values['total'] = empty($object->content4) ? 0 : $object->content4;
+	$values['last'] = empty($object->content3) ? get_string('data_never', 'local_alexandria') : date("d/m/Y, G:i", (int)$object->content3);
 	return $values;
 }
 
-function alexandria_get_replacement($value, $fieldname, $template, $record, $context){
+function alexandria_get_replacement($value, $fieldname, $template, $record, $context) {
 	global $CFG, $DB;
 
     switch($fieldname){
         case $CFG->data_filefieldid:
             if (!$value && $template == 'singletemplate') {
-                return '<div>'.get_string('fileunavailable','local_alexandria').'</div>';
+                return '<div>'.get_string('fileunavailable', 'local_alexandria').'</div>';
             }
             break;
         case $CFG->data_coursefieldid:
-            if ($value && $DB->record_exists('course',array('id'=>$value))){
-                return '<a href="'.$CFG->wwwroot.'/course/view.php?id='.$value.'">'.get_string('show_course','local_alexandria').'</a>';
+            if ($value && $DB->record_exists('course', array('id' => $value))) {
+                return '<a href="'.$CFG->wwwroot.'/course/view.php?id='.$value.'">'.get_string('show_course', 'local_alexandria').'</a>';
             }
             // Es desaprova el curss perquè el curs no existeix i així ho pot revisar el revisor
-            if($record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $context)) {
+            if ($record->timemodified < time() - 24 * 60 * 60 && !has_capability('mod/data:approve', $context)) {
                 $record->approved = 0;
                 $record->timemodified = time();
-                $DB->update_record('data_records',$record);
+                $DB->update_record('data_records', $record);
             }
-            return get_string('nocourse','local_alexandria');
+            return get_string('nocourse', 'local_alexandria');
             break;
     }
-    if (!$value){
+    if (!$value) {
         return '<div class="dataEmptyField"></div>';
     }
     return $value;
 }
 
 
-function alexandria_update_moodle_version($recordid, $version){
+function alexandria_update_moodle_version($recordid, $version) {
 	global $CFG, $DB;
 
 	$oldversion = get_data_field_by_name($CFG->data_moodleversionfieldid, $recordid);
-	if(empty($oldversion)){
-		$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));
-		$field = $DB->get_record('data_fields',array('dataid' => $dataid, 'name' => $CFG->data_moodleversionfieldid));
-		$versionfield = data_get_field($field,$dataid);
-		$versionfield->update_content($recordid,$version);
+	if (empty($oldversion)) {
+		$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+		$field = $DB->get_record('data_fields', array('dataid' => $dataid, 'name' => $CFG->data_moodleversionfieldid));
+		$versionfield = data_get_field($field, $dataid);
+		$versionfield->update_content($recordid, $version);
 	}
 }
 
-function alexandria_get_admin(){
+function alexandria_get_admin() {
 	global $DB;
-	$admin = $DB->get_record('user',array('username' => 'xtecadmin'));
-	if(!$admin){
-		$admin = $DB->get_record('user',array('username' => 'admin'));
+	$admin = $DB->get_record('user', array('username' => 'xtecadmin'));
+	if (!$admin) {
+		$admin = $DB->get_record('user', array('username' => 'admin'));
 	}
-	if(!$admin){
-		$admin = $DB->get_record('user',array('id' => 2));
+	if (!$admin) {
+		$admin = $DB->get_record('user', array('id' => 2));
 	}
-	if($admin && is_siteadmin($admin)) return $admin;
+	if ($admin && is_siteadmin($admin)) {
+			return $admin;
+	}
 	return false;
 }
 
-//RESTORE FUNCTIONS
-
+// RESTORE FUNCTIONS
 function alexandria_restore_course($file, $recordid) {
 	global $DB, $CFG, $USER;
 
 	require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php');
 
-	if(!$file){
+	if (!$file) {
 		throw new moodle_exception('filenotfound');
 	}
 
 	$useradmin = alexandria_get_admin();
-	if($useradmin){
+	if ($useradmin) {
 		$userid = $useradmin->id;
-	} else if(isset($USER->id) && $USER->id != 0) {
+	} else if (isset($USER->id) && $USER->id != 0) {
 		$userid = $USER->id;
 	} else {
 		print_error('user_not_found');
@@ -195,7 +198,7 @@ function alexandria_restore_course($file, $recordid) {
 	$courseid = restore_dbops::create_new_course($fullname, $shortname, $category->id);
 
 	$fs = get_file_storage();
-	if(get_class($file) != 'stored_file'){
+	if (get_class($file) != 'stored_file') {
 		$file = $fs->get_file_instance($file);
 	}
 
@@ -203,9 +206,9 @@ function alexandria_restore_course($file, $recordid) {
 	$basepath = alexandria_get_basepath($backupid);
 
 	if (!check_dir_exists($basepath, true, true)) {
-		throw new moodle_exception('tempnotfound','moodle',$basepath);
+		throw new moodle_exception('tempnotfound', 'moodle', $basepath);
 	}
-	if(!$file->extract_to_pathname(get_file_packer(), $basepath)){
+	if (!$file->extract_to_pathname(get_file_packer(), $basepath)) {
 		throw new moodle_exception('errorunzip');
 	}
 
@@ -253,7 +256,7 @@ function alexandria_restore_course($file, $recordid) {
 	return $courseid;
 }
 
-function alexandria_get_restoresettings(&$rc, $settings_override = false){
+function alexandria_get_restoresettings(&$rc, $settings_override = false) {
 	$settings = array(
 			'activities' => 1,
 			'blocks' => 0,
@@ -266,7 +269,7 @@ function alexandria_get_restoresettings(&$rc, $settings_override = false){
             'userscompletion' => 0
 	);
 
-	if($settings_override){
+	if ($settings_override) {
 		foreach ($settings_override as $name => $value) {
 			$settings[$name] = $value;
 		}
@@ -284,21 +287,21 @@ function alexandria_get_restoresettings(&$rc, $settings_override = false){
 	}
 }
 
-function alexandria_get_basepath($backupid = false){
+function alexandria_get_basepath($backupid = false) {
 	global $CFG;
 	$basepath = $CFG->tempdir . '/backup';
 
-	if($backupid){
+	if ($backupid) {
 		$basepath .= '/'.$backupid;
 	}
 	return $basepath;
 }
 
-function alexandria_get_course_category($recordid){
+function alexandria_get_course_category ($recordid) {
 	global $CFG, $DB;
 
-	$cat = explode('-',get_data_field_by_name($CFG->data_categoryfieldid,$recordid));
-	$category = $DB->get_record('course_categories',array('name' => $cat[1]));
+	$cat = explode('-', get_data_field_by_name($CFG->data_categoryfieldid, $recordid));
+	$category = $DB->get_record('course_categories', array('name' => $cat[1]));
 	if (!$category) {
 		$category = new stdClass();
 		$category->name = $cat[1];
@@ -306,49 +309,54 @@ function alexandria_get_course_category($recordid){
 		$category->visible = 1;
 		$category->parent = 0;
 		$category->depth = 1;
-		$category = create_course_category($category);
+		$category = coursecat::create($category);
 	}
 	return $category;
 }
 
-function alexandria_get_course_shortname($category, $recordid){
+function alexandria_get_course_shortname($category, $recordid) {
 	global $CFG, $DB;
-	$ccid = $DB->get_field_sql('SELECT IFNULL(MAX(
-		IFNULL(CAST(
-			REPLACE(
-				SUBSTRING(
-					SUBSTRING_INDEX(shortname, \'_\', 3),
-					LENGTH(
-						SUBSTRING_INDEX(shortname, \'_\', 3 - 1)
-					)+1
-				), \'_\', \'\')
-			 AS UNSIGNED
-		),0)
-	),0)+1 FROM mdl_course WHERE category = '.$category->id);
+
+	// Find new ccid. Shortnames will have this layout: CC_MMYY_CID_V.S
+	// We need to have the greater CID and add one.
+	$courseshortnames = $DB->get_records('course', array('category' => $category->id), 'shortname');
+	$ccid = 0;
+	foreach ($courseshortnames as $courseshortname) {
+		$parts = explode('_', $courseshortname->shortname);
+		if (isset($parts[2])) {
+			$newccid = (int) $parts[2];
+			if ($newccid > $ccid) {
+				$ccid = $newccid;
+			}
+		}
+	}
+	$ccid++;
+
 	return $category->idnumber
-		.'_'.date('my',get_data_field_by_name($CFG->data_creationdatefieldid,$recordid))
-		.'_'.str_pad($ccid,3,'0',STR_PAD_LEFT)
+		.'_'.date('my', get_data_field_by_name($CFG->data_creationdatefieldid, $recordid))
+		.'_'.str_pad($ccid, 3, '0', STR_PAD_LEFT)
 		.'_1.0';
 }
 
 function override_course_values($courseid, $recordid, $updateshortname = true) {
-	global $DB,$CFG;
-	$ccid = 1;
+	global $DB, $CFG;
 	$category = alexandria_get_course_category($recordid);
 	$course = $DB->get_record('course', array('id' => $courseid));
-    $course->fullname = get_data_field_by_name($CFG->data_fullnamefieldid,$recordid);
+    $course->fullname = get_data_field_by_name($CFG->data_fullnamefieldid, $recordid);
 	if ($updateshortname) {
 		$course->shortname = alexandria_get_course_shortname($category, $recordid);
 	}
-	$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));
-	$field = $DB->get_record('data_fields',array('dataid' => $dataid, 'name' => $CFG->data_shortnamefieldid));
-	$shortname = data_get_field($field,$dataid);
-	$shortname->update_content($recordid,$course->shortname);
-	$course->summary = get_data_field_by_name($CFG->data_summaryfieldid,$recordid).'<br/>';
-	if ($creator = get_data_field_by_name($CFG->data_creatorfieldid,$recordid))
-		$course->summary .= '<br/><strong>'.get_string('creatorfield','local_alexandria').': </strong>'.$creator;
-	if ($license = get_data_field_by_name($CFG->data_licensefieldid,$recordid))
-        $course->summary .= '<br/><strong>'.get_string('licensefield','local_alexandria').': </strong>'.$license;
+	$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+	$field = $DB->get_record('data_fields', array('dataid' => $dataid, 'name' => $CFG->data_shortnamefieldid));
+	$shortname = data_get_field($field, $dataid);
+	$shortname->update_content($recordid, $course->shortname);
+	$course->summary = get_data_field_by_name($CFG->data_summaryfieldid, $recordid).'<br/>';
+	if ($creator = get_data_field_by_name($CFG->data_creatorfieldid, $recordid)) {
+		$course->summary .= '<br/><strong>'.get_string('creatorfield', 'local_alexandria').': </strong>'.$creator;
+	}
+	if ($license = get_data_field_by_name($CFG->data_licensefieldid, $recordid)) {
+        $course->summary .= '<br/><strong>'.get_string('licensefield', 'local_alexandria').': </strong>'.$license;
+	}
 
 	$course->category = $category->id;
 	$course->coursedisplay = 0;
@@ -356,18 +364,18 @@ function override_course_values($courseid, $recordid, $updateshortname = true) {
 	update_course($course);
 }
 
-function get_data_field_by_name($name,$recordid) {
+function get_data_field_by_name($name, $recordid) {
 	global $DB;
-	$dataid = $DB->get_field('data_records','dataid',array('id' => $recordid));
-	$fieldid = $DB->get_field('data_fields','id',array('dataid' => $dataid, 'name' => $name));
-	return $DB->get_field('data_content','content',array('fieldid' => $fieldid, 'recordid' => $recordid));
+	$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+	$fieldid = $DB->get_field('data_fields', 'id', array('dataid' => $dataid, 'name' => $name));
+	return $DB->get_field('data_content', 'content', array('fieldid' => $fieldid, 'recordid' => $recordid));
 }
 
-function sort_datarecord_files_last($a,$b) {
-	$a = explode('_',$a->name);
+function sort_datarecord_files_last($a, $b) {
+	$a = explode('_', $a->name);
 	$a = end($a);
 
-	$b = explode('_',$b->name);
+	$b = explode('_', $b->name);
 	$b = end($b);
 
 	if ($a == 'file' && $b == 'file') return 0;

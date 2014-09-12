@@ -28,10 +28,10 @@
             <?php
                 $filetypes = array(
                         ALEXANDRIA_OTHER => get_string('otherfile', 'local_alexandria'),
-                        ALEXANDRIA_PDI_PDF => get_string('pdipdffile', 'local_alexandria'),
-                        ALEXANDRIA_SCORM => get_string('scormfile', 'local_alexandria'),
                         ALEXANDRIA_COURSE_BACKUP => get_string('coursebackupfile', 'local_alexandria'),
-                        ALEXANDRIA_PDI => get_string('pdifile', 'local_alexandria')
+                        ALEXANDRIA_SCORM => get_string('scormfile', 'local_alexandria'),
+                        ALEXANDRIA_PDI => get_string('pdifile', 'local_alexandria'),
+                        ALEXANDRIA_PDI_PDF => get_string('pdipdffile', 'local_alexandria')
                     );
                 echo html_writer::select($filetypes,'param4',$this->field->param4,false);
             ?>

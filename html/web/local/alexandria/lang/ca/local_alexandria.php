@@ -3,19 +3,19 @@ $string['pluginname'] = 'Alexandria';
 $string['alexandria'] = 'Alexandria';
 
 $string['abusereports'] = 'Informes de contingut inadequat';
-$string['reportabuse'] ='Informa de contingut inadequat';
+$string['reportabuse'] = 'Informa de contingut inadequat';
 
 $string['data_never'] = 'mai';
-$string['reportabuse_select'] ='Selecciona l\'opció que descriu millor el cas de contingut inadequat ';
-$string['reportabuse_copyrights'] ='Infringeix els drets d\'autoria';
-$string['reportabuse_nudity'] ='Té errades greus de forma i/o contingut';
-$string['reportabuse_other'] ='Infringeix una altra condició (cal indicar la descripció a continuació)';
-$string['reportabuse_comments'] ='Afegeix comentaris per ajudar-nos a entendre el teu informe de contingut inadequat.';
-$string['reportabuse_submit'] ='Envia l\'informe';
-$string['reportabuse_cancel'] ='Cancel·la';
-$string['reportabuse_mailsubject'] ='Notificació de contingut inadequat a {$a->contentname}';
-$string['reportabuse_mail'] =' ha notificat el contingut inadequat següent al recurs {$a->coursename}: {$a->abuse}';
-$string['reportabuse_intro'] ='Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href="{$a}" target="_blank">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
+$string['reportabuse_select'] = 'Selecciona l\'opció que descriu millor el cas de contingut inadequat ';
+$string['reportabuse_copyrights'] = 'Infringeix els drets d\'autoria';
+$string['reportabuse_nudity'] = 'Té errades greus de forma i/o contingut';
+$string['reportabuse_other'] = 'Infringeix una altra condició (cal indicar la descripció a continuació)';
+$string['reportabuse_comments'] = 'Afegeix comentaris per ajudar-nos a entendre el teu informe de contingut inadequat.';
+$string['reportabuse_submit'] = 'Envia l\'informe';
+$string['reportabuse_cancel'] = 'Cancel·la';
+$string['reportabuse_mailsubject'] = 'Notificació de contingut inadequat a {$a->contentname}';
+$string['reportabuse_mail'] = ' ha notificat el contingut inadequat següent al recurs {$a->coursename}: {$a->abuse}';
+$string['reportabuse_intro'] = 'Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href="{$a}" target="_blank">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
 $string['reportabuse_noguestuseage'] = 'Els usuaris invitats no tenen accès a aquesta pàgina.';
 $string['reportabuse_no_comments'] = 'Sense comentaris';
 $string['reportabuse_no_topic'] = 'Sense categoria';
@@ -34,8 +34,8 @@ $string['urlfieldid'] = 'Camp de la URL';
 $string['licensefieldid'] = 'Camp de la llicència';
 $string['creationdatefieldid'] = 'Camp de la data de creació';
 $string['filefieldid'] = 'Camp del fitxer';
-$string['moodleversionfieldid'] ='Camp de la versió de Moodle';
-$string['configmoodleversionfieldid'] ='Camp de la base de dades que conté la versió de Moodle del fitxer';
+$string['moodleversionfieldid'] = 'Camp de la versió de Moodle';
+$string['configmoodleversionfieldid'] = 'Camp de la base de dades que conté la versió de Moodle del fitxer';
 $string['configfilefieldid'] = 'Camp de la base de dades que conté el fitxer';
 $string['configfullnamefieldid'] = 'Camp de la base de dades que conté el nom complet';
 $string['configshortnamefieldid'] = 'Camp de la base de dades que conté el nomm curt';
@@ -51,13 +51,13 @@ $string['fileunavailable'] = 'Fitxer no disponible en aquest moments';
 $string['recordmissingfield'] = 'Falta omplir un camp necessari: {$a}';
 $string['error_restoringcourse'] = 'S\'ha produit un error mentre es restaurava el curs';
 
-$string['reports'] ='Informes';
-$string['pages'] ='Pàgines';
-$string['resource_reported'] ='Recurs afectat';
-$string['reporter'] ='Autor de l\'informe';
-$string['report_topic'] ='Tema';
-$string['report_desc'] ='Descripció';
-$string['report_date'] ='Data';
+$string['reports'] = 'Informes';
+$string['pages'] = 'Pàgines';
+$string['resource_reported'] = 'Recurs afectat';
+$string['reporter'] = 'Autor de l\'informe';
+$string['report_topic'] = 'Tema';
+$string['report_desc'] = 'Descripció';
+$string['report_date'] = 'Data';
 
 $string['show_course'] = 'Visualitza el curs';
 $string['nocourse'] = 'No hi ha un curs vàlid';
@@ -78,6 +78,6 @@ $string['file_notavalaible'] = 'El fitxer no està disponible';
 $string['file_notfound'] = 'Error greu: No s\'ha trobat el fitxer';
 $string['preview_notavalaible'] = 'La previsualització no està disponible';
 
-//SCORM
+// SCORM
 $string['show_index'] = "Mostra l\'índex >>";
 $string['hide_index'] = "Amaga l\'índex <<";
