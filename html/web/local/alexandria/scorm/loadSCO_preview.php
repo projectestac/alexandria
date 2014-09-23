@@ -47,16 +47,24 @@ if (!empty($id)) {
     print_error('missingparameter');
 }
 $PAGE->set_url('/local/alexandria/scorm/loadSCO_preview.php', array('scoid'=>$scoid, 'id'=>$cm->id));
+try{
+    $PAGE->set_cm($cm, $course); // Set's up global $COURSE.
+} catch (Exception $e) {
+    $sectionid = course_add_cm_to_section(SITEID, $cm->id, 1);
+    $PAGE->set_cm($cm, $course); // Set's up global $COURSE.
+}
+$PAGE->set_pagelayout('incourse');
+
 
 //check if scorm closed
-$timenow = time();
+/*$timenow = time();
 if ($scorm->timeclose !=0) {
     if ($scorm->timeopen > $timenow) {
         print_error('notopenyet', 'scorm', null, userdate($scorm->timeopen));
     } else if ($timenow > $scorm->timeclose) {
         print_error('expired', 'scorm', null, userdate($scorm->timeclose));
     }
-}
+}*/
 
 $context = context_module::instance($cm->id);
 

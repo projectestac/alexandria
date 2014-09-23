@@ -97,12 +97,14 @@ if ($displaymode == 'popup') {
     $PAGE->set_title($pagetitle);
     $PAGE->set_heading($course->fullname);
 }
-if (!$cm->visible and !has_capability('moodle/course:viewhiddenactivities', $coursecontext)) {
+$PAGE->add_body_class('preview_scorm');
+
+/*if (!$cm->visible and !has_capability('moodle/course:viewhiddenactivities', $coursecontext)) {
     echo $OUTPUT->header();
     notice(get_string("activityiscurrentlyhidden"));
     echo $OUTPUT->footer();
     die;
-}
+}*/
 
 // Check if scorm closed.
 /*$timenow = time();
@@ -129,14 +131,14 @@ require_once($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'lib.php');
 
 $result = scorm_get_toc($USER, $scorm, $cm->id, TOCJSLINK, $currentorg, $scoid, $mode, $attempt, true, true);
 $sco = $result->sco;
-if ($scorm->lastattemptlock == 1 && $result->attemptleft == 0) {
+/*if ($scorm->lastattemptlock == 1 && $result->attemptleft == 0) {
     echo $OUTPUT->header();
     echo $OUTPUT->notification(get_string('exceededmaxattempts', 'scorm'));
     echo $OUTPUT->footer();
     exit;
-}
+}*/
 
-add_to_log($course->id, 'scorm', 'view', "player.php?cm=$cm->id&scoid=$sco->id", "$scorm->id", $cm->id);
+add_to_log($course->id, 'scorm', 'preview', "player.php?cm=$cm->id&scoid=$sco->id", "$scorm->id", $cm->id);
 
 
 $scoidstr = '&amp;scoid='.$sco->id;
@@ -187,8 +189,8 @@ $name = false;
 <?php
 if ($scorm->hidetoc == SCORM_TOC_POPUP or $mode=='browse' or $mode=='review') {
     echo '<div id="scormtop">';
-    echo $mode == 'browse' ? '<div id="scormmode" class="scorm-left">'.get_string('browsemode', 'scorm')."</div>\n" : '';
-    echo $mode == 'review' ? '<div id="scormmode" class="scorm-left">'.get_string('reviewmode', 'scorm')."</div>\n" : '';
+    /*echo $mode == 'browse' ? '<div id="scormmode" class="scorm-left">'.get_string('browsemode', 'scorm')."</div>\n" : '';
+    echo $mode == 'review' ? '<div id="scormmode" class="scorm-left">'.get_string('reviewmode', 'scorm')."</div>\n" : '';*/
     if ($scorm->hidetoc == SCORM_TOC_POPUP) {
         echo '<div id="scormnav" class="scorm-right">'.$result->tocmenu.'</div>';
     }
@@ -248,7 +250,7 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
     }
     $jsmodule = array(
         'name' => 'mod_scorm',
-        'fullpath' => '/mod/scorm/module.js',
+        'fullpath' => '/local/alexandria/scorm/module_preview.js',
         'requires' => array('json'),
     );
     $scorm->nav = intval($scorm->nav);

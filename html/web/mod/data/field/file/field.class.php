@@ -264,11 +264,13 @@ class data_field_file extends data_field_base {
                 $url = urlencode($src);
                 $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id'=>'previewImg', 'title'=>$preview_str));
                 $str = '<div id="previewButton">'.$icon.'
-                        <a id="show" href="#show" onclick="document.getElementById(\'image\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
-                $str .= '<div id="image" style="display: none;">
-                    <iframe style="width: 700px; height: 500px;" src="http://docs.google.com/a/xtec.cat/gview?url='.$url.'&amp;embedded=true&amp;authuser=xtec.cat&amp;output=embed" frameborder="0"></iframe><br/>
-                    <img title="'.$preview_str.'" src="'.$OUTPUT->pix_url('t/show').'" alt="'.$preview_str.'" />
-                    <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">'.get_string('preview_hide','local_alexandria').'</a>
+                        <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
+                $str .= '<div id="preview_data" class="preview_pdf" style="display: none;">
+                    <iframe style="width: 100%; height: 500px;" src="http://docs.google.com/viewer?url='.$url.'&embedded=true" frameborder="0"></iframe><br/>
+                    <div id="hideButton">
+                        <img title="'.$preview_str.'" src="'.$OUTPUT->pix_url('t/show').'" alt="'.$preview_str.'" />
+                        <a id="hide" onclick="document.getElementById(\'preview_data\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">'.get_string('preview_hide','local_alexandria').'</a>
+                    </div>
                 </div>';
             } else {
                 $src = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id;
@@ -283,11 +285,13 @@ class data_field_file extends data_field_base {
                         $url = $CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup';
                         $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id'=>'previewImg', 'title'=>$preview_str));
                         $str .= '<div id="previewButton">'.$icon.'
-                                <a id="show" href="#show" onclick="document.getElementById(\'image\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
-                        $str .= '<div id="image" style="display: none;">
-                             <iframe style="width: 95%; height: 500px;" src="'.$url.'" frameborder="0"></iframe><br/>
-                             <img src="'.$OUTPUT->pix_url('t/show').'" alt="'.$preview_str.'" title="'.$preview_str.'" />
-                             <a id="hide" onclick="document.getElementById(\'image\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">'.get_string('preview_hide','local_alexandria').'</a>
+                                <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
+                        $str .= '<div id="preview_data"  class="preview_scorm" style="display: none;">
+                             <iframe style="width: 100%; height: 500px;" src="'.$url.'" frameborder="0"></iframe><br/>
+                             <div id="hideButton">
+                                <img src="'.$OUTPUT->pix_url('t/show').'" alt="'.$preview_str.'" title="'.$preview_str.'" />
+                                <a id="hide" onclick="document.getElementById(\'preview_data\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">'.get_string('preview_hide','local_alexandria').'</a>
+                            </div>
                         </div>';
                         break;
                     case ALEXANDRIA_PDI:
@@ -353,7 +357,7 @@ class data_field_file extends data_field_base {
             $scorm_object->visible = 0;
             $scorm_object->cmidnumber = '';
             $scorm_object->gradecat = 1;
-            $scorm_object->course = 1;
+            $scorm_object->course = SITEID;
             $scorm_object->section = 1;
             $scorm_object->module = $module_scorm_id;
             $scorm_object->modulename = 'scorm';
@@ -379,6 +383,7 @@ class data_field_file extends data_field_base {
 		    $cmid = add_course_module($scorm_object);
 	        $scorm_object->coursemodule = $cmid;
 		    $scormcontext = context_module::instance($cmid);
+            $sectionid = course_add_cm_to_section(SITEID, $cmid, 1);
     	}
         // delete existing files
         $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);

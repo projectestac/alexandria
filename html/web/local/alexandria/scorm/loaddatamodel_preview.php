@@ -22,7 +22,7 @@
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once("..././../config.php");
+require_once("../../../config.php");
 require_once($CFG->dirroot.'/mod/scorm/locallib.php');
 
 $id = optional_param('id', 0, PARAM_INT);       // Course Module ID, or
@@ -45,6 +45,8 @@ if (!empty($id)) {
 }
 
 $PAGE->set_url('/local/alexandria/scorm/loaddatamodel_preview.php', array('scoid'=>$scoid, 'id'=>$cm->id));
+$PAGE->set_cm($cm, $course); // Set's up global $COURSE.
+$PAGE->set_pagelayout('incourse');
 
 $userdata = new stdClass();
 if ($usertrack = scorm_get_tracks($scoid, $USER->id, $attempt)) {
