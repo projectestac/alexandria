@@ -57,7 +57,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         //username must exist and have the right authentication method
         if (!empty($user) && ($user->auth == 'googleoauth2')) {
             $code = optional_param('code', false, PARAM_TEXT);
-            if($code === false){
+            if(empty($code)){
                 return false;
             }
             return true;
@@ -190,10 +190,20 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                         $params = array();
                         $params['access_token'] = $accesstoken;
                         $params['alt'] = 'json';
-                        $postreturnvalues = $curl->get('https://www.googleapis.com/userinfo/email', $params);
+                        $postreturnvalues = $curl->get('https://www.googleapis.com/plus/v1/people/me', $params);
                         $postreturnvalues = json_decode($postreturnvalues);
-                        $useremail = $postreturnvalues->data->email;
-                        $verified = $postreturnvalues->data->isVerified;
+                        if(isset($postreturnvalues->errors)){
+                            print_object($postreturnvalues);
+                            print_error($postreturnvalues->errors);
+                        }
+                        foreach($postreturnvalues->emails as $googleemail) {
+                            if($googleemail->type == "account") {
+                                $useremail = $googleemail->value;
+                            }
+                        }
+                        $useremail = $postreturnvalues->emails[0]->value;
+                        // All emails are verified: https://developers.google.com/+/api/latest/people.
+                        $verified = 1;
                         break;
 
                     case 'facebook':
@@ -261,11 +271,33 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                 //create the user if it doesn't exist
                 if (empty($user)) {
 
+                    //XTEC ************ AFEGIT - To restrict domain
+                    //2014.09.16 @pferre22
+                    if (!$this->email_auth_domain($useremail)) {
+                        throw new moodle_exception('emailonlyallowed', '', '', get_config('auth/googleoauth2', 'auth_domain'));
+                    }
+                    //************* FI
+
                     // deny login if setting "Prevent account creation when authenticating" is on
                     if($CFG->authpreventaccountcreation) throw new moodle_exception("noaccountyet", "auth_googleoauth2");
 
 
                     //get following incremented username
+                    //XTEC ************ MODIFICAT - Repair not lowercase prefix
+                    //2014.09.19 @pferre22
+                    $googleuserprefix = core_text::strtolower(get_config('auth/googleoauth2', 'googleuserprefix'));
+                    $lastusernumber = get_config('auth/googleoauth2', 'lastusernumber');
+                    $lastusernumber = empty($lastusernumber)?1:$lastusernumber++;
+                    //check the user doesn't exist
+                    $nextuser = $DB->record_exists('user', array('username' => $googleuserprefix.$lastusernumber));
+                    while (!$nextuser) {
+                        $lastusernumber++;
+                        $nextuser = $DB->record_exists('user', array('username' => $googleuserprefix.$lastusernumber));
+                    }
+                    set_config('lastusernumber', $lastusernumber, 'auth/googleoauth2');
+                    $username = $googleuserprefix . $lastusernumber;
+                    // ORIGINAL
+                    /*
                     $lastusernumber = get_config('auth/googleoauth2', 'lastusernumber');
                     $lastusernumber = empty($lastusernumber)?1:$lastusernumber++;
                     //check the user doesn't exist
@@ -278,6 +310,8 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                     }
                     set_config('lastusernumber', $lastusernumber, 'auth/googleoauth2');
                     $username = get_config('auth/googleoauth2', 'googleuserprefix') . $lastusernumber;
+                    */
+                    ////************ FI
 
                     //retrieve more information from the provider
                     $newuser = new stdClass();
@@ -287,15 +321,14 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                             $params = array();
                             $params['access_token'] = $accesstoken;
                             $params['alt'] = 'json';
-                            $userinfo = $curl->get('https://www.googleapis.com/oauth2/v1/userinfo', $params);
-                            $userinfo = json_decode($userinfo); //email, id, name, verified_email, given_name, family_name, link, gender, locale
-
+                            $userinfo = $curl->get('https://www.googleapis.com/plus/v1/people/me', $params);
+                            $userinfo = json_decode($userinfo);
                             $newuser->auth = 'googleoauth2';
-                            if (!empty($userinfo->given_name)) {
-                                $newuser->firstname = $userinfo->given_name;
+                            if (!empty($userinfo->name->givenName)) {
+                                $newuser->firstname = $userinfo->name->givenName;
                             }
-                            if (!empty($userinfo->family_name)) {
-                                $newuser->lastname = $userinfo->family_name;
+                            if (!empty($userinfo->name->familyName)) {
+                                $newuser->lastname = $userinfo->name->familyName;
                             }
                             if (!empty($userinfo->locale)) {
                                 //$newuser->lang = $userinfo->locale;
@@ -345,10 +378,16 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                             $newuser->city = isset($newuser->city)?isset($newuser->city):$locationdata->cityName;
                         }
                     }
+
                     create_user_record($username, '', 'googleoauth2');
 
                 } else {
                     $username = $user->username;
+                    //XTEC ************ AFEGIT - To be able to login even if the auth method is different
+                    //2014.09.15 @pferre22
+                    $old_authmethod = $user->auth;
+                    $DB->set_field('user', 'auth', 'googleoauth2', array('id'=>$user->id));
+                    ////************ FI
                 }
 
                 //authenticate the user
@@ -356,6 +395,12 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                 $userid = empty($user)?'new user':$user->id;
                 add_to_log(SITEID, 'auth_googleoauth2', '', '', $username . '/' . $useremail . '/' . $userid);
                 $user = authenticate_user_login($username, null);
+                //XTEC ************ AFEGIT - To be able to login even if the auth method is different
+                //2014.09.15 @pferre22
+                if (empty($newuser)) {
+                    $DB->set_field('user', 'auth', $old_authmethod, array('id'=>$userid));
+                }
+                ////************ FI
                 if ($user) {
 
                     //set a cookie to remember what auth provider was selected
@@ -506,9 +551,39 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
         echo '</td></tr>';
 
+        //XTEC ************ AFEGIT - To restrict domain
+        //2014.09.16 @pferre22
+        if (!isset($config->auth_domain)) {
+            $config->auth_domain = '';
+        }
+
+        echo '<tr>
+                <td align="right"><label for="auth_domain">';
+
+        print_string('allowemailaddresses', 'admin');
+
+        echo '</label></td><td>';
+
+
+        echo html_writer::empty_tag('input',
+                array('type' => 'text', 'id' => 'auth_domain', 'name' => 'auth_domain',
+                    'class' => 'auth_domain', 'value' => $config->auth_domain));
+
+        if (isset($err["auth_domain"])) {
+            echo $OUTPUT->error_text($err["auth_domain"]);
+        }
+
+        echo '</td><td>';
+
+        print_string('configallowemailaddresses', 'admin') ;
+
+        echo '</td></tr>';
+        //***********************FI
+
         //XTEC ************ ELIMINAT - Only let configure Google OAuth
         //2014.08.15  @pferre22
         if(is_xtecadmin()){
+
         // Facebook client id
         echo '<tr>
                 <td align="right"><label for="facebookclientid">';
@@ -829,8 +904,21 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         set_config('linkedinclientid', $config->linkedinclientid, 'auth/googleoauth2');
         set_config('linkedinclientsecret', $config->linkedinclientsecret, 'auth/googleoauth2');
         set_config('googleipinfodbkey', $config->googleipinfodbkey, 'auth/googleoauth2');
-        set_config('googleuserprefix', $config->googleuserprefix, 'auth/googleoauth2');
+        //XTEC ************ MODIFICAT - Repair not lowercase prefix
+        //2014.09.19 @pferre22
+        set_config('googleuserprefix', core_text::strtolower($config->googleuserprefix), 'auth/googleoauth2');
+        // ORIGINAL
+        //set_config('googleuserprefix', $config->googleuserprefix, 'auth/googleoauth2');
+        ////****** FI
 
+
+        //XTEC ************ AFEGIT - To restrict domain
+        //2014.09.16 @pferre22
+        if (!isset($config->auth_domain)) {
+            $config->auth_domain = '';
+        }
+        set_config('auth_domain', $config->auth_domain, 'auth/googleoauth2');
+        //***********************FI
         return true;
     }
 
@@ -851,5 +939,32 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
             return true;
         }
     }
+
+    //XTEC ************ AFEGIT - To restrict domain
+    //2014.09.16 @pferre22
+    function email_auth_domain($email) {
+        $auth_domain = get_config('auth/googleoauth2', 'auth_domain');
+        if (!empty($auth_domain)) {
+            $allowed = explode(' ', $auth_domain);
+            foreach ($allowed as $allowedpattern) {
+                $allowedpattern = trim($allowedpattern);
+                if (!$allowedpattern) {
+                    continue;
+                }
+                if (strpos($allowedpattern, '.') === 0) {
+                    if (strpos(strrev($email), strrev($allowedpattern)) === 0) {
+                        // Subdomains are in a form ".example.com" - matches "xxx@anything.example.com".
+                        return true;
+                    }
+
+                } else if (strpos(strrev($email), strrev('@'.$allowedpattern)) === 0) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        return true;
+    }
+    //************* FI
 
 }

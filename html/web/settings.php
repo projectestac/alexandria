@@ -4,7 +4,7 @@ require_once(dirname(__FILE__) . '/local/agora/lib.php');
 get_debug();
 
 // Force general preferences. Prevailes over database params.
-$CFG->isagora = 1;
+$CFG->isagora = false;
 $CFG->iseoi = false;
 $CFG->isportal = false;
 $CFG->center = isset($school_info['clientCode']) ? $school_info['clientCode'] : $school_info['id_moodle2'];
@@ -25,6 +25,7 @@ $CFG->mymoodleredirect = false;
 $CFG->enablestats = false;
 $CFG->themedesignermode = false;
 $CFG->cachejs = true;
+$CFG->cachetext = 0; // Disabled to enhace the performance
 //$CFG->loginhttps=0;  /* Database param, to change if there is some problem */
 
 //Authentication
@@ -61,7 +62,8 @@ $CFG->disablecourseajax = 0;
 $CFG->backup_auto_active = 0;
 
 //Session information
-$CFG->dbsessions=false;
+$CFG->session_handler_class = '\core\session\file';
+$CFG->session_file_save_path = ini_get('session.save_path');
 $CFG->sessiontimeout=3600;
 //$CFG->sessioncookie = $CFG->center;
 
@@ -130,14 +132,18 @@ if (isset($agora['server']['enviroment'])){
 $CFG->altcacheconfigpath = dirname(__FILE__) . '/local/agora/muc/';
 $CFG->siteidentifier = $CFG->dbuser;
 $CFG->memcache_prefix = $CFG->dbuser.'_';
-$CFG->memcache_servers = "127.0.0.1";
+if(isset($agora['moodle2']['memcache_servers'])){
+	$CFG->memcache_servers = $agora['moodle2']['memcache_servers'];
+}
 if(isset($agora['server']['root']) && !empty($agora['server']['root'])){
 	$CFG->agora_muc_path = $agora['server']['root'].'/cache_ins';
+	$CFG->cachedir = $CFG->agora_muc_path.'/cache';
+	$CFG->localcachedir = $CFG->agora_muc_path.'/localcache';
 }
 
 $CFG->timezone = 99; // Changed by default to Server's local time
 $CFG->cronremotepassword = '';  // changed to avoid schools change it
-$CFG->cronclionly = 0; // changed to avoid schools change it
+//$CFG->cronclionly = 0; // changed to avoid schools change it
 
 
 //Here is where the cronlogs will be stored
