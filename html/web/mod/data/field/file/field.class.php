@@ -327,63 +327,23 @@ class data_field_file extends data_field_base {
         //2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         if ($this->field->param4 == ALEXANDRIA_SCORM){
             require_once($CFG->dirroot.'/mod/scorm/lib.php');
+            require_once($CFG->dirroot.'/local/alexandria/data/datalib.php');
             require_once($CFG->dirroot.'/course/lib.php');
 
-            $module_scorm_id = $DB->get_field('modules', 'id', array('name' => 'scorm'));
-
-            $scorm_object = new stdClass();
-            $scorm_object->MAX_FILE_SIZE = $this->field->param3;
-            $scorm_object->name = $this->field->name;
-            $scorm_object->summary = $this->field->description;
-            $scorm_object->grademethod = 1;
-            $scorm_object->maxgrade = 100;
-            $scorm_object->maxattempt = 0;
-            $scorm_object->whatgrade = 0;
-            $scorm_object->mform_showadvanced_last = 0;
-            $scorm_object->width = 100;
-            $scorm_object->height = 500;
-            $scorm_object->popup = 0;
-            $scorm_object->skipview = 0;
-            $scorm_object->hidebrowse = 0;
-            $scorm_object->hidetoc = 0;
-            $scorm_object->hidenav = 0;
-            $scorm_object->auto = 0;
-            $scorm_object->updatefreq = 0;
-            $scorm_object->datadir = '';
-            $scorm_object->pkgtype = '';
-            $scorm_object->launch = '';
-            $scorm_object->redirect = 'no';
-            $scorm_object->redirecturl = '../mod/scorm/view.php?id=';
-            $scorm_object->visible = 0;
-            $scorm_object->cmidnumber = '';
-            $scorm_object->gradecat = 1;
-            $scorm_object->course = SITEID;
-            $scorm_object->section = 1;
-            $scorm_object->module = $module_scorm_id;
-            $scorm_object->modulename = 'scorm';
-            $scorm_object->instance = '';
-            $scorm_object->add = 'scorm';
-            $scorm_object->update = 0;
-            $scorm_object->return = 0;
-            $scorm_object->submitbutton = '';
-            $scorm_object->groupingid = 0;
-		    $scorm_object->groupmembersonly = 0;
-            $scorm_object->groupmode = 0;
-		    $scorm_object->intro = '';
+            $scorm_object = alexandria_create_scorm_object($this->field->name, $this->field->name, $this->field->param3);
 
 		    //Check if is an update or a new entry
             $scorm_record = $DB->get_record('data_content', array('fieldid' => $this->field->id, 'recordid' => $recordid));
             if ($scorm_record->content2){
                 // Delete old scorm
-                scorm_delete_instance($scorm_record->content2);
-                $relation_id = $DB->get_record('course_modules', array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_record->content2));
-                if ($relation_id->id) $oldscormcontext = context_module::instance($relation_id->id);
-                delete_course_module($relation_id->id);
+                $oldcmid = $DB->get_field('course_modules', 'id', array('module' => $scorm_object->module, 'instance' => $scorm_record->content2));
+                if ($oldcmid) $oldscormcontext = context_module::instance($oldcmid);
+                course_delete_module($oldcmid);
             }
 		    $cmid = add_course_module($scorm_object);
 	        $scorm_object->coursemodule = $cmid;
 		    $scormcontext = context_module::instance($cmid);
-            $sectionid = course_add_cm_to_section(SITEID, $cmid, 1);
+            $sectionid = course_add_cm_to_section($scorm_object->course, $cmid, 1);
     	}
         // delete existing files
         $fs->delete_area_files($this->context->id, 'mod_data', 'content', $content->id);
@@ -401,6 +361,7 @@ class data_field_file extends data_field_base {
                         $filename = explode('.',$draftfile->get_filename());
                         $extension = array_pop($filename);
                         $filename = implode('.',$filename).'_scorm.'.$extension;
+                        $scorm_object->name = $filename;
                         $scorm_object->reference = $filename;
                         $file_record = array(
                                 'contextid' => $scormcontext->id,
@@ -436,12 +397,8 @@ class data_field_file extends data_field_base {
         }
     	if ($this->field->param4 == ALEXANDRIA_SCORM) {
     		$scorm_id = scorm_add_instance($scorm_object);
-	        $cm = new stdClass();
-        	$cm->id = $cmid;
-	        $cm->instance = $scorm_id;
-        	$DB->update_record('course_modules',$cm);
-	        $content->content2 = $scorm_id;
-        	$DB->update_record('data_content',$content);
+            $DB->set_field('course_modules', 'instance' , $scorm_id, array('id'=> $cmid));
+            $DB->set_field('data_content', 'content2', $scorm_id, array('id'=> $content->id));
     	}
 		// ******** CODI ORIGINAL
 		/*

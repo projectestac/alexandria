@@ -383,3 +383,59 @@ function sort_datarecord_files_last($a, $b) {
 	if ($b == 'file') return -1;
 	return 0;
 }
+
+
+function alexandria_create_scorm_object($filename, $summary, $maxfilesize){
+	global $CFG, $DB;
+
+	require_once($CFG->dirroot.'/mod/scorm/lib.php');
+    require_once($CFG->dirroot.'/course/lib.php');
+
+    $module_scorm_id = $DB->get_field('modules', 'id', array('name' => 'scorm'));
+    $courseid = $DB->get_field('course', 'id', array('idnumber'=>'scorm'));
+    if(!$courseid) {
+    	$courseid = SITEID;
+    }
+
+    $scorm_object = new stdClass();
+    $scorm_object->MAX_FILE_SIZE = $maxfilesize;
+    $scorm_object->name = $filename;
+    $scorm_object->summary = $summary;
+    $scorm_object->grademethod = 1;
+    $scorm_object->maxgrade = 100;
+    $scorm_object->maxattempt = 0;
+    $scorm_object->whatgrade = 0;
+    $scorm_object->mform_showadvanced_last = 0;
+    $scorm_object->width = 100;
+    $scorm_object->height = 500;
+    $scorm_object->popup = 0;
+    $scorm_object->skipview = 0;
+    $scorm_object->hidebrowse = 0;
+    $scorm_object->hidetoc = 0;
+    $scorm_object->hidenav = 0;
+    $scorm_object->auto = 0;
+    $scorm_object->updatefreq = 0;
+    $scorm_object->datadir = '';
+    $scorm_object->pkgtype = '';
+    $scorm_object->launch = '';
+    $scorm_object->redirect = 'no';
+    $scorm_object->redirecturl = '../mod/scorm/view.php?id=';
+    $scorm_object->visible = 0;
+    $scorm_object->cmidnumber = '';
+    $scorm_object->gradecat = 1;
+    $scorm_object->course = $courseid;
+    $scorm_object->section = 1;
+    $scorm_object->module = $module_scorm_id;
+    $scorm_object->modulename = 'scorm';
+    $scorm_object->instance = '';
+    $scorm_object->add = 'scorm';
+    $scorm_object->update = 0;
+    $scorm_object->return = 0;
+    $scorm_object->submitbutton = '';
+    $scorm_object->groupingid = 0;
+    $scorm_object->groupmembersonly = 0;
+    $scorm_object->groupmode = 0;
+    $scorm_object->intro = $scorm_object->summary;
+
+    return $scorm_object;
+}
