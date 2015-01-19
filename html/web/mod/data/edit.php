@@ -157,7 +157,23 @@ $PAGE->set_heading($course->fullname);
 if ($datarecord = data_submitted() and confirm_sesskey()) {
 
     $ignorenames = array('MAX_FILE_SIZE','sesskey','d','rid','saveandview','cancel');  // strings to be ignored in input data
+    //XTEC - ALEXANDRIA ************ AFEGIT - We order the registers so the backup file is processed last, this way we'll have in database all the values needed to fill the course
+    //2013.11.06 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    $datavalues = array();
+    foreach($datarecord as $key => $value) {
+		$record = new stdClass();
+		$record->name = $key;
+		$record->value = $value;
+		$datavalues[] = $record;
+    }
+    usort($datavalues,'sort_datarecord_files_last');
 
+    $datarecord = new stdClass();
+    foreach($datavalues as $record) {
+		$name = $record->name;
+		$datarecord->$name = $record->value;
+    }
+    // ********* FI
     if ($rid) {                                          /// Update some records
 
         /// All student edits are marked unapproved by default
@@ -184,7 +200,13 @@ if ($datarecord = data_submitted() and confirm_sesskey()) {
                 }
             }
         }
-
+    	//XTEC - ALEXANDRIA ************ AFEGIT - If the database updated is a courses database, we update de course as well
+    	if (in_array($record->dataid,explode(',',$CFG->data_coursesdataid))) {
+    		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
+    		$courseid = $DB->get_field('data_content','content',array('recordid' => $record->id, 'fieldid' => $coursefieldid));
+    		override_course_values($courseid,$record->id,false);
+    	}
+    	//
         add_to_log($course->id, 'data', 'update', "view.php?d=$data->id&amp;rid=$rid", $data->id, $cm->id);
 
         redirect($CFG->wwwroot.'/mod/data/view.php?d='.$data->id.'&rid='.$rid);
