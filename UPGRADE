@@ -1,0 +1,8 @@
+Agora 1.9 a 2.2
+---------------------
+- mod/hotpot/db/upgrade.php - Al principi de xmldb_hotpot_upgrade
+$DB->delete_records_select('hotpot','course NOT IN (SELECT id FROM {course})');
+
+Agora 2.2 a 2.4
+---------------------
+- DELETE FROM mdl_jclic_activities WHERE session_id NOT IN ( SELECT id FROM mdl_jclic_sessions )
