@@ -1,10 +1,8 @@
+RewriteEngine on
 
-# turn the rewriting engine on
-RewriteEngine On
+RewriteBase /
 
-# rewrite any unknown directories and files
-RewriteCond %{REQUEST_FILENAME} -d [OR]
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -l
-RewriteRule ^(.*)$ - [NC,L]
-RewriteRule ^(.*)$ index.php [QSA,L]
+# Block access to install.php
+RewriteCond %{REQUEST_URI} ([^/]*)/install.php
+RewriteRule ^([^.]*)/install.php(.*)$ $1/siteoff.html [QSA,L]
+
