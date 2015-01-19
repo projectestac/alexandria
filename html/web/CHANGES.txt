@@ -1,0 +1,217 @@
+Release notes for Alexandria (http://alexandria.xtec.cat)
+
+More information on each of the fixes can be found in the project 
+development home at https://projectes.lafarga.cat/projects/alexandria/
+
+Changes in progress
+---------------------------------------------------------------------------------------
+- Upgrade to the last Agora version that includes:
+   - Updated translations
+   - Upgrade some module versions
+   - Fix MDL-47597 Inform users to use https on callback url on Flickr repository
+   - Fix MDL-47581 Force box.net repository work with https
+   - Fix MDL-31679 gradereport_grader: Add a horizontal scroll bar to the top of the grader report
+   - Duplicated assignmetns script now inform the coursemoduleid
+   - Styling grader
+   - CONTRIB-4891 Questionnaire YES/NO questions results not properly shown
+   - First version of database check script
+   - Format simple. Solved bug deleting images by module deletion handler
+   - Added autodetection cron for adware and some improvements
+   - Changed Oauth server params to Server menu
+   - Recovered log database fails function
+   - Repaired Moodle APP
+   - MDL-47581 Force box.net repository work with https
+   - Updated marsupial modules
+   - Enable webservice mobile settings for all admins
+   - Do not even try to send mails to .invalid domain
+   - Set default value on upload users tool to an invalid domain
+- Some changes does not apply Alexandria
+   - More intelligent purge cache
+   - Fixed linguistic SQL sorting
+
+
+Changes 14.10.02
+---------------------------------------------------------------------------------------
+- Upgrade to Moodle 2.6.4
+- Corrected many errors
+- Repaired SCORM preview
+- Repaired PDI - PDF preview
+- Deleted odissea auth method
+- Script to change sql motor
+- Repaired shortname generator
+- Allow to upload only files with correct extension
+- Re-Styling of database entries
+
+Changes 14.07.03
+---------------------------------------------------------------------------------------
+- Allow guest reading RSS feeds
+
+Changes 14.04.01
+---------------------------------------------------------------------------------------
+- Upgrade to Moodle 2.4.8
+- Fixed bug that prevented database record edit
+- Fixed bug when creating/updating a record that made the shortname to not be saved in the database
+- Fixed incorrect presentation of file fields at data record view when the field was a common file.
+- Fixed view of last date download so it don't show a 1970 date when the field is empty
+- Revision of count of downloads
+- Revision of upload of PDI materials
+- Revision of backup generation
+- Revision of Terms of use Styling
+- Pending to approve records now are grayed out
+- Reporting pages now have blocks
+- Added sorting default options of databases
+- More useful error information
+- Backup and restore improvements
+- Autodetecting of moodle version of course records.
+- Translation
+- Now if one record remains without file or course target for 24h and it is visited, it becomes pending to approve
+
+Changes 13.12.13
+---------------------------------------------------------------------------------------
+- Upgraded Moodle version to 2.4.3
+
+Changes 12.08.14
+---------------------------------------------------------------------------------------
+- Reviewed code to remove mdl_XXXX references and optimize SQL queries
+- Added none option to backup_sche_users to let generate scheduled backups without users
+- Changed ldap/auth.php to connect to OID LDAP server (instead of SUN LDAP server)
+
+
+Changes 11.09.28
+---------------------------------------------------------------------------------------
+- Fixed error in SCORM preview (Follow & Back buttons)
+- Fixed bug in data searches
+
+
+Changes 11.09.14
+---------------------------------------------------------------------------------------
+- Fixed error in SCORM preview
+
+
+Changes 11.08.10
+---------------------------------------------------------------------------------------
+- Updated Moodle version to 1.9.12 and some modules (used Agora files)
+
+
+Changes 11.06.10
+---------------------------------------------------------------------------------------
+- Added SCORM files preview
+
+
+Changes 11.05.25
+---------------------------------------------------------------------------------------
+- Fixed error on upload PDF files
+- Solved error of MAX_FILE_SIZE for diferent file fields in upload form
+- Removed enrolment password during the cron and disabled enrolpassword form field in course parameters edition
+- Added mailer via webservice
+- Added abuse reports control system
+
+
+Changes 11.03.16
+---------------------------------------------------------------------------------------
+- Applied patch to make htmleditor works in chrome
+- Solved error in download counter for resources with "'" in its name
+- Added PDF viewer for PDI materials 
+
+
+Changes 11.02.23
+---------------------------------------------------------------------------------------
+- Fixed bug to avoid reset main page course
+
+
+Changes 11.02.09
+---------------------------------------------------------------------------------------
+- Revised cron to reset the course before the backup (to avoid problems detected)
+- Changed logos according to new brandname (from Educacio to Ensenyament)
+- Lessons, assignments, quizes, databases, hotpots and questionnaires of imported courses always available
+- Solved bug in imported freemind maps
+- Added tag to include the recordid in the database field template
+
+Changes 10.11.09
+---------------------------------------------------------------------------------------
+- Commented rattings order by option (to solve performance problem)
+
+Changes 10.10.27
+---------------------------------------------------------------------------------------
+- Fixed bug with SQL count query
+- Revised translation for savesettings parameter
+
+Changes 10.09.27
+---------------------------------------------------------------------------------------
+- Updated Moodle version to 1.9.9
+- Updated modules, filters and blocks to latest version from Àgora
+- Added slideshow module
+- Translated about_course block
+
+
+Changes 10.06.14
+---------------------------------------------------------------------------------------
+- Revised search button (to put only "Cerca").
+- Added notify abuse button for all databases (not only for courses).
+- Revised the way to download files to avoid file.php. Added some new functionalities to update the counter via ajax
+- Moved add new comment at the top of the comments
+- Instal·led version 2.1.35 of the Wiris plugin (same as Agora)
+- Instal·led same version as Agora of Freemind filter
+- Updated geogebra filter to the last one included in Agora
+- Changed error message (data_errorrestoringcourse) when there is a problem restoring a course
+
+
+Changes 10.05.14
+---------------------------------------------------------------------------------------
+- Fixed bug with database SELECT DISTINCT COUNT query (http://tracker.moodle.org/browse/MDL-19584).
+- Solved problems with license use to save the correct value
+- Added new config param to download_statistics bloc to show only specified databases
+- Revised all translations to catalan, spanish and english
+
+
+Changes 10.05.05
+---------------------------------------------------------------------------------------
+- Fixed bug with downloaded files (changing file url to file path in download.php).
+- Changed database table from myisam to innodb.
+- Removed add conditions for visitors.
+
+
+Changes 10.04.29
+---------------------------------------------------------------------------------------
+- Auto-fill-in LDAP information for user registration (name, surname and email).
+- Added a downloads counter for all databases (not only for courses). 
+- Implemented the ##downloads## tag to show this information in the course metainformation page. For the other databases the information appears automaticaly.
+
+
+Changes 10.03.23
+---------------------------------------------------------------------------------------
+- Desactivated LDAP validation for school usernames (like aXXXXXXX)
+- Revised database permissions: only users with mod/data:manageentries capability can delete entries
+- Revised notification of errors when restoring a backup course file
+- Added delete user account button
+- Added restriction to make all user agreed the conditions of usage
+- Fixed link to about web page
+
+
+Changes 10.02.10
+---------------------------------------------------------------------------------------
+- Solved problem with top rated entries block (only were showed approved entries)
+- Revised abuse options
+- Revised admin block to show it only for the users who can update the course
+- Added addthis button to all database entries (it doesn't need any change in the source code)
+- Added stars image in the top rated entries block (instead of show numeric value)
+- Added Google Analytics in the footer to count all pages
+
+
+Changes 9.11.23
+---------------------------------------------------------------------------------------
+- Created top_rated_entries block
+- Updated jclic module to 0.1.0.10 version
+- Solved problem when the owner of a course tries to rate it (hidden button in rate_course block)
+- Revised course backup to delete user information (there were inclouded because backup_users has to be different from 0 and 1)
+- Solved downloading problem for first time
+
+
+Changes v9.11.13
+---------------------------------------------------------------------------------------
+- Removed home ico from menu and revised menu creation (to let add menu items without subitems)
+- Automatization for courses shortname (e.g. AA_yyMMdd_xxxx_W.Z)
+- Added some database params for creation date and for default license
+- Revised course rating for taking it from database rating. Added also stars when ##rating## is specified in some database
+- Added rating as ordering criteria
+
