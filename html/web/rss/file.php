@@ -186,6 +186,16 @@ send_file($pathname, 'rss.xml', 3600);   // Cached by browsers for 1 hour.
  * @uses exit
  */
 function rss_error($error='rsserror', $filename='rss.xml', $unused=0, $statuscode='404 Not Found') {
+    //XTEC - ALEXANDRIA ************ AFEGIT - To allow guest reading of the feeds
+    //2014.06.05 - @pferre22
+    if($error == 'rsserrorguest' || $error == 'rsserrorauth') {
+        global $COURSE;
+        $site = get_site();
+        if($COURSE->id == $site->id) {
+            return;
+        }
+    }
+    // ********* FI
     header("HTTP/1.1 $statuscode");
     header('Content-Disposition: inline; filename="'.$filename.'"');
     header('Content-Type: application/xml');
