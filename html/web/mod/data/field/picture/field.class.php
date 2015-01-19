@@ -44,21 +44,34 @@ class data_field_picture extends data_field_base {
                 $alttext = $formdata->$fieldname;
             }
         } else if ($recordid) {
-            if (!$content = $DB->get_record('data_content', array('fieldid' => $this->field->id, 'recordid' => $recordid))) {
-                // Quickly make one now!
-                $content = new stdClass();
-                $content->fieldid  = $this->field->id;
-                $content->recordid = $recordid;
-                $id = $DB->insert_record('data_content', $content);
-                $content = $DB->get_record('data_content', array('id' => $id));
-            }
-            file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
-            if (!empty($content->content)) {
-                if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
-                    $usercontext = context_user::instance($USER->id);
+            if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
+                //XTEC - ALEXANDRIA ***** MODIFICAT - Capture error if cannot read the file
+                // ***** CODI ORIGINAL
+                //file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+                // ***** CODI MODIFICAT
+                try {
+                        file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+                } catch(Exception $e) {
+                        $content->content = null;
+                }
+                // ***** FI
+                if (!empty($content->content)) {
+                    if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
+                        $usercontext = context_user::instance($USER->id);
+                        if (!$files = $fs->get_area_files($usercontext->id, 'user', 'draft', $itemid, 'id DESC', false)) {
+                            return false;
+                        }
+                        if ($thumbfile = $fs->get_file($usercontext->id, 'user', 'draft', $itemid, '/', 'thumb_'.$content->content)) {
+                            $thumbfile->delete();
+                        }
+                        if (empty($content->content1)) {
+                            // Print icon if file already exists
+                            $src = moodle_url::make_draftfile_url($itemid, '/', $file->get_filename());
+                            $displayname = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('class' => 'icon')). '<a href="'.$src.'" >'.s($file->get_filename()).'</a>';
 
-                    if ($thumbfile = $fs->get_file($usercontext->id, 'user', 'draft', $itemid, '/', 'thumb_'.$content->content)) {
-                        $thumbfile->delete();
+                        } else {
+                            $displayname = get_string('nofilesattached', 'repository');
+                        }
                     }
                 }
             }

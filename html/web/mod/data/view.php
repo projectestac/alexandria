@@ -22,7 +22,11 @@
 //                                                                       //
 ///////////////////////////////////////////////////////////////////////////
 
-    require_once(__DIR__ . '/../../config.php');
+    //XTEC - ALEXANDRIA ************ AFEGIT
+    //2010.08.31
+	header('X-Frame-Options: GOFORIT');
+	//FI
+    require_once(dirname(__FILE__) . '/../../config.php');
     require_once($CFG->dirroot . '/mod/data/lib.php');
     require_once($CFG->libdir . '/rsslib.php');
     require_once($CFG->libdir . '/completionlib.php');
@@ -374,7 +378,14 @@
 
 /// Delete any requested records
 
+    //XTEC - ALEXANDRIA ************ MODIFICAT - Only admin users can delete entries
+    //2010.08.31
+    if ($delete && confirm_sesskey() && $canmanageentries) {
+    //************ ORIGINAL
+    /*
     if ($delete && confirm_sesskey() && (data_user_can_manage_entry($delete, $data, $context))) {
+    */
+    //************ FI
         if ($confirm = optional_param('confirm',0,PARAM_INT)) {
             if (data_delete_record($delete, $data, $course->id, $cm->id)) {
                 echo $OUTPUT->notification(get_string('recorddeleted','data'), 'notifysuccess');
@@ -489,6 +500,25 @@ if ($showactivity) {
                     $newrecord->id = $approverecord->id;
                     $newrecord->approved = $newapproved;
                     $DB->update_record('data_records', $newrecord);
+					//XTEC - ALEXANDRIA ***** AFEGIT - When it's approved, allow guest access and schedule the backup
+                    if($newapproved && $fieldid = $DB->get_field('data_fields','id',array('dataid' => $approverecord->dataid,'name' => $CFG->data_coursefieldid))){
+                        if($courseid = $DB->get_field('data_content','content',array('recordid' => $approverecord->id, 'fieldid' => $fieldid))){
+                            if($guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid))){
+                                $guestenrol->status = 0;
+                                $DB->update_record('enrol',$guestenrol);
+                            }
+                            if ($backup = $DB->get_record('backup_courses',array('courseid' => $courseid))) {
+                                $backup->nextstarttime = time();
+                                $DB->update_record('backup_courses',$backup);
+                            } else {
+                                $backup = new stdclass();
+                                $backup->courseid = $courseid;
+                                $backup->nextstarttime = time();
+                                $DB->insert_record('backup_courses', $backup);
+                            }
+                        }
+                    }
+                    // ***** FI
                     $msgkey = $newapproved ? 'recordapproved' : 'recorddisapproved';
                     echo $OUTPUT->notification(get_string($msgkey, 'data'), 'notifysuccess');
                 }
