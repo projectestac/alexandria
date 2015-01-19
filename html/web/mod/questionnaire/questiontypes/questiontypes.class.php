@@ -432,19 +432,11 @@ class questionnaire_question {
             $ridstr = ' AND response_id = '.$rids.' ';
         }
 
-        //XTEC ************ MODIFICAT - CONTRIB-4891 Questionnaire YES/NO questions results not properly shown
-        //2014.02.24 @pferre22
         $sql = 'SELECT choice_id, COUNT(response_id) AS num '.
-                'FROM {questionnaire_'.$this->response_table.'} '.
-               'WHERE question_id= ? '.$ridstr.' AND '.$DB->sql_isnotempty('questionnaire_'.$this->response_table,'choice_id', false, false) .
-                'GROUP BY choice_id';
-        // CODI ORIGINAL
-        //$sql = 'SELECT choice_id, COUNT(response_id) AS num '.
-        //       'FROM {questionnaire_'.$this->response_table.'} '.
-        //       'WHERE question_id= ? '.$ridstr.' AND choice_id != \'\' '.
-        //       'GROUP BY choice_id';
-        //************ FI
-        return $DB->get_records_sql($sql, array($this->id));
+               'FROM {questionnaire_'.$this->response_table.'} '.
+               'WHERE question_id= ? '.$ridstr.' AND choice_id != ? ' .
+               'GROUP BY choice_id';
+        return $DB->get_records_sql($sql, array($this->id, ''));
     }
 
     private function get_response_text_results($rids = false) {
@@ -597,7 +589,8 @@ class questionnaire_question {
                              (SELECT c2.id, AVG(a2.rank+1) AS average, COUNT(a2.response_id) AS num
                               FROM {questionnaire_quest_choice} c2, {$CFG->prefix}questionnaire_{$this->response_table} a2
                               WHERE c2.question_id = ? AND a2.question_id = ? AND a2.choice_id = c2.id AND a2.rank >= 0{$ridstr}
-                              GROUP BY c2.id) a ON a.id = c.id";
+                              GROUP BY c2.id) a ON a.id = c.id
+                              ORDER by c.id";
                 $results = $DB->get_records_sql($sql, array($this->id, $this->id));
                 if (!empty ($rankvalue)) {
                     foreach ($results as $key => $result) {
@@ -689,7 +682,7 @@ class questionnaire_question {
         if ($rows = $this->get_response_text_results($rids)) {
             // Count identical answers (numeric questions only).
             foreach ($rows as $row) {
-                if (!empty($row->response)) {
+                if (!empty($row->response) || $row->response === "0") {
                     $this->text = $row->response;
                     $textidx = clean_text($this->text);
                     $this->counts[$textidx] = !empty($this->counts[$textidx]) ? ($this->counts[$textidx] + 1) : 1;
@@ -899,7 +892,7 @@ class questionnaire_question {
                 }
 
                 if ($parenttype == QUESDROP) {
-                    $qnid = 'qn-'.$this->id;
+                    $qnid = preg_quote('qn-'.$this->id, '/');
                     if (isset($formdata->$dependquestion) && preg_match("/$qnid/", $formdata->$dependquestion)) {
                         $displayclass = 'qn-container';
                     }
@@ -1734,7 +1727,7 @@ class questionnaire_question {
                 }
             } else {
                 $othertext = preg_replace(
-                        array("/^!other=/", "/^!other/U"),
+                        array("/^!other=/", "/^!other/"),
                         array('', get_string('other', 'questionnaire')),
                         $choice->content);
                 $cid = 'q'.$this->id.'_'.$id;

@@ -5,9 +5,14 @@ function get_marsupial_ws_client($publisher, $auth_content = false) {
     // This call must be included to ensure the WSDL loading
     libxml_disable_entity_loader(false);
 
+    $debugging = debugging();
+    if ($debugging) {
+        ini_set('soap.wsdl_cache', WSDL_CACHE_NONE);
+    }
+
     $wsdl = $auth_content ? $publisher->urlwsauthentication : $publisher->urlwsbookstructure;
 
-    $options = get_marsupial_soap_options();
+    $options = get_marsupial_soap_options($debugging);
     $client = @new soapclient($wsdl.'?wsdl', $options);
 
     $auth = array('User' => $publisher->username, 'Password' => $publisher->password);
@@ -72,15 +77,17 @@ function rcommon_get_wsdl($urlwdsl, $timeout = 20) {
     curl_setopt($curl, CURLOPT_CONNECTTIMEOUT, $timeout);
 
 
-	if (!empty($CFG->proxytype) && $CFG->proxytype == 'HTTP' && !empty($CFG->proxyhost)) {
-		curl_setopt($curl, CURLOPT_PROXY, $CFG->proxyhost);
-		if (!empty($CFG->proxyport)) {
-			curl_setopt($curl, CURLOPT_PROXYPORT, $CFG->proxyport);
-		}
-		if (!empty($CFG->proxyuser)) {
-			curl_setopt($curl, CURLOPT_PROXYUSERPWD, $CFG->proxyuser . ':' . $CFG->proxypassword);
-		}
-	}
+    if (!is_proxybypass($urlwdsl)) {
+    	if (!empty($CFG->proxytype) && $CFG->proxytype == 'HTTP' && !empty($CFG->proxyhost)) {
+    		curl_setopt($curl, CURLOPT_PROXY, $CFG->proxyhost);
+    		if (!empty($CFG->proxyport)) {
+    			curl_setopt($curl, CURLOPT_PROXYPORT, $CFG->proxyport);
+    		}
+    		if (!empty($CFG->proxyuser)) {
+    			curl_setopt($curl, CURLOPT_PROXYUSERPWD, $CFG->proxyuser . ':' . $CFG->proxypassword);
+    		}
+    	}
+    }
 
     $contents = curl_exec($curl);
     curl_close($curl);
@@ -114,10 +121,23 @@ function rcommon_object_to_array_lower($value, $recursive = false) {
 
     // Solve lack of xmlns
     if(count($array) == 1 && isset($array['any'])){
-        $anyxml = simplexml_load_string ($array['any']);
-        $array = array($anyxml->getName() =>$anyxml);
+        $anyxml = simplexml_load_string ('<aux>'.$array['any'].'</aux>');
+        $anyxml = $anyxml->children();
+        if (!$anyxml) {
+            return false;
+        }
+        $name = $anyxml->getName();
+        if (count($anyxml->$name) == 1) {
+            $array = array($name => $anyxml->$name);
+        } else {
+            $children = array();
+            foreach ($anyxml->$name as $child) {
+                $children[] = $child;
+            }
+            $array = array($name => $children);
+        }
     }
-	
+
 	$array_ret = array();
     foreach ($array as $key => $value) {
         if ($recursive) {
@@ -146,21 +166,12 @@ function test_ws_url($url) {
 /** ERROR HANDLING **/
 function log_to_file($info, $notused = null) {
     try {
-        $data_store_log = get_config('rcommon', 'data_store_log');
+        $logdir = get_config('rcommon', 'data_store_log');
         $tracer = get_config('rcommon', 'tracer');
-        if  ($tracer == 'checked' && !empty($data_store_log)) {
-        	$data_store_log .= "/1";
+        if ($tracer == 'checked' && !empty($logdir)) {
+            $logdir = make_writable_directory($logdir.'/log_rcommon', false);
 
-        	//Escribimos en un fichero de texto los mensajes de errores
-        	if (!is_dir($data_store_log)) {
-        		mkdir($data_store_log);
-        	}
-        	$data_store_log .= "/log_rcommon";
-        	if (!is_dir($data_store_log)) {
-        		mkdir($data_store_log);
-        	}
-
-            if ($handle = @fopen($data_store_log."/LogRcommon.log", "a")) {
+            if ($handle = @fopen($logdir."/LogRcommon.log", "a")) {
                 $content = "\r\n".date("Y-m-d H:i:s")." - Data: ".$info;
                 @fwrite($handle, $content);
                 @fclose($handle);

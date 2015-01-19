@@ -239,27 +239,20 @@ function qv_delete_instance($id) {
     $result = true;
     qv_delete_instance_userdata($id);
 
-    if ($result && !$DB->delete_records('qv', array('id' => $id))) {
-        $result = false;
-    }
-
-    if ($result && !$DB->delete_records('event', array('modulename'=>'qv', 'instance'=>$qv->id))) {
-        $result = false;
-    }
-
-    if ($result && !qv_grade_item_delete($qv)){
+    if (!qv_grade_item_delete($qv)) {
         $result = false;
     }
 
     //Delete files
-	if ($result){
+	if ($result) {
 		$fs = get_file_storage();
-		$result = $fs->delete_area_files($context->id, 'mod_qv', 'content');
+		$fs->delete_area_files($context->id, 'mod_qv', 'content');
+		$fs->delete_area_files($context->id, 'mod_qv', 'package');
 	}
 
-	if ($result){
-		$result = $fs->delete_area_files($context->id, 'mod_qv', 'package');
-	}
+    $DB->delete_records('event', array('modulename' => 'qv', 'instance' => $qv->id));
+
+    $DB->delete_records('qv', array('id' => $id));
 
     return $result;
 }
@@ -512,7 +505,7 @@ function qv_grade_item_delete($qv) {
     global $CFG;
     require_once($CFG->libdir.'/gradelib.php');
 
-    return grade_update('mod/qv', $qv->course, 'mod', 'qv', $qv->id, 0, NULL, array('deleted'=>1));
+    return grade_update('mod/qv', $qv->course, 'mod', 'qv', $qv->id, 0, NULL, array('deleted'=>1)) == GRADE_UPDATE_OK;
 }
 
 /**
@@ -724,35 +717,6 @@ function mod_qv_pluginfile($course, $cm, $context, $filearea, $args, $forcedownl
     send_stored_file($file, $lifetime, 0,  false, $options); //DO NOT FORCE DOWNLOAD
 }
 
-
-////////////////////////////////////////////////////////////////////////////////
-// Navigation API                                                             //
-////////////////////////////////////////////////////////////////////////////////
-
-/**
- * Extends the global navigation tree by adding qv nodes if there is a relevant content
- *
- * This can be called by an AJAX request so do not rely on $PAGE as it might not be set up properly.
- *
- * @param navigation_node $navref An object representing the navigation tree node of the qv module instance
- * @param stdClass $course
- * @param stdClass $module
- * @param cm_info $cm
- */
-function qv_extend_navigation(navigation_node $navref, stdclass $course, stdclass $module, cm_info $cm) {
-}
-
-/**
- * Extends the settings navigation with the qv settings
- *
- * This function is called when the context for the page is a qv module. This is not called by AJAX
- * so it is safe to rely on the $PAGE.
- *
- * @param settings_navigation $settingsnav {@link settings_navigation}
- * @param navigation_node $qvnode {@link navigation_node}
- */
-function qv_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $qvnode=null) {
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // Reset                                                                      //

@@ -1,9 +1,9 @@
 <?php
 
 define('AGORA_BASE', 'agora');
-define('INSTALL_BASE', '/srv/www/' . AGORA_BASE . '/'); 
-
-require_once(INSTALL_BASE . 'html/config/env-config.php');
+define('INSTALL_BASE', dirname(dirname(dirname(__FILE__))));
+define('MOODLE_BASE', dirname(__FILE__));
+require_once(INSTALL_BASE . '/html/config/env-config.php');
 
 unset($CFG);
 global $CFG;
@@ -21,12 +21,12 @@ $CFG->dboptions = array (
 );
 
 $CFG->wwwroot   = 'http://agora/'.AGORA_BASE.'/moodle2';
-$CFG->dataroot  = INSTALL_BASE .'moodledata/moodle2/usu_oracle';
+$CFG->dataroot  = INSTALL_BASE .'/docs/moodle2/usu_oracle';
 $CFG->admin     = 'admin';
 
 $CFG->directorypermissions = 0777;
 
-$CFG->langotherroot = dirname(__FILE__) . '/lang/';
+$CFG->langotherroot = MOODLE_BASE . '/lang/';
 
 $CFG->passwordsaltalt1 = '';
 $CFG->passwordsaltmain = 'y7a!Eb019n8Z5*43Sl5J&ly4pjJUk-b';
@@ -49,6 +49,6 @@ $school_info = array('clientCode' => 0);
   $CFG->debugusers = '2';
 */
 
-require_once(dirname(__FILE__) . '/settings.php');
-require_once(dirname(__FILE__) . '/lib/setup.php');
+require_once(MOODLE_BASE . '/settings.php');
+require_once(MOODLE_BASE . '/lib/setup.php');
 

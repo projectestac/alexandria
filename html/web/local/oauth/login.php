@@ -25,10 +25,10 @@
 require('../../config.php');
 require_once('lib.php');
 
-$client_id = required_param('client_id', PARAM_RAW);
-$response_type = required_param('response_type', PARAM_RAW);
+$clientid = required_param('client_id', PARAM_RAW);
+$responsetype = required_param('response_type', PARAM_RAW);
 $scope = optional_param('scope', false, PARAM_TEXT);
-$url = $CFG->wwwroot.'/local/oauth/login.php?client_id='.$client_id.'&response_type='.$response_type;
+$url = $CFG->wwwroot.'/local/oauth/login.php?client_id='.$clientid.'&response_type='.$responsetype;
 
 if ($scope) {
     $url .= '&scope='.$scope;
@@ -46,13 +46,27 @@ if (isloggedin() and !isguestuser()) {
     $response = new OAuth2\Response();
 
     if (!$server->validateAuthorizeRequest($request, $response)) {
+        $logparams = array('other' => array('clientid' => $clientid, 'scope' => $scope));
+        $event = \local_oauth\event\user_not_granted::create($logparams);
+        $event->trigger();
+
         $response->send();
         die();
     }
 
-    $is_authorized = get_authorization_from_form($url, $client_id, $scope);
+    $isauthorized = get_authorization_from_form($url, $clientid, $scope);
+
+    $logparams = array('objectid' => $USER->id, 'other' => array('clientid' => $clientid, 'scope' => $scope));
+    if ($isauthorized) {
+        $event = \local_oauth\event\user_granted::create($logparams);
+
+    } else {
+        $event = \local_oauth\event\user_not_granted::create($logparams);
+    }
+    $event->trigger();
+
     // print the authorization code if the user has authorized your client
-    $server->handleAuthorizeRequest($request, $response, $is_authorized, $USER->id);
+    $server->handleAuthorizeRequest($request, $response, $isauthorized, $USER->id);
     $response->send();
 } else {
     $SESSION->wantsurl = $url;

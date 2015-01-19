@@ -1168,10 +1168,11 @@ function clean_param($param, $type) {
 
         case PARAM_USERNAME:
             $param = fix_utf8($param);
-            $param = str_replace(" " , "", $param);
+            $param = trim($param);
             // Convert uppercase to lowercase MDL-16919.
             $param = core_text::strtolower($param);
             if (empty($CFG->extendedusernamechars)) {
+                $param = str_replace(" " , "", $param);
                 // Regular expression, eliminate all chars EXCEPT:
                 // alphanum, dash (-), underscore (_), at sign (@) and period (.) characters.
                 $param = preg_replace('/[^-\.@_a-z0-9]/', '', $param);
@@ -1329,6 +1330,8 @@ function html_is_blank($string) {
  *
  * A NULL value will delete the entry.
  *
+ * NOTE: this function is called from lib/db/upgrade.php
+ *
  * @param string $name the key to set
  * @param string $value the value to set (without magic quotes)
  * @param string $plugin (optional) the plugin scope, default null
@@ -1398,6 +1401,8 @@ function set_config($name, $value, $plugin=null) {
  *
  * If called with 2 parameters it will return a string single
  * value or false if the value is not found.
+ *
+ * NOTE: this function is called from lib/db/upgrade.php
  *
  * @static string|false $siteidentifier The site identifier is not cached. We use this static cache so
  *     that we need only fetch it once per request.
@@ -1484,6 +1489,8 @@ function get_config($plugin, $name = null) {
 
 /**
  * Removes a key from global configuration.
+ *
+ * NOTE: this function is called from lib/db/upgrade.php
  *
  * @param string $name the key to set
  * @param string $plugin (optional) the plugin scope
@@ -4035,7 +4042,7 @@ function create_user_record($username, $password, $auth = 'manual') {
     if ($auth == 'odissea' && !empty($newinfo['username'])){
         $newuser->username = mb_convert_case($newinfo['username'], MB_CASE_LOWER, 'UTF-8');
     } else {
-    	$newuser->username = $username;
+        $newuser->username = $username;
     }
     //************ ORIGINAL
     /*
@@ -4058,7 +4065,7 @@ function create_user_record($username, $password, $auth = 'manual') {
     //XTEC ************ AFEGIT - To change username if auth method has another different (for Odissea)
     //2013.06.21 @sarjona
     if ($auth == 'odissea' && $newuser->username != $username){
-		if ($user = get_complete_user_data('username', $newuser->username, $CFG->mnet_localhost_id)) {
+        if ($user = get_complete_user_data('username', $newuser->username, $CFG->mnet_localhost_id)) {
             // User exists, so it's not necessary create it (because the username is not the one specified for the user in the form)
             return $user;
         }
@@ -4739,7 +4746,7 @@ function update_internal_user_password($user, $password) {
         $hashedpassword = hash_internal_user_password($password);
     }
 
-    if ($legacyhash) {
+    if ($legacyhash || $hashedpassword == AUTH_PASSWORD_NOT_CACHED) {
         $passwordchanged = ($user->password !== $hashedpassword);
         $algorithmchanged = false;
     } else {
@@ -5720,7 +5727,7 @@ function get_mailer($action='get') {
  * @param string $subject plain text subject line of the email
  * @param string $messagetext plain text version of the message
  * @param string $messagehtml complete html version of the message (optional)
- * @param string $attachment a file on the filesystem, relative to $CFG->dataroot
+ * @param string $attachment a file on the filesystem, either relative to $CFG->dataroot or a full path to a file in $CFG->tempdir
  * @param string $attachname the name of the file (extension indicates MIME)
  * @param bool $usetrueaddress determines whether $from email address should
  *          be sent out. Will be overruled by user profile setting for maildisplay
@@ -5792,9 +5799,9 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         $invalidemail = "User $user->id (".fullname($user).") domain ($user->email) is invalid! Not sending.";
         error_log($invalidemail);
         if (CLI_SCRIPT) {
-            mtrace('Error: lib/moodlelib.php email_to_user(): '.$invalidemail);
+            mtrace('Warning: lib/moodlelib.php email_to_user(): '.$invalidemail);
         }
-        return false;
+        return true;
     }
     // ************ FI
 
@@ -5882,9 +5889,9 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         $mail->Subject = substr($subject, 0, 900);
     }
     //************ ORIGINAL
-	/*
+    /*
     $mail->Subject = substr($subject, 0, 900);
-	*/
+    */
     //************ FI
 
     $temprecipients[] = array($user->email, fullname($user));
@@ -5926,7 +5933,21 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
         } else {
             require_once($CFG->libdir.'/filelib.php');
             $mimetype = mimeinfo('type', $attachname);
-            $mail->addAttachment($CFG->dataroot .'/'. $attachment, $attachname, 'base64', $mimetype);
+
+            $attachmentpath = $attachment;
+
+            // Before doing the comparison, make sure that the paths are correct (Windows uses slashes in the other direction).
+            $attachpath = str_replace('\\', '/', $attachmentpath);
+            // Make sure both variables are normalised before comparing.
+            $temppath = str_replace('\\', '/', $CFG->tempdir);
+
+            // If the attachment is a full path to a file in the tempdir, use it as is,
+            // otherwise assume it is a relative path from the dataroot (for backwards compatibility reasons).
+            if (strpos($attachpath, $temppath) !== 0) {
+                $attachmentpath = $CFG->dataroot . '/' . $attachmentpath;
+            }
+
+            $mail->addAttachment($attachmentpath, $attachname, 'base64', $mimetype);
         }
     }
 
@@ -5974,109 +5995,43 @@ function email_to_user($user, $from, $subject, $messagetext, $messagehtml = '', 
     global $FULLME;
 
     if (!empty($CFG->apligestmail)) {
-    	try{
-	        require_once ($CFG->dirroot.'/local/agora/mailer/message.class.php');
-	        require_once ($CFG->dirroot.'/local/agora/mailer/mailsender.class.php');
-
-	        $log = $CFG->apligestlog;
-	        $logdebug = $CFG->apligestlogdebug;
-	        $logpath = $CFG->apligestlogpath;
-
-	        //load the message
-	        $message = new message(TEXTHTML, $log, $logdebug, $logpath);
-
-	        //set $to
-	        $to_array = array();
-	        foreach ($mail->to as $to){
-	            $to_array[] = $to[0];
-	        }
-	        $message->set_to($to_array);
-
-	        //set $cc
-	        $cc_array = array();
-	        foreach ($mail->cc as $cc){
-	            $cc_array[] = $cc[0];
-	        }
-	        if (!empty($cc_array)) $message->set_cc($cc_array);
-
-	        //set $bcc
-	        $bcc_array = array();
-	        foreach ($mail->bcc as $bcc){
-	            $bcc_array[] = $bcc[0];
-	        }
-	        if (!empty($bcc_array)) $message->set_bcc($bcc_array);
-
-	        //set $subject
-	        $message->set_subject($mail->Subject);
-
-	        //set $bodyContent
-	        $message->set_bodyContent($mail->Body);
-
-	        //load the mailsender
-	        $environment = $CFG->apligestenv;
-	        $application = $CFG->apligestaplic;
-	        $replyto = $CFG->noreplyaddress;
-
-	        $sender = new mailsender($application, $replyto, 'educacio', $environment, $log, $logdebug, $logpath);
-
-	        //add message to mailsender
-	        if (!$sender->add($message)){
-	                mtrace('ERROR: '.' Impossible to add message to mailsender');
-	                add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. ' Impossible to add message to mailsender');
-	                return false;
-	        }
-	        //send messages
-	        if (!$sender->send_mail()){
-	                mtrace('ERROR: '.' Impossible to send messages');
-	                add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. ' Impossible to send messages');
-
-	                return false;
-	        } else {
-	            set_send_count($user);
-	            return true;
-	        }
-	    } catch (Exception $e){
-	    	mtrace('ERROR: Something terrible happened during the mailing and might be repaired');
-	    	mtrace($e->getMessage());
-	    	mtrace('The execution must go on!');
-	    	return false;
-	    }
+        return send_apligest_mail($mail, $user);
     } else {
-		if ($mail->send()) {
-		    set_send_count($user);
-		    if (!empty($mail->SMTPDebug)) {
-		        echo '</pre>';
-		    }
-		    return true;
-		} else {
-		    add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. $mail->ErrorInfo);
-		    if (CLI_SCRIPT) {
-		        mtrace('Error: lib/moodlelib.php email_to_user(): '.$mail->ErrorInfo);
-		    }
-		    if (!empty($mail->SMTPDebug)) {
-		        echo '</pre>';
-		    }
-		    return false;
-		}
-	}
-	//****************** ORIGINAL
-	/*
-	if ($mail->send()) {
-	    set_send_count($user);
-	    if (!empty($mail->SMTPDebug)) {
-	        echo '</pre>';
-	    }
-	    return true;
-	} else {
-	    add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. $mail->ErrorInfo);
-	    if (CLI_SCRIPT) {
-	        mtrace('Error: lib/moodlelib.php email_to_user(): '.$mail->ErrorInfo);
-	    }
-	    if (!empty($mail->SMTPDebug)) {
-	        echo '</pre>';
-	    }
-	    return false;
-	}
+        if ($mail->send()) {
+            set_send_count($user);
+            if (!empty($mail->SMTPDebug)) {
+                echo '</pre>';
+            }
+            return true;
+        } else {
+            add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. $mail->ErrorInfo);
+            if (CLI_SCRIPT) {
+                mtrace('Error: lib/moodlelib.php email_to_user(): '.$mail->ErrorInfo);
+            }
+            if (!empty($mail->SMTPDebug)) {
+                echo '</pre>';
+            }
+            return false;
+        }
+    }
+    //****************** ORIGINAL
+    /*
+    if ($mail->send()) {
+        set_send_count($user);
+        if (!empty($mail->SMTPDebug)) {
+            echo '</pre>';
+        }
+        return true;
+    } else {
+        add_to_log(SITEID, 'library', 'mailer', qualified_me(), 'ERROR: '. $mail->ErrorInfo);
+        if (CLI_SCRIPT) {
+            mtrace('Error: lib/moodlelib.php email_to_user(): '.$mail->ErrorInfo);
+        }
+        if (!empty($mail->SMTPDebug)) {
+            echo '</pre>';
+        }
+        return false;
+    }
     */
     //************ FI
 }
@@ -8862,17 +8817,18 @@ function message_popup_window() {
 
     // A quick query to check whether the user has new messages.
     $messagecount = $DB->count_records('message', array('useridto' => $USER->id));
-    if ($messagecount<1) {
+    if ($messagecount < 1) {
         return;
     }
 
-    // Got unread messages so now do another query that joins with the user table.
-    $namefields = get_all_user_name_fields(true, 'u');
-    $messagesql = "SELECT m.id, m.smallmessage, m.fullmessageformat, m.notification, $namefields
+    // There are unread messages so now do a more complex but slower query.
+    $messagesql = "SELECT m.id, c.blocked
                      FROM {message} m
                      JOIN {message_working} mw ON m.id=mw.unreadmessageid
                      JOIN {message_processors} p ON mw.processorid=p.id
                      JOIN {user} u ON m.useridfrom=u.id
+                     LEFT JOIN {message_contacts} c ON c.contactid = m.useridfrom
+                                                   AND c.userid = m.useridto
                     WHERE m.useridto = :userid
                       AND p.name='popup'";
 
@@ -8883,12 +8839,22 @@ function message_popup_window() {
         $messagesql .= 'AND m.timecreated > :lastpopuptime';
     }
 
-    $messageusers = $DB->get_records_sql($messagesql, array('userid' => $USER->id, 'lastpopuptime' => $USER->message_lastpopup));
+    $waitingmessages = $DB->get_records_sql($messagesql, array('userid' => $USER->id, 'lastpopuptime' => $USER->message_lastpopup));
 
-    // If we have new messages to notify the user about.
-    if (!empty($messageusers)) {
+    $validmessages = 0;
+    foreach ($waitingmessages as $messageinfo) {
+        if ($messageinfo->blocked) {
+            // Message is from a user who has since been blocked so just mark it read.
+            // Get the full message to mark as read.
+            $messageobject = $DB->get_record('message', array('id' => $messageinfo->id));
+            message_mark_message_read($messageobject, time());
+        } else {
+            $validmessages++;
+        }
+    }
 
-        $strmessages = get_string('unreadnewmessages', 'message', count($messageusers));
+    if ($validmessages > 0) {
+        $strmessages = get_string('unreadnewmessages', 'message', $validmessages);
         $strgomessage = get_string('gotomessages', 'message');
         $strstaymessage = get_string('ignore', 'admin');
 

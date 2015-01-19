@@ -37,13 +37,14 @@ if(empty($PAGE->layout_options['nocustommenu'])){
 }
 
 $hasmainmenu = get_config('theme_xtec2','top_menus');
-if($hasmainmenu){
+if($hascustommenu && $hasmainmenu){
     $mainmenu = $OUTPUT->main_menu();
     $hasmainmenu = !empty($mainmenu);
 } else {
     $hasmainmenu = false;
 }
 
+$haslogin = empty($PAGE->layout_options['nologin']);
 $hassidepre = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-pre', $OUTPUT));
 $hassidepost = (empty($PAGE->layout_options['noblocks']) && $PAGE->blocks->region_has_content('side-post', $OUTPUT));
 
@@ -111,19 +112,19 @@ echo $OUTPUT->doctype() ?>
 <header role="banner" class="navbar navbar-fixed-top moodle-has-zindex">
     <nav role="navigation" class="navbar-inner">
         <div class="container-fluid">
-			<a href="http://www20.gencat.cat/portal/site/ensenyament" class="brand ensenyament hidden-phone"><img src="<?php echo $OUTPUT->pix_url('departament', 'theme'); ?>" alt="" title="" /></a>
-			<a href="http://www.xtec.cat" class="brand xtec hidden-phone"><img src="<?php echo $OUTPUT->pix_url('xtec', 'theme'); ?>" alt="" title="" /></a>
+			<a href="http://www20.gencat.cat/portal/site/ensenyament" class="brand ensenyament hidden-phone"><img src="<?php echo $OUTPUT->pix_url('departament', 'theme'); ?>" alt="Departament d'Ensenyament" title="" /></a>
+			<a href="http://www.xtec.cat" class="brand xtec hidden-phone"><img src="<?php echo $OUTPUT->pix_url('xtec', 'theme'); ?>" alt="Xarxa Telemàtica Educativa de Catalunya" title="" /></a>
 			<a class="brand mainbrand" href="<?php echo $CFG->wwwroot;?>"><?php echo $SITE->fullname; ?></a>
             <div class="navbar">
-                <ul class="nav pull-right">
-                    <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
-                    <li class="navbar-text"><?php echo $OUTPUT->login_info() ?></li>
-                </ul>
-                <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target="#custom-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
+                <?php if($haslogin) { ?>
+                    <ul class="nav pull-right">
+                        <li><?php echo $OUTPUT->page_heading_menu(); ?></li>
+                        <li class="navbar-text"><?php echo $OUTPUT->login_info() ?></li>
+                    </ul>
+                <?php } ?>
+                <?php if($hascustommenu) { ?>
+
+                <?php } ?>
             </div>
         </div>
     </nav>
@@ -135,9 +136,14 @@ echo $OUTPUT->doctype() ?>
     </div>
 </div>
 
-<div id="main_navigation" class="clearfix">
+<div id="main_navigation" class="clearfix navbar">
     <div class="container-fluid">
         <?php if($hascustommenu) { ?>
+            <a class="btn btn-navbar visible-phone" data-toggle="collapse" data-target="#custom-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </a>
             <div id="custom_menu" class="pull-left">
                 <div class="nav-collapse collapse" id="custom-collapse">
                     <?php echo $custommenu; ?>
@@ -148,8 +154,8 @@ echo $OUTPUT->doctype() ?>
             <div id="showhideblocks" class="hidden-phone pull-right collapsed" title="<?php echo get_string('showhideblocks','theme_xtec2');?>" onclick="showhideblocks();"></div>
         <?php } ?>
         <?php if($hasmainmenu) { ?>
-            <div id="main_menu" class="pull-right hidden-phone">
-                <div class="nav-collapse collapse">
+            <div id="main_menu" class="pull-right">
+                <div class="nav-collapse collapse hidden-phone">
                     <?php echo $mainmenu; ?>
                 </div>
             </div>
@@ -164,7 +170,6 @@ echo $OUTPUT->doctype() ?>
 			<div class="breadcrumb-button"><?php echo $OUTPUT->page_heading_button(); ?></div>
 		</div>
 	</header>
-
 
     <div id="page-content" class="row-fluid">
         <div id="<?php echo $regionbsid ?>" class="span<?php echo $spanmainpost;?>">
@@ -204,10 +209,10 @@ echo $OUTPUT->doctype() ?>
         </div>
     </div>
     <div class="footerlogos clearfix container-fluid">
-        <a href="http://agora.xtec.cat" target="_blank"><img src="<?php echo $OUTPUT->pix_url('logo_main', 'theme'); ?>" alt="" title="" /></a>
+        <a href="http://agora.xtec.cat" target="_blank"><img src="<?php echo $OUTPUT->pix_url('logo_main', 'theme'); ?>" alt="Àgora" title="" /></a>
         <a href="http://moodle.org" target="_blank"><img src="<?php echo $OUTPUT->pix_url('logo_moodle', 'theme'); ?>" alt="Moodle" title="Moodle" /></a>
-        <a href="http://www20.gencat.cat/portal/site/ensenyament" class="brand ensenyament visible-phone"><img src="<?php echo $OUTPUT->pix_url('departament', 'theme'); ?>" alt="" title="" /></a>
-        <a href="http://www.xtec.cat" class="brand xtec visible-phone"><img src="<?php echo $OUTPUT->pix_url('xtec', 'theme'); ?>" alt="" title="" /></a>
+        <a href="http://www20.gencat.cat/portal/site/ensenyament" class="brand ensenyament visible-phone"><img src="<?php echo $OUTPUT->pix_url('departament', 'theme'); ?>" alt="Departament d'Ensenyament" title="" /></a>
+        <a href="http://www.xtec.cat" class="brand xtec visible-phone"><img src="<?php echo $OUTPUT->pix_url('xtec', 'theme'); ?>" alt="Xarxa Telemàtica Educativa de Catalunya" title="" /></a>
     </div>
 </footer>
 

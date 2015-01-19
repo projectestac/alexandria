@@ -67,6 +67,10 @@ class cache_config_writer extends cache_config {
      * infinite loop situations caused by the cache throwing exceptions during its initialisation.
      */
     protected function config_save() {
+        //XTEC ************ AFEGIT - Disables config save
+        // 2014.11.13 @pferre22
+        return;
+        //************ FI
         global $CFG;
         $cachefile = self::get_config_file_path();
         $directory = dirname($cachefile);
@@ -723,7 +727,8 @@ abstract class cache_administration_helper extends cache_helper {
                     'nativelocking' => ($store instanceof cache_is_lockable),
                     'keyawareness' => ($store instanceof cache_is_key_aware),
                     'searchable' => ($store instanceof cache_is_searchable)
-                )
+                ),
+                'warnings' => $store->get_warnings()
             );
             if (empty($details['default'])) {
                 $return[$name] = $record;

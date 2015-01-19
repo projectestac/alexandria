@@ -1,6 +1,7 @@
 <?php
- define('CLI_SCRIPT', true);
-define('CACHE_DISABLE_ALL', true);
+
+define('CLI_SCRIPT', true);
+//define('CACHE_DISABLE_ALL', true);
 
 require(dirname(dirname(dirname(dirname(__FILE__)))).'/config.php');
 require_once($CFG->libdir.'/clilib.php');      // cli only functions
@@ -56,10 +57,13 @@ mtrace("End server Time: ".date('r', time())."\n");
 
 if ($success) {
 	mtrace('Script '.$script.' succeed');
+    echo "\n";
 	exit (0);
 } else {
 	mtrace('Script '.$script.' failed');
-	exit (-1);
+    echo "\n";
+    exit ('error');
 }
+
 
 
