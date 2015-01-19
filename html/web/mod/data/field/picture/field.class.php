@@ -39,7 +39,16 @@ class data_field_picture extends data_field_base {
 
         if ($recordid) {
             if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
-                file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+                //XTEC - ALEXANDRIA ***** MODIFICAT - Capture error if cannot read the file
+                // ***** CODI ORIGINAL
+                //file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+                // ***** CODI MODIFICAT
+                try {
+                        file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+                } catch(Exception $e) {
+                        $content->content = null;
+                }
+                // ***** FI
                 if (!empty($content->content)) {
                     if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
                         $usercontext = context_user::instance($USER->id);

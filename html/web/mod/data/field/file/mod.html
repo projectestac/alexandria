@@ -18,4 +18,25 @@
             ?>
         </td>
     </tr>
+    <!-- XTEC - ALEXANDRIA **************** AFEGIT - If the file is a PDF to show PDI materials (param4) shows PDF viewer
+        2011.02.28 @fcasanel
+	2013.10.30 @mespinosa
+	-->
+    <tr>
+        <td class="c0"><label for="param4"><?php echo get_string('filetype', 'local_alexandria'); ?></label></td>
+        <td class="c1">
+            <?php
+                $filetypes = array(
+                        ALEXANDRIA_OTHER => get_string('otherfile', 'local_alexandria'),
+                        ALEXANDRIA_COURSE_BACKUP => get_string('coursebackupfile', 'local_alexandria'),
+                        ALEXANDRIA_SCORM => get_string('scormfile', 'local_alexandria'),
+                        ALEXANDRIA_PDI => get_string('pdifile', 'local_alexandria'),
+                        ALEXANDRIA_PDI_PDF => get_string('pdipdffile', 'local_alexandria')
+                    );
+                echo html_writer::select($filetypes,'param4',$this->field->param4,false);
+            ?>
+        </td>
+    </tr>
+    <!-- ***************** FI -->
+
 </table>
