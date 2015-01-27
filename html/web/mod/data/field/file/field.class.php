@@ -78,13 +78,15 @@ class data_field_file extends data_field_base {
 		 //XTEC - ALEXANDRIA **************** MODIFICAT - If the file is already uploaded, disable upload
         //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         $html = '';
-		if ($content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid)) && in_array($this->field->dataid,explode(',',$CFG->data_coursesdataid)) && $this->field->name == $CFG->data_filefieldid) {
-			$file = $this->get_file($recordid);
-			if ($file)
-				$html .= '<a href="'.$CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'">'.$file->get_filename().'</a>';
-			else
-				$html .= get_string('file_notavalaible','local_alexandria');
-		} else {
+        $content = $DB->get_record('data_content', array('fieldid' => $this->field->id, 'recordid'=>$recordid));
+        if ($content && in_array($this->field->dataid, explode(',', $CFG->data_coursesdataid)) && $this->field->name == $CFG->data_filefieldid) {
+            $file = $this->get_file($recordid);
+            if ($file) {
+                $html .= '<a href="'.$CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'">'.$file->get_filename().'</a>';
+            } else {
+                $html .= get_string('file_notavalaible', 'local_alexandria');
+            }
+        } else {
         // database entry label
         $html .= '<div title="'.s($this->field->description).'">';
         //************ ORIGINAL
@@ -147,6 +149,10 @@ class data_field_file extends data_field_base {
         $html .= '</div>';
         $html .= '</fieldset>';
         $html .= '</div>';
+		 //XTEC - ALEXANDRIA **************** AFEGIT - If the file is already uploaded, disable upload
+        //2013.11.05 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+        }
+		// ***** FI
 
         return $html;
     }
@@ -203,21 +209,21 @@ class data_field_file extends data_field_base {
         if (empty($content->content)) {
 			//XTEC - ALEXANDRIA ************ AFEGIT - To disapprove SCORM or PDI if file doesn't exist 
 			//2013.11.29 @mespinosa
-            if(!empty($this->field->param4)){
-                switch($this->field->param4){
+            if (!empty($this->field->param4)) {
+                switch($this->field->param4) {
                     case ALEXANDRIA_SCORM:
                     case ALEXANDRIA_PDI:
                         // Es desaprova SCORM i PDI perquè el fitxer no existeix i així ho pot revisar el revisor
-                        $data_record = $DB->get_record('data_records',array('id' => $recordid));
-                        if($data_record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $this->context)) {
+                        $data_record = $DB->get_record('data_records', array('id' => $recordid));
+                        if($data_record->timemodified < time() - 24 * 60 * 60 && !has_capability('mod/data:approve', $this->context)) {
                             $data_record->approved = 0;
                             $data_record->timemodified = time();
                             $DB->update_record('data_records',$data_record);
                         }
                     case ALEXANDRIA_COURSE_BACKUP:
-                        return '<b>'.get_string('file_notavalaible','local_alexandria').'</b>';
+                        return '<b>'.get_string('file_notavalaible', 'local_alexandria').'</b>';
                     case ALEXANDRIA_PDI_PDF:
-                        return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
+                        return '<b>'.get_string('preview_notavalaible', 'local_alexandria').'</b>';
                 }
             }
 			// ******** FI
@@ -227,21 +233,21 @@ class data_field_file extends data_field_base {
         if (!$file = $this->get_file($recordid, $content)) {
 			//XTEC - ALEXANDRIA ************ AFEGIT - To disapprove SCORM or PDI if file doesn't exist 
 			//2013.11.29 @mespinosa
-            if(!empty($this->field->param4)){
-                switch($this->field->param4){
+            if (!empty($this->field->param4)) {
+                switch($this->field->param4) {
                     case ALEXANDRIA_SCORM:
                     case ALEXANDRIA_PDI:
                         // Es desaprova SCORM i PDI perquè el fitxer no existeix i així ho pot revisar el revisor
-                        $data_record = $DB->get_record('data_records',array('id' => $recordid));
+                        $data_record = $DB->get_record('data_records', array('id' => $recordid));
                         if($data_record->timemodified < time() - 24*60*60 && !has_capability('mod/data:approve', $this->context)) {
                             $data_record->approved = 0;
                             $data_record->timemodified = time();
-                            $DB->update_record('data_records',$data_record);
+                            $DB->update_record('data_records', $data_record);
                         }
                     case ALEXANDRIA_COURSE_BACKUP:
-                        return '<b>'.get_string('file_notavalaible','local_alexandria').'</b>';
+                        return '<b>'.get_string('file_notavalaible', 'local_alexandria').'</b>';
                     case ALEXANDRIA_PDI_PDF:
-                        return '<b>'.get_string('preview_notavalaible','local_alexandria').'</b>';
+                        return '<b>'.get_string('preview_notavalaible', 'local_alexandria').'</b>';
                 }
             }
 			// ******** FI
@@ -254,11 +260,11 @@ class data_field_file extends data_field_base {
         $height = $this->field->param2 ? ' height = "'.s($this->field->param2).'" ':' ';
 
         //XTEC - ALEXANDRIA ************ MODIFICAT - If it's a preview only return the file link
-        if(!empty($this->field->param4)){
+        if (!empty($this->field->param4)) {
             $preview_str = get_string('preview');
-            if($this->field->param4 == ALEXANDRIA_PDI_PDF){
+            if ($this->field->param4 == ALEXANDRIA_PDI_PDF) {
                 $url = urlencode($src);
-                $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id'=>'previewImg', 'title'=>$preview_str));
+                $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id' => 'previewImg', 'title' => $preview_str));
                 $str = '<div id="previewButton">'.$icon.'
                         <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
                 $str .= '<div id="preview_data" class="preview_pdf" style="display: none;">
@@ -273,13 +279,13 @@ class data_field_file extends data_field_base {
                 $str  = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;';
 
                 $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
-                $str .=  '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
-                $str .=  '<a href="'.$src.'" onclick="increase_counter('.$recordid.','.$this->field->id.')">'.s($name).'</a>';
+                $str .= '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
+                $str .= '<a href="'.$src.'" onclick="increase_counter('.$recordid.','.$this->field->id.')">'.s($name).'</a>';
                 $str .= '<p><strong>'.get_string('last_download','local_alexandria').'</strong> <span id="download_last">'.$dwnldinfo['last'].'</span> · <strong>'.get_string('total_downloads','local_alexandria').'</strong> <span id="download_counter">'.$dwnldinfo['total'].'</span></p>';
                 switch($this->field->param4){
                     case ALEXANDRIA_SCORM:
                         $url = $CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup';
-                        $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id'=>'previewImg', 'title'=>$preview_str));
+                        $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id' => 'previewImg', 'title' => $preview_str));
                         $str .= '<div id="previewButton">'.$icon.'
                                 <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
                         $str .= '<div id="preview_data"  class="preview_scorm" style="display: none;">
@@ -327,7 +333,7 @@ class data_field_file extends data_field_base {
 		//XTEC - ALEXANDRIA ************ MODIFICAT - If it's a SCORM file insert as a new scorm object
         //2011.05.23 @fcasanel
         //2013.10.30 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-        if ($this->field->param4 == ALEXANDRIA_SCORM){
+        if ($this->field->param4 == ALEXANDRIA_SCORM) {
             require_once($CFG->dirroot.'/mod/scorm/lib.php');
             require_once($CFG->dirroot.'/local/alexandria/data/datalib.php');
             require_once($CFG->dirroot.'/course/lib.php');
@@ -336,7 +342,7 @@ class data_field_file extends data_field_base {
 
             //Check if is an update or a new entry
             $scorm_record = $DB->get_record('data_content', array('fieldid' => $this->field->id, 'recordid' => $recordid));
-            if ($scorm_record->content2){
+            if ($scorm_record->content2) {
                 // Delete old scorm
                 $oldcmid = $DB->get_field('course_modules', 'id', array('module' => $scorm_object->module, 'instance' => $scorm_record->content2));
                 if ($oldcmid) $oldscormcontext = context_module::instance($oldcmid);
@@ -496,23 +502,23 @@ class data_field_file extends data_field_base {
     //XTEC - ALEXANDRIA ************ AFEGIT - If it was a course or a SCORM, we deleted the related resources
     //2013.11.13 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
     function delete_content($recordid = 0) {
-    	global $DB,$CFG;
-    	if($this->field->param4 == ALEXANDRIA_SCORM){
-    		require_once $CFG->dirroot.'/mod/scorm/lib.php';
-            $scorm_id = $DB->get_field('data_content','content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));
-            $module_scorm_id = $DB->get_field('modules', 'id',array('name' => 'scorm'));
-            $cmid = $DB->get_field('course_modules', 'id',array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
+        global $DB, $CFG;
+        if ($this->field->param4 == ALEXANDRIA_SCORM) {
+            require_once($CFG->dirroot.'/mod/scorm/lib.php');
+            $scorm_id = $DB->get_field('data_content', 'content2', array('fieldid' => $this->field->id, 'recordid' => $recordid));
+            $module_scorm_id = $DB->get_field('modules', 'id', array('name' => 'scorm'));
+            $cmid = $DB->get_field('course_modules', 'id', array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
             scorm_delete_instance($scorm_id);
             delete_course_module($cmid);
         }
-    	if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
-    		$coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
-            $courseid = $DB->get_field('data_content','content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
-    		if (!empty($courseid)) {
-                delete_course($courseid,false);
+        if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
+            $coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
+            $courseid = $DB->get_field('data_content', 'content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
+            if (!empty($courseid)) {
+                delete_course($courseid, false);
             }
-    	}
-     	parent::delete_content($recordid);
+        }
+        parent::delete_content($recordid);
     }
     // ******** FI
 }
