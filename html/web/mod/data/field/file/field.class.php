@@ -126,7 +126,7 @@ class data_field_file extends data_field_base {
                 $options->accepted_types = array('.zip', '.xml');
                 break;
             case ALEXANDRIA_PDI:
-                $options->accepted_types = array('.xbk', '.notebook', '.gwb', '.ink', '.flp', '.flipchart', '.ubz', '.iwb', 'presentation', 'video');
+                $options->accepted_types = array('.xbk', '.notebook', '.gwb', '.ink', '.flp', '.flipchart', '.ubz', '.iwb', 'presentation', 'video', 'archive');
                 break;
             default:
                 $options->accepted_types = '*';
@@ -263,12 +263,12 @@ class data_field_file extends data_field_base {
         if (!empty($this->field->param4)) {
             $preview_str = get_string('preview');
             if ($this->field->param4 == ALEXANDRIA_PDI_PDF) {
-                $url = urlencode($src);
+                $url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id.'&force=false';
                 $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id' => 'previewImg', 'title' => $preview_str));
                 $str = '<div id="previewButton">'.$icon.'
                         <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
                 $str .= '<div id="preview_data" class="preview_pdf" style="display: none;">
-                    <iframe style="width: 100%; height: 500px;" src="http://docs.google.com/viewer?url='.$url.'&embedded=true" frameborder="0"></iframe><br/>
+                    <object data="'.$url.'#" type="application/pdf" width="100%" height="500px;"></object>
                     <div id="hideButton">
                         <img title="'.$preview_str.'" src="'.$OUTPUT->pix_url('t/show').'" alt="'.$preview_str.'" />
                         <a id="hide" onclick="document.getElementById(\'preview_data\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">'.get_string('preview_hide','local_alexandria').'</a>
@@ -281,7 +281,10 @@ class data_field_file extends data_field_base {
                 $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
                 $str .= '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
                 $str .= '<a href="'.$src.'" onclick="increase_counter('.$recordid.','.$this->field->id.')">'.s($name).'</a>';
-                $str .= '<p><strong>'.get_string('last_download','local_alexandria').'</strong> <span id="download_last">'.$dwnldinfo['last'].'</span> · <strong>'.get_string('total_downloads','local_alexandria').'</strong> <span id="download_counter">'.$dwnldinfo['total'].'</span></p>';
+                $str .= '<p>
+                    <strong>'.get_string('last_download','local_alexandria').'</strong> <span id="download_last">'.$dwnldinfo['last'].'</span> ·
+                    <strong>'.get_string('total_downloads','local_alexandria').'</strong> <span id="download_counter">'.$dwnldinfo['total'].'</span> ·
+                    <strong>'.get_string('size').': </strong>'.display_size($file->get_filesize()).'</p>';
                 switch($this->field->param4){
                     case ALEXANDRIA_SCORM:
                         $url = $CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup';

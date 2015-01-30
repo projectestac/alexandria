@@ -26,14 +26,16 @@ function alexandria_get_downloads($recordid, $fieldid = false) {
     return (int)$DB->get_field('data_content', 'content4', array('recordid' => $recordid, 'fieldid' => $fieldid));
 }
 
-function alexandria_download_file($recordid, $fieldid) {
+function alexandria_download_file($recordid, $fieldid, $forcedownload) {
 	global $CFG, $DB;
 	require_once($CFG->libdir.'/filelib.php');
 
 	$file = alexandria_get_file($recordid, $fieldid);
 	if ($file) {
-		alexandria_update_downloadings($recordid, $fieldid);
-		send_stored_file($file, 0, 0, true);
+        if ($forcedownload) {
+            alexandria_update_downloadings($recordid, $fieldid);
+        }
+		send_stored_file($file, 0, 0, $forcedownload);
 		return;
 	}
 	send_file_not_found();
