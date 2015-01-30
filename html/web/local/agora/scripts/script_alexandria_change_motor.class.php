@@ -6,7 +6,7 @@ class script_alexandria_change_motor extends agora_script_base{
 
 	public $title = 'Change motor in Alexandria';
 	public $info = "Convert all tables in DB from MyISAM to INNODB";
-	public $cron = true;
+	public $cron = false;
 	protected $test = true;
 
 	protected function _execute($params = array(), $execute = true) {
