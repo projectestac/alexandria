@@ -1,34 +1,29 @@
-<?php
-
-define('INSTALL_BASE', dirname(dirname(dirname(__FILE__))));
-define('MOODLE_BASE', dirname(__FILE__));
-require_once(INSTALL_BASE . '/html/config/env-config.php');
-
+<?php  // Moodle configuration file
 unset($CFG);
 global $CFG;
 
 $CFG = new stdClass();
-
-$CFG->dbtype = $agora['moodle2']['dbtype'];
-$CFG->dbhost = $agora['moodle2']['dbhost'];
-$CFG->dbpass = $agora['moodle2']['userpwd'];
-$CFG->prefix = $agora['moodle2']['prefix'];
-
-$CFG->admin = 'admin';
-
+$CFG->dbtype    = 'mysqli';
+$CFG->dblibrary = 'native';
+$CFG->dbhost    = 'localhost';
+$CFG->dbname    = 'alexandria';
+$CFG->dbuser    = 'root';
+$CFG->dbpass    = 'agora';
+$CFG->prefix    = 'mdl_';
 $CFG->dboptions = array (
-    'dbpersist' => true,
-    'dbsocket' => false,
-    'dbport' => ''
+  'dbpersist' => 0,
+  'dbsocket' => '',
 );
-$CFG->langotherroot = MOODLE_BASE . '/langpacks/';
+$CFG->wwwroot   = 'http://192.168.33.5/web';
+$CFG->dataroot  = '/moodledata';
+$CFG->admin     = 'admin';
 
-$CFG->directorypermissions = 00777;  // try 02777 on a server in Safe Mode
+$CFG->directorypermissions = 0777;
 
-$CFG->passwordsaltalt1 = '';
-$CFG->passwordsaltmain = 'y7a!Eb019n8Z5*43Sl5J&ly4pjJUk-b';
+$CFG->passwordsaltmain = '/PN~dd>bLwqEOKaMa3j9cn*vcb';
 
-require_once(MOODLE_BASE . '/site-config.php');
-require_once(MOODLE_BASE . '/settings.php');
-require_once(MOODLE_BASE . '/lib/setup.php');
+require_once(dirname(__FILE__) . '/settings.php');
 
+// There is no php closing tag in this file,
+// it is intentional because it prevents trailing whitespace problems!
+require_once(dirname(__FILE__) . '/lib/setup.php');
