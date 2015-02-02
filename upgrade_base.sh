@@ -4,8 +4,8 @@
 #Exemple invocació: ./upgrade_base.sh
 version=15.01.19
 
-git clone https://github.com/projectestac/agora_moodle2.git ../agora_alexandria_base
-pushd ../agora_alexandria_base
+git clone https://github.com/projectestac/agora_moodle2.git /tmp/agora_alexandria_base
+pushd /tmp/agora_alexandria_base
 git submodule update --recursive --init
 commit=`git rev-parse HEAD`
 echo Commit $commit
@@ -14,9 +14,9 @@ popd
 
 git checkout AGORA_BASE
 rm -rf html/web
-cp -rp ../agora_alexandria_base html/web
+cp -rp /tmp/agora_alexandria_base/ html/web
 git add -A .
-git commit -m 'Import from commit $commit'
+git commit -m 'Import from commit '$commit
 git push origin AGORA_BASE
 
 
