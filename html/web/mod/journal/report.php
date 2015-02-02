@@ -14,7 +14,7 @@ if (! $course = $DB->get_record("course", array("id" => $cm->course))) {
     print_error("Course module is misconfigured");
 }
 
-require_login($course->id, false, $cm);
+require_login($course, false, $cm);
 
 $context = get_context_instance(CONTEXT_MODULE, $cm->id);
 
