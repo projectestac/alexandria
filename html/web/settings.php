@@ -42,8 +42,8 @@ $CFG->defaultblocks_override = 'about_course';
 //$CFG->apligestmail = 1;          /* Set in database */
 //$CFG->apligestlog = 0;        /* Set in database */
 //$CFG->apligestlogdebug = 0;        /* Set in database */
-//$CFG->apligestlogpath = $CFG->dataroot.'/repository/files/mailsender.log';
-$CFG->apligestenv = 'DES';
+$CFG->apligestlogpath = $CFG->dataroot.'/repository/files/mailsender.log';
+//$CFG->apligestenv = 'DES';
 $CFG->apligestaplic = 'ALEXANDRI';
 
 
