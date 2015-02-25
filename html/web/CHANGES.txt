@@ -3,7 +3,7 @@ Release notes for Alexandria (http://alexandria.xtec.cat)
 More information on each of the fixes can be found in the project 
 development home at https://projectes.lafarga.cat/projects/alexandria/
 
-Changes in progress
+Changes 15.02.11
 ---------------------------------------------------------------------------------------
 - Upgrade to the last Agora version that includes:
    - Updated translations
