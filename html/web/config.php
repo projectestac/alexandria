@@ -14,9 +14,11 @@ $CFG->dboptions = array (
   'dbpersist' => 0,
   'dbsocket' => '',
 );
-$CFG->wwwroot   = 'http://192.168.33.5/web';
-$CFG->dataroot  = '/moodledata';
+$CFG->wwwroot   = 'http://agora/alexandria';
+$CFG->dataroot  = '/dades/alexandria/docs';
 $CFG->admin     = 'admin';
+
+$CFG->memcache_servers = '127.0.0.1';
 
 $CFG->directorypermissions = 0777;
 
