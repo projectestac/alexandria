@@ -290,14 +290,7 @@ class data_field_file extends data_field_base {
                         $url = $CFG->wwwroot.'/local/alexandria/scorm/preview.php?a='.$content->content2.'&scoid=0&display=popup';
                         $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id' => 'previewImg', 'title' => $preview_str));
                         $str .= '<div id="previewButton">'.$icon.'
-                                <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
-                        $str .= '<div id="preview_data"  class="preview_scorm" style="display: none;">
-                             <iframe style="width: 100%; height: 500px;" src="'.$url.'" frameborder="0"></iframe><br/>
-                             <div id="hideButton">
-                                <img src="'.$OUTPUT->pix_url('t/show').'" alt="'.$preview_str.'" title="'.$preview_str.'" />
-                                <a id="hide" onclick="document.getElementById(\'preview_data\').style.display = \'none\'; document.getElementById(\'previewButton\').style.display = \'block\';" href="#presentacio">'.get_string('preview_hide','local_alexandria').'</a>
-                            </div>
-                        </div>';
+                                <a id="show" target="_blank" href="'.$url.'">'.get_string('preview_resource','local_alexandria').'</a></div>';
                         break;
                     case ALEXANDRIA_PDI:
                         $str .= '[[pdf]]';
