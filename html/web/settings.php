@@ -54,7 +54,6 @@ $CFG->skiplangupgrade  = true;
 $CFG->altcacheconfigpath = dirname(__FILE__) . '/local/agora/muc/';
 $CFG->siteidentifier = 'alexandria';
 $CFG->memcache_prefix = $CFG->siteidentifier.'_';
-$CFG->memcache_servers = '127.0.0.1';
 $CFG->agora_muc_path = $CFG->dataroot.'/muc';
 $CFG->cachedir = $CFG->dataroot.'/cache';
 $CFG->localcachedir = $CFG->dataroot.'/localcache';
