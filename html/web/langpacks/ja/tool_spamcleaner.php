@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_spamcleaner', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_spamcleaner', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_spamcleaner
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,8 +32,8 @@ $string['spamcannotfinduser'] = 'あなたの検索に合致するユーザは�
 $string['spamcleanerintro'] = '<p>このスクリプトを使用することで、あなたは特定のキーワードを使って、ユーザすべてのプロファイルを検索することができます。また、検索した後、明らかにスパム発信者から作成されたアカウントを削除することもできます。カンマを使用することで、あなたは複数のキーワードを使って検索することができます (例 casino, porn)。</p>
 <p>Moodle Docsには、<a href="http://docs.moodle.org/en/Reducing_spam_in_Moodle">Moodle内のスパムを減らす方法</a>に関して、詳細情報があります。</p>';
 $string['spamdeleteall'] = 'これらのユーザアカウントを削除する';
-$string['spamdeleteallconfirm'] = '本当にこれらのユーザアカウントを削除してもよろしいですか? あなたは、元に戻すことはできません。';
-$string['spamdeleteconfirm'] = '本当にこのエントリを削除してもよろしいですか? あなたは、元に戻すことはできません。';
+$string['spamdeleteallconfirm'] = '本当にこれらのユーザアカウントを削除してもよろしいですか? あなたは元に戻すことはできません。';
+$string['spamdeleteconfirm'] = '本当にこのエントリを削除してもよろしいですか? あなたは元に戻すことはできません。';
 $string['spamdesc'] = '記述内容';
 $string['spameg'] = '例: casino, porn, xxx';
 $string['spamfromblog'] = 'ブログ記事:';

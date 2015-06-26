@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'fr', branch 'MOODLE_26_STABLE'
+ * Strings for component 'chat', language 'fr', branch 'MOODLE_28_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,9 +62,8 @@ $string['donotusechattime'] = 'Ne pas publier les horaires de chat';
 $string['enterchat'] = 'Cliquer ici pour participer au chat';
 $string['entermessage'] = 'Saisissez votre message';
 $string['errornousers'] = 'Il n\'y a pas d\'utilisateur';
-$string['event_instances_list_viewed'] = 'Liste d\'instances consultée';
-$string['event_message_sent'] = 'Message envoyé';
-$string['event_sessions_viewed'] = 'Sessions consultées';
+$string['eventmessagesent'] = 'Message envoyé';
+$string['eventsessionsviewed'] = 'Sessions consultées';
 $string['explaingeneralconfig'] = 'Ces réglages sont <strong>toujours</strong> utilisés';
 $string['explainmethoddaemon'] = 'Ces réglages sont effectifs <strong>uniquement</strong> si vous avez choisi la méthode de chat « Utilisation d\'un démon »';
 $string['explainmethodnormal'] = 'Ces réglages sont effectifs <strong>uniquement</strong> si vous avez choisi la méthode de chat « Méthode normale »';

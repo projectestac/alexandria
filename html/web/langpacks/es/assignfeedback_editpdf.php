@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'assignfeedback_editpdf', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   assignfeedback_editpdf
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -53,7 +53,7 @@ $string['generatefeedback'] = 'Generar retroalimentación PDF';
 $string['generatingpdf'] = 'Generando archivo PDF...';
 $string['gotopage'] = 'Ir a la página';
 $string['green'] = 'Verde';
-$string['gspath'] = 'Ruta ghostscript';
+$string['gsimage'] = 'Imagen ghostscript de prueba';
 $string['highlight'] = 'Destacar';
 $string['jsrequired'] = 'Para realizar anotaciones en documentos PDF se requiere Javascript. Por favor, active el Javascript en su navegador para poder utilizar esta funcionalidad.';
 $string['launcheditor'] = 'Lanzar el editor PDF';
@@ -65,6 +65,7 @@ $string['output'] = 'Salida:';
 $string['oval'] = 'Oval';
 $string['pagenumber'] = 'Página {$a}';
 $string['pagexofy'] = 'Página {$a->page} de {$a->total}';
+$string['pathtogspathdesc'] = 'Por favor tenga en cuenta que la anotación de PDF requiere que la ruta de ghostscript sea especificada en {$a}.';
 $string['pen'] = 'Pluma';
 $string['pluginname'] = 'Anotación PDF';
 $string['rectangle'] = 'Rectángulo';

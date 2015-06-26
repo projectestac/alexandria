@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshop', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'workshop', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   workshop
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -108,7 +108,17 @@ $string['evaluation'] = 'Càlcul de les qualificacions';
 $string['evaluationmethod'] = 'Mètode de càlcul de les qualificacions';
 $string['evaluationmethod_help'] = 'El mètode de càlcul de les qualificacions determina com es calcula la qualificació de l\'avaluació. Podeu tornar a calcular les qualificacions diverses vegades amb diferents configuracions fins que estigueu satisfets amb el resultat.';
 $string['evaluationsettings'] = 'Paràmetres de la puntuació d\'avaluacions';
-$string['event_assessable_uploaded'] = 'S\'ha pujat una tramesa.';
+$string['eventassessableuploaded'] = 'S\'ha pujat una tramesa.';
+$string['eventassessmentevaluated'] = 'S\'ha avaluat l\'avaluació';
+$string['eventassessmentevaluationsreset'] = 'Reinicia l\'avaluació de l\'avaluacions';
+$string['eventassessmentreevaluated'] = 'S\'ha reavaluat l\'avaluació';
+$string['eventphaseswitched'] = 'S\'ha commutat la fase';
+$string['eventsubmissionassessed'] = 'Tramesa avaluada';
+$string['eventsubmissionassessmentsreset'] = 'S\'ha suprimit les avaluacions de la tramesa';
+$string['eventsubmissioncreated'] = 'S\'ha creat la tramesa';
+$string['eventsubmissionreassessed'] = 'S\'ha reavaluat la tramesa';
+$string['eventsubmissionupdated'] = 'S\'ha actualitzat la tramesa';
+$string['eventsubmissionviewed'] = 'S\'ha mostrat la tramesa';
 $string['example'] = 'Tramesa d\'exemple';
 $string['exampleadd'] = 'Afegeix una tramesa d\'exemple';
 $string['exampleassess'] = 'Avalua la tramesa d\'exemple';
@@ -269,7 +279,7 @@ $string['switchphase10info'] = 'Ara canviareu el taller a la <strong>Fase de con
 $string['switchphase20info'] = 'Ara canviareu el taller a la  <strong>Fase de tramesa</strong>. Els estudiants poden trametre la seva feina durant aquesta fase (entre les dates d\'inici i final de tramesa, si estan establertes). El professorat pot assignar trameses per tal que siguin revisades per companys.';
 $string['switchphase30auto'] = 'El taller canviarà automàticament a la fase d\'avaluació després de {$a->daydatetime} ({$a->distanceday})';
 $string['switchphase30info'] = 'Ara canviareu el taller a la  <strong>Fase d\'avaluació</strong>. En aquesta fase, els revisors poden avaluar les trameses que els han estat assignades (entre les dates d\'inici i final d\'avaluació, si estan establertes).';
-$string['switchphase40info'] = 'Ara canviareu el taller a la  <strong>Fase d\'avaluació de les qualificacions</strong>. En aquesta fase, els usuaris no poden modificar les seves trameses ni avaluacions. El professorat poden usar les eines d\'avaluació de qualificacions per calcular les qualificacions finals i oferir retroacció als revisors.';
+$string['switchphase40info'] = 'Ara canviareu el taller a la <strong>Fase d\'avaluació de les qualificacions</strong>. En aquesta fase, els usuaris no poden modificar les seves trameses ni les seves avaluacions. Els professors poden usar les eines d\'avaluació de qualificacions per a calcular les qualificacions finals i oferir retroacció als revisors.';
 $string['switchphase50info'] = 'Ara tancareu el taller. Això farà que les qualificacions calculades apareguin al llibre de qualificacions. Els estudiants podran veure les seves trameses i l\'avaluació d\'aquestes.';
 $string['taskassesspeers'] = 'Avalueu els companys';
 $string['taskassesspeersdetails'] = 'total: {$a->total}<br />pendents: {$a->todo}';
@@ -308,12 +318,12 @@ $string['workshop:publishsubmissions'] = 'Publica trameses';
 $string['workshop:submit'] = 'Envia';
 $string['workshop:switchphase'] = 'Canvia de fase';
 $string['workshop:view'] = 'Visualitza el taller';
-$string['workshop:viewallassessments'] = 'Mostra totes les avaluacions';
-$string['workshop:viewallsubmissions'] = 'Mostra totes les trameses';
-$string['workshop:viewauthornames'] = 'Mostra els noms dels autors';
-$string['workshop:viewauthorpublished'] = 'Mostra els autors de les trameses publicades';
-$string['workshop:viewpublishedsubmissions'] = 'Mostra les trameses publicades';
-$string['workshop:viewreviewernames'] = 'Mostra els noms dels revisors';
+$string['workshop:viewallassessments'] = 'Visualitza totes les avaluacions';
+$string['workshop:viewallsubmissions'] = 'Visualitza totes les trameses';
+$string['workshop:viewauthornames'] = 'Visualitza els noms dels autors';
+$string['workshop:viewauthorpublished'] = 'Visualitza els autors de les trameses publicades';
+$string['workshop:viewpublishedsubmissions'] = 'Visualitza les trameses publicades';
+$string['workshop:viewreviewernames'] = 'Visualitza els noms dels revisors';
 $string['yourassessment'] = 'La vostra avaluació';
 $string['yourgrades'] = 'Les vostres qualificacions';
 $string['yoursubmission'] = 'La vostra tramesa';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'pt', branch 'MOODLE_26_STABLE'
+ * Strings for component 'completion', language 'pt', branch 'MOODLE_28_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,7 +38,7 @@ $string['all'] = 'Todos';
 $string['any'] = 'Qualquer';
 $string['approval'] = 'Aprovação';
 $string['badautocompletion'] = 'Quando seleciona a conclusão automática, tem de ativar pelo menos uma das condições (abaixo).';
-$string['completed'] = 'Completo';
+$string['completed'] = 'Concluído';
 $string['completedunlocked'] = 'Opções de conclusão desbloqueadas';
 $string['completedunlockedtext'] = 'Quando guardar as alterações, o estado de conclusão de todos os alunos será apagado. Se não desejar que isto aconteça, não guarde as alterações.';
 $string['completedwarning'] = 'Opções de conclusão bloqueadas';
@@ -80,7 +80,7 @@ $string['completionnotenabledforcourse'] = 'A conclusão não está ativa para e
 $string['completionnotenabledforsite'] = 'A conclusão não está ativa para este site';
 $string['completionondate'] = 'Data';
 $string['completionondatevalue'] = 'O utilizador tem de se manter inscrito até';
-$string['completion-pass'] = 'Completo (atingiu a nota de passagem)';
+$string['completion-pass'] = 'Concluído (atingiu a nota de passagem)';
 $string['completionsettingslocked'] = 'Configurações de conclusão bloqueadas';
 $string['completion-title-manual-n'] = 'Dar como concluída';
 $string['completion-title-manual-y'] = 'Dar como não concluída';
@@ -89,7 +89,7 @@ $string['completionusegrade_desc'] = 'Os alunos devem ter uma nota para concluir
 $string['completionusegrade_help'] = 'Se ativar esta opção, a atividade é considerada concluída quando for atribuída uma nota ao aluno. Os ícones de aprovação ou reprovação podem aparecer caso tenha sido definida uma nota mínima para aprovação.';
 $string['completionview'] = 'Requer visualização';
 $string['completionview_desc'] = 'Os alunos devem ver a atividade para a concluir';
-$string['completion-y'] = 'Completo';
+$string['completion-y'] = 'Concluído';
 $string['configcompletiondefault'] = 'A configuração predefinida para a verificação de conclusão quando são criadas novas atividades.';
 $string['configenablecompletion'] = 'Se ativar esta opção, será possível ativar a verificação da conclusão (progresso) ao nível da disciplina.';
 $string['confirmselfcompletion'] = 'Confirmar autoconclusão';
@@ -165,6 +165,7 @@ $string['restoringcompletiondata'] = 'A registar dados de conclusão';
 $string['roleaggregation'] = 'Condição requer';
 $string['roleaggregation_all'] = 'TODOS os papéis confirmam manualmente a conclusão';
 $string['roleaggregation_any'] = 'QUALQUER UM dos papéis confirma manualmente a conclusão';
+$string['roleidnotfound'] = 'ID do Papel do utilizador {$a} não encontrado';
 $string['saved'] = 'Guardado';
 $string['seedetails'] = 'Ver detalhes';
 $string['self'] = 'Auto';

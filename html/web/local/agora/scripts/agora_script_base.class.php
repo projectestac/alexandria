@@ -23,7 +23,7 @@ class agora_script_base{
 		$params = $this->params();
 		$this->form($params);
 		if ($action == 'test') {
-			echo $OUTPUT->notification('Testing...');
+			echo $OUTPUT->notification('Testing...', 'notifymessage');
 			\core\session\manager::write_close();
 			try {
 				return $this->_execute($params, false);
@@ -32,7 +32,7 @@ class agora_script_base{
 				return false;
 			}
 		} else if ($action == 'execute' && $this->can_be_executed($params)) {
-			echo $OUTPUT->notification('Executing!!');
+			echo $OUTPUT->notification('Executing!!', 'notifymessage');
 			\core\session\manager::write_close();
 			try {
 				return $this->_execute($params);
@@ -144,5 +144,42 @@ class agora_script_base{
         }
         return true;
 	}
+
+	protected function output($message, $type) {
+		if (is_object($message) || is_array($message)) {
+			print_object($message);
+			return;
+		}
+
+		if (CLI_SCRIPT) {
+			if (!empty($type)) {
+				$message = $type.': '.$message;
+			}
+            mtrace($message, "\n");
+            return;
+        } else {
+        	global $OUTPUT;
+        	switch ($type) {
+				case 'ERROR':
+					echo $OUTPUT->notification($message);
+					return;
+				case 'OK':
+					echo $OUTPUT->notification($message, 'notifysuccess');
+					return;
+			}
+            echo $message;
+        }
+	}
+
+    protected function execute_suboperation($function, $params = array()) {
+        $function = 'script_'.$function;
+        $filename = $function.'.class.php';
+        if (!file_exists($filename)) {
+            return false;
+        }
+        require_once($filename);
+        $script = new $function();
+        return $script->execute($params);
+    }
 
 }

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_grading', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'quiz_grading', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   quiz_grading
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -50,7 +50,9 @@ $string['gradenextungraded'] = 'Kalifikatu gabeko hurrengo {$a} saiakerak kalifi
 $string['gradeungraded'] = 'Kalifikatu gabeko {$a} saiakera guztiak kalifikatu';
 $string['grading'] = 'Eskuzko kalifikazioa';
 $string['gradingall'] = '{$a} saiakera guztiak galdera honetarako.';
-$string['gradingattempt'] = '{$a->fullname} -(r)en {$a->attempt} saiakera-kopurua';
+$string['gradingattempt'] = '{$a->fullname}-(r)en {$a->attempt} saiakera-zenbakia';
+$string['gradingattemptsxtoyofz'] = 'Saiakerak kalifikatzen {$a->from}-tik {$a->to}-ra, guztira {$a->of}';
+$string['gradingattemptwithidnumber'] = '{$a->attempt} saiakera-zenbakia {$a->fullname}-rentzat ({$a->idnumber})';
 $string['grading:componentname'] = 'Eskuzko kalifikazioaren txostena';
 $string['gradingnextungraded'] = 'Kalifikatu gabeko hurrengo {$a} saiakerak';
 $string['gradingnotallowed'] = 'Ez duzu baimenik galdetegi honetan erantzunak eskuz kalifikatzeko';

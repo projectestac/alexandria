@@ -19,7 +19,7 @@
  * This file is responsible for saving the results of a users survey and displaying
  * the final message.
  *
- * @package   mod-survey
+ * @package   mod_survey
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
@@ -54,7 +54,13 @@
         print_error('invalidsurveyid', 'survey');
     }
 
-    add_to_log($course->id, "survey", "submit", "view.php?id=$cm->id", "$survey->id", "$cm->id");
+    $params = array(
+        'context' => $context,
+        'courseid' => $course->id,
+        'other' => array('surveyid' => $survey->id)
+    );
+    $event = \mod_survey\event\response_submitted::create($params);
+    $event->trigger();
 
     $strsurveysaved = get_string('surveysaved', 'survey');
 
@@ -64,7 +70,7 @@
     echo $OUTPUT->heading($survey->name);
 
     if (survey_already_done($survey->id, $USER->id)) {
-        notice(get_string("alreadysubmitted", "survey"), $_SERVER["HTTP_REFERER"]);
+        notice(get_string("alreadysubmitted", "survey"), clean_param($_SERVER["HTTP_REFERER"], PARAM_LOCALURL));
         exit;
     }
 

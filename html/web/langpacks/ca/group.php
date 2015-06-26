@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'group', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   group
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -60,7 +60,9 @@ $string['editgroupingsettings'] = 'Edita paràmetres d\'agrupament';
 $string['editgroupsettings'] = 'Edita paràmetres del grup';
 $string['enrolmentkey'] = 'Clau d\'inscripció';
 $string['enrolmentkeyalreadyinuse'] = 'Aquesta clau de matrícula ja l\'utilitza un altre grup.';
-$string['enrolmentkey_help'] = 'Una clau d\'inscripció obre l\'accés al curs, que qeda restringit a les persones que la saben. Si s\'especifica una clau d\'inscripció, un usuari podrà inscriure\'s al curs si la coneix, i el convertirà automàticament en membre del grup.';
+$string['enrolmentkey_help'] = 'Una clau d\'inscripció obre l\'accés al curs, que queda restringit a les persones que la saben. Si s\'especifica una clau d\'inscripció, l\'usuari no només podrà inscriure\'s al curs, si la coneix, sinó que també esdevindrà automàticament membre del grup.
+
+Nota: Les claus d\'inscripció de grup s\'han d\'activar als paràmetres de l\'autoinscripció, i també s\'ha d\'especificar una clau d\'inscripció per al curs.';
 $string['erroraddremoveuser'] = 'S\'ha produït un error en afegir l\'usuari {$a} o suprimir-lo del grup.';
 $string['erroreditgroup'] = 'S\'ha produït un error en crear o actualitzar el grup {$a}';
 $string['erroreditgrouping'] = 'S\'ha produït un error en crear o actualitzar l\'agrupament {$a}';
@@ -69,14 +71,14 @@ $string['errorremovenotpermitted'] = 'No teniu permís per a eliminar el membre 
 $string['errorselectone'] = 'Seleccioneu un sol grup abans de triar aquesta opció';
 $string['errorselectsome'] = 'Seleccioneu un o més grups abans de triar aquesta opció';
 $string['evenallocation'] = 'Nota: el nombre de membres per grup serà diferent del que havíeu especificat, a fi de distribuir-los més equilibradament.';
-$string['event_group_created'] = 'S\'ha creat el grup';
-$string['event_group_deleted'] = 'S\'ha suprimit el grup';
-$string['event_grouping_created'] = 'S\'ha creat l\'agrupament';
-$string['event_grouping_deleted'] = 'S\'ha suprimit l\'agrupament';
-$string['event_grouping_updated'] = 'S\'ha actualitzat l\'agrupament';
-$string['event_group_member_added'] = 'S\'ha afegit el membre del grup';
-$string['event_group_member_removed'] = 'S\'ha suprimit el membre del grup';
-$string['event_group_updated'] = 'S\'ha actualitzat el grup';
+$string['eventgroupcreated'] = 'S\'ha creat el grup';
+$string['eventgroupdeleted'] = 'S\'ha suprimit el grup';
+$string['eventgroupingcreated'] = 'S\'ha creat l\'agrupament';
+$string['eventgroupingdeleted'] = 'S\'ha suprimit l\'agrupament';
+$string['eventgroupingupdated'] = 'S\'ha actualitzat l\'agrupament';
+$string['eventgroupmemberadded'] = 'S\'ha afegit el membre del grup';
+$string['eventgroupmemberremoved'] = 'S\'ha suprimit el membre del grup';
+$string['eventgroupupdated'] = 'S\'ha actualitzat el grup';
 $string['existingmembers'] = 'Membres existents: {$a}';
 $string['filtergroups'] = 'Filtra grups per:';
 $string['group'] = 'Grup';
@@ -95,14 +97,11 @@ $string['groupingname'] = 'Nom de l\'agrupament';
 $string['groupingnameexists'] = 'El nom d\'agrupament \'{$a}\' ja existeix en aquest curs. Trieu-ne un altre.';
 $string['groupings'] = 'Agrupaments';
 $string['groupingsection'] = 'Accés d\'agrupament';
-$string['groupingsection_help'] = 'Un agrupament és un conjunt de grups dins d\'un curs. Si se selecciona un agrupament ací, només l\'estudiantat assignat als grups dins d\'aquest agrupament tindrà accés a la secció.';
+$string['groupingsection_help'] = 'Un agrupament és un conjunt de grups dins d\'un curs. Si seleccioneu un agrupament aquí, només l\'estudiantat assignat als grups dins d\'aquest agrupament tindrà accés a la secció.';
 $string['groupingsonly'] = 'Només agrupaments';
 $string['groupmember'] = 'Membre del grup';
 $string['groupmemberdesc'] = 'Rol estàndard per a membres d\'un grup';
 $string['groupmembers'] = 'Membres del grup';
-$string['groupmembersonly'] = 'Disponible només per a membres del grup';
-$string['groupmembersonlyerror'] = 'Heu de ser membre d\'algun dels grups que tenen accés a aquesta activitat.';
-$string['groupmembersonly_help'] = 'Si es marca aquest quadre de selecció, l\'activitat (o el recurs) només queda accessible a les persones pertanyents als grups de l\'agrupament. ';
 $string['groupmemberssee'] = 'Visualitza membres del grup';
 $string['groupmembersselected'] = 'Membres del grup seleccionat';
 $string['groupmode'] = 'Mode de grups';
@@ -182,6 +181,7 @@ $string['nogroups'] = 'Encara no s\'han definit grups en aquest curs';
 $string['nogroupsassigned'] = 'No s\'han assignat grups';
 $string['nopermissionforcreation'] = 'No s\'ha pogut crear el grup "{$a}" perquè no teniu els permisos requerits';
 $string['nosmallgroups'] = 'Impedeix que el darrer grup sigui massa petit';
+$string['notingroup'] = 'Ignora usuaris en grups';
 $string['notingrouping'] = '[en cap agrupament]';
 $string['nousersinrole'] = 'No hi ha usuaris apropiats en el rol seleccionat';
 $string['number'] = 'Nombre de grups o membres per grup';
@@ -198,6 +198,8 @@ $string['removegroupfromselectedgrouping'] = 'Treu el grup de l\'agrupament';
 $string['removegroupingsmembers'] = 'Treu tots els grups dels agrupaments';
 $string['removegroupsmembers'] = 'Treu tots els membres del grup';
 $string['removeselectedusers'] = 'Suprimeix els usuaris seleccionats';
+$string['selectfromgroup'] = 'Selecciona els membres des d\'un grup';
+$string['selectfromgrouping'] = 'Selecciona els membres de l\'agrupament';
 $string['selectfromrole'] = 'Rol d\'on seleccionar membres';
 $string['showgroupsingrouping'] = 'Mostra grups de l\'agrupament';
 $string['showmembersforgroup'] = 'Mostra membres del grup';

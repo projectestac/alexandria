@@ -11,8 +11,12 @@ require_login();
 
 admin_externalpage_setup('marsupialmanage_publisher');
 
-$action  = optional_param('action', '', PARAM_ALPHA);
+$action  = optional_param('action', "", PARAM_ALPHA);
 
+$bform = new local_rcommon_publishers_form();
+if ($bform->is_cancelled()) {
+	$action = "";
+}
 
 switch($action){
 	case 'edit':
@@ -22,10 +26,7 @@ switch($action){
 			print_error(get_string('nopublisher', 'local_rcommon'), $CFG->wwwroot.'/local/rcommon/publishers.php');
 		}
 	case 'add';
-		$bform = new local_rcommon_publishers_form();
-		if ($bform->is_cancelled()){
-			break;
-		} else if ($fromform=$bform->get_data() and confirm_sesskey()){
+		if ($fromform = $bform->get_data() and confirm_sesskey()) {
 			//get values
 			$publisher = $fromform->publisher;
 			$record = new stdClass();
@@ -40,11 +41,11 @@ switch($action){
 			if (empty($record->name)){
 				print_error(get_string('savekoemptyvalues', 'local_rcommon'), $CFG->wwwroot.'/local/rcommon/publishers.php');
 			}
-			if (!empty($record->urlwsauthentication) && $pos = textlib::strpos(textlib::strtolower($record->urlwsauthentication), '?wsdl')){
-				$record->urlwsauthentication = textlib::substr($record->urlwsauthentication, 0, $pos);
+			if (!empty($record->urlwsauthentication) && $pos = core_text::strpos(core_text::strtolower($record->urlwsauthentication), '?wsdl')){
+				$record->urlwsauthentication = core_text::substr($record->urlwsauthentication, 0, $pos);
 			}
-			if (!empty($record->urlwsbookstructure) && $pos = textlib::strpos(textlib::strtolower($record->urlwsbookstructure), '?wsdl')){
-				$record->urlwsbookstructure  = textlib::substr($record->urlwsbookstructure, 0, $pos);
+			if (!empty($record->urlwsbookstructure) && $pos = core_text::strpos(core_text::strtolower($record->urlwsbookstructure), '?wsdl')){
+				$record->urlwsbookstructure  = core_text::substr($record->urlwsbookstructure, 0, $pos);
 			}
 
 			//do save

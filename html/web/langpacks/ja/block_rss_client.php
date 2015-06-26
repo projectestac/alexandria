@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_rss_client', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_rss_client', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   block_rss_client
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['addfeed'] = 'ニュースフィードURLを追加する:';
 $string['addheadlineblock'] = 'RSSヘッドラインブロックを追加する';
 $string['addnew'] = 'RSSを追加する';
 $string['addnewfeed'] = '新しいフィードを追加する';
-$string['cannotmakemodification'] = '現在、あなたは、このRSSフィードを修正することはできません。';
+$string['cannotmakemodification'] = '現在、あなたはこのRSSフィードを修正することはできません。';
 $string['choosefeedlabel'] = 'あなたがこのブロックで使用したいフィードを選択してください:';
 $string['clientchannellink'] = 'ソースサイト ...';
 $string['clientnumentries'] = '表示するフィードごとのデフォルトエントリ数です。';
@@ -37,6 +37,7 @@ $string['clientshowchannellinklabel'] = 'オリジナルサイト (チャンネ�
 $string['clientshowimagelabel'] = '利用可能な場合、チャンネルイメージを表示する:';
 $string['configblock'] = 'このブロックを設定する';
 $string['couldnotfindfeed'] = '指定されたIDのフィードが見つかりませんでした。';
+$string['couldnotfindloadrssfeed'] = 'RSSフィードが見つからないか、読み込めませんでした。';
 $string['customtitlelabel'] = 'カスタムタイトル (フィードより提供されたタイトルを使用する場合は空白):';
 $string['deletefeedconfirm'] = '本当にこのフィードを削除してもよろしいですか?';
 $string['disabledrssfeeds'] = 'RSSフィードは、無効にされています。';

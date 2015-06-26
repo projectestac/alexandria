@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_profiling', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_profiling', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_profiling
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -34,3 +34,5 @@ $string['importok'] = '"{$a}" fitxategia ondo inportatu da';
 $string['memory'] = 'Erabilitako memoria';
 $string['summaryof'] = '{$a}(r)en laburpena';
 $string['viewdetails'] = 'Ikusi profilaren xehetasunak';
+$string['viewdiff'] = 'Ikusi profilaren ezberdinatasunen xehetasunak honekin:';
+$string['viewdiffdetails'] = 'Ikusi profilaren ezberdinatasunen xehetasunak';

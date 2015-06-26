@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_alfresco', language 'nl', branch 'MOODLE_26_STABLE'
+ * Strings for component 'repository_alfresco', language 'nl', branch 'MOODLE_28_STABLE'
  *
  * @package   repository_alfresco
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['alfresco_url'] = 'Alfresco URL';
-$string['alfrescourltext'] = 'De Alfresco API URL zou moeten zijn: http://jouwsite.com/alfresco/api';
+$string['alfrescourltext'] = 'De Alfresco API URL zou moeten zijn: http://jouwsite.com/alfresco/api of http://yoursite.com/alfresco/soapapi voor Alfresco 4.2.d of hoger.';
 $string['alfresco:view'] = 'Bekijk Alfresco upslagruimte';
 $string['configplugin'] = 'Alfresco instellingen';
 $string['notitle'] = 'geen titel';

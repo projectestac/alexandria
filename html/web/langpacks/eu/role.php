@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'role', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -74,6 +74,7 @@ $string['badges:deletebadge'] = 'Dominak ezabatu';
 $string['badges:earnbadge'] = 'Irabazi domina';
 $string['badges:manageglobalsettings'] = 'Kudeatu dominen ezarpen orokorrak';
 $string['badges:manageownbadges'] = 'Ikusi eta kudeatu norberak irabazitako dominak';
+$string['badges:viewotherbadges'] = 'Domina publikoak ikusi beste erabiltzaileen profiletan';
 $string['block:edit'] = 'Blokearen ezarpenak editatu';
 $string['block:view'] = 'Blokea ikusi';
 $string['blog:associatecourse'] = 'Gaitasun hau zaharkituta dago eta ez du ezer egiten.';
@@ -176,6 +177,8 @@ $string['errorbadrolename'] = 'Rol-izen ezegokia';
 $string['errorbadroleshortname'] = 'Rol-izen labur ezegokia';
 $string['errorexistsrolename'] = 'Rol-izen hori dagoeneko badago';
 $string['errorexistsroleshortname'] = 'Rol-izen hori dagoeneko badago';
+$string['eventroleallowassignupdated'] = 'Rol-esleipena baimendu';
+$string['eventroleallowswitchupdated'] = 'Rol-aldaketa baimendu';
 $string['eventroledeleted'] = 'Rola ezabatu da';
 $string['existingadmins'] = 'Oraingo guneko kudeatzaileak';
 $string['existingusers'] = '{$a} erabiltzaile daude';
@@ -228,7 +231,7 @@ $string['manageroles'] = 'Rolak kudeatu';
 $string['maybeassignedin'] = 'Rol hau eslei daitekeen testuinguru-motak';
 $string['morethan'] = '{$a} baino gehiago';
 $string['multipleroles'] = 'Hainbat rol';
-$string['my:configsyspages'] = 'Sistemaren txantiloiak Nire Moodle orrietarako konfiguratu';
+$string['my:configsyspages'] = 'Sistemaren txantiloiak konfiguratu Nire Moodle orrietarako';
 $string['my:manageblocks'] = 'Nire Moodle orriaren blokeak kudeatu';
 $string['neededroles'] = 'Baimena duten rolak';
 $string['nocapabilitiesincontext'] = 'Ez duzu horretarako baimenik testuinguru honetan';
@@ -382,6 +385,7 @@ $string['user:editmessageprofile'] = 'Erabiltzailearen mezularitza-profila edita
 $string['user:editownmessageprofile'] = 'Norberaren mezularitzarako erabiltzaile-profila editatu';
 $string['user:editownprofile'] = 'Norberaren profila editatu';
 $string['user:editprofile'] = 'Erabiltzailearen profila editatu';
+$string['user:ignoreuserquota'] = 'Ez hartu kontuan erabiltzailearen kuota-muga';
 $string['user:loginas'] = 'Beste erabiltzaile bat bezala sartu';
 $string['user:manageblocks'] = 'Beste erabiltzaile batzuen erabiltzaile-profilean blokeak kudeatu';
 $string['user:manageownblocks'] = 'Norberaren erabiltzaile-profil publikoan blokeak kudeatu ';

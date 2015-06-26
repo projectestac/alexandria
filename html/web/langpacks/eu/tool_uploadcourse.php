@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_uploadcourse', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_uploadcourse', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_uploadcourse
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -46,6 +46,7 @@ $string['courseupdated'] = 'Ikastaroa eguneratu da';
 $string['csvdelimiter'] = 'CSV bereizlea';
 $string['csvdelimiter_help'] = 'CSV fitxategiaren CSV bereizlea';
 $string['csvline'] = 'Lerroa';
+$string['defaultvalues'] = 'Berezko ikastaro-baloreak';
 $string['encoding'] = 'Kodifikazioa';
 $string['encoding_help'] = 'CSV fitxategiaren kodifikazioa';
 $string['id'] = 'ID';

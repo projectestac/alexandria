@@ -41,20 +41,6 @@ define('QV_DEFAULT_SKINS', 'default,infantil,formal');
 define('QV_HASH_UPDATE', 'update');
 define('QV_HASH_ONLINE', 'online');
 
-/*
-if (!isset($CFG->qv_distpluginappl)) {
-    set_config('qv_distpluginappl', QV_DEFAULT_DISTSCRIPTS);
-}
-if (!isset($CFG->qv_distpluginscripts)) {
-    set_config('qv_distpluginscripts', QV_DEFAULT_DISTAPPL);
-}
-if (!isset($CFG->qv_distplugincss)) {
-    set_config('qv_distplugincss', QV_DEFAULT_DISTCSS);
-}
-if (!isset($CFG->qv_skins)) {
-    set_config('qv_skins', QV_DEFAULT_SKINS);
-}*/
-
 // QV file types
 define('QV_FILE_TYPE_LOCAL', 'local');
 define('QV_FILE_TYPE_EXTERNAL', 'external');
@@ -518,7 +504,7 @@ function qv_grade_item_delete($qv) {
  * @param int $userid optional user id, 0 means all users
  * @return array array of grades, false if none
  */
-function qv_get_user_grades($qv, $userid=0) {
+function qv_get_user_grades($qv, $userid = 0) {
     global $CFG, $DB;
     require_once($CFG->dirroot.'/mod/qv/locallib.php');
 
@@ -527,9 +513,11 @@ function qv_get_user_grades($qv, $userid=0) {
         return;
     }
     $sessions_summary = qv_get_assignment_summary($qv->id, $userid);
+    $grades = array();
+    $grades[$userid] = new StdClass();
     $grades[$userid]->userid = $userid;
     $grades[$userid]->attempts = $sessions_summary->attempts;
-    $grades[$userid]->totaltime = $sessions_summary->totaltime;
+    $grades[$userid]->totaltime = $sessions_summary->time;
     $grades[$userid]->rawgrade = $sessions_summary->score;
     return $grades;
 }
@@ -715,6 +703,45 @@ function mod_qv_pluginfile($course, $cm, $context, $filearea, $args, $forcedownl
 
     // finally send the file
     send_stored_file($file, $lifetime, 0,  false, $options); //DO NOT FORCE DOWNLOAD
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Navigation API                                                             //
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ * Extends the settings navigation with the qv settings
+ *
+ * This function is called when the context for the page is a qv module. This is not called by AJAX
+ * so it is safe to rely on the $PAGE.
+ *
+ * @param settings_navigation $settingsnav {@link settings_navigation}
+ * @param navigation_node $qvnode {@link navigation_node}
+ */
+function qv_extend_settings_navigation(settings_navigation $settingsnav, navigation_node $qvnode=null) {
+    global $PAGE;
+
+    $keys = $qvnode->get_children_key_list();
+    $beforekey = null;
+    $i = array_search('modedit', $keys);
+    if ($i === false and array_key_exists(0, $keys)) {
+        $beforekey = $keys[0];
+    } else if (array_key_exists($i + 1, $keys)) {
+        $beforekey = $keys[$i + 1];
+    }
+    if (has_capability('moodle/grade:viewall', $PAGE->context)){
+        $node = navigation_node::create(get_string('preview_qv', 'qv'),
+                new moodle_url('/mod/qv/view.php', array('id'=>$PAGE->cm->id, 'action' => 'preview')),
+                navigation_node::TYPE_SETTING, null, 'mod_preview_qv_preview',
+                new pix_icon('i/preview', ''));
+        $qvnode->add_node($node, $beforekey);
+
+        $url = new moodle_url('/mod/qv/report.php',
+                array('id' => $PAGE->cm->id));
+        $reportnode = $qvnode->add_node(navigation_node::create(get_string('results', 'qv'), $url,
+                navigation_node::TYPE_SETTING,
+                null, null, new pix_icon('i/report', '')), $beforekey);
+    }
 }
 
 

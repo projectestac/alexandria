@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_xmldb', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_xmldb', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_xmldb
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -168,7 +168,7 @@ $string['nowrongintsfound'] = '間違ったインテジャは見つかりませ�
 $string['nowrongoraclesemanticsfound'] = 'BYTEセマンティクスを使用しているOracleカラムは見つかりませんでした。あなたのDBに関して、さらなる処置は不要です。';
 $string['numberincorrectdecimals'] = 'numberフィールドの小数点以下桁数が正しくありません。';
 $string['numberincorrectlength'] = 'numberフィールドの長さが正しくありません。';
-$string['pendingchanges'] = 'メモ: あなたは、このファイルを変更しました。ファイルは、いつでも保存することができます。';
+$string['pendingchanges'] = 'メモ: あなたはこのファイルを変更しました。ファイルはいつでも保存することができます。';
 $string['pendingchangescannotbesaved'] = 'このファイルに変更が加えられましたが、保存できませんでした! ディレクトリおよび「install.xml」にウェブサーバからの書込み権があるかどうか確認してください。';
 $string['pendingchangescannotbesavedreload'] = 'このファイルに変更が加えられましたが、保存できませんでした! ディレクトリおよび「install.xml」にウェブサーバからの書込み権があるかどうか確認してください。確認後、このページをリロードすることで、あなたは変更を保存することができます。';
 $string['pluginname'] = 'XMLDBエディタ';

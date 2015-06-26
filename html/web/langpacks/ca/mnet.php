@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mnet', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'mnet', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   mnet
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,7 +37,7 @@ $string['applicationtype'] = 'Tipus d\'aplicació';
 $string['authfail_nosessionexists'] = 'Autorització errònia: la sessió mnet no existeix.';
 $string['authfail_sessiontimedout'] = 'Autorització errònia: la sessió mnet ha acabat.';
 $string['authfail_usermismatch'] = 'Autorització errònia: l\'usuari no concorda.';
-$string['authmnetdisabled'] = 'El connector d\'autenticació MNet està <strong>deshabilitat</strong>.';
+$string['authmnetdisabled'] = 'El connector d\'autenticació MNet està <strong>inhabilitat</strong>.';
 $string['badcert'] = 'Aquest no és un certificat vàlid';
 $string['certdetails'] = 'Detalls Cert';
 $string['configmnet'] = 'MNet permet les comunicacions d\'aquest servidor amb els altres servidors de serveis.';
@@ -60,13 +60,15 @@ $string['deny'] = 'Denega';
 $string['description'] = 'Descripció';
 $string['duplicate_usernames'] = 'Ha fallat la creació d\'un índex en les columnes "mnethostid" i "username" en la taula d\'usuaris.<br />Això pot passar quan hi ha <a href="{$a}" target="_blank">noms d\'usuari duplicats en la taula d\'usuaris</a>.<br />L\'actualització hauria de reeixir igualment. Feu clic en l\'enllaç de dalt si voleu obtenir instruccions per a solucionar aquest problema en una nova finestra. Podeu seguir-les al final de l\'actualització. <br />';
 $string['enabled_for_all'] = '(Aquest servei s\'ha habilitat per a tots els servidors)';
-$string['enterausername'] = 'Si us plau entreu el nom d\'usuari, o una llista de noms d\'usuari separada per comes.';
+$string['enterausername'] = 'Introduïu el nom d\'usuari, o una llista de noms d\'usuari separats per comes.';
 $string['error7020'] = 'Aquest error normalment es produeix si el lloc remot ha creat un registre per a vós amb la wwwroot incorrecta, per exemple, http://yoursite.com  en lloc de http://www.yoursite.com. Cal que us poseu en contacte amb l\'administrador del lloc remot amb el vostre wwwroot (com s\'especifica en config.php) demanant-li que actualitze el registre per al vostre servidor.';
 $string['error7022'] = 'El missatge que heu enviat al lloc remot s\'ha xifrat però no signat.  Això és inesperat; hauríeu d\'enviar un fitxer sobre aquest error si torna a ocórrer (si doneu més informació sobre la versió de l\'aplicació en qüestió, ... , es millorarà el suport )';
 $string['error7023'] = 'El lloc remot ha intentat desxifrar el missatge amb totes les claus que té en la base de dades per al vostre lloc. Cap d\'elles ha funcionat. Hauríeu de poder resoldre açò connectant amb el lloc remot i identificant-vos manualment. Això és poc probable que passi a menys que no hàgiu comunicat amb el lloc remot durant diversos mesos.';
 $string['error7024'] = 'Heu enviat un missatge no xifrat al lloc remot, però el lloc remot no ha acceptat la comunicació no xifrada del vostre lloc. Això és molt inesperat, probablement hauríeu de presentar un informe d\'error si això passa (donant tanta informació com sigui possible sobre les versions de l\'aplicació en qüestió, etc.)';
 $string['error7026'] = 'La clau amb què el seu missatge ha estat signat es diferencia de la clau que el servidor remot té en els seus arxius per al vostre servidor. A més, la màquina remota ha intentat recuperar la seva clau actual i no ho ha aconseguit. Si us plau reconnecteu-vos manualment amb el servidor remot i torneu a intentar-ho.';
 $string['error709'] = 'El lloc remot ha fallat en obtenir una clau SSL de vós.';
+$string['eventaccesscontrolcreated'] = 'Control d\'accés creat';
+$string['eventaccesscontrolupdated'] = 'Control d\'accés actualitzat';
 $string['expired'] = 'Aquesta clau ha expirat';
 $string['expires'] = 'Vàlida fins';
 $string['expireyourkey'] = 'Suprimeix aquesta clau';
@@ -132,7 +134,6 @@ $string['mnetidprovider'] = 'Proporcionador d\'identificació per MNet';
 $string['mnetidproviderdesc'] = 'Podeu utilitzar aquesta funció per obtenir un enllaç que permeta connectar-vos, si podeu proporcionar l\'adreça de correu electrònic correcta perquè coincideixi amb el nom d\'usuari que ja ha intentat iniciar la sessió.';
 $string['mnetidprovidermsg'] = 'Hauríeu de poder connectar amb el vostre proveïdor {$a}.';
 $string['mnetidprovidernotfound'] = 'Disculpeu, però no s\' ha trobat cap informació addicional.';
-$string['mnetlog'] = 'Registres';
 $string['mnetpeers'] = 'Iguals';
 $string['mnetservices'] = 'Serveis';
 $string['mnet_session_prohibited'] = 'Als usuaris del seu servidor no se\'ls permet actualment anar a  {$a}.';
@@ -225,7 +226,7 @@ $string['subscribe'] = 'Subscriu';
 $string['system'] = 'Sistema';
 $string['testclient'] = 'Client de prova de moodle en xarxa (MNet).';
 $string['testtrustedhosts'] = 'Prova una adreça';
-$string['testtrustedhostsexplain'] = 'Entreu una adreça IP per veure si es tracta d\'un servidor de confiança.';
+$string['testtrustedhostsexplain'] = 'Introduïu una adreça IP per veure si es tracta d\'un servidor de confiança.';
 $string['theypublish'] = 'Facin pública';
 $string['theysubscribe'] = 'Subscriguin';
 $string['transport_help'] = 'Aquestes opcions són reciproques, de forma que sols podeu forçar un servidor remot a utilitzar SSL certificat si el vostre servidor  es un servidor SSL certificat.';

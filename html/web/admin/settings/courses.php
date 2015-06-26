@@ -26,7 +26,8 @@ $capabilities = array(
     'moodle/backup:backupcourse',
     'moodle/category:manage',
     'moodle/course:create',
-    'moodle/site:approvecourse'
+    'moodle/site:approvecourse',
+    'moodle/restore:restorecourse'
 );
 if ($hassiteconfig or has_any_capability($capabilities, $systemcontext)) {
     // Speedup for non-admins, add all caps used on this page.
@@ -40,6 +41,22 @@ if ($hassiteconfig or has_any_capability($capabilities, $systemcontext)) {
         new admin_externalpage('addcategory', new lang_string('addcategory', 'admin'),
             new moodle_url('/course/editcategory.php', array('parent' => 0)),
             array('moodle/category:manage')
+        )
+    );
+    //XTEC ************ AFEGIT - Add create course link
+    //2015.03.12  @pferre22
+    $catid = $DB->get_field('course_categories', 'id', array(), IGNORE_MULTIPLE);
+    $ADMIN->add('courses',
+        new admin_externalpage('createnewcourse', new lang_string('addnewcourse'),
+            new moodle_url('/course/edit.php', array('category' => $catid)),
+            array('moodle/course:create')
+        )
+    );
+    //************ FI
+    $ADMIN->add('courses',
+        new admin_externalpage('restorecourse', new lang_string('restorecourse', 'admin'),
+            new moodle_url('/backup/restorefile.php', array('contextid' => context_system::instance()->id)),
+            array('moodle/course:create')
         )
     );
 

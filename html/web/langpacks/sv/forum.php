@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forum', language 'sv', branch 'MOODLE_26_STABLE'
+ * Strings for component 'forum', language 'sv', branch 'MOODLE_28_STABLE'
  *
  * @package   forum
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -115,6 +115,7 @@ $string['deletedposts'] = 'De inläggen har tagits bort';
 $string['deletesure'] = 'Är Du säker på att Du vill ta bort detta inlägg?';
 $string['deletesureplural'] = 'Är Du säker på att Du vill ta bort detta inlägg och alla svar? ({$a} inlägg)';
 $string['digestmailheader'] = 'Det här är Din dagliga sammanfattning av nya inlägg  i {$a->sitename} forum. För att ändra på Dina val a e-post från forum - gå till {$a->userprefs}';
+$string['digestmailpost'] = 'Ändra inställning för hur du får e-post från forum';
 $string['digestmailprefs'] = 'Din användarprofil';
 $string['digestmailsubject'] = '{$a}: sammanfattning av forum';
 $string['digestmailtime'] = 'Klockslag för att skicka sammanfattad e-post';
@@ -160,7 +161,7 @@ $string['everyoneisnowsubscribed'] = 'Alla prenumererar nu på detta forum.';
 $string['everyoneissubscribed'] = 'Alla prenumererar på detta forum';
 $string['existingsubscribers'] = 'Befintliga prenumeranter';
 $string['exportdiscussion'] = 'Exportera hela diskussionen';
-$string['forcessubscribe'] = 'Det är obligatoriskt för alla att prenumerera på här forumet.';
+$string['forcesubscribed'] = 'Det är obligatoriskt för alla att prenumerera på här forumet.';
 $string['forum'] = 'Forum';
 $string['forum:addinstance'] = 'Lägg till nytt forum';
 $string['forum:addnews'] = 'Lägg till nyheter';
@@ -313,9 +314,6 @@ $string['numposts'] = '{$a} inlägg';
 $string['olderdiscussions'] = 'Äldre diskussionsämnen';
 $string['oldertopics'] = 'Äldre ämnen';
 $string['oldpostdays'] = 'Lästa efter dagar';
-$string['openmode0'] = 'Inga diskussionsämnen, inga svar';
-$string['openmode1'] = 'Inga diskussionsämnen, men svar är tillåtna';
-$string['openmode2'] = 'Diskussionsämnen och svar är tillåtna';
 $string['overviewnumpostssince'] = '{$a} inlägg sedan senaste inloggning';
 $string['overviewnumunread'] = 'totalt {$a} olästa';
 $string['parent'] = 'Visa \'föräldern\' till detta inlägg';

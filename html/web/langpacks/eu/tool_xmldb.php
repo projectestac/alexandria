@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_xmldb', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_xmldb', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_xmldb
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -118,15 +118,15 @@ $string['pluginname'] = 'XMLDB editorea';
 $string['reserved'] = 'Erreserbatua';
 $string['reservedwords'] = 'Erreserbatutako hitzak';
 $string['revert'] = 'Desegin';
-$string['revert_changes'] = 'Aldaketak desegin';
+$string['revert_changes'] = 'Desegin aldaketak';
 $string['save'] = 'Gorde';
-$string['searchresults'] = 'Emaitzak bilatu';
-$string['selectaction'] = 'Ekintza aukeratu:';
+$string['searchresults'] = 'Bilatu emaitzak';
+$string['selectaction'] = 'Aukeratu ekintza:';
 $string['selectdb'] = 'Datu-basea aukeratu:';
 $string['selectfieldkeyindex'] = 'Aukeratu eremua/giltza/aurkibidea:';
 $string['selectonecommand'] = 'Mesedez, aukeratu Ekintza bat zerrendatik PHP kodea erakusteko';
 $string['selectonefieldkeyindex'] = 'Mesedez, aukeratu zerrendako eremu/giltza/aurkibide bat PHP kodea ikusteko.';
-$string['selecttable'] = 'Taula aukeratu:';
+$string['selecttable'] = 'Aukeratu taula:';
 $string['table'] = 'Taula';
 $string['tablenameempty'] = 'Taularen izena  ezin da hutsik egon';
 $string['tables'] = 'Taulak';

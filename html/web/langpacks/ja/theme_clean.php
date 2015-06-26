@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'theme_clean', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'theme_clean', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   theme_clean
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -45,15 +45,13 @@ Website: <a href="http://www.basbrands.nl">www.basbrands.nl</a> </p>
 <p><a href="clean/README.txt">How to copy and customise this theme.</a></p> </div></div>';
 $string['configtitle'] = 'Clean';
 $string['customcss'] = 'カスタムCSS';
-$string['customcssdesc'] = 'このテーマのカスタマイズを容易にするよう、あなたがここで入力したCSSはすべてのページに追加されます。';
+$string['customcssdesc'] = 'このテーマのカスタマイズを容易にするようあなたがここで入力したCSSはすべてのページに追加されます。';
 $string['footnote'] = 'フットノート';
 $string['footnotedesc'] = 'このテキストエリアのコンテンツは、すべてのページのフッタに表示されます。';
 $string['invert'] = 'ナビゲーションバーを反転する';
 $string['invertdesc'] = 'ページトップのナビゲーションバーのテキストおよび背景色を黒と白の間で入れ替えます。';
 $string['logo'] = 'ロゴ';
-$string['logodesc'] = 'ヘッダに追加したい場合、あなたのカスタムロゴをここにアップロードしてください。<br />
-あなたのロゴの高さが75px以上の場合、以下のカスタムCSSボックスに下記のCSSルールを追加してください。<br />
-a.logo {height: 100px;} またはロゴの高さをピクセルで記述します。';
+$string['logodesc'] = 'ロゴはヘッダ内に表示されます。<br />あなたのロゴの高さが75px以上の場合、以下のカスタムCSSボックスに「div.logo {height: 100px;}」を追加してください。高さが100px以外の場合、それに応じて修正されます。';
 $string['pluginname'] = 'Clean';
 $string['region-side-post'] = '右';
 $string['region-side-pre'] = '左';

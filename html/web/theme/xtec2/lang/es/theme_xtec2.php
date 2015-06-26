@@ -52,6 +52,8 @@ $string['nodes'] = 'Mostrar enlace a Nodes';
 $string['nodesdesc'] = 'Muestra un icono con un enlace a su plataforma Nodes en el pie.';
 $string['intranet'] = 'Mostrar enlace a Intranet';
 $string['intranetdesc'] = 'Muestra un icono con un enlace a su plataforma Intranet en el pie.';
+$string['whatsapp'] = 'Número de WhatsApp';
+$string['whatsapp_tel'] = 'WhatsApp: {$a}';
 $string['facebook'] = 'Facebook URL';
 $string['twitter'] = 'Twitter URL';
 $string['googleplus'] = 'Google Plus URL';
@@ -60,6 +62,8 @@ $string['flickr'] = 'Flickr URL';
 $string['linkedin'] = 'LinkedIn URL';
 $string['pinterest'] = 'Pinterest URL';
 $string['youtube'] = 'Youtube URL';
+$string['skype'] = 'Usuario Skype';
+$string['skypedesc'] = 'La URL se generará con skype://USUARIO';
 $string['phone'] = 'Teléfono: {$a}';
 $string['email'] = 'Correo electrónico: {$a}';
 $string['urldesc'] = 'Si este campo no está vacío, muestra un icono enlazando a la URL escrita en el pie.';
@@ -73,10 +77,9 @@ $string['colorsetdesc'] = 'Elije la combinación de colores para usar en el tema
 $string['custom'] = 'Personalizado'; //Personalitzat
 $string['grana'] = 'Granate (predefinido)'; //'Grana (predefinit)'
 $string['coral'] = 'Arrecife de coral';//'Escull de coral'
-$string['or'] = 'Fiebre del oro'; //'Febre de l\'or'
-$string['llima'] = 'Lima fresca'; //'Llima dolça'
-$string['tardor'] = 'Otoño'; //'Tardor'
-$string['nostalgia'] = 'Nostálgia'; //'Nostàlgia'
+$string['kellygreen'] = 'Verde Kelly';//'Kelly Green'
+$string['colourful'] = 'Colorines';//'Coloraines'
+$string['nodes_color'] = 'Paleta de Nodes';//'Nodes'
 
 
 $string['color2'] = 'Fondo de la cabecera de los bloques';
@@ -111,3 +114,16 @@ $string['pluginname'] = 'XTEC2';
 
 $string['region-side-post'] = 'Derecha';
 $string['region-side-pre'] = 'Izquierda';
+
+//Advices
+$string['advices'] = 'Avisos';
+$string['alert_message'] = 'Mensaje';
+$string['advices_admin'] = 'Aviso para administradores';
+$string['advices_user'] = 'Aviso para todos';
+$string['alert_start'] = 'Muestra el mensaje a partir de esta fecha';
+$string['alert_start_desc'] = 'Dejar en blanco si se quiere mostrar a partir de ahora. Formato YYYYmmdd';
+$string['alert_end'] = 'Muestra el mensaje hasta esta fecha';
+$string['alert_end_desc'] = 'Dejar en blanco si se quiere mostrar para siempre. Formato YYYYmmdd';
+$string['agora_alert_message_desc'] = 'Mostrar un mensaje para todos en la parte superior del area de bloques';
+$string['admin_alert_message_desc'] = 'Mostrar un mensaje a los administradores en la parte superior del area de bloquesMostra un missatge als administradors al capdamunt de l\'area de blocs';
+$string['show_admins'] = 'Este mensaje solo se muestra a los administradores del sitio';

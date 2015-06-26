@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_customlang', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_customlang', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_customlang
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['checkin'] = 'Registra les cadenes al paquet d\'idioma';
 $string['checkout'] = 'Obre el paquet d\'idioma per editar-lo';
 $string['checkoutdone'] = 'Paquet d\'idioma carregat';
 $string['checkoutinprogress'] = 'S\'està carregant el paquet d\'idioma';
-$string['confirmcheckin'] = 'Esteu a punt de desar les cadenes modificades dins el teu paquet d\'idioma local. S\'exportaran les cadenes personalitzades del traductor al directori de dades i Moodle començarà a fer servir les cadenes modificades. Prem el botó \'Continua\' per a procedir amb el desat.';
+$string['confirmcheckin'] = 'Ara desareu les cadenes modificades dins el vostre paquet d\'idioma local. S\'exportaran les cadenes personalitzades del traductor al directori de dades i Moodle començarà a fer servir les cadenes modificades. Premeu el botó «Continua» per a procedir amb el desament.';
 $string['customlang:edit'] = 'Editar traducció local';
 $string['customlang:view'] = 'Veure traducció local';
 $string['filter'] = 'Filtra les cadenes';
@@ -49,12 +49,12 @@ $string['markinguptodate_help'] = 'La traducció personalitzada pot estar obsole
 $string['markuptodate'] = 'marcar com actualitzada';
 $string['modifiedno'] = 'No hi ha cadenes modificades per desar.';
 $string['modifiednum'] = 'Hi ha {$a} cadenes modificades. Voleu desar-les al paquet d\'idioma local ?';
-$string['nostringsfound'] = 'No s\'han trobat cadenes, si us plau modifica la configuració del filtre.';
+$string['nostringsfound'] = 'No s\'han trobat cadenes, modifica la configuració del filtre.';
 $string['placeholder'] = 'Marcadors de posició';
 $string['placeholder_help'] = 'Els marcadors de posició són declaracions especials tals com \'{$a}\' o {$a->something}\' dins una cadena. Aquestes declaracions són reemplaçades amb un valor quan la cadena és impresa.
 
 És important copiar-los exactament tal com són a la cadena original. No traduir-los ni canviar la seva orientació esquerra-a-dreta.';
 $string['placeholderwarning'] = 'la cadena conté un marcador de posició';
-$string['pluginname'] = 'Personalització d\'idioma.';
-$string['savecheckin'] = 'Desa els canvis al paquet d\'idioma.';
-$string['savecontinue'] = 'Aplica els canvis i continua editant.';
+$string['pluginname'] = 'Personalització d\'idioma';
+$string['savecheckin'] = 'Desa els canvis al paquet d\'idioma';
+$string['savecontinue'] = 'Aplica els canvis i continua editant';

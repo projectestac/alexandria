@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_match', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'qtype_match', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   qtype_match
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,11 +29,11 @@ $string['answer'] = '答え {$a}';
 $string['availablechoices'] = '利用可能な選択肢';
 $string['blanksforxmorequestions'] = 'さらに {no} 件の問題入力欄を追加する';
 $string['correctansweris'] = '正解: {$a}';
-$string['filloutthreeqsandtwoas'] = 'あなたは、少なくとも2つの問題および3つの答えを提供する必要があります。答えが空白の問題を使用して、誤答を余分に提供することもできます。問題および答えが空白のエントリは、無視されます。';
+$string['filloutthreeqsandtwoas'] = 'あなたは少なくとも2つの問題および3つの答えを提供する必要があります。答えが空白の問題を使用して、誤答を余分に提供することもできます。問題および答えが空白のエントリは、無視されます。';
 $string['nomatchinganswer'] = 'あなたは組み合わせ問題「 {$a} 」の答えを指定する必要があります。';
-$string['nomatchinganswerforq'] = 'あなたは、この問題の答えを指定する必要があります。';
-$string['notenoughqsandas'] = 'あなたは、少なくとも {$a->q} 問の問題および {$a->a} 件の答えを提供する必要があります。';
-$string['notenoughquestions'] = 'あなたは、少なくとも {$a} 問の問題および答えの組み合わせを提供する必要があります。';
+$string['nomatchinganswerforq'] = 'あなたはこの問題の答えを指定する必要があります。';
+$string['notenoughqsandas'] = 'あなたは少なくとも {$a->q} 問の問題および {$a->a} 件の答えを提供する必要があります。';
+$string['notenoughquestions'] = 'あなたは少なくとも {$a} 問の問題および答えの組み合わせを提供する必要があります。';
 $string['pleaseananswerallparts'] = '問題のすべての部分に答えてください。';
 $string['pluginname'] = '組み合わせ問題';
 $string['pluginnameadding'] = '組み合わせ問題の追加';

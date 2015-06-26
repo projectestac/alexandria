@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_glossary_random', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_glossary_random', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   block_glossary_random
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -47,4 +47,4 @@ $string['showconcept'] = '各エントリに用語 (ヘッダ) を表示する';
 $string['title'] = 'タイトル';
 $string['type'] = 'ランダムエントリの取得方法';
 $string['viewglossary'] = 'すべてのエントリを表示する';
-$string['whichfooter'] = 'あなたは、このブロックに関連する用語集操作のリンクを表示することができます。用語集で許可されている場合のみ、ブロックがリンクを表示します。';
+$string['whichfooter'] = 'あなたはこのブロックに関連する用語集操作のリンクを表示することができます。用語集で許可されている場合のみ、ブロックがリンクを表示します。';

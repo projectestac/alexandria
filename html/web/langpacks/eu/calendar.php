@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'calendar', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   calendar
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -39,9 +39,9 @@ $string['clickshow'] = 'Erakutsi';
 $string['colactions'] = 'Ekintzak';
 $string['colcalendar'] = 'Egutegia';
 $string['collastupdated'] = 'Azken eguneraketa';
-$string['colpoll'] = 'eguneratu';
+$string['colpoll'] = 'Eguneratu';
 $string['commontasks'] = 'Aukerak';
-$string['confirmeventdelete'] = 'Ziur al zaude ekitaldi hau ezabatu nahi duzula?';
+$string['confirmeventdelete'] = 'Ziur al zaude "{$a}" ekitaldia ezabatu nahi duzula?';
 $string['course'] = 'Ikastaroa';
 $string['courseevent'] = 'Ikastaroko ekitaldia';
 $string['courseevents'] = 'Ikastaroko ekitaldiak';
@@ -71,6 +71,12 @@ $string['errorinvalidrepeats'] = 'Ekitaldi kopurua eman, horretarako 1-99 tartek
 $string['errornodescription'] = 'Deskribapena beharrezkoa da';
 $string['errornoeventname'] = 'Izena beharrezkoa da';
 $string['errorrequiredurlorfile'] = 'URL edo fitxategi bat behar da egutegia inportatzeko.';
+$string['errorrrule'] = 'Sartutako arauak ez dirudi zuzena';
+$string['errorrruleday'] = 'Arauak baliagarria ez den parametroa du (eguna)';
+$string['errorrrulefreq'] = 'Arauak baliagarria ez den parametroa du (maiztasuna)';
+$string['eventcalendareventcreated'] = 'Egutegi-ekitaldia sortu da';
+$string['eventcalendareventdeleted'] = 'Egutegi-ekitaldia ezabatu da';
+$string['eventcalendareventupdated'] = 'Egutegi-ekitaldia eguneratu da';
 $string['eventdate'] = 'Data';
 $string['eventdescription'] = 'Deskribapena';
 $string['eventduration'] = 'Iraupena';
@@ -212,4 +218,4 @@ $string['weekly'] = 'Astero';
 $string['weeknext'] = 'Hurrengo astea';
 $string['weekthis'] = 'Aste honetan';
 $string['yesterday'] = 'Atzo';
-$string['youcandeleteallrepeats'] = 'Ekitaldi hau errepikatzen den ekitaldi-serie batekoa da. Ekitaldi hau bakarrik ezaba dezakezu, edo serie osoa batera.';
+$string['youcandeleteallrepeats'] = 'Ekitaldi hau errepikatzen den ekitaldi-serie batekoa da. Ekitaldi hau bakarrik ezaba dezakezu, edo {$a} serie osoa batera.';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'jclic', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'jclic', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   jclic
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,3 +29,4 @@ $string['actions'] = 'Accions';
 $string['activity'] = 'Activitat';
 $string['attempts'] = 'Intents';
 $string['description'] = 'Descripció';
+$string['invalidurl'] = 'S\'ha especificat un URL no vàlid. L\'URL ha de començar amb http(s) i ha d\'enllaçar a un fitxer «.jclic.zip» vàlid.';

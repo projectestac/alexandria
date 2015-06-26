@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'fr', branch 'MOODLE_26_STABLE'
+ * Strings for component 'data', language 'fr', branch 'MOODLE_28_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -132,6 +132,14 @@ $string['entry'] = 'Fiche';
 $string['entrysaved'] = 'Votre fiche a été enregistrée';
 $string['errormustbeteacher'] = 'Vous devez être enseignant pour afficher cette page !';
 $string['errorpresetexists'] = 'Un préréglage de ce nom existe déjà';
+$string['eventfieldcreated'] = 'Champ créé';
+$string['eventfielddeleted'] = 'Champ supprimé';
+$string['eventfieldupdated'] = 'Champ modifié';
+$string['eventrecordcreated'] = 'Fiche créée';
+$string['eventrecorddeleted'] = 'Fiche supprimée';
+$string['eventrecordupdated'] = 'Fiche modifiée';
+$string['eventtemplateupdated'] = 'Modèle modifié';
+$string['eventtemplateviewed'] = 'Modèle consulté';
 $string['example'] = 'Exemple de module Base de données';
 $string['excel'] = 'Excel';
 $string['expired'] = 'Cette activité est fermée depuis {$a} et n\'est plus disponible';
@@ -251,12 +259,9 @@ $string['nametextarea'] = 'Champ texte long';
 $string['nameurl'] = 'Champ URL';
 $string['newentry'] = 'Nouvelle fiche';
 $string['newfield'] = 'Créer un nouveau champ';
-$string['newfield_help'] = '<!-- $Id$ -->
+$string['newfield_help'] = 'Un champ permet de saisir des données. Chaque enregistrement d\'une activité base de données peut avoir plusieurs champs de divers types, par exemple un champ de type date, qui permet à l\'utilisateur de saisir une date à partir d\'un menu déroulant, un champ de type image, lui permettant de déposer un fichier image, ou un champ de type case à cocher, lui permettant de choisir une ou plusieurs options.
 
-
-<p>Sur cette page, vous pouvez définir les champs créant la structure de votre base de données.</p>
-
-<p>Chaque champ permet différents types de données, proposées par différentes interfaces.</p>';
+Chaque champ doit avoir un nom unique. La description est optionnelle.';
 $string['noaccess'] = 'Vous n\'avez pas accès à cette page';
 $string['nodefinedfields'] = 'Le nouveau préréglage ne comporte pas de champ !';
 $string['nofieldcontent'] = 'Contenu du champ non trouvé';
@@ -315,10 +320,7 @@ $string['save'] = 'Enregistrer';
 $string['saveandadd'] = 'Enregistrer et ajouter une fiche';
 $string['saveandview'] = 'Enregistrer et afficher';
 $string['saveaspreset'] = 'Enregistrer en tant que préréglage';
-$string['saveaspreset_help'] = '<!-- $Id$ -->
-
-
-<p>Ceci publie le modèle actuel en tant que préréglage, de sorte que tout le monde sur ce site pourra le voir et l\'utiliser. Ce modèle apparaîtra dans la liste des préréglages. Il vous sera possible de le retirer de cette liste en tout temps.</p>';
+$string['saveaspreset_help'] = 'La fonctionnalité d\'enregistrement comme préréglage publie le modèle actuel et tous ses champs en tant que préréglage, de sorte que tout le monde sur ce site pourra le voir et l\'utiliser (il vous sera possible de le supprimer de cette liste en tout temps).';
 $string['savesettings'] = 'Enregistrer les réglages';
 $string['savesuccess'] = 'Enregistrement réussi. Votre préréglage est maintenant disponible sur tout le site.';
 $string['savetemplate'] = 'Enregistrer modèle';
@@ -353,12 +355,7 @@ $string['uploadrecords_help'] = 'Des fiches peuvent être déposées à partir d
 $string['url'] = 'URL';
 $string['usedate'] = 'Inclure dans la recherche.';
 $string['usestandard'] = 'Utiliser un préréglage';
-$string['usestandard_help'] = '<!-- $Id$ -->
-
-
-<p>Ceci vous permet d\'utiliser pour votre base de données un modèle disponible dans tout le site en tant que préréglage.</p>
-
-<p>Si vous avez ajouté un préréglage en utilisant la fonctionnalité « Enregistrer en tant que préréglage », vous pouvez le supprimer.</p>';
+$string['usestandard_help'] = 'Pour utiliser un préréglage disponible dans tout le site en tant que modèle de base de données, choisissez-le dans la liste (si vous avez ajouté un préréglage en utilisant la fonctionnalité « Enregistrer en tant que préréglage », vous pouvez aussi le supprimer).';
 $string['viewfromdate'] = 'En lecture seule dès le';
 $string['viewtodate'] = 'En lecture seule jusqu\'au';
 $string['wrongdataid'] = 'L\'identifiant de données fourni est incorrect';

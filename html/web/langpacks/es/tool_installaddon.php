@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_installaddon', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'tool_installaddon', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   tool_installaddon
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -63,6 +63,7 @@ $string['validationmsg_filenotexists'] = 'Archivo extraído no encontrado';
 $string['validationmsg_filesnumber'] = 'No se han encontrado suficientes archivos en el paquete';
 $string['validationmsg_filestatus'] = 'No es posible extraer los archivos';
 $string['validationmsg_filestatus_info'] = 'Al intentar extraer el archivo {$a->file} se obtuvo un error \'{$a->status}\'.';
+$string['validationmsg_foundlangfile'] = 'Buscar fichero de idioma';
 $string['validationmsglevel_debug'] = 'Depuración';
 $string['validationmsglevel_error'] = 'Error';
 $string['validationmsglevel_info'] = 'OK';

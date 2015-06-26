@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_tags', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_tags', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   block_tags
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['add'] = 'Afegeix';
 $string['alltags'] = 'Totes les etiquetes:';
-$string['arrowtitle'] = 'Premeu aquí per entrar el text suggerit (en lletres grises)';
+$string['arrowtitle'] = 'Cliqueu aquí per introduir el text suggerit (en lletres grises)';
 $string['configtitle'] = 'Títol del bloc';
 $string['coursetags'] = 'Etiquetes del curs:';
 $string['defaultdisplay'] = 'Tipus d\'etiqueta que es mostrarà';

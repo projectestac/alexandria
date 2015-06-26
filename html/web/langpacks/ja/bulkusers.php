@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'bulkusers', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'bulkusers', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   bulkusers
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,7 +32,7 @@ $string['allselectedusers'] = 'すべての選択済み ({$a->count}/{$a->total}
 $string['allusers'] = 'すべてのユーザ ({$a})';
 $string['available'] = '利用可能';
 $string['confirmmessage'] = '本当に上記メッセージをこれらすべてのユーザに送信してもよろしいですか?<br />{$a}';
-$string['nofilteredusers'] = 'ユーザが見つかりません (0/{$a})';
+$string['nofilteredusers'] = 'ユーザが見つかりませんでした (0/{$a})';
 $string['noselectedusers'] = 'ユーザは選択されていません';
 $string['removeall'] = 'すべてを選択解除する';
 $string['removesel'] = '選択解除する';

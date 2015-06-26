@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'backup', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'backup', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   backup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -89,8 +89,8 @@ $string['configgeneralcomments'] = 'Estableix l\'omissió per incloure comentari
 $string['configgeneralfilters'] = 'Estableix l\'omissió per incloure filtres en una còpia de seguretat.';
 $string['configgeneralhistories'] = 'Estableix l\'omissió per incloure la història de l\'usuari en una còpia de seguretat.';
 $string['configgenerallogs'] = 'Si està habilitat, s\'inclouran per omissió els registres dins de la còpia de seguretat.';
-$string['configgeneralquestionbank'] = 'Si s\'habilita el banc de qüestions s\'inclourà en les copies de seguretat per defecte.
-NOTA: Deshabilitar aquest paràmetre deshabilitarà la copia de seguretat de les activitats que utilitzin el banc de qüestions, com ara el qüestionari.';
+$string['configgeneralquestionbank'] = 'Si s\'habilita el banc de qüestions s\'inclourà en les còpies de seguretat per defecte.
+NOTA: Inhabilitar aquest paràmetre inhabilitarà la còpia de seguretat de les activitats que utilitzin el banc de qüestions, com ara el qüestionari.';
 $string['configgeneralroleassignments'] = 'Si està habilitat, s\'inclouran per omissió les assignacions de rols dins de la còpia de seguretat.';
 $string['configgeneralusers'] = 'Estableix l\'omissió per incloure els usuaris en una còpia de seguretat.';
 $string['configgeneraluserscompletion'] = 'Si està habilitat, s\'inclourà per omissió la informació de progrés de l\'usuari dins de la còpia de seguretat.';
@@ -112,15 +112,14 @@ $string['currentstage2'] = 'Paràmetres de l\'esquema';
 $string['currentstage4'] = 'Confirmació i revisió';
 $string['currentstage8'] = 'Fes la còpia';
 $string['enterasearch'] = 'Introduïu una cerca';
-$string['error_block_for_module_not_found'] = 'S\'ha trobat una instància de bloc òrfena (id: {$a->bid}) per al curs (id: {$a->mid}). Aquest bloc no és copiarà a la copia de seguretat.';
+$string['error_block_for_module_not_found'] = 'S\'ha trobat una instància de bloc òrfena (id: {$a->bid}) per al curs (id: {$a->mid}). Aquest bloc no es copiarà a la còpia de seguretat.';
 $string['error_course_module_not_found'] = 'S\'ha trobat un mòdul de curs orfe (id: {$a}). Aquest mòdul no es copiarà a la còpia de seguretat.';
-$string['errorfilenamemustbezip'] = 'El nom de fitxer que introduïu ha d\'ésser un fitxer ZIP i tenir l\'extensió .mbz';
-$string['errorfilenamerequired'] = 'Cal que introduïu un nom de fitxer vàlid per aquesta còpia de seguretat';
+$string['errorfilenamemustbezip'] = 'El nom de fitxer que introduïu ha d\'ésser un fitxer ZIP i ha de tenir l\'extensió .mbz';
+$string['errorfilenamerequired'] = 'Cal que introduïu un nom de fitxer vàlid per a aquesta còpia de seguretat';
 $string['errorinvalidformat'] = 'Format de còpia de seguretat desconegut';
 $string['errorinvalidformatinfo'] = 'El fitxer seleccionat no és un fitxer de còpia de seguretat vàlid per a Moodle i no pot ser restaurat.';
 $string['errorminbackup20version'] = 'Aquest fitxer de còpia de seguretat s\'ha creat amb una versió de desenvolupament de Moodle ({$a->backup}). Com a mínim cal la {$a->min}. No es pot restaurar.';
 $string['errorrestorefrontpage'] = 'No es permet restaurar res sobre la pàgina principal.';
-$string['errortgznozlib'] = 'El fitxer seleccionat està el format nou de copies de seguretat i no es pot restaurar ja que l\'extensió de PHP zlib no està disponible al sistema.';
 $string['executionsuccess'] = 'El fitxer de còpia de seguretat s\'ha creat amb èxit.';
 $string['filealiasesrestorefailures'] = 'La restauració dels àlies ha fallat';
 $string['filealiasesrestorefailures_help'] = 'Els àlies són enllaços simbòlics a altres fitxers, inclosos els emmagatzemats en repositoris externs. En alguns casos, Moodle no els pot restaurar - per exemple, en restaurar la còpia de seguretat en un altre lloc web o quan el fitxer a què es fa referència no existeix.
@@ -168,6 +167,7 @@ $string['includeditems'] = 'Ítems inclosos:';
 $string['includefilereferences'] = 'Referències de fitxer a continguts externs';
 $string['includesection'] = 'Secció {$a}';
 $string['includeuserinfo'] = 'Dades d\'usuari';
+$string['jumptofinalstep'] = 'Salta al pas final';
 $string['locked'] = 'Blocat';
 $string['lockedbyconfig'] = 'Aquest paràmetre ha estat blocat en la configuració per omissió de les còpies de seguretat';
 $string['lockedbyhierarchy'] = 'Blocat per dependències';
@@ -263,6 +263,7 @@ $string['skipmodifprevhelp'] = 'Trieu ometre o no els cursos que no s\'hagin mod
 $string['storagecourseandexternal'] = 'Àrea de còpies de seguretat del curs i el directori especificat';
 $string['storagecourseonly'] = 'Àrea de còpies de seguretat del curs';
 $string['storageexternalonly'] = 'Directori de còpies de seguretat automàtiques especificat';
+$string['timetaken'] = 'Temps emprat';
 $string['title'] = 'Títol';
 $string['totalcategorysearchresults'] = 'Total de categories: {$a}';
 $string['totalcoursesearchresults'] = 'Total de cursos: {$a}';

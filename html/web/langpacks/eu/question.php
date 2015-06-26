@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'question', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,8 @@ $string['addanotherhint'] = 'Gehitu beste pista bat';
 $string['addcategory'] = 'Gehitu kategoria';
 $string['addmorechoiceblanks'] = 'Zuriuneak {no} aukera gehiagotarako';
 $string['adminreport'] = 'Zure galderen datu-basean izan daitezkeen arazoei buruzko txostena';
+$string['advancedsearchoptions'] = 'Bilaketarako aukerak';
+$string['alltries'] = 'Saiakera guztiak';
 $string['answer'] = 'Erantzuna';
 $string['answers'] = 'Erantzunak';
 $string['answersaved'] = 'Erantzuna gorde da';
@@ -69,6 +71,7 @@ $string['cannotretrieveqcat'] = 'Ezin izan da galdera-kategoria berreskuratu';
 $string['cannotunhidequestion'] = 'Errorea galdera erakustean';
 $string['cannotunzip'] = 'Ezin da fitxategia deskonprimatu.';
 $string['cannotwriteto'] = 'Ezin dira  {$a}-ra esportatuko galderak idatzi';
+$string['categories'] = 'Kategoriak';
 $string['category'] = 'Kategoria';
 $string['categorycurrent'] = 'Oraingo kategoria';
 $string['categorycurrentuse'] = 'Erabili kategoria hau';
@@ -90,7 +93,7 @@ $string['closepreview'] = 'Itxi aurrebista';
 $string['combinedfeedback'] = 'Feedback konbinatua';
 $string['comment'] = 'Iruzkina';
 $string['commented'] = 'Iruzkina eginda: {$a}';
-$string['commentormark'] = 'Iruzkina egin edo baliogabetu marka';
+$string['commentormark'] = 'Iruzkina egin edo baliogabetu puntua';
 $string['comments'] = 'Iruzkinak';
 $string['commentx'] = 'Iruzkina: {$a}';
 $string['complete'] = 'Osatu';
@@ -104,9 +107,9 @@ $string['createdby'] = 'Nork sortua';
 $string['createdmodifiedheader'] = 'Sortutako edo gordetako azkena';
 $string['createnewquestion'] = 'Sortu beste galdera bat...';
 $string['cwrqpfs'] = 'Ausazko galderak, azpikategorietako galderak aukeratuta';
-$string['cwrqpfsinfo'] = 'Moodle 1.9ra eguneratu bitartean, galdera-kategoriak hainbat testuingurutan banatuko ditugu. Zure guneko hainbat kategoriak eta galderak aldatu egingo dute truke egoera. Beharrezkoa da hau partekatutako eta ez partekatutako kategoria nahasketa batetik aukeratzen direnean galdera bat edo gehiago, (gune honetan gertatzen den bezala). Hau gertatzen da ausazko galdera bat azpikategorietatik aukeratzeko ezartzen denean eta azpikategoria bat edo gehiagok ausazko galdera sortuko den jatorrizko kategoriak ez bezalako truke egoera dutenean.
-Ondorengo kategoriek, zeinetatik aukeratzen dituzten goragoko kategoriek ausazko galderak, Moodle 1.9rako eguneraketan aldatu egingo dute beren truke-egoera ausazko galdera duen kategoriaren egoera berera. Ondoren agertzen diren kategoriek aldatuta izango dute truke egoera. Eragina izan duten galderek funtzionatu egingo dute dauden galdetegi guztietan ahalik eta galdetegi horiek ezabatu arte.';
-$string['cwrqpfsnoprob'] = 'Ez dago zure gunean \'Ausazko galderak galderak azpikategorietatik aukeratuta\' aukeraren eraginpeko kategoriarik';
+$string['cwrqpfsinfo'] = '<p> Moodle 1.9ra eguneratu bitartean, galdera-kategoriak hainbat testuingurutan banatuko ditugu. Zure guneko hainbat kategoria eta galderek aldatu egingo dute truke egoera. Hau egitea beharrezkoa da partekatutako eta ez partekatutako kategoria nahasketa batetik aukeratzen direnean galdera bat edo gehiago (gune honetan gertatzen den bezala). Hau gertatzen da ausazko galdera bat azpikategorietatik aukeratzeko ezartzen denean eta azpikategoria bat edo gehiagok ausazko galdera sortuko den jatorrizko kategoriak ez bezalako truke egoera dutenean.</p>
+<p>Ondorengo kategoriek, zeinetatik aukeratzen dituzten goragoko kategoriek ausazko galderak, Moodle 1.9rako eguneraketan aldatu egingo dute beren truke-egoera ausazko galdera duen kategoriaren egoera berera. Ondoren agertzen diren kategoriek aldatuta izango dute truke egoera. Eragina izan duten galderek funtzionatu egingo dute dauden galdetegi guztietan ahalik eta galdetegi horiek ezabatu arte.</p>';
+$string['cwrqpfsnoprob'] = 'Ez dago zure gunean \'Ausazko galderak azpikategorietatik aukeratuta\' aukeraren eraginpeko kategoriarik.';
 $string['decimalplacesingrades'] = 'Hamartarrak kalifikazioetan';
 $string['defaultfor'] = '{$a}-ren berezko balioa';
 $string['defaultinfofor'] = '\'{$a}\' testuinguruan partekatutako galderetarako berezko kategoria.';
@@ -114,8 +117,7 @@ $string['defaultmark'] = 'Lehenetsitako puntuazioa';
 $string['defaultmarkmustbepositive'] = 'Lehenetsitako markak positiboa izan behar du.';
 $string['deletecoursecategorywithquestions'] = 'Galdera-banku honetan badira ikastaro-kategoria honekin lotutako hainbat galdera. jarraituz gero, ezabatu egingo dira. Nahi baduzu, lehenik mugitu ahal dituzu galdera-bankuaren interfazetik.';
 $string['deletequestioncheck'] = 'Ziur al zaude \'{$a}\' ezabatu nahi duzula?';
-$string['deletequestionscheck'] = '<p>Ziur al zaude ondoko galderak ezabatu nahi dituzula?</p>
-<p>{$a}</p>';
+$string['deletequestionscheck'] = 'Ziur al zaude ondoko galderak ezabatu nahi dituzula? <br /><br />{$a}';
 $string['deletingbehaviour'] = 'Ezabatzen \'{$a}\' galderen jokaera';
 $string['deletingqtype'] = '\'{$a}\' galdera-mota ezabatzen';
 $string['didnotmatchanyanswer'] = '[Ez da ezein erantzunekin lotu]';
@@ -151,6 +153,7 @@ $string['errorduringregrade'] = 'Ezin izan da berriz kalifikatu {$a->qid} galder
 $string['errorfilecannotbecopied'] = 'Errorea: ezin da {$a} fitxategia kopiatu.';
 $string['errorfilecannotbemoved'] = 'Errorea: ezin da {$a} fitxategia mugitu.';
 $string['errorfileschanged'] = 'Errorea: galderetatik estekatutako fitxategiak aldatu egin dira formularioa erakutsi denetik';
+$string['erroritemappearsmorethanoncewithdifferentweight'] = '({$a}) galdera behin baino gehiagotan agertzen da galdetegian toki ezberdinetan eta pisu ezberdinarekin. Hori ez du gaur egun onartzen estatistika-txostenak eta ondorioz agian galdera honen inguruko estatistikak ez dira oso fidagarriak izango.';
 $string['errormanualgradeoutofrange'] = '{$a->grade} kalifikazioa ez da 0 eta {$a->maxgrade}-ren artekoa {$a->name} (-)en galderarako. Puntuazioa eta iruzkina ez dira gorde.';
 $string['errormovingquestions'] = 'Errorea {$a} ID-ak dituzten galderak mugitzean.';
 $string['errorpostprocess'] = 'Errorea gertatu da prozesamendu-ostean!';
@@ -160,6 +163,8 @@ $string['errorprocessingresponses'] = 'Errorea gertatu da zure ebazpenak prozesa
 $string['errorsavingcomment'] = 'Eorrea datu-basean {$a->name} galderaren iruzkina gordetzean.';
 $string['errorsavingflags'] = 'Errorea markaren egoera gordetzean.';
 $string['errorupdatingattempt'] = 'Eorrea datu-basean {$a->id} saiakera eguneratzean.';
+$string['eventquestioncategorycreated'] = 'Galdera-kategoria sortu da';
+$string['export'] = 'Esportatu';
 $string['exportcategory'] = 'Kategoria esportatu ';
 $string['exportcategory_help'] = '<p>Zabaltzen den <b>Kategoria:</b> menua erabiltzen da galderak
 zein kategoriatatik esportatuko diren aukeratzeko.</p>
@@ -184,11 +189,15 @@ $string['filesareacourse'] = 'ikastaroaren fitxategi-eremua';
 $string['filesareasite'] = 'gunearen fitxategi-eremua';
 $string['filestomove'] = 'Fitxategiak {$a}-ra mugitu/kopiatu?';
 $string['fillincorrect'] = 'Bete erantzun zuzenak';
+$string['firsttry'] = 'Lehen saiakera';
 $string['flagged'] = 'Markatuta';
 $string['flagthisquestion'] = 'Markatu galdera hau';
-$string['formquestionnotinids'] = 'Galdera hau questionids-en ez dagoen formularioan dago';
+$string['formquestionnotinids'] = 'Questionids-en ez dagoen galdera du fomularioak';
 $string['fractionsnomax'] = 'Erantzunetako batek %100 izan behar du galdera honetako gehienezko puntuazioa lortu ahal izateko.';
 $string['generalfeedback'] = 'Feedback orokorra';
+$string['generalfeedback_help'] = 'Feedback orokorra galdera erantzun ondoren erakusten zaio ikasleari. Feedback zehatzak ez bezala, galdera-mota eta ikasleak emandako erantzunaren araberakoa dena, feedback orokorra berdina da ikasle guztientzat.
+
+Feedback orokorra erantzun egokia erakusteko eta azaltzeko erabil dezakezu, eta agian informazio gehiago erakusten duen estekaren bat gehi dezakezu galdera ulertu ez duenarentzat.';
 $string['getcategoryfromfile'] = 'Lortu kategoria fitxategitik';
 $string['getcontextfromfile'] = 'Lortu testuingurua fitxategitik';
 $string['hidden'] = 'Ezkutuan';
@@ -196,7 +205,13 @@ $string['hintn'] = '{no}. Pista';
 $string['hintnoptions'] = '{no}. Pistaren aukerak';
 $string['hinttext'] = 'Pistaren testua';
 $string['howquestionsbehave'] = 'Galderen jokaera';
+$string['howquestionsbehave_help'] = 'Ikasleek galdetegiko galderekin modu ezberdinetan aritu daitezke. Esaterako, zuk ikasleek galdera guztiak erantzun eta galdetegia bidaltzea erabaki dezakezu, ezer kalifikatu aurretik eta edozein feedback jaso baino lehen. Kasu horretan modua \'Beranduagoko feedbacka\' izango litzateke.
+
+Bestela, zuk ikasleek galdera bakoitza bidaltzean berehalako feedback-a jasotzea erabaki dezakezu eta, galdera ondo erantzun ez badu, galdera berriz erantzuteko aukera eman kalifikazioa hobetzen saiatzeko. Modu hau \'Interaktiboa hainbat saiakerarekin\' litzateke.
+
+Horiek dira ziur asko gehien erabiltzen diren jokaerak.';
 $string['ignorebroken'] = 'Baztertu apurtutako estekak';
+$string['import'] = 'Inportatu';
 $string['importcategory'] = 'Inportatu kategoria';
 $string['importcategory_help'] = '<p> <b>Kategoria:</b> zabaltzen den menua erabiltzen da inportatutako galderak
 zein kategoriatara joango diren aukeratzeko.</p>
@@ -219,19 +234,24 @@ $string['importingquestions'] = 'Inportatzen {$a} galderak fitxategitik';
 $string['importparseerror'] = 'Errorea(k) izan d(ir)a inportazio-fitxategia analizatzean. Ez dira galderak inporttau. Inportatzeko, saiatu berriz eta ezarri EZ ondoko ezarpenean \'Gelditu errorean\'\'';
 $string['importquestions'] = 'Galderak fitxategitik inportatu';
 $string['importquestions_help'] = 'Funtzio honi esker hainbat formatutako galderak inporta ditzakegu testu-fitxategi baten bidez. Kontuan hartu fitxategiak UTF-8 kodifikazioa izan behar duela.';
+$string['importwrongfiletype'] = 'Aukeratu duzun fitxategi-mota ({$a->actualtype}) ez dator bat espero zen inportatze-formatuarekin ({$a->expectedtype}).';
+$string['impossiblechar'] = 'Ezinezko karakterea {$a} detektatu da parentesi karaktere gisa';
 $string['includesubcategories'] = 'Erakutsi galderak azpikategorietatik ere';
 $string['incorrect'] = 'Okerra';
 $string['incorrectfeedback'] = 'Edozein ebazpen okerretarako';
 $string['incorrectfeedbackdefault'] = 'Zure erantzuna ez da zuzena';
 $string['information'] = 'Informazioa';
 $string['invalidanswer'] = 'Erantzuna ez dago osorik';
+$string['invalidarg'] = 'Argumentu baliogabeak egikarituta edo zerbitzariaren konfigurazio okerra';
 $string['invalidcategoryidforparent'] = 'Goragoko kategoriaren IDak ez du balio!';
 $string['invalidcategoryidtomove'] = 'Mugitzeko kategoriaren IDak ez du balio!';
 $string['invalidconfirm'] = 'Egiaztatze-katea ez da zuzena';
 $string['invalidcontextinhasanyquestions'] = 'Testuinguru baliogabea hona pasa da: question_context_has_any_questions.';
+$string['invalidgrade'] = 'Kalifikazioak ({$a}) ez datoz bat kalifikazio aukerekin - galdera saihestu da.';
 $string['invalidpenalty'] = 'Penalizazioa ez da baliagarria';
 $string['invalidwizardpage'] = 'Orria ez da zuzena edo ez dago ondo zehaztuta!';
 $string['lastmodifiedby'] = 'Nork aldatua azkenengoz';
+$string['lasttry'] = 'Azken saiakera';
 $string['linkedfiledoesntexist'] = 'Ez dago {$a} lotutako fitxategia';
 $string['makechildof'] = 'Bihurtu \'{$a}\'-ren ondorengo';
 $string['makecopy'] = 'Kopia egin';
@@ -312,6 +332,9 @@ $string['penaltyfactor'] = 'Penalizazio-faktorea';
 $string['penaltyfactor_help'] = '<p>Erantzun oker bakoitzagatik puntuazioaren zati bat kentzea zehaztu ahal duzu. Hori, galdetegia  moldagarria bada bakarrik, hau da, ikasleak galderak erantzuteko saio bat baino gehiago duenean. Penalizazio-faktoreak 0 eta 1 bitartean egon behar du- Zigor-faktorea 1 bada, ikasleak lehen saioan eman behar du erantzun zuzena kalifikazio altuena lortzeko. Penalizazio-faktorea 0 bada, ikasleak nahi
 bezainbat saio egin ditzake kalifikazio altuena lortzeko.</p>';
 $string['penaltyforeachincorrecttry'] = 'Penalizazioa saiakera oker bakoitzeko';
+$string['penaltyforeachincorrecttry_help'] = 'Galderak \'Interaktiboa hainbat saiakerarekin\' edo \'Egokitze modua\' erabilita egiten direnean, ikasleak erantzuteko hainbat aukera izan ditzan, aukera honek erantzun oker bakoitzeko aplikatuko den penalizazioa zehazten du.
+
+Penalizazioa galderaren kalifikazio osoaren proportzioa da, eta beraz 3 puntu balio dituen galdera batek 0,3333333-ko penalizazioa badu ikasleak 3 puntu lortuko ditu lehenengo saiakerak asmatuz gero, 2 puntu bigarren saiakeran eta puntu 1 hirugarren saiakeran.';
 $string['permissionedit'] = 'Editatu galdera hau';
 $string['permissionmove'] = 'Mugitu galdera hau';
 $string['permissionsaveasnew'] = 'Gorde hau galdera berri gisa';
@@ -331,8 +354,10 @@ $string['questioncatsfor'] = 'Galdera-kategoriak \'{$a}\'-rako';
 $string['questiondoesnotexist'] = 'Ez dago galdera hau';
 $string['questionidmismatch'] = 'Errorea galderen IDetan';
 $string['questionname'] = 'Galderaren izena';
+$string['questionnamecopy'] = '{$a} (kopiatu)';
 $string['questionno'] = '{$a} galdera';
 $string['questionpreviewdefaults'] = 'Galderak aurreikusteko berezko baloreak';
+$string['questionpreviewdefaults_desc'] = 'Berezko balio hauek erabiltzaile batek galdera bat lehenengo aldiz aurreikusten duenean erabiltzen dira. Behin erabiltzaileak galdera aurreikusi duenean bere hobespenak erabiltzaile-hobespenetan gordeko dira.';
 $string['questions'] = 'Galderak';
 $string['questionsaveerror'] = 'Erroreak gertatu dira galdera gordetzean - ({$a})';
 $string['questionsinuse'] = '(*z markatutako galderak dagoeneko galdetegiren batean erabiltzen ari dira. Galderak hauek ez dira ezabatu galdetegi horietatik, bakarrik kategoria-zerrendatik ezabatuko dira.)';
@@ -350,7 +375,9 @@ $string['restart'] = 'Hasi berriz';
 $string['restartwiththeseoptions'] = 'Hasi berriz aukera hauekin';
 $string['reviewresponse'] = 'Ebazpena berrikusi';
 $string['rightanswer'] = 'Erantzun zuzena';
+$string['rightanswer_help'] = 'erantzun egokiarentzako automatikoki emandako laburpena. Hau mugatua egon daiteke, eta behar bada erantzun egokia azaltzeko feedback orokorra erabiltzea nahiko duzu, eta aukera hau desaktibatu.';
 $string['save'] = 'Gorde';
+$string['savechangesandcontinueediting'] = 'Gorde aldaketak eta jarraitu editatzen';
 $string['saved'] = 'Gordeta: {$a}';
 $string['saveflags'] = 'Gorde marken egoera';
 $string['selectacategory'] = 'Aukeratu kategoria bat:';
@@ -358,7 +385,7 @@ $string['selectaqtypefordescription'] = 'Aukeratu galdera-mota bat deskribapena 
 $string['selectcategoryabove'] = 'Goiko kategoria bat aukeratu';
 $string['selectquestionsforbulk'] = 'Aukeratu galderak eragiketa masiboetarako';
 $string['settingsformultipletries'] = 'Saiakera anitzak';
-$string['shareincontext'] = 'Partekatu $arentzat testuinguruan.';
+$string['shareincontext'] = 'Partekatu {$a}-rentzat testuinguruan.';
 $string['showhidden'] = 'Galdera zaharrak ere erakutsi';
 $string['showmarkandmax'] = 'Erakutsi puntuazioa eta gehienekoa';
 $string['showmaxmarkonly'] = 'Erakutsi gehieneko puntuazioa bakarrik';
@@ -372,10 +399,14 @@ $string['started'] = 'Hasita';
 $string['state'] = 'Egoera';
 $string['step'] = 'Urratsa';
 $string['stoponerror'] = 'Gelditu errorea gertatzen bada';
+$string['stoponerror_help'] = 'Ezarpen honek errore bat aurkitzean inportatze-prozesua geratuko den zehazten du, eta ondorioz ez da galderarik inportatuko, edo erroreak dituzten galderak ezikusi eta baliozko galderak inportatuko diren.';
+$string['submissionoutofsequence'] = 'Ordenetik kanpoko sarrera. Mesedez ez egin klik atzera botoian galdetegiarekin lanean ari zarenean.';
+$string['submissionoutofsequencefriendlymessage'] = 'Datuetara orden normaletik kanpo sartu egin zara. Hau gertatu daiteke zure nabigatzailearen Atzera eta Aurrera botoiak erabiltzen badituzu; mesedez ez erabili botoi horiek galdetegia egin bitartean. Orria kargatu bitartean nonbait klik egin baduzu ere gertatu daiteke hau. Jarraitzeko <strong>Jarraitu</strong> sakatu.';
 $string['submit'] = 'Bidali';
 $string['submitandfinish'] = 'Bidali eta amaitu';
 $string['submitted'] = 'Bidali: {$a}';
 $string['technicalinfo'] = 'Informazio teknikoa';
+$string['technicalinfo_help'] = 'Informazio tekniko hau ziur aski galdera-motetan lan egiten ari diren garatzaileentzat izan daiteke baliagarria. Lagungarria izan daiteke ere galderekin dauden arazoen diagnosia egitean.';
 $string['technicalinfomaxfraction'] = 'Gehieneko zatikia: {$a}';
 $string['technicalinfominfraction'] = 'Gutxieneko zatikia: {$a}';
 $string['technicalinfoquestionsummary'] = 'Galderaren laburpena: {$a}';
@@ -395,11 +426,14 @@ $string['unknownquestioncatregory'] = 'Galdera-kategoria ezezaguna: {$a}.';
 $string['unknownquestiontype'] = 'Galdera-mota ezezaguna: {$a}.';
 $string['unknowntolerance'] = 'Tolerantzia-mota ezezaguna:  {$a}';
 $string['unpublished'] = 'partekatu gabe';
+$string['unusedcategorydeleted'] = 'Kategoria hau ezabatu egin da ikastaroa ezabatuta bertako galderak ez zirelako gehiago erabili zerbitzarian.';
 $string['updatedisplayoptions'] = 'Eguneratu erakusteko aukerak';
-$string['upgradeproblemcategoryloop'] = 'Galdera-kategoriak eguneratzean arazo bat atzeman da. Kategoria-zuhaitzean begizta (loop) bat dago. Horren eraginpeko kategorien ID-ak ??? dira.';
+$string['upgradeproblemcategoryloop'] = 'Galdera-kategoriak eguneratzean arazo bat atzeman da. Kategoria-zuhaitzean begizta (loop) bat dago. Horren eraginpeko kategorien ID-ak {$a} dira.';
 $string['upgradeproblemcouldnotupdatecategory'] = 'Ezin da ondoko galdera-kategoria eguneratu: {$a->name} ({$a->id}).';
 $string['upgradeproblemunknowncategory'] = 'Arazoa atzemena da galdera-kategoriak eguneratzean. {$a->id} kategoria  {$a->parent} goragoko kategoriari dagokio eta ez da existitzen. Arazoa konpontzeko, goragoko kategoria aldatu egin da.';
 $string['whethercorrect'] = 'Zuzena bada';
+$string['whethercorrect_help'] = 'Honek \'Ondo\', \'Partzialki ondo\' eta \'Gaizki\'-ren deskribapenak barne hartzen ditu, baita informazio hori ematen duen kolorezko edozein nabarmentze.';
+$string['whichtries'] = 'Zein saiakera';
 $string['withselected'] = 'aukerarekin';
 $string['wrongprefix'] = 'Izenaren aurrizkia gaizku formateatua:  {$a}';
 $string['xoutofmax'] = '{$a->mark} gehienezko {$a->max} -(e)tik';

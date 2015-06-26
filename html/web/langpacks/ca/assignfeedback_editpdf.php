@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'assignfeedback_editpdf', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   assignfeedback_editpdf
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,21 +40,20 @@ $string['couldnotsavepage'] = 'No es pot desar la pàgina {$a}';
 $string['currentstamp'] = 'Segell';
 $string['deleteannotation'] = 'Suprimeix l\'anotació';
 $string['deletecomment'] = 'Suprimeix el comentari';
-$string['deletefeedback'] = 'Suprimeix el PDF de realimentació';
-$string['downloadablefilename'] = 'realimentació.pdf';
-$string['downloadfeedback'] = 'Descarrega el PDF de realimentació';
+$string['deletefeedback'] = 'Suprimeix el PDF de retroacció';
+$string['downloadablefilename'] = 'feedback.pdf';
+$string['downloadfeedback'] = 'Baixa el PDF de retroacció';
 $string['editpdf'] = 'Comenta PDF';
 $string['editpdf_help'] = 'Comenta les trameses dels estudiants directament al navegador i crea un PDF editat i descarregable.';
 $string['enabled'] = 'Comenta PDF';
 $string['enabled_help'] = 'Si s\'habilita, el professorat podrà crear fitxers PDF amb anotacions quan qualifiqui les tasques. Això permet al professorat afegir comentaris, dibuixos i segells directament al damunt del treball dels estudiants. Les anotacions es fan al navegador i no es requereix instal·lar cap programari extra.';
 $string['errorgenerateimage'] = 'Error mentre es generava una imatge amb ghostscript, informació de depuració : {$a}';
 $string['filter'] = 'Filtra els comentaris ...';
-$string['generatefeedback'] = 'Genera PDF de realimentació';
+$string['generatefeedback'] = 'Genera PDF de retroacció';
 $string['generatingpdf'] = 'S\'està generant el PDF ...';
 $string['gotopage'] = 'Ves a la pàgina';
 $string['green'] = 'Verd';
-$string['gspath'] = 'Camí al Ghostscript';
-$string['gspath_help'] = 'En la majoria d\'instal·lacions de Linux pot trobar-se a  \'/usr/bin/gs\'. En Windows se sol trobar a  \'c:gsbingswin32c.exe\'  (comproveu que no hi ha espais en blanc al camí - si cal copieu els fitxers \'gswin32c.exe\' i \'gsdll32.dll\' en una nova carpeta sense espais en blanc al camí)';
+$string['gsimage'] = 'Imatge de prova de Ghostscript';
 $string['highlight'] = 'Ressalta';
 $string['jsrequired'] = 'Cal JavaScript per fer anotacions en un PDF. Habiliteu JavaScript al vostre navegador per utilitzar aquesta característica.';
 $string['launcheditor'] = 'Obre l\'editor PDF ...';
@@ -66,6 +65,7 @@ $string['output'] = 'Sortida:';
 $string['oval'] = 'Oval';
 $string['pagenumber'] = 'Pàgina {$a}';
 $string['pagexofy'] = 'Pàgina {$a->page} de {$a->total}';
+$string['pathtogspathdesc'] = 'Tingueu en compte que un PDF amb comentaris requereix que el camí a ghostscript es defineixi a {$a}.';
 $string['pen'] = 'Bolígraf';
 $string['pluginname'] = 'Comenta PDF';
 $string['rectangle'] = 'Rectangle';
@@ -90,4 +90,3 @@ $string['unsavedchanges'] = 'Canvis no desats';
 $string['viewfeedbackonline'] = 'Mostra el PDF comentat...';
 $string['white'] = 'Blanc';
 $string['yellow'] = 'Groc';
-$string['zlibnotavailable'] = 'L\'extensió «zlib» no està disponible. La característica d\'anotar PDF depèn d\'aquesta extensió i es deshabilitarà fins que zlib estigui instal·lat i habilitat.';

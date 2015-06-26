@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_ipaddress', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'quizaccess_ipaddress', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   quizaccess_ipaddress
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'IP helbidearen bidez sartzeko araua';
+$string['subnetwrong'] = 'Galdetegi hau helbide jakin batzuetatik bakarrik egin daiteke, eta ordenagailu hau ez dago baimenduen zerrendan.';

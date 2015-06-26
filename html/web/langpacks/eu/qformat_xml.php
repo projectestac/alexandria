@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qformat_xml', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'qformat_xml', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   qformat_xml
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,9 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['invalidxml'] = 'Espero zen xml fitxategi - katea-k ez du balio (CDATA erabiltzen?)';
+$string['invalidxml'] = 'XML fitxategi baliogabea - katea espero zen (CDATA erabiltzen?)';
 $string['pluginname'] = 'Moodle XML formatua';
 $string['pluginname_help'] = 'Hau Moodle-ren formatu espezifikoa da galdetegia moduluan erabiltzen diren galderak inportatzeko eta esportatzeko.';
+$string['truefalseimporterror'] = '<b>Abisua</b>: Egia/Gezurra \'{$a->questiontext}\' galdera ezin izan da modu egokian inportatu. Ez zegoen argi erantzun egokia egia edo gezurra ote zen. Galdera inportatu da erantzun egokia \'{$a->answer}\' zela suposatuz. Hau zuzena ez bada, galdera editatu beharko duzu.';
 $string['unsupportedexport'] = '{$a} galdera-mota ez da onartzen XML esportaziorako';
 $string['xmlimportnoname'] = 'Galderaren izena falta da XML fitxategia';
 $string['xmlimportnoquestion'] = 'Galderaren testua falta da XML fitxategian';

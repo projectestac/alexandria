@@ -54,7 +54,11 @@ class moodle1_mod_rcontent_handler extends moodle1_mod_handler {
             new convert_path('rcontent', '/MOODLE_BACKUP/COURSE/MODULES/MOD/RCONTENT',
                 array(
                     'renamefields' => array(
-                        'bookid' => 'isbn'
+                        'bookid' => 'isbn',
+                        'summary' => 'intro',
+                    ),
+                    'newfields' => array(
+                        'introformat' => 0
                     )
                 )
             ),
@@ -84,24 +88,25 @@ class moodle1_mod_rcontent_handler extends moodle1_mod_handler {
 
         // conditionally migrate to html format in summary
         if ($CFG->texteditors !== 'textarea') {
-            $data['summary']       = text_to_html($data['summary'], false, false, true);
+            $data['intro']       = text_to_html($data['intro'], false, false, true);
         }
 
         // get a fresh new file manager for this instance
         $this->fileman = $this->converter->get_file_manager($contextid, 'mod_rcontent');
 
         // convert course files embedded into the summary
-        $this->fileman->filearea = 'summary';
+        $this->fileman->filearea = 'intro';
         $this->fileman->itemid   = 0;
-        $data['summary'] = moodle1_converter::migrate_referenced_files($data['summary'], $this->fileman);
+        $data['intro'] = moodle1_converter::migrate_referenced_files($data['intro'], $this->fileman);
 
         // check 1.9 version where backup was created
         $backupinfo = $this->converter->get_stash('backup_info');
         if ($backupinfo['moodle_version'] < 2007110503) {
             // as we have no module version data, assume $currmodule->version <= $module->version
             // - fix data as the source 1.9 build hadn't yet at time of backing up.
-            if (isset($data['grademethod']))
+            if (isset($data['grademethod'])) {
                 $data['grademethod'] = $data['grademethod']%10;
+            }
         }
 
         // start writing rcontent.xml
@@ -111,22 +116,17 @@ class moodle1_mod_rcontent_handler extends moodle1_mod_handler {
         $this->xmlwriter->begin_tag('rcontent', array('id' => $instanceid));
 
         foreach ($data as $field => $value) {
-            /*if ($field == 'intro') {
-                //changed from intro to summary
-                $this->xmlwriter->full_tag('summary', $value);
-
-            }
-            else*/if ($field <> 'id') {
+            if ($field <> 'id') {
                 $this->xmlwriter->full_tag($field, $value);
             }
         }
-        
+
         $this->xmlwriter->begin_tag('grades');
-        
+
         return $data;
     }
-    
-    
+
+
     /**
      * This is executed when finish grades
      * data available
@@ -142,14 +142,14 @@ class moodle1_mod_rcontent_handler extends moodle1_mod_handler {
     public function process_rcontent_grades($data) {
         $this->write_xml('grade', $data, array('/grade/id'));
     }
-    
+
     /**
     * This is executed when the parser reaches the <GRADES_DETAILS> opening element
     */
     public function on_rcontent_grades_details_start() {
         $this->xmlwriter->begin_tag('grades_details');
     }
-    
+
     /**
      * This is executed when the parser reaches the closing </GRADES_DETAILS> element
      */
@@ -163,7 +163,7 @@ class moodle1_mod_rcontent_handler extends moodle1_mod_handler {
     public function process_rcontent_grades_details($data) {
         $this->write_xml('grade_detail', $data, array('/grade_detail/id'));
     }
-    
+
     /**
      * This is executed when we reach the closing </MOD> tag of our 'rcontent' path
      */

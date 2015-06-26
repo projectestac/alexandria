@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'survey', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'survey', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   survey
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -200,6 +200,9 @@ $string['downloadinfo'] = 'Excel、SPSS等で分析するために、調査の�
 $string['downloadresults'] = 'ダウンロード結果';
 $string['downloadtext'] = 'テキストフォーマットでダウンロードする';
 $string['editingasurvey'] = '調査を編集する';
+$string['eventreportdownloaded'] = '調査レポートがダウンロードされました。';
+$string['eventreportviewed'] = '調査レポートが閲覧されました。';
+$string['eventresponsesubmitted'] = '調査回答が送信されました。';
 $string['guestsnotallowed'] = '登録ユーザのみ調査を送信することができます。';
 $string['howlong'] = 'この調査を終えるのにどのくらいの時間がかかりましたか?';
 $string['howlongoptions'] = '1分以下,1-2分,2-3分,3-4分,4-5分,5-10分,10分以上';
@@ -242,6 +245,7 @@ $string['selectedquestions'] = '評価尺度から選ばれた質問、すべて
 $string['summary'] = '概要';
 $string['survey:addinstance'] = '新しい調査を追加する';
 $string['surveycompleted'] = '調査が終了しました。下のグラフはクラスの平均とあなたの結果を比較したものです。';
+$string['surveycompletednograph'] = 'あなたはこの調査を完了しました。';
 $string['survey:download'] = '回答をダウンロードする';
 $string['surveygraph'] = '調査グラフ';
 $string['surveyname'] = '調査名';
@@ -254,6 +258,6 @@ $string['surveytype_help'] = '調査には下記3つのタイプがあります:
 * 考え方と学び方に対する姿勢の調査 (ATTLS - Attitudes to Thinking and Learning Survey ) - どの人が「関連認識者」 (学ぶことに楽しみを感じ、多くの場合、協力的であり愛想がよく、他の人とアイディアを構築することを望む傾向があります) または「分離認識者」 (学習に対して批判的および論争的なスタンスをとる傾向があります) であるか程度を測定します。
 * クリティカル・インシデント調査
 * 構成主義オンライン学習環境調査　(COLLES - On-line Learning Environment Survey) - ワールドワードウェブの相互作用的な性質が学生の動的学習の実践に興味を持たせる効果の程度を測定します。';
-$string['thanksforanswers'] = '{$a} さん、調査にご協力いただきましてありがとうございます';
+$string['thanksforanswers'] = '{$a} さん、調査にご協力いただきまして、ありがとうございます';
 $string['time'] = '時間';
 $string['viewsurveyresponses'] = '{$a} 件の調査結果を見る';

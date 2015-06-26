@@ -72,8 +72,7 @@ function xmldb_rcontent_upgrade($oldversion=0) {
         set_config('registersperreportpage', $CFG->rcontent_registersperreportpage, 'rcontent');
         unset_config('rcontent_registersperreportpage');
 
-        $options = array('resizable', 'scrollbars', 'directories', 'location',
-                                 'menubar', 'toolbar', 'status', 'width', 'height');
+        $options = array('scrollbars', 'menubar', 'toolbar', 'status', 'width', 'height');
         foreach ($options as $optionname) {
             $oldoption = "rcontent_popup$optionname";
             $newoption = "popup$optionname";
@@ -82,6 +81,43 @@ function xmldb_rcontent_upgrade($oldversion=0) {
         }
 
         upgrade_mod_savepoint(true, 2014111101, 'rcontent');
+    }
+
+    if ($oldversion < 2015050800) {
+
+        // Define field introformat to be added to jclic
+        $table = new xmldb_table('rcontent');
+        $field = new xmldb_field('summary', XMLDB_TYPE_TEXT, 'small', null, null, null, null, 'name');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->rename_field($table, $field, 'intro');
+        }
+
+        $field = new xmldb_field('introformat');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '4', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, '0', 'intro');
+
+        // Launch add field introformat
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // conditionally migrate to html format in intro
+        if ($CFG->texteditors !== 'textarea') {
+            $rs = $DB->get_recordset('rcontent', array('introformat' => FORMAT_MOODLE), '', 'id, intro, introformat');
+            foreach ($rs as $f) {
+                $f->intro       = text_to_html($f->intro, false, false, true);
+                $f->introformat = FORMAT_HTML;
+                $DB->update_record('rcontent', $f);
+                upgrade_set_timeout();
+            }
+            $rs->close();
+        }
+
+        $frame = get_config('rcontent', 'frametype');
+        $frame = $frame ? 'checked' : '';
+        set_config('frame', $frame, 'rcontent');
+        unset_config('frametype', 'rcontent');
+
+        upgrade_mod_savepoint(true, 2015050800, 'rcontent');
     }
 
 

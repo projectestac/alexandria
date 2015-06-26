@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'blog', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,7 +35,7 @@ $string['association'] = 'Associació';
 $string['associations'] = 'Associacions';
 $string['associationunviewable'] = 'Aquesta entrada no podrà ser vista per altres fins que li associeu un curs o que canvieu el camp \'Publica a\'';
 $string['autotags'] = 'Afegeix aquestes etiquetes';
-$string['autotags_help'] = 'Introduïu una o més etiquetes locals (separades per comes) que vulgueu afegir automàticament a cada entrada del blog copiada des del blog extern, cap al teu blog.';
+$string['autotags_help'] = 'Introduïu una o més etiquetes locals (separades per comes) que vulgueu afegir automàticament a cada entrada del blog copiada des del blog extern, cap al vostre blog.';
 $string['backupblogshelp'] = 'Si habiliteu aquesta opció els blogs s\'inclouran en les còpies de seguretat automàtiques del lloc.';
 $string['blockexternalstitle'] = 'Blogs externs';
 $string['blocktitle'] = 'Títol del bloc d\'etiquetes dels blogs';
@@ -87,6 +87,8 @@ $string['entrybodyonlydesc'] = 'Descripció de l\'entrada';
 $string['entryerrornotyours'] = 'Aquesta entrada no és vostra';
 $string['entrysaved'] = 'S\'ha desat la vostra entrada';
 $string['entrytitle'] = 'Títol de l\'entrada';
+$string['eventblogassociationadded'] = 'S\'ha creat l\'associació de bitàcoles';
+$string['eventblogentriesviewed'] = 'Entrades de bitàcola visualitzades';
 $string['evententryadded'] = 'S\'ha afegit l\'entrada al blog';
 $string['evententrydeleted'] = 'S\'ha suprimida l\'entrada del blog';
 $string['evententryupdated'] = 'S\'ha actualitzat aquesta entrada';
@@ -106,7 +108,7 @@ $string['groupblogs'] = 'Usuaris que sols poden veure blogs de gent que comparte
 $string['incorrectblogfilter'] = 'S\'ha especificat un tipus incorrecte de filtre del blog';
 $string['intro'] = 'Aquest canal RSS ha estat generat automàticament a partir d\'un o més blogs.';
 $string['invalidgroupid'] = 'ID de grup invàlid';
-$string['invalidurl'] = 'la URL és inaccessible';
+$string['invalidurl'] = 'L\'URL és inaccessible';
 $string['linktooriginalentry'] = 'Enllaça a l\'entrada del blog original';
 $string['maxexternalblogsperuser'] = 'Nombre màxim de blogs externs per usuari';
 $string['name'] = 'Nom';

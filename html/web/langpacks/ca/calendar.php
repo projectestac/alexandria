@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'calendar', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   calendar
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -63,12 +63,18 @@ $string['errorbadsubscription'] = 'No s\'ha trobat la subscripció al calendari.
 $string['errorbeforecoursestart'] = 'No es pot definir l\'esdeveniment abans de la data d\'inici del curs';
 $string['errorcannotimport'] = 'No podeu configurar en aquest moment la subscripció a un calendari.';
 $string['errorinvaliddate'] = 'La data no és vàlida';
-$string['errorinvalidicalurl'] = 'La URL iCal no és vàlida.';
+$string['errorinvalidicalurl'] = 'L\'URL iCal no és vàlid.';
 $string['errorinvalidminutes'] = 'Especifiqueu la durada en minuts (entre 1 i 999).';
 $string['errorinvalidrepeats'] = 'Especifiqueu el nombre d\'esdeveniments (entre 1 i 999).';
 $string['errornodescription'] = 'La descripció és necessària';
 $string['errornoeventname'] = 'El nom és necessari';
 $string['errorrequiredurlorfile'] = 'Per a importar un calendari es requereixen un URL o un fitxer.';
+$string['errorrrule'] = 'La regla passada sembla incorrecta';
+$string['errorrruleday'] = 'La regla té un paràmetre de dia no vàlid';
+$string['errorrrulefreq'] = 'La regla té un paràmetre de freqüència no vàlid';
+$string['eventcalendareventcreated'] = 'S\'ha creat un esdeveniment del calendari';
+$string['eventcalendareventdeleted'] = 'S\'ha suprimit un esdeveniment del calendari';
+$string['eventcalendareventupdated'] = 'S\'ha actualitzat un esdeveniment del calendari';
 $string['eventdate'] = 'Data';
 $string['eventdescription'] = 'Descripció';
 $string['eventduration'] = 'Durada';
@@ -118,7 +124,7 @@ $string['importcalendarheading'] = 'S\'està important el calendari...';
 $string['importfromfile'] = 'Fitxer de calendari (*.ics)';
 $string['importfrominstructions'] = 'Proporcioneu l\'URL d\'un calendari remot o pengeu un fitxer.';
 $string['importfromurl'] = 'URL del calendari';
-$string['invalidtimedurationminutes'] = 'La durada en minuts que heu introduït no és vàlida. Si us plau, introduïu un valor més gran de zero o escolliu sense durada.';
+$string['invalidtimedurationminutes'] = 'La durada en minuts que heu introduït no és vàlida. Introduïu un valor major que zero o escolliu sense durada.';
 $string['invalidtimedurationuntil'] = 'La data i hora que heu escollit per l\'hora final és abans de l\'hora inicial. Si us plau, corregiu-ho abans de continuar.';
 $string['iwanttoexport'] = 'Exporta';
 $string['managesubscriptions'] = 'Gestiona les subscripcions';

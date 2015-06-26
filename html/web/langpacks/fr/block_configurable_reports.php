@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_configurable_reports', language 'fr', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_configurable_reports', language 'fr', branch 'MOODLE_28_STABLE'
  *
  * @package   block_configurable_reports
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,12 +29,14 @@ $string['activitypost'] = 'Affichages de l\'activité';
 $string['activityview'] = 'Vues de l\'activité';
 $string['addreport'] = 'Ajouter un rapport';
 $string['anyone'] = 'Tous';
-$string['anyone_summary'] = 'Tous les utilisateurs sur le campus pourront voir ce rapport';
+$string['anyone_summary'] = 'Tous les utilisateurs sur la plateforme pourront voir ce rapport';
 $string['availablemarks'] = 'Marques disponibles';
 $string['average'] = 'Moyenne';
 $string['badconditionexpr'] = 'Expression logique relative à la condition incorrecte';
 $string['badsize'] = 'Dimension incorrecte, devrait être en &#37; ou px';
 $string['badtablewidth'] = 'Largeur incorrecte, devrait être en &#37; ou valeur absolue';
+$string['bar'] = 'Barres';
+$string['barsummary'] = 'Graphique à barres';
 $string['blockname'] = 'Rapports personnalisables';
 $string['calcs'] = 'Calculs';
 $string['categories'] = 'Catégories';
@@ -66,7 +68,7 @@ $string['comp_conditions_help'] = '<p>Ici, vous pouvez définir les conditions (
 <p>Aide supplémentaire : <a href="http://docs.moodle.org/en/blocks/configurable_reports/" target="_blank">Documentation du module d\'extension</a></p>';
 $string['comp_customsql'] = 'Rapport SQL personnalisé';
 $string['comp_customsql_help'] = '<p>Ajouter une requête SQL active. N\'utilisez pas le préfixe de la base de données moodle $CFG->prefix; à la place utilisez "prefix_" sans les guillemets.</p>
-<p>Example: SELECT * FROM prefix_course</p>
+<p>Exemple : SELECT * FROM prefix_course</p>
 
 <p>Vous trouverez beaucoup de rapports SQL sous : <a href="http://docs.moodle.org/en/blocks/configurable_reports/" target="_blank">Rapports ad-hoc contribués</a></p>
 
@@ -150,7 +152,22 @@ $string['custom'] = 'Personnalisé';
 $string['customdateformat'] = 'Format de date personnalisé';
 $string['customsql'] = 'Rapport SQL personnalisé';
 $string['datatables'] = 'Autoriser la librairie JS DataTables';
+$string['datatables_emptytable'] = 'Pas de données disponibles dans le tableau';
+$string['datatables_first'] = 'Premier';
 $string['datatablesinfo'] = 'Librairie JS DataTables (tri des colonnes, entête fixe, recherche, pagination...)';
+$string['datatables_info'] = 'Affichage des entrées START_to_END_of_TOTAL';
+$string['datatables_infoempty'] = 'Affichage des entrées 0 to 0 of 0';
+$string['datatables_infofiltered'] = '(filtré depuis les entrées MAX_total)';
+$string['datatables_last'] = 'Dernier';
+$string['datatables_lengthmenu'] = 'Affichage des entrées MENU';
+$string['datatables_loadingrecords'] = 'Chargement...';
+$string['datatables_next'] = 'Suivant';
+$string['datatables_previous'] = 'Précédent';
+$string['datatables_processing'] = 'Traitement en cours...';
+$string['datatables_search'] = 'Recherche :';
+$string['datatables_sortascending'] = ' : activer le tri croissant de la colonne';
+$string['datatables_sortdescending'] = ' : activer le tri décroissant de la colonne';
+$string['datatables_zerorecords'] = 'Aucun enregistrement correspondant trouvé';
 $string['date'] = 'Date';
 $string['dateformat'] = 'Format de la date';
 $string['dbhost'] = 'Hôte BDD';
@@ -208,7 +225,8 @@ $string['filters'] = 'Filtres';
 $string['filter_searchtext'] = 'Chercher le texte';
 $string['filter_searchtext_summary'] = 'Filtre de texte libre';
 $string['filtersemester'] = 'Semestre (Hébreu)';
-$string['filtersemester_summary'] = '';
+$string['filtersemester_list'] = 'Printemps, Été, Automne, Hiver';
+$string['filtersemester_summary'] = 'Permet de filtrer au niveau des semestres (par exemple Printemps, Été, Automne, Hiver)';
 $string['filterstartendtime_summary'] = 'Filtre date de début ou de fin';
 $string['filtersubcategories'] = 'Catégorie (incluant les sous catégories)';
 $string['filtersubcategories_summary'] = 'Utililiser: %%FILTER_CATEGORIES:mdl_course_category.path%%';
@@ -221,12 +239,13 @@ $string['filteryearhebrew_summary'] = 'Le filtre utilise le calendrier hébreux 
 $string['filteryearnumeric'] = 'Année (numérique)';
 $string['filteryearnumeric_summary'] = 'Le filtre utilise des années numériques (2013...)';
 $string['filteryears'] = 'Année (numérique)';
-$string['filteryears_list'] = '2010,2011,2012,2013,2014,2015';
+$string['filteryears_list'] = '2010, 2011, 2012, 2013, 2014, 2015';
 $string['filteryears_summary'] = 'Filtrer par années (représentation numérique : 2013...)';
 $string['finalgradeincurrentcourse'] = 'Note finale dans le cours actuel';
 $string['fixeddate'] = 'Date fixes';
 $string['footer'] = 'Bas de page';
 $string['forcemidnight'] = 'Forcer plage horaire à minuit';
+$string['fsearchuserfield'] = 'Boîte de recherche du champ Utilisateur';
 $string['fuserfield'] = 'Filtre du champ Utilisateur';
 $string['global'] = 'Rapport global';
 $string['global_help'] = 'Le rapport global peut être accessible à partir de n\'importe quel cours dans la plate-forme juste ajoutant & courseid=MY_COURSE_ID dans le rapport URL';
@@ -240,7 +259,8 @@ $string['includesubcats'] = 'Inclure les sous-catégories';
 $string['jsordering'] = 'Tri JavaScript';
 $string['jsordering_help'] = 'La fonction de tri de JavaScript vous permet de trier le tableau du rapport sans avoir à recharger la page';
 $string['lastexecutiontime'] = 'Temps d\'exécution = {$a} (Sec)';
-$string['legacylognotenabled'] = '';
+$string['legacylognotenabled'] = 'Les historiques obsolètes doivent être activés.
+Aller dans Administration du site / Plugins / Historiques / Historiques obsolètes et activer l\'enregistrement des données dans la table obsolète';
 $string['line'] = 'Graphique linéaire';
 $string['linesummary'] = 'Un graphique linéaire avec plusieurs séries de données';
 $string['listofsqlreports'] = '<a href="http://docs.moodle.org/en/ad-hoc_contributed_reports" target="_blank">Liste des rapports SQL contribués</a>';
@@ -284,6 +304,9 @@ $string['puserfield'] = 'Valeur du champ Utilisateur';
 $string['puserfield_summary'] = 'Utilisateur avec la valeur sélectionnée dans le champ sélectionné';
 $string['queryfailed'] = 'Échec de la requête';
 $string['querysql'] = 'Requête SQL';
+$string['remote'] = 'Exécution sur une base de données à distance';
+$string['remotedescription'] = 'Voulez-vous lancer la recherche dans la base de données à distance';
+$string['remote_help'] = 'Voulez-vous lancer la recherche dans la base de données à distance';
 $string['remotequerysql'] = 'Requête SQL';
 $string['report'] = 'Rapport';
 $string['reportcategories'] = '1) Choisissez une catégorie de rapports distant';
@@ -302,6 +325,7 @@ $string['reporttable'] = 'Tableau du rapport';
 $string['reporttable_help'] = '<p>Il s\'agit de la largeur du tableau qui affiche les enregistrements du rapport.</p>
 
 <p>Si vous utilisez un modèle, cette option n\'a pas d\'effet.</p>';
+$string['reporttableui'] = 'Interface du tableau des rapports';
 $string['reporttableuiinfo'] = 'Afficher le rapport comme : simple tableau HTML déroulant , jQuery avec tri de colonne ou une bibliothèque DataTables JS (tri par colonne , titre défini , recherche , pagination ... )';
 $string['report_timeline'] = 'Rapport de la ligne du temps';
 $string['report_users'] = 'Rapport sur les utilisateurs';

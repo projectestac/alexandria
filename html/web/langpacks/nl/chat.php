@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'nl', branch 'MOODLE_26_STABLE'
+ * Strings for component 'chat', language 'nl', branch 'MOODLE_28_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,9 +62,8 @@ $string['donotusechattime'] = 'Publiceer geen chattijden';
 $string['enterchat'] = 'Klik hier om de chat nu binnen te gaan';
 $string['entermessage'] = 'Geef je bericht';
 $string['errornousers'] = 'Kon geen gebruikers vinden!';
-$string['event_instances_list_viewed'] = 'Instantielijst bekeken';
-$string['event_message_sent'] = 'Bericht verzonden';
-$string['event_sessions_viewed'] = 'Sessies bekeken';
+$string['eventmessagesent'] = 'Bericht verzonden';
+$string['eventsessionsviewed'] = 'Sessies bekeken';
 $string['explaingeneralconfig'] = 'Deze instellingen worden <strong>altijd</strong> gebruikt';
 $string['explainmethoddaemon'] = 'Deze instellingen worden <strong>alleen maar</strong> gebruikt als je de "Chat server daemon" gekozen hebt bij chat_method';
 $string['explainmethodnormal'] = 'Deze instellingen worden <strong>alleen maar</strong> gebrukt als je "Normale methode" gekozen hebt bij chat_method';

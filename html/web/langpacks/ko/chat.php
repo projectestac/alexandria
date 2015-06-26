@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'ko', branch 'MOODLE_26_STABLE'
+ * Strings for component 'chat', language 'ko', branch 'MOODLE_28_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,6 +62,8 @@ $string['donotusechattime'] = '대화 내용 비공개';
 $string['enterchat'] = '대화에 참여하려면 여기를 클릭!';
 $string['entermessage'] = '메세지를 입력하세요.';
 $string['errornousers'] = '어떤 사용자도 찾을 수 없음!';
+$string['eventmessagesent'] = '메세지 보냄';
+$string['eventsessionsviewed'] = '세션 봄';
 $string['explaingeneralconfig'] = '이 설정들은 <strong>항상</strong> 사용';
 $string['explainmethoddaemon'] = 'chat_method로 "채팅서버"를 선택하였을 때만 작동';
 $string['explainmethodnormal'] = 'chat_method로 "일반 방법"을 선택하였을 때만 작동';

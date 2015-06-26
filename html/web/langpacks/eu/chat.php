@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'chat', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -44,7 +44,7 @@ $string['chat:talk'] = 'Txatean hitz egin';
 $string['chattime'] = 'Hurrengo txat-saioaren ordua';
 $string['compact'] = 'Trinkoa';
 $string['composemessage'] = 'Idatzi mezua';
-$string['configmethod'] = 'Txataren ohiko metodoan erabiltzaileek aldiro konektatzen dute zerbitzariarekin eguneraketak egiteko. Ez du konfiguraziorik behar eta edonon funtzionatzen du baina zerbitzaria gainkarga dezake gelan erabiltzaile asko aldi berean ari badira. \'Daemon\'a erabiltzeak (bigarren mailako egikaritza-prozesu independentea)Unixerako sheell (komando-interpretaria) sarbidea eskatzen du, baina txat-giro arinago eta lorgarriagoa ematen du.';
+$string['configmethod'] = 'Ajax bidezko txat metodoak ajax bidezko interfazea eskaintzen du, eta zerbitzariarekin aldiro konektatzen da eguneratzeko. Txataren ohiko metodoan erabiltzaileek aldiro konektatzen dute zerbitzariarekin eguneraketak egiteko. Ez du konfiguraziorik behar eta edonon funtzionatzen du baina zerbitzaria gainkarga dezake gelan erabiltzaile asko aldi berean ari badira. \'Daemon\'a erabiltzeak (bigarren mailako egikaritza-prozesu independentea) Unixerako shell (komando-interpretaria) sarbidea eskatzen du, baina txat-giro arinago eta lorgarriagoa ematen du.';
 $string['confignormalupdatemode'] = 'HTTP 1.1ren <em>Keep-Alive</em> ezaugarria erabilita zerbitzatzen dira normalean txat-gelaren eguneraketak baina zerbitzariarentzat nahikoa gogorra da lan hau. Erabiltzaileei eguneraketak bidaltzeko metodo aurreratuagoa da <em>Stream</em> estrategia erabiltzea. <em>Stream</em> erabilita eskalamendu hobea lortzen da (chatd metodoaren antzekoa da) baina agian zure zerbitzariak ez du onartuko aukera hau.';
 $string['configoldping'] = 'Jarduerarik gabe zenbat denbora (segundutan) igarota pentsatu behar da erabiltzaileak utzi egin duela?';
 $string['configrefreshroom'] = 'Zenbat segunduro eguneratu behar da txataren orria? Balore baxuak elkarrizketa arinagoa ahalbidetuko du baina zerbitzariarentzat karga handia izan daiteke gelan lagun asko dagoenean.';
@@ -62,6 +62,8 @@ $string['donotusechattime'] = 'Ez argitaratu txat-saioetarako orduak';
 $string['enterchat'] = 'Sakatu hemen txat-gelara sartzeko';
 $string['entermessage'] = 'Idatzi zure mezua';
 $string['errornousers'] = 'Ezin topatu erabiltzailerik!';
+$string['eventmessagesent'] = 'Mezua bidali da';
+$string['eventsessionsviewed'] = 'Saioak ikusi dira';
 $string['explaingeneralconfig'] = 'Ezarpen hauek <strong>beti</strong> daude indarrean';
 $string['explainmethoddaemon'] = 'Egokitzapen hauek chat_method -en "Daemon txat zerbitzaria" aukeratu baduzu <strong>bakarrik</strong> daude indarrean';
 $string['explainmethodnormal'] = 'Egokitzapen hauek chat_method -en "Metodo arrunta" aukeratu baduzu <strong>bakarrik</strong> daude indarrean';
@@ -139,22 +141,19 @@ $string['updatemethod'] = 'Metodoa eguneratu';
 $string['updaterate'] = 'Eguneratu kalifikazioa:';
 $string['userlist'] = 'Erabiltzaile-zerrenda';
 $string['usingchat'] = 'Txata erabili';
-$string['usingchat_help'] = 'Txatean ondorengo baliabideak erabil ditzakegu modu atseginean hitz egiteko.</p>
-
-*Aurpegierak</b></dt>
-<dd>Aurpegiera guztiak automatikoki bihurtuko dira grafiko deskriptiboago.  Adibidez: :-) = <img src="pix/s/smiley.gif"> </dd>
-
-*Estekak</b></dt>
-Internet helbideak automatikoki bihurtuko dira esteka.</dd>
-
-*Emozioak</b></dt>
-Lerro bat "/me" edo ":" -rekin has dezakezu emozio bat erakusteko. Adibidez, Ana baduzu izena eta ": irribartsu dago"  idazten baduzu, denek ikusiko dute "Ana irribartsu dago"</dd>
-
-*Beeps-ak</b></dt>
-Beste pertsona bati txistua bidali ahal diozu izenaren ondoko "beep" estekan sakatuta. Txateko beste pertsona bati abisua emateko erabil dezakegu eta gu han gaudela ohartarazteko. Txat-saioko  partaide guztiei ere egin ahal diezu beep-a "beep all" idatzita.</dd>
-
-*HTML</b></dt>
+$string['usingchat_help'] = '<p>Txatean ondorengo baliabideak erabil ditzakegu modu atseginean hitz
+egiteko.</p>
+<dl>
+<dt><b>Aurpegierak</b></dt>
+<dd>Aurpegiera guztiak automatikoki bihurtuko dira grafiko deskriptiboago.  Adibidez: :-) = <img src="pix/s/smiley.gif">
+</dd>
+<dt><b>Estekak</b></dt>
+<dd>Internet helbideak automatikoki bihurtuko dira esteka.</dd>
+<dt><b>Emozioak</b></dt>
+<dd>Lerro bat "/me" edo ":" -rekin has dezakezu emozio bat erakusteko. Adibidez, Ana baduzu izena eta ": irribartsu dago"  idazten baduzu, denek ikusiko dute "Ana irribartsu dago"</dd>
+<dt><b>Beeps-ak</b></dt>
+<dd>Beste pertsona bati txistua bidali ahal diozu izenaren ondoko "beep" estekan sakatuta. Txateko beste pertsona bati abisua emateko erabil dezakegu eta gu han gaudela ohartarazteko. Txat-saioko  partaide guztiei ere egin ahal diezu beep-a "beep all" idatzita.</dd>
+<dt><b>HTML</b></dt>
 Zure testuan HTML lengoaia erabil dezakezu irudiak txertatzeko, soinuak eragiteko edo testuari formatua emateko, beste aukeren artean.</dd>
-
-';
+</dl>';
 $string['viewreport'] = 'Izan diren txat-saioak ikusi';

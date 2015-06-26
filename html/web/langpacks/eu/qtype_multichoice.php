@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_multichoice', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'qtype_multichoice', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   qtype_multichoice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['answerhowmany'] = 'Erantzun bakarra ala anitza?';
-$string['answernumbering'] = 'Aukerak numeratu?';
+$string['answernumbering'] = 'Aukerak zenbatu?';
 $string['answernumbering123'] = '1., 2., 3., ...';
 $string['answernumberingabc'] = 'a., b., c., ...';
 $string['answernumberingABCD'] = 'A., B., C., ...';
@@ -42,10 +42,11 @@ $string['correctansweris'] = 'Erantzun zuzena ondokoa da: {$a}';
 $string['correctfeedback'] = 'Edozein erantzun zuzenetarako';
 $string['errfractionsaddwrong'] = 'Aukeratutako kalifikazio positiboak ez dira % 100era iristen<br />%{$a} -ra bakarrik iristen dira.';
 $string['errfractionsnomax'] = 'Erantzunetako batek % 100 izan beharko luke eta horrela <br />posible izango litzateke galdera honetako gehienezko puntuazioa lortzea.';
+$string['errgradesetanswerblank'] = 'Kalifikazioa ezarrita, baina Erantzuna hutsik dago';
 $string['feedback'] = 'Feedbacka';
 $string['fillouttwochoices'] = 'Gutxienez bi aukera bete behar dituzu. Hutsik utzitako  aukerak ez dira erabiliko.';
 $string['fractionsaddwrong'] = 'Aukeratu dituzun gradu positiboak gehituta ez da iristen %100ra. <br/>{$a}%ra soilik iristen da.<br/> Nahi al duzu atzera jo eta galdera hau egokitu?';
-$string['fractionsnomax'] = 'Erantzunetako bat %100 izan behar du, <br/>honela eskura daiteke maila altuena galdera honentzat. <br />Nahi al duzu atzera jo eta galdera hau egokitu?';
+$string['fractionsnomax'] = 'Erantzunetako batek %100 izan behar du, <br/>galderaren kalifikazio maila altuena lortu ahal izateko.<br /> Nahi al duzu atzera jo eta galdera hau egokitu?';
 $string['incorrectfeedback'] = 'Edozein erantzun okerretarako';
 $string['notenoughanswers'] = 'Galdera-mota honek gutxienez {$a} erantzun behar ditu.';
 $string['overallcorrectfeedback'] = 'Erantzun zuzenerako feedbacka';
@@ -63,5 +64,6 @@ $string['pluginnamesummary'] = 'Baimendu erantzun bakarra edo anitza aurrez defi
 $string['selectmulti'] = 'Aukera ezazu bat edo gehiago:';
 $string['selectone'] = 'Aukera ezazu bat:';
 $string['shuffleanswers'] = 'Aukerak nahastu?';
+$string['shuffleanswers_help'] = 'Gaituz gero, saiakera bakoitzean erantzunak ausaz ordenatzen dirak, betiere galdetegiaren ezarpenetako "Galderen barruan nahastu" ezarpenean "Bai" ezarrita badago.';
 $string['singleanswer'] = 'Aukera ezazu erantzun bat.';
 $string['toomanyselected'] = 'Aukera gehiegi hautatu dituzu.';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_configurable_reports', language 'en', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_configurable_reports', language 'en', branch 'MOODLE_28_STABLE'
  *
  * @package   block_configurable_reports
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,6 +35,8 @@ $string['average'] = 'Average';
 $string['badconditionexpr'] = 'Incorrect condition expression';
 $string['badsize'] = 'Incorrect size, it must be in &#37; or px';
 $string['badtablewidth'] = 'Incorrect width, it must be in &#37; or absolute value';
+$string['bar'] = 'Bar';
+$string['barsummary'] = 'A bar graph';
 $string['blockname'] = 'Configurable Reports';
 $string['calcs'] = 'Calculations';
 $string['categories'] = 'Categories';
@@ -136,7 +138,7 @@ $string['cron'] = 'Auto run daily';
 $string['crondescription'] = 'Schedule this query to run each day (At night)';
 $string['cron_help'] = 'Schedule this query to run each day (At night)';
 $string['crrepository'] = 'Reports repository';
-$string['crrepositoryinfo'] = 'Remote shared repository with sample reports fully functional';
+$string['crrepositoryinfo'] = 'Remote shared repository with sample reports fully functional (Name of GitHub account owner + slash + repository name)';
 $string['currentreportcourse'] = 'Current report course';
 $string['currentreportcourse_summary'] = 'The course where the report has been created';
 $string['currentuser'] = 'Current user';
@@ -150,7 +152,22 @@ $string['custom'] = 'Custom';
 $string['customdateformat'] = 'Custom date format';
 $string['customsql'] = 'Custom SQL';
 $string['datatables'] = 'Enable DataTables JS library';
+$string['datatables_emptytable'] = 'No data available in table';
+$string['datatables_first'] = 'First';
 $string['datatablesinfo'] = 'DataTables JS library (Column sort, fixed header, search, paging...)';
+$string['datatables_info'] = 'Showing _START_ to _END_ of _TOTAL_ entries';
+$string['datatables_infoempty'] = 'Showing 0 to 0 of 0 entries';
+$string['datatables_infofiltered'] = '(filtered from _MAX_ total entries)';
+$string['datatables_last'] = 'Last';
+$string['datatables_lengthmenu'] = 'Show _MENU_ entries';
+$string['datatables_loadingrecords'] = 'Loading...';
+$string['datatables_next'] = 'Next';
+$string['datatables_previous'] = 'Previous';
+$string['datatables_processing'] = 'Processing...';
+$string['datatables_search'] = 'Search:';
+$string['datatables_sortascending'] = ': activate to sort column ascending';
+$string['datatables_sortdescending'] = ': activate to sort column descending';
+$string['datatables_zerorecords'] = 'No matching records found';
 $string['date'] = 'Date';
 $string['dateformat'] = 'Date format';
 $string['dbhost'] = 'DB Host';
@@ -229,18 +246,25 @@ $string['finalgradeincurrentcourse'] = 'Final grade in current course';
 $string['fixeddate'] = 'Fixed date';
 $string['footer'] = 'Footer';
 $string['forcemidnight'] = 'Force midnight';
+$string['fsearchuserfield'] = 'User field search box';
 $string['fuserfield'] = 'User field filter';
 $string['global'] = 'Global report';
 $string['global_help'] = 'Global report can be accessed from any course in the platform just appending &courseid=MY_COURSE_ID in the report URL';
 $string['globalstatsshouldbeenabled'] = 'Site statistics must be enabled. Go to Admin -> Server -> Statistics';
 $string['groupseries'] = 'Group series';
 $string['groupvalues'] = 'Group same values (sum)';
+$string['head_color'] = 'Graph background color';
+$string['head_data'] = 'Graph data';
 $string['header'] = 'Header';
+$string['head_size'] = 'Graph size';
+$string['height'] = 'Height';
 $string['importfromrepository'] = 'Import report from repository';
 $string['importreport'] = 'Import report';
 $string['includesubcats'] = 'Include subcategories';
 $string['jsordering'] = 'JavaScript Ordering';
 $string['jsordering_help'] = 'JavaScript Ordering allow you to order the report table without reloading the page';
+$string['label_field'] = 'Label field';
+$string['label_field_help'] = 'The field that provides names for the things represented in the graph';
 $string['lastexecutiontime'] = 'Execution time = {$a} (Sec)';
 $string['legacylognotenabled'] = 'Legacy logs must be enabled.
  Go to Site administration / Plugins / Logging Enable the Legacy log and inside the log settings check Log legacy data';
@@ -328,7 +352,7 @@ $string['setcourseid'] = 'Set courseid';
 $string['sharedsqlrepository'] = 'Shared sql repository';
 $string['sharedsqlrepositoryinfo'] = 'Name of GitHub account owner + slash + repository name';
 $string['sqlsecurity'] = 'SQL Security';
-$string['sqlsecurityinfo'] = 'Disable for executing SQL queries with statements for inserting data (GitHub account owner + slash + repository name)';
+$string['sqlsecurityinfo'] = 'Disable for executing SQL queries with statements for inserting data';
 $string['sqlsyntaxhighlight'] = 'Highlight SQL syntax';
 $string['sqlsyntaxhighlightinfo'] = 'Highlight SQL syntax in code editor (CodeMirror JS library)';
 $string['startendtime'] = 'Start / End date filter';
@@ -383,7 +407,10 @@ $string['usersincurrentcourse'] = 'Users in current report course';
 $string['usersincurrentcourse_summary'] = 'Users with the role/s selected in the report course';
 $string['userstats'] = 'User statistics';
 $string['value'] = 'Value';
+$string['value_fields'] = 'Value fields';
+$string['value_fields_help'] = 'Fields that should be represented in the graph. Ctrl+click (Cmd+click on Mac) to select multiple. If you select the Label field or a field with non-numeric values it will be ignored';
 $string['viewreport'] = 'View report';
+$string['width'] = 'Width';
 $string['xaxis'] = 'X Axis';
 $string['yaxis'] = 'Y Axis';
 $string['yearhebrew'] = 'Year (Hebrew)';

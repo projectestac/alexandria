@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'license', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'license', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   license
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,6 +31,6 @@ $string['cc-nc'] = 'Creative Commons - EzKomertziala';
 $string['cc-nc-nd'] = 'Creative Commons - Aitortu-EzKomertziala-LanEratorririkGabe';
 $string['cc-nc-sa'] = 'Creative Commons - Aitortu-EzKomertziala-PartekatuBerdin';
 $string['cc-nd'] = 'Creative Commons - Aitortu-LanEratorririkGabe';
-$string['cc-sa'] = 'Creative Commons - ShareAlike';
+$string['cc-sa'] = 'Creative Commons - PartekatuBerdin';
 $string['public'] = 'Domeinu publikoa';
 $string['unknown'] = 'Bestelako bat';

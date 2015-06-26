@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'auth', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   auth
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -39,7 +39,7 @@ $string['authenticationoptions'] = 'Autentifikazio-aukerak';
 $string['auth_fieldlock'] = 'Balorea bloketau';
 $string['auth_fieldlock_expl'] = '<p><b>Balorea blokeatu:</b> Ezarriz gero, Moodle-ko erabiltzaile eta kudeatzaileek ezingo dute eremua zuzenean editatu. Aukeratu hau hautatu datu horiek kanpoko autentifikazio-sisteman badituzu. </p>';
 $string['auth_fieldlocks'] = 'Erabiltzaile-eremuak blokeatu';
-$string['auth_fieldlocks_help'] = '<p>Erabiltzaileen datu-eremuak blokea ditzakezu, kudeatzaileek datuok eskuz mantentzen dituzten guneetan bereziki erabilgarria gertatzen dena, erabiltzaileen erregistroak editatuz edo \'Erabiltzaileak igo\' aplikazioaren bidez. Moodle-k behar dituen eremuak blokeatzen badituzu, erabiltzaile-kontuak sortzean datu horiek ematen dituzula ziurtatu &emdash; bestela, kontuak ezingo dira erabili.</p><p>Pentsa ezazu ea \'Hutsik egotekotan desblokeatu\' aukera aktibatu behar duzun arazo hori ebitatzeko.</p>';
+$string['auth_fieldlocks_help'] = '<p>Erabiltzaileen datu-eremuak blokea ditzakezu, kudeatzaileek datuok eskuz mantentzen dituzten guneetan bereziki erabilgarria gertatzen dena, erabiltzaileen erregistroak editatuz edo \'Erabiltzaileak igo\' aplikazioaren bidez. Moodle-k behar dituen eremuak blokeatzen badituzu, erabiltzaile-kontuak sortzean datu horiek ematen dituzula ziurtatu; bestela, kontuak ezingo dira erabili.</p><p>Pentsa ezazu ea \'Hutsik egotekotan desblokeatu\' aukera aktibatu behar duzun arazo hori ebitatzeko.</p>';
 $string['authinstructions'] = 'Hemen zure erabiltzaileentzat argibideak eman ditzakezu, erabili behar duten erabiltzaile-izena eta pasahitza zein diren jakin dezaten. Hemen sartutako testua saio-hasiera pantailan agertuko da. Zurian uzten baduzu, ez da argibiderik emango.';
 $string['auth_invalidnewemailkey'] = 'Errorea: e-posta helbidea aldatzea baieztatu nahian ari bazara, nahastu egingo zinen zure e-postara bidali dugun URL-a kopiatzean. Mesedez, kopiatu helbidea eta saiatu berriz.';
 $string['auth_multiplehosts'] = 'Ostalari anitzak zehaz daitezke (ad. ostalari1.com;ostalari2.com;ostalari3.com) edo (edo a. xxx.xxx.xxx.xxx;xxx.xxx.xxx.xxx)';
@@ -92,7 +92,7 @@ $string['errorminpasswordlower'] = 'Pasahitzak gutxienez {$a} letra xehe izan be
 $string['errorminpasswordnonalphanum'] = 'Pasahitzak gutxienez {$a} karaktere ez alfa-numeriko izan behar ditu.';
 $string['errorminpasswordupper'] = 'Pasahitzak gutxienez {$a} letra larri izan behar ditu.';
 $string['errorpasswordupdate'] = 'Errorea pasahitza eguneratzean, pasahitza ez da aldatu';
-$string['event_user_loggedin'] = 'Erabiltzailea hemen sartu da:';
+$string['eventuserloggedin'] = 'Erabiltzailea hemen sartu da:';
 $string['eventuserloggedinas'] = 'Erabiltzailea beste erabiltzaile bat bezala sartu da';
 $string['forcechangepassword'] = 'Pasahitz aldaketa behartu';
 $string['forcechangepasswordfirst_help'] = 'Erabiltzaileak Moodle-n sartzen diren lehenengoan pasahitza aldatzera behartu.';

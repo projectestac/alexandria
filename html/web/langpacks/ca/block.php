@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   block
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -43,7 +43,7 @@ $string['defaultweight'] = 'Pes per omissió';
 $string['defaultweight_help'] = 'El pes per defecte permet triar aproximadament on voleu que aparegui el bloc dins de la regió, més amunt o més avall. La ubicació definitiva es calcula prenent en consideració tots els blocs que apareguin a la regió. Aquest valor es pot canviar si cal en pàgines específiques.';
 $string['deleteblock'] = 'Suprimeix el bloc {$a}';
 $string['deleteblockcheck'] = 'Esteu segur que voleu suprimir aquest bloc anomenat {$a}?';
-$string['deleteblockwarning'] = '<p> Esteu a punt d\'eliminar un bloc que apareix en un altre lloc. </p><p> Ubicació del bloc original: {$a->location} <br /> Visualització en tipus de pàgines: {$a->pagetype} </p><p> Esteu segur que voleu continuar? </p>';
+$string['deleteblockwarning'] = '<p> Ara eliminareu un bloc que apareix en un altre lloc. </p><p> Ubicació del bloc original: {$a->location} <br /> Visualització en tipus de pàgines: {$a->pagetype} </p><p> Esteu segur que voleu continuar? </p>';
 $string['deletecheck'] = 'Suprimiu el bloc {$a}?';
 $string['dockblock'] = 'Acobla el bloc {$a}';
 $string['hideblock'] = 'Amaga el bloc {$a}';
@@ -52,7 +52,7 @@ $string['hidepanel'] = 'Amaga el tauler';
 $string['moveblock'] = 'Mou el bloc {$a}';
 $string['moveblockafter'] = 'Mou el bloc després del bloc {$a}';
 $string['moveblockbefore'] = 'Mou el bloc abans del del bloc {$a}';
-$string['moveblockhere'] = 'Mou el bloc aquí';
+$string['moveblockinregion'] = 'Mou el bloc a la regió {$a}';
 $string['movingthisblockcancel'] = 'S\'està movent aquest bloc ({$a})';
 $string['onthispage'] = 'En aquesta pàgina';
 $string['pagetypes'] = 'Tipus de pàgina';

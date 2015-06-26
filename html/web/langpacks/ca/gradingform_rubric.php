@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_rubric', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'gradingform_rubric', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   gradingform_rubric
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -51,8 +51,8 @@ $string['name'] = 'Nom';
 $string['needregrademessage'] = 'La definició de la rúbrica ha canviat després que aquest estudiant hagi estat qualificat. L\'estudiant no pot veure aquesta rúbrica malgrat que comproveu la rúbrica i actualitzeu la qualificació.';
 $string['pluginname'] = 'Rúbrica';
 $string['previewrubric'] = 'Previsualitza rúbrica';
-$string['regrademessage1'] = 'Esteu a punt de desar canvis en una rúbrica que ha estat utilitzada per qualificar. Si us plau indiqueu si les qualificacions que ja existeixen s\'han de revisar. Si ho configureu així llavors la rúbrica s\'ocultarà als estudiants llevat que aquests siguin requalificats.';
-$string['regrademessage5'] = 'Esteu a punt de desar canvis en una rúbrica que ha estat utilitzada per qualificar. El quadern de notes no canviarà però la rúbrica s\'ocultarà als estudiants llevat que aquests siguin requalificats.';
+$string['regrademessage1'] = 'Ara desareu canvis en una rúbrica que ha estat utilitzada per a qualificar. Indiqueu si les qualificacions que ja existeixen s\'han de revisar. Si ho configureu així, llavors, la rúbrica s\'ocultarà als estudiants fins que els seus elements es tornin a qualificar.';
+$string['regrademessage5'] = 'Ara desareu canvis en una rúbrica que ha estat utilitzada per a qualificar. El quadern de notes no canviarà, però la rúbrica s\'ocultarà als estudiants fins que els seus elements es tornin a qualificar.';
 $string['regradeoption0'] = 'No marqueu per requalificar';
 $string['regradeoption1'] = 'Marqueu per requalificar';
 $string['restoredfromdraft'] = 'NOTA: El darrer intent per qualificar aquesta persona no ha sigut desat correctament per això les qualificacions en brut han sigut restaurades. Si voleu cancel·lar aquests canvis utilitzeu el botó \'Cancel·la\' de sota.';
@@ -61,7 +61,7 @@ $string['rubricmapping'] = 'Puntuació per qualificar el mapatge de les regles.'
 $string['rubricmappingexplained'] = 'La puntuació mínima per aquesta rúbrica és de <b>{$a->minscore} punts</b> i es
 convertirà en la qualificació mínima disponible per aquest mòdul (la qual és zero llevat que s\'utilitzi l\'escala). <br/>
 La puntuació màxima de <b>{$a->maxscore} punts</b> es convertirà en la qualificació màxima. <br/>
-Les puntuacions intermèdies es convertiran i s\'arredoniran a la qualificació més pròxima. <br/>
+Les puntuacions intermèdies es convertiran i s\'arrodoniran a la qualificació més pròxima. <br/>
 Si una escala s\'usa com a qualificació, la puntuació es convertirà en elements de l\'escala com si fossin nombres enters consecutius.';
 $string['rubricnotcompleted'] = 'Si us plau trieu alguna cosa per cada criteri.';
 $string['rubricoptions'] = 'Opcions de rúbrica';

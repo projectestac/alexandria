@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_guide', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'gradingform_guide', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   gradingform_guide
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -57,7 +57,7 @@ $string['err_nomaxscore'] = 'La puntuació màxima del criteri no pot estar buid
 $string['err_noshortname'] = 'El nom del criteri no pot estar buit';
 $string['err_scoreinvalid'] = 'La puntuació donada a {$a->criterianame} no és vàlida, la puntuació màxima és: {$a->maxscore}';
 $string['gradingof'] = '{$a} qualificació';
-$string['guidemappingexplained'] = 'AVÍS: La guia de qualificació té una qualificació màxima de <b>{$a->maxscore} punts</b> però la qualificació màxima establida en la activitat és {$a->modulegrade} La puntuació màxima establida en la vostra guia de qualificació s\'escalarà a la qualificació màxima del mòdul. <br />
+$string['guidemappingexplained'] = 'AVÍS: La guia de qualificació té una qualificació màxima de <b>{$a->maxscore} punts</b> però la qualificació màxima establerta en l\'activitat és {$a->modulegrade} La puntuació màxima establerta en la vostra guia de qualificació s\'escalarà a la qualificació màxima del mòdul. <br />
 Puntuacions intermèdies es convertiran, respectivament, i s\'arrodoniran a la qualificació més propera disponible.';
 $string['guidenotcompleted'] = 'Proporcioneu una qualificació vàlida per a cada criteri';
 $string['guideoptions'] = 'Opcions de la guia de qualificació';
@@ -69,8 +69,8 @@ $string['name'] = 'Nom';
 $string['needregrademessage'] = 'La definició de la guia de qualificació es va canviar després que aquest estudiant fou qualificat. L\'estudiant no pot veure aquesta guia de qualificació fins que la reviseu i actualitzeu la qualificació.';
 $string['pluginname'] = 'Guia de qualificació';
 $string['previewmarkingguide'] = 'Previsualitza la guia de qualificació';
-$string['regrademessage1'] = 'Esteu a punt de desar els canvis en una guia de qualificació que ja s\'ha emprat per a qualificar. Indiqueu si les qualificacions existents han de ser revisades. Si ho establiu, la guia de qualificació s\'ocultarà a l\'estudiantat fins que els seus elements es tornen a qualificar.';
-$string['regrademessage5'] = 'Esteu a punt de desar canvis significatius en una guia de qualificació que ja s\'ha emprat per a qualificar. El valor en el butlletí de qualificacions serà igual, però la guia de qualificació s\'ocultarà a l\'estudiantat fins que els seus elements es tornen a qualificar.';
+$string['regrademessage1'] = 'Ara desareu els canvis en una guia de qualificació que ja s\'ha emprat per a qualificar. Indiqueu si les qualificacions existents han de ser revisades. Si ho establiu, la guia de qualificació s\'ocultarà als estudiants fins que els seus elements es tornin a qualificar.';
+$string['regrademessage5'] = 'Ara desareu canvis significatius en una guia de qualificació que ja s\'ha emprat per a qualificar. El valor en el butlletí de qualificacions serà igual, però la guia de qualificació s\'ocultarà al estudiants fins que els seus elements es tornin a qualificar.';
 $string['regradeoption0'] = 'No marqueu per requalificar';
 $string['regradeoption1'] = 'Marqueu per requalificar';
 $string['restoredfromdraft'] = 'AVÍS: L\'últim intent de qualificar aquesta persona no s\'ha desat correctament, per tant, s\'ha restaurat l\'esborrany de qualificacions. Si voleu cancel·lar els canvis, utilitzeu el botó \'Cancel·lar\' a continuació.';

@@ -20,7 +20,6 @@ class script_enable_service extends agora_script_base{
         $params['clientAddress'] = optional_param('clientAddress', false, PARAM_TEXT);
         $params['clientCity'] = optional_param('clientCity', false, PARAM_TEXT);
         $params['clientDNS'] = optional_param('clientDNS', false, PARAM_TEXT);
-        $params['clientId'] = optional_param('clientId', false, PARAM_TEXT);
         return $params;
     }
 
@@ -49,6 +48,9 @@ class script_enable_service extends agora_script_base{
         set_user_preference('auth_forcepasswordchange', 1, $adminuser);
         mtrace('Usuari admin configurat', '<br/>');
 
+        // Upgrade Moodle
+        $success = $this->execute_suboperation('restore_xtecadmin');
+
         // Update site name and site description
         $maincourse = $DB->get_record('course', array('id' => SITEID));
         if (!$maincourse) {
@@ -61,18 +63,6 @@ class script_enable_service extends agora_script_base{
         $DB->update_record('course', $maincourse);
         mtrace('Curs principal configurat', '<br/>');
 
-        // Update the cookie name
-        set_config('sessioncookie', 'moodle'.$params['clientId']);
-        mtrace('Cookie de sessió configurada', '<br/>');
-
-        // Extra settings
-        $value = 'wrap,formatselect,wrap,bold,italic,wrap,bullist,numlist,wrap,hr,wrap,link,unlink,wrap,anchor,wrap,image
-
-undo,redo,wrap,underline,strikethrough,sub,sup,wrap,justifyleft,justifycenter,justifyright,wrap,outdent,indent,wrap,forecolor,backcolor,wrap,ltr,rtl,wrap,nonbreaking,charmap,table
-
-fontselect,fontsizeselect,code,search,replace,wrap,cleanup,removeformat,pastetext,pasteword,wrap,fullscreen';
-
-        set_config('customtoolbar', $value, 'editor_tinymce');
         mtrace('Canviat barra de l\'editor HMTL', '<br/>');
 
         filter_set_global_state('filter/tex', TEXTFILTER_ON);
@@ -88,17 +78,19 @@ fontselect,fontsizeselect,code,search,replace,wrap,cleanup,removeformat,pastetex
         $rcommonlogdir = get_admin_datadir_folder();
         set_config('data_store_log', $rcommonlogdir, 'rcommon');
 
-        // Upgrade Moodle
-        require_once('script_upgrade_moodle.class.php');
-        $script = new script_upgrade_moodle();
-        $success = $script->execute(array());
-
-        if ($success) {
-            // Autoregister Moodle
-            require_once('script_moodle_register.class.php');
-            $script = new script_moodle_register();
-            $script->execute(array('disable' => 0));
+        // Solve error on Upgrade Bigdata
+        if (!$DB->get_manager()->table_exists('bigdata_profiles')) {
+            unset_config('version', 'local_bigdata');
         }
+
+        // Upgrade Moodle
+        $success = $this->execute_suboperation('upgrade_moodle');
+
+        /*if ($success) {
+            // Autoregister Moodle
+            $this->execute_suboperation('moodle_register', array('disable' => 0));
+        }*/
+
 
         purge_all_caches();
         return $success;

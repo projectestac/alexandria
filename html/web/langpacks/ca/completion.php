@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'completion', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -55,7 +55,7 @@ $string['completion-alt-manual-n'] = 'Incomplet: {$a}. Seleccioneu-lo per marcar
 $string['completion-alt-manual-y'] = 'Completat: {$a}. Seleccioneu-lo per marcar-ho com a incomplet.';
 $string['completion_automatic'] = 'Mostra l\'activitat com completada si es compleixen les condicions';
 $string['completiondefault'] = 'Valor per defecte del seguiment de compleció';
-$string['completiondisabled'] = 'Deshabilitada, no ho mostreu als paràmetres de l\'activitat';
+$string['completiondisabled'] = 'Inhabilitada, no ho mostreu als paràmetres de l\'activitat';
 $string['completionduration'] = 'Inscripció';
 $string['completionenabled'] = 'Habilitada, control mitjançant compleció i paràmetres de l\'activitat';
 $string['completionexpected'] = 'S\'espera que es completi el';
@@ -134,7 +134,7 @@ $string['excelcsvdownload'] = 'Descarrega en format compatible amb Excel (.csv)'
 $string['fraction'] = 'Fracció';
 $string['graderequired'] = 'Qualificació del curs requerida';
 $string['gradexrequired'] = '{$a} requerit';
-$string['inprogress'] = 'En progrés';
+$string['inprogress'] = 'En curs';
 $string['manualcompletionby'] = 'Compleció manual per altres';
 $string['manualcompletionbynote'] = 'Avís: Per tal que aparegui a la llista, la capacitat moodle/course:markcomplete s\'ha de permetre per algun rol';
 $string['manualselfcompletion'] = 'Auto-compleció manual';

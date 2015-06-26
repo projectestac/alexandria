@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'feedback', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'feedback', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   feedback
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -113,15 +113,13 @@ $string['emailteachermail'] = '{$a->username} がフィードバック「 {$a->f
 $string['emailteachermailhtml'] = '<p>{$a->username} がフィードバック「 {$a->feedback} 」を完了しました。</p>
 <p><a href="{$a->url}">このページ</a>で詳細を閲覧できます。</p>';
 $string['entries_saved'] = 'あなたの回答が保存されました。ありがとうございます。';
-$string['eventcoursemoduleviewed'] = 'コースモジュールが閲覧されました。';
-$string['eventinstanceslistviewed'] = 'インスタンス一覧が閲覧されました。';
 $string['eventresponsedeleted'] = '回答が削除されました。';
 $string['eventresponsesubmitted'] = '回答が送信されました。';
 $string['export_questions'] = '質問をエクスポートする';
 $string['export_to_excel'] = 'Excelにエクスポートする';
 $string['feedback:addinstance'] = '新しいフィードバックを追加する';
 $string['feedbackclose'] = 'フィードバック終了日時';
-$string['feedback:complete'] = 'フィードバックを終了する';
+$string['feedback:complete'] = 'フィードバックを完了する';
 $string['feedback:createprivatetemplate'] = 'プライベートテンプレートを作成する';
 $string['feedback:createpublictemplate'] = 'パブリックテンプレートを作成する';
 $string['feedback:deletesubmissions'] = '完了した送信を削除する';
@@ -195,7 +193,7 @@ $string['no_handler'] = 'アクションハンドラがありません:';
 $string['no_itemlabel'] = 'ラベルなし';
 $string['no_itemname'] = '無題';
 $string['no_items_available_yet'] = '質問はまだ設定されていません。';
-$string['non_anonymous'] = 'ユーザ名を記録し、回答と共に表示する';
+$string['non_anonymous'] = 'ユーザ名を記録して、回答と共に表示する';
 $string['non_anonymous_entries'] = '非匿名エントリ';
 $string['non_respondents_students'] = '未回答の学生';
 $string['notavailable'] = 'このフィードバックは、利用できません。';
@@ -280,7 +278,7 @@ $string['textfield'] = '短文回答';
 $string['textfield_maxlength'] = '最大文字数';
 $string['textfield_size'] = 'テキストフィールド幅';
 $string['there_are_no_settings_for_recaptcha'] = 'CAPTCHAが設定されていません。';
-$string['this_feedback_is_already_submitted'] = 'あなたは、すでにこのフィードバックを完了しています。';
+$string['this_feedback_is_already_submitted'] = 'あなたはすでにこのフィードバックを完了しています。';
 $string['typemissing'] = '「type」の値がありません。';
 $string['update_item'] = '質問の変更を保存する';
 $string['url_for_continue'] = '次の活動にリンクする';

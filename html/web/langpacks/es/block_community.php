@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_community', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_community', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   block_community
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -66,8 +66,8 @@ $string['enroldownload_help'] = 'A algunos cursos listados en el centro seleccio
 Otros son plantillas de curso que se facilitan para que usted pueda descargarlas y usarlas en su propio sitio Moodle';
 $string['enrollable'] = 'cursos en los que me puedo matricular';
 $string['enrollablecourses'] = 'Cursos para matricularse';
-$string['errorcourselisting'] = 'Ha ocurrido un error al recuperar el listado de cursos del centro seleccionado. Por favor inténtelo de nuevo más tarde. ({$a})';
-$string['errorhublisting'] = 'Ha ocurrido un error al recuperar el listado de cursos de Moodle.org. Por favor inténtelo de nuevo más tarde. ({$a})';
+$string['errorcourselisting'] = 'Ha ocurrido un error al recuperar el listado de cursos del centro seleccionado, por favor inténtelo de nuevo más tarde. ({$a})';
+$string['errorhublisting'] = 'Ha ocurrido un error al recuperar el listado de cursos de Moodle.org., por favor inténtelo de nuevo más tarde. ({$a})';
 $string['fileinfo'] = 'Idioma: {$a->lang} - Licencia: {$a->license} - Hora de actualización: {$a->timeupdated}';
 $string['hideall'] = 'Ocultar hubs';
 $string['hub'] = 'centro';

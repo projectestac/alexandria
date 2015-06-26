@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_responses', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'quiz_responses', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   quiz_responses
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,6 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['cannotloadoptions'] = 'Ezin dira galdera-aukeraj kargatu';
+$string['include'] = 'Sartu';
+$string['mustselectcols'] = 'Zerbait sartu behar duzu.';
 $string['pagesize'] = 'Orriaren tamaina';
 $string['pluginname'] = 'Ebazpenak';
 $string['questiontext'] = 'galderaren testua';

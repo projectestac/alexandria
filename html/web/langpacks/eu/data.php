@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'data', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,25 +79,17 @@ $string['csstemplate'] = 'CSS txantiloia';
 $string['csvfailed'] = 'Ezin dira datu gordinak irakurri CSV fitxategi honetatik';
 $string['csvfile'] = 'CSV fitxategia';
 $string['csvimport'] = 'CSV fitxategia inportatu';
-$string['csvimport_help'] = '</p>
-
-<p>CSVk zera esan nahi du: Comma-Separated-Values (kakotxez banatutako baloreak) eta testu-trukaketarako ohiko formatua da.</p>
-
+$string['csvimport_help'] = '<p>CSVk zera esan nahi du: Comma-Separated-Values (kakotxez banatutako baloreak) eta testu-trukaketarako ohiko formatua da.</p>
 <p>Formatua testu laukoa da eta lehenengo lerroan eremuen izenak azaltzen dira. Ondoren datu guztiak datoz, bat lerroko.</p>
-
 <p>Kakotxek eremuak mugatzen dituzte eta eremu-bukaerako lehenetsitako karaktererik ez dago (eremu-bukaerak sarrera bakoitza mugatzen duten karaktereak dira).</p>
-
 <p>Sarrerak lerrotan banatu behar dira (normalean, zure editorearen RETURN edo ENTER sakatu beharko duzu). Tabuladoreak adierazteko t eta lerro berrietarako n erabil dezakezu. </p>
-
 <p>Adibidez:</p>
-
 <pre>
   izena,altuera,pisua
   Kai,180cm,80kg
   Kim,170cm,60kg
   Koo,190cm,20kg
 </pre>
-
 <p>Kontuz! Baliteke eremu-formatu guztiak onargarriak ez izatea.</p>';
 $string['csvwithselecteddelimiter'] = '<acronym title="Comma Separated Values">CSV</acronym> testua eta aukeratutako banatzailea';
 $string['data:addinstance'] = 'Gehitu beste datu-base bat';
@@ -150,6 +142,14 @@ $string['entry'] = 'Sarrera';
 $string['entrysaved'] = 'Zure sarrera gorde egin da';
 $string['errormustbeteacher'] = 'Orri hau erabiltzeko irakasle izan behar duzu!';
 $string['errorpresetexists'] = 'Dagoeneko bada elementu bat  aukeratutako izena duena';
+$string['eventfieldcreated'] = 'Eremua sortua';
+$string['eventfielddeleted'] = 'Eremua ezabatua';
+$string['eventfieldupdated'] = 'Eremua eguneratua';
+$string['eventrecordcreated'] = 'Erregistroa sortua';
+$string['eventrecorddeleted'] = 'Erregistroa ezabatua';
+$string['eventrecordupdated'] = 'Erregistroa eguneratua';
+$string['eventtemplateupdated'] = 'Txantiloia eguneratu da';
+$string['eventtemplateviewed'] = 'Txantiloia ikusi da';
 $string['example'] = 'Datu-basea moduluaren adibidea';
 $string['excel'] = 'Excel';
 $string['expired'] = 'Barkatu, jarduera hau {$a} datan itxi zen eta dagoeneko ez dago eskuragarri';
@@ -211,7 +211,7 @@ $string['headersingletemplate'] = 'Sarrera baterako nabigazio-itxura definitzen 
 $string['importentries'] = 'Sarrerak inportatu';
 $string['importsuccess'] = 'Aurretiko ezarpena egoki aplikatu da';
 $string['includeapproval'] = 'Sartu onarpen-egoera';
-$string['includetime'] = 'Sartu denbora gehituta/aldatutaSartu denbora gehituta/aldatuta';
+$string['includetime'] = 'Sartu denbora gehituta/aldatuta';
 $string['includeuserdetails'] = 'Sartu erabiltzaile-xehetasunak';
 $string['insufficiententries'] = 'datu-base hau ikusteko sarrera gehiago beharrezkoak dira';
 $string['intro'] = 'Deskribapena';
@@ -278,8 +278,8 @@ $string['nameurl'] = 'URLa';
 $string['newentry'] = 'Sarrera berria';
 $string['newfield'] = 'Beste eremu bat sortu';
 $string['newfield_help'] = '<p>Pantaila honetan datu-basea osatuko duten eremuak sor ditzakezu.</p>
-
-<p>Eremu bakoitzak datu-mota ezberdinak onartzen ditu eta horretarako hainbat interfaz eskaintzen ditu.</p>';
+<p>Eremu bakoitzak datu-mota ezberdinak onartzen ditu eta horretarako hainbat interfaz eskaintzen ditu.</p>
+<p>Eremu bakoitzak izen desberdina izan behar du. Eremuaren deskribapena hautazkoa da.</p>';
 $string['noaccess'] = 'Orri honetara ez duzu sarbiderik';
 $string['nodefinedfields'] = 'Aurretiko ezarpen berriak ez du definitutako eremurik!';
 $string['nofieldcontent'] = 'Ez da eremuaren edukia aurkitu';
@@ -326,9 +326,8 @@ $string['requiredentries_help'] = '<p>Partaide bakoitzari bidaltzeko eskatzen za
 
 <p>Ez da jarduera amaitutzat emango erabiltzaileak behar duen sarrera-kopurua bidali arte.</p>';
 $string['requiredentriestoview'] = 'Ikusi aurretik behar diren sarrerak';
-$string['requiredentriestoview_help'] = '</p>
-
-<p>Datu-basearen gainerako sarrerak ikusi baino lehen, partaideek bidali behar duten sarrera-kopurua zehartu behar da hemen.</p>';
+$string['requiredentriestoview_help'] = '<p>Datu-basearen gainerako sarrerak ikusi baino lehen, partaideek bidali behar duten sarrera-kopurua zehartu behar da hemen.</p>
+<p>Oharra: erabiltzaileak sarrera kopuru bat bete arte ez badira ikusgai jarri nahi, datu-baserako esteka automatikoak egiteko iragazkia ezgaituta egon beharko luke.</p>';
 $string['resetsettings'] = 'Berrabiarazi iragazkiak';
 $string['resettemplate'] = 'Txantiloia berriz kargatu';
 $string['resizingimages'] = 'Irudi txikien tamaina aldatzen';

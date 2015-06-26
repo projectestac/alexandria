@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'currencies', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'currencies', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   currencies
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,7 @@ $string['BRL'] = 'Brasilgo Erreala';
 $string['BSD'] = 'Bahametako Dolarra';
 $string['BTN'] = 'Butango Ngultruma';
 $string['BWP'] = 'Botswanako Pula';
-$string['BYR'] = 'Belarusiako Errubloa';
+$string['BYR'] = 'Bielorrusiako Errubloa';
 $string['BZD'] = 'Belizeko Dolarra';
 $string['CAD'] = 'Kanadako Dolarra';
 $string['CDF'] = 'Congoko Frankoa';
@@ -95,9 +95,9 @@ $string['JMD'] = 'Jamaikako Dolarra';
 $string['JOD'] = 'Jordaniako Dinarra';
 $string['JPY'] = 'Japongo Yena';
 $string['KES'] = 'KenyakoTxelina';
-$string['KGS'] = 'Kyrgyzstan-eko Som';
+$string['KGS'] = 'Kirgizistan-eko Som';
 $string['KHR'] = 'Camboiako Riela';
-$string['KMF'] = 'Comoros-eko Frankoa';
+$string['KMF'] = 'Komoreetako Frankoa';
 $string['KPW'] = 'Ipar Koreako Wona';
 $string['KRW'] = 'Hego Koreako Wona';
 $string['KWD'] = 'Kuwait-eko Dinarra';

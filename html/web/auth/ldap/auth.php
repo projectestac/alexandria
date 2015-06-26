@@ -627,11 +627,11 @@ class auth_plugin_ldap extends auth_plugin_base {
         $user = get_complete_user_data('username', $username);
 
         if (!empty($user)) {
-            if ($user->confirmed) {
-                return AUTH_CONFIRM_ALREADY;
-
-            } else if ($user->auth != $this->authtype) {
+            if ($user->auth != $this->authtype) {
                 return AUTH_CONFIRM_ERROR;
+
+            } else if ($user->secret == $confirmsecret && $user->confirmed) {
+                return AUTH_CONFIRM_ALREADY;
 
             } else if ($user->secret == $confirmsecret) {   // They have provided the secret key to get in
                 if (!$this->user_activate($username)) {
@@ -765,7 +765,7 @@ class auth_plugin_ldap extends auth_plugin_base {
                     } while ($entry = ldap_next_entry($ldapconnection, $entry));
                 }
                 unset($ldap_result); // Free mem.
-            } while ($ldap_pagedresults && !empty($ldap_cookie));
+            } while ($ldap_pagedresults && $ldap_cookie !== null && $ldap_cookie != '');
         }
 
         // If LDAP paged results were used, the current connection must be completely
@@ -1637,7 +1637,11 @@ class auth_plugin_ldap extends auth_plugin_base {
      */
     function change_password_url() {
         if (empty($this->config->stdchangepassword)) {
-            return new moodle_url($this->config->changepasswordurl);
+            if (!empty($this->config->changepasswordurl)) {
+                return new moodle_url($this->config->changepasswordurl);
+            } else {
+                return null;
+            }
         } else {
             return null;
         }
@@ -1672,7 +1676,8 @@ class auth_plugin_ldap extends auth_plugin_base {
                                       $_SERVER['HTTP_REFERER'] != $CFG->wwwroot &&
                                       $_SERVER['HTTP_REFERER'] != $CFG->wwwroot.'/' &&
                                       $_SERVER['HTTP_REFERER'] != $CFG->httpswwwroot.'/login/' &&
-                                      $_SERVER['HTTP_REFERER'] != $CFG->httpswwwroot.'/login/index.php')
+                                      $_SERVER['HTTP_REFERER'] != $CFG->httpswwwroot.'/login/index.php' &&
+                                      clean_param($_SERVER['HTTP_REFERER'], PARAM_LOCALURL) != '')
                     ? $_SERVER['HTTP_REFERER'] : NULL;
             }
 

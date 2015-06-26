@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'webservice', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   webservice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,7 +62,7 @@ $string['deleteaservice'] = 'Suprimeix el servei';
 $string['deleteservice'] = 'Suprimeix el servei: {$a->name} (id: {$a->id})';
 $string['deleteserviceconfirm'] = 'Suprimir un servei requereix també suprimir els tokens relacionats amb el servei web. Realment voleu suprimir el servei extern "{$a}"?';
 $string['deletetokenconfirm'] = 'Voleu realment suprimir el token de sevei web per a <strong>{$a->user}</strong> al servei <strong>{$a->service}</strong>?';
-$string['disabledwarning'] = 'Tots els protocols de serveis web estan deshabilitats. El paràmetre "Habilita servei web" el podeu trobar a Característiques avançades.';
+$string['disabledwarning'] = 'Tots els protocols de serveis web estan inhabilitats. El paràmetre «Habilita els serveis web», el podeu trobar a Característiques avançades.';
 $string['doc'] = 'Documentació';
 $string['docaccessrefused'] = 'No esteu habilitat per a veure la documentació per aquest token.';
 $string['documentation'] = 'documentació del serveis web';
@@ -86,14 +86,15 @@ $string['errorcoursecontextnotvalid'] = 'No podeu executar funcions al context c
 $string['errorinvalidparam'] = 'El paràmetre "{$a}" no és vàlid';
 $string['errornotemptydefaultparamarray'] = 'El paràmetre que descriu el servei web anomenat \'{$a}\' és una estructura única o múltiple. Per defecte pot sols ser una matriu buida. Llegiu la descripció dels serveis web.';
 $string['erroroptionalparamarray'] = 'El paràmetre que descriu el servei web anomenat \'{$a}\' és una estructura única o múltiple. No pot ser posat com VALUE_OPTIONAL. Comproveu la descripció dels serveis web.';
-$string['event_webservice_function_called'] = 'S\'ha cridat una funció del servei web';
-$string['event_webservice_login_failed'] = 'Ha fallat l\'entrada amb usuari al servei web';
-$string['event_webservice_service_created'] = 'S\'ha creat un servei del servei web';
-$string['event_webservice_service_updated'] = 'S\'ha actualitzat un servei del servei web';
-$string['event_webservice_service_user_added'] = 'S\'ha afegit l\'usuari al servei del servei web';
-$string['event_webservice_service_user_removed'] = 'S\'ha suprimit l\'usuari al servei del servei web';
-$string['event_webservice_token_created'] = 'S\'ha creat un testimoni al servei del servei web';
-$string['event_webservice_token_sent'] = 'S\'ha enviat el testimoni al servei del servei web';
+$string['eventwebservicefunctioncalled'] = 'S\'ha cridat una funció del servei web';
+$string['eventwebserviceloginfailed'] = 'Ha fallat l\'entrada amb usuari al servei web';
+$string['eventwebserviceservicecreated'] = 'S\'ha creat un servei del servei web';
+$string['eventwebserviceservicedeleted'] = 'Servei del servei web suprimit';
+$string['eventwebserviceserviceupdated'] = 'S\'ha actualitzat un servei del servei web';
+$string['eventwebserviceserviceuseradded'] = 'S\'ha afegit l\'usuari al servei del servei web';
+$string['eventwebserviceserviceuserremoved'] = 'S\'ha suprimit l\'usuari al servei del servei web';
+$string['eventwebservicetokencreated'] = 'S\'ha creat un testimoni al servei del servei web';
+$string['eventwebservicetokensent'] = 'S\'ha enviat el testimoni al servei del servei web';
 $string['execute'] = 'Executa';
 $string['executewarnign'] = 'AVÍS: Si premeu executa la vostra base de dades serà modificada i els canvis no es podran revertir de forma automàtica!';
 $string['externalservice'] = 'Servei extern';
@@ -126,7 +127,7 @@ $string['missingpassword'] = 'Contrasenya perduda';
 $string['missingrequiredcapability'] = 'Cal la capacitat {$a}.';
 $string['missingusername'] = 'Nom d\'usuari perdut';
 $string['missingversionfile'] = 'Error de codificació: el fitxer version.php s\'ha perdut per al component {$a}';
-$string['mobilewsdisabled'] = 'Deshabilitat';
+$string['mobilewsdisabled'] = 'Inhabilitat';
 $string['mobilewsenabled'] = 'Habilitat';
 $string['nocapabilitytouseparameter'] = 'Aquest usuari no té la capacitat per a utilitzar el paràmetre {$a}';
 $string['nofunctions'] = 'Aquest servei no té funcions';
@@ -178,6 +179,7 @@ $string['serviceusers'] = 'Usuaris autoritzats';
 $string['serviceusersettings'] = 'Paràmetres de l\'usuari';
 $string['serviceusersmatching'] = 'Cerca d\'usuaris autoritzats';
 $string['serviceuserssettings'] = 'Canvia els paràmetres per als usuaris autoritzats';
+$string['shortnametaken'] = 'Aquest nom curt s\'està utilitzant en un altre servei ({$a})';
 $string['simpleauthlog'] = 'Inici de sessió d\'autenticació simple';
 $string['step'] = 'Pas';
 $string['supplyinfo'] = 'Més detalls';
@@ -219,7 +221,7 @@ $string['wsaccessuserunconfirmed'] = 'S\'ha rebutjat l\'accés al servei web per
 $string['wsclientdoc'] = 'Documentació del client de servei web Modle';
 $string['wsdocapi'] = 'Documentació de l\'API';
 $string['wsdocumentation'] = 'Documentació de servei web';
-$string['wsdocumentationdisable'] = 'La documentació del servei web està deshabilitada.';
+$string['wsdocumentationdisable'] = 'La documentació del servei web està inhabilitada.';
 $string['wsdocumentationintro'] = 'Per crear un client us aconsellem que llegiu  {$a->doclink}';
 $string['wsdocumentationlogin'] = 'o introduïu el vostre nom d\'usuari i contrasenya per al servei web:';
 $string['wspassword'] = 'Contrasenya del servei web';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'enrol', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   enrol
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,11 +36,11 @@ $string['configenrolplugins'] = 'Seleccioneu tots els mòduls requerits i organi
 $string['custominstancename'] = 'Nom de la instància personalitzat';
 $string['defaultenrol'] = 'Afegeix instància als nous cursos';
 $string['defaultenrol_desc'] = 'És possible afegir aquest mòdul a tots els nous cursos per defecte.';
-$string['deleteinstanceconfirm'] = 'Esteu a punt de suprimir el mètode d\'inscripció "{$a->name}". Les inscripcions de tots els {$a->users} usuaris inscrits mitjançant aquest mètode seran cancel·lades i se suprimiran totes les seves dades relatives a aquests cursos, com ara qualificacions, pertinença a grups o subscripcions a fòrums.
+$string['deleteinstanceconfirm'] = 'Ara suprimireu el mètode d\'inscripció «{$a->name}». Les inscripcions de tots els {$a->users} usuaris inscrits mitjançant aquest mètode seran cancel·lades i se suprimiran totes les seves dades relatives a aquests cursos, com ara qualificacions, pertinença a grups o subscripcions a fòrums.
 
 Esteu segur que voleu continuar?';
 $string['deleteinstanceconfirmself'] = 'Esteu segur que voleu suprimir la instància "{$a->name}" que us dona accés a aquest curs? És possible que no pugueu tornar a entrar al curs si continueu.';
-$string['deleteinstancenousersconfirm'] = 'Esteu a punt de suprimir el mètode d\'inscripció "{$a->name}".
+$string['deleteinstancenousersconfirm'] = 'Ara suprimireu el mètode d\'inscripció «{$a->name}».
 
 Esteu segur que voleu continuar?';
 $string['disableinstanceconfirmself'] = 'Esteu segur que voler inhabilitar la instància "{$a->name}" que us dona accés a aquest curs? És possible que no pugueu tornar a entrar al curs si continueu.';
@@ -87,8 +87,8 @@ $string['expirythreshold_help'] = 'Quant de temps abans del venciment cal notifi
 $string['extremovedaction'] = 'Acció de cancel·lació d\'inscripció externa';
 $string['extremovedaction_help'] = 'Seleccioneu l\'acció per dur a terme quan la inscripció d\'usuaris desaparegui de la font d\'inscripció externa. Tingueu en compte que algunes dades d\'usuari i paràmetres són purgats del curs durant la cancel·lació d\'inscripció del curs.';
 $string['extremovedkeep'] = 'Mantingues l\'usuari inscrit';
-$string['extremovedsuspend'] = 'Deshabilita la inscripció al curs';
-$string['extremovedsuspendnoroles'] = 'Deshabilita la inscripció al curs i suprimeix els rols';
+$string['extremovedsuspend'] = 'Inhabilita la inscripció al curs';
+$string['extremovedsuspendnoroles'] = 'Inhabilita la inscripció al curs i suprimeix els rols';
 $string['extremovedunenrol'] = 'Cancel·la la inscripció al curs de l\'usuari';
 $string['finishenrollingusers'] = 'Acaba d\'inscriure als usuaris';
 $string['instanceeditselfwarning'] = 'Avís:';

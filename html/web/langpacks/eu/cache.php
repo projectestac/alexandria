@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cache', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'cache', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   cache
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -71,10 +71,15 @@ $string['result'] = 'Emaitza';
 $string['set'] = 'Ezarri';
 $string['sharing'] = 'Partekatu';
 $string['sharing_all'] = 'Guztiak.';
+$string['sharingrequired'] = 'Gutxienez partekatzeko aukera bat aukeratu behar duzu.';
 $string['sharingselected_all'] = 'Guztiak';
 $string['sharingselected_version'] = 'Bertsioa';
 $string['storeconfiguration'] = 'Biltegiaren ezarpenak';
 $string['storename'] = 'Biltegiaren izena';
 $string['storenamealreadyused'] = 'Izen bakar bat aukeratru behar duzu biltegi honetarako.';
+$string['storenameinvalid'] = 'Biltegiaren izena ez da zuzena. Bakarrik a-z A-Z 0-9 -_ eta espazioak erabil ditzakezu.';
 $string['storenotready'] = 'Biltegia ez dago prest';
+$string['storeready'] = 'Prest';
+$string['storerequiresattention'] = 'Zure arreta behar du.';
 $string['stores'] = 'Biltegiak';
+$string['supports'] = 'Euskarriak';

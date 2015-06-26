@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'repository', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,14 +62,17 @@ $string['close'] = 'Cerrar';
 $string['commonrepositorysettings'] = 'Ajustes comunes del repositorio';
 $string['configallowexternallinks'] = 'Esta opción permite que los usuarios elijan si los elementos multimedia externos se copien o no  en Moodle. Si está deshabilitado los medios de comunicación siempre se copiarán en Moodle (esto es lo mejor para la integridad general de los datos y la seguridad). Si es así, entoces los usuarios pueden elegir cada vez que agreguen elementos multimedia a un texto.';
 $string['configcacheexpire'] = 'Cantidad de tiempo (en segundos) que los listados de archivos están en caché local cuando se navega por repositorios externos.';
+$string['configgetfiletimeout'] = 'Tiempo de espera en segundos para la descarga del fichero externo en moodle';
 $string['configsaved'] = 'Configuración guardada.';
+$string['configsyncfiletimeout'] = 'Tiempo de espera en segundos para la sincronizazión del tamaño del fichero externo';
+$string['configsyncimagetimeout'] = 'Tiempo de espera en segundos para la descarga de un fichero de imagen de un repositorio externo durante la sincronizazión';
 $string['confirmdelete'] = '¿Está seguro de que desea eliminar este repositorio {$a}?
 
 Si selecciona "Continuar y descargar", los archivos refereridos a contenidos externos se descargaran a Moodle, pero este proceso llevará tiempo.';
 $string['confirmdeletefile'] = '¿Está seguro de que desea eliminar este archivo?';
 $string['confirmdeletefilewithhref'] = '¿Está seguro de que desea eliminar este archivo? Hay {$a} alias/atajos a archivos que usan este archivo como origen. Si continua, estos alias se transformarán en copias reales.';
 $string['confirmdeletefolder'] = '¿Está seguro que quiere eliminar esta carpeta? Todoas loas archivos y las subcarpetas se eliminarán?';
-$string['confirmremove'] = '¿Está seguro de que desea eliminar esta extensión de repositorio, sus opciones y <strong>todos sus ejemplos</strong> - {$a}?
+$string['confirmremove'] = '¿Está seguro de que desea eliminar esta extensión de repositorio, sus opciones y <strong>todas sus instancias</strong> - {$a}?
 
 Si selecciona "Continuar y descargar", los archivos refereridos a contenidos externos se descargaran a Moodle, pero este proceso llevará tiempo.';
 $string['confirmrenamefile'] = '¿Está seguro que quiere renombrar/mover este archivo? Hay {$a} alias/atajos a archivos que usan este archivo como origen. Si continua, estos alias se transformarán en copias reales.';
@@ -81,9 +84,9 @@ $string['coursebackup'] = 'Copias de seguridad del curso';
 $string['create'] = 'Crear un ejemplo de repositorio';
 $string['createfolderfail'] = 'Error al crear este directorio';
 $string['createfoldersuccess'] = 'Directorio creado con éxito';
-$string['createinstance'] = 'Crear un ejemplo de repositorio';
+$string['createinstance'] = 'Crear una instancia de repositorio';
 $string['createrepository'] = 'Crear un ';
-$string['createxxinstance'] = 'Crear ejemplo "{$a}"';
+$string['createxxinstance'] = 'Crear una instancia de repositorio "{$a}"';
 $string['date'] = 'Fecha';
 $string['datecreated'] = 'Creado';
 $string['deleted'] = 'Repositorio eliminado';
@@ -98,7 +101,7 @@ $string['download'] = 'Descargar';
 $string['downloadfolder'] = 'Descargar todo';
 $string['downloadsucc'] = 'Este archivo se ha descargado con éxito';
 $string['draftareanofiles'] = 'No se puede descargar porque no hay archivos adjuntos';
-$string['editrepositoryinstance'] = 'Editar ejemplo de repositorio';
+$string['editrepositoryinstance'] = 'Editar una instancia de repositorio';
 $string['emptylist'] = 'Lista vacía';
 $string['emptytype'] = 'No se puede crear el tipo de repositorio: el nombre del tipo está vacío';
 $string['enablecourseinstances'] = 'Permitir a los usuarios agregar un elemento de repositorio dentro del curso';
@@ -128,13 +131,14 @@ $string['folderexists'] = 'El nombre para la carpeta ya está empleado, por favo
 $string['foldernotfound'] = 'Carpeta no encontrada';
 $string['folderrecurse'] = 'La carpeta no puede moverse a su propia subcarpeta';
 $string['getfile'] = 'Seleccionar este archivo';
+$string['getfiletimeout'] = 'Obtener tiempo de espera del fichero';
 $string['help'] = 'Ayuda';
 $string['hidden'] = 'Oculto';
 $string['iconview'] = 'Ver como iconos';
 $string['imagesize'] = '{$a->width} x {$a->height} px';
-$string['instance'] = 'ejemplo';
-$string['instancedeleted'] = 'Ejemplo eliminado';
-$string['instances'] = 'Ejemplos de repositorio';
+$string['instance'] = 'instancia';
+$string['instancedeleted'] = 'Instancia de repositorio eliminada';
+$string['instances'] = 'Instancias de repositorio';
 $string['instancesforcourses'] = '{$a} Ejemplo(s) común(es) de todo el curso';
 $string['instancesforsite'] = '{$a} Ejemplo(s) común(es) de todo el curso';
 $string['instancesforusers'] = '{$a} Ejemplo(s) de usuario privado';
@@ -145,10 +149,12 @@ $string['invalidplugin'] = 'Plugin {$a} de reposirtorio no válido';
 $string['invalidrepositoryid'] = 'ID de repositorio no válido';
 $string['isactive'] = '¿Activo?';
 $string['keyword'] = 'Clave';
+$string['lastmodified'] = 'Última modificación';
+$string['license'] = 'Licencia';
 $string['linkexternal'] = 'Enlace externo';
 $string['listview'] = 'Ver como lista';
 $string['loading'] = 'Cargando...';
-$string['login'] = 'Entrar';
+$string['login'] = 'Acceder con su cuenta';
 $string['logout'] = 'Salir';
 $string['lostsource'] = 'Error. Falta el orígen. {$a}';
 $string['makefileinternal'] = 'Hacer una copia del archivo';
@@ -158,6 +164,7 @@ $string['manage'] = 'Gestionar repositorios';
 $string['manageurl'] = 'Gestionar';
 $string['manageuserrepository'] = 'Gestionar repositorio individual';
 $string['moving'] = 'Moviendo';
+$string['name'] = 'Nombre';
 $string['newfolder'] = 'Nueva carpeta';
 $string['newfoldername'] = 'Nuevo nombre de la carpeta';
 $string['noenter'] = 'No se ha escrito nada';
@@ -177,6 +184,7 @@ $string['operation'] = 'Operación';
 $string['original'] = 'Original';
 $string['overwrite'] = 'Sobreescribir';
 $string['overwriteall'] = 'Sobre-escribir todo';
+$string['path'] = 'Ruta';
 $string['personalrepositories'] = 'Ejemplos disponibles de repositorio';
 $string['plugin'] = 'Plugins de repositorio';
 $string['pluginerror'] = 'Errores en el plugin del repositorio';
@@ -212,10 +220,12 @@ $string['setmainfile'] = 'Configurar el archivo principal';
 $string['setmainfile_help'] = 'Si hay varios archivos en la carpeta, el archivo principal es el que aparece en la página. Otros archivos tales como imágenes o videos pueden ser incrustados en ella. En el administrador de archivos el archivo principal se muestra con el nombre en negrita.';
 $string['settings'] = 'Configuración';
 $string['setupdefaultplugins'] = 'Configuración de los plugins de repositorio predeterminados';
-$string['siteinstances'] = 'Ejemplos de repositorios del sitio';
+$string['siteinstances'] = 'Instancias de repositorios del sitio';
 $string['size'] = 'Tamaño';
 $string['submit'] = 'Enviar';
 $string['sync'] = 'Sync';
+$string['syncfiletimeout'] = 'Tiempo de sincronización del fichero agotado';
+$string['syncimagetimeout'] = 'Tiempo de sincronización de la imagen agotado';
 $string['thumbview'] = 'Ver en forma de iconos';
 $string['title'] = 'Seleccione un archivo...';
 $string['type'] = 'Tipo';

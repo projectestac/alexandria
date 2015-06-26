@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'chat', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,9 +62,8 @@ $string['donotusechattime'] = 'No publiquis el dia i hora dels xats';
 $string['enterchat'] = 'Feu clic aquí per entrar al xat';
 $string['entermessage'] = 'Escriviu el vostre missatge';
 $string['errornousers'] = 'No s\'ha pogut trobar cap usuari!';
-$string['event_instances_list_viewed'] = 'S\'ha visualitzat la llista d\'instàncies';
-$string['event_message_sent'] = 'S\'ha enviat el missatge';
-$string['event_sessions_viewed'] = 'S\'han visualitzat les sessions';
+$string['eventmessagesent'] = 'S\'ha enviat el missatge';
+$string['eventsessionsviewed'] = 'S\'han visualitzat les sessions';
 $string['explaingeneralconfig'] = 'Aquests paràmetres són efectius <strong>sempre</strong>';
 $string['explainmethoddaemon'] = 'Aquests paràmetres <strong>només</strong> compten si heu seleccionat "Dimoni servidor de chat" en chat_method';
 $string['explainmethodnormal'] = 'Aquests paràmetres <strong>només</strong> compten si heu seleccionat "Mètode normal" en chat_method';

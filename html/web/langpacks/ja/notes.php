@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'notes', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   notes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -41,17 +41,17 @@ $string['enablenotes'] = 'ノートを有効にする';
 $string['eventnotecreated'] = 'ノートが作成されました。';
 $string['eventnotedeleted'] = 'ノートが削除されました。';
 $string['eventnotesviewed'] = 'ノートが閲覧されました。';
-$string['eventnoteupdate'] = 'ノートが更新されました。';
+$string['eventnoteupdated'] = 'ノートが更新されました。';
 $string['groupaddnewnote'] = '共通ノートを追加する';
 $string['invalidid'] = '無効なノートIDが指定されました。';
 $string['invaliduserid'] = '無効なユーザID: {$a}';
 $string['nocontent'] = 'ノートコンテンツを入力してください。';
 $string['nonotes'] = 'まだこのタイプのノートはありません。';
-$string['nopermissiontodelete'] = 'あなたは、このノートを削除できません。';
+$string['nopermissiontodelete'] = 'あなたはこのノートを削除できません。';
 $string['note'] = 'ノート';
 $string['notes'] = 'ノート';
 $string['notesdisabled'] = '申し訳ございません、ノートは無効にされています。';
-$string['notesnotvisible'] = 'あなたは、このノートを閲覧することができません。';
+$string['notesnotvisible'] = 'あなたはこのノートを閲覧することができません。';
 $string['nouser'] = 'ユーザを選択してください。';
 $string['page-notes-index'] = 'ノートメインページ';
 $string['page-notes-x'] = 'すべてのノートページ';

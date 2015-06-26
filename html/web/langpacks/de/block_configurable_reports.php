@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_configurable_reports', language 'de', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_configurable_reports', language 'de', branch 'MOODLE_28_STABLE'
  *
  * @package   block_configurable_reports
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['activitypost'] = 'Aktivitäten-Einreichungen';
 $string['activityview'] = 'Aktivitäten-Aufrufe';
 $string['addreport'] = 'Bericht hinzufügen';
 $string['anyone'] = 'Jeder';
-$string['anyone_summary'] = 'Jeder Nutzer wird in der Lage sein diesen Bericht aufzurufen';
+$string['anyone_summary'] = 'Jeder Nutzer kann diesen Bericht aufzurufen';
 $string['availablemarks'] = 'Verfügbare Bewertungen';
 $string['average'] = 'Durchschnitt';
 $string['badconditionexpr'] = 'Ausdruck mit ungültiger Bedingung';
@@ -134,6 +134,7 @@ $string['filterstartendtime_summary'] = 'Start/End-Datum Filter';
 $string['fixeddate'] = 'Festes Datum';
 $string['footer'] = 'Fußzeile';
 $string['forcemidnight'] = 'Mitternacht erzwingen';
+$string['fsearchuserfield'] = 'Nutzerfeld-Suche';
 $string['fuserfield'] = 'Nutzer Feldfilter';
 $string['globalstatsshouldbeenabled'] = 'Seitenstatistik muss aktiviert sein. Gehe zu Admin-> Server-> Statistiken';
 $string['groupseries'] = 'Datenreihen gruppieren';

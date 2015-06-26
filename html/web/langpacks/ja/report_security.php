@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_security', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'report_security', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   report_security
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['check_configrw_details'] = '<p>ウェブサーバからファイルが修正されないよう、インストール後、config.phpのファイルパーミッションを変更することをお勧めします。この方法は、サーバのセキュリティを著しく向上させるものではありませんが、一般的なセキュリティ上の弱点 (exploits) をスローダウンしたり、制限することはできます。</p>';
+$string['check_configrw_details'] = '<p>ウェブサーバからファイルが修正されないようインストール後、config.phpのファイルパーミッションを変更することをお勧めします。この方法は、サーバのセキュリティを著しく向上させるものではありませんが、一般的なセキュリティ上の弱点 (exploits) をスローダウンしたり、制限することはできます。</p>';
 $string['check_configrw_name'] = '書き込み可能なconfig.php';
 $string['check_configrw_ok'] = 'PHPスクリプトは、config.phpを修正することができません。';
 $string['check_configrw_warning'] = 'PHPスクリプトは、config.phpを修正することができます。';
@@ -39,7 +39,7 @@ $string['check_defaultuserrole_error'] = 'デフォルトユーザロール「 {
 $string['check_defaultuserrole_name'] = 'すべてのユーザのデフォルトロール';
 $string['check_defaultuserrole_notset'] = 'デフォルトロールが設定されていません。';
 $string['check_defaultuserrole_ok'] = 'すべてのユーザのデフォルトロール定義は、OKです。';
-$string['check_displayerrors_details'] = '<p>いくつかのエラーメッセージは、あなたのサーバに関する機密情報を漏洩する可能性があるため、PHP設定 <code>display_errors</code>の有効化は、実稼動サイトではお勧めできません。</p>';
+$string['check_displayerrors_details'] = '<p>いくつかのエラーメッセージは、あなたのサーバに関する機密情報を漏洩する可能性があるため、PHP設定 <code>display_errors</code>の有効化は、実運用サイトではお勧めできません。</p>';
 $string['check_displayerrors_error'] = 'エラー表示のPHP設定が有効にされています。この設置を無効にすることをお勧めします。';
 $string['check_displayerrors_name'] = 'PHPエラーを表示する';
 $string['check_displayerrors_ok'] = 'PHPエラーの表示は無効にされています。';
@@ -59,11 +59,6 @@ $string['check_frontpagerole_error'] = '正しくないフロントページロ�
 $string['check_frontpagerole_name'] = 'フロントページロール';
 $string['check_frontpagerole_notset'] = 'フロントページロールが設定されていません。';
 $string['check_frontpagerole_ok'] = 'フロントページロール定義はOKです。';
-$string['check_globals_details'] = '<p>Register globalsは、極めて危険なPHP設定だと考えられています。</p>
-<p>PHP設定において、<code>register_globals=off</code>が設定されるべきです。この設定は、あなたの<code>php.ini</code>、Apache/IIS設定または<code>.htaccess</code>ファイルを編集することでコントロールされます。</p>';
-$string['check_globals_error'] = 'Register globalsは無効すべきです。すぐにPHP設定を修正してください!';
-$string['check_globals_name'] = 'Register globals';
-$string['check_globals_ok'] = 'Register globalsが無効にされています。';
 $string['check_google_details'] = '<p>Googleに公開する設定では、サーチエンジンがコースにゲストとしてログインできるようにします。ゲストログインが許可されていない場合、この設定の有効化は意味を持ちません。</p>';
 $string['check_google_error'] = 'サーチエンジンによるゲストアクセスは許可されていますが、ゲストアクセスは無効にされています。';
 $string['check_google_info'] = 'サーチエンジンは、ゲストとして入ることができます。';
@@ -79,8 +74,8 @@ $string['check_mediafilterswf_details'] = '<p>自動swf埋め込みは、非常�
 $string['check_mediafilterswf_error'] = 'Flashメディアフィルタが許可されています - これは大部分のサーバで非常に危険な設定です。';
 $string['check_mediafilterswf_name'] = '.swfメディアフィルタを有効にする';
 $string['check_mediafilterswf_ok'] = 'Flashメディアフィルタが有効にされていません。';
-$string['check_noauth_details'] = '<p>「認証なし」プラグインは、実稼動サイト向けではありません。このサイトが開発テストサイトではない限り、このプラグインを無効にしてください。</p>';
-$string['check_noauth_error'] = '「認証なし」プラグインは、実稼動サイトでは使用できません。';
+$string['check_noauth_details'] = '<p>「認証なし」プラグインは、実運用サイト向けではありません。このサイトが開発テストサイトではない限り、このプラグインを無効にしてください。</p>';
+$string['check_noauth_error'] = '「認証なし」プラグインは、実運用サイトでは使用できません。';
 $string['check_noauth_name'] = '認証なし';
 $string['check_noauth_ok'] = '無効にされた認証プラグインはありません。';
 $string['check_openprofiles_details'] = 'ユーザプロファイルを公開することで、スパム送信者が不正利用することができます。「プロファイル閲覧時にユーザのログインを強制する」または「ユーザのログインを強制する」を有効にすることをお勧めします。';
@@ -114,10 +109,10 @@ $string['check_riskxss_name'] = 'XSS信頼ユーザ';
 $string['check_riskxss_warning'] = 'RISK_XSS - {$a} 名のユーザが信頼されています。';
 $string['check_unsecuredataroot_details'] = '<p>datarootディレクトリは、ウェブからアクセスできないようにしてください。ウェブからアクセスできないディレクトリを使用する最良の方法は、パブリックウェブディレクトリ外のディレクトリを使用することです。</p>
 <p>あなたがディレクトリを移動した場合、それに応じて<code>config.php</code>の<code>$CFG->dataroot</code>設定を変更してください。</p>';
-$string['check_unsecuredataroot_error'] = 'あなたのdatarootディレクトリ <code>{$a}</code> は、正しくない場所に配置され、ウェブにさらされた状態です!';
+$string['check_unsecuredataroot_error'] = 'あなたのdatarootディレクトリ <code>{$a}</code> は、正しくない場所に配置され、ウェブに晒された状態です!';
 $string['check_unsecuredataroot_name'] = '安全ではないdataroot';
 $string['check_unsecuredataroot_ok'] = 'datarootディレクトリはウェブからアクセスできないようにしてください。';
-$string['check_unsecuredataroot_warning'] = 'あなたのdatarootディレクトリ <code>{$a}</code> は、正しくない場所に配置され、ウェブにさらされた状態です。';
+$string['check_unsecuredataroot_warning'] = 'あなたのdatarootディレクトリ <code>{$a}</code> は、正しくない場所に配置され、ウェブに晒された状態です。';
 $string['configuration'] = '設定';
 $string['description'] = '説明';
 $string['details'] = '詳細';

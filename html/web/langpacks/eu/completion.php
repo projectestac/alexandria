@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'completion', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -108,7 +108,7 @@ $string['criteriarequiredall'] = 'Beheko irizpide guztiak dira beharrezko';
 $string['criteriarequiredany'] = 'Beheko hainbat irizpide dira beharrezko';
 $string['csvdownload'] = 'Kalkulu-orria formatuan jaitsi (UTF-8 .csv)';
 $string['datepassed'] = 'Data igarota';
-$string['days'] = 'Egun(ak)';
+$string['days'] = 'Egun';
 $string['daysoftotal'] = '{$a->days} egun {$a->total}-(e)tik';
 $string['deletecompletiondata'] = 'Ezabatu osaketaren datuak';
 $string['dependencies'] = 'Menpekotasunak';
@@ -163,6 +163,7 @@ $string['restoringcompletiondata'] = 'Osaketaren datuak idazten';
 $string['roleaggregation'] = 'Baldintza behar du';
 $string['roleaggregation_all'] = 'Aukeratutako rol GUZTIEK markatu beharko dute baldintza betetzean';
 $string['roleaggregation_any'] = 'Aukeratutako EDOZEIN rolek markatu beharko du baldintza betetzean';
+$string['roleidnotfound'] = '{$a} ID duen rola ez da aurkitu';
 $string['saved'] = 'Gordeta';
 $string['seedetails'] = 'Xehetasunak ikusi';
 $string['self'] = 'Automatikoa';

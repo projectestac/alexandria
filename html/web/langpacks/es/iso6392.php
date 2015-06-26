@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'iso6392', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'iso6392', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   iso6392
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -43,7 +43,7 @@ $string['alt'] = 'Sur de Altai';
 $string['amh'] = 'Amárico';
 $string['ang'] = 'Inglés, Antiguo (ca.450-1100)';
 $string['anp'] = 'Angika';
-$string['apa'] = 'Idiomas Apache';
+$string['apa'] = 'Idiomas del Apache';
 $string['ara'] = 'Árabe';
 $string['arc'] = 'Arameo Oficial (700-300 A.C.)';
 $string['arg'] = 'Aragonés';
@@ -216,7 +216,7 @@ $string['iku'] = 'Inuktitut';
 $string['ile'] = 'Interlingue; Occidental';
 $string['ilo'] = 'Ilocano';
 $string['ina'] = 'Interlingua (IALA)';
-$string['inc'] = 'Indic languages';
+$string['inc'] = 'Lenguas Índicas';
 $string['ind'] = 'Indonesia';
 $string['ine'] = 'Lenguas Indoeuropeas';
 $string['inh'] = 'Ingushetia';

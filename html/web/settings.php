@@ -18,6 +18,8 @@ $CFG->updateautocheck = false;
 $CFG->disableupdatenotifications = true;
 $CFG->disableupdateautodeploy = true;
 $CFG->disableonclickaddoninstall = true;
+$CFG->updateminmaturity = 0;
+$CFG->updatenotifybuilds = false;
 
 //Preconfiguration setting
 $CFG->alternateloginurl='';
@@ -25,7 +27,7 @@ $CFG->mymoodleredirect = false;
 $CFG->enablestats = false;
 $CFG->themedesignermode = false;
 $CFG->cachejs = true;
-$CFG->cachetext = 0; // Disabled to enhace the performance
+$CFG->slasharguments = true;
 //$CFG->loginhttps=0;  /* Database param, to change if there is some problem */
 
 //Authentication
@@ -61,7 +63,7 @@ $CFG->backup_auto_active = 0;
 $CFG->session_handler_class = '\core\session\file';
 $CFG->session_file_save_path = ini_get('session.save_path');
 $CFG->sessiontimeout=3600;
-//$CFG->sessioncookie = $CFG->center;
+$CFG->sessioncookie = $CFG->dbuser;
 
 //$CFG->enable_hour_restrictions = 1;   /* Set in database */
 // This param (hour_restrictions) can be serialized. This is useful for setting it in database
@@ -75,7 +77,7 @@ if ($CFG->iseoi) {
 }
 
 // These variable define DEFAULT block variables for new courses
-$CFG->defaultblocks_override = ':calendar_month,participants,activity_modules';
+$CFG->defaultblocks_override = ':calendar_month,activity_modules';
 
 //Mail information
 //$CFG->apligestmail = 1;          /* Set in database */
@@ -102,6 +104,14 @@ if (isset($agora['server']['enviroment'])) {
     $CFG->eoicampus_wsdl_path = dirname(__FILE__) . '/mod/eoicampus/action/wsdl/EOICampusWS_generat-ESB-'.$agora['server']['enviroment'].'.wsdl';
 }
 
+
+if ($CFG->ismarsupial && isset($agora['moodle2']['airnotifiermarsupial'])) {
+    $CFG->airnotifieraccesskey = $agora['moodle2']['airnotifiermarsupial'];
+} else if(isset($agora['moodle2']['airnotifier'])) {
+    $CFG->airnotifieraccesskey = $agora['moodle2']['airnotifier'];
+}
+
+
 // Path of the cacheconfig.php file, to have only one MUC file for Àgora (instead of having one for each site in moodledata/usuX/muc/config.php).
 // This folder has to exists and to be writable
 $CFG->altcacheconfigpath = dirname(__FILE__) . '/local/agora/muc/';
@@ -122,7 +132,20 @@ $CFG->timezone = 99; // Changed by default to Server's local time
 $CFG->cronremotepassword = '';  // changed to avoid schools change it
 $CFG->cronclionly = 1; // changed to avoid schools change it
 
+/*if (isset($agora['proxy']['host']) && !empty($agora['proxy']['host'])) {
+    $CFG->proxyhost = $agora['proxy']['host'];
+    $CFG->proxyport = $agora['proxy']['port'];
+    $CFG->proxyuser = $agora['proxy']['user'];
+    $CFG->proxypassword = $agora['proxy']['pass'];
+}*/
+
+
 $CFG->mobilecssurl = $CFG->wwwroot.'/theme/xtec2/mobile/style.php';
+
+
+$CFG->forced_plugin_settings = array('logstore_standard' => array('loglifetime' => 365 * 2),
+                                     'logstore_legacy' => array('loglegacy' => 1),
+                                     'filter_wiris' => array('uninstall' => 1));
 
 // Here is where the cronlogs will be stored
 //$CFG->savecronlog = 1;  // This parámeter is saved on database to save cronlogs

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_cas', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'auth_cas', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   auth_cas
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -51,7 +51,7 @@ $string['auth_cas_language_key'] = 'Idioma';
 $string['auth_cas_logincas'] = 'Accés a la connexió segura';
 $string['auth_cas_logoutcas'] = 'Habiliteu aquesta opció si voleu desconnectar-vos  de CAS quan sortiu de Moodle';
 $string['auth_cas_logoutcas_key'] = 'Surt de CAS';
-$string['auth_cas_logout_return_url'] = 'Proporcioneu la URL on es redirigiran els usuaris de CAS després de tancar la sessió. <br /> Si es deixa buit, l\'usuari serà redirigit a la ubicació que tingui moodle per defecte';
+$string['auth_cas_logout_return_url'] = 'Proporcioneu l\'URL on es redirigiran els usuaris de CAS després de tancar la sessió. <br /> Si es deixa buit, l\'usuari serà redirigit a la ubicació que tingui Moodle per defecte';
 $string['auth_cas_logout_return_url_key'] = 'URL alternatiu per a la sortida de sessió';
 $string['auth_cas_multiauth'] = 'Activeu aquesta opció si voleu tenir diversos mètodes d\'autenticació (CAS + altres)';
 $string['auth_cas_multiauth_key'] = 'Autenticació múltiple';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_numerical', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'qtype_numerical', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   qtype_numerical
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -108,4 +108,4 @@ $string['validnumberformats_help'] = '* 正則数 13500.67、13 500.67、13500,6
 $string['validnumbers'] = '13500.67, 13 500.67, 13,500.67, 13500,67, 13 500,67, 1.350067 E4 または 1.350067 E04';
 $string['xmustbenumeric'] = '{$a} は数字にする必要があります。';
 $string['xmustnotbenumeric'] = '{$a} を数字にすることはできません。';
-$string['youmustenteramultiplierhere'] = 'あなたは、ここに乗数を入力する必要があります。';
+$string['youmustenteramultiplierhere'] = 'あなたはここに乗数を入力する必要があります。';

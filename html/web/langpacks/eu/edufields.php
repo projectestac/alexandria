@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'edufields', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'edufields', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   edufields
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -221,7 +221,7 @@ $string['field10607'] = 'Odontologia ikasketak';
 $string['field1060701'] = 'Odontologia';
 $string['field1060703'] = 'Odontologia';
 $string['field1060705'] = 'Odontologia teknologia';
-$string['field1060799'] = 'Odontologia ikasketak (bestelakoak';
+$string['field1060799'] = 'Odontologia ikasketak (bestelakoak)';
 $string['field10609'] = 'Optika zientzia';
 $string['field1060901'] = 'Optometria';
 $string['field1060903'] = 'Optika teknologia';
@@ -298,7 +298,7 @@ $string['field1080701'] = 'Turismoa';
 $string['field10811'] = 'Banku eta Finantzak eta antzeko eremuak';
 $string['field1081101'] = 'Banku eta Finantzak';
 $string['field1081105'] = 'Inbertsioak eta baloreak';
-$string['field1081199'] = 'Banku eta Finantzak eta antzeko eremuak (bestelakoak';
+$string['field1081199'] = 'Banku eta Finantzak eta antzeko eremuak (bestelakoak)';
 $string['field10899'] = 'Bestelako kudeaketa eta merkataritza';
 $string['field1089901'] = 'Erosketa, bilketa eta banaketa';
 $string['field1089903'] = 'Balorazioa';

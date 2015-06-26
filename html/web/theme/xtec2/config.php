@@ -36,7 +36,7 @@ $THEME->name = 'xtec2';
 //
 $THEME->doctype = 'html5';
 $THEME->parents = array('bootstrapbase');
-$THEME->sheets = array('font-awesome.min', 'moodle-awesome', 'custom');
+$THEME->sheets = array('font-awesome', 'moodle-awesome', 'custom');
 $THEME->enable_dock = true;
 $THEME->supportscssoptimisation = false;
 $THEME->yuicssmodules = array();
@@ -59,18 +59,18 @@ switch($blocklayout){
         $defaultregion = '';
         break;
     case 'right':
-        $regionsone = array('side-post');
+        $regionsone = 'side-post';
         $regionsboth = array('side-post');
         $defaultregion = 'side-post';
         break;
     case 'both':
-        $regionsone = array('side-pre');
+        $regionsone = 'side-pre';
         $regionsboth = array('side-pre', 'side-post');
         $defaultregion = 'side-pre';
         break;
     case 'left':
     default:
-        $regionsone = array('side-pre');
+        $regionsone = 'side-pre';
         $regionsboth = array('side-pre');
         $defaultregion = 'side-pre';
         break;
@@ -117,8 +117,8 @@ $THEME->layouts = array(
     // Server administration scripts.
     'admin' => array(
         'file' => 'general.php',
-        'regions' => $regionsone,
-        'defaultregion' => $defaultregion,
+        'regions' => array($regionsone),
+        'defaultregion' => $regionsone,
     ),
     // My dashboard page.
     'mydashboard' => array(
@@ -141,7 +141,7 @@ $THEME->layouts = array(
 
     // Pages that appear in pop-up windows - no navigation, no blocks, no header.
     'popup' => array(
-        'file' => 'general.php',
+        'file' => 'popup.php',
         'regions' => array(),
         'options' => array('nofooter' => true, 'nonavbar' => true),
     ),
@@ -177,8 +177,8 @@ $THEME->layouts = array(
     // The pagelayout used for reports.
     'report' => array(
         'file' => 'general.php',
-        'regions' => $regionsone,
-        'defaultregion' => $defaultregion,
+        'regions' => array($regionsone),
+        'defaultregion' => $regionsone,
     ),
     // The pagelayout used for safebrowser and securewindow.
     'secure' => array(

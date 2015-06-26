@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hub', language 'fr', branch 'MOODLE_26_STABLE'
+ * Strings for component 'hub', language 'fr', branch 'MOODLE_28_STABLE'
  *
  * @package   hub
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -158,13 +158,13 @@ $string['questionsnumber'] = 'Nombre de questions ({$a})';
 $string['readvertiseon'] = 'Modifier l\'information de publication sur {$a}';
 $string['registeredcourses'] = 'Cours enregistrés';
 $string['registeredmoodleorg'] = 'Moodle.org ({$a})';
-$string['registeredon'] = 'Serveurs d\'échanges où votre site est enregistré';
+$string['registeredon'] = 'Le serveur sur lequel votre site est enregistré';
 $string['registeredsites'] = 'Sites enregistrés';
 $string['registermoochtips'] = 'Pour être enregistré sur Moodle.net, votre site doit être enregistré sur Moodle.org.';
 $string['registersite'] = 'Enregistrer sur {$a}';
 $string['registerwith'] = 'S\'enregistrer sur un serveur d\'échanges';
 $string['registrationconfirmed'] = 'Enregistrement du site confirmé';
-$string['registrationconfirmedon'] = 'Votre site est enregistré sur le serveur d\'échanges {$a}. Vous pouvez dès maintenant publier des cours sur ce serveur, en cliquant sur le lien « Publier » dans le menu d\'administration de chaque cours';
+$string['registrationconfirmedon'] = 'Merci pour l\'enregistrement de votre plateforme. Les informations d\'enregistrement sont maintenues à jour par la tâche planifiée « Enregistrement du site ».';
 $string['registrationinfo'] = 'Information d\'enregistrement';
 $string['registrationupdated'] = 'L\'enregistrement a été mis à jour.';
 $string['registrationupdatedfailed'] = 'Échec de la mise à jour de l\'enregistrement';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'error', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   error
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -361,7 +361,7 @@ $string['listnopeers'] = 'No s\'han trobat elements iguals';
 $string['listupdatefail'] = 'L\'operació de la base de dades ha fallat quan s\'estava editant la jerarquia de la llista';
 $string['logfilenotavailable'] = 'No es pot accedir als registres';
 $string['loginasnoenrol'] = 'No us podeu inscriure en un curs, o cancel·lar la inscripció, si heu "entrat com"';
-$string['loginasonecourse'] = 'No podeu entrar en aquest curs.<br />Heu d\'acabar la sessió "Entra com" abans d\'entrar en cap altre curs';
+$string['loginasonecourse'] = 'No podeu entrar en aquest curs.<br />Heu d\'acabar la sessió «Entra com a» abans d\'entrar a cap altre curs';
 $string['maxareabytes'] = 'No hi ha prou espai disponible per emmagatzemar aquest fitxer';
 $string['maxbytes'] = 'Aquest fitxer excedeix la mida màxima';
 $string['messagingdisable'] = 'La missatgeria d\'aquest lloc està desactivada.';

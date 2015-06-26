@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'fr', branch 'MOODLE_26_STABLE'
+ * Strings for component 'enrol', language 'fr', branch 'MOODLE_28_STABLE'
  *
  * @package   enrol
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -65,6 +65,7 @@ $string['enroltimeend'] = 'L\'inscription se termine';
 $string['enroltimestart'] = 'L\'inscription commence';
 $string['enrolusage'] = 'Méthodes / inscriptions';
 $string['enrolusers'] = 'Inscrire des utilisateurs';
+$string['enrolxusers'] = 'Inscrire {$a} utilisateurs';
 $string['errajaxfailedenrol'] = 'Échec de l\'inscription de l\'utilisateur';
 $string['errajaxsearch'] = 'Erreur lors de la recherche d\'utilisateurs';
 $string['erroreditenrolment'] = 'Une erreur est survenue lors de la modification de l\'inscription d\'utilisateurs';
@@ -74,7 +75,7 @@ $string['errorthresholdlow'] = 'Le seuil de notification doit être au moins 1 j
 $string['errorwithbulkoperation'] = 'Une erreur est survenue lors du traitement de vos modifications d\'inscription en lot.';
 $string['eventuserenrolmentcreated'] = 'Utilisateur inscrit dans un cours';
 $string['eventuserenrolmentdeleted'] = 'Utilisateur désinscrit d\'un cours';
-$string['eventuserenrolmentupdated'] = 'Désinscription d\'utilisateur modifiée';
+$string['eventuserenrolmentupdated'] = 'Inscription d\'utilisateur modifiée';
 $string['expirynotify'] = 'Informer avant l\'échéance de l\'inscription';
 $string['expirynotifyall'] = 'Personne ayant inscrit et utilisateur inscrit';
 $string['expirynotifyenroller'] = 'Personne ayant inscrit seulement';
@@ -89,6 +90,7 @@ $string['extremovedsuspend'] = 'Désactiver l\'inscription au cours';
 $string['extremovedsuspendnoroles'] = 'Désactiver l\'inscription au cours et retirer l\'attribution des rôles';
 $string['extremovedunenrol'] = 'Désinscrire du cours l\'utilisateur';
 $string['finishenrollingusers'] = 'Terminer l\'inscription des utilisateurs';
+$string['foundxcohorts'] = '{$a} cohortes trouvées';
 $string['instanceeditselfwarning'] = 'Attention :';
 $string['instanceeditselfwarningtext'] = 'Vous êtes inscrit à ce cours au moyen de cette méthode d\'inscription. Des modifications pourraient empêcher votre accès à ce cours.';
 $string['invalidenrolinstance'] = 'Instance d\'inscription non valide';

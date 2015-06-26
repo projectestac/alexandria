@@ -13,6 +13,9 @@ class bigdata_profile_form extends moodleform {
         $mform->addRule('name', get_string('required'), 'required', 'client', null, false, true);
         $mform->setType('name', PARAM_TEXT);
 
+
+        $mform->addElement('header', 'export_data_settings', get_string('export_data_settings', 'local_bigdata'));
+
         $categories = $DB->get_records('course_categories', null, 'id', 'id, name, parent');
         $courses = $DB->get_records('course', null, 'category, fullname, id', 'id, category, fullname');
         $courseselector = array();
@@ -77,7 +80,8 @@ class bigdata_profile_form extends moodleform {
             'user_enrolments', 'user_info_category', 'user_info_data', 'user_info_field', 'user_lastaccess', 'user_password_resets', 'user_preferences', 'user_private_key',
             'webdav', 'log_queries');
 
-        $excludedtablefields = array('log.info', 'files.author', 'files.contenthash', 'files.pathnamehash', 'files.filename', 'files.filepath');  // Tables.Fields to be excluded of the form
+        // Tables.Fields to be excluded of the form
+        $excludedtablefields = array('log.info', 'files.author', 'files.contenthash', 'files.pathnamehash', 'files.filename', 'files.filepath', 'logstore_standard_log.other');
         foreach ($tables as $table) {
             if (in_array($table, $excludedtables)) {
                 continue;
@@ -104,6 +108,9 @@ class bigdata_profile_form extends moodleform {
         $tablefieldssel->setMultiple(true);
         $mform->addHelpButton('tablefields', 'tablefields', 'local_bigdata');
 
+
+        $mform->addElement('header', 'cron_settings', get_string('cron_settings', 'local_bigdata'));
+
         $units = array (
                 '' => get_string('never'),
                 'D' => get_string('days'),
@@ -121,7 +128,28 @@ class bigdata_profile_form extends moodleform {
         $mform->addHelpButton('durationarr', 'periodicity', 'local_bigdata');
         $mform->disabledIf('periodicity', 'periodicity_unit', 'eq', '');
 
+        $weekdays = array (
+                get_string('any'),
+                get_string('monday', 'calendar'),
+                get_string('tuesday', 'calendar'),
+                get_string('wednesday', 'calendar'),
+                get_string('thursday', 'calendar'),
+                get_string('friday', 'calendar'),
+                get_string('saturday', 'calendar'),
+                get_string('sunday', 'calendar')
+                );
+        $mform->addElement('select', 'weekday', get_string('weekday', 'local_bigdata'), $weekdays);
+        $mform->addHelpButton('weekday', 'weekday', 'local_bigdata');
+        $mform->setDefault('weekday', 0);
+        $mform->disabledIf('weekday', 'periodicity_unit', 'eq', '');
+
+        $mform->addElement('text', 'savedirectory', get_string('savedirectory', 'local_bigdata'));
+        $mform->addHelpButton('savedirectory', 'savedirectory', 'local_bigdata');
+        $mform->setType('savedirectory', PARAM_TEXT);
+        $mform->disabledIf('savedirectory', 'periodicity_unit', 'eq', '');
+
 
         $this->add_action_buttons(true);
+        $mform->closeHeaderBefore('buttonar');
     }
 }

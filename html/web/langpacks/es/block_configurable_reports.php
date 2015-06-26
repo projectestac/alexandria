@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_configurable_reports', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'block_configurable_reports', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   block_configurable_reports
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -212,6 +212,7 @@ $string['filteryears'] = 'Año (Numérico)';
 $string['fixeddate'] = 'Fecha fija';
 $string['footer'] = 'Pie de página';
 $string['forcemidnight'] = 'Forzar medianoche';
+$string['fsearchuserfield'] = 'Caja de búsqueda de campo del usuario';
 $string['fuserfield'] = 'Filtro de campo del usuario';
 $string['globalstatsshouldbeenabled'] = 'Las estadísticas del sitio deben estar habilitadas. Vaya a Administración  > Servidor > Estadísticas';
 $string['groupseries'] = 'Series del grupo';
@@ -323,7 +324,7 @@ $string['totalrecords'] = 'Total de registros = {$a->totalrecords}';
 $string['type'] = 'Tipo de informe';
 $string['typeofreport'] = 'Tipo de informe';
 $string['typeofreport_help'] = 'Elija el tipo de informe que quiere crear. Por seguridad, el informe SQL requiere una capacidad adicional';
-$string['userfield'] = 'Campo de perfil de usuario';
+$string['userfield'] = 'Campo del perfil del usuario';
 $string['userfieldorder'] = 'Orden de campo de usuario';
 $string['usermodactions'] = 'Acciones de módulo de usuario';
 $string['usermodoutline'] = 'Estadísticas simples de módulo de usuario';

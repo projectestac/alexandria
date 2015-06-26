@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plugin', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'plugin', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   plugin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -33,19 +33,21 @@ $string['dependencyinstall'] = 'Instalatu';
 $string['dependencyupload'] = 'Igo';
 $string['detectedmisplacedplugin'] = '"{$a->component}" plugina kokapen okerrean "{$a->current}" instalatu da. Hemen behar luke: "{$a->expected}"';
 $string['displayname'] = 'Pluginaren izena';
+$string['err_response_curl'] = 'Ezin izan da eguneraketarik eskuratu - espero ez zen cURL errorea.';
 $string['filterall'] = 'Erakutsi guztiak';
-$string['filtercontribonly'] = 'Erakutsi gehigarriak bakarrik';
-$string['filtercontribonlyactive'] = 'Erakusten gehigarriak bakarrik';
+$string['filtercontribonly'] = 'Erakutsi plugin gehigarriak bakarrik';
+$string['filtercontribonlyactive'] = 'Erakusten plugin gehigarriak bakarrik';
 $string['filterupdatesonly'] = 'Erakutsi eguneratzeko modukoak bakarrik';
 $string['filterupdatesonlyactive'] = 'Eguneratzeko modukoak bakarrik  erakusten';
 $string['moodleversion'] = 'Moodle {$a}';
+$string['nonehighlighted'] = 'Ez dago pluginik zure arreta eskatzen duenik.';
 $string['nonehighlightedinfo'] = 'Erakutsi instalatutako plugin guztien zerrenda';
 $string['noneinstalled'] = 'Honelako pluginak ez daude instalatuta';
 $string['notdownloadable'] = 'Ezin da paketea jaitsi';
 $string['notes'] = 'Oharrak';
 $string['notwritable'] = 'Pluginaren fitxategiak ezin dira idatzi';
 $string['numdisabled'] = 'Desgaituta: {$a}';
-$string['numextension'] = 'Gehigarriak: {$a}';
+$string['numextension'] = 'Gehigarria: {$a}';
 $string['numtotal'] = 'Instalatuta: {$a}';
 $string['numupdatable'] = 'Eskura dauden eguneraketak: {$a}';
 $string['otherplugin'] = '{$a->component}';
@@ -54,11 +56,15 @@ $string['plugindisable'] = 'Desgaitu';
 $string['plugindisabled'] = 'Desgaituta';
 $string['pluginenable'] = 'Gaitu';
 $string['pluginenabled'] = 'Gaituta';
+$string['release'] = 'Oharra';
 $string['requiredby'] = 'Ondokoak behar du:  {$a}';
+$string['requires'] = 'Behar du';
 $string['rootdir'] = 'Direktorioa';
 $string['settings'] = 'Ezarpenak';
 $string['showall'] = 'Birkargatu eta erakutsi plugin guztiak';
+$string['somehighlighted'] = 'Zure arreta eskatzen duen plugin-kopurua: : {$a}';
 $string['somehighlightedinfo'] = 'Erakutsi instalatutako pluginen zerrenda osoa';
+$string['somehighlightedonly'] = 'Erakutsi zure arreta eskatzen duten pluginak bakarrik';
 $string['source'] = 'Iturburua';
 $string['sourceext'] = 'Gehigarria';
 $string['sourcestd'] = 'Estandarra';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'blog', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -87,6 +87,8 @@ $string['entrybodyonlydesc'] = 'Deskribapena idatzi';
 $string['entryerrornotyours'] = 'Sarrera hau ez da zurea';
 $string['entrysaved'] = 'Zure sarrera gorde da';
 $string['entrytitle'] = 'Izenburua idatzi';
+$string['eventblogassociationadded'] = 'Blog-lotura sortu da';
+$string['eventblogentriesviewed'] = 'Blog-sarrerak ikusi dira';
 $string['evententryadded'] = 'Blog-sarrera gehituta';
 $string['evententrydeleted'] = 'Blog-sarrera ezabatuta';
 $string['evententryupdated'] = 'Blog-sarrera eguneratuta';
@@ -114,7 +116,7 @@ $string['name_help'] = 'Idtzi zure kanpoko blog-erako izen adierazgarria. (Ez ba
 $string['noentriesyet'] = 'Sarrerak ez daude ikusgai hemen';
 $string['noguestpost'] = 'Bisitariek ezin dute sarrerarik egin';
 $string['nopermissionstodeleteentry'] = 'Ez duzu blog-sarrera hau ezabatzeko behar den baimena';
-$string['norighttodeletetag'] = 'Zuk ez duzu etiketa hau ezabatzeko baimenik';
+$string['norighttodeletetag'] = 'Zuk ez duzu etiketa hau ezabatzeko baimenik - {$a}';
 $string['nosuchentry'] = 'Ez dago blog-sarrerarik';
 $string['notallowedtoedit'] = 'Zuk ez duzu sarrera hau editatzeko baimenik';
 $string['numberofentries'] = 'Sarrerak: {$a}';

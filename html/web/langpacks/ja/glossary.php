@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'ja', branch 'MOODLE_26_STABLE'
+ * Strings for component 'glossary', language 'ja', branch 'MOODLE_28_STABLE'
  *
  * @package   glossary
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -75,6 +75,7 @@ $string['attachment_help'] = '<p>1つまたはそれ以上のファイルを用�
 $string['author'] = '著者';
 $string['authorview'] = '著者順';
 $string['back'] = '戻る';
+$string['cachedef_concepts'] = '用語リンク';
 $string['cantinsertcat'] = 'カテゴリを追加できません。';
 $string['cantinsertrec'] = 'レコードを追加できません。';
 $string['cantinsertrel'] = '関連カテゴリエントリを追加できません。';
@@ -190,9 +191,18 @@ $string['entryusedynalink_help'] = '<p>この設定を有効にすると、単�
 <p>この機能を使用するためには、用語集レベルでオートリンク機能を有効にする必要があります。</p>';
 $string['errcannoteditothers'] = 'あなたは他の人のエントリを編集できません。';
 $string['errconceptalreadyexists'] = 'この用語はすでに登録されています。この用語集では、重複エントリは許可されていません。';
-$string['errdeltimeexpired'] = 'あなたは、このエントリを削除できません。編集期限は終了しました!';
+$string['errdeltimeexpired'] = 'あなたはこのエントリを削除できません。編集期限は終了しました!';
 $string['erredittimeexpired'] = 'このエントリの編集期限は終了しました。';
 $string['errorparsingxml'] = 'ファイルの構文解析中にエラーが発生しました。有効なXMLシンタックスかどうか確認してください。';
+$string['eventcategorycreated'] = 'カテゴリが作成されました。';
+$string['eventcategorydeleted'] = 'カテゴリが削除されました。';
+$string['eventcategoryupdated'] = 'カテゴリが更新されました。';
+$string['evententryapproved'] = 'エントリが承認されました。';
+$string['evententrycreated'] = 'エントリが作成されました。';
+$string['evententrydeleted'] = 'エントリが削除されました。';
+$string['evententrydisapproved'] = 'エントリが承認されませんでした。';
+$string['evententryupdated'] = 'エントリが更新されました。';
+$string['evententryviewed'] = 'エントリが閲覧されました。';
 $string['explainaddentry'] = '用語集に新しいエントリを追加します。<br />用語および定義は必須入力フィールドです。';
 $string['explainall'] = 'すべてのエントリを1ページに表示';
 $string['explainalphabet'] = 'インデックスを利用して用語集を表示';
@@ -283,9 +293,9 @@ $string['nocomments'] = '( このエントリにはコメントがありませ�
 $string['noconceptfound'] = '用語または定義が見つかりませんでした。';
 $string['noentries'] = 'このセクションにはエントリがありません。';
 $string['noentry'] = 'エントリが見つかりませんでした。';
-$string['nopermissiontodelcomment'] = 'あなたは、他のユーザのコメントを削除できません!';
-$string['nopermissiontodelinglossary'] = 'あなたは、この用語集にコメントを追加できません!';
-$string['nopermissiontoviewresult'] = 'あなたは、自分のエントリの結果のみ閲覧できます。';
+$string['nopermissiontodelcomment'] = 'あなたは他のユーザのコメントを削除できません!';
+$string['nopermissiontodelinglossary'] = 'あなたはこの用語集にコメントを追加できません!';
+$string['nopermissiontoviewresult'] = 'あなたは自分のエントリの結果のみ閲覧できます。';
 $string['notapproved'] = '用語集エントリはまだ承認されていません。';
 $string['notcategorised'] = 'カテゴリなし';
 $string['numberofentries'] = 'エントリ数';

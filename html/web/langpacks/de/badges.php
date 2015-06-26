@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'de', branch 'MOODLE_26_STABLE'
+ * Strings for component 'badges', language 'de', branch 'MOODLE_28_STABLE'
  *
  * @package   badges
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -55,6 +55,9 @@ $string['anymethodactivity'] = 'Eine der gewählten Aktivitäten ist abgeschloss
 $string['anymethodcourseset'] = 'Einer der gewählten Kurse abgeschlossen ist';
 $string['anymethodmanual'] = 'Eine der gewählten Rollen die Auszeichnung verleiht';
 $string['anymethodprofile'] = 'Eines der gewählten Nutzerprofilfelder vollständig ist';
+$string['archivebadge'] = 'Möchten Sie die Auszeichnung \'{$a}\' löschen, aber bestehende Auszeichnungen behalten?';
+$string['archiveconfirm'] = 'Löschen und vorhandene Auszeichenungen behalten';
+$string['archivehelp'] = '<p>Diese Option meint, dass die Auszeichnung \'deaktiviert\' wird. Sie erscheint nicht mehr in der Liste der aktiven Auszeichnungen. Nutzer/innen können die Auszeichnung nicht mehr neu erhalten.Bereits früher vergebene Auszeichnungen belieben weiterhin gültig und sichtbar. Sie sind auf der Profilseite sichtbar und können auch exportiert werden.</p><p>Wenn Nutzer/innen ihre Auszeichnungen behalten sollen, muss diese Option gewählt werden. Die Auszeichnung darf nicht gelöscht werden. </p>';
 $string['attachment'] = 'Auszeichnung an Mitteilung anhängen';
 $string['attachment_help'] = 'Wenn Sie diese Checkbox markieren, dann wird die Auszeichnung als Anhang zur E-Mail hinzugefügt, die an den Ausgezeichneten versendet wird. E-Mail-Dateianhänge müssen systemweit aktiviert werden, um diese Option zu nutzen. Website-Administration -> Plugins -> Mitteilungen -> E-Mail.';
 $string['award'] = 'Auszeichnung verleihen';
@@ -191,9 +194,10 @@ $string['defaultissuercontact'] = 'Kontaktdaten des standardmäßigen Verleihers
 $string['defaultissuercontact_desc'] = 'Tragen Sie hier eine E-Mail-Adresse ein, die standardmäßig mit dem Verleiher von Auszeichnungen auf Ihrer Moodle-Site verknüpft ist.';
 $string['defaultissuername'] = 'Name des standardmäßigen Verleihers';
 $string['defaultissuername_desc'] = 'Tragen Sie hier einen Namen ein, der standardmäßig als Verleiher von Auszeichnungen auf Ihrer Moodle-Site verwendet wird (z.B. den Namen der verleihenden Institution).';
-$string['delbadge'] = 'Auszeichnung löschen';
-$string['delconfirm'] = 'Sind Sie sicher, dass Sie die Auszeichnung \'{$a}\' löschen wollen?';
+$string['delbadge'] = 'Sind Sie sicher, dass Sie die Auszeichnung \'{$a}\' und alle vergebenen Instanzen löschen wollen?';
+$string['delconfirm'] = 'Löschen der bestehenden Auszeichnungen  und Entfernen der Auszeichnung';
 $string['delcritconfirm'] = 'Möchten Sie dieses Kriterium wirklich löschen?';
+$string['deletehelp'] = '<p>Vollständig gelöschte Auszeichnungen führen dazu, dass alle vergebenen Auszeichnungen aufgehoben werden und nicht mehr verfügbar sind. Löschen bedeutet sie endgültig zu entfernen.</p><p>Hinweis: Wen Nutzer vor dem Löschen eine Auszeichnungen exportiert haben, bleibt diese erhalt. Der Link zur Prüfseite wo die Auszeichnung herkommt, wird jedoch beim Löschen entfernt und kann nicht mehr genutzt werden.</p>';
 $string['delparamconfirm'] = 'Möchten Sie diesen Parameter wirklich löschen?';
 $string['description'] = 'Beschreibung';
 $string['disconnect'] = 'Verbindung aufheben';
@@ -337,7 +341,7 @@ $string['reviewconfirm'] = '<p> Hiermit machen Sie Ihre Auszeichnung für Nutzer
 $string['save'] = 'Speichern';
 $string['searchname'] = 'Nach Name suchen';
 $string['selectaward'] = 'Wählen Sie die Rolle, die diese Auszeichnung verleihen darf:';
-$string['selectgroup_end'] = 'Es werden nur öffentliche Sammlungen angezeigt, <a href="http://backpack.openbadges.org">gehen Sie zu Ihrem Backapck</a> und legen Sie eine öffentliche Sammlung an.';
+$string['selectgroup_end'] = 'Es werden nur öffentliche Sammlungen angezeigt, <a href="http://backpack.openbadges.org">gehen Sie zu Ihrem Backpack</a> und legen Sie eine öffentliche Sammlung an.';
 $string['selectgroup_start'] = 'Wählen Sie Sammlungen von Auszeichnungen aus Ihrem Backpack, um sie auf dieser Seite anzuzeigen:';
 $string['selecting'] = 'Mit den gewählten Auszeichnungen...';
 $string['setup'] = 'Verbindung konfigurieren';

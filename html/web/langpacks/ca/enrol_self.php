@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_self', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'enrol_self', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   enrol_self
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -72,22 +72,20 @@ Aquest paràmetre especifica aquest temps límit.';
 $string['maxenrolled'] = 'Nombre màxim d\'usuaris inscrits';
 $string['maxenrolled_help'] = 'Especifica el nombre màxim d\'usuaris que es poden inscriure. 0 significa que no hi ha límit';
 $string['maxenrolledreached'] = 'Ja s\'ha assolit el nombre màxim d\'usuaris que heu permès autoinscriure\'s.';
-$string['messageprovider:expiry_notification'] = 'Notificació de venciment d\'autoinscripció.';
+$string['messageprovider:expiry_notification'] = 'Notificacions de venciment d\'autoinscripció';
 $string['newenrols'] = 'Permet inscripcions noves';
 $string['newenrols_desc'] = 'Permet que els usuaris s\'inscriguen ells mateixos per defecte en els cursos nous.';
 $string['newenrols_help'] = 'Aquest paràmetre determina si un usuari pot inscriure\'s en aquest curs.';
 $string['nopassword'] = 'No cal clau d\'inscripció.';
 $string['password'] = 'Clau d\'inscripció';
-$string['password_help'] = 'Una clau d\'inscripció habilita per accedir al curs que està restringit sols als qui coneixen la clau.
+$string['password_help'] = 'Una clau d\'inscripció habilita que l\'accés al curs estarà restringit només a aquelles persones que coneixen la clau.
 
 Si el camp es deixa en blanc, qualsevol usuari podrà inscriure\'s al curs.
 
-Si especifiqueu una clau d\'inscripció, qualsevol usuari que intenti inscriure\'s al curs, haurà de donar la clau. Avís: L\'usuari sols haurà de posar la clau d\'inscripció UNA sola vegada quan s\'inscrigui al curs.';
+Si especifiqueu una clau d\'inscripció, caldrà que qualsevol usuari que intenti inscriure\'s al curs proporcioni aquesta clau. Tingueu en compte que l\'usuari sols haurà de proporcionar la clau d\'inscripció UNA SOLA VEGADA, quan s\'inscrigui al curs.';
 $string['passwordinvalid'] = 'Clau d\'inscripció incorrecta, prova-ho una altre cop';
 $string['passwordinvalidhint'] = 'Aquesta clau d\'inscripció es errònia, si us plau torneu a intentar-ho<br />
-(Heus ací una pista: comença per \'{$a}\'.)
-
-(Una pista: comença per \'{$a}\'';
+(Una pista: comença per \'{$a}\'.)';
 $string['pluginname'] = 'Autoinscripció';
 $string['pluginname_desc'] = 'El connector d\'auto inscripció  habilita als usuaris per escollir els cursos en els quals volen participar. Els cursos poden estar protegits per una clau d\'inscripció. La inscripció es fa de forma interna amb el connector d\'inscripció el qual ha d\'estar habilitat al mateix curs.';
 $string['requirepassword'] = 'És necessària una clau d\'inscripció';

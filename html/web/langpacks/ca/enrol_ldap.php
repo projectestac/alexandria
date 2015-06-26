@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_ldap', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'enrol_ldap', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   enrol_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -76,7 +76,7 @@ $string['enroluser'] = 'Inscriu l\'usuari \'{$a->user_username}\' al curs \'{$a-
 $string['enroluserenable'] = 'Habilitada l\'inscripció per l\'usuari  \'{$a->user_username}\' al curs \'{$a->course_shortname}\' (id {$a->course_id})';
 $string['explodegroupusertypenotsupported'] = 'ldap_explode_group() no suporta el tipus seleccionat per l\'usuari: {$a}';
 $string['extcourseidinvalid'] = 'La identificació externa del curs és invalida!';
-$string['extremovedsuspend'] = 'Deshabilitada la inscripció de l\'usuari  \'{$a->user_username}\' al curs \'{$a->course_shortname}\' (id {$a->course_id})';
+$string['extremovedsuspend'] = 'Inhabilitada la inscripció de l\'usuari  \'{$a->user_username}\' al curs \'{$a->course_shortname}\' (id {$a->course_id})';
 $string['extremovedsuspendnoroles'] = 'S\'ha suprimit la inscripció i els rols de l\'usuari \'{$a->user_username}\' al curs  \'{$a->course_shortname}\' (id {$a->course_id})';
 $string['extremovedunenrol'] = 'Suprimeix la inscripció de l\'usuari \'{$a->user_username}\' al curs \'{$a->course_shortname}\' (id {$a->course_id})';
 $string['failed'] = 'Fallada !';

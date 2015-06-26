@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_rubric', language 'eu', branch 'MOODLE_26_STABLE'
+ * Strings for component 'gradingform_rubric', language 'eu', branch 'MOODLE_28_STABLE'
  *
  * @package   gradingform_rubric
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -43,7 +43,7 @@ $string['err_nocriteria'] = 'Errubrikak gutxienez irizpide bat izan behar du';
 $string['err_nodefinition'] = 'Mailaren definizioa ezin da hutsik egon';
 $string['err_nodescription'] = 'Irizpidearen deskribapena ezin da hutsik egon';
 $string['err_scoreformat'] = 'Maila bakoitzeko puntu-kopuruak zenbaki positibo bat izan behar du';
-$string['err_totalscore'] = 'Errubrikaren bidez kalifikatzean gehienez eman daitekeeen puntu-kopuruak zero baino handiagoa izan behar du';
+$string['err_totalscore'] = 'Errubrikaren bidez kalifikatzean gehienez eman daitekeen puntu-kopuruak zero baino handiagoa izan behar du';
 $string['gradingof'] = '{$a} kalifikatzen';
 $string['leveldelete'] = 'Ezabatu maila';
 $string['levelempty'] = 'Sakatu maila editatzeko';

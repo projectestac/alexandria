@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'es', branch 'MOODLE_26_STABLE'
+ * Strings for component 'scorm', language 'es', branch 'MOODLE_28_STABLE'
  *
  * @package   scorm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -56,6 +56,7 @@ $string['attemptstatusentry'] = 'Solo página de inicio';
 $string['attemptstatusmy'] = 'Solo Área personal';
 $string['attemptsx'] = '{$a} intentos';
 $string['attr_error'] = 'Valor incorrecto para el atributo ({$a->attr}) en la marca {$a->tag}.';
+$string['autocommit'] = 'Auto-guardado';
 $string['autocontinue'] = 'Continuación automática';
 $string['autocontinuedesc'] = 'Esta preferencia fija la continuación automática por defecto de la actividad';
 $string['autocontinue_help'] = '<p><strong>Autocontinuar</strong></p>
@@ -94,11 +95,14 @@ $string['defaultgradesettings'] = 'Configuración de calificación predeterminad
 $string['defaultothersettings'] = 'Otras configuraciones predeterminadas';
 $string['deleteallattempts'] = 'Eliminar todos los intentos SCORM';
 $string['deleteattemptcheck'] = '¿Está totalmente seguro que quiere eliminar completamente estos intentos?';
+$string['deleteselected'] = 'Eliminar los intentos seleccionados';
 $string['deleteuserattemptcheck'] = '¿Está seguro que quiere eliminar completamente todos sus intentos?';
 $string['details'] = 'Detalles del rastreo SCO';
 $string['directories'] = 'Mostrar enlaces de directorio';
 $string['disabled'] = 'Dehabilitado';
 $string['display'] = 'Mostrar';
+$string['displayactivityname'] = 'Mostrar nombre de la actividad';
+$string['displayactivityname_help'] = 'Mostrar o no mostrar el nombre de la actividad sobre el reproductor de SCORM.';
 $string['displayattemptstatus'] = 'Mostrar estado de intentos';
 $string['displayattemptstatusdesc'] = 'Esta preferencia fija el valor por defecto para mostrar el ajuste de estado de intentos';
 $string['displayattemptstatus_help'] = 'Esta preferencia permite mostrar un resumen de los intentos de los usuarios en el bloque Vista general del curso en Mi Moodle y/o en la página de entrada del SCORM.';
@@ -126,6 +130,7 @@ $string['finishscorm'] = 'Si ha terminado de ver este recurso, {$a}';
 $string['finishscormlinkname'] = 'haga clic aquí para volver a la página del curso';
 $string['firstaccess'] = 'Primer acceso';
 $string['firstattempt'] = 'Primer intento';
+$string['floating'] = 'Flotante';
 $string['forcecompleted'] = 'Forzar finalización';
 $string['forcecompleteddesc'] = 'Esta preferencia fija el valor por defecto para mostrar el ajuste de forzar completados';
 $string['forcecompleted_help'] = 'Si se activa, el estado del intento actual se cambia a "Completado". Este ajuste sólo se aplica a los paquetes SCORM 1.2. Es útil si el paquete SCORM no se ocupa de revisar el intento correctamente, ya sea en la revisión o en el modo de exploración, o se produce cualquier otro funcionamiento incorrecto en el estado "Completado"';
@@ -360,6 +365,7 @@ $string['typeaiccurl'] = 'URL AICC externa';
 $string['typeexternal'] = 'Manifiesto SCORM externo';
 $string['typelocal'] = 'Paquete subido';
 $string['typelocalsync'] = 'Paquete bajado';
+$string['undercontent'] = 'Bajo el contenido';
 $string['unziperror'] = 'Ha ocurrido un error durante la descompresión del paquete';
 $string['updatefreq'] = 'Actualizar frecuencia automáticamente';
 $string['updatefreqdesc'] = 'Esta preferencia fija el valor por defecto sobre la frecuencia de actualización automática de una actividad';

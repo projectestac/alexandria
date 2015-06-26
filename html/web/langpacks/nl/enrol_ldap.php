@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_ldap', language 'nl', branch 'MOODLE_26_STABLE'
+ * Strings for component 'enrol_ldap', language 'nl', branch 'MOODLE_28_STABLE'
  *
  * @package   enrol_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['assignrole'] = 'Rol \'{$a->role_shortname}\' toewijzen aan gebruiker \'{$a->user_username}\' in cursus \'{$a->course_shortname}\' (id {$a->course_id})';
 $string['assignrolefailed'] = 'Rol \'{$a->role_shortname}\' toewijzen aan gebruiker \'{$a->user_username}\' in cursus \'{$a->course_shortname}\' (id {$a->course_id}) mislukt';
-$string['autocreate'] = 'Vakken kunnen automatisch aangemaakt worden als er aanmeldingen zijn bij een cursus die in Moodle nog niet bestaat.';
+$string['autocreate'] = '<p>Vakken kunnen automatisch aangemaakt worden als er aanmeldingen zijn bij een cursus die in Moodle nog niet bestaat.</p><p>Als je automatisch cursus maken gebruikt, dan is het aangewezen dat je uit de relevante rollen de volgende mogelijkheden verwijdert om wijzigingen aan het IDnummer, korte naam, volledige naam en beschrijving van de cursus te verhinderen: moodle/course:changeidnumber, moodle/course:changeshortname, moodle/course:changefullname and moodle/course:changesummary.<p>';
 $string['autocreate_key'] = 'Automatisch aanmaken';
 $string['autocreation_settings'] = 'Instellingen voor het automatisch aanmaken van cursussen.';
 $string['autoupdate_settings'] = 'Automatische cursus update-instellingen';

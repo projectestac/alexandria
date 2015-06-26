@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_performance', language 'ca', branch 'MOODLE_26_STABLE'
+ * Strings for component 'report_performance', language 'ca', branch 'MOODLE_28_STABLE'
  *
  * @package   report_performance
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,7 +42,7 @@ $string['check_themedesignermode_comment_disable'] = 'Si ho habiliteu, les imatg
 $string['check_themedesignermode_comment_enable'] = 'Si ho deshabiliteu, les imatges i fulls d\'estils s\'emmagatzemaran en memòria cau, el que resultarà en un augment significatiu del rendiment.';
 $string['check_themedesignermode_details'] = 'Això és sovint el motiu de que hi hagi llocs de Moodle lents. <p>De mitjana es podria consumir com a mínim dues vegades la quantitat de CPU per executar un lloc Moodle amb el mode de disseny de tema habilitat.</p>';
 $string['comments'] = 'Comentaris';
-$string['disabled'] = 'Deshabilitat';
+$string['disabled'] = 'Inhabilitat';
 $string['edit'] = 'Edita';
 $string['enabled'] = 'Habilitat';
 $string['issue'] = 'Característica';
