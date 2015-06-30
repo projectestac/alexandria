@@ -14,12 +14,17 @@ $CFG->updateautocheck = false;
 $CFG->disableupdatenotifications = true;
 $CFG->disableupdateautodeploy = true;
 $CFG->disableonclickaddoninstall = true;
+$CFG->updateminmaturity = 0;
+$CFG->updatenotifybuilds = false;
+$CFG->slasharguments = true;
 
+//Mail
 $CFG->smtpmaxbulk = 20;
 $CFG->noreplyaddress = 'noreply@agora.xtec.cat';
 $CFG->digestmailtime = 1;
 $CFG->mailheader = '[Alexandria]';
 
+//Cleanup
 $CFG->disablegradehistory = 1;
 
 //Rules
@@ -51,6 +56,8 @@ $CFG->langotherroot = dirname(__FILE__) . '/langpacks/';
 $CFG->langlocalroot = $CFG->langotherroot;
 $CFG->skiplangupgrade  = true;
 
+// Path of the cacheconfig.php file, to have only one MUC file for Àgora (instead of having one for each site in moodledata/usuX/muc/config.php).
+// This folder has to exists and to be writable
 $CFG->altcacheconfigpath = dirname(__FILE__) . '/local/agora/muc/';
 $CFG->siteidentifier = 'alexandria';
 $CFG->memcache_prefix = $CFG->siteidentifier.'_';
@@ -61,6 +68,9 @@ $CFG->localcachedir = $CFG->dataroot.'/localcache';
 $CFG->timezone = 99; // Changed by default to Server's local time
 
 $CFG->mobilecssurl = $CFG->wwwroot.'/theme/xtec2/mobile/style.php';
+
+
+$CFG->forced_plugin_settings = array('filter_wiris' => array('uninstall' => 1));
 
 // Here is where the cronlogs will be stored
 //$CFG->savecronlog = 1;  // This parámeter is saved on database to save cronlogs
