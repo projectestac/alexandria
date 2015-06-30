@@ -175,6 +175,30 @@ function alexandria_get_admin() {
 	return false;
 }
 
+//BACKUP FUNCTIONS
+function alexandria_backup_course($courseid, $doitnow = false) {
+    global $CFG, $DB, $USER;
+    if ($doitnow && is_xtecadmin()) {
+        require_once($CFG->dirroot.'/backup/util/includes/backup_includes.php');
+        require_once($CFG->dirroot.'/backup/util/helper/backup_cron_helper.class.php');
+        $course = $DB->get_record('course', array('id' => $courseid));
+        backup_cron_automated_helper::launch_automated_backup($course, 0, $USER->id);
+    } else {
+        // Start doing the backup (approved or not)
+        $backup = $DB->get_record('backup_courses', array('courseid' => $courseid));
+        if (!$backup) {
+            $backup = new stdClass();
+            $backup->courseid = $courseid;
+            $backup->nextstarttime = time();
+            $DB->insert_record('backup_courses', $backup);
+        } else {
+            $DB->set_field('backup_courses', 'nextstarttime', time(), array('courseid' => $courseid));
+        }
+    }
+    redirect($CFG->wwwroot.'/course/view.php?id='.$courseid);
+}
+
+
 // RESTORE FUNCTIONS
 function alexandria_restore_course($file, $recordid) {
 	global $DB, $CFG, $USER;

@@ -14,5 +14,6 @@ $string['license_warning'] = 'Esta obra está sujeta a una <a rel="license" href
 $string['metainfo'] = 'Ficha completa';
 $string['pluginname'] = 'Información del curso';
 $string['share'] = 'Compartir el curso';
+$string['backup_now'] = 'Hacer copia de seguridad ahora (Próximo cron)';
 
 $string['about_course:addinstance'] = 'Añadir una instáncia del bloque de Información del curso';
