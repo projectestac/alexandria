@@ -16,5 +16,6 @@ $string['metainfo'] = 'Fitxa completa';
 $string['download_course'] = 'Descarrèga el curs';
 $string['pluginname'] = 'Informació del curs';
 $string['share'] = 'Comparteix el curs';
+$string['backup_now'] = 'Fes la còpia de seguretat (Proper cron)';
 
 $string['about_course:addinstance'] = 'Afegir instancia del block Informació del curs';

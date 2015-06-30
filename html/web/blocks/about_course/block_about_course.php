@@ -93,6 +93,10 @@ class block_about_course extends block_base {
     			$content_text .= '<p id="download_text" style="font-size: 0.9em; margin-left: 32px;">('.$filesize.' - '.get_string('downloads','local_alexandria',$counter).')</p>'.
                                 '<script type="text/javascript" src="'.$CFG->wwwroot.'/local/alexandria/data/files.js"></script>';
     		}
+            if (is_siteadmin()) {
+                $url = $CFG->wwwroot.'/local/alexandria/data/backup_now.php?courseid='.$COURSE->id;
+                $content_text .= '<p><a href="'.$url.'">'.$OUTPUT->pix_icon('i/backup','','moodle',array('class'=>'iconlarge', 'style'=>'margin-right:6px;vertical-align: text-bottom;')).get_string('backup_now','block_about_course').'</a></p>';
+            }
     	}
 
         $content_text .= '<div><strong>'.get_string('share','block_about_course').'</strong>

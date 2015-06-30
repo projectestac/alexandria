@@ -458,10 +458,7 @@ class data_field_file extends data_field_base {
                 }
 
                 // Start doing the backup (approved or not)
-                $backup = new stdclass();
-                $backup->courseid = $courseid;
-                $backup->nextstarttime = time();
-                $DB->insert_record('backup_courses', $backup);
+                alexandria_backup_course($courseid);
             }
        }
        //*************** FI

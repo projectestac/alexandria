@@ -16,5 +16,6 @@ $string['metainfo'] = 'Complete record';
 $string['download_course'] = 'Download course';
 $string['pluginname'] = 'About course';
 $string['share'] = 'Share course';
+$string['backup_now'] = 'Backup now (Next cron)';
 
 $string['about_course:addinstance'] = 'Add About Course block instance';
