@@ -18,11 +18,13 @@ $CFG->wwwroot   = 'http://agora/alexandria';
 $CFG->dataroot  = '/dades/alexandria/docs';
 $CFG->admin     = 'admin';
 
-$CFG->memcache_servers = '127.0.0.1';
-
 $CFG->directorypermissions = 0777;
 
 $CFG->passwordsaltmain = '/PN~dd>bLwqEOKaMa3j9cn*vcb';
+$CFG->memcache_servers = '127.0.0.1';
+
+//Mail information
+$CFG->apligestenv = 'LOCAL';
 
 require_once(dirname(__FILE__) . '/settings.php');
 
