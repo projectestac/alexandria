@@ -124,6 +124,38 @@ function xmldb_local_alexandria_upgrade($oldversion) {
 		upgrade_plugin_savepoint(true, 2014031300, 'local', 'alexandria');
     }
 
+    if ($oldversion < 2015110200) {
+        $table = new xmldb_table('course');
+
+        $field = new xmldb_field('navigationbar');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        $field = new xmldb_field('gradesonnav');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        $field = new xmldb_field('showblocks');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        $field = new xmldb_field('topicsonnav');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        $field = new xmldb_field('topicslistonnav');
+        if ($dbman->field_exists($table, $field)) {
+            $dbman->drop_field($table, $field);
+        }
+
+        // Alexandria savepoint reached.
+        upgrade_plugin_savepoint(true, 2015110200, 'local', 'alexandria');
+    }
+
     return true;
 }
 
