@@ -26,9 +26,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addmorechoices'] = 'Afegeix més opcions';
+$string['allowmultiple'] = 'Permet seleccionar més d\'una resposta';
 $string['allowupdate'] = 'Permet canviar la resposta';
 $string['answered'] = 'Contestades';
 $string['atleastoneoption'] = 'Heu de proporcionar almenys una possible resposta.';
+$string['cannotsubmit'] = 'Hi ha hagut un problema en la tramesa de la vostra resposta. Torneu-ho a intentar.';
 $string['choice'] = 'Consulta';
 $string['choice:addinstance'] = 'Afegeix una consulta nova';
 $string['choice:choose'] = 'Grava una consulta';
@@ -81,10 +83,10 @@ $string['mustchooseone'] = 'Heu de triar una resposta abans de desar. No s\'ha d
 $string['noguestchoose'] = 'Els usuaris visitants no poden respondre una consulta';
 $string['noresultsviewable'] = 'A hores d\'ara no es poden veure els resultats';
 $string['notanswered'] = 'No contestada encara';
-$string['notenrolledchoose'] = 'Només els usuaris inscrits poden fer tries.';
-$string['notopenyet'] = 'Aquesta activitat no està disponible fins el {$a}';
-$string['numberofuser'] = 'Nombre d\'usuaris';
-$string['numberofuserinpercentage'] = 'Nombre d\'usuaris en percentatge';
+$string['notenrolledchoose'] = 'Només els usuaris inscrits poden respondre consultes.';
+$string['notopenyet'] = 'Aquesta activitat no estarà disponible fins al dia {$a}';
+$string['numberofuser'] = 'Nombre de participants';
+$string['numberofuserinpercentage'] = 'Nombre de participants (%)';
 $string['option'] = 'Opció';
 $string['optionno'] = 'Opció {no}';
 $string['options'] = 'Opcions';

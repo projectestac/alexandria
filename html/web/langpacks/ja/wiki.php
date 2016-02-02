@@ -39,6 +39,7 @@ $string['backhistory'] = '履歴に戻る';
 $string['backoldversion'] = '古いバージョンに戻る';
 $string['backpage'] = 'ページに戻る';
 $string['backtomapmenu'] = 'マップメニューに戻る';
+$string['cannotcomparenewerversion'] = 'ページのバージョンは古いバージョンとのみ比較することができます。';
 $string['cannoteditpage'] = 'あなたはこのページを編集できません。';
 $string['cannotmanagefiles'] = 'あなたにはWikiファイルを管理するパーミッションがありません。';
 $string['cannotviewfiles'] = 'あなたにはWikiファイルを閲覧するパーミッションがありません。';
@@ -100,22 +101,25 @@ $string['format'] = 'フォーマット';
 $string['formatcreole'] = 'クレオールフォーマット';
 $string['formatcreole_help'] = 'クレオールフォーマットは適切なマークアップを挿入するための編集ツールバーを持った一般的なWIkiマークアップ言語です。
 
-新しいページを作成するには、例えば [[ページ2 ]] のように2重角括弧で閉じたページ名を入力します。';
+新しいページを作成するには例えば [[ページ2 ]] のように2重角括弧で閉じたページ名を入力します。';
 $string['format_help'] = '* HTML - HTMLエディタを使用できます。
 * クレオール - 小さな編集ツールバーを持った一般的なWikiマークアップ言語を使用できます。
 * Nwiki - Nwikiモジュールで使用される、Mediawikiのようなマークアップ言語です。';
 $string['formathtml'] = 'HTMLフォーマット';
 $string['formathtml_help'] = 'HTMLエディタはコンテンツのフォーマットに使用することができます。
 
-新しいページを作成するには、例えば [[ページ2 ]] のように2重角括弧で閉じられたページ名を入力します。';
+新しいページを作成するには例えば [[ページ2 ]] のように2重角括弧で閉じられたページ名を入力します。';
 $string['formatnwiki'] = 'NWiki フォーマット';
 $string['formatnwiki_help'] = 'NwikiはNwikiモジュール内で使用されるMediawikiのようなマークアップ言語です。
 
-新しいページを作成するには、例えば [[ページ2 ]] のように2重角括弧で閉じたページ名を入力します。';
+新しいページを作成するには例えば [[ページ2 ]] のように2重角括弧で閉じたページ名を入力します。';
 $string['history'] = '履歴';
 $string['history_help'] = '前のバージョンのページの履歴一覧リンクです。';
 $string['html'] = 'HTML';
 $string['incorrectdeleteversions'] = '削除するページバージョンが正しくありません。';
+$string['incorrectpageid'] = 'ページIDが正しくありません。';
+$string['incorrectsubwikiid'] = 'Subwiki IDが正しくありません。';
+$string['incorrectwikiid'] = 'Wiki IDが正しくありません。';
 $string['individualpagedoesnotexist'] = '個人Wikiページは存在していません。';
 $string['insertcomment'] = 'コメントを追加する';
 $string['insertimage'] = 'イメージを挿入する ...';
@@ -124,7 +128,7 @@ $string['invalidlock'] = 'このページは別のユーザにすでにロック
 $string['invalidparameters'] = '無効なパラメータが渡されました。';
 $string['invalidsection'] = 'セクションが正しくありません。';
 $string['invalidsesskey'] = '送信されたセッションキーが有効ではありません。データを再度送信してください。';
-$string['javascriptdisabledlocks'] = 'あなたのブラウザのJavaスクリプトが無効にされているため、ロックが動作していません。あなたの変更は正常に保存されない可能性があります。';
+$string['javascriptdisabledlocks'] = 'あなたのブラウザのJavaScriptが無効にされているため、ロックが動作していません。あなたの変更は正常に保存されない可能性があります。';
 $string['links'] = 'リンク';
 $string['listall'] = 'すべてを一覧表示する';
 $string['listorphan'] = '迷子ページを一覧表示する';

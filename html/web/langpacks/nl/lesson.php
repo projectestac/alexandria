@@ -92,6 +92,7 @@ $string['checkquestion'] = 'Controleer de vraag';
 $string['classstats'] = 'Statistieken van de klas';
 $string['clicktodownload'] = 'Klik op de link om het bestand te downloaden';
 $string['clicktopost'] = 'Klik hier om je cijfer op de scorelijst te zetten';
+$string['closebeforeopen'] = 'Kon deze les niet aanpassen. Je hebt een afsluitdatum opgegeven die vroeger valt dan de startdatum.';
 $string['cluster'] = 'Cluster';
 $string['clusterjump'] = 'Ongeziene vraag binnen een cluster';
 $string['clustertitle'] = 'Cluster';
@@ -395,8 +396,8 @@ $string['mediaclose'] = 'Toon knop om te sluiten';
 $string['mediafile'] = 'Bestands-pop up';
 $string['mediafile_help'] = 'Kies het te tonen bestand om een pop-up-venster aan het begin van een les te tonen. Elke lespagina zal een link bevatten om indien nodig het pop-upvenster opnieuw te tonen.';
 $string['mediafilepopup'] = 'Klik hier om te bekijken';
-$string['mediaheight'] = 'Hoogte pop-upvenster:';
-$string['mediawidth'] = 'Breedte pop-upvenster:';
+$string['mediaheight'] = 'Hoogte pop-upvenster';
+$string['mediawidth'] = 'Breedte pop-upvenster';
 $string['messageprovider:graded_essay'] = 'Melding beoordeling open vraag';
 $string['minimumnumberofquestions'] = 'Minimaal aantal vragen';
 $string['minimumnumberofquestions_help'] = 'Deze instelling specifieert het minimaal aantal vragen dat het mogelijk maakt om het cijfer voor de activiteit te berekenen. Indien de les een of meer inhoudspagina\'s bevat, dan moet de waarde worden ingesteld op nul.
@@ -479,7 +480,7 @@ $string['other'] = 'Andere';
 $string['outof'] = 'Van {$a}';
 $string['overview'] = 'Overzicht';
 $string['overview_help'] = 'Een les is opgebouwd uit een aantal pagina\'s en optioneel een aantal inhoudspagina\'s. Een pagina bevat een zekere inhoud en eindigt gewoonlijk met een vraag.
-Aan elk antwoord op de vraag is een sprong verbonden. De sprong kan relatief zijn, zoals deze pagina of volgende pagina, of absoluut verwijzen naar om het even welke pagina in de les. Een inhoudspagina is een pagina die een reeks links naar andere pagina\'s in de les bevat, zoals bijvoorbeeld een inhoudstafel.';
+Aan elk antwoord op de vraag is een sprong verbonden. De sprong kan relatief zijn, zoals deze pagina of volgende pagina, of absoluut verwijzen naar om het even welke pagina in de les. Een inhoudspagina is een pagina die een reeks links naar andere pagina\'s in de les bevat, zoals bijvoorbeeld een inhoudsopgave.';
 $string['page'] = 'Pagina: {$a}';
 $string['pageanswers'] = 'Pagineer antwoorden';
 $string['pagecontents'] = 'Inhoud van de pagina';

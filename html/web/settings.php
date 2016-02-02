@@ -5,7 +5,7 @@ get_debug();
 
 // Force general preferences. Prevailes over database params.
 $CFG->isagora = 1;
-$CFG->iseoi = false;
+$CFG->iseoi = $agora['iseoi'];
 $CFG->isportal = false;
 $CFG->center = isset($school_info['clientCode']) ? $school_info['clientCode'] : $school_info['id_moodle2'];
 
@@ -20,6 +20,9 @@ $CFG->disableupdateautodeploy = true;
 $CFG->disableonclickaddoninstall = true;
 $CFG->updateminmaturity = 0;
 $CFG->updatenotifybuilds = false;
+$CFG->core_media_enable_mp3 = false;
+$CFG->core_media_enable_html5audio = true;
+$CFG->core_media_enable_html5video = true;
 
 //Preconfiguration setting
 $CFG->alternateloginurl='';
@@ -31,10 +34,11 @@ $CFG->slasharguments = true;
 //$CFG->loginhttps=0;  /* Database param, to change if there is some problem */
 
 //Authentication
-$CFG->recaptchapublickey='6LcgQgsAAAAAAMZKqiYEDAhniHIY0hXC-MMVM6Rs';
-$CFG->recaptchaprivatekey='6LcgQgsAAAAAAMAOLB0yfxPACo0e60sKD5ksV_hP';
+$CFG->recaptchapublickey = $agora['recaptchapublickey'];
+$CFG->recaptchaprivatekey = $agora['recaptchaprivatekey'];
 
 //Mail
+$CFG->smtphosts = "";
 $CFG->smtpmaxbulk = 20;
 $CFG->noreplyaddress = 'noreply@agora.xtec.cat';
 $CFG->digestmailtime = 1;
@@ -100,17 +104,9 @@ if (!$CFG->iseoi) {
     $CFG->langlist = 'ca,en,es,fr,de';
 }
 
-if (isset($agora['server']['enviroment'])) {
-    $CFG->eoicampus_wsdl_path = dirname(__FILE__) . '/mod/eoicampus/action/wsdl/EOICampusWS_generat-ESB-'.$agora['server']['enviroment'].'.wsdl';
-}
-
-
-if ($CFG->ismarsupial && isset($agora['moodle2']['airnotifiermarsupial'])) {
-    $CFG->airnotifieraccesskey = $agora['moodle2']['airnotifiermarsupial'];
-} else if(isset($agora['moodle2']['airnotifier'])) {
+if(isset($agora['moodle2']['airnotifier'])) {
     $CFG->airnotifieraccesskey = $agora['moodle2']['airnotifier'];
 }
-
 
 // Path of the cacheconfig.php file, to have only one MUC file for Àgora (instead of having one for each site in moodledata/usuX/muc/config.php).
 // This folder has to exists and to be writable
@@ -127,6 +123,8 @@ if (isset($agora['server']['root']) && !empty($agora['server']['root'])) {
     $CFG->cachedir = $CFG->agora_muc_path.'/cache';
     $CFG->localcachedir = $CFG->agora_muc_path.'/localcache';
 }
+// Change locking from NFS to DB
+$CFG->lock_factory = "\\core\\lock\\db_record_lock_factory";
 
 $CFG->timezone = 99; // Changed by default to Server's local time
 $CFG->cronremotepassword = '';  // changed to avoid schools change it
@@ -145,7 +143,8 @@ $CFG->mobilecssurl = $CFG->wwwroot.'/theme/xtec2/mobile/style.php';
 
 $CFG->forced_plugin_settings = array('logstore_standard' => array('loglifetime' => 365 * 2),
                                      'logstore_legacy' => array('loglegacy' => 1),
-                                     'filter_wiris' => array('uninstall' => 1));
+                                     'filter_wiris' => array('uninstall' => 1),
+                                     'backup' => array('loglifetime' => 7));
 
 // Here is where the cronlogs will be stored
 //$CFG->savecronlog = 1;  // This parámeter is saved on database to save cronlogs

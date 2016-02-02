@@ -29,7 +29,7 @@ $string['accessnoticesheader'] = 'あなたはこの小テストをプレビュ�
 $string['action'] = '操作';
 $string['activityoverview'] = 'あなたには有効期限の到来した小テストがあります。';
 $string['adaptive'] = 'アダプティブモード';
-$string['adaptive_help'] = 'このオプションを「Yes」にした場合、小テストを受験している最中でも複数回の解答することができます。例えば解答が間違っている場合、学生はすぐに解答しなおすことが許されます。しかし、「ペナルティを適用する」設定に基づき、通常間違った解答ごとに評点からペナルティが引かれます。';
+$string['adaptive_help'] = 'この設定を有効にした場合、小テストを受験している最中でも複数回の解答することができます。例えば解答が間違っている場合、学生はすぐに解答しなおすことが許されます。しかし、「ペナルティを適用する」設定に基づき、通常間違った解答ごとに評点からペナルティが引かれます。';
 $string['add'] = '追加';
 $string['addaquestion'] = '新しい問題';
 $string['addarandomquestion'] = 'ランダム問題';
@@ -47,7 +47,7 @@ $string['addnewuseroverride'] = 'ユーザオーバーライドを追加する';
 $string['addpagebreak'] = '改ページを追加する';
 $string['addpagehere'] = 'ここにページを追加する';
 $string['addquestion'] = '問題を追加する';
-$string['addquestionfrombankatend'] = '最後に問題バンクから追加する';
+$string['addquestionfrombankatend'] = '問題バンクから末尾へ追加する';
 $string['addquestionfrombanktopage'] = '問題バンクからページ {$a} に追加する';
 $string['addquestions'] = '問題を追加する';
 $string['addquestionstoquiz'] = '現在の小テストに問題を追加する';
@@ -117,12 +117,11 @@ $string['basicideasofquiz'] = '小テスト作成の基本的な考え方';
 $string['bestgrade'] = '最高評点';
 $string['bothattempts'] = '受験済みおよび未受験の学生を表示';
 $string['browsersecurity'] = 'ブラウザセキュリティ';
-$string['browsersecurity_help'] = 'Javaスクリプトセキュリティ対策を含んだフルスクリーンポップアップを選択した場合:
+$string['browsersecurity_help'] = 'JavaScriptセキュリティ対策を含んだフルスクリーンポップアップを選択した場合:
 
-* 学生がJavaスクリプトの利用を有効にしているブラウザのみ、小テスト受験を開始することができます。
+* 学生がJavaScriptの利用を有効にしているブラウザのみ、小テスト受験を開始することができます。
 * 小テストはフルスクリーンのポップアップウィンドウ上に表示され、ナビゲーションコントロールはありません。
-* 可能な範囲でコピー&ペーストのような機能を学生が使用できないようにします。
-';
+* 可能な範囲でコピー&ペーストのような機能を学生が使用できないようにします。';
 $string['calculated'] = '計算問題';
 $string['calculatedquestion'] = '{$a} 行の計算された問題はサポートされていません。問題は無視されました。';
 $string['cannotcreatepath'] = 'パス ({$a}) が作成できません。';
@@ -141,7 +140,7 @@ $string['cannotsavenumberofquestion'] = 'ページごとの問題数を保存で
 $string['cannotsavequestion'] = '問題リストを保存できません。';
 $string['cannotsetgrade'] = '小テストの新たな最大評点を設定できませんでした。';
 $string['cannotsetsumgrades'] = '評点合計を設定できませんでした。';
-$string['cannotstartgradesmismatch'] = 'この小テストの受験を開始できません。小テストは最大評点 {$a->grade} に設定されているようですが、小テスト内に評定できる問題が存在しません。これは「小テストの編集」ページにて修正することができます。';
+$string['cannotstartgradesmismatch'] = 'この小テストの受験を開始できません。小テストは最大評点 {$a->grade} に設定されているようですが、小テスト内に評定できる問題が存在しません。これは「小テストの編集」ページで修正することができます。';
 $string['cannotstartmissingquestion'] = 'この小テストの受験を開始できません。小テストの定義に存在しない問題が含まれています。';
 $string['cannotstartnoquestions'] = 'この小テストの受験を開始できません。まだ、小テストが設定されていません。問題が追加されていません。';
 $string['cannotwrite'] = 'エクスポートファイル ({$a}) を書き込めません。';
@@ -184,12 +183,12 @@ $string['confignavmethod'] = 'フリーナビゲーションでは、ナビゲ�
 $string['confignewpageevery'] = '問題を小テストに追加する場合、あなたがここで選択した設定に基づき、改ページ (Page break) が自動的に挿入されます。';
 $string['configoutcomesadvanced'] = 'このオプションを有効にした場合、小テスト編集フォームのアウトカムは高度な設定になります。';
 $string['configpenaltyscheme'] = 'アダプティブモードの場合、それぞれの誤答に関して、ペナルティーが差し引かれます。';
-$string['configpopup'] = '小テストの受験時、ポップアップウィンドを開きます。また、小テストの受験中、コピー&ペースト等を制限するため、Javaスクリプトを使用します。';
-$string['configrequirepassword'] = '学生が小テストを受験するには、このパスワードを事前に入力する必要があります。';
+$string['configpopup'] = '小テストの受験時、ポップアップウィンドを開きます。また、小テストの受験中、コピー&ペースト等を制限するため、JavaScriptを使用します。';
+$string['configrequirepassword'] = '学生が小テストを受験するにはこのパスワードを事前に入力する必要があります。';
 $string['configrequiresubnet'] = '学生は、これらのコンピュータからのみ小テストを受験することができます。';
 $string['configreviewoptions'] = 'これらのオプションでは、ユーザが小テスト受験をレビューまたは小テストレポートを閲覧する場合、どの情報を閲覧できるかコントロールします。';
 $string['configshowblocks'] = '小テスト受験中にブロックを表示します。';
-$string['configshowuserpicture'] = '受験中、画面にユーザ写真を表示します。';
+$string['configshowuserpicture'] = '受験中、画面にユーザ画像を表示します。';
 $string['configshufflequestions'] = 'あなたがこのオプションを有効にした場合、学生の小テスト受験ごとに、小テストの問題順はランダムにシャッフルされます。';
 $string['configshufflewithin'] = 'あなたがこのオプションを有効にした場合、学生の小テスト受験開始ごとに、個々の問題を構成している部品がランダムにシャッフルされます。';
 $string['configtimelimit'] = '小テストのデフォルトの制限時間 (分) です。ゼロは、制限時間なしを意味します。';
@@ -230,7 +229,7 @@ $string['createmultiple'] = '複数問題の作成';
 $string['createnewquestion'] = '問題の作成';
 $string['createquestionandadd'] = '新しい問題を作成して、小テストに追加する';
 $string['custom'] = 'カスタムフォーマット';
-$string['dataitemneed'] = '有効な問題を作成するには、あなたは少なくとも一組のデータアイテムを追加する必要があります。';
+$string['dataitemneed'] = '有効な問題を作成するにはあなたは少なくとも一組のデータアイテムを追加する必要があります。';
 $string['datasetdefinitions'] = 'カテゴリ {$a} の再利用可能なデータセット定義';
 $string['datasetnumber'] = 'No.';
 $string['daysavailable'] = '日利用可能';
@@ -245,10 +244,10 @@ $string['defaultgrade'] = '評点のデフォルト値';
 $string['defaultinfo'] = '問題の標準カテゴリ';
 $string['delay1'] = '最初と2回目の受験の待ち時間';
 $string['delay1st2nd'] = '最初と2回目の受験の強制待ち時間';
-$string['delay1st2nd_help'] = '有効にした場合、最初の受験後、学生が2回目の小テストを受験するには設定された時間待つ必要があります。';
+$string['delay1st2nd_help'] = 'この設定を有効にした場合、最初の受験後、学生が2回目の小テストを受験するには設定された時間待つ必要があります。';
 $string['delay2'] = '2回目以降の受験の待ち時間';
 $string['delaylater'] = '2回目以降の受験の強制待ち時間';
-$string['delaylater_help'] = '有効にした場合、前の受験後、学生が3回目またはそれ以降の小テストを受験するには設定された時間待つ必要があります。';
+$string['delaylater_help'] = 'この設定を有効にした場合、前の受験後、学生が3回目またはそれ以降の小テストを受験するには設定された時間待つ必要があります。';
 $string['deleteattemptcheck'] = '本当にこれらの受験内容を削除してもよろしいですか?';
 $string['deleteselected'] = '選択したものを削除する';
 $string['deletingquestionattempts'] = '問題受験結果の削除';
@@ -291,7 +290,7 @@ $string['emailconfirmbody'] = '{$a->username} さん
 
 私たちがあなたの解答を正常に受信しましたので、この確認メールをお送りします。
 
-あなたは {$a->quizurl} にて、小テストにアクセスすることができます。';
+あなたは {$a->quizurl} で小テストにアクセスすることができます。';
 $string['emailconfirmsmall'] = '「 {$a->quizname} 」へのあなたの解答送信、ありがとうございます。';
 $string['emailconfirmsubject'] = '送信確認: {$a->quizname}';
 $string['emailnotifybody'] = '{$a->username} さん
@@ -350,10 +349,10 @@ $string['exportquestions'] = '問題をファイルにエクスポートする';
 $string['extraattemptrestrictions'] = '受験に関する特別制限';
 $string['false'] = '×';
 $string['feedback'] = 'フィードバック';
-$string['feedbackerrorboundaryformat'] = 'フィードバック評点境界は、パーセンテージまたは数値で入力してください。あなたが入力した境界 {$a} は認められません。';
-$string['feedbackerrorboundaryoutofrange'] = 'フィードバック評点境界は、0%から100%の間で入力してください。あなたが入力した境界 {$a} は範囲外です。';
-$string['feedbackerrorjunkinboundary'] = 'あなたは評点境界ボックスに対して、ギャップなしで入力する必要があります。';
-$string['feedbackerrorjunkinfeedback'] = 'フィードバックボックスには、ギャップなしで入力してください。';
+$string['feedbackerrorboundaryformat'] = 'フィードバック評点境界はパーセンテージまたは数値で入力してください。あなたが入力した境界 {$a} は認められません。';
+$string['feedbackerrorboundaryoutofrange'] = 'フィードバック評点境界は0%から100%の間で入力してください。あなたが入力した境界 {$a} は範囲外です。';
+$string['feedbackerrorjunkinboundary'] = 'あなたは評点境界ボックスに対してギャップなしで入力する必要があります。';
+$string['feedbackerrorjunkinfeedback'] = 'フィードバックボックスには空白なしで入力してください。';
 $string['feedbackerrororder'] = 'フィードバック評点境界は最初に最高値から順に入力してください。あなたが入力した境界 {$a} の順番は正しくありません。';
 $string['file'] = 'ファイル';
 $string['fileformat'] = 'ファイルフォーマット';
@@ -373,11 +372,7 @@ $string['fractionsnomax'] = 'この問題で満点を取ることができるよ
 $string['fromfile'] = 'ファイルからインポートする:';
 $string['functiondisabledbysecuremode'] = 'この機能は現在無効にされています。';
 $string['generalfeedback'] = '全般に対するフィードバック';
-$string['generalfeedback_help'] = '<p>全般に対するフィードバックは問題の受験後、学生に表示されるテキストです。問題タイプおよび学生の解答によって決まるフィードバックとは異なり、同じ全般に対するフィードバックテキストがすべての学生に表示されます。</p>
-
-<p>全般に対するフィードバックがいつ表示されるか、小テスト設定ページの「学生はレビューできる」チェックボックスでコントロールすることができます。</p>
-
-<p>どのような知識がこの問題で問われているのかという背景に関して、全般に対するフィードバックを使用して学生に提示することができます。または問題が分からない場合、さらなる情報のリンクを与えて学生が利用できるようにすることもできます。</p>';
+$string['generalfeedback_help'] = '全般に対するフィードバックは問題の受験後、学生に表示されるテキストです。問題タイプおよび学生の解答によって決まるフィードバックとは異なり、同じ全般に対するフィードバックテキストがすべての学生に表示されます。';
 $string['graceperiod'] = '送信猶予期間';
 $string['graceperiod_desc'] = '制限時間経過後に関して、「開いている受験を送信できる場合は猶予期間を設けますが、さらに問題に解答することはできません」が設定されている場合、デフォルトの猶予期間 (秒) が許可されます。';
 $string['graceperiod_help'] = '制限時間経過後に関して、「開いている受験を送信できる場合は猶予期間を設けますが、さらに問題に解答することはできません」が設定されている場合、デフォルトの猶予期間 (秒) が許可されます。';
@@ -514,7 +509,7 @@ $string['neverallononepage'] = 'なし、すべての問題を1ページに表�
 $string['newattemptfail'] = 'エラー: 小テストの新しい受験を開始できませんでした。';
 $string['newpage'] = '新しいページ';
 $string['newpageevery'] = '新しいページを自動的に開始する';
-$string['newpage_help'] = '<p>問題数の多い小テストの場合、1ページあたりの問題数を制限して、小テストを複数のページに分けることは理にかなっています。小テストのページに問題を追加する場合、この設定にしたがって改ページ (Page break) が自動的に挿入されます。後で小テストの編集ページにて、手動で改ページ (Page break) の位置を変えることもできます。 </p>';
+$string['newpage_help'] = '問題数の多い小テストの場合、1ページあたりの問題数を制限して、小テストを複数のページに分けることは理にかなっています。小テストのページに問題を追加する場合、この設定にしたがって改ページ (Page break) が自動的に挿入されます。後で小テストの編集ページで手動で改ページ (Page break) の位置を変えることもできます。';
 $string['noanswers'] = '答えが選択されていません!';
 $string['noattempts'] = 'この小テストは受験されていません。';
 $string['noattemptsfound'] = '受験は見つかりませんでした。';
@@ -544,7 +539,7 @@ $string['noreviewattempt'] = 'あなたはこの受験のレビューを許可�
 $string['noreviewshort'] = '許可なし';
 $string['noreviewuntil'] = 'あなたは {$a} までこの小テストのレビューはできません。';
 $string['noreviewuntilshort'] = '利用可能 {$a}';
-$string['noscript'] = '続けるにはJavaスクリプトを有効にしてください!';
+$string['noscript'] = '続けるにはJavaScriptを有効にしてください!';
 $string['notavailabletostudents'] = '注意: 現在あなたの学生は、この小テストを利用できません。';
 $string['notenoughrandomquestions'] = '問題 {$a->name} ({$a->id}) を作成するために十分な問題がカテゴリ {$a->category} 内にありません。';
 $string['notenoughsubquestions'] = '十分な副問題が定義されていません！<br />この問題を修正しますか？';
@@ -568,9 +563,9 @@ $string['optional'] = 'オプション';
 $string['orderandpaging'] = '問題順およびページング';
 $string['orderandpaging_help'] = 'それぞれの問題の反対側にある番号10、20、30、 ... は問題順を意味します。問題を追加できるよう番号は10ずつ増やされます。問題順を並べ替えるには、番号を変更した後、「問題を並べ替える」ボタンをクリックしてください。
 
-特定の問題の後に改ページを追加するには、問題の横にあるチェックボックスをチェックした後、「選択した問題の後に改ページを追加する」ボタンをクリックしてください。
+特定の問題の後に改ページを追加するには問題の横にあるチェックボックスをチェックした後、「選択した問題の後に改ページを追加する」ボタンをクリックしてください。
 
-1ページあたりの問題数を調整するには、「改ページ調整」ボタンをクリックして、希望する1ページあたりの問題数を入力してください。';
+1ページあたりの問題数を調整するには「改ページ調整」ボタンをクリックして、希望する1ページあたりの問題数を入力してください。';
 $string['orderingquiz'] = '問題順およびページング';
 $string['orderingquizx'] = '問題順およびページング: {$a}';
 $string['outcomesadvanced'] = 'アウトカムを高度な設定にする';
@@ -578,20 +573,7 @@ $string['outof'] = '{$a->grade} / {$a->maxgrade}';
 $string['outofpercent'] = '{$a->grade} / {$a->maxgrade} ({$a->percent}%)';
 $string['outofshort'] = '{$a->grade} / {$a->maxgrade}';
 $string['overallfeedback'] = '全体のフィードバック';
-$string['overallfeedback_help'] = '<p>全体のフィードバックは小テストの受験終了後、学生に表示されるテキストです。表示されるテキストは学生の評点によって表示内容を変えることができます。</p>
-
-<p>例えば、あなたが下記のように入力したとします:</p>
-
-<p>評点境界: 100%<br />
-フィードバック: よくできました。<br />
-評点境界: 40%<br />
-フィードバック: 今週の課題をもう一度学習してください。<br />
-...<br />
-評点境界: 0%</p>
-
-<p>この場合、評点が100%から40%の学生にはメッセージ「よくできました。」が表示され、39.9%から0%の学生には他のメッセージが表示されます。つまり、評点境界は評点の幅を決定し、該当する範囲に入る評点に対して、それぞれのフィードバックが表示されます。</p>
-
-<p>評点境界には「31.41%」のようなパーセンテージ、または「7」のような数値を指定することができます。あなたの小テストが最大評点10点で評点境界が7の場合、7/10またはそれ以上を意味します。</p>';
+$string['overallfeedback_help'] = '全体のフィードバックは小テストの受験終了後、学生に表示されるテキストです。表示されるテキストは学生の評点によって表示内容を変えることができます。';
 $string['overdue'] = '期限切れ';
 $string['overduehandling'] = '制限時間を経過した場合';
 $string['overduehandlingautoabandon'] = '受験は制限時間内に送信される必要がありますが、そうでない場合はカウントされません';
@@ -640,7 +622,7 @@ $string['previewquiz'] = '{$a} のプレビュー';
 $string['previewquiznow'] = '小テストをプレビューする';
 $string['previous'] = '前の状態に戻す';
 $string['publish'] = '公開';
-$string['publishedit'] = 'このカテゴリへ問題を追加または編集するには、あなたにはコース公開に関するパーミッションが割り当てられている必要があります。';
+$string['publishedit'] = 'このカテゴリへ問題を追加または編集するにはあなたにはコース公開に関するパーミッションが割り当てられている必要があります。';
 $string['qbrief'] = 'Q. {$a}';
 $string['qname'] = '問題名';
 $string['qti'] = 'IMS QTIフォーマット';
@@ -663,7 +645,7 @@ $string['questions'] = '問題';
 $string['questionsinclhidden'] = '問題 (隠された問題を含む)';
 $string['questionsinthisquiz'] = 'この小テストの問題';
 $string['questionsperpage'] = '1ページあたりの問題数';
-$string['questionsperpageselected'] = '1ページあたりの問題数が設定されたため、現在ページングは固定されています。結果として「改ページ調整」ボタンは、無効にされました。あなたは {$a} にて、この設定を変更することができます。';
+$string['questionsperpageselected'] = '1ページあたりの問題数が設定されたため、現在ページングは固定されています。結果として「改ページ調整」ボタンは無効にされました。あなたは {$a} でこの設定を変更することができます。';
 $string['questionsperpagex'] = '1ページあたりの問題数: {$a}';
 $string['questiontext'] = '問題テキスト';
 $string['questiontextisempty'] = '[空の問題テキスト]';
@@ -758,9 +740,9 @@ $string['reportshowonly'] = '受験のみ表示する';
 $string['reportshowonlyfinished'] = 'ユーザごとに最大1件の終了した受験を表示する ({$a})';
 $string['reportsimplestat'] = '単純統計';
 $string['reportusersall'] = '小テストを受験したユーザすべて';
-$string['reportuserswith'] = '小テストを受験したことのある登録ユーザ';
-$string['reportuserswithorwithout'] = '小テストを受験したことのある、または受験したことのない登録ユーザ';
-$string['reportuserswithout'] = '小テストを受験したことのない登録ユーザ';
+$string['reportuserswith'] = '小テストを受験したことのある登録済みユーザ';
+$string['reportuserswithorwithout'] = '小テストを受験したことのある、または受験したことのない受講登済み録ユーザ';
+$string['reportuserswithout'] = '小テストを受験したことのない登録済みユーザ';
 $string['reportwhattoinclude'] = 'レポートに含む内容';
 $string['requirepassword'] = 'パスワード';
 $string['requirepassword_help'] = 'ここにパスワードを設定した場合、参加者は小テストを受ける前に同じパスワードを入力する必要があります。';
@@ -866,10 +848,8 @@ $string['shownoimage'] = 'イメージなし';
 $string['showreport'] = 'レポートを表示する';
 $string['showsmallimage'] = '小さなイメージ';
 $string['showteacherattempts'] = '教師の受験を表示';
-$string['showuserpicture'] = 'ユーザ写真を表示する';
-$string['showuserpicture_help'] = '<p>あなたがこのオプションを有効にした場合、受験中およびレビュー時、画面に学生の氏名および写真が表示されます。</p>
-
-<p>1つの例として、試験監督による試験時、ユーザがその人自身でログインしているかどうか確認するため、使用できます。</p>';
+$string['showuserpicture'] = 'ユーザ画像を表示する';
+$string['showuserpicture_help'] = 'この設定を有効にした場合、受験中およびレビュー時、画面に学生の氏名および画像が表示されます。試験監督による試験時、ユーザがその人自身でログインしているかどうか確認することができます。';
 $string['shuffle'] = 'シャッフル';
 $string['shuffleanswers'] = '答えをシャッフルする';
 $string['shuffledrandomly'] = 'ランダムにシャッフルする';
@@ -913,7 +893,7 @@ $string['subplugintype_quizaccess_plural'] = 'アクセスルール';
 $string['subplugintype_quiz_plural'] = 'レポート';
 $string['substitutedby'] = 'が次の値と置換されます:';
 $string['summaryofattempt'] = '受験概要';
-$string['summaryofattempts'] = 'あなたの前回受験の概要';
+$string['summaryofattempts'] = 'あなたの前回の受験概要';
 $string['temporaryblocked'] = 'あなたは小テストを一時的に受験することができません。<br /> 次に小テストを受験できる日時は:';
 $string['theattempt'] = '受験';
 $string['theattempt_help'] = '学生が受験すべてをレビューできるかどうか設定します。';
@@ -923,7 +903,7 @@ $string['timedelay'] = '次の小テストを受験するまでの待ち時間�
 $string['timeleft'] = '残り時間';
 $string['timelimit'] = '制限時間';
 $string['timelimitexeeded'] = '申し訳ございません! 小テストの制限時間を経過しました!';
-$string['timelimit_help'] = '有効にした場合、小テストの初期ページにて時間制限が開始されます。同時に小テストナビゲーションブロックにカウントダウンタイマーが表示されます。';
+$string['timelimit_help'] = 'この設定を有効にした場合、小テストの初期ページで時間制限が開始されます。同時に小テストナビゲーションブロックにカウントダウンタイマーが表示されます。';
 $string['timelimitmin'] = '制限時間 (分)';
 $string['timelimitsec'] = '制限時間 (秒)';
 $string['timestr'] = '%y/%m/%d  %H:%M:%S';
@@ -954,7 +934,7 @@ $string['upgradingveryoldquizattempts'] = '非常に古い小テスト受験の�
 $string['url'] = 'URL';
 $string['usedcategorymoved'] = 'このカテゴリは公開され、他のコースで使用されているため、維持したままサイトレベルに移動されました。';
 $string['useroverrides'] = 'ユーザオーバーライド';
-$string['usersnone'] = 'この小テストにアクセスした学生はいません。';
+$string['usersnone'] = 'この小テストにアクセスできる学生はいません。';
 $string['validate'] = '確認';
 $string['viewallanswers'] = '{$a} 件の受験結果を表示する';
 $string['viewallreports'] = '{$a} 件の受験レポートを表示する';
@@ -966,5 +946,5 @@ $string['windowclosing'] = 'このウィンドウは間もなく閉じられま�
 $string['withsummary'] = '(統計概要を含む)';
 $string['wronguse'] = 'あなたはこのページをそのように使うことはできません。';
 $string['xhtml'] = 'XHTML';
-$string['youneedtoenrol'] = 'この小テストを受験する前に、このコースに受講登録する必要があります。';
+$string['youneedtoenrol'] = 'この小テストを受験する前に、あなたがこのコースに登録している必要があります。';
 $string['yourfinalgradeis'] = 'あなたの小テスト最終評点は {$a} です。';

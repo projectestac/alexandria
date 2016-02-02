@@ -226,6 +226,47 @@ class core_scheduled_task_testcase extends advanced_testcase {
         $this->assertEquals($initcount, $finalcount);
     }
 
+    /**
+     * Tests that the reset function deletes old tasks.
+     */
+    public function test_reset_scheduled_tasks_for_component_delete() {
+        global $DB;
+        $this->resetAfterTest(true);
+
+        $count = $DB->count_records('task_scheduled', array('component' => 'moodle'));
+        $allcount = $DB->count_records('task_scheduled');
+
+        $task = new \core\task\scheduled_test_task();
+        $task->set_component('moodle');
+        $record = \core\task\manager::record_from_scheduled_task($task);
+        $DB->insert_record('task_scheduled', $record);
+        $this->assertTrue($DB->record_exists('task_scheduled', array('classname' => '\core\task\scheduled_test_task',
+            'component' => 'moodle')));
+
+        $task = new \core\task\scheduled_test2_task();
+        $task->set_component('moodle');
+        $record = \core\task\manager::record_from_scheduled_task($task);
+        $DB->insert_record('task_scheduled', $record);
+        $this->assertTrue($DB->record_exists('task_scheduled', array('classname' => '\core\task\scheduled_test2_task',
+            'component' => 'moodle')));
+
+        $aftercount = $DB->count_records('task_scheduled', array('component' => 'moodle'));
+        $afterallcount = $DB->count_records('task_scheduled');
+
+        $this->assertEquals($count + 2, $aftercount);
+        $this->assertEquals($allcount + 2, $afterallcount);
+
+        // Now check that the right things were deleted.
+        \core\task\manager::reset_scheduled_tasks_for_component('moodle');
+
+        $this->assertEquals($count, $DB->count_records('task_scheduled', array('component' => 'moodle')));
+        $this->assertEquals($allcount, $DB->count_records('task_scheduled'));
+        $this->assertFalse($DB->record_exists('task_scheduled', array('classname' => '\core\task\scheduled_test2_task',
+            'component' => 'moodle')));
+        $this->assertFalse($DB->record_exists('task_scheduled', array('classname' => '\core\task\scheduled_test_task',
+            'component' => 'moodle')));
+    }
+
     public function test_get_next_scheduled_task() {
         global $DB;
 
@@ -277,6 +318,33 @@ class core_scheduled_task_testcase extends advanced_testcase {
         $this->assertInstanceOf('\core\task\scheduled_test2_task', $task);
         $task->execute();
 
+        \core\task\manager::scheduled_task_complete($task);
+
+        // Should not get any task.
+        $task = \core\task\manager::get_next_scheduled_task($now);
+        $this->assertNull($task);
+
+        // Check ordering.
+        $DB->delete_records('task_scheduled');
+        $record->lastruntime = 2;
+        $record->disabled = 0;
+        $record->classname = '\core\task\scheduled_test_task';
+        $DB->insert_record('task_scheduled', $record);
+
+        $record->lastruntime = 1;
+        $record->classname = '\core\task\scheduled_test2_task';
+        $DB->insert_record('task_scheduled', $record);
+
+        // Should get handed the second task.
+        $task = \core\task\manager::get_next_scheduled_task($now);
+        $this->assertInstanceOf('\core\task\scheduled_test2_task', $task);
+        $task->execute();
+        \core\task\manager::scheduled_task_complete($task);
+
+        // Should get handed the first task.
+        $task = \core\task\manager::get_next_scheduled_task($now);
+        $this->assertInstanceOf('\core\task\scheduled_test_task', $task);
+        $task->execute();
         \core\task\manager::scheduled_task_complete($task);
 
         // Should not get any task.
@@ -407,5 +475,35 @@ class core_scheduled_task_testcase extends advanced_testcase {
         // All of the files and directories should be deleted.
         // There should only be two items in the array, '.' and '..'.
         $this->assertEquals(2, count($filesarray));
+    }
+
+    public function test_all_timezones() {
+        global $CFG;
+
+        $this->resetAfterTest(true);
+
+        $realtimezones = array_intersect(get_list_of_timezones(), DateTimeZone::listIdentifiers());
+        $generatedtimezone = '8.0';
+
+        $testclass = new \core\task\scheduled_test_task();
+        $testclass->set_hour('1');
+        $testclass->set_minute('0');
+
+        $CFG->timezone = $generatedtimezone;
+
+        $this->resetDebugging();
+        $testclass->get_next_scheduled_time();
+        $this->assertEquals(count($this->getDebuggingMessages()), 1);
+
+        $this->resetDebugging();
+
+        if (count($realtimezones) > 0) {
+            $realtimezone = array_keys($realtimezones)[0];
+            $CFG->timezone = $realtimezone;
+
+            $this->resetDebugging();
+            $testclass->get_next_scheduled_time();
+            $this->assertEquals(count($this->getDebuggingMessages()), 0);
+        }
     }
 }

@@ -25,12 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['apierror'] = '{$a}';
+$string['apikey'] = 'Clef API';
 $string['configplugin'] = 'Configuration YouTube';
-$string['pluginname'] = 'Vidéos Youtube';
+$string['information'] = 'Obtenir pour votre site une <a href="https://developers.google.com/youtube/v3/getting-started">clef API Google</a>.';
+$string['pluginname'] = 'Vidéos YouTube';
 $string['search'] = 'Recherche vidéos';
 $string['sortby'] = 'Trier par';
 $string['sortpublished'] = 'Date de publication';
 $string['sortrating'] = 'Évaluation';
 $string['sortrelevance'] = 'Pertinence';
 $string['sortviewcount'] = 'Nombre d\'affichages';
-$string['youtube:view'] = 'Utiliser Youtube dans le sélecteur de fichiers';
+$string['youtube:view'] = 'Utiliser YouTube dans le sélecteur de fichiers';

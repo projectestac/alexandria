@@ -35,9 +35,12 @@ $string['avaluation'] = 'Ebaluazio-irizpideak';
 $string['avaluation_score'] = 'Jarduera guztien arteko batez bestekoa egin';
 $string['avaluation_solved'] = 'Jarduera ezberdinen kopuru bat ongi ebatzi';
 $string['closebeforeopen'] = 'Ezin izan da JClic eguneratu. Ixteko data zabaltzeko data baina lehenagokoa da.';
+$string['contentheader'] = 'Edukia';
 $string['deleteallsessions'] = 'Ezabatu saio guztiak';
 $string['description'] = 'Deskribapena';
 $string['duedate'] = 'Entregatze-data';
+$string['event_course_module_viewed'] = 'Ikastaro-modulua ikusi da';
+$string['event_instances_list_viewed'] = 'Instantzia-zerrenda ikusi da';
 $string['exiturl'] = 'Irteera-esteka';
 $string['exiturl_help'] = 'Hau da ikasleak JClic jarduera amaitzen duenean zabalduko den URLa.
 
@@ -50,8 +53,6 @@ $string['filetype_help'] = 'Ezarpen honek zehazten du nola txertatuko den ikasta
 * Igotako JClic fitxategia - Fitxategi-hautatzailearen bitartez ".jclic.zip" fitxategi baliagarria aukera daiteke
 * Kanpoko URLa - JClic pakete baten URLa zehazteko aukera ematen du. OHARRA: URL-ak https(s) edo www hasiera izan behar du eta ".jclic.zip" fitxategi baliagarria izan behar du barnean.';
 $string['filetypelocal'] = 'Igotako JClic fitxategia';
-$string['header_jclic'] = 'JClic-en ezarpenak';
-$string['header_score'] = 'Ebaluazio-ezarpenak';
 $string['height'] = 'Altuera';
 $string['invalidjclicfile'] = 'Balio ez duen JClic fitxategia ezarri da. Fitxategiak ".jclic.zip" luzapena izan behar du.';
 $string['invalidurl'] = 'Balio ez duen URLa ezarri da. URLak http(s) hasiera izan behar du eta ".jclic.zip" fitxategi baliagarri bat izan behar du.';
@@ -85,6 +86,7 @@ $string['notopenyet'] = 'Barkatu, jarduera hau  ez da {$a} datara arte  eskuraga
 $string['pluginadministration'] = 'JClic-en kudeaketa';
 $string['pluginname'] = 'JClic';
 $string['preview_jclic'] = 'Aurreikusi JClic jarduera';
+$string['results'] = 'Emaitzak';
 $string['return_results'] = 'Itzuli emaitzetara';
 $string['score'] = 'Puntuazioa';
 $string['sessions'] = 'Saioak';

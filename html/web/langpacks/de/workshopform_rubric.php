@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addmoredimensions'] = '{$A} weitere Kriterien hinzufügen';
+$string['addmoredimensions'] = '{$a} weitere Kriterien hinzufügen';
 $string['configuration'] = 'Konfiguration Gewichtung';
 $string['criteria'] = 'Kriterien';
 $string['dimensiondescription'] = 'Beschreibung';
@@ -35,5 +35,6 @@ $string['layoutgrid'] = 'Horizontal';
 $string['layoutlist'] = 'Vertikal';
 $string['levelgroup'] = 'Gewichtung und Beschreibung';
 $string['levels'] = 'Bereiche';
+$string['mustbeunique'] = 'Bewertungsstufen müssen innerhalb eines Kriteriums eindeutig sein.';
 $string['mustchooseone'] = 'Sie müssen eins dieser Elemente auswählen';
-$string['pluginname'] = 'Gewichtung';
+$string['pluginname'] = 'Bewertungskriterien';

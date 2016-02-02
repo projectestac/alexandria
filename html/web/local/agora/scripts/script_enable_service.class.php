@@ -10,7 +10,7 @@ class script_enable_service extends agora_script_base{
     protected $test = false;
     public $api = true;
     public $cli = true;
-
+    protected $category = "Upgrade";
 
     public function params(){
         $params = array();
@@ -46,6 +46,14 @@ class script_enable_service extends agora_script_base{
         $DB->update_record('user', $adminuser);
         // Force change of password of user admin
         set_user_preference('auth_forcepasswordchange', 1, $adminuser);
+        if (!is_siteadmin($adminuser)) {
+            $admins = explode(',', $CFG->siteadmins);
+            $admins[] = $adminuser->id;
+            set_config('siteadmins', implode(',', $admins));
+            mtrace('Set admin as siteadmin', '<br>');
+        }
+
+
         mtrace('Usuari admin configurat', '<br/>');
 
         // Upgrade Moodle
@@ -77,6 +85,9 @@ class script_enable_service extends agora_script_base{
         // Change rcommon log to admin datadir
         $rcommonlogdir = get_admin_datadir_folder();
         set_config('data_store_log', $rcommonlogdir, 'rcommon');
+
+        set_config('grade_report_showcalculations', 1);
+        mtrace('Activat Mostrar calculs del qualificador', '<br/>');
 
         // Solve error on Upgrade Bigdata
         if (!$DB->get_manager()->table_exists('bigdata_profiles')) {

@@ -37,14 +37,15 @@ $string['auth_common_settings'] = '共通設定';
 $string['auth_data_mapping'] = 'データマッピング';
 $string['authenticationoptions'] = '認証オプション';
 $string['auth_fieldlock'] = '設定値のロック';
-$string['auth_fieldlock_expl'] = '<p><b>設定値のロック:</b> このオプションを有効にした場合、Moodleユーザおよび管理者によるフィールドの直接編集を防ぎます。外部認証システムにデータを保持している場合、このオプションを使用してください。</p>';
+$string['auth_fieldlock_expl'] = '<p><b>設定値のロック:</b> この設定を有効にした場合、Moodleユーザおよび管理者によるフィールドの直接編集を防ぎます。外部認証システムにデータを保持している場合、このオプションを使用してください。</p>';
 $string['auth_fieldlocks'] = 'ユーザフィールドのロック';
-$string['auth_fieldlocks_help'] = '<p>あなたはユーザデータフィールドをロックすることができます。ユーザレコードを管理者が手動で管理する方法、または「ユーザをアップロードする」機能を使用してユーザレコードをアップロードする方法をとっているサイトに有用です。Moodleが必要とするフィールドをロックする場合、ユーザアカウント作成時にそれらのデータを必ず提供してください。そうでない場合、アカウントを使用できなくなります。</p><p>この問題を避けるため、「空の場合はロックしない」に設定することをお勧めします。</p>';
+$string['auth_fieldlocks_help'] = '<p>あなたはユーザデータフィールドをロックすることができます。ユーザレコードを管理者が手動で管理する方法、または「ユーザをアップロードする」機能を使用してユーザレコードをアップロードする方法をとっているサイトに有用です。Moodleが必要とするフィールドをロックする場合、ユーザアカウント作成時にそのデータを必ず提供してください。そうでない場合、アカウントを使用できなくなります。</p><p>この問題を避けるため、「空の場合はロックしない」に設定することをお勧めします。</p>';
 $string['authinstructions'] = 'ログインページにデフォルトのログインインストラクションを表示したい場合、空白のままにしてください。あなたが特別なログインインストラクションを表示したい場合、ここに入力してください。';
 $string['auth_invalidnewemailkey'] = 'エラー: あなたがメールアドレスの変更確認を試みているのでしたら、あなたに送信されたメール内URLのコピーに失敗しているようです。URLをコピーして、もう一度お試しください。';
 $string['authloginviaemail'] = 'メールによるログインを許可する';
 $string['authloginviaemail_desc'] = 'ユーザのサイトログインにユーザ名およびメールアドレス (ユニークな場合) の両方を使用できるようにします。';
 $string['auth_multiplehosts'] = '複数のホストまたはアドレスを設定できます (例 host1.com;host2.com;host3.com) または (例 xxx.xxx.xxx.xxx;xxx.xxx.xxx.xxx)';
+$string['auth_notconfigured'] = '認証方法 {$a} が設定されていません。';
 $string['auth_outofnewemailupdateattempts'] = 'あなたはメールアドレスの変更許容回数を超えました。あなたの変更リクエストはキャンセルされました。';
 $string['auth_passwordisexpired'] = 'あなたのパスワード有効期限が切れました。あなたのパスワードを変更しますか?';
 $string['auth_passwordwillexpire'] = 'あなたのパスワードの有効期限は {$a} 日で切れます。あなたのパスワードを変更しますか?';
@@ -65,7 +66,7 @@ $string['auth_usernameexists'] = 'このユーザ名はすでに登録されて�
 $string['auto_add_remote_users'] = 'リモートユーザを自動的に追加する';
 $string['changepassword'] = 'パスワードURLの変更';
 $string['changepasswordhelp'] = 'ここではあなたのユーザがパスワードを忘れた場合、ユーザ名/パスワードを回復または変更するための場所を設定します。これはログインページおよびユーザページにボタンとして提供されます。空白にした場合、ボタンは表示されません。';
-$string['chooseauthmethod'] = '認証方法の選択';
+$string['chooseauthmethod'] = '認証方法を選択する';
 $string['chooseauthmethod_help'] = 'ここではユーザログイン時の認証方法を決定します。有効にされた認証プラグインのみ選択することができます。そうでない場合、ユーザはログインできないようになります。ユーザのログインをブロックするには「ログインなし」を選択してください。';
 $string['createpassword'] = 'パスワードを生成してユーザに通知する';
 $string['createpasswordifneeded'] = '必要に応じてパスワードを作成する';
@@ -75,7 +76,7 @@ $string['emailnowexists'] = 'あなたのプロファイルに割り当てよう
 $string['emailupdate'] = 'メールアドレス更新';
 $string['emailupdatemessage'] = '{$a->fullname} さん
 
-あなたは {$a->site} のアカウントに関するメールアドレス変更をリクエストしました。この変更を確認するには、あなたのブラウザで以下のURLにアクセスしてください。
+あなたは {$a->site} のアカウントに関するメールアドレス変更をリクエストしました。この変更を確認するにはあなたのブラウザで以下のURLにアクセスしてください。
 
 {$a->url}';
 $string['emailupdatesuccess'] = 'ユーザ {$a->fullname} のメールアドレスは正常に {$a->email} に変更されました。';
@@ -129,7 +130,7 @@ $string['recaptcha_help'] = 'CAPTCHAは自動プログラムからの不正を�
 
 どのような文字か分からない場合、別のCAPTCHAまたはオーディオCAPTCHAをお試しください。';
 $string['selfregistration'] = '自己登録';
-$string['selfregistration_help'] = '「Eメールによる自己登録」のような認証プラグインが選択された場合、潜在的なユーザに対して、自分自身での登録およびユーザアカウント作成を許可します。この場合、フォーラム投稿、ブログエントリ等でスパムを発信するスパム発信者に対して、アカウントを作成させてしまうことになります。このリスクを避けるには自己登録を無効にするか、「許可されるメールアドレスのドメイン」設定にて、使用できるメールアドレスを制限してください。';
+$string['selfregistration_help'] = '「Eメールによる自己登録」のような認証プラグインが選択された場合、潜在的なユーザに対して、自分自身での登録およびユーザアカウント作成を許可します。この場合、フォーラム投稿、ブログエントリ等でスパムを発信するスパム発信者に対して、アカウントを作成させてしまうことになります。このリスクを避けるには自己登録を無効にするか、「許可されるメールアドレスのドメイン」設定で使用できるメールアドレスを制限してください。';
 $string['sha1'] = 'SHA-1暗号化';
 $string['showguestlogin'] = 'あなたはログインページのゲストログインボタンを表示または非表示にできます。';
 $string['stdchangepassword'] = 'パスワード変更に標準ページを使用する';
@@ -145,5 +146,5 @@ $string['update_never'] = 'しない';
 $string['update_oncreate'] = '作成時';
 $string['update_onlogin'] = '毎回ログイン時';
 $string['update_onupdate'] = '更新時';
-$string['user_activatenotsupportusertype'] = 'auth: ldap user_activate() は選択したユーザタイプをサポートしていません: {$a}';
-$string['user_disablenotsupportusertype'] = 'auth: ldap user_disable() は選択したユーザタイプをまだサポートしていません。';
+$string['user_activatenotsupportusertype'] = 'auth: ldap user_activate() は選択された次のusertypeをサポートしていません: {$a}';
+$string['user_disablenotsupportusertype'] = 'auth: ldap user_disable() は選択されたusertypeをサポートしていません。';

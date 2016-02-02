@@ -25,15 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['configconvertformat'] = 'convertまたはdvisvgmに加えて、latexおよびdvipsが利用可能な場合、希望するイメージタイプを選択してください (convertはGIFまたはPNG、dvisvgmはSVGを生成します)。そうでない場合、、GIFイメージを作成するためにmimeTeXが使用されます。';
+$string['configconvertformat'] = 'convertまたはdvisvgmに加えて、latexおよびdvipsが利用可能な場合、希望するイメージタイプを選択してください (convertはGIFまたはPNG、dvisvgmはSVGを生成します)。そうでない場合、GIFイメージを作成するためにmimeTeXが使用されます。';
 $string['convertformat'] = '出力イメージフォーマット';
 $string['filtername'] = 'TeX表記法';
 $string['latexpreamble'] = 'LaTeXプリアンブル';
 $string['latexsettings'] = 'LaTeXレンダラ設定';
 $string['pathconvert'] = '<i>convert</i>バイナリのパス';
-$string['pathdvips'] = '<i>dvips</i>バイナリのパス';
+$string['pathdvips'] = 'dvipsバイナリのパス';
 $string['pathdvisvgm'] = 'dvisvgmバイナリのパス';
-$string['pathlatex'] = '<i>latex</i>バイナリのパス';
-$string['pathmimetex'] = '「mimetex」バイナリのパス';
+$string['pathlatex'] = 'latexバイナリのパス';
+$string['pathmimetex'] = 'mimetexバイナリのパス';
 $string['pathmimetexdesc'] = '別の有効なパスが指定されない場合、Moodleは独自のmimetexバイナリを使用します。';
 $string['source'] = 'TeXソース';

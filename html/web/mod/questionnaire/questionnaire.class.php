@@ -749,7 +749,7 @@ class questionnaire {
                 if ($this->respondenttype == 'fullname') {
                     $userid = $resp->username;
                     // Display name of group(s) that student belongs to... if questionnaire is set to Groups separate or visible.
-                    if ($this->cm->groupmode > 0) {
+                    if (groups_get_activity_groupmode($this->cm, $this->course)) {
                         if ($groups = groups_get_all_groups($courseid, $resp->username)) {
                             if (count($groups) == 1) {
                                 $group = current($groups);
@@ -1817,7 +1817,7 @@ class questionnaire {
                     }
                 }
                 list($qsql, $params) = $DB->get_in_or_equal($qids2);
-                $sql = 'SELECT * FROM {questionnaire_quest_choice} WHERE question_id ' . $qsql . 'ORDER BY id';
+                $sql = 'SELECT * FROM {questionnaire_quest_choice} WHERE question_id ' . $qsql . ' ORDER BY id';
                 if ($records2 = $DB->get_records_sql($sql, $params)) {
                     foreach ($records2 as $qid => $row2) {
                         $selected = '0';
@@ -2794,7 +2794,7 @@ class questionnaire {
             // Moodle:
             //  Determine if the user is a member of a group in this course or not.
             $groupname = '';
-            if ($this->cm->groupmode > 0) {
+            if (groups_get_activity_groupmode($this->cm, $this->course)) {
                 if ($currentgroupid > 0) {
                     $groupname = groups_get_group_name($currentgroupid);
                 } else {

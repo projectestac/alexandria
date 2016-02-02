@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['chooseavariable'] = '変数を選択する ...';
 $string['clicktoopen'] = 'リソース開くには {$a}  リンクをクリックしてください:';
-$string['configdisplayoptions'] = '利用可能にしたいオプションすべてを選択してください。既存の設定は、変更されません。複数のフィールドを選択するには、CTRLキーを押したままにしてください。';
+$string['configdisplayoptions'] = '利用可能にしたいオプションすべてを選択してください。既存の設定は、変更されません。複数のフィールドを選択するにはCTRLキーを押したままにしてください。';
 $string['configframesize'] = 'フレーム内にウェブページやアップロードしたファイルが表示される場合の (ナビゲーションを含む) トップフレームサイズ (ピクセル) です。';
 $string['configrolesinparams'] = 'ローカライズされたロール名を利用可能なパラメータ変数リストに含みたい場合、有効にしてください。';
 $string['configsecretphrase'] = 'このシークレットワードは、サーバにパラメータとして送信するための暗号コード値生成に使用されます。暗号コードは、current_users IPアドレスとシークレットワードを結びつけてmd5により生成されます。例) code = md5(IP.secretphrase)。これにより、転送先のリソースが、高度なセキュリティ認証を行うことができます。';
@@ -66,7 +66,7 @@ $string['popupheightexplain'] = 'ポップアップウィンドウのデフォ�
 $string['popupwidth'] = 'ポップアップ幅 (ピクセル)';
 $string['popupwidthexplain'] = 'ポップアップウィンドウのデフォルト幅を指定してください。';
 $string['printintro'] = 'URL説明を表示する';
-$string['printintroexplain'] = 'コンテンツの下にURL説明を表示しますか? 有効にしても、いくつかの表示タイプでは、説明を表示することができません。';
+$string['printintroexplain'] = 'コンテンツの下にURL説明を表示しますか? この設定を有効にした場合でも、いくつかの表示タイプでは説明を表示することができません。';
 $string['rolesinparams'] = 'パラメータにロール名を含む';
 $string['serverurl'] = 'サーバURL';
 $string['url:addinstance'] = '新しいURLリソースを追加する';

@@ -305,7 +305,7 @@ $string['invalidcourselevel'] = 'Livello di contesto errato';
 $string['invalidcoursemodule'] = 'ID modulo del corso non valido';
 $string['invalidcoursenameshort'] = 'Titolo abbreviato del corso non valido';
 $string['invaliddata'] = 'Data di invio non valida';
-$string['invaliddatarootpermissions'] = 'Sono state rilevati permessi non validi nella cartella  $CFG->dataroot, l\'amministratore deve aggiustarli.';
+$string['invaliddatarootpermissions'] = 'Sono state rilevati permessi non validi durante la creazione di una cartella. Per maggiori informazioni attivare la modalità debugging.';
 $string['invaliddevicetype'] = 'Tipo di dispositivo non valido';
 $string['invalidelementid'] = 'Id elemento errata!';
 $string['invalidentry'] = 'Questo inserimento non è valido!';
@@ -389,6 +389,7 @@ $string['movecatcontentstoroot'] = 'Non è consentito spostare il contenuto di u
 $string['movecategorynotpossible'] = 'Non è possibile spostare la categoria \'{$a}\' nella categoria selezionata.';
 $string['movecategoryownparent'] = 'Non è possibile rendere la categoria \'{$a}\' genitore di se stessa.';
 $string['movecategoryparentconflict'] = 'Non è possibile rendere la categoria \'{$a}\' sotto categoria di se stessa.';
+$string['mssqlrcsmodemissing'] = 'Il database non utilizza la modalità READ_COMMITTED_SNAPSHOT, cosa che può portare a risultati errati specialmente in presenza di elevato utilizzo simultaneo. Per favore abilita la modalità. Per maggiori informazioni: <a href="https://docs.moodle.org/en/Installing_MSSQL_for_PHP#Configuration">Installing MSSQL for PHP</a>.';
 $string['multiplerecordsfound'] = 'Sono stati trovati molti record: se ne sarebbe dovuto trovare uno solo.';
 $string['multiplerestorenotallow'] = 'Non sono consentiti processi di ripristino multipli!';
 $string['mustbeloggedin'] = 'Devi essere autenticato per fare questo';

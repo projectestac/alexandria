@@ -470,7 +470,7 @@ Il docente può impostare il quiz affinché sia possibile tentarlo più volte co
 
 Ogni tentativo viene valutato automaticamente (ad eccezione delle domande componimento) e la valutazione viene memorizzata nel registro del valutatore.
 
-Il docente può decidere quando e come far vedere agli studenti le risposte corrette, i feedback ed eventuali suggerimenti.
+Il docente può decidere quando e come far vedere agli studenti le risposte esatte, i feedback ed eventuali suggerimenti.
 
 E\' possibile usare il quiz per:
 
@@ -631,7 +631,7 @@ $string['questionsinthisquiz'] = 'Domande in questo quiz';
 $string['questionsperpage'] = 'Domande per pagina';
 $string['questionsperpageselected'] = 'E\' stato definito il numero di domande per pagina per cui l\'impaginazione è al momento bloccata. Come risultato, i controlli per l\'impaginazione sono stati disabilitati. Questo si può cambiare in {$a}.';
 $string['questionsperpagex'] = 'Domande per pagina: {$a}';
-$string['questiontext'] = 'Testo domanda';
+$string['questiontext'] = 'Testo della domanda';
 $string['questiontextisempty'] = '[Testo della domanda mancante]';
 $string['questiontype'] = 'Tipo domanda {$a}';
 $string['questiontypesetupoptions'] = 'Opzioni di impostazione per i tipi domanda:';
@@ -752,15 +752,15 @@ $string['reviewofpreview'] = 'Revisione dell\'anteprima';
 $string['reviewopen'] = 'Dopo, mentre il quiz è ancora aperto';
 $string['reviewoptions'] = 'Gli studenti possono rivedere';
 $string['reviewoptionsheading'] = 'Opzioni di revisione';
-$string['reviewoptionsheading_help'] = 'Queste opzioni controllano le informazioni che gli utenti potranno visualizzare dopo avere tentato il quiz.
+$string['reviewoptionsheading_help'] = 'Queste impostazioni controllano le informazioni che gli utenti potranno visualizzare dopo avere tentato il quiz.
 
-**Durante il tentativo** è rilevante solo se si usano i comportamenti in grado di visualizzare feedback durante lo svolgimento del tentativo, come ad esempio "interattivo con risposte multiple"
+**Durante il tentativo** è rilevante solo se si usano i comportamenti in grado di visualizzare feedback durante lo svolgimento del tentativo, come ad esempio "interattivo con risposte multiple".
 
-**Subito dopo il tentativo**  significa entro i due minuti successivi al completamento del tentativo.
+**Subito dopo il tentativo**  ha valenza entro i due minuti successivi al completamento del tentativo.
 
-** Più tardi, a quiz ancora aperto" significa come il caso precedente ma entro la data di chiusura del quiz.
+** Più tardi, a quiz ancora aperto" è come il caso precedente ma entro la data di chiusura del quiz.
 
-** Dopo la chiusura del quiz** significa dopo la data di chiusura del quiz. Se il quiz non ha una data di chiusura, questa condizione non sarà mai soddisfatta.';
+** Dopo la chiusura del quiz** ha valenza dopo la data di chiusura del quiz. Se il quiz non ha una data di chiusura, questa condizione non sarà mai soddisfatta.';
 $string['reviewoverallfeedback'] = 'Feedback complessivo';
 $string['reviewoverallfeedback_help'] = 'Il feedback visualizzato al termine del tentativo in funzione del punteggio totale ottenuto dallo studente.';
 $string['reviewresponse'] = 'Revisione risposte date';
@@ -803,7 +803,7 @@ $string['showblocks'] = 'Visualizza i blocchi durante lo svolgimento del quiz';
 $string['showblocks_help'] = 'Se impostato a si, i blocchi saranno visualizzati durante lo svolgimento del quiz.';
 $string['showbreaks'] = 'Visualizza salti pagina';
 $string['showcategorycontents'] = 'Visualizza il contenuto della categoria {$a->arrow}';
-$string['showcorrectanswer'] = 'Visualizzare le risposte corrette nel feedback?';
+$string['showcorrectanswer'] = 'Visualizzare le risposte esatte nel feedback?';
 $string['showdetailedmarks'] = 'Visualizza dettagli punteggio';
 $string['showeachpage'] = 'Visualizza una pagina alla volta';
 $string['showfeedback'] = 'Visualizzare il feedback dopo le risposte?';

@@ -37,7 +37,7 @@ $string['anonymous_entries'] = 'Entrades anònimes';
 $string['anonymous_user'] = 'Usuari anònim';
 $string['append_new_items'] = 'Afegeix elements nous';
 $string['autonumbering'] = 'Numeració automàtica de les preguntes';
-$string['autonumbering_help'] = 'Habilita o deshabilita la numeració automatitzada per a cada pregunta';
+$string['autonumbering_help'] = 'Habilita o inhabilita la numeració automatitzada per a cada pregunta';
 $string['average'] = 'Mitjana';
 $string['bold'] = 'Negreta';
 $string['cancel_moving'] = 'Cancel·la el moviment';
@@ -170,7 +170,7 @@ Les activitats de retroacció es poden utilitzar:
 * Per a permetre als participants inscriure\'s a mòduls del curs, esdeveniments, etc.
 * Per a enquestes a visitants sobre opcions de cursos, polítiques de la institució educativa, etc.
 * Per a enquestes contra l\'assetjament escolar on l\'estudiantat pugui informar sobre incidències de manera anònima.';
-$string['modulenameplural'] = 'retroacció';
+$string['modulenameplural'] = 'Retroacció';
 $string['movedown_item'] = 'Mou aquesta pregunta avall';
 $string['move_here'] = 'Mou aquí';
 $string['move_item'] = 'Mou aquesta pregunta';

@@ -39,6 +39,7 @@ $string['backhistory'] = 'Zurück zum Verlauf';
 $string['backoldversion'] = 'Zurück zur vorherigen Version';
 $string['backpage'] = 'Zurück zur Seite';
 $string['backtomapmenu'] = 'Zurück zur Übersicht';
+$string['cannotcomparenewerversion'] = 'Eine Seitenversion kann nur mit einer älteren Seitenversion verglichen werden.';
 $string['cannoteditpage'] = 'Sie können diese Seite nicht bearbeiten.';
 $string['cannotmanagefiles'] = 'Sie dürfen keine Dateien im Wiki verwalten.';
 $string['cannotviewfiles'] = 'Sie dürfen keine Dateien im Wiki sehen.';
@@ -56,11 +57,11 @@ $string['createpage'] = 'Seite erstellen';
 $string['creating'] = 'Wikiseite wird erstellt';
 $string['creole'] = 'Creole';
 $string['defaultformat'] = 'Standardformat';
-$string['defaultformat_help'] = 'Diese Option legt das standardmäßige Format zum Bearbeiten von Wikiseiten fest.
+$string['defaultformat_help'] = 'Diese Option legt das Bearbeitungsformat von Wikiseiten fest.
 
 * HTML - Der Texteditor ist verfügbar
-* Creole - Eine übliche Markup-Sprache für Wikis ist zusammen mit einer kleinen Bearbeitungsleiste verfügbar
-* NWiki - Die spezifische Markup-Sprache des verwendeten NWiki ist verfügbar';
+* Creole - Markup-Editor für Wikis mit Werkzeugleiste
+* NWiki - MediaWiki-ähnlicher Markup-Editor';
 $string['deletecomment'] = 'Kommentar wird gelöscht';
 $string['deletecommentcheck'] = 'Kommentar löschen';
 $string['deletecommentcheckfull'] = 'Möchten Sie den Kommentar wirklich löschen?';
@@ -101,12 +102,9 @@ $string['formatcreole'] = 'Creole-Format';
 $string['formatcreole_help'] = 'Creole ist eine Markup-Sprache für Wikis mit einer Werkzeugleiste zum Einfügen der entsprechenden Formatierungszeichen.
 
 Um eine neue Seite zu erstellen, geben Sie den neuen Seitennamen in doppelte Eckige Klammern ein, z.B. [[Neue Seite]].';
-$string['format_help'] = 'Format zur Bearbeitung von Wikiseiten
-
-* HTML - Der Texteditor ist verfügbar
-* Creole - Eine übliche Markup-Sprache für Wikis ist zusammen mit einer kleinen Werkzeugleiste verfügbar
-* NWiki - Die spezifische Markup-Sprache des verwendeten NWiki ist verfügbar
-';
+$string['format_help'] = '* HTML - Der Texteditor ist verfügbar
+* Creole - Markup-Editor für Wikis mit Werkzeugleiste
+* NWiki - MediaWiki-ähnlicher Markup-Editor';
 $string['formathtml'] = 'HTML-Format';
 $string['formathtml_help'] = 'Der HTML-Editor kann benutzt werden, um Inhalte zu formatieren.
 
@@ -119,6 +117,9 @@ $string['history'] = 'Verlauf';
 $string['history_help'] = 'Der Link \'Verlauf\' führt zu älteren Versionen der Seite';
 $string['html'] = 'HTML';
 $string['incorrectdeleteversions'] = 'Zu löschende Versionen sind falsch.';
+$string['incorrectpageid'] = 'Die Seiten-ID ist falsch.';
+$string['incorrectsubwikiid'] = 'Die Subwiki-ID ist falsch.';
+$string['incorrectwikiid'] = 'Die Wiki-ID ist falsch.';
 $string['individualpagedoesnotexist'] = 'Wikiseite existiert nicht';
 $string['insertcomment'] = 'Kommentar einfügen';
 $string['insertimage'] = 'Bild einfügen...';
@@ -130,7 +131,7 @@ $string['invalidsesskey'] = 'Ungültiger Sessionkey - bitte senden Sie die Daten
 $string['javascriptdisabledlocks'] = 'JavaScript ist in Ihrem Browser deaktiviert, so dass die Datensperre nicht funktioniert. Ihre  Änderungen könnten eventuell verloren gehen.';
 $string['links'] = 'Links';
 $string['listall'] = 'Alle Seiten auflisten';
-$string['listorphan'] = 'Unverlinkte Seiten auflisten';
+$string['listorphan'] = 'Verwaiste Seiten auflisten';
 $string['lockingajaxtimeout'] = 'Timeout für Sperre bearbeiten';
 $string['lockingtimeout'] = 'Timeout für Sperre';
 $string['map'] = 'Spezialseiten';
@@ -165,7 +166,7 @@ $string['nofrompages'] = 'Zu dieser Seite existieren keine Links';
 $string['nohistory'] = 'Für diese Seite existiert kein Verlauf';
 $string['nomanagecommentpermission'] = 'Keine Recht zum Verwalten von Kommentaren';
 $string['nomanagewikipermission'] = 'Keine Recht zum Verwalten des Wikis';
-$string['noorphanedpages'] = 'Keine unverlinkten Seiten';
+$string['noorphanedpages'] = 'Keine verwaiste Seiten';
 $string['nooverridelockpermission'] = 'Keine Recht zum Ändern der Sperre';
 $string['norated'] = 'Diese Seite wurde noch nicht bewertet. Geben Sie die erste Bewertung ab!';
 $string['norating'] = 'Keine Bewertung';
@@ -179,7 +180,7 @@ $string['noviewcommentpermission'] = 'Keine Recht zum Anzeigen von Kommentaren';
 $string['noviewpagepermission'] = 'Keine Recht zum Anzeigen von Seiten';
 $string['nwiki'] = 'NWiki';
 $string['oldversion'] = 'Alte Version';
-$string['orphaned'] = 'Unverlinkte Seiten';
+$string['orphaned'] = 'Verwaiste Seiten';
 $string['orphaned_help'] = 'Liste von Seiten ohne Verlinkung von anderen Seiten';
 $string['overridelocks'] = 'Datensperren ändern';
 $string['overridinglocks'] = 'Datensperren werden geändert...';
@@ -204,7 +205,7 @@ $string['print'] = 'Drucken';
 $string['rated'] = 'Ihre Bewertung der Seite: {$a}';
 $string['rating'] = 'Bewertung';
 $string['ratingmode'] = 'Bewertungsmodus';
-$string['removeallwikitags'] = 'Alle Wiki-Schlagworte löschen';
+$string['removeallwikitags'] = 'Alle Wiki-Schlagwörter löschen';
 $string['removepages'] = 'Seiten löschen';
 $string['reparsetimeout'] = 'Standard-Timeout setzen';
 $string['repeatedsection'] = 'Wikifehler: Name \'{$a}\' kann nicht doppelt verwendet werden';
@@ -224,7 +225,7 @@ $string['searchterms'] = 'Suchbegriffe';
 $string['searchwikis'] = 'Wiki durchsuchen';
 $string['special'] = 'Spezial';
 $string['tableofcontents'] = 'Inhaltsübersicht';
-$string['tagsdeleted'] = 'Wiki-Schlagworte wurden gelöscht';
+$string['tagsdeleted'] = 'Wiki-Schlagwörter wurden gelöscht';
 $string['tagtitle'] = 'Siehe Schlagwort \'{$a}\'';
 $string['teacherrating'] = 'Trainerwertung';
 $string['timesrating'] = 'Diese Seite wurde {$a->c}-mal bewertet, u.z. mit einem Mittelwert {$a->s}';

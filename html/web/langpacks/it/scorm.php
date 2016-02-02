@@ -123,7 +123,7 @@ $string['errorlogs'] = 'Log degli errori';
 $string['eventattemptdeleted'] = 'Eliminato tentativo';
 $string['eventinteractionsviewed'] = 'Visualizzata interazione';
 $string['eventreportviewed'] = 'Visualizzato report';
-$string['eventscolaunched'] = 'Lanciata SCO';
+$string['eventscolaunched'] = 'Lanciato SCO';
 $string['eventtracksviewed'] = 'Visualizzato tracciamento';
 $string['eventuserreportviewed'] = 'Visualizzato report utente';
 $string['everyday'] = 'Ogni giorno';
@@ -291,7 +291,7 @@ $string['report'] = 'Report';
 $string['reportcountallattempts'] = '{$a->nbattempts} tentativi per {$a->nbusers} utenti su {$a->nbresults} risultati';
 $string['reportcountattempts'] = '{$a->nbresults} risultati ({$a->nbusers} utenti)';
 $string['reports'] = 'Report';
-$string['repositorynotsupported'] = 'Il link a file imsmanifest.xml è supportato solamente da repository File system.';
+$string['repositorynotsupported'] = 'Questo repository non supporta il link a file imsmanifest.xml.';
 $string['response'] = 'Risposta';
 $string['result'] = 'Risultato';
 $string['results'] = 'Risultati';
@@ -319,7 +319,7 @@ $string['scormtype_help'] = 'L\'impostazione stabilisce come sarà incluso il pa
 
 * Pacchetto caricato - Consente la scelta di un pacchetto SCORM tramite file picker
 * Manifest SCORM esterno - Consente l\'inserimento di un URL per il file imsmanifest.xml. Nota: se l\'URL appartiene ad un dominio diverso rispetto a questo sito, è preferibile usare "Pacchetto da scaricare", altrimenti le valutazioni non saranno salvate.
-* Pacchetto da scaricare - Consente l\'inserimento dell\'URL  del pacchetto che sarà scaricato,  decompresso localmente ed anche aggiornato in presenza di aggiornamenti del paccehtto
+* Pacchetto da scaricare - Consente l\'inserimento dell\'URL  del pacchetto che sarà scaricato,  decompresso localmente ed anche aggiornato in presenza di aggiornamenti del pacchetto
 * URL AICC esterna - l\'URL di lancio per una attività AICC. Attorno all\'URL verrà costruito uno pseudo package';
 $string['scorm:viewreport'] = 'Visualizzare report';
 $string['scorm:viewscores'] = 'Visualizzare punteggi';
@@ -362,7 +362,7 @@ $string['trackpattern_help'] = 'Come dovrebbe essere la risposta corretta. Non v
 $string['trackresponse'] = 'Risposta';
 $string['trackresponse_help'] = 'La risposta data dallo studente';
 $string['trackresult'] = 'Risultato';
-$string['trackresult_help'] = 'Risultati basati sulle risposte date dallo studente e e risposte corrette';
+$string['trackresult_help'] = 'Visualizza la correttezza delle risposte date dallo studente.';
 $string['trackscoremax'] = 'Punteggio massimo';
 $string['trackscoremax_help'] = 'Valore massimo nell\'intervallo per il punteggio grezzo';
 $string['trackscoremin'] = 'Punteggio minimo';

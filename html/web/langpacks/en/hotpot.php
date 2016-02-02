@@ -77,11 +77,15 @@ $string['clicktrailreport'] = 'Click trails';
 $string['closed'] = 'This activity has closed';
 $string['clues'] = 'Clues';
 $string['completed'] = 'Completed';
+$string['completioncompleted'] = 'Require completed status';
+$string['completionmingrade'] = 'Require minimum grade';
+$string['completionpass'] = 'Require passing grade';
+$string['completionwarning'] = 'These fields are disabled if the grade limit for this activity is "No grade" or the grade weighting is "No weighting"';
 $string['configbodystyles'] = 'By default, Moodle theme styles will override HotPot activity styles. However, for any styles selected here, the HotPot activity styles will be given priority over the Moodle theme styles.';
 $string['configenablecache'] = 'Maintaining a cache of HotPot quizzes can dramatically speed up the delivery of quizzes to the students.';
 $string['configenablecron'] = 'Specify the hours in your time zone at which the HotPot cron script may run';
 $string['configenablemymoodle'] = 'This settings controls whether HotPots are listed on the MyMoodle page or not';
-$string['configenableobfuscate'] = 'Obfuscating the javascript code to insert media players makes it more difficult to determine the media file name and guess what the file contains.';
+$string['configenableobfuscate'] = 'Obfuscating the text strings and URLs in javascript code makes it more difficult to guess answers by viewing the source of the HTML page in the browser.';
 $string['configenableswf'] = 'Allow embedding of SWF files in HotPot activities. If enabled, this setting overrides filter_mediaplugin_enable_swf.';
 $string['configfile'] = 'Configuration file';
 $string['configframeheight'] = 'When a quiz is displayed within a frame, this value is the height (in pixels) of the top frame which contains the Moodle navigation bar.';
@@ -104,8 +108,8 @@ $string['delay3afterok'] = 'Wait till student clicks OK';
 $string['delay3disable'] = 'Do not continue automatically';
 $string['delay3_help'] = 'The setting specifies the delay between finishing the quiz and returning control of the display to Moodle.
 
-**Use specific time (in seconds)**
-: control will be returned to Moodle after the specified number of seconds.
+**Use specific delay**
+: control will be returned to Moodle after the specified delay.
 
 **Use settings in source/template file**
 : control will be returned to Moodle after the number of seconds specified in the source file or the template files for this output format.
@@ -117,7 +121,7 @@ $string['delay3_help'] = 'The setting specifies the delay between finishing the 
 : control will not be returned to Moodle after the quiz is finished. The student will be free to navigate away from the quiz page.
 
 Note, the quiz results are always returned to Moodle immediately the quiz is completed or abandoned, regardless of this setting.';
-$string['delay3specific'] = 'Use specific time (in seconds)';
+$string['delay3specific'] = 'Use specific delay';
 $string['delay3summary'] = 'Time delay at the end of the quiz';
 $string['delay3template'] = 'Use settings in source/template file';
 $string['deleteallattempts'] = 'Delete all attempts';
@@ -128,7 +132,7 @@ $string['duration'] = 'Duration';
 $string['enablecache'] = 'Enable HotPot cache';
 $string['enablecron'] = 'Enable HotPot cron';
 $string['enablemymoodle'] = 'Show HotPots on MyMoodle';
-$string['enableobfuscate'] = 'Enable obfuscation of media player code';
+$string['enableobfuscate'] = 'Enable obfuscation of text and media players';
 $string['enableswf'] = 'Allow embedding of SWF files in HotPot activities';
 $string['entry_attempts'] = 'Attempts';
 $string['entrycm'] = 'Previous activity';
@@ -408,6 +412,8 @@ The output formats that are available depend on the type of the source file. Som
 
 The "best" setting will display the content using the optimal output format for the student\'s browser.';
 $string['outputformat_hp_6_jcloze_html'] = 'JCloze (v6) from html';
+$string['outputformat_hp_6_jcloze_html_findit_a'] = 'FindIt (a) from html';
+$string['outputformat_hp_6_jcloze_html_findit_b'] = 'FindIt (b) from html';
 $string['outputformat_hp_6_jcloze_xml_anctscan'] = 'ANCT-Scan from HP6 JCloze xml';
 $string['outputformat_hp_6_jcloze_xml_dropdown'] = 'DropDown from HP6 JCloze xml';
 $string['outputformat_hp_6_jcloze_xml_findit_a'] = 'FindIt (a) from HP6 JCloze xml';

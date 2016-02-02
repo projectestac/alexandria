@@ -25,13 +25,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['backgroundimage'] = 'Atzeko planoaren irudia';
+$string['backgroundposition'] = 'Atzeko planoaren kokalekua';
+$string['backgroundposition_desc'] = 'Atzeko planoaren irudiaren kokalekua';
 $string['backgroundrepeatnorepeat'] = 'Ez errepikatu';
 $string['backgroundrepeatrepeat'] = 'Errepikatu';
+$string['backgroundrepeatrepeatx'] = 'Errepikatu horizontalki';
+$string['backgroundrepeatrepeaty'] = 'Errepikatu bertikalki';
+$string['bodybackground'] = 'Atzeko planoaren kolorea';
 $string['configtitle'] = 'Gehiago';
 $string['customcss'] = 'Pertsonalizatu CSSa';
 $string['footnote'] = 'Orripekoaren oharra';
+$string['linkcolor'] = 'Estekaren kolorea';
+$string['linkcolor_desc'] = 'Esteken kolorea.';
 $string['logo'] = 'Logoa';
 $string['pluginname'] = 'Gehiago';
 $string['region-side-post'] = 'Eskuina';
 $string['region-side-pre'] = 'Ezkerra';
+$string['secondarybackground'] = 'Bigarren mailako atzeko planoaren kolorea';
 $string['textcolor'] = 'Testuaren kolorea';
+$string['textcolor_desc'] = 'Testuaren kolorea.';

@@ -36,8 +36,8 @@ $string['allocationerror'] = 'Zuordnungsfehler';
 $string['allsubmissions'] = 'Alle Einreichungen ({$a})';
 $string['alreadygraded'] = 'Bereits bewertet';
 $string['areaconclusion'] = 'Abschlusstext';
-$string['areainstructauthors'] = 'Anleitung zum Einreichen';
-$string['areainstructreviewers'] = 'Anleitung zum Beurteilen';
+$string['areainstructauthors'] = 'Aufgabenstellung';
+$string['areainstructreviewers'] = 'Hinweise zur Bewertung';
 $string['areaoverallfeedbackattachment'] = 'Gesamtfeedback Anhänge';
 $string['areaoverallfeedbackcontent'] = 'Gesamtfeedback Texte';
 $string['areasubmissionattachment'] = 'Dateianhänge zur Einreichung';
@@ -167,9 +167,9 @@ $string['gradingsettings'] = 'Punkteeinstellungen';
 $string['groupnoallowed'] = 'Sie können keiner Gruppe in diesem Workshop beitreten.';
 $string['iamsure'] = 'Ja, ich bin mir sicher';
 $string['info'] = 'Info';
-$string['instructauthors'] = 'Anleitung zum Einreichen anbieten';
-$string['instructreviewers'] = 'Anleitung zum Beurteilen';
-$string['introduction'] = 'Einführung';
+$string['instructauthors'] = 'Aufgabenstellung';
+$string['instructreviewers'] = 'Hinweise zur Bewertung';
+$string['introduction'] = 'Beschreibung';
 $string['latesubmissions'] = 'Verspätete Einreichungen';
 $string['latesubmissionsallowed'] = 'Verspätete Einreichungen sind zugelassen';
 $string['latesubmissions_desc'] = 'Erlaube verspätete Einreichungen';
@@ -248,12 +248,12 @@ $string['sortasc'] = 'Aufsteigend sortieren';
 $string['sortdesc'] = 'Abwärts sortieren';
 $string['strategy'] = 'Punktestrategie';
 $string['strategyhaschanged'] = 'Die Punktestrategie des Workshops würde seit dem Beginn der Änderungen geändert.';
-$string['strategy_help'] = 'Die Bewertungsstrategie das verwendete Bewertungsformular und die Bewertungsmethode der Einreichungen. Es gibt vier Optionen:
+$string['strategy_help'] = 'Die Bewertungsstrategie legt das verwendete Bewertungsformular und die Bewertungsmethode der Einreichungen fest. Es gibt vier Optionen:
 
-* Akkumulative Bewertung: Kommentare und Bewertungen für vordefinierte Aspekte
+* Beurteilen mit Kommentaren und Punkten: Kommentare und Bewertungen für vordefinierte Aspekte
 * Kommentare: Es gibt nur Kommentare zu vordefinierten Aspekten, jedoch keine Bewertungen
-* Anzahl der Fehler: Kommentare und Ja/Nein Bewertungen zu vordefinierten Aussagen
-* Rubriken: Verschiedene Level zu vordefinierten Aspekten';
+* Aussagen zustimmen oder ablehnen: Kommentare und Ja/Nein Bewertungen zu vordefinierten Aussagen
+* Bewertungskriterien: Verschiedene Level zu vordefinierten Aspekten';
 $string['submission'] = 'Einreichung';
 $string['submissionattachment'] = 'Dateianhang';
 $string['submissionby'] = 'Eingereicht von {$a}';
@@ -293,8 +293,8 @@ $string['taskassesspeers'] = 'Andere Teilnehmende bewerten';
 $string['taskassesspeersdetails'] = 'gesamt: {$a->total}<br />ausstehend: {$a->todo}';
 $string['taskassessself'] = 'Selbstbeurteilung';
 $string['taskconclusion'] = 'Workshop-Abschluss aktivieren';
-$string['taskinstructauthors'] = 'Anleitung zum Einreichen anbieten';
-$string['taskinstructreviewers'] = 'Anleitung zum Beurteilen anbieten';
+$string['taskinstructauthors'] = 'Hinterlegen Sie hier die Aufgabenstellung';
+$string['taskinstructreviewers'] = 'Hinterlegen Sie hier Hinweise zur Durchführung der Bewertung';
 $string['taskintro'] = 'Workshop-Einführung verfassen';
 $string['tasksubmit'] = 'Übermitteln Sie Ihre Einreichung';
 $string['toolbox'] = 'Workshop-Hilfsmittel';

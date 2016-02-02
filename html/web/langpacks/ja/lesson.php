@@ -90,8 +90,9 @@ $string['checkedthisone'] = 'チェックされました。';
 $string['checknavigation'] = 'ナビゲーションを確認する';
 $string['checkquestion'] = '問題を確認する';
 $string['classstats'] = 'クラス統計';
-$string['clicktodownload'] = 'ファイルをダウンロードするには、次のリンクをクリックしてください。';
-$string['clicktopost'] = 'あなたの得点をハイスコアリストに登録するには、ここをクリックしてください。';
+$string['clicktodownload'] = 'ファイルをダウンロードするには次のリンクをクリックしてください。';
+$string['clicktopost'] = 'あなたの得点をハイスコアリストに登録するにはここをクリックしてください。';
+$string['closebeforeopen'] = 'レッスンを更新できませんでした。あなたは開始日時の前に終了日時を指定しました。';
 $string['cluster'] = 'クラスタ';
 $string['clusterjump'] = 'クラスタ内の未閲覧の問題';
 $string['clustertitle'] = 'クラスタ';
@@ -99,7 +100,7 @@ $string['collapsed'] = '折りたたむ';
 $string['comments'] = 'あなたのコメント';
 $string['completed'] = '完了';
 $string['completederror'] = 'レッスンを完了する';
-$string['completethefollowingconditions'] = '先へ進むには、<b>{$a}</b> レッスンの下記の状態を完了させる必要があります。';
+$string['completethefollowingconditions'] = '先へ進むには、<b>{$a}</b> レッスンの下記コンディションを完了させる必要があります。';
 $string['conditionsfordependency'] = '依存条件';
 $string['configactionaftercorrectanswer'] = '正解後にとられるデフォルトのアクションです。';
 $string['configmaxanswers'] = 'ページごとの答えの最大数のデフォルトです。';
@@ -122,7 +123,7 @@ $string['correctresponse'] = '正解に対するレスポンス';
 $string['createaquestionpage'] = '問題ページを作成する';
 $string['credit'] = '承認';
 $string['customscoring'] = 'カスタムスコア';
-$string['customscoring_help'] = '<p>ここではそれそれの答えに評点を設定することができます。評点には、マイナスまたはプラスの値を使用することができます。インポートされた問題には、自動的に正解に1点、不正解に0点が割り当てられますが、インポートの後で変更することができます。</p>';
+$string['customscoring_help'] = 'この設定を有効にした場合、それぞれの答えには数字の点数 (プラスまたはマイナス) が与えられます。';
 $string['deadline'] = '終了日時';
 $string['defaultessayresponse'] = 'あなたの作文は、あなたの教師によって評定されます。';
 $string['deleteallattempts'] = 'すべてのレッスン受験を削除する';
@@ -138,8 +139,7 @@ $string['detailedstats'] = '詳細統計';
 $string['didnotanswerquestion'] = 'この問題に答えていません。';
 $string['didnotreceivecredit'] = '承認なし';
 $string['displaydefaultfeedback'] = 'デフォルトフィードバックを使用する';
-$string['displaydefaultfeedback_help'] = '<p>「<strong>Yes</strong>」を選択すると、問題のレスポンスが見つからない場合、デフォルトレスポンスの「正解です」および「不正解です」が使用されます。</p>
-<p>「<strong>No</strong>」を選択すると、 問題のレスポンスが見つからない場合、フィードバックは表示されません。レッスンを受験しているユーザは、自動的に次のレッスンページにリダイレクトされます。</p>';
+$string['displaydefaultfeedback_help'] = 'この設定を有効にした場合、問題のレスポンスが見つからない場合にデフォルトレスポンスの「正解です」および「不正解です」が使用されます。<';
 $string['displayhighscores'] = 'ハイスコアを表示する';
 $string['displayinleftmenu'] = 'メニューに表示しますか?';
 $string['displayleftif'] = 'メニューを表示するための最小評点';
@@ -148,7 +148,7 @@ $string['displayleftmenu'] = 'メニューを表示する';
 $string['displayleftmenu_help'] = 'この設定を有効にした場合、移動することのできるページ一覧を学生が表示できるようにします。';
 $string['displayofgrade'] = '評点を表示する (学生のみ)';
 $string['displayreview'] = '問題の再受験オプションを提供する';
-$string['displayreview_help'] = '有効にした場合、問題が不正解のときに学生が評点なしで再受験する、またはレッスンを続けるオプションを提供します。';
+$string['displayreview_help'] = 'この設定を有効にした場合、問題が不正解のときに学生が評点なしで再受験する、またはレッスンを続けるオプションを提供します。';
 $string['displayscorewithessays'] = '<p>自動評定によるあなたの評点は、{$a->tempmaxgrade} 点中 {$a->score} 点です。</p>
 <p> 作文問題 {$a->essayquestions} が評定され、後日あなたの最終評点に追加されます。</p>
 <p> 作文問題を除くあなたの現在の評点は、{$a->grade} 点中 {$a->score} 点です。</p>';
@@ -220,89 +220,7 @@ $string['highscores'] = 'ハイスコア';
 $string['hightime'] = '最長時間';
 $string['importcount'] = '{$a} の問題をインポート';
 $string['importquestions'] = '問題をインポートする';
-$string['importquestions_help'] = '<p>フォームを通してアップロードされた外部テキストファイルから問題をインポートすることができます。</p>
-
-<p>下記のように多くのファイルフォーマットをサポートします:</p>
-
-<h2>GIFTフォーマット</h2>
-<div class="indent">
-<p>GIFTは、テキストファイルからMoodle小テストに問題をインポートするための、最も統合的なインポートフォーマットです。GIFTは、教師が問題をテキストファイルで簡単に書くことができるよう設計されています。多肢選択問題、、○/×問題、記述問題、組み合わせ問題、数値問題、_____を挿入することで「穴埋め問題」をサポートします。様々なタイプの問題およびコメント、問題名、フィードバック、評点の加重割合を1つのテキストファイルに記述することができます。以下に例をあげます:</p>
-<pre>
-グラントの墓には誰が埋められていますか?{~グラント ~ジェファーソン =誰も埋められていない}
-
-グラントはグラントの墓に {~埋められている =埋葬されている ~生きている} 。
-
-グラントはグラントの墓に埋められている。{FALSE}
-
-グラントの墓には誰が埋められていますか?{=誰も埋められていない =1人も埋められていない}
-
-ユリシーズ S. グラントは、いつ生まれましたか?{#1822}
-</pre>
-
-<p class="moreinfo"><a href="help.php?file=formatgift.html&module=quiz">「GIFT」フォーマットの詳細情報</a></p>
-</div>
-
-<h2>Aikenフォーマット</h2>
-<div class="indent">
-<p>Aikenフォーマットは、人間が理解できるフォーマットで多肢選択問題を作成する非常にシンプルな方法です。次にフォーマットの例をあげます:</p>
-<pre>
-応急手当の目的は?
-A. 命を救う、より深刻な怪我を防ぐ、健康を維持する
-B. 怪我をした人に治療を提供する
-C. より深刻な怪我を防ぐ
-D. 助けを求めている被害者を支援する
-ANSWER: A
-</pre>
-
-<p class="moreinfo"><a href="help.php?file=formataiken.html&module=quiz">「Aiken」フォーマットの詳細情報</a></p>
-</div>
-
-<h2>Missing Wordフォーマット</h2>
-<div class="indent">
-<p>このフォーマットは、多肢選択問題のみをサポートします。それぞれの答えはチルド (~) で分離され、正解の前には等号 (=) を付けます。次に例をあげます:</p>
-
-<blockquote>私たちは、幼児のときに身体の部分を探索し始めるとすぐに、{=解剖学と生理学 ~反射学
-~科学 ~実験}の生徒となります。ある意味、私たちは生涯生徒であり続けます。
-</blockquote>
-
-<p class="moreinfo"><a href="help.php?file=formatmissingword.html&module=quiz">「Missing Word」フォーマットの詳細情報</a></p>
-</div>
-
-<h2>AON</h2>
-<div class="indent">
-<p>これはMissing Wordフォーマットと同じですが、問題がインポートされた後、すべての記述式問題が組み合わせ問題に変換されます。</p>
-<p>また、インポート時に多肢選択問題の答えがランダムにシャッフルされます。</p>
-<p>多くの小テスト機能の開発を後援している機関にちなんで、フォーマットの名称が付けられました。</p>
-</div>
-
-<h2>Blackboard</h2>
-<div class="indent">
-<p>このモジュールは、Blackboardのエクスポート機能によって保存された問題をインポートすることができます。あなたのPHPに組み込まれたXML機能を利用します。</p>
-
-<p class="moreinfo"><a href="help.php?file=formatblackboard.html&module=quiz">「Blackboard」フォーマットの詳細情報</a></p>
-</div>
-
-<h2>Course Test Manager</h2>
-<div class="indent">
-<p>このモジュールはCourse Test Manager test bankに保存された問題をインポートすることができます。
-MoodleがWindowsで動作しているか、Linuxウェブサーバで動作しているかによって、Microsoft Accessデータベースに保存されているtest bankへのアクセス方法が異なります。</p>
-<p>Windows環境では、他のデータインポートファイルと同じようにサーバにアップロードしてください。</p>
-<p>Linux環境では、LinuxサーバのmoodleにXMLデータを転送するODBCソケットとCourse Test Manager test bankを入れたWindowsマシンを同じネットワークに設置する必要があります。</p>
-<p>このインポートクラスを使用する前に、下記の詳細ヘルプをお読みください。</p>
-
-<p class="moreinfo"><a href="help.php?file=formatctm.html&module=quiz">「CTM」フォーマットの詳細情報</a></p>
-</div>
-
-<h2>カスタム</h2>
-<div class="indent">
-<p>インポートしたいフォーマットがある場合は、/mod/quiz/format/custom.phpを編集することで独自にインプリメントすることができます。</p>
-
-<p>新たに記述する必要のあるコードの量は非常に小さいものです - 与えられたテキストから1つの問題のみを解析できるコードです。</p>
-
-<p class="moreinfo"><a href="help.php?file=formatcustom.html&module=quiz">「カスタム」フォーマットの詳細情報</a></p>
-</div>
-
-<p>WebCT、IMS QTIを含んだ新たなフォーマットがさらに追加されます。どのようなフォーマットでも、Moodleユーザが貢献することができます! </p>';
+$string['importquestions_help'] = 'この機能では様々なフォーマットの問題をテキストファイル経由でインポートすることができます。';
 $string['insertedpage'] = 'ページが追加されました';
 $string['invalidfile'] = '無効なファイル';
 $string['invalidid'] = 'コースモジュールIDまたはレッスンIDがパスしていません。';
@@ -312,7 +230,7 @@ $string['jump'] = 'ジャンプ';
 $string['jumps'] = 'ジャンプ';
 $string['jumps_help'] = 'それぞれの (問題の) 答えまたは (コンテンツページの) 説明はジャンプするリンク先を持ちます。ジャンプには「このページ」または「次のページ」のような相対ジャンプ、またはレッスン内の1ページを指定する絶対ジャンプがあります。';
 $string['jumpsto'] = '<em>{$a}</em> にジャンプする';
-$string['leftduringtimed'] = 'あなたは制限時間のあるレッスンを途中で終了しました。<br />レッスンを再スタートするには、「続ける」をクリックしてください。';
+$string['leftduringtimed'] = 'あなたは制限時間のあるレッスンを途中で終了しました。<br />レッスンを再スタートするには「続ける」をクリックしてください。';
 $string['leftduringtimednoretake'] = 'あなたは制限時間のあるレッスンを途中で終了しました。<br />レッスンを再受験または継続できません。';
 $string['leftduringtimedsession'] = 'あなたは制限時間のあるレッスンを離れました。';
 $string['lesson:addinstance'] = '新しいレッスンを追加する';
@@ -349,7 +267,7 @@ $string['maximumnumberofattempts_help'] = 'この設定ではそれぞれの問�
 $string['maximumnumberofattemptsreached'] = '最大受験回数に達しました - 次のページに移動しています。';
 $string['maxtime'] = '制限時間 (分)';
 $string['maxtimewarning'] = 'レッスン終了まで {$a} 分です。';
-$string['mediaclose'] = '「ウィンドウを閉じる」ボタンを表示する:';
+$string['mediaclose'] = '「ウィンドウを閉じる」ボタンを表示する';
 $string['mediafile'] = 'ファイルポップアップ';
 $string['mediafile_help'] = '<p>ここではレッスンの最初に表示されるファイル (例: mp3ファイル) またはウェブページへのポップアップウィンドウを作成します。また、必要に応じてポップアップウィンドウを開くことができるようリンクはすべてのレッスンページに表示されます。</p>
 
@@ -369,16 +287,14 @@ $string['mediafile_help'] = '<p>ここではレッスンの最初に表示され
     </ul>
 <p>    他のすべてのタイプのファイルには、デフォルトでダウンロード用のリンクが設定されます。</p>';
 $string['mediafilepopup'] = '閲覧するにはここをクリックしてください。';
-$string['mediaheight'] = 'ポップアップウィンドウ高:';
-$string['mediawidth'] = 'ポップアップウィンドウ幅:';
+$string['mediaheight'] = 'ポップアップウィンドウ高';
+$string['mediawidth'] = 'ポップアップウィンドウ幅';
 $string['messageprovider:graded_essay'] = '作文評定通知';
 $string['minimumnumberofquestions'] = '最小問題数';
-$string['minimumnumberofquestions_help'] = 'ここでは活動の評定計算に使用する問題の最大数を指定します。レッスンが1つまたはそれ以上のコンテンツを含んでいる場合、問題の最大数はゼロに設定してください。
-
-例えば、20に設定した場合、レッスンのオープニングページに次のようなテキストの追加をお勧めします: 「あなたはこのレッスンで少なくとも20問の問題を受験する必要があります。あなたが希望すればさらに問題を受験することができます。しかし、あなたが20問より少なく受験した場合、20問を受験したかのように計算されます」';
+$string['minimumnumberofquestions_help'] = 'ここでは活動の評定計算に使用する問題の最大数を指定します。';
 $string['missingname'] = 'ニックネームを入力してください。';
 $string['modattempts'] = '学生のレビューを許可する';
-$string['modattempts_help'] = '<p>ここでは解答内容を変更するため、学生がレッスンを後戻りすることができるようにします。</p>';
+$string['modattempts_help'] = 'この設定を有効にした場合、学生は再度レッスンを最初から通すことができます。';
 $string['modattemptsnoteacher'] = '学生レビューは学生のみに表示されます。';
 $string['modulename'] = 'レッスン';
 $string['modulename_help'] = 'レッスン活動において、教師は楽しくフレキシブルな方法でコンテンツおよび実践活動を提供することができます。教師は一連の線形のコンテンツパッケージまたは学習者に様々なパスまたはオプションを提供する教育活動のためにレッスンを使用することができます。どちらの場合でも、教師は参加を増やすこと、および多肢選択問題、組み合わせ問題、記述問題等の様々な問題を含むことで、理解を確かめることができます。学生の選択した答えおよび教師のレッスン開発により、学生を次のページに移動させる、、前のページに戻す、または完全に異なるパスにリダイレクトさせることができます。
@@ -440,11 +356,11 @@ $string['numberofpagestoshow_help'] = '<p>このパラメータは、フラッ�
 
 <p>このパラメータを実際のページ数よりも大きく設定した場合、すべてのページが表示された後に、レッスンは最後まで到達したことになります。</p>';
 $string['numberofpagesviewed'] = '解答済み問題数: {$a}';
-$string['numberofpagesviewednotice'] = '解答済み問題数: {$a->nquestions}; (あなたは少なくとも {$a->minquestions} 問の問題に解答する必要があります)';
+$string['numberofpagesviewednotice'] = '解答済み問題数: {$a->nquestions} (あなたは少なくとも {$a->minquestions} 問の問題に解答する必要があります)';
 $string['numerical'] = '数値問題';
 $string['ongoing'] = '進行中の評点を表示する';
 $string['ongoingcustom'] = '現在、あなたの評点は {$a->currenthigh} 点中 {$a->score} 点です。';
-$string['ongoing_help'] = '<p>この設定を「Yes」にすると、現時点で考えられる学生の合計評点が各ページに表示されます。例:  学生が評点5点の問題4問に答えて、1問が間違っている場合、表示される進行中の評点は、15/20点になります。</p>';
+$string['ongoing_help'] = 'この設定を有効にした場合、現時点で考えられる学生の合計評点が各ページに表示されます。';
 $string['ongoingnormal'] = 'あなたは {$a->viewed} 問中 {$a->correct} 問を正しく答えました。';
 $string['onpostperpage'] = '1評点あたり1回のみ登録してください。';
 $string['options'] = 'オプション';
@@ -484,7 +400,7 @@ $string['previewpagenamed'] = 'ページをプレビューする: {$a}';
 $string['previouspage'] = '前のページ';
 $string['processerror'] = '処理中にエラーが発生しました!';
 $string['progressbar'] = 'プログレスバー';
-$string['progressbar_help'] = '有効にした場合、レッスンページ最下部におおよその完了パーセンテージを表示したバーが表示されます。';
+$string['progressbar_help'] = 'この設定を有効にした場合レッスンページ最下部におおよその完了パーセンテージを表示したバーが表示されます。';
 $string['progressbarteacherwarning'] = 'プログレスバーは {$a} に表示されません。';
 $string['progressbarteacherwarning2'] = 'あなたはこのレッスンを編集できるため、プログレスバーは表示されません。';
 $string['progresscompleted'] = 'あなたは {$a}% のレッスンを完了しました。';
@@ -502,13 +418,7 @@ $string['report'] = 'レポート';
 $string['reports'] = 'レポート';
 $string['response'] = 'レスポンス';
 $string['retakesallowed'] = '再受験を許可する';
-$string['retakesallowed_help'] = '<p>ここでは学生がレッスンを1回以上または1回のみ受験できるか設定します。教師は、学生が完全に理解すべき教材がレッスンに含まれることを決定できます。この場合、教材の繰り返し閲覧を許可すべきです。しかし、教材がテストのような性質を持っている場合、学生に再受験を許可してはいけません。</p>
-
-<p>学生がレッスンの再受験を許可された場合、評定ページに表示される<b>評点</b>は、再受験の<b>平均</b>評点、またはレッスンの<b>最高</b>評点です。次のオプションでは、どちらの評定方法を使用するか選択します。</p>
-
-<p><b>問題分析</b>では、常にレッスンの最初の受験内容を使用し、学生による再受験は無視されますので注意してください。</p>
-
-<p>このオプションは、デフォルトで学生が再受験できない「No」に設定されています。 特別な事情がある場合のみ、このオプションを「Yes」にすることをお勧めします。</p>';
+$string['retakesallowed_help'] = 'この設定を有効にした場合、学生は1回以上レッスンを受験することができます。';
 $string['returnto'] = '{$a} に戻る';
 $string['returntocourse'] = 'コースに戻る';
 $string['review'] = 'レビュー';
@@ -532,7 +442,7 @@ $string['skip'] = 'ナビゲーションをスキップする';
 $string['slideshow'] = 'スライドショー';
 $string['slideshowbgcolor'] = 'スライドショー背景色';
 $string['slideshowheight'] = 'スライドショー高';
-$string['slideshow_help'] = '<p>この設定を「Yes」にすると、固定した幅、高さ、独自の背景色のスライドショーとして、レッスンを表示することができます。コンテンツページの幅または高さが指定した範囲を超えた場合、CSSベースのスクロールバーが表示されます。問題は、スライドショーモードでは「除外」され、デフォルトでページ (ブランチテーブル) のみスライド表示されます。オプションが選択された場合、デフォルト言語のラベル付きボタン「次へ」および「戻る」ボタンが、ページの右端および左端に表示されます。他のボタンは、スライドショー下部中央に配置されます。</p>';
+$string['slideshow_help'] = 'この設定を有効にした場合、レッスンは固定幅および高さのスライドショーとして表示されます。';
 $string['slideshowwidth'] = 'スライドショー幅';
 $string['startlesson'] = 'レッスンの開始';
 $string['studentattemptlesson'] = '{$a->lastname}, {$a->firstname} さんの受験回数:  {$a->attempt}';
@@ -541,12 +451,12 @@ $string['studentoneminwarning'] = '警告: レッスンが終了するまでの�
 $string['studentresponse'] = '{$a} のレスポンス';
 $string['submit'] = '送信';
 $string['submitname'] = 'ニックネームの送信';
-$string['teacherjumpwarning'] = 'このレッスンでは、{$a->cluster} ジャンプまたは {$a->unseen} ジャンプが使用されています。これらのジャンプの代わりに「次のページ」へのジャンプが使用されます。これらのジャンプを確認するには、学生としてログインしてください。';
-$string['teacherongoingwarning'] = '進行中の評点は、学生のみに表示されます。進行中のスコアをテストするには、学生としてログインしてください。';
-$string['teachertimerwarning'] = 'タイマーは学生に対してのみ作動します。タイマーをテストするには、学生としてログインしてください。';
+$string['teacherjumpwarning'] = 'このレッスンでは {$a->cluster} ジャンプまたは {$a->unseen} ジャンプが使用されています。これらのジャンプの代わりに「次のページ」へのジャンプが使用されます。これらのジャンプを確認するには学生としてログインしてください。';
+$string['teacherongoingwarning'] = '進行中の評点は、学生のみに表示されます。進行中のスコアをテストするには学生としてログインしてください。';
+$string['teachertimerwarning'] = 'タイマーは学生に対してのみ作動します。タイマーをテストするには学生としてログインしてください。';
 $string['thatsthecorrectanswer'] = '正解です。';
 $string['thatsthewronganswer'] = '不正解です。';
-$string['thefollowingpagesjumptothispage'] = '下記のページは、このページにジャンプします。';
+$string['thefollowingpagesjumptothispage'] = '以下ののページはこのページにジャンプします。';
 $string['thispage'] = 'このページ';
 $string['timeisup'] = '時間終了';
 $string['timeremaining'] = '残り時間';
@@ -566,7 +476,7 @@ $string['updatepagenamed'] = 'ページを更新する: {$a}';
 $string['usemaximum'] = '最大評点を使用する';
 $string['usemean'] = '評点平均を使用する';
 $string['usepassword'] = 'レッスンをパスワードで保護する';
-$string['usepassword_help'] = '<p>「Yes」を選択すると、パスワードの入力なしでは、学生はレッスンにアクセスできません。</p>';
+$string['usepassword_help'] = 'この設定を有効にした場合、レッスンにアクセスするためにパスワードが必要となります。';
 $string['viewgrades'] = '評点を表示する';
 $string['viewhighscores'] = 'ハイスコアリストを表示する';
 $string['viewreports'] = '{$a->student} の {$a->attempts} 件の受験を表示';

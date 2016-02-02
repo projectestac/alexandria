@@ -30,7 +30,9 @@ $string['accepted'] = 'Akzeptiert';
 $string['accept_grades'] = 'Bewertungen des Tools akzeptieren';
 $string['accept_grades_admin'] = 'Bewertungen des Tools akzeptieren';
 $string['accept_grades_admin_help'] = 'Legen Sie fest, ob der Tool Provider Bewertungen der Instanzen des Tools hinzufügen, aktualisieren, lesen und löschen darf. Enige tool Provider ermöglichen, dass Bewertungen aus den Aktivitäten im Tool an Moodle berichtet werden. Dadurch erscheint das Tool noch besser integriert.';
-$string['accept_grades_help'] = 'Legen Sie fest, ob der Tool Provider Bewertungen der Instanzen des Tools hinzufügen, aktualisieren, lesen und löschen darf. Enige tool Provider ermöglichen, dass Bewertungen aus den Aktivitäten im Tool an Moodle berichtet werden. Dadurch erscheint das Tool noch besser integriert. Diese Einstellung kann u.U. in der Tool Konfiguration überschreiben werden.';
+$string['accept_grades_help'] = 'Diese Option legt fest, ob der Tool-Provider Bewertungen hinzufügen, aktualisieren, lesen und löschen darf, die mit der Tool-Instanz zusammenhängen. Manche Tool-Provider ermöglichen die Übernahme von Bewertungen aus den Tool-Aktivitäten und schaffen so eine bessere Integration in Moodle.
+
+Diese Einstellung kann in der Tool-Konfiguration überschrieben werden.';
 $string['action'] = 'Aktion';
 $string['active'] = 'Aktiv';
 $string['activity'] = 'Aktivität';
@@ -57,7 +59,7 @@ $string['cancel'] = 'Abbrechen';
 $string['cancelled'] = 'Abgebrochen';
 $string['cannot_delete'] = 'Sie sollten diese Tool-Konfiguration nicht löschen';
 $string['cannot_edit'] = 'Sie können diese Tool-Konfiguration nicht löschen';
-$string['capabilities'] = 'Berchtigungen';
+$string['capabilities'] = 'Berechtigungen';
 $string['capabilities_help'] = 'Wählen Sie die Berechtigungen, die Sie dem Tool-Anbieter übergeben möchten. Sie können mehrere Optionen auswählen.';
 $string['click_to_continue'] = '<a href="{$a->link}" target="_top">Weiter</a>';
 $string['comment'] = 'Kommentar';
@@ -129,7 +131,7 @@ Drei Icons erscheinen in der Liste
 * **Löschen** - Ausgewählten Typ im Kurs löschen.';
 $string['external_tool_types'] = 'Typen von externen Tools';
 $string['failedtoconnect'] = 'Moodle konnte nicht mit dem System \'{$a}\' kommunizieren';
-$string['filter_basiclti_configlink'] = 'Konfigurieren Sie die bevorzugte Seiten und deren Kennworte';
+$string['filter_basiclti_configlink'] = 'Konfigurieren Sie die bevorzugten Seiten und deren Kennwörter';
 $string['filter_basiclti_password'] = 'Kennwort ist erforderlich';
 $string['filterconfig'] = 'Externes Tool Administration';
 $string['filtername'] = 'Externes Tool';
@@ -144,7 +146,7 @@ Dies gilt auch für alle Web Service Anfrage zu dem Anbieter.
 Hierzu ist es erforderelich, dass sowohl das Moodle-System als auch der Anbieter SSL unterstützen.';
 $string['generaltool'] = 'Allgemeines Tool';
 $string['global_tool_types'] = 'Globale Tooltypen';
-$string['grading'] = 'Bewerungsweiterleitung';
+$string['grading'] = 'Bewertungsweiterleitung';
 $string['icon_url'] = 'Icon URL';
 $string['icon_url_help'] = 'Die Funktion Icon URl ermöglich es, das für die Aktivität verwandte Icon auszutauschen.  An Stelle des Standard LTI Icons kann ein Icon, das zur eingebundenen Aktivität passt, gewählt werden.';
 $string['id'] = 'ID';
@@ -164,7 +166,7 @@ $string['launch_url_help'] = 'Die Start-URL bezeichnet die Webadresse des extern
 Falls ein spezieller Tool-Typ gewählt wurde, kann u.U. auf die Start URL verzichtet werden.';
 $string['lti'] = 'Externes Toool';
 $string['lti:addcoursetool'] = 'Kursspezifisch LTI Aktivitäten konfigurieren';
-$string['lti:addinstance'] = 'Aktivität Externes Tool hinzufügen';
+$string['lti:addinstance'] = 'Aktivität \'Externes Tool\' hinzufügen';
 $string['lti_administration'] = 'LTI Administration';
 $string['lti_errormsg'] = 'Das Tool gab folgende Fehlermeldung zurück: \'{$a}\'';
 $string['lti:grade'] = 'Bewertungen vom ext. Tool anzeigen';
@@ -193,7 +195,7 @@ $string['misconfiguredtools'] = 'Fehlerhaft konfigurierte Instanzen entdeckt';
 $string['missingparameterserror'] = 'Diese Seite ist falsch konfiguriert: \'{$a}\'';
 $string['module_class_type'] = 'Moodle Modultyp';
 $string['modulename'] = 'Externes Tool';
-$string['modulename_help'] = 'Mit der Schnittstelle "Externe Tools" geben Sie den Teilnehmer/innen direkten Zugriff auf Lernprogramme außerhalb von Moodle.
+$string['modulename_help'] = 'Mit der Schnittstelle \'Externe Tools\' geben Sie den Teilnehmer/innen direkten Zugriff auf Lernprogramme außerhalb von Moodle.
 
 Die Teilnehmer/innen benötigen kein zusätzliches Login. Die Verbindung zwischen Moodle und dem externen Lernprogramm erfolgt über den LTI-Standard, den das andere Lernprogramm unterstützen muss. Sie erhalten vom Anbieter einen Link und Zugangsschlüssel.
 
@@ -230,7 +232,7 @@ $string['parameter_help'] = 'Tool-Parameter sind Einstellungen zur Datenübertra
 $string['password'] = 'Öffentliches Kennwort';
 $string['password_admin'] = 'Öffentliches Kennwort';
 $string['password_admin_help'] = 'Das Kennwort wird für die Authentifizierung genutzt. Es wird mit dem Anwenderschlüssel vom Tool-Anbieter zur Verfügung gestellt.
-Tools, die keine sichere Datenübertragung oder keine zusätzlichen Dienste (wie Bewertungen) anbieten, können auf Kennworte verzichten.';
+Tools, die keine sichere Datenübertragung oder keine zusätzlichen Dienste (wie Bewertungen) anbieten, können auf Kennwörter verzichten.';
 $string['password_help'] = 'Für vorkonfigurierte Tools ist es nicht erforderlich ein Kenwort einzugeben. Dies erfolgte schon während der Tool Konfiguration.
 
 Das Feld ist jedoch auszufüllen, falls eine Verbindung zu einem Anbieter geschaffen werden soll, die noch nicht existiert.  Falls das Tool mehrfach genutzt werden soll ist es zu empfehlen, diese Einstellungen in der Kurs Konfiguration vorzunehmen, um sich mehrfache Arbeit zu ersparen.
@@ -292,17 +294,20 @@ $string['setupoptions'] = 'Setup-Optionen';
 $string['share_email'] = 'E-Mail des Anwenders an Tool übergeben';
 $string['share_email_admin'] = 'E-Mail des Anwenders an Tool übergeben';
 $string['share_email_admin_help'] = 'Legen Sie fest, ob die E-Mailadresse des Nutzers übergeben werden soll. Dies kan notwendig sein,um bestimmte Informationen im Tool anzuzeigen oder aufgrund von Aktivitäten im externen Tool E-Mails zu versenden.';
-$string['share_email_help'] = 'Legen Sie fest, ob die E-Mailadresse des Nutzers übergeben werden soll. Dies kan notwendig sein,um bestimmte Informationen im Tool anzuzeigen oder aufgrund von Aktivitäten im externen Tool E-Mails zu versenden.
+$string['share_email_help'] = 'Diese Option legt fest, ob die Nutzer-E-Mail-Adresse an den Tool-Provider übergeben wird, wenn die Tool-Instanz verwendet wird. Nutzer/innen können so bei einem wiederholten Zugriff wiedererkannt werden und personalisierte Informationen per E-Mails erhalten.
+
 Diese Einstellung kann in der Tool-Konfiguration überschrieben werden.';
 $string['share_name'] = 'Anwendername an Tool übergeben';
 $string['share_name_admin'] = 'Anwendername an Tool überegeben';
 $string['share_name_admin_help'] = 'Festlegen, ob der Name des Anwenders an den Anbieter des Tools übergeben werden soll. Dies kann erforderlich sein, um im Tool bestimmte  Informationen anzeigen zu können.';
-$string['share_name_help'] = 'Festlegen, ob der Name des Anwenders an den Anbieter des Tools übergeben werden soll. Dies kann erforderlich sein, um im Tool bestimmte  Informationen anzeigen zu können.
+$string['share_name_help'] = 'Diese Option legt fest, ob der vollständige Nutzername an den Tool-Provider übergeben wird, wenn die Tool-Instanz verwendet wird. Nutzer/innen können so bei einem wiederholten Zugriff wiedererkannt werden und personalisierte Informationen erhalten.
+
 Diese Einstellung kann in der Tool-Konfiguration überschrieben wreden.';
 $string['share_roster'] = 'Tool Zugriff auf Teilnehmerliste geben';
 $string['share_roster_admin'] = 'Tool kann auf Teilnehmerliste zugreifen.';
 $string['share_roster_admin_help'] = 'Festlegen, ob das Tool auf die Liste der Teilnehmer des Kurses zugreifen darf.';
-$string['share_roster_help'] = 'Festlegen, ob das Tool auf die Liste der Teilnehmer des Kurses zugreifen darf.
+$string['share_roster_help'] = 'Diese Option legt fest, ob das Tool auf die Teilnehmerliste des Kurses zugreifen darf.
+
 Diese Einstellung kann in der Tool-Konfiguration überschrieben werden.';
 $string['show_in_course'] = 'Tool-Typ bei der Erstellung von Instanzen im Kurs anzeigen';
 $string['show_in_course_help'] = 'Falls ausgewählt erscheint diese Konfiguration als \'Externer Tool-Typ\' in der kursspezifischen Konfiguration und ist für Trainer sichtbar.
@@ -333,7 +338,7 @@ Die registrierten Tools  werden in vier Kategorien angezeigt:
 $string['toolproxyregistration'] = 'Registrierung eines externen Tools';
 $string['toolregistration'] = 'Registrierung eines externen Tools';
 $string['tool_settings'] = 'Tool-Einstellungen';
-$string['toolsetup'] = 'Konfiguration eines externes Tools';
+$string['toolsetup'] = 'Konfiguration externes Tool';
 $string['toolurl'] = 'Basis-URL des Tools';
 $string['toolurl_help'] = 'Die Basis-URL des Tools wird verwendet um die Start URLs mit der korrekten Konfiguration zu verknüpfen. Die Verwendung von http(s) am Beginn ist optional.
 

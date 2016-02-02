@@ -71,6 +71,7 @@ if ($action=='deleteselected') {
     require_sesskey();
     if ($confirmed) {
         $hotpot->delete_attempts($selected);
+        $completion->update_state($cm);
     } else {
         // show a confirm button ?
     }
@@ -96,9 +97,16 @@ echo $output->header();
 
 // Guests can't do a HotPot, so offer them a choice of logging in or going back.
 if (isguestuser()) {
+    if (function_exists('get_local_referer')) {
+        // Moodle >= 2.8
+        $referer = get_local_referer(false);
+    } else {
+        // Moodle <= 2.7
+        $referer = get_referer(false);
+    }
     $message = html_writer::tag('p', get_string('guestsno', 'quiz'));
     $message .= html_writer::tag('p', get_string('liketologin'));
-    echo $output->confirm($message, get_login_url(), get_referer(false));
+    echo $output->confirm($message, get_login_url(), $referer);
     echo $output->footer();
     exit;
 }

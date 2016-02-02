@@ -37,6 +37,13 @@ final class log4p {
      * @param string $savetofilepath -> path and file name where the log have to be saved when $state is set to true
      */
     private function __construct($savetofile = false, $savetofilepath = '', $debug = false) {
+        $this->debug = $debug;
+
+        if ($savetofile == false) {
+            $this->savetofile = false;
+            $this->add('log4p: its off becouse the parameters to switch it on sets it', 'WARNING');
+            return;
+        }
 
         // Set default path location
         if (empty($savetofilepath)) {
@@ -49,11 +56,10 @@ final class log4p {
             for ($i = 0; $i < count($pwdarray) - 1; $i++) {
                 $pwd .= $pwdarray[$i].'/';
             }
-            $savetofilepath = $pwd.'log/mailsender.log';
+            $savetofilepath = $pwd.'log';
         }
 
-        $this->savetofile = $this->loadsavetofile($savetofile, $savetofilepath);
-        $this->debug = $debug;
+        $this->savetofile = $this->loadsavetofile($savetofilepath);
     }
 
     /**
@@ -63,10 +69,10 @@ final class log4p {
      */
     function __destruct() {
         $this->add('log4p: Closing log file', 'DEBUG');
-        if (!fclose($this->filelogpointer)) {
+        if ($this->filelogpointer && !fclose($this->filelogpointer)) {
             $this->add('Logger: trying to close file log pointer failed');
         }
-
+        $this->filelogpointer = false;
         $this->savetofile = false;
     }
 
@@ -76,24 +82,24 @@ final class log4p {
      * @param string $str  -> log entry text
      * @param string $type -> posible values ERROR, WARNING, INFO
      */
-    function add ($str, $type = 'INFO*') {
+    function add($str, $type = 'INFO*') {
 
         if ($type == 'DEBUG' && !$this->debug) {
             // Debug not allowed
             return;
         }
 
-        //alowed type values
-        $types_allowed = array('ERROR', 'WARNING', 'INFO*', 'DEBUG');
+        // Alowed type values
+        $typesallowed = array('ERROR', 'WARNING', 'INFO*', 'DEBUG');
 
-        if (!in_array($type, $types_allowed)) {
+        if (!in_array($type, $typesallowed)) {
                 $type = 'UNKNOWN';
         }
 
-        //add log to our variable
+        // Add log to our variable
         $this->log[] = date('[Y-m-d H:i:s] ').' *'.$type.'*   '.$str;
 
-        //save log to file if its switched on
+        // Save log to file if its switched on
         if ($this->savetofile) {
             $this->addtofile($this->log[count($this->log) - 1]);
         }
@@ -109,12 +115,12 @@ final class log4p {
      */
     private function addtofile ($str = '', $delimiter = "\n") {
 
-        //check if parameter is not empty
+        // Check if parameter is not empty
         if (empty($str)) {
             return false;
         }
 
-            //save in file
+        // Save in file
         if (!fwrite($this->filelogpointer, $str.$delimiter)) {
             $this->savetofile = false;
             $this->add('log4p: addtofile cant write in log file. Save to file has been switch to off.', 'ERROR');
@@ -130,7 +136,7 @@ final class log4p {
      * @param  string $delimiter -> characters used to diference one line from other
      * @return string            -> string with all the entries in log separated by the delimeter
      */
-    function get_log ($delimiter = "\n") {
+    public function get_log ($delimiter = "\n") {
         if (empty($this->log)) {
             return false;
         }
@@ -156,48 +162,55 @@ final class log4p {
      * @param  string $delimiter      -> characters used to diference one line from other
      * @return bool                   -> true if saver could be switched to on or false if not
      */
-    function loadsavetofile ($state = false, $savetofilepath = '', $delimiter = "\n") {
+    private function loadsavetofile($savetofilepath = "", $delimiter = "\n", $site = false) {
 
-        //check if parameters are set to true and are correct
-        if ($state == false || $savetofilepath == '') {
+        $this->filelogpointer = false;
+        // Check if parameters are set to true and are correct
+        if (empty($savetofilepath)) {
             $this->add('log4p: its off becouse the parameters to switch it on sets it', 'WARNING');
-                return false;
+            return false;
         }
 
-        //prepare savetofilepath parameter
+        // Prepare savetofilepath parameter
         $savetofilepath = str_replace('\\', '/', $savetofilepath);
-        $filepatharray = explode("/", $savetofilepath);
 
-        $pwd = "";
-
-        // Parse the full path
-        for ($i=0;$i<count($filepatharray)-1;$i++) {
-            $pwd .= $filepatharray[$i].'/';
+        // Delete filename if needed
+        $stringtosearch = '.log';
+        if (substr($savetofilepath, - strlen($stringtosearch)) === $stringtosearch) {
+            $filepatharray = explode("/", $savetofilepath);
+            array_pop($filepatharray);
+            $savetofilepath = implode("/", $filepatharray);
         }
-            $pwd = substr($pwd, 0, strlen($pwd)-1);
 
         // Check if exits log folder
-        if (!is_dir($pwd)){
-            if (!mkdir($pwd)){
+        if (!is_dir($savetofilepath)) {
+            if (!@mkdir($savetofilepath)) {
                 $this->add('log4p: folder not exits and its imposible to create it', 'WARNING');
                 return false;
             }
         }
 
+        // Erase old files
+        $site = $site ? '_'.$site : "";
+        $search = $savetofilepath.'/mailsender'.$site.'_'.date("Ym", strtotime("-2 month"));
+        foreach (glob($search.'*.log') as $filename) {
+            unlink($filename);
+        }
+        // Add Filename
+        $savetofilepath .= '/mailsender'.$site.'_'.date("Ymd").'.log';
         // Open or create log file
         if (!$file = fopen($savetofilepath, "a+")) {
             $this->add('log4p: file not exits and its imposible to create it', 'WARNING');
             return false;
         }
 
-        //test if its posible to save in file
+        // Test if its posible to save in file
         if (!fwrite($file, $delimiter)) {
             $this->add('log4p: imposible to write in log file. Save to file has been switch to off.', 'ERROR');
             return false;
         }
 
         $this->filelogpointer = $file;
-        $this->savetofile = true;
         $this->add('log4p: loaded correctly in '.$savetofilepath);
         return true;
     }

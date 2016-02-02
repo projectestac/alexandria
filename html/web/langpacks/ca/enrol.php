@@ -43,7 +43,7 @@ $string['deleteinstanceconfirmself'] = 'Esteu segur que voleu suprimir la instà
 $string['deleteinstancenousersconfirm'] = 'Ara suprimireu el mètode d\'inscripció «{$a->name}».
 
 Esteu segur que voleu continuar?';
-$string['disableinstanceconfirmself'] = 'Esteu segur que voler inhabilitar la instància "{$a->name}" que us dona accés a aquest curs? És possible que no pugueu tornar a entrar al curs si continueu.';
+$string['disableinstanceconfirmself'] = 'Esteu segur que voleu inhabilitar la instància «{$a->name}» que us dóna accés a aquest curs? És possible que no pugueu tornar a accedir al curs si continueu.';
 $string['durationdays'] = '{$a} dies';
 $string['editenrolment'] = 'Editeu la inscripció';
 $string['enrol'] = 'Inscriu';
@@ -67,6 +67,7 @@ $string['enroltimeend'] = 'La inscripció acaba';
 $string['enroltimestart'] = 'La inscripció comença';
 $string['enrolusage'] = 'Instàncies / inscripcions';
 $string['enrolusers'] = 'Inscriu usuaris';
+$string['enrolxusers'] = 'Inscriu {$a} usuaris';
 $string['errajaxfailedenrol'] = 'La inscripció de l\'usuari ha fallat';
 $string['errajaxsearch'] = 'S\'ha produït un error mentre es cercaven usuaris';
 $string['erroreditenrolment'] = 'S\'ha produït un error mentre s\'intentava editar una inscripció d\'usuaris';
@@ -91,6 +92,7 @@ $string['extremovedsuspend'] = 'Inhabilita la inscripció al curs';
 $string['extremovedsuspendnoroles'] = 'Inhabilita la inscripció al curs i suprimeix els rols';
 $string['extremovedunenrol'] = 'Cancel·la la inscripció al curs de l\'usuari';
 $string['finishenrollingusers'] = 'Acaba d\'inscriure als usuaris';
+$string['foundxcohorts'] = 'S\'han trobat {$a} cohorts';
 $string['instanceeditselfwarning'] = 'Avís:';
 $string['instanceeditselfwarningtext'] = 'Esteu inscrit en aquest curs mitjançant aquest mètode d\'inscripció. Els canvis poden afectar el vostre accés a aquest curs.';
 $string['invalidenrolinstance'] = 'Instància d\'inscripció invàlida';

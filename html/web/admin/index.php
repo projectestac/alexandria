@@ -159,7 +159,7 @@ if (!core_tables_exist()) {
 
     //XTEC ************ AFEGIT - Block access to install functions. Show "site off" message instead.
     //2013.12.16 @aginard
-    if (!isset($agora['server']['enviroment']) || $agora['server']['enviroment'] != 'LOCAL') {
+    if (!isset($agora['server']['enviroment']) || ($agora['server']['enviroment'] != 'LOCAL' && $agora['server']['enviroment'] != 'DES')) {
         $siteoff_file = '../siteoff.html';
         if (file_exists($siteoff_file)) {
             include_once($siteoff_file);
@@ -538,7 +538,15 @@ if (isguestuser()) {
     redirect(get_login_url());
 }
 $context = context_system::instance();
-require_capability('moodle/site:config', $context);
+
+if (!has_capability('moodle/site:config', $context)) {
+    // Do not throw exception display an empty page with administration menu if visible for current user.
+    $PAGE->set_title($SITE->fullname);
+    $PAGE->set_heading($SITE->fullname);
+    echo $OUTPUT->header();
+    echo $OUTPUT->footer();
+    exit;
+}
 
 // check that site is properly customized
 $site = get_site();

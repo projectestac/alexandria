@@ -1,5 +1,3 @@
-[[setting:importcss]]
-
 @font-face {
     font-family: Abecedario;
     src: url([[font:theme|Abecedario.ttf]]);
@@ -115,7 +113,8 @@ h3{
 	padding-top: 0px;
 }
 
-.block.hidden {
+.block.hidden,
+.block.invisible {
     padding: 0;
 }
 
@@ -162,7 +161,8 @@ h3{
 	-moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
 }
 
-.block.hidden .header {
+.block.hidden .header,
+.block.invisible .header {
     border-radius: 4px;
 }
 
@@ -175,7 +175,8 @@ h3{
     padding: 4px 14px;
 }
 
-.jsenabled .block.hidden .content, .block.hidden .content {
+.jsenabled .block.hidden .content, .block.hidden .content,
+.jsenabled .block.invisible .content, .block.invisible .content {
 	display: none;
     padding: 0;
 }

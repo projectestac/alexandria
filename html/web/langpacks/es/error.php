@@ -146,6 +146,7 @@ $string['cannotsetupblock'] = 'Las tablas de los bloques NO se pudieron establec
 $string['cannotsetupcapformod'] = 'No se pueden establecer los permisos para {$a}';
 $string['cannotsetupcapforplugin'] = 'No se pueden establecer los permisos para {$a}';
 $string['cannotshowhidecoursesincategory'] = 'No se puede mostrar/ocultar los cursos en la categoría {$a}';
+$string['cannotsignup'] = 'No puede crear una nueva cuenta porque actualmente estás logueado como {$a}.';
 $string['cannotunassigncap'] = 'No se puede revocar la asignación del permiso obsoleto {$a->cap} del rol {$a->role}';
 $string['cannotunassignrolefrom'] = 'No se puede revocar la asignación de este usuario del Id de rol: {$a}';
 $string['cannotunzipfile'] = 'No se puede descomprimir el archivo';
@@ -389,6 +390,7 @@ $string['movecatcontentstoroot'] = 'No se permite mover el contenido de la categ
 $string['movecategorynotpossible'] = 'No puede mover la categoría \'{$a}\' a la categoría seleccionada.';
 $string['movecategoryownparent'] = 'No puede hacer que la categoría \'{$a}\' sea "padre" de si misma.';
 $string['movecategoryparentconflict'] = 'No se puede hacer que la categoría \'{$a}\' sea una subcategoría de una de sus propias subcategorías.';
+$string['mssqlrcsmodemissing'] = 'La base de datos no está usando el modo READ_COMMITTED_SNAPSHOT esperado, lo que puede llevar a resultados erróneos, especialmente en escenarios de alta concurrencia. Por favor habilítelo para un correcto comportamiento. Para más información vea la documentación <a href="https://docs.moodle.org/es/Installing_MSSQL_for_PHP">Instalando MSSQL para PHP</a>.';
 $string['multiplerecordsfound'] = 'Múltiples registros encontrados, sólo un registro se esperaba.';
 $string['multiplerestorenotallow'] = 'Múltiples ejecuciones de restaurar no son permitidas!';
 $string['mustbeloggedin'] = 'Usted debe haber iniciado sesión para poder hacer esto';

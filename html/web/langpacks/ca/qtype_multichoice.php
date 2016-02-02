@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['answerhowmany'] = 'Una resposta o múltiples respostes?';
-$string['answernumbering'] = 'Numeració de les preguntes';
+$string['answernumbering'] = 'Voleu numerar les opcions?';
 $string['answernumbering123'] = '1., 2., 3., ...';
 $string['answernumberingabc'] = 'a., b., c., ...';
 $string['answernumberingABCD'] = 'A., B., C., ...';
@@ -59,7 +59,7 @@ $string['pleaseselectatleastoneanswer'] = 'Si us plau, seleccioneu almenys una r
 $string['pluginname'] = 'Selecció múltiple';
 $string['pluginnameadding'] = 'S\'està afegint una pregunta d\'opcions múltiples';
 $string['pluginnameediting'] = 'S\'està editant una pregunta d\'opcions múltiples';
-$string['pluginname_help'] = 'En resposta a la pregunta (que pot contenir una imatge) l\'alumne pot escollir entre diferents opcions. Hi ha dos tipus de preguntes d\'opció múltiple - una resposta i resposta múltiple.';
+$string['pluginname_help'] = 'En resposta a la pregunta (que pot contenir una imatge) l\'alumne pot escollir entre diferents opcions. Hi ha dos tipus de preguntes d\'opció múltiple: una resposta i resposta múltiple.';
 $string['pluginnamesummary'] = 'Permet la selecció d\'una o diverses respostes d\'una llista predefinida.';
 $string['selectmulti'] = 'Trieu-ne una o més:';
 $string['selectone'] = 'Trieu-ne una:';

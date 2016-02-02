@@ -52,9 +52,13 @@ $string['choicegroupfull'] = 'This group choice is full and there are no availab
 $string['choicegroupname'] = 'Group choice name';
 $string['choicegroupopen'] = 'Open';
 $string['choicegroupoptions'] = 'Choice options';
-$string['choicegroupoptions_help'] = 'Here is where you specify the options that participants have to choose from.
+$string['choicegroupoptions_help'] = 'Here is where you specify which groups participants can choose from.
 
-You can fill in any number of these. If you leave some of the options blank, they will not be displayed. If you need more options, click the "Add 3 fields to form" button.';
+The list on the left displays all available groups and groupings. To add one or several groups, select these from the list and click "Add". To add all groups from a grouping, select the grouping and click "Add".
+
+The selected groups appear on the list on the right.
+
+To remove any groups from the selection, select them from the list on the right and click "Remove".';
 $string['choicegroup:readresponses'] = 'Read responses';
 $string['choicegroupsaved'] = 'Your choice has been saved';
 $string['choicetext'] = 'Choice text';
@@ -94,10 +98,10 @@ $string['limitanswers'] = 'Limit the number of responses allowed';
 $string['limitanswers_help'] = 'This option allows you to limit the number of participants that can select each choice option. When the limit is reached then no-one else can select that option.
 
 If limits are disabled then any number of participants can select each of the options.';
-$string['members/'] = 'Fill';
-$string['members/max'] = 'Fill / Capacity';
+$string['members/'] = 'Members';
+$string['members/max'] = 'Members / Capacity';
 $string['modulename'] = 'Group choice';
-$string['modulename_help'] = 'The Group Choice module allows students to enrol themselves in a group within a course. The teacher can select which groups students can chose from and the maximum number of students allowed in each group.';
+$string['modulename_help'] = 'The Group Choice module allows students to enrol themselves in a group within a course. The teacher can select which groups students can choose from and the maximum number of students allowed in each group.';
 $string['modulenameplural'] = 'Group choices';
 $string['moveselectedusersto'] = 'Move selected users to...';
 $string['multipleenrollmentspossible'] = 'Allow enrollment to multiple groups';

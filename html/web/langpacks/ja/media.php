@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['flashanimation'] = 'Flashアニメーション';
 $string['flashanimation_desc'] = '拡張子*.swfのファイルです。セキュリティ上の理由から、このフィルタは信用されるテキストのみに使用されます。';
 $string['flashvideo'] = 'Flashビデオ';
-$string['flashvideo_desc'] = '拡張子*.flvおよび*.f4vのファイルです。Flowplayerを使用してビデオクリップを再生します。FlashプラグインおよびJavaスクリプトが必要です。';
+$string['flashvideo_desc'] = '拡張子*.flvおよび*.f4vのファイルです。Flowplayerを使用してビデオクリップを再生します。FlashプラグインおよびJavaScriptが必要です。';
 $string['html5audio'] = 'HTML5オーディオ';
 $string['html5audio_desc'] = '拡張子*.ogg、*.acc等のオーディオファイルです。主にモバイルデバイスで使用されます (フォーマットのサポートはブラウザに依存します)。';
 $string['html5video'] = 'HTML5ビデオ';
@@ -36,7 +36,7 @@ $string['html5video_desc'] = '拡張子*.webm、*.m4v、*.ogv、*.mp4等のオ�
 $string['legacyheading'] = 'レガシーメディアプレイヤー';
 $string['legacyheading_desc'] = 'これらのプレイヤーはウェブ上で頻繁には使用されていません。また、ブラウザには広くインストールされているわけではないプラグインを必要とします。';
 $string['legacyquicktime'] = 'QuickTimeプレイヤー';
-$string['legacyquicktime_desc'] = '拡張子*.mov、*.mp4、*.m4a、*.mp4および*.mpg のファイルです。 QuickTimeプレイヤーまたはコーデックを必要とします。';
+$string['legacyquicktime_desc'] = '拡張子*.mov、*.mp4、*.m4aおよび*.mpg のファイルです。 QuickTimeプレイヤーまたはコーデックを必要とします。';
 $string['legacyreal'] = 'Realメディアプレイヤー';
 $string['legacyreal_desc'] = '拡張子*.rm, *.ra、*.ram、*.rpおよび*.rvのファイルです。Realプレイヤーを必要とします。';
 $string['legacywmp'] = 'Windowsメディアプレイヤー';

@@ -69,7 +69,7 @@ $string['authpreventaccountcreation_help'] = 'Quan un usuari s\'autentica, es cr
 Els nous comptes s\'hauran de crear manualment o bé mitjançant la càrrega d\'usuaris. Tingueu en compte que aquest ajust no s\'aplica a l\'autenticació MNet.';
 $string['authsettings'] = 'Gestió de l\'autenticació';
 $string['autolang'] = 'Detecció automàtica d\'idioma';
-$string['autologinguests'] = 'Entrada automàtica de visitants';
+$string['autologinguests'] = 'Inici de sessió automàtic dels visitants';
 $string['availablelicenses'] = 'Tipus de llicències de materials disponibles';
 $string['availableto'] = 'Disponible per a ';
 $string['backgroundcolour'] = 'Color transparent';
@@ -98,7 +98,7 @@ $string['bookmarkthispage'] = 'Afegeix una drecera a aquesta pàgina';
 $string['cacheapplication'] = 'Memòria cau d\'aplicació';
 $string['cacheapplicationhelp'] = 'Els elements emmagatzemats en la memòria cau són compartits entre tots els usuaris i vencen després d\'un TTL determinat.';
 $string['cachejs'] = 'Memòria cau del Javascript';
-$string['cachejs_help'] = 'La caixè de Javascript i la compressió milloren molt la càrrega de pàgines. Es recomana que s\'utilitzin en instal·lacions de producció. Les persones que es dediquin a desenvolupar possiblement voldran desactivar aquestes característiques.';
+$string['cachejs_help'] = 'L\'emmagatzematge en memòria cau i la compressió de JavaScript milloren molt la càrrega de pàgines. És molt recomanable utilitzar-los en instal·lacions de producció. És possible que els desenvolupadors vulguin desactivar aquestes característiques.';
 $string['cacherequest'] = 'Memòria cau de sol·licitud';
 $string['cacherequesthelp'] = 'Memòria cau específica de l\'usuari que venç quan la sol·licitud s\'ha completat. Dissenyada per a reemplaçar àrees en què estem utilitzant magatzems estàtics.';
 $string['cachesession'] = 'Memòria cau de sessió';
@@ -162,8 +162,8 @@ $string['configallowuserthemes'] = 'Si habiliteu aquesta opció, els usuaris pod
 $string['configallusersaresitestudents'] = 'Cal considerar com a estudiants TOTS els usuaris en les activitats de la pàgina inicial d\'aquest lloc? Si la resposta és «Sí», llavors qualsevol usuari amb un compte confirmat podrà participar com a estudiant en aquestes activitats. Si la resposta és «No», llavors només els usuaris que ja siguin membres d\'almenys un curs podran participar en aquestes activitats de la pàgina inicial. Només els administradors i els professors que hi hagin estat assignats poden actuar com a professors d\'aquestes activitats.';
 $string['configauthenticationplugins'] = 'Trieu els connectors d\'autenticació que vulgueu utilitzar i disposeu-los per ordre de preferència.';
 $string['configautolang'] = 'Configura l\'idioma per defecte segons el del navegador. Si inhabiliteu aquest paràmetre s\'utilitzarà l\'idioma per defecte del lloc.';
-$string['configautologinguests'] = 'Cal fer entrar automàticament com a visitants els usuaris externs que intenten entrar en un curs que permet l\'accés de visitants?';
-$string['configbloglevel'] = 'Aquest paràmetre us permet limitar l\'àmbit de visualització dels blocs d\'usuaris d\'aquest lloc. Fixeu-vos que aquest paràmetre determina el context més ampli en què es poden VISUALITZAR els blogs. No té res a veure amb tipus d\'autors o tipus de missatges. També podeu inhabilitar completament els blogs si no voleu que s\'utilitzin en absolut.';
+$string['configautologinguests'] = 'Cal que els visitants iniciïn sessió de manera automàtica com a convidats quan entren en un curs que permet l\'accés de visitants?';
+$string['configbloglevel'] = 'Aquest paràmetre us permet limitar l\'àmbit de visualització dels blogs d\'usuaris d\'aquest lloc. Fixeu-vos que aquest paràmetre determina el context més ampli en què es poden VISUALITZAR els blogs. No té res a veure amb tipus d\'autors o tipus de missatges. També podeu inhabilitar completament els blogs si no voleu que s\'utilitzin en absolut.';
 $string['configcalendarcustomexport'] = 'Habilita l\'exportació d\'intervals personalitzats de dates del calendari.';
 $string['configcalendarexportsalt'] = 'Aquest text aleatori és utilitzat per provar la seguretat d\'un testimoni d\'autenticació utilitzat en l\'exportació de calendaris. Si us plau fixeu-vos que tots els testimonis actuals seran invalidats si canvieu la funció sal criptogràfica (text generat).';
 $string['configclamactlikevirus'] = 'Tracta els fitxers com a virus';
@@ -185,15 +185,18 @@ $string['configcronremotepassword'] = 'La seqüència cron.php no es podrà exec
 http://www.exemple.com/admin/cron.php?password=sesamobret
 </pre>Si deixeu la contrasenya en blanc no caldrà utilitzar-ne cap.';
 $string['configcurlcache'] = 'Temps de vida per al cau de cURL, en segons.';
-$string['configcustommenuitems'] = 'Podeu preparar un menú personalitzat que es mostrarà per temes. Cada línia consisteix en un text de menú, un enllaç URL (opcional), un consell (opcional) i un codi de llengua o llista de codis separada per comes (opcional, per tal de mostrar-ho només als usuaris d\'aquell idioma), tot això separat per barres verticals. Podeu marcar l\'estructura amb guions. Per exemple:
+$string['configcustommenuitems'] = 'Podeu preparar un menú personalitzat que es mostrarà per temes. Cada línia consisteix en un text de menú, un enllaç URL (opcional), un consell (opcional) i un codi de llengua o llista de codis separada per comes (opcional, per tal de mostrar-ho només als usuaris d\'aquell idioma), tot això separat per barres verticals. Podeu marcar l\'estructura amb guions, i podeu afegir una línia divisòria afegint una línia amb un o més caràcters #. Per exemple:
 <pre>
 Comunitat Moodle|http://moodle.org
 -Suport gratuït del Moodle|http://moodle.org/support
+-###
 -Desenvolupament del Moodle|http://moodle.org/development
 --Seguiment del Moodle|https://tracker.moodle.org
 --Documentació del Moodle|http://docs.moodle.org|Moodle Docs
 --Documentació en Català del Moodle|http://docs.moodle.org/ca|Documentació|ca
 -Novetats del Moodle|http://moodle.org/news
+#####
+Moodle.com|http://moodle.com/
 </pre>';
 $string['configcustomusermenuitems'] = 'Podeu configurar els continguts del menú d\'usuari (tret de l\'enllaç de fi de sessió, que s\'hi afegeix de manera automàtica). Cada línia se separa amb un caràcter de barra vertical | i consisteix en:
 1) una cadena amb la forma «nom de la cadena d\'idioma, nom del component» o com a text net;
@@ -205,16 +208,16 @@ $string['configdebugdisplay'] = 'Si activeu aquest paràmetre els informes d\'er
 $string['configdebugpageinfo'] = 'Activeu-lo si voleu presentar informació de la pàgina al peu.';
 $string['configdebugsmtp'] = 'Habilita el mode verbós de depuració durant l\'enviament de missatges de correu al servidor SMTP.';
 $string['configdebugvalidators'] = 'Habiliteu aquesta opció si voleu tenir enllaços a servidors externs de validació a peu de pàgina. Potser us caldrà crear un nou usuari amb nom d\'usuari <em>w3cvalidator</em> i habilitar l\'accés per a visitants. Aquests canvis poden facilitar accessos no autoritzats al servidor, així que és millor no habilitar l\'opció en llocs en producció.';
-$string['configdefaulthomepage'] = 'Això determina la pàgina inicial per als usuaris que han entrat.';
+$string['configdefaulthomepage'] = 'Això determina la pàgina inicial per als usuaris que han iniciat sessió.';
 $string['configdefaultrequestcategory'] = 'Els cursos sol·licitats per usuaris es col·locaran automàticament en aquesta categoria.';
 $string['configdefaultrequestedcategory'] = 'Categoria per defecte on es posen els cursos sol·licitats, si s\'aprova la sol·licitud.';
-$string['configdefaultuserroleid'] = 'A tots els usuaris que hagin entrat se\'ls assignaran les capacitats del rol que especifiqueu aquí, al nivel del lloc, A MÉS A MÉS de qualsevol altre rol que se\'ls hagi assignat. El valor per defecte és el rol d\'usuari autenticat. Fixeu-vos que aquest rol per defecte no entrarà en conflicte amb cap altre rol que tinguin. Simplement assegura que tots els usuaris tenen unes capacitats no assignables en el nivell de curs (p. ex. publicar entrades al seu blog, gestionar el seu calendari propi, etc.).';
+$string['configdefaultuserroleid'] = 'A tots els usuaris que hagin iniciat sessió se\'ls assignaran les capacitats del rol que especifiqueu aquí, al nivell del lloc, A MÉS A MÉS de qualsevol altre rol que se\'ls hagi assignat. El valor per defecte és el rol d\'usuari autenticat. Fixeu-vos que aquest rol per defecte no entrarà en conflicte amb cap altre rol que tinguin; assegura que tots els usuaris tenen unes capacitats no assignables en el nivell de curs (p. ex.: publicar entrades al seu blog, gestionar el seu calendari propi, etc.).';
 $string['configdeleteincompleteusers'] = 'Després d\'aquest període, se suprimiran els comptes vells que romanguin incomplets.';
 $string['configdeleteunconfirmed'] = 'Si esteu utilitzant l\'autenticació per correu electrònic, aquest és el període dins del qual s\'acceptarà la resposta dels usuaris. Després d\'aquest període, els comptes no confirmats se suprimeixen.';
 $string['configdenyemailaddresses'] = 'Per refusar les adreces de correu de certs dominis, especifiqueu-les aquí precedides d\'un punt \'.\' . Tots els altres dominis seran acceptats. P. ex. <strong>.hotmail.com .yahoo.com .live.com</strong>';
 $string['configdisableuserimages'] = 'Inhabilita la possibilitat que els usuaris canviïn les seves imatges al perfil.';
-$string['configdisplayloginfailures'] = 'Aquest paràmetre permet que usuaris seleccionats visualitzin informació sobre intents d\'entrada erronis.';
-$string['configdndallowtextandlinks'] = 'Habilita o inhabilita arrossegar i deixar anar text i enllaços dins de la pàgina principal del curs, així com arrossegar i deixar anar fitxers. Fixeu-vos que arrossegar text en Firefox o entre diferents navegadors no és fiable i poden no carregar-se dades o carregar-se text corrupte.';
+$string['configdisplayloginfailures'] = 'Aquest paràmetre permet que usuaris seleccionats visualitzin informació sobre els intents d\'inici de sessió erronis.';
+$string['configdndallowtextandlinks'] = 'Habilita o inhabilita arrossegar i deixar anar text i enllaços dins de la pàgina principal del curs, així com arrossegar i deixar anar fitxers. Fixeu-vos que arrossegar text a Firefox o entre diferents navegadors no és fiable i poden no carregar-se dades o pot carregar-se text corrupte.';
 $string['configdoclang'] = 'Aquest idioma s\'utilitzarà en els enllaços a les pàgines de documentació.';
 $string['configdocroot'] = 'Defineix el camí de Moodle Docs. Podeu canviar-lo si voleu tenir la vostra documentació personalitzada en línia. Però, si ho feu, assegureu-vos que els camins dins la vostra documentació segueixen el mateix format que en http://docs.moodle.org.';
 $string['configdoctonewwindow'] = 'Si habiliteu aquesta opció, els enllaços a Moodle Docs s\'obriran en una finestra nova.';
@@ -233,7 +236,7 @@ $string['configenablerssfeedsdisabled2'] = 'Els canals RSS estan inhabilitats al
 $string['configenablesafebrowserintegration'] = 'Això afegeix l\'opció \'Requereix navegador segur\' al camp \'navegació segura\' al formulari de preguntes. Mireu http://www.safeexambrowser.org/ per cercar més informació.';
 $string['configenablestats'] = 'Si trieu \'sí\', la tasca del cron de Moodle processarà els registres i recollirà algunes estadístiques. Això pot durar una estona, segons el tràfic del lloc. Si habiliteu aquesta opció podreu veure algunes gràfiques i estadístiques interessants referents a cada curs i al lloc complet.';
 $string['configenabletrusttext'] = 'Per defecte Moodle sempre netejarà a fons el text provinent dels usuaris a fi d\'eliminar tota mena de codi que suposi un risc de seguretat. El sistema de Contingut de Confiança és una manera de concedir, només a usuaris en els quals confieu, la capacitat d\'incloure sense interferències característiques avançades als seus continguts. Per a habilitar aquest sistema, en primer lloc heu d\'habilitar aquest paràmetre i després atorgar el permís Contingut de Confiança a un rol específic de Moodle. Els textos creats o penjats per usuaris que tinguin aquest rol es marcaran com a fiables i no es netejaran abans de ser visualitzats.';
-$string['configenablewebservices'] = 'Serveis web habilita altres sistemes per entrar al Moodle i fer operacions. Per raons de seguretat aquesta característica està inhabilitada llevat que l\'activeu.';
+$string['configenablewebservices'] = 'Els serveis web habiliten altres sistemes per iniciar sessió a Moodle i dur a terme operacions. Per raons de seguretat, és recomanable que aquesta característica estigui inhabilitada, llevat que realment l\'utilitzeu.';
 $string['configenablewsdocumentation'] = 'Habilita l\'autogeneració de serveis de documentació web. Un usuari pot accedir a la seva pròpia documentació en la pàgina de claus de seguretat {$a}. Això mostra la documentació sols per als protocols habilitats.';
 $string['configerrorlevel'] = 'Trieu el nivell d\'avisos del PHP que voleu visualitzar. Generalment \'Normal\' és la millor opció.';
 $string['configexportlookahead'] = 'Dies per davant en l\'exportació';
@@ -245,16 +248,16 @@ $string['configfiltermatchoneperpage'] = 'Els filtres que creen enllaços autom�
 $string['configfiltermatchonepertext'] = 'Els filtres que creen enllaços automàtics generaran només un enllaç per cada element de text (p. ex. recurs, bloc) en la primera coincidència que trobin, i n\'ignoraran la resta. Aquest paràmetre s\'ignorarà si habiliteu el paràmetre «per pàgina».';
 $string['configfilteruploadedfiles'] = 'Habilitar aquest paràmetre fa que Moodle processi amb els filtres, abans de visualitzar-los, tots els fitxers de text i HTML que es pengin.';
 $string['configforcelogin'] = 'Normalment la pàgina inicial del lloc i la llista de cursos es poden llegir sense entrar-hi amb nom d\'usuari i contrasenya. Si voleu imposar que els usuari entrin abans de veure o fer RES en aquest lloc, habiliteu aquest paràmetre.';
-$string['configforceloginforprofiles'] = 'Habiliteu aquest paràmetre per imposar que els usuaris entrin amb un compte real (no com a visitants) abans que puguin veure els perfils d\'usuaris. Si teniu inhabilitat aquest paràmetre, us podeu trobar que alguns usuaris posen publicitat (brossa) o continguts inadequats als seus perfils i llavors això és visible per a tothom.';
+$string['configforceloginforprofiles'] = 'Aquest paràmetre imposa que els usuaris iniciïn sessió amb un compte real (no com a visitants) abans que puguin veure els perfils d\'usuaris. Si teniu inhabilitat aquest paràmetre, podeu trobar que alguns usuaris posen publicitat (brossa) o continguts inadequats als seus perfils, i que llavors això és visible per a tothom.';
 $string['configfrontpage'] = 'Els elements marcats a dalt es visualitzaran a la primera plana del lloc.';
 $string['configfrontpagecourselimit'] = 'Nombre màxim de cursos';
 $string['configfrontpagecourselimithelp'] = 'Nombre màxim de cursos que es mostren en el llistat de cursos de la pàgina principal del lloc.';
-$string['configfrontpageloggedin'] = 'Els elements marcats a dalt es visualitzaran a la primera plana del lloc només si l\'usuari ha entrat.';
+$string['configfrontpageloggedin'] = 'Els elements marcats a dalt es visualitzaran a la primera plana del lloc només si l\'usuari ha iniciat sessió.';
 $string['configfullnamedisplay'] = 'Aquest paràmetre defineix el format dels noms quan es visualitzen complets. En la majoria de llocs el valor per defecte és el més adequat: "Nom + Cognoms". Però si voleu podeu ocultar els cognoms, o deixar que el paquet d\'idioma decideixi el format (alguns idiomes tenen convencions diferents).';
 $string['configgeoipfile'] = 'Ubicació del fitxer binari de dades de GeoIP City. Aquest fitxer no és part de la distribució de Moodle i cal obtenir-lo de <a href="http://www.maxmind.com/">MaxMind</a> per separat. Podeu comprar la versió comercial o utilitzar la versió gratuïta.<br />Simplement baixeu <a href="http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz" >http://geolite.maxmind.com/download/geoip/database/GeoLiteCity.dat.gz</a> i descomprimiu-lo dins del directori "{$a}" del vostre servidor.';
 $string['configgetremoteaddrconf'] = 'Si el seu servidor està darrere un proxy, podeu modificar aquest paràmetre per especificar quines capçaleres HTTP són de confiança per contenir adreces IP remotes. Les capçaleres es llegeixen en ordre, utilitzant la primera que sigui disponible.';
-$string['configgradebookroles'] = 'Aquest paràmetre us permet controlar qui apareix al butlletí de qualificacions. Els usuaris que tinguin assignat almenys un d\'aquests rols en un curs, apareixeran al butlletí de qualificacions d\'aquest curs.';
-$string['configgradeexport'] = 'Trieu quins formats voleu com a mètodes primaris d\'exportació del butlletí de qualificacions. Els connectors que trieu definiran i actualitzaran un camp de "darrera exportació" per a cada qualificació. Això tindrà com a conseqüència, per exemple, que els registres exportats s\'identifiquin com a "nous" o "actualitzats". Si no esteu segur podeu deixar totes les opcions desactivades.';
+$string['configgradebookroles'] = 'Aquest paràmetre us permet controlar qui apareix al butlletí de qualificacions. Els usuaris que tinguin assignat almenys un d\'aquests rols en un curs apareixeran al butlletí de qualificacions d\'aquest curs.';
+$string['configgradeexport'] = 'Trieu quins formats voleu com a mètodes primaris d\'exportació del butlletí de qualificacions. Els connectors que trieu definiran i actualitzaran un camp de «darrera exportació» per a cada qualificació. Això tindrà com a conseqüència, per exemple, que els registres exportats s\'identifiquin com a «nous» o «actualitzats». Si no n\'esteu segur, podeu deixar totes les opcions desactivades.';
 $string['confighiddenuserfields'] = 'Seleccioneu quins camps d\'informació de l\'usuari voleu ocultar als usuaris que no siguin professors o administradors. Això protegirà la intimitat de l\'estudiantat. Utilitzeu la tecla CTRL per seleccionar múltiples camps.';
 $string['configidnumber'] = 'Aquesta opció especifica si: a) no es demana cap número d\'identificació als usuaris; b) es demana un número d\'identificació als usuaris però poden deixar-lo en blanc o c) es demana un número d\'identificació als usuaris i no poden deixar-lo en blanc. Si l\'usuari ha donat un número d\'identificació, aquest número es mostra al seu perfil.';
 $string['configintro'] = 'En aquesta pàgina podeu especificar un gran nombre de variables de configuració que contribueixen a fer funcionar Moodle de la manera adequada en el vostre servidor. Però no cal que us amoïneu: els valors per defecte solen anar molt bé i sempre podeu tornar-hi més tard per fer canvis en aquests paràmetres.';
@@ -264,11 +267,11 @@ $string['configiplookup'] = 'Quan feu clic en una adreça IP (com ara 34.12.222.
 $string['configkeeptagnamecase'] = 'Activeu aquest paràmetre si voleu que els noms de les etiquetes mantinguin les majúscules/minúscules, tal com les escrigui el primer usuari que creï l\'etiqueta.';
 $string['configlang'] = 'Escolliu l\'idioma per omissió de tot el lloc. Casa usuari pot redefinir aquest paràmetre utilitzant el menú d\'idioma o el paràmetre corresponent del seu perfil personal.';
 $string['configlanglist'] = 'Deixeu en blanc aquest camp per tal que els usuaris puguin triar qualsevol idioma instal·lat. Si voleu abreujar el menú d\'idiomes, introduïu aquí una llista de codis separats per comes. Per exemple: ca,es_es,en,fr,it.';
-$string['configlangmenu'] = 'Trieu si voleu visualitzar o no el menú d\'idioma a la pàgina inicial, pàgina d\'entrada, etc. No impedeix que l\'usuari pugui definir el seu idioma preferit en el seu perfil.';
+$string['configlangmenu'] = 'Trieu si voleu visualitzar o no el menú d\'idioma a la pàgina inicial, pàgina d\'inici de sessió, etc. No impedeix que l\'usuari pugui definir el seu idioma preferit en el seu perfil.';
 $string['configlangstringcache'] = 'Manté totes les cadenes d\'idioma dins de fitxers compilats ubicats al directori de dades. Si esteu traduint el Moodle, o canviant cadenes de text dins del codi del Moodle és probable que vulgueu desactivar aquesta opció. Altrament és molt recomanable que estigui activada per millorar el rendiment.';
 $string['configlatinexcelexport'] = 'Trieu la codificació per a les exportacions en format Excel.';
 $string['configlocale'] = 'Escolliu un <em>locale</em> per a tot el lloc. Afecta el format i l\'idioma de les dates de tots els paquets d\'idioma (excepte els noms dels dies al calendari). Heu de tenir instal·lades les dades d\'aquest <em>locale</em> en el vostre sistema operatiu. (p ex.: ca_ES.UTF-8, es_ES.UTF-8 o en_US en sistemes GNU/Linux). En la majoria de casos haureu de deixar aquest camp en blanc.';
-$string['configloginhttps'] = 'Activar aquest paràmetre fa que Moodle utilitzi una connexió https segura en la pàgina d\'entrada, tot proporcionant així una entrada segura, i després torni als URL normals amb http per a mantenir la velocitat normal. ALERTA: aquest paràmetre requereix que l\'https estigui habilitat en el vostre servidor. Si no està habilitat US PODRÍEU QUEDAR FORA SENSE POSSIBILITAT D\'ENTRAR AL VOSTRE LLOC.';
+$string['configloginhttps'] = 'Activar aquest paràmetre fa que Moodle utilitzi una connexió https segura en la pàgina d\'inici de sessió, tot proporcionant així un inici de sessió segur, i després torni als URL normals amb http per a mantenir la velocitat normal. ALERTA: aquest paràmetre requereix que l\'https estigui habilitat en el vostre servidor. Si no està habilitat US PODRÍEU QUEDAR FORA SENSE POSSIBILITAT D\'ENTRAR AL VOSTRE LLOC.';
 $string['configloglifetime'] = 'Aquest paràmetre especifica quant temps voleu mantenir els registres d\'activitat dels usuaris. Els registres més vells se suprimiran automàticament. És millor mantenir els registres tant temps com sigui possible, per si els necessiteu, però si el vostre servidor té molts usuaris i teniu problemes de rendiment, potser preferireu rebaixar la duració dels registres.';
 $string['configlookahead'] = 'Quants dies';
 $string['configmaxbytes'] = 'Aquest paràmetre especifica la mida màxima dels fitxers que es poden penjar al lloc. El límit màxim està definit pel paràmetre del PHP upload_max_filesize i pel paràmetre de l\'Apache LimitRequestBody. Al seu torn, maxbytes limita la mida màxima que es pot triar dins d\'un curs o dins d\'un mòdul.';
@@ -279,7 +282,7 @@ $string['configmaxusersperpage'] = 'Nombre màxim d\'usuaris que es mostren en e
 $string['configmessaging'] = 'Cal habilitar el sistema de missatgeria entre usuaris del lloc?';
 $string['configmessagingallowemailoverride'] = 'Permet als usuaris tenir missatges de notificació de correu electrònic enviats a una adreça de correu diferent de l\'adreça del seu perfil.';
 $string['configmessagingdeletereadnotificationsdelay'] = 'Missatges llegits que poden ser esborrats per estalviar espai. Quan temps ha d\'haver passat des que un missatge es llegeix per poder-lo esborrar ?';
-$string['configmessaginghidereadnotifications'] = 'Amaga missatges llegits o successos com missatges de fòrums quan es veu l\'historial de missatges.';
+$string['configmessaginghidereadnotifications'] = 'Amaga les notificacions llegides d\'esdeveniments com ara missatges de fòrums quan es veu l\'historial de missatges.';
 $string['configminpassworddigits'] = 'Les contrasenyes han de tenir almenys aquests dígits.';
 $string['configminpasswordlength'] = 'Les contrasenyes han de tenir almenys aquest nombre de caràcters.';
 $string['configminpasswordlower'] = 'Les contrasenyes han de tenir almenys aquest nombre de minúscules.';
@@ -288,15 +291,15 @@ $string['configminpasswordupper'] = 'Les contrasenyes han de tenir almenys aques
 $string['configmobilecssurl'] = 'Un fitxer CSS per a personalitzar la vostra interfície d\'aplicacions mòbils.';
 $string['configmodchooserdefault'] = 'Cal presentar per defecte el selector d\'activitats als usuaris?';
 $string['configmycoursesperpage'] = 'Nombre màxim de cursos que es mostren en qualsevol llista de cursos d\'un usuari.';
-$string['configmymoodleredirect'] = 'Aquest paràmetre fa que els usuaris no administradors siguin redirigits a /my en entrar i que se substitueixi per /my el camí que es mostra al capdamunt de la pàgina.';
+$string['configmymoodleredirect'] = 'Aquest paràmetre fa que els usuaris no administradors siguin redirigits a /my en iniciar la sessió i que se substitueixi per /my el camí que es mostra al capdamunt de la pàgina.';
 $string['configmypagelocked'] = 'Aquest paràmetre impedeix que la pàgina per defecte l\'editin persones no administradores.';
-$string['confignavcourselimit'] = 'Limita el nombre de cursos que es mostren a l\'usuari quan no han entrat o no estan inscrits en cap curs.';
+$string['confignavcourselimit'] = 'Limita el nombre de cursos que es mostren a l\'usuari quan no han iniciat sessió o no estan inscrits en cap curs.';
 $string['confignavshowallcourses'] = 'Quan s\'habilita, els usuaris poden veure tots els cursos en què estan incrits tant dins de la branca "Els meus cursos" com dins de l\'estructura del curs. Quan s\'inhabilita, els usuaris amb inscripcions només poden veure la branca de navegació "Els meus cursos". El nombre de curs que es mostra estaria limitat igualment pel paràmetre "Límit de curs(navcourselimit)" si l\'usuari no ha entrat o no està inscrit en cap curs.';
 $string['confignavshowcategories'] = 'Mostra les categories de cursos a la barra de navegació i als blocs. No passa en cursos en què l\'usuari estigui inscrit: apareixeran a la llista d\'Els meus cursos sense categories.';
-$string['confignotifyloginfailures'] = 'Si s\'estan registrant les entrades errònies, se\'n poden enviar notificacions per correu electrònic. Qui hauria de veure aquestes notificacions?';
-$string['confignotifyloginthreshold'] = 'Si s\'han activat les notificacions d\'entrades errònies, quants intents erronis del mateix usuari o de la mateixa adreça IP cal esperar per enviar la notificació?';
+$string['confignotifyloginfailures'] = 'Envia els missatges de notificació dels inicis de sessió erronis a aquests usuaris seleccionats. Això necessita tenir habilitat un magatzem de registre intern (per exemple, el magatzem de registre estàndard).';
+$string['confignotifyloginthreshold'] = 'Si s\'han activat les notificacions d\'inici de sessió erroni, quants intents erronis del mateix usuari o de la mateixa adreça IP cal esperar per enviar la notificació?';
 $string['confignotloggedinroleid'] = 'Els usuaris que no hagin iniciat sessió seran tractats com si se\'ls hagués atorgat aquest rol al nivell del lloc. Generalment se\'ls dóna el rol Visitant, però igualment podríeu crear un rol que fos més o menys restrictiu. En tot cas, certes accions com ara enviar un missatge en un fòrum requereixen sempre que l\'usuari hagi iniciat sessió.';
-$string['configopentogoogle'] = 'Si habiliteu aquest paràmetre, es permetrà que Google entri en el vostre lloc com a visitant. A més a més, la gent que entri al vostre lloc a través d\'una cerca de Google, hi entrarà automàticament com a visitant. Teniu en compte que això proporciona un accés transparent als cursos que permeten l\'accés de visitants.';
+$string['configopentogoogle'] = 'Si habiliteu aquest paràmetre, es permetrà que Google entri en el vostre lloc com a visitant. A més a més, la gent que entri al vostre lloc a través d\'una cerca de Google, hi iniciarà sessió automàticament com a visitant. Teniu en compte que això proporciona un accés transparent als cursos que permeten l\'accés de visitants.';
 $string['configoverride'] = 'Definit en config.php';
 $string['configpasswordpolicy'] = 'Si activeu aquesta opció, Moodle comprovarà que les contrasenyes d\'usuari compleixen una normativa de contrasenyes vàlida. Utilitzeu els paràmetres següents per definir la vostra normativa (els paràmetres s\'ignoraran si poseu \'No\' en aquesta opció).';
 $string['configpasswordresettime'] = 'Aquesta opció especifica el temps màxim que té la gent per a validar una sol·licitud de restabliment de contrasenya abans que venci. Normalment, 30 minuts és un valor raonable.';
@@ -320,7 +323,7 @@ $string['configrequestedstudentname'] = 'Paraula per a "estudiant" en els cursos
 $string['configrequestedstudentsname'] = 'Paraula per a "estudiants" en els cursos sol·licitats';
 $string['configrequestedteachername'] = 'Paraula per a "professor" en els cursos sol·licitats';
 $string['configrequestedteachersname'] = 'Paraula per a "professors" en els cursos sol·licitats';
-$string['configrequiremodintro'] = 'Deshabiliteu aquesta opció si no voleu forçar als usuaris a escriure la descripció de l\'activitat.';
+$string['configrequiremodintro'] = 'Inhabiliteu aquesta opció si no voleu forçar els usuaris a introduir una descripció de cada activitat.';
 $string['configrunclamavonupload'] = 'Si habiliteu aquest paràmetre, s\'utilitzarà clam AV per examinar tots els fitxers que es pengin.';
 $string['configrunclamonupload'] = 'Voleu executar el clam AV quan es pengin fitxers? Proporcioneu un camí correcte en pathtoclam perquè funcioni. (Clam AV és un escanejador de virus lliure que podeu obtenir en http://www.clamav.net/)';
 $string['configsectioninterface'] = 'Interfície';
@@ -333,11 +336,11 @@ $string['configsectionrequestedcourse'] = 'Sol·licituds de cursos';
 $string['configsectionsecurity'] = 'Seguretat';
 $string['configsectionstats'] = 'Estadístiques';
 $string['configsectionuser'] = 'Usuari';
-$string['configsecureforms'] = 'Moodle pot fer servir un nivell addicional de seguretat quan accepta dades de formularis web. Si habiliteu aquesta opció, la variable HTTP_REFERER del navegador es compara amb l\'adreça real del formulari. En casos excepcionals això pot causar problemes si l\'usuari està utilitzant un tallafocs (p. ex. Zonealarm) configurar per suprimir l\'HTTP_REFERER del tràfic web. El símptoma habitual consisteix a quedar-se \'enganxat\' en un formulari. Si els vostres usuaris tenen problemes, per exemple, amb la pàgina d\'entrada, potser haureu d\'inhabilitar aquest paràmetre, tot i que llavors podríeu deixar el vostre lloc més obert a intents de desxifrar contrasenyes per força bruta. En cas de dubte, deixeu-lo en \'Sí\'.';
+$string['configsecureforms'] = 'Moodle pot fer servir un nivell addicional de seguretat quan accepta dades de formularis web. Si habiliteu aquesta opció, la variable HTTP_REFERER del navegador es compara amb l\'adreça real del formulari. En casos excepcionals això pot causar problemes si l\'usuari està utilitzant un tallafoc (p. ex., Zonealarm) configurar per suprimir l\'HTTP_REFERER del tràfic web. El símptoma habitual consisteix a quedar-se «enganxat» en un formulari. Si els vostres usuaris tenen problemes, per exemple, amb la pàgina d\'nici de sessió, potser haureu d\'inhabilitar aquest paràmetre, tot i que llavors podríeu deixar el vostre lloc més obert a intents de desxifrar contrasenyes per força bruta. En cas de dubte, deixeu-lo en «Sí».';
 $string['configsessioncookie'] = 'Aquest paràmetre personalitza el nom de la galeta utilitzada per a les sessions de Moodle. És opcional i només resulta útil per evitar que les galetes es confonguin quan s\'executen diferents còpies de Moodle en el mateix lloc web.';
-$string['configsessioncookiedomain'] = 'Això us permet canviar la disponibilitat de les galetes de Moodle. És útil per personalitzacions de Moodle (ex. autenticacions o connectors d\'inscripció) que requereixen que Moodle comparteixi informació de la sessió amb un aplicació web o un altre subdomini. <strong>ATENCIÓ: Es recomana fortament deixar aquest paràmetre per defecte (buit)- un ús incorrecte pot comprometre totes les contrasenyes del lloc.</strong>';
+$string['configsessioncookiedomain'] = 'Això us permet canviar el domini des del qual estan disponibles les galetes de Moodle. És útil per a personalitzacions de Moodle (ex., autenticacions o connectors d\'inscripció) que requereixen que Moodle comparteixi informació de la sessió amb un aplicació web o un altre subdomini. <strong>ATENCIÓ: Es recomana fortament deixar aquest paràmetre per defecte (buit) —un ús incorrecte pot impedir tots els inicis de sessió al lloc.</strong>';
 $string['configsessioncookiepath'] = 'Si necessiteu canviar el lloc on els navegadors envien les galetes de Moodle, podeu especificar un subdirectori del vostre web en aquest paràmetre. Si no, deixeu el directori \'/\' per defecte.';
-$string['configsessiontimeout'] = 'Si els usuaris que entren en aquest lloc estan inactius durant molt temps (no carreguen pàgines) se\'ls farà sortir automàticament (s\'acabarà la seva sessió). Aquesta variable especifica després de quant temps passa això.';
+$string['configsessiontimeout'] = 'Si els usuaris que inicien sessió en aquest lloc estan inactius durant molt temps (no carreguen pàgines) se\'ls farà sortir automàticament (s\'acabarà la seva sessió). Aquesta variable especifica després de quant de temps passa això.';
 $string['configshowcommentscount'] = 'Els comentaris mostrats compten, costaran una pregunta més quan es mostri el enllaç de comentaris';
 $string['configshowicalsource'] = 'Mostra la font d\'informació per als esdeveniments iCal.';
 $string['configshowsiteparticipantslist'] = 'Tots l\'estudiantat d\'aquest lloc i tot el professorat d\'aquest lloc apareixerà a la llista de participants del lloc. A qui se li permet veure la llista de participants del lloc?';
@@ -345,7 +348,7 @@ $string['configsitedefaultlicense'] = 'Llicència del lloc web';
 $string['configsitedefaultlicensehelp'] = 'La llicència per defecte per al contingut públicat en aquesta web';
 $string['configsitemaxcategorydepth'] = 'Profunditat màxima de subcategories';
 $string['configsitemaxcategorydepthhelp'] = 'La profunditat màxima de subcategories que es mostren.';
-$string['configslasharguments'] = 'Els fitxers (imatges, etc.) són servits per mitjà d\'un programa que utilitza "arguments en barra" (la segona opció aquí). Aquest mètode permet que els fitxers s\'emmagatzemin més fàcilment a la memòria cau dels navegadors, servidors intermediaris, etc. Malauradament alguns servidors PHP no permeten aquest mètode, de manera que si teniu problemes per a veure els fitxers penjats o imatges (p. ex. les imatges dels usuaris), deixeu aquesta variable en la primera opció.';
+$string['configslasharguments'] = 'Els fitxers (imatges, etc.) es proporcionen per mitjà d\'un programa que utilitza «arguments en barra» (la segona opció aquí). Aquest mètode permet que els fitxers s\'emmagatzemin més fàcilment a la memòria cau dels navegadors, servidors intermediaris, etc. Malauradament, alguns servidors PHP no permeten aquest mètode, de manera que, si teniu problemes per a veure els fitxers penjats o les imatges (p. ex., les imatges dels usuaris), deixeu aquesta variable en la primera opció.';
 $string['configsmartpix'] = 'Amb aquest paràmetre habilitat, les icones se serviran per mitjà d\'un guió PHP que cerca el tema actual, després tots els temes pare i finalment la carpeta /pix de Moodle. Això redueix la necessitat de duplicar fitxers d\'imatges en els temes, però també té un lleuger cost de rendiment.';
 $string['configstartwday'] = 'Començament de la setmana';
 $string['configstatsfirstrun'] = 'Aquest paràmetre especifica des de quina data cal processar els registres <b>la primera vegada</b> que el cron processi les estadístiques. Si teniu molt tràfic i esteu en un servidor compartit, probablement no seria bona idea començar des de molt enrere, ja que podria costar molt temps i consumir molts recursos. (Teniu en compte que en aquest paràmetre 1 mes = 28 dies. En les gràfiques i informes que es generin, un mes serà un mes real del calendari.)';
@@ -371,7 +374,7 @@ $string['configuserquota'] = 'Nombre màxim de bytes que ';
 $string['configusesitenameforsitepages'] = 'Si està habilitat el nom curt del lloc s\'utilitzarà en la navegació per les pàgines del node en comptes d\'utilitzar \'Pàgines del lloc\'';
 $string['configusetags'] = 'Cal habilitar la funcionalitat d\'etiquetes arreu del lloc?';
 $string['configvariables'] = 'Variables';
-$string['configverifychangedemail'] = 'Habilita la verificació del canvi d\'adreces de correu mitjançant els paràmetres de dominis autorizats i denegats. Si inhabiliteu aquest paràmetre, la verificació dels dominis només es realitzarà quan es creen usuaris nous.';
+$string['configverifychangedemail'] = 'Habilita la verificació del canvi d\'adreces de correu mitjançant els paràmetres de dominis autoritzats i denegats. Si inhabiliteu aquest paràmetre, la verificació dels dominis només es realitzarà quan es creïn usuaris nous.';
 $string['configvisiblecourses'] = 'Visualitza de la manera normal els cursos en categories ocultes.';
 $string['configwarning'] = 'Aneu amb compte amb aquests paràmetres: uns valors incorrectes podrien causar problemes.';
 $string['configyuicomboloading'] = 'Aquesta opció habilita la càrrega de fitxers combinats per les llibreries YUI. Aquest paràmetre hauria d\'estar habilitat en llocs de producció per raons de funcionament òptim.';
@@ -452,7 +455,7 @@ $string['devicedetectregexvalue'] = 'Valor de retorn';
 $string['devicetype'] = 'Tipus de dispositiu';
 $string['disableuserimages'] = 'Inhabilita imatges en els perfils d\'usuari';
 $string['displayerrorswarning'] = 'Es recomana no habilitar el paràmetre de PHP <em>display_errors</em> en llocs en producció perquè alguns missatges d\'error poden revelar informació delicada sobre el vostre servidor.';
-$string['displayloginfailures'] = 'Mostra entrades errònies a';
+$string['displayloginfailures'] = 'Mostra els inicis de sessió erronis';
 $string['dndallowtextandlinks'] = 'Arrossega i deixa anar carrega text i enllaços';
 $string['doclang'] = 'Idioma de la documentació';
 $string['docroot'] = 'Arrel de documents de Moodle Docs';
@@ -484,7 +487,7 @@ $string['emoticons_desc'] = 'Aquest formulari defineix les emoticones utilitzade
 $string['emoticonsreset'] = 'Reinicialitza el paràmetre al valor per defecte.';
 $string['emoticontext'] = 'Text';
 $string['emptysettingvalue'] = 'Buit';
-$string['enableblogs'] = 'Habilita blocs';
+$string['enableblogs'] = 'Habilita blogs';
 $string['enablecalendarexport'] = 'Habilitació l\'exportació de calendaris';
 $string['enablecomments'] = 'Permet comentaris';
 $string['enablecourserequests'] = 'Habilita sol·licituds de cursos';
@@ -526,7 +529,7 @@ $string['errorsetting'] = 'No s\'ha pogut desar el paràmetre:';
 $string['errorwithsettings'] = 'Alguns paràmetres no s\'han canviat a causa d\'un error.';
 $string['everyonewhocan'] = 'Cadascú pot  \'{$a}\'';
 $string['exceptions'] = 'excepcions ';
-$string['execpathnotallowed'] = 'La definició de camins dels executables està inhabilitada en config.php.';
+$string['execpathnotallowed'] = 'S\'ha inhabilitat la definició de les rutes locals i executables a config.php.';
 $string['experimental'] = 'Experimental';
 $string['experimentalsettings'] = 'Paràmetres experimentals';
 $string['extendedusernamechars'] = 'Permet caràcters estesos en els noms d\'usuari';
@@ -638,26 +641,26 @@ $string['locationsettings'] = 'Paràmetres d\'ubicació';
 $string['locked'] = 'Bloquejat';
 $string['lockoutduration'] = 'Durada del bloqueig del compte';
 $string['lockoutduration_desc'] = 'El compte bloquejat es desbloqueja automàticament després d\'aquest període.';
-$string['lockoutemailbody'] = 'El vostre compte amb nom d\'usuari {$a->username} al servidor \'{$a->sitename}\' ha estat blocat després de múltiples intents d\'accés no vàlids.
+$string['lockoutemailbody'] = 'El vostre compte amb nom d\'usuari {$a->username} al servidor \'{$a->sitename}\' ha estat blocat després de múltiples intents d\'inici de sessió no vàlids.
 
-Per desbloquejar el compte immediatament aneu a l\'adreça {$a->link}
+Per desbloquejar el compte immediatament aneu a l\'adreça següent {$a->link}
 
-En molts programes de correu, això apareixerà com un enllaç blau que podeu prémer. Si això no funciona llavors copieu i enganxeu l\'adreça a la finestra de navegació al vostre navegador.
+En molts programes de correu, això apareixerà com un enllaç blau al qual heu de fer clic. Si això no funciona, llavors copieu i enganxeu l\'adreça a la finestra de navegació al vostre navegador.
 
 Si us cal ajuda contacteu amb el vostre administrador, {$a->admin}';
 $string['lockoutemailsubject'] = 'El vostre compte a {$a} ha estat blocat';
 $string['lockouterrorunlock'] = 'La informació subministrada per desblocar el compte no és vàlida.';
 $string['lockoutthreshold'] = 'Llindar d\'intents per bloqueig del compte';
-$string['lockoutthreshold_desc'] = 'Seleccioneu el nombre d\'intents fallits que comporten el bloqueig del compte. Aquesta característica pot ser objecte d\'abús en atacs de denegació de servei.';
+$string['lockoutthreshold_desc'] = 'Seleccioneu el nombre d\'inicis de sessió fallits que comporten el bloqueig del compte. Aquesta característica pot ser objecte d\'abús en atacs de denegació de servei.';
 $string['lockoutwindow'] = 'Finestra d\'observació del bloqueig del compte';
 $string['lockoutwindow_desc'] = 'El temps d\'observació per al llindar de bloqueig. Si no hi ha intents fallits el comptador es restableix després d\'aquest temps.';
 $string['log'] = 'Registres';
 $string['logguests'] = 'Anota l\'accés de convidats';
-$string['logguests_help'] = 'Aquest paràmetre habilita l\'anotació de les accions del compte de convidat i dels usuaris no identificats. Els llocs amb molt tràfic potser voldran inhabilitar-lo per raons de rendiment. Es recomana mantenir aquesta opció habilitada en entorns de producció.';
-$string['loginhttps'] = 'Utilitza HTTPS per a les entrades';
-$string['loginpageautofocus'] = 'Autofocus en el formulari de la pàgina d\'entrada';
-$string['loginpageautofocus_help'] = 'En activar aquesta opció, es millora la usabilitat de la pàgina d\'inici de sessió, però els camps que enfoca automàticament es poden considerar un problema d\'accessibilitat.';
-$string['loginpasswordautocomplete'] = 'Evita la compleció automàtica de la contrasenya en el formulari d\'entrada.';
+$string['logguests_help'] = 'Aquest paràmetre habilita l\'anotació de les accions del compte de convidat i dels usuaris que no han iniciat sessió. Els llocs amb molt tràfic potser voldran inhabilitar-lo per raons de rendiment. Es recomana mantenir aquesta opció habilitada en entorns de producció.';
+$string['loginhttps'] = 'Utilitza HTTPS per als inicis de sessió';
+$string['loginpageautofocus'] = 'Posa automàticament el focus al formulari de la pàgina d\'inici de sessió';
+$string['loginpageautofocus_help'] = 'En activar aquesta opció, es millora la usabilitat de la pàgina d\'inici de sessió, però posar el focus automàticament als camps es pot considerar un problema d\'accessibilitat.';
+$string['loginpasswordautocomplete'] = 'Evita la compleció automàtica de la contrasenya en el formulari d\'inici de sessió';
 $string['loginpasswordautocomplete_help'] = 'Si teniu desactivada aquesta opció els usuaris podran desar la contrasenya del compte en el seu navegador. Si activeu  aquesta opció el vostre lloc ja no seguirà les normes de validació XHTML estricte.';
 $string['loglifetime'] = 'Manté els registres';
 $string['logstorenotrequired'] = 'No necessita cap magatzem de registres';
@@ -763,7 +766,7 @@ $string['noresults'] = 'No s\'han trobat resultats';
 $string['noroles'] = 'Cap perfil';
 $string['nosupportedlogstore'] = 'No s\'ha trobat cap magatzem de registres compatible';
 $string['notifications'] = 'Notificacions';
-$string['notifyloginfailures'] = 'Envia les entrades errònies per correu a';
+$string['notifyloginfailures'] = 'Envia els inicis de sessió erronis per correu a';
 $string['notifyloginthreshold'] = 'Llindar de les notificacions per correu';
 $string['notloggedinroleid'] = 'Rol per a usuaris que no hagin iniciat una sessió';
 $string['numberofmissingstrings'] = 'Nombre de cadenes per traduir: {$a}';
@@ -868,7 +871,7 @@ $string['profilingallowall_help'] = 'Si habiliteu aquest paràmetre,  de moment 
 $string['profilingallowme'] = 'Anàlisi de rendiment selectiu';
 $string['profilingallowme_help'] = 'Si habiliteu aquest paràmetre, podreu utilitzar el paràmetre PROFILEME en qualsevol lloc (PGC) i analitzar el rendiment de forma selectiva dels scripts. De forma anàloga podeu utilitzar el paràmetre DONTPROFILEME per impedir l\'anàlisi de rendiment.';
 $string['profilingautofrec'] = 'Anàlisi de rendiment automàtic';
-$string['profilingautofrec_help'] = 'Configurant aquest paràmetre, s\'escolliran algunes peticions (de forma aleatòria i basades en la freqüència especificada - 1 de N) i s\'analitzarà el rendiment de forma automàtica; els resultats s\'emmagatzemaran per a anàlisis addicionals. Noteu que aquesta forma d\'anàlisi de rendiment compleix el paràmetres inclou/exclou. Poseu aquest paràmetre a 0 per inhabilitar l\'anàlisi de rendiment automàtic.';
+$string['profilingautofrec_help'] = 'Configurant aquest paràmetre, s\'escolliran algunes peticions (de forma aleatòria i basades en la freqüència especificada - 1 de N) i s\'analitzarà el rendiment de forma automàtica; els resultats s\'emmagatzemaran per a anàlisis addicionals. Tingueu en compte que aquesta forma d\'anàlisi de rendiment compleix els paràmetres inclou/exclou. Poseu aquest paràmetre a 0 per inhabilitar l\'anàlisi de rendiment automàtic.';
 $string['profilingenabled'] = 'Habilita l\'anàlisi de rendiment';
 $string['profilingenabled_help'] = 'Si habiliteu aquest paràmetre, llavors l\'anàlisi de rendiment estarà disponible en aquest lloc i podreu definir el comportament configurant les següents opcions.';
 $string['profilingexcluded'] = 'Exclou l\'anàlisi de rendiment';
@@ -882,10 +885,10 @@ $string['profilinglifetime_help'] = 'Especifiqueu la data sobre la qual  manteni
 $string['protectusernames'] = 'Protegeix els noms d\'usuari';
 $string['proxybypass'] = 'Adreces sense intermediari';
 $string['proxyhost'] = 'Ordinador intermediari';
-$string['proxypassword'] = 'Contrasenya de l\'intermediari';
-$string['proxyport'] = 'Port intermediari';
+$string['proxypassword'] = 'Contrasenya del servidor intermediari (<em>proxy</em>)';
+$string['proxyport'] = 'Port del servidor intermediari (<em>proxy</em>)';
 $string['proxytype'] = 'Tipus d\'intermediari';
-$string['proxyuser'] = 'Nom d\'usuari de l\'intermediari';
+$string['proxyuser'] = 'Nom d\'usuari del servidor intermediari (<em>proxy</em>)';
 $string['purgecaches'] = 'Buida totes les memòries cau';
 $string['purgecachesconfirm'] = 'Moodle pot desar a la memòria cau temes, javascript, cadenes d\'idioma, text filtrat, canals RSS i moltes altres porcions de dades calculades. En esborrar aquests elements de la memòria cau, us assegureu que els navegadors estan recollint les versions més actualitzades produïdes pel codi actual. Esborrar la memòria cau no suposa cap perill, però el vostre lloc pot resultar més lent durant un temps fins que les noves dades s\'hagin computat i desat a la memòria cau.';
 $string['purgecachesfinished'] = 'S\'han buidat totes les memòries cau';
@@ -910,13 +913,13 @@ $string['registration_help'] = 'Us recomanem registrar-vos a Moodle.org per rebr
 $string['registrationwarning'] = 'El vostre lloc encara no està registrat.';
 $string['releasenoteslink'] = 'Consulteu la informació sobre aquesta versió de Moodle en les <a target="_new" href="{$a}">Notes de llançament</a>';
 $string['rememberusername'] = 'Recorda el nom d\'usuari';
-$string['rememberusername_desc'] = 'Habiliteu aquesta opció si voleu guardar les galetes permanents amb els noms d\'usuari durant l\'inici de sessió. Les galetes permanents poden ser considerades un problema de privacitat si s\'utilitzen sense el seu consentiment.';
+$string['rememberusername_desc'] = 'Habiliteu aquesta opció si voleu guardar les galetes permanents amb els noms d\'usuari durant l\'inici de sessió. Les galetes permanents poden ser considerades un problema de privacitat si s\'utilitzen sense el vostre consentiment.';
 $string['reportsmanage'] = 'Gestiona informes';
 $string['requestcategoryselection'] = 'Habilita la selecció de categories';
 $string['requiredentrieschanged'] = '<strong>IMPORTANT - LLEGIU<br/>(Aquest avís sols es mostra durant l\'actualització)</strong><br/> A causa d\'un un error, el comportament de les activitats quan s\'utilitzen els paràmetres \'entrades requerides\' i \'entrades requerides abans de veure els paràmetres\' han canviat. Podeu llegir una explicació més detallada dels canvis al  <a href="http://moodle.org/mod/forum/discuss.php?d=110928" target="_blank">mòdul fòrum de la base de dades</a>. El comportament esperat d\'aquests canvis pot llegir-se als <a href="http://docs.moodle.org/en/Adding/editing_a_database#Required_entries" target="_blank">documents de Moodle</a>. <br/><br/>Aquest canvi afecta les següents bases de dades del vostre sistema: (Anomeneu i deseu aquesta llista ara, i després de l\'actualització comproveu que aquestes activitats encara funcionen de la forma que els professors esperen.) <br/><strong>{$a->text}</strong><br/>';
 $string['requiremodintro'] = 'Requereix una descripció de l\'activitat';
 $string['requires'] = 'Requereix';
-$string['restorecourse'] = 'Restaura curs';
+$string['restorecourse'] = 'Restaura un curs';
 $string['restorernewroleid'] = 'Rol de Restaurador als cursos';
 $string['restorernewroleid_help'] = 'Si l\'usuari no té el permís per administrar el curs acabat de restaurar, se li assigna automàticament aquesta funció i se l\'inscriu al curs si fos necessari. Seleccioneu «Cap» si no voleu que els restauradors puguin gestionar tots els cursos restaurats.';
 $string['reverseproxy'] = 'Proxy invers';
@@ -967,12 +970,12 @@ $string['sitemaintenancemode'] = 'Mode de manteniment';
 $string['sitemaintenanceoff'] = 'El mode de manteniment ha estat inhabilitat i el lloc torna a funcionar amb normalitat';
 $string['sitemaintenanceon'] = 'El vostre lloc està en mode de manteniment (només poden entrar-hi els administradors)';
 $string['sitemaintenanceoncli'] = 'El vostre lloc està en mode de manteniment CLI, i no es permet cap accés web.';
-$string['sitemaintenancewarning'] = 'El vostre lloc està en mode de manteniment (només poden entrar-hi els administradors). Per tornar al mode d\'operació normal, <a href="maintenance.php">desactiveu el mode mateniment</a>.';
-$string['sitemaintenancewarning2'] = 'El vostre lloc està actualment en mode de manteniment (només poden entrar-hi els administradors). Per tal de tornar el lloc al seu funcionament normal, <a href="{$a}">inhabiliteu el mode de manteniment</a>.';
+$string['sitemaintenancewarning'] = 'El vostre lloc actualment es troba en mode de manteniment (només hi poden iniciar sessió els administradors). Per tornar al mode d\'operació normal, <a href="maintenance.php">desactiveu el mode manteniment</a>.';
+$string['sitemaintenancewarning2'] = 'El vostre lloc actualment es troba en mode de manteniment (només hi poden iniciar sessió els administradors). Per tornar al mode d\'operació normal, <a href="{$a}">inhabiliteu el mode de manteniment</a>.';
 $string['sitepolicies'] = 'Normatives del lloc';
 $string['sitepolicy'] = 'URL de la normativa del lloc';
 $string['sitepolicyguest'] = 'URL de la política del lloc per a convidats';
-$string['sitepolicyguest_help'] = 'Si teniu una política de lloc que tots els convidats hagin de veure i acceptar abans d\'usar el lloc, especifiqueu aquí l\'URL que hi apunta. Altrament deixeu aquest camp en blanc. Aquest paràmetre poc contenir qualsevol URL públic. Nota: pot passar que el paràmetre \'forcelogin\' impedeixi l\'accés als usuaris no registrats.';
+$string['sitepolicyguest_help'] = 'Si teniu una política de lloc que tots els convidats hagin de veure i acceptar abans d\'usar el lloc, especifiqueu aquí l\'URL que hi apunta. Altrament deixeu aquest camp en blanc. Aquest paràmetre poc contenir qualsevol URL públic. Nota: pot passar que el paràmetre «forcelogin» impedeixi l\'accés als usuaris no registrats.';
 $string['sitepolicy_help'] = 'Si teniu unes normes del lloc que tots els usuaris han de veure i signar abans d\'usar el lloc, especifiqueu-ne aquí l\'URL. Si no, deixeu el camp en blanc. L\'URL pot ser una adreça qualsevol, p. ex. l\'adreça d\'un fitxer dels fitxers del lloc, p. ex. http://elvostrelloc/file.php/1/normes.html';
 $string['sitesectionhelp'] = 'Si activeu aquesta opció, es mostrarà una secció de tema a la primera plana del lloc.';
 $string['slasharguments'] = 'Utilitza arguments en barra';
@@ -1090,7 +1093,7 @@ $string['updatenotificationfooter'] = 'El vostre lloc Moodle {$a->siteurl} està
 $string['updatenotifications'] = 'Notificacions d\'actualització';
 $string['updatenotificationsubject'] = 'Hi ha actualitzacions de Moodle disponibles ({$a->siteurl})';
 $string['updatenotifybuilds'] = 'Notifica\'m l\'aparició de noves compilacions';
-$string['updatenotifybuilds_desc'] = 'Si s\'habilita, s\'informarà quan hi hagi una actualització per Moodle que sigui una nova compilació de la versió actual. Les compilacions són millores contínues d\'una versió de Moodle. En general s\'alliberen setmanalment. Si s\'inhabilita sols s\'informarà quan una nova versió de Moodle hagi estat alliberada. La comprovació de connectors no està afectada per aquest paràmetre.';
+$string['updatenotifybuilds_desc'] = 'Si s\'habilita, s\'informarà quan hi hagi una actualització per a Moodle que sigui una nova compilació de la versió actual. Les compilacions són millores contínues d\'una versió de Moodle. En general, s\'alliberen setmanalment. Si s\'inhabilita, sols s\'informarà quan una nova versió de Moodle hagi estat alliberada. Aquest paràmetre no afecta la comprovació de connectors.';
 $string['upgradeerror'] = 'Error d\'actualització desconegut. L\'actualització de la versió {$a->plugin} a la versió {$a->version} no pot continuar.';
 $string['upgradeforumread'] = 'S\'ha afegit una nova característica en Moodle 1.5 per fer el seguiment dels missatges llegits/no llegits dels fòrums.<br />Per utilitzar aquesta funcionalitat necessiteu <a href="{$a}">actualitzar les taules</a>.';
 $string['upgradeforumreadinfo'] = 'S\'ha afegit una nova característica en Moodle 1.5 per fer el seguiment dels missatges llegits/no llegits dels fòrums. Per utilitzar aquesta funcionalitat necessiteu actualitzar les taules amb tota la informació de seguiment dels missatges actuals. Segons la mida del vostre lloc això pot durar una bona estona (hores) i pot carregar bastant la base de dades, així que és millor fer-ho durant un període tranquil. Tanmateix el vostre lloc continuarà funcionant durant l\'actualització i els els usuaris no es veuran afectats. Una vegada hàgiu engegat aquest procés haureu de deixar que acabi (mantenint oberta la finestra del navegador). Però si atureu el procés tancant la finestra, no cal que us amoïneu: podeu iniciar el procés una altra vegada.<br /><br />Voleu iniciar ara el procés d\'actualització?';

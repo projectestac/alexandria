@@ -25,7 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['apierror'] = '{$a}';
+$string['apikey'] = 'Ключ API';
 $string['configplugin'] = 'Конфигурация хранилища YouTube';
+$string['information'] = 'Получить <a href="https://developers.google.com/youtube/v3/getting-started">ключ Google API</a> для вашего сайта.';
 $string['pluginname'] = 'Видео YouTube';
 $string['search'] = 'Искать видео';
 $string['sortby'] = 'Сортировать по';
@@ -33,4 +36,4 @@ $string['sortpublished'] = 'Дате публикации';
 $string['sortrating'] = 'Рейтинг';
 $string['sortrelevance'] = 'Релевантности';
 $string['sortviewcount'] = 'Количеству просмотров';
-$string['youtube:view'] = 'Просматривать хранилище файлов «Видео YouTube»';
+$string['youtube:view'] = 'Использовать YouTube в выборе файлов';

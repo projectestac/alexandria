@@ -38,19 +38,11 @@ $string['aliases_help'] = '<p>用語集の各エントリに関連付けられ�
 $string['allcategories'] = 'すべてのカテゴリ';
 $string['allentries'] = 'すべて';
 $string['allowcomments'] = 'エントリへのコメントを許可する';
-$string['allowcomments_help'] = '<p>学生に用語集エントリへのコメント投稿を許可することができます。</p>
-
-<p>この設定を使用するかどうか選択することができます。</p>
-
-<p>教師は常に用語集エントリにコメントを追加することができます。</p>';
+$string['allowcomments_help'] = 'この設定を有効にした場合、コメントを作成するパーミッションが与えられたすべてのユーザは用語集エントリにコメントを追加することができます。';
 $string['allowduplicatedentries'] = '重複エントリを許可する';
-$string['allowduplicatedentries_help'] = '<p>この設定を「Yes」にした場合、同一の用語に対して複数のエントリを作成することができます。</p>';
+$string['allowduplicatedentries_help'] = 'この設定を有効にした場合、同一の用語に対して複数のエントリを作成することができます。';
 $string['allowprintview'] = '印刷モードを許可する';
-$string['allowprintview_help'] = '<p>学生に用語集の印刷モード使用を許可します。</p>
-
-<p>この機能を有効 (Yes) または無効 (No) にすることができます。</p>
-
-<p>教師は、常に印刷モードを使用することができます。</p>';
+$string['allowprintview_help'] = 'この設定を有効にした場合、学生には用語集のプリンタフレンドリバージョンのリンクが提供されます。教師は常にこのリンクを使用することができます。';
 $string['andmorenewentries'] = 'および {$a} 件の新しいエントリ';
 $string['answer'] = '答え';
 $string['approvaldisplayformat'] = '表示フォーマットの承認';
@@ -63,15 +55,7 @@ $string['areyousuredeletecomment'] = '本当にこのコメントを削除して
 $string['areyousureexport'] = '本当にこのエントリを下記の用語集にエクスポートしてもよろしいですか?';
 $string['ascending'] = '昇順';
 $string['attachment'] = '添付';
-$string['attachment_help'] = '<p>1つまたはそれ以上のファイルを用語集のエントリに添付することができます。このファイルはサーバにアップロードされ、エントリと一緒に保存されます。</p>
-
-<p>この機能は画像やワープロ文書を共有する場合に便利です。</p>
-
-<p>どのような種類のファイルも添付することができますが、Wordドキュメント .doc、イメージ .jpg または .png のような標準的な3文字の接尾辞を使用されることを強くお勧めします。このようにすることで、他の人がファイルをダウンロードした後に、内容を表示しやすくなります。</p>
-
-<p>エントリを編集して新しい添付ファイルを登録する場合、以前のファイルは最新のものと入れ替えられます。</p>
-
-<p>エントリを編集して添付ファイル欄を空白にする場合、以前のファイルはそのままにされます。</p>';
+$string['attachment_help'] = 'あなたは1つまたはそれ以上のファイルを任意で用語集エントリに添付することができます。';
 $string['author'] = '著者';
 $string['authorview'] = '著者順';
 $string['back'] = '戻る';
@@ -144,7 +128,7 @@ $string['displayformatdictionary'] = 'シンプル、辞書スタイル';
 $string['displayformatencyclopedia'] = '百科事典';
 $string['displayformatentrylist'] = 'エントリリスト';
 $string['displayformatfaq'] = 'FAQ';
-$string['displayformatfullwithauthor'] = 'フル、著者有り';
+$string['displayformatfullwithauthor'] = 'フル、著者あり';
 $string['displayformatfullwithoutauthor'] = 'フル、著者なし';
 $string['displayformat_help'] = '用語集には以下7つの表示フォーマットがあります:
 
@@ -206,7 +190,7 @@ $string['evententryviewed'] = 'エントリが閲覧されました。';
 $string['explainaddentry'] = '用語集に新しいエントリを追加します。<br />用語および定義は必須入力フィールドです。';
 $string['explainall'] = 'すべてのエントリを1ページに表示';
 $string['explainalphabet'] = 'インデックスを利用して用語集を表示';
-$string['explainexport'] = '用語集をエクスポートするには、下記のボタンをクリックしてください。<br />いつでも必要なときに、用語集をこのコースまたは他のコースにインポートすることができます。<p>添付ファイル (例 イメージ) および著者はエクスポートされませんので注意してください。</p>';
+$string['explainexport'] = '用語集をエクスポートするには下記のボタンをクリックしてください。<br />いつでも必要なときに、用語集をこのコースまたは他のコースにインポートすることができます。<p>添付ファイル (例 イメージ) および著者はエクスポートされませんので注意してください。</p>';
 $string['explainimport'] = 'インポートするファイルおよび処理のクライテリアを指定してください。<p>実行後、結果を検証してください。</p>';
 $string['explainspecial'] = '１文字で始まらないエントリを表示します。';
 $string['exportedentry'] = 'エクスポートされたエントリ';
@@ -289,7 +273,7 @@ $string['newglossary'] = '新しい用語集';
 $string['newglossarycreated'] = '新しい用語集が作成されました。';
 $string['newglossaryentries'] = '新規用語集エントリ';
 $string['nocomment'] = 'コメントが見つかりませんでした。';
-$string['nocomments'] = '( このエントリにはコメントがありません。)';
+$string['nocomments'] = '( このエントリにはコメントはありません)';
 $string['noconceptfound'] = '用語または定義が見つかりませんでした。';
 $string['noentries'] = 'このセクションにはエントリがありません。';
 $string['noentry'] = 'エントリが見つかりませんでした。';
@@ -332,29 +316,11 @@ $string['rsstype_help'] = '<p>ここでは用語集のRSSフィードを利用�
 $string['searchindefinition'] = '全文検索する';
 $string['secondaryglossary'] = 'サブ用語集';
 $string['showall'] = 'すべてのリンクを表示する';
-$string['showall_help'] = '<p>ここではユーザが用語集を閲覧する方法をカスタマイズすることができます。用語集は、常に閲覧および検索することができますが、下記の3つのオプションを設定することもできます:</p>
-
-<p><b>特別リンクを表示する</b> @、#のような特別な文字を表示するかどうか設定します。</p>
-
-<p><b>アルファベットを表示する</b> アルファベットで閲覧するかどうか設定します。</p>
-
-<p><b>すべてのリンクを表示する</b> すべてのエントリを一度に表示するかどうか設定します。</p>';
+$string['showall_help'] = 'この設定を有効にした場合、参加者はすべてのエントリを一度に閲覧することができます。';
 $string['showalphabet'] = 'アルファベットリンクを表示する';
-$string['showalphabet_help'] = '<p>ここではユーザが用語集を閲覧する方法をカスタマイズすることができます。用語集は、常に閲覧および検索することができますが、下記の3つのオプションを設定することもできます:</p>
-
-<p><b>特別リンクを表示する</b> @、#のような特別な文字を表示するかどうか設定します。</p>
-
-<p><b>アルファベットを表示する</b> アルファベットで閲覧するかどうか設定します。</p>
-
-<p><b>すべてのリンクを表示する</b> すべてのエントリを一度に表示するかどうか設定します。</p>';
+$string['showalphabet_help'] = 'この設定を有効にした場合、参加者はアルファベット順で用語集を閲覧することができます。';
 $string['showspecial'] = '特別リンクを表示する';
-$string['showspecial_help'] = '<p>ここではユーザが用語集を閲覧する方法をカスタマイズすることができます。用語集は、常に閲覧および検索することができますが、下記の3つのオプションを設定することもできます:</p>
-
-<p><b>特別リンクを表示する</b> @、#のような特別な文字を表示するかどうか設定します。</p>
-
-<p><b>アルファベットを表示する</b> アルファベットで閲覧するかどうか設定します。</p>
-
-<p><b>すべてのリンクを表示する</b> すべてのエントリを一度に表示するかどうか設定します。</p>';
+$string['showspecial_help'] = 'この設定を有効にした場合、参加者は@、#のような特殊文字順で用語集を閲覧することができます。';
 $string['sortby'] = '並べ替え';
 $string['sortbycreation'] = '作成日時';
 $string['sortbylastupdate'] = '最終更新日時';
@@ -372,8 +338,8 @@ $string['usedynalink_help'] = '<p>この設定を「Yes」にすると、同一�
 
 <p>カテゴリ名もオートリンクされますので注意してください。</p>';
 $string['waitingapproval'] = '承認待ち';
-$string['warningstudentcapost'] = '(用語集がメイン用語集では無い場合に適用)';
-$string['withauthor'] = '用語 (著者有り)';
+$string['warningstudentcapost'] = '(用語集がメイン用語集ではない場合に適用)';
+$string['withauthor'] = '用語 (著者あり)';
 $string['withoutauthor'] = '用語 (著者なし)';
 $string['writtenby'] = '作成';
 $string['youarenottheauthor'] = 'あなたはこのコメントの投稿者ではありません。コメントの編集は許可されません。';

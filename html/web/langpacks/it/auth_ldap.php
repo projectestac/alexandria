@@ -49,7 +49,7 @@ $string['auth_ldap_expiration_desc'] = 'Seleziona No per disabilitare il control
 $string['auth_ldap_expiration_key'] = 'Scadenza';
 $string['auth_ldap_expiration_warning_desc'] = 'Numero di giorni che precedono l\'invio dell\'avviso di password scaduta.';
 $string['auth_ldap_expiration_warning_key'] = 'Avviso di scadenza';
-$string['auth_ldap_expireattr_desc'] = 'Opzionale: modifica l\'attributo ldap che stabilisce la data di scadenza della password';
+$string['auth_ldap_expireattr_desc'] = 'Opzionale: modifica l\'attributo ldap che stabilisce la data di scadenza delle password.';
 $string['auth_ldap_expireattr_key'] = 'Attributo di scadenza';
 $string['auth_ldapextrafields'] = 'Questi campi sono opzionali. E\'  possibile scegliere di riempire alcuni campi dell\'utente in Moodle con i dati provenienti dai <b>campi LDAP</b> qui specificati. <p>Lasciando i campi vuoti, non verranno trasferiti dati da LDAP e verranno usati i dati di default di Moodle.</p><p>In entrambi i casi, gli utenti potranno modificare questi campi dopo essersi autenticati.</p>';
 $string['auth_ldap_graceattr_desc'] = 'Opzionale: esclude l\'attributo gracelogin';
@@ -72,7 +72,7 @@ $string['auth_ldap_noconnect_all'] = 'Il modulo LDAP non si può collegarsi a ne
 $string['auth_ldap_noextension'] = '<em>Il modulo PHP LDAP non sembra essere presente. Per usare l\'autenticazione LDAP assicurarti che sia installato ed abilitato.</em>';
 $string['auth_ldap_no_mbstring'] = 'Per creare utenti in Active Directory  è necessaria l\'estensione mbstring';
 $string['auth_ldapnotinstalled'] = 'Non è possibile usare l\'autenticazione LDAP. Il modulo PHP LDAP non è installato.';
-$string['auth_ldap_objectclass'] = 'Opzionale: il filtro utilizzato per la ricerca dei nomi utente. Ad esempio objectClass=posixAccount. L\'impostazione a objectClass=* restituirà  tutti gli oggetti da LDAP.';
+$string['auth_ldap_objectclass'] = 'Opzionale: l\'objectClass da utilizzare per la ricerca degli utenti. Di solito non è necessario modificare questa impostazione.';
 $string['auth_ldap_objectclass_key'] = 'Object class';
 $string['auth_ldap_opt_deref'] = 'Determina il modo con cui vengono trattati gli alias durante una ricerca. Selezionare uno dei seguenti valori:<br/>
 "No" (LDAP_DEREF_NEVER) <br/>

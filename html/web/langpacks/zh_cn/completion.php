@@ -42,7 +42,7 @@ $string['completed'] = '已完成';
 $string['completedunlocked'] = '完成选项已解锁';
 $string['completedunlockedtext'] = '保存修改后，所有学生的完成状态都会被删除。如果您改变了主意，就不要保存此表单。';
 $string['completedwarning'] = '完成选项已锁定';
-$string['completedwarningtext'] = '一个或多个学生（{$a}）已经标记这项活动为完成。改变完成选项会删除他们的完成状态记录，有可能导致混乱。因此，这些选项已被加锁。除非绝对必要，请不要解锁。';
+$string['completedwarningtext'] = '参与者{$a}已经标记这项活动为完成。改变完成选项会删除他们的完成状态记录，有可能导致混乱。因此，这些选项已被加锁。除非绝对必要，请不要解锁。';
 $string['completion'] = '进度跟踪';
 $string['completionactivitydefault'] = '用户活动默认设置';
 $string['completion-alt-auto-enabled'] = '系统根据条件“{$a}”标记此项为完成';
@@ -66,11 +66,9 @@ $string['completion_help'] = '如果启用，将基于给定的条件，人工�
 在课程页面，当活动已完成时，活动名后面会有一个标记。
 ';
 $string['completionicons'] = '完成状态标记框';
-$string['completionicons_help'] = '当活动已完成时，活动名后面会有一个标记。
-
-如果显示的是一个圆点标记，那么当您觉得已经完成此活动时，就勾选它。（如果您改变了主意，就再点它一下来取消勾选。）此动作并不是必须做的，它只是跟踪您课程学习进度的一个简单方法。
-
-如果显示的是一个空的标记框，那么当你达到了教师为此活动设定的条件时，它会自动被标记。';
+$string['completionicons_help'] = '当活动完成时，在活动名称边上有一个勾作为标记。
+当一个虚线框出现的时候，当你根据老师设定的条件完成了活动之后，勾会自动出现。
+当一个实线框出现的时候，如果你觉得你完成了任务，可以点击勾选。（如果改变主意了再点一次就可以去掉勾。）这个是可选的而且只是一种跟踪你课程进度的方式。';
 $string['completion_manual'] = '学生可以手工标记此活动为完成';
 $string['completionmenuitem'] = '学习进度';
 $string['completion-n'] = '未完成';
@@ -117,25 +115,25 @@ $string['dependencies'] = '依赖条件';
 $string['dependenciescompleted'] = '完成其它课程';
 $string['editcoursecompletionsettings'] = '编辑课程进度跟踪设置';
 $string['enablecompletion'] = '启用进度跟踪';
-$string['enablecompletion_help'] = '如果启用，进度跟踪设置将在进度跟踪页面以及活动设置页面显示。';
+$string['enablecompletion_help'] = '如果启用，活动完成情况将在活动设置页面和/或课程完成情况完成设置。';
 $string['enrolmentduration'] = '选课持续时间';
 $string['enrolmentdurationlength'] = '用户必须持续选课至少';
 $string['err_noactivities'] = '没有任何活动启用了完成信息，所以什么都不能显示。您可以通过修改活动设置来启用完成信息。';
 $string['err_nocourses'] = '没有其它课程启用课程进度跟踪功能，所以没有可显示的。您可以在课程设置中启用课程进度跟踪功能。';
 $string['err_nograde'] = '此课程还未设置及格分数线。要想启用这种策略，您必须先为此课程创建及格数线。';
-$string['err_noroles'] = '课程中没有任何角色有“moodle/course:markcomplete”权限。您可以通过给角色分配此权限来启用这种条件类型。';
+$string['err_noroles'] = '课程中没有任何角色有“moodle/course:markcomplete”权限。';
 $string['err_nousers'] = '课程或小组中没有可以显示完成信息的学生。（缺省情况下，只显示学生的完成信息，所以没有学生的话，您就会看到这个错误。管理员可以修改此选项。）';
-$string['err_settingslocked'] = '一个或多个学生已经完成了某条件，所以此设置被加锁。解锁完成条件设置将删除全部已有的用户数据，有可能造成困扰。';
+$string['err_settingslocked'] = '一个或多个学生已经完成了某条件，所以此设置被锁定。解锁完成条件设置将删除全部已有的用户数据，有可能造成不必要的麻烦。';
 $string['err_system'] = '进度跟踪系统内部发生错误。（系统管理员可以激活调试信息来查看更多细节。）';
 $string['eventcoursecompleted'] = '课程已完成';
 $string['eventcoursecompletionupdated'] = '课程完成已更新';
-$string['eventcoursemodulecompletionupdated'] = '课程模组完成已更新';
+$string['eventcoursemodulecompletionupdated'] = '课程模块学习完成，状态已更新';
 $string['excelcsvdownload'] = '用Excel兼容格式（.csv）下载';
 $string['fraction'] = '分数';
-$string['graderequired'] = '及格线';
+$string['graderequired'] = '需要课程分数';
 $string['gradexrequired'] = '至少得 {$a}';
 $string['inprogress'] = '处理中';
-$string['manualcompletionby'] = '可手动标记完成';
+$string['manualcompletionby'] = '由他人手动完成';
 $string['manualcompletionbynote'] = '提醒：只有具备 moodle/course:markcomplete 权限的角色才会出现在此列表中。';
 $string['manualselfcompletion'] = '手动自设完成';
 $string['manualselfcompletionnote'] = '提醒：如果启用手动自设完成，则应当在课程版块中将“自设完成”版块添加上。';
@@ -165,12 +163,13 @@ $string['restoringcompletiondata'] = '写入进度数据';
 $string['roleaggregation'] = '条件满足情形';
 $string['roleaggregation_all'] = '所有选中的角色标记才算条件符合';
 $string['roleaggregation_any'] = '任一选中的角色标记就算条件符合';
+$string['roleidnotfound'] = '角色ID{$a}未发现';
 $string['saved'] = '保存';
 $string['seedetails'] = '查看细节';
 $string['self'] = '自己';
 $string['selfcompletion'] = '自设完成';
 $string['showinguser'] = '显示用户';
-$string['unenrolingfromcourse'] = '从课程注销选课';
+$string['unenrolingfromcourse'] = '退出该选课';
 $string['unenrolment'] = '注销选课';
 $string['unit'] = '单元';
 $string['unlockcompletion'] = '解锁完成选项';

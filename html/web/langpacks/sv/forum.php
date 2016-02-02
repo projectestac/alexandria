@@ -80,6 +80,7 @@ $string['cannotupdatepost'] = 'Du kan inte uppdatera det här inlägget.';
 $string['cannotviewpostyet'] = 'Du kan inte läsa de andras frågor i det här diskussionsämnet ännu eftersom du inte har gjort något eget inlägg.';
 $string['cannotviewusersposts'] = 'Det finns inga inlägg gjorda av denna användare som du kan visa.';
 $string['cleanreadtime'] = 'Markera gamla inlägg som lästa timme';
+$string['clicktounsubscribe'] = 'Du prenumererar på denna diskussion. Klicka för att avbeställa prenumerationen.';
 $string['completiondiscussions'] = 'Studenten/eleven/deltagaren/den lärande måste skapa diskussioner:';
 $string['completiondiscussionsgroup'] = 'Kräv diskussioner';
 $string['completiondiscussionshelp'] = 'kräver diskussionsämnen för att Du ska kunna fullfölja';
@@ -105,6 +106,7 @@ $string['configtrackreadposts'] = 'Ställ in detta till \'Ja\' om Du vill spåra
 $string['configusermarksread'] = 'Om \'Ja\' så måste användare manuellt markera ett inlägg som läst. Om \'Nej\' så markeras inlägget som läst när det visas.';
 $string['confirmsubscribe'] = 'Vill Du verkligen prenumerera på forumet \'{$a}\'?';
 $string['confirmunsubscribe'] = 'Vill Du verkligen avbryta prenumerationen på forumet \'{$a}\'?';
+$string['confirmunsubscribediscussion'] = 'Vill du verkligen avbeställa din prenumeration på  \'{$a->diskussion}\' i forum \'{$a->forum}\'?';
 $string['couldnotadd'] = 'Det gick inte att lägga till Ditt inlägg på grund av okänt fel.';
 $string['couldnotdeletereplies'] = 'Tyvärr, det kan inte tas bort eftersom folk redan har svarat på det.';
 $string['couldnotupdate'] = 'Det gick inte att uppdatera Ditt inlägg på grund av okänt fel.';
@@ -162,6 +164,7 @@ $string['everyoneissubscribed'] = 'Alla prenumererar på detta forum';
 $string['existingsubscribers'] = 'Befintliga prenumeranter';
 $string['exportdiscussion'] = 'Exportera hela diskussionen';
 $string['forcesubscribed'] = 'Det är obligatoriskt för alla att prenumerera på här forumet.';
+$string['forcesubscribed_help'] = 'Det går inte att avbeställa prenumerationen från detta forum.';
 $string['forum'] = 'Forum';
 $string['forum:addinstance'] = 'Lägg till nytt forum';
 $string['forum:addnews'] = 'Lägg till nyheter';
@@ -417,25 +420,14 @@ alla deltagare blir prenumeranter.</p>
 som anv&auml;nds i b&ouml;rjan p&aring; kurser (innan alla har uppt&auml;ckt att
 de kan prenumerera sj&auml;lva).</p>';
 $string['subscriptionmode'] = 'Läge för prenumeration';
-$string['subscriptionmode_help'] = '<p>N&auml;r en person prenumererar p&aring; ett forum s&aring; inneb&auml;r det att denne kommer att f&aring;
-e-postkopior p&aring; varje inl&auml;gg i det forumet (inl&auml;gget skickas ut ungef&auml;r
- <?php echo $cfg->maxeditingtime/60 ?> minuter efter det att inl&auml;gget har skrivits in.
-</p>
-<p>Var och en kan normalt sett v&auml;lja om de vill prenumerera p&aring; ett visst forum eller inte.</p>
-<p>Om Du emellertid v&auml;ljer att tvinga fram prenumeration p&aring; ett visst forum
-d&aring; kommer alla anv&auml;ndare av kursen att registreras som prenumeranter - &auml;ven de som tillkommer till kursen senare.</p>
-<p>Det h&auml;r &auml;r s&auml;rskilt anv&auml;ndbart i nyhetsforum och i forum som finns med i b&ouml;rjan av en kurs,
-innan anv&auml;ndarna har kommit p&aring; att de sj&auml;lva kan prenumerera (eller inte) p&aring; dessa e-postmeddelanden.</p>
-<p>Om Du v&auml;ljer alternativet "Ja, till att b&ouml;rja med" s&aring; kommer alla aktuella och senare tillkommande
-anv&auml;ndare av kursen att bli initialt registrerade som prenumeranter, men de kan sj&auml;lva
-avaktivera prenumerationen n&auml;r som helst. Om Du v&auml;ljer "Ja, permanent" s&aring; kan de inte sj&auml;lva
-avaktivera prenumerationen.</p>
-<p>L&auml;gg m&auml;rke till hur alternativet "Ja, till att b&ouml;rja med"
-beter sig n&auml;r Du uppdaterar ett befintligt forum.
-Om Du &auml;ndrar "Ja, till att b&ouml;rja med" till "Nej" s&aring; kommer det inte att
-avregistrera befintliga prenumeranter utan de p&aring;verkar bara framtida anv&auml;ndare.
-P&aring; samma s&auml;tt &auml;r det s&aring; att om Du senare &auml;ndrar till "Ja, till att b&ouml;rja med" s&aring; p&aring;verkar detta inte
-befintliga anv&auml;ndare utan bara de som tillkommer senare. </p>';
+$string['subscriptionmode_help'] = 'En prenumeration innebär att man får kopior av forumsinlägg till sin e-post. Det finns 4 typer av prenumerationer:
+
+* Alternativ prenumeration – initialt ingen prenumeration, men användaren kan själv sätta på den.
+* Obligatorisk prenumeration – alla prenumererar och man kan inte avbeställa prenumerationen.
+* Automatisk prenumeration – alla prenumererar initialt, men de kan själva stänga av prenumerationen.
+* Prenumeration är avaktiverad – det går inte att prenumerera.
+
+OBS: Om läraren ändrar prenumerationsinställningarna så gäller de nya för framtida elever. Användare som redan finns i kursen behåller sina inställningar.';
 $string['subscriptionoptional'] = 'Alternativ prenumeration';
 $string['subscriptions'] = 'Prenumerationer';
 $string['thisforumisthrottled'] = 'Det här forumet tillåter bara ett visst antal inlägg som Du kan göra inom en viss tidsperiod. Detta är f n inställt till {$a->blockafter} inlägg under {$a->blockperiod}';
@@ -470,6 +462,7 @@ $string['unsubscribeallconfirm'] = 'Du prenumererar f n på {$a} forum. Vill Du 
 $string['unsubscribealldone'] = 'Alla Dina prenumerationer på forum har tagits bort. Du kan fortfarande få meddelanden från forum med obligatorisk prenumeration. Om Du inte vill ha några fler e-postmeddelanden från den här server, var då snäll och gå till Din profil och avaktivera e-postadressen där.';
 $string['unsubscribeallempty'] = 'Du är tyvärr inte registrerad som prenumerant på några forum. Om Du inte vill ha några fler e-postmeddelanden från den här server, var då snäll och gå till Din profil och avaktivera e-postadressen där.';
 $string['unsubscribed'] = 'Avbeställd';
+$string['unsubscribediscussion'] = 'Avbeställ prenumerationen från denna diskussion.';
 $string['unsubscribeshort'] = 'Avregistrera prenumeration';
 $string['usermarksread'] = 'Uppmärkning  för läsning av manuellt meddelande';
 $string['viewalldiscussions'] = 'Visa alla diskussioner';

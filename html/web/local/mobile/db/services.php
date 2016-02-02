@@ -26,6 +26,23 @@ defined('MOODLE_INTERNAL') || die;
 
 $functions = array(
 
+    'local_mobile_core_course_search_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'core_course_search_courses',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Search courses by (name, module, block, tag)',
+        'type'          => 'read',
+        'capabilities'  => '',
+    ),
+
+    'local_mobile_enrol_self_enrol_user' => array(
+        'classname'   => 'local_mobile_external',
+        'methodname'  => 'enrol_self_enrol_user',
+        'classpath'   => 'local/mobile/externallib.php',
+        'description' => 'Self enrol the current user in the given course.',
+        'type'        => 'write'
+    ),
+
     'local_mobile_core_user_remove_user_device' => array(
         'classname'     => 'local_mobile_external',
         'methodname'    => 'core_user_remove_user_device',
@@ -235,11 +252,309 @@ $functions = array(
         'capabilities'  => 'mod/folder:view'
     ),
 
+    'local_mobile_mod_chat_get_chats_by_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_chat_get_chats_by_courses',
+        'description'   => 'Retrieve chat activities by courses.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/chat:chat'
+    ),
+
+    'local_mobile_mod_chat_login_user' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_chat_login_user',
+        'description'   => 'Log a user into a chat room in the given chat.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/chat:chat'
+    ),
+
+    'local_mobile_mod_chat_get_chat_users' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_chat_get_chat_users',
+        'description'   => 'Get the list of users in the given chat session.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/chat:chat'
+    ),
+
+    'local_mobile_mod_chat_send_chat_message' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_chat_send_chat_message',
+        'description'   => 'Send a message on the given chat session.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/chat:chat'
+    ),
+
+    'local_mobile_mod_chat_get_chat_latest_messages' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_chat_get_chat_latest_messages',
+        'description'   => 'Get the latest messages from the given chat session.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/chat:chat'
+    ),
+
+    'local_mobile_mod_chat_view_chat' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_chat_view_chat',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Simulate the view.php web interface folder: trigger events, completion, etc...',
+        'type'          => 'write',
+        'capabilities'  => 'mod/chat:chat'
+    ),
+
+    'local_mobile_mod_choice_view_choice' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_choice_view_choice',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Simulate the view.php web interface folder: trigger events, completion, etc...',
+        'type'          => 'write',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_choice_get_choice_results' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_choice_get_choice_results',
+        'description'   => 'Retrieve users results for a specific choice.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_choice_get_choice_options' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_choice_get_choice_options',
+        'description'   => 'Retrieve options for a specific choice.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/choice:choose'
+    ),
+
+    'local_mobile_mod_choice_submit_choice_response' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_choice_submit_choice_response',
+        'description'   => 'Submit responses to a specific choice item.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/choice:choose'
+    ),
+
+    'local_mobile_mod_choice_get_choices_by_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_choice_get_choices_by_courses',
+        'description'   => 'Retrieve choice activities by courses.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_forum_add_discussion' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_forum_add_discussion',
+        'description'   => 'Add a new discussion into an existing forum.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/forum:startdiscussion'
+    ),
+
+    'local_mobile_mod_forum_add_discussion_post' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_forum_add_discussion_post',
+        'description'   => 'Create new posts into an existing discussion.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/forum:replypost'
+    ),
+
+    'local_mobile_mod_forum_get_forums_by_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_forum_get_forums_by_courses',
+        'description'   => 'Returns a list of forum instances in a provided set of courses, if
+            no courses are provided then all the forum instances the user has access to will be
+            returned.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/forum:viewdiscussion'
+    ),
+
+    'local_mobile_core_group_get_activity_groupmode' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'core_group_get_activity_groupmode',
+        'description'   => 'Returns effective groupmode used in a given activity.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_core_group_get_activity_allowed_groups' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'core_group_get_activity_allowed_groups',
+        'description'   => 'Gets a list of groups that the user is allowed to access within the specified activity.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_lti_get_tool_launch_data' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_lti_get_tool_launch_data',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Return the launch data for a given external tool.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/lti:view'
+    ),
+
+    'local_mobile_mod_lti_get_ltis_by_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_lti_get_ltis_by_courses',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Returns a list of external tool instances in a provided set of courses, if
+                            no courses are provided then all the external tool instances the user has access to will be returned.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/lti:view'
+    ),
+
+    'local_mobile_mod_lti_view_lti' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_lti_view_lti',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Trigger the course module viewed event and update the module completion status.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/lti:view'
+    ),
+
+    'local_mobile_core_completion_mark_course_self_completed' => array(
+        'classname'   => 'local_mobile_external',
+        'methodname'  => 'core_completion_mark_course_self_completed',
+        'description' => 'Update the course completion status for the current user (if course self-completion is enabled).',
+        'type'        => 'write',
+    ),
+
+    'local_mobile_mod_choice_delete_choice_responses' => array(
+        'classname'   => 'local_mobile_external',
+        'methodname'  => 'mod_choice_delete_choice_responses',
+        'description' => 'Delete the given submitted responses in a choice',
+        'type'        => 'write',
+        'capabilities'  => 'mod/choice:choose'
+    ),
+
+    'local_mobile_mod_scorm_view_scorm' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_scorm_view_scorm',
+        'description'   => 'Trigger the course module viewed event.',
+        'type'          => 'write',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_scorm_get_scorm_attempt_count' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_scorm_get_scorm_attempt_count',
+        'description'   => 'Return the number of attempts done by a user in the given SCORM.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_scorm_get_scorm_scoes' => array(
+        'classname' => 'local_mobile_external',
+        'methodname' => 'mod_scorm_get_scorm_scoes',
+        'description' => 'Returns a list containing all the scoes data related to the given scorm id',
+        'type' => 'read',
+        'capabilities' => ''
+    ),
+
+    'local_mobile_mod_scorm_get_scorm_user_data' => array(
+        'classname' => 'local_mobile_external',
+        'methodname' => 'mod_scorm_get_scorm_user_data',
+        'description' => 'Retrieves user tracking and SCO data and default SCORM values',
+        'type' => 'read',
+        'capabilities' => ''
+    ),
+
+    'local_mobile_mod_scorm_insert_scorm_tracks' => array(
+        'classname' => 'local_mobile_external',
+        'methodname' => 'mod_scorm_insert_scorm_tracks',
+        'description' => 'Saves a scorm tracking record.
+                          It will overwrite any existing tracking data for this attempt.
+                          Validation should be performed before running the function to ensure the user will not lose any existing
+                          attempt data.',
+        'type' => 'write',
+        'capabilities' => 'mod/scorm:savetrack'
+    ),
+
+    'local_mobile_mod_scorm_get_scorm_sco_tracks' => array(
+        'classname' => 'local_mobile_external',
+        'methodname' => 'mod_scorm_get_scorm_sco_tracks',
+        'description' => 'Retrieves SCO tracking data for the given user id and attempt number',
+        'type' => 'read',
+        'capabilities' => ''
+    ),
+
+    'local_mobile_mod_scorm_get_scorms_by_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_scorm_get_scorms_by_courses',
+        'description'   => 'Returns a list of scorm instances in a provided set of courses, if
+                            no courses are provided then all the scorm instances the user has access to will be returned.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_survey_get_questions' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_survey_get_questions',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Get the complete list of questions for the survey, including subquestions.',
+        'type'          => 'read',
+        'capabilities'  => 'mod/survey:participate'
+    ),
+
+    'local_mobile_mod_survey_get_surveys_by_courses' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_survey_get_surveys_by_courses',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Returns a list of survey instances in a provided set of courses,
+                            if no courses are provided then all the survey instances the user has access to will be returned.',
+        'type'          => 'read',
+        'capabilities'  => ''
+    ),
+
+    'local_mobile_mod_survey_submit_answers' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_survey_submit_answers',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Submit the answers for a given survey.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/survey:participate'
+    ),
+
+    'local_mobile_mod_survey_view_survey' => array(
+        'classname'     => 'local_mobile_external',
+        'methodname'    => 'mod_survey_view_survey',
+        'classpath'     => 'local/mobile/externallib.php',
+        'description'   => 'Trigger the course module viewed event and update the module completion status.',
+        'type'          => 'write',
+        'capabilities'  => 'mod/survey:participate'
+    ),
+
+    'local_mobile_core_enrol_get_course_enrolment_methods' => array(
+        'classname'   => 'local_mobile_external',
+        'methodname'  => 'core_enrol_get_course_enrolment_methods',
+        'classpath'   => 'local/mobile/externallib.php',
+        'description' => 'Get the list of course enrolment methods',
+        'type'        => 'read',
+    ),
+
+    'local_mobile_enrol_guest_get_instance_info' => array(
+        'classname'   => 'local_mobile_external',
+        'methodname'  => 'enrol_guest_get_instance_info',
+        'classpath'   => 'local/mobile/externallib.php',
+        'description' => 'Return guest enrolment instance information.',
+        'type'        => 'read'
+    ),
+
+    'local_mobile_mod_forum_can_add_discussion' => array(
+        'classname' => 'local_mobile_external',
+        'methodname' => 'mod_forum_can_add_discussion',
+        'classpath'   => 'local/mobile/externallib.php',
+        'description' => 'Check if the current user can add discussions in the given forum (and optionally for the given group).',
+        'type' => 'read'
+    ),
+
 );
 
 $services = array(
    'Moodle Mobile additional features service'  => array(
         'functions' => array (
+            'local_mobile_core_course_search_courses',
+            'local_mobile_enrol_self_enrol_user',
             'core_webservice_get_site_info',
             'core_enrol_get_users_courses',
             'core_notes_create_notes',
@@ -259,10 +574,10 @@ $services = array(
             'core_message_get_messages',
             'core_calendar_get_calendar_events',
             'core_user_add_user_device',
+            'core_user_get_users_by_field',
             'core_grades_get_grades',
             'message_airnotifier_is_system_configured',
             'message_airnotifier_are_notification_preferences_configured',
-            'mod_forum_get_forums_by_courses',
             'mod_forum_get_forum_discussions_paginated',
             'mod_forum_get_forum_discussion_posts',
             'core_files_get_files',
@@ -299,6 +614,41 @@ $services = array(
             'local_mobile_mod_page_view_page',
             'local_mobile_mod_assign_view_grading_table',
             'local_mobile_mod_folder_view_folder',
+            'local_mobile_mod_chat_login_user',
+            'local_mobile_mod_chat_get_chat_users',
+            'local_mobile_mod_chat_send_chat_message',
+            'local_mobile_mod_chat_get_chat_latest_messages',
+            'local_mobile_mod_chat_get_chats_by_courses',
+            'local_mobile_mod_chat_view_chat',
+            'local_mobile_mod_choice_view_choice',
+            'local_mobile_mod_choice_get_choice_results',
+            'local_mobile_mod_choice_get_choice_options',
+            'local_mobile_mod_choice_submit_choice_response',
+            'local_mobile_mod_choice_get_choices_by_courses',
+            'local_mobile_mod_forum_add_discussion',
+            'local_mobile_mod_forum_add_discussion_post',
+            'local_mobile_mod_forum_get_forums_by_courses',
+            'local_mobile_core_group_get_activity_groupmode',
+            'local_mobile_core_group_get_activity_allowed_groups',
+            'local_mobile_mod_lti_get_tool_launch_data',
+            'local_mobile_mod_lti_get_ltis_by_courses',
+            'local_mobile_mod_lti_view_lti',
+            'local_mobile_core_completion_mark_course_self_completed',
+            'local_mobile_mod_choice_delete_choice_responses',
+            'local_mobile_mod_scorm_get_scorm_attempt_count',
+            'local_mobile_mod_scorm_get_scorm_sco_tracks',
+            'local_mobile_mod_scorm_get_scorm_scoes',
+            'local_mobile_mod_scorm_get_scorm_user_data',
+            'local_mobile_mod_scorm_get_scorms_by_courses',
+            'local_mobile_mod_scorm_insert_scorm_tracks',
+            'local_mobile_mod_scorm_view_scorm',
+            'local_mobile_mod_survey_get_questions',
+            'local_mobile_mod_survey_get_surveys_by_courses',
+            'local_mobile_mod_survey_submit_answers',
+            'local_mobile_mod_survey_view_survey',
+            'local_mobile_core_enrol_get_course_enrolment_methods',
+            'local_mobile_enrol_guest_get_instance_info',
+            'local_mobile_mod_forum_can_add_discussion',
         ),
         'enabled' => 0,
         'restrictedusers' => 0,

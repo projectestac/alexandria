@@ -25,12 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['apierror'] = '{$a}';
+$string['apikey'] = 'API key';
 $string['configplugin'] = 'YouTube repository type configuration';
-$string['pluginname'] = 'Youtube videos';
+$string['information'] = 'Get a <a href="https://developers.google.com/youtube/v3/getting-started">Google API key</a> for your Moodle site.';
+$string['pluginname'] = 'YouTube videos';
 $string['search'] = 'Search videos';
 $string['sortby'] = 'Sort By';
 $string['sortpublished'] = 'Date Published';
 $string['sortrating'] = 'Rating';
 $string['sortrelevance'] = 'Relevance';
 $string['sortviewcount'] = 'View Count';
-$string['youtube:view'] = 'Use youtube in file picker';
+$string['youtube:view'] = 'Use YouTube in file picker';

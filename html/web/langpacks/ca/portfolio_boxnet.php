@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['apiv1migration_message_content'] = 'El connector Box portfolio s\'ha deshabilitat com a part de la recent actualització de Moodle a la versió 2.6. Per rehabilitar-lo us cal reconfigurar-lo com es descriu a la documentació  {$a->docsurl}.';
-$string['apiv1migration_message_small'] = 'El connector s\'ha deshabilitat ja que cal configurar-lo com es descriu en la documentació de la migració Box APIv1.';
+$string['apiv1migration_message_content'] = 'El connector Box portfolio s\'ha inhabilitat com a part de la recent actualització de Moodle a la versió 2.6. Per tornar-lo a habilitar, cal que el reconfigureu com es descriu a la documentació  {$a->docsurl}.';
+$string['apiv1migration_message_small'] = 'S\'ha inhabilitat aquest connector perquè requereix configuració, tal com es descriu a la documentació de la migració Box APIv1.';
 $string['apiv1migration_message_subject'] = 'Informació important sobre el connector Box portfolio';
 $string['clientid'] = 'ID del client';
 $string['clientsecret'] = 'Clau secreta del client';
@@ -39,14 +39,14 @@ $string['missinghttps_help'] = 'Box sols treballa amb webs amb HTTPS habilitat';
 $string['missingoauthkeys'] = 'S\'ha perdut la ID del client i la contrasenya secreta';
 $string['missingoauthkeys_help'] = 'No estan configurats al connector la ID del client ni la contrasenya secreta. Podeu obtenir-ne una des la pàgina de desenvolupament de Box.';
 $string['newfolder'] = 'Nova carpeta on posar el/s fitxer/s';
-$string['noauthtoken'] = 'No s\'ha pogut recuperar un testimoni d\'autenticació per a utilitzar-lo en aquesta sessió';
+$string['noauthtoken'] = 'No s\'ha pogut recuperar un testimoni d\'autenticació per utilitzar-lo en aquesta sessió';
 $string['notarget'] = 'Heu d\'especificar una carpeta de destinació existent o una de nova';
 $string['noticket'] = 'No s\'ha pogut recuperar un tiquet de Box per a iniciar la sessió d\'autenticació';
 $string['password'] = 'La vostra contrasenya de Box (no és guardarà)';
 $string['pluginname'] = 'Box';
 $string['sendfailed'] = 'No s\'ha pogut enviar el contingut a Box: {$a}';
 $string['setupinfo'] = 'Instruccions de configuració';
-$string['setupinfodetails'] = 'Per a obtenir una ID de client API, entreu en Box i visiteu la <a href="{$a->servicesurl}">pàgina de desenvolupament Box</a>. Seguiu «Create new application» i creeu una nova aplicació per al vostre lloc Moodle. La ID del client i la contrasenya secreta es mostren en la secció «OAuth2 parameters» del formulari d\'edició de l\'aplicació. Podeu proporcionar de forma opcional  informació sobre el vostre lloc web Moodle';
+$string['setupinfodetails'] = 'Per obtenir un ID de client API, inicieu sessió a Box i visiteu la <a href="{$a->servicesurl}">pàgina de desenvolupament Box</a>. Seguiu «Create new application» i creeu una nova aplicació per al vostre lloc Moodle. L\'ID del client i la contrasenya secreta es mostren a la secció «OAuth2 parameters» del formulari d\'edició de l\'aplicació. Podeu proporcionar de forma opcional  informació sobre el vostre lloc web Moodle.';
 $string['sharedfolder'] = 'Compartit';
 $string['sharefile'] = 'Voleu compartir aquest fitxer?';
 $string['sharefolder'] = 'Voleu compartir aquesta nova carpeta?';

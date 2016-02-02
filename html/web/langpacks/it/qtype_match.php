@@ -26,9 +26,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['answer'] = 'Risposta {$a}';
-$string['availablechoices'] = 'Scelte dsiponibili';
+$string['availablechoices'] = 'Scelte disponibili';
 $string['blanksforxmorequestions'] = '{no} altre coppie vuote';
 $string['correctansweris'] = 'La risposta corretta è: {$a}';
+$string['deletedchoice'] = '[Scelta eliminata]';
+$string['deletedsubquestion'] = 'Questa porzione di domanda è stata eliminata dopo l\'inizio del tentativo';
 $string['filloutthreeqsandtwoas'] = 'Devi fornire almeno due domande e tre risposte. Puoi anche aggiungere risposte errate in più: per farlo è sufficiente lasciare vuota la domanda ed inserire solo la risposta. Se lasciate vuota sia la domanda che la risposta la coppia non verrà utilizzata.';
 $string['nomatchinganswer'] = 'Devi indicare una risposta corrispondente alla domanda \'{$a}\'.';
 $string['nomatchinganswerforq'] = 'Devi fornire una risposta per questa domanda.';

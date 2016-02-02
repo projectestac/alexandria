@@ -35,7 +35,7 @@ $string['currentstatusnext'] = '次の実行';
 $string['currentstatusnext_help'] = '場合によっては、すでに実行された後でも割り当てが自動的にスケジュールされることがあります。例えば、提出終了日時が延長された場合にこのような処理が発生します。';
 $string['currentstatusreset'] = 'リセット';
 $string['currentstatusreset_help'] = 'このチェックボックスをチェックした上でフォームを保存することで、結果として現在のステータスがリセットされます。上記で有効にされている場合、再度割り当てを実行できるよう前回の実行情報すべてが削除されます。';
-$string['currentstatusresetinfo'] = '実行結果をリセットするには、チェックボックスをチェックした上でフォームを保存してください。';
+$string['currentstatusresetinfo'] = '実行結果をリセットするにはチェックボックスをチェックした上でフォームを保存してください。';
 $string['currentstatusresult'] = '最近の実行結果';
 $string['enablescheduled'] = 'スケジュール割り当てを有効にする';
 $string['enablescheduledinfo'] = '提出フェーズの後、提出を自動的に割り当てる';
@@ -53,7 +53,7 @@ $string['resultvoid'] = '提出が割り当てられませんでした。';
 $string['resultvoiddeadline'] = '提出終了日時 - 未到来';
 $string['resultvoidexecuted'] = '割り当てはすでに実行されています。';
 $string['scheduledallocationsettings'] = 'スケジュール割り当て設定';
-$string['scheduledallocationsettings_help'] = 'この設定を有効にした場合、提出フェーズ後、評価のためにスケジュール割り当てが提出を自動割り当てします。フェーズの終了はワークショップ設定内の「提出終了日時」にて設定することができます。
+$string['scheduledallocationsettings_help'] = 'この設定を有効にした場合、提出フェーズ後、評価のためにスケジュール割り当てが提出を自動割り当てします。フェーズの終了はワークショップ設定内の「提出終了日時」で設定することができます。
 
 内部的には、このフォームで事前に設定された内容をもとにランダム割り当てが実行されます。これは提出フェーズの後に下記の設定をもとに教師自身がランダム割り当てを実行するかのようにスケジュール割り当てが動作することを意味します。
 

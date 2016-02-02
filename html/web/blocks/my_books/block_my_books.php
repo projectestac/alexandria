@@ -13,7 +13,7 @@ class block_my_books extends block_list {
     }
 
     function has_config() {
-        return false;
+        return true;
     }
 
 	/*function applicable_formats() {
@@ -37,7 +37,7 @@ class block_my_books extends block_list {
     	$this->content->items = array();
         $this->content->icons = array();
         $this->content->footer = '';
-        $mybooksconfig = get_config('mybooks');
+        $mybooksconfig = self::get_mybooksconfig();
 
         require_once($CFG->dirroot.'/local/rcommon/locallib.php');
         require_once($CFG->dirroot.'/mod/rcontent/lib.php');
@@ -60,7 +60,7 @@ class block_my_books extends block_list {
 
 		$bt = "";
         $context = context_system::instance(); // pinned blocks do not have own context
-		if (has_capability('local/rcommon:managecredentials', $context)) {
+		if (has_capability('local/rcommon:managecredentials', $context) || has_capability('local/rcommon:editowncredentials', $context)) {
 			$bt = '<a href="' . $CFG->wwwroot . '/local/rcommon/users.php?action=manage" title="' . get_string('manage_button_title', 'block_my_books') . '"><button>' . get_string('manage_button', 'block_my_books') . '</button></a>';
 		}
 		if ($mybooksconfig->addkey) {
@@ -68,6 +68,15 @@ class block_my_books extends block_list {
 		}
 		$this->content->footer = $bt;
     	return $this->content;
+    }
+
+    private static function get_mybooksconfig() {
+        $mybooksconfig = get_config('mybooks');
+        if (!isset($mybooksconfig->viewer_opening)) {
+            $mybooksconfig->viewer_opening = 1;
+            $mybooksconfig->addkey = 1;
+        }
+        return $mybooksconfig;
     }
 
     private function get_item($isbn, $mybooksconfig) {
@@ -102,16 +111,16 @@ class block_my_books extends block_list {
             $add->intro          = 'Auto added from my_books block';
             $add->introformat    = FORMAT_MOODLE;
             $add->whatgrade      = 0;
-            $add->frame      = 0;
+            $add->frame          = 0;
             $add->coursemodule   = 0;
             $add->cmidnumber     = 0;
-            $add->popup    = $mybooksconfig->activity_opening;
-            $add->scrollbars     = $mybooksconfig->scrollbars;
-            $add->menubar        = $mybooksconfig->menubar;
-            $add->toolbar        = $mybooksconfig->toolbar;
-            $add->status         = $mybooksconfig->status;
-            $add->width          = $mybooksconfig->width;
-            $add->height         = $mybooksconfig->height;
+            $add->popup          = 0;
+            $add->scrollbars     = 1;
+            $add->menubar        = 0;
+            $add->toolbar        = 1;
+            $add->status         = 1;
+            $add->width          = 800;
+            $add->height         = 600;
             $add->section        = 2;
             $add->visible        = 1;
             $add->module         = $DB->get_field('modules', 'id', array('name' => 'rcontent'));

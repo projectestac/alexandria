@@ -104,10 +104,10 @@ $string['drop_feedback'] = 'このコースから削除する';
 $string['edit_item'] = '質問を編集する';
 $string['edit_items'] = '質問を編集する ...';
 $string['email_notification'] = '送信通知を有効にする';
-$string['email_notification_help'] = '有効にした場合、フィードバック送信に関して、教師はメール通知されます。';
+$string['email_notification_help'] = 'この設定を有効にした場合、フィードバック送信に関して、教師はメール通知されます。';
 $string['emailteachermail'] = '{$a->username} がフィードバック「 {$a->feedback} 」を完了しました。
 
-下記ページにて内容を閲覧できます:
+あなたは下記ページで内容を閲覧できます:
 
 {$a->url}';
 $string['emailteachermailhtml'] = '<p>{$a->username} がフィードバック「 {$a->feedback} 」を完了しました。</p>
@@ -147,7 +147,7 @@ $string['insufficient_responses'] = '不十分な回答';
 $string['insufficient_responses_for_this_group'] = 'このグループの回答数は、十分ではありません。';
 $string['insufficient_responses_help'] = 'このグループの回答が不足しています。
 
-フィードバックを匿名にするには、最低2つの回答が必要です。';
+フィードバックを匿名にするには最低2つの回答が必要です。';
 $string['item_label'] = 'ラベル';
 $string['item_name'] = '質問';
 $string['label'] = 'ラベル';
@@ -185,7 +185,7 @@ $string['multichoicerated'] = '多肢選択 (評定)';
 $string['multichoicetype'] = '多肢選択タイプ';
 $string['multichoice_values'] = '多肢選択値';
 $string['multiplesubmit'] = '複数回答を許可する';
-$string['multiplesubmit_help'] = '匿名調査に有効にした場合、ユーザは無制限でフィードバックを送信することができます。';
+$string['multiplesubmit_help'] = '匿名調査を有効にした場合、ユーザは無制限でフィードバックを送信することができます。';
 $string['name'] = '名称';
 $string['name_required'] = '名称を入力してください。';
 $string['next_page'] = '次のページ';
@@ -221,7 +221,7 @@ $string['pluginadministration'] = 'フィードバック管理';
 $string['pluginname'] = 'フィードバック';
 $string['position'] = 'ポジション';
 $string['preview'] = 'プレビュー';
-$string['preview_help'] = 'このプレビューにて、あなたは質問の順番を変更することができます。';
+$string['preview_help'] = 'このプレビューであなたは質問の順番を変更することができます。';
 $string['previous_page'] = '前のページ';
 $string['public'] = '公開';
 $string['question'] = '質問';

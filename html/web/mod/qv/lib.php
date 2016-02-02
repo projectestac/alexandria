@@ -230,11 +230,14 @@ function qv_delete_instance($id) {
     }
 
     //Delete files
-	if ($result) {
-		$fs = get_file_storage();
-		$fs->delete_area_files($context->id, 'mod_qv', 'content');
-		$fs->delete_area_files($context->id, 'mod_qv', 'package');
-	}
+    if ($result) {
+        $fs = get_file_storage();
+        $cm = get_coursemodule_from_instance('qv', $id, 0, false, MUST_EXIST);
+        $context = context_module::instance($cm->id);
+        if (!$fs->delete_area_files($context->id) ) {
+            $result = false;
+        }
+    }
 
     $DB->delete_records('event', array('modulename' => 'qv', 'instance' => $qv->id));
 
@@ -762,7 +765,7 @@ function qv_reset_gradebook($courseid) {
 
     $sql = "SELECT q.*, cm.idnumber as cmidnumber, q.course as courseid
               FROM {qv} q, {course_modules} cm, {modules} m
-             WHERE m.name='qv' AND m.id=cm.module AND cm.instance=q.id AND j.course=:courseid ";
+             WHERE m.name='qv' AND m.id=cm.module AND cm.instance=q.id AND q.course=:courseid ";
 
     if ($qvs = $DB->get_records_sql($sql, $params)) {
         foreach ($qvs as $qv) {
@@ -781,10 +784,10 @@ function qv_reset_gradebook($courseid) {
 function qv_reset_userdata($data) {
     global $CFG, $DB;
 
-    $componentstr = get_string('modulenameplural', 'choice');
+    $componentstr = get_string('modulenameplural', 'qv');
     $status = array();
 
-    if (!empty($data->reset_qv_deleteallsessions)) {
+    if (!empty($data->reset_qv_deleteallattempts)) {
 		$activities = $DB->get_fieldset_select('qv','id','course = :courseid',array('courseid'=>$data->courseid));
 		foreach($activities as $qvid){
 			qv_delete_instance_userdata($qvid);
@@ -795,7 +798,7 @@ function qv_reset_userdata($data) {
             qv_reset_gradebook($data->courseid);
         }
 
-        $status[] = array('component'=>$componentstr, 'item'=>get_string('deleteallsessions', 'qv'), 'error'=>false);
+        $status[] = array('component'=>$componentstr, 'item'=>get_string('deleteallattempts', 'qv'), 'error'=>false);
     }
 
    return $status;
@@ -822,7 +825,7 @@ function qv_delete_instance_userdata($qvid){
  */
 function qv_reset_course_form_definition(&$mform) {
     $mform->addElement('header', 'qvheader', get_string('modulenameplural', 'qv'));
-    $mform->addElement('checkbox', 'reset_qv_deleteallsessions', get_string('deleteallsessions', 'qv'));
+    $mform->addElement('checkbox', 'reset_qv_deleteallattempts', get_string('deleteallattempts', 'qv'));
 
 }
 
@@ -830,5 +833,5 @@ function qv_reset_course_form_definition(&$mform) {
  * Course reset form defaults.
  */
 function qv_reset_course_form_defaults($course) {
-    return array('reset_qv_deleteallsessions' => 1);
+    return array('reset_qv_deleteallattempts' => 1);
 }
