@@ -353,11 +353,11 @@ class data_field_file extends data_field_base {
         if (count($files) == 0) {
             $content->content = null;
         } else {
-            $content->content = array_values($files)[0]->get_filename();
+            $file = array_values($files)[0];
+            $content->content = $file->get_filename();
 
             if ($this->field->param4 == ALEXANDRIA_SCORM) {
-                $content->content = null;
-                $filename = $content->content;
+                $filename = explode('.', $content->content);
                 $extension = array_pop($filename);
                 $filename = implode('.',$filename).'_scorm.'.$extension;
                 $scorm_object->name = $filename;
@@ -370,7 +370,7 @@ class data_field_file extends data_field_base {
                         'filepath' => '/',
                         'filename' => $filename,
                 );
-                $fs->create_file_from_storedfile($file_record, $draftfile);
+                $fs->create_file_from_storedfile($file_record, $file);
             }
 
             if (count($files) > 1) {
@@ -408,50 +408,51 @@ class data_field_file extends data_field_base {
         //XTEC - ALEXANDRIA ************ AFEGIT - If it's a backup, restore the course
         //2013.11.05 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
         if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
-            $file = array_values($files)[0];
-            if(empty($file)) {
+            if (empty($file)) {
                 $this->delete_content($recordid);
                 $DB->delete_records('data_records', array('id' => $recordid));
-                throw new Exception(get_string('recordmissingfield','local_alexandria',$CFG->data_filefieldid));
+                throw new Exception(get_string('recordmissingfield', 'local_alexandria', $CFG->data_filefieldid));
             }
-            if(!get_data_field_by_name($CFG->data_categoryfieldid,$recordid)) {
+            if (!get_data_field_by_name($CFG->data_categoryfieldid, $recordid)) {
                 $this->delete_content($recordid);
                 $DB->delete_records('data_records', array('id' => $recordid));
-                throw new Exception(get_string('recordmissingfield','local_alexandria',$CFG->data_categoryfieldid));
+                throw new Exception(get_string('recordmissingfield', 'local_alexandria', $CFG->data_categoryfieldid));
             }
             require_once($CFG->dirroot . '/backup/util/includes/restore_includes.php' );
-            $coursefieldid = $DB->get_field('data_fields','id',array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
+            $coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
             $fieldcontent = $DB->get_record('data_content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
             if (!$fieldcontent) {
                 $fieldcontent = new stdClass();
                 $fieldcontent->fieldid = $coursefieldid;
                 $fieldcontent->recordid = $recordid;
-                $fieldcontent->id = $DB->insert_record('data_content',$fieldcontent);
+                $fieldcontent->id = $DB->insert_record('data_content', $fieldcontent);
             }
-            $approved = $DB->get_field('data_records','approved',array('id' => $recordid));
-            if (!$fieldcontent->content || !$course = $DB->get_record('course',array('id' => $fieldcontent->content))) {
-                //Restore de course
+            $approved = $DB->get_field('data_records', 'approved', array('id' => $recordid));
+            if (!$fieldcontent->content || !$course = $DB->get_record('course', array('id' => $fieldcontent->content))) {
+                // Restore de course
                 $courseid = alexandria_restore_course($file, $recordid);
-                if(!$courseid) throw new Exception(get_string('error_restoringcourse','local_alexandria'));
+                if (!$courseid) {
+                    throw new Exception(get_string('error_restoringcourse', 'local_alexandria'));
+                }
                 $fieldcontent->content = $courseid;
                 $fieldcontent->content3 = time();
-                $DB->update_record('data_content',$fieldcontent);
-                override_course_values($courseid,$recordid);
+                $DB->update_record('data_content', $fieldcontent);
+                override_course_values($courseid, $recordid);
                 require_once($CFG->dirroot.'/enrol/manual/externallib.php');
                 $enrol = enrol_get_plugin('manual');
-                $instance = $DB->get_record('enrol',array('courseid' => $courseid, 'enrol' => 'manual'));
-                $roleid = $DB->get_field('role','id',array('shortname' => 'editingteacher'));
+                $instance = $DB->get_record('enrol', array('courseid' => $courseid, 'enrol' => 'manual'));
+                $roleid = $DB->get_field('role', 'id', array('shortname' => 'editingteacher'));
                 $enrol->enrol_user($instance, $USER->id, $roleid, time(), 0, ENROL_USER_ACTIVE);
-                if($guestenrol = $DB->get_record('enrol',array('enrol' => 'guest','courseid' => $courseid))){
+                if ($guestenrol = $DB->get_record('enrol', array('enrol' => 'guest', 'courseid' => $courseid))) {
                     // Forbid guest to access the course until it's approved
                     $guestenrol->status = $approved ? 0 : 1;
-                    $DB->update_record('enrol',$guestenrol);
+                    $DB->update_record('enrol', $guestenrol);
                 }
 
                 // Start doing the backup (approved or not)
                 alexandria_backup_course($courseid);
             }
-       }
+        }
        //*************** FI
     }
 
@@ -494,8 +495,7 @@ class data_field_file extends data_field_base {
             $cmid = $DB->get_field('course_modules', 'id', array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
             scorm_delete_instance($scorm_id);
             delete_course_module($cmid);
-        }
-        if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
+        } else if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
             $coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
             $courseid = $DB->get_field('data_content', 'content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
             if (!empty($courseid)) {
