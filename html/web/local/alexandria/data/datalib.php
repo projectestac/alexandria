@@ -326,6 +326,8 @@ function alexandria_get_basepath($backupid = false) {
 function alexandria_get_course_category ($recordid) {
 	global $CFG, $DB;
 
+    require_once($CFG->dirroot.'/lib/coursecatlib.php');
+
 	$cat = explode('-', get_data_field_by_name($CFG->data_categoryfieldid, $recordid));
 	$category = $DB->get_record('course_categories', array('name' => $cat[1]));
 	if (!$category) {
