@@ -11,6 +11,8 @@ commit=`git rev-parse HEAD`
 echo Commit $commit
 find . -name '\.git*' -exec rm -rf {} \;
 rm CHANGES.txt
+rm settings.php
+rm site-config.php
 popd
 
 git checkout AGORA_BASE
