@@ -89,12 +89,12 @@ if (!isset($sco)) {
     $sco = current($scoes);
 }
 
-if ($sco->scormtype == 'asset') {
+/*if ($sco->scormtype == 'asset') {
     $attempt = scorm_get_last_attempt($scorm->id, $USER->id);
     $element = (scorm_version_check($scorm->version, SCORM_13)) ? 'cmi.completion_status' : 'cmi.core.lesson_status';
     $value = 'completed';
     $result = scorm_insert_track($USER->id, $scorm->id, $sco->id, $attempt, $element, $value);
-}
+}*/
 
 // Forge SCO URL.
 $connector = '';
@@ -112,7 +112,7 @@ if ((isset($sco->parameters) && (!empty($sco->parameters))) || ($version == 'AIC
 
 if ($version == 'AICC') {
     require_once("$CFG->dirroot/mod/scorm/datamodels/aicclib.php");
-    $aiccsid = scorm_aicc_get_hacp_session($scorm->id);
+    //$aiccsid = scorm_aicc_get_hacp_session($scorm->id);
     if (empty($aiccsid)) {
         $aiccsid = sesskey();
     }
