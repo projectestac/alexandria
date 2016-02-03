@@ -14,7 +14,7 @@ $CFG->dboptions = array (
   'dbpersist' => 0,
   'dbsocket' => '',
 );
-$CFG->wwwroot   = 'http://agora/alexandria';
+$CFG->wwwroot   = 'http://agora-virtual.xtec.cat/alexandria';
 $CFG->dataroot  = '/dades/alexandria/docs';
 $CFG->admin     = 'admin';
 
