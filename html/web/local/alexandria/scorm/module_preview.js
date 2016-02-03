@@ -809,10 +809,12 @@ M.mod_scorm.connectPrereqCallback = {
             el_new_tree.innerHTML = o.responseText;
             // Make sure it does not show.
             el_new_tree.style.display = 'none';
-            pagecontent.appendChild(el_new_tree);
+
             // Ignore the first level element as this is the title.
             var startNode = el_new_tree.firstChild.firstChild;
             if (startNode.tagName == 'LI') {
+                // XTEC avoid redirects
+                pagecontent.appendChild(el_new_tree);
                 // Go back to the beginning.
                 startNode = el_new_tree;
             }
