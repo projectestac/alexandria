@@ -1,7 +1,22 @@
 Release notes for Alexandria (http://alexandria.xtec.cat)
 
-More information on each of the fixes can be found in the project 
-development home at https://projectes.lafarga.cat/projects/alexandria/
+More information on each of the fixes can be found in the project
+development home at https://github.com/projectestac/alexandria/
+
+** All Changes from Àgora Moodle can be found at: https://github.com/projectestac/agora_moodle2/blob/master/CHANGES.txt **
+
+Changes 16.02.08
+---------------------------------------------------------------------------------------
+- Upgrade to Moodle 2.8.10 and adapted changes
+- Moved memcache server setting to config.php
+- Preview scorms in a new window
+- Format about course block
+- Backup now button
+- Add apligestenv to config
+- Delete old 1.9 course fields
+- Change APC monitor by Opcache
+- Added Testlib
+- Updated Mailer and added FMO wsdls
 
 Changes 15.02.11
 ---------------------------------------------------------------------------------------
@@ -111,7 +126,7 @@ Changes 11.03.16
 ---------------------------------------------------------------------------------------
 - Applied patch to make htmleditor works in chrome
 - Solved error in download counter for resources with "'" in its name
-- Added PDF viewer for PDI materials 
+- Added PDF viewer for PDI materials
 
 
 Changes 11.02.23
@@ -174,7 +189,7 @@ Changes 10.05.05
 Changes 10.04.29
 ---------------------------------------------------------------------------------------
 - Auto-fill-in LDAP information for user registration (name, surname and email).
-- Added a downloads counter for all databases (not only for courses). 
+- Added a downloads counter for all databases (not only for courses).
 - Implemented the ##downloads## tag to show this information in the course metainformation page. For the other databases the information appears automaticaly.
 
 
