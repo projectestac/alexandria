@@ -8,6 +8,7 @@ class script_alexandria_backup_course extends agora_script_base{
 	public $info = "Backup a course as is done in scheduled backups";
 	public $cron = false;
 	protected $test = false;
+	protected $category = "Alexandria";
 
 
 	public function params() {
