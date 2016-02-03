@@ -8,6 +8,7 @@ class script_alexandria_upgrade_scorms extends agora_script_base {
 	public $info = "Change course for scorms in database";
 	public $cron = true;
 	protected $test = true;
+	protected $category = "Alexandria";
 
 	protected function _execute($params = array(), $execute = true) {
 		global $CFG, $DB;
