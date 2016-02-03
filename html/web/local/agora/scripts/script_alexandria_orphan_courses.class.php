@@ -8,6 +8,7 @@ class script_alexandria_orphan_courses extends agora_script_base{
 	public $info = "Get the list of courses that are not related to database activity";
 	public $cron = false;
 	protected $test = false;
+	protected $category = "Alexandria";
 
 	protected function _execute($params = array(), $execute = true) {
 		global $DB, $CFG;
