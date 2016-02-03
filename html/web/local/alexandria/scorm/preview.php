@@ -28,6 +28,11 @@ $currentorg = ''; // selected organization
 $newattempt = 'off'; // the user request to start a new attempt.
 $displaymode = 'popup';
 
+$guest = $DB->get_record('user', array('username'=>'guest'));
+if (!$USER) {
+    $USER = $guest;
+}
+
 if (!empty($a)) {
     if (! $scorm = $DB->get_record("scorm", array("id" => $a))) {
         print_error('invalidcoursemodule');
@@ -52,7 +57,8 @@ if (!empty($currentorg)) {
 */
 
 // If new attempt is being triggered set normal mode and increment attempt number.
-$attempt = scorm_get_last_attempt($scorm->id, $USER->id);
+//$attempt = scorm_get_last_attempt($scorm->id, $USER->id);
+$attempt = 1;
 
 // Check mode is correct and set/validate mode/attempt/newattempt (uses pass by reference).
 scorm_check_mode($scorm, $newattempt, $attempt, $USER->id, $mode);
@@ -199,7 +205,7 @@ echo html_writer::start_div('', array('id' => 'tocbox'));
 echo html_writer::div(html_writer::tag('script', '', array('id' => 'external-scormapi', 'type' => 'text/JavaScript')), '',
                         array('id' => 'scormapi-parent'));
 
-if ($scorm->hidetoc == SCORM_TOC_POPUP or $mode == 'browse' or $mode == 'review') {
+/*if ($scorm->hidetoc == SCORM_TOC_POPUP or $mode == 'browse' or $mode == 'review') {
     echo html_writer::start_div('', array('id' => 'scormtop'));
     echo $mode == 'browse' ? html_writer::div(get_string('browsemode', 'scorm'), 'scorm-left', array('id' => 'scormmode')) : '';
     echo $mode == 'review' ? html_writer::div(get_string('reviewmode', 'scorm'), 'scorm-left', array('id' => 'scormmode')) : '';
@@ -207,24 +213,24 @@ if ($scorm->hidetoc == SCORM_TOC_POPUP or $mode == 'browse' or $mode == 'review'
         echo html_writer::div($result->tocmenu, 'scorm-right', array('id' => 'scormnav'));
     }
     echo html_writer::end_div();
-}
+}*/
 
 echo html_writer::start_div('', array('id' => 'toctree'));
 
-if (empty($scorm->popup) || $displaymode == 'popup') {
+//if (empty($scorm->popup) || $displaymode == 'popup') {
     echo $result->toc;
-} else {
+/*} else {
     // Added incase javascript popups are blocked we don't provide a direct link
     // to the pop-up as JS communication can fail - the user must disable their pop-up blocker.
     $linkcourse = html_writer::link($CFG->wwwroot.'/course/view.php?id='.
                     $scorm->course, get_string('finishscormlinkname', 'scorm'));
     echo $OUTPUT->box(get_string('finishscorm', 'scorm', $linkcourse), 'generalbox', 'altfinishlink');
-}
+}*/
 echo html_writer::end_div(); // Toc tree ends.
 echo html_writer::end_div(); // Toc box ends.
 echo html_writer::tag('noscript', html_writer::div(get_string('noscriptnoscorm', 'scorm'), '', array('id' => 'noscript')));
 
-if ($result->prerequisites) {
+/*if ($result->prerequisites) {
     if ($scorm->popup != 0 && $displaymode !== 'popup') {
         // Clean the name for the window as IE is fussy.
         $name = preg_replace("/[^A-Za-z0-9]/", "", $scorm->name);
@@ -238,14 +244,12 @@ if ($result->prerequisites) {
             js_writer::function_call('scorm_openpopup', Array($url->out(false),
                                                        $name, $scorm->options,
                                                        $scorm->width, $scorm->height)));
-/*        echo html_writer::tag('noscript', html_writer::tag('iframe', '', array('id' => 'main',
-                                'class' => 'scoframe', 'name' => 'main', 'src' => 'loadSCO.php?id='.$cm->id.$scoidstr.$modestr)));*/
         echo html_writer::tag('noscript', html_writer::tag('iframe', '', array('id' => 'main',
-                                'class' => 'scoframe', 'name' => 'main', 'src' => 'loadSCO_preview.php?id='.$cm->id.$scoidstr.$modestr)));
+                                'class' => 'scoframe', 'name' => 'main', 'src' => 'loadSCO.php?id='.$cm->id.$scoidstr.$modestr)));
     }
 } else {
     echo $OUTPUT->box(get_string('noprerequisites', 'scorm'));
-}
+}*/
 echo html_writer::end_div(); // Scorm page ends.
 
 $scoes = scorm_get_toc_object($USER, $scorm, $currentorg, $sco->id, $mode, $attempt);
@@ -257,7 +261,7 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
     }
     $jsmodule = array(
         'name' => 'mod_scorm',
-        'fullpath' => '/mod/scorm/module.js',
+        'fullpath' => '/local/alexandria/scorm/module_preview.js',
         'requires' => array('json'),
     );
     $scorm->nav = intval($scorm->nav);
@@ -275,10 +279,10 @@ if (file_exists($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'.php')) 
 }
 
 // Add the checknet system to keep checking for a connection.
-$PAGE->requires->string_for_js('networkdropped', 'mod_scorm');
+/*$PAGE->requires->string_for_js('networkdropped', 'mod_scorm');
 $PAGE->requires->yui_module('moodle-core-checknet', 'M.core.checknet.init', array(array(
     'message' => array('networkdropped', 'mod_scorm'),
-)));
+)));*/
 echo $OUTPUT->footer();
 
 /*
