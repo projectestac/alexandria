@@ -8,6 +8,7 @@ class script_alexandria_change_motor extends agora_script_base{
 	public $info = "Convert all tables in DB from MyISAM to INNODB";
 	public $cron = false;
 	protected $test = true;
+	protected $category = "Alexandria";
 
 	protected function _execute($params = array(), $execute = true) {
 		global $CFG, $DB, $OUTPUT;
@@ -48,5 +49,10 @@ class script_alexandria_change_motor extends agora_script_base{
 		}
 
 		return !$error;
+	}
+
+	function is_visible() {
+		global $DB;
+		return $DB->get_dbfamily() == 'mysql';
 	}
 }
