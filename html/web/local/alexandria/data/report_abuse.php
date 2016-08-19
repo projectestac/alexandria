@@ -41,7 +41,8 @@ $PAGE->set_url($CFG->wwwroot.'/mod/data/report_abuse.php?record'.(!empty($record
 $PAGE->set_title($title);
 $PAGE->set_heading($title);
 
-$navigation = build_navigation($recordtitle, $cm);
+$PAGE->navbar->add($recordtitle, $CFG->wwwroot."/mod/data/view.php?d=".$record->dataid."&rid=".$rid, null, navigation_node::TYPE_CUSTOM, null);
+$PAGE->navbar->add($title, null, null, navigation_node::TYPE_CUSTOM, null);
 echo $OUTPUT->header();
 
 echo $OUTPUT->heading($title);

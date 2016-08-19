@@ -234,7 +234,7 @@ function alexandria_restore_course($file, $recordid) {
 	if (!check_dir_exists($basepath, true, true)) {
 		throw new moodle_exception('tempnotfound', 'moodle', $basepath);
 	}
-	if (!$file->extract_to_pathname(get_file_packer(), $basepath)) {
+	if (!$file->extract_to_pathname(get_file_packer('application/vnd.moodle.backup'), $basepath)) {
 		throw new moodle_exception('errorunzip');
 	}
 
