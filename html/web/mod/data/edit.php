@@ -166,23 +166,6 @@ $fieldnotifications = array();
 
 // Process the submitted form.
 if ($datarecord = data_submitted() and confirm_sesskey()) {
-    //XTEC - ALEXANDRIA ************ AFEGIT - We order the registers so the backup file is processed last, this way we'll have in database all the values needed to fill the course
-    //2013.11.06 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
-    $datavalues = array();
-    foreach($datarecord as $key => $value) {
-		$record = new stdClass();
-		$record->name = $key;
-		$record->value = $value;
-		$datavalues[] = $record;
-    }
-    usort($datavalues,'sort_datarecord_files_last');
-
-    $datarecord = new stdClass();
-    foreach($datavalues as $record) {
-		$name = $record->name;
-		$datarecord->$name = $record->value;
-    }
-    // ********* FI
     if ($rid) {
         // Updating an existing record.
 

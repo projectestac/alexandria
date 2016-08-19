@@ -9,6 +9,7 @@
  */
 
 include_once("$CFG->dirroot/blocks/about_course/lib.php");
+include_once("$CFG->dirroot/local/alexandria/data/datalib.php");
 
 class block_about_course extends block_base {
 
