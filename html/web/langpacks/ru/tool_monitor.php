@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_monitor', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'tool_monitor', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   tool_monitor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -49,9 +49,9 @@ $string['eventnotfound'] = 'Событие не найдено';
 $string['eventrulecreated'] = 'Правило создано';
 $string['eventruledeleted'] = 'Правило удалено';
 $string['eventruleupdated'] = 'Правило обновлено';
-$string['eventsubcreated'] = 'Создана подписка';
+$string['eventsubcreated'] = 'Подписка создана';
 $string['eventsubcriteriamet'] = 'Возникла ситуация, на уведомление о которой осуществлена подписка';
-$string['eventsubdeleted'] = 'Удалена подписка на уведомление о срабатывании правила';
+$string['eventsubdeleted'] = 'Подписка на уведомление о срабатывании правила удалена';
 $string['freqdesc'] = '{$a->freq} раз за {$a->mins} мин.';
 $string['frequency'] = 'Минимальное количество срабатываний';
 $string['frequency_help'] = 'Количество событий в течение определенного периода времени, необходимое для отправки сообщения с уведомлением.';
@@ -77,7 +77,6 @@ $string['monitorenabled'] = 'Мониторинг событий в настоя
 $string['monitor:managerules'] = 'Управлять правилами отслеживания событий';
 $string['monitor:managetool'] = 'Включать/отключать отслеживание событий';
 $string['monitor:subscribe'] = 'Подписываться на уведомления о срабатывании правил';
-$string['nopermission'] = 'Нет разрешения';
 $string['norules'] = 'Нет правил для мониторинга событий.';
 $string['pluginname'] = 'Отслеживание событий';
 $string['processevents'] = 'Обработать события';
@@ -88,6 +87,7 @@ $string['ruledeletesuccess'] = 'Правило удалено';
 $string['rulehelp'] = 'Информация о правиле';
 $string['rulehelp_help'] = 'Это правило срабатывает, когда в компоненте «{$a->eventcomponent}» событие «{$a->eventname}» происходит {$a->frequency} раз(а) за {$a->minutes} мин.';
 $string['rulename'] = 'Название правила';
+$string['rulenopermission'] = 'Вы не имеете права подписываться на какие-либо события.';
 $string['rulenopermissions'] = 'У Вас нет прав осуществлять действие «{$a}» над правилом';
 $string['rulescansubscribe'] = 'Правила, на уведомление о срабатывании которых Вы можете подписаться';
 $string['selectacourse'] = 'Выберите курс';

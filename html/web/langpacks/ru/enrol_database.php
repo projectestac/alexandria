@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_database', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol_database', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   enrol_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['database:config'] = 'Настроить запись из внешней базы данных';
+$string['database:config'] = 'Настраивать экземпляры способа записи на курс «Внешняя база данных»';
 $string['database:unenrol'] = 'Отчислять приостановленных пользователей';
 $string['dbencoding'] = 'Кодировка базы данных';
 $string['dbhost'] = 'Сервер базы данных';

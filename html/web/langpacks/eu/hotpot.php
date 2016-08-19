@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'eu', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'eu', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -236,7 +236,6 @@ $string['pluginname'] = 'HotPot modulua';
 $string['pressoktocontinue'] = 'Sakatu OK aurrera egiteko, edo UTZI orri honetan jarraitzeko.';
 $string['questionshort'] = 'Q-{$a}';
 $string['quizzes'] = 'Galdetegiak';
-$string['removegradeitem'] = 'Ezabatu kalifikazio-elementua';
 $string['responses'] = 'Erantzunak';
 $string['responsesreport'] = 'Erantzunak';
 $string['reviewafterattempt'] = 'Baimendu berrikusketa saiakeraren ondoren';

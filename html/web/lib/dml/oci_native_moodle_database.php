@@ -353,7 +353,11 @@ class oci_native_moodle_database extends moodle_database {
         if ($stmt == false) {
             // XTEC AFEGIT: Add more information to parse_query error (TO REPORT)
             // @pferre22 2015.10.01
-            throw new dml_connection_exception('Can not parse sql query: '.$this->get_last_error()); //TODO: maybe add better info
+            $error = $this->get_last_error();
+            $error = $error ? '" Error description:( '.$this->get_last_error() .')' : "";
+            throw new dml_exception('dbdriverproblem','Can not parse sql query: "'.$sql. $error); //TODO: maybe add better info
+            // ORIGINAL
+            //throw new dml_connection_exception('Can not parse sql query'); //TODO: maybe add better info
             // FI XTEC
         }
         return $stmt;
@@ -494,10 +498,14 @@ class oci_native_moodle_database extends moodle_database {
     public function get_columns($table, $usecache=true) {
 
         if ($usecache) {
-            $properties = array('dbfamily' => $this->get_dbfamily(), 'settings' => $this->get_settings_hash());
-            $cache = cache::make('core', 'databasemeta', $properties);
-            if ($data = $cache->get($table)) {
-                return $data;
+            if ($this->temptables->is_temptable($table)) {
+                if ($data = $this->get_temp_tables_cache()->get($table)) {
+                    return $data;
+                }
+            } else {
+                if ($data = $this->get_metacache()->get($table)) {
+                    return $data;
+                }
             }
         }
 
@@ -688,7 +696,11 @@ class oci_native_moodle_database extends moodle_database {
         }
 
         if ($usecache) {
-            $cache->set($table, $structure);
+            if ($this->temptables->is_temptable($table)) {
+                $this->get_temp_tables_cache()->set($table, $structure);
+            } else {
+                $this->get_metacache()->set($table, $structure);
+            }
         }
 
         return $structure;
@@ -913,10 +925,11 @@ class oci_native_moodle_database extends moodle_database {
     /**
      * Do NOT use in code, to be used by database_manager only!
      * @param string|array $sql query
+     * @param array|null $tablenames an array of xmldb table names affected by this request.
      * @return bool true
      * @throws ddl_change_structure_exception A DDL specific exception is thrown for any errors.
      */
-    public function change_database_structure($sql) {
+    public function change_database_structure($sql, $tablenames = null) {
         $this->get_manager(); // Includes DDL exceptions classes ;-)
         $sqls = (array)$sql;
 
@@ -929,11 +942,11 @@ class oci_native_moodle_database extends moodle_database {
                 oci_free_statement($stmt);
             }
         } catch (ddl_change_structure_exception $e) {
-            $this->reset_caches();
+            $this->reset_caches($tablenames);
             throw $e;
         }
 
-        $this->reset_caches();
+        $this->reset_caches($tablenames);
         return true;
     }
 

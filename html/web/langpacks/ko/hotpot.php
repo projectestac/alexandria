@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'ko', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'ko', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -271,12 +271,6 @@ $string['pressoktocontinue'] = '계속하려면 OK를 클릭하고, 현재의 �
 $string['questionshort'] = 'Q-{$a}';
 $string['quizname_help'] = '퀴즈 이름에 대한 도움말';
 $string['quizzes'] = '퀴즈';
-$string['removegradeitem'] = '성적 항목 제거';
-$string['removegradeitem_help'] = '이 활동에 대한 채점 항목을 제거할까요?
-
-**아니오** :무들 성적부에서 이 활동에 대한 채점 항목은 제거되지 않을 것입니다.
-
-**예** : 만일 이 HotPot에 대한 최대 성적 혹은 성적 가중치가 0으로 설정되면 무들 성적부에서 이 활동에 대한 채점 항목은 제거될 것입니다.';
 $string['responsesreport'] = '응답';
 $string['score'] = '점수';
 $string['scoresreport'] = '점수';

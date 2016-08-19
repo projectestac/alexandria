@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_accumulative', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'workshopform_accumulative', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   workshopform_accumulative
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,8 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['correct'] = 'صحيح';
 $string['dimensionmaxgrade'] = 'افضل درجة محتملة  / المقياس الممكن أستخدام';
 $string['dimensionnumber'] = 'اوجه الدولار  {$a}';
+$string['incorrect'] = 'خطأ';
 $string['mustchoosegrade'] = 'يجب انتقاء درجة لهذا الوجه';
 $string['pluginname'] = 'التدرج   التراكمي';
 $string['poor'] = 'ضعيف';

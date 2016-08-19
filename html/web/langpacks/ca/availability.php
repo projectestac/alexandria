@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'availability', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   availability
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,7 +30,7 @@ $string['addrestriction'] = 'Afegeix una restricció ...';
 $string['and'] = 'i';
 $string['condition_group'] = 'Conjunt de restriccions';
 $string['condition_group_info'] = 'Afegeix un conjunt de restriccions imbricades per a aplicar la lògica complexa';
-$string['enableavailability'] = 'Habilita l\'accés condicional';
+$string['enableavailability'] = 'Habilita l\'accés restringit';
 $string['enableavailability_desc'] = 'Si s\'activa, això us permet establir les condicions que controlen si es pot accedir a una activitat o un recurs  (segons la data, la qualificació o la compleció).';
 $string['error_list_nochildren'] = 'Els conjunts de restriccions haurien de contenir almenys una condició.';
 $string['hidden_all'] = 'Completament ocult si l\'usuari no compleix les condicions.';
@@ -62,6 +62,7 @@ $string['manageplugins'] = 'Gestiona les restriccions';
 $string['missingplugin'] = 'No es troba el connector de restriccions';
 $string['or'] = 'o';
 $string['restrictaccess'] = 'Restriccions d\'accés';
+$string['restrictbygroup'] = 'Afegeix una restricció d\'accés al grup / a l\'agrupament';
 $string['setheading'] = '{$a->number} conjunt de {$a->count} restriccions';
 $string['shown_all'] = 'Es mostra en gris si l\'usuari no compleix les condicions';
 $string['shown_individual'] = 'Es mostra en gris si l\'usuari no compleix la condició';

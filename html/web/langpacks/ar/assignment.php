@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignment', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'assignment', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   assignment
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['assignment:addinstance'] = 'أضف مهمة جديدة';
 $string['assignment:exportownsubmission'] = 'صدر تسليمك الخاص بك';
 $string['assignment:exportsubmission'] = 'صدر تسليم';
 $string['assignment:grade'] = 'وضع درجة على المهمة';
@@ -38,5 +39,8 @@ $string['modulename_help'] = '<p><img alt=""  src="<?php echo $CFG->wwwroot?>/mo
 نماذج الواجبات تضمن المقالات، المشاريع التعليمية، التقارير، إلخ. هذه الوحده
 تحتوي على إمكانيات تصحيح الواجبات وإعطائها الدرجات المستحقة.</b></p>';
 $string['modulenameplural'] = 'مهام';
+$string['page-mod-assignment-submissions'] = 'صفحة تقديم لوحدة المهمة';
+$string['page-mod-assignment-view'] = 'الصفحة الأساسية لوحدة المهمة';
+$string['page-mod-assignment-x'] = 'أي صفحة لوحدة المهمة';
 $string['pluginadministration'] = 'إدارة المهمات';
 $string['pluginname'] = 'وظائف (2.2)';

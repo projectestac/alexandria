@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_rss_client', language 'es', branch 'MOODLE_28_STABLE'
+ * Strings for component 'block_rss_client', language 'es', branch 'MOODLE_31_STABLE'
  *
  * @package   block_rss_client
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,6 @@ $string['editnewsfeeds'] = 'Editar canales de noticias';
 $string['editrssblock'] = 'Editar bloque de cabecera RSS';
 $string['enableautodiscovery'] = '¿Habilitar auto-descubrimiento de canales?';
 $string['enableautodiscovery_help'] = 'Si se activa, se encontrarán automáticamente los canales en páginas web. Por ejemplo, si se introduce http://docs.moodle.org, se encontrará http://docs.moodle.org/en/index.php?title=Special:RecentChanges&feed=rss.';
-$string['errorloadingfeed'] = 'Error al cargar este canal RSS ({$a})';
 $string['feed'] = 'Canal';
 $string['feedadded'] = 'Añadido canal de noticias';
 $string['feeddeleted'] = 'Eliminado canal de noticias';
@@ -76,7 +75,7 @@ $string['sharedfeed'] = 'Canal compartido';
 $string['shownumentrieslabel'] = 'Número máximo de entradas a mostrar por bloque.';
 $string['submitters'] = '¿Quién puede definir canales RSS de noticias? Los canales definidos estarán disponibles en cualquier página de su sitio.';
 $string['submitters2'] = 'Remitentes';
-$string['timeout'] = 'Tiempo en minutos antes de que un canal RSS expire. Sepa que este tiempo define el intervalo mínimo de tiempo antes de expirar; el canal se refrescará en la siguiente ejecución del cron. Valores recomendados son 30 minutos o mayores.';
+$string['timeout'] = 'Tiempo en minutos de validez de un canal RSS en caché. Este tiempo define el intervalo en el que un canal RSS permanece sin ser actualizado. El canal se refresca en la siguiente ejecución del cron si este tiempo ha pasado desde la última ejecución. El valor recomendado es 30 minutos o más.';
 $string['timeout2'] = 'Tiempo de espera';
 $string['timeoutdesc'] = 'Tiempo de permanencia de un canal de noticias en el caché (en minutos)';
 $string['updatefeed'] = 'Actualizar una URL de canal de noticias:';

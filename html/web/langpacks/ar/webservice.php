@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'webservice', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   webservice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['createuser'] = 'إنشاء مستخدم محدد';
 $string['key'] = 'المعرف';
 $string['operation'] = 'عملية';
 $string['securitykeys'] = 'مفاتيح الأمان';

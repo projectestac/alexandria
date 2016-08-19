@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'zh_cn', branch 'MOODLE_28_STABLE'
+ * Strings for component 'scorm', language 'zh_cn', branch 'MOODLE_31_STABLE'
  *
  * @package   scorm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -58,6 +58,8 @@ $string['browserepository'] = '浏览仓库';
 $string['cannotfindsco'] = '找不到 SCO';
 $string['chooseapacket'] = '选择或更新一个包';
 $string['completed'] = '已完成';
+$string['completionscorerequired_help'] = '启用这个设置，将会要求用户至少有一个最低分数，才可在这一SCORM活动中标示为完成，如同任何其他活动的完成要求。';
+$string['completionstatusrequired_help'] = '若你勾选一个或多个状态，将会要求用户至少完成一个被勾选的状态，才能标示为完成这个SCORM活动，就如同其他活动完成的要求。';
 $string['confirmloosetracks'] = '警告：课件包已更新。如果该课件包的结构发生了变化，则用户的学习记录可能会在更新时丢失。';
 $string['contents'] = '内容';
 $string['coursepacket'] = '课程包';
@@ -203,7 +205,7 @@ $string['package'] = '包文件';
 $string['packagedir'] = '文件系统错误：无法创建包目录';
 $string['packagefile'] = '未指定包文件';
 $string['package_help'] = '包文件是一个包含了 SCORM/AICC 课程定义的 zip 或 pif 文件。';
-$string['packageurl'] = 'URL';
+$string['packageurl'] = '网页地址';
 $string['packageurl_help'] = '通过此设置可以提供指定 SCORM 课件的 URL，而不是选择一个文件。';
 $string['page-mod-scorm-x'] = '任意 SCORM 模块页面';
 $string['pagesize'] = '页面大小';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'chat', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,7 +38,7 @@ $string['chat:exportparticipatedsession'] = 'Экспортировать сес
 $string['chat:exportsession'] = 'Экспортировать любые сессии чатов';
 $string['chatintro'] = 'Вступление';
 $string['chatname'] = 'Название чата';
-$string['chat:readlog'] = 'Читать журнал сообщений чата';
+$string['chat:readlog'] = 'Просматривать журнал сообщений чата';
 $string['chatreport'] = 'Сессии чата';
 $string['chat:talk'] = 'Высказываться в чате';
 $string['chattime'] = 'Следующее время чата';
@@ -65,7 +65,7 @@ $string['enterchat'] = 'Войти в чат';
 $string['entermessage'] = 'Введите свое сообщение';
 $string['errornousers'] = 'Нет ни одного пользователя!';
 $string['eventmessagesent'] = 'Отправлено сообщение';
-$string['eventsessionsviewed'] = 'Просмотрена сессия';
+$string['eventsessionsviewed'] = 'Сессии просмотрены';
 $string['explaingeneralconfig'] = 'Эти параметры используются <strong>всегда</strong>';
 $string['explainmethoddaemon'] = 'Эти параметры используются <strong>только</strong> если выбран «Режим чат-сервера»';
 $string['explainmethodnormal'] = 'Эти параметры используются <strong>только</strong> если выбран «Обычный режим»';
@@ -126,6 +126,7 @@ $string['repeattimes'] = 'Повторять сеансы';
 $string['repeatweekly'] = 'В это же время каждую неделю';
 $string['saidto'] = 'сказано';
 $string['savemessages'] = 'Количество запоминаемых сообщений';
+$string['search:activity'] = 'Чат — информация об элементе курса';
 $string['seesession'] = 'Посмотреть сессию';
 $string['send'] = 'Отправить';
 $string['sending'] = 'Отправка';

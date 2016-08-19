@@ -9,6 +9,66 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		$this->variables = null;
 		$this->checks = null;
 	}}
+	public function concatenate($a, $e) {
+		$b = new _hx_array(array());
+		$i = null;
+		{
+			$_g1 = 0; $_g = $a->length;
+			while($_g1 < $_g) {
+				$i1 = $_g1++;
+				$b[$i1] = $a[$i1];
+				unset($i1);
+			}
+		}
+		$b[$a->length] = $e;
+		return $b;
+	}
+	public function setChecksCompoundAnswers() {
+		if($this->compoundChecks === null) {
+			return;
+		}
+		$answers = $this->checks->keys();
+		while($answers->hasNext()) {
+			$a = $this->checks->get($answers->next());
+			$i = null;
+			{
+				$_g1 = 0; $_g = $a->length;
+				while($_g1 < $_g) {
+					$i1 = $_g1++;
+					_hx_array_get($a, $i1)->setAnswers(new _hx_array(array()));
+					_hx_array_get($a, $i1)->setCorrectAnswers(new _hx_array(array()));
+					unset($i1);
+				}
+				unset($_g1,$_g);
+			}
+			unset($i,$a);
+		}
+		$answers = $this->compoundChecks->keys();
+		while($answers->hasNext()) {
+			$answerString = $answers->next();
+			$answer = Std::parseInt($answerString);
+			$correctAnswers = $this->compoundChecks->get($answerString)->keys();
+			while($correctAnswers->hasNext()) {
+				$correctAnswerString = $correctAnswers->next();
+				$correctAnswer = Std::parseInt($correctAnswerString);
+				$checks = $this->compoundChecks->get($answerString)->get($correctAnswerString);
+				$i = null;
+				{
+					$_g1 = 0; $_g = $checks->length;
+					while($_g1 < $_g) {
+						$i1 = $_g1++;
+						$a = $checks[$i1];
+						$a->setCorrectAnswers($this->concatenate($a->getCorrectAnswers(), $correctAnswer));
+						$a->setAnswers($this->concatenate($a->getAnswers(), $answer));
+						unset($i1,$a);
+					}
+					unset($_g1,$_g);
+				}
+				unset($i,$correctAnswerString,$correctAnswer,$checks);
+			}
+			unset($correctAnswers,$answerString,$answer);
+		}
+	}
 	public function setParameter($name, $value) {
 		$this->userData->setParameter($name, $value);
 	}
@@ -37,6 +97,7 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 	public function setHandwritingConstraints($question) {
 		$this->handConstraints = com_wiris_quizzes_impl_HandwritingConstraints::newHandwritingConstraints();
 		$this->handConstraints->addQuestionConstraints(_hx_deref(($question))->getImpl());
+		$this->handConstraints->addQuestionInstanceConstraints($this);
 	}
 	public function serializeHandConstraints() {
 		if($this->handConstraints !== null) {
@@ -91,6 +152,9 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 			}
 		}
 		return null;
+	}
+	public function getStudentAnswersLength() {
+		return com_wiris_quizzes_impl_QuestionInstanceImpl_0($this);
 	}
 	public function getStudentAnswer($index) {
 		if($this->userData->answers !== null && $index < $this->userData->answers->length) {
@@ -161,12 +225,19 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		}
 		$this->setLocalData(com_wiris_quizzes_impl_LocalData::$KEY_CAS_SESSION, $qi->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_CAS_SESSION));
 	}
+	public function updateFromStudentQuestionInstance($qi) {
+		$ii = $qi;
+		$this->userData->answers = $ii->userData->answers;
+		$this->localData = $ii->localData;
+	}
 	public function getStudentQuestionInstance() {
 		$qi = new com_wiris_quizzes_impl_QuestionInstanceImpl();
 		$qi->userData->randomSeed = 0;
 		$qi->userData->answers = $this->userData->answers;
+		$qi->handConstraints = $this->handConstraints;
 		$qi->localData = $this->localData;
 		$qi->checks = $this->checks;
+		$qi->compoundChecks = $this->compoundChecks;
 		return $qi;
 	}
 	public function getBooleanVariableValue($name) {
@@ -243,13 +314,11 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		}
 		return $h;
 	}
-	public function hashToChecks($h, $a) {
+	public function hashToChecks($h) {
 		if($h === null) {
 			return null;
 		}
-		if($a === null) {
-			$a = new _hx_array(array());
-		}
+		$a = new _hx_array(array());
 		$answers = $h->keys();
 		while($answers->hasNext()) {
 			$answer = $answers->next();
@@ -368,23 +437,25 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		return $correct;
 	}
 	public function getCompoundComponents() {
-		$it = $this->compoundChecks->keys();
 		$n = -1;
-		while($it->hasNext()) {
-			$key = $it->next();
-			try {
-				$m = _hx_mod(Std::parseInt($key), 1000);
-				if($m > $n) {
-					$n = $m;
+		if($this->compoundChecks !== null) {
+			$it = $this->compoundChecks->keys();
+			while($it->hasNext()) {
+				$key = $it->next();
+				try {
+					$m = _hx_mod(Std::parseInt($key), 1000);
+					if($m > $n) {
+						$n = $m;
+					}
+					unset($m);
+				}catch(Exception $»e) {
+					$_ex_ = ($»e instanceof HException) ? $»e->e : $»e;
+					$e = $_ex_;
+					{
+					}
 				}
-				unset($m);
-			}catch(Exception $»e) {
-				$_ex_ = ($»e instanceof HException) ? $»e->e : $»e;
-				$e = $_ex_;
-				{
-				}
+				unset($key,$e);
 			}
-			unset($key,$e);
 		}
 		return $n + 1;
 	}
@@ -423,7 +494,7 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 			$i = 0;
 			$sb = new StringBuf();
 			while($i < $l && $j < $n) {
-				$c = com_wiris_quizzes_impl_QuestionInstanceImpl_0($this, $content, $d, $i, $j, $l, $n, $s, $sb);
+				$c = com_wiris_quizzes_impl_QuestionInstanceImpl_1($this, $content, $d, $i, $j, $l, $n, $s, $sb);
 				$digit = $this->isNumberPart($c);
 				if($digit) {
 					$sb->add($c);
@@ -472,23 +543,55 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		}
 		return $d;
 	}
+	public function getCompoundAnswerGrade($correctAnswer, $studentAnswer, $index, $q) {
+		$n = $this->getCompoundComponents();
+		if($index < 0 || $index >= $n) {
+			throw new HException("Compound answer index out of bounds.");
+		}
+		$checks = $this->getCompoundAnswerChecks($correctAnswer, $studentAnswer, $index);
+		$grade = 0.0;
+		if($checks !== null) {
+			$grade = $this->prodChecks($checks, -1, -1);
+		}
+		return $grade;
+	}
+	public function prodChecks($checks, $correctAnswer, $studentAnswer) {
+		$grade = 1.0;
+		$i = null;
+		{
+			$_g1 = 0; $_g = $checks->length;
+			while($_g1 < $_g) {
+				$i1 = $_g1++;
+				if(($correctAnswer === -1 || com_wiris_util_type_Arrays::containsInt(_hx_array_get($checks, $i1)->getCorrectAnswers(), $correctAnswer)) && ($studentAnswer === -1 || com_wiris_util_type_Arrays::containsInt(_hx_array_get($checks, $i1)->getAnswers(), $studentAnswer))) {
+					$grade = $grade * _hx_array_get($checks, $i1)->value;
+				}
+				unset($i1);
+			}
+		}
+		return $grade;
+	}
+	public function andChecks($checks) {
+		$j = null;
+		$correct = true;
+		{
+			$_g1 = 0; $_g = $checks->length;
+			while($_g1 < $_g) {
+				$j1 = $_g1++;
+				$correct = $correct && _hx_array_get($checks, $j1)->value === 1.0;
+				unset($j1);
+			}
+		}
+		return $correct;
+	}
+	public function getCompoundAnswerChecks($correctAnswer, $studentAnswer, $index) {
+		return $this->compoundChecks->get(_hx_string_rec(1000 + $studentAnswer * 1000 + $index, "") . "")->get(_hx_string_rec(1000 + $correctAnswer * 1000 + $index, "") . "");
+	}
 	public function getAnswerGrade($correctAnswer, $studentAnswer, $q) {
 		$grade = 0.0;
 		$question = (($q !== null) ? _hx_deref(($q))->getImpl() : null);
 		if($question !== null && $question->getAssertionIndex(com_wiris_quizzes_impl_Assertion::$EQUIVALENT_FUNCTION, $correctAnswer, $studentAnswer) !== -1) {
-			$grade = 1.0;
 			$checks = $this->checks->get(_hx_string_rec($studentAnswer, "") . "");
-			$i = null;
-			{
-				$_g1 = 0; $_g = $checks->length;
-				while($_g1 < $_g) {
-					$i1 = $_g1++;
-					if(_hx_array_get($checks, $i1)->getCorrectAnswer() === $correctAnswer) {
-						$grade = $grade * _hx_array_get($checks, $i1)->value;
-					}
-					unset($i1);
-				}
-			}
+			$grade = $this->prodChecks($checks, $correctAnswer, $studentAnswer);
 		} else {
 			if($question !== null && $question->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_COMPOUND_ANSWER) === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_COMPOUND_ANSWER_TRUE && $question->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_COMPOUND_ANSWER_GRADE) === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_COMPOUND_ANSWER_GRADE_DISTRIBUTE) {
 				$distribution = $this->getCompoundGradeDistribution($question->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_COMPOUND_ANSWER_GRADE_DISTRIBUTION));
@@ -497,23 +600,11 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 					$_g1 = 0; $_g = $distribution->length;
 					while($_g1 < $_g) {
 						$i1 = $_g1++;
-						$checks = $this->compoundChecks->get(_hx_string_rec(1000 + $studentAnswer * 1000 + $i1, "") . "")->get(_hx_string_rec(1000 + $correctAnswer * 1000 + $i1, "") . "");
+						$checks = $this->getCompoundAnswerChecks($correctAnswer, $studentAnswer, $i1);
 						if($checks !== null) {
-							$j = null;
-							$correct = true;
-							{
-								$_g3 = 0; $_g2 = $checks->length;
-								while($_g3 < $_g2) {
-									$j1 = $_g3++;
-									$correct = $correct && _hx_array_get($checks, $j1)->value === 1.0;
-									unset($j1);
-								}
-								unset($_g3,$_g2);
-							}
-							if($correct) {
+							if($this->andChecks($checks)) {
 								$grade += $distribution[$i1];
 							}
-							unset($j,$correct);
 						}
 						unset($i1,$checks);
 					}
@@ -529,17 +620,53 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		$correct = true;
 		if($this->checks !== null && $this->checks->exists(_hx_string_rec($answer, "") . "")) {
 			$checks = $this->checks->get(_hx_string_rec($answer, "") . "");
+			$correct = $this->andChecks($checks);
+		}
+		return $correct;
+	}
+	public function getMatchingCorrectAnswer($studentAnswer, $q) {
+		$correctAnswer = -1;
+		if($this->checks !== null && $this->checks->exists(_hx_string_rec($studentAnswer, "") . "")) {
+			$checks = $this->checks->get(_hx_string_rec($studentAnswer, "") . "");
+			$correctAnswers = new _hx_array(array());
 			$i = null;
 			{
 				$_g1 = 0; $_g = $checks->length;
 				while($_g1 < $_g) {
 					$i1 = $_g1++;
-					$correct = $correct && _hx_array_get($checks, $i1)->value === 1.0;
-					unset($i1);
+					$ca = _hx_array_get($checks, $i1)->getCorrectAnswers();
+					$j = null;
+					{
+						$_g3 = 0; $_g2 = $ca->length;
+						while($_g3 < $_g2) {
+							$j1 = $_g3++;
+							com_wiris_util_type_Arrays::insertSortedSet($correctAnswers, $ca[$j1]);
+							unset($j1);
+						}
+						unset($_g3,$_g2);
+					}
+					unset($j,$i1,$ca);
+				}
+			}
+			if($correctAnswers->length > 0) {
+				$correctAnswer = $correctAnswers[0];
+				$maxgrade = $this->getAnswerGrade($correctAnswer, $studentAnswer, $q);
+				$j = null;
+				{
+					$_g1 = 1; $_g = $correctAnswers->length;
+					while($_g1 < $_g) {
+						$j1 = $_g1++;
+						$grade = $this->getAnswerGrade($correctAnswers[$j1], $studentAnswer, $q);
+						if($grade > $maxgrade) {
+							$maxgrade = $grade;
+							$correctAnswer = $j1;
+						}
+						unset($j1,$grade);
+					}
 				}
 			}
 		}
-		return $correct;
+		return $correctAnswer;
 	}
 	public function isAnswerMatching($correctAnswer, $answer) {
 		$correct = true;
@@ -584,14 +711,26 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		return com_wiris_quizzes_impl_QuestionInstanceImpl::$base64;
 	}
 	public function storeImageVariable($v) {
-		$base64 = $this->getBase64Code();
-		$value = str_replace("=", "", $v->content);
-		$b = $base64->decodeBytes(haxe_io_Bytes::ofString($value));
-		$filename = haxe_Md5::encode($value) . ".png";
-		$path = com_wiris_quizzes_impl_QuizzesBuilderImpl::getInstance()->getConfiguration()->get(com_wiris_quizzes_api_ConfigurationKeys::$CACHE_DIR) . "/" . $filename;
-		$s = com_wiris_system_Storage::newStorage($path);
-		if(!$s->exists()) {
-			$s->writeBinary($b->b);
+		$filename = null;
+		if(com_wiris_settings_PlatformSettings::$IS_JAVASCRIPT) {
+			$filename = haxe_Md5::encode($v->content) . ".b64";
+			$s = com_wiris_system_Storage::newStorage($filename);
+			if(!$s->exists()) {
+				$s->write($v->content);
+			}
+			if(!$s->exists()) {
+				return $v;
+			}
+		} else {
+			$base64 = $this->getBase64Code();
+			$value = str_replace("=", "", $v->content);
+			$b = $base64->decodeBytes(haxe_io_Bytes::ofString($value));
+			$filename = haxe_Md5::encode($value) . ".png";
+			$path = com_wiris_quizzes_impl_QuizzesBuilderImpl::getInstance()->getConfiguration()->get(com_wiris_quizzes_api_ConfigurationKeys::$CACHE_DIR) . "/" . $filename;
+			$s = com_wiris_system_Storage::newStorage($path);
+			if(!$s->exists()) {
+				$s->writeBinary($b->b);
+			}
 		}
 		$w = new com_wiris_quizzes_impl_Variable();
 		$w->type = com_wiris_quizzes_impl_MathContent::$TYPE_IMAGE_REF;
@@ -599,9 +738,9 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		$w->name = $v->name;
 		return $w;
 	}
-	public function isCompoundAnswer($rgca) {
-		if($rgca->checks !== null && $rgca->checks->length > 0) {
-			return _hx_array_get($rgca->checks, 0)->getCorrectAnswer() >= 1000;
+	public function isCompoundAnswer($checks) {
+		if($checks !== null && $checks->length > 0) {
+			return _hx_array_get($checks, 0)->getCorrectAnswer() >= 1000;
 		}
 		return false;
 	}
@@ -613,38 +752,33 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 			while($_g1 < $_g) {
 				$i1 = $_g1++;
 				$c = $checks[$i1];
+				$correctAnswers = $c->getCorrectAnswers();
 				$answers = $c->getAnswers();
+				$pairs = com_wiris_quizzes_impl_QuizzesBuilderImpl::getInstance()->getPairings($c->getCorrectAnswers()->length, $c->getAnswers()->length);
 				$j = null;
 				{
-					$_g3 = 0; $_g2 = $answers->length;
+					$_g3 = 0; $_g2 = $pairs->length;
 					while($_g3 < $_g2) {
 						$j1 = $_g3++;
-						if(!$this->compoundChecks->exists(_hx_string_rec($answers[$j1], "") . "")) {
-							$this->compoundChecks->set(_hx_string_rec($answers[$j1], "") . "", new Hash());
+						$pair = $pairs[$j1];
+						$correctAnswer = $correctAnswers[$pair[0]];
+						$userAnswer = $answers[$pair[1]];
+						if(!$this->compoundChecks->exists(_hx_string_rec($userAnswer, "") . "")) {
+							$this->compoundChecks->set(_hx_string_rec($userAnswer, "") . "", new Hash());
 						}
-						$answerChecks = $this->compoundChecks->get(_hx_string_rec($answers[$j1], "") . "");
-						$correctAnswers = $c->getCorrectAnswers();
-						$k = null;
-						{
-							$_g5 = 0; $_g4 = $correctAnswers->length;
-							while($_g5 < $_g4) {
-								$k1 = $_g5++;
-								if(!$answerChecks->exists(_hx_string_rec($correctAnswers[$k1], "") . "")) {
-									$answerChecks->set(_hx_string_rec($correctAnswers[$k1], "") . "", new _hx_array(array()));
-								}
-								$pairchecks = $answerChecks->get(_hx_string_rec($correctAnswers[$k1], "") . "");
-								$pairchecks->push($c);
-								unset($pairchecks,$k1);
-							}
-							unset($_g5,$_g4);
+						$answerChecks = $this->compoundChecks->get(_hx_string_rec($userAnswer, "") . "");
+						if(!$answerChecks->exists(_hx_string_rec($correctAnswer, "") . "")) {
+							$answerChecks->set(_hx_string_rec($correctAnswer, "") . "", new _hx_array(array()));
 						}
-						unset($k,$j1,$correctAnswers,$answerChecks);
+						$pairchecks = $answerChecks->get(_hx_string_rec($correctAnswer, "") . "");
+						$pairchecks->push($c);
+						unset($userAnswer,$pairchecks,$pair,$j1,$correctAnswer,$answerChecks);
 					}
 					unset($_g3,$_g2);
 				}
 				$c->setAnswer(Math::floor(($c->getAnswer() - 1000) / 1000.0));
 				$c->setCorrectAnswer(Math::floor(($c->getCorrectAnswer() - 1000) / 1000.0));
-				unset($j,$i1,$c,$answers);
+				unset($pairs,$j,$i1,$correctAnswers,$c,$answers);
 			}
 		}
 	}
@@ -693,7 +827,7 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 								$this->checks = null;
 							}
 							$rgca = $r;
-							if($this->isCompoundAnswer($rgca)) {
+							if($this->isCompoundAnswer($rgca->checks)) {
 								$this->collapseCompoundAnswerChecks($rgca->checks);
 							}
 							$this->checks = $this->checksToHash($rgca->checks, $this->checks);
@@ -719,9 +853,8 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 		if($this->variables === null || $this->variables->get(com_wiris_quizzes_impl_MathContent::$TYPE_TEXT) === null) {
 			return $text;
 		} else {
-			$textvars = new Hash();
-			$textvars->set(com_wiris_quizzes_impl_MathContent::$TYPE_TEXT, $this->variables->get(com_wiris_quizzes_impl_MathContent::$TYPE_TEXT));
-			return $h->expandVariables($text, $textvars);
+			$textvars = $this->variables->get(com_wiris_quizzes_impl_MathContent::$TYPE_TEXT);
+			return $h->expandVariablesText($text, $textvars);
 		}
 	}
 	public function addAllHashElements($src, $dest) {
@@ -762,6 +895,7 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 			return null;
 		}
 		$h = new com_wiris_quizzes_impl_HTMLTools();
+		$h->setItemSeparator($this->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_ITEM_SEPARATOR));
 		return $h->expandVariables($text, $this->variables);
 	}
 	public function defaultLocalData($name) {
@@ -822,8 +956,13 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 	}
 	public function onSerialize($s) {
 		$s->beginTag(com_wiris_quizzes_impl_QuestionInstanceImpl::$tagName);
-		$this->userData = $s->serializeChildName($this->userData, com_wiris_quizzes_impl_UserData::$tagName);
-		$this->checks = $this->checksToHash($s->serializeArrayName($this->hashToChecks($this->checks, null), "checks"), null);
+		$this->userData = $s->serializeChildName($this->userData, com_wiris_quizzes_impl_UserData::$TAGNAME);
+		$this->setChecksCompoundAnswers();
+		$a = $s->serializeArrayName($this->hashToChecks($this->checks), "checks");
+		if($this->isCompoundAnswer($a)) {
+			$this->collapseCompoundAnswerChecks($a);
+		}
+		$this->checks = $this->checksToHash($a, null);
 		$this->variables = $this->variablesToHash($s->serializeArrayName($this->hashToVariables($this->variables, null), "variables"), null);
 		$this->serializeHandConstraints();
 		$this->localData = $s->serializeArrayName($this->localData, "localData");
@@ -849,7 +988,14 @@ class com_wiris_quizzes_impl_QuestionInstanceImpl extends com_wiris_util_xml_Ser
 	static $base64;
 	function __toString() { return 'com.wiris.quizzes.impl.QuestionInstanceImpl'; }
 }
-function com_wiris_quizzes_impl_QuestionInstanceImpl_0(&$»this, &$content, &$d, &$i, &$j, &$l, &$n, &$s, &$sb) {
+function com_wiris_quizzes_impl_QuestionInstanceImpl_0(&$»this) {
+	if($»this->userData->answers !== null) {
+		return $»this->userData->answers->length;
+	} else {
+		return 0;
+	}
+}
+function com_wiris_quizzes_impl_QuestionInstanceImpl_1(&$»this, &$content, &$d, &$i, &$j, &$l, &$n, &$s, &$sb) {
 	{
 		$s1 = new haxe_Utf8(null);
 		$s1->addChar(haxe_Utf8::charCodeAt($s, $i));

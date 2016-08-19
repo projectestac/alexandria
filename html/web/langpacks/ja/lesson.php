@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lesson', language 'ja', branch 'MOODLE_28_STABLE'
+ * Strings for component 'lesson', language 'ja', branch 'MOODLE_31_STABLE'
  *
  * @package   lesson
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -34,7 +34,7 @@ $string['actionaftercorrectanswer_help'] = '問題に正しく答えた後、ペ
 *未解答のページを表示する - ページがランダムに表示されます。未解答の問題を含むページは再度表示されます。';
 $string['actions'] = 'アクション';
 $string['activitylink'] = '次の活動にリンクする';
-$string['activitylink_help'] = '<p>ドロップダウンメニューには、このコースのすべての活動が含まれています。活動の1つが選択された場合、その活動へのリンクがレッスンの最後に表示されます。</p>';
+$string['activitylink_help'] = 'レッスンの最後にコース内の別の活動へのリンクを提供するにはドロップダウンメニューより活動を選択してください。';
 $string['activitylinkname'] = '{$a} へ移動する';
 $string['activityoverview'] = 'あなたには有効期限の到来したレッスンがあります。';
 $string['addabranchtable'] = 'コンテンツページを追加する';
@@ -50,6 +50,9 @@ $string['addedaquestionpage'] = '問題ページが追加されました。';
 $string['addedcluster'] = 'クラスタが追加されました。';
 $string['addedendofcluster'] = '終了クラスタが追加されました。';
 $string['addendofcluster'] = '終了クラスタを追加する';
+$string['additionalattemptsremaining'] = '完了しました。あなたはこのレッスンを再受験することができます。';
+$string['addnewgroupoverride'] = 'グループオーバーライドを追加する';
+$string['addnewuseroverride'] = 'ユーザオーバーライドを追加する';
 $string['addpage'] = 'ページを追加する';
 $string['anchortitle'] = 'メインコンテンツの開始';
 $string['and'] = 'AND';
@@ -58,6 +61,7 @@ $string['answeredcorrectly'] = '正しく解答されました。';
 $string['answersfornumerical'] = '数値問題に対する解答は最大値および最小値の範囲内に入る必要があります。';
 $string['arrangebuttonshorizontally'] = 'コンテンツボタンを水平に配置しますか?';
 $string['attempt'] = '受験: {$a}';
+$string['attemptheader'] = '受験';
 $string['attempts'] = '受験';
 $string['attemptsdeleted'] = '受験結果が削除されました。';
 $string['attemptsremaining'] = 'あなたには {$a} 回の受験回数が残っています。';
@@ -72,7 +76,7 @@ $string['cannotfindattempt'] = 'エラー: 受験が見つかりませんでし�
 $string['cannotfindessay'] = 'エラー: 作文が見つかりませんでした。';
 $string['cannotfindfirstgrade'] = 'エラー: 評点が見つかりませんでした。';
 $string['cannotfindfirstpage'] = '最初のページが見つかりませんでした。';
-$string['cannotfindgrade'] = '評定レコードが見つかりませんでした。';
+$string['cannotfindgrade'] = 'エラー: 評点が見つかりませんでした。';
 $string['cannotfindnewestgrade'] = 'エラー: 最新の評点が見つかりませんでした。';
 $string['cannotfindnextpage'] = 'レッスンバックアップ: 次のページが見つかりませんでした!';
 $string['cannotfindpagerecord'] = '終了ブランチを追加する: ページレコードが見つかりませんでした。';
@@ -91,7 +95,7 @@ $string['checknavigation'] = 'ナビゲーションを確認する';
 $string['checkquestion'] = '問題を確認する';
 $string['classstats'] = 'クラス統計';
 $string['clicktodownload'] = 'ファイルをダウンロードするには次のリンクをクリックしてください。';
-$string['clicktopost'] = 'あなたの得点をハイスコアリストに登録するにはここをクリックしてください。';
+$string['clicktopost'] = 'あなたの評点をハイスコアリストに登録するにはここをクリックしてください。';
 $string['closebeforeopen'] = 'レッスンを更新できませんでした。あなたは開始日時の前に終了日時を指定しました。';
 $string['cluster'] = 'クラスタ';
 $string['clusterjump'] = 'クラスタ内の未閲覧の問題';
@@ -100,17 +104,24 @@ $string['collapsed'] = '折りたたむ';
 $string['comments'] = 'あなたのコメント';
 $string['completed'] = '完了';
 $string['completederror'] = 'レッスンを完了する';
-$string['completethefollowingconditions'] = '先へ進むには、<b>{$a}</b> レッスンの下記コンディションを完了させる必要があります。';
+$string['completethefollowingconditions'] = '先へ進むには<b>{$a}</b>レッスンの下記コンディションを完了させる必要があります。';
+$string['completionendreached'] = '最終到達必須';
+$string['completionendreached_desc'] = 'この活動を完了するには学生はレッスンの最終ページに到達する必要があります。';
+$string['completiontimespent'] = '学生は少なくとも次の時間この活動を実施する必要があります:';
+$string['completiontimespentgroup'] = '必要滞在時間';
 $string['conditionsfordependency'] = '依存条件';
-$string['configactionaftercorrectanswer'] = '正解後にとられるデフォルトのアクションです。';
+$string['configactionaftercorrectanswer'] = '正解後のデフォルトのアクションです。';
+$string['configintro'] = 'ここでは新しいレッスンの作成時に設定フォーム内で使用されるデフォルト値を定義します。「高度」が指定された設定は「さらに表示する ...」リンクがクリックされた場合のみ表示されます。';
 $string['configmaxanswers'] = 'ページごとの答えの最大数のデフォルトです。';
 $string['configmaxhighscores'] = '表示されるハイスコア数です。';
-$string['configmediaclose'] = 'リンク済みメディアファイルに生成されるポップアップの一部に「ウィンドウを閉じる」ボタンを表示します。';
-$string['configmediaheight'] = 'リンク済みメディアファイルに表示されるポップアップの高さを設定します。';
-$string['configmediawidth'] = 'リンク済みメディアファイルに表示されるポップアップの幅を設定します。';
+$string['configmediaclose'] = 'リンクメディアファイルに生成されるポップアップの一部に「ウィンドウを閉じる」ボタンを表示します。';
+$string['configmediaheight'] = 'リンクメディアファイルに表示されるポップアップの高さを設定します。';
+$string['configmediawidth'] = 'リンクメディアファイルに表示されるポップアップの幅を設定します。';
+$string['configpassword_desc'] = 'レッスンへのアクセスにパスワードを必要とするかどうか決定します。';
 $string['configslideshowbgcolor'] = '有効にされた場合に使用されるスライドショーの背景色を設定します。';
 $string['configslideshowheight'] = '有効にされた場合に使用されるスライドショーの高さを設定します。';
 $string['configslideshowwidth'] = '有効にされた場合に使用されるスライドショーの幅を設定します。';
+$string['configtimelimit_desc'] = '時間制限が設定された場合、レッスンの最初に警告およびカウントダウンタイマーが表示されます。ゼロに設定された場合、時間制限はありません。';
 $string['confirmdelete'] = 'ページを削除する';
 $string['confirmdeletionofthispage'] = '本当にこのページを削除してもよろしいですか?';
 $string['congratulations'] = 'おめでとうございます - レッスンの最後に到達しました。';
@@ -119,13 +130,13 @@ $string['continuetoanswer'] = '続けて答えを変更します。';
 $string['continuetonextpage'] = '続けて次のページに移動します。';
 $string['correctanswerjump'] = '正解のジャンプ先';
 $string['correctanswerscore'] = '正解の評点';
-$string['correctresponse'] = '正解に対するレスポンス';
+$string['correctresponse'] = '正解';
 $string['createaquestionpage'] = '問題ページを作成する';
 $string['credit'] = '承認';
 $string['customscoring'] = 'カスタムスコア';
 $string['customscoring_help'] = 'この設定を有効にした場合、それぞれの答えには数字の点数 (プラスまたはマイナス) が与えられます。';
 $string['deadline'] = '終了日時';
-$string['defaultessayresponse'] = 'あなたの作文は、あなたの教師によって評定されます。';
+$string['defaultessayresponse'] = 'あなたの作文はあなたの教師によって評定されます。';
 $string['deleteallattempts'] = 'すべてのレッスン受験を削除する';
 $string['deletedefaults'] = '{$a} x レッスンデフォルトを削除しました。';
 $string['deletedpage'] = 'ページを削除しました';
@@ -136,26 +147,28 @@ $string['dependencyon'] = '依存対象';
 $string['dependencyon_help'] = 'この設定により、現在のレッスンを同一コース内の別レッスンにおける学生の成績に依存させることができます。「利用時間」「完了」または「評点が上」のどのような組み合わせでも使用することができます。';
 $string['description'] = '説明';
 $string['detailedstats'] = '詳細統計';
-$string['didnotanswerquestion'] = 'この問題に答えていません。';
+$string['didnotanswerquestion'] = 'この問題に解答していません。';
 $string['didnotreceivecredit'] = '承認なし';
+$string['disabled'] = '無効';
 $string['displaydefaultfeedback'] = 'デフォルトフィードバックを使用する';
-$string['displaydefaultfeedback_help'] = 'この設定を有効にした場合、問題のレスポンスが見つからない場合にデフォルトレスポンスの「正解です」および「不正解です」が使用されます。<';
+$string['displaydefaultfeedback_help'] = 'この設定を有効にした場合、問題のレスポンスが見つからない場合にデフォルトレスポンスの「正解です」および「不正解です」が表示されます。';
 $string['displayhighscores'] = 'ハイスコアを表示する';
 $string['displayinleftmenu'] = 'メニューに表示しますか?';
 $string['displayleftif'] = 'メニューを表示するための最小評点';
-$string['displayleftif_help'] = 'この設定ではレッスンメニューが表示される前に、学生が特定の評点を取得する必要があるかどうか設定します。これにより最初の受験でレッスンすべてを通すことを学生に強制します。要求される評点を取得した後、学生はレビューのためにメニューを使用することができます。';
+$string['displayleftif_help'] = 'この設定ではレッスンメニューが表示される前に学生が特定の評点を取得する必要があるかどうか設定します。これにより最初の受験でレッスンすべてを通すことを学生に強制します。要求される評点を取得した後、学生はレビューのためにメニューを使用することができます。';
 $string['displayleftmenu'] = 'メニューを表示する';
-$string['displayleftmenu_help'] = 'この設定を有効にした場合、移動することのできるページ一覧を学生が表示できるようにします。';
+$string['displayleftmenu_help'] = 'この設定を有効にした場合、ページ一覧に移動することのできるメニューをユーザに表示できるようにします。';
 $string['displayofgrade'] = '評点を表示する (学生のみ)';
 $string['displayreview'] = '問題の再受験オプションを提供する';
-$string['displayreview_help'] = 'この設定を有効にした場合、問題が不正解のときに学生が評点なしで再受験する、またはレッスンを続けるオプションを提供します。';
-$string['displayscorewithessays'] = '<p>自動評定によるあなたの評点は、{$a->tempmaxgrade} 点中 {$a->score} 点です。</p>
-<p> 作文問題 {$a->essayquestions} が評定され、後日あなたの最終評点に追加されます。</p>
-<p> 作文問題を除くあなたの現在の評点は、{$a->grade} 点中 {$a->score} 点です。</p>';
-$string['displayscorewithoutessays'] = 'あなたの評点は、 {$a->score} ({$a->grade} 点中)です。';
+$string['displayreview_help'] = 'この設定を有効にした場合、問題が不正解のときに学生が評点なしで再受験するまたはレッスンを続けるオプションを提供します。';
+$string['displayscorewithessays'] = '<p>自動評定によるあなたの評点は {$a->tempmaxgrade} 点中 {$a->score} 点です。</p>
+<p>作文問題 {$a->essayquestions} が評定された後、あなたの最終評点に後日追加されます。</p>
+<p>作文問題を除くあなたの現在の評点は {$a->grade} 点中 {$a->score} 点です。</p>';
+$string['displayscorewithoutessays'] = 'あなたの評点は {$a->score} ({$a->grade} 点中)です。';
 $string['edit'] = '編集';
 $string['editingquestionpage'] = '{$a} 問題ページの編集';
 $string['editlessonsettings'] = 'レッスン設定を編集する';
+$string['editoverride'] = 'オーバーライドを編集する';
 $string['editpage'] = 'ページコンテンツを編集する';
 $string['editpagecontent'] = 'ページコンテンツを編集する';
 $string['email'] = 'メール';
@@ -163,6 +176,7 @@ $string['emailallgradedessays'] = 'すべての作文問題の評定結果を<br
 $string['emailgradedessays'] = '作文問題の評定結果をメール送信する';
 $string['emailsuccess'] = 'メールが正常に送信されました。';
 $string['emptypassword'] = 'パスワードは空白にできません。';
+$string['enabled'] = '有効';
 $string['endofbranch'] = '終了ブランチ';
 $string['endofcluster'] = '終了クラスタ';
 $string['endofclustertitle'] = '終了クラスタ';
@@ -170,49 +184,63 @@ $string['endoflesson'] = 'レッスン終了';
 $string['enteredthis'] = '入力されました。';
 $string['entername'] = 'ハイスコアリストのニックネームを入力してください。';
 $string['enterpassword'] = 'パスワードを入力してください:';
-$string['eolstudentoutoftime'] = 'お知らせ: このレッスンの制限時間が終了しました。制限時間終了後に答えた場合、解答内容はカウントされません。';
-$string['eolstudentoutoftimenoanswers'] = 'あなたはどの問題にも解答していません。このレッスンのあなたの評点は、0点です。';
+$string['eolstudentoutoftime'] = 'お知らせ: このレッスンの制限時間が終了しました。制限時間終了後に解答した場合、解答内容はカウントされません。';
+$string['eolstudentoutoftimenoanswers'] = 'あなたはどの問題にも解答していません。このレッスンのあなたの評点は0点です。';
 $string['essay'] = '作文問題';
 $string['essayemailmessage'] = '<p>作文問題:<blockquote>{$a->question}</blockquote></p>
 <p>あなたの解答:<blockquote><em>{$a->response}</em></blockquote></p>
 <p>{$a->teacher} のコメント:<blockquote><em>{$a->comment}</em></blockquote></p>
 <p>この作文問題の評点は {$a->earned} /{$a->outof} です。</p>
 <p>あなたのレッスンの評点は {$a->newgrade}&#37; に変更されました。</p>';
-$string['essayemailmessage2'] = '<p>作文問題:<blockquote>{$a->question}</blockquote></p>
-<p>あなたの解答:<blockquote><em>{$a->response}</em></blockquote></p>
-<p>評価者のコメント:<blockquote><em>{$a->comment}</em></blockquote></p>
+$string['essayemailmessage2'] = '<p>作文問題:{$a->question}</p>
+<p>あなたの解答:<em>{$a->response}</em></p>
+<p>評価者のコメント:<em>{$a->comment}</em></p>
 <p>この作文問題の評点は {$a->earned} /{$a->outof} です。</p>
-<p>あなたのレッスンの評点は {$a->newgrade}&#37; に変更されました。</p>';
-$string['essayemailsubject'] = '{$a} 問題に対するあなたの評点';
+<p>あなたのレッスン {$a->lesson} の評点は {$a->newgrade}% に変更されました。</p>';
+$string['essayemailsubject'] = 'レッスン問題に関して利用可能な評点';
+$string['essayresponses'] = '作文問題の解答';
 $string['essays'] = '作文問題';
 $string['essayscore'] = '作文問題の評点';
+$string['eventcontentpageviewed'] = 'コンテンツページが閲覧されました。';
 $string['eventessayassessed'] = '作文が評価されました。';
 $string['eventessayattemptviewed'] = '作文問題の受験が閲覧されました。';
 $string['eventhighscoreadded'] = 'ハイスコアが追加されました。';
 $string['eventhighscoresviewed'] = 'ハイスコアが閲覧されました。';
 $string['eventlessonended'] = 'レッスンが終了しました。';
+$string['eventlessonrestarted'] = 'レッスンが再開されました。';
+$string['eventlessonresumed'] = 'レッスンが中断されました。';
 $string['eventlessonstarted'] = 'レッスンが開始しました。';
+$string['eventoverridecreated'] = 'レッスンオーバーライドが作成されました。';
+$string['eventoverridedeleted'] = 'レッスンオーバーライドが削除されました。';
+$string['eventoverrideupdated'] = 'レッスンオーバーライドが更新されました。';
+$string['eventpagecreated'] = 'ページが作成されました。';
+$string['eventpagedeleted'] = 'ページが削除されました。';
+$string['eventpagemoved'] = 'ページが移動されました。';
+$string['eventpageupdated'] = 'ページが更新されました。';
+$string['eventquestionanswered'] = '問題が解答されました。';
+$string['eventquestionviewed'] = '問題が閲覧されました。';
 $string['false'] = '×';
 $string['fileformat'] = 'ファイルフォーマット';
 $string['finish'] = '終了';
 $string['firstanswershould'] = '最初の答えは「正しい」ページにジャンプしてください。';
 $string['firstwrong'] = 'あなたの解答は正しくありません。問題を再度受験しますか?  (今から問題に正しく解答した場合、あなたの最終評点には加算されません)';
 $string['flowcontrol'] = 'フローコントロール';
-$string['fractionsaddwrong'] = 'あなたが選択したプラス評点の合計が、100%になっていません。<br />現在の評点合計は {$a}% です。<br />戻ってこの問題を修正しますか?';
-$string['fractionsnomax'] = 'この問題で満点を取ることができるよう<br />答えの1つは、100%でなければなりません。 <br />戻ってこの問題を修正しますか?';
+$string['fractionsaddwrong'] = 'あなたが選択したプラス評点の合計が100%になっていません。<br />現在の評点合計は {$a}% です。<br />戻ってこの問題を修正しますか?';
+$string['fractionsnomax'] = 'この問題で満点を取ることができるよう<br />答えの1つは100%でなければなりません。 <br />戻ってこの問題を修正しますか?';
 $string['full'] = '展開する';
 $string['general'] = '一般設定';
 $string['gotoendoflesson'] = 'レッスンの最後に移動する';
 $string['grade'] = '評点';
 $string['gradebetterthan'] = '評点が上 (&#37;)';
 $string['gradebetterthanerror'] = '{$a} パーセントより多い評点が与えられています。';
-$string['gradeessay'] = '作文問題の評定 (評定未了: {$a->notgradedcount} 件、送信未了 {$a->notsentcount} 件)';
+$string['gradeessay'] = '作文問題の評定 (評定未了: {$a->notgradedcount} 件 / 送信未了 {$a->notsentcount} 件)';
 $string['gradeis'] = '評点は {$a} です';
 $string['gradeoptions'] = '評定オプション';
+$string['groupoverrides'] = 'グループオーバーライド';
+$string['groupoverridesdeleted'] = 'グループオーバーライドが削除されました。';
+$string['groupsnone'] = 'このコース内にグループはありません。';
 $string['handlingofretakes'] = '再受験の評定方法';
-$string['handlingofretakes_help'] = '<p>学生がレッスンを再受験できる場合、このオプションを設定することにより、教師は評定ページでレッスンの評点を表示することができます。例えば、評定ページで最初および以降の受験の<b>評点平均</b>、または学生の受験の<b>最高評点</b>を評点として表示できます。</p>
-
-<p>このオプションは、常に変更することができます。</p>';
+$string['handlingofretakes_help'] = '再受験が許可された場合、この設定はレッスンの評定がすべての受験の平均または最高を指定します。';
 $string['havenotgradedyet'] = '未評定';
 $string['here'] = '　';
 $string['highscore'] = '最高評点';
@@ -220,18 +248,20 @@ $string['highscores'] = 'ハイスコア';
 $string['hightime'] = '最長時間';
 $string['importcount'] = '{$a} の問題をインポート';
 $string['importquestions'] = '問題をインポートする';
-$string['importquestions_help'] = 'この機能では様々なフォーマットの問題をテキストファイル経由でインポートすることができます。';
+$string['importquestions_help'] = 'この機能では様々なフォーマットの問題をテキストファイルでインポートすることができます。';
+$string['inactiveoverridehelp'] = '* 学生にはレッスンを閲覧および受験するための正しいグループまたはロールがありません。';
 $string['insertedpage'] = 'ページが追加されました';
 $string['invalidfile'] = '無効なファイル';
 $string['invalidid'] = 'コースモジュールIDまたはレッスンIDがパスしていません。';
 $string['invalidlessonid'] = 'レッスンIDが正しくありません。';
+$string['invalidoverrideid'] = '無効なオーバーライドID';
 $string['invalidpageid'] = 'ページIDが正しくありません。';
 $string['jump'] = 'ジャンプ';
 $string['jumps'] = 'ジャンプ';
-$string['jumps_help'] = 'それぞれの (問題の) 答えまたは (コンテンツページの) 説明はジャンプするリンク先を持ちます。ジャンプには「このページ」または「次のページ」のような相対ジャンプ、またはレッスン内の1ページを指定する絶対ジャンプがあります。';
+$string['jumps_help'] = 'それぞれの (問題の) 答えまたは (コンテンツページの) 説明はジャンプするリンク先を持ちます。ジャンプには「このページ」または「次のページ」のような相対ジャンプまたはレッスン内の1ページを指定する絶対ジャンプがあります。';
 $string['jumpsto'] = '<em>{$a}</em> にジャンプする';
 $string['leftduringtimed'] = 'あなたは制限時間のあるレッスンを途中で終了しました。<br />レッスンを再スタートするには「続ける」をクリックしてください。';
-$string['leftduringtimednoretake'] = 'あなたは制限時間のあるレッスンを途中で終了しました。<br />レッスンを再受験または継続できません。';
+$string['leftduringtimednoretake'] = 'あなたは制限時間のあるレッスンを途中で終了しました。<br />レッスンを再受験または継続は許可されていません。';
 $string['leftduringtimedsession'] = 'あなたは制限時間のあるレッスンを離れました。';
 $string['lesson:addinstance'] = '新しいレッスンを追加する';
 $string['lessonattempted'] = 'レッスン受験済み';
@@ -242,15 +272,18 @@ $string['lesson:edit'] = 'レッスン活動を編集する';
 $string['lessonformating'] = 'レッスンフォーマット';
 $string['lesson:grade'] = 'レッスン作文問題を評定する';
 $string['lesson:manage'] = 'レッスン活動を管理する';
+$string['lesson:manageoverrides'] = 'レッスンオーバーライドを管理する';
 $string['lessonmenu'] = 'レッスンメニュー';
-$string['lessonnotready'] = 'このレッスンは、まだ受験することができません。あなたの {$a} に連絡してください。';
-$string['lessonnotready2'] = 'このレッスンは、まだ受験することができません';
+$string['lessonname'] = 'レッスン: {$a}';
+$string['lessonnotready'] = 'このレッスンはまだ受験することができません。あなたの {$a} にご連絡ください。';
+$string['lessonnotready2'] = 'このレッスンはまだ受験することができません';
 $string['lessonopen'] = 'このレッスンは {$a} に開始されます。';
 $string['lessonopens'] = 'レッスン開始';
-$string['lessonpagelinkingbroken'] = '最初のページが見つかりません。レッスンページのリンクが壊れているようです。管理者に連絡してください。';
+$string['lessonpagelinkingbroken'] = '最初のページが見つかりません。レッスンページのリンクが壊れているようです。管理者にご連絡ください。';
 $string['lessonstats'] = 'レッスン統計';
+$string['lesson:viewreports'] = 'レッスンレポートを表示する';
 $string['linkedmedia'] = 'リンクメディア';
-$string['loginfail'] = 'ログインに失敗しました、再度ログインしてください...';
+$string['loginfail'] = 'ログインに失敗しました、再度ログインしてください ...';
 $string['lowscore'] = '最低評点';
 $string['lowtime'] = '最短時間';
 $string['manualgrading'] = '作文問題の評定';
@@ -258,38 +291,20 @@ $string['matchesanswer'] = '正解';
 $string['matching'] = '組み合わせ問題';
 $string['matchingpair'] = '組み合わせペア {$a}';
 $string['maxgrade'] = '最大評点';
-$string['maxgrade_help'] = '<p>ここではレッスンで与えることのできる最大評点を設定します。評点の範囲は、0 から 100% です。この値はレッスン中、いつでも変更することができます。すべての変更は、評定ページおよび各種学生リストに即座に反映されます。評点にゼロが設定された場合、そのレッスンはどの評定ページにも表示されません。</p>';
+$string['maxgrade_help'] = 'ここではレッスンの最大評点を設定します。ゼロが設定された場合、そのレッスンは評定ページに表示されません。';
 $string['maxhighscores'] = 'ハイスコア表示件数';
 $string['maximumnumberofanswersbranches'] = '答えの最大数';
 $string['maximumnumberofanswersbranches_help'] = 'ここでは小テストで使用される解答の最大数を指定します。○/×問題のみ使用する場合、設定値として2を設定することができます。データではなく教師の見え方のみに影響するため、設定内容はいつでも変更することができます。';
 $string['maximumnumberofattempts'] = '最大受験回数';
 $string['maximumnumberofattempts_help'] = 'この設定ではそれぞれの問題に許可される最大受験回数を指定します。答えが繰り返し正しくない場合、最大受験回数に到達した時点で次のレッスンページが表示されます。';
 $string['maximumnumberofattemptsreached'] = '最大受験回数に達しました - 次のページに移動しています。';
-$string['maxtime'] = '制限時間 (分)';
-$string['maxtimewarning'] = 'レッスン終了まで {$a} 分です。';
 $string['mediaclose'] = '「ウィンドウを閉じる」ボタンを表示する';
-$string['mediafile'] = 'ファイルポップアップ';
-$string['mediafile_help'] = '<p>ここではレッスンの最初に表示されるファイル (例: mp3ファイル) またはウェブページへのポップアップウィンドウを作成します。また、必要に応じてポップアップウィンドウを開くことができるようリンクはすべてのレッスンページに表示されます。</p>
-
-<p>任意で「ウィンドウを閉じる」ボタンをポップアップの下部に表示することができます。同様に、ウィンドウの高さおよび幅を設定することができます。</p>
-
-<p>サポートされた埋め込みファイルタイプ:</p>
-    <ul>
-        <li>MP3</li>
-        <li>Media Player</li>
-        <li>Quicktime</li>
-        <li>Realmedia</li>
-        <li>HTML</li>
-        <li>Plain Text</li>
-        <li>GIF</li>
-        <li>JPEG</li>
-        <li>PNG</li>
-    </ul>
-<p>    他のすべてのタイプのファイルには、デフォルトでダウンロード用のリンクが設定されます。</p>';
+$string['mediafile'] = 'リンクメディア';
+$string['mediafile_help'] = 'レッスンで使用するためにメディアファイルをアップロードすることができます。レッスンのそれぞれのページにある「リンクメディア」ブロックに「閲覧するにはここをクリックしてください」リンクが表示されます。';
 $string['mediafilepopup'] = '閲覧するにはここをクリックしてください。';
 $string['mediaheight'] = 'ポップアップウィンドウ高';
 $string['mediawidth'] = 'ポップアップウィンドウ幅';
-$string['messageprovider:graded_essay'] = '作文評定通知';
+$string['messageprovider:graded_essay'] = 'レッスン作文評定通知';
 $string['minimumnumberofquestions'] = '最小問題数';
 $string['minimumnumberofquestions_help'] = 'ここでは活動の評定計算に使用する問題の最大数を指定します。';
 $string['missingname'] = 'ニックネームを入力してください。';
@@ -297,7 +312,7 @@ $string['modattempts'] = '学生のレビューを許可する';
 $string['modattempts_help'] = 'この設定を有効にした場合、学生は再度レッスンを最初から通すことができます。';
 $string['modattemptsnoteacher'] = '学生レビューは学生のみに表示されます。';
 $string['modulename'] = 'レッスン';
-$string['modulename_help'] = 'レッスン活動において、教師は楽しくフレキシブルな方法でコンテンツおよび実践活動を提供することができます。教師は一連の線形のコンテンツパッケージまたは学習者に様々なパスまたはオプションを提供する教育活動のためにレッスンを使用することができます。どちらの場合でも、教師は参加を増やすこと、および多肢選択問題、組み合わせ問題、記述問題等の様々な問題を含むことで、理解を確かめることができます。学生の選択した答えおよび教師のレッスン開発により、学生を次のページに移動させる、、前のページに戻す、または完全に異なるパスにリダイレクトさせることができます。
+$string['modulename_help'] = 'レッスン活動において、教師は楽しくフレキシブルな方法でコンテンツおよび実践活動を提供することができます。教師は一連の線形のコンテンツパッケージまたは学習者に様々なパスまたはオプションを提供する教育活動のためにレッスンを使用することができます。どちらの場合でも、教師は参加を増やすこと、および多肢選択問題、組み合わせ問題、記述問題等の様々な問題を含むことで、理解を確かめることができます。学生の選択した答えおよび教師のレッスン開発により、学生を次のページに移動させる、前のページに戻す、または完全に異なるパスにリダイレクトさせることができます。
 
 レッスンは評定すること、評点を評定表に記録することができます。
 
@@ -313,14 +328,7 @@ $string['movepagehere'] = 'ページをここに移動する';
 $string['movepagenamed'] = 'ページを移動する: {$a}';
 $string['moving'] = 'ページの移動: {$a}';
 $string['multianswer'] = '複数解答';
-$string['multianswer_help'] = '<p>いくつかの問題タイプではこのチェックボックスをチェックすることで有効にすることができるオプションがあります。問題タイプとオプションの意味は下記のとおりです.</p>
-
-<ol>
-<li><p><b>多肢選択問題</b> 多肢選択問題の変形版に<b>「多肢選択組合せ」</b>問題があります。問題オプションが選択された場合、学生には答えの中からすべての正解を選択することが求められます。学生に<i>いくつの</i>の正解があるのか知らせることも、知らせないこともできます。例えば、「下記の一覧の中から米国の大統領をあげなさい」という問題では正解の数を知らせないのに対して、「下記の一覧から米国の大統領を2人あげなさい」という問題では正解の数を知らせています。実際の正解数は<b>1</b>から選択肢の数まで設定することができます。(正解が1つの多肢選択組合せ問題は多肢選択問題と異なります。 前者は学生が1つ以上の答えを選択することができるのに対して、後者は選択することができません。)</p></li>
-
-<li><p><b>記述問題</b> 記述問題には、2つの類似するシステムを使用することができます。デフォルトでは単純分析システムが使用され、オプションボックスがチェックされた場合、「正規表現」分析システムが使用されます。詳細は、レッスン問題タイプのヘルプファイルをご覧ください。</p></li>
-
-<p>その他の問題では問題オプションを使用しません。</p>';
+$string['multianswer_help'] = '1つ以上の解答を正解にする場合、この設定を有効にしてください。';
 $string['multichoice'] = '多肢選択問題';
 $string['multipleanswer'] = '複数解答';
 $string['nameapproved'] = '名前が承認されました。';
@@ -330,6 +338,7 @@ $string['nextpage'] = '次のページ';
 $string['noanswer'] = '1つまたはそれ以上の問題が解答されていません。戻って解答を送信してください。';
 $string['noattemptrecordsfound'] = '受験レコードが見つかりません: 評定なし';
 $string['nobranchtablefound'] = 'コンテンツページが見つかりません。';
+$string['noclose'] = '終了日時なし';
 $string['nocommentyet'] = 'コメントはありません。';
 $string['nocoursemods'] = '活動が見つかりません。';
 $string['nocredit'] = '未承認';
@@ -337,30 +346,37 @@ $string['nodeadline'] = 'レッスン終了なし';
 $string['noessayquestionsfound'] = 'このレッスンに作文問題はありません。';
 $string['nohighscores'] = 'ハイスコアはありません。';
 $string['nolessonattempts'] = 'このレッスンは受験されていません。';
+$string['nolessonattemptsgroup'] = 'このレッスンの {$a} グループメンバーによる受験はありません。';
+$string['none'] = 'なし';
 $string['nooneansweredcorrectly'] = '正解者はいません。';
 $string['nooneansweredthisquestion'] = 'この問題の解答者はいません。';
 $string['noonecheckedthis'] = '未チェック';
 $string['nooneenteredthis'] = '未入力';
-$string['noonehasanswered'] = '作文問題に解答者はいません。';
-$string['noretake'] = 'このレッスンは再受験できません。';
+$string['noonehasanswered'] = 'まだ作文問題に解答者はいません。';
+$string['noonehasansweredgroup'] = 'まだ {$a} の誰も作文問題に解答していません。';
+$string['noopen'] = '開始日時なし';
+$string['nooverridedata'] = 'あなたは少なくとも1つのレッスン設定をオーバーライドする必要があります。';
+$string['noretake'] = 'あなたはこのレッスンを再受験できません。';
 $string['normal'] = '通常 - レッスンパスに従う';
 $string['notcompleted'] = '未了';
 $string['notdefined'] = '未定義';
-$string['notenoughsubquestions'] = '十分な副問題が定義されていません！<br />この問題を修正しますか？';
+$string['notenoughsubquestions'] = '十分な副問題が定義されていません！';
+$string['notenoughtimespent'] = 'あなたはこのレッスンを所要時間 {$a->timerequired} より短い {$a->timespent} で完了しました。あなたは再度レッスンを受験することができます。';
 $string['nothighscore'] = 'あなたはトップ {$a} ハイスコアリストに入りませんでした。';
 $string['notitle'] = 'タイトルなし';
+$string['notyetcompleted'] = 'レッスンは開始されましたが、まだ完了していません。';
 $string['numberofcorrectanswers'] = '正解数: {$a}';
+$string['numberofcorrectanswersheader'] = '正解数';
 $string['numberofcorrectmatches'] = '正しいマッチ数: {$a}';
-$string['numberofpagestoshow'] = 'ページの表示数';
-$string['numberofpagestoshow_help'] = '<p>このパラメータは、フラッシュカードタイプのレッスンのみに使用されます。デフォルトの値はゼロで、レッスン内にすべてのページ/カードが表示されます。このパラメータにゼロ以外の値を設定すると、設定した値のページが表示されます。この値のページ/カードが表示された後、レッスンは最後まで到達したことになり、学生に評点が表示されます。</p>
-
-<p>このパラメータを実際のページ数よりも大きく設定した場合、すべてのページが表示された後に、レッスンは最後まで到達したことになります。</p>';
+$string['numberofpagestoshow'] = 'ページ表示数';
+$string['numberofpagestoshow_help'] = 'この設定ではレッスンで表示されるページ数を指定します。これはページがランダムに表示される場合のみに適用されます (「正解後のアクション」 が 「未閲覧のページを表示する」または「未解答のページを表示する」に設定された場合)。ゼロが設定された場合、すべてのページが表示されます。';
 $string['numberofpagesviewed'] = '解答済み問題数: {$a}';
+$string['numberofpagesviewedheader'] = '解答済み問題数';
 $string['numberofpagesviewednotice'] = '解答済み問題数: {$a->nquestions} (あなたは少なくとも {$a->minquestions} 問の問題に解答する必要があります)';
 $string['numerical'] = '数値問題';
 $string['ongoing'] = '進行中の評点を表示する';
 $string['ongoingcustom'] = '現在、あなたの評点は {$a->currenthigh} 点中 {$a->score} 点です。';
-$string['ongoing_help'] = 'この設定を有効にした場合、現時点で考えられる学生の合計評点が各ページに表示されます。';
+$string['ongoing_help'] = 'この設定を有効にした場合、現時点で考えられる学生の合計評点がそれぞれのページに表示されます。';
 $string['ongoingnormal'] = 'あなたは {$a->viewed} 問中 {$a->correct} 問を正しく答えました。';
 $string['onpostperpage'] = '1評点あたり1回のみ登録してください。';
 $string['options'] = 'オプション';
@@ -368,8 +384,16 @@ $string['or'] = 'または';
 $string['ordered'] = '整理済み';
 $string['other'] = 'その他';
 $string['outof'] = '{$a} 中';
+$string['override'] = 'オーバーライド';
+$string['overridedeletegroupsure'] = '本当にグループ「 {$a} 」のオーバーライドを削除してもよろしいですか?';
+$string['overridedeleteusersure'] = '本当にユーザ「 {$a} 」のオーバーライドを削除してもよろしいですか?';
+$string['overridegroup'] = 'グループをオーバーライドする';
+$string['overridegroupeventname'] = '{$a->lesson} - {$a->group}';
+$string['overrides'] = 'オーバーライド';
+$string['overrideuser'] = 'ユーザをオーバーライドする';
+$string['overrideusereventname'] = '{$a->lesson} - オーバーライド';
 $string['overview'] = '概要';
-$string['overview_help'] = 'レッスンは多くのページおよび任意のコンテンツページにより構成されます。ページはいくつかのコンテンツを含み、通常、問題で終了します。ジャンプには「このページ」または「次のページ」のような相対ジャンプ、またはレッスン内の1ページを指定する絶対ジャンプがあります。ページコンテンツには例えば目次のように、レッスン内の他のページへの一連のリンクを含みます。';
+$string['overview_help'] = 'レッスンは多くのページおよび任意のコンテンツページにより構成されます。ページはいくつかのコンテンツを含み、通常、問題で終了します。ジャンプには「このページ」または「次のページ」のような相対ジャンプまたはレッスン内の1ページを指定する絶対ジャンプがあります。ページコンテンツには例えば目次のようにレッスン内の他のページへの一連のリンクを含みます。';
 $string['page'] = 'ページ: {$a}';
 $string['pageanswers'] = '正解ページ';
 $string['pagecontents'] = 'ページコンテンツ';
@@ -381,18 +405,19 @@ $string['pages'] = 'ページ';
 $string['pagetitle'] = 'ページタイトル';
 $string['password'] = 'パスワード';
 $string['passwordprotectedlesson'] = '{$a} はパスワードで保護されたレッスンです。';
-$string['pleasecheckoneanswer'] = '答えを選択してボタンをクリックしてください';
-$string['pleasecheckoneormoreanswers'] = '1つ以上の答えを選択してボタンをクリックしてください';
-$string['pleaseenteryouranswerinthebox'] = '答えを入力してボタンをクリックしてください';
-$string['pleasematchtheabovepairs'] = '答えを選択してボタンをクリックしてください';
+$string['pleasecheckoneanswer'] = '1つの答えをチェックしてください';
+$string['pleasecheckoneormoreanswers'] = '1つ以上の答えをチェックしてください';
+$string['pleaseenteryouranswerinthebox'] = 'あなたの答えをテキストボックスに入力してください';
+$string['pleasematchtheabovepairs'] = '上の組み合わせを合致させてください';
 $string['pluginadministration'] = 'レッスン管理';
 $string['pluginname'] = 'レッスン';
 $string['pointsearned'] = '獲得点数';
 $string['postprocesserror'] = '投稿処理中にエラーが発生しました!';
 $string['postsuccess'] = '正常に投稿されました。';
 $string['practice'] = '練習レッスン';
-$string['practice_help'] = '<p>練習レッスンは、評定表には表示されません。</p>';
+$string['practice_help'] = '練習レッスンは評定表には表示されません。';
 $string['preprocesserror'] = '前処理中にエラーが発生しました!';
+$string['prerequisiteisobsolete'] = '必修レッスンオプションは削除される予定です。代わりにアクセス制限を使用してください。';
 $string['prerequisitelesson'] = '必修レッスン';
 $string['preview'] = 'プレビュー';
 $string['previewlesson'] = '{$a} のプレビュー';
@@ -400,7 +425,7 @@ $string['previewpagenamed'] = 'ページをプレビューする: {$a}';
 $string['previouspage'] = '前のページ';
 $string['processerror'] = '処理中にエラーが発生しました!';
 $string['progressbar'] = 'プログレスバー';
-$string['progressbar_help'] = 'この設定を有効にした場合レッスンページ最下部におおよその完了パーセンテージを表示したバーが表示されます。';
+$string['progressbar_help'] = 'この設定を有効にした場合、レッスンページ最下部におおよその完了パーセンテージを表示したバーが表示されます。';
 $string['progressbarteacherwarning'] = 'プログレスバーは {$a} に表示されません。';
 $string['progressbarteacherwarning2'] = 'あなたはこのレッスンを編集できるため、プログレスバーは表示されません。';
 $string['progresscompleted'] = 'あなたは {$a}% のレッスンを完了しました。';
@@ -411,27 +436,33 @@ $string['questiontype'] = '問題タイプ';
 $string['randombranch'] = 'ランダムコンテンツページ';
 $string['randompageinbranch'] = 'コンテンツページ内のランダム問題';
 $string['rank'] = 'ランク';
-$string['rawgrade'] = '評点詳細';
+$string['rawgrade'] = '素点';
 $string['receivedcredit'] = '承認クレジット';
-$string['redisplaypage'] = '再表示';
+$string['redisplaypage'] = 'ページを再表示する';
+$string['removeallgroupoverrides'] = 'すべてのグループオーバーライドを削除する';
+$string['removealluseroverrides'] = 'すべてのユーザオーバーライドを削除する';
 $string['report'] = 'レポート';
 $string['reports'] = 'レポート';
-$string['response'] = 'レスポンス';
+$string['response'] = '返答';
 $string['retakesallowed'] = '再受験を許可する';
 $string['retakesallowed_help'] = 'この設定を有効にした場合、学生は1回以上レッスンを受験することができます。';
 $string['returnto'] = '{$a} に戻る';
 $string['returntocourse'] = 'コースに戻る';
+$string['reverttodefaults'] = 'レッスンデフォルトに戻す';
 $string['review'] = 'レビュー';
 $string['reviewlesson'] = 'レッスンをレビューする';
 $string['reviewquestionback'] = 'はい、もう一度受験します';
 $string['reviewquestioncontinue'] = 'いいえ、次の問題に移動します';
 $string['sanitycheckfailed'] = '正当性チェックが失敗しました: この受験は削除されました。';
+$string['save'] = '保存';
 $string['savechanges'] = '変更を保存する';
 $string['savechangesandeol'] = 'すべての変更を保存してレッスンの最後に移動する。';
+$string['saveoverrideandstay'] = '保存して別のオーバーライドを入力する';
 $string['savepage'] = 'ページを保存する';
 $string['score'] = '評点';
 $string['score_help'] = '評点はカスタムスコアが有効にされた場合にのみ使用されます。それぞれの答えには数字による評点 (プラスまたはマイナス) を与えることができます。';
 $string['scores'] = '評点';
+$string['search:activity'] = 'レッスン - 活動情報';
 $string['secondpluswrong'] = 'もう一度受験しますか?';
 $string['selectaqtype'] = '問題タイプを選択する';
 $string['shortanswer'] = '記述問題';
@@ -444,26 +475,30 @@ $string['slideshowbgcolor'] = 'スライドショー背景色';
 $string['slideshowheight'] = 'スライドショー高';
 $string['slideshow_help'] = 'この設定を有効にした場合、レッスンは固定幅および高さのスライドショーとして表示されます。';
 $string['slideshowwidth'] = 'スライドショー幅';
-$string['startlesson'] = 'レッスンの開始';
+$string['startlesson'] = 'レッスンを開始する';
 $string['studentattemptlesson'] = '{$a->lastname}, {$a->firstname} さんの受験回数:  {$a->attempt}';
 $string['studentname'] = '{$a} の氏名';
 $string['studentoneminwarning'] = '警告: レッスンが終了するまでの残り時間が1分またはそれ以下です。';
-$string['studentresponse'] = '{$a} のレスポンス';
+$string['studentresponse'] = '{$a} の解答';
 $string['submit'] = '送信';
-$string['submitname'] = 'ニックネームの送信';
-$string['teacherjumpwarning'] = 'このレッスンでは {$a->cluster} ジャンプまたは {$a->unseen} ジャンプが使用されています。これらのジャンプの代わりに「次のページ」へのジャンプが使用されます。これらのジャンプを確認するには学生としてログインしてください。';
-$string['teacherongoingwarning'] = '進行中の評点は、学生のみに表示されます。進行中のスコアをテストするには学生としてログインしてください。';
+$string['submitname'] = '氏名を送信する';
+$string['teacherjumpwarning'] = 'このレッスンでは {$a->cluster} ジャンプまたは {$a->unseen} ジャンプが使用されています。代わりに「次のページ」へのジャンプが使用されます。これらのジャンプを確認するには学生としてログインしてください。';
+$string['teacherongoingwarning'] = '進行中の評点は学生にのみ表示されます。進行中のスコアをテストするには学生としてログインしてください。';
 $string['teachertimerwarning'] = 'タイマーは学生に対してのみ作動します。タイマーをテストするには学生としてログインしてください。';
 $string['thatsthecorrectanswer'] = '正解です。';
 $string['thatsthewronganswer'] = '不正解です。';
 $string['thefollowingpagesjumptothispage'] = '以下ののページはこのページにジャンプします。';
 $string['thispage'] = 'このページ';
 $string['timeisup'] = '時間終了';
+$string['timelimit'] = '時間制限';
+$string['timelimit_help'] = 'この設定を有効にした場合、レッスン開始時に時間制限に関する警告が表示され、カウントダウンタイマーが表示されます。制限時間後の解答は時間切れとなり、評定されません。';
+$string['timelimitwarning'] = 'あなたはレッスン終了までに {$a} あります。';
 $string['timeremaining'] = '残り時間';
-$string['timespenterror'] = '少なくともレッスンで {$a} 分の時間を使用してください。';
+$string['timespenterror'] = '少なくともレッスンで {$a} 分の時間を費やしてください。';
 $string['timespentminutes'] = '利用時間 (分)';
 $string['timetaken'] = '経過時間';
 $string['topscorestitle'] = 'トップ {$a} ハイスコア';
+$string['totalpagesviewedheader'] = 'ページ閲覧数';
 $string['true'] = '○';
 $string['truefalse'] = '○/×問題';
 $string['unabledtosavefile'] = 'あなたがアップロードしたファイルを保存することができませんでした。';
@@ -471,21 +506,25 @@ $string['unknownqtypesnotimported'] = '{$a} 件のサポートされない問題
 $string['unseenpageinbranch'] = 'コンテンツページ内の未閲覧の問題';
 $string['unsupportedqtype'] = 'サポートされていない問題タイプ ({$a}) です!';
 $string['updatedpage'] = 'ページを更新しました';
-$string['updatefailed'] = '更新が失敗しました。';
+$string['updatefailed'] = '更新に失敗しました。';
 $string['updatepagenamed'] = 'ページを更新する: {$a}';
 $string['usemaximum'] = '最大評点を使用する';
 $string['usemean'] = '評点平均を使用する';
-$string['usepassword'] = 'レッスンをパスワードで保護する';
+$string['usepassword'] = 'パスワード保護レッスン';
 $string['usepassword_help'] = 'この設定を有効にした場合、レッスンにアクセスするためにパスワードが必要となります。';
+$string['useroverrides'] = 'ユーザオーバーライド';
+$string['useroverridesdeleted'] = 'ユーザオーバーライドが削除されました。';
+$string['usersnone'] = 'このレッスンにアクセスできる学生はいません。';
 $string['viewgrades'] = '評点を表示する';
 $string['viewhighscores'] = 'ハイスコアリストを表示する';
-$string['viewreports'] = '{$a->student} の {$a->attempts} 件の受験を表示';
-$string['viewreports2'] = '{$a} 件の受験を表示';
+$string['viewreports'] = '{$a->student} の {$a->attempts} 件の受験を表示する';
+$string['viewreports2'] = '{$a} 件の受験を表示する';
+$string['warning'] = '警告';
 $string['welldone'] = 'よくできました!';
 $string['whatdofirst'] = '最初に何をしますか?';
 $string['wronganswerjump'] = '不正解のジャンプ先';
 $string['wronganswerscore'] = '不正解の評点';
-$string['wrongresponse'] = '不正解に対するレスポンス';
+$string['wrongresponse'] = '不正解';
 $string['xattempts'] = '{$a} 受験';
 $string['youhaveseen'] = 'あなたはすでにこのレッスンを1ページ以上表示しました。<br />あなたが表示した最後のページから始めますか?';
 $string['youmadehighscore'] = 'あなたはトップ {$a} ハイスコアリストに入りました。';

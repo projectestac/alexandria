@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'pt', branch 'MOODLE_28_STABLE'
+ * Strings for component 'choicegroup', language 'pt', branch 'MOODLE_30_STABLE'
  *
  * @package   choicegroup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -88,7 +88,7 @@ $string['groupdoesntexist'] = 'Alguns dos grupos especificados não existem nest
 $string['groupmembers'] = 'Membros do grupo';
 $string['groupsheader'] = 'Grupos';
 $string['havetologin'] = 'Deve fazer login antes de poder fazer a sua escolha';
-$string['hidedescription'] = 'Ocultar descrição';
+$string['hidedescription'] = 'Ocultar descrição do grupo';
 $string['limit'] = 'Limite';
 $string['limitanswers'] = 'Limitar o número de respostas permitidas';
 $string['limitanswers_help'] = 'Esta opção permite limitar o número de participantes que podem selecionar cada opção de escolha. Quando o limite é atingido, mais nenhum aluno pode selecionar essa opção.
@@ -101,19 +101,19 @@ $string['modulenameplural'] = 'Escolher Grupos';
 $string['moveselectedusersto'] = 'Mover utilizadores selecionados para...';
 $string['multipleenrollmentspossible'] = 'Permitir inscrição em vários grupos';
 $string['mustchooseone'] = 'Deve escolher uma resposta antes de guardar. Nada foi salvo.';
-$string['name'] = 'Nome';
+$string['name'] = 'Nome do grupo';
 $string['neverresultsviewable'] = 'Os resultados não estão visíveis.';
 $string['noguestchoose'] = 'Os visitantes não estão autorizados a fazer escolhas.';
 $string['noresultsviewable'] = 'De momento os resultados não estão visíveis.';
 $string['notanswered'] = 'Ainda não respondido';
-$string['notenrolledchoose'] = 'Apenas utilizadores inscritos têm permissão para fazer escolhas.';
+$string['notenrolledchoose'] = 'Apenas os utilizadores inscritos têm permissão para fazer escolhas.';
 $string['notopenyet'] = 'Esta atividade só estará disponível depois de {$a}';
 $string['notyetresultsviewable'] = 'Os resultados estarão visíveis após o fecho desta atividade.';
 $string['numberofuser'] = 'Número de utilizadores';
 $string['option'] = 'Grupo';
 $string['page-mod-choice-x'] = 'Qualquer página do módulo Escolher Grupo';
 $string['pleasesetgroups'] = 'Crie pelo menos dois grupos nesta disciplina';
-$string['pluginadministration'] = 'Administração de Escolher';
+$string['pluginadministration'] = 'Administração de Escolher Grupo';
 $string['pluginname'] = 'Escolher Grupo';
 $string['privacy'] = 'Privacidade dos resultados';
 $string['publish'] = 'Publicar resultados';
@@ -131,7 +131,7 @@ $string['samegroupused'] = 'O mesmo grupo não pode ser utilizado várias vezes.
 $string['savemychoicegroup'] = 'Guardar a minha escolha';
 $string['selected_groups'] = 'Grupos selecionados';
 $string['set_limit_for_group'] = 'Limite para';
-$string['showdescription'] = 'Mostrar descrição';
+$string['showdescription'] = 'Mostrar descrição do grupo';
 $string['showunanswered'] = 'Mostrar coluna para não respondida';
 $string['skipresultgraph'] = 'Ignorar gráfico do resultado';
 $string['sortgroupsby'] = 'Ordenar grupos por';
@@ -142,6 +142,6 @@ $string['systemdefault_name'] = 'Padrão do Sistema (Nome)';
 $string['taken'] = 'Escolhido';
 $string['the_value_you_entered_is_not_a_number'] = 'O valor inserido não é um número';
 $string['timerestrict'] = 'Restringir respostas a este período de tempo';
-$string['viewallresponses'] = 'Ver [{$a}]} respostas';
+$string['viewallresponses'] = 'Ver respostas: [{$a}]';
 $string['withselected'] = 'Com os selecionados';
 $string['yourselection'] = 'A sua seleção';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hub', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hub', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   hub
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -60,4 +60,5 @@ $string['language_help'] = 'الغة الرئيسية لهذا المقرر';
 $string['licence'] = 'الرخصة';
 $string['licence_help'] = 'حدد الرخصة التي تريد نشر هذا المقرر تحتها';
 $string['search'] = 'بحث';
+$string['sendingcourse'] = 'إرسال مقرر';
 $string['tags'] = 'وسوم';

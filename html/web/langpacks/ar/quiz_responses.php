@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_responses', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'quiz_responses', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   quiz_responses
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['cannotloadoptions'] = 'لا يمكن تحميل خيارات السؤال';
 $string['pagesize'] = 'قياس الصفحة';
+$string['questiontext'] = 'نص السؤال';
 $string['reportresponses'] = 'الإجابات';
 $string['responses'] = 'الإجابات';
 $string['responsesdownload'] = 'تحميل الإجابات';

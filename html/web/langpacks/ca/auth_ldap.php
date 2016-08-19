@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'auth_ldap', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,7 +30,7 @@ $string['auth_ldap_attrcreators'] = 'Llista de grups o contextos als membres del
 $string['auth_ldap_attrcreators_key'] = 'Creadors d\'atributs';
 $string['auth_ldap_auth_user_create_key'] = 'Crea usuaris externament';
 $string['auth_ldap_bind_dn'] = 'Si voleu utilitzar el bind-user per cercar usuaris, especifiqueu-ho aquí. Per exemple \'cn=ldapuser,ou=public,o=org\'';
-$string['auth_ldap_bind_dn_key'] = 'Nom distingit';
+$string['auth_ldap_bind_dn_key'] = 'Nom distingit (distinguised name, «dn»)';
 $string['auth_ldap_bind_pw'] = 'Contrasenya del bind-user.';
 $string['auth_ldap_bind_pw_key'] = 'Contrasenya';
 $string['auth_ldap_bind_settings'] = 'Paràmetres de vinculació';
@@ -44,12 +44,12 @@ $string['auth_ldap_creators'] = 'Llista de grups als membres dels quals els és 
 $string['auth_ldap_creators_key'] = 'Creadors';
 $string['auth_ldapdescription'] = 'Aquest mètode proporciona autenticació contra un servidor LDAP extern.
 
-Si un nom d\'usuari i una contrasenya són vàlids, Moodle crea una entrada per a un nou usuari a la seva base de dades. Aquest mòdul pot llegir atributs de l\'usuari del LDAP i omplir els camps corresponents de Moodle. En els successius inicis de sessió només es comproven el nom d\'usuari i la contrasenya.';
+Si un nom d\'usuari i una contrasenya són vàlids, Moodle crea una entrada per a un usuari nou a la seva base de dades. Aquest mòdul pot llegir atributs de l\'usuari del LDAP i omplir els camps corresponents de Moodle. En els successius inicis de sessió només es comproven el nom d\'usuari i la contrasenya.';
 $string['auth_ldap_expiration_desc'] = 'Seleccioneu «No» per inhabilitar la comprovació de contrasenyes vençudes o «LDAP» per consultar la data de venciment de la contrasenya directament a l\'LDAP.';
 $string['auth_ldap_expiration_key'] = 'Venciment';
 $string['auth_ldap_expiration_warning_desc'] = 'Nombre de dies abans que surti l\'avís de venciment de la contrasenya.';
 $string['auth_ldap_expiration_warning_key'] = 'Avís de venciment';
-$string['auth_ldap_expireattr_desc'] = 'Opcional: substitueix l\'atribut de l\'LDAP que emmagatzema la data de venciment de la contrasenya (passwordExpirationTime)';
+$string['auth_ldap_expireattr_desc'] = 'Opcional: Rectifica l\'atribut de l\'LDAP que emmagatzema la data de venciment de la contrasenya.';
 $string['auth_ldap_expireattr_key'] = 'Atribut de venciment';
 $string['auth_ldapextrafields'] = 'Aquests camps són opcionals. Podeu triar d\'omplir alguns camps d\'usuari de Moodle amb informació dels <b>camps LDAP</b> especificats aquí. <p>Si els deixeu en blanc, aleshores s\'utilitzaran valors per defecte.<p>En tot cas, l\'usuari podrà editar tots aquests camps quan es connecti.';
 $string['auth_ldap_graceattr_desc'] = 'Opcional: rectifica l\'atribut gracelogin';
@@ -58,7 +58,7 @@ $string['auth_ldap_gracelogins_desc'] = 'Fa que funcioni el gracelogin de LDAP. 
 $string['auth_ldap_gracelogins_key'] = 'Inicis de sessió de gràcia';
 $string['auth_ldap_groupecreators'] = 'Llista de grups o contextos als membres dels quals se\'ls permet crear grups. Separeu els grups amb \';\'. Generalment serà una cosa així: \'cn=teachers,ou=staff,o=myorg\'';
 $string['auth_ldap_groupecreators_key'] = 'Creadors de grups';
-$string['auth_ldap_host_url'] = 'Especifiqueu l\'ordinador central LDAP en format URL, per exemple \'ldap://ldap.myorg.com/\' o \'ldaps://ldap.myorg.com/\'';
+$string['auth_ldap_host_url'] = 'Especifiqueu el servidor LDAP en format URL, per exemple \'ldap://ldap.myorg.com/\' o \'ldaps://ldap.myorg.com/\'. Separeu els diferents servidors amb \';\' per tenir protecció contra fallades.';
 $string['auth_ldap_host_url_key'] = 'URL del servidor';
 $string['auth_ldap_ldap_encoding'] = 'Especifiqueu la codificació utilitzada pel servidor LDAP. Molt probablement UTF-8. MS AD v2 utilitza la codificació per defecte del sistema operatiu: cp1252, cp1250, etc.';
 $string['auth_ldap_ldap_encoding_key'] = 'Codificació LDAP';
@@ -72,20 +72,22 @@ $string['auth_ldap_noconnect_all'] = 'El mòdul LDAP no s\'ha pogut connectar a 
 $string['auth_ldap_noextension'] = '<em>El mòdul PHP LDAP no sembla que sigui present. Si us plau assegureu-vos que està instal·lat i habilitat si voleu utilitzar aquest connector d\'autenticació. </em>';
 $string['auth_ldap_no_mbstring'] = 'Per a crear usuaris en el Directori Actiu necessiteu l\'extensió mbstring.';
 $string['auth_ldapnotinstalled'] = 'No es pot utilitzar l\'autenticació LDAP. El mòdul PHP LDAP no està instal·lat.';
-$string['auth_ldap_objectclass'] = 'Filtre utilitzat per nomenar/cercar usuaris. Generalment es defineix quelcom semblant a objectClass=posixAccount. Per defecte objectClass=*, que retorna tots els objectes de LDAP.';
+$string['auth_ldap_objectclass'] = 'Opcional: Sobreescriu l\'objectClass usada per anomenar/cercar usuaris en ldap_user_type. Normalment no us caldrà canviar-ho.';
 $string['auth_ldap_objectclass_key'] = 'Classe objecte';
 $string['auth_ldap_opt_deref'] = 'Determina com es manegen els àlies en les cerques. Seleccioneu un dels valors següents: "No" (LDAP_DEREF_NEVER) o "Sí" (LDAP_DEREF_ALWAYS)';
 $string['auth_ldap_opt_deref_key'] = 'Desreferencia àlies';
 $string['auth_ldap_passtype'] = 'Especifiqueu el format per a les contrasenyes noves, o modificades, en el servidor LDAP.';
 $string['auth_ldap_passtype_key'] = 'Format de contrasenyes';
 $string['auth_ldap_passwdexpire_settings'] = 'Paràmetres LDAP de venciment de contrasenyes';
-$string['auth_ldap_preventpassindb'] = 'Seleccioneu \'sí\' per impedir que les contrasenyes s\'emmagatzemin en la base de dades de Moodle.';
-$string['auth_ldap_preventpassindb_key'] = 'Oculta contrasenyes';
+$string['auth_ldap_preventpassindb'] = 'Seleccioneu «sí» per impedir que les contrasenyes s\'emmagatzemin a la base de dades de Moodle.';
+$string['auth_ldap_preventpassindb_key'] = 'No emmgatzemis les contrasenyes a la memòria cau';
 $string['auth_ldap_search_sub'] = 'Poseu el valor <> 0 si voleu cercar els usuaris en subcontextos.';
 $string['auth_ldap_search_sub_key'] = 'Cerca subcontextos';
 $string['auth_ldap_server_settings'] = 'Paràmetres del servidor LDAP';
+$string['auth_ldap_suspended_attribute'] = 'Opcional: Si està present, aquest atribut s\'utilitzarà per activar/suspendre el compte d\'usuari creat localment.';
+$string['auth_ldap_suspended_attribute_key'] = 'Atribut «suspès»';
 $string['auth_ldap_unsupportedusertype'] = 'auth: ldap user_create() no és ara per ara compatible amb el tipus d\'usuari seleccionat:{$a}';
-$string['auth_ldap_update_userinfo'] = 'Actualitzeu la informació dels usuaris (nom, cognoms, adreça...) d\'LDAP a Moodle. Especifiqueu els paràmetres de "Mapatge de dades" segons les vostres necessitats.';
+$string['auth_ldap_update_userinfo'] = 'Actualitzeu la informació dels usuaris (nom, cognoms, adreça...) d\'LDAP a Moodle. Especifiqueu els paràmetres de «Mapatge de dades» segons les vostres necessitats.';
 $string['auth_ldap_user_attribute'] = 'Opcional: substitueix l\'atribut utilitzat per anomenar/cercar usuaris. Generalment \'cn\'.';
 $string['auth_ldap_user_attribute_key'] = 'Atribut d\'usuari';
 $string['auth_ldap_user_exists'] = 'Aquest nom d\'usuari LDAP ja existeix.';
@@ -126,12 +128,12 @@ $string['notcalledfromserver'] = 'No ha de ser cridat des del servidor web!';
 $string['noupdatestobedone'] = 'No hi ha actualitzacions';
 $string['nouserentriestoremove'] = 'No hi ha entrades a suprimir ';
 $string['nouserentriestorevive'] = 'No hi ha entrades per restaurar';
-$string['nouserstobeadded'] = 'No hi ha usuaris per afegir';
+$string['nouserstobeadded'] = 'No hi ha entrades d\'usuaris per afegir';
 $string['ntlmsso_attempting'] = 'S\'està intentant l\'autenticació única a través de NTLM...';
 $string['ntlmsso_failed'] = 'L\'inici de sessió automàtic ha fallat. Proveu d\'iniciar la sessió per la pàgina normal...';
 $string['ntlmsso_isdisabled'] = 'L\'autenticació única per NTLM està inhabilitada';
 $string['ntlmsso_unknowntype'] = 'Tipus ntlmsso desconegut!';
-$string['pagedresultsnotsupp'] = 'La paginació de resultats de LDAP no funciona (la versió de PHP no ho permet o no teniu Moodle configurat per a utilitzar la versió el protocol LDAP versió 2)';
+$string['pagedresultsnotsupp'] = 'La paginació de resultats de LDAP no funciona (la versió de PHP no ho permet o no teniu Moodle configurat per utilitzar la versió 2 del protocol LDAP)';
 $string['pagesize'] = 'Assegureu-vos que aquest valor és menor que el límit de mida de conjunt de resultats del servidor LDAP (el nombre màxim d\'entrades que poden ser retornades en una consulta)';
 $string['pagesize_key'] = 'Mida de la pàgina';
 $string['pluginname'] = 'Servidor LDAP';
@@ -140,11 +142,12 @@ $string['renamingnotallowed'] = 'No està permés en LDAP canviar el nom a l\'us
 $string['rootdseerror'] = 'Error de consulta rootDSE per al directori actiu.';
 $string['start_tls'] = 'Usa el servei LDAP regular (port 389) amb xifrat TLS';
 $string['start_tls_key'] = 'Usa TLS';
+$string['synctask'] = 'Tasca de sincronització dels usuaris LDAP';
 $string['updatepasserror'] = 'Error en user_update_password(). Codi d\'error: {$a->errno}; Cadena d\'error: {$a->errstring}';
 $string['updatepasserrorexpire'] = 'Error en user_update_password() quan es llegia el temps d\'expiració de la contrasenya. Codi d\'error: {$a->errno}; Cadena d\'error: {$a->errstring}';
 $string['updatepasserrorexpiregrace'] = 'Error en user_update_password() quan s\'estava modificant l\'«expirationtime» i/o el «gracelogins». Codi d\'error: {$a->errno}; Cadena d\'error: {$a->errstring}';
-$string['updateremfail'] = 'Error actualitzant una dada LDAP. Codi d\'error: {$a->errno}; Cadena d\'error: {$a->errstring}<br/>Clau ({$a->key}) - valor antic de moodle: \'{$a->ouvalue}\' valor nou: \'{$a->nuvalue}\'';
-$string['updateremfailamb'] = 'Errada a l\'actualitzar LDAP amb un camp ambigu {$a->key}; valor de moodle anterior: \'{$a->ouvalue}\', valor nou: \'{$a->nuvalue}\'';
+$string['updateremfail'] = 'S\'ha produït un error en actualitzar un registre LDAP. Codi d\'error: {$a->errno}; Cadena d\'error: {$a->errstring}<br/>Clau ({$a->key}); valor antic de Moodle: «{$a->ouvalue}» valor nou: «{$a->nuvalue}»';
+$string['updateremfailamb'] = 'No s\'ha pogut actualitzar LDAP amb un camp ambigu {$a->key}; valor de Moodle anterior: «{$a->ouvalue}», valor nou: «{$a->nuvalue}»';
 $string['updateusernotfound'] = 'No s\'ha pogut trobar l\'usuari mentres s\'actualitzava externament. Detalls: cerca a la base: \'{$a->userdn}\'; filtre de cerca: \'(objectClass=*)\'; atributs de cerca: {$a->attribs}';
 $string['useracctctrlerror'] = 'Error mentre s\'estava obtenint userAccountControl per a {$a}';
 $string['user_activatenotsupportusertype'] = 'auth: ldap user_activate() no suporta el tipus d\'usuari seleccionat: {$a}';

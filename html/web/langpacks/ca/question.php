@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'question', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -64,7 +64,7 @@ $string['cannotgetdsforquestion'] = 'No s\'ha pogut obtenir el conjunt de dades 
 $string['cannothidequestion'] = 'No s\'ha pogut ocultar la pregunta';
 $string['cannotimportformat'] = 'La importació d\'aquest format encara no s\'ha implementat';
 $string['cannotinsertquestion'] = 'No s\'ha pogut inserir una pregunta!';
-$string['cannotinsertquestioncatecontext'] = 'No s\'ha pogut inserir la nova categoria de pregunta {$a->cat} per un identificador de context erroni {$a->ctx}';
+$string['cannotinsertquestioncatecontext'] = 'No s\'ha pogut inserir la categoria de pregunta nova {$a->cat} per un identificador de context erroni {$a->ctx}';
 $string['cannotloadquestion'] = 'No s\'ha pogut carregar una pregunta';
 $string['cannotmovequestion'] = 'No podeu utilitzar aquest script per moure preguntes que tenen associats fitxers procedents d\'àrees diverses.';
 $string['cannotopenforwriting'] = 'No es pot obrir per escriure-hi: {$a}';
@@ -110,8 +110,8 @@ $string['createdby'] = 'Creada per ';
 $string['createdmodifiedheader'] = 'Creació / darrera modificació';
 $string['createnewquestion'] = 'Crea una nova pregunta...';
 $string['cwrqpfs'] = 'Preguntes aleatòries que seleccionen preguntes de subcategories';
-$string['cwrqpfsinfo'] = '<p>Durant l\'actualització a Moodle 1.9 se separaran les categories de preguntes en diferents contextos. Caldrà canviar l\'estat de publicació d\'algunes preguntes i categories de preguntes del vostre lloc. Això és necessari en casos com el vostre, quan hi ha preguntes "aleatòries" en un qüestionari definides de manera que trien preguntes de subcategories i alguna d\'aquestes subcategories té un estat de publicació diferent de l\'estat de la categoria mare on està creada la pregunta aleatòria.</p>
-<p>Es canviarà l\'estat de publicació de les categories següents, d\'on treuen preguntes les preguntes "aleatòries" de categories mare, a l\'estat de publicació de la categoria que conté la pregunta aleatòria. Les preguntes afectades continuaran funcionant en tots els qüestionaris existents.</p>';
+$string['cwrqpfsinfo'] = '<p>Durant l\'actualització a Moodle 1.9 se separaran les categories de preguntes en diferents contextos. Caldrà canviar l\'estat de publicació d\'algunes preguntes i categories de preguntes del vostre lloc. Això és necessari en casos com el vostre, quan hi ha preguntes «aleatòries» en un qüestionari definides de manera que trien preguntes de subcategories i alguna d\'aquestes subcategories té un estat de publicació diferent de l\'estat de la categoria mare on està creada la pregunta aleatòria.</p>
+<p>Es canviarà l\'estat de publicació de les categories següents, d\'on treuen preguntes les preguntes «aleatòries» de categories mare, a l\'estat de publicació de la categoria que conté la pregunta aleatòria. Les preguntes afectades continuaran funcionant en tots els qüestionaris existents.</p>';
 $string['cwrqpfsnoprob'] = 'El vostre lloc no conté categories afectades pel problema de les "preguntes aleatòries que seleccionen preguntes de subcategories".';
 $string['decimalplacesingrades'] = 'Decimals en graus';
 $string['defaultfor'] = 'Categoria per defecte en {$a}';
@@ -196,7 +196,6 @@ $string['generalfeedback_help'] = 'La retroacció general es mostra a l\'alumnat
 Podeu utilitzar la retroacció general per donar a l\'alumnat una resposta més completa o potser un enllaç amb més informació que puguin utilitzar si no entenen les preguntes.';
 $string['getcategoryfromfile'] = 'Agafa la categoria del fitxer';
 $string['getcontextfromfile'] = 'Agafa el context del fitxer';
-$string['hidden'] = 'Amagada';
 $string['hintn'] = 'Pista {no}';
 $string['hintnoptions'] = 'Opcions de la pista {no}';
 $string['hinttext'] = 'Text de la pista';
@@ -227,7 +226,7 @@ $string['incorrect'] = 'Incorrecte';
 $string['incorrectfeedback'] = 'Per a qualsevol resposta incorrecta';
 $string['incorrectfeedbackdefault'] = 'La teva resposta és incorrecta.';
 $string['information'] = 'Informació';
-$string['invalidanswer'] = 'Resposta incompleta';
+$string['invalidanswer'] = 'Resposta no vàlida o incompleta';
 $string['invalidarg'] = 'Arguments proporcionats invàlids o configuració incorrecta del servidor';
 $string['invalidcategoryidforparent'] = 'Identificador de la categoria invàlid per a la categoria contenidora!';
 $string['invalidcategoryidtomove'] = 'Identificador de la categoria invàlid per desplaçar!';
@@ -242,6 +241,7 @@ $string['linkedfiledoesntexist'] = 'El fitxer enllaçat {$a} no existeix';
 $string['makechildof'] = 'Fes filla de: \'{$a}\'';
 $string['makecopy'] = 'Fes-ne una còpia';
 $string['maketoplevelitem'] = 'Mou al primer nivell';
+$string['manualgradeinvalidformat'] = 'Aquest no és un nombre vàlid.';
 $string['manualgradeoutofrange'] = 'Aquesta puntuació queda fora del rang vàlid.';
 $string['manuallygraded'] = 'Puntuat manualment {$a->mark} amb un comentari: {$a->comment}';
 $string['mark'] = 'Puntua';
@@ -298,8 +298,6 @@ $string['numqas'] = 'No hi ha intents de la pregunta';
 $string['numquestions'] = 'Cap pregunta';
 $string['numquestionsandhidden'] = '{$a->numquestions} (+{$a->numhidden} ocultes)';
 $string['options'] = 'Opcions';
-$string['orphanedquestionscategory'] = 'S\'han desat les preguntes de les categories suprimides.';
-$string['orphanedquestionscategoryinfo'] = 'Ocasionalment, de vegades a causa d\'antics errors del programari, les preguntes poden romandre en la base de dades encara que la categoria de preguntes corresponent s\'hagi suprimit. Per descomptat que això no hauria de passar, però ha passat anteriorment en aquest lloc. Aquesta categoria s\'ha creat automàticament  i les preguntes que havien quedat òrfenes s\'hi han traslladat perquè les pugueu gestionar. Recordeu que les imatges o fitxers multimèdia utilitzats per aquestes preguntes probablement s\'han perdut.';
 $string['page-question-category'] = 'Pàgina de categories de preguntes';
 $string['page-question-edit'] = 'Pàgina d\'edició de preguntes';
 $string['page-question-export'] = 'Pàgina d\'exportació de preguntes';
@@ -386,18 +384,20 @@ $string['state'] = 'Estat';
 $string['step'] = 'Pas';
 $string['stoponerror'] = 'Atura quan es produeixi un error';
 $string['stoponerror_help'] = 'Aquest paràmetre determina si el procés d\'importació s\'atura quan es detecta un error, i no s\'importa cap pregunta; o si s\'ignoren les preguntes amb errors i s\'importen les completes.';
-$string['submissionoutofsequence'] = 'Sortiu fora de la seqüència. Si us plau, no feu clic per anar enrere quan treballeu en preguntes de qüestionaris.';
-$string['submissionoutofsequencefriendlymessage'] = 'Heu introduït dades fora de la seqüència normal. Pot passar si feu servir els controls d\'avançar i recular del navegador d\'Internet; no els feu servir mentre completeu el test. També podria passar si feu clic en algun punt quan es carrega una pàgina. Feu clic a <strong>Continua</strong> per continuar.';
+$string['submissionoutofsequence'] = 'Sortiu fora de la seqüència. No feu clic per anar enrere quan treballeu en preguntes de qüestionaris.';
+$string['submissionoutofsequencefriendlymessage'] = 'Heu introduït dades fora de la seqüència normal. Això pot passar si feu servir els controls d\'avançar i retrocedir del navegador d\'Internet; no els feu servir mentre completeu el test. També podria passar si feu clic en algun punt quan es carrega una pàgina. Feu clic a <strong>Continua</strong> per reprendre.';
 $string['submit'] = 'Envia';
 $string['submitandfinish'] = 'Envia i acaba';
-$string['submitted'] = 'Envia: {$a}';
+$string['submitted'] = 'Tramet: {$a}';
 $string['technicalinfo'] = 'Informació tècnica';
 $string['technicalinfo_help'] = 'Aquesta informació tècnica és, probablement, només útil per a desenvolupadors que treballen en nous tipus de pregunta. També pot ser útil quan es tracta de diagnosticar problemes amb les preguntes.';
 $string['technicalinfomaxfraction'] = 'Fracció màxima: {$a}';
 $string['technicalinfominfraction'] = 'Fracció mínima: {$a}';
 $string['technicalinfoquestionsummary'] = 'Resum de la pregunta: {$a}';
+$string['technicalinforesponsesummary'] = 'Resum de respostes: {$a}';
 $string['technicalinforightsummary'] = 'Resum de la resposta correcta: {$a}';
 $string['technicalinfostate'] = 'Estat de la pregunta: {$a}';
+$string['technicalinfovariant'] = 'Variant de pregunta: {$a}';
 $string['tofilecategory'] = 'Inclou la categoria al fitxer';
 $string['tofilecontext'] = 'Inclou el context al fitxer';
 $string['uninstallbehaviour'] = 'Desinstal·la aquest comportament de preguntes.';

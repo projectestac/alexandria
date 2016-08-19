@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_fontfamily', language 'eu', branch 'MOODLE_28_STABLE'
+ * Strings for component 'atto_fontfamily', language 'eu', branch 'MOODLE_30_STABLE'
  *
  * @package   atto_fontfamily
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,5 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['fontselectlist'] = 'Eskuragarri dauden hizki-motak';
 $string['pluginname'] = 'Letra-mota';
-$string['settings'] = 'Letra-motaren ezarpenak';
+$string['settings'] = 'Letra-tipoen ezarpenak';

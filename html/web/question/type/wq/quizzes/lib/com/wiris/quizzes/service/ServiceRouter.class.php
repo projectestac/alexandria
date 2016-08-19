@@ -23,13 +23,18 @@ class com_wiris_quizzes_service_ServiceRouter {
 			}
 		}
 	}
-	public function sendQuizzesJS($s, $res) {
+	public function getQuizzesJS($s) {
+		$sb = new StringBuf();
 		$js = $s->read();
-		$res->writeString("(function(){\x0A");
-		$res->writeString($js);
-		$res->writeString("\x0A");
-		$res->writeString(com_wiris_quizzes_service_ServiceTools::appendQuizzesJS());
-		$res->writeString("})();");
+		$sb->add("(function(){\x0A");
+		$sb->add($js);
+		$sb->add("\x0A");
+		$sb->add(com_wiris_quizzes_service_ServiceTools::appendQuizzesJS());
+		$sb->add("})();");
+		return $sb->b;
+	}
+	public function sendQuizzesJS($s, $res) {
+		$res->writeString($this->getQuizzesJS($s));
 		$res->close();
 	}
 	public function service($parameters, $res) {
@@ -93,6 +98,9 @@ class com_wiris_quizzes_service_ServiceRouter {
 						return;
 					} else {
 						$url = com_wiris_quizzes_service_ServiceRouter::$router->get($service);
+						if($parameters->exists("path")) {
+							$url .= "/" . $parameters->get("path");
+						}
 						$post = true;
 						$rawpostdata = $parameters->exists("rawpostdata") && $parameters->get("rawpostdata") === "true";
 						$http = new com_wiris_quizzes_impl_MaxConnectionsHttpImpl($url, new com_wiris_quizzes_service_ServiceRouterListener($res));
@@ -106,7 +114,7 @@ class com_wiris_quizzes_service_ServiceRouter {
 							$keys = $parameters->keys();
 							while($keys->hasNext()) {
 								$key = $keys->next();
-								if(!($key === "service") && !($key === "rawpostdata")) {
+								if(!($key === "service") && !($key === "rawpostdata") && !($key === "path")) {
 									$http->setParameter($key, $parameters->get($key));
 								}
 								unset($key);
@@ -157,6 +165,7 @@ class com_wiris_quizzes_service_ServiceRouter {
 		$mimes->set("render", "image/png");
 		$mimes->set("quizzes", "application/xml");
 		$mimes->set("grammar", "text/plain");
+		$mimes->set("wirislauncher", "application/json");
 		return $mimes;
 	}
 	public function getRouter() {
@@ -165,10 +174,11 @@ class com_wiris_quizzes_service_ServiceRouter {
 		$router->set("render", $cfg->get(com_wiris_quizzes_api_ConfigurationKeys::$EDITOR_URL) . "/render");
 		$router->set("quizzes", $cfg->get(com_wiris_quizzes_api_ConfigurationKeys::$SERVICE_URL) . "/rest");
 		$router->set("grammar", $cfg->get(com_wiris_quizzes_api_ConfigurationKeys::$SERVICE_URL) . "/grammar");
+		$router->set("wirislauncher", $cfg->get(com_wiris_quizzes_api_ConfigurationKeys::$WIRISLAUNCHER_URL));
 		return $router;
 	}
-	static $router;
-	static $serviceMimes;
+	static $router = null;
+	static $serviceMimes = null;
 	static $MAX_UPLOAD_SIZE = 1048576;
 	function __toString() { return 'com.wiris.quizzes.service.ServiceRouter'; }
 }

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'nl', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'nl', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -368,7 +368,6 @@ $string['pressoktocontinue'] = 'Klik OK om verder te gaan of Annuleer om op de h
 $string['questionshort'] = 'Vr-{$a}';
 $string['quizname_help'] = 'helptekst voor Test naam';
 $string['quizzes'] = 'Testen';
-$string['removegradeitem'] = 'Verwijder cijfer';
 $string['responsesreport'] = 'Antwoorden';
 $string['score'] = 'cijfer';
 $string['scoresreport'] = 'Cijfers';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'de', branch 'MOODLE_28_STABLE'
+ * Strings for component 'notes', language 'de', branch 'MOODLE_31_STABLE'
  *
  * @package   notes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,7 +37,7 @@ $string['created'] = 'erzeugt';
 $string['deleteconfirm'] = 'Diese Anmerkung löschen?';
 $string['deletenotes'] = 'Alle Anmerkungen löschen';
 $string['editnote'] = 'Anmerkung bearbeiten';
-$string['enablenotes'] = 'Anmerkungen';
+$string['enablenotes'] = 'Anmerkungen aktivieren';
 $string['eventnotecreated'] = 'Hinweis angelegt';
 $string['eventnotedeleted'] = 'Hinweis gelöscht';
 $string['eventnotesviewed'] = 'Hinweise angezeigt';
@@ -45,6 +45,7 @@ $string['eventnoteupdated'] = 'Hinweis aktualisiert';
 $string['groupaddnewnote'] = 'Neue Anmerkung für alle hinzufügen';
 $string['invalidid'] = 'Falsche ID einer Anmerkung angegeben';
 $string['invaliduserid'] = 'Ungültige Nutzer-ID: {$a}';
+$string['myprofileownnotes'] = 'Meine Notizen';
 $string['nocontent'] = 'Der Inhalt kann nicht leer sein';
 $string['nonotes'] = 'Es gibt bisher keine Anmerkungen dieser Art.';
 $string['nopermissiontodelete'] = 'Sie dürfen diese Anmerkung nicht löschen';

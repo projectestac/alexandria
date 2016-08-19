@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_atto', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'editor_atto', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   editor_atto
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['autosavefailed'] = 'Не удалось подключиться к серверу. Если Вы отправите эту страницу сейчас, то изменения могут быть потеряны.';
 $string['autosavefrequency'] = 'Частота автосохранения';
-$string['autosavefrequency_desc'] = 'Этот параметр устанавливает количество секунд между попытками автосохранения. Редактор Атто будет автоматически сохранять текст в соответствии со значением этого параметра, так что текст может быть автоматически восстановлен, когда тот же пользователь возвратится к той же форме.';
+$string['autosavefrequency_desc'] = 'Этот параметр устанавливает количество секунд между попытками автосохранения. Редактор Atto будет автоматически сохранять текст в соответствии со значением этого параметра, так что текст может быть автоматически восстановлен, когда тот же пользователь возвратится к той же форме.';
 $string['autosavesucceeded'] = 'Черновик сохранен.';
 $string['editor_command_keycode'] = 'Cmd + {$a}';
 $string['editor_control_keycode'] = 'Ctrl + {$a}';
@@ -41,10 +41,10 @@ $string['infostatus'] = 'Информация';
 $string['pluginname'] = 'HTML-редактор Atto';
 $string['plugin_title_shortcut'] = '{$a->title} [{$a->shortcut}]';
 $string['recover'] = 'Восстановление';
-$string['settings'] = 'Настройки панели инструментов редактора Атто';
-$string['subplugintype_atto'] = 'Плагин HTML-редактора Атто';
-$string['subplugintype_atto_plural'] = 'Плагины HTML-редактора Атто';
-$string['taskautosavecleanup'] = 'Удаление из базы данных просроченных автоматически сохраненных черновиков.';
+$string['settings'] = 'Настройки панели инструментов редактора Atto';
+$string['subplugintype_atto'] = 'Плагин HTML-редактора Atto';
+$string['subplugintype_atto_plural'] = 'Плагины HTML-редактора Atto';
+$string['taskautosavecleanup'] = 'Удаление из базы данных просроченных автоматически сохраненных черновиков';
 $string['textrecovered'] = 'Черновой вариант этого текста был автоматически восстановлен.';
 $string['toolbarconfig'] = 'Конфигурация панели инструментов';
 $string['toolbarconfig_desc'] = 'Здесь можно настроить список отображаемых плагинов и их порядок. Конфигурация состоит из списка групп (по одной группе в строке), для каждой группы задается упорядоченный список плагинов. Название группы отделяется от списка плагинов этой группы знаком равенства, плагины в списке разделяются запятыми. Названия групп должны быть уникальными. Желательно, чтобы названия групп указывали на какой-то общий признак кнопок в группе. Названия групп и кнопок не должны повторяться и могут содержать только алфавитно-цифровые символы.';

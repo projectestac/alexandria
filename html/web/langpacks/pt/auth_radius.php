@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_radius', language 'pt', branch 'MOODLE_28_STABLE'
+ * Strings for component 'auth_radius', language 'pt', branch 'MOODLE_31_STABLE'
  *
  * @package   auth_radius
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,7 @@ $string['auth_radiushost'] = 'Endereço do servidor RADIUS';
 $string['auth_radiushost_key'] = 'Servidor';
 $string['auth_radiusnasport'] = 'Porta de ligação';
 $string['auth_radiusnasport_key'] = 'Porta';
-$string['auth_radiussecret'] = 'Segredo partilhado';
+$string['auth_radiussecret'] = 'Senha partilhada';
 $string['auth_radiussecret_key'] = 'Segredo';
 $string['auth_radiustype'] = 'Selecione um tipo de autenticação para usar com o servidor RADIUS.';
 $string['auth_radiustypechapmd5'] = 'CHAP MD5';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'ja', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'ja', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -83,7 +83,6 @@ $string['penalties'] = 'ペナルティ';
 $string['percent'] = 'パーセント';
 $string['pluginname'] = 'Hot Potatoes';
 $string['questionshort'] = 'Q-{$a}';
-$string['removegradeitem'] = '評定項目を削除する';
 $string['score'] = 'スコア';
 $string['status'] = 'ステータス';
 $string['studentfeedback'] = '学生のフィードバック';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'pt', branch 'MOODLE_28_STABLE'
+ * Strings for component 'portfolio', language 'pt', branch 'MOODLE_31_STABLE'
  *
  * @package   portfolio
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,7 @@ $string['continuetoportfolio'] = 'Continuar para portefólio';
 $string['deleteportfolio'] = 'Apagar instância de portefólio';
 $string['destination'] = 'Destino';
 $string['disabled'] = 'Lamentamos mas a exportação de portefólio não está disponível neste site';
-$string['disabledinstance'] = 'Inativo';
+$string['disabledinstance'] = 'Desativado';
 $string['displayarea'] = 'Área de exportação';
 $string['displayexpiry'] = 'A transferência expirou o tempo limite';
 $string['displayinfo'] = 'Informação de exportação';
@@ -68,7 +68,7 @@ $string['exportingcontentfrom'] = 'A exportar conteúdo de {$a}';
 $string['exportingcontentto'] = 'A exportar conteúdo para {$a}';
 $string['exportqueued'] = 'A exportação do portefólio foi adicionada à lista de transferências';
 $string['exportqueuedforced'] = 'A exportação do portefólio foi adicionada à lista de espera das transferências (o sistema externo obriga a que todas as transferências sejam colocadas na fila de espera)';
-$string['failedtopackage'] = 'Não é possível encontrar os arquivos para compactar';
+$string['failedtopackage'] = 'Não é possível encontrar os ficheiros para compactar';
 $string['failedtosendpackage'] = 'Ocorreu um erro ao enviar os seus ficheiros para o portefólio selecionado: erro original {$a}';
 $string['filedenied'] = 'O acesso a este ficheiro foi-lhe negado';
 $string['filenotfound'] = 'O ficheiro não foi encontrado';
@@ -85,7 +85,6 @@ $string['format_richhtml'] = 'HTML com anexos';
 $string['format_spreadsheet'] = 'Folha de cálculo';
 $string['format_text'] = 'Texto simples';
 $string['format_video'] = 'Vídeo';
-$string['hidden'] = 'Oculto';
 $string['highdbsizethreshold'] = 'Tamanho da base de dados para transferências de alto débito';
 $string['highdbsizethresholddesc'] = 'Número de registos na base de dados acima do qual será considerado que a transferência demorará muito tempo';
 $string['highfilesizethreshold'] = 'Tamanho de ficheiro para transferências de alto débito';
@@ -111,6 +110,8 @@ $string['instanceismisconfigured'] = 'Esta instância de Portefólio não foi co
 $string['instancenotdelete'] = 'Erro ao apagar o portefólio';
 $string['instancenotsaved'] = 'Erro ao guardar o portefólio';
 $string['instancesaved'] = 'O portefólio foi gravado com sucesso';
+$string['intro'] = 'Os conteúdos que criou, tais como submissões de trabalhos, tópicos de discussão e publicações em blogues, podem ser exportados para um portfólio ou descarregados.<br>
+Poderá esconder qualquer portfólio que não deseje utilizar, desta forma o mesmo não será listado como uma opção para exportar os conteúdos.';
 $string['invalidaddformat'] = 'O formato de adição passado a portfolio_add_button é inválido. O valor "{$a}" deve ser um de PORTFOLIO_ADD_XXX';
 $string['invalidbuttonproperty'] = 'Não é possível encontrar a propriedade ({$a}) no portfolio_button';
 $string['invalidconfigproperty'] = 'Não é possível encontrar esta propriedade de configuração ({$a->property} de {$a->class})';
@@ -121,19 +122,19 @@ $string['invalidinstance'] = 'Não foi possível encontrar a instância de Porte
 $string['invalidpreparepackagefile'] = 'Invocação inválida de prepare_package_file inválida. Devem estar definidos ficheiros individuais ou múltiplos';
 $string['invalidproperty'] = 'Não é possível encontrar a propriedade ({$a->property} em {$a->class})';
 $string['invalidsha1file'] = 'Invocação inválida de get_sha1_file inválida. Devem estar definidos ficheiros individuais ou múltiplos';
-$string['invalidtempid'] = 'O id exportado é inválido. Pode ter expirado.';
+$string['invalidtempid'] = 'O ID exportado é inválido. Pode ter expirado.';
 $string['invaliduserproperty'] = 'Não é possível encontrar a propriedade de conf do utilizador ({$a->property} em {$a->class})';
 $string['leap2a_emptyselection'] = 'O valor não foi selecionado';
-$string['leap2a_entryalreadyexists'] = 'Está a tentar adicionar uma entrada Leap2A com o id ({$a}) que já existe nesta lista';
+$string['leap2a_entryalreadyexists'] = 'Está a tentar adicionar uma entrada Leap2A com o ID ({$a}) que já existe nesta lista';
 $string['leap2a_feedtitle'] = 'Leap2A exportado do Moodle para {$a}';
 $string['leap2a_filecontent'] = 'Foi feita uma tentativa de converter o conteúdo de um registo Leap2A num ficheiro em vez de usar a subclasse do ficheiro';
 $string['leap2a_invalidentryfield'] = 'Foi feita a tentativa de definir um campo de registo  que não existe ({$a}) ou então não é possível fazer essa definição diretamente';
-$string['leap2a_invalidentryid'] = 'Está a tentar aceder a uma entrada mas o id não existe ({$a})';
+$string['leap2a_invalidentryid'] = 'Está a tentar aceder a uma entrada mas o ID não existe ({$a})';
 $string['leap2a_missingfield'] = 'Não foi encontrado o campo de registo Leap2A {$a} que é obrigatório';
 $string['leap2a_nonexistantlink'] = 'Um registo Leap2A ({$a->from}) tentou estabelecer uma ligação com um registo que não existe ({$a->to}) com rel {$a->rel}';
 $string['leap2a_overwritingselection'] = '> substituir o tipo original de um registo ({$a}) para seleção em make_selection';
 $string['leap2a_selflink'] = 'Um registo Leap2A ({$a->id}) tentou estabelecer uma ligação para si próprio com rel {$a->rel}';
-$string['logs'] = 'Transferência de registos';
+$string['logs'] = 'Transferência de registos de atividade';
 $string['logsummary'] = 'Transferências anteriores';
 $string['manageportfolios'] = 'Gerir portefólios';
 $string['manageyourportfolios'] = 'Gerir os seus portefólios';
@@ -174,6 +175,7 @@ $string['save'] = 'Guardar';
 $string['selectedformat'] = 'Selecionar formato de exportação';
 $string['selectedwait'] = 'Selecionar para colocar em espera?';
 $string['selectplugin'] = 'Selecionar destino';
+$string['showhide'] = 'Mostrar / esconder';
 $string['singleinstancenomultiallowed'] = 'Apenas está disponível uma instância do módulo. Este módulo não permite mais do que uma exportação por sessão e já existe uma exportação ativa nesta sessão a usar este módulo!';
 $string['somepluginsdisabled'] = 'Foram desativados módulos de portefólio por estarem mal configurados ou por dependerem de elementos que estão mal configurados:';
 $string['sure'] = 'Tem a certeza de que quer apagar "{$a}"? Este procedimento é irreversível.';

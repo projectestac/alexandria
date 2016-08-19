@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_imsenterprise', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol_imsenterprise', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   enrol_imsenterprise
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,7 +35,7 @@ $string['createnewcategories_desc'] = 'Si l\'<org><orgunit>element és present a
 
 Si no existeix cap categoria amb el nom desitjat es crearà una categoria oculta.';
 $string['createnewcourses'] = 'Crea nous cursos (ocults) si no existeixen a Moodle';
-$string['createnewcourses_desc'] = 'Si s\'habilita el connector d\'inscripció IMS Enterprise podrà crear cursos nous per a qualsevol que trobi a les dades IMS però no en la base de dades de Moodle. Qualsevol curs nou creat estarà inicialment ocult.';
+$string['createnewcourses_desc'] = 'Si s\'habilita, el connector d\'inscripció IMS Enterprise podrà crear cursos nous per a qualsevol que trobi a les dades IMS, però no en la base de dades de Moodle. Qualsevol curs nou creat estarà inicialment ocult.';
 $string['createnewusers'] = 'Crea comptes d\'usuari per a usuaris no registrats a Moodle';
 $string['createnewusers_desc'] = 'La inscripció de dades IMS Enterprise descriu de forma típica un conjunt d\'usuaris. Si està habilitada, es poden crear comptes d\'usuaris per a usuaris que no es troben a la base de dades de Moodle.
 
@@ -51,6 +51,8 @@ $string['fixcasepersonalnames'] = 'Canvia a majúscules les inicials dels noms d
 $string['fixcaseusernames'] = 'Canvia a minúscules els noms d\'usuari';
 $string['ignore'] = 'Ignora';
 $string['importimsfile'] = 'Importa fitxer IMS Enterprise';
+$string['imsenterprise:config'] = 'Configura les instàncies d\'inscripció IMS Enterprise';
+$string['imsenterprisecrontask'] = 'S\'està processant el fitxer d\'inscripcions';
 $string['imsrolesdescription'] = 'L\'especificació IMS Enterprise inclou vuit tipus de rol distints. Trieu com voleu que s\'assignin a Moodle, i si preferiu ignorar-ne cap.';
 $string['location'] = 'Ubicació del fitxer';
 $string['logtolocation'] = 'Ubicació del fitxer de registre (en blanc si no voleu registre)';

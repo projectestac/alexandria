@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mnet', language 'de', branch 'MOODLE_28_STABLE'
+ * Strings for component 'mnet', language 'de', branch 'MOODLE_31_STABLE'
  *
  * @package   mnet
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -61,7 +61,7 @@ $string['description'] = 'Beschreibung';
 $string['duplicate_usernames'] = 'Beim Anlegen eines Index für die Spalten "mnethostid" und "username" in Ihrer Nutzertabelle ist ein Fehler aufgetreten. <br />
 Dies kann passieren, wenn ein  <a href="{$a}" target="_blank">doppelter Anmeldename in der Nutzertabelle</a> vorhanden ist.<br />
 Das Update sollte dennoch erfolgreich abgeschlossen worden sein. Klicken Sie auf den Link und die Hinweise zur Problemlösung öffnen sich in einem neuen Fenster. Sie können sich mit diesem Problem nach Abschluss des Updates befassen.<br/>';
-$string['enabled_for_all'] = '(Dieser Dienst wurde für alle Rechner freigegeben.)';
+$string['enabled_for_all'] = 'Dieser Dienst wurde für alle Hosts aktiviert.';
 $string['enterausername'] = 'Bitte geben Sie einen Anmeldenamen ein (oder eine kommagetrennte Liste von Anmeldenamen)';
 $string['error7020'] = 'Dieser Fehler tritt normalerweise auf, wenn die Remote-Server einen Dateneintrag für wwwroot falsch erzeugt hat, z.B. http://domain.de statt http://www.domain.de. Sie sollten den Administrator der Remote-Servers über die richtige Einstellung für wwwroot  informieren (so wie in config.php angegeben), damit dortige Dateneintrag für Ihren Server korrigiert werden kann.';
 $string['error7022'] = 'Die von Ihnen an den Remote-Server übermittelte Nachricht war richtig verschlüsselt, aber nicht signiert. Dies ist ziemlich seltsam! Sie sollten diesen Fehler bei seinem Auftreten unbedingt melden und dabei die beteiligten Moodle-Versionen angeben.';
@@ -196,7 +196,8 @@ $string['registerhostson'] = 'Registrierung aller Server: <b>ein</b>';
 $string['remotecourses'] = 'Remote-Kurse';
 $string['remotehost'] = 'Remote-Zugang';
 $string['remotehosts'] = 'Remote-Rechner';
-$string['remoteuserinfo'] = 'Remote {$a->remotetype} Nutzerprofil empfangen von <a href="{$a->remoteurl}">{$a->remotename}</a>';
+$string['remoteuser'] = 'Remote-Nutzer/in {$a->remotetype}';
+$string['remoteuserinfo'] = 'Nutzerprofil von <a href="{$a->remoteurl}">{$a->remotename}</a>';
 $string['requiresopenssl'] = 'Netzwerk benötigt die OpenSSL-Erweiterung';
 $string['restore'] = 'Wiederherstellen';
 $string['returnvalue'] = 'Rückgabewert';
@@ -219,6 +220,12 @@ $string['showlocal'] = 'Lokale Nutzer anzeigen';
 $string['showremote'] = 'Remote-Nutzer anzeigen';
 $string['ssl_acl_allow'] = 'SSO ACL: Nutzer {$a->user} von {$a->host} zulassen';
 $string['ssl_acl_deny'] = 'SSO ACL: Nutzer {$a->user} von {$a->host} ablehnen';
+$string['sslverification'] = 'SSL-Verifizierung';
+$string['sslverification_help'] = 'Diese Option ermöglicht die Einstellung der Sicherheitsstufe für die eine Peer-Verbindung über HTTPS.
+
+* Keine: Ohne SSL-Sicherheit
+* Nur Host überprüfen: Domäne des SSL-Zertifikats wird überprüft
+* Host und Peer überprüfen (empfohlen): Domäne und Aussteller des SSL-Zertifikats werden überprüft';
 $string['ssoaccesscontrol'] = 'SSO-Zugangssteuerung';
 $string['ssoacldescr'] = 'Diese Seite regelt die Erlaubnis/das Verbot des Zugriffs spezifischer Nutzer von anderen Moodle-Netzwerk Hosts. Diese ist hilfreich wenn SSO Services für externe Nutzer angeboten wird. Zur Kontrolle der <em>lokalen</em> Nutzerberechtigungen für andere Moodle-Netzwerk Hosts gewähren Sie den Zugriff durch die <em>mnetlogintoremote</em> Berechtigung.';
 $string['ssoaclneeds'] = 'Damit diese Funktion arbeitet muss das Moodle-Netzwerk aktiviert, das Moodle-Netzwerk Authentifizierungs-Plugin mit automatischer Nutzeraktivierung aktiviert sein.';
@@ -245,6 +252,8 @@ $string['userchangepasswordlink'] = '<br />Eventuell können Sie Ihr Kennwort be
 $string['usernotfullysetup'] = 'Ihre Nutzereinstellungen sind unvollständig. Sie müssen <a href="{$a}">zurück zu Ihrem Provider</a> gehen, um dort das Nutzerprofil zu vervollständigen. Änderungen werden erst wirksam, wenn Sie sich danach ab- und wieder anmelden.';
 $string['usersareonline'] = 'Warnung: {$a} Nutzer sind aktuell von diesem Server in Ihrer Website eingeloggt.';
 $string['validated_by'] = 'Vom Netzwerk geprüft: <code>{$a}</code>';
+$string['verifyhostandpeer'] = 'Host und Peer überprüfen';
+$string['verifyhostonly'] = 'Nur Host überprüfen';
 $string['verifysignature-error'] = 'Fehler bei der Prüfung der Signatur';
 $string['verifysignature-invalid'] = 'Fehler bei der Prüfung der Signatur: Die Übertragung wurde nicht von Ihnen signiert.';
 $string['version'] = 'Version';

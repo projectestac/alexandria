@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_calculated', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'qtype_calculated', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   qtype_calculated
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,4 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['additem'] = 'أضف عنصر';
+$string['addmoreanswerblanks'] = 'أضف إجابة أخرى فارغة';
+$string['addsets'] = 'أضف مجموعة / مجموعات';
+$string['incorrectfeedback'] = 'لأي إجابة غير صحيحة';
 $string['minmax'] = 'مجال من القيم';

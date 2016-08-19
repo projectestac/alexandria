@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'media', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'media', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   media
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,7 +38,7 @@ $string['html5video_desc'] = 'Видеофайлы с расширением *.w
 $string['legacyheading'] = 'Устаревшие медиаплееры';
 $string['legacyheading_desc'] = 'Следующие форматы не рекомендуются для широкого использования, они обычно используются в интранет с централизованным управлением клиентами.';
 $string['legacyquicktime'] = 'Плеер QuickTime';
-$string['legacyquicktime_desc'] = 'Файлы с расширением *.mov, *.mp4, *.m4a, *.mp4 и *.mpg. Необходим плеер QuickTime или кодеки.';
+$string['legacyquicktime_desc'] = 'Файлы с расширением *.mov, *.mp4, *.m4a и *.mpg. Необходим плеер QuickTime или кодеки.';
 $string['legacyreal'] = 'Плеер Real media';
 $string['legacyreal_desc'] = 'Файлы с расширением *.rm, *.ra, *.ram, *.rp, *.rv. Необходим RealPlayer.';
 $string['legacywmp'] = 'Плеер Windows Media';

@@ -9,7 +9,6 @@ body.wirisquizzespopup{
     overflow: hidden;
 }
 div.wiristabs div.wiristabsleftcolumn {
-    background-color: #e0e0e0;
     position: absolute;
     left: 0;
     top: 0;
@@ -18,7 +17,6 @@ div.wiristabs div.wiristabsleftcolumn {
     z-index: 10;
 }
 div.wiristabs div.wiristabcontentwrapper {
-    background-color: #e0e0e0;
     height: 100%;
     margin-left: 160px;
 }
@@ -48,6 +46,17 @@ div.wirispoweredbywrapper {
 div.wirispoweredbywrapper a img {
     border-style: none;
 }
+div.wirispoweredbywrapper a {
+	font-family: Segoe UI,Arial,Helvetica,sans-serif;
+	color: #888;
+    text-decoration: none;
+	font-size: 11pt;
+}
+div.wirispoweredbywrapper img {
+	position: relative;
+	bottom: -2px;
+}
+
 div.wiristabs div.wiristabcontent {
     background-color: #fff;
     bottom: 0px;
@@ -95,7 +104,7 @@ div.wirishandwrapper {
 	max-width: 960px;
     margin-bottom: 5px;
 }
-div.wiristabs .wirishidden{
+.wirishidden{
     display: none;
 }
 div.wiristabs div.wirisselected {
@@ -189,11 +198,11 @@ div.wiristabs fieldset.wirisfieldset legend a:hover{
 	text-decoration: underline;
 }
 div.wiristabs fieldset.wirisfieldset legend a.wiriscollapsed {
-	background: url('?service=resource&name=fieldset-collapsed.png') no-repeat 3px 50%;;
+	background: url("?service=resource&name=fieldset-collapsed.png") no-repeat 3px 50%;;
 	padding-left: 14px;
 }
 div.wiristabs fieldset.wirisfieldset legend a.wirisexpanded {
-	background: url('?service=resource&name=fieldset-expanded.png') no-repeat 3px 50%;;
+	background: url("?service=resource&name=fieldset-expanded.png") no-repeat 3px 50%;;
 	padding-left: 14px;
 }
 div.wiristabs div.wiristolerance {
@@ -201,8 +210,7 @@ div.wiristabs div.wiristolerance {
 	margin-bottom: 6px;
 	margin-top: 2px;
 }
-div.wiristabs {
-}
+
 div.wiristabs ul {
     margin:  0;
     padding: 0;
@@ -274,7 +282,6 @@ div.wiristabs div.wirismessagebox {
 	margin-bottom: 5px;
 	/*Do not overlap with tab help text*/
 	z-index: 10;
-	background-color: #e0e0e0;
 }
 div.wirismessage {
 	padding-left:  18px;
@@ -282,15 +289,15 @@ div.wirismessage {
 }
 div.wirismessage.wiriserror{
     color: #701703;
-    background: url('?service=resource&name=warning.png') no-repeat left top;
+    background: url("?service=resource&name=warning.png") no-repeat left top;
 }
 div.wirismessage.wiriswarning{
     color: #70370a;
-    background: url('?service=resource&name=warning2.png') no-repeat left top;
+    background: url("?service=resource&name=warning2.png") no-repeat left top;
 }
 div.wirismessage.wirisinfo{
     color: #265970;
-    background: url('?service=resource&name=warning3.png') no-repeat left top;
+    background: url("?service=resource&name=warning3.png") no-repeat left top;
 }
 
 div.wiristabs div.wirissecondaryfieldset {
@@ -343,10 +350,9 @@ div.wiriscasinitialcontent div.wiriscaswrapper {
 }
 div.wiristabs div.wirisactionswrapper {
     bottom: 0;
-	padding-bottom: 10px;
+	margin-bottom: 10px;
     position: absolute;
     border-top: solid 1px #999;
-	background-color:#e0e0e0;
 }
 
 div.wiristabs ul.wirisactionslist li a {
@@ -361,6 +367,30 @@ div.wiristabs ul.wirisactionslist li a {
 }
 div.wiristabs ul.wirisactionslist li a:hover {
     background-color: #fff;
+}
+
+div.wiristabs div.wirisjnlp {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+}
+
+div.wirisjnlp {
+    border: solid 1px #999;
+    border-radius: 8px;
+    padding: 20px 15px;
+}
+
+div.wirisjnlptext {
+	margin-bottom: 10px;
+}
+div.wirisjnlpform {
+	margin-bottom: 10px;
+}
+div.wirisjnlpnotes span{
+	font-size: 10pt;
+	vertical-align: top;
+	margin-right: 5px;
 }
 /**
  *  Styles for new JsComponent model HTML
@@ -558,28 +588,196 @@ div.wirisalgorithmlanguage {
 /**
 This three are used both in studio and in main page.
 **/
-ul.wiristestassertionslist span.wiriscorrect {
-    background: url('?service=resource&name=correct.gif') no-repeat left;
-    padding-left:  18px;
-}
-ul.wiristestassertionslist span.wirisincorrect {
-    background: url('?service=resource&name=incorrect.gif') no-repeat left;
-    padding-left:  18px;
-}
-ul.wiristestassertionslist span.wirispartiallycorrect {
-    background: url('?service=resource&name=percent.gif') no-repeat left;
-    padding-left:  18px;
-}
+
 ul.wiristestassertionslist{
     margin:  0;
     padding: 0;
     list-style: none outside none;
 }
 
-.wirissmalllabel{
+ul.wiristestassertionslist span.wiriscorrect {
+    background: url("?service=resource&name=correct.gif") no-repeat left;
+}
+
+ul.wiristestassertionslist span.wirisincorrect {
+    background: url("?service=resource&name=incorrect.gif") no-repeat left;
+}
+
+ul.wiristestassertionslist span.wirispartiallycorrect {
+    background: url("?service=resource&name=percent.gif") no-repeat left;    
+}
+
+ul.wiristestassertionslist span {
+    padding-top: 2px;
+	padding-left:  18px;
+}
+
+span.wirisembeddedmathinput,
+input.wirisembeddedmathinput,
+img.wirisembeddedmathinput,
+input.wirisembeddedauthoringfield,
+img.wirisembeddedauthoringfield {
+    border: solid 1px #bbb;
+    padding: 3px 21px 3px 3px;
+    border-radius: 3px;
+    font-size: 11pt;
+	vertical-align: middle;
+    margin: 0px;
+}
+input.wirisembeddedtextinput{
+	border: solid 1px #bbb;
+	border-radius: 3px;
+	padding: 3px;
+	font-size: 11pt;
+	vertical-align: middle;
+	height: 16px;
+    width: 100px;
+}
+
+/*
+ There exist the monochrome version for icons. Please use editor16b.png, 
+ studio16b.png and studio24b.png respectively if you need it.
+*/
+input.wirisembeddedmathinput,
+img.wirisembeddedmathinput {
+	background: #fff url("?service=resource&name=editor16.png") no-repeat;	
+}
+input.wirisembeddedauthoringfield ,
+img.wirisembeddedauthoringfield {
+	background: #fff url("?service=resource&name=studio16.png") no-repeat;
+}
+
+input.wirisembeddedstudioinput,
+img.wirisembeddedstudioinput,
+span.wirisembeddedstudioinput {
+	background: #fff url("?service=resource&name=studio24.png") no-repeat;
+}
+input.wirisembeddedstudioinput,
+img.wirisembeddedstudioinput {
+	padding: 3px 29px 3px 3px;
+}
+span.wirisembeddedstudioinput {
+	height: 18px;
+    padding: 7px 30px 7px 0px;
+    background-position: center center;
+}
+
+input.wirisembeddedmathinput,
+input.wirisembeddedauthoringfield {
+	height: 16px;
+    width: 100px;
+	background-position: 105px 3px;
+}
+.formulation input.wirisembeddedmathinput[type="text"] {
+width: 100px;
+}
+input.wirisembeddedstudioinput {
+	height: 24px;
+}
+
+.wirisassertionfeedback {
+    background: #fff;
+    padding: 10px;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+    line-height: 15pt;
+    margin: 10px 0px 10px 0px;
+    width: 428px;
+}
+
+.wirisembeddedfeedback {
+	position: absolute;
+	margin: 20px;
+	z-index: 1000;
+	width: auto;
+}
+
+.wiriscorrectanswerfeedback span.wiriscorrect {
+    font-weight: bold;
+	color: #57a005;
+}
+.wiriscorrectanswerfeedback span.wirisincorrect {
+    font-weight: bold;
+	color: #c02705;
+}
+.wiriscorrectanswerfeedback span.wirispartiallycorrect {
+    font-weight: bold;
+	color: #c99a08;
+}
+
+.wirissmalllabel {
 	font-size: 0.9em;
 	vertical-align: text-top;
 }
+
+div.wirisanswerfielddecoration {
+	margin: 0;
+	padding: 0 19px 0 0;
+	background: no-repeat right;
+}
+div.wirisanswerfielddecoration.wirisembeddeddecoration {
+	display: inline-block;
+}
+
+div.wirisanswerfielddecoration.wiriscorrect {
+	background-image: url("?service=resource&name=correct.gif");
+}
+div.wirisanswerfielddecoration.wiriscorrect input[type="text"],
+div.wirisanswerfielddecoration.wiriscorrect img.wirisembeddedmathinput {
+	border-color: #b0cbc4;
+	background-color: #e9f2c4;
+}
+
+div.wirisanswerfielddecoration.wirisincorrect {
+	background-image: url("?service=resource&name=incorrect.gif");
+}
+div.wirisanswerfielddecoration.wirisincorrect input[type="text"],
+div.wirisanswerfielddecoration.wirisincorrect img.wirisembeddedmathinput {
+	border-color: #e69885;
+	background-color: #ffe8e3;
+}
+
+div.wirisanswerfielddecoration.wirispartiallycorrect {
+	background-image: url("?service=resource&name=percent.gif");
+}
+div.wirisanswerfielddecoration.wirispartiallycorrect input[type="text"],
+div.wirisanswerfielddecoration.wirispartiallycorrect img.wirisembeddedmathinput {
+	border-color: #cfbb76;
+	background-color: #f7f3bc;
+}
+img.wirisplotter {
+	border: solid 1px #bbb;
+}
+
+table.wiristable {
+	border-collapse: collapse;
+}
+table.wiristable tr:nth-child(2n+1) {
+	background-color: rgba(0,0,0,0.03);
+}
+table.wiristable td {
+    border: solid 1px #ccc;
+	border-color: rgba(0,0,0,0.15);
+    padding: 5px;
+    text-align: center;
+}
+
+/*Override some styles for studio embedded in html*/
+div.wirisembeddedstudio {
+	height: 550px;
+    position: relative;
+	max-width: 900px;
+}
+
+div.wirisembeddedstudio div.wiristabs {
+	bottom: 0;
+}
+
+.wirisinlineblock {
+	display: inline-block;
+}
+
+
 /***
 Some CSS specially for moodle 2 standard theme.
 **/

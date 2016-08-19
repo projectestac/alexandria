@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'es', branch 'MOODLE_28_STABLE'
+ * Strings for component 'question', language 'es', branch 'MOODLE_31_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -185,12 +185,15 @@ $string['generalfeedback_help'] = 'La retroalimentación general se muestra al e
 Se puede utilizar la retroalimentación general para proporcionar a los estudiantes una respuesta de ejemplo correcta, o tal vez para una liga hacia información complementaria que puedan utilizar en el caso de que no hubieran entendido bien la pregunta.';
 $string['getcategoryfromfile'] = 'Obtener categoría de archivo';
 $string['getcontextfromfile'] = 'Obtener contexto de archivo';
-$string['hidden'] = 'Oculto/a';
 $string['hintn'] = 'Pista {no}';
 $string['hintnoptions'] = 'Opciones de la pista {no}';
 $string['hinttext'] = 'Texto de la pista';
 $string['howquestionsbehave'] = 'Comportamiento de las preguntas';
-$string['howquestionsbehave_help'] = 'Los estudiantes pueden interactuar con las preguntas en el cuestionario de varias maneras diferentes. Por ejemplo, usted puede desear que los estudiantes introduzcan una respuesta a cada pregunta y posteriormente envien el cuestionario completo, antes de que se realice ninguna calificación o de que se envíe ninguna retroalimentación. Ese sería el modo de \'retroalimentación diferida\'. En otra situación, usted puede desear que los estudiantes respondan una pregunta y sobre la marcha obtengan retroalimentación inmediata, y si la respuesta no es correcta, tengan otra otra oportunidad con menor puntuación. Este modo sería \'interactivo con varios intentos\' .';
+$string['howquestionsbehave_help'] = 'Los estudiantes pueden interactuar con las preguntas en el cuestionario de varias maneras diferentes. Por ejemplo, usted puede desear que los estudiantes introduzcan una respuesta a cada pregunta y posteriormente envien el cuestionario completo, antes de que se realice ninguna calificación o de que se envíe ninguna retroalimentación. Ese sería el modo de \'retroalimentación diferida\'.
+
+Alternativamente, usted puede desear que los estudiantes envíen cada pregunta y sobre la marcha obtengan retroalimentación inmediata, y si la respuesta no es correcta, tengan otra otra oportunidad con menor puntuación. Este modo sería \'interactivo con varios intentos\' .
+
+Esos son probablemente los dos modos de comportamiento más comúnmente utilizados.';
 $string['ignorebroken'] = 'Pasar por alto enlaces rotos';
 $string['import'] = 'Importar';
 $string['importcategory'] = 'Categoría a donde importar';
@@ -318,8 +321,6 @@ $string['numqas'] = 'Número de  intentos de pregunta';
 $string['numquestions'] = 'Número de preguntas';
 $string['numquestionsandhidden'] = '{$a->numquestions} (+{$a->numhidden} ocultas)';
 $string['options'] = 'Opciones';
-$string['orphanedquestionscategory'] = 'Preguntas guardadas de categorías eliminadas';
-$string['orphanedquestionscategoryinfo'] = 'Ocasionalmente, debido a errores del software, las preguntas pueden quedarse en la base de datos a pesar de que la categoría de pregunta correspondiente haya sido eliminada. Por supuesto, esto no debería de pasar, pero ha sucedido en este sito en el pasado. Esta categoría ha sido creada automáticamente, y las preguntas huérfanas se han trasladado aquí para que pueda gestionarlas. Observe que cualquier imagen o archivo multimedia empleado por estas preguntas seguramente se hayan perdido.';
 $string['page-question-category'] = 'Página de categoría de preguntas';
 $string['page-question-edit'] = 'Página de edición de preguntas';
 $string['page-question-export'] = 'Página de exportación de preguntas';
@@ -420,6 +421,7 @@ $string['technicalinfoquestionsummary'] = 'Resumen de pregunta: {$a}';
 $string['technicalinforesponsesummary'] = 'Resumen de respuesta: {$a}';
 $string['technicalinforightsummary'] = 'Resumen de respuesta correcta: {$a}';
 $string['technicalinfostate'] = 'Estado de pregunta: {$a}';
+$string['technicalinfovariant'] = 'Variante de pregunta: {$a}';
 $string['tofilecategory'] = 'Escribir categoría a archivo';
 $string['tofilecontext'] = 'Escribir contexto a archivo';
 $string['uninstallbehaviour'] = 'Desinstalar este comportamiento de pregunta';

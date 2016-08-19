@@ -17,6 +17,14 @@
 //  along with Moodle WIRIS Plugin. If not, see <http://www.gnu.org/licenses/>.
 //
  
-$string['filtername'] = 'WIRIS filter - Maths';
-$string['pluginname'] = 'WIRIS filter - Maths';
-?>
+$string['filtername'] = 'Math & Science by WIRIS';
+$string['filter_standalone'] = 'WIRIS filter only';
+$string['filter_standalonedesc'] = 'You will be able to display existing formulas but creation of new formulas is not available. It also removes the warning message.';
+$string['pluginname'] = 'WIRIS filter';
+$string['clearcache'] = 'Clear cache';
+$string['clearcachedesc'] = 'Clear wiris filter cache';
+$string['uninstallmode'] = 'Uninstall mode';
+$string['uninstallmodedesc'] = 'Allows WIRIS plugin to be uninstalled';
+$string['wirismatheditor'] = 'Math editor';
+$string['wirischemeditor'] = 'Chemistry editor';
+$string['wiriscas'] = 'Calculator';

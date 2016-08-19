@@ -177,7 +177,7 @@ function run_cli_cron($background = true) {
     $force = optional_param('forcecron', false, PARAM_BOOL);
     if (!$force) {
         $cronstart = get_config(null, 'cronstart');
-        $cronperiod = 900; // 15 minutes minimum
+        $cronperiod = 840; // 14 minutes minimum
         if ($cronstart + $cronperiod > time()) {
             echo "Moodle cron was executed recently.\n";
             exit(1);
@@ -195,16 +195,29 @@ function run_cli_cron($background = true) {
     }
     if (!empty($savecronlog)) {
         $outputdir = get_admin_datadir_folder('crons', false);
-        if ($outputdir) {
-            $outputfile = $outputdir.'/cron_'.$CFG->siteidentifier.'_'.date("Ymd").'.log';
+        $outputfile = $outputdir.'/cron_'.$CFG->siteidentifier.'_'.date("Ymd").'.log';
+
+        // Zip old files
+        $search = $outputdir.'/cron_'.$CFG->siteidentifier.'_'.date("Y", strtotime("-1 day"));
+        foreach (glob($search.'*.log') as $filename) {
+            if ($outputfile != $filename) {
+                // If not is current cron file, zip it
+                $gzfilename = $filename.'.gz';
+                $fp = gzopen ($gzfilename, 'w9');
+                gzwrite ($fp, file_get_contents($filename));
+                gzclose($fp);
+                if (filesize($gzfilename) > 0) {
+                    // If gz file is created, remove unzipped origin file
+                    unlink($filename);
+                }
+            }
         }
 
         // Erase old files
         $search = $outputdir.'/cron_'.$CFG->siteidentifier.'_'.date("Ym", strtotime("-2 month"));
-        foreach (glob($search.'*.log') as $filename) {
+        foreach (glob($search.'*.log.gz') as $filename) {
             unlink($filename);
         }
-        $outputfile = $outputdir.'/cron_'.$CFG->siteidentifier.'_'.date("Ymd").'.log';
     }
     $append = true;
 
@@ -288,7 +301,7 @@ function is_enabled_in_agora ($mod) {
     return true;
 }
 
-function local_agora_extends_navigation(global_navigation $navigation) {
+function local_agora_extend_navigation(global_navigation $navigation) {
     global $DB, $CFG;
     if (isloggedin() && is_service_enabled('nodes') && $DB->record_exists('oauth_clients', array('client_id' => 'nodes'))) {
         $nodesurl = $CFG->wwwroot.'/local/agora/login_service.php?service=nodes';
@@ -599,19 +612,4 @@ function external_db($service) {
     }
 
     return $handler;
-}
-
-function local_agora_cron() {
-    global $CFG;
-
-    require_once('scripts/scripts.lib.php');
-
-    mtrace("Executing Agora cron...", "\n");
-
-    scripts_execute_crons();
-
-    require_once('adware/lib.php');
-    detect_adware_cron();
-
-    mtrace("Agora cron done.", "\n");
 }

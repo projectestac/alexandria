@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -430,14 +430,6 @@ $string['pressoktocontinue'] = 'Prem OK per continuar, o Cancel·la per continua
 $string['questionshort'] = 'P-{$a}';
 $string['quizname_help'] = 'Text d\'ajuda pel nom del qüestionari';
 $string['quizzes'] = 'Qüestionaris';
-$string['removegradeitem'] = 'Elimina l\'element de qualificació';
-$string['removegradeitem_help'] = 'Es podria eliminar l\'element de qualificació per aquesta activitat?
-
-**No**
-L\'element de qualificació per aquesta activitat no es pot eliminar del llibre de qualificacions
-
-**Sí**
-Si la qualificació màxima o la ponderació de qualificacions per a aquest qüestionari Hot Potatoes és zero, llavors l\'element de qualificació per a aquesta activitat serà esborrat del llibre de qualificacions de Moodle';
 $string['responses'] = 'Respostes';
 $string['responsesreport'] = 'Respostes';
 $string['reviewafterattempt'] = 'Permet la revisió després de l\'intent';

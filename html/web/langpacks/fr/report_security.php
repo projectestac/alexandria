@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_security', language 'fr', branch 'MOODLE_28_STABLE'
+ * Strings for component 'report_security', language 'fr', branch 'MOODLE_31_STABLE'
  *
  * @package   report_security
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -85,7 +85,7 @@ $string['check_passwordpolicy_ok'] = 'Des règles sont définies pour les mots d
 $string['check_riskadmin_detailsok'] = '<p>Veuillez vérifier la liste ci-dessous des administrateurs du système :</p>{$a}';
 $string['check_riskadmin_detailswarning'] = '<p>Veuillez vérifier la liste ci-dessous des administrateurs du système :</p>{$a->admins}<p>Il est recommandé de n\'attribuer le rôle d\'administrateur que dans le contexte Système. Les utilisateurs ci-dessous ont des attributions (non supportées) du rôle d\'administrateur dans d\'autres contextes :</p><p>{$a->unsupported}</p>';
 $string['check_riskadmin_name'] = 'Administrateurs';
-$string['check_riskadmin_ok'] = '{$a} administrateur(s) Moodle trouvés.';
+$string['check_riskadmin_ok'] = '{$a} administrateur(s) Moodle trouvé(s).';
 $string['check_riskadmin_unassign'] = '<a href="{$a->url}">Vérification de l\'attribution du rôle de {$a->fullname} ({$a->email})</a>';
 $string['check_riskadmin_warning'] = '{$a->admincount} administrateurs et {$a->unsupcount} attributions du rôle d\'administrateur trouvés.';
 $string['check_riskbackup_detailsok'] = 'Aucun rôle ne permet explicitement la sauvegarde des données des utilisateurs. Toutefois, les administrateurs ayant la capacité « doanything » peuvent malgré tout le faire.';
@@ -106,6 +106,10 @@ $string['check_unsecuredataroot_error'] = 'Votre dossier de données <code>{$a}<
 $string['check_unsecuredataroot_name'] = 'Dossier de données non sûr';
 $string['check_unsecuredataroot_ok'] = 'Le dossier de données n\'est pas accessible via le web.';
 $string['check_unsecuredataroot_warning'] = 'Votre dossier de données <code>{$a}</code> est dans un emplacement où il pourrait être accessible directement via le web.';
+$string['check_webcron_details'] = '<p>Le lancement du cron par l\'intermédiaire d\'un navigateur web peut exposer des informations sensibles à des utilisateurs anonymes. Il est donc recommandé de ne lancer le cron qu\'en ligne de commande ou de définir un mot de passe pour l\'accès distant au cron.</p>';
+$string['check_webcron_name'] = 'Cron via web';
+$string['check_webcron_ok'] = 'Les utilisateurs anonymes ne peuvent pas accéder au cron.';
+$string['check_webcron_warning'] = 'Les utilisateurs anonymes peuvent accéder au cron.';
 $string['configuration'] = 'Configuration';
 $string['description'] = 'Description';
 $string['details'] = 'Détails';

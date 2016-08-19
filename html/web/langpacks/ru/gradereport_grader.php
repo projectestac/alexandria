@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_grader', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'gradereport_grader', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   gradereport_grader
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,11 +30,12 @@ $string['ajaxclicktoclose'] = 'Щелкните по этому блоку, чт
 $string['ajaxerror'] = 'Ошибка';
 $string['ajaxfailedupdate'] = 'Не удается изменить [1] для [2]';
 $string['ajaxfieldchanged'] = 'Поле, которое вы сейчас редактируете, обновилось. Вы хотели бы использовать обновленное значение?';
-$string['eventgradereportviewed'] = 'Просмотрен отчет «Отчет по оценкам»';
+$string['eventgradereportviewed'] = 'Отчет «Отчет по оценкам» просмотрен';
 $string['grader:manage'] = 'Настроить отчет по оценкам';
 $string['grader:view'] = 'Просмотривать отчет по оценкам';
 $string['overriddengrade'] = 'Переопределенная оценка';
 $string['pluginname'] = 'Отчет по оценкам';
 $string['preferences'] = 'Настройки отчета по оценкам';
+$string['summarygrader'] = 'Таблица с именами студентов в первой колонке (по вертикали) и оцениваемыми элементами курса, сгруппированными по курсу и категории, в верхней строке (по горизонтали).';
 $string['useractivityfeedback'] = 'отзыв {$a}';
 $string['useractivitygrade'] = 'оценка {$a}';

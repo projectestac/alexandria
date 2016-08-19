@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plagiarism', language 'de', branch 'MOODLE_28_STABLE'
+ * Strings for component 'plagiarism', language 'de', branch 'MOODLE_31_STABLE'
  *
  * @package   plagiarism
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['availableplugins'] = 'Verfügbare Plugins';
 $string['configenableplagiarism'] = 'Diese Option erlaubt  es Administratoren, Plugins zur Plagiatsuche zu konfigurieren (falls welche installiert sind)';
 $string['configplagiarismplugins'] = 'Bitte wählen Sie das Plugin zur Plagiatsuche, das Sie konfigurieren möchten';
-$string['enableplagiarism'] = 'Plagiatsuche';
+$string['enableplagiarism'] = 'Plagiatsuche aktivieren';
 $string['manageplagiarism'] = 'Plugins zur Plagiatsuche verwalten';
 $string['nopluginsinstalled'] = 'Keine Plugins zur Plagiatsuche installiert';
 $string['plagiarism'] = 'Plagiatsuche';

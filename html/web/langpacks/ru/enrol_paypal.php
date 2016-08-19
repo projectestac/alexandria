@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_paypal', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol_paypal', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   enrol_paypal
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,7 +30,7 @@ $string['businessemail'] = 'Адрес электронной почты PayPal'
 $string['businessemail_desc'] = 'Адрес электронной почты Вашего аккаунта PayPal';
 $string['cost'] = 'Стоимость зачисления';
 $string['costerror'] = 'Стоимость зачисления не является числом';
-$string['costorkey'] = 'Выберите один из следующих методов зачисления.';
+$string['costorkey'] = 'Выберите один из следующих способов зачисления.';
 $string['currency'] = 'Валюта';
 $string['defaultrole'] = 'Назначение роли по умолчанию';
 $string['defaultrole_desc'] = 'Выберите роль, которая должна быть назначена зачисленным пользователям PayPal.';
@@ -50,7 +50,7 @@ $string['mailteachers'] = 'Сообщение преподавателям';
 $string['messageprovider:paypal_enrolment'] = 'Сообщения о зачислении PayPal';
 $string['nocost'] = 'Зачисление на этот курс бесплатно!';
 $string['paypalaccepted'] = 'Принятые платежи PayPal';
-$string['paypal:config'] = 'Настраивать зачисления PayPal';
+$string['paypal:config'] = 'Настраивать экземпляры способа записи на курс «PayPal»';
 $string['paypal:manage'] = 'Управлять записанными на курс пользователями';
 $string['paypal:unenrol'] = 'Исключать пользователей из курса';
 $string['paypal:unenrolself'] = 'Отчислять себя из курса';

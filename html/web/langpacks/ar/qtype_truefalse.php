@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_truefalse', language 'ar', branch 'MOODLE_28_STABLE'
+ * Strings for component 'qtype_truefalse', language 'ar', branch 'MOODLE_31_STABLE'
  *
  * @package   qtype_truefalse
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,9 +26,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['correctanswer'] = 'الجواب الصحيح';
+$string['correctanswerfalse'] = 'الإجابة الصحيحة هي "خطأ"';
+$string['correctanswertrue'] = 'الإجابة الصحيحة هي "صح"';
 $string['false'] = 'خطأ';
 $string['pluginname'] = 'صح/خطأ';
 $string['pluginnameadding'] = 'إضافة سؤال صح/خطأ';
 $string['pluginnameediting'] = 'تحرير سؤال صح/خطأ';
 $string['pluginnamesummary'] = 'نوع بسيط من الأسئلة متعددة الخيارات مع خيارين فقط \'صح\' و \'خطأ\'';
+$string['selectone'] = 'اخترأحد الخيارات';
 $string['true'] = 'صح';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_singleview', language 'eu', branch 'MOODLE_28_STABLE'
+ * Strings for component 'gradereport_singleview', language 'eu', branch 'MOODLE_31_STABLE'
  *
  * @package   gradereport_singleview
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,8 +30,17 @@ $string['assessmentname'] = 'Kalifikazio-elementua';
 $string['blanks'] = 'Kalifikazio hutsak';
 $string['bulkfor'] = '{$a}-(r)rentzako kalifikazioak';
 $string['bulkinsertvalue'] = 'Txertatu balorea';
+$string['exclude'] = 'Utzi kanpoan';
+$string['excludeall'] = 'Utzi kanpoan kalifikazio guztiak';
 $string['excludenone'] = 'Ez utzi kanpoan kalifikaziorik';
+$string['feedbackfor'] = 'Feedbacka {$a}-(r)entzat';
+$string['filtergrades'] = 'Erakutsi {$a}-(r)en kalifikazioak';
+$string['gradeitem'] = 'Kalifikazio-elementua: {$a}';
 $string['override'] = 'Baliogabetu';
 $string['pluginname'] = 'Ikuspegi sinplea';
+$string['save'] = 'Gorde';
 $string['savegrades'] = 'Kalifikazioak gordetzen';
+$string['selectgrade'] = 'Aukeratu kalifikazio-elementua...';
+$string['selectuser'] = 'Aukeratu erabiltzailea...';
 $string['singleview:view'] = 'Ikusi txostena';
+$string['userselect'] = 'Aukeratu jarduera';

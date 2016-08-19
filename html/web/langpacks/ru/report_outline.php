@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_outline', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'report_outline', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   report_outline
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,10 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['eventactivityreportviewed'] = 'Просмотрен «Отчет о деятельности» по курсу';
-$string['eventoutlinereportviewed'] = 'Просмотрен «Отчет о деятельности» по пользователю';
+$string['eventactivityreportviewed'] = 'Отчет «Отчет о деятельности» по курсу просмотрен';
+$string['eventoutlinereportviewed'] = 'Отчет «Отчет о деятельности» по пользователю просмотрен';
 $string['neverseen'] = 'Не просмотрена ни разу';
 $string['nologreaderenabled'] = 'ПО для чтения журналов не включено';
+$string['numviews'] = '{$a->numviews} просмотров {$a->distinctusers} пользователями';
 $string['outline:view'] = 'Просматривать отчет «Отчет о деятельности»';
 $string['page-report-outline-index'] = 'Обзорный отчет по курсу';
 $string['page-report-outline-user'] = 'Обзорный отчет по пользователю курса';

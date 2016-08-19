@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'eu', branch 'MOODLE_28_STABLE'
+ * Strings for component 'question', language 'eu', branch 'MOODLE_31_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -110,7 +110,7 @@ $string['cwrqpfs'] = 'Ausazko galderak, azpikategorietako galderak aukeratuta';
 $string['cwrqpfsinfo'] = '<p> Moodle 1.9ra eguneratu bitartean, galdera-kategoriak hainbat testuingurutan banatuko ditugu. Zure guneko hainbat kategoria eta galderek aldatu egingo dute truke egoera. Hau egitea beharrezkoa da partekatutako eta ez partekatutako kategoria nahasketa batetik aukeratzen direnean galdera bat edo gehiago (gune honetan gertatzen den bezala). Hau gertatzen da ausazko galdera bat azpikategorietatik aukeratzeko ezartzen denean eta azpikategoria bat edo gehiagok ausazko galdera sortuko den jatorrizko kategoriak ez bezalako truke egoera dutenean.</p>
 <p>Ondorengo kategoriek, zeinetatik aukeratzen dituzten goragoko kategoriek ausazko galderak, Moodle 1.9rako eguneraketan aldatu egingo dute beren truke-egoera ausazko galdera duen kategoriaren egoera berera. Ondoren agertzen diren kategoriek aldatuta izango dute truke egoera. Eragina izan duten galderek funtzionatu egingo dute dauden galdetegi guztietan ahalik eta galdetegi horiek ezabatu arte.</p>';
 $string['cwrqpfsnoprob'] = 'Ez dago zure gunean \'Ausazko galderak azpikategorietatik aukeratuta\' aukeraren eraginpeko kategoriarik.';
-$string['decimalplacesingrades'] = 'Hamartarrak kalifikazioetan';
+$string['decimalplacesingrades'] = 'Hamartar-kopurua kalifikazioetan';
 $string['defaultfor'] = '{$a}-ren berezko balioa';
 $string['defaultinfofor'] = '\'{$a}\' testuinguruan partekatutako galderetarako berezko kategoria.';
 $string['defaultmark'] = 'Lehenetsitako puntuazioa';
@@ -192,7 +192,7 @@ $string['fillincorrect'] = 'Bete erantzun zuzenak';
 $string['firsttry'] = 'Lehen saiakera';
 $string['flagged'] = 'Markatuta';
 $string['flagthisquestion'] = 'Markatu galdera hau';
-$string['formquestionnotinids'] = 'Questionids-en ez dagoen galdera du fomularioak';
+$string['formquestionnotinids'] = 'Galdera hau questionids-en ez dagoen formularioan dago';
 $string['fractionsnomax'] = 'Erantzunetako batek %100 izan behar du galdera honetako gehienezko puntuazioa lortu ahal izateko.';
 $string['generalfeedback'] = 'Feedback orokorra';
 $string['generalfeedback_help'] = 'Feedback orokorra galdera erantzun ondoren erakusten zaio ikasleari. Feedback zehatzak ez bezala, galdera-mota eta ikasleak emandako erantzunaren araberakoa dena, feedback orokorra berdina da ikasle guztientzat.
@@ -200,7 +200,6 @@ $string['generalfeedback_help'] = 'Feedback orokorra galdera erantzun ondoren er
 Feedback orokorra erantzun egokia erakusteko eta azaltzeko erabil dezakezu, eta agian informazio gehiago erakusten duen estekaren bat gehi dezakezu galdera ulertu ez duenarentzat.';
 $string['getcategoryfromfile'] = 'Lortu kategoria fitxategitik';
 $string['getcontextfromfile'] = 'Lortu testuingurua fitxategitik';
-$string['hidden'] = 'Ezkutuan';
 $string['hintn'] = '{no}. Pista';
 $string['hintnoptions'] = '{no}. Pistaren aukerak';
 $string['hinttext'] = 'Pistaren testua';
@@ -313,8 +312,6 @@ $string['numqas'] = 'Ez. Galderen saiakerak';
 $string['numquestions'] = 'Ez dago galderarik';
 $string['numquestionsandhidden'] = '{$a->numquestions} (+{$a->numhidden} ezkutuan)';
 $string['options'] = 'Aukerak';
-$string['orphanedquestionscategory'] = 'Ezabatutako kategorietatik gordetako galderak';
-$string['orphanedquestionscategoryinfo'] = 'Zenbaitetan, orokorrean software zaharraren arazoak direla-eta, galderak datu-basean gera daitezke nahiz eta dagokien galdera-kategoria ezabatuta egon. Jakina, honek ez luke gertatu behar, baina gertatu da garai batean gune honetan. Kategoria hau automatikoki sortu da eta galdera umezurtzak horra mugitu dira kudeatzeko aukera izan dezazun. Kontuan izan galdera horietan erabilitako edozein irudi edo media fitxategi ziurrenik galdu egingo zela.';
 $string['page-question-category'] = 'Galdera-kategoriaren orria';
 $string['page-question-edit'] = 'Galdera editatzeko orria';
 $string['page-question-export'] = 'Galdera esportatzeko orria';
@@ -406,6 +403,7 @@ $string['submissionoutofsequencefriendlymessage'] = 'Datuetara orden normaletik 
 $string['submit'] = 'Bidali';
 $string['submitandfinish'] = 'Bidali eta amaitu';
 $string['submitted'] = 'Bidali: {$a}';
+$string['tagarea_question'] = 'Galderak';
 $string['technicalinfo'] = 'Informazio teknikoa';
 $string['technicalinfo_help'] = 'Informazio tekniko hau ziur aski galdera-motetan lan egiten ari diren garatzaileentzat izan daiteke baliagarria. Lagungarria izan daiteke ere galderekin dauden arazoen diagnosia egitean.';
 $string['technicalinfomaxfraction'] = 'Gehieneko zatikia: {$a}';

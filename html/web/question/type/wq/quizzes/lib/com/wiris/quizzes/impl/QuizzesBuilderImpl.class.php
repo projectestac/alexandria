@@ -1,23 +1,16 @@
 <?php
 
 class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_QuizzesBuilder {
-	public function __construct() {
-		if(!php_Boot::$skip_constructor) {
+	public function __construct() { if(!php_Boot::$skip_constructor) {
 		parent::__construct();
 	}}
-	public function inArray($n, $a) {
-		$i = null;
-		{
-			$_g1 = 0; $_g = $a->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				if($a[$i1] === $n) {
-					return true;
-				}
-				unset($i1);
-			}
+	public function getResourceUrl($name) {
+		$c = $this->getConfiguration();
+		if("true" === $c->get(com_wiris_quizzes_api_ConfigurationKeys::$RESOURCES_STATIC)) {
+			return $c->get(com_wiris_quizzes_api_ConfigurationKeys::$RESOURCES_URL) . "/" . $name;
+		} else {
+			return $c->get(com_wiris_quizzes_api_ConfigurationKeys::$PROXY_URL) . "?service=resource&name=" . $name;
 		}
-		return false;
 	}
 	public function getPairings($c, $u) {
 		$p = new _hx_array(array());
@@ -61,37 +54,35 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		return $p;
 	}
 	public function getSerializer() {
-		if($this->serializer === null) {
-			$this->serializer = new com_wiris_util_xml_XmlSerializer();
-			$this->serializer->register(new com_wiris_quizzes_impl_Answer());
-			$this->serializer->register(new com_wiris_quizzes_impl_Assertion());
-			$this->serializer->register(new com_wiris_quizzes_impl_AssertionCheckImpl());
-			$this->serializer->register(new com_wiris_quizzes_impl_AssertionParam());
-			$this->serializer->register(new com_wiris_quizzes_impl_CorrectAnswer());
-			$this->serializer->register(new com_wiris_quizzes_impl_LocalData());
-			$this->serializer->register(new com_wiris_quizzes_impl_MathContent());
-			$this->serializer->register(new com_wiris_quizzes_impl_MultipleQuestionRequest());
-			$this->serializer->register(new com_wiris_quizzes_impl_MultipleQuestionResponse());
-			$this->serializer->register(new com_wiris_quizzes_impl_Option());
-			$this->serializer->register(new com_wiris_quizzes_impl_ProcessGetCheckAssertions());
-			$this->serializer->register(new com_wiris_quizzes_impl_ProcessGetTranslation());
-			$this->serializer->register(new com_wiris_quizzes_impl_ProcessGetVariables());
-			$this->serializer->register(new com_wiris_quizzes_impl_ProcessStoreQuestion());
-			$this->serializer->register(new com_wiris_quizzes_impl_QuestionImpl());
-			$this->serializer->register(new com_wiris_quizzes_impl_QuestionRequestImpl());
-			$this->serializer->register(new com_wiris_quizzes_impl_QuestionResponseImpl());
-			$this->serializer->register(new com_wiris_quizzes_impl_QuestionInstanceImpl());
-			$this->serializer->register(new com_wiris_quizzes_impl_ResultError());
-			$this->serializer->register(new com_wiris_quizzes_impl_ResultErrorLocation());
-			$this->serializer->register(new com_wiris_quizzes_impl_ResultGetCheckAssertions());
-			$this->serializer->register(new com_wiris_quizzes_impl_ResultGetTranslation());
-			$this->serializer->register(new com_wiris_quizzes_impl_ResultGetVariables());
-			$this->serializer->register(new com_wiris_quizzes_impl_ResultStoreQuestion());
-			$this->serializer->register(new com_wiris_quizzes_impl_TranslationNameChange());
-			$this->serializer->register(new com_wiris_quizzes_impl_UserData());
-			$this->serializer->register(new com_wiris_quizzes_impl_Variable());
-		}
-		return $this->serializer;
+		$s = new com_wiris_util_xml_XmlSerializer();
+		$s->register(new com_wiris_quizzes_impl_Answer());
+		$s->register(new com_wiris_quizzes_impl_Assertion());
+		$s->register(new com_wiris_quizzes_impl_AssertionCheckImpl());
+		$s->register(new com_wiris_quizzes_impl_AssertionParam());
+		$s->register(new com_wiris_quizzes_impl_CorrectAnswer());
+		$s->register(new com_wiris_quizzes_impl_LocalData());
+		$s->register(new com_wiris_quizzes_impl_MathContent());
+		$s->register(new com_wiris_quizzes_impl_MultipleQuestionRequest());
+		$s->register(new com_wiris_quizzes_impl_MultipleQuestionResponse());
+		$s->register(new com_wiris_quizzes_impl_Option());
+		$s->register(new com_wiris_quizzes_impl_ProcessGetCheckAssertions());
+		$s->register(new com_wiris_quizzes_impl_ProcessGetTranslation());
+		$s->register(new com_wiris_quizzes_impl_ProcessGetVariables());
+		$s->register(new com_wiris_quizzes_impl_ProcessStoreQuestion());
+		$s->register(new com_wiris_quizzes_impl_QuestionImpl());
+		$s->register(new com_wiris_quizzes_impl_QuestionRequestImpl());
+		$s->register(new com_wiris_quizzes_impl_QuestionResponseImpl());
+		$s->register(new com_wiris_quizzes_impl_QuestionInstanceImpl());
+		$s->register(new com_wiris_quizzes_impl_ResultError());
+		$s->register(new com_wiris_quizzes_impl_ResultErrorLocation());
+		$s->register(new com_wiris_quizzes_impl_ResultGetCheckAssertions());
+		$s->register(new com_wiris_quizzes_impl_ResultGetTranslation());
+		$s->register(new com_wiris_quizzes_impl_ResultGetVariables());
+		$s->register(new com_wiris_quizzes_impl_ResultStoreQuestion());
+		$s->register(new com_wiris_quizzes_impl_TranslationNameChange());
+		$s->register(new com_wiris_quizzes_impl_UserData());
+		$s->register(new com_wiris_quizzes_impl_Variable());
+		return $s;
 	}
 	public function newMultipleResponseFromXml($xml) {
 		$s = $this->getSerializer();
@@ -318,16 +309,23 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 				$qq->correctAnswers = $q->correctAnswers;
 			}
 		}
+		{
+			$_g1 = 0; $_g = $qq->correctAnswers->length;
+			while($_g1 < $_g) {
+				$i1 = $_g1++;
+				$ca = $qq->correctAnswers[$i1];
+				if($ca !== null && $ca->content !== null) {
+					$ca->content = $this->stripAnnotation($ca->content);
+				}
+				unset($i1,$ca);
+			}
+		}
 		if($userAnswers !== null) {
 			$_g1 = 0; $_g = $userAnswers->length;
 			while($_g1 < $_g) {
 				$i1 = $_g1++;
-				$answerValue = $userAnswers[$i1];
-				if($answerValue === null) {
-					$answerValue = "";
-				}
 				$uu->setUserAnswer($i1, $userAnswers[$i1]);
-				unset($i1,$answerValue);
+				unset($i1);
 			}
 		} else {
 			if($qi !== null) {
@@ -338,7 +336,11 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 			$_g1 = 0; $_g = $uu->answers->length;
 			while($_g1 < $_g) {
 				$i1 = $_g1++;
-				$uu->setUserAnswer($i1, $this->stripAnnotation(_hx_array_get($uu->answers, $i1)->content));
+				if($uu->answers[$i1] === null || _hx_array_get($uu->answers, $i1)->content === null) {
+					$uu->setUserAnswer($i1, "");
+				} else {
+					$uu->setUserAnswer($i1, $this->stripAnnotation(_hx_array_get($uu->answers, $i1)->content));
+				}
 				unset($i1);
 			}
 		}
@@ -369,7 +371,7 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 					while($_g3 < $_g2) {
 						$k1 = $_g3++;
 						$ass = $qq->assertions[$k1];
-						if($ass->isSyntactic() && $this->inArray($i1, $ass->getAnswers())) {
+						if($ass->isSyntactic() && com_wiris_util_type_Arrays::containsInt($ass->getAnswers(), $i1)) {
 							$foundSyntax = true;
 						}
 						unset($k1,$ass);
@@ -387,7 +389,7 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 			while($_g1 < $_g) {
 				$i1 = $_g1++;
 				$value = $qq->getCorrectAnswer($i1);
-				if($syntax->name === com_wiris_quizzes_impl_Assertion::$SYNTAX_STRING) {
+				if(com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_PLAIN_TEXT === $q->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_INPUT_FIELD) || $syntax->name === com_wiris_quizzes_impl_Assertion::$SYNTAX_STRING) {
 					$value = $qi->expandVariablesText($value);
 				} else {
 					$value = $qi->expandVariablesMathMLEval($value);
@@ -573,8 +575,11 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		if($question !== null) {
 			$q = _hx_deref(($question))->getImpl();
 			$type = $q->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_INPUT_FIELD);
-			if($type === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_INLINE_HAND) {
+			if($type === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_INLINE_EDITOR || $type === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_POPUP_EDITOR || $type === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_INLINE_HAND) {
 				$qi->setHandwritingConstraints($question);
+			}
+			if("," === $q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_DECIMAL_SEPARATOR) || "," === $q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_DIGIT_GROUP_SEPARATOR) && StringTools::startsWith($q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_FLOAT_FORMAT), ",")) {
+				$qi->setLocalData(com_wiris_quizzes_impl_LocalData::$KEY_ITEM_SEPARATOR, ";");
 			}
 		}
 		return $qi;
@@ -582,18 +587,7 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 	public function newQuestion() {
 		return new com_wiris_quizzes_impl_QuestionImpl();
 	}
-	public $serializer;
-	public function __call($m, $a) {
-		if(isset($this->$m) && is_callable($this->$m))
-			return call_user_func_array($this->$m, $a);
-		else if(isset($this->»dynamics[$m]) && is_callable($this->»dynamics[$m]))
-			return call_user_func_array($this->»dynamics[$m], $a);
-		else if('toString' == $m)
-			return $this->__toString();
-		else
-			throw new HException('Unable to call «'.$m.'»');
-	}
-	static $singleton;
+	static $singleton = null;
 	static function getInstance() {
 		if(com_wiris_quizzes_impl_QuizzesBuilderImpl::$singleton === null) {
 			com_wiris_quizzes_impl_QuizzesBuilderImpl::$singleton = new com_wiris_quizzes_impl_QuizzesBuilderImpl();

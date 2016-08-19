@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_generator', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'tool_generator', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   tool_generator
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -91,7 +91,7 @@ $string['testplanexplanation'] = 'Aquesta eina crea un fitxer de planificació d
 
 Aquest pla de proves està dissenyat per a treballar simultàniament amb {$a} (cosa que fa més fàcil executar el pla en un entorn específic de Moodle), reuneix informació sobre les execucions i compara els resultats, així que haureu de baixar-lo i utilitzar l\'script test_runner.sh o seguir les instruccions d\'instal·lació i ús.
 
-Heu de definir una contrasenya per als usuaris del curs en config.php (per exemple, $ CFG-> tool_generator_users_password = \'moodle\';). No hi ha un valor per defecte per a aquesta contrasenya, a fi d\'evitar usos accidentals de l\'eina. Haureu d\'utilitzar l\'opció d\'actualitzar les contrasenyes en cas que els usuaris del curs tinguin altres contrasenyes o que s\'hagin generat amb tool_generator però sense definir un valor per a $CFG->tool_generator_users_password.
+Heu de definir una contrasenya per als usuaris del curs a config.php (per exemple, $ CFG-> tool_generator_users_password = \'moodle\';). No hi ha un valor per defecte per a aquesta contrasenya, a fi d\'evitar usos accidentals de l\'eina. Haureu d\'utilitzar l\'opció d\'actualitzar les contrasenyes en cas que els usuaris del curs tinguin altres contrasenyes o que s\'hagin generat amb tool_generator, però sense definir un valor per a $CFG->tool_generator_users_password.
 
 L\'eina és part de tool_generator, així que funciona bé amb els cursos generats pels  generadors de cursos i llocs. També es pot utilitzar amb qualsevol curs que contingui, almenys:
 
@@ -101,12 +101,12 @@ L\'eina és part de tool_generator, així que funciona bé amb els cursos genera
 
 És possible que vulgueu tenir en compte la capacitat del vostre servidor a l\'hora d\'executar grans plans de proves, ja que la càrrega generada per JMeter pot ser considerable. El període de pujada («ramp-up») s\'ha ajustat d\'acord amb el nombre de fils (usuaris) per reduir aquest tipus de problemes, però tot i així la càrrega és important.
 
-**No executeu el pla de proves en un sistema en funcionament .** Aquesta funció només crea els arxius per alimentar JMeter, així que no és perillós per si mateix, però **MAI ** hauríeu d\'executar el pla de proves en un lloc en producció.';
+**No executeu el pla de proves en un sistema en funcionament .** Aquesta funció només crea els fitxers per alimentar JMeter, així que no és perillosa per si mateixa, però **MAI ** hauríeu d\'executar el pla de proves en un lloc en producció.';
 $string['testplansize_0'] = 'XS ({$a->users} usuaris, {$a->loops} bucles i període ramp-up {$a->rampup})';
 $string['testplansize_1'] = 'S ({$a->users} usuaris, {$a->loops} bucles i període ramp-up {$a->rampup})';
 $string['testplansize_2'] = 'M ({$a->users} usuaris, {$a->loops} bucles i període ramp-up {$a->rampup})';
 $string['testplansize_3'] = 'L ({$a->users} usuaris, {$a->loops} bucles i període ramp-up {$a->rampup})';
 $string['testplansize_4'] = 'XL ({$a->users} usuaris, {$a->loops} bucles i període ramp-up {$a->rampup})';
 $string['testplansize_5'] = 'XXL ({$a->users} usuaris, {$a->loops} bucles i període ramp-up {$a->rampup})';
-$string['updateuserspassword'] = 'Actualitza la contrasenya dels usuaris dels curs';
+$string['updateuserspassword'] = 'Actualitza la contrasenya dels usuaris del curs';
 $string['updateuserspassword_help'] = 'JMeter ha d\'iniciar sessió com a usuari del curs. Podeu definir la contrasenya dels usuaris mitjançant $CFG->tool_generator_users_password en config.php. Aquesta opció actualitza la contrasenya dels usuaris del curs d\'acord amb $CFG->tool_generator_users_password. Pot ser útil en cas que estigueu utilitzant un curs no generat per tool_generator o en cas que $CFG->tool_generator_users_password no s\'hagués definit quan vau crear els cursos de prova.';

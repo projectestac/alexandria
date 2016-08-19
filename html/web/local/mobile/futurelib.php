@@ -23,722 +23,140 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+require_once("$CFG->dirroot/mod/quiz/locallib.php");
 
-require_once("$CFG->dirroot/user/lib.php");
+class local_mobile_mod_quiz_external extends mod_quiz_external {
 
-
-if (!function_exists('user_remove_user_device')) {
     /**
-     * Remove a user device from the Moodle database (for PUSH notifications usually).
+     * Public accessor.
      *
-     * @param string $uuid The device UUID.
-     * @param string $appid The app id. If empty all the devices matching the UUID for the user will be removed.
-     * @return bool true if removed, false if the device didn't exists in the database
-     * @since Moodle 2.9
+     * @param  array $params Array of parameters including the attemptid and preflight data
+     * @param  bool $checkaccessrules whether to check the quiz access rules or not
+     * @param  bool $failifoverdue whether to return error if the attempt is overdue
+     * @return  array containing the attempt object and access messages
      */
-    function user_remove_user_device($uuid, $appid = "") {
-        global $DB, $USER;
-
-        $conditions = array('uuid' => $uuid, 'userid' => $USER->id);
-        if (!empty($appid)) {
-            $conditions['appid'] = $appid;
-        }
-
-        if (!$DB->count_records('user_devices', $conditions)) {
-            return false;
-        }
-
-        $DB->delete_records('user_devices', $conditions);
-
-        return true;
+    public static function validate_attempt($params, $checkaccessrules = true, $failifoverdue = true) {
+        return parent::validate_attempt($params, $checkaccessrules, $failifoverdue);
     }
-}
-
-require_once($CFG->dirroot . '/mod/chat/lib.php');
-require_once($CFG->dirroot . '/mod/choice/lib.php');
-
-if (!function_exists('chat_get_latest_messages')) {
 
     /**
-     * Return a list of the latest messages in the given chat session.
+     * Describes a single attempt structure.
      *
-     * @param  stdClass $chatuser     chat user session data
-     * @param  int      $chatlasttime last time messages were retrieved
-     * @return array    list of messages
-     * @since  Moodle 3.0
+     * @return external_single_structure the attempt structure
      */
-    function chat_get_latest_messages($chatuser, $chatlasttime) {
-        global $DB;
-
-        $params = array('groupid' => $chatuser->groupid, 'chatid' => $chatuser->chatid, 'lasttime' => $chatlasttime);
-
-        $groupselect = $chatuser->groupid ? " AND (groupid=" . $chatuser->groupid . " OR groupid=0) " : "";
-
-        return $DB->get_records_select('chat_messages_current', 'chatid = :chatid AND timestamp > :lasttime ' . $groupselect,
-                                        $params, 'timestamp ASC');
-    }
-}
-
-if (!function_exists('choice_get_my_response')) {
-    /**
-     * Return my responses on a specific choice.
-     * @param object $choice
-     * @return array
-     */
-    function choice_get_my_response($choice) {
-        global $DB, $USER;
-        return $DB->get_records('choice_answers', array('choiceid' => $choice->id, 'userid' => $USER->id));
-    }
-}
-
-if (!function_exists('choice_get_all_responses')) {
-    /**
-     * Get all the responses on a given choice.
-     *
-     * @param stdClass $choice Choice record
-     * @return array of choice answers records
-     * @since  Moodle 3.0
-     */
-    function choice_get_all_responses($choice) {
-        global $DB;
-        return $DB->get_records('choice_answers', array('choiceid' => $choice->id));
-    }
-}
-
-if (!function_exists('choice_can_view_results')) {
-    /**
-     * Return true if we are allowd to see choice results as student
-     * @param object $choice Choice
-     * @param rows|null $current my choice responses
-     * @param bool|null $choiceopen choice open
-     * @return bool True if we can see results, false if not.
-     */
-    function choice_can_view_results($choice, $current = null, $choiceopen = null) {
-
-        if (is_null($choiceopen)) {
-            $timenow = time();
-            if ($choice->timeclose != 0 && $timenow > $choice->timeclose) {
-                $choiceopen = false;
-            } else {
-                $choiceopen = true;
-            }
-        }
-        if (is_null($current)) {
-            $current = choice_get_my_response($choice);
-        }
-
-        if ($choice->showresults == CHOICE_SHOWRESULTS_ALWAYS or
-           ($choice->showresults == CHOICE_SHOWRESULTS_AFTER_ANSWER and !empty($current)) or
-           ($choice->showresults == CHOICE_SHOWRESULTS_AFTER_CLOSE and !$choiceopen)) {
-            return true;
-        }
-        return false;
-    }
-}
-
-require_once($CFG->libdir . '/externallib.php');
-if (!class_exists("external_util")) {
-
-    /**
-     * Utility functions for the external API.
-     *
-     * @package    core_webservice
-     * @copyright  2015 Juan Leyva
-     * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
-     * @since Moodle 3.0
-     */
-    class external_util extends external_api{
-
-        /**
-         * Validate a list of courses, returning the complete course objects for valid courses.
-         *
-         * @param  array $courseids A list of course ids
-         * @return array            An array of courses and the validation warnings
-         */
-        public static function validate_courses($courseids) {
-            // Delete duplicates.
-            $courseids = array_unique($courseids);
-            $courses = array();
-            $warnings = array();
-
-            foreach ($courseids as $cid) {
-                // Check the user can function in this context.
-                try {
-                    $context = context_course::instance($cid);
-                    self::validate_context($context);
-                    $courses[$cid] = get_course($cid);
-                } catch (Exception $e) {
-                    $warnings[] = array(
-                        'item' => 'course',
-                        'itemid' => $cid,
-                        'warningcode' => '1',
-                        'message' => 'No access rights in course context'
-                    );
-                }
-            }
-
-            return array($courses, $warnings);
-        }
-
-    }
-}
-
-if (!function_exists('external_format_string')) {
-    /**
-     * Format the string to be returned properly as requested by the either the web service server,
-     * either by an internally call.
-     * The caller can change the format (raw) with the external_settings singleton
-     * All web service servers must set this singleton when parsing the $_GET and $_POST.
-     *
-     * @param string $str The string to be filtered. Should be plain text, expect
-     * possibly for multilang tags.
-     * @param boolean $striplinks To strip any link in the result text. Moodle 1.8 default changed from false to true! MDL-8713
-     * @param int $contextid The id of the context for the string (affects filters).
-     * @param array $options options array/object or courseid
-     * @return string text
-     * @since Moodle 3.0
-     */
-    function external_format_string($str, $contextid, $striplinks = true, $options = array()) {
-
-        // Get settings (singleton).
-        $settings = external_settings::get_instance();
-        if (empty($contextid)) {
-            throw new coding_exception('contextid is required');
-        }
-
-        if (!$settings->get_raw()) {
-            $context = context::instance_by_id($contextid);
-            $options['context'] = $context;
-            $options['filter'] = $settings->get_filter();
-            $str = format_string($str, $striplinks, $options);
-        }
-
-        return $str;
-    }
-}
-
-require_once($CFG->dirroot . '/mod/lti/locallib.php');
-
-if (!function_exists('lti_get_launch_data')) {
-    /**
-     * Return the launch data required for opening the external tool.
-     *
-     * @param  stdClass $instance the external tool activity settings
-     * @return array the endpoint URL and parameters (including the signature)
-     * @since  Moodle 3.0
-     */
-    function lti_get_launch_data($instance) {
-        global $PAGE, $CFG;
-
-        if (empty($instance->typeid)) {
-            $tool = lti_get_tool_by_url_match($instance->toolurl, $instance->course);
-            if ($tool) {
-                $typeid = $tool->id;
-            } else {
-                $typeid = null;
-            }
-        } else {
-            $typeid = $instance->typeid;
-            $tool = lti_get_type($typeid);
-        }
-
-        if ($typeid) {
-            $typeconfig = lti_get_type_config($typeid);
-        } else {
-            // There is no admin configuration for this tool. Use configuration in the lti instance record plus some defaults.
-            $typeconfig = (array)$instance;
-
-            $typeconfig['sendname'] = $instance->instructorchoicesendname;
-            $typeconfig['sendemailaddr'] = $instance->instructorchoicesendemailaddr;
-            $typeconfig['customparameters'] = $instance->instructorcustomparameters;
-            $typeconfig['acceptgrades'] = $instance->instructorchoiceacceptgrades;
-            $typeconfig['allowroster'] = $instance->instructorchoiceallowroster;
-            $typeconfig['forcessl'] = '0';
-        }
-
-        // Default the organizationid if not specified.
-        if (empty($typeconfig['organizationid'])) {
-            $urlparts = parse_url($CFG->wwwroot);
-
-            $typeconfig['organizationid'] = $urlparts['host'];
-        }
-
-        if (isset($tool->toolproxyid)) {
-            $toolproxy = lti_get_tool_proxy($tool->toolproxyid);
-            $key = $toolproxy->guid;
-            $secret = $toolproxy->secret;
-        } else {
-            $toolproxy = null;
-            if (!empty($instance->resourcekey)) {
-                $key = $instance->resourcekey;
-            } else if (!empty($typeconfig['resourcekey'])) {
-                $key = $typeconfig['resourcekey'];
-            } else {
-                $key = '';
-            }
-            if (!empty($instance->password)) {
-                $secret = $instance->password;
-            } else if (!empty($typeconfig['password'])) {
-                $secret = $typeconfig['password'];
-            } else {
-                $secret = '';
-            }
-        }
-
-        $endpoint = !empty($instance->toolurl) ? $instance->toolurl : $typeconfig['toolurl'];
-        $endpoint = trim($endpoint);
-
-        // If the current request is using SSL and a secure tool URL is specified, use it.
-        if (lti_request_is_using_ssl() && !empty($instance->securetoolurl)) {
-            $endpoint = trim($instance->securetoolurl);
-        }
-
-        // If SSL is forced, use the secure tool url if specified. Otherwise, make sure https is on the normal launch URL.
-        if (isset($typeconfig['forcessl']) && ($typeconfig['forcessl'] == '1')) {
-            if (!empty($instance->securetoolurl)) {
-                $endpoint = trim($instance->securetoolurl);
-            }
-
-            $endpoint = lti_ensure_url_is_https($endpoint);
-        } else {
-            if (!strstr($endpoint, '://')) {
-                $endpoint = 'http://' . $endpoint;
-            }
-        }
-
-        $orgid = $typeconfig['organizationid'];
-
-        $course = $PAGE->course;
-        $islti2 = isset($tool->toolproxyid);
-        $allparams = lti_build_request($instance, $typeconfig, $course, $typeid, $islti2);
-        if ($islti2) {
-            $requestparams = lti_build_request_lti2($tool, $allparams);
-        } else {
-            $requestparams = $allparams;
-        }
-        $requestparams = array_merge($requestparams, lti_build_standard_request($instance, $orgid, $islti2));
-        $customstr = '';
-        if (isset($typeconfig['customparameters'])) {
-            $customstr = $typeconfig['customparameters'];
-        }
-        $requestparams = array_merge($requestparams, lti_build_custom_parameters($toolproxy, $tool, $instance, $allparams, $customstr,
-            $instance->instructorcustomparameters, $islti2));
-
-        $launchcontainer = lti_get_launch_container($instance, $typeconfig);
-        $returnurlparams = array('course' => $course->id,
-                                 'launch_container' => $launchcontainer,
-                                 'instanceid' => $instance->id,
-                                 'sesskey' => sesskey());
-
-        // Add the return URL. We send the launch container along to help us avoid frames-within-frames when the user returns.
-        $url = new \moodle_url('/mod/lti/return.php', $returnurlparams);
-        $returnurl = $url->out(false);
-
-        if (isset($typeconfig['forcessl']) && ($typeconfig['forcessl'] == '1')) {
-            $returnurl = lti_ensure_url_is_https($returnurl);
-        }
-
-        $target = '';
-        switch($launchcontainer) {
-            case LTI_LAUNCH_CONTAINER_EMBED:
-            case LTI_LAUNCH_CONTAINER_EMBED_NO_BLOCKS:
-                $target = 'iframe';
-                break;
-            case LTI_LAUNCH_CONTAINER_REPLACE_MOODLE_WINDOW:
-                $target = 'frame';
-                break;
-            case LTI_LAUNCH_CONTAINER_WINDOW:
-                $target = 'window';
-                break;
-        }
-        if (!empty($target)) {
-            $requestparams['launch_presentation_document_target'] = $target;
-        }
-
-        $requestparams['launch_presentation_return_url'] = $returnurl;
-
-        // Allow request params to be updated by sub-plugins.
-        $plugins = core_component::get_plugin_list('ltisource');
-        foreach (array_keys($plugins) as $plugin) {
-            $pluginparams = component_callback('ltisource_'.$plugin, 'before_launch',
-                array($instance, $endpoint, $requestparams), array());
-
-            if (!empty($pluginparams) && is_array($pluginparams)) {
-                $requestparams = array_merge($requestparams, $pluginparams);
-            }
-        }
-
-        if (!empty($key) && !empty($secret)) {
-            $parms = lti_sign_parameters($requestparams, $endpoint, "POST", $key, $secret);
-
-            $endpointurl = new \moodle_url($endpoint);
-            $endpointparams = $endpointurl->params();
-
-            // Strip querystring params in endpoint url from $parms to avoid duplication.
-            if (!empty($endpointparams) && !empty($parms)) {
-                foreach (array_keys($endpointparams) as $paramname) {
-                    if (isset($parms[$paramname])) {
-                        unset($parms[$paramname]);
-                    }
-                }
-            }
-
-        } else {
-            // If no key and secret, do the launch unsigned.
-            $returnurlparams['unsigned'] = '1';
-            $parms = $requestparams;
-        }
-
-        return array($endpoint, $parms);
-    }
-}
-
-// In Moodle 3.0, lti_view function is renamed to lti_launch_tool and a new lti_view function is created.
-// In here we'll rename this new lti_view function to mod_lti_view to prevent problems with the existing one.
-
-/**
- * Mark the activity completed (if required) and trigger the course_module_viewed event.
- *
- * @param  stdClass $lti        lti object
- * @param  stdClass $course     course object
- * @param  stdClass $cm         course module object
- * @param  stdClass $context    context object
- * @since Moodle 3.0
- */
-function mod_lti_view($lti, $course, $cm, $context) {
-
-    // Trigger course_module_viewed event.
-    $params = array(
-        'context' => $context,
-        'objectid' => $lti->id
-    );
-
-    $event = \mod_lti\event\course_module_viewed::create($params);
-    $event->add_record_snapshot('course_modules', $cm);
-    $event->add_record_snapshot('course', $course);
-    $event->add_record_snapshot('lti', $lti);
-    $event->trigger();
-
-    // Completion.
-    $completion = new completion_info($course);
-    $completion->set_module_viewed($cm);
-}
-
-require_once($CFG->dirroot . '/mod/survey/lib.php');
-
-if (!function_exists('survey_view')) {
-
-    /**
-     * Mark the activity completed (if required) and trigger the course_module_viewed event.
-     *
-     * @param  stdClass $survey     survey object
-     * @param  stdClass $course     course object
-     * @param  stdClass $cm         course module object
-     * @param  stdClass $context    context object
-     * @param  string $viewed       which page viewed
-     * @since Moodle 3.0
-     */
-    function survey_view($survey, $course, $cm, $context, $viewed) {
-
-        // Trigger course_module_viewed event.
-        $params = array(
-            'context' => $context,
-            'objectid' => $survey->id,
-            'courseid' => $course->id,
-            'other' => array('viewed' => $viewed)
+    public static function attempt_structure() {
+        return new external_single_structure(
+            array(
+                'id' => new external_value(PARAM_INT, 'Attempt id.', VALUE_OPTIONAL),
+                'quiz' => new external_value(PARAM_INT, 'Foreign key reference to the quiz that was attempted.',
+                                                VALUE_OPTIONAL),
+                'userid' => new external_value(PARAM_INT, 'Foreign key reference to the user whose attempt this is.',
+                                                VALUE_OPTIONAL),
+                'attempt' => new external_value(PARAM_INT, 'Sequentially numbers this students attempts at this quiz.',
+                                                VALUE_OPTIONAL),
+                'uniqueid' => new external_value(PARAM_INT, 'Foreign key reference to the question_usage that holds the
+                                                    details of the the question_attempts that make up this quiz
+                                                    attempt.', VALUE_OPTIONAL),
+                'layout' => new external_value(PARAM_RAW, 'Attempt layout.', VALUE_OPTIONAL),
+                'currentpage' => new external_value(PARAM_INT, 'Attempt current page.', VALUE_OPTIONAL),
+                'preview' => new external_value(PARAM_INT, 'Whether is a preview attempt or not.', VALUE_OPTIONAL),
+                'state' => new external_value(PARAM_ALPHA, 'The current state of the attempts. \'inprogress\',
+                                                \'overdue\', \'finished\' or \'abandoned\'.', VALUE_OPTIONAL),
+                'timestart' => new external_value(PARAM_INT, 'Time when the attempt was started.', VALUE_OPTIONAL),
+                'timefinish' => new external_value(PARAM_INT, 'Time when the attempt was submitted.
+                                                    0 if the attempt has not been submitted yet.', VALUE_OPTIONAL),
+                'timemodified' => new external_value(PARAM_INT, 'Last modified time.', VALUE_OPTIONAL),
+                'timecheckstate' => new external_value(PARAM_INT, 'Next time quiz cron should check attempt for
+                                                        state changes.  NULL means never check.', VALUE_OPTIONAL),
+                'sumgrades' => new external_value(PARAM_FLOAT, 'Total marks for this attempt.', VALUE_OPTIONAL),
+            )
         );
-
-        $event = \mod_survey\event\course_module_viewed::create($params);
-        $event->add_record_snapshot('course_modules', $cm);
-        $event->add_record_snapshot('course', $course);
-        $event->add_record_snapshot('survey', $survey);
-        $event->trigger();
-
-        // Completion.
-        $completion = new completion_info($course);
-        $completion->set_module_viewed($cm);
     }
-}
-
-
-if (!function_exists('survey_order_questions')) {
 
     /**
-     * Helper function for ordering a set of questions by the given ids.
+     * Describes a single question structure.
      *
-     * @param  array $questions     array of questions objects
-     * @param  array $questionorder array of questions ids indicating the correct order
-     * @return array                list of questions ordered
-     * @since Moodle 3.0
+     * @return external_single_structure the question structure
+     * @since  Moodle 3.1
      */
-    function survey_order_questions($questions, $questionorder) {
-
-        $finalquestions = array();
-        foreach ($questionorder as $qid) {
-            $finalquestions[] = $questions[$qid];
-        }
-        return $finalquestions;
-    }
-}
-
-
-if (!function_exists('survey_translate_question')) {
-
-    /**
-     * Translate the question texts and options.
-     *
-     * @param  stdClass $question question object
-     * @return stdClass question object with all the text fields translated
-     * @since Moodle 3.0
-     */
-    function survey_translate_question($question) {
-
-        if ($question->text) {
-            $question->text = get_string($question->text, "survey");
-        }
-
-        if ($question->shorttext) {
-            $question->shorttext = get_string($question->shorttext, "survey");
-        }
-
-        if ($question->intro) {
-            $question->intro = get_string($question->intro, "survey");
-        }
-
-        if ($question->options) {
-            $question->options = get_string($question->options, "survey");
-        }
-        return $question;
-    }
-}
-
-if (!function_exists('survey_get_questions')) {
-
-    /**
-     * Returns the questions for a survey (ordered).
-     *
-     * @param  stdClass $survey survey object
-     * @return array list of questions ordered
-     * @since Moodle 3.0
-     * @throws  moodle_exception
-     */
-    function survey_get_questions($survey) {
-        global $DB;
-
-        $questionids = explode(',', $survey->questions);
-        if (! $questions = $DB->get_records_list("survey_questions", "id", $questionids)) {
-            throw new moodle_exception('cannotfindquestion', 'survey');
-        }
-
-        return survey_order_questions($questions, $questionids);
-    }
-}
-
-if (!function_exists('survey_get_subquestions')) {
-
-    /**
-     * Returns subquestions for a given question (ordered).
-     *
-     * @param  stdClass $question questin object
-     * @return array list of subquestions ordered
-     * @since Moodle 3.0
-     */
-    function survey_get_subquestions($question) {
-        global $DB;
-
-        $questionids = explode(',', $question->multi);
-        $questions = $DB->get_records_list("survey_questions", "id", $questionids);
-
-        return survey_order_questions($questions, $questionids);
-    }
-}
-
-if (!function_exists('survey_save_answers')) {
-
-    /**
-     * Save the answer for the given survey
-     *
-     * @param  stdClass $survey   a survey object
-     * @param  array $answersrawdata the answers to be saved
-     * @param  stdClass $course   a course object (required for trigger the submitted event)
-     * @param  stdClass $context  a context object (required for trigger the submitted event)
-     * @since Moodle 3.0
-     */
-    function survey_save_answers($survey, $answersrawdata, $course, $context) {
-        global $DB, $USER;
-
-        $answers = array();
-
-        // Sort through the data and arrange it.
-        // This is necessary because some of the questions may have two answers, eg Question 1 -> 1 and P1.
-        foreach ($answersrawdata as $key => $val) {
-            if ($key <> "userid" && $key <> "id") {
-                if (substr($key, 0, 1) == "q") {
-                    $key = clean_param(substr($key, 1), PARAM_ALPHANUM);   // Keep everything but the 'q', number or P number.
-                }
-                if (substr($key, 0, 1) == "P") {
-                    $realkey = (int) substr($key, 1);
-                    $answers[$realkey][1] = $val;
-                } else {
-                    $answers[$key][0] = $val;
-                }
-            }
-        }
-
-        // Now store the data.
-        $timenow = time();
-        $answerstoinsert = array();
-        foreach ($answers as $key => $val) {
-            if ($key != 'sesskey') {
-                $newdata = new stdClass();
-                $newdata->time = $timenow;
-                $newdata->userid = $USER->id;
-                $newdata->survey = $survey->id;
-                $newdata->question = $key;
-                if (!empty($val[0])) {
-                    $newdata->answer1 = $val[0];
-                } else {
-                    $newdata->answer1 = "";
-                }
-                if (!empty($val[1])) {
-                    $newdata->answer2 = $val[1];
-                } else {
-                    $newdata->answer2 = "";
-                }
-
-                $answerstoinsert[] = $newdata;
-            }
-        }
-
-        if (!empty($answerstoinsert)) {
-            $DB->insert_records("survey_answers", $answerstoinsert);
-        }
-
-        $params = array(
-            'context' => $context,
-            'courseid' => $course->id,
-            'other' => array('surveyid' => $survey->id)
+    public static function question_structure() {
+        return new external_single_structure(
+            array(
+                'slot' => new external_value(PARAM_INT, 'slot number'),
+                'type' => new external_value(PARAM_ALPHANUMEXT, 'question type, i.e: multichoice'),
+                'page' => new external_value(PARAM_INT, 'page of the quiz this question appears on'),
+                'html' => new external_value(PARAM_RAW, 'the question rendered'),
+                'sequencecheck' => new external_value(PARAM_INT, 'the number of real steps in this attempt'),
+                'lastactiontime' => new external_value(PARAM_INT, 'the timestamp of the most recent step in this question attempt'),
+                'hasautosavedstep' => new external_value(PARAM_BOOL, 'whether this question attempt has autosaved data'),
+                'flagged' => new external_value(PARAM_BOOL, 'whether the question is flagged or not'),
+                'number' => new external_value(PARAM_INT, 'question ordering number in the quiz', VALUE_OPTIONAL),
+                'state' => new external_value(PARAM_ALPHA, 'the state where the question is in', VALUE_OPTIONAL),
+                'status' => new external_value(PARAM_RAW, 'current formatted state of the question', VALUE_OPTIONAL),
+                'mark' => new external_value(PARAM_RAW, 'the mark awarded', VALUE_OPTIONAL),
+                'maxmark' => new external_value(PARAM_FLOAT, 'the maximum mark possible for this question attempt', VALUE_OPTIONAL),
+            )
         );
-        $event = \mod_survey\event\response_submitted::create($params);
-        $event->trigger();
     }
-}
-
-require_once($CFG->dirroot . '/enrol/self/locallib.php');
-if (!function_exists('enrol_self_check_group_enrolment_key')) {
     /**
-     * Check if the given password match a group enrolment key in the specified course.
+     * Return questions information for a given attempt.
      *
-     * @param  int $courseid            course id
-     * @param  string $enrolpassword    enrolment password
-     * @return bool                     True if match
-     * @since  Moodle 3.0
+     * @param  quiz_attempt  $attemptobj  the quiz attempt object
+     * @param  bool  $review  whether if we are in review mode or not
+     * @param  mixed  $page  string 'all' or integer page number
+     * @return array array of questions including data
      */
-    function enrol_self_check_group_enrolment_key($courseid, $enrolpassword) {
+    public static function get_attempt_questions_data(quiz_attempt $attemptobj, $review, $page = 'all') {
+        global $PAGE;
+        $questions = array();
+        $contextid = $attemptobj->get_quizobj()->get_context()->id;
+        $displayoptions = $attemptobj->get_display_options($review);
+        $renderer = $PAGE->get_renderer('mod_quiz');
+        foreach ($attemptobj->get_slots($page) as $slot) {
+            $question = array(
+                'slot' => $slot,
+                'type' => $attemptobj->get_question_type_name($slot),
+                'page' => $attemptobj->get_question_page($slot),
+                'flagged' => $attemptobj->is_question_flagged($slot),
+                'html' => $attemptobj->render_question($slot, $review, $renderer) . $PAGE->requires->get_end_code(),
+                'sequencecheck' => $attemptobj->get_question_attempt($slot)->get_sequence_check_count(),
+                'lastactiontime' => $attemptobj->get_question_attempt($slot)->get_last_step()->get_timecreated(),
+                'hasautosavedstep' => $attemptobj->get_question_attempt($slot)->has_autosaved_step()
+            );
+            if ($attemptobj->is_real_question($slot)) {
+                $question['number'] = $attemptobj->get_question_number($slot);
+                $question['state'] = (string) $attemptobj->get_question_state($slot);
+                $question['status'] = $attemptobj->get_question_status($slot, $displayoptions->correctness);
+            }
+            if ($displayoptions->marks >= question_display_options::MAX_ONLY) {
+                $question['maxmark'] = $attemptobj->get_question_attempt($slot)->get_max_mark();
+            }
+            if ($displayoptions->marks >= question_display_options::MARK_AND_MAX) {
+                $question['mark'] = $attemptobj->get_question_mark($slot);
+            }
+            $questions[] = $question;
+        }
+        return $questions;
+    }
+
+    public static function set_offline_time($attemptid, $time) {
         global $DB;
 
-        $found = false;
-        $groups = $DB->get_records('groups', array('courseid' => $courseid), 'id ASC', 'id, enrolmentkey');
-
-        foreach ($groups as $group) {
-            if (empty($group->enrolmentkey)) {
-                continue;
-            }
-            if ($group->enrolmentkey === $enrolpassword) {
-                $found = true;
-                break;
+        if (WS_SERVER) {
+            $dbman = $DB->get_manager();
+            $attemptstable = new xmldb_table('quizaccess_offlineattempts_a');
+            if ($dbman->table_exists($attemptstable)) {
+                if ($attempt = $DB->get_record('quizaccess_offlineattempts_a', array('attemptid' => $attemptid))) {
+                    $attempt->timemodifiedoffline = $time;
+                    $DB->update_record('quizaccess_offlineattempts_a', $attempt);
+                } else {
+                    $attempt = new stdClass;
+                    $attempt->attemptid = $attemptid;
+                    $attempt->timemodifiedoffline = $time;
+                    $DB->insert_record('quizaccess_offlineattempts_a', $attempt);
+                }
             }
         }
-        return $found;
     }
-}
 
-require_once($CFG->libdir . '/enrollib.php');
-
-function enrol_guest_get_enrol_info($enrolinstance) {
-    $enrolplugin = enrol_get_plugin('guest');
-
-    $instanceinfo = new stdClass();
-    $instanceinfo->id = $enrolinstance->id;
-    $instanceinfo->courseid = $enrolinstance->courseid;
-    $instanceinfo->type = $enrolplugin->get_name();
-    $instanceinfo->name = $enrolplugin->get_instance_name($enrolinstance);
-    $instanceinfo->status = $enrolinstance->status == ENROL_INSTANCE_ENABLED;
-    // Specifics enrolment method parameters.
-    $instanceinfo->requiredparam = new stdClass();
-    $instanceinfo->requiredparam->passwordrequired = !empty($enrolinstance->password);
-
-    // If the plugin is enabled, return the URL for obtaining more information.
-    if ($instanceinfo->status) {
-        $instanceinfo->wsfunction = 'enrol_guest_get_instance_info';
-    }
-    return $instanceinfo;
-}
-
-require_once($CFG->dirroot . '/mod/scorm/lib.php');
-require_once($CFG->dirroot . '/mod/scorm/locallib.php');
-
-if (!function_exists('scorm_get_availability_status')) {
-
-    /**
-     * Check if a SCORM is available for the current user.
-     *
-     * @param  stdClass  $scorm            SCORM record
-     * @param  boolean $checkviewreportcap Check the scorm:viewreport cap
-     * @param  stdClass  $context          Module context, required if $checkviewreportcap is set to true
-     * @return array                       status (available or not and possible warnings)
-     * @since  Moodle 3.0
-     */
-    function scorm_get_availability_status($scorm, $checkviewreportcap = false, $context = null) {
-        $open = true;
-        $closed = false;
-        $warnings = array();
-
-        $timenow = time();
-        if (!empty($scorm->timeopen) and $scorm->timeopen > $timenow) {
-            $open = false;
-        }
-        if (!empty($scorm->timeclose) and $timenow > $scorm->timeclose) {
-            $closed = true;
-        }
-
-        if (!$open or $closed) {
-            if ($checkviewreportcap and !empty($context) and has_capability('mod/scorm:viewreport', $context)) {
-                return array(true, $warnings);
-            }
-
-            if (!$open) {
-                $warnings['notopenyet'] = userdate($scorm->timeopen);
-            }
-            if ($closed) {
-                $warnings['expired'] = userdate($scorm->timeclose);
-            }
-            return array(false, $warnings);
-        }
-
-        // Scorm is available.
-        return array(true, $warnings);
-    }
-}
-
-if (!function_exists('scorm_require_available')) {
-    /**
-     * Requires a SCORM package to be available for the current user.
-     *
-     * @param  stdClass  $scorm            SCORM record
-     * @param  boolean $checkviewreportcap Check the scorm:viewreport cap
-     * @param  stdClass  $context          Module context, required if $checkviewreportcap is set to true
-     * @throws moodle_exception
-     * @since  Moodle 3.0
-     */
-    function scorm_require_available($scorm, $checkviewreportcap = false, $context = null) {
-
-        list($available, $warnings) = scorm_get_availability_status($scorm, $checkviewreportcap, $context);
-
-        if (!$available) {
-            $reason = current(array_keys($warnings));
-            throw new moodle_exception($reason, 'scorm', '', $warnings[$reason]);
-        }
-
-    }
 }

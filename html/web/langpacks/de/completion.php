@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'de', branch 'MOODLE_28_STABLE'
+ * Strings for component 'completion', language 'de', branch 'MOODLE_31_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -117,7 +117,7 @@ $string['deletecompletiondata'] = 'Abschlussdaten löschen';
 $string['dependencies'] = 'Abhängigkeiten';
 $string['dependenciescompleted'] = 'Abschluss von anderen Kursen';
 $string['editcoursecompletionsettings'] = 'Abschlusseinstellungen bearbeiten';
-$string['enablecompletion'] = 'Abschlussverfolgung';
+$string['enablecompletion'] = 'Abschlussverfolgung aktivieren';
 $string['enablecompletion_help'] = 'Diese Option legt fest, ob die Einstellung zur Abschlussverfolgung in den Einstellungen der Aktivität und der Übersichtsseite zur Abschlussverfolgung angezeigt wird.';
 $string['enrolmentduration'] = 'Tage noch verfügbar';
 $string['enrolmentdurationlength'] = 'Nutzer/in muss eingeschrieben bleiben';

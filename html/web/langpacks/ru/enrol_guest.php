@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_guest', language 'ru', branch 'MOODLE_28_STABLE'
+ * Strings for component 'enrol_guest', language 'ru', branch 'MOODLE_31_STABLE'
  *
  * @package   enrol_guest
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['allowguests'] = 'Курс доступен гостю';
 $string['guestaccess_withoutpassword'] = 'Гостевой доступ';
 $string['guestaccess_withpassword'] = 'Для гостевого доступа требуется пароль';
-$string['guest:config'] = 'Настраивать гостевой доступ';
+$string['guest:config'] = 'Настраивать экземпляры способа записи на курс «Гостевой доступ»';
 $string['password'] = 'Пароль';
 $string['password_help'] = 'Использование пароля позволяет разрешить гостевой доступ к курсу только тем, кто знает пароль. Гости должны будут вводить пароль каждый раз при входе в курс.';
 $string['passwordinvalid'] = 'Неверный пароль, попробуйте еще раз';

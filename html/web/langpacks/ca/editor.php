@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor', language 'ca', branch 'MOODLE_28_STABLE'
+ * Strings for component 'editor', language 'ca', branch 'MOODLE_31_STABLE'
  *
  * @package   editor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,7 +38,7 @@ $string['anchors'] = 'Àncores';
 $string['baseline'] = 'Línia base';
 $string['bold'] = 'Negreta';
 $string['borderthickness'] = 'Gruix del contorn';
-$string['bottom'] = 'Bottom';
+$string['bottom'] = 'Part inferior';
 $string['browse'] = 'Navega';
 $string['cancel'] = 'Cancel·la';
 $string['cellpadding'] = 'Cellpadding';
@@ -143,7 +143,7 @@ $string['superscript'] = 'Superíndex';
 $string['textindicator'] = 'Estil actual';
 $string['textmode'] = 'Esteu en MODE TEXT. Utilitzeu el botó [<>] per tornar al MODE WYSIWYG.';
 $string['texttop'] = 'Texttop';
-$string['top'] = 'Top';
+$string['top'] = 'Part superior';
 $string['type'] = 'Tipus';
 $string['underline'] = 'Subratllat';
 $string['undo'] = 'Desfés la darrera acció';

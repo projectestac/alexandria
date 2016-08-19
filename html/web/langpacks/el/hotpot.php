@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'el', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'el', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -58,7 +58,6 @@ $string['outputformat_best'] = 'καλύτερο';
 $string['penalties'] = 'Ποινές';
 $string['pluginname'] = 'Το Hot Potatoes Κουίζ';
 $string['questionshort'] = 'Ε-{$a}';
-$string['removegradeitem'] = 'Αφαίρεση στοιχείου βαθμολόγησης';
 $string['score'] = 'Βαθμός';
 $string['studentfeedback'] = 'Ανάδραση φοιτητών';
 $string['textsourcefilename'] = 'Χρήση ονόματος αρχείου';

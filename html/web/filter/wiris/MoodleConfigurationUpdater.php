@@ -24,10 +24,12 @@ class com_wiris_plugin_configuration_MoodleConfigurationUpdater implements com_w
 
     public $was_editor_enabled;
     public $was_cas_enabled;
+    public $was_chem_editor_enabled;
+    private $old_configuration;
     
     public $editor_plugin;
 
-    public function com_wiris_plugin_configuration_MoodleConfigurationUpdater() {
+    public function __construct() {
         $scriptName = explode('/', $_SERVER["SCRIPT_FILENAME"]);
         $scriptName = array_pop($scriptName);
         
@@ -39,6 +41,7 @@ class com_wiris_plugin_configuration_MoodleConfigurationUpdater implements com_w
 
         require_once 'wirispluginwrapper.php';
         $this->editor_plugin = WIRISpluginWrapper::get_wiris_plugin();
+        $this->old_configuration = WIRISpluginWrapper::get_old_configuration();
 
     }
 
@@ -59,6 +62,12 @@ class com_wiris_plugin_configuration_MoodleConfigurationUpdater implements com_w
 
     public function updateConfiguration(&$configuration) {
         global $CFG;
+
+        // Old configuration.ini
+        if ($this->old_configuration) {
+            $configuration['wirisconfigurationpath'] = $this->editor_plugin->path;
+        }
+
 
         // Cache folder.
         $configuration['wiriscachedirectory'] = $CFG->dataroot . '/filter/wiris/cache';
@@ -100,8 +109,17 @@ class com_wiris_plugin_configuration_MoodleConfigurationUpdater implements com_w
         } else {
             $configuration['wiriscasenabled'] = false;
         }
+
+        // WIRIS Chem editor.
+        $this->was_chem_editor_enabled = $this->evalParameter($configuration['wirischemeditorenabled']);
+        if (isset($CFG->filter_wiris_chem_editor_enable)) {
+            $configuration['wirischemeditorenabled'] = $this->was_chem_editor_enabled && $this->evalParameter($CFG->filter_wiris_chem_editor_enable) && $filter_enabled;
+        } else {
+            $configuration['wirischemeditorenabled'] = false;
+        }
+
         // Where is the plugin.
-        $configuration['wiriscontextpath'] = $this->editor_plugin->url;
+        $configuration['wiriscontextpath'] =  $CFG->wwwroot . '/filter/wiris/';
         // Encoded XML
         $configuration['wiriseditorsavemode'] = 'safeXml';
         // Moodle version.
@@ -110,7 +128,8 @@ class com_wiris_plugin_configuration_MoodleConfigurationUpdater implements com_w
         // } else {
         //     $configuration['wirishostplatform'] = 'moodle2';
         // }
-        $configuration['wirishostplatform'] = isset($CFG->release) ? $CFG->release : $CFG->version;
+        $configuration['wirishostplatform'] = 'Moodle';
+        $configuration['wirisversionplatform'] = $CFG->version;
         // Referer.
         global $COURSE;
         $query = '';

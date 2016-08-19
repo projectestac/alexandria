@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'it', branch 'MOODLE_28_STABLE'
+ * Strings for component 'hotpot', language 'it', branch 'MOODLE_31_STABLE'
  *
  * @package   hotpot
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -97,7 +97,6 @@ $string['outputformat_help'] = 'L\'impostazione determina il formato di visualiz
 $string['penalties'] = 'Penalità';
 $string['pluginname'] = 'Quiz Hot Potatoes';
 $string['questionshort'] = 'D-{$a}';
-$string['removegradeitem'] = 'Rimuovi elemento di valutazione';
 $string['score'] = 'Punteggio';
 $string['scoresreport'] = 'Voti';
 $string['selectattempts'] = 'Seleziona tentativi';

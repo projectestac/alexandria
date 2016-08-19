@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'nl', branch 'MOODLE_28_STABLE'
+ * Strings for component 'portfolio', language 'nl', branch 'MOODLE_31_STABLE'
  *
  * @package   portfolio
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,7 +30,7 @@ $string['activeportfolios'] = 'Actieve portfolio\'s';
 $string['addalltoportfolio'] = 'Exporteer alles naar portfolio';
 $string['addnewportfolio'] = 'Voeg een nieuw portfolio toe';
 $string['addtoportfolio'] = 'Exporteer naar portfolio';
-$string['alreadyalt'] = 'Aan het exporteren - klik hier om de transfer af te werken';
+$string['alreadyalt'] = 'Aan het exporteren - klik hier om de transfer te voltooien.';
 $string['alreadyexporting'] = 'Je hebt al een actieve portfolio-export in deze sessie. Voor je verder doet, moet je ofwel deze eerst voltooien, of anders annuleren. Wil je verder doen? (Nee zal annuleren)';
 $string['availableformats'] = 'Beschikbare exportformats';
 $string['callbackclassinvalid'] = 'Opgegeven antwoordklasse was niet geldig of geen deel van de portfolio_caller hierarchie';
@@ -41,7 +41,7 @@ $string['commonsettingsdesc'] = '<p>Of een transfer beschouwd wordt als één di
 $string['configexport'] = 'configureer geëxporteerde gegevens';
 $string['configplugin'] = 'Configureer portfolioplugin';
 $string['configure'] = 'Configureer';
-$string['confirmcancel'] = 'Ben je er zeker van dat je deze export wil annuleren';
+$string['confirmcancel'] = 'Ben je er zeker van dat je deze export wil annuleren?';
 $string['confirmexport'] = 'Bevestig deze export';
 $string['confirmsummary'] = 'Samenvatting van je export';
 $string['continuetoportfolio'] = 'Ga verder naar je portfolio';
@@ -56,9 +56,9 @@ $string['dontwait'] = 'Wacht niet';
 $string['enabled'] = 'Portfolio\'s inschakelen';
 $string['enableddesc'] = 'Hiermee kunnen beheerders systemen op afstand configureren, zodat gebruikers er inhoud zoals forumberichten en opdrachten naartoe kunnen exporteren';
 $string['err_uniquename'] = 'Portfolionaam moet uniek zijn (per plugin)';
-$string['exportalreadyfinished'] = 'Portfolio-export volledig!';
-$string['exportalreadyfinisheddesc'] = 'Portfolio-export volledig!';
-$string['exportcomplete'] = 'Portfolioexport klaar!';
+$string['exportalreadyfinished'] = 'Portfolio-export voltooid!';
+$string['exportalreadyfinisheddesc'] = 'Portfolio-export voltooid!';
+$string['exportcomplete'] = 'Portfolioexport voltooid!';
 $string['exportedpreviously'] = 'Vorige exports';
 $string['exportexceptionnoexporter'] = 'Een portfolio_export_exception kwam op met een actieve sessie maar zonder exporter object';
 $string['exportexpired'] = 'Portfolio export vervallen';
@@ -85,11 +85,10 @@ $string['format_richhtml'] = 'HTML met bijlagen';
 $string['format_spreadsheet'] = 'Rekenblad';
 $string['format_text'] = 'Platte tekst';
 $string['format_video'] = 'Video';
-$string['hidden'] = 'Verborgen';
 $string['highdbsizethreshold'] = 'Lange transfer databankgrootte';
-$string['highdbsizethresholddesc'] = 'Aantal databankrecords die beschouwd zullen worden als een lange tijd in beslag nemen om een transfer ervan te doen';
+$string['highdbsizethresholddesc'] = 'Aantal databankrecords die beschouwd zullen worden als bestanden die veel tijd in beslag nemen om een transfer ervan te doen';
 $string['highfilesizethreshold'] = 'Lange transfer bestandsgrootte';
-$string['highfilesizethresholddesc'] = 'Bestanden groter dan dit zullen beschouwd worden als bestanden die een lange tijd in beslag nemen om een transfer ervan te doen';
+$string['highfilesizethresholddesc'] = 'Bestanden groter dan dit zullen beschouwd worden als bestanden die veel tijd in beslag nemen om een transfer ervan te doen';
 $string['insanebody'] = 'Hallo,
 Je krijgt dit bericht als beheerder van {$a->sitename}.
 
@@ -115,6 +114,8 @@ $string['instanceismisconfigured'] = 'Portfolio is fout geconfigureerd, overgesl
 $string['instancenotdelete'] = 'Portfolio verwijderen mislukt';
 $string['instancenotsaved'] = 'Portfolio bewaren mislukt';
 $string['instancesaved'] = 'Portfolio bewaren gelukt';
+$string['intro'] = 'Inhoud die je gecreëerd hebt, zoals ingestuurde opdrachten, forumberichten en blogberichten, kunnen geëxporteerd worden naar een portfolio of gedownload worden.<br>
+Elk portfolio dat je niet wenst te gebruiken kan verborgen worden, zodat het niet getoond wordt als een optie om inhoud naar te exporteren.';
 $string['invalidaddformat'] = 'Ongeldig add format gegeven aan portfolio_add_button. ({$a}) Moet er één zijn van PORTFOLIO_ADD_XXX';
 $string['invalidbuttonproperty'] = 'Kon die eigenschap ({$a}) van de portfolio_button niet vinden';
 $string['invalidconfigproperty'] = 'Kon die configuratie-eigenschap ({$a->property} van {$a->class}) niet vinden';
@@ -162,8 +163,8 @@ $string['nonprimative'] = 'Een niet-primitive waarde is doorgegeven als callback
 $string['nopermissions'] = 'Je hebt niet de juiste rechten om van hieruit bestanden te exporteren';
 $string['notexportable'] = 'Het type inhoud dat je probeert te exporteren is niet exporteerbaar';
 $string['notimplemented'] = 'Je probeert een format te exporteren naar een format die nog niet geïmplementeerd is ({$a})';
-$string['notyetselected'] = 'Nog niet geselekteerd';
-$string['notyours'] = 'Je probeert een portfolio export te herstarten die niet van jouw is!';
+$string['notyetselected'] = 'Nog niet geselecteerd';
+$string['notyours'] = 'Je probeert een portfolio export te herstarten die niet van jou is!';
 $string['nouploaddirectory'] = 'Kon geen tijdelijke map maken om je gegevens in te verpakken';
 $string['off'] = 'Ingeschakeld maar verborgen';
 $string['on'] = 'Ingeschakeld en zichtbaar';
@@ -178,7 +179,8 @@ $string['save'] = 'Bewaar';
 $string['selectedformat'] = 'Gekozen export-format';
 $string['selectedwait'] = 'Gekozen om te wachten?';
 $string['selectplugin'] = 'Kies bestemming';
-$string['singleinstancenomultiallowed'] = 'Er is slechts één portfolioplugin beschikbaar en het ondersteunt geen meerdere exports per sessie. Er is al een actieve export in de sessie die de plugin gebruikt!';
+$string['showhide'] = 'Toon/verberg';
+$string['singleinstancenomultiallowed'] = 'Er is slechts één portfolioplugin beschikbaar en die ondersteunt geen meerdere exports per sessie. Er is al een actieve export in de sessie die de plugin gebruikt!';
 $string['somepluginsdisabled'] = 'Sommige plugins zijn volledig uitgeschakeld omdat ze fout geconfigureerd zijn of omdat ze afhankelijk zijn van iets anders dat fout geconfigureerd is:';
 $string['sure'] = 'Weet je zeker dat je \'{$a}\' wil verwijderen? Dit is definitief.';
 $string['thirdpartyexception'] = 'Er werd een uitzonderingsfout gemaakt door een module tijdens de portfolio export ({$a}) Opgevangen en teruggezonden, maar dit moet hersteld worden';

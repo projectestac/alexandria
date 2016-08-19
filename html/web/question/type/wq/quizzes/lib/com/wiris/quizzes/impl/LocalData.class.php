@@ -9,7 +9,7 @@ class com_wiris_quizzes_impl_LocalData extends com_wiris_util_xml_SerializableIm
 		return new com_wiris_quizzes_impl_LocalData();
 	}
 	public function onSerialize($s) {
-		$s->beginTag(com_wiris_quizzes_impl_LocalData::$tagName);
+		$s->beginTag(com_wiris_quizzes_impl_LocalData::$TAGNAME);
 		$this->name = $s->attributeString("name", $this->name, null);
 		$this->value = $s->textContent($this->value);
 		$s->endTag();
@@ -26,7 +26,7 @@ class com_wiris_quizzes_impl_LocalData extends com_wiris_util_xml_SerializableIm
 		else
 			throw new HException('Unable to call «'.$m.'»');
 	}
-	static $tagName = "data";
+	static $TAGNAME = "data";
 	static $KEY_OPENANSWER_COMPOUND_ANSWER = "inputCompound";
 	static $KEY_OPENANSWER_INPUT_FIELD = "inputField";
 	static $KEY_SHOW_CAS = "cas";
@@ -35,6 +35,7 @@ class com_wiris_quizzes_impl_LocalData extends com_wiris_util_xml_SerializableIm
 	static $KEY_OPENANSWER_COMPOUND_ANSWER_GRADE = "gradeCompound";
 	static $KEY_OPENANSWER_COMPOUND_ANSWER_GRADE_DISTRIBUTION = "gradeCompoundDistribution";
 	static $KEY_OPENANSWER_HANDWRITING_CONSTRAINTS = "handwritingConstraints";
+	static $KEY_ITEM_SEPARATOR = "itemSeparator";
 	static $VALUE_OPENANSWER_COMPOUND_ANSWER_TRUE = "true";
 	static $VALUE_OPENANSWER_COMPOUND_ANSWER_FALSE = "false";
 	static $VALUE_OPENANSWER_INPUT_FIELD_INLINE_EDITOR = "inlineEditor";

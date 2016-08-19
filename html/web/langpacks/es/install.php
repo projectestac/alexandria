@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'install', language 'es', branch 'MOODLE_28_STABLE'
+ * Strings for component 'install', language 'es', branch 'MOODLE_31_STABLE'
  *
  * @package   install
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,6 +40,7 @@ $string['caution'] = 'Precaución';
 $string['chooselanguage'] = 'Seleccionar idioma';
 $string['chooselanguagehead'] = 'Seleccionar idioma';
 $string['chooselanguagesub'] = 'Por favor, seleccione un idioma para el proceso de instalación. Este idioma se usará también como idioma por defecto del sitio, si bien puede cambiarse más adelante.';
+$string['cliadminemail'] = 'Nuevo correo electrónico de administrador';
 $string['cliadminpassword'] = 'Nueva contraseña de usuario admin';
 $string['cliadminusername'] = 'Nombre de usuario de la cuenta del administrador';
 $string['clialreadyconfigured'] = 'El archivo de configuración config.php ya existe. Por favor, utilice admin/cli/install_database.php para instalar Moodle en este sitio.';
@@ -47,6 +48,7 @@ $string['clialreadyinstalled'] = 'El archivo de configuración config.php ya exi
 $string['cliinstallfinished'] = 'La instalación se completo exitosamente.';
 $string['cliinstallheader'] = 'Programa de instalación Moodle de línea de comando {$a}';
 $string['climustagreelicense'] = 'En modo no interactivo debe aceptar la licencia especificando la opción --agree-license';
+$string['cliskipdatabase'] = 'Omitiendo instalación de la base de datos.';
 $string['clitablesexist'] = 'Tablas de base de datos ya existentes, la instalación CLI no puede continuar.';
 $string['compatibilitysettings'] = 'Comprobando sus ajustes PHP...';
 $string['compatibilitysettingshead'] = 'Comprobando sus ajustes PHP...';
@@ -80,11 +82,13 @@ $string['dbtype'] = 'Tipo';
 $string['directorysettings'] = '<p>Por favor, confirme las direcciones de la instalación de Moodle.</p>
 
 <p><b>Dirección Web:</b>
-Especifique la dirección web completa en la que se accederá a Moodle. Si su sitio web es accesible a través de varias URLs, seleccione la que resulte de acceso más natural a sus estudiantes.  No incluya la diagonal invertida final ().</p>
+Especifique la dirección web completa en la que se accederá a Moodle. Si su sitio web es accesible a través de varias URLs, seleccione la que resulte de acceso más natural a sus estudiantes.  No incluya la diagonal invertida final (/).</p>
+
 <p><b>Directorio de Moodle:</b>
 Especifique la ruta completa de esta instalación. Asegúrese de que las mayúsculas/minúsculas son correctas.
+
 <p><b>Directorio de datos:</b>
-Usted necesita un lugar en el que Moodle pueda guardar los archivos subidos. Este directorio debe ser leible Y ESCRIBIBLE por el usuario del servidor web (normalmente \'nobody\', \'apache\', \'www-data\'), pero no debería ser directamente accesible desde la web. El instalador tratará crearlo si no existe.</p>';
+Usted necesita un lugar en el que Moodle pueda guardar los archivos subidos. Este directorio debe ser leíble Y ESCRIBIBLE por el usuario del servidor web (normalmente \'nobody\', \'apache\', \'www-data\'), pero no debería ser directamente accesible desde la web. El instalador tratará crearlo si no existe.</p>';
 $string['directorysettingshead'] = 'Por favor, confirme las siguientes direcciones de la instalación de Moodle';
 $string['directorysettingssub'] = '<b>Dirección Web:</b>
 Especifique la dirección web completa en la que se accederá a Moodle.
