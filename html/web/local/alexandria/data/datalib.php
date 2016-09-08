@@ -467,3 +467,59 @@ function alexandria_create_scorm_object($filename, $summary, $maxfilesize){
 
     return $scorm_object;
 }
+
+/**
+ * Get an string that describes which type is the database with the given fields.
+ * @param  array $fields  Field records of the database
+ * @return string         Type of the database.
+ */
+function get_alexandria_database_type($fields) {
+    $field = get_alexandria_file_field($fields);
+    if ($field) {
+        switch($field->param4) {
+            case ALEXANDRIA_SCORM:
+                return 'scorm';
+            case ALEXANDRIA_PDI:
+            case ALEXANDRIA_PDI_PDF:
+                return 'pdi';
+            case ALEXANDRIA_COURSE_BACKUP:
+                return 'course';
+        }
+    }
+    return 'none';
+}
+
+/**
+ * Get the field that contains the file in the database.
+ * @param  array $fields  Field records of the database
+ * @return object         Field that describes and contains the file.
+ */
+function get_alexandria_file_field($fields) {
+    foreach ($fields as $field) {
+        if ($field->type == 'file' && !empty($field->param4)) {
+            switch($field->param4) {
+                case ALEXANDRIA_SCORM:
+                case ALEXANDRIA_PDI:
+                case ALEXANDRIA_PDI_PDF:
+                case ALEXANDRIA_COURSE_BACKUP:
+                    return $field;
+            }
+        }
+    }
+    return false;
+}
+
+/**
+ * Get the filename save on the database record.
+ * @param  int   $fieldid  Field that describes and contains the file.
+ * @param  int   $recordid Record to get the filename.
+ * @return string|false    Filename or false if no file.
+ */
+function get_alexandria_filename($fieldid, $recordid) {
+    global $DB;
+    if (alexandria_get_file($recordid, $fieldid)) {
+        return $DB->get_field('data_content', 'content', array('fieldid' => $fieldid, 'recordid' => $recordid));
+    }
+
+    return false;
+}
