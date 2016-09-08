@@ -156,7 +156,118 @@ function xmldb_local_alexandria_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2015110200, 'local', 'alexandria');
     }
 
+    if ($oldversion < 2016091900) {
+        $result = enable_alexandria_webservices();
+        if (!$result) {
+            return false;
+        }
+
+        // Alexandria savepoint reached.
+        upgrade_plugin_savepoint(true, 2016091900, 'local', 'alexandria');
+    }
+
     return true;
 }
 
+/**
+ * Enables and configures alexandria webservices.
+ * @return boolean success
+ */
+function enable_alexandria_webservices() {
+    global $DB, $CFG, $USER, $OUTPUT;
 
+    $servicename = 'alexandria';
+    $systemcontext = context_system::instance();
+
+    require_once($CFG->dirroot . '/webservice/lib.php');
+
+    // Enable web service system if necessary.
+    set_config('enablewebservices', true);
+
+    // Enable alexandria service.
+    $webservicemanager = new webservice();
+    $service = $webservicemanager->get_external_service_by_shortname($servicename);
+    if (!$service) {
+        // Force install service.
+        external_update_descriptions('local_alexandria');
+        $service = $webservicemanager->get_external_service_by_shortname($servicename);
+        if (!$service) {
+            echo $OUTPUT->notification('Alexandria services not found', 'error');
+            return false;
+        } else {
+            echo $OUTPUT->notification('Creation of alexandria services forced. ID: '.$service->id, 'success');
+        }
+    } else {
+        echo $OUTPUT->notification('Found alexandria services. ID: '.$service->id, 'success');
+    }
+
+    $service->enabled = 1;
+    $webservicemanager->update_external_service($service);
+
+    // Enable REST server.
+    $activeprotocols = empty($CFG->webserviceprotocols) ? array() : explode(',', $CFG->webserviceprotocols);
+    if (!in_array('rest', $activeprotocols)) {
+        $activeprotocols[] = 'rest';
+        set_config('webserviceprotocols', implode(',', $activeprotocols));
+        echo $OUTPUT->notification('Rest WS protocol enabled', 'success');
+    }
+
+    $role = $DB->get_record('role', array('shortname' => 'wsalexandria'));
+    if (!$role) {
+        $roleid = create_role('wsalexandria', 'wsalexandria', 'Role created to user alexandria db', null);
+        set_role_contextlevels($roleid, array(CONTEXT_SYSTEM));
+
+        $systemcontext->mark_dirty();
+        echo $OUTPUT->notification('Created role wsalexandria', 'success');
+    } else {
+        $roleid = $role->id;
+        echo $OUTPUT->notification('Role wsalexandria found', 'success');
+    }
+
+    assign_capability('webservice/rest:use', CAP_ALLOW, $roleid, $systemcontext->id, true);
+    echo $OUTPUT->notification('Role capabilities assigned', 'success');
+
+    $user = $DB->get_record('user',  array('username' => 'wsalexandria'));
+    if (!$user) {
+        $user = create_user_record('wsalexandria', '*', 'none');
+        $user->firstname = 'Webservice';
+        $user->lastname = 'Alexandria';
+        $user->email = 'wsalexandria@invalid.invalid';
+        $DB->update_record('user',  $user);
+        echo $OUTPUT->notification('Created user wsalexandria with userid '.$user->id, 'success');
+    } else {
+        echo $OUTPUT->notification('User wsalexandria found with userid '.$user->id, 'success');
+    }
+
+    role_assign($roleid, $user->id, $systemcontext->id);
+
+    // Create the token if it doesn't exists.
+    $token = $DB->get_record('external_tokens',
+            array('userid' => $user->id, 'externalserviceid' => $service->id, 'tokentype' => EXTERNAL_TOKEN_PERMANENT));
+
+    if ($USER->id) {
+        $creatorid = $USER->id;
+    } else {
+        // Get the main admin.
+        $adminsaux = explode(',', $CFG->siteadmins);
+        $creatorid = array_shift($adminsaux);
+    }
+    if (!$token) {
+        $newtoken = new stdClass();
+        $newtoken->token = md5(uniqid(rand(), 1));
+        $newtoken->tokentype = EXTERNAL_TOKEN_PERMANENT;
+        $newtoken->userid = $user->id;
+        $newtoken->externalserviceid = $service->id;
+        $newtoken->contextid = $systemcontext->id;
+        $newtoken->validuntil = 0;
+        $newtoken->creatorid = $creatorid;
+        $newtoken->timecreated = time();
+
+        $DB->insert_record('external_tokens', $newtoken);
+        echo $OUTPUT->notification('Created token '.$newtoken->token, 'success');
+    } else {
+        echo $OUTPUT->notification('Token found '.$token->token, 'success');
+    }
+
+    return true;
+}
