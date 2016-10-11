@@ -72,7 +72,7 @@ $string['groupkey_help'] = 'Oltre alla chiave di iscrizione al corso, è possibi
 Nota: per usare una chiave di iscrizione al gruppo è necessario specificare sia la chiave di iscrizione al corso sia la chiave di iscrizione al gruppo.';
 $string['keyholder'] = 'Dovresti ricevere una chiave d\'iscrizione da:';
 $string['longtimenosee'] = 'Disiscrivi utenti non attivi dopo';
-$string['longtimenosee_help'] = 'Consente di disiscvievre automaticamente quegli utenti che non abbiamo svolto attività per il numero di giorni impostato.';
+$string['longtimenosee_help'] = 'Consente di disiscrivere automaticamente quegli utenti che non abbiano svolto attività per il numero di giorni impostato.';
 $string['maxenrolled'] = 'Numero max. di iscrizioni';
 $string['maxenrolled_help'] = 'Il numero massimo di utenti che potranno iscriversi al corso. Usare 0 per non avere limiti.';
 $string['maxenrolledreached'] = 'E\' stato già raggiunto il numero massimo di iscrizioni.';
@@ -103,7 +103,7 @@ $string['sendcoursewelcomemessage'] = 'Invia messaggio di benvenuto al corso';
 $string['sendcoursewelcomemessage_help'] = 'Se abilitato, gli utenti che si iscrivono spontaneamente in un corso riceveranno per email un messaggio di benvenuto.';
 $string['showhint'] = 'Visualizza suggerimento';
 $string['showhint_desc'] = 'Visualizza la prima lettera della chiave d\'iscrizione.';
-$string['status'] = 'Abilita iscrizioni già esistenti';
+$string['status'] = 'Abilita iscrizione spontanea';
 $string['status_desc'] = 'Abilita il metodo di iscrizione spontanea ai corsi.';
 $string['status_help'] = 'Abilitando questa impostazione e disabilitando "Consenti nuove iscrizioni", potranno accedere al corso solamente gli utenti che si sono già iscritti spontaneamente Disabilitando l\'impostazione, saranno disabilitate le iscrizioni con questo metodo, le iscrizioni spontanee esistenti saranno sospese e non saranno consentite nuove iscrizioni.';
 $string['unenrol'] = 'Cancella iscrizione utente';
