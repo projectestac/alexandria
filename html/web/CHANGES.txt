@@ -5,9 +5,11 @@ development home at https://github.com/projectestac/alexandria/
 
 ** All Changes from Àgora Moodle can be found at: https://github.com/projectestac/agora_moodle2/blob/master/CHANGES.txt **
 
-Work in progress
+Changes 16.10.21
 ---------------------------------------------------------------------------------------
 - WORKS: Added check for moodledata directory
+- Moodle upgraded to from 3.1.1 (Trello #1317)
+- Open access to webservices to let download courses from Àgora
 
 
 Changes 16.02.08
