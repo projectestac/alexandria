@@ -15,6 +15,7 @@ rm settings.php
 rm site-config.php
 popd
 
+mv config-moodle.php /tmp/
 git checkout AGORA_BASE
 git pull
 rm -rf html/web
@@ -24,4 +25,5 @@ git commit -m 'Import from commit '$commit
 git push origin AGORA_BASE
 
 git checkout master
-git rebase AGORA_BASE master
+git rebase -i AGORA_BASE master
+mv /tmp/config-moodle.php .

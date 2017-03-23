@@ -1,5 +1,5 @@
 nbproject/
 moodledata/
-html/web/config.php
 html/web/sftp-config.json
 .idea
+/config-moodle.php
