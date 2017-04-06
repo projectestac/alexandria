@@ -36,6 +36,7 @@ $string['activitylink_help'] = '<p align="center"><b>Συνδεσμος δρασ
 $string['activitylinkname'] = 'Πήγαινε στο: {$a}';
 $string['addabranchtable'] = 'Προσθήκη ενός πίνακα διακλαδώδεων';
 $string['addanendofbranch'] = 'Προσθήκη ενός τέλους διακλάδωσης';
+$string['addanewpage'] = 'Προσθήκη νέας σελίδας';
 $string['addaquestionpage'] = 'Προσθήκη σελίδας ερωτήσεων';
 $string['addaquestionpagehere'] = 'Προσθήκη σελίδας ερωτήσεων εδώ';
 $string['addcluster'] = 'Προσθήκη συστοιχίας';
@@ -191,6 +192,7 @@ $string['email'] = 'Ηλεκτρονικό Ταχυδρομείο';
 $string['emailallgradedessays'] = 'Αποστολή με ηλεκτρονικό ταχυδρομείο ΟΛΩΝ <br /> των βαθμολογημένων εκθέσεων';
 $string['emailgradedessays'] = 'Αποστολή με ηλεκτρονικό ταχυδρομείο τις βαθμολογημένες εκθέσεις';
 $string['emailsuccess'] = 'Τα μηνύματα ηλεκτρονικού ταχυδρομείου στάλθηκαν με επιτυχία';
+$string['emptypassword'] = 'Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός';
 $string['endofbranch'] = 'Τέλος διακλάδωσης';
 $string['endofclustertitle'] = 'Τέλος συστοιχίας';
 $string['endoflesson'] = 'Τέλος ενότητας';
@@ -352,6 +354,7 @@ $string['lowscore'] = 'Χαμηλός βαθμός';
 $string['lowtime'] = 'Χαμηλός χρόνος';
 $string['manualgrading'] = 'Βαθμολόγηση Εκθέσεων';
 $string['matchesanswer'] = 'Ταιριάζει με την απάντηση';
+$string['maxgrade'] = 'Μέγιστος βαθμός';
 $string['maxgrade_help'] = '<p align="center"><b>Βαθμολογία εργασιών που έχουν υποβληθεί</b></p>
 
 <p>Πρόκειται για το μέγιστο βαθμό που μπορεί να δοθεί σε μια εργασία που έχει υποβληθεί για εξέταση και βαθμολόγηση.</p>
@@ -425,7 +428,7 @@ $string['moving'] = 'Μεταφορά σελίδας: {$a}';
 $string['multianswer'] = 'Πολλαπλή απάντηση';
 $string['multipleanswer'] = 'Πολλαπλή απάντηση';
 $string['nameapproved'] = 'Το όνομα εγκρίθηκε';
-$string['namereject'] = 'Συγνώμη, το όνομά σας απορρίφθηκε από το φίλτρο.<br />Παρακαλώ επιλέξτε κάποιο άλλο όνομα.';
+$string['namereject'] = 'Συγγνώμη, το όνομά σας απορρίφθηκε από το φίλτρο.<br />Παρακαλώ επιλέξτε κάποιο άλλο όνομα.';
 $string['nextpage'] = 'Επόμενη σελίδα';
 $string['noanswer'] = 'Καμία απάντηση δεν δόθηκε. Παρακαλώ, πηγαίνετε πίσω και καταχωρήστε την απαντησή σας.';
 $string['noattemptrecordsfound'] = 'Δεν βρέθηκαν προσπάθειες: δεν δόθηκε βαθμός';
@@ -437,6 +440,7 @@ $string['nodeadline'] = 'Χωρίς προθεσμία';
 $string['noessayquestionsfound'] = 'Δεν βρέθηκαν ερωτήσεις έκθεσης σε αυτή την ενότητα';
 $string['nohighscores'] = 'Χωρίς υψηλούς βαθμούς';
 $string['nolessonattempts'] = 'Δεν πραγματοποιήθηκαν προσπάθειες σε αυτή την ενότητα.';
+$string['none'] = 'Κανένα';
 $string['nooneansweredcorrectly'] = 'Κανένας δεν απάντησε σωστά.';
 $string['nooneansweredthisquestion'] = 'Κανένας δεν απάντησε αυτή την ερώτηση.';
 $string['noonecheckedthis'] = 'Κανένας δεν το επέλεξε αυτό.';

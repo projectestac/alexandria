@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['action'] = '活動';
-$string['activityoverview'] = 'あなたにアンケートがあります';
+$string['activityoverview'] = 'あなたには期限のあるアンケートがあります。';
 $string['additionalinfo'] = '補足情報';
 $string['additionalinfo_help'] = 'このアンケートの最初のページの冒頭に表示されるテキストです。（たとえば，内容説明や背景・経緯などのように）';
 $string['addnewquestion'] = '質問 {$a} を追加する';
@@ -408,7 +408,7 @@ $string['sectiontext_help'] = 'これは質問ではありませんが，一連�
 $string['selecttheme'] = 'この調査で使用するテーマ (CSS) を選択してください。';
 $string['send'] = '送信する';
 $string['sendemail'] = '各送信内容のコピーを送信するアドレスです (メールバックアップ不要の場合、空白)。';
-$string['sendemail_help'] = '指定されたメールアドレスに提出された回答の写しを一つ一つ送信します。カンマで区切って複数のメールアドレスを指定することもできます。電子メールのバックアップが必要ないときは，空欄のままにしてください。';
+$string['sendemail_help'] = '指定されたメールアドレスに提出された回答の写しを一つ一つ送信します。あなたはカンマで区切って2つ以上のメールアドレスを指定することもできます。電子メールのバックアップが必要ないときは，空欄のままにしてください。';
 $string['send_message'] = '選択したユーザー宛てにメッセージを送信';
 $string['send_message_to'] = 'メッセージを送信する：';
 $string['settings'] = '設定';

@@ -26,8 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['canntenrol'] = 'A inscrição está desativada ou inativa';
-$string['canntenrolearly'] = 'Ainda não é possível inscrever-se; as inscrições iniciam a {$a}.';
-$string['canntenrollate'] = 'Não é possível inscrever mais utilizadores, pois as inscrições terminaram a {$a}.';
+$string['canntenrolearly'] = 'Ainda não é possível inscrever-se; as inscrições iniciam {$a}.';
+$string['canntenrollate'] = 'Não é possível inscrever mais utilizadores, pois as inscrições terminaram {$a}.';
 $string['cohortnonmemberinfo'] = 'Apenas membros do grupo global \'{$a}\' se podem autoinscrever';
 $string['cohortonly'] = 'Apenas membros do grupo global';
 $string['cohortonly_help'] = 'A autoinscrição pode ser restrita apenas a membros de um grupo global específico. Note que a alteração dessa configuração não tem efeito sobre as inscrições existentes.';
@@ -107,8 +107,8 @@ $string['status'] = 'Permitir inscrições existentes';
 $string['status_desc'] = 'Ativar o método de autoinscrição nas novas disciplinas.';
 $string['status_help'] = 'Se ativar esta opção e desativar a opção "Permitir novas inscrições", apenas os utilizadores que realizaram a sua auto-inscrição previamente poderão aceder à disciplina. Se desativar esta opção, este método de auto-inscrição é efetivamente desativado, desde que todos os métodos de auto-inscrição estejam suspensos e não seja permitida a auto-inscrição de novos utilizadores.';
 $string['unenrol'] = 'Cancelar inscrição do utilizador';
-$string['unenrolselfconfirm'] = 'Tem a certeza de que quer cancelar a sua inscrição na disciplina "{$a}"?';
-$string['unenroluser'] = 'Tem a certeza de que quer cancelar a sua inscrição de "{$a->user}" da disciplina "{$a->course}"?';
+$string['unenrolselfconfirm'] = 'Tem a certeza de que pretende cancelar a sua inscrição na disciplina "{$a}"?';
+$string['unenroluser'] = 'Tem a certeza de que pretende cancelar a sua inscrição de "{$a->user}" da disciplina "{$a->course}"?';
 $string['usepasswordpolicy'] = 'Usar a política de senhas do site';
 $string['usepasswordpolicy_desc'] = 'Se esta configuração estiver ativa a senha de inscrição nas disciplinas terá que obedecer às mesmas regras que as palavras-senhas das contas dos utilizadores.';
 $string['welcometocourse'] = 'Bem-vindo(a) a "{$a}"';

@@ -74,6 +74,7 @@ $string['addresource'] = 'Arbeitsmaterial anlegen...';
 $string['addresourceoractivity'] = 'Material oder Aktivität hinzufügen';
 $string['addresourcetosection'] = 'Material hinzufügen  im Abschnitt \'{$a}\'';
 $string['address'] = 'Adresse';
+$string['addressedto'] = 'An';
 $string['addstudent'] = 'Teilnehmer/in hinzufügen';
 $string['addsubcategory'] = 'Kursunterbereich anlegen';
 $string['addteacher'] = 'Trainer/in anlegen';
@@ -485,11 +486,12 @@ $string['deletecategorycheck2'] = 'Wenn Sie diesen Kursbereich gelöschen, müss
 $string['deletecategoryempty'] = 'Dieser Kursbereich ist leer.';
 $string['deletecheck'] = '{$a} löschen?';
 $string['deletecheckfiles'] = 'Sind Sie wirklich sicher, dass Sie diese Dateien löschen möchten?';
-$string['deletecheckfull'] = 'Möchten Sie wirklich das Nutzerkonto \'{$a}\' löschen, inclusive aller Einschreibungen, Aktivitäten und übrigen Daten?';
+$string['deletecheckfull'] = 'Möchten Sie wirklich das Nutzerkonto \'{$a}\' löschen, inklusive aller Einschreibungen, Aktivitäten und übrigen Daten?';
 $string['deletechecktype'] = 'Möchten Sie \'{$a->type}\' wirklich löschen?';
 $string['deletechecktypename'] = 'Möchten Sie das {$a->type}-Element \'{$a->name}\' wirklich löschen?';
 $string['deletecheckwarning'] = 'Sie sind dabei, diese Dateien zu löschen';
 $string['deletecomment'] = 'Kommentar löschen';
+$string['deletecommentbyon'] = 'Kommentar löschen, der von {$a->user} am {$a->time} gepostet wurde';
 $string['deletecompletely'] = 'Vollständig löschen';
 $string['deletecourse'] = 'Kurs löschen';
 $string['deletecoursecheck'] = 'Sind Sie sich wirklich sicher, dass Sie diesen Kurs und alle enthaltenen Daten löschen wollen?';
@@ -568,7 +570,7 @@ $string['editordefaultfont'] = 'Standardschrift';
 $string['editorenablespelling'] = 'Rechtschreibprüfung aktivieren';
 $string['editorfontlist'] = 'Schriftenliste';
 $string['editorfontsize'] = 'Standardschriftgröße';
-$string['editorpreferences'] = 'Editoreinstellungen';
+$string['editorpreferences'] = 'Texteditor wählen';
 $string['editorresettodefaults'] = 'Auf Standardwerte zurücksetzen';
 $string['editorsettings'] = 'Einstellungen für den Editor';
 $string['editorshortcutkeys'] = 'Tastaturkürzel im Editor';
@@ -582,6 +584,9 @@ $string['edittitle'] = 'Titel bearbeiten';
 $string['edittitleinstructions'] = 'Abbrechen mit \'esc\', bestätigen mit \'enter\'';
 $string['edituser'] = 'Nutzerkonten bearbeiten';
 $string['edulevel'] = 'Alle Ereignisse';
+$string['edulevel_help'] = '* Unterrichtend - Aktionen, die von Trainer/innen durchgeführt wurden, z. B. Aktualisierung von Materialien
+* Teilnehmend - Aktionen, die von Teilnehmer/innen durchgeführt wurden, z. B. Beteiligung in Foren
+* Andere - Aktionen, die keiner der obigen Rollen zugeordnet werden können';
 $string['edulevelother'] = 'Andere';
 $string['edulevelparticipating'] = 'Teilnehmend';
 $string['edulevelteacher'] = 'Unterrichtend';
@@ -625,7 +630,7 @@ $string['emaildigestsubjects'] = 'Themen (tägliche E-Mail mit den Themen aller 
 $string['emaildisable'] = 'E-Mail-Adresse ist deaktiviert';
 $string['emaildisableclick'] = 'Klicken Sie hier, um den E-Mail-Versand an diese Adresse zu deaktivieren.';
 $string['emaildisplay'] = 'E-Mail-Adresse anzeigen';
-$string['emaildisplaycourse'] = 'E-Mail-Adresse nur für Kursteilnehmer/innen anzeigen';
+$string['emaildisplaycourse'] = 'E-Mail-Adresse für Kursteilnehmer/innen anzeigen';
 $string['emaildisplayhidden'] = 'E-Mail-Adresse verbergen';
 $string['emaildisplayno'] = 'Nein, für niemanden sichtbar';
 $string['emaildisplayyes'] = 'Ja, für alle sichtbar';
@@ -655,14 +660,14 @@ $string['emailpasswordchangeinfodisabled'] = 'Guten Tag {$a->firstname} {$a->las
 
 jemand (wahrscheinlich Sie) hat ein neues Kennwort für Ihren Zugang auf \'{$a->sitename}\' angefordert.
 
-Bedauerlicherweise ist Ihr Zugang zu dieser Website deaktiviert und kann nicht automatisch zurückgesetzt werden. Wenden Sie sich bitte an die Administrator/innen der Website.
+Leider ist Ihr Zugang zu dieser Website deaktiviert und kann nicht automatisch zurückgesetzt werden. Wenden Sie sich bitte an die Administrator/innen der Website.
 
 {$a->admin}';
 $string['emailpasswordchangeinfofail'] = 'Guten Tag {$a->firstname} {$a->lastname},
 
 jemand (wahrscheinlich Sie) hat ein neues Kennwort für Ihren Zugang auf \'{$a->sitename}\' angefordert.
 
-Das Kennwort kann jedoch nicht auf diesem Weg geändert werden. Wenden Sie sich bitte an die Administrator/innen der Website.
+Leider kann das Kennwort auf diesem Weg nicht geändert werden. Wenden Sie sich bitte an die Administrator/innen der Website.
 
 {$a->admin}';
 $string['emailpasswordchangeinfosubject'] = '{$a}: Kennwortinformation ändern';
@@ -749,6 +754,9 @@ $string['eventcoursesectionupdated'] = 'Kursabschnitt aktualisiert';
 $string['eventcourseupdated'] = 'Kurs aktualisiert';
 $string['eventcourseuserreportviewed'] = 'Nutzerübersicht für Kurs angezeigt';
 $string['eventcourseviewed'] = 'Kurs angezeigt';
+$string['eventdashboardreset'] = 'Dashboard zurückgesetzt';
+$string['eventdashboardsreset'] = 'Dashboards zurückgesetzt';
+$string['eventdashboardviewed'] = 'Dashboard angezeigt';
 $string['eventemailfailed'] = 'Fehler beim Senden der E-Mail';
 $string['eventname'] = 'Ereignisname';
 $string['eventrecentactivityviewed'] = 'Letzte Aktivität angezeigt';
@@ -809,7 +817,7 @@ $string['forcepasswordchange'] = 'Kennwortänderung fordern';
 $string['forcepasswordchangecheckfull'] = 'Möchten Sie wirklich eine Kennwortänderung einfordern von {$a}?';
 $string['forcepasswordchange_help'] = 'Wenn diese Option aktiviert ist, muss das Kennwort beim nächsten Login geändert werden';
 $string['forcepasswordchangenot'] = 'Die Kennwortänderung konnte nicht eingefordert werden von {$a}';
-$string['forcepasswordchangenotice'] = 'Bitte ändern Sie Ihr Kennwort, bevor Sie weiterarbeiten';
+$string['forcepasswordchangenotice'] = 'Ändern Sie Ihr Kennwort, bevor Sie weiterarbeiten können.';
 $string['forcetheme'] = 'Design festlegen';
 $string['forgotaccount'] = 'Kennwort vergessen?';
 $string['forgotten'] = 'Anmeldename oder Kennwort vergessen?';
@@ -827,7 +835,7 @@ $string['formatmarkdown'] = 'Markdown-Format';
 $string['formatplain'] = 'Unformatierter Text';
 $string['formattext'] = 'Moodle-Text-Format';
 $string['formattexttype'] = 'Formatierung';
-$string['forumpreferences'] = 'Forumseinstellungen';
+$string['forumpreferences'] = 'Foren einstellen';
 $string['framesetinfo'] = 'Dieses Frameset-Dokument enthält:';
 $string['from'] = 'Von';
 $string['frontpagecategorycombo'] = 'Kombiliste';
@@ -874,7 +882,7 @@ $string['grades'] = 'Bewertungen';
 $string['gravatarenabled'] = '<a href="http://www.gravatar.com/">Gravatar</a> ist aktiviert. Wenn Sie kein eigenes Profilbild hochladen, wird Moodle ein Profilbild von Gravatar anzeigen.';
 $string['group'] = 'Gruppe';
 $string['groupadd'] = 'Neue Gruppe hinzufügen';
-$string['groupaddusers'] = 'Markierung zur Gruppe hinzufügen';
+$string['groupaddusers'] = 'Auswahl zur Gruppe hinzufügen';
 $string['groupextendenrol'] = 'Verlängerte Einschreibung für alle';
 $string['groupfor'] = 'für Gruppe';
 $string['groupinfo'] = 'Info zur ausgewählten Gruppe';
@@ -1034,7 +1042,7 @@ $string['loggedinas'] = 'Sie sind angemeldet als {$a}';
 $string['loggedinasguest'] = 'Sie sind als Gast angemeldet';
 $string['loggedinnot'] = 'Sie sind nicht angemeldet.';
 $string['login'] = 'Login';
-$string['loginactivity'] = 'Login Aktivität';
+$string['loginactivity'] = 'Login-Aktivität';
 $string['loginalready'] = 'Sie sind bereits angemeldet.';
 $string['loginas'] = 'Anmelden als';
 $string['loginaspasswordexplain'] = '<p>Sie müssen das spezielle \'Login als\'-Kennwort für diese Funktion verwenden. <br />Falls Ihnen dieses Kennwort nicht bekannt ist, wenden Sie sich an die Administrator/innen Ihrer Website.</p>';
@@ -1103,19 +1111,19 @@ $string['messagedselectedusers'] = 'Die ausgewählten Nutzer/innen wurden benach
 $string['messagedselectedusersfailed'] = 'Beim Versenden der Mitteilung ist ein Problem aufgetreten. Es kann sein, dass einzelne Empfänger/innen die Nachricht erhalten haben.';
 $string['messageprovider:availableupdate'] = 'Mitteilung bei verfügbaren Aktualisierungen';
 $string['messageprovider:backup'] = 'Mitteilung zur Sicherung';
-$string['messageprovider:badgecreatornotice'] = 'Nachrichten an Ersteller/in von Auszeichnungen';
-$string['messageprovider:badgerecipientnotice'] = 'Nachrichten an Empfänger/in von Auszeichnungen';
-$string['messageprovider:competencyplancomment'] = 'Lehrplankommentar posten';
-$string['messageprovider:competencyusercompcomment'] = 'Kompetenzkommentar posten';
+$string['messageprovider:badgecreatornotice'] = 'Mitteilung an Ersteller/in von Auszeichnungen';
+$string['messageprovider:badgerecipientnotice'] = 'Mitteilung an Empfänger/in von Auszeichnungen';
+$string['messageprovider:competencyplancomment'] = 'Mitteilung zu Lehrplankommentar';
+$string['messageprovider:competencyusercompcomment'] = 'Mitteilung zu Kompetenzkommentar';
 $string['messageprovider:courserequestapproved'] = 'Mitteilung bei genehmigter Kursbeantragung';
 $string['messageprovider:courserequested'] = 'Mitteilung bei Kursbeantragung';
 $string['messageprovider:courserequestrejected'] = 'Mitteilung bei abgelehnter Kursbeantragung';
-$string['messageprovider:errors'] = 'Schwerwiegende Fehler dieser Website';
-$string['messageprovider:errors_help'] = 'Über diesen Fehler sollten Sie Ihren Admin benachrichtigen.';
+$string['messageprovider:errors'] = 'Schwerwiegende Fehler';
+$string['messageprovider:errors_help'] = 'Auf diese schwerwiegenden Fehler sollten Sie den Administrator der Website unbedingt hinweisen.';
 $string['messageprovider:instantmessage'] = 'Persönliche Mitteilungen zwischen Nutzer/innen';
-$string['messageprovider:instantmessage_help'] = 'Dieser Abschnitt legt fest was mit Mitteilungen passiert, die von anderen Nutzern Ihnen direkt gesandt werden.';
-$string['messageprovider:notices'] = 'Mitteilung bei kleinen Fehlern';
-$string['messageprovider:notices_help'] = 'Es gibt keine Informationen, die ein Admin unbedingt sehen sollte.';
+$string['messageprovider:instantmessage_help'] = 'In diesem Bereich wird festgelegt, was mit Mitteilungen passieren soll, die von anderen Nutzer/innen direkt an Sie gesandt werden.';
+$string['messageprovider:notices'] = 'Hinweis auf kleine Fehler';
+$string['messageprovider:notices_help'] = 'Es gibt Hinweise, die einen Administrator interessieren könnten.';
 $string['messageselect'] = 'Wählen Sie diese Nutzer/in zum E-Mail-Versand aus';
 $string['messageselectadd'] = 'Mitteilung senden';
 $string['middlename'] = 'Mittlerer Name';
@@ -1313,7 +1321,7 @@ $string['nothingnew'] = 'Keine vorherige Aktivität';
 $string['nothingtodisplay'] = 'Nichts anzuzeigen';
 $string['notice'] = 'Hinweis';
 $string['noticenewerbackup'] = 'Diese Sicherungsdatei wurde mit Moodle {$a->backuprelease} ({$a->backupversion}) erstellt und ist aktueller als die derzeit installierte Moodle-Version {$a->serverrelease} ({$a->serverversion}). Das kann zu Problemen führen, da ein abwärtskompatibles Wiederherstellen von Sicherungsdateien nicht garantiert wird.';
-$string['notifications'] = 'Mitteilungen';
+$string['notifications'] = 'Systemmitteilungen';
 $string['notifyloginfailuresmessage'] = '{$a->time}, IP: {$a->ip}, Nutzerkonto: {$a->info}, Name: {$a->name}';
 $string['notifyloginfailuresmessageend'] = 'Sie können diese Logdaten unter {$a} ansehen.';
 $string['notifyloginfailuresmessagestart'] = 'Erfolglose Anmeldeversuche für {$a}';
@@ -1462,7 +1470,7 @@ $string['registrationcontact'] = 'Öffentliche Kontakte';
 $string['registrationcontactno'] = 'Nein, kein Kontaktformular bereitstellen';
 $string['registrationcontactyes'] = 'Ja, ein Kontaktformular für Interessierte bereitstellen';
 $string['registrationemail'] = 'E-Mail-Mitteilungen';
-$string['registrationinfo'] = '<p>Diese Seite ermöglicht Ihnen die Registrierung Ihrer Website bei moodle.org. Die Registrierung ist kostenlos. Mit der Registrierung werden Sie in einer Mailingliste eingetragen, über die Sie regelmäßig Nachrichten zu Sicherheitsproblemen und neuen Versionen erhalten.</p>
+$string['registrationinfo'] = '<p>Diese Seite ermöglicht Ihnen, die Ihre Website bei moodle.org zu registrieren. Die Registrierung ist freiwillig. Mit der Registrierung werden Sie in einer Mailingliste eingetragen, über die Sie regelmäßig Mitteilungen zu Sicherheitsproblemen und neuen Versionen erhalten.</p>
 <p>Ihre Daten werden nicht veröffentlicht oder an dritte Personen weitergegeben. Die Daten werden erhoben, um Support anbieten zu können und eine Statistik zur Moodle-Community als Gesamtheit darzustellen.</p>
 <p>Wenn Sie Ihre Website registrieren, können Sie den Seitennamen, das Land und die URL in einer öffentlichen Liste von Moodle-Websites anzeigen.</p>
 <p>Jede Registrierung wird manuell geprüft, bevor sie zur Liste hinzugefügt wird. Sie können Ihre Registrierung aktualisieren, indem Sie dieses Formular erneut absenden.</p>';
@@ -1593,7 +1601,7 @@ $string['schedule'] = 'Planung';
 $string['screenshot'] = 'Bildschirmfoto';
 $string['search'] = 'Suchen';
 $string['searchagain'] = 'Erneut suchen';
-$string['searchbyemail'] = 'E-Mail-Adresse suchen';
+$string['searchbyemail'] = 'Über die E-Mail-Adresse suchen';
 $string['searchbyusername'] = 'Über den Anmeldenamen suchen';
 $string['searchcourses'] = 'Kurse suchen';
 $string['searchhelp'] = '<p>Sie können nach mehreren Begriffen gleichzeitig suchen.</p>
@@ -1742,7 +1750,7 @@ $string['standard'] = 'standardmäßig';
 $string['starpending'] = '([*] = Kursantrag in Bearbeitung)';
 $string['startdate'] = 'Kursbeginn';
 $string['startdate_help'] = 'Wenn Sie im Kurs das Wochenformat benutzen, definiert die Einstellung den ersten Tag der ersten angezeigten Woche im Kurs dar. Die Einstellung legt auch fest, ab wann Aktivitätsberichte im Kurs erfasst werden. Wenn der Kurs zurückgesetzt und der Kursbeginn geändert wird, ändern sich auch die anderen Zeitangaben im Kurs in Abhängigkeit vom neuen Kursbeginn.';
-$string['startingfrom'] = 'Beginn von';
+$string['startingfrom'] = 'Beginn ab';
 $string['startsignup'] = 'Neuen Zugang anlegen?';
 $string['state'] = 'Bundesland/Kanton';
 $string['statistics'] = 'Statistiken';
@@ -1855,7 +1863,7 @@ $string['topicshow'] = 'Abschnitt anzeigen für {$a}';
 $string['toplevelcategory'] = 'Kursbereich auf oberster Ebene (top level)';
 $string['total'] = 'Insgesamt';
 $string['totopofsection'] = 'Zum Anfang des Abschnitts \'{$a}\'';
-$string['trackforums'] = 'Forenbeiträge markieren';
+$string['trackforums'] = 'Forumstracking';
 $string['trackforumsno'] = 'Nein, keine Beiträge markieren';
 $string['trackforumsyes'] = 'Ja, neue Beiträge farblich markieren';
 $string['trysearching'] = 'Suchfunktion dafür verwenden';
@@ -1926,7 +1934,7 @@ $string['userfiles'] = 'Nutzerdateien';
 $string['userlist'] = 'Nutzerliste';
 $string['usermenu'] = 'Nutzermenü';
 $string['username'] = 'Anmeldename';
-$string['usernameemail'] = 'Anmeldename';
+$string['usernameemail'] = 'Anmeldename / E-Mail';
 $string['usernameemailmatch'] = 'Anmeldename und E-Mail-Adresse passen nicht zusammen!';
 $string['usernameexists'] = 'Der Anmeldename ist bereits vergeben';
 $string['usernamelowercase'] = 'Es sind ausschließlich Kleinbuchstaben erlaubt';

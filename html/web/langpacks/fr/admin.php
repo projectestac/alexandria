@@ -190,8 +190,8 @@ Communauté Moodle|https://moodle.org|Le site de la communauté Moodle
 --Moodle Docs en français|http://docs.moodle.org/fr|La documentation en français|fr
 -Nouveautés Moodle|http://moodle.org/news
 Entreprise Moodle
--Hébergement commercial Moodle|http://moodle.com/hosting
--Assistance commerciale Moodle|http://moodle.com/support
+-Hébergement Moodle|http://moodle.com/cloud
+-Assistance Moodle|http://moodle.com/contact
 </pre>';
 $string['configcustomusermenuitems'] = 'Vous pouvez configurer le contenu du menu utilisateur (à l\'exception du lien de déconnexion, qui est ajouté automatiquement). Chaque ligne définit un élément de menu et comprend 3 éléments, séparés par des barres verticales (|) : 1) une chaîne de caractères de la forme « chaînedecaractèresmoodle, nomducomposant » ou un simple texte, 2) une URL, et 3) une icône, soit sous la forme d\'une icône pix de thème, soit sous la forme d\'une URL. Des barres de séparation peuvent être spécifiées en ajoutant à l\'endroit désiré une ligne avec un ou plusieurs #.';
 $string['configdbsessions'] = 'Si ce réglage est activé, les informations sur les sessions en cours seront enregistrées dans la base de données. Attention ! si vous changez ce réglage, tous les utilisateurs seront immédiatement déconnectés, vous y compris ! Si vous utilisez une base de données MySQL, assurez-vous que la variable « max_allowed_packet » dans <em>my.cnf</em> (ou <em>my.ini</em>) ait au moins une valeur de 4M. D\'autres pilotes de sessions peuvent être configurés directement dans le fichier config.php. Veuillez consulter le fichier config-dist.php pour plus d\'information. Ce réglage n\'est plus affiché si un tel pilote de session est configuré dans le fichier config.php.';
@@ -597,6 +597,7 @@ $string['iconvrequired'] = 'L\'installation de l\'extension ICONV de PHP est req
 $string['ignore'] = 'Ignorer';
 $string['includemoduleuserdata'] = 'Inclure les données utilisateurs des modules';
 $string['incompatibleblocks'] = 'Blocs incompatibles';
+$string['incompleteunicodesupport'] = 'La configuration actuelle de MySQL ou de MariaDB utilise le réglage « utf8 ». Cet encodage de caractères ne supporte pas les caractères encodés sur 4 octets, comme certains emoji. L\'utilisation de ces caractères provoquera une erreur et les informations envoyées à la base de données seront perdues. Veuillez modifier votre réglage à « utf8mb4 ». Consultez la documentation pour plus de détails.';
 $string['indexdata'] = 'Indexer les données';
 $string['installhijacked'] = 'L\'installation doit être terminée depuis la même adresse IP.';
 $string['installsessionerror'] = 'Impossible d\'initialiser la session PHP. Veuillez vérifier que votre navigateur accepte les cookies.';
@@ -624,6 +625,7 @@ $string['legacyfilesaddallowed'] = 'Permettre l\'ajout de fichiers aux fichiers 
 $string['legacyfilesaddallowed_help'] = 'Si un cours contient des fichiers de cours obsolètes, permettre d\'y ajouter de nouveaux fichiers et dossiers.';
 $string['legacyfilesinnewcourses'] = 'Fichiers du cours (obsolète) dans les nouveaux cours';
 $string['legacyfilesinnewcourses_help'] = 'Par défaut, les zones de fichiers du cours (obsolètes) ne sont disponibles que dans les cours provenant de mises à jour de versions antérieures. Veuillez prendre note que certaines fonctionnalités, notamment la sauvegarde et la restauration d\'une activité unique, ne sont pas compatibles avec ce réglage.';
+$string['libcurlwarning'] = 'La bibliothèque libcurl détectée ne supporte pas  CURLOPT_PROTOCOL. Pour des raisons de sécurité, il est recommandé de mettre à jour libcurl.';
 $string['licensesettings'] = 'Réglages de licence';
 $string['linkadmincategories'] = 'Lier les catégories de l\'administration';
 $string['linkadmincategories_help'] = 'Si ce réglage est activé, les catégories des paramètres de l\'administration seront affichées dans la navigation comme des liens menant aux pages des diverses catégories.';
@@ -786,7 +788,7 @@ $string['pathtodot'] = 'Chemin d\'accès du logiciel <i>dot</i>';
 $string['pathtodot_help'] = 'En principe /usr/bin/dot. Pour permettre de générer des fichiers graphiques à partir de fichiers DOT, vous devez installer l’exécutable dot et indiquer ici son chemin d\'accès. Ceci n\'est pour l\'instant utilisé que dans les fonctions de profilage de Moodle (Développement -> Profilage).';
 $string['pathtodu'] = 'Chemin d\'accès du logiciel <i>du</i>';
 $string['pathtogs'] = 'Chemin d\'accès du logiciel <i>ghostscript</i>';
-$string['pathtogs_help'] = 'Chemin d\'accès du programme « ghostscript ». En général quelque chose comme « /usr/bin/gs ». Sur les serveurs Windows, cela sera quelque chose comme « c:gsbingswin32c.exe » (assurez-vous qu\'il n\'y a pas d\'espace dans le chemin d\'accès. Si nécessaire, copiez les fichiers « gswin32c.exe »  et « gsdll32.dll » dans un nouveau dossier dont le chemin d\'accès ne comporte pas d\'espace).';
+$string['pathtogs_help'] = 'Chemin d\'accès du programme « ghostscript ». En général quelque chose comme « /usr/bin/gs ». Sur les serveurs Windows, cela sera quelque chose comme « c:\\gs\\bin\\gswin32c.exe » (assurez-vous qu\'il n\'y a pas d\'espace dans le chemin d\'accès. Si nécessaire, copiez les fichiers « gswin32c.exe »  et « gsdll32.dll » dans un nouveau dossier dont le chemin d\'accès ne comporte pas d\'espace).';
 $string['pathtopgdump'] = 'Chemin d\'accès du logiciel <i>pg_dump</i>';
 $string['pathtopgdumpdesc'] = 'Il n\'est nécessaire de renseigner ce champ que si vous avez plus d\'un programme <i>pg_dump</i> sur votre serveur (par exemple si plus d\'une version de postgresql est installée)';
 $string['pathtopgdumpinvalid'] = 'Chemin d\'accès à <i>pg_dump</i> non valide. Le chemin est incorrect ou le programme n\'est pas exécutable';
@@ -1078,9 +1080,13 @@ $string['unlockaccount'] = 'Débloquer ce compte';
 $string['unoconvwarning'] = 'La version installée de <i>unoconv</i> n\'est pas supportée. La fonctionnalité d\'annotation de devoirs de Moodle nécessite la version 0.7 ou ultérieure.';
 $string['unsettheme'] = 'Ne pas définir de thème';
 $string['unsupported'] = 'Non supporté';
+$string['unsupporteddbfileformat'] = 'Certaines tables de votre base de données utilise le format Antelope. Le support complet de l\'encodage UTF-8 dans MySQL et MariaDB requiert le format Barracuda. Veuillez consulter la documentation <a href="https://docs.moodle.org/fr/cli">Administration en ligne de commande</a> pour des informations supplémentaires sur l\'outil permettant de convertir les tables InnoDB au format Barracuda.';
+$string['unsupporteddbfilepertable'] = 'Pour un support complet de l\'encodage UTF-8, tant MySQL que MariaDB nécessitent d\'activer le paramètre « innodb_file_per_table ». Veuillez consulter la documentation pour plus de détails.';
+$string['unsupporteddblargeprefix'] = 'Pour un support complet de l\'encodage UTF-8, tant MySQL que MariaDB nécessitent d\'activer le paramètre « innodb_large_prefix ». Veuillez consulter la documentation pour plus de détails.';
 $string['unsupporteddbstorageengine'] = 'Le moteur de base de données utilisé n\'est plus supporté.';
 $string['unsupporteddbtablerowformat'] = 'Votre base de données comporte des tables qui utilisent le format de fichier Antelope. Il vous est vivement recommandé de convertir les tables au format de fichier Barracuda. Veuillez consulter la <a href="https://docs.moodle.org/2x/fr/Administration_en_ligne_de_commande">documentation sur l\'Administration en ligne de commande</a> pour des informations détaillées sur l\'<a href="https://docs.moodle.org/2x/fr/Administration_en_ligne_de_commande#Conversion_des_tables_InnoDB_au_format_Barracuda">outil de conversion des tables InnoDB en format Barracuda</a>.';
 $string['unsupportedphpversion7'] = 'La version 7 de PHP n\'est pas supportée.';
+$string['unsupportedphpversion71'] = 'La version 7.1 de PHP n\'est pas supportée.';
 $string['unsuspenduser'] = 'Activez le compte utilisateur';
 $string['updateaccounts'] = 'Modifier des comptes existants';
 $string['updateautocheck'] = 'Chercher automatiquement les mises à jour disponibles';

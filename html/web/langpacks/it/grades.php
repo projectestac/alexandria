@@ -265,7 +265,7 @@ $string['gradeexportcolumntype'] = '{$a->name} ({$a->extra})';
 $string['gradeexportcustomprofilefields'] = 'Campi personalizzati da esportare con le valutazioni';
 $string['gradeexportcustomprofilefields_desc'] = 'Imposta i campi personalizzati del profilo utente da includere quando si esportano le valutazioni. Inserire l\'elenco dei campi personalizzati separati da virgola.';
 $string['gradeexportdecimalpoints'] = 'Cifre decimali da usare nelle esportazioni';
-$string['gradeexportdecimalpoints_desc'] = 'Numero di cifre decimali da usare nelle esportazioni. Questa impostazione può essere modificata quando si configura l\'esportazione.';
+$string['gradeexportdecimalpoints_desc'] = 'Numero di cifre decimali da usare nelle esportazioni. Questa impostazione può essere modificata durante l\'esportazione.';
 $string['gradeexportdisplaytype'] = 'Esporta i voti come';
 $string['gradeexportdisplaytype_desc'] = 'I voti possono essere esportati come punteggio, come percentuali (in riferimento alla valutazione minima e massima) o come graduatoria letterale (A, B, C, ecc.). Questa impostazione può essere modificata quando si configura l\'esportazione.';
 $string['gradeexportdisplaytypes'] = 'Esporta i voti come';
@@ -309,7 +309,7 @@ $string['gradepass'] = 'Sufficienza';
 $string['gradepassgreaterthangrade'] = 'La sufficienza non può essere maggiore del punteggio massimo {$a}';
 $string['gradepass_help'] = 'Rappresenta il voto minimo necessario per considerare l\'attività come superata. Questo voto sarà utilizzato per il completamento delle attività è dei corsi. Nel registro valutatore il voto sarà visualizzato in rosso (non superato) o verde (superato)';
 $string['gradepointdefault'] = 'Punteggio di default';
-$string['gradepointdefault_help'] = 'Imposta il valore di default per il punteggio delle attività';
+$string['gradepointdefault_help'] = 'Imposta il valore di default per il punteggio delle attività disponibile in un elemento di valutazione.';
 $string['gradepointdefault_validateerror'] = 'Il valore impostabile deve essere compreso tra 1 e il valore del punteggio massimo.';
 $string['gradepointmax'] = 'Punteggio massimo';
 $string['gradepointmax_help'] = 'Imposta il valore massimo del punteggio delle attività';
@@ -366,6 +366,14 @@ $string['idnumbers'] = 'codici identificativi';
 $string['ignore'] = 'Ignora';
 $string['import'] = 'Importa';
 $string['importcsv'] = 'Importazione CSV';
+$string['importcsv_help'] = 'Le valutazioni possono essere importate tramite un file CSV con il seguente formato:
+
+* ciascuna linea deve contenere un record
+* ogni record è una serie di dati separati da virgola o altro separatore
+* il primo record deve contenere l\'elenco dei nomi dei campi che definiscono il formato del dati presenti nel resto del file
+* è obbligatorio un nome di campo che contenga l\'identificativo dell\'utente, ad esempio l\'indirizzo email oppure il codice identificativo
+
+Per avere un esempio di formato, è possibile esportare delle valutazioni esistenti. Il file così ottenuto può essere modificato e salvato come CSV.';
 $string['importcustom'] = 'Importa come obiettivi di questo corso';
 $string['importerror'] = 'Si è verificato un errore, questo script non è stato attivato con i giusti parametri.';
 $string['importfailed'] = 'L\'Importazione non è andata a buon fine. Nessun dato è stato importato.';
@@ -424,8 +432,11 @@ $string['lowest'] = 'Minimo';
 $string['lowgradeletter'] = 'Min';
 $string['manualitem'] = 'Elemento manuale';
 $string['mapfrom'] = 'Mappa da';
+$string['mapfrom_help'] = 'Seleziona la colonna del foglio elettronico che contiene i dati utili per identificare l\'utente, ad esempio lo username, l\'id dell\'utente oppure l\'indirizzo email.';
 $string['mappings'] = 'Mappatura degli elementi di valutazione';
+$string['mappings_help'] = 'Per ciascuna colonna del foglio elettronico contenente una valutazione, seleziona il corrispondente elemento dove importare la valutazione';
 $string['mapto'] = 'Mappa a';
+$string['mapto_help'] = 'Seleziona gli stessi dati identificativi come definito in \'Mappa da\'';
 $string['max'] = 'Massimo';
 $string['maxgrade'] = 'Voto massimo';
 $string['meanall'] = 'Tutti i voti, compresi i voti mancanti';
@@ -451,6 +462,14 @@ $string['modgradecantchangegradetypemsg'] = 'Non è possibile modificare il tipo
 $string['modgradecantchangegradetyporscalemsg'] = 'Non è possibile modificare il tipo di valutazione e la scala poiché alcune valutazione sono già state rilasciate.';
 $string['modgradecantchangeratingmaxgrade'] = 'Non è possibile modificare il punteggio massimo quando esistono già valutazioni di attività.';
 $string['modgradecantchangescale'] = 'Non è possibile modificare la scala poiché esistono già valutazioni per questo elemento';
+$string['modgradecategorycantchangegradetypemsg'] = 'La categoria contiene elementi di valutazione che sono stati modificati. Di conseguenza non è possibile cambiare il tipo di valutazione perché alcune valutazioni sono state già date. Se vuoi modificare il punteggio massimo, devi prima scegliere se ricalcolare o meno le valutazioni esistenti.';
+$string['modgradecategorycantchangegradetyporscalemsg'] = 'La categoria contiene elementi di valutazione che sono stati modificati. Di conseguenza non è possibile cambiare il tipo di valutazione perché alcune valutazioni sono state già date. Se vuoi modificare il punteggio massimo e la scala.';
+$string['modgradecategoryrescalegrades'] = 'Ricalcola valutazioni modificate';
+$string['modgradecategoryrescalegrades_help'] = 'Quando si cambia il punteggio massimo di un elemento di valutazione, è anche necessario indicare se la variazione causerà il cambiamento delle valutazioni percentuali già esistenti.
+
+Selezionando \'Sì\', le valutazioni modificate già esistenti saranno scalate im modo da lasciare invariate le percentuali.
+
+Ad esempio, selezionando \'Sì\' e cambiando il punteggio massimo di un elemento di valutazione da 10 a 20, una valutazione di 6/10 (60%) sarà scalata a 12/20 (60%).  Selezionando \'No\', la valutazione non cambierà e sarà necessario un intervento manuale per garantire punteggi corretti.';
 $string['modgradedonotmodify'] = 'Non modificare le valutazioni esistenti';
 $string['modgradeerrorbadpoint'] = 'E\' stato inserito un voto non valido. Deve essere un intero compreso tra 1 e {$a}';
 $string['modgradeerrorbadscale'] = 'E\' stata sezionata una scala non valida. Assicurati di aver seclto una scala tra quelle disponibili sotto.';
@@ -648,9 +667,9 @@ $string['showcontributiontocoursetotal_help'] = 'Visualizza una colonna aggiunti
 $string['showeyecons'] = 'Visualizza icona visibilità';
 $string['showeyecons_help'] = 'Visualizza l\'icona visibilità accanto ad ogni voto. L\'icona visibilità consente di nascondere i voti attribuiti agli utenti.';
 $string['showfeedback'] = 'Visualizza feedback';
-$string['showfeedback_help'] = 'Se visualizzare o meno la colonna dei feedback';
+$string['showfeedback_help'] = 'Se visualizzare o meno la colonna del feedback.';
 $string['showgrade'] = 'Visualizza voti';
-$string['showgrade_help'] = 'Se visualizzare o meno la colonna dei voti';
+$string['showgrade_help'] = 'Se visualizzare o meno la colonna dei voti.';
 $string['showgroups'] = 'Visualizza medie di gruppo';
 $string['showhiddenitems'] = 'Visualizza voti nascosti';
 $string['showhiddenitems_help'] = 'Specifica come visualizzare agli studenti gli elementi di valutazione nascosti
@@ -678,17 +697,17 @@ $string['showpercentage_help'] = 'Visualizza le valutazioni ricevute anche in pe
 $string['showquickfeedback'] = 'Visualizza feedback rapido';
 $string['showquickfeedback_help'] = 'Il feeback rapido aggiunge una casella di input di testo per ciascun elemento presente sul registro valutatore, consentendo di modificare più velocemente i feedback. Cliccando sul pulsante Aggiorna tutte le modiche saranno salvate contemporaneamente.';
 $string['showrange'] = 'Visualizza intervallo';
-$string['showrange_help'] = 'Se visualizzare o meno la colonna dell\'intervallo';
+$string['showrange_help'] = 'Se visualizzare o meno la colonna dell\'intervallo.';
 $string['showranges'] = 'Visualizza intervalli';
 $string['showranges_help'] = 'Visualizza nel registro del valutatore una riga contenente gli intervalli ammessi per i voti (voto minimo e voto massimo).';
 $string['showrank'] = 'Visualizza classifica';
-$string['showrank_help'] = 'Visualizza la posizione in classifica dell\'utente rispetto al resto della classe.';
+$string['showrank_help'] = 'Visualizza la posizione in classifica dell\'utente rispetto al resto della classe per ciascun elemento di valutazione.';
 $string['showuserimage'] = 'Visualizza immagine utente';
 $string['showuserimage_help'] = 'Visualizza l\'immagine del profilo utente assieme al nome nel registro del valutatore.';
 $string['showverbose'] = 'Visualizza {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['showweight'] = 'Visualizza pesi';
-$string['showweight_help'] = 'Se visualizzare o meno la colonna dei pesi';
-$string['simpleview'] = 'Vista semplificata';
+$string['showweight_help'] = 'Consente la visualizzazione della colonna dei pesi.';
+$string['simpleview'] = 'Vista singola';
 $string['singleview'] = 'Scheda singola: {$a}';
 $string['sitewide'] = 'Obiettivo standard';
 $string['sort'] = 'ordina';
@@ -725,7 +744,7 @@ $string['uncategorised'] = 'Senza categoria';
 $string['unchangedgrade'] = 'Valutazione non modificata';
 $string['unenrolledusersinimport'] = 'Questa importazione includeva le seguenti valutazioni per utenti attualmente non iscritti in questo corso: {$a}';
 $string['unlimitedgrades'] = 'Voti privi di limiti';
-$string['unlimitedgrades_help'] = 'Per default i voti sono limitati dal valore massimo e minino dell\'elemento di valutazione. Abilitando questa impostazione sarà possibile rimuovere questi limiti ed usare voti superiori al 100% nel registro del valutatore. Si consiglia di abilitare questa impostazione quando il server è scarico, abilitandolo infatti tutti voti saranno ricalcolati provocando un notevole carico sul server.';
+$string['unlimitedgrades_help'] = 'Per default i voti sono limitati dal valore massimo e minino dell\'elemento di valutazione. Abilitando questa impostazione sarà possibile rimuovere questi limiti ed usare voti superiori al 100% da inserire direttamente nel registro del valutatore.';
 $string['unlock'] = 'Sblocca';
 $string['unlockverbose'] = 'Sblocca {$a->category} {$a->itemmodule} {$a->itemname';
 $string['unused'] = 'Non usato';

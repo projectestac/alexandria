@@ -29,7 +29,7 @@ $string['activityoverview'] = '新しいフォーラム投稿があります。'
 $string['addanewdiscussion'] = '新しいディスカッショントピックを追加する';
 $string['addanewquestion'] = '新しい質問を追加する';
 $string['addanewtopic'] = '新しいトピックを追加する';
-$string['advancedsearch'] = '検索オプション';
+$string['advancedsearch'] = '高度な検索';
 $string['allforums'] = 'すべてのフォーラム';
 $string['allowdiscussions'] = '{$a} はこのフォーラムに投稿できますか?';
 $string['allowsallsubscribe'] = 'このフォーラムではすべてのユーザがメール購読するかどうか選択できます。';
@@ -93,7 +93,7 @@ $string['completionreplies'] = '学生は次の件数の返信を投稿する必
 $string['completionrepliesgroup'] = '必須返信数';
 $string['completionreplieshelp'] = '完了に必要な返信数';
 $string['configcleanreadtime'] = '古い投稿を「既読」テーブルからクリアする時刻 (時) です。';
-$string['configdigestmailtime'] = 'メール送信を選択したユーザに投稿内容を要約したメールが毎日送信されます。ここでは1日の内で何時に要約メールを送信するか設定します (この設定後に実行される次のcronがメールを送信します)。';
+$string['configdigestmailtime'] = 'メール送信を選択したユーザに投稿内容を要約したメールが毎日送信されます。ここでは1日の内で何時に毎日のメールを送信するか設定します (この設定後に実行される次のcronがメールを送信します)。';
 $string['configdisplaymode'] = '表示モードが設定されていない場合、ディスカッションで使用されるデフォルト表示モードです。';
 $string['configenablerssfeeds'] = 'すべてのフォーラムのRSS使用を有効にします。ここで設定しても各フォーラムでRSSフィードを手動で設定する必要があります。';
 $string['configenabletimedposts'] = '新しいフォーラムディスカッションの表示期間の設定を許可したい場合、「Yes」を選択してください。';
@@ -141,8 +141,8 @@ $string['discussionname'] = 'ディスカッション名';
 $string['discussionnownotsubscribed'] = '{$a->name} には「 {$a->forum} 」の「 {$a->discussion} 」に関する新しい投稿は通知されません。';
 $string['discussionnowsubscribed'] = '{$a->name} に「 {$a->forum} 」の「 {$a->discussion} 」に関する新しい投稿が通知されます。';
 $string['discussionpin'] = 'ピン留め';
-$string['discussionpinned'] = 'ピン留め済み';
-$string['discussionpinned_help'] = 'ピン留め済みディスカッションはフォーラムの最上部に表示されます。';
+$string['discussionpinned'] = 'ピン留め';
+$string['discussionpinned_help'] = 'ピン留めディスカッションはフォーラムの最上部に表示されます。';
 $string['discussions'] = 'ディスカッション';
 $string['discussionsstartedby'] = '{$a} さんより開始されたディスカッション';
 $string['discussionsstartedbyrecent'] = '{$a} さんより最近開始されたディスカッション';
@@ -329,7 +329,7 @@ $string['modulename_help'] = 'フォーラム活動モジュールにおいて�
 * 教師専用フォーラムとして (非表示フォーラムを使用)
 * チューターおよび学生がアドバイスを与えることのできるヘルプセンターとして
 * 学生教師間の1対1のプライベートサポートエリアとして (1グループあたり1人のグループを使った分離グループを使用)
-* 学外活動用として (例えば、学生が熟考するための「頭の体操」および解決方法の提案)';
+* 学外活動用として (例えば学生が熟考するための「頭の体操」および解決方法の提案)';
 $string['modulenameplural'] = 'フォーラム';
 $string['more'] = '詳細';
 $string['movedmarker'] = '(移動済み)';
@@ -539,7 +539,7 @@ $string['usermarksread'] = '投稿を手動で既読にする';
 $string['viewalldiscussions'] = 'すべてのディスカッションを表示する';
 $string['warnafter'] = '警告までの投稿閾値';
 $string['warnafter_help'] = '指定された時間内に指定された記事数以上を投稿した場合、学生に警告が表示されます。この設定では何件の投稿後に警告が表示されるか指定します。ケイパビリティ「mod/forum:postwithoutthrottling」が割り当てられたユーザは投稿制限から除外されます。';
-$string['warnformorepost'] = '警告! このフォーラムには1件以上のディスカッションがあります - 直近のディスカッションを使用します。';
+$string['warnformorepost'] = '警告! このフォーラムには2件以上のディスカッションがあります - 直近のディスカッションを使用します。';
 $string['yournewquestion'] = 'あなたの新しい質問';
 $string['yournewtopic'] = 'あなたの新しいディスカッショントピック';
 $string['yourreply'] = 'あなたの返信';

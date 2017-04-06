@@ -3,6 +3,17 @@
 class com_wiris_plugin_api_PluginBuilder {
 	public function __construct() { 
 	}
+	public function getCustomParamsProvider() {
+		return null;
+	}
+	public function setCustomParamsProvider($provider) {
+	}
+	public function newGenericParamsProvider($properties) {
+		return null;
+	}
+	public function getImageFormatController() {
+		return null;
+	}
 	public function isEditorLicensed() {
 		return false;
 	}
@@ -22,6 +33,10 @@ class com_wiris_plugin_api_PluginBuilder {
 	}
 	public function newTest() {
 		return null;
+	}
+	public function setStorageAndCacheCacheFormulaObject($cache) {
+	}
+	public function setStorageAndCacheCacheObject($cache) {
 	}
 	public function setStorageAndCacheInitObject($obj) {
 	}
@@ -47,8 +62,12 @@ class com_wiris_plugin_api_PluginBuilder {
 	}
 	public function addConfigurationUpdater($conf) {
 	}
+	static $pb = null;
 	static function getInstance() {
-		return new com_wiris_plugin_impl_PluginBuilderImpl();
+		if(com_wiris_plugin_api_PluginBuilder::$pb === null) {
+			com_wiris_plugin_api_PluginBuilder::$pb = new com_wiris_plugin_impl_PluginBuilderImpl();
+		}
+		return com_wiris_plugin_api_PluginBuilder::$pb;
 	}
 	function __toString() { return 'com.wiris.plugin.api.PluginBuilder'; }
 }

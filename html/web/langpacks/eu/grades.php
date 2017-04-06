@@ -80,12 +80,12 @@ $string['aggregationcoefweight_help'] = 'Elementuaren pisua kategoriaren agregaz
 $string['aggregationcoefweight_link'] = 'kalifikazioa/agregazioa';
 $string['aggregation_help'] = 'Agregazioak zehazten du kategoria bateko kalifikazioak nola lotzen diren, adibidez
 
-* Kalifikazioen batez bestekoa - Kalifikazio guztien batuketa zati kalifikazio-kopurua.
-* Kalifikazioen mediana - Erdiko kalifikazioa kalifikazioak tamainaren arabera sailkatzen direnean
+* Kalifikazioen media - Kalifikazio guztien batuketa zati kalifikazio-kopurua.
+* Kalifikazioen mediana - Tarteko kalifikazioa kalifikazioak tamainaren arabera sailkatzen direnean
 * Kalifikazio baxuena
 * Kalifikazio altuena
 * Kalifikazioen moda - Sarrien agertzen den kalifikazioa
-* Naturala - Kalifikazio balore guztien batuketa pisuaren arabera eskalatuta';
+* Kalifikazioen batuketa - Kalifikazio balore guztien batuketa, eskala bidezko kalifikazioak alde batera utzita.';
 $string['aggregationhintdropped'] = '(Kokatua)';
 $string['aggregationhintexcluded'] = '(Baztertua)';
 $string['aggregationhintextra'] = '(Aparteko kreditua)';
@@ -439,6 +439,7 @@ $string['minimum_show'] = 'Erakutsi gutxieneko kalifikazioa';
 $string['missingscale'] = 'Eskala aukeratu beha da';
 $string['mode'] = 'Modua';
 $string['modgrade'] = 'Kalifikazioa';
+$string['modgradedonotmodify'] = 'Ez aldatu ezarrita dauden kalifikazioak';
 $string['modgrademaxgrade'] = 'Gehieneko kalifikazioa';
 $string['modgradetype'] = 'Mota';
 $string['modgradetypenone'] = 'Bat ere ez';
@@ -474,6 +475,7 @@ $string['nonweightedpct'] = '% ez neurtua';
 $string['nooutcome'] = 'Ez dago ikas-emaitzarik';
 $string['nooutcomes'] = 'Ikas-emaitzak ikastaroko ikas-emaitza batekin lotuta egon behar du, baina ikastaro honetan ez dago ikas-emaitzarik. Gehitu nahi al duzu bat?';
 $string['nopublish'] = 'Ez argitaratu';
+$string['noreports'] = 'Ez zaude matrikulatuta hemen, ez zara irakaslea gune honetako ikastaroetan.';
 $string['norolesdefined'] = 'Definitu gabeko rolak hemen: Kudeaketa > Kalifikazioak > Ezarpen orokorrak > Kalifikatutako rolak';
 $string['noscales'] = 'Ikas-emaitzak ikastaroko eskala edo eskala global batekin egon behar du lotuta, baina ez dago bat ere. Gehitu nahi al duzu bat?';
 $string['noselectedcategories'] = 'ez da kategoriarik aukeratu.';
@@ -512,7 +514,7 @@ $string['outcomestandard_help'] = 'Gune osoan, ikastaro guztietan, dago eskuraga
 $string['overallaverage'] = 'Batez besteko orokorra';
 $string['overridden'] = 'Baliogabetuak';
 $string['overriddennotice'] = 'Jarduera honetako zure azken kalifikazioa eskuz egokitu da.';
-$string['overridesitedefaultgradedisplaytype'] = 'Ez hartu kontuan gunearen berezko baloreak';
+$string['overridesitedefaultgradedisplaytype'] = 'Baliogabetu gunearen berezko baloreak';
 $string['parentcategory'] = 'Goragoko kategoria';
 $string['pctoftotalgrade'] = '% kalifikazio orokorretik';
 $string['percent'] = 'Portzentajea';
@@ -553,6 +555,7 @@ $string['rawpct'] = '% gordina';
 $string['real'] = 'Erreala';
 $string['realletter'] = 'Erreala (letra)';
 $string['realpercentage'] = 'Erreala (portzentajea)';
+$string['recalculatinggrades'] = 'Kalifikazioak berriz kalkulatu';
 $string['refreshpreview'] = 'Freskatu aurreikuspena';
 $string['regradeanyway'] = 'Kalifikatu berriz hala ere';
 $string['removeallcoursegrades'] = 'Kalifikazio guztiak ezabatu';
@@ -576,7 +579,9 @@ $string['selectalloroneuser'] = 'Aukeratu erabiltzaile bat edo guztiak';
 $string['selectauser'] = 'Aukeratu erabiltzaile bat';
 $string['selectdestination'] = 'Aukeratu helbidea honentzat: {$a}';
 $string['separator'] = 'Bereizlea';
+$string['sepcolon'] = 'Bi puntu';
 $string['sepcomma'] = 'Koma';
+$string['sepsemicolon'] = 'Puntu eta koma';
 $string['septab'] = 'Tabuladorea';
 $string['setcategories'] = 'Ezarri kategoriak';
 $string['setcategorieserror'] = 'Neurketak esleitu aurretik ikastaroko kategoriak ezarri behar dituzu.';
@@ -604,6 +609,8 @@ $string['showgrade_help'] = 'Kalifikazioen zutabea erakutsi?';
 $string['showgroups'] = 'Taldeak erakutsi';
 $string['showhiddenitems'] = 'Erakutsi ezkutuko elementuak';
 $string['showhiddenuntilonly'] = 'Noiz arte ezkutuan bakarrik';
+$string['showingfullmode'] = 'Ikuspegi osoa erakusten';
+$string['showinggradesonly'] = 'Kalifikazioak bakarrik erakusten';
 $string['showlettergrade'] = 'Erakutsi kalifikazio-letrak';
 $string['showlettergrade_help'] = 'Kalifikazio-letren zutabea erakutsi?';
 $string['showlocks'] = 'Blokeoak erakutsi';
@@ -612,6 +619,7 @@ $string['shownohidden'] = 'Ez erakutsi';
 $string['shownooutcomes'] = 'Ezkutatu ikas-emaitzak';
 $string['shownumberofgrades'] = 'Erakutsi kalifikazio-kopurua batez bestekoetan';
 $string['shownumberofgrades_help'] = '<p>Media bakoitzaren atzean parentesi artean media kalkulatzeko erabili den kalifikazio-kopurua erakutsi ala ez, adibidez 45 (34).</p>';
+$string['showonlyactiveenrol'] = 'Erakutsi bakarrik matrikula aktiboak';
 $string['showpercentage'] = 'Erakutsi portzentajea';
 $string['showpercentage_help'] = 'Erakutsi ehunekoaren balorea kalifikazio-elementu bakoitzerako?';
 $string['showquickfeedback'] = 'Erakutsi feedback azkarra';
@@ -620,12 +628,12 @@ $string['showrange_help'] = 'Ibilarteen zutabea erakutsi?';
 $string['showranges'] = 'Ibiltarteak erakutsi';
 $string['showranges_help'] = 'Gaituz gero, kalifikatzailearen txostenean kategoria eta elementu bakoitzerako kalifikazio-mailak erakusten dituen beste lerro bat erakusten du.';
 $string['showrank'] = 'Erakutsi sailkapena';
-$string['showrank_help'] = 'Erakutsi ikaslearen kokalekua klaseko gainontzekoen aldean kalifikazio-elementu bakoitzean?';
+$string['showrank_help'] = 'Erakutsi ikaslearen kokalekua klaseko gainontzekoekiko kalifikazio-elementu bakoitzean?';
 $string['showuserimage'] = 'Erabiltzaile-profilaren irudiak erakutsi';
 $string['showuserimage_help'] = 'Kalfikatzailearen txostenean izenaren ondoren erabiltzailearen profilaren irudia erakutsi ala ez';
 $string['showverbose'] = 'Erakutsi {$a->category} {$a->itemmodule} {$a->itemname}';
 $string['showweight'] = 'Erakutsi ponderazioak';
-$string['showweight_help'] = 'Kalifikazio ponderatuen zutabea erakutsi?';
+$string['showweight_help'] = 'Kalifikazio pisuaren zutabea erakutsi?';
 $string['simpleview'] = 'Ikuspegi sinplea';
 $string['singleview'] = 'Ikuspegi sinplea ondokoarentzat: {$a}';
 $string['sitewide'] = 'Gune osoa';
@@ -675,6 +683,7 @@ $string['user'] = 'Erabiltzailea';
 $string['userfields_show'] = 'Erakutsi erabiltzailearen eremuak';
 $string['usergrade'] = 'Erabiltzailea {$a->fullname} ({$a->useridnumber}) elementu honetan {$a->gradeidnumber}';
 $string['userid'] = 'Erabiltzailearen IDa';
+$string['useridnumberwarning'] = 'ID zenbakia ez duten erabiltzaileak baztertuta daude esportaziotik. Era beran, ezin dira inportatu';
 $string['usermappingerrorcurrentgroup'] = 'Erabiltzailea ez da talde honetako partaidea.';
 $string['userpreferences'] = 'Erabiltzailearen hobespenak';
 $string['useweighted'] = 'Erabili ponderatua';

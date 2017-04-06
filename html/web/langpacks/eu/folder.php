@@ -27,11 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['contentheader'] = 'Edukia';
 $string['display'] = 'Erakutsi karpetaren edukiak';
-$string['display_help'] = 'Karpetako edukiak ikastaroaren orrian erakustea aukeratzen baduzu ez da agertuko apartek orri baterako esteka eta izenburua ere ez da erakutsiko.
+$string['display_help'] = 'Karpetako edukiak ikastaroaren orrian erakustea aukeratzen baduzu ez da agertuko aparteko orri baterako esteka eta izenburua ere ez da erakutsiko.
 Deskribapena "Deskribapena ikastaroaren orriaren pantailan" aukeratzen bada bakarrik agertuko da.
 Kontuan izan, bestalde, kasu honetan ezin dela erabiltzaileen ekintzarik erregistratu.';
 $string['displayinline'] = 'Erakutsi ikastaroaren orrian';
-$string['displaypage'] = 'Apareteko orri batean';
+$string['displaypage'] = 'Aparteko orri batean';
 $string['dnduploadmakefolder'] = 'Deskonprimatu fixtategiak eta sortu karpeta';
 $string['downloadfolder'] = 'Jaitsi karpeta';
 $string['eventallfilesdownloaded'] = 'Jaitsitako karpetaren zip fitxategia';
@@ -40,6 +40,8 @@ $string['folder:addinstance'] = 'Gehitu beste karpeta bat';
 $string['foldercontent'] = 'Fitxategiak eta azpikarpetak';
 $string['folder:managefiles'] = 'Fitxategiak kudeatu karpeta moduluan';
 $string['folder:view'] = 'Ikusi karpetaren edukia';
+$string['maxsizetodownload'] = 'Karpetak jaisteko gehienezko tamaina (MB)';
+$string['maxsizetodownload_help'] = 'Karpetak zip fitxategi moduan jaisteko gehienezko tamaina. 0 ezarriz gero, karpetaren tamainak ez du mugarik izango.';
 $string['modulename'] = 'Karpeta';
 $string['modulename_help'] = 'Karpeta baliabideak irakasleak karpeta baten barruan erlazioa duten fitxategi-multzoak erakustea ahalbidetzen du, ikastaroko orriko scroll-a gutxituz. ZIP fitxategi batean konprimatutako karpeta bat igo eta erakusgai jartzeko deskonprimi daiteke.
 
@@ -54,5 +56,7 @@ $string['page-mod-folder-x'] = 'Karpetaren edozein orri';
 $string['pluginadministration'] = 'Karpetaren kudeaketa';
 $string['pluginname'] = 'Karpeta';
 $string['search:activity'] = 'Karpeta';
+$string['showdownloadfolder'] = 'Erakutsi karpeta jaitsi botoia';
+$string['showdownloadfolder_help'] = '\'Bai\' aukeratuz gero, botoi bat erakutsiko da karpetaren edukiak zip fitxategi moduan jaisteko aukera emateko.';
 $string['showexpanded'] = 'Erakutsi azpikarpetak zabalduta';
 $string['showexpanded_help'] = '\'Bai\' ezarrita berez erakutsiko dira azpikarpetak zabalduta. Bestela, azpikarpetak kolapsatuta erakutsiko dira.';

@@ -77,23 +77,6 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 		}
 		return $r;
 	}
-	public function getMetricsFromSvg($svg, &$output) {
-		$output = $output;
-		$svgXml = com_wiris_util_xml_WXmlUtils::parseXML($svg);
-		$width = $svgXml->firstElement()->get("width");
-		$height = $svgXml->firstElement()->get("height");
-		$baseline = $svgXml->firstElement()->get("wrs:baseline");
-		$r = null;
-		if($output !== null) {
-			$output["width"] = "" . $width;
-			$output["height"] = "" . $height;
-			$output["baseline"] = "" . $baseline;
-			$r = "";
-		} else {
-			$r = "&cw=" . $width . "&ch=" . $height . "&cb=" . $baseline;
-		}
-		return $r;
-	}
 	public function getMetrics($digest, &$output) {
 		$output = $output;
 		$bs = null;
@@ -106,12 +89,8 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 				return "";
 			}
 		}
-		if(_hx_index_of($this->plugin->getConfiguration()->getProperty("wirisimageformat", "png"), "svg", null) !== -1) {
-			$b = haxe_io_Bytes::ofData($bs);
-			return $this->getMetricsFromSvg($b->toString(), $output);
-		} else {
-			return $this->getMetricsFromBytes($bs, $output);
-		}
+		$b = haxe_io_Bytes::ofData($bs);
+		return $this->plugin->getImageFormatController()->getMetrics($b, $output);
 	}
 	public function getEditorParametersList() {
 		$pl = $this->plugin->getConfiguration()->getProperty(com_wiris_plugin_api_ConfigurationKeys::$EDITOR_PARAMETERS_LIST, com_wiris_plugin_api_ConfigurationKeys::$EDITOR_PARAMETERS_DEFAULT_LIST);
@@ -120,18 +99,19 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 	public function getMathml($digest) {
 		return null;
 	}
-	public function showImageJson($digest, $lang) {
+	public function showImageHash($digest, $lang) {
+		$imageFormat = $this->plugin->getConfiguration()->getProperty("wirisimageformat", "png");
 		$store = $this->plugin->getStorageAndCache();
 		$bs = null;
-		$bs = $store->retreiveData($digest, $this->plugin->getConfiguration()->getProperty("wirisimageformat", "png"));
-		$jsonOutput = new Hash();
+		$bs = $store->retreiveData($digest, $imageFormat);
 		if($bs !== null) {
-			$jsonOutput->set("status", "ok");
 			$jsonResult = new Hash();
-			$by = haxe_io_Bytes::ofData($bs);
-			$b64 = _hx_deref(new com_wiris_system_Base64())->encodeBytes($by);
+			$content = haxe_io_Bytes::ofData($bs);
+			if($imageFormat === "png") {
+				$content = _hx_deref(new com_wiris_system_Base64())->encodeBytes($content);
+			}
 			$metrics = array();;
-			$this->getMetricsFromBytes($bs, $metrics);
+			$this->getMetrics($digest, $metrics);
 			if($lang === null) {
 				$lang = "en";
 			}
@@ -146,14 +126,40 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 			if($s !== null) {
 				$jsonResult->set("alt", com_wiris_system_Utf8::fromBytes($s));
 			}
-			$jsonResult->set("pngBase64", $b64->toString());
-			$jsonOutput->set("result", $jsonResult);
+			$jsonResult->set("content", $content->toString());
+			$jsonResult->set("format", $imageFormat);
+			return $jsonResult;
 		} else {
-			$jsonOutput->set("status", "warning");
+			return null;
 		}
-		return com_wiris_util_json_JSon::encode($jsonOutput);
 	}
-	public function showImage($digest, $mml, $param) {
+	public function showImageJson($digest, $lang) {
+		$jsonResult = $this->showImageHash($digest, $lang);
+		if($jsonResult !== null) {
+			$jsonSb = new StringBuf();
+			$iter = $jsonResult->keys();
+			$jsonSb->add("{\"status\":\"ok\",\"result\":{");
+			while($iter->hasNext()) {
+				$key = $iter->next();
+				$value = $jsonResult->get($key);
+				$value = str_replace("\\", "\\\\", $value);
+				$value = str_replace("\"", "\\\"", $value);
+				$value = str_replace("\x0D", "\\\x0D", $value);
+				$value = str_replace("\x0A", "\\\x0A", $value);
+				$value = str_replace("\x09", "\\\x09", $value);
+				$jsonSb->add("\"" . $key . "\":" . "\"" . $value . "\"");
+				if($iter->hasNext()) {
+					$jsonSb->add(",");
+				}
+				unset($value,$key);
+			}
+			$jsonSb->add("}}");
+			return $jsonSb->b;
+		} else {
+			return "{\"status\":\"warning\"}";
+		}
+	}
+	public function showImage($digest, $mml, $provider) {
 		if($digest === null && $mml === null) {
 			throw new HException("Missing parameters 'formula' or 'mml'.");
 		}
@@ -161,8 +167,8 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 			throw new HException("Only one parameter 'formula' or 'mml' is valid.");
 		}
 		$atts = false;
-		if($digest === null && $mml !== null) {
-			$digest = $this->computeDigest($mml, $param);
+		if($digest === null && $mml !== null && $provider !== null) {
+			$digest = $this->computeDigest($mml, $provider->getRenderParameters($this->plugin->getConfiguration()));
 		}
 		$formula = $this->plugin->getStorageAndCache()->decodeDigest($digest);
 		if($formula === null) {
@@ -175,17 +181,20 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 		$renderParams = $iniFile->getProperties();
 		$i = null;
 		$ss = $this->getEditorParametersList();
-		if($param !== null) {
-			$_g1 = 0; $_g = $ss->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$key = $ss[$i1];
-				$value = com_wiris_system_PropertiesTools::getProperty($param, $key, null);
-				if($value !== null) {
-					$atts = true;
-					$renderParams->set($key, $value);
+		if($provider !== null) {
+			$renderParameters = $provider->getRenderParameters($this->plugin->getConfiguration());
+			{
+				$_g1 = 0; $_g = $ss->length;
+				while($_g1 < $_g) {
+					$i1 = $_g1++;
+					$key = $ss[$i1];
+					$value = com_wiris_system_PropertiesTools::getProperty($renderParameters, $key, null);
+					if($value !== null) {
+						$atts = true;
+						$renderParams->set($key, $value);
+					}
+					unset($value,$key,$i1);
 				}
-				unset($value,$key,$i1);
 			}
 		}
 		if($atts) {
@@ -247,23 +256,23 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 		}
 		return $bs;
 	}
-	public function createImage($mml, $param, &$output) {
+	public function createImage($mml, $provider, &$output) {
 		$output = $output;
 		if($mml === null) {
 			throw new HException("Missing parameter 'mml'.");
 		}
-		$digest = $this->computeDigest($mml, $param);
+		$digest = $this->computeDigest($mml, $provider->getRenderParameters($this->plugin->getConfiguration()));
 		$contextPath = $this->plugin->getConfiguration()->getProperty(com_wiris_plugin_api_ConfigurationKeys::$CONTEXT_PATH, "/");
 		$showImagePath = $this->plugin->getConfiguration()->getProperty(com_wiris_plugin_api_ConfigurationKeys::$SHOWIMAGE_PATH, null);
 		$saveMode = $this->plugin->getConfiguration()->getProperty(com_wiris_plugin_api_ConfigurationKeys::$SAVE_MODE, "xml");
 		$s = "";
-		if($param !== null && com_wiris_system_PropertiesTools::getProperty($param, "metrics", "false") === "true") {
+		if($provider->getParameter("metrics", "false") === "true") {
 			$s = $this->getMetrics($digest, $output);
 		}
 		$a = "";
-		if($param !== null && com_wiris_system_PropertiesTools::getProperty($param, "accessible", "false") === "true") {
-			$lang = com_wiris_system_PropertiesTools::getProperty($param, "lang", "en");
-			$text = $this->safeMath2Accessible($mml, $lang, $param);
+		if($provider->getParameter("accessible", "false") === "true") {
+			$lang = $provider->getParameter("lang", "en");
+			$text = $this->safeMath2Accessible($mml, $lang, $provider->getParameters());
 			if($output === null) {
 				$a = "&text=" . rawurlencode($text);
 			} else {
@@ -271,15 +280,16 @@ class com_wiris_plugin_impl_RenderImpl implements com_wiris_plugin_api_Render{
 			}
 		}
 		$rparam = "";
-		if($param !== null && com_wiris_system_PropertiesTools::getProperty($param, "refererquery", null) !== null) {
-			$refererquery = com_wiris_system_PropertiesTools::getProperty($param, "refererquery", null);
+		if($provider->getParameter("refererquery", null) !== null) {
+			$refererquery = $provider->getParameter("refererquery", "");
 			$rparam = "&refererquery=" . $refererquery;
 		}
-		if($param !== null && com_wiris_system_PropertiesTools::getProperty($param, "base64", null) !== null || $saveMode === "base64") {
-			$bs = $this->showImage($digest, null, $param);
+		if($provider->getParameter("base64", null) !== null || $saveMode === "base64") {
+			$bs = $this->showImage($digest, null, $provider);
 			$by = haxe_io_Bytes::ofData($bs);
 			$b64 = _hx_deref(new com_wiris_system_Base64())->encodeBytes($by);
-			return "data:image/png;base64," . $b64->toString();
+			$imageContentType = $this->plugin->getImageFormatController()->getContentType();
+			return "data:" . $imageContentType . ";base64," . $b64->toString();
 		} else {
 			return com_wiris_plugin_impl_RenderImpl::concatPath($contextPath, $showImagePath) . rawurlencode($digest) . $s . $a . $rparam;
 		}

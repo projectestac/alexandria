@@ -5,6 +5,43 @@ class com_wiris_plugin_impl_ConfigurationImpl implements com_wiris_plugin_api_Co
 		if(!php_Boot::$skip_constructor) {
 		$this->props = array();;
 	}}
+	public function setConfigurations($configurationKeys, $configurationValues) {
+		$configurationKeysArray = _hx_explode(",", $configurationKeys);
+		$configurationValuesArray = _hx_explode(",", $configurationValues);
+		$keysIterator = $configurationKeysArray->iterator();
+		$valuesIterator = $configurationValuesArray->iterator();
+		while($keysIterator->hasNext() && $valuesIterator->hasNext()) {
+			$key = $keysIterator->next();
+			$value = $valuesIterator->next();
+			if($this->getProperty($key, null) !== null) {
+				$this->setProperty($key, $value);
+			}
+			unset($value,$key);
+		}
+	}
+	public function getJsonConfiguration($configurationKeys) {
+		$configurationKeysArray = _hx_explode(",", $configurationKeys);
+		$iterator = $configurationKeysArray->iterator();
+		$jsonOutput = new Hash();
+		$jsonVariables = new Hash();
+		$thereIsNullValue = false;
+		while($iterator->hasNext()) {
+			$key = $iterator->next();
+			$value = $this->getProperty($key, "null");
+			if($value === "null") {
+				$thereIsNullValue = true;
+			}
+			$jsonVariables->set($key, $value);
+			unset($value,$key);
+		}
+		if(!$thereIsNullValue) {
+			$jsonOutput->set("status", "ok");
+		} else {
+			$jsonOutput->set("status", "warning");
+		}
+		$jsonOutput->set("result", $jsonVariables);
+		return com_wiris_util_json_JSon::encode($jsonOutput);
+	}
 	public function getJavaScriptConfiguration() {
 		$sb = new StringBuf();
 		$arrayParse = "[]";
@@ -31,6 +68,7 @@ class com_wiris_plugin_impl_ConfigurationImpl implements com_wiris_plugin_api_Co
 		$this->appendVarJs($sb, "_wrs_conf_setSize", $this->getProperty("wiriseditorsetsize", null), "Specifies whether to set the size of the images at edition time");
 		$this->appendVarJs($sb, "_wrs_conf_editorToolbar", "'" . $this->getProperty(com_wiris_plugin_api_ConfigurationKeys::$EDITOR_TOOLBAR, null) . "'", "Toolbar definition");
 		$this->appendVarJs($sb, "_wrs_conf_chemEnabled", $this->getProperty("wirischemeditorenabled", null), "Specifies if WIRIS chem editor is enabled");
+		$this->appendVarJs($sb, "_wrs_conf_imageFormat", "'" . $this->getProperty("wirisimageformat", "png") . "'", "WIRIS Plugin image format");
 		if($this->getProperty(com_wiris_plugin_api_ConfigurationKeys::$EDITOR_PARAMS, null) !== null) {
 			$this->appendVarJs($sb, "_wrs_conf_editorParameters", $this->getProperty(com_wiris_plugin_api_ConfigurationKeys::$EDITOR_PARAMS, null), "Editor parameters");
 		} else {
@@ -115,9 +153,6 @@ class com_wiris_plugin_impl_ConfigurationImpl implements com_wiris_plugin_api_Co
 		}
 	}
 	public function setInitObject($context) {
-		if($this->initialized) {
-			throw new HException("Already initialized.");
-		}
 		$this->initObject = $context;
 	}
 	public function setProperty($key, $value) {

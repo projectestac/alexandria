@@ -46,6 +46,12 @@ $string['hash_hsieh'] = 'Hsieh';
 $string['hash_md5'] = 'MD5';
 $string['hash_murmur'] = 'Murmur';
 $string['isshared'] = 'Geteilter Cache';
+$string['isshared_help'] = 'Wird ihr memcached Server auch von anderen Anwendungen genutzt?
+
+Wenn der Cache mit anderen Anwendungen geteilt wird, dann wird jeder Schlüssel individuell gelöscht um sicherzustellen, dass nur Daten dieser Anwedungen gelöscht werden (Daten in externen Anwendungscaches bleiben unverändert). Dies kann zu verminderter Leistung führen, wenn der Cache geleert wird, dies hängt von ihren Server Einstellungen ab.
+
+Wenn Sie einen bestimmten Cache für diese Anwendung nutzen, dann kann der ganze Cache geleert werden ohne Risiko die Cache Daten einer anderen Anwendung zu zerstören.
+Die Löschung des Caches sollte zu erhöhter Leistung führen.';
 $string['pluginname'] = 'Memcached';
 $string['prefix'] = 'Prefix-Schlüssel';
 $string['prefix_help'] = 'Dies kann verwandt werden, um eine \'domain\' für Ihre Schlüsselwerte für mehrere memcached Speicher auf einer einzelnen memcached Installation zu erzeugen. Sie darf nicht länger als 16 Zeichen sein.';
@@ -81,6 +87,8 @@ ipaddress:port
 $string['testservers'] = 'Testserver';
 $string['testservers_desc'] = 'In diesem Feld können eine oder mehrere Verbindungsadressen zu Memcached-Servern angegeben werden. Wenn ein entsprechender Testserver vorhanden ist, kann die Memcached-Performance über die Cache-Seite im Administrationsblock getestet werden.
 Beispielserver: 127.0.0.1:11211';
+$string['upgrade200recommended'] = 'Wir empfehlen Ihnen ein Upgrade Ihrer Memcached PHP Erweiterung auf Version 2.0.0 oder höher.
+Die von Ihnen derzeit verwendete Memcached PHP Erweiterung bietet nicht die Funktionalität, die Moodle nutzt, um ein Sandbox Cache sicherzustellen. Wir empfehlen Ihnen bis zum Upgrade keine weiteren Anwendungen mit denselben Memcached Servern zu konfigurieren, die Moodle nutzt.';
 $string['usecompression'] = 'Komprimierung benutzen';
 $string['usecompression_help'] = '(De-)Aktiviert die Kompression für die Ladelast. Nach der Aktivierung werden Werte, die eine definierte Grenzgröße (derzeit 100 Bytes) übersteigen, beim Speichern komprimiert und beim Aufruf transparent dekomprimiert.';
 $string['useserialiser'] = 'Serialiser verwenden';

@@ -27,9 +27,12 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['eventcomponent'] = 'Osagaia';
 $string['eventcontext'] = 'Testuingurua';
+$string['eventloggedas'] = '{$a->realusername} {$a->asusername} gisa';
 $string['eventorigin'] = 'Jatorria';
 $string['livelogs'] = 'Azken orduko agerraldiak zuzenean';
 $string['loglive:view'] = 'Ikusi une honetako agerraldiak';
 $string['nologreaderenabled'] = 'Agerraldien irakurlea gaitu da';
+$string['pause'] = 'Gelditu une honetako eguneraketak';
 $string['pluginname'] = 'Une honetako agerraldiak';
+$string['resume'] = 'Jarraitu erakusten une honetako eguneraketak';
 $string['selectlogreader'] = 'Aukeratu agerraldi-irakurlea';

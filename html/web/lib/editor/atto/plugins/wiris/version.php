@@ -14,11 +14,20 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Version details.
+ *
+ * @package    atto
+ * @subpackage wiris
+ * @copyright  Maths for More S.L. <info@wiris.com>
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version   = 2016080200;
-$plugin->release = '3.59.1.1310';
+$plugin->version   = 2017030900;
+$plugin->release = '4.1.1.1361';
 $plugin->requires  = 2014050800;
 $plugin->component = 'atto_wiris';
-$plugin->dependencies = array ('filter_wiris' => 2016080200);
+$plugin->dependencies = array ('filter_wiris' => 2017030900);
 $plugin->maturity = MATURITY_STABLE;

@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['actauthhdr'] = 'Connectors d\'autenticació disponibles';
 $string['allowaccountssameemail'] = 'Permet comptes amb el mateix correu';
 $string['allowaccountssameemail_desc'] = 'Si s\'habilita, diversos comptes d\'usuari podran tenir el mateix correu electrònic. Això pot donar lloc a problemes de seguretat o privacitat, per exemple, amb el correu electrònic de confirmació de canvi de contrasenya.';
-$string['alternatelogin'] = 'Si introduïu un URL aquí, s\'utilitzarà com a pàgina d\'inici de sessió d\'aquest lloc. Aquesta pàgina hauria de contenir un formulari, amb la propietat «action» igual a <strong>{$a}</strong> i que camps de retorn <strong>username</strong> i <strong>password</strong>.<br />Tingueu cura de no escriure un URL incorrecte, ja que podríeu impedir l\'entrada dels usuaris en aquest lloc.<br />Si deixeu en blanc aquest paràmetre s\'utilitzarà la pàgina d\'inici de sessió per defecte.';
+$string['alternatelogin'] = 'Si introduïu un URL aquí, s\'utilitzarà com a pàgina d\'inici de sessió d\'aquest lloc. Aquesta pàgina hauria de contenir un formulari, amb la propietat «action» igual a <strong>{$a}</strong> i els camps de retorn <strong>username</strong> i <strong>password</strong>.<br />Tingueu cura de no escriure un URL incorrecte, ja que podríeu impedir l\'entrada dels usuaris en aquest lloc.<br />Si deixeu en blanc aquest paràmetre s\'utilitzarà la pàgina d\'inici de sessió per defecte.';
 $string['alternateloginurl'] = 'URL d\'inici de sessió alternatiu';
 $string['auth_changepasswordhelp'] = 'Ajuda de canvi de contrasenya';
 $string['auth_changepasswordhelp_expl'] = 'Mostra l\'ajuda de canvi de contrasenya als usuaris que hagin oblidat la contrasenya {$a}. Aquest ajuda es visualitzarà en lloc de o a més a més de l\'<strong>URL de canvi de contrasenya</strong> o el canvi de contrasenya intern de Moodle.';
@@ -46,7 +46,7 @@ $string['authinstructions'] = 'Deixeu aquest camp en blanc si voleu mostrar les 
 $string['auth_invalidnewemailkey'] = 'Error: si esteu intentant confirmar un canvi d\'adreça de correu, probablement heu copiat malament l\'enllaç que us hem enviat. Copieu l\'enllaç complet i torneu a intentar-ho.';
 $string['authloginviaemail'] = 'Permet l\'inici de sessió mitjançant el correu electrònic';
 $string['authloginviaemail_desc'] = 'Permet als usuaris utilitzar indistintament el nom d\'usuari i l\'adreça electrònica (mentre sigui única) per iniciar la sessió.';
-$string['auth_multiplehosts'] = 'Podeu especificar diversos ordinadors (p. e. host1.com; host2.com; host3.com)';
+$string['auth_multiplehosts'] = 'Podeu especificar diversos ordinadors (p. e.: host1.com; host2.com; host3.com)';
 $string['auth_notconfigured'] = 'El mètode d\'autenticació {$a} no està configurat.';
 $string['auth_outofnewemailupdateattempts'] = 'Heu esgotat els intents d\'actualització de la vostra adreça de correu electrònic. La vostra sol·licitud s\'ha cancel·lat.';
 $string['auth_passwordisexpired'] = 'La vostra contrasenya ha caducat. Voleu canviar-la ara?';

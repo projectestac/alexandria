@@ -30,7 +30,7 @@ $string['clicktoopen'] = 'Sakatu {$a} estekari baliabidea irekitzeko.';
 $string['configdisplayoptions'] = 'Aukeratu eskuragarri egon behar duten aukera guztiak, dauden ezarpenak ez dira aldatuko. CTRL tekla erabili hainbat eramu aukeratzeko.';
 $string['configframesize'] = 'Web-orri bat edo eguneratutako fitxategia markorik gabe erakusten denean, balore honek adierazten du markoaren gainaren (nabigazioa duena) altuera (pixeletan).';
 $string['configrolesinparams'] = 'Gaitu eskuragarri dauden parametro-aldagaien zerrendan lokalizatutako rol-izenak sartu nahi badituzu.';
-$string['configsecretphrase'] = 'Hainbat zerbitzarira parametro gisa bidal daitekeen enkriptatutako kode-balorea sortzeko erabiltzen da ezkutuko esaldi hau. Enkriptatutako kodea oraingo erabiltzailearen IP helbidearen md5 balorearen bitartez sortzen da, atzetik zure ezkutuko esaldia duela. Hau da, kodea = md5(IP.secretphrase). Mesedez, ohartu ez dela fidagarria IP helbidea aldatu egin daitekeelako eta sarri hainbat ordenagailuk konpartitzen dutelako.';
+$string['configsecretphrase'] = 'Hainbat zerbitzarira parametro gisa bidal daitekeen zifratutako kode-balorea sortzeko erabiltzen da ezkutuko esaldi hau. Zifratutako kodea oraingo erabiltzailearen IP helbidearen md5 balorearen bitartez sortzen da, atzetik zure ezkutuko esaldia duela. Hau da, kodea = md5(IP.secretphrase). Mesedez, ohartu ez dela fidagarria IP helbidea aldatu egin daitekeelako eta sarri hainbat ordenagailuk konpartitzen dutelako.';
 $string['contentheader'] = 'Edukia';
 $string['createurl'] = 'Sortu URL bat';
 $string['displayoptions'] = 'Eskura dauden erakusteko aukerak';
@@ -66,7 +66,7 @@ $string['popupheightexplain'] = 'Zehaztu zabaltzen den leihoaren berezko altuera
 $string['popupwidth'] = 'Pop-up-aren zabalera (pixeletan)';
 $string['popupwidthexplain'] = 'Zehaztu zabaltzen den leihoaren berezko zabalera.';
 $string['printintro'] = 'Erakutsi URLaren deskribapena';
-$string['printintroexplain'] = 'Erakutsi URL izena edukiaren azpian? Erakusteko hainbat motak ez dute erakusten URL izena nahiz eta gaituta egon.';
+$string['printintroexplain'] = 'Erakutsi URL izena edukiaren azpian? Erakusteko hainbat motek ez dute erakusten URL izena nahiz eta gaituta egon.';
 $string['rolesinparams'] = 'Sartu rol-izenak parametroetan';
 $string['search:activity'] = 'URLa';
 $string['serverurl'] = 'Zerbitzariaren URLa';

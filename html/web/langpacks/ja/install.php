@@ -174,7 +174,7 @@ $string['pathssubdataroot'] = '<p>ユーザによってアップロードされ�
 <p>ウェブからは直接アクセスできないようにしてください。</p>
 <p>現在ディレクトリが存在しない場合、インストレーションプロセスは作成を試みます。</p';
 $string['pathssubdirroot'] = '<p>Moodleコードを含むディレクトリに関するフルパスです。</p>';
-$string['pathssubwwwroot'] = '<p>Moodleにアクセスすることのできるフルウェブアドレスです。例えば、ユーザがブラウザのアドレスバーに入力してMoodleにアクセスするためのアドレスです。</p>
+$string['pathssubwwwroot'] = '<p>Moodleにアクセスすることのできるフルウェブアドレスです。例えばユーザがブラウザのアドレスバーに入力してMoodleにアクセスするためのアドレスです。</p>
 
 <p>複数アドレスを使用してMoodleにアクセスすることはできません。あなたのサイトに複数アドレスからアクセスできる場合、最も簡単なアドレスを選択して、すべてのアドレスにパーマネントリダイレクトを設定してください。</p>
 
@@ -186,11 +186,9 @@ $string['pathswrongadmindir'] = 'adminディレクトリがありません。';
 $string['pgsqlextensionisnotpresentinphp'] = 'PHPのPGSQL拡張モジュールが適切に設定されていないため、PostgreSQLと通信できません。あなたのphp.iniファイルをチェックするか、PHPを再コンパイルしてください。';
 $string['phpextension'] = '{$a} PHP拡張モジュール';
 $string['phpversion'] = 'PHPバージョン';
-$string['phpversionhelp'] = '<p>Moodleには少なくとも4.3.0または5.1.0のPHPバージョンが必要です (5.0.x には既知の多数の問題があります)。</p>
-<p>現在、バージョン {$a} が動作しています。</p>
-<p>PHPをアップグレードするか、新しいバージョンがインストールされているホストに移動してください!<br />
-(5.0.x の場合、anataha
-バージョン 4.4.x にダウングレードすることもできます。)</p>';
+$string['phpversionhelp'] = '<p>Moodleには少なくとも5.4.4のPHPバージョンが必要です (7.x にはエンジンの制限があります)。</p>
+<p>現在、あなたはバージョン {$a} を動作させています。</p>
+<p>PHPをアップグレードするか新しいバージョンのPHPがインストールされているホストに移動する必要があります。</p>';
 $string['releasenoteslink'] = 'このバージョンのMoodleの情報に関して、{$a} のリリースノートをご覧ください。';
 $string['safemode'] = 'セーフモード';
 $string['safemodeerror'] = 'セーフモードが有効の場合、Moodleに問題が発生する場合があります。';

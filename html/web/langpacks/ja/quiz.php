@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['accessnoticesheader'] = 'あなたはこの小テストをプレビューすることができます。しかし、これが本当の受験の場合、あなたは次の理由でブロックされます:';
 $string['action'] = '操作';
-$string['activityoverview'] = 'あなたには期限の到来した小テストがあります。';
+$string['activityoverview'] = 'あなたには期限のある小テストがあります。';
 $string['adaptive'] = 'アダプティブモード';
 $string['adaptive_help'] = 'この設定を有効にした場合、小テストを受験している最中でも複数回解答することができます。例えば解答が間違っている場合、学生はすぐに解答しなおすことが許されます。しかし、「ペナルティを適用する」設定に基づき、通常間違った解答ごとに評点からペナルティが引かれます。';
 $string['add'] = '追加';
@@ -108,8 +108,8 @@ $string['attemptsonly'] = '受験済みの学生のみ表示する';
 $string['attemptstate'] = '状態';
 $string['attemptstillinprogress'] = '進行中の受験';
 $string['attemptsunlimited'] = '無制限';
-$string['autosaveperiod'] = '自動保存遅延';
-$string['autosaveperiod_desc'] = '小テスト受験中、自動的に解答を保存することができます。解答が修正された時点でいつでもこの遅延の後に保存されます。トレードオフ: 遅延を短くすることにより、サーバ負荷は増加しますが学生が作業を失う可能性を減らします。この遅延をさらに短くしたい場合、あなたは徐々に値を修正してサーバ負荷をモニタすべきです。サーバ負荷が高くなりすぎた場合、再度遅延を長くしてください。 ゼロを設定することにより、自動保存を無効にします。';
+$string['autosaveperiod'] = 'オートセーブ遅延';
+$string['autosaveperiod_desc'] = '小テスト受験中、自動的に解答を保存することができます。解答が修正された時点でいつでもこの遅延の後に保存されます。トレードオフ: 遅延を短くすることにより、サーバ負荷は増加しますが学生が作業を失う可能性を減らします。この遅延をさらに短くしたい場合、あなたは徐々に値を修正してサーバ負荷をモニタすべきです。サーバ負荷が高くなりすぎた場合、再度遅延を長くしてください。 ゼロを設定することにより、オートセーブ無効にします。';
 $string['back'] = '問題のプレビューに戻る';
 $string['backtocourse'] = 'コースに戻る';
 $string['backtoquestionlist'] = '問題リストに戻る';
@@ -148,10 +148,10 @@ $string['cannotwrite'] = 'エクスポートファイル ({$a}) を書き込め�
 $string['canredoquestions'] = '受験内でのやり直しを許可する';
 $string['canredoquestions_desc'] = 'この設定を有効にした場合、学生が特定の問題の受験を終了した時点で「問題をやり直す」ボタンが表示されます。これにより、小テストの受験すべてを送信せずに、また別の小テストを開始せずに別バージョンの同一問題を受験することができるようなります。このオプションは主に練習問題に有用です。
 
-この設定は問題 (例えば「作文問題」) および動作 (例えば、「即時フィードバック」または「複数受験インタラクティブ」) のみに影響します。学生は受験が送信される前に問題を終了することができます。';
+この設定は問題 (例えば「作文問題」) および動作 (例えば「即時フィードバック」または「複数受験インタラクティブ」) のみに影響します。学生は受験が送信される前に問題を終了することができます。';
 $string['canredoquestions_help'] = 'この設定を有効にした場合、学生が特定の問題の受験を終了した時点で「問題をやり直す」ボタンが表示されます。これにより、小テストの受験すべてを送信せずに、また別の小テストを開始せずに別バージョンの同一問題を受験することができるようになります。このオプションは主に練習問題に有用です。
 
-この設定は問題 (例えば「作文問題」) および動作 (例えば、「即時フィードバック」または「複数受験インタラクティブ」) のみに影響します。学生は受験が送信される前に問題を終了することができます。';
+この設定は問題 (例えば「作文問題」) および動作 (例えば「即時フィードバック」または「複数受験インタラクティブ」) のみに影響します。学生は受験が送信される前に問題を終了することができます。';
 $string['canredoquestionsyes'] = '学生は終了した問題の別バージョンをやり直すことができる';
 $string['caseno'] = 'いいえ、文字の大小は重要ではありません。';
 $string['casesensitive'] = '大文字小文字の区別';
@@ -204,7 +204,7 @@ $string['confirmclose'] = '送信した場合、この受験に関して、こ�
 $string['confirmremovequestion'] = '本当にこの {$a} 問題を削除してもよろしいですか?';
 $string['confirmremovesectionheading'] = '本当に「 {$a} 」セクションヘッディングを削除してもよろしいですか?';
 $string['confirmserverdelete'] = '本当にサーバ <b>{$a}</b> をリストから削除してもよろしいですか?';
-$string['connectionerror'] = 'ネットワークコネクションが切断されました (自動保存失敗)。
+$string['connectionerror'] = 'ネットワークコネクションが切断されました (オートセーブ失敗)。
 
 このページで入力した最後の数分間の解答をメモした後、再接続を試みてください。
 
@@ -258,7 +258,7 @@ $string['deletingquestionattempts'] = '問題受験結果の削除';
 $string['description'] = '説明';
 $string['disabled'] = '無効';
 $string['displayoptions'] = '表示オプション';
-$string['donotuseautosave'] = '自動保存を使用しない';
+$string['donotuseautosave'] = 'オートセーブを使用しない';
 $string['download'] = 'エクスポートしたカテゴリファイルをダウンロードする';
 $string['downloadextra'] = '(ファイルはコースファイル内の/backupdata/quizフォルダにも保存されます。)';
 $string['dragtoafter'] = '{$a} の後';
@@ -391,6 +391,8 @@ $string['grademethod_help'] = '複数回の受験が許可されている場合�
 * 前回の受験 (他のすべての受験は無視されます)';
 $string['gradesdeleted'] = '小テストの評定が削除されました。';
 $string['gradesofar'] = '{$a->method}: {$a->mygrade} / {$a->quizgrade}';
+$string['gradetopassmustbeset'] = 'この小テストには完了方法に「合格点を必要とする」が設定されているため、合格点をゼロにすることはできません。ゼロ以外の値を設定してください。';
+$string['gradetopassnotset'] = 'この小テストには合格点が設定されていないため、あなたはこのオプションを使用することはできません。代わりに「評定を必要とする」設定を使用してください。';
 $string['gradingdetails'] = 'この解答の評点: {$a->raw}/{$a->max}';
 $string['gradingdetailsadjustment'] = '前のペナルティにより <strong>{$a->cur}/{$a->max}</strong> に調整されます。';
 $string['gradingdetailspenalty'] = 'この解答のペナルティ: {$a}';
@@ -622,9 +624,9 @@ $string['questionbankmanagement'] = '問題バンク管理';
 $string['questionbehaviour'] = '問題の挙動';
 $string['questioncats'] = '問題カテゴリ';
 $string['questiondeleted'] = 'この問題は削除されました。あなたの先生に連絡してください。';
-$string['questiondependencyadd'] = '問題「 {$a->thisq} 」を受験できる場合、制限はありません。変更するにはクリックしてください。';
+$string['questiondependencyadd'] = '問題「 {$a->thisq} 」を受験できる場合の制限はありません。変更するにはクリックしてください。';
 $string['questiondependencyfree'] = 'この問題には制限はありません。';
-$string['questiondependencyremove'] = '前の問題「  {$a->previousq} 」を完了するまで、問題「 {$a->thisq} 」を受験することはできません。 変更するにはクリックしてください。';
+$string['questiondependencyremove'] = '前の問題「  {$a->previousq} 」を完了するまで問題「 {$a->thisq} 」を受験することはできません。 変更するにはクリックしてください。';
 $string['questiondependsonprevious'] = 'この問題は前の問題を完了するまで受験することができません。';
 $string['questioninuse'] = '問題「 {$a->questionname} 」は現在使用されています: <br />{$a->quiznames}<br />問題はこれらの小テストから削除されませんが、カテゴリ一覧からのみ削除されます。';
 $string['questionmissing'] = 'このセッションの問題がありません。';
@@ -741,7 +743,7 @@ $string['reportuserswith'] = '小テストを受験したことのある登録�
 $string['reportuserswithorwithout'] = '小テストを受験したことのある、または受験したことのない登済みユーザ';
 $string['reportuserswithout'] = '小テストを受験したことのない登録済みユーザ';
 $string['reportwhattoinclude'] = 'レポートに含む内容';
-$string['requirepassword'] = 'パスワード必須';
+$string['requirepassword'] = 'パスワードを要求する';
 $string['requirepassword_help'] = 'ここにパスワードを設定した場合、参加者は小テストを受ける前に同じパスワードを入力する必要があります。';
 $string['requiresubnet'] = 'ネットワークアドレス';
 $string['requiresubnet_help'] = 'LAN上の特定のサブネットまたはインターネットから小テストへのアクセスをカンマで区切った部分的または完全なIPアドレスで制限することができます。これは特に特定の部屋の人のみ小テストにアクセスすることができる試験監督付き小テストの実施に有用です。';

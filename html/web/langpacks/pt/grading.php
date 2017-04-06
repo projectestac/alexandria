@@ -31,7 +31,7 @@ $string['changeactivemethod'] = 'Alterar o método de avaliação ativo para';
 $string['clicktoclose'] = 'clique para fechar';
 $string['exc_gradingformelement'] = 'Não é possível instanciar o elemento da grelha de avaliação';
 $string['formnotavailable'] = 'O Método de avaliação avançado foi selecionado para ser usado no Trabalho mas a grelha de avaliação ainda não se encontra definida. Poderá ser necessário editá-la primeiro a partir da respetiva opção no bloco Administração.';
-$string['gradingformunavailable'] = 'Atenção: a grelha de avaliação ainda não se encontra configurada. Será usado o método de avaliação simples direta até que a grelha esteja configurada.';
+$string['gradingformunavailable'] = 'Atenção: a grelha de avaliação ainda não está configurada. Será usado o método de avaliação simples direta até que a grelha esteja configurada.';
 $string['gradingmanagement'] = 'Método de avaliação avançado';
 $string['gradingmanagementtitle'] = 'Método de avaliação avançado: {$a->component} ({$a->area})';
 $string['gradingmethod'] = 'Método de avaliação';
@@ -46,9 +46,9 @@ $string['manageactiondeleteconfirm'] = 'Está prestes a apagar a grelha \'{$a->f
 
 * Não existe forma de voltar atrás após esta operação.
 * Pode alterar para outro método de avaliação incluindo o \'Avaliação simples direta\' sem apagar esta grelha.
-* Todas as informações sobre como as grelhas de avaliação estão preenchidos serão perdidas.
+* Todas as informações sobre como as grelhas de avaliação estão preenchidas serão perdidas.
 * Os resultados guardados na pauta não serão afetados. No entanto, a explicação de como foram calculados não estará disponível.
-* Esta operação não afetará eventuais  cópias desta grelha noutras atividades.';
+* Esta operação não afetará eventuais cópias desta grelha noutras atividades.';
 $string['manageactiondeletedone'] = 'A grelha foi apagado com sucesso';
 $string['manageactionedit'] = 'Editar as definições da grelha';
 $string['manageactionnew'] = 'Criar nova grelha de avaliação';
@@ -57,7 +57,7 @@ $string['manageactionshareconfirm'] = 'Está prestes a guardar uma cópia da gre
 $string['manageactionsharedone'] = 'A grelha de avaliação foi guardada com sucesso como modelo.';
 $string['noitemid'] = 'A avaliação não é possivel, o item de avaliação não existe.';
 $string['nosharedformfound'] = 'Não foram encontrados modelos';
-$string['searchownforms'] = 'incluindo as minhas grelhas';
+$string['searchownforms'] = 'incluir as minhas grelhas';
 $string['searchtemplate'] = 'Pesquisar grelhas de avaliação';
 $string['searchtemplate_help'] = 'Pode pesquisar por uma grelha de avaliação e usá-la aqui como modelo a partir da nova grelha de avaliação. Basta inserir as palavras que devem aparecer em algum lugar no nome da grelha, na sua descrição ou no próprio corpo da grelha. Para pesquisar uma frase, insira a expressão inteira entre aspas.
 
@@ -68,7 +68,7 @@ $string['templatedelete'] = 'Apagar';
 $string['templatedeleteconfirm'] = 'Está prestes a apagar a grelha partilhada \'{$a}\'. Apagar um modelo não afeta as grelhas existentes que foram criados a partir dele.';
 $string['templateedit'] = 'Editar';
 $string['templatepick'] = 'Usar este modelo';
-$string['templatepickconfirm'] = 'Deseja usar a grelha de avaliação \'{$a->formname}\' como modelo para a nova grelha em \'{$a->component} ({$a->area})\'?';
+$string['templatepickconfirm'] = 'Pretende usar a grelha de avaliação \'{$a->formname}\' como modelo para a nova grelha em \'{$a->component} ({$a->area})\'?';
 $string['templatepickownform'] = 'Usar esta grelha como modelo';
 $string['templatesource'] = 'Localização: {$a->component} ({$a->area})';
 $string['templatetypeown'] = 'Grelha próprio';

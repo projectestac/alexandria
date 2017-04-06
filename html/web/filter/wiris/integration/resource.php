@@ -1,11 +1,10 @@
 <?php
-
 // ${license.statement}
+require_once ('pluginbuilder.php');
 
-require_once 'pluginbuilder.php';
+$provider = $pluginBuilder->getCustomParamsProvider();
+$resource = $provider->getRequiredParameter('resourcefile');
 
-$PARAMS = array_merge($_GET, $_POST);
 $resourceLoader = $pluginBuilder->newResourceLoader();
-$resource = $PARAMS['resourcefile'];
 header('Content-Type:' . $resourceLoader->getContentType($resource));
 echo $resourceLoader->getcontent($resource);

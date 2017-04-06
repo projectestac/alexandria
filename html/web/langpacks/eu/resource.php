@@ -54,7 +54,7 @@ $string['displayselect_help'] = 'Ezarpen honek, fitxategi-mota kontuan hartuta e
 * Markoan - Fitxategia marko baten barruan erakutsiko da, nabigazio-barraren eta fitxategiaren deskribapenaren azpian.
 * Leiho berria - Fitxategia web-nabigatzailearen leiho berri batean erakutsiko da, menuekin eta nabigazio-barrarekin.';
 $string['dnduploadresource'] = 'Sortu fitxategia izeneko baliabidea';
-$string['encryptedcode'] = 'Kode enkriptatua';
+$string['encryptedcode'] = 'Kode zifratua';
 $string['filenotfound'] = 'Ez da fitxategia aurkitu, barkatu.';
 $string['filterfiles'] = 'Fitxategiaren edukian iragazkiak erabili ';
 $string['filterfilesexplain'] = 'Aukeratu fitxategien edukiko iragazki mota; kontuan izan honek Flash eta Java applet-etan arazoak eragin ditzakela. Ziurtatu mesedez testu-fitxategi guztiek UTF-8 kodeaketa dutela.';
@@ -64,7 +64,7 @@ $string['framesize'] = 'Markoaren altuera';
 $string['legacyfiles'] = 'Ikastaro-fitxategi zaharraren migrazioa';
 $string['legacyfilesactive'] = 'Aktiboa';
 $string['legacyfilesdone'] = 'Amaituta';
-$string['modifieddate'] = '{$a} aldatu da';
+$string['modifieddate'] = 'Aldatze-data: {$a}';
 $string['modulename'] = 'Fitxategia';
 $string['modulename_help'] = 'Fitxategia baliabideari esker irakasleak fitxategi bat ikastaroko baliabide gisa eskuragarri jar  dezakegu. Posiblea denean fitxategia ikastaroaren interfazearen barruan erakutsiko da; bestela ikasleei fitxategia jaisteko mezu bat agertuko zaie. Fitxategiak fitxategi lagungarriak izan ditzake,  irudiak edo Flash objektuak txertaturik dituzten HTML orriak adibidez.
 
@@ -101,6 +101,9 @@ $string['search:activity'] = 'Fitxategia';
 $string['selectmainfile'] = 'Aukeratu mesedez fitxategi nagusia fitxategiaren izenaren ondoan dagoen ikonoan klik eginda.';
 $string['showdate'] = 'Erakutsi igotako/aldatutako data';
 $string['showdate_desc'] = 'Erakutsi igotako/aldatutako data ikastaroaren orrian?';
+$string['showdate_help'] = 'Igoera/aldatze data fitxategiaren estekaren ondoan erakusten du.
+
+Baliabidean fitxategi anitz badago, hasierako fitxategiaren igoera/aldatze data erakutsiko da.';
 $string['showsize'] = 'Erakutsi tamaina';
 $string['showsize_desc'] = 'Fitxategiaren tamaina ikastaroaren orrian erakutsi?';
 $string['showsize_help'] = 'Fitxategiaren tamaina erakusten du, \'3,1MB\' adibidez, fitxategiaren estekaren ondoan.
@@ -113,4 +116,4 @@ $string['showtype_help'] = 'Fitxategi-mota erakusten du, \'PDF dokumentua\' adib
 Baliabidean fitxategi bat baino gehiago badaude, fitxategi nagusiarena erakutsiko da.
 
 Sistemak fitxategi-mota ezagutzen ez badu, ez du erakutsiko.';
-$string['uploadeddate'] = '{$a} igo da';
+$string['uploadeddate'] = 'Igoera-data: {$a}';

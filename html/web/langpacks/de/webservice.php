@@ -73,7 +73,7 @@ $string['editservice'] = 'Service bearbeiten: {$a->name} (id: {$a->id})';
 $string['enabled'] = 'Aktiviert';
 $string['enabledocumentation'] = 'Entwicklerdokumentation aktivieren';
 $string['enabledocumentationdescription'] = 'Eine ausführliche Webservicedokumentation ist für die aktivierten Protokolle verfügbar.';
-$string['enablemobilewsoverview'] = 'Öffnen Sie die Seite {$a->manageservicelink}. Haken Sie die Einstellung \'{$a->enablemobileservice}\' an. Alle weiteren Einstellungen werden automatisch gesetzt.
+$string['enablemobilewsoverview'] = 'Öffnen Sie die Seite {$a->manageservicelink} und aktivieren Sie die Einstellung \'{$a->enablemobileservice}\'. Alle weiteren Einstellungen werden automatisch gesetzt, um die Moodle Mobile App verwenden zu können.
 
 Status: {$a->wsmobilestatus}';
 $string['enableprotocols'] = 'Protokolle aktivieren';
@@ -139,9 +139,9 @@ $string['nofunctions'] = 'Dieser Service hat keine Funktion.
 ';
 $string['norequiredcapability'] = 'Keine notwendige Rechte';
 $string['notoken'] = 'Sie haben kein Token erstellt.';
-$string['onesystemcontrolling'] = 'Externem System die Kontrolle über Moodle erlauben';
+$string['onesystemcontrolling'] = 'Externem System die Kontrolle erlauben';
 $string['onesystemcontrollingdescription'] = 'Die folgenden Schritte helfen Ihnen, den Webservice für ein externes System zu konfigurieren, das mit Moodle Daten austauscht. Dabei wird auch das Erzeugen des Token (Sicherheitsschlüssel) zur Authentifizierung gezeigt.';
-$string['operation'] = 'Betrieb';
+$string['operation'] = 'Vorgang';
 $string['optional'] = 'Optional';
 $string['passwordisexpired'] = 'Das Kennwort ist abgelaufen';
 $string['phpparam'] = 'XMLRPC (PHP-Struktur)';

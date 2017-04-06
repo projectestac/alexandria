@@ -390,6 +390,8 @@ $string['grademethod_help'] = 'Quando sono consentiti più tentativi di risposta
 * Ultimo tentativo (i voti ottenuti negli altri tentativi non sono presi in considerazione)';
 $string['gradesdeleted'] = 'Valutazioni quiz cancellate';
 $string['gradesofar'] = '<b>{$a->method}: {$a->mygrade} / {$a->quizgrade}</b>.';
+$string['gradetopassmustbeset'] = 'La sufficienza non può essere zero poiché il completamento del quiz è impostato per richiedere la sufficienza. Per favore imposta un valore diverso da zero.';
+$string['gradetopassnotset'] = 'Il quiz non ha una sufficienza impostata e quindi non è possibile utilizzare questa opzione. E\' possibile utilizzare "Lo studente deve ricevere una valutazione".';
 $string['gradingdetails'] = 'Punteggi di questo invio: {$a->raw}/{$a->max}.';
 $string['gradingdetailsadjustment'] = 'Tenendo conto delle penalità  precedenti, questo dà  <strong>{$a->cur}/{$a->max}</strong>.';
 $string['gradingdetailspenalty'] = 'Questo invio ha ricevuto una penalità  di {$a}.';
@@ -796,7 +798,7 @@ $string['savingnewgradeforquestion'] = 'Salvataggio della nuovo voto della doman
 $string['savingnewmaximumgrade'] = 'Salvataggio del nuovo punteggio massimo';
 $string['score'] = 'Valutazione grezza';
 $string['scores'] = 'Valutazioni';
-$string['search:activity'] = 'Quiz - Informazioni sull\'attiivtà';
+$string['search:activity'] = 'Quiz - Informazioni sull\'attività';
 $string['sectionheadingedit'] = 'Modifica intestazione \'{$a}\'';
 $string['sectionheadingremove'] = 'Elimina intestazione \'{$a}\'';
 $string['seequestions'] = '(Visualizza domande)';

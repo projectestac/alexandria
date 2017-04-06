@@ -69,7 +69,7 @@ $string['averageattempt'] = 'Média das tentativas';
 $string['badarchive'] = 'Tem de fornecer um ficheiro zip válido';
 $string['badimsmanifestlocation'] = 'Foi encontrado um ficheiro \'imsmanifest.xml\', mas não na raiz do seu ficheiro zip. Por favor, gere um novo pacote SCORM.';
 $string['badmanifest'] = 'Erros no manifesto: ver o registo de erros';
-$string['browse'] = 'Pré-visualizar';
+$string['browse'] = 'Pré-visualização';
 $string['browsed'] = 'Consultado';
 $string['browsemode'] = 'Modo de pré-visualização';
 $string['browserepository'] = 'Pesquisar repositório';
@@ -98,9 +98,9 @@ $string['defaultdisplaysettings'] = 'Configurações de exibição predefinidas'
 $string['defaultgradesettings'] = 'Configurações das notas predefinidas';
 $string['defaultothersettings'] = 'Outras configurações predefinidas';
 $string['deleteallattempts'] = 'Apagar todas as tentativas de realização do SCORM';
-$string['deleteattemptcheck'] = 'Tem a certeza que deseja apagar estas tentativas?';
+$string['deleteattemptcheck'] = 'Tem a certeza que pretende apagar estas tentativas?';
 $string['deleteselected'] = 'Apagar as tentativas selecionadas';
-$string['deleteuserattemptcheck'] = 'Tem a certeza absoluta de que quer apagar completamente todas as suas tentativas?';
+$string['deleteuserattemptcheck'] = 'Tem a certeza absoluta de que pretende apagar completamente todas as suas tentativas?';
 $string['details'] = 'Detalhe do percurso';
 $string['directories'] = 'Mostrar hiperligações para pastas';
 $string['disabled'] = 'Desativada';
@@ -182,7 +182,7 @@ $string['height'] = 'Altura';
 $string['hidden'] = 'Oculto';
 $string['hidebrowse'] = 'Desativar modo de pré-visualização';
 $string['hidebrowsedesc'] = 'O modo de pré-visualização permite que o aluno navegue na atividade antes de iniciar a sua tentativa de realização.';
-$string['hidebrowse_help'] = 'O modo de pré-visualização permite ao aluno ver a atividade antes de efetuar uma tentativa de realização. Se este modo estiver desativado, o botão de pré-visualização não é disponibilizado.';
+$string['hidebrowse_help'] = 'O modo de pré-visualização permite ao aluno ver a atividade antes de efetuar uma tentativa de realização. Se este modo estiver desativado, o botão de pré-visualização não está disponível.';
 $string['hideexit'] = 'Ocultar hiperligação de saída';
 $string['hidereview'] = 'Ocultar botão de revisão';
 $string['hidetoc'] = 'Exibir a tabela de conteúdos na página do SCORM';
@@ -206,9 +206,9 @@ $string['lastattemptlock'] = 'Bloquear após tentativa final';
 $string['lastattemptlockdesc'] = 'Se ativar esta opção, o aluno é impedido de abrir a janela de reprodução do SCORM depois de usar todas as tentativas que lhe foram permitidas.';
 $string['lastattemptlock_help'] = 'Se ativar esta opção, o aluno é impedido de aceder ao SCORM após atingir o número de tentativas permitidas.';
 $string['location'] = 'Mostrar barra de endereço';
-$string['masteryoverride'] = 'A nota para passar sobrepõe o estado do SCORM';
-$string['masteryoverridedesc'] = 'Esta preferência define o valor predefinido da sobreposição da nota para passar sobre o estado do SCORM';
-$string['masteryoverride_help'] = 'Se ativar esta opção e se for disponibilizada uma nota para passar, quando o LMSFinish é chamado e é devolvido um total da atividade, o estado do SCORM será recalculado utilizando a nota da atividade e a nota mínima para passar. Qualquer estado enviado pelo SCORM (incluindo o "incompleto") é sobreposto por este cálculo.';
+$string['masteryoverride'] = 'A nota de aprovação sobrepõe o estado do SCORM';
+$string['masteryoverridedesc'] = 'Esta preferência define o valor predefinido da sobreposição da nota de aprovação sobre o estado do SCORM';
+$string['masteryoverride_help'] = 'Se ativar esta opção e se for disponibilizada uma nota de aprovação, quando o LMSFinish é chamado e é devolvido um total da atividade, o estado do SCORM será recalculado utilizando a nota da atividade e a nota mínima para passar. Qualquer estado enviado pelo SCORM (incluindo o "incompleto") é sobreposto por este cálculo.';
 $string['max'] = 'Pontuação máxima';
 $string['maximumattempts'] = 'Número de tentativas';
 $string['maximumattemptsdesc'] = 'Esta opção define o valor predefinido para a configuração \'Número de tentativas';
@@ -284,7 +284,7 @@ $string['page-mod-scorm-x'] = 'Qualquer página da atividade SCORM';
 $string['pagesize'] = 'Tamanho da página';
 $string['passed'] = 'Com aprovação';
 $string['php5'] = 'PHP 5 (biblioteca DOMXML nativa)';
-$string['pluginadministration'] = 'Administração do pacote SCORM';
+$string['pluginadministration'] = 'Administração do Pacote SCORM';
 $string['pluginname'] = 'Pacote SCORM';
 $string['popup'] = 'Nova janela';
 $string['popuplaunched'] = 'Este Pacote SCORM foi carregado numa janela de pop-up, se já terminou de ver este conteúdo, clique aqui para voltar à página da disciplina.';
@@ -412,14 +412,13 @@ $string['viewallreports'] = 'Ver relatórios de {$a} tentativas';
 $string['viewalluserreports'] = 'Ver relatórios de {$a} utilizadores';
 $string['whatgrade'] = 'Avaliação das tentativas';
 $string['whatgradedesc'] = 'Caso sejam permitidas múltiplas tentativas, esta opção define como é obtida a nota da atividade que é exibida na pauta (Tentativa com melhor nota, Média das tentativas, Primeira tentativa ou Última tentativa concluída).';
-$string['whatgrade_help'] = 'Se forem permitidas múltiplas tentativas de realização, esta opção define se a nota da atividade corresponde à Tentativa com melhor nota, Média das tentativas, Primeira tentativa ou Última tentativa concluída. A opção "Ultima tentativa concluída" não inclui as tentativas com o estado \'Sem aproveitamento\'.
-
+$string['whatgrade_help'] = 'Se forem permitidas múltiplas tentativas de realização, esta opção define se a nota da atividade corresponde à Tentativa com melhor nota, Média das tentativas, Primeira tentativa ou Última tentativa concluída. A opção "Última tentativa concluída" não inclui as tentativas com o estado \'Sem aproveitamento\'.
 
 Notas sobre a gestão de Múltiplas Tentativas:
 
 * A possibilidade de iniciar nova tentativa é facultada através de uma caixa de seleção acima do botão \'Entrar\' na página com a tabela de conteúdos, por isso certifique-se de que permite o acesso a esta página se pretende permitir mais do que uma tentativa.
 
-* Alguns pacotes SCORM reconhecem as novas tentativas, outros não. Isto significa que se o aluno entra numa tentativa existente, e o pacote SCORM não possuir lógica interna para evitar a sobreposição dos dados anteriores,  estes poderão ser substituídos mesmo que à tentativa já tenha sido atribuído o estado \'completa\' ou \'com aprovação\'.
+* Alguns pacotes SCORM reconhecem as novas tentativas, outros não. Isto significa que se o aluno entra numa tentativa existente, e o pacote SCORM não possuir lógica interna para evitar a sobreposição dos dados anteriores, estes poderão ser substituídos mesmo que à tentativa já tenha sido atribuído o estado \'completa\' ou \'com aprovação\'.
 
 * As configurações "Forçar conclusão", "Forçar nova tentativa" e "Bloquear após tentativa final" também permitem gerir as definições das múltiplas tentativas.';
 $string['width'] = 'Largura';

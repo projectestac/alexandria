@@ -74,6 +74,7 @@ $string['addresource'] = 'Aggiungi una risorsa...';
 $string['addresourceoractivity'] = 'Aggiungi una attività o una risorsa';
 $string['addresourcetosection'] = 'Aggiungi una risorsa alla sezione \'{$a}\'';
 $string['address'] = 'Indirizzo';
+$string['addressedto'] = 'A';
 $string['addstudent'] = 'Aggiungi studente';
 $string['addsubcategory'] = 'Aggiungi una sotto categoria';
 $string['addteacher'] = 'Aggiungi docente';
@@ -466,6 +467,7 @@ $string['days'] = 'giorni';
 $string['decodinginternallinks'] = 'Decodifica collegamenti interni';
 $string['default'] = 'Default';
 $string['defaultcompetencescale'] = 'Scala di competenze di default';
+$string['defaultcompetencescaledesc'] = 'Una scala di valutazione binaria che indica solo se un utente ha dimostrato esperienza oppure no.';
 $string['defaultcompetencescalenotproficient'] = 'Non competente';
 $string['defaultcompetencescaleproficient'] = 'Competente';
 $string['defaultcoursestudent'] = 'Studente';
@@ -493,6 +495,7 @@ $string['deletechecktype'] = 'Sei sicuro di voler eliminare questo {$a->type}?';
 $string['deletechecktypename'] = 'Sei sicuro di voler eliminare questo {$a->type} "{$a->name}"?';
 $string['deletecheckwarning'] = 'Stai per eliminare questi file';
 $string['deletecomment'] = 'Elimina il commento';
+$string['deletecommentbyon'] = 'Elimina i commenti dell\'utente  {$a->user} effettuati il {$a->time}';
 $string['deletecompletely'] = 'Elimina completamente';
 $string['deletecourse'] = 'Elimina un corso';
 $string['deletecoursecheck'] = 'Sei sicuro di eliminare questo corso e tutti i dati che contiene?';
@@ -654,16 +657,12 @@ $string['emailpasswordchangeinfodisabled'] = 'Gentile {$a->firstname},
 
 è stata richiesta una nuova password per il tuo account su \'{$a->sitename}\'.
 
-Sfortunatamente il tuo account su questo sito è disabilitato e non può essere riabilitato.
-
-Se hai bisogno di aiuto, contatta l\'amministratore del sito: {$a->admin}';
+Sfortunatamente il tuo account su questo sito è disabilitato, pertanto la password non può essere reimpostata. Se hai bisogno di aiuto, contatta l\'amministratore del sito: {$a->admin}';
 $string['emailpasswordchangeinfofail'] = 'Gentile {$a->firstname},
 
 è stata richiesta una nuova password per il tuo account su \'{$a->sitename}\'.
 
-Purtroppo su questo sito le password non possono essere cambiate.
-
-Se hai bisogno di aiuto, contatta l\'amministratore del sito: {$a->admin}';
+Purtroppo su questo sito le password non possono essere cambiate.Se hai bisogno di aiuto, contatta l\'amministratore del sito: {$a->admin}';
 $string['emailpasswordchangeinfosubject'] = '{$a}: Informazioni su cambio password';
 $string['emailpasswordconfirmation'] = 'Gentile {$a->firstname},
 
@@ -745,6 +744,9 @@ $string['eventcoursesectionupdated'] = 'Aggiornata sezione corso';
 $string['eventcourseupdated'] = 'Aggiornato corso';
 $string['eventcourseuserreportviewed'] = 'Visualizzato report utente del corso';
 $string['eventcourseviewed'] = 'Visualizzato corso';
+$string['eventdashboardreset'] = 'Reimpostata dashboard';
+$string['eventdashboardsreset'] = 'Reimpostate dashboard';
+$string['eventdashboardviewed'] = 'Visualizzata dashboard';
 $string['eventemailfailed'] = 'Fallito invio email';
 $string['eventname'] = 'Evento';
 $string['eventrecentactivityviewed'] = 'Visualizzata attività recente';
@@ -1283,7 +1285,7 @@ $string['nopotentialcreators'] = 'Non ci sono possibili creatori di corsi';
 $string['nopotentialstudents'] = 'Non ci sono possibili studenti';
 $string['nopotentialteachers'] = 'Non ci sono potenziali docenti';
 $string['norecentactivity'] = 'Nessuna attività recente';
-$string['noreplybouncemessage'] = 'Hai risposto ad un indirizzo no-reply. Se stavi rispondendo ad un messaggio di un forum, dovresti usare il forum  {$a}.
+$string['noreplybouncemessage'] = 'Hai risposto ad un indirizzo no-reply. Se stavi rispondendo ad un messaggio di un forum, dovresti usare il forum {$a}.
 
 Questo è il messaggio che hai inviato:';
 $string['noreplybouncesubject'] = '{$a} - email ritornata';
@@ -1797,7 +1799,7 @@ $string['summary_help'] = '<p>Il sommario dell\'argomento o della settimana è u
 <p>Se nel sommario desideri utilizzare un testo più lungo, è forse preferibile
 valutare l\'utilizzo di una Risorsa, ad esempio chiamandola  "Contenuto dell\'argomento" che illustri l\'argomento stesso con maggiore dettaglio.</p>';
 $string['summaryof'] = 'Riassunto di {$a}';
-$string['supplyinfo'] = 'Inserisci i tuoi dati';
+$string['supplyinfo'] = 'Ulteriori dettagli';
 $string['suspended'] = 'Sospeso';
 $string['suspendedusers'] = 'Utente sospeso';
 $string['switchdevicedefault'] = 'Passa al tema standard';

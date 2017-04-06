@@ -38,10 +38,12 @@ $string['replicaset_help'] = 'El nom de la rèplica per connectar-si. Si això e
 $string['server'] = 'Servidor';
 $string['server_help'] = 'Aquesta és la cadena de connexió per al servidor que voleu utilitzar. Es poden especificar múltiples servidors utilitzant una llista separada per comes.';
 $string['testserver'] = 'Servidor de prova';
-$string['testserver_desc'] = 'Aquesta és la cadena de connexió per al servidor de prova que voleu utilitzar. Els servidors de prova són totalment opcionals, per especificar un servidor de prova es podeu executar proves PHPUnit d\'aquesta botiga i podeu executar les proves de rendiment.';
+$string['testserver_desc'] = 'Aquesta és la cadena de connexió per al servidor de prova que voleu utilitzar. Si s\'ha especificat un servidor de prova, aleshores el rendiment MongoDB es pot provar utilitzant la pàgina de rendiment de la memòria cau al bloc d\'administració.
+Per exemple:
+mongodb://127.0.0.1:27017';
 $string['username'] = 'Nom d\'usuari';
 $string['username_help'] = 'El nom d\'usuari a utilitzar quan es faci la connexió';
 $string['usesafe'] = 'Mode segur';
-$string['usesafe_help'] = 'Si s\'habilita l\'opció mode segur s\'utilitzarà durant les operacions d\'inserció, obtenció i supressió. Si heu especificat una rèplica aquesta es forçarà en qualsevol cas.';
+$string['usesafe_help'] = 'Si s\'habilita l\'opció mode segur s\'utilitzarà durant les operacions d\'inserció, obtenció i supressió. Si heu especificat una rèplica, aquesta es forçarà en qualsevol cas.';
 $string['usesafevalue'] = 'Useu el valor per al mode segur';
 $string['usesafevalue_help'] = 'Podeu optar per proporcionar un valor específic per a l\'ús del mode segur. Això determinarà el nombre de servidors i les operacions que s\'han de completar abans que es consideri que s\'ha completat.';

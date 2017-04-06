@@ -25,9 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['acohortroleassignmentssaved'] = '{$a} kohorteko rol-esleipenak gorde dira.';
 $string['assign'] = 'Esleitu';
+$string['assignroletocohort'] = 'Esleitu erabiltzaile-testuinguruaren rolak kohorteko partaide guztiei';
 $string['cohortroles'] = 'Kohorteko rolak';
 $string['managecohortroles'] = 'Gehitu erabiltzailea kohorte batera';
 $string['pluginname'] = 'Kohorteen rolen kudeaketa';
 $string['selectcohorts'] = 'Aukeratu kohorteak';
 $string['selectrole'] = 'Aukeratu rola';
+$string['selectusers'] = 'Aukeratu erabiltzaileak rola esleitzeko';

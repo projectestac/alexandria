@@ -51,6 +51,7 @@ $string['availabletags_help'] = '<p>Markak txantiloian dauden edukigailuak dira.
 <p>Botoien formatua hauxe da: ##botoiren bat##</p>
 <p>Bakarrik &quot;Marka eskuragarriak&quot; izeneko zerrendan dauden markak erabil daitezke txantiloi honetan.</p>';
 $string['availabletodate'] = 'Noiz arte eskuragarri';
+$string['availabletodatevalidation'] = 'Eskuragarri egoteko azken eguna ezin da hasiera baino lehenagokoa izan.';
 $string['blank'] = 'Hutsik';
 $string['buttons'] = 'Ekintzak';
 $string['bynameondate'] = 'Egilea eta data: {$a->name} - {$a->date}';
@@ -165,7 +166,7 @@ $string['failedpresetdelete'] = 'Errorea aurretiko ezarpena ezabatzean!';
 $string['fieldadded'] = 'Eremua gehitu da';
 $string['fieldallowautolink'] = 'Esteka automatikoa onartu da';
 $string['fielddeleted'] = 'Eremua ezabatu da';
-$string['fielddelimiter'] = 'Eremu-mugatzailea';
+$string['fielddelimiter'] = 'Eremu-bereizlea';
 $string['fielddescription'] = 'Eremuaren deskribapena';
 $string['fieldenclosure'] = 'Eremu-itxitura';
 $string['fieldheight'] = 'Altuera';
@@ -352,6 +353,7 @@ $string['savesettings'] = 'Konfigurazioa gorde';
 $string['savesuccess'] = 'Egoki gordeta. Zure aurretiko ezarpena eskuragarri dago orain gune osoan.';
 $string['savetemplate'] = 'Txantiloia gorde';
 $string['search'] = 'Bilatu';
+$string['search:activity'] = 'Datu-basea - jardueraren informazioa';
 $string['selectedrequired'] = 'Aukeratutako guztia beharrezkoa';
 $string['showall'] = 'Erakutsi sarrera guztiak';
 $string['single'] = 'Sarrera bakarra';
@@ -377,7 +379,7 @@ $string['uploadrecords'] = 'Datuak fitxategi batetik igo';
 $string['uploadrecords_help'] = 'Sarrerak testu-fitxategien bitartez igo daitezke. Fitxategiaren formatuak honelakoa izan behar du:
 
 * Fitxategiaren lerro bakoitzak erregistro bat dauka
-* Erregistro bakoitza komaz (edo beste mugatzaile batez) bereizitako datu-serie bat da
+* Erregistro bakoitza komaz (edo beste bereizle batez) bereizitako datu-serie bat da
 * Lehenengo erregistroak eremu-izenen zerrenda eduki behar du, eta fitxategiaren gainerakoaren formatua definituko du
 
 Eremu-itxitura da erregistro bakoitzaren eremu bakoitza inguratzen duen karaktere bat. Normalean ezarri gabe utzi daiteke.';
@@ -389,4 +391,5 @@ $string['usestandard_help'] = '<p>Erabili gune mailan erabili moduko txantiloia.
 erabilita biltegian gorde baduzu ezabatu egin ahal duzu.</p>';
 $string['viewfromdate'] = 'Noiztik irakurgarri';
 $string['viewtodate'] = 'Noiz arte irakurgarri';
+$string['viewtodatevalidation'] = 'Irakurgarri egoteko azken eguna ezin da hasiera baino lehenagokoa izan.';
 $string['wrongdataid'] = 'id datu okerrak';

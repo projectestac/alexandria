@@ -24,6 +24,7 @@ class com_wiris_plugin_impl_TestImpl implements com_wiris_plugin_api_Test{
 		$random = "" . _hx_string_rec(Math::floor(Math::random() * 9999), "");
 		$mml = "<math xmlns=\"http://www.w3.org/1998/Math/MathML\"><mrow><msqrt><mn>" . $random . "</mn></msqrt></mrow></math>";
 		$testName = null; $reportText = null; $solutionLink = null;
+		$this->conf = $this->plugin->getConfiguration();
 		$condition = null;
 		$output = "";
 		$output .= "<html><head>\x0D\x0A";
@@ -51,13 +52,28 @@ class com_wiris_plugin_impl_TestImpl implements com_wiris_plugin_api_Test{
 		$solutionLink = "";
 		$param = array();;
 		$outp = array();;
-		$imageUrl = $this->plugin->newRender()->createImage($mml, $param, $outp);
+		$provider = $this->plugin->newGenericParamsProvider($param);
+		$imageUrl = $this->plugin->newRender()->createImage($mml, $provider, $outp);
 		$reportText = "<a href=\"" . $imageUrl . "\" />" . $imageUrl . "</a>";
 		$condition = true;
 		$output .= $this->createTableRow($testName, $reportText, $solutionLink, $condition);
 		$testName = "Retrieving data";
 		$solutionLink = "";
-		$reportText = "<img src=\"" . $imageUrl . "\" />";
+		if($this->conf->getProperty("wirispluginperformance", "false") === "true") {
+			$this->plugin->newRender()->showImage(null, $mml, $provider);
+			$digest = $this->plugin->newRender()->computeDigest($mml, $provider->getRenderParameters($this->plugin->getConfiguration()));
+			$imageUrlJson = $this->plugin->newRender()->showImageJson($digest, "en");
+			$imageJson = com_wiris_util_json_JSon::decode($imageUrlJson);
+			$result = $imageJson->get("result");
+			$content = $result->get("content");
+			if($this->conf->getProperty("wirisimageformat", "svg") === "svg") {
+				$reportText = "<img src=\"" . "data:image/svg+xml;charset=utf8," . rawurlencode($content) . "\" />";
+			} else {
+				$reportText = "<img src='" . "data:image/png;base64," . $content . "' />";
+			}
+		} else {
+			$reportText = "<img src='" . $imageUrl . "' />";
+		}
 		$output .= $this->createTableRow($testName, $reportText, $solutionLink, $condition);
 		$testName = "JavaScript MathML filter";
 		$solutionLink = "";
@@ -74,9 +90,9 @@ class com_wiris_plugin_impl_TestImpl implements com_wiris_plugin_api_Test{
 		$p = null;
 		$p = array();;
 		$p["savemode"] = "safeXml";
-		$s2 = str_replace("<", com_wiris_plugin_impl_TestImpl_0($this, $condition, $ex, $imageUrl, $mml, $outp, $output, $p, $param, $platform, $random, $reportText, $solutionLink, $testName), $mml);
-		$s2 = str_replace(">", com_wiris_plugin_impl_TestImpl_1($this, $condition, $ex, $imageUrl, $mml, $outp, $output, $p, $param, $platform, $random, $reportText, $s2, $solutionLink, $testName), $s2);
-		$s2 = str_replace("\"", com_wiris_plugin_impl_TestImpl_2($this, $condition, $ex, $imageUrl, $mml, $outp, $output, $p, $param, $platform, $random, $reportText, $s2, $solutionLink, $testName), $s2);
+		$s2 = str_replace("<", com_wiris_plugin_impl_TestImpl_0($this, $condition, $ex, $imageUrl, $mml, $outp, $output, $p, $param, $platform, $provider, $random, $reportText, $solutionLink, $testName), $mml);
+		$s2 = str_replace(">", com_wiris_plugin_impl_TestImpl_1($this, $condition, $ex, $imageUrl, $mml, $outp, $output, $p, $param, $platform, $provider, $random, $reportText, $s2, $solutionLink, $testName), $s2);
+		$s2 = str_replace("\"", com_wiris_plugin_impl_TestImpl_2($this, $condition, $ex, $imageUrl, $mml, $outp, $output, $p, $param, $platform, $provider, $random, $reportText, $s2, $solutionLink, $testName), $s2);
 		$reportText = $this->plugin->newTextService()->filter("square root: " . $s2, $p);
 		$output .= $this->createTableRow($testName, $reportText, $solutionLink, $condition);
 		$testName = "Connecting to www.wiris.net";
@@ -170,6 +186,7 @@ class com_wiris_plugin_impl_TestImpl implements com_wiris_plugin_api_Test{
 		$output .= "<div id=\"haxe:trace\"></div>";
 		return $output;
 	}
+	public $conf;
 	public $plugin;
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
@@ -183,21 +200,21 @@ class com_wiris_plugin_impl_TestImpl implements com_wiris_plugin_api_Test{
 	}
 	function __toString() { return 'com.wiris.plugin.impl.TestImpl'; }
 }
-function com_wiris_plugin_impl_TestImpl_0(&$퍁his, &$condition, &$ex, &$imageUrl, &$mml, &$outp, &$output, &$p, &$param, &$platform, &$random, &$reportText, &$solutionLink, &$testName) {
+function com_wiris_plugin_impl_TestImpl_0(&$퍁his, &$condition, &$ex, &$imageUrl, &$mml, &$outp, &$output, &$p, &$param, &$platform, &$provider, &$random, &$reportText, &$solutionLink, &$testName) {
 	{
 		$s = new haxe_Utf8(null);
 		$s->addChar(171);
 		return $s->toString();
 	}
 }
-function com_wiris_plugin_impl_TestImpl_1(&$퍁his, &$condition, &$ex, &$imageUrl, &$mml, &$outp, &$output, &$p, &$param, &$platform, &$random, &$reportText, &$s2, &$solutionLink, &$testName) {
+function com_wiris_plugin_impl_TestImpl_1(&$퍁his, &$condition, &$ex, &$imageUrl, &$mml, &$outp, &$output, &$p, &$param, &$platform, &$provider, &$random, &$reportText, &$s2, &$solutionLink, &$testName) {
 	{
 		$s = new haxe_Utf8(null);
 		$s->addChar(187);
 		return $s->toString();
 	}
 }
-function com_wiris_plugin_impl_TestImpl_2(&$퍁his, &$condition, &$ex, &$imageUrl, &$mml, &$outp, &$output, &$p, &$param, &$platform, &$random, &$reportText, &$s2, &$solutionLink, &$testName) {
+function com_wiris_plugin_impl_TestImpl_2(&$퍁his, &$condition, &$ex, &$imageUrl, &$mml, &$outp, &$output, &$p, &$param, &$platform, &$provider, &$random, &$reportText, &$s2, &$solutionLink, &$testName) {
 	{
 		$s = new haxe_Utf8(null);
 		$s->addChar(168);
