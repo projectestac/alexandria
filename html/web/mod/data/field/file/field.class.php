@@ -494,7 +494,7 @@ class data_field_file extends data_field_base {
             $module_scorm_id = $DB->get_field('modules', 'id', array('name' => 'scorm'));
             $cmid = $DB->get_field('course_modules', 'id', array('course' => '1', 'module' => $module_scorm_id, 'instance' => $scorm_id));
             scorm_delete_instance($scorm_id);
-            delete_course_module($cmid);
+            course_delete_module($cmid);
         } else if ($this->field->param4 == ALEXANDRIA_COURSE_BACKUP) {
             $coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $this->field->dataid));
             $courseid = $DB->get_field('data_content', 'content', array('recordid' => $recordid, 'fieldid' => $coursefieldid));
