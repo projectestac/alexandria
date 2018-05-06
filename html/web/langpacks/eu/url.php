@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'url', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'url', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   url
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -49,7 +49,7 @@ $string['framesize'] = 'Markoaren altuera';
 $string['invalidstoredurl'] = 'Ezin da baliabide hau erakutsi. URLak ez du balio.';
 $string['invalidurl'] = 'Gehitutako URLak ez du balio';
 $string['modulename'] = 'URLa';
-$string['modulename_help'] = 'URL moduluak web-esteka bat ikastaroaren baliabide gisa erakustea ahalbidetzen dio irakasleari. Online eskuragarri dagoen edozein eduki estekatu daiteke, hala nola dokumentuak edo irudiak; URLak ez du zertan web-gune baten orri nagusia izan. URLa web-gune jakin batetik kopia eta itsats daiteke edo irakasleak Fitxategi-hautatzailea erabilita Flickr, YouTube edo Wikimediako esteka aukera dezake (zure gunean gaitutako dauden biltegien arabera).
+$string['modulename_help'] = 'URL moduluak web-esteka bat ikastaroaren baliabide gisa erakustea ahalbidetzen dio irakasleari. On-line eskuragarri dagoen edozein eduki estekatu daiteke, hala nola dokumentuak edo irudiak; URLak ez du zertan web-gune baten orri nagusia izan. URLa web-gune jakin batetik kopia eta itsats daiteke edo irakasleak Fitxategi-hautatzailea erabilita Flickr, YouTube edo Wikimediako esteka aukera dezake (zure gunean gaitutako dauden biltegien arabera).
 
 URLa erakusteko modu ezberdinak daude, hala nola enbotaturik edo leiho berri batean, eta behar izanez gero badago aukera aurreratu bat estekarekin batera informazio gehiago bidaltzeko, ikaslearen izena adibidez.
 
@@ -66,7 +66,7 @@ $string['popupheightexplain'] = 'Zehaztu zabaltzen den leihoaren berezko altuera
 $string['popupwidth'] = 'Pop-up-aren zabalera (pixeletan)';
 $string['popupwidthexplain'] = 'Zehaztu zabaltzen den leihoaren berezko zabalera.';
 $string['printintro'] = 'Erakutsi URLaren deskribapena';
-$string['printintroexplain'] = 'Erakutsi URL izena edukiaren azpian? Erakusteko hainbat motek ez dute erakusten URL izena nahiz eta gaituta egon.';
+$string['printintroexplain'] = 'Erakutsi URL deskribapena edukiaren azpian? Erakusteko hainbat motak ez dute erakusten URL izena nahiz eta gaituta egon.';
 $string['rolesinparams'] = 'Sartu rol-izenak parametroetan';
 $string['search:activity'] = 'URLa';
 $string['serverurl'] = 'Zerbitzariaren URLa';

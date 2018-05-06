@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_monitor', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_monitor', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_monitor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -46,7 +46,9 @@ $string['eventrulecreated'] = 'Araua sortu da';
 $string['eventruledeleted'] = 'Araua ezabatu da';
 $string['eventruleupdated'] = 'Araua eguneratu da';
 $string['eventsubcreated'] = 'Harpidetza sortu da';
+$string['eventsubcriteriamet'] = 'Harpidetzarako irizpìdea bete da';
 $string['eventsubdeleted'] = 'Harpidetza ezabatu da';
+$string['freqdesc'] = '{$a->freq} aldi in {$a->mins} minututan';
 $string['frequency'] = 'Jakinarazpenen ataria';
 $string['inminutes'] = 'minututan';
 $string['invalidmodule'] = 'Modulu baliogabea';
@@ -66,6 +68,7 @@ $string['monitor:subscribe'] = 'Harpidetu  ekitaldi-kontrolerako arauetara';
 $string['norules'] = 'Ez dago ekitaldi-kontrolerako araurik';
 $string['pluginname'] = 'Ekitaldi-monitorea';
 $string['ruleareyousure'] = 'Ziur al zaude "{$a}" araua ezabatu nahi duzula?';
+$string['ruleareyousureextra'] = '{$a} harpidedun daude ezabatuko den arau honetara harpidetuta daudenak.';
 $string['rulecopysuccess'] = 'Araua ondo bikoiztu da';
 $string['ruledeletesuccess'] = 'Araua ondo ezabatu da';
 $string['rulehelp'] = 'Arauaren xehetasunak';
@@ -74,6 +77,7 @@ $string['rulenopermission'] = 'Ez duzu baimenik inongo ekitalditara harpidetzeko
 $string['rulenopermissions'] = 'Ez duzu  baimenik: "{$a} araua"';
 $string['rulescansubscribe'] = 'Arau hauetarako harpidetza egin dezakezu';
 $string['selectacourse'] = 'Aukeratu ikastaroa';
+$string['subareyousure'] = 'Ziur al zaude "{$a}" araurako harpidetza ezabatu nahi duzula?';
 $string['subcreatesuccess'] = 'Harpidetza ondo sortu da';
 $string['subdeletesuccess'] = 'Harpidetza ondo ezabatu da';
 $string['subhelp'] = 'Harpidetzaren xehetasunak';

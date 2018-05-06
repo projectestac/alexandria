@@ -123,6 +123,7 @@ function quiz_create_attempt(quiz $quizobj, $attemptnumber, $lastattempt, $timen
     $attempt->timestart = $timenow;
     $attempt->timefinish = 0;
     $attempt->timemodified = $timenow;
+    $attempt->timemodifiedoffline = 0;
     $attempt->state = quiz_attempt::IN_PROGRESS;
     $attempt->currentpage = 0;
     $attempt->sumgrades = null;
@@ -1486,7 +1487,8 @@ function quiz_send_confirmation($recipient, $a) {
     $a->userusername = $recipient->username;
 
     // Prepare the message.
-    $eventdata = new stdClass();
+    $eventdata = new \core\message\message();
+    $eventdata->courseid          = $a->courseid;
     $eventdata->component         = 'mod_quiz';
     $eventdata->name              = 'confirmation';
     $eventdata->notification      = 1;
@@ -1522,7 +1524,8 @@ function quiz_send_notification($recipient, $submitter, $a) {
     $a->userusername = $recipient->username;
 
     // Prepare the message.
-    $eventdata = new stdClass();
+    $eventdata = new \core\message\message();
+    $eventdata->courseid          = $a->courseid;
     $eventdata->component         = 'mod_quiz';
     $eventdata->name              = 'submission';
     $eventdata->notification      = 1;
@@ -1595,6 +1598,7 @@ function quiz_send_notification_messages($course, $quiz, $attempt, $context, $cm
 
     $a = new stdClass();
     // Course info.
+    $a->courseid        = $course->id;
     $a->coursename      = $course->fullname;
     $a->courseshortname = $course->shortname;
     // Quiz info.
@@ -1669,6 +1673,7 @@ function quiz_send_overdue_message($attemptobj) {
 
     $a = new stdClass();
     // Course info.
+    $a->courseid           = $attemptobj->get_course()->id;
     $a->coursename         = format_string($attemptobj->get_course()->fullname);
     $a->courseshortname    = format_string($attemptobj->get_course()->shortname);
     // Quiz info.
@@ -1686,7 +1691,8 @@ function quiz_send_overdue_message($attemptobj) {
     $a->studentusername    = $submitter->username;
 
     // Prepare the message.
-    $eventdata = new stdClass();
+    $eventdata = new \core\message\message();
+    $eventdata->courseid          = $a->courseid;
     $eventdata->component         = 'mod_quiz';
     $eventdata->name              = 'attempt_overdue';
     $eventdata->notification      = 1;
@@ -1929,7 +1935,7 @@ class qubaids_for_quiz extends qubaid_join {
         }
 
         if ($onlyfinished) {
-            $where .= ' AND state == :statefinished';
+            $where .= ' AND state = :statefinished';
             $params['statefinished'] = quiz_attempt::FINISHED;
         }
 
@@ -2057,12 +2063,7 @@ function quiz_add_quiz_question($questionid, $quiz, $page = 0, $maxmark = null) 
         $slot->slot = $lastslotbefore + 1;
         $slot->page = min($page, $maxpage + 1);
 
-        $DB->execute("
-                UPDATE {quiz_sections}
-                   SET firstslot = firstslot + 1
-                 WHERE quizid = ?
-                   AND firstslot > ?
-                ", array($quiz->id, max($lastslotbefore, 1)));
+        quiz_update_section_firstslots($quiz->id, 1, max($lastslotbefore, 1));
 
     } else {
         $lastslot = end($slots);
@@ -2080,6 +2081,27 @@ function quiz_add_quiz_question($questionid, $quiz, $page = 0, $maxmark = null) 
 
     $DB->insert_record('quiz_slots', $slot);
     $trans->allow_commit();
+}
+
+/**
+ * Move all the section headings in a certain slot range by a certain offset.
+ *
+ * @param int $quizid the id of a quiz
+ * @param int $direction amount to adjust section heading positions. Normally +1 or -1.
+ * @param int $afterslot adjust headings that start after this slot.
+ * @param int|null $beforeslot optionally, only adjust headings before this slot.
+ */
+function quiz_update_section_firstslots($quizid, $direction, $afterslot, $beforeslot = null) {
+    global $DB;
+    $where = 'quizid = ? AND firstslot > ?';
+    $params = [$direction, $quizid, $afterslot];
+    if ($beforeslot) {
+        $where .= ' AND firstslot < ?';
+        $params[] = $beforeslot;
+    }
+    $firstslotschanges = $DB->get_records_select_menu('quiz_sections',
+            $where, $params, '', 'firstslot, firstslot + ?');
+    update_field_with_unique_index('quiz_sections', 'firstslot', $firstslotschanges, ['quizid' => $quizid]);
 }
 
 /**
@@ -2259,10 +2281,11 @@ function quiz_validate_new_attempt(quiz $quizobj, quiz_access_manager $accessman
  * @param  quiz $quizobj quiz object
  * @param  int $attemptnumber the attempt number
  * @param  object $lastattempt last attempt object
+ * @param bool $offlineattempt whether is an offline attempt or not
  * @return object the new attempt
  * @since  Moodle 3.1
  */
-function quiz_prepare_and_start_new_attempt(quiz $quizobj, $attemptnumber, $lastattempt) {
+function quiz_prepare_and_start_new_attempt(quiz $quizobj, $attemptnumber, $lastattempt, $offlineattempt = false) {
     global $DB, $USER;
 
     // Delete any previous preview attempts belonging to this user.
@@ -2283,6 +2306,10 @@ function quiz_prepare_and_start_new_attempt(quiz $quizobj, $attemptnumber, $last
 
     $transaction = $DB->start_delegated_transaction();
 
+    // Init the timemodifiedoffline for offline attempts.
+    if ($offlineattempt) {
+        $attempt->timemodifiedoffline = $attempt->timemodified;
+    }
     $attempt = quiz_attempt_save_started($quizobj, $quba, $attempt);
 
     $transaction->allow_commit();

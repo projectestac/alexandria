@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'edufields', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'edufields', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   edufields
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -95,6 +95,7 @@ $string['field1090903'] = 'Συνταγματικό Δίκαιο';
 $string['field1090905'] = 'Εγκληματολογία';
 $string['field1090907'] = 'Οικογενειακό Δίκαιο';
 $string['field10911'] = 'Δικαιοσύνη και επιβολή νόμου';
+$string['field1091199'] = 'Δικαιοσύνη και Επιβολή Νόμου (Άλλο)';
 $string['field1091521'] = 'Γλωσσολογία';
 $string['field1091523'] = 'Λογοτεχνία';
 $string['field1091701'] = 'Φιλοσοφική';

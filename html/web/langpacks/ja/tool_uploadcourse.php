@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_uploadcourse', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_uploadcourse', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_uploadcourse
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -120,7 +120,7 @@ $string['updateonly'] = '既存のコースのみ更新する';
 $string['updatewithdataonly'] = 'CSVデータのみで更新する';
 $string['updatewithdataordefaults'] = 'CSVデータおよびデフォルトで更新する';
 $string['uploadcourses'] = 'コースをアップロードする';
-$string['uploadcourses_help'] = 'コースはテキストファイル経由でアップロードすることができます。ファイルのフォーマットは下記のとおりです:
+$string['uploadcourses_help'] = 'コースはテキストファイル経由でアップロードすることができます。ファイルのフォーマットは以下のとおりです:
 
 * ファイルのそれぞれの行に1レコードを含みます。
 * それぞれのレコードはカンマ (または他のデリミタ) で区切られた一連のデータです。

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'blog', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -90,9 +90,13 @@ $string['entrysaved'] = 'Ваша запись сохранена';
 $string['entrytitle'] = 'Название записи';
 $string['eventblogassociationadded'] = 'Связь с блогом создана';
 $string['eventblogentriesviewed'] = 'Записи блога просмотрены';
+$string['eventblogexternaladded'] = 'Внешний блог зарегистрирован';
+$string['eventblogexternalremoved'] = 'Внешний блог не  был зарегистрирован';
+$string['eventblogexternalupdated'] = 'Внешний блог обновлен';
 $string['evententryadded'] = 'Запись блока добавлена';
 $string['evententrydeleted'] = 'Запись блога удалена';
 $string['evententryupdated'] = 'Запись блога обновлена';
+$string['eventexternalblogsviewed'] = 'Просмотр внешних зарегистрированных блогов';
 $string['externalblogcrontime'] = 'Интервал между синхронизациями с внешними блогами';
 $string['externalblogdeleteconfirm'] = 'Отменить регистрацию этого внешнего блога?';
 $string['externalblogdeleted'] = 'Внешний блог удален';
@@ -151,7 +155,6 @@ $string['retrievedfrom'] = 'Получено из';
 $string['rssfeed'] = 'RSS блога';
 $string['searchterm'] = 'Поиск: {$a}';
 $string['settingsupdatederror'] = 'Произошла ошибка, не удалось обновить настройки блога';
-$string['siteblog'] = 'блог сайта {$a}';
 $string['siteblogdisable'] = 'Блоги сайта отключены';
 $string['siteblogheading'] = 'Блог сайта';
 $string['siteblogs'] = 'Все пользователи сайта могут просматривать записи во всех блогах';
@@ -187,4 +190,5 @@ $string['viewmyentriesaboutmodule'] = 'Просмотр моих записей 
 $string['viewsiteentries'] = 'Просмотр всех записей';
 $string['viewuserentries'] = 'Просмотр всех записей пользователя «{$a}»';
 $string['worldblogs'] = 'Все посетители могут просматривать записи, помеченные как «доступные для всех»';
+$string['wrongexternalid'] = 'Неверный ID внешнего блога';
 $string['wrongpostid'] = 'Неправильный ID сообщения блога';

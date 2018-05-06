@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'blog', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -76,7 +76,7 @@ $string['deleteexternalblog'] = 'Erregistroa kendu kanpoko blog honi';
 $string['deleteotagswarn'] = 'Ziur al zaude etiketa hau(ek) mezu guztietatik ezabatu nahi d(it)uzula eta sistematik kendu?';
 $string['description'] = 'Deskribapena';
 $string['description_help'] = 'Idatzi esaldi bat edo beste zure kanpoko blog-aren edukiak azaltzeko. (Ez duzu deskribapenik ematen, zure kanpoko blog-ean gordetako deskribapena erabiliko da).';
-$string['donothaveblog'] = 'Zeuk ez duzu blogik, barkatu';
+$string['donothaveblog'] = 'Zuk ez duzu blogik, sentitzen dugu.';
 $string['editentry'] = 'Editatu blog-sarrera';
 $string['editexternalblog'] = 'Editatu kanpoko blog hau';
 $string['emptybody'] = 'Blog-sarreraren gorputza ezin da hutsik egon';
@@ -89,10 +89,15 @@ $string['entryerrornotyours'] = 'Sarrera hau ez da zurea';
 $string['entrysaved'] = 'Zure sarrera gorde da';
 $string['entrytitle'] = 'Izenburua idatzi';
 $string['eventblogassociationadded'] = 'Blog-lotura sortu da';
+$string['eventblogassociationdeleted'] = 'Blog-lotura ezabatu da';
 $string['eventblogentriesviewed'] = 'Blog-sarrerak ikusi dira';
+$string['eventblogexternaladded'] = 'Kanpok bloga erregistratu da';
+$string['eventblogexternalremoved'] = 'Kanpok blogaren erregistroa ezabatu da';
+$string['eventblogexternalupdated'] = 'Kanpok bloga eguneratu da';
 $string['evententryadded'] = 'Blog-sarrera gehituta';
 $string['evententrydeleted'] = 'Blog-sarrera ezabatuta';
 $string['evententryupdated'] = 'Blog-sarrera eguneratuta';
+$string['eventexternalblogsviewed'] = 'Erregistratutako kanpoko blogak ikusi dira';
 $string['externalblogcrontime'] = 'Blog-sarrera eguneratuta';
 $string['externalblogdeleteconfirm'] = 'Kanpoko blog honi erregistroa kendu?';
 $string['externalblogdeleted'] = 'Kanpoko blog-ari erregistroa kenduta';
@@ -151,7 +156,6 @@ $string['retrievedfrom'] = 'Ondokotik ekarria:';
 $string['rssfeed'] = 'Blogaren RSS jarioa';
 $string['searchterm'] = 'Bilatu: {$a}';
 $string['settingsupdatederror'] = 'Errorea gertatu da: blog aukera berriak ezin izan dira eguneratu';
-$string['siteblog'] = 'Gunearen bloga: {$a}';
 $string['siteblogdisable'] = 'Gunearen bloga ez dago gaituta';
 $string['siteblogheading'] = 'Guneko bloga';
 $string['siteblogs'] = 'Erabiltzaile guztiek blog-sarrera guztiak ikusi ahal dituzte';
@@ -187,4 +191,5 @@ $string['viewmyentriesaboutmodule'] = 'Ikusi nire sarrerak {$a} honi buruz';
 $string['viewsiteentries'] = 'Sarrera guztiak ikusi';
 $string['viewuserentries'] = '{$a}-ren sarrera guztiak ikusi';
 $string['worldblogs'] = 'Edozeinek ikus ditzake mundu osoarentzat argitaratutako sarrerak';
+$string['wrongexternalid'] = 'Kanpoko blog ID baliogabea';
 $string['wrongpostid'] = 'Blog-mezuaren ID okerra';

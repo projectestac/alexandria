@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -502,6 +502,7 @@ $string['newattemptfail'] = 'Errore: Non è stato possibile avviare un nuovo ten
 $string['newpage'] = 'Salto pagina';
 $string['newpageevery'] = 'Inizia automaticamente una nuova pagina';
 $string['newpage_help'] = 'Per i quiz molto lunghi è utile distribuire le domande su più pagine, limitando il numero delle stesse per ogni pagina. Aggiungendo domande a un quiz, verranno automaticamente aggiunti dei salti-pagina secondo l\'impostazione scelta. In ogni caso i salti-pagina potranno essere liberamente spostati a mano in seguito nella pagina di modifica del quiz.';
+$string['newsectionheading'] = 'Nuova intestazione';
 $string['noanswers'] = 'Non è stata selezionata nessuna risposta!';
 $string['noattempts'] = 'Non è presente nessun tentativo di questo quiz';
 $string['noattemptsfound'] = 'Non sono stati trovati tentativi';
@@ -695,7 +696,7 @@ $string['reattemptquiz'] = 'Ritenta il quiz';
 $string['recentlyaddedquestion'] = 'Domanda aggiunta recentemente';
 $string['recurse'] = 'Includi anche le domande presenti nelle sotto categorie';
 $string['redoesofthisquestion'] = 'Altre domande dove lo studente ha riprovato: {$a}';
-$string['redoquestion'] = 'Riprova';
+$string['redoquestion'] = 'Riprova con una domanda simile a questa';
 $string['regrade'] = 'Rivaluta tutti i tentativi';
 $string['regradecomplete'] = 'Tutti i tentativi sono stati rivalutati';
 $string['regradecount'] = '{$a->changed} su {$a->attempt} valutazioni sono state cambiate';
@@ -773,7 +774,7 @@ $string['reviewoptionsheading_help'] = 'Queste impostazioni controllano le infor
 
 **Subito dopo il tentativo**  ha valenza entro i due minuti successivi al completamento del tentativo.
 
-** Più tardi, a quiz ancora aperto" è come il caso precedente ma entro la data di chiusura del quiz.
+** Più tardi, a quiz ancora aperto** è come il caso precedente ma entro la data di chiusura del quiz.
 
 ** Dopo la chiusura del quiz** ha valenza dopo la data di chiusura del quiz. Se il quiz non ha una data di chiusura, questa condizione non sarà mai soddisfatta.';
 $string['reviewoverallfeedback'] = 'Feedback complessivo';
@@ -885,8 +886,6 @@ $string['timeleft'] = 'Tempo rimasto';
 $string['timelimit'] = 'Tempo massimo';
 $string['timelimitexeeded'] = 'Spiacente! Il tempo per il quiz è scaduto!';
 $string['timelimit_help'] = 'L\'impostazione consente la visualizzazione de limite di tempo nella pagina iniziale del quiz e un timer nel blocco navigazione quiz che presenta il conto alla rovescia del tempo rimasto.';
-$string['timelimitmin'] = 'Tempo massimo (minuti)';
-$string['timelimitsec'] = 'Tempo massimo (secondi)';
 $string['timestr'] = '%H:%M:%S del %d/%m/%y';
 $string['timesup'] = 'Tempo scaduto!';
 $string['timetaken'] = 'Tempo impiegato';

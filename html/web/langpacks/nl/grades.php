@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'grades', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   grades
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -344,6 +344,8 @@ $string['gradereport'] = 'Beoordelingsrapport';
 $string['graderreport'] = 'Rapportage';
 $string['grades'] = 'Cijfers';
 $string['gradesforuser'] = 'Cijfers voor {$a->user}';
+$string['gradesmoduledeletionpendingwarning'] = 'Waarschuwing: activiteit verwijderen  bezig! Sommige cijfers staan op het punt te worden verwijderd.';
+$string['gradesmoduledeletionprefix'] = '[Verwijderen bezig]';
 $string['gradesonly'] = 'Wijzig naar enkel beoordelingen';
 $string['gradessettings'] = 'Beoordelingsinstellingen';
 $string['gradetype'] = 'Beoordelingstype';
@@ -373,7 +375,7 @@ $string['hidecategory'] = 'Verborgen';
 $string['hideeyecons'] = 'Verberg toon/verberg-icoontjes';
 $string['hidefeedback'] = 'Verberg feedback';
 $string['hideforcedsettings'] = 'Verberg opgelegde instellingen';
-$string['hideforcedsettings_help'] = 'Toon geen geforceerde instellignen in de beoordelingsgebruikerinterface';
+$string['hideforcedsettings_help'] = 'Toon geen geforceerde instellingen in de beoordelingsgebruikerinterface';
 $string['hidegroups'] = 'Verberg groepen';
 $string['hidelocks'] = 'Verberg blokkering';
 $string['hidenooutcomes'] = 'Toon resultaten';
@@ -437,7 +439,7 @@ $string['itemname'] = 'Itemnaam';
 $string['itemnamehelp'] = 'De naam van dit item, doorgegeven vanuit de module.';
 $string['items'] = 'Items';
 $string['itemsedit'] = 'Bewerk beoordelingsitem';
-$string['keephigh'] = 'Weerhoud hoogste';
+$string['keephigh'] = 'Behoud hoogste';
 $string['keephighestvalues'] = 'Behoud de {$a} hoogste waarden';
 $string['keephigh_help'] = 'Indien ingesteld, zal deze optie enkel de X hoogst cijfers behouden, waarbij X de geselecteerde waarde is voor deze optie.';
 $string['keymanager'] = 'Sleutelbeheerder';
@@ -450,7 +452,7 @@ $string['letterreal'] = 'Letter (reëel)';
 $string['letters'] = 'Letters';
 $string['linkedactivity'] = 'Gelinkte activiteit';
 $string['linkedactivity_help'] = '<p>Specifiëert een optionele activiteit waaraan deze competentie is gelinkt. Dit wordt gebruikt om de performantie van de leerling te testen voor criteria die niet beoordeeld worden door het cijfer van de activiteit.</p>';
-$string['linktoactivity'] = 'Link naar {$a->name} activiteit';
+$string['linktoactivity'] = 'Link naar {$a->name} activiteit  {$a->title}';
 $string['lock'] = 'Blokkeer';
 $string['locked'] = 'Geblokkeerd';
 $string['locked_help'] = 'Indien geselecteerd kunnen beoordelingen niet meer automatisch aangepast worden vanuit de activiteitsmodule.';
@@ -487,7 +489,7 @@ $string['missingscale'] = 'Je moet een schaal selecteren';
 $string['mode'] = 'Modus';
 $string['modgrade'] = 'Cijfer';
 $string['modgradecantchangegradetype'] = 'Je kunt het type niet wijzigen omdat er al cijfers voor dit item bestaan.';
-$string['modgradecantchangegradetypemsg'] = 'Sommige cijfers zijn al toegekend, dus het beoordelingstype kan neit meer gewijzigd worden. Als je het maximumcijfer wil wijzigen, moet je eerste kiezen of je al dan niet de bestaande cijfers wil herschalen.';
+$string['modgradecantchangegradetypemsg'] = 'Sommige cijfers zijn al toegekend, dus het beoordelingstype kan niet meer gewijzigd worden. Als je het maximumcijfer wilt wijzigen, moet je eerste kiezen of je al dan niet de bestaande cijfers wil herschalen.';
 $string['modgradecantchangegradetyporscalemsg'] = 'Sommige cijfers zijn al toegekend, dus je kan het beoordelingstype en de schaal niet meer wijzigen.';
 $string['modgradecantchangeratingmaxgrade'] = 'Je kunt het maximumcijfer niet wijzigen wanneer er al cijfers voor de activiteit gegeven zijn.';
 $string['modgradecantchangescale'] = 'Je kunt de schaal niet wijzigen omdat er al cijfers bestaan voor dit item.';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'page', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'page', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   page
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,16 +36,16 @@ $string['legacyfiles'] = '古いコースファイルの移行';
 $string['legacyfilesactive'] = 'アクティブ';
 $string['legacyfilesdone'] = '終了';
 $string['modulename'] = 'ページ';
-$string['modulename_help'] = 'ページモジュールにおいて、教師はテキストエディタを使用してウェブページリソースを作成することができます。ページではテキスト、イメージ、サウンド、ビデオ、ウェブリンクおよびGoogle Mapsのような埋め込みコードを表示することができます。
+$string['modulename_help'] = 'ページモジュールにおいて教師はテキストエディタを使用してウェブページリソースを作成することができます。ページではテキスト、イメージ、サウンド、ビデオ、ウェブリンクおよびGoogle Mapsのような埋め込みコードを表示することができます。
 
 ファイルモジュールではなくページモジュールを使用する利点はよりアクセス可能な点 (例えばモバイルデバイスの利用) および更新が簡単な点です。
 
 大量のコンテンツの場合、ページではなくブックの使用をお勧めします。
 
-ページモジュールは下記のように使用することができます:
+ページモジュールは以下のように使用することができます:
 
 * コースの利用規約を表示またはコースシラバス概要を表示するため
-* 説明文と共にいくつかのビデオまたはサウンドファイルを埋め込むため';
+* 説明文と共にいくつかのビデオまたは音声ファイルを埋め込むため';
 $string['modulenameplural'] = 'ページ';
 $string['optionsheader'] = '表示オプション';
 $string['page:addinstance'] = '新しいページリソースを追加する';

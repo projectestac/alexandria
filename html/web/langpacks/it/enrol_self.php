@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_self', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_self', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_self
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,7 @@ $string['enrolenddaterror'] = 'La data di fine delle iscrizioni non può essere 
 $string['enrolme'] = 'Iscrivimi';
 $string['enrolperiod'] = 'Durata dell\'iscrizione';
 $string['enrolperiod_desc'] = 'La durata di default dell\'iscrizione. Impostarla a zero per una durata di default dell\'iscrizione senza limite.';
-$string['enrolperiod_help'] = 'La durata di default  dell\'iscrizione, a partire dalla data di iscrizione dell\'utente. Disabilitare l\'impostazione per una durata di default dell\'iscrizione senza limite.';
+$string['enrolperiod_help'] = 'La durata di default dell\'iscrizione, a partire dalla data di iscrizione dell\'utente. Disabilitare l\'impostazione per una durata di default dell\'iscrizione senza limite.';
 $string['enrolstartdate'] = 'Data di inizio';
 $string['enrolstartdate_help'] = 'Consente l\'iscrizione degli utenti solo a partire dalla data impostata.';
 $string['expiredaction'] = 'Azione alla scadenza dell\'iscrizione';
@@ -100,7 +100,7 @@ $string['self:manage'] = 'Gestire utenti iscritti';
 $string['self:unenrol'] = 'Disiscrivere utenti dai corsi';
 $string['self:unenrolself'] = 'Disiscriversi dai corsi';
 $string['sendcoursewelcomemessage'] = 'Invia messaggio di benvenuto al corso';
-$string['sendcoursewelcomemessage_help'] = 'Se abilitato, gli utenti che si iscrivono spontaneamente in un corso riceveranno per email un messaggio di benvenuto.';
+$string['sendcoursewelcomemessage_help'] = 'Gli utenti che si iscrivono spontaneamente in un corso riceveranno per email un messaggio di benvenuto. Se il messaggio verrà inviato dai contatti del corso (per default il docente), il nome dell\'utente nell\'email coinciderà con il primo utente al quale è stato assegnato il ruolo.';
 $string['showhint'] = 'Visualizza suggerimento';
 $string['showhint_desc'] = 'Visualizza la prima lettera della chiave d\'iscrizione.';
 $string['status'] = 'Abilita iscrizione spontanea';

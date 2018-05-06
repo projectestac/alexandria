@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_wiris', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filter_wiris', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   filter_wiris
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,8 +29,6 @@ $string['clearcache'] = 'Limpar cache';
 $string['clearcachedesc'] = 'Limpar cache do filtro WIRIS';
 $string['filtername'] = 'Matemática & Ciência por WIRIS';
 $string['pluginname'] = 'Filtro WIRIS';
-$string['uninstallmode'] = 'Desinstalação';
-$string['uninstallmodedesc'] = 'Permitir que o módulo WIRIS possa ser desinstalado';
 $string['wiriscas'] = 'Calculadora';
 $string['wirischemeditor'] = 'Editor de Química';
 $string['wirismatheditor'] = 'Editor de Matemática';

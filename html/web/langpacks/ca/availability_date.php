@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_date', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_date', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_date
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,13 +26,13 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['ajaxerror'] = 'S\'ha produït un error en contactar amb el servidor per convertir dates';
-$string['description'] = 'Impedeix l\'accés fins a (o a partir de) una data i hora especificades.';
+$string['description'] = 'Impedeix l\'accés fins a una data i hora especificades, o a partir d\'aquestes.';
 $string['direction_before'] = 'Data';
 $string['direction_from'] = 'des de';
 $string['direction_label'] = 'Direcció';
 $string['direction_until'] = 'fins a';
 $string['full_from'] = 'És després de <strong>{$a}</strong>';
-$string['full_from_date'] = 'És a partir de <strong>{$a}</strong>';
+$string['full_from_date'] = 'Avui sigui dia <strong>{$a}</strong> o un dia posterior.';
 $string['full_until'] = 'És abans de <strong>{$a}</strong>';
 $string['full_until_date'] = 'És abans del final de <strong>{$a}</strong>';
 $string['pluginname'] = 'Restricció per data';

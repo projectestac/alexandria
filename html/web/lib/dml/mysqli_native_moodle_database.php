@@ -176,6 +176,8 @@ class mysqli_native_moodle_database extends moodle_database {
         $result = $this->mysqli->query($sql);
         $this->query_end($result);
         if ($rec = $result->fetch_assoc()) {
+            // MySQL 8 BC: information_schema.* returns the fields in upper case.
+            $rec = array_change_key_case($rec, CASE_LOWER);
             $engine = $rec['engine'];
         }
         $result->close();
@@ -248,6 +250,8 @@ class mysqli_native_moodle_database extends moodle_database {
         $result = $this->mysqli->query($sql);
         $this->query_end($result);
         if ($rec = $result->fetch_assoc()) {
+            // MySQL 8 BC: information_schema.* returns the fields in upper case.
+            $rec = array_change_key_case($rec, CASE_LOWER);
             $collation = $rec['collation_name'];
         }
         $result->close();
@@ -309,10 +313,12 @@ class mysqli_native_moodle_database extends moodle_database {
         $result = $this->mysqli->query($sql);
         $this->query_end($result);
         if ($rec = $result->fetch_assoc()) {
+            // MySQL 8 BC: information_schema.* returns the fields in upper case.
+            $rec = array_change_key_case($rec, CASE_LOWER);
             if (isset($table)) {
                 $rowformat = $rec['row_format'];
             } else {
-                $rowformat = $rec['Value'];
+                $rowformat = $rec['value'];
             }
         }
         $result->close();
@@ -519,6 +525,9 @@ class mysqli_native_moodle_database extends moodle_database {
             throw new dml_connection_exception($dberr);
         }
 
+        // Disable logging until we are fully setup.
+        $this->query_log_prevent();
+
         if (isset($dboptions['dbcollation'])) {
             $collationinfo = explode('_', $dboptions['dbcollation']);
             $this->dboptions['dbcollation'] = $dboptions['dbcollation'];
@@ -526,9 +535,6 @@ class mysqli_native_moodle_database extends moodle_database {
             $collationinfo = explode('_', $this->get_dbcollation());
         }
         $charset = reset($collationinfo);
-
-        // Disable logging until we are fully setup.
-        $this->query_log_prevent();
 
         $this->query_start("--set_charset()", null, SQL_QUERY_AUX);
         $this->mysqli->set_charset($charset);
@@ -691,6 +697,8 @@ class mysqli_native_moodle_database extends moodle_database {
         if ($result->num_rows > 0) {
             // standard table exists
             while ($rawcolumn = $result->fetch_assoc()) {
+                // MySQL 8 BC: information_schema.* returns the fields in upper case.
+                $rawcolumn = array_change_key_case($rawcolumn, CASE_LOWER);
                 $info = (object)$this->get_column_info((object)$rawcolumn);
                 $structure[$info->name] = new database_column_info($info);
             }
@@ -715,7 +723,7 @@ class mysqli_native_moodle_database extends moodle_database {
                 $rawcolumn->numeric_scale            = null;
                 $rawcolumn->is_nullable              = $rawcolumn->null; unset($rawcolumn->null);
                 $rawcolumn->column_default           = $rawcolumn->default; unset($rawcolumn->default);
-                $rawcolumn->column_key               = $rawcolumn->key; unset($rawcolumn->default);
+                $rawcolumn->column_key               = $rawcolumn->key; unset($rawcolumn->key);
 
                 if (preg_match('/(enum|varchar)\((\d+)\)/i', $rawcolumn->column_type, $matches)) {
                     $rawcolumn->data_type = $matches[1];
@@ -784,6 +792,14 @@ class mysqli_native_moodle_database extends moodle_database {
     }
 
     /**
+     * Indicates whether column information retrieved from `information_schema.columns` has default values quoted or not.
+     * @return boolean True when default values are quoted (breaking change); otherwise, false.
+     */
+    protected function has_breaking_change_quoted_defaults() {
+        return false;
+    }
+
+    /**
      * Returns moodle column info for raw column from information schema.
      * @param stdClass $rawcolumn
      * @return stdClass standardised colum info
@@ -794,8 +810,15 @@ class mysqli_native_moodle_database extends moodle_database {
         $info->name           = $rawcolumn->column_name;
         $info->type           = $rawcolumn->data_type;
         $info->meta_type      = $this->mysqltype2moodletype($rawcolumn->data_type);
-        $info->default_value  = $rawcolumn->column_default;
-        $info->has_default    = !is_null($rawcolumn->column_default);
+        if ($this->has_breaking_change_quoted_defaults()) {
+            $info->default_value = trim($rawcolumn->column_default, "'");
+            if ($info->default_value === 'NULL') {
+                $info->default_value = null;
+            }
+        } else {
+            $info->default_value = $rawcolumn->column_default;
+        }
+        $info->has_default    = !is_null($info->default_value);
         $info->not_null       = ($rawcolumn->is_nullable === 'NO');
         $info->primary_key    = ($rawcolumn->column_key === 'PRI');
         $info->binary         = false;
@@ -1598,6 +1621,30 @@ class mysqli_native_moodle_database extends moodle_database {
         return ' CAST(' . $fieldname . ' AS DECIMAL(65,7)) ';
     }
 
+    public function sql_equal($fieldname, $param, $casesensitive = true, $accentsensitive = true, $notequal = false) {
+        $equalop = $notequal ? '<>' : '=';
+
+        $collationinfo = explode('_', $this->get_dbcollation());
+        $bincollate = reset($collationinfo) . '_bin';
+
+        if ($casesensitive) {
+            // Current MySQL versions do not support case sensitive and accent insensitive.
+            return "$fieldname COLLATE $bincollate $equalop $param";
+        } else if ($accentsensitive) {
+            // Case insensitive and accent sensitive, we can force a binary comparison once all texts are using the same case.
+            return "LOWER($fieldname) COLLATE $bincollate $equalop LOWER($param)";
+        } else {
+            // Case insensitive and accent insensitive. All collations are that way, but utf8_bin.
+            $collation = '';
+            if ($this->get_dbcollation() == 'utf8_bin') {
+                $collation = 'COLLATE utf8_unicode_ci';
+            } else if ($this->get_dbcollation() == 'utf8mb4_bin') {
+                $collation = 'COLLATE utf8mb4_unicode_ci';
+            }
+            return "$fieldname $collation $equalop $param";
+        }
+    }
+
     /**
      * Returns 'LIKE' part of a query.
      *
@@ -1892,5 +1939,19 @@ class mysqli_native_moodle_database extends moodle_database {
         $this->query_end($result);
 
         return true;
+    }
+
+    /**
+     * Converts a table to either 'Compressed' or 'Dynamic' row format.
+     *
+     * @param string $tablename Name of the table to convert to the new row format.
+     */
+    public function convert_table_row_format($tablename) {
+        $currentrowformat = $this->get_row_format($tablename);
+        if ($currentrowformat == 'Compact' || $currentrowformat == 'Redundant') {
+            $rowformat = ($this->is_compressed_row_format_supported(false)) ? "ROW_FORMAT=Compressed" : "ROW_FORMAT=Dynamic";
+            $prefix = $this->get_prefix();
+            $this->change_database_structure("ALTER TABLE {$prefix}$tablename $rowformat");
+        }
     }
 }

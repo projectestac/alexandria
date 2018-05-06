@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'group', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   group
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -119,7 +119,7 @@ Ikastaro mailan definitutako taldea modua izango da berezko modua ikastaroko jar
 $string['groupmy'] = 'Neure taldea';
 $string['groupname'] = 'Taldearen izena';
 $string['groupnameexists'] = 'Dagoeneko bada ikastaro honetan \'{$a}\' izeneko taldea; mesedez, aukeratu beste bat.';
-$string['groupnotamember'] = 'Barkatu, ez zara talde honetako kide';
+$string['groupnotamember'] = 'Sentitzen dugu, ez zara talde honetako kide';
 $string['groups'] = 'Taldeak';
 $string['groupscount'] = '({$a}) taldeak';
 $string['groupsettingsheader'] = 'Taldeak';

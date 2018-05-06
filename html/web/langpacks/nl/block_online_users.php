@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_online_users', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_online_users', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   block_online_users
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['configtimetosee'] = 'Aantal minuten na activiteit dat een gebruiker als online beschouwd wordt';
 $string['online_users:addinstance'] = 'Voeg een nieuw online gebruikersblok toe';
-$string['online_users:myaddinstance'] = 'Voeg een nieuw Online gebruikersblok toe aan Mijn startpagina.';
+$string['online_users:myaddinstance'] = 'Voeg een nieuw online gebruikersblok toe aan Mijn startpagina.';
 $string['online_users:viewlist'] = 'Bekijk lijst van online gebruikers';
 $string['periodnminutes'] = 'laatste {$a} minuten';
 $string['pluginname'] = 'Gebruikers online';

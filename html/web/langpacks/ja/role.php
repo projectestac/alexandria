@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'role', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,9 +32,9 @@ $string['allow'] = '許可';
 $string['allowassign'] = 'ロールの割り当てを許可する';
 $string['allowed'] = '許可済み';
 $string['allowoverride'] = 'ロールのオーバーライドを許可する';
-$string['allowroletoassign'] = 'ロール {$a->fromrole} のユーザに対して、ロール {$a->targetrole} の割り当てを許可する';
-$string['allowroletooverride'] = 'ロール {$a->fromrole} のユーザに対して、ロール {$a->targetrole} へのオーバーライドを許可する';
-$string['allowroletoswitch'] = 'ロール {$a->fromrole} のユーザに対して、ロール {$a->targetrole} へのスイッチを許可する';
+$string['allowroletoassign'] = 'ロール {$a->fromrole} のユーザにロール {$a->targetrole} の割り当てを許可する';
+$string['allowroletooverride'] = 'ロール {$a->fromrole} のユーザにロール {$a->targetrole} へのオーバーライドを許可する';
+$string['allowroletoswitch'] = 'ロール {$a->fromrole} のユーザにロール {$a->targetrole} へのスイッチを許可する';
 $string['allowswitch'] = 'ロールのスイッチを許可する';
 $string['allsiteusers'] = 'すべてのサイトユーザ';
 $string['archetype'] = 'ロールアーキタイプ';
@@ -78,6 +78,7 @@ $string['badges:deletebadge'] = 'バッジを削除する';
 $string['badges:earnbadge'] = 'バッジを取得する';
 $string['badges:manageglobalsettings'] = 'バッジグローバル設定を管理する';
 $string['badges:manageownbadges'] = '取得済みバッジを表示および管理する';
+$string['badges:revokebadge'] = 'ユーザからバッジを取り消す';
 $string['badges:viewawarded'] = 'バッジを授与されずに特定のバッジを取得したユーザを表示する';
 $string['badges:viewbadges'] = '利用可能なバッジを取得せずに表示する';
 $string['badges:viewotherbadges'] = '他のユーザのプロファイル内のパブリックバッジを表示する';
@@ -297,7 +298,7 @@ $string['notset'] = '設定なし';
 $string['overrideanotherrole'] = '別のロールをオーバーライドする';
 $string['overridecontext'] = 'コンテクストをオーバーライドする';
 $string['overridepermissions'] = 'パーミッションをオーバーライドする';
-$string['overridepermissionsforrole'] = '{$a->context} のロール「 {$a->role} 」におけるパーミッションをオーバーライドする';
+$string['overridepermissionsforrole'] = '{$a->context} のロール「 {$a->role} 」のパーミッションをオーバーライドする';
 $string['overridepermissions_help'] = 'パーミッションのオーバーライドは特定のコンテクスト内で選択されたケイパビリティを許可または禁止できるようにします。';
 $string['overridepermissionsin'] = '{$a} のパーミッションをオーバーライドする';
 $string['overrideroles'] = 'ロールをオーバーライドする';
@@ -325,7 +326,7 @@ $string['question:add'] = '新しい問題を追加する';
 $string['question:config'] = '問題タイプを設定する';
 $string['question:editall'] = 'すべての問題を編集する';
 $string['question:editmine'] = 'あなたの問題を編集する';
-$string['question:flag'] = '受験中、問題にフラグする';
+$string['question:flag'] = '受験中、問題にフラグを付ける';
 $string['question:managecategory'] = '問題カテゴリを管理する';
 $string['question:moveall'] = 'すべての問題を移動する';
 $string['question:movemine'] = 'あなたの問題を移動する';
@@ -335,7 +336,7 @@ $string['question:viewall'] = 'すべての問題を表示する';
 $string['question:viewmine'] = 'あなたの問題を表示する';
 $string['rating:rate'] = 'アイテムに評価を追加する';
 $string['rating:view'] = 'あなたが受けた評価合計を表示する';
-$string['rating:viewall'] = '個々のユーザから与えられた実評価すべてを表示する';
+$string['rating:viewall'] = '個別のユーザから与えられた実評価すべてを表示する';
 $string['rating:viewany'] = 'すべてのユーザが受けた評価合計を表示する';
 $string['resetrole'] = 'リセット';
 $string['resettingrole'] = 'ロール「 {$a} 」のリセット';
@@ -349,7 +350,7 @@ $string['restore:restoretargetimport'] = 'インポートファイルからリ�
 $string['restore:rolldates'] = 'リストア時、活動設定の日付変更を許可する';
 $string['restore:uploadfile'] = 'バックアップエリアにファイルをアップロードする';
 $string['restore:userinfo'] = 'ユーザデータをリストアする';
-$string['restore:viewautomatedfilearea'] = '自動バックアップエリアを表示する';
+$string['restore:viewautomatedfilearea'] = '自動バックアップからコースをリストアする';
 $string['risks'] = 'リスク';
 $string['roleallowheader'] = 'ロールを許可する:';
 $string['roleallowinfo'] = 'コンテクスト「 {$a->context} 」およびケイパビリティ「 {$a->cap} 」において、許可されるロールのリストに追加されるロールを選択してください:';
@@ -389,12 +390,15 @@ $string['siteadministrators'] = 'サイト管理者';
 $string['site:approvecourse'] = 'コース作成を承認する';
 $string['site:backup'] = 'コースをバックアップする';
 $string['site:config'] = 'サイト設定を変更する';
+$string['site:configview'] = 'サイト管理ツリーを表示する (すべてのページではなく)';
 $string['site:deleteanymessage'] = 'サイトのメッセージすべてを削除する';
 $string['site:deleteownmessage'] = 'ユーザに送受信されたメッセージを削除する';
 $string['site:doanything'] = 'すべての動作を許可する';
 $string['site:doclinks'] = 'サイト外ドキュメントへのリンクを表示する';
 $string['site:forcelanguage'] = 'コース言語をオーバーライドする';
 $string['site:import'] = '別のコースをコースにインポートする';
+$string['site:maintenanceaccess'] = 'メンテナンスモード時にサイトにアクセスする';
+$string['site:manageallmessaging'] = 'すべてのユーザの連絡先を追加、削除、ブロックおよびブロック解除する';
 $string['site:manageblocks'] = 'ページのブロックを管理する';
 $string['site:mnetloginfromremote'] = 'MNet経由でリモートアプリケーションからログインする';
 $string['site:mnetlogintoremote'] = 'MNet経由でリモートアプリケーションを散策する';

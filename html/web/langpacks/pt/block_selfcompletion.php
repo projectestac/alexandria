@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_selfcompletion', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_selfcompletion', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   block_selfcompletion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['alreadyselfcompleted'] = 'Já marcou a disciplina como concluída';
-$string['completecourse'] = 'Concluí a disciplina';
+$string['completecourse'] = 'Já concluí a disciplina';
 $string['pluginname'] = 'Autoconclusão';
 $string['selfcompletion:addinstance'] = 'Adicionar um novo bloco Autoconclusão';
 $string['selfcompletionnotenabled'] = 'A autoconclusão não se encontra ativa nesta disciplina';

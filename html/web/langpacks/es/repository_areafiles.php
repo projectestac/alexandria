@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_areafiles', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository_areafiles', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   repository_areafiles
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,3 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['areafiles:view'] = 'Ver repositorio Archivos incrustados';
 $string['configplugin'] = 'Configuración del repositorio Archivos incrustados';
 $string['pluginname'] = 'Archivos incrustados';
+$string['pluginname_help'] = 'Ficheros adjuntos en el editor de texto actual';

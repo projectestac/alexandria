@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_ldap', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -72,7 +72,7 @@ $string['auth_ldap_no_mbstring'] = 'Active Directoryにアカウントを作成�
 $string['auth_ldapnotinstalled'] = 'LDAP認証を使用できません。PHP LDAPモジュールがインストールされていません。';
 $string['auth_ldap_objectclass'] = '任意: ldap_user_typeのname/searchユーザで使用されるオブジェクトクラスをオーバーライドします。通常、この設定を変更する必要はありません。';
 $string['auth_ldap_objectclass_key'] = 'オブジェクトクラス';
-$string['auth_ldap_opt_deref'] = '検索時、エイリアスをどのように扱うか、次の値から選択してください: 「No」 (LDAP_DEREF_NEVER) または 「Yes」 (LDAP_DEREF_ALWAYS)';
+$string['auth_ldap_opt_deref'] = '検索時、エイリアスをどのように扱うか次の値から選択してください: 「No」 (LDAP_DEREF_NEVER) または 「Yes」 (LDAP_DEREF_ALWAYS)';
 $string['auth_ldap_opt_deref_key'] = 'エイリアスの修飾参照';
 $string['auth_ldap_passtype'] = 'LDAPサーバで使用する新規または変更パスワードのフォーマットを指定してください。';
 $string['auth_ldap_passtype_key'] = 'パスワードフォーマット';
@@ -92,12 +92,12 @@ $string['auth_ldap_user_exists'] = 'LDAPユーザ名はすでに存在します�
 $string['auth_ldap_user_settings'] = 'ユーザルックアップ設定';
 $string['auth_ldap_user_type'] = 'ユーザがどのようにLDAPに保存されるか選択してください。また、この設定ではどのようにログイン有効期限、猶予ログイン、ユーザ作成が動作するか指定します。';
 $string['auth_ldap_user_type_key'] = 'ユーザタイプ';
-$string['auth_ldap_usertypeundefined'] = 'config.user_typeが定義されていないか、動作していません。ldap_expirationtime2unixは選択されたユーザタイプをサポートしません!';
-$string['auth_ldap_usertypeundefined2'] = 'config.user_typeが定義されていないか、動作していません。ldap_unixi2expirationtimeは選択されたユーザタイプをサポートしません!';
+$string['auth_ldap_usertypeundefined'] = 'config.user_typeが定義されていないか動作していません。ldap_expirationtime2unixは選択されたユーザタイプをサポートしません!';
+$string['auth_ldap_usertypeundefined2'] = 'config.user_typeが定義されていないか動作していません。ldap_unixi2expirationtimeは選択されたユーザタイプをサポートしません!';
 $string['auth_ldap_version'] = 'あなたのサーバが使用しているLDAPプロトコルのバージョンです。';
 $string['auth_ldap_version_key'] = 'バージョン';
 $string['auth_ntlmsso'] = 'NTLM SSO';
-$string['auth_ntlmsso_enabled'] = '「Yes」にした場合、NTLMドメインでシングルサインオンを試みます。<strong>注意:</strong> 動作させるには、ウェブサーバに対して追加のセットアップが必要です。詳細は<a href="http://docs.moodle.org/en/NTLM_authentication">http://docs.moodle.org/en/NTLM_authentication</a>をご覧ください。';
+$string['auth_ntlmsso_enabled'] = '「Yes」にした場合、NTLMドメインでシングルサインオンを試みます。<strong>注意:</strong> 動作させるにはウェブサーバに対して追加のセットアップが必要です。詳細は<a href="http://docs.moodle.org/en/NTLM_authentication">http://docs.moodle.org/en/NTLM_authentication</a>をご覧ください。';
 $string['auth_ntlmsso_enabled_key'] = '有効';
 $string['auth_ntlmsso_ie_fastpath'] = 'この設定を有効にした場合、NTLM SSO高速経路 (fast path) が有効にされます (クライアントブラウザがMS Internet Explorerの場合、特定のステップをバイパスします)。';
 $string['auth_ntlmsso_ie_fastpath_attempt'] = 'すべてのブラウザでNTLMを試みます';
@@ -108,7 +108,7 @@ $string['auth_ntlmsso_maybeinvalidformat'] = 'REMOTE_USERヘッダからユー�
 $string['auth_ntlmsso_missing_username'] = 'あなたはリモートユーザ名フォーマットに少なくとも「%username%」を指定する必要があります。';
 $string['auth_ntlmsso_remoteuserformat'] = '「認証タイプ」に「NTLM」を選択した場合、あなたはここでリモートユーザ名フォーマットを指定することができます。空白にした場合、デフォルトのDOMAIN\\usernameフォーマットが使用されます。あなたはドメイン名の表示場所に関して、任意で<b>%domain%</b>プレースホルダを使用することができます。 また、必須の<b>%username%</b>プレースホルダはユーザ名が表示される場所を指定します。<br /><br />広く使われているフォーマットは次のとおりです:<tt>%domain%\\%username%</tt> (MS Windowsデフォルト)、<tt>%domain%/%username%</tt>、<tt>%domain%+%username%</tt>、<tt>%username%</tt> (ドメインの部分がない場合)';
 $string['auth_ntlmsso_remoteuserformat_key'] = 'リモートユーザ名フォーマット';
-$string['auth_ntlmsso_subnet'] = '設定した場合、このサブネットの中のクライアントのみSSOを試みます。フォーマット: xxx.xxx.xxx.xxx/ビットマスク　複数のサブネットは「,」 (カンマ) で区切ってください。';
+$string['auth_ntlmsso_subnet'] = '設定した場合、このサブネットの中のクライアントのみSSOを試みます。フォーマット: xxx.xxx.xxx.xxx/ビットマスク 複数のサブネットは「,」 (カンマ) で区切ってください。';
 $string['auth_ntlmsso_subnet_key'] = 'サブネット';
 $string['auth_ntlmsso_type'] = 'ユーザを認証するためサーバで設定された認証メソッドです (分からない場合、NTLMを選択してください)。';
 $string['auth_ntlmsso_type_key'] = '認証タイプ';
@@ -118,7 +118,7 @@ $string['didntfindexpiretime'] = 'password_expire()が有効期限を見つけ�
 $string['didntgetusersfromldap'] = 'LDAPサーバからユーザを取得できませんでした。';
 $string['gotcountrecordsfromldap'] = 'LDAPから {$a} レコードを取得しました。';
 $string['morethanoneuser'] = '変です! LDAPに2名以上のユーザレコードが見つかりました。最初のユーザレコードのみ使用します。';
-$string['needbcmath'] = 'あなたはActive Directoryに猶予ログインするためにBCMath拡張モジュールが必要です。';
+$string['needbcmath'] = '有効期限切れパスワードを使用してActive Directoryに問い合わせる場合、あなたはBCMath拡張モジュールが必要です。';
 $string['needmbstring'] = 'Active Directoryのパスワードを変更するにはmbstring拡張モジュールが必要です。';
 $string['nodnforusername'] = 'user_update_password()にエラーが発生しました。{$a->username} のDNがありません。';
 $string['noemail'] = 'あなたへのメール送信を試みましたが失敗しました!';
@@ -131,7 +131,7 @@ $string['ntlmsso_attempting'] = 'NTLM経由でシングルサインオン実行�
 $string['ntlmsso_failed'] = '自動ログインに失敗しました、通常のログインページを試します ...';
 $string['ntlmsso_isdisabled'] = 'NTLM SSOは無効にされています。';
 $string['ntlmsso_unknowntype'] = '不明なntlmssoタイプです!';
-$string['pagedresultsnotsupp'] = 'LDAPページ化結果はサポートされていません (あなたのPHPバージョンがサポートしていないか、MoodleがLDAPプロトコルバージョン2を使用するよう設定されているか、ページサポートを利用できるか確認するためにMoodleがLDAPサーバに接続できません)。';
+$string['pagedresultsnotsupp'] = 'LDAPページ化結果はサポートされていません (あなたのPHPバージョンがサポートしていない、MoodleがLDAPプロトコルバージョン2を使用するよう設定されている、またはページサポートを利用できるか確認するためにMoodleがLDAPサーバに接続できません)。';
 $string['pagesize'] = 'この値があなたのLDAPサーバ結果設定サイズ制限 (1回のクエリで返すことのできる最大エントリ数) より小さいことを確認してください。';
 $string['pagesize_key'] = 'ページサイズ';
 $string['pluginname'] = 'LDAPサーバ';
@@ -144,7 +144,7 @@ $string['synctask'] = 'LDAPユーザ同期ジョブ';
 $string['updatepasserror'] = 'user_update_password()にエラーが発生しました。エラーコード: {$a->errno}  エラーストリング: {$a->errstring}';
 $string['updatepasserrorexpire'] = 'パスワードの有効期限読み込み中にuser_update_password()にエラーが発生しました。エラーコード: {$a->errno}  エラーストリング: {$a->errstring}';
 $string['updatepasserrorexpiregrace'] = 'パスワード有効期限または猶予ログインの修正中にuser_update_password()にエラーが発生しました。エラーコード: {$a->errno}  エラーストリング: {$a->errstring}';
-$string['updateremfail'] = 'LDAPレコードの更新中にエラーが発生しました。エラーコード: {$a->errno}; エラーストリング: {$a->errstring}<br/>キー ({$a->key}) - 古いMoodle値: {$a->ouvalue}  新しい値: {$a->nuvalue}';
+$string['updateremfail'] = 'LDAPレコードの更新中にエラーが発生しました。エラーコード: {$a->errno}; エラーストリング: {$a->errstring}<br />キー ({$a->key}) - 古いMoodle値: {$a->ouvalue}  新しい値: {$a->nuvalue}';
 $string['updateremfailamb'] = 'LDAPのあいまいなフィールド {$a->key} の更新に失敗しました。古いMoodle値: {$a->ouvalue}  新しい値: {$a->nuvalue}';
 $string['updateusernotfound'] = '外部更新中にユーザを見つけることができませんでした。詳細は次のとおりです: 検索ベース: {$a->userdn}  検索フィルタ: (objectClass=*)  検索属性: {$a->attribs}';
 $string['useracctctrlerror'] = '{$a} のuserAccountControl取得中にエラーが発生しました。';

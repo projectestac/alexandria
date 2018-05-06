@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'completion', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -65,11 +65,11 @@ $string['completion_help'] = 'この設定を有効にした場合、コンデ�
 
 活動が完了した場合、コースページの活動名の横にチェックが表示されます。';
 $string['completionicons'] = '完了チェックボックス';
-$string['completionicons_help'] = '活動名の横にあるチェックボックスにより、活動の完了時期を指定します。
+$string['completionicons_help'] = '活動名の横にあるチェックボックスにより活動の完了時期を指定します。
 
 ドット線のボックスが表示された場合、教師により設定されたコンディションに従ってあなたが活動を完了した時点で、チェックが自動的に表示されます。
 
-実践のボックスが表示された場合、あなたが活動を完了したと思う時点で、ボックスをチェックすることができます (あなたの気持ちが変わった場合、再度クリックすることにより、チェック解除します)。チェックは任意であり、コースを通して、あなたの進捗を追跡するためのシンプルな方法です。';
+実践のボックスが表示された場合、あなたが活動を完了したと思う時点でボックスをチェックすることができます (あなたの気持ちが変わった場合、再度クリックすることによりチェック解除してください)。';
 $string['completion_manual'] = 'ユーザが手動で活動を完了マークできる';
 $string['completionmenuitem'] = '完了';
 $string['completion-n'] = '未完了';
@@ -123,7 +123,7 @@ $string['err_noactivities'] = 'すべての活動で完了情報が有効にさ�
 $string['err_nocourses'] = '他のどのコースでもコース完了が有効にされていないため、何も表示することはできません。あなたはコース設定内でコース完了を有効にすることができます。';
 $string['err_nograde'] = 'このコースにはコース合格点が設定されていません。このクライテリアタイプを設定するにはあなたはコースに合格点を設定する必要があります。';
 $string['err_noroles'] = 'このコースにはケイパビリティ「moodle/course:markcomplete」が割り当てられたロールがありません。';
-$string['err_nousers'] = 'このコースまたはグループには完了情報を表示するユーザはいません (デフォルトでは完了情報は学生のみに表示されます。学生が登録されていない場合、このエラーが表示されます。管理者はこのオプションを管理画面で変更することができます)。';
+$string['err_nousers'] = 'このコースまたはグループには完了情報を表示するユーザはいません (デフォルトでは完了情報は学生にのみ表示されます。学生が登録されていない場合、このエラーが表示されます。管理者はこのオプションを管理画面で変更することができます)。';
 $string['err_settingslocked'] = '1名またはそれ以上の学生がすでにクライテリアを完了しているため、設定がロックされています。完了クライテリア設定ロックを解除するには既存のユーザデータを削除する必要があります。ユーザデータ削除により混乱が生じる恐れがあります。';
 $string['err_system'] = '完了システムで内部エラーが発生しました (詳細情報を表示するため、システム管理者はデバッグ情報の表示を有効にできます)。';
 $string['eventcoursecompleted'] = 'コースが完了しました。';
@@ -148,8 +148,8 @@ $string['notenroled'] = 'あなたはこのコースに登録されていませ�
 $string['nottracked'] = '現在、あなたはこのコース内で完了により追跡されていません。';
 $string['notyetstarted'] = '未開始';
 $string['overallaggregation'] = '完了要件';
-$string['overallaggregation_all'] = 'すべてのコンディションに合致した場合、コースが完了する';
-$string['overallaggregation_any'] = 'コンディションのどれかに合致した場合、コースが完了する';
+$string['overallaggregation_all'] = 'すべてのコンディションに合致した時点でコースが完了する';
+$string['overallaggregation_any'] = 'コンディションのどれかに合致した時点でコースが完了する';
 $string['pending'] = '保留';
 $string['periodpostenrolment'] = '登録後の期間';
 $string['progress'] = '学生の進捗';

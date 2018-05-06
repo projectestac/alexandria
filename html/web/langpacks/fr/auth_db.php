@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_db', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_db', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_db
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -45,10 +45,10 @@ $string['auth_dbinsertuser'] = 'Utilisateur {$a->name} id {$a->id} inséré';
 $string['auth_dbinsertuserduplicate'] = 'Erreur lors de l\'insertion de l\'utilisateur {$a->username}. Cet utilisateur a déjà été créé via le plugin « {$a->auth} ».';
 $string['auth_dbinsertusererror'] = 'Erreur lors de l\'insertion de l\'utilisateur {$a}';
 $string['auth_dbname'] = 'Nom de la base de données. À ne pas renseigner si vous utiliser un DSN ODBC.';
-$string['auth_dbname_key'] = 'Nom BDD';
+$string['auth_dbname_key'] = 'Nom de la base de données';
 $string['auth_dbpass'] = 'Mot de passe pour ce compte';
 $string['auth_dbpass_key'] = 'Mot de passe';
-$string['auth_dbpasstype'] = '<p>Indiquez le type de hachage utilisé pour le champ mot de passe. L\'algorithme MD5 est utile pour une utilisation conjointe avec d\'autres applications Web telles que PostNuke.</p> <p>Utilisez « Interne » si vous voulez que la base de données externe gère les noms d\'utilisateur et les adresses de courriel, mais que Moodle gère les mots de passe. Dans ce cas, la base de données externe <i>doit</i> comprendre un champ contenant une adresse de courriel, et vous devez lancer régulièrement les scripts admin/cron.php et auth/db/auth_db_sync_users.php. Moodle enverra alors par courriel un mot de passe temporaire aux nouveaux utilisateurs.</p>';
+$string['auth_dbpasstype'] = '<p>Indiquez le type de hachage utilisé pour le champ mot de passe. L\'algorithme MD5 est utile pour une utilisation conjointe avec d\'autres applications Web telles que PostNuke.</p> <p>Utilisez « Interne » si vous voulez que la base de données externe gère les noms d\'utilisateur et les adresses de courriel, mais que Moodle gère les mots de passe. Dans ce cas, la base de données externe <i>doit</i> comprendre un champ contenant une adresse de courriel, et vous devez lancer régulièrement les scripts admin/cron.php et auth/db/cli/sync_users.php. Moodle enverra alors par courriel un mot de passe temporaire aux nouveaux utilisateurs.</p>';
 $string['auth_dbpasstype_key'] = 'Format du mot de passe';
 $string['auth_dbreviveduser'] = 'Utilisateur {$a->name} id {$a->id} réactivé';
 $string['auth_dbrevivedusererror'] = 'Erreur lors de la réactivation de l\'utilisateur {$a}';
@@ -65,7 +65,7 @@ $string['auth_dbtype'] = 'Type de la base de données (pour plus de détails, vo
 $string['auth_dbtype_key'] = 'Base de données';
 $string['auth_dbupdatinguser'] = 'Modification de l\'utilisateur {$a->name} id {$a->id}';
 $string['auth_dbuser'] = 'Compte avec accès en lecture à la base de données';
-$string['auth_dbuser_key'] = 'Utilisateur BDD';
+$string['auth_dbuser_key'] = 'Utilisateur de la base de données';
 $string['auth_dbusernotexist'] = 'Impossible de modifier l\'utilisateur {$a}, qui n\'existe pas';
 $string['auth_dbuserstoadd'] = 'Enregistrements utilisateurs à ajouter : {$a}';
 $string['auth_dbuserstoremove'] = 'Enregistrements utilisateurs à supprimer : {$a}';

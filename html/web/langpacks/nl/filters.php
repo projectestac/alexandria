@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filters', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filters', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   filters
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -49,7 +49,7 @@ $string['defaultx'] = 'Standaard ({$a})';
 $string['disabled'] = 'Uitgeschakeld';
 $string['doesnotcontain'] = 'bevat niet';
 $string['endswith'] = 'eindigt op';
-$string['filterallwarning'] = 'Filters toepassen op inhoud en titels kan de belasting op je server gevoelig verhogen. Wees zuining met deze instelling. Ze is het nuttigst voor de multilang-filter.';
+$string['filterallwarning'] = 'Filters toepassen op inhoud en titels kan de belasting op je server gevoelig verhogen. Wees zuinig met deze instelling. Ze is het nuttigst voor de multilang-filter.';
 $string['filtersettings'] = 'Filter instellingen';
 $string['filtersettingsforin'] = 'Filter instellingen voor {$a->filter} in {$a->context}';
 $string['filtersettings_help'] = 'Met deze pagina kun je filters inschakelen of uitschakelen in een bepaald deel van de site.

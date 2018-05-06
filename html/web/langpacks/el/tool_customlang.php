@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_customlang', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_customlang', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_customlang
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,5 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['checkin'] = 'Αποθήκευση αλφαριθμητικών στο πακέτο γλώσσας';
+$string['checkout'] = 'Άνοιγμα πακέτου γλώσσας για επεξεργασία';
+$string['checkoutdone'] = 'Φορτώθηκε το πακέτο γλώσσας';
+$string['checkoutinprogress'] = 'Φόρτωση πακέτου γλώσσας';
+$string['confirmcheckin'] = 'Πρόκειται να αποθηκεύσετε τροποποιήσεις στο τοπικό πακέτο γλώσσας. Αυτό θα εξάγει τα προσαρμοσμένα αλφαριθμητικά από τον μεταφραστή στον κατάλογο δεδομένων του Moodle και το Moodle θα ξεκινήσει να χρησιμοποιεί τα τροποποιημένα αλφαριθμητικά. Πατήστε \'Συνέχεια\' για να προχωρήσετε στην αποθήκευση.';
+$string['headingcomponent'] = 'Συστατικό';
+$string['headinglocal'] = 'Τοπική προσαρμογή';
 $string['markuptodate'] = 'σημείωση ως ενημερωμένο';
+$string['modifiednum'] = 'Υπάρχουν {$a} τροποποιημένα αλφαριθμητικά. Θέλετε να αποθηκεύσετε αυτές τις αλλαγές στο τοπικό πακέτο γλώσσας;';
 $string['pluginname'] = 'Γλωσσική προσαρμογή';
+$string['savecheckin'] = 'Αποθήκευση αλλαγών στο πακέτο γλώσσας';

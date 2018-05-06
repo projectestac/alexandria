@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'questionnaire', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'questionnaire', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   questionnaire
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -123,7 +123,7 @@ $string['email'] = 'Eメール';
 $string['errnewname'] = '申し訳ございません、このアンケート名はすでに使用されています。新しいアンケート名を入力してください。';
 $string['erroropening'] = 'エラー：アンケートを開くことができません。';
 $string['errortable'] = 'エラー：システムテーブルが不正です。';
-$string['essaybox'] = '短文記述形式';
+$string['essaybox'] = '長文回答';
 $string['essaybox_help'] = 'この質問は、横x列，縦y行の領域のプレーンテキストボックスを表示します。あなたがxとyの両方をデフォルト値の0のままにしている場合（または0に設定している場合）、MoodleのHTMLエディタは標準的な高さと幅（コース/ユーザーコンテキスト·ユーザープロファイルで設定可能）で表示されます。';
 $string['event_all_responses_deleted'] = 'すべての回答が消去されました。';
 $string['event_all_responses_saved_as_text'] = 'すべての回答がテキストとして保存されました。';
@@ -362,7 +362,6 @@ $string['realm_help'] = '* **アンケートには、次の3種類がありま�
 $string['redirecturl'] = 'この調査完了後、ユーザがリダイレクトされるURLです。';
 $string['remove'] = '削除';
 $string['removeallquestionnaireattempts'] = 'アンケートの回答をすべて削除します。';
-$string['removenotinuse'] = 'このアンケートは，すでに削除されたパブリックアンケートに依存しています。それはもはや使用することができませんので，削除する必要があります。';
 $string['required'] = '必須回答';
 $string['required_help'] = '***Yes***を選択した場合は，この質問への回答が必須となります。つまり，この質問に回答するまで，アンケートを提出し終えることができません。';
 $string['requiredparameter'] = '必要なパラメータが欠如してます。';
@@ -435,7 +434,7 @@ $string['text'] = '質問文';
 $string['textareacolumns'] = '一行文字数';
 $string['textareacolumns_help'] = 'この質問は，**x** *テキストエリアの列*（またはエリア*幅*）と**y** *テキストエリアの行（テキストの*行数*）のプレーンテキストボックスを表示します。あなたがxとyの両方をデフォルト**0**の値（またはそれが** 0 **に設定されている場合）のままにしておくと，·（、コース/ユーザーコンテキストとユーザプロファイルで利用可能な設定の場合は）HTMLエディタは標準的な高さと幅で表示されます。';
 $string['textarearows'] = '行数';
-$string['textbox'] = '自由記述形式';
+$string['textbox'] = '短文回答';
 $string['textbox_help'] = 'テキストボックス質問タイプの場合は、入力ボックスの文字数と回答者が入力するテキストの最大文字数を入力します。デフォルト値は入力ボックスの幅は半角20文字，入力テキストの最大文字数は半角25文字です。';
 $string['textdownloadoptions'] = 'ダウンロードオプション (CSV)';
 $string['thank_head'] = 'このアンケートにご協力いただきましてありがとうございます。';

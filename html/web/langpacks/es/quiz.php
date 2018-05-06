@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -330,11 +330,14 @@ $string['eventattemptpreviewstarted'] = 'Vista previa del intento iniciada';
 $string['eventattemptreviewed'] = 'Intento del cuestionario revisado';
 $string['eventattemptsummaryviewed'] = 'Resumen del intento de cuestionario visualizado';
 $string['eventattemptviewed'] = 'Intento de cuestionario visualizado';
+$string['eventeditpageviewed'] = 'Página de edición del cuestionario visitada';
 $string['eventoverridecreated'] = 'Anular cuestionario creado';
+$string['eventquestionmanuallygraded'] = 'Pregunta calificada manualmente';
 $string['eventquizattemptabandoned'] = 'Intento abandonado';
 $string['eventquizattemptstarted'] = 'Ha comenzado el intento';
 $string['eventquizattemptsubmitted'] = 'Intento enviado';
-$string['eventquizattempttimelimitexceeded'] = 'Limite de intentos excedido';
+$string['eventquizattempttimelimitexceeded'] = 'Tiempo límite del cuestionario excedido';
+$string['eventreportviewed'] = 'Informe de cuestionario visto';
 $string['everynquestions'] = 'Cada {$a} preguntas';
 $string['everyquestion'] = 'Cada pregunta';
 $string['everythingon'] = 'Todo activado';
@@ -409,6 +412,7 @@ demás intentos).</UL>
 <P>La calificación final es la obtenida en el intento más reciente.</UL>';
 $string['gradesdeleted'] = 'Eliminadas calificaciones del cuestionario';
 $string['gradesofar'] = '{$a->method}: {$a->mygrade} / {$a->quizgrade}.';
+$string['gradetopassmustbeset'] = 'La nota para aprobar no puede ser cero, este cuestionario tiene como método establecido una calificación para aprobar. Por favor establezca un número que no sea cero.';
 $string['gradingdetails'] = 'Puntos para este envío:
 {$a->raw}/{$a->max}.';
 $string['gradingdetailsadjustment'] = 'Con las penalizaciones previas da como resultado
@@ -467,6 +471,7 @@ $string['literal'] = 'Literal';
 $string['loadingquestionsfailed'] = 'Fallo en la carga de preguntas: {$a}';
 $string['makecopy'] = 'Guardar como nueva pregunta';
 $string['managetypes'] = 'Gestionar tipos de preguntas y servidores';
+$string['manualgradequestion'] = 'Pregunta calificada manualmente {$a->question} en {$a->quiz} por {$a->user}';
 $string['manualgrading'] = 'Calificación';
 $string['mark'] = 'Enviar';
 $string['markall'] = 'Enviar página';
@@ -476,6 +481,7 @@ $string['match'] = 'Emparejamiento';
 $string['matchanswer'] = 'Respuesta emparejada';
 $string['matchanswerno'] = 'Respuesta emparejada {$a}';
 $string['max'] = 'Máx';
+$string['maxmark'] = 'Nota máxima';
 $string['messageprovider:attempt_overdue'] = 'Advertencia cuando su intento de resolver el cuestionario se retrase';
 $string['messageprovider:confirmation'] = 'Confirmación de su envío del cuestionario';
 $string['messageprovider:submission'] = 'Notificación del envío de cuestionarios';
@@ -505,7 +511,7 @@ $string['multichoice'] = 'Opción múltiple';
 $string['multipleanswers'] = 'Seleccione  al menos una respuesta.';
 $string['mustbesubmittedby'] = 'Este intento debe ser presentado por {$a}.';
 $string['name'] = 'Nombre';
-$string['navigatenext'] = 'Siguente página';
+$string['navigatenext'] = 'Siguiente página';
 $string['navigateprevious'] = 'Página anterior';
 $string['navmethod'] = 'Método de navegación';
 $string['navmethod_free'] = 'Libre';
@@ -653,6 +659,7 @@ $string['questionbankmanagement'] = 'Gestión del banco de preguntas';
 $string['questionbehaviour'] = 'Comportamiento de las preguntas';
 $string['questioncats'] = 'Categorías de pregunta';
 $string['questiondeleted'] = 'Esta pregunta ha sido eliminada. Por favor, contacte con su profesor';
+$string['questiondependencyadd'] = 'Sin restricción cuando la pregunta  {$a->thisq} se pueda intentar - Clic aquí para cambiarlo';
 $string['questiondependencyfree'] = 'Sin restricciones para esta pregunta';
 $string['questiondependencyremove'] = 'No se pueden realizar intentos en la pregunta {$a->thisq} hasta que se haya completado la pregunta {$a->previousq} anterior • Haga clic para cambiar';
 $string['questiondependsonprevious'] = 'No se pueden realizar intentos en esta pregunta hasta que se haya completado la pregunta anterior.';
@@ -792,6 +799,7 @@ $string['reviewimmediately'] = 'Inmediatamente después de cada intento';
 $string['reviewnever'] = 'No permitir revisión';
 $string['reviewofattempt'] = 'Revisión del intento {$a}';
 $string['reviewofpreview'] = 'Revisión de la vista previa';
+$string['reviewofquestion'] = 'Revisión de la pregunta {$a->question} en {$a->quiz} por {$a->user}';
 $string['reviewopen'] = 'Más tarde, mientras el cuestionario está aún abierto';
 $string['reviewoptions'] = 'Los estudiantes pueden revisar';
 $string['reviewoptionsheading'] = 'Revisar opciones';
@@ -826,6 +834,7 @@ $string['savingnewgradeforquestion'] = 'Guardando la nueva calificación en la p
 $string['savingnewmaximumgrade'] = 'Guardando la nueva calificación máxima';
 $string['score'] = 'Puntuación bruta';
 $string['scores'] = 'Puntuaciones -';
+$string['search:activity'] = 'Examen - información de actividad';
 $string['sectionheadingedit'] = 'Editar cabecera \'{$a}\'';
 $string['sectionheadingremove'] = 'Borrar cabecera \'{$a}\'';
 $string['seequestions'] = '(Vea las preguntas)';
@@ -889,7 +898,7 @@ $string['startagain'] = 'Comenzar de nuevo';
 $string['startattempt'] = 'Comenzar intento';
 $string['startedon'] = 'Comenzado el';
 $string['startnewpreview'] = 'Comenzar una nueva previsualización';
-$string['stateabandoned'] = 'Nunca presentó';
+$string['stateabandoned'] = 'Nunca envió';
 $string['statefinished'] = 'Finalizado';
 $string['statefinisheddetails'] = 'Enviado: {$a}';
 $string['stateinprogress'] = 'En curso';
@@ -918,8 +927,6 @@ $string['timeleft'] = 'Tiempo restante';
 $string['timelimit'] = 'Límite de tiempo';
 $string['timelimitexeeded'] = 'Lo sentimos. Se ha sobrepasado el límite de tiempo.';
 $string['timelimit_help'] = 'Si está habilitado, el tiempo límite se indica en la página inicial del cuestionario y un temporizador con el tiempo restante se muestra en el bloque de navegación del cuestionario.';
-$string['timelimitmin'] = 'Límite de tiempo (en minutos)';
-$string['timelimitsec'] = 'Límite de tiempo (en segundos)';
 $string['timestr'] = '%H:%M:%S on %d/%m/%y';
 $string['timesup'] = '¡Se ha pasado el tiempo!';
 $string['timetaken'] = 'Tiempo empleado';

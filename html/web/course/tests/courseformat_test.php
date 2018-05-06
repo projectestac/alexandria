@@ -101,4 +101,104 @@ class core_course_courseformat_testcase extends advanced_testcase {
         $this->assertFalse($modinfoteacher->get_cm($assign1->cmid)->available);
         $this->assertTrue($modinfoteacher->get_cm($assign1->cmid)->uservisible);
     }
+
+    /**
+     * Test for supports_news() with a course format plugin that doesn't define 'news_items' in default blocks.
+     */
+    public function test_supports_news() {
+        $this->resetAfterTest();
+        $format = course_get_format((object)['format' => 'testformat']);
+        $this->assertFalse($format->supports_news());
+    }
+
+    /**
+     * Test for supports_news() for old course format plugins that defines 'news_items' in default blocks.
+     */
+    public function test_supports_news_legacy() {
+        $this->resetAfterTest();
+        $format = course_get_format((object)['format' => 'testlegacy']);
+        $this->assertTrue($format->supports_news());
+    }
+
+    /**
+     * Test for get_view_url() to ensure that the url is only given for the correct cases
+     */
+    public function test_get_view_url() {
+        global $CFG;
+        $this->resetAfterTest();
+
+        $linkcoursesections = $CFG->linkcoursesections;
+
+        // Generate a course with two sections (0 and 1) and two modules. Course format is set to 'testformat'.
+        // This will allow us to test the default implementation of get_view_url.
+        $generator = $this->getDataGenerator();
+        $course1 = $generator->create_course(array('format' => 'testformat'));
+        course_create_sections_if_missing($course1, array(0, 1));
+
+        $data = (object)['id' => $course1->id];
+        $format = course_get_format($course1);
+        $format->update_course_format_options($data);
+
+        // In page.
+        $CFG->linkcoursesections = 0;
+        $this->assertNotEmpty($format->get_view_url(null));
+        $this->assertNotEmpty($format->get_view_url(0));
+        $this->assertNotEmpty($format->get_view_url(1));
+        $CFG->linkcoursesections = 1;
+        $this->assertNotEmpty($format->get_view_url(null));
+        $this->assertNotEmpty($format->get_view_url(0));
+        $this->assertNotEmpty($format->get_view_url(1));
+
+        // Navigation.
+        $CFG->linkcoursesections = 0;
+        $this->assertNull($format->get_view_url(1, ['navigation' => 1]));
+        $this->assertNull($format->get_view_url(0, ['navigation' => 1]));
+        $CFG->linkcoursesections = 1;
+        $this->assertNotEmpty($format->get_view_url(1, ['navigation' => 1]));
+        $this->assertNotEmpty($format->get_view_url(0, ['navigation' => 1]));
+    }
+}
+
+/**
+ * Class format_testformat.
+ *
+ * A test class that simulates a course format that doesn't define 'news_items' in default blocks.
+ *
+ * @copyright 2016 Jun Pataleta <jun@moodle.com>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class format_testformat extends format_base {
+    /**
+     * Returns the list of blocks to be automatically added for the newly created course.
+     *
+     * @return array
+     */
+    public function get_default_blocks() {
+        return [
+            BLOCK_POS_RIGHT => [],
+            BLOCK_POS_LEFT => []
+        ];
+    }
+}
+
+/**
+ * Class format_testlegacy.
+ *
+ * A test class that simulates old course formats that define 'news_items' in default blocks.
+ *
+ * @copyright 2016 Jun Pataleta <jun@moodle.com>
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+class format_testlegacy extends format_base {
+    /**
+     * Returns the list of blocks to be automatically added for the newly created course.
+     *
+     * @return array
+     */
+    public function get_default_blocks() {
+        return [
+            BLOCK_POS_RIGHT => ['news_items'],
+            BLOCK_POS_LEFT => []
+        ];
+    }
 }

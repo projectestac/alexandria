@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'langconfig', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'langconfig', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   langconfig
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,7 @@ $string['strftimedaydatetime'] = '%A, %d %B %Y, %H:%M';
 $string['strftimedayshort'] = '%A %d %B';
 $string['strftimedaytime'] = '%a, %H:%M';
 $string['strftimemonthyear'] = '%B %Y';
-$string['strftimerecent'] = '%d %b, %H:%M';
+$string['strftimerecent'] = '%d %b %Y, %H:%M:%S';
 $string['strftimerecentfull'] = '%a, %d %b %Y, %H:%M';
 $string['strftimetime'] = '%H:%M';
 $string['thisdirection'] = 'ltr';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_ldap', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -83,6 +83,8 @@ $string['auth_ldap_preventpassindb_key'] = 'No cachear contraseñas';
 $string['auth_ldap_search_sub'] = 'Ponga el valor <> 0 si quiere buscar usuarios desde subcontextos.';
 $string['auth_ldap_search_sub_key'] = 'Buscar subcontextos';
 $string['auth_ldap_server_settings'] = 'Ajustes de servidor LDAP';
+$string['auth_ldap_suspended_attribute'] = 'Opcional: Cuando se proporciona este atributo, será usado para activar/suspender la cuenta local del usuario.';
+$string['auth_ldap_suspended_attribute_key'] = 'Atributo suspendido';
 $string['auth_ldap_unsupportedusertype'] = 'auth: ldap user_create() no admite el tipo de usuario seleccionado: usertype: {$a}';
 $string['auth_ldap_update_userinfo'] = 'Actualizar información del usuario (nombre, apellido, dirección..) desde LDAP a Moodle. Mire en /auth/ldap/attr_mappings.php para información de mapeado';
 $string['auth_ldap_user_attribute'] = 'El atributo usado para nombrar/buscar usuarios. Normalmente \'cn\'.';

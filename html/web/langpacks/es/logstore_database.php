@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'logstore_database', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'logstore_database', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   logstore_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,6 +32,7 @@ $string['databasecollation'] = 'Recopilación de la base de datos';
 $string['databasepersist'] = 'Conexiones persistentes a la base de datos';
 $string['databaseschema'] = 'Esquema de la base datos';
 $string['databasesettings'] = 'Configuración de la base de datos';
+$string['databasesettings_help'] = 'Detalles de conexión para el log externo de la base de datos: {$a}';
 $string['databasetable'] = 'Tabla de base de datos';
 $string['filters'] = 'Filtrar registros';
 $string['filters_help'] = 'Habilitar filtros que excluyan el registro de algunas acciones.';

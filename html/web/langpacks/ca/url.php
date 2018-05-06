@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'url', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'url', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   url
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -41,9 +41,9 @@ $string['displayselect_help'] = 'Aquest paràmetre, juntament amb el tipus de fi
 * Automàtica: se selecciona automàticament la millor opció de visualització.
 * Incrustació: l\'URL es visualitza dins de la pàgina, sota la barra de navegació, junt amb la descripció de l\'URL i els blocs que calgui.
 * Obre: la finestra de navegació només visualitza l\'URL.
-* Finestra emergent: l\'URL es visualitza en una nova finestra del navegador sense menú ni barra d\'adreces.
+* Finestra emergent: l\'URL es visualitza en una finestra nova del navegador sense menú ni barra d\'adreces.
 * Marc: l\'URL es visualitza dins d\'un marc, sota la barra de navegació i la descripció de l\'URL.
-* Finestra nova: l\'URL es visualitza en una nova finestra del navegador amb menú i barra d\'adreces.';
+* Finestra nova: l\'URL es visualitza en una finestra nova del navegador amb menú i barra d\'adreces.';
 $string['externalurl'] = 'URL extern';
 $string['framesize'] = 'Alçada del marc';
 $string['invalidstoredurl'] = 'No es pot visualitzar aquest recurs: l\'URL és invàlid.';
@@ -62,9 +62,9 @@ $string['parametersheader_help'] = 'Algunes variables internes de Moodle poden a
 $string['pluginadministration'] = 'Administració del mòdul URL';
 $string['pluginname'] = 'URL';
 $string['popupheight'] = 'Alçada (en píxels) de la finestra emergent';
-$string['popupheightexplain'] = 'Especifica l\'alçada per defecte de les finestres emergents.';
+$string['popupheightexplain'] = 'Especifica l\'alçària per defecte de les finestres emergents.';
 $string['popupwidth'] = 'Amplada (en píxels) de la finestra emergent.';
-$string['popupwidthexplain'] = 'Especifica l\'amplada per defecte de les finestres emergents.';
+$string['popupwidthexplain'] = 'Especifica l\'amplària per defecte de les finestres emergents.';
 $string['printintro'] = 'Mostra la descripció de l\'URL';
 $string['printintroexplain'] = 'Cal mostrar la descripció de l\'URL sota el contingut? Alguns tipus de visualització poden no mostrar la descripció encara que s\'habiliti.';
 $string['rolesinparams'] = 'Inclou noms de rols als paràmetres';

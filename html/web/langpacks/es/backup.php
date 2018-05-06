@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'backup', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'backup', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   backup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,7 +79,7 @@ $string['backuptypesection'] = 'Sección';
 $string['backupversion'] = 'Copia de seguridad versión';
 $string['cannotfindassignablerole'] = 'El rol {$a} en el archivo de copia de seguridad no se puede mapear a ninguno de los roles que usted puede asignar.';
 $string['choosefilefromactivitybackup'] = 'Zona de actividad de la copia de seguridad';
-$string['choosefilefromactivitybackup_help'] = 'Cuando se realiza una copia de seguridad de las actividades utilizando los valores preestablecidos, los archivos de la copia se guardan aquí.';
+$string['choosefilefromactivitybackup_help'] = 'Las actividades de Respaldo efectuadas utilizando los valores preestablecidos se guardan aquí.';
 $string['choosefilefromautomatedbackup'] = 'Copias de seguridad automáticas';
 $string['choosefilefromautomatedbackup_help'] = 'Contiene las copias de seguridad automáticas';
 $string['choosefilefromcoursebackup'] = 'Zona de copia de seguridad de curso';
@@ -90,12 +90,14 @@ $string['configgeneralactivities'] = 'Ajusta los valores por defecto para inclui
 $string['configgeneralanonymize'] = 'Si se activa, toda la información relativa a los usuarios será anónima por defecto.';
 $string['configgeneralbadges'] = 'Establece el valor por defecto para incluir las insignias en la copia de seguridad.';
 $string['configgeneralblocks'] = 'Ajusta los valores por defecto para incluir bloques en la copia de seguridad.';
+$string['configgeneralcalendarevents'] = 'Establece el valor predeterminado para la inclusión de los eventos del calendario en una copia de seguridad.';
 $string['configgeneralcomments'] = 'Ajusta los valores por defecto para incluir comentarios en la copia de seguridad.';
+$string['configgeneralcompetencies'] = 'Establece el valor predeterminado para la inclusión de los eventos del calendario en una copia de seguridad.';
 $string['configgeneralfilters'] = 'Ajusta los valores por defecto para incluir filtros en la copia de seguridad.';
 $string['configgeneralgroups'] = 'Establece el valor por defecto en la inclusión de grupos y agrupaciones en una copia de seguridad.';
 $string['configgeneralhistories'] = 'Ajusta los valores por defecto para incluir el historial del usuario dentro de una copia de seguridad.';
 $string['configgenerallogs'] = 'Si se activa, se incluirán por defecto registros en las copias de seguridad.';
-$string['configgeneralquestionbank'] = 'Si se habilita, el banco de preguntas se incluirá en las copias de seguridad de forma predeterminada. NOTA: la desactivación de esta opción desactivará la copia de seguridad de las actividades que utilizan el banco de preguntas, como es el caso del cuestionario.';
+$string['configgeneralquestionbank'] = 'Si está habilitado el banco de preguntas será incluido en las copias de seguridad de forma predeterminada. NOTA: Al desactivar esta opción deshabilitará la copia de seguridad de las actividades que utilizan el banco de preguntas, tales como el cuestionario.';
 $string['configgeneralroleassignments'] = 'Si se habilita, los roles asignados por defecto serán también copiados.';
 $string['configgeneralusers'] = 'Ajusta los valores por defecto para incluir a los usuarios en las copias de seguridad.';
 $string['configgeneraluserscompletion'] = 'Si se activa, la información del grado de avance de los usuarios se incluirá por defecto en las copias de seguridad.';
@@ -118,6 +120,7 @@ $string['currentstage4'] = 'Confirmación y revisión';
 $string['currentstage8'] = 'Ejecutar copia de seguridad';
 $string['enterasearch'] = 'Introduzca un criterio de búsqueda';
 $string['error_block_for_module_not_found'] = 'Encontrada instancia de bloque huérfano (id: {$a->bid}) para el módulo del curso (id: {$a->mid}) Este bloque no se copiará';
+$string['errorcopyingbackupfile'] = 'Fallo al copiar el fichero de copia de seguridad al directorio temporal antes de restaurar.';
 $string['error_course_module_not_found'] = 'Encontrado módulo de curso huérfano (id: {$a}). Este modulo no se copiará';
 $string['errorfilenamemustbezip'] = 'El nombre que se introduzca debe ser un archivo ZIP y con la extensión MBZ';
 $string['errorfilenamerequired'] = 'Debe introducir un nombre de archivo válido para esta copia de seguridad';
@@ -130,7 +133,7 @@ $string['filealiasesrestorefailures'] = 'Fallos en la restauración de alias';
 $string['filealiasesrestorefailures_help'] = 'Los alias son enlaces simbólicos a otros archivos, incluyendo aquellos almacenados en repositorios externos. En algunos casos, Moodle no puede restaurarlos - por ejemplo cuando se restaura una copia de seguridad en otro sitio o cuando el archivo al que se hace referencia no existe.';
 $string['filealiasesrestorefailuresinfo'] = 'Algunos alias incluidos en el archivo de copia de seguridad no pudieron restaurarse. La lista siguiente contiene su localización esperada y el archivo origen al que se estaban refiriendo en el sitio original.';
 $string['filename'] = 'Nombre de archivo';
-$string['filereferencesincluded'] = 'Las referencias de archivo a contenidos externos incluidos en el paquete de copia de seguridad, no funcionarán en otros sitios.';
+$string['filereferencesincluded'] = 'Las referencias de archivo a contenidos externos se han incluido en el paquete de copia de seguridad, no funcionarán en otros sitios.';
 $string['filereferencesnotsamesite'] = 'La copia de seguridad es de otro sitio, las referencias de archivo no se puede restaurar';
 $string['filereferencessamesite'] = 'La copia de seguridad es de este sitio, las referencias de archivo se puede restaurar';
 $string['generalactivities'] = 'Incluir actividades y recursos';
@@ -138,7 +141,9 @@ $string['generalanonymize'] = 'Información anónima';
 $string['generalbackdefaults'] = 'Configuración por defecto de la copia de seguridad';
 $string['generalbadges'] = 'Incluir insignias';
 $string['generalblocks'] = 'Incluir bloques';
+$string['generalcalendarevents'] = 'Incluir eventos de calendario';
 $string['generalcomments'] = 'Incluir comentarios';
+$string['generalcompetencies'] = 'Incluir competencias';
 $string['generalfilters'] = 'Incluir filtros';
 $string['generalgradehistories'] = 'Incluir historiales';
 $string['generalgroups'] = 'Incluir grupos y agrupamientos';
@@ -167,6 +172,7 @@ $string['importgeneralduplicateadminallowed_desc'] = 'Si la página cuenta con u
 $string['importgeneralmaxresults'] = 'Número máximo de cursos listados para importación';
 $string['importgeneralmaxresults_desc'] = 'Controla el número de cursos que son listados durante el primer paso del proceso de importación';
 $string['importgeneralsettings'] = 'Ajustes por defecto de importación';
+$string['importsettings'] = 'Configuraciones generales de importación';
 $string['importsuccess'] = 'Importación completada. Pulse para volver al curso.';
 $string['includeactivities'] = 'Incluido:';
 $string['includeditems'] = 'Elementos incluidos:';

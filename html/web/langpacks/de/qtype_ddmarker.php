@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_ddmarker', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_ddmarker', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_ddmarker
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -64,7 +64,7 @@ $string['marker'] = 'Markierung';
 $string['marker_n'] = 'Markierung {no}';
 $string['markers'] = 'Markierungen';
 $string['nolabel'] = 'Kein Beschriftungstext';
-$string['noofdrags'] = 'Nummer';
+$string['noofdrags'] = 'Anzahl';
 $string['pleasedragatleastonemarker'] = 'Die Antwort ist nicht vollständig. Sie müssen mindestens eine Markierung auf das Bild setzen.';
 $string['pluginname'] = 'Drag-and-drop-Markierungen';
 $string['pluginnameadding'] = 'Füge "Drag-and-drop- Markierungen" hinzu';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'role', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,6 +79,7 @@ $string['badges:deletebadge'] = 'Eliminar Medalhas';
 $string['badges:earnbadge'] = 'Receber Medalha';
 $string['badges:manageglobalsettings'] = 'Gerir configurações globais das Medalhas';
 $string['badges:manageownbadges'] = 'Ver e gerir as Medalhas recebidas';
+$string['badges:revokebadge'] = 'Remover uma medalha de um utilizador';
 $string['badges:viewawarded'] = 'Ver utilizadores que ganharam uma Medalha específica mas cujo papel não lhes permite atribuir uma Medalha';
 $string['badges:viewbadges'] = 'Ver Medalhas disponíveis sem as ter';
 $string['badges:viewotherbadges'] = 'Ver Medalhas públicas no perfil de outros utilizadores';
@@ -290,7 +291,7 @@ $string['noneinthisxmatching'] = 'Não existem utilizadores com correspondência
 $string['norole'] = 'Sem papel';
 $string['noroleassignments'] = 'Não foi atribuído nenhum papel a este utilizador neste site';
 $string['noroles'] = 'Sem papéis';
-$string['notabletoassignroleshere'] = 'A Atribuição de papéis neste contexto não foi ativada pelo administrador.';
+$string['notabletoassignroleshere'] = 'A atribuição de papéis neste contexto não foi ativada pelo administrador.';
 $string['notabletooverrideroleshere'] = 'Não tem permissão para redefinir as permissões de nenhum papel aqui';
 $string['notes:manage'] = 'Gerir anotações';
 $string['notes:view'] = 'Ver anotações';
@@ -351,7 +352,7 @@ $string['restore:restoretargetimport'] = 'Restaurar a partir de ficheiros marcad
 $string['restore:rolldates'] = 'Com permissão para mudar as datas da configuração das atividades no restauro';
 $string['restore:uploadfile'] = 'Carregar ficheiros para as áreas das cópias de segurança';
 $string['restore:userinfo'] = 'Restaurar informações dos utilizadores';
-$string['restore:viewautomatedfilearea'] = 'Visualizar área de cópias de segurança automáticas';
+$string['restore:viewautomatedfilearea'] = 'Restaurar disciplinas de cópias de segurança automáticas';
 $string['risks'] = 'Riscos';
 $string['roleallowheader'] = 'Permitir papel:';
 $string['roleallowinfo'] = 'Selecione um papel a ser adicionado à lista de papéis permitidos no contexto {$a->context}, capacidade {$a->cap}:';
@@ -392,12 +393,15 @@ $string['siteadministrators'] = 'Administradores do site';
 $string['site:approvecourse'] = 'Aprovar criação de disciplinas';
 $string['site:backup'] = 'Fazer cópias de segurança de disciplinas';
 $string['site:config'] = 'Alterar configurações do site';
+$string['site:configview'] = 'Mostrar a hierarquia de administração do site (mas não todas as páginas)';
 $string['site:deleteanymessage'] = 'Apagar todas as mensagens do site';
 $string['site:deleteownmessage'] = 'Apagar as mensagens enviadas pelo e para o utilizador';
 $string['site:doanything'] = 'Autorizado(a) a fazer tudo';
 $string['site:doclinks'] = 'Mostrar hiperligações para documentos localizados fora do site';
 $string['site:forcelanguage'] = 'Sobrepor idioma da disciplina';
 $string['site:import'] = 'Importar outras disciplinas para uma disciplina';
+$string['site:maintenanceaccess'] = 'Aceder ao site enquanto estiver em modo de manutenção';
+$string['site:manageallmessaging'] = 'Adicionar, eliminar, bloquear e desbloquear contactos para qualquer utilizador';
 $string['site:manageblocks'] = 'Gerir blocos a nível do site';
 $string['site:mnetloginfromremote'] = 'Autenticação de um Moodle remoto';
 $string['site:mnetlogintoremote'] = 'Navegar para um Moodle remoto';
@@ -432,7 +436,7 @@ $string['user:loginas'] = 'Entrar como outro utilizador';
 $string['user:manageblocks'] = 'Gerir blocos no perfil de utilizador de outros utilizadores';
 $string['user:manageownblocks'] = 'Gerir blocos no seu perfil público de utilizador';
 $string['user:manageownfiles'] = 'Gerir ficheiros nas áreas de ficheiros privados';
-$string['user:managesyspages'] = 'Configurar o layout predefinido das páginas dos perfis de utilizadores públicas';
+$string['user:managesyspages'] = 'Configurar a estrutura predefinida das páginas dos perfis de utilizadores públicas';
 $string['user:readuserblogs'] = 'Ver todos os blogues do utilizador';
 $string['user:readuserposts'] = 'Ver todos os tópicos de Fórum do utilizador';
 $string['usersfrom'] = 'Utilizadores de {$a}';

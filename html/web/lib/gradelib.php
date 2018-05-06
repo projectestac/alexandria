@@ -593,6 +593,8 @@ function grade_get_grades($courseid, $itemtype, $itemmodule, $iteminstance, $use
                         $grade->feedback       = $grade_grades[$userid]->feedback;
                         $grade->feedbackformat = $grade_grades[$userid]->feedbackformat;
                         $grade->usermodified   = $grade_grades[$userid]->usermodified;
+                        $grade->datesubmitted  = $grade_grades[$userid]->get_datesubmitted();
+                        $grade->dategraded     = $grade_grades[$userid]->get_dategraded();
 
                         // create text representation of grade
                         if (in_array($grade_item->id, $needsupdate)) {
@@ -1387,9 +1389,10 @@ function grade_update_mod_grades($modinstance, $userid=0) {
         //new grading supported, force updating of grades
         $updateitemfunc($modinstance);
         $updategradesfunc($modinstance, $userid);
-
-    } else {
+    } else if (function_exists($updategradesfunc) xor function_exists($updateitemfunc)) {
         // Module does not support grading?
+        debugging("You have declared one of $updateitemfunc and $updategradesfunc but not both. " .
+                  "This will cause broken behaviour.", DEBUG_DEVELOPER);
     }
 
     return true;

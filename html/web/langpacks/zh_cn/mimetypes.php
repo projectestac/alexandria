@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mimetypes', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'mimetypes', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   mimetypes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,7 +40,15 @@ $string['archive'] = '存档（{$a->EXT}）';
 $string['audio'] = '音频文件（{$a->EXT}）';
 $string['default'] = '{$a->mimetype}';
 $string['document/unknown'] = '普通文件';
+$string['group:audio'] = '音频文件';
+$string['group:html_audio'] = '浏览器支持的音频文件';
+$string['group:html_video'] = '浏览器支持的视频文件';
+$string['group:video'] = '视频文件';
+$string['group:web_audio'] = '网络上使用的音频文件';
+$string['group:web_video'] = '网络上使用的视频文件';
 $string['image'] = '图片（{$a->MIMETYPE2}）';
 $string['text/html'] = 'HTML 文档';
 $string['text/plain'] = '文本文件';
 $string['text/rtf'] = 'RTF 文档';
+$string['text/vtt'] = '网络视频文字轨道';
+$string['video'] = '视频文件({$a->EXT})';

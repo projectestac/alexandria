@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'calendar', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   calendar
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -64,12 +64,26 @@ $string['erroraddingevent'] = 'Gebeurtenis toevoegen mislukt';
 $string['errorbadsubscription'] = 'Calenderinschrijving niet gevonden.';
 $string['errorbeforecoursestart'] = 'Je kunt geen activiteit plannen voor de startdatum van de cursus';
 $string['errorcannotimport'] = 'Je kunt nu geen kalenderinschrijving maken.';
+$string['errorhasuntilandcount'] = 'Ofwel UNTIL of COUNT mogen in een herhalingsregel voorkomen, maar UNTIL en COUNT mogen niet samen voorkomen in dezelfde herhalingsregel.';
+$string['errorinvalidbydayprefix'] = 'Gehele waarden die BYDAY-regels voorafgaan kunnen enkel gebruikt worden in een MONTHLY of YEARLY RRULE.';
+$string['errorinvalidbydaysuffix'] = 'Geldige waarden voor het weekdagen-gedeelte van de BYDAY regel zijn MO, TU, WE, TH, FR, SA en SU';
+$string['errorinvalidbyhour'] = 'Geldige waarden voor de BYHOUR-regel zijn 0 tot 23.';
+$string['errorinvalidbyminute'] = 'Geldige waarden voor de BYMINUTE-regel zijn 0 tot 59.';
+$string['errorinvalidbymonth'] = 'Geldige waarden voor de BYMONTH-regel zijn 1 tot 12.';
+$string['errorinvalidbymonthday'] = 'Geldige waarden voor de BYMONTHDAY-regel zijn 1 tot 31 of -31 tot -1.';
+$string['errorinvalidbysecond'] = 'Geldige waarden voor de BYSECOND-regel zijn 0 tot 59.';
+$string['errorinvalidbysetpos'] = 'Geldige waarden voor de BYSETPOS-regel zijn 1 tot 366 of -366 tot -1.';
+$string['errorinvalidbyweekno'] = 'Geldige waarden voor de BYWEEKNO-regel zijn 1 tot 53 of -53 tot -1.';
+$string['errorinvalidbyyearday'] = 'Geldige waarden voor de BYYEARDAY-regel zijn 1 tot 366 if -366 tot -1.';
 $string['errorinvaliddate'] = 'Ongeldige datum';
 $string['errorinvalidicalurl'] = 'De opgegeven iCal URL is niet geldig.';
+$string['errorinvalidinterval'] = 'De waarde voor de INTERNAL regel moet een positief geheel getal zijn.';
 $string['errorinvalidminutes'] = 'Geef de duur in minuten met een getal tussen 1 en 999';
 $string['errorinvalidrepeats'] = 'Geef het aantal activiteiten met een getal tussen 1 en 99';
+$string['errormustbeusedwithotherbyrule'] = 'De BYSETPOS-regel mag alleen samen gebruikt worden met een ander BYxxx-regeldeel.';
 $string['errornodescription'] = 'Beschrijving verplicht';
 $string['errornoeventname'] = 'Naam verplicht';
+$string['errornonyearlyfreqwithbyweekno'] = 'De BYWEEKNO-regel is enkel geldig voor jaarregels.';
 $string['errorrequiredurlorfile'] = 'Er is een bestand of een URL nodig om een kalender te importeren.';
 $string['errorrrule'] = 'De doorgegeven rrule lijkt onjuist';
 $string['errorrruleday'] = 'De rrule heeft een ongeldige dagparameter';
@@ -91,8 +105,14 @@ $string['eventsdeleted'] = 'Verwijderde gebeurtenissen';
 $string['eventsfor'] = '{$a} activiteiten';
 $string['eventsimported'] = 'Geïmporteerde gebeurtenissen: {$a}';
 $string['eventskey'] = 'Sleutel';
+$string['eventspersonal'] = 'Mijn persoonlijke gebeurtenissen';
 $string['eventsrelatedtocourses'] = 'Activiteiten uit cursussen';
+$string['eventsrelatedtogroups'] = 'Groepsgerelateerde gebeurtenissen';
 $string['eventstarttime'] = 'Startuur';
+$string['eventstoexport'] = 'Te exporteren gebeurtenissen';
+$string['eventsubscriptioncreated'] = 'Ingeschreven op kalender';
+$string['eventsubscriptiondeleted'] = 'Inschrijving op kalender verwijderd';
+$string['eventsubscriptionupdated'] = 'Inschrijving op kalender aangepast';
 $string['eventsupdated'] = 'Aangepaste gebeurtenissen: {$a}';
 $string['eventtime'] = 'Uur';
 $string['eventview'] = 'Details';
@@ -187,6 +207,7 @@ $string['thu'] = 'Do';
 $string['thursday'] = 'Donderdag';
 $string['timeformat_12'] = '12-uur (am/pm)';
 $string['timeformat_24'] = '24-uur';
+$string['timeperiod'] = 'Tijdsperiode';
 $string['today'] = 'Vandaag';
 $string['tomorrow'] = 'Morgen';
 $string['tt_deleteevent'] = 'Wis activiteit';

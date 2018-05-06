@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_deferredcbm', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qbehaviour_deferredcbm', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   qbehaviour_deferredcbm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -61,7 +61,7 @@ $string['dontknow'] = 'Aucune idée';
 $string['foransweredquestions'] = 'Résultats pour les {$a} questions répondues';
 $string['forentirequiz'] = 'Résultats tout le test ({$a} questions)';
 $string['howcertainareyou'] = 'Degré de certitude{$a->help} : {$a->choices}';
-$string['judgementok'] = 'Ok';
+$string['judgementok'] = 'OK';
 $string['judgementsummary'] = 'Réponses : {$a->responses}. Précision : {$a->fraction}. (Plage optimale {$a->idealrangelow} à {$a->idealrangehigh}). Vous étiez {$a->judgement} en sélectionnant ce degré de certitude.';
 $string['noquestions'] = 'Pas de réponse';
 $string['overconfident'] = 'trop confiant';

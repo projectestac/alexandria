@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'grades', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   grades
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -252,7 +252,7 @@ $string['feedbacks'] = 'Comentarios de retroalimentación';
 $string['feedbacksaved'] = 'Retroalimentación guardada';
 $string['feedbackview'] = 'Ver retroalimentación';
 $string['finalgrade'] = 'Calificación final';
-$string['finalgrade_help'] = '<p>La calificación final después de que todos los cálculos han sido realizados.<p>';
+$string['finalgrade_help'] = 'La calificación final después de que todos los cálculos han sido realizados.';
 $string['fixedstudents'] = 'Columna de estudiantes fijada';
 $string['fixedstudents_help'] = 'Fija la columna de estudiantes en el informe del calificador, permitiendo que las calificaciones se desplacen horizontalmente.';
 $string['forceimport'] = 'Forzar importar';
@@ -298,6 +298,7 @@ $string['gradeexportdecimalpoints'] = 'Puntos decimales en la exportación de ca
 $string['gradeexportdecimalpoints_desc'] = 'Número de decimales a mostrar en el archivo exportado. Puede pasarse por alto durante la exportación.';
 $string['gradeexportdisplaytype'] = 'Forma de mostrar exportación de calificaciones';
 $string['gradeexportdisplaytype_desc'] = 'Las calificaciones pueden mostrarse como calificaciones reales, como porcentajes (en relación a las calificaciones mínima y máxima) o como letras (A, B, C, &c.) durante la exportación. Puede pasarse por alto durante la exportación.';
+$string['gradeexportdisplaytypes'] = 'Mostrar tipos de exportación de calificaciones';
 $string['gradeexportuserprofilefields'] = 'Campos de perfil de usuario en exportación de calificaciones';
 $string['gradeexportuserprofilefields_desc'] = 'Incluir estos campos de perfil de usuario en la exportación de calificaciones, separados por comas.';
 $string['gradeforstudent'] = '{$a->student}<br />{$a->item}$a->feedback';
@@ -353,6 +354,7 @@ $string['gradereport'] = 'Informe de calificaciones';
 $string['graderreport'] = 'Informe del calificador';
 $string['grades'] = 'Calificaciones';
 $string['gradesforuser'] = 'Calificaciones de {$a->user}';
+$string['gradesmoduledeletionprefix'] = '[Borrado en progreso]';
 $string['gradesonly'] = 'Cambiar a sólo calificaciones';
 $string['gradessettings'] = 'Ajustes';
 $string['gradetype'] = 'Tipo de calificación';
@@ -491,8 +493,12 @@ $string['minmaxupgradewarning'] = 'Nota: Se ha detectado una inconsistencia con 
 $string['missingscale'] = 'La escala debe estar seleccionada';
 $string['mode'] = 'Moda';
 $string['modgrade'] = 'Calificación';
+$string['modgradecantchangegradetype'] = 'No puedes cambiar el tipo, ya que hay calificaciones para este elemento.';
 $string['modgradecantchangegradetypemsg'] = 'Algunas calificaciones ya se han adjudicado, por lo que el tipo de calificación no se puede cambiar. Si desea cambiar la calificación máxima, primero debe elegir si desea o no recalcular el valor de las calificaciones existentes.';
+$string['modgradecantchangegradetyporscalemsg'] = 'Algunas calificaciones han sido premiadas, de modo que el tipo y la escala no pueden ser cambiados.';
+$string['modgradecantchangescale'] = 'No puedes cambiar la escala, ya que hay calificaciones existentes para este elemento.';
 $string['modgradecategorycantchangegradetypemsg'] = 'Esta categoría tiene asociados items de calificación que han sido sobreescritos. Por lo tanto algunas calificaciones ya han sido asignadas, por lo que el tipo de calificación no puede ser variado. Si desea cambiar el valor máximo de la calificación, primero debe elegir entre recalcular o no las calificaciones existentes.';
+$string['modgradedonotmodify'] = 'No modificar calificaciones existentes.';
 $string['modgradeerrorbadpoint'] = 'Valor de calificación no válido. Debe ser un número entero entre 1 y {$a}';
 $string['modgradeerrorbadscale'] = 'Escala no válida. Por favor, asegúrese de seleccionar una escala de las incluidas abajo.';
 $string['modgrade_help'] = 'Seleccione el tipo de calificación que desea utilizar para esta actividad. Si elige "escala", a continuación podrá elegirla de una lista desplegable. Si prefiere "puntuación", podrá elegir la puntuación máxima para esta actividad.';
@@ -690,7 +696,7 @@ $string['showaverages'] = 'Mostrar promedios de columna';
 $string['showaverages_help'] = 'Muestra las medias de las columnas en el informe del calificador.';
 $string['showcalculations'] = 'Mostrar cálculos';
 $string['showcalculations_help'] = 'Si se activa, cuando se edita, se muestra un icono de una calculadora para cada ítem de calificación y para cada categoría, con un indicador visual de que es un elemento calculado.';
-$string['showcontributiontocoursetotal'] = 'Mostrar contribución al total del curso';
+$string['showcontributiontocoursetotal'] = 'Mostrar aportación al total del curso';
 $string['showcontributiontocoursetotal_help'] = 'Se muestra una columna que indica el porcentaje que aporta cada ítem de calificación a la nota total del curso (después de aplicar la ponderación).';
 $string['showeyecons'] = 'Mostrar iconos \'mostrar/ocultar\'';
 $string['showeyecons_help'] = 'Mostrar o no un icono de \'mostrar/ocultar\' junto a cada calificación (controlando que el usuario pueda verlo).';
@@ -732,7 +738,7 @@ $string['showrank_help'] = '¿Mostrar la posición del estudiante en relación c
 $string['showuserimage'] = 'Mostrar imágenes de perfil del usuario';
 $string['showuserimage_help'] = 'Mostrar o no la imagen del perfil del usuario junto a su nombre en el informe del calificador.';
 $string['showverbose'] = 'Mostrar {$a->category} {$a->itemmodule} {$a->itemname}';
-$string['showweight'] = 'Mostrar ponderaciones';
+$string['showweight'] = 'Mostrar pesos';
 $string['showweight_help'] = '¿Mostrar la columna de ponderaciones?';
 $string['simpleview'] = 'Vista simple';
 $string['singleview'] = 'Vista simple para {$a}';

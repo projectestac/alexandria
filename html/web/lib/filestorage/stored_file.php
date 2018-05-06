@@ -110,6 +110,7 @@ class stored_file {
         global $DB;
         $updatereferencesneeded = false;
         $keys = array_keys((array)$this->file_record);
+        $filepreupdate = clone($this->file_record);
         foreach ($dataobject as $field => $value) {
             if (in_array($field, $keys)) {
                 if ($field == 'contextid' and (!is_number($value) or $value < 1)) {
@@ -194,6 +195,17 @@ class stored_file {
         if ($updatereferencesneeded) {
             // Either filesize or contenthash of this file have changed. Update all files that reference to it.
             $this->fs->update_references_to_storedfile($this);
+        }
+
+        // Callback for file update.
+        if (!$this->is_directory()) {
+            if ($pluginsfunction = get_plugins_with_function('after_file_updated')) {
+                foreach ($pluginsfunction as $plugintype => $plugins) {
+                    foreach ($plugins as $pluginfunction) {
+                        $pluginfunction($this->file_record, $filepreupdate);
+                    }
+                }
+            }
         }
     }
 
@@ -354,6 +366,17 @@ class stored_file {
             $DB->delete_records('files', array('id'=>$this->file_record->id));
 
             $transaction->allow_commit();
+
+            if (!$this->is_directory()) {
+                // Callback for file deletion.
+                if ($pluginsfunction = get_plugins_with_function('after_file_deleted')) {
+                    foreach ($pluginsfunction as $plugintype => $plugins) {
+                        foreach ($plugins as $pluginfunction) {
+                            $pluginfunction($this->file_record);
+                        }
+                    }
+                }
+            }
         }
 
         // Move pool file to trash if content not needed any more.
@@ -888,9 +911,20 @@ class stored_file {
      * @return int
      */
     public function set_sortorder($sortorder) {
+        $oldorder = $this->file_record->sortorder;
         $filerecord = new stdClass;
         $filerecord->sortorder = $sortorder;
         $this->update($filerecord);
+        if (!$this->is_directory()) {
+            // Callback for file sort order change.
+            if ($pluginsfunction = get_plugins_with_function('after_file_sorted')) {
+                foreach ($pluginsfunction as $plugintype => $plugins) {
+                    foreach ($plugins as $pluginfunction) {
+                        $pluginfunction($this->file_record, $oldorder, $sortorder);
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -1062,5 +1096,29 @@ class stored_file {
 
         // Generate the thumbnail.
         return generate_image_thumbnail_from_image($original, $imageinfo, $width, $height);
+    }
+
+    /**
+     * Generate a resized image for this stored_file.
+     *
+     * @param int|null $width The desired width, or null to only use the height.
+     * @param int|null $height The desired height, or null to only use the width.
+     * @return string|false False when a problem occurs, else the image data.
+     */
+    public function resize_image($width, $height) {
+        global $CFG;
+        require_once($CFG->libdir . '/gdlib.php');
+
+        // Fetch the image information for this image.
+        $imageinfo = @getimagesizefromstring($this->get_content());
+        if (empty($imageinfo)) {
+            return false;
+        }
+
+        // Create a new image from the file.
+        $original = @imagecreatefromstring($this->get_content());
+
+        // Generate the resized image.
+        return resize_image_from_image($original, $imageinfo, $width, $height);
     }
 }

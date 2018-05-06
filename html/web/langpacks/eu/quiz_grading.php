@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_grading', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz_grading', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz_grading
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -60,7 +60,7 @@ $string['gradingquestionx'] = '{$a->number} galdera kalifikatzen: {$a->questionn
 $string['gradingreport'] = 'Eskuzko kalifikazioaren txostena';
 $string['gradingungraded'] = 'Kalifikatu gabeko {$a} saiakera';
 $string['gradinguser'] = 'Saiakerak honentzat: {$a}';
-$string['grading:viewidnumber'] = 'Ikusi ikasleen id zenbakiak kalifikatu birtean';
+$string['grading:viewidnumber'] = 'Ikusi ikasleen ID zenbakiak kalifikatu birtean';
 $string['grading:viewstudentnames'] = 'Ikusi ikasleen izenak kalifikatu bitartean';
 $string['hideautomaticallygraded'] = 'Ezkutatu automatikoki kalifikatutako galderak';
 $string['inprogress'] = 'Ari da';

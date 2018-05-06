@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshop', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'workshop', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   workshop
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -74,6 +74,7 @@ $string['assignedassessments'] = 'Zur Beurteilung zugeordnete Einreichungen';
 $string['assignedassessmentsnone'] = 'Sie haben keine zugeordneten Einreichungen zu beurteilen';
 $string['backtoeditform'] = 'Zurück zur Einstellungsseite';
 $string['byfullname'] = 'von <a href="{$a->url}">{$a->name}</a>';
+$string['byfullnamewithoutlink'] = 'von {$a}';
 $string['calculategradinggrades'] = 'Punkte für das Beurteilen berechnen';
 $string['calculategradinggradesdetails'] = 'erwartet: {$a->expected}<br />errechnet: {$a->calculated}';
 $string['calculatesubmissiongrades'] = 'Punkte für das Einreichen berechnen';
@@ -145,6 +146,7 @@ $string['examplesbeforesubmission'] = 'Beispieleinreichungen müssen vor der eig
 $string['examplesmode'] = 'Modus Verfahren Beispieleinreichung';
 $string['examplesubmissions'] = 'Beispieleinreichung/en';
 $string['examplesvoluntary'] = 'Die Beurteilung der Beispieleinreichung ist freiwillig';
+$string['exportsubmission'] = 'Diese Seite exportieren';
 $string['feedbackauthor'] = 'Rückmeldung an den / die Autor/in';
 $string['feedbackauthorattachment'] = 'Dateianhang';
 $string['feedbackby'] = 'Beurteilung von {$a}';
@@ -228,7 +230,7 @@ $string['phaseassessment'] = 'Beurteilungsphase';
 $string['phaseclosed'] = 'Geschlossen';
 $string['phaseevaluation'] = 'Bewertungsphase';
 $string['phasesetup'] = 'Vorbereitungsphase';
-$string['phasesoverlap'] = 'Die Einreichungsphase und die Bewertungsphase dürfen sich nicht überlappen.';
+$string['phasesoverlap'] = 'Die Einreichungsphase und die Beurteilungsphase dürfen sich nicht überlappen.';
 $string['phasesubmission'] = 'Einreichungsphase';
 $string['pluginadministration'] = 'Administration gegenseitige Beurteilung';
 $string['pluginname'] = 'Gegenseitige Beurteilung';
@@ -243,7 +245,7 @@ $string['recentassessments'] = 'Beurteilungen der gegenseitigen Beurteilung';
 $string['recentsubmissions'] = 'Einreichungen der gegenseitigen Beurteilung';
 $string['resetassessments'] = 'Alle Aufgaben löschen';
 $string['resetassessments_help'] = 'Sie können wählen, ob nur zugewiesene Bewerter/Bewertungen gelöscht werden, ohne die eingereichten Lösungen zu löschen. In diesem Fall werden auch Bewertungen für Beispiellösungen gelöscht werden.';
-$string['resetphase'] = 'Zurück zur Setup-Phase';
+$string['resetphase'] = 'Zurück zur Vorbereitungsphase';
 $string['resetphase_help'] = 'Durch die Aktivierung werden alle gegenseitigen Beurteilungen in die Ausgangseinstellung des Setups zurückgesetzt.';
 $string['resetsubmissions'] = 'Alle Einreichungen löschen';
 $string['resetsubmissions_help'] = 'Alle von Teilnehmern eingereichten Lösungen und Bewertungen werden gelöscht. Musterlösungen sind hiervon nicht betroffen.';
@@ -285,6 +287,8 @@ $string['submissiongrade'] = 'Punkte für Einreichung';
 $string['submissiongrade_help'] = 'Diese Einstellung gibt an, wie viele Punkte maximal für eine Einreichung erhalten werden können.';
 $string['submissiongradeof'] = 'Punkte für Einreichungen (of {$a})';
 $string['submissionlastmodified'] = 'Zuletzt bearbeitet';
+$string['submissionrequiredcontent'] = 'Text eingeben oder Datei hinzufügen';
+$string['submissionrequiredfile'] = 'Datei hinzufügen oder Text eingeben';
 $string['submissionsettings'] = 'Einstellungen Einreichungen';
 $string['submissionsreport'] = 'Abgabeübersicht für gegenseitige Beurteilung';
 $string['submissionstart'] = 'Einreichungen ab';
@@ -306,14 +310,19 @@ $string['switchphase30auto'] = 'Die gegenseitige Beurteilung wechselt nach {$a->
 $string['switchphase30info'] = 'Sie sind dabei in die <strong>Beurteilungsphase</strong> der gegenseitigen Beurteilung zu wechseln. In dieser Phase können Teilnehmer/innen innerhalb des ggf. definierten Zeitfensters Beurteilungen zu den zugeordneten Einreichungen erstellen oder bearbeiten.';
 $string['switchphase40info'] = 'Sie sind dabei in die <strong>Bewertungsphase</strong> der gegenseitigen Beurteilung zu wechseln. In dieser Phase können Teilnehmer/innen ihre Einreichungen oder Beurteilungen nicht bearbeiten. Trainer/innen nutzen die Bewertungswerkzeuge, um die abschließende Bewertung vorzunehmen und Rückmeldungen an die Beurteilenden zu geben.';
 $string['switchphase50info'] = 'Sie sind dabei die gegenseitige Beurteilung zu beenden. Die errechneten Bewertungen werden in die Kursbewertung übernommen. Teilnehmer/innen können ihre Einreichungen, ihre Beurteilungen und Bewertungen aufrufen.';
+$string['switchphasenext'] = 'Zur nächsten Seite wechseln';
 $string['taskassesspeers'] = 'Andere Teilnehmende bewerten';
 $string['taskassesspeersdetails'] = 'gesamt: {$a->total}<br />ausstehend: {$a->todo}';
 $string['taskassessself'] = 'Selbstbeurteilung';
 $string['taskconclusion'] = 'Abschluss der gegenseitigen Beurteilung aktivieren';
+$string['taskdone'] = 'Aufgabe erledigt';
+$string['taskfail'] = 'Aufgabe nicht betanden';
+$string['taskinfo'] = 'Information zur Aufgabe';
 $string['taskinstructauthors'] = 'Hinterlegen Sie hier die Aufgabenstellung';
 $string['taskinstructreviewers'] = 'Hinterlegen Sie hier Hinweise zur Durchführung der Bewertung';
 $string['taskintro'] = 'Beschreibung für gegenseitige Beurteilung verfassen';
 $string['tasksubmit'] = 'Übermitteln Sie Ihre Einreichung';
+$string['tasktodo'] = 'Zu erledigender Schritt';
 $string['toolbox'] = 'Hilfsmittel für gegenseitige Beurteilung';
 $string['undersetup'] = 'Die gegenseitige Beurteilung wird gerade aktualisiert. Warten Sie, bis die nächste Phase freigegeben wird.';
 $string['useexamples'] = 'Beispieleinreichungen';
@@ -325,6 +334,7 @@ $string['usepeerassessment_help'] = 'Mit dieser Funktion erhält der Teilnehmend
 $string['userdatecreated'] = 'eingereicht am <span>{$a}</span>';
 $string['userdatemodified'] = 'geändert am <span>{$a}</span>';
 $string['userplan'] = 'Navigator für gegenseitige Beurteilung';
+$string['userplanaccessibilityskip'] = 'Zum aktuellen Schritt springen';
 $string['userplanaccessibilitytitle'] = 'Zeitleiste mit {$a} Phasen';
 $string['userplancurrentphase'] = 'Aktuelle Phase';
 $string['userplan_help'] = 'Der Navigator für die gegenseitige Beurteilung zeigt alle Phasen und einzelne Schritte in den Phasen an. Die aktuelle Phase ist farblich gekennzeichnet und erledigte Schritte sind mit einem Haken gekennzeichnet.';
@@ -337,6 +347,7 @@ $string['workshop:addinstance'] = 'Gegenseitige Beurteilung hinzufügen';
 $string['workshop:allocate'] = 'Beurteiler/innen zuordnen';
 $string['workshop:deletesubmissions'] = 'Abgaben löschen';
 $string['workshop:editdimensions'] = 'Beurteilungsbögen bearbeiten';
+$string['workshop:exportsubmissions'] = 'Abgaben exportieren';
 $string['workshop:ignoredeadlines'] = 'Zeitvorgaben ignorieren';
 $string['workshop:manageexamples'] = 'Beispieleinreichung organisieren';
 $string['workshopname'] = 'Name für gegenseitige Beurteilung';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_comments', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignsubmission_comments', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   assignsubmission_comments
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['blindmarkingname'] = '参加者 {$a}';
+$string['blindmarkingviewfullname'] = '参加者 {$a->participantnumber} ({$a->participantfullname})';
 $string['default'] = 'デフォルトで有効にする';
 $string['default_help'] = 'この設定を有効にした場合、すべての新しい課題において、この提出方法がデフォルトで有効にされます。';
 $string['enabled'] = '提出コメント';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'search', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'search', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   search
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -52,34 +52,50 @@ $string['documentsindatabase'] = 'Documents en la base de dades';
 $string['documentsinindex'] = 'Documents en l\'índex';
 $string['duration'] = 'Durada';
 $string['emptydatabaseerror'] = 'No existeix la taula de la base de dades, o no conté registres d\'índex.';
+$string['enginenotselected'] = 'No heu seleccionat cap cercador.';
+$string['engineserverstatus'] = 'El cercador no està disponible. Contacteu amb el vostre administrador.';
 $string['enteryoursearchquery'] = 'Introduïu la vostra cerca';
+$string['errorareanotavailable'] = 'L\'àrea de cerca {$a} no està disponible.';
 $string['errors'] = 'Errors';
 $string['filesinindexdirectory'] = 'Fitxers en el directori índex';
+$string['filterheader'] = 'Filtre';
 $string['globalsearch'] = 'Cerca global';
 $string['globalsearchdisabled'] = 'No s\'ha habilitat la cerca global';
+$string['index'] = 'Índex';
 $string['invalidindexerror'] = 'El directori índex és buit o no conté un índex vàlid.';
 $string['ittook'] = 'Ha costat';
 $string['next'] = 'Següent';
 $string['noindexmessage'] = 'Administradors: sembla que no existeix l\'índex de cerca. Si us plau';
+$string['noresults'] = 'No hi ha cap resultat';
 $string['normalsearch'] = 'Cerca normal';
+$string['notitle'] = 'Sense títol';
 $string['openedon'] = 'obert';
+$string['optimize'] = 'Optimitza';
 $string['resultsreturnedfor'] = 'resultats per a';
 $string['runindexer'] = 'Executa l\'indexador (real)';
 $string['runindexertest'] = 'Executa la prova d\'indexació';
 $string['score'] = 'Puntuació';
 $string['search'] = 'Cerca';
+$string['searcharea'] = 'Àrea de cerca';
 $string['searching'] = 'S\'està cercant en...';
+$string['search:message_received'] = 'Missatges - rebuts';
+$string['search:message_sent'] = 'Missatges - enviats';
+$string['search:mycourse'] = 'Els meus cursos';
 $string['searchnotpermitted'] = 'No teniu permís per fer una cerca';
+$string['search:user'] = 'Usuaris';
 $string['seconds'] = 'segons';
 $string['solutions'] = 'Solucions';
 $string['statistics'] = 'Estadístiques';
+$string['step'] = 'Pas';
 $string['thesewordshelpimproverank'] = 'Aquestes paraules milloren la puntuació';
 $string['thesewordsmustappear'] = 'Han d\'aparèixer aquestes paraules';
 $string['thesewordsmustnotappear'] = 'No han d\'aparèixer aquestes paraules';
 $string['title'] = 'Títol';
 $string['tofetchtheseresults'] = 'obtenir aquests resultats';
 $string['totalsize'] = 'Mida total';
+$string['totime'] = 'Modificat abans';
 $string['type'] = 'Tipus';
 $string['uncompleteindexingerror'] = 'La indexació no s\'ha completat amb èxit. Reinicieu-la.';
 $string['versiontoolow'] = 'La cerca global requereix PHP 5.0.0 o superior';
+$string['viewresultincontext'] = 'Visualitzeu aquest resultat en context';
 $string['wordsintitle'] = 'Paraules en el títol';

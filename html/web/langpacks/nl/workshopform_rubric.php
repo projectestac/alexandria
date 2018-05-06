@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_rubric', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'workshopform_rubric', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   workshopform_rubric
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,4 +37,5 @@ $string['levelgroup'] = 'Niveau cijfer en definitie';
 $string['levels'] = 'Niveaus';
 $string['mustbeunique'] = 'De cijferniveau\'s moeten uniek zijn binnen een criterion.';
 $string['mustchooseone'] = 'Je moet één van deze items selecteren';
+$string['mustdefinelevel'] = 'Er is minstens één niveau vereist';
 $string['pluginname'] = 'Rubriek';

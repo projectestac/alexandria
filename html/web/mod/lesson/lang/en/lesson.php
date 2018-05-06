@@ -42,16 +42,23 @@ $string['addaquestionpage'] = 'Add a question page';
 $string['addaquestionpagehere'] = 'Add a question page here';
 $string['addbranchtable'] = 'Add a content page';
 $string['addcluster'] = 'Add a cluster';
+$string['addessay'] = 'Create an Essay question page';
 $string['addedabranchtable'] = 'Added a content page';
 $string['addedanendofbranch'] = 'Added an end of branch';
 $string['addedaquestionpage'] = 'Added a question page';
 $string['addedcluster'] = 'Added a cluster';
 $string['addedendofcluster'] = 'Added an end of cluster';
+$string['addendofbranch'] = 'Add end of branch';
 $string['addendofcluster'] = 'Add an end of cluster';
+$string['addmatching'] = 'Create a Matching question page';
+$string['addmultichoice'] = 'Create a Multichoice question page';
 $string['addnewgroupoverride'] = 'Add group override';
 $string['addnewuseroverride'] = 'Add user override';
+$string['addnumerical'] = 'Create a Numerical question page';
 $string['additionalattemptsremaining'] = 'Completed, You can re-attempt this lesson';
 $string['addpage'] = 'Add a page';
+$string['addshortanswer'] = 'Create a Short answer question page';
+$string['addtruefalse'] = 'Create a True/false question page';
 $string['and'] = 'AND';
 $string['anchortitle'] = 'Start of main content';
 $string['answer'] = 'Answer';
@@ -155,12 +162,24 @@ $string['displayscorewithessays'] = '<p>You earned {$a->score} out of {$a->tempm
 <p>Your {$a->essayquestions} essay question(s) will be graded and added into your final score at a later date.</p>
 <p>Your current grade without the essay question(s) is {$a->score} out of {$a->grade}.</p>';
 $string['displayscorewithoutessays'] = 'Your score is {$a->score} (out of {$a->grade}).';
+$string['duplicatepagenamed'] = 'Duplicate page: {$a}';
 $string['edit'] = 'Edit';
+$string['editbranchtable'] = 'Editing a content page';
+$string['editcluster'] = 'Editing a cluster';
+$string['editendofcluster'] = 'Editing an end of cluster page';
+$string['editendofbranch'] = 'Editing an end of branch page';
+$string['editessay'] = 'Editing an Essay question page';
 $string['editingquestionpage'] = 'Editing {$a} question page';
 $string['editlessonsettings'] = 'Edit lesson settings';
+$string['editmatching'] = 'Editing a Matching question page';
+$string['editmultichoice'] = 'Editing a Multichoice question page';
+$string['editnumerical'] = 'Editing a Numerical question page';
 $string['editoverride'] = 'Edit override';
 $string['editpage'] = 'Edit page contents';
 $string['editpagecontent'] = 'Edit page contents';
+$string['editquestion'] = 'Editing a question page';
+$string['editshortanswer'] = 'Editing a Short answer question page';
+$string['edittruefalse'] = 'Editing a True/false question page';
 $string['email'] = 'Email';
 $string['emailallgradedessays'] = 'Email ALL graded essays';
 $string['emailgradedessays'] = 'Email graded essays';
@@ -199,6 +218,7 @@ $string['eventquestionanswered'] = 'Question answered';
 $string['eventquestionviewed'] = 'Question viewed';
 $string['false'] = 'False';
 $string['fileformat'] = 'File format';
+$string['finalwrong'] = 'Not quite.';
 $string['finish'] = 'Finish';
 $string['firstanswershould'] = 'First answer should jump to the "Correct" page';
 $string['firstwrong'] = 'You have answered incorrectly. Would you like to attempt the question again? (If you now answer the question correctly, it will not count towards your final score.)';
@@ -253,6 +273,7 @@ $string['lesson:edit'] = 'Edit a lesson activity';
 $string['lessonformating'] = 'Lesson formatting';
 $string['lesson:manage'] = 'Manage a lesson activity';
 $string['lesson:manageoverrides'] = 'Manage lesson overrides';
+$string['lesson:view'] = 'View lesson activity';
 $string['lesson:viewreports'] = 'View lesson reports';
 $string['lessonname'] = 'Lesson: {$a}';
 $string['lessonmenu'] = 'Lesson menu';
@@ -508,11 +529,6 @@ $string['youranswer'] = 'Your answer';
 $string['yourcurrentgradeis'] = 'Your current grade is {$a}';
 $string['yourcurrentgradeisoutof'] = 'Your current grade is {$a->grade} out of {$a->total}';
 $string['youshouldview'] = 'You should answer at least: {$a}';
-
-// Deprecated since Moodle 2.9.
-
-$string['essayemailmessage'] = '<p>Essay prompt:<blockquote>{$a->question}</blockquote></p><p>Your response:<blockquote><em>{$a->response}</em></blockquote></p><p>{$a->teacher}\'s comments:<blockquote><em>{$a->comment}</em></blockquote></p><p>You have received {$a->earned} out of {$a->outof} for this essay question.</p><p>Your grade for the lesson has been changed to {$a->newgrade}&#37;.</p>';
-$string['lessonattempted'] = 'Lesson attempted';
 
 // Deprecated since Moodle 3.0.
 $string['clicktopost'] = 'Click here to post your grade on the High Scores list.';

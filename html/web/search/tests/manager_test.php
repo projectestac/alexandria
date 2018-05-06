@@ -70,7 +70,7 @@ class search_manager_testcase extends advanced_testcase {
         $fakeareaid = \core_search\manager::generate_areaid('mod_unexisting', 'chihuaquita');
 
         $searcharea = \core_search\manager::get_search_area($this->forumpostareaid);
-        $this->assertInstanceOf('\core_search\area\base', $searcharea);
+        $this->assertInstanceOf('\core_search\base', $searcharea);
 
         $this->assertFalse(\core_search\manager::get_search_area($fakeareaid));
 
@@ -81,12 +81,12 @@ class search_manager_testcase extends advanced_testcase {
         $this->assertArrayHasKey($this->forumpostareaid, \core_search\manager::get_search_areas_list(true));
 
         list($componentname, $varname) = $searcharea->get_config_var_name();
-        set_config($varname . '_enabled', false, $componentname);
+        set_config($varname . '_enabled', 0, $componentname);
         \core_search\manager::clear_static();
 
         $this->assertArrayNotHasKey('mod_forum', \core_search\manager::get_search_areas_list(true));
 
-        set_config($varname . '_enabled', true, $componentname);
+        set_config($varname . '_enabled', 1, $componentname);
 
         // Although the result is wrong, we want to check that \core_search\manager::get_search_areas_list returns cached results.
         $this->assertArrayNotHasKey($this->forumpostareaid, \core_search\manager::get_search_areas_list(true));
@@ -127,10 +127,11 @@ class search_manager_testcase extends advanced_testcase {
 
         // We clean it all but enabled components.
         $search->reset_config($this->forumpostareaid);
-        $this->assertEquals(1, get_config($componentname, $varname . '_enabled'));
-        $this->assertEquals(0, get_config($componentname, $varname . '_indexingstart'));
-        $this->assertEquals(0, get_config($componentname, $varname . '_indexingend'));
-        $this->assertEquals(0, get_config($componentname, $varname . '_lastindexrun'));
+        $config = $searcharea->get_config();
+        $this->assertEquals(1, $config[$varname . '_enabled']);
+        $this->assertEquals(0, $config[$varname . '_indexingstart']);
+        $this->assertEquals(0, $config[$varname . '_indexingend']);
+        $this->assertEquals(0, $config[$varname . '_lastindexrun']);
         // No caching.
         $configs = $search->get_areas_config(array($this->forumpostareaid => $searcharea));
         $this->assertEquals(0, $configs[$this->forumpostareaid]->indexingstart);
@@ -148,6 +149,53 @@ class search_manager_testcase extends advanced_testcase {
         $configs = $search->get_areas_config(array($this->forumpostareaid => $searcharea));
         $this->assertEquals(0, $configs[$this->forumpostareaid]->indexingstart);
         $this->assertEquals(0, $configs[$this->forumpostareaid]->indexingend);
+    }
+
+    /**
+     * Tests that documents with modified time in the future are NOT indexed (as this would cause
+     * a problem by preventing it from indexing other documents modified between now and the future
+     * date).
+     */
+    public function test_future_documents() {
+        $this->resetAfterTest();
+
+        // Create a course and a forum.
+        $generator = $this->getDataGenerator();
+        $course = $generator->create_course();
+        $forum = $generator->create_module('forum', ['course' => $course->id]);
+
+        // Index everything up to current. Ensure the course is older than current second so it
+        // definitely doesn't get indexed again next time.
+        $this->waitForSecond();
+        $search = testable_core_search::instance();
+        $search->index(false, 0);
+
+        // Add 2 discussions to the forum, one of which happend just now, but the other is
+        // incorrectly set to the future.
+        $now = time();
+        $userid = get_admin()->id;
+        $generator->get_plugin_generator('mod_forum')->create_discussion(['course' => $course->id,
+                'forum' => $forum->id, 'userid' => $userid, 'timemodified' => $now,
+                'name' => 'Frog']);
+        $generator->get_plugin_generator('mod_forum')->create_discussion(['course' => $course->id,
+                'forum' => $forum->id, 'userid' => $userid, 'timemodified' => $now + 100,
+                'name' => 'Toad']);
+
+        // Wait for a second so we're not actually on the same second as the forum post (there's a
+        // 1 second overlap between indexing; it would get indexed in both checks below otherwise).
+        $this->waitForSecond();
+
+        // Index.
+        $search->index(false);
+
+        // Check latest time - it should be the same as $now, not the + 100.
+        $searcharea = $search->get_search_area($this->forumpostareaid);
+        list($componentname, $varname) = $searcharea->get_config_var_name();
+        $this->assertEquals($now, get_config($componentname, $varname . '_lastindexrun'));
+
+        // Index again - there should be nothing to index this time.
+        $search->index(false);
+        $this->assertEquals($now, get_config($componentname, $varname . '_lastindexrun'));
     }
 
     /**
@@ -262,7 +310,7 @@ class search_manager_testcase extends advanced_testcase {
 
         $this->assertFalse(testable_core_search::is_search_area('\asd\asd'));
         $this->assertFalse(testable_core_search::is_search_area('\mod_forum\search\posta'));
-        $this->assertFalse(testable_core_search::is_search_area('\core_search\area\base_mod'));
+        $this->assertFalse(testable_core_search::is_search_area('\core_search\base_mod'));
         $this->assertTrue(testable_core_search::is_search_area('\mod_forum\search\post'));
         $this->assertTrue(testable_core_search::is_search_area('\\mod_forum\\search\\post'));
         $this->assertTrue(testable_core_search::is_search_area('mod_forum\\search\\post'));

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'editor', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   editor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,7 @@ $string['chooseicon'] = 'Выбрать иконку для вставки';
 $string['close'] = 'Закрыть';
 $string['closeafterreplace'] = 'Закрыть после замены';
 $string['cols'] = 'Столбцы';
-$string['configeditorplugins'] = 'Пожалуйста, выберите текстовые плагины, которые вы хотите использовать, и расположите их в рекомендуемом порядке.';
+$string['configeditorplugins'] = 'Пожалуйста, выберите текстовые плагины, которые вы хотите использовать, и расположите их в порядке приоритета.';
 $string['copy'] = 'Копировать выделение';
 $string['createanchor'] = 'Создать закладку';
 $string['createfolder'] = 'Создать папку';

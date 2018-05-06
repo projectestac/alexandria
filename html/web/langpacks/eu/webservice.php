@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'webservice', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   webservice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -54,6 +54,7 @@ $string['deleteservice'] = 'Ezabatu zerbitzua: {$a->name} (id: {$a->id})';
 $string['doc'] = 'Dokumentazioa';
 $string['docaccessrefused'] = 'Ez duzu baimenik token honen dokumentazioa ikusteko';
 $string['documentation'] = 'web-zerbitzuen dokumentazioa';
+$string['downloadfiles'] = 'Fitxategiak deskarga daitezke';
 $string['editaservice'] = 'Editatu zerbitzua';
 $string['editservice'] = 'Editatu zerbitzua: {$a->name} (id: {$a->id})';
 $string['enabled'] = 'Gaituta';
@@ -88,8 +89,6 @@ $string['missingcaps'] = 'Gaitasunak falta dira.';
 $string['missingpassword'] = 'Pasahitza falta da';
 $string['missingrequiredcapability'] = '{$a} gaitasuna beharrezkoa da.';
 $string['missingusername'] = 'Erabiltzaile-izena falta da';
-$string['mobilewsdisabled'] = 'Desgaituta';
-$string['mobilewsenabled'] = 'Gaituta';
 $string['nameexists'] = 'Izen hau dagoeneko beste zerbitzu batean erabiltzen ari da';
 $string['nofunctions'] = 'Zerbitzu honek ez du funtziorik.';
 $string['norequiredcapability'] = 'Ez da gaitasunik behar';
@@ -99,6 +98,7 @@ $string['optional'] = 'Aukerakoa';
 $string['passwordisexpired'] = 'Pasahitza iraungi da.';
 $string['phpparam'] = 'XML-RPC (PHP egitura)';
 $string['phpresponse'] = 'XML-RPC (PHP egitura)';
+$string['postrestparam'] = 'PHP kodea REST -erako (POST request)';
 $string['potusers'] = 'Baimenik gabeko erabiltzaileak';
 $string['print'] = 'Inprimatu dena';
 $string['protocol'] = 'Protokoloa';
@@ -122,11 +122,14 @@ $string['selectspecificuser'] = 'Aukera ezazu erabiltzaile jakin bat';
 $string['selectspecificuserdescription'] = 'Web-zerbitzuetako erabiltzailea baimendutako erabiltzaile gisa gehitu behar duzu.';
 $string['service'] = 'Zerbitzua';
 $string['servicename'] = 'Zerbitzuaren izena';
+$string['servicenotavailable'] = 'Web-zerbitzua ez dago eskuragarri (ez da existitzen edo agian desgaituta dago)';
 $string['servicesbuiltin'] = 'Barne dauden zerbitzuak';
 $string['servicescustom'] = 'Pertsonalizatu zerbitzuak';
 $string['serviceusers'] = 'Baimendutako erabiltzaileak ';
 $string['serviceusersettings'] = 'Erabiltzailearen ezarpenak';
 $string['serviceusersmatching'] = 'Bat datozen baimendun erabiltzaileak';
+$string['serviceuserssettings'] = 'Aldatu ezarpenak baimendutako erabiltzaileei';
+$string['simpleauthlog'] = 'Autentifikazio sinplerako sarbidea';
 $string['step'] = 'Urratsa';
 $string['supplyinfo'] = 'Xehetasun gehiago';
 $string['testclient'] = 'Web-zerbitzuetarako proba-bezeroa';
@@ -135,10 +138,12 @@ $string['token'] = 'Token-a';
 $string['tokenauthlog'] = 'Token bidezko autentifikazioa';
 $string['tokencreator'] = 'Sortzailea';
 $string['updateusersettings'] = 'Eguneratu';
+$string['uploadfiles'] = 'Fitxategiak karga daitezke';
 $string['userasclients'] = 'Erabiltzaileak token-a duten bezero gisa';
 $string['usermissingcaps'] = 'Gaitasunak falta dira: {$a}';
 $string['usernameorid'] = 'Erabiltzaile-izena / Erabiltzailearen IDa';
 $string['usernameorid_help'] = 'Idatzi erabiltzaile-izena edo erabiltzailearen IDa.';
+$string['userservices'] = 'Erabiltzailearen zerbitzuak: {$a}';
 $string['usersettingssaved'] = 'Erabiltzailearen ezarpenak gordeta!';
 $string['validuntil'] = 'Noiz arte indarrean';
 $string['webservice'] = 'Web-zerbitzua';

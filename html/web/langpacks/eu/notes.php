@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'notes', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   notes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -51,7 +51,7 @@ $string['nonotes'] = 'Ez dago mota honetako oharrik';
 $string['nopermissiontodelete'] = 'Ezin duzu ohar hori ezabatu';
 $string['note'] = 'Oharra';
 $string['notes'] = 'Oharrak';
-$string['notesdisabled'] = 'Oharrak desgaituta daude, barkatu.';
+$string['notesdisabled'] = 'Oharrak desgaituta daude, sentitzen dugu.';
 $string['notesnotvisible'] = 'Ez duzu oharrak ikusteko baimenik';
 $string['nouser'] = 'Erabiltzaile bat aukeratu behar duzu';
 $string['page-notes-index'] = 'Oharren orri nagusia';

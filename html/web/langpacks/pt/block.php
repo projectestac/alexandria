@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   block
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,6 +29,7 @@ $string['addtodock'] = 'Mover para a consola';
 $string['anypagematchingtheabove'] = 'Qualquer página que corresponda à de cima';
 $string['appearsinsubcontexts'] = 'Aparecer nos sub-contextos';
 $string['assignrolesinblock'] = 'Atribuir papéis no bloco {$a}';
+$string['blocksdrawertoggle'] = 'Esconder/Mostrar a caixa de blocos';
 $string['blocksettings'] = 'Configuração do bloco';
 $string['bracketfirst'] = '{$a} (primeiro)';
 $string['bracketlast'] = '{$a} (último)';
@@ -42,8 +43,8 @@ $string['defaultregion_help'] = 'Os temas podem definir um ou mais locais onde o
 $string['defaultweight'] = 'Ordem predefinida';
 $string['defaultweight_help'] = 'A ordem predefinida permite que escolha a ordem pela qual será exibido o bloco. A localização final é calculada a partir de todos os blocos naquele local (por exemplo, apenas um bloco pode estar no topo da página). Se desejar, poderá alterar a ordem dos blocos na disciplina.';
 $string['deleteblock'] = 'Eliminar o bloco {$a}';
-$string['deleteblockcheck'] = 'Tem a certeza que pretende apagar o bloco \'{$a}\'?';
-$string['deleteblockwarning'] = '<p>Está prestes a eliminar um bloco que está a seu utilizado noutra localização.</p><p>Localização original do bloco: {$a->location}<br />Exibir em páginas do tipo: {$a->pagetype}</p><p>Tem a certeza que pretende continuar?</p>';
+$string['deleteblockcheck'] = 'Tem a certeza que pretende apagar o bloco <strong>\'{$a}\'</strong>?';
+$string['deleteblockwarning'] = '<p>Está prestes a eliminar um bloco que está a ser utilizado noutra localização.</p><p>Localização original do bloco: {$a->location}<br />Mostrar em páginas do tipo: {$a->pagetype}</p><p>Tem a certeza que pretende continuar?</p>';
 $string['deletecheck'] = 'Apagar o bloco {$a}?';
 $string['dockblock'] = 'Mover o bloco {$a} para a consola';
 $string['hideblock'] = 'Ocultar o bloco {$a}';
@@ -54,6 +55,7 @@ $string['moveblockafter'] = 'Mover este bloco para depois do bloco {$a}';
 $string['moveblockbefore'] = 'Mover este bloco para antes do bloco {$a}';
 $string['moveblockinregion'] = 'Mover bloco para a região {$a}';
 $string['movingthisblockcancel'] = 'Mover este bloco ({$a})';
+$string['myblocks'] = 'Os meus blocos';
 $string['onthispage'] = 'Nesta página';
 $string['pagetypes'] = 'Tipos de página';
 $string['pagetypewarning'] = 'O tipo de  página especificado previamente já não pode ser selecionado. Por favor escolha o tipo de página mais apropriado na lista seguinte.';

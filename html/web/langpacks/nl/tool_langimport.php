@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_langimport', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_langimport', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_langimport
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,7 +32,7 @@ $string['langimportdisabled'] = 'De interface voor het importeren van taalpakket
 $string['langpackinstalled'] = 'Taalpakket {$a} is geïnstalleerd';
 $string['langpackinstalledevent'] = 'Taalpakket geïnstalleerd';
 $string['langpacknotremoved'] = 'Er is een fout opgetreken: taalpakket \'{$a}\' is niet volledig verwijderd. Controleer de rechten op de bestanden.';
-$string['langpackremoved'] = 'Taalpakket \'{$a}"verwijderd';
+$string['langpackremoved'] = 'Taalpakket \'{$a}\' verwijderd';
 $string['langpackremovedevent'] = 'Taalpakket verwijderd';
 $string['langpackupdated'] = 'Taalpakket \'{$a}\' aangepast';
 $string['langpackupdatedevent'] = 'Taalpakket bijgewerkt';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qformat_gift', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qformat_gift', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   qformat_gift
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,4 +35,4 @@ $string['giftrightbraceerror'] = 'Не найдено «}»';
 $string['importminerror'] = 'Ошибка в вопросе. Не указано ни одного ответа для данного типа вопроса';
 $string['nohandler'] = 'Нет обработчика для типа вопроса {$a}';
 $string['pluginname'] = 'Формат GIFT';
-$string['pluginname_help'] = 'Формат GIFT позволяет экспортировать в текстовый файл или импортировать из него вопросы следующих типов: множественный выбор, альтернативный, короткий ответ, на соответствие, пропущенное слово, числовой и эссе.';
+$string['pluginname_help'] = 'Формат GIFT позволяет экспортировать в текстовый файл или импортировать из него вопросы следующих типов: множественный выбор, верно/неверно, короткий ответ, на соответствие, пропущенное слово, числовой и эссе.';

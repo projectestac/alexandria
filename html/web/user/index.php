@@ -455,10 +455,37 @@ if ($wheres) {
 $totalcount = $DB->count_records_sql("SELECT COUNT(u.id) $from $where", $params);
 
 if (!empty($search)) {
+    $conditions = array();
+
+    // Search by fullname.
     $fullname = $DB->sql_fullname('u.firstname', 'u.lastname');
-    $wheres[] = "(". $DB->sql_like($fullname, ':search1', false, false) .
-                " OR ". $DB->sql_like('email', ':search2', false, false) .
-                " OR ". $DB->sql_like('idnumber', ':search3', false, false) .") ";
+    $conditions[] = $DB->sql_like($fullname, ':search1', false, false);
+
+    // Search by email.
+    $email = $DB->sql_like('email', ':search2', false, false);
+    if (!in_array('email', $extrafields)) {
+        // Prevent users who hide their email address from being found by others
+        // who aren't allowed to see hidden email addresses.
+        $email = "(". $email ." AND (" .
+                "u.maildisplay <> :maildisplayhide " .
+                "OR u.id = :userid1". // User can always find himself.
+                "))";
+        $params['maildisplayhide'] = core_user::MAILDISPLAY_HIDE;
+        $params['userid1'] = $USER->id;
+    }
+    $conditions[] = $email;
+
+    // Search by idnumber.
+    $idnumber = $DB->sql_like('idnumber', ':search3', false, false);
+    if (!in_array('idnumber', $extrafields)) {
+        // Users who aren't allowed to see idnumbers should at most find themselves
+        // when searching for an idnumber.
+        $idnumber = "(". $idnumber . " AND u.id = :userid2)";
+        $params['userid2'] = $USER->id;
+    }
+    $conditions[] = $idnumber;
+
+    $wheres[] = "(". implode(" OR ", $conditions) .") ";
     $params['search1'] = "%$search%";
     $params['search2'] = "%$search%";
     $params['search3'] = "%$search%";
@@ -830,17 +857,23 @@ if ($bulkoperations) {
         $showalllink = false;
     }
 
+    echo html_writer::start_tag('div', array('class' => 'btn-group'));
     if ($perpage < $matchcount) {
         // Select all users, refresh page showing all users and mark them all selected.
         $label = get_string('selectalluserswithcount', 'moodle', $matchcount);
-        echo '<input type="button" id="checkall" value="' . $label . '" data-showallink="' . $showalllink . '" /> ';
+        echo html_writer::tag('input', "", array('type' => 'button', 'id' => 'checkall', 'class' => 'btn btn-secondary',
+                'value' => $label, 'data-showallink' => $showalllink));
         // Select all users, mark all users on page as selected.
-        echo '<input type="button" id="checkallonpage" value="' . get_string('selectallusersonpage') . '" /> ';
+        echo html_writer::tag('input', "", array('type' => 'button', 'id' => 'checkallonpage', 'class' => 'btn btn-secondary',
+        'value' => get_string('selectallusersonpage')));
     } else {
-        echo '<input type="button" id="checkallonpage" value="' . get_string('selectall') . '" /> ';
+        echo html_writer::tag('input', "", array('type' => 'button', 'id' => 'checkallonpage', 'class' => 'btn btn-secondary',
+        'value' => get_string('selectall')));
     }
 
-    echo '<input type="button" id="checknone" value="'.get_string('deselectall').'" /> ';
+    echo html_writer::tag('input', "", array('type' => 'button', 'id' => 'checknone', 'class' => 'btn btn-secondary',
+        'value' => get_string('deselectall')));
+    echo html_writer::end_tag('div');
     $displaylist = array();
     $displaylist['messageselect.php'] = get_string('messageselectadd');
     if (!empty($CFG->enablenotes) && has_capability('moodle/notes:manage', $context) && $context->id != $frontpagectx->id) {

@@ -38,7 +38,12 @@
 //                                                                         //
 /////////////////////////////////////////////////////////////////////////////
 
-//  Display the calendar page.
+/**
+ * Display the calendar page.
+ * @copyright 2003 Jon Papaioannou
+ * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package core_calendar
+ */
 
 require_once('../config.php');
 require_once($CFG->dirroot.'/course/lib.php');
@@ -80,7 +85,8 @@ $url->param('time', $time);
 $PAGE->set_url($url);
 
 if ($courseid != SITEID && !empty($courseid)) {
-    $course = $DB->get_record('course', array('id' => $courseid));
+    // Course ID must be valid and existing.
+    $course = $DB->get_record('course', array('id' => $courseid), '*', MUST_EXIST);
     $courses = array($course->id => $course);
     $issite = false;
     navigation_node::override_active_url(new moodle_url('/course/view.php', array('id' => $course->id)));
@@ -90,7 +96,7 @@ if ($courseid != SITEID && !empty($courseid)) {
     $issite = true;
 }
 
-require_course_login($course);
+require_login($course, false);
 
 $calendar = new calendar_information(0, 0, 0, $time);
 $calendar->prepare_for_view($course, $courses);
@@ -117,7 +123,6 @@ switch($view) {
 $PAGE->set_pagelayout('standard');
 $PAGE->set_title("$course->shortname: $strcalendar: $pagetitle");
 $PAGE->set_heading($COURSE->fullname);
-$PAGE->set_button(calendar_preferences_button($course));
 
 $renderer = $PAGE->get_renderer('core_calendar');
 $calendar->add_sidecalendar_blocks($renderer, true, $view);
@@ -164,7 +169,7 @@ if (!empty($CFG->enablecalendarexport)) {
             array('preset_what'=>'all', 'preset_time' => 'recentupcoming', 'userid' => $USER->id, 'authtoken'=>$authtoken)
         );
         echo html_writer::tag('a', 'iCal',
-            array('href' => $link, 'title' => get_string('quickdownloadcalendar', 'calendar'), 'class' => 'ical-link'));
+            array('href' => $link, 'title' => get_string('quickdownloadcalendar', 'calendar'), 'class' => 'ical-link m-l-1'));
     }
 }
 

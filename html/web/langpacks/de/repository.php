@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -166,6 +166,7 @@ $string['manage'] = 'Übersicht';
 $string['manageinstances'] = 'Instanzen verwalten';
 $string['manageurl'] = 'Verwalten';
 $string['manageuserrepository'] = 'Eigenes Repository verwalten';
+$string['missingsourcekey'] = 'Der Quellschlüssel fehlt. Dieser Schlüssel muss auch bereitgestellt werden, um die Datei abzurufen.';
 $string['moving'] = 'Verschieben';
 $string['name'] = 'Name';
 $string['newfolder'] = 'Neues Verzeichnis';
@@ -188,12 +189,11 @@ $string['original'] = 'Original';
 $string['overwrite'] = 'Überschreiben';
 $string['overwriteall'] = 'Alle überschreiben';
 $string['path'] = 'Pfad';
-$string['personalrepositories'] = 'Verfügbare Repository-Instanzen';
 $string['plugin'] = 'Repository-Plugins';
 $string['pluginerror'] = 'Fehler im Repository-Plugin';
 $string['pluginname'] = 'Name des Plugins';
 $string['pluginnamehelp'] = 'Wenn Sie dieses Feld leer lassen, wird der Standardname aus dem Sprachpaket benutzt.';
-$string['popup'] = 'Für diesen Dienst müssen Sie sich anmelden.';
+$string['popup'] = 'Zum Einloggen klicken Sie auf den Login-Button';
 $string['popupblockeddownload'] = 'Das Download-Fenster ist blockiert. Bitte erlauben Sie Popup-Fenster in Ihrem Browser und versuchen es noch einmal.';
 $string['preview'] = 'Vorschau';
 $string['privatefilesof'] = '{$a} Meine Dateien';
@@ -225,6 +225,7 @@ $string['settings'] = 'Einstellungen';
 $string['setupdefaultplugins'] = 'Einrichten der standardmäßigen Repository-Plugins';
 $string['siteinstances'] = 'Repository-Instanzen der Website';
 $string['size'] = 'Größe';
+$string['sourcekeymismatch'] = 'Die Quell-URL passt nicht zum angegebenen Quellschlüssel.';
 $string['submit'] = 'Übertragen';
 $string['sync'] = 'Syncronisieren';
 $string['syncfiletimeout'] = 'Timeout Sync Dateigröße';

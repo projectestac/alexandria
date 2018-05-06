@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'wiki', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'wiki', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   wiki
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -95,7 +95,7 @@ $string['filenotuploadederror'] = 'Не удалось загрузить фай
 $string['files'] = 'Файлы';
 $string['filtername'] = 'Автосвязывание страниц Вики';
 $string['firstpagetitle'] = 'Название первой страницы';
-$string['firstpagetitle_help'] = 'Заголовок первой страницы Вики.';
+$string['firstpagetitle_help'] = 'Заголовок первой страницы Вики. После создания Вики заголовок больше не может быть изменен.';
 $string['forceformat'] = 'Принудительный формат';
 $string['forceformat_help'] = 'При принудительном формате (установлен флажок) нет возможности выбрать формат при редактировании страниц Вики.';
 $string['format'] = 'Формат';

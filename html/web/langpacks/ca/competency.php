@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'competency', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'competency', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   competency
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -55,10 +55,10 @@ $string['errorscaleconfiguration'] = 'L\'escala necessita configurar-se seleccio
 $string['errorusercomptencystatus'] = 'L\'estat «{$a}» de competència de l\'usuari és desconegut';
 $string['eventcompetencycreated'] = 'S\'ha creat la competència.';
 $string['eventcompetencydeleted'] = 'S\'ha esborrat la competència.';
-$string['eventcompetencyframeworkcreated'] = 'S\'ha creat el marc competencial.';
-$string['eventcompetencyframeworkdeleted'] = 'S\'ha eliminat el marc competencial.';
-$string['eventcompetencyframeworkupdated'] = 'S\'ha actualitzat el marc competencial.';
-$string['eventcompetencyframeworkviewed'] = 'S\'ha visualitzat el marc competencial.';
+$string['eventcompetencyframeworkcreated'] = 'S\'ha creat el marc de competències.';
+$string['eventcompetencyframeworkdeleted'] = 'S\'ha eliminat el marc de competències.';
+$string['eventcompetencyframeworkupdated'] = 'S\'ha actualitzat el marc de competències.';
+$string['eventcompetencyframeworkviewed'] = 'S\'ha visualitzat el marc de competències.';
 $string['eventcompetencyupdated'] = 'S\'ha actualitzat la competència.';
 $string['eventcompetencyviewed'] = 'S\'ha visualitzat la competència.';
 $string['eventevidencecreated'] = 'S\'ha creat l\'evidència.';
@@ -105,6 +105,7 @@ $string['evidence_manualoverrideinplan'] = 'S\'ha configurat de forma manual la 
 $string['invalidevidencedesc'] = 'La descripció de l\'evidència no és vàlida.';
 $string['invalidgrade'] = 'La qualificació no és vàlida';
 $string['invalidpersistent'] = 'Persistent no vàlid';
+$string['invalidpersistenterror'] = 'Error: {$a}';
 $string['invalidplan'] = 'El pla d\'aprenentatge no és vàlid.';
 $string['invalidtaxonomy'] = 'Taxonomia invàlida: {$a}';
 $string['invalidurl'] = 'L\'URL no és vàlid. Assegureu-vos que comença per \'http://\' o \'https://\'.';

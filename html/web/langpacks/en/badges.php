@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'en', branch 'MOODLE_31_STABLE'
+ * Strings for component 'badges', language 'en', branch 'MOODLE_32_STABLE'
  *
  * @package   badges
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -83,12 +83,12 @@ $string['backpackbadges'] = 'You have {$a->totalbadges} badge(s) displayed from 
 $string['backpackcannotsendverification'] = 'Cannot send verification email';
 $string['backpackconnection'] = 'Backpack connection';
 $string['backpackconnectioncancelattempt'] = 'Connect using a different email address';
-$string['backpackconnectionconnect'] = 'Connect to Backpack';
+$string['backpackconnectionconnect'] = 'Connect to backpack';
 $string['backpackconnection_help'] = 'This page allows you to set up connection to an external backpack provider. Connecting to a backpack lets you display external badges within this site and push badges earned here to your backpack.
 
 Currently, only <a href="http://backpack.openbadges.org">Mozilla OpenBadges Backpack</a> is supported. You need to sign up for a backpack service before trying to set up backpack connection on this page.';
 $string['backpackconnectionresendemail'] = 'Resend verification email';
-$string['backpackconnectionunexpectedresult'] = 'There was a problem contacting the Backpack. Please try again.<br><br>If this problem persists, please contact your system administrator.';
+$string['backpackconnectionunexpectedresult'] = 'There was a problem connecting to your backpack. Please try again.<br><br>If the problem persists, contact your administrator.';
 $string['backpackdetails'] = 'Backpack settings';
 $string['backpackemail'] = 'Email address';
 $string['backpackemail_help'] = 'The email address associated with your backpack. While you are connected, any badges earned on this site will be associated with this email address.';
@@ -97,7 +97,7 @@ $string['backpackemailverifyemailbody'] = 'Hi,
 
 A new connection to your OpenBadges backpack has been requested from \'{$a->sitename}\' using your email address.
 
-To confirm and activate the connection to your backpack, please click the link below.
+To confirm and activate the connection to your backpack, please go to
 
 {$a->link}
 
@@ -107,7 +107,7 @@ If you need help, please contact the site administrator,
 {$a->admin}';
 $string['backpackemailverifyemailsubject'] = '{$a}: OpenBadges Backpack email verification';
 $string['backpackemailverifypending'] = 'A verification email has been sent to <strong>{$a}</strong>. Click on the verification link in the email to activate your Backpack connection.';
-$string['backpackemailverifysuccess'] = 'Thanks for verifying your email address. You are now connected to your Backpack.';
+$string['backpackemailverifysuccess'] = 'Thanks for verifying your email address. You are now connected to your backpack.';
 $string['backpackemailverifytokenmismatch'] = 'The token in the link you clicked does not match the stored token. Make sure you clicked the link in most recent email you received.';
 $string['backpackimport'] = 'Badge import settings';
 $string['backpackimport_help'] = 'After the backpack connection is successfully established, badges from your backpack can be displayed on your badges page and your profile page.
@@ -234,10 +234,13 @@ $string['error:backpackemailnotfound'] = 'The email \'{$a}\' is not associated w
 $string['error:backpackloginfailed'] = 'You could not be connected to an external backpack for the following reason: {$a}';
 $string['error:backpacknotavailable'] = 'Your site is not accessible from the Internet, so any badges issued from this site cannot be verified by external backpack services.';
 $string['error:backpackproblem'] = 'There was a problem connecting to your backpack service provider. Please try again later.';
+$string['error:badgeawardnotfound'] = 'Cannot verify this awarded badge.  This badge may have been revoked.';
+$string['error:badgenotfound'] = 'Badge not found';
 $string['error:badjson'] = 'The connection attempt returned invalid data.';
 $string['error:cannotact'] = 'Cannot activate the badge.';
 $string['error:cannotawardbadge'] = 'Cannot award badge to a user.';
 $string['error:cannotdeletecriterion'] = 'This criterion cannot be deleted.';
+$string['error:cannotrevokebadge'] = 'Cannot revoke badge from a user.';
 $string['error:clone'] = 'Cannot clone the badge.';
 $string['error:connectionunknownreason'] = 'The connection was unsuccessful but no reason was given.';
 $string['error:duplicatename'] = 'Badge with such name already exists in the system.';
@@ -266,7 +269,20 @@ $string['error:requesterror'] = 'The connection request failed (error code {$a})
 $string['error:requesttimeout'] = 'The connection request timed out before it could complete.';
 $string['error:save'] = 'Cannot save the badge.';
 $string['error:userdeleted'] = '{$a->user} (This user no longer exists in {$a->site})';
+$string['eventbadgearchived'] = 'Badge archived';
 $string['eventbadgeawarded'] = 'Badge awarded';
+$string['eventbadgecreated'] = 'Badge created';
+$string['eventbadgecriteriacreated'] = 'Badge criteria created';
+$string['eventbadgecriteriadeleted'] = 'Badge criteria deleted';
+$string['eventbadgecriteriaupdated'] = 'Badge criteria updated';
+$string['eventbadgedeleted'] = 'Badge deleted';
+$string['eventbadgedisabled'] = 'Badge disabled';
+$string['eventbadgeduplicated'] = 'Badge duplicated';
+$string['eventbadgeenabled'] = 'Badge enabled';
+$string['eventbadgelistingviewed'] = 'Badge listing viewed';
+$string['eventbadgerevoked'] = 'Badge revoked';
+$string['eventbadgeupdated'] = 'Badge updated';
+$string['eventbadgeviewed'] = 'Badge viewed';
 $string['evidence'] = 'Evidence';
 $string['existingrecipients'] = 'Existing badge recipients';
 $string['expired'] = 'Expired';
@@ -368,6 +384,7 @@ $string['reviewconfirm'] = '<p>This will make your badge visible to users and al
 <p>Once a badge has been issued it will be <strong>locked</strong> - certain settings including the criteria and expiry settings can no longer be changed.</p>
 
 <p>Are you sure you want to enable access to the badge \'{$a}\'?</p>';
+$string['revoke'] = 'Revoke badge';
 $string['save'] = 'Save';
 $string['searchname'] = 'Search by name';
 $string['selectaward'] = 'Please select the role you would like to use to award this badge:';

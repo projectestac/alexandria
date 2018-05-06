@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio_boxnet', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'portfolio_boxnet', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   portfolio_boxnet
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,10 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['clientid'] = 'ID del cliente';
+$string['clientsecret'] = 'Clave secreta del cliente';
 $string['existingfolder'] = 'Carpeta existente para incluir archivo(s)';
 $string['folderclash'] = 'La carpeta que intenta crear ya existe';
 $string['foldercreatefailed'] = 'No se pudo crear la carpeta de destino en box.net';
 $string['folderlistfailed'] = 'No se ha podido recuperar una lista de carpetas de box.net';
+$string['missinghttps'] = 'Se requiere HTTPS';
+$string['missingoauthkeys'] = 'ID del cliente y clave secreta no encontradas';
 $string['newfolder'] = 'Nueva carpeta para guardar archivos';
 $string['noauthtoken'] = 'No se ha podido recuperar una ficha de autenticación para usar en esta sesión';
 $string['notarget'] = 'Debe especificar una carpeta existente o una carpeta nueva a la que subir el archivo';

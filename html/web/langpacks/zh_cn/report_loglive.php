@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_loglive', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'report_loglive', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   report_loglive
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,3 +32,4 @@ $string['eventreportviewed'] = '查看了实时日志报表';
 $string['livelogs'] = '一小时内的实时日志';
 $string['loglive:view'] = '查看实时日志';
 $string['pluginname'] = '实时日志';
+$string['selectlogreader'] = '选择日志阅读器';

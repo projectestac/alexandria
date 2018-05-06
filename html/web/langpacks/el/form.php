@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'form', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'form', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   form
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -52,13 +52,18 @@ $string['mustbeoverriden'] = 'Η αφηρημένη μέθοδος form_definiti
 $string['nomethodforaddinghelpbutton'] = 'Δεν υπάρχει μέθοδο για την προσθήκη κουμπιού βοήθειας στο στοιχείο φόρμας {$a->name} (κλάση {$a->classname})';
 $string['nonexistentformelements'] = 'Προσπάθεια προσθήκης κουμπιών βοήθειας σε μη υπαρκτά στοιχεία φόρμας: {$a}';
 $string['noselection'] = 'Καμία επιλογή';
+$string['novalueclicktoset'] = 'Πατήστε για να εισάγετε κείμενο';
 $string['optional'] = 'Προαιρετικό';
 $string['othersettings'] = 'Άλλες ρυθμίσεις';
+$string['passwordunmaskedithint'] = 'Επεξεργασία κωδικού πρόσβασης';
+$string['passwordunmaskrevealhint'] = 'Αποκάλυψη';
 $string['requiredelement'] = 'Απαιτούμενο πεδίο.';
 $string['revealpassword'] = 'Αποκάλυψη';
 $string['security'] = 'Ασφάλεια';
 $string['selectallornone'] = 'Επιλογή όλων/κανενός';
 $string['showadvanced'] = 'Εμφάνιση Προχωρημένων';
+$string['showless'] = 'Εμφάνιση λιγότερων...';
+$string['showmore'] = 'Εμφάνιση περισσότερων...';
 $string['somefieldsrequired'] = 'Υπάρχουν απαιτούμενα πεδία σε αυτή τη φόρμα';
 $string['time'] = 'Χρόνος';
 $string['timeunit'] = 'Μονάδα χρόνου';

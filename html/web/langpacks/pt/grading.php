@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grading', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'grading', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   grading
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,7 +42,7 @@ $string['gradingmethodnone'] = 'Avaliação simples direta';
 $string['gradingmethods'] = 'Métodos de avaliação';
 $string['manageactionclone'] = 'Criar nova grelha de avaliação a partir de um modelo';
 $string['manageactiondelete'] = 'Apagar a grelha definida';
-$string['manageactiondeleteconfirm'] = 'Está prestes a apagar a grelha \'{$a->formname}\' e toda a informação associada de \'{$a->component} ({$a->area})\'. Por favor certifique-se de que tem conhecimento do seguinte:
+$string['manageactiondeleteconfirm'] = 'Está prestes a apagar a grelha \'{$a->formname}\' e toda a informação associada de \'{$a->component} ({$a->area})\'. Por favor, certifique-se de que tem conhecimento do seguinte:
 
 * Não existe forma de voltar atrás após esta operação.
 * Pode alterar para outro método de avaliação incluindo o \'Avaliação simples direta\' sem apagar esta grelha.

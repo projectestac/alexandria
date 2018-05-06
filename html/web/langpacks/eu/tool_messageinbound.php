@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_messageinbound', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_messageinbound', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_messageinbound
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,13 +30,16 @@ $string['component'] = 'Osagaia';
 $string['description'] = 'Deskribapena';
 $string['domain'] = 'E-postaren domeinua';
 $string['edit'] = 'Editatu';
+$string['edithandler'] = 'Editatu {$a} kudeatzailerako ezarpenak';
 $string['editinghandler'] = '{$a} editatzen';
 $string['enabled'] = 'Gaituta';
+$string['fixedvalidateaddress'] = 'Balioztatu Igorlearen helbidea';
 $string['incomingmailconfiguration'] = 'Sarrerako e-postaren ezarpenak';
+$string['incomingmailserversettings'] = 'Sarrerako posta-zerbitzariaren ezarpenak';
 $string['mailbox'] = 'Postontziaren izena';
 $string['mailboxconfiguration'] = 'Postontziaren ezarpenak';
 $string['mailboxdescription'] = '[mailbox]+azpihelbidea@[domain]';
-$string['mailsettings'] = 'E-postaren ezarpenak';
+$string['mailsettings'] = 'Postaren ezarpenak';
 $string['message_handlers'] = 'Mezu-kudeatzaileak';
 $string['messageinbound'] = 'Sarrerako mezua';
 $string['messageinboundgeneralconfiguration'] = 'Ezarpen orokorra';
@@ -52,6 +55,8 @@ $string['oneweek'] = 'Astebete';
 $string['oneyear'] = 'Urtebete';
 $string['pluginname'] = 'Sarrera-mezuen ezarpenak';
 $string['replysubjectprefix'] = 'Er:';
+$string['requirevalidation'] = 'Balioztatu Igorlearen helbidea';
 $string['ssl'] = 'SSL (Detektatu automatikoki SSL bertsioa)';
 $string['sslv2'] = 'SSLv2 (Behartu SSL-en 2 bertsioa)';
 $string['sslv3'] = 'SSLv2 (Behartu SSL-en 3 bertsioa)';
+$string['validateaddress'] = 'Balioztatu Igorlearen e-posta helbidea';

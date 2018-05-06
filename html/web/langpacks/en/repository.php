@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'en', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository', language 'en', branch 'MOODLE_32_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -155,7 +155,7 @@ $string['license'] = 'License';
 $string['linkexternal'] = 'Link external';
 $string['listview'] = 'View as list';
 $string['loading'] = 'Loading...';
-$string['login'] = 'Login to your account';
+$string['login'] = 'Log in to your account';
 $string['logout'] = 'Logout';
 $string['lostsource'] = 'Error. Source is missing. {$a}';
 $string['makefileinternal'] = 'Make a copy of the file';
@@ -165,6 +165,7 @@ $string['manage'] = 'Manage repositories';
 $string['manageinstances'] = 'Manage instances';
 $string['manageurl'] = 'Manage';
 $string['manageuserrepository'] = 'Manage individual repository';
+$string['missingsourcekey'] = 'The source key is missing. This key must also be provided to retrieve the file.';
 $string['moving'] = 'Moving';
 $string['name'] = 'Name';
 $string['newfolder'] = 'New folder';
@@ -187,12 +188,11 @@ $string['original'] = 'Original';
 $string['overwrite'] = 'Overwrite';
 $string['overwriteall'] = 'Overwrite all';
 $string['path'] = 'Path';
-$string['personalrepositories'] = 'Available repository instances';
 $string['plugin'] = 'Repository plug-ins';
 $string['pluginerror'] = 'Errors in repository plugin.';
 $string['pluginname'] = 'Repository plugin name';
 $string['pluginnamehelp'] = 'If you leave this empty the default name will be used.';
-$string['popup'] = 'Click "Login" button to login';
+$string['popup'] = 'Click "Login" button to log in';
 $string['popupblockeddownload'] = 'The downloading window is blocked, please allow the popup window, and try again.';
 $string['preview'] = 'Preview';
 $string['privatefilesof'] = '{$a} Private files';
@@ -224,6 +224,7 @@ $string['settings'] = 'Settings';
 $string['setupdefaultplugins'] = 'Setting up default repository plugins';
 $string['siteinstances'] = 'Repositories instances of the site';
 $string['size'] = 'Size';
+$string['sourcekeymismatch'] = 'The source url does not match the sourcekey.';
 $string['submit'] = 'Submit';
 $string['sync'] = 'Sync';
 $string['syncfiletimeout'] = 'Sync file timeout';

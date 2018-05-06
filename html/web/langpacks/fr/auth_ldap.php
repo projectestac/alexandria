@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_ldap', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -76,7 +76,7 @@ $string['auth_ldap_opt_deref'] = 'Détermine le traitement des alias durant la r
 $string['auth_ldap_opt_deref_key'] = 'Dé-référencer les alias';
 $string['auth_ldap_passtype'] = 'Indiquer le format des mots de passe (nouveaux ou modifiés) dans le serveur LDAP.';
 $string['auth_ldap_passtype_key'] = 'Format de mot de passe';
-$string['auth_ldap_passwdexpire_settings'] = 'Réglages de l\'échéance du mot de passe LDAP.';
+$string['auth_ldap_passwdexpire_settings'] = 'Réglages de l\'échéance du mot de passe LDAP';
 $string['auth_ldap_preventpassindb'] = 'Choisissez « Oui » pour empêcher le stockage des mots de passe dans la base de données de Moodle.';
 $string['auth_ldap_preventpassindb_key'] = 'Ne pas mettre les mots de passe en cache';
 $string['auth_ldap_search_sub'] = 'Rechercher les utilisateurs dans les sous-contextes.';
@@ -118,7 +118,7 @@ $string['didntfindexpiretime'] = 'La fonction password_expire() n\'a pas trouvé
 $string['didntgetusersfromldap'] = 'Aucun utilisateur obtenu depuis LDAP';
 $string['gotcountrecordsfromldap'] = '{$a} enregistrements obtenus de LDAP';
 $string['morethanoneuser'] = 'Bizarre autant qu\'étrange ! Plus d\'un enregistrement utilisateur trouvé dans LDAP. Seul le premier sera utilisé.';
-$string['needbcmath'] = 'L\'extension BCMath est nécessaire pour pouvoir utiliser le délai de connexion avec Active Directory';
+$string['needbcmath'] = 'L\'extension BCMath est nécessaire pour pouvoir vérifier l\'échéance des mots de passe avec Active Directory.';
 $string['needmbstring'] = 'L\'extension mbstring est nécessaire pour pouvoir changer les mots de passe de Active Directory';
 $string['nodnforusername'] = 'Erreur dans user_update_password(). Pas de DN pour {$a->username}';
 $string['noemail'] = 'La tentative de vous envoyer un courriel a échoué !';

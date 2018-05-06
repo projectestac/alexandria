@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_participants', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_participants', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   block_participants
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['participants:addinstance'] = 'Lägg till blocket Personer';
 $string['pluginname'] = 'Personer';

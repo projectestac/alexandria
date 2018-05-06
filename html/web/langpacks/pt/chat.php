@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'chat', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,6 +42,7 @@ $string['chat:readlog'] = 'Ver gravações do chat';
 $string['chatreport'] = 'Sessões de chat';
 $string['chat:talk'] = 'Submeter mensagens no chat';
 $string['chattime'] = 'Próxima sessão de chat';
+$string['chat:view'] = 'Ver atividade Chat';
 $string['compact'] = 'Compacto';
 $string['composemessage'] = 'Compor mensagem';
 $string['configmethod'] = 'O método de chat com ajax proporciona um inteface de chat baseado em ajax e contacta o servidor regularmente para atualização. O método normal do chat precisa que os clientes contactem regularmente o servidor para obter atualizações. Não precisa de nenhuma configuração e funciona em qualquer parte, mas poderá sobrecarregar um servidor quando há muitas pessoas no chat. A utilização dum servidor daemon requer acesso via shell ao Unix, mas o resultado é um ambiente de chat mais rápido e que escala melhor.';
@@ -72,7 +73,7 @@ $string['idle'] = 'Parado';
 $string['inputarea'] = 'Área de entrada';
 $string['invalidid'] = 'Não foi possível encontrar a sala de chat!';
 $string['list_all_sessions'] = 'Listar todas as sessões';
-$string['list_complete_sessions'] = 'Listar apenas sessões completas.';
+$string['list_complete_sessions'] = 'Listar apenas sessões concluídas.';
 $string['listing_all_sessions'] = 'Listagem de todas as sessões';
 $string['messagebeepseveryone'] = '{$a} chama toda a gente!';
 $string['messagebeepsyou'] = '{$a} acabou de o chamar!';
@@ -101,7 +102,7 @@ $string['modulenameplural'] = 'Chats';
 $string['neverdeletemessages'] = 'Nunca apagar mensagens';
 $string['nextsession'] = 'Próxima sessão agendada';
 $string['nochat'] = 'Chat não encontrado';
-$string['no_complete_sessions_found'] = 'Não foram encontradas sessões completas.';
+$string['no_complete_sessions_found'] = 'Não foram encontradas sessões concluídas.';
 $string['noguests'] = 'O chat não está disponível para visitantes.';
 $string['nomessages'] = 'Ainda não há mensagens';
 $string['nopermissiontoseethechatlog'] = 'Não tem permissão para visualizar as gravações do chat';
@@ -111,7 +112,7 @@ $string['noscheduledsession'] = 'Nenhuma sessão agendada';
 $string['notallowenter'] = 'Não tem permissão para entrar no chat.';
 $string['notlogged'] = 'Você não está autenticado!';
 $string['oldping'] = 'Tempo limite sem atividade';
-$string['page-mod-chat-x'] = 'Qualquer página do chat';
+$string['page-mod-chat-x'] = 'Qualquer página da atividade chat';
 $string['pastchats'] = 'Sessões de chat anteriores';
 $string['pluginadministration'] = 'Administração do Chat';
 $string['pluginname'] = 'Chat';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'role', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,6 +79,7 @@ $string['badges:deletebadge'] = 'Eliminare badge';
 $string['badges:earnbadge'] = 'Conseguire badge';
 $string['badges:manageglobalsettings'] = 'Gestire impostazioni globali badge';
 $string['badges:manageownbadges'] = 'Visualizzare e gestire i badge conseguiti';
+$string['badges:revokebadge'] = 'Revoca badge dell\'utente';
 $string['badges:viewawarded'] = 'Visualizzare utenti che hanno conseguito un determinato badge senza poterlo conferire';
 $string['badges:viewbadges'] = 'Visualizzare badge disponibili senza conseguirli';
 $string['badges:viewotherbadges'] = 'Visualizzare badge pubblici nei profili di altri utenti';
@@ -243,7 +244,7 @@ $string['gotoassignsystemroles'] = 'Vai alla assegnazione di ruoli di sistema';
 $string['grade:edit'] = 'Modificare valutazioni';
 $string['grade:export'] = 'Esportare valutazioni';
 $string['grade:hide'] = 'Nascondere/visualizzare valutazioni o elementi';
-$string['grade:import'] = 'Importare valuatzioni';
+$string['grade:import'] = 'Importare valutazioni';
 $string['grade:lock'] = 'Bloccare valutazioni o elementi';
 $string['grade:manage'] = 'Gestire elementi di valutazione';
 $string['grade:managegradingforms'] = 'Gestire metodi di valutazione avanzati';
@@ -350,7 +351,7 @@ $string['restore:restoretargetimport'] = 'Ripristinare da file contrassegnati  p
 $string['restore:rolldates'] = 'Posticipare date di attività durante il ripristino';
 $string['restore:uploadfile'] = 'Caricare file dalle aree di backup';
 $string['restore:userinfo'] = 'Ripristinare dati utente';
-$string['restore:viewautomatedfilearea'] = 'Visualizzare l\'area dei backup automatici';
+$string['restore:viewautomatedfilearea'] = 'Ripristina corsi dai backup automatici';
 $string['risks'] = 'Rischi';
 $string['roleallowheader'] = 'Autorizza ruolo:';
 $string['roleallowinfo'] = 'Scegli un ruolo da aggiungere all\'elenco dei ruoli consentiti nel contesto "{$a->context}", privilegio "{$a->cap}":';
@@ -390,12 +391,15 @@ $string['siteadministrators'] = 'Amministratori del sito';
 $string['site:approvecourse'] = 'Approvare creazione di corsi';
 $string['site:backup'] = 'Effettuare backup corsi';
 $string['site:config'] = 'Cambiare configurazione del sito';
+$string['site:configview'] = 'Visualizzare l\'alberatura dell\'amministrazione del sito (ma non tutte le pagine contenute)';
 $string['site:deleteanymessage'] = 'Eliminare qualsiasi messaggio nel sito';
 $string['site:deleteownmessage'] = 'Eliminare messaggi inviati e ricevuti';
 $string['site:doanything'] = 'Modificare qualsiasi cosa';
 $string['site:doclinks'] = 'Visualizzare link a documenti esterni';
 $string['site:forcelanguage'] = 'Forzare lingua del corso';
 $string['site:import'] = 'Importare altri corsi in un corso';
+$string['site:maintenanceaccess'] = 'Accedere al sito in modalità manutenzione';
+$string['site:manageallmessaging'] = 'Aggiungere, rimuovere, bloccare e sbloccare contatti per qualsiasi utente';
 $string['site:manageblocks'] = 'Gestire blocchi nelle pagine';
 $string['site:mnetloginfromremote'] = 'Effettuare login da un Moodle remoto';
 $string['site:mnetlogintoremote'] = 'Roaming verso un\'applicazione remota tramite MNet';

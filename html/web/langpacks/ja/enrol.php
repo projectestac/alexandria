@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,9 +31,9 @@ $string['addinstanceanother'] = '登録方法を追加して、もう1つ作成�
 $string['ajaxnext25'] = '次の25 ...';
 $string['ajaxoneuserfound'] = '1名のユーザが見つかりました。';
 $string['ajaxxusersfound'] = '{$a} 名のユーザが見つかりました。';
-$string['assignnotpermitted'] = 'あなたには、このコースでロールを割り当てるパーミッションがありません。または割り当てることができません。';
+$string['assignnotpermitted'] = 'あなたにはこのコースでロールを割り当てるパーミッションがありません。または割り当てることができません。';
 $string['bulkuseroperation'] = 'バルクユーザ操作';
-$string['configenrolplugins'] = '必要なプラグインすべてを選択した後、適切な順番に並べ替えてください。';
+$string['configenrolplugins'] = '必要なプラグインすべてを選択した後、適切な順序に並べ替えてください。';
 $string['custominstancename'] = 'カスタムインスタンス名';
 $string['defaultenrol'] = '新しいコースにインスタンスを追加する';
 $string['defaultenrol_desc'] = 'このプラグインを新しいコースすべてにデフォルトで追加することができます。';
@@ -124,7 +124,10 @@ $string['rolefromcategory'] = '{$a->role} (コースカテゴリより継承)';
 $string['rolefrommetacourse'] = '{$a->role} (親コースより継承)';
 $string['rolefromsystem'] = '{$a->role} (サイトレベルで割り当て)';
 $string['rolefromthiscourse'] = '{$a->role} (このコースで割り当て)';
-$string['startdatetoday'] = '今日';
+$string['sendfromcoursecontact'] = 'コース連絡先から';
+$string['sendfromkeyholder'] = 'キーホルダから';
+$string['sendfromnoreply'] = 'no-replyアドレスから';
+$string['startdatetoday'] = '本日';
 $string['synced'] = '同期';
 $string['testsettings'] = 'テスト設定';
 $string['testsettingsheading'] = 'テスト登録設定 - {$a}';

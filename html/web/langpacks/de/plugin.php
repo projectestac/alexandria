@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plugin', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'plugin', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   plugin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,9 +79,9 @@ $string['packagesvalidating'] = 'Überprüfen {$a}';
 $string['packagesvalidatingfailed'] = 'Installation wegen einer fehlerhaften Überprüfung abgebrochen';
 $string['packagesvalidatingok'] = 'Die Überprüfung ist abgeschlossen. Die Installation kann fortgesetzt werden.';
 $string['plugincheckall'] = 'Alle Plugins';
-$string['plugincheckattention'] = 'Plugins mit Mitteilungen';
-$string['pluginchecknone'] = 'Alle Plugins sind ohne Mitteilungen';
-$string['pluginchecknotice'] = 'Einige Plugins zeigen Mitteilungen. Markiert sind neue Plugins, aktualisierbare Plugins und fehlende Plugins. Die aktualisierbaren und fehlenden Versionen sollten Sie laden, bevor Sie die Aktualisierung von Moodle fortsetzen.';
+$string['plugincheckattention'] = 'Plugins, die Aufmerksamkeit fordern';
+$string['pluginchecknone'] = 'Es gibt keine Mitteilung zu den Plugins.';
+$string['pluginchecknotice'] = 'Einige Plugins fordern Ihre Aufmerksamkeit. Markiert sind neue Plugins, aktualisierbare Plugins und fehlende Plugins. Die aktualisierbaren und fehlenden Versionen sollten Sie laden, bevor Sie die Aktualisierung von Moodle fortsetzen.';
 $string['plugindisable'] = 'Deaktivieren';
 $string['plugindisabled'] = 'Deaktiviert';
 $string['pluginenable'] = 'Aktivieren';
@@ -101,7 +101,7 @@ $string['status_missing'] = 'Quelle fehlt';
 $string['status_new'] = 'Wird installiert';
 $string['status_nodb'] = 'Keine Datenbank';
 $string['status_upgrade'] = 'Wird aktualisiert';
-$string['status_uptodate'] = 'Installiert';
+$string['status_uptodate'] = 'Ist installiert';
 $string['supportedmoodleversions'] = 'Unterstützte Moodle-Versionen';
 $string['systemname'] = 'Identifizierung';
 $string['type_antivirus'] = 'Antivirus Plugin';
@@ -141,6 +141,8 @@ $string['type_gradingform'] = 'Fortgeschrittene Bewertungsmethode';
 $string['type_gradingform_plural'] = 'Fortgeschrittene Bewertungsmethoden';
 $string['type_local'] = 'Lokales Plugin';
 $string['type_local_plural'] = 'Lokale Plugins';
+$string['type_media'] = 'MediaPlayer';
+$string['type_media_plural'] = 'MediaPlayer';
 $string['type_message'] = 'Mitteilungskanal';
 $string['type_message_plural'] = 'Mitteilungskanäle';
 $string['type_mnetservice'] = 'MNet Service';

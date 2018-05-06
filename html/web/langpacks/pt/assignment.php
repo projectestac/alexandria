@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignment', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignment', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   assignment
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -39,7 +39,7 @@ $string['modulename_help'] = 'Módulo de atividade de retrocompatibilidade que f
 $string['modulenameplural'] = 'Trabalhos 2.2 (Desativado)';
 $string['page-mod-assignment-submissions'] = 'Página de submissão do Trabalho';
 $string['page-mod-assignment-view'] = 'Página principal do Trabalho';
-$string['page-mod-assignment-x'] = 'Qualquer página do Trabalho';
+$string['page-mod-assignment-x'] = 'Qualquer página da atividade trabalho';
 $string['pluginadministration'] = 'Administração dos Trabalhos 2.2 (Desativado)';
 $string['pluginname'] = 'Trabalho 2.2 (Desativado)';
 $string['upgradenotification'] = 'Esta atividade está baseada no antigo módulo de trabalhos';

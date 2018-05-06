@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_lp', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_lp', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_lp
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -62,6 +62,7 @@ $string['competencyframeworkcreated'] = 'Competentieframework gemaakt.';
 $string['competencyframeworkname'] = 'Naam';
 $string['competencyframeworkroot'] = 'Geen overkoepelende competentie';
 $string['competencyframeworks'] = 'Competentieframeworks';
+$string['competencyframeworksrepository'] = 'Competentieframework opslagruimte';
 $string['competencyframeworkupdated'] = 'Competentieframework aangepast';
 $string['competencyoutcome_complete'] = 'Markeer als voltooid';
 $string['competencyoutcome_evidence'] = 'Bewijs toevoegen';
@@ -179,7 +180,7 @@ $string['pluginname'] = 'Studieplannen';
 $string['points'] = 'Punten';
 $string['pointsgivenfor'] = 'Punten gegeven voor \'{$a}\'';
 $string['proficient'] = 'Geslaagd';
-$string['progress'] = 'Vooruitgang';
+$string['progress'] = 'Vordering';
 $string['rate'] = 'Beoordeel';
 $string['ratecomment'] = 'Notities bewijs';
 $string['rating'] = 'Beoordeling';
@@ -248,7 +249,7 @@ $string['taxonomy_parent_value'] = 'Overkoepelende waarde';
 $string['taxonomy_selected_behaviour'] = 'Geselecteerd gedrag';
 $string['taxonomy_selected_competency'] = 'Geselecteerde competentie';
 $string['taxonomy_selected_concept'] = 'Geselecteerd concept';
-$string['taxonomy_selected_domain'] = 'Geselecteerd concept';
+$string['taxonomy_selected_domain'] = 'Geselecteerd domein';
 $string['taxonomy_selected_indicator'] = 'Geselecteerde indicator';
 $string['taxonomy_selected_level'] = 'Geselecteerd niveau';
 $string['taxonomy_selected_outcome'] = 'Geselecteerd resultaat';

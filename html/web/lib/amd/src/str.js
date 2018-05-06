@@ -24,6 +24,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @since      2.9
  */
+// Disable no-restriced-properties because M.str is expected here:
+/* eslint-disable no-restricted-properties */
 define(['jquery', 'core/ajax', 'core/localstorage'], function($, ajax, storage) {
 
     var promiseCache = [];
@@ -40,6 +42,7 @@ define(['jquery', 'core/ajax', 'core/localstorage'], function($, ajax, storage) 
          * @param {string} lang The users language - if not passed it is deduced.
          * @return {Promise}
          */
+         // eslint-disable-next-line camelcase
         get_string: function(key, component, param, lang) {
             var request = this.get_strings([{
                 key: key,
@@ -61,6 +64,7 @@ define(['jquery', 'core/ajax', 'core/localstorage'], function($, ajax, storage) 
          *                                      See get_string for more info on these args.
          * @return {Promise}
          */
+         // eslint-disable-next-line camelcase
         get_strings: function(requests) {
 
             var deferred = $.Deferred();
@@ -74,7 +78,7 @@ define(['jquery', 'core/ajax', 'core/localstorage'], function($, ajax, storage) 
             for (i = 0; i < requests.length; i++) {
                 request = requests[i];
                 if (typeof request.lang === "undefined") {
-                    request.lang = $('html').attr('lang').replace('-', '_');
+                    request.lang = $('html').attr('lang').replace(/-/g, '_');
                 }
                 request.cacheKey = 'core_str/' + request.key + '/' + request.component + '/' + request.lang;
                 if (typeof M.str[request.component] === "undefined" ||

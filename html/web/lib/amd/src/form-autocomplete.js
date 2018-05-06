@@ -37,6 +37,8 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         UP: 38
     };
 
+    var uniqueId = $.now();
+
     /**
      * Make an item in the selection list "active".
      *
@@ -90,10 +92,10 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         }
         originalSelect.children('option').each(function(index, ele) {
             if ($(ele).prop('selected')) {
-                items.push( { label: $(ele).html(), value: $(ele).attr('value') } );
+                items.push({label: $(ele).html(), value: $(ele).attr('value')});
             }
         });
-        var context = $.extend({ items: items }, options, state);
+        var context = $.extend({items: items}, options, state);
 
         // Render the template.
         templates.render('core/form_autocomplete_selection', context).done(function(newHTML) {
@@ -115,7 +117,6 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
      * Notify of a change in the selection.
      *
      * @param {jQuery} originalSelect The jQuery object matching the hidden select list.
-     * @return {Void}
      */
     var notifyChange = function(originalSelect) {
         if (typeof M.core_formchangechecker !== 'undefined') {
@@ -131,7 +132,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
      * @private
      * @param {Object} options Original options for this autocomplete element.
      * @param {Object} state State variables for this autocomplete element.
-     * @param {Element} The item to be deselected.
+     * @param {Element} item The item to be deselected.
      * @param {Element} originalSelect The original select list.
      */
     var deselectItem = function(options, state, item, originalSelect) {
@@ -215,7 +216,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         // Find it's index.
         var current = suggestionsElement.children('[aria-hidden=false]').index(element);
         // Activate the next one.
-        activateItem(current+1, state);
+        activateItem(current + 1, state);
     };
 
     /**
@@ -237,7 +238,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         // Find it's index.
         var current = selectionsElement.children('[aria-selected=true]').index(element);
         // Activate the next one.
-        activateSelection(current-1, state);
+        activateSelection(current - 1, state);
     };
     /**
      * Find the index of the current active selection, and activate the next one.
@@ -258,7 +259,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         // Find it's index.
         var current = selectionsElement.children('[aria-selected=true]').index(element);
         // Activate the next one.
-        activateSelection(current+1, state);
+        activateSelection(current + 1, state);
     };
 
     /**
@@ -276,7 +277,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         // Find it's index.
         var current = suggestionsElement.children('[aria-hidden=false]').index(element);
         // Activate the next one.
-        activateItem(current-1, state);
+        activateItem(current - 1, state);
     };
 
     /**
@@ -318,13 +319,13 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         var suggestions = [];
         originalSelect.children('option').each(function(index, option) {
             if ($(option).prop('selected') !== true) {
-                suggestions[suggestions.length] = { label: option.innerHTML, value: $(option).attr('value') };
+                suggestions[suggestions.length] = {label: option.innerHTML, value: $(option).attr('value')};
             }
         });
 
         // Re-render the list of suggestions.
         var searchquery = state.caseSensitive ? query : query.toLocaleLowerCase();
-        var context = $.extend({ options: suggestions}, options, state);
+        var context = $.extend({options: suggestions}, options, state);
         templates.render(
             'core/form_autocomplete_suggestions',
             context
@@ -537,7 +538,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
                                 updateAjax(e, options, state, originalSelect, ajaxHandler);
                             });
                         } else {
-                            // Else - open the suggestions list.
+                            // Open the suggestions list.
                             updateSuggestions(options, state, inputElement.val(), originalSelect);
                         }
                     }
@@ -614,11 +615,18 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         });
         if (options.showSuggestions) {
             var arrowElement = $(document.getElementById(state.downArrowId));
-            arrowElement.on('click', function() {
+            arrowElement.on('click', function(e) {
                 // Prevent the close timer, or we will open, then close the suggestions.
                 inputElement.focus();
-                // Show the suggestions list.
-                updateSuggestions(options, state, inputElement.val(), originalSelect);
+                // Handle ajax population of suggestions.
+                if (!inputElement.val() && options.ajax) {
+                    require([options.ajax], function(ajaxHandler) {
+                        updateAjax(e, options, state, originalSelect, ajaxHandler);
+                    });
+                } else {
+                    // Else - open the suggestions list.
+                    updateSuggestions(options, state, inputElement.val(), originalSelect);
+                }
             });
         }
 
@@ -673,19 +681,40 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
         });
         // Whenever the input field changes, update the suggestion list.
         if (options.showSuggestions) {
-            inputElement.on('input', function(e) {
-                var query = $(e.currentTarget).val();
-                var last = $(e.currentTarget).data('last-value');
-                // IE11 fires many more input events than required - even when the value has not changed.
-                // We need to only do this for real value changed events or the suggestions will be
-                // unclickable on IE11 (because they will be rebuilt before the click event fires).
-                // Note - because of this we cannot close the list when the query is empty or it will break
-                // on IE11.
-                if (last !== query) {
-                    updateSuggestions(options, state, query, originalSelect);
-                }
-                $(e.currentTarget).data('last-value', query);
-            });
+            // If this field uses ajax, set it up.
+            if (options.ajax) {
+                require([options.ajax], function(ajaxHandler) {
+                    var throttleTimeout = null;
+                    var handler = function(e) {
+                        updateAjax(e, options, state, originalSelect, ajaxHandler);
+                    };
+
+                    // For input events, we do not want to trigger many, many updates.
+                    var throttledHandler = function(e) {
+                        if (throttleTimeout !== null) {
+                            window.clearTimeout(throttleTimeout);
+                            throttleTimeout = null;
+                        }
+                        throttleTimeout = window.setTimeout(handler.bind(this, e), 300);
+                    };
+                    // Trigger an ajax update after the text field value changes.
+                    inputElement.on("input", throttledHandler);
+                });
+            } else {
+                inputElement.on('input', function(e) {
+                    var query = $(e.currentTarget).val();
+                    var last = $(e.currentTarget).data('last-value');
+                    // IE11 fires many more input events than required - even when the value has not changed.
+                    // We need to only do this for real value changed events or the suggestions will be
+                    // unclickable on IE11 (because they will be rebuilt before the click event fires).
+                    // Note - because of this we cannot close the list when the query is empty or it will break
+                    // on IE11.
+                    if (last !== query) {
+                        updateSuggestions(options, state, query, originalSelect);
+                    }
+                    $(e.currentTarget).data('last-value', query);
+                });
+            }
         }
     };
 
@@ -695,13 +724,14 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
          * Turn a boring select box into an auto-complete beast.
          *
          * @method enhance
-         * @param {string} select The selector that identifies the select box.
+         * @param {string} selector The selector that identifies the select box.
          * @param {boolean} tags Whether to allow support for tags (can define new entries).
          * @param {string} ajax Name of an AMD module to handle ajax requests. If specified, the AMD
          *                      module must expose 2 functions "transport" and "processResults".
          *                      These are modeled on Select2 see: https://select2.github.io/options.html#ajax
          * @param {String} placeholder - The text to display before a selection is made.
          * @param {Boolean} caseSensitive - If search has to be made case sensitive.
+         * @param {Boolean} showSuggestions - If suggestions should be shown
          * @param {String} noSelectionString - Text to display when there is no selection
          */
         enhance: function(selector, tags, ajax, placeholder, caseSensitive, showSuggestions, noSelectionString) {
@@ -728,7 +758,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
                 options.showSuggestions = showSuggestions;
             }
             if (typeof noSelectionString === "undefined") {
-                str.get_string('noselection', 'form').done(function (result) {
+                str.get_string('noselection', 'form').done(function(result) {
                     options.noSelectionString = result;
                 }).fail(notification.exception);
             }
@@ -737,7 +767,7 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
             var originalSelect = $(selector);
             if (!originalSelect) {
                 log.debug('Selector not found: ' + selector);
-                return false;
+                return;
             }
 
             // Hide the original select.
@@ -746,18 +776,22 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
             // Find or generate some ids.
             var state = {
                 selectId: originalSelect.attr('id'),
-                inputId: 'form_autocomplete_input-' + $.now(),
-                suggestionsId: 'form_autocomplete_suggestions-' + $.now(),
-                selectionId: 'form_autocomplete_selection-' + $.now(),
-                downArrowId: 'form_autocomplete_downarrow-' + $.now()
+                inputId: 'form_autocomplete_input-' + uniqueId,
+                suggestionsId: 'form_autocomplete_suggestions-' + uniqueId,
+                selectionId: 'form_autocomplete_selection-' + uniqueId,
+                downArrowId: 'form_autocomplete_downarrow-' + uniqueId
             };
+
+            // Increment the unique counter so we don't get duplicates ever.
+            uniqueId++;
+
             options.multiple = originalSelect.attr('multiple');
 
             var originalLabel = $('[for=' + state.selectId + ']');
             // Create the new markup and insert it after the select.
             var suggestions = [];
             originalSelect.children('option').each(function(index, option) {
-                suggestions[index] = { label: option.innerHTML, value: $(option).attr('value') };
+                suggestions[index] = {label: option.innerHTML, value: $(option).attr('value')};
             });
 
             // Render all the parts of our UI.
@@ -779,33 +813,10 @@ define(['jquery', 'core/log', 'core/str', 'core/templates', 'core/notification']
                 // Add the event handlers.
                 addNavigation(options, state, originalSelect);
 
-                var inputElement = $(document.getElementById(state.inputId));
                 var suggestionsElement = $(document.getElementById(state.suggestionsId));
                 // Hide the suggestions by default.
                 suggestionsElement.hide().attr('aria-hidden', true);
 
-                // If this field uses ajax, set it up.
-                if (options.ajax) {
-                    require([options.ajax], function(ajaxHandler) {
-                        var throttleTimeout = null;
-                        var handler = function(e) {
-                            updateAjax(e, options, state, originalSelect, ajaxHandler);
-                        };
-
-                        // For input events, we do not want to trigger many, many updates.
-                        var throttledHandler = function(e) {
-                            if (throttleTimeout !== null) {
-                                window.clearTimeout(throttleTimeout);
-                                throttleTimeout = null;
-                            }
-                            throttleTimeout = window.setTimeout(handler.bind(this, e), 300);
-                        };
-                        // Trigger an ajax update after the text field value changes.
-                        inputElement.on("input", throttledHandler);
-                        var arrowElement = $(document.getElementById(state.downArrowId));
-                        arrowElement.on("click", handler);
-                    });
-                }
                 // Show the current values in the selection list.
                 updateSelectionList(options, state, originalSelect);
             });

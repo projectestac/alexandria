@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   availability
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,7 @@ $string['and'] = 'und';
 $string['condition_group'] = 'Zugriffsregeln';
 $string['condition_group_info'] = 'Verschiedene Voraussetzungen können miteinander als Zugriffsregeln verknüpft werden.';
 $string['enableavailability'] = 'Voraussetzungen aktivieren';
-$string['enableavailability_desc'] = 'Diese Option erlaubt die Festlegung von Bedingungen (z.B. hinsichtlich Zeit, Bewertung oder Fertigstellung), die den Zugriff auf Aktivitäten in Kursen regeln.';
+$string['enableavailability_desc'] = 'Diese Option erlaubt die Festlegung von Bedingungen (z.B. hinsichtlich Zeit, Bewertung oder Abschluss), die den Zugriff auf Aktivitäten in Kursen regeln.';
 $string['error_list_nochildren'] = 'Zugriffsregeln müssen mindestens eine Bedingung enthalten';
 $string['hidden_all'] = 'Verborgen, wenn nicht alle Bedingungen erfüllt sind';
 $string['hidden_individual'] = 'Verborgen, wenn diese Bedingung nicht erfüllt ist';
@@ -56,8 +56,8 @@ $string['list_or'] = 'Mindestens eine Bedingung:';
 $string['list_or_hidden'] = 'Mindestens eine Bedingung (sonst verborgen):';
 $string['list_root_and'] = 'Nicht verfügbar, es sei denn:';
 $string['list_root_and_hidden'] = 'Nicht verfügbar (verborgen), es sei denn:';
-$string['list_root_or'] = 'Nicht verfügbar, außer wenn mindestens eine Bedingung erfüllt ist:';
-$string['list_root_or_hidden'] = 'Nicht verfügbar (verborgen), außer wenn mindestens eine Bedingung erfüllt ist:';
+$string['list_root_or'] = 'Nicht verfügbar, außer mindestens eine Bedingung ist erfüllt:';
+$string['list_root_or_hidden'] = 'Nicht verfügbar (verborgen), außer mindestens eine Bedingung ist erfüllt:';
 $string['manageplugins'] = 'Voraussetzungen verwalten';
 $string['missingplugin'] = 'Fehlendes Plugin';
 $string['or'] = 'oder';

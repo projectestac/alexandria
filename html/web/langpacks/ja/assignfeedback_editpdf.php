@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignfeedback_editpdf', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   assignfeedback_editpdf
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['addtoquicklist'] = 'クイックリストを追加する';
 $string['annotationcolour'] = 'アノテーション色';
 $string['black'] = '黒';
 $string['blue'] = '青';
-$string['cannotopenpdf'] = 'PDFファイルを開くことができません。ファイルが破損しているか、未サポートのフォーマットです。';
+$string['cannotopenpdf'] = 'PDFファイルを開くことができません。ファイルが破損しているか未サポートのフォーマットです。';
 $string['clear'] = 'クリア';
 $string['colourpicker'] = 'カラーピッカ';
 $string['command'] = 'コマンド:';

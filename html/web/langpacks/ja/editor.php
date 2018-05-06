@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'editor', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   editor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -141,7 +141,7 @@ $string['strikethrough'] = '打ち消し線';
 $string['subscript'] = '下付き文字';
 $string['superscript'] = '上付き文字';
 $string['textindicator'] = '現在のスタイル';
-$string['textmode'] = '現在、あなたはテキストモードを使用しています。WYSIWYGモードに戻るには、[<>]ボタンをクリックしてください。';
+$string['textmode'] = '現在、あなたはテキストモードを使用しています。WYSIWYGモードに戻るには[<>]ボタンをクリックしてください。';
 $string['texttop'] = 'テキスト上揃え';
 $string['top'] = '上揃え';
 $string['type'] = 'タイプ';

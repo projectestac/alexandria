@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'role', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addinganewrole'] = 'Προσθήκη νέου ρόλου';
-$string['addrole'] = 'Προσθήκη ρόλου';
+$string['addrole'] = 'Προσθήκη νέου ρόλου';
 $string['advancedoverride'] = 'Ανώτερος υπερισχύον ρόλος';
 $string['allow'] = 'Άδεια';
 $string['allowassign'] = 'Να επιτρέπεται η ανάθεση ρόλων';
@@ -44,6 +44,7 @@ $string['archetypefrontpage'] = 'ΑΡΧΕΤΥΠΟ: Αυθεντικοποίησ�
 $string['archetype_help'] = 'Ο ρόλος αρχέτυπο καθορίζει τα δικαιώματα όταν ένας ρόλος επαναφέρεται στις προεπιλεγμένες ρυθμίσεις. Καθορίζει επίσης οποιαδήποτε νέα διακιώματα για το ρόλο, όταν αναβαθμίζεται ο ιστότοπος.';
 $string['archetypemanager'] = 'ΑΡΧΕΤΥΠΟ: Διαχειριστής';
 $string['archetypeteacher'] = 'ΑΡΧΕΤΥΠΟ: Καθηγητής (δεν του επιτρέπεται να κάνει αλλαγές)';
+$string['archetypeuser'] = 'ΑΡΧΕΤΥΠΟ: Πιστοποιημένος χρήστης';
 $string['assignanotherrole'] = 'Ανάθεση άλλου ρόλου';
 $string['assignerror'] = 'Σφάλμα κατά την ανάθεση του ρόλου {$a->role} στο χρήστη {$a->user}.';
 $string['assignglobalroles'] = 'Ανάθεση γενικών ρόλων';
@@ -110,14 +111,15 @@ $string['checkpermissionsin'] = 'Έλεγχος δυνατοτήτων στο {$
 $string['checksystempermissionsfor'] = 'Έλεγχος δυνατοτήτων συστήματος για το χρήστη {$a->fullname}';
 $string['checkuserspermissionshere'] = 'Έλεγχος δυνατοτήτων για το χρήστη {$a->fullname} σε {$a->contextlevel}';
 $string['chooseroletoassign'] = 'Παρακαλώ επιλέξτε ρόλο προς ανάθεση';
-$string['cohort:assign'] = 'Προσθήκη και διαγραφή μελών στις ομάδες χρηστών';
+$string['cohort:assign'] = 'Προσθήκη και διαγραφή μελών ομάδας χρηστών';
 $string['cohort:manage'] = 'Δημιουργία, διαγραφή και μετακίνηση ομάδων χρηστών';
-$string['cohort:view'] = 'Εμφάνιση όλων των ομάδων χρηστών (cohort) της πλατφόρμας';
+$string['cohort:view'] = 'Εμφάνιση όλων των ομάδων χρηστών της πλατφόρμας';
 $string['comment:delete'] = 'Διαγραφή σχολίων';
 $string['comment:post'] = 'Αποστολή σχολίων';
 $string['comment:view'] = 'Ανάγνωση  σχολίων';
 $string['community:add'] = 'Χρήση του μπλοκ της κοινότητας για αναζήτηση κόμβων και εύρεση μαθημάτων';
 $string['community:download'] = 'Κατέβασμα μαθήματος από το μπλοκ της κοινότητας';
+$string['confirmunassignno'] = 'Ακύρωση';
 $string['context'] = 'Πλαίσιο';
 $string['course:activityvisibility'] = 'Προβολή/απόκρυψη δραστηριοτήτων';
 $string['course:bulkmessaging'] = 'Αποστολή ενός μηνύματος σε πολλούς παραλήπτες';
@@ -150,6 +152,7 @@ $string['course:viewhiddensections'] = 'Προβολή κρυφών ενοτήτ
 $string['course:viewhiddenuserfields'] = 'Προβολή κρυφών πεδίων χρηστών';
 $string['course:viewparticipants'] = 'Προβολή συμμετεχόντων';
 $string['course:viewscales'] = 'Προβολή κλιμάκων';
+$string['course:viewsuspendedusers'] = 'Προβολή χρηστών σε αναστολή';
 $string['course:visibility'] = 'Προβολή/απόκρυψη μαθημάτων';
 $string['createrolebycopying'] = 'Δημιουργία νέου ρόλου βασισμένου στον {$a}';
 $string['createthisrole'] = 'Δημιουργία αυτού του ρόλου';
@@ -174,11 +177,13 @@ $string['errorexistsroleshortname'] = 'Υπάρχει ήδη ένας ρόλος
 $string['existingadmins'] = 'Υπάρχοντες διαχειριστές ιστοσελίδας';
 $string['existingusers'] = '{$a} υπάρχοντες χρήστες';
 $string['explanation'] = 'Επεξήγηση';
+$string['export'] = 'Εξαγωγή';
 $string['extusers'] = 'Υπάρχοντες χρήστες';
 $string['extusersmatching'] = 'Υπάρχοντες χρήστες που ταιριάζουν στο \'{$a}\'';
 $string['frontpageuser'] = 'Αυθεντικοποίηση χρήστη στην πρώτη σελίδα';
+$string['frontpageuserdescription'] = 'Όλοι οι συνδεδεμένοι χρήστες στο μάθημα στην πρώτη σελίδα.';
 $string['globalrole'] = 'Ρόλος συστήματος';
-$string['globalroleswarning'] = 'ΠΡΟΣΟΧΗ! Οι ρόλοι που αποδίδετε στους χρήστες από αυτήν την σελίδα, εφαρμόζονται σε ολόκληρο το δικτυακό τόπο, συμπεριλαμβανόμενης της αρχικής σελίδας και όλων των μαθημάτων.';
+$string['globalroleswarning'] = 'ΠΡΟΣΟΧΗ! Οι ρόλοι που αποδίδετε στους χρήστες από αυτή τη σελίδα, εφαρμόζονται σε ολόκληρο το σύστημα, συμπεριλαμβανόμενης της πρώτης σελίδας και όλων των μαθημάτων.';
 $string['gotoassignroles'] = 'Ανάθεση ρόλων σ\' αυτό το {$a->contextlevel}';
 $string['gotoassignsystemroles'] = 'Ανάθεση ρόλων συστήματος';
 $string['grade:edit'] = 'Τροποποίηση βαθμών';
@@ -186,7 +191,7 @@ $string['grade:export'] = 'Εξαγωγή βαθμών';
 $string['grade:hide'] = 'Απόκρυψη/εμφάνιση βαθμών';
 $string['grade:import'] = 'Εισαγωγή βαθμών';
 $string['grade:lock'] = 'Κλείδωμα βαθμών';
-$string['grade:manage'] = 'Διαχερίριση βαθμών';
+$string['grade:manage'] = 'Διαχείριση βαθμών';
 $string['grade:managegradingforms'] = 'Διαχείριση προχωρημένων μεθόδων βαθμολόγησης';
 $string['grade:manageletters'] = 'Διαχείριση βαθμών (γραμμάτων)';
 $string['grade:manageoutcomes'] = 'Διαχείριση βαθμών (καταλήξεις)';
@@ -210,6 +215,8 @@ $string['legacytype'] = 'Είδος ιστορικού ρόλου';
 $string['legacy:user'] = 'ΙΣΤΟΡΙΚΟΣ ΡΟΛΟΣ: Χρήστης';
 $string['listallroles'] = 'Εμφάνιση όλων των ρόλων';
 $string['localroles'] = 'Τοπικά αναθεμένοι ρόλοι';
+$string['mainadmin'] = 'Κύριος διαχειριστής';
+$string['mainadminset'] = 'Ορσμός κύριου διαχειριστή';
 $string['manageadmins'] = 'Εξεπεργασία διαχειριστών ιστοσελίδας';
 $string['manager'] = 'Διαχειριστής';
 $string['managerdescription'] = 'Οι διαχειριστές μπορούν να έχουν πρόσβαση στο μάθημα και να το τροποποιούν, συνήθως όμως δεν συμμετέχουν στα μαθήματα.';
@@ -397,7 +404,7 @@ $string['question:config'] = 'Ρύθμιση τύπων ερωτήσεων';
 $string['question:editall'] = 'Τροποποίηση όλων των ερωτήσεων';
 $string['question:editmine'] = 'Τροποποίηση των δικών του ερωτήσεων';
 $string['question:flag'] = 'Σήμανση ερωτήσεων καθώς απαντώνται';
-$string['question:managecategory'] = 'Διαχείριση κατηγοριών ερωτήσεων';
+$string['question:managecategory'] = 'Επεξεργασία κατηγοριών ερωτήσεων';
 $string['question:moveall'] = 'Μετακίνηση όλων των ερωτήσεων';
 $string['question:movemine'] = 'Μετακίνηση των δικών του ερωτήσεων';
 $string['question:useall'] = 'Χρήση όλων των ερωτήσεων';
@@ -522,7 +529,7 @@ $string['user:update'] = 'Επεξεργασία των προφίλ των χρ
 $string['user:viewalldetails'] = 'Προβολή όλων των πληροφοριών του χρήστη';
 $string['user:viewdetails'] = 'Προβολή των προφίλ των χρηστών';
 $string['user:viewhiddendetails'] = 'Προβολή των κρυφών πληροφοριών των χρηστών';
-$string['user:viewuseractivitiesreport'] = 'Προβολή των αναφορών δραστηριότητας του χρήστη';
+$string['user:viewuseractivitiesreport'] = 'Προβολή των αναφορών δραστηριοτήτων του χρήστη';
 $string['user:viewusergrades'] = 'Προβολή των βαθμών του φοιτητή';
 $string['useshowadvancedtochange'] = 'Χρησιμοποιείστε το \'Προβολή προχωρημένων\' για να τροποποιήσετε';
 $string['viewingdefinitionofrolex'] = 'Προβολή του ορισμού του ρόλου \'{$a}\'';

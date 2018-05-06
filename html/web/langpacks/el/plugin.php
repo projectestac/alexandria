@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plugin', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'plugin', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   plugin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['actions'] = 'Ενέργειες';
 $string['availability'] = 'Διαθεσιμότητα';
+$string['checkforupdates'] = 'Έλεγχος για διαθέσιμες ενημερώσεις';
+$string['checkforupdateslast'] = 'Τελευταίος έλεγχος έγινε στις {$a}';
 $string['displayname'] = 'Όνομα πρόσθετου';
 $string['noneinstalled'] = 'Δεν έχουν εγκατασταθεί πρόσθετα αυτού του τύπου';
 $string['plugindisabled'] = 'Απενεργοποιημένο';
@@ -37,7 +40,8 @@ $string['status'] = 'Κατάσταση';
 $string['status_missing'] = 'Λείπει από το δίσκο';
 $string['status_nodb'] = 'Δεν υπάρχει βάση δεδομένων';
 $string['systemname'] = 'Αναγνωριστικό';
-$string['type_auth_plural'] = 'Υπομονάδες πιστοποίησης';
+$string['type_auth'] = 'Μέθοδος αυθεντικοποίησης';
+$string['type_auth_plural'] = 'Μέθοδοι αυθεντικοποίησης';
 $string['type_block'] = 'Μπλοκ';
 $string['type_block_plural'] = 'Blocks';
 $string['type_coursereport_plural'] = 'Αναφορές μαθήματος';
@@ -67,8 +71,14 @@ $string['type_qtype_plural'] = 'Τύποι ερωτήσεων';
 $string['type_report_plural'] = 'Αναφορές ιστοχώρου';
 $string['type_repository'] = 'Χώρος αποθήκευσης';
 $string['type_repository_plural'] = 'Χώροι αποθήκευσης';
+$string['type_search'] = 'Μηχανή αναζήτησης';
+$string['type_search_plural'] = 'Μηχανές αναζήτησης';
 $string['type_theme'] = 'Θέμα';
 $string['type_theme_plural'] = 'Θέματα';
 $string['type_webservice_plural'] = 'Πρωτόκολλα webservice';
 $string['uninstall'] = 'Απεγκατάσταση';
+$string['updateavailable_moreinfo'] = 'Περισσότερες πληροφορίες...';
+$string['validationmsg_componentmatch'] = 'Πλήρες όνομα συστατικού';
+$string['validationmsg_filenotexists'] = 'Αδυναμία εύρεσης εξαγόμενου αρχείου';
+$string['validationmsg_missingversionphp'] = 'Αδυναμία εύρεσης αρχείου version.php';
 $string['version'] = 'Έκδοση';

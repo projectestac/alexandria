@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_atto', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'editor_atto', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   editor_atto
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,4 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['autosavefailed'] = 'Kan inte kontakta servern. Om du klickar Spara/Skicka nu riskerar du att förlora de ändringar du gjort.';
 $string['autosavesucceeded'] = 'Utkast sparat.';
+$string['textrecovered'] = 'Ett utkast av denna text har återställts automatiskt.';
+$string['warningstatus'] = 'Varning';

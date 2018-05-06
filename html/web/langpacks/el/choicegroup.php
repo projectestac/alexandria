@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choicegroup', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   choicegroup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['add'] = 'Προσθήκη';
+$string['add_group'] = 'Προσθήκη Ομάδας';
+$string['add_grouping'] = 'Προσθήκη Ομαδοποίησης';
+$string['add_groupings'] = 'Προσθήκη Ομαδοποιήσεων';
+$string['add_groups'] = 'Προσθήκη Ομάδων';
 $string['addmorechoices'] = 'Προσθήκη περισσότερων επιλογών';
 $string['afterresultsviewable'] = 'Τα αποτελέσματα θα είναι ορατά αφού κάνετε την επιλογή σας.';
 $string['allowupdate'] = 'Να επιτρέπεται ανανέωση της επιλογής';
@@ -50,10 +55,12 @@ $string['choicegroupsaved'] = 'Η επιλογή σας αποθηκεύτηκε
 $string['choicetext'] = 'Κείμενο επιλογής';
 $string['chooseaction'] = 'Επιλέξτε μια ενέργεια ...';
 $string['choosegroup'] = 'Επιλέξτε μια ομάδα';
+$string['collapse_all_groupings'] = 'Σύμπτυξη Όλων των Ομαδοποιήσεων';
 $string['completionsubmit'] = 'Εμφάνιση ως ολοκληρωμένου όταν ο χρήστης κάνει μια επιλογή';
 $string['displayhorizontal'] = 'Προβολή οριζόντια';
 $string['displaymode'] = 'Τρόπος εμφάνισης';
 $string['displayvertical'] = 'Προβολή κάθετα';
+$string['double_click_grouping_legend'] = 'Κάντε διπλό κλικ σε μια ομαδοποίηση για να την αναπτύξετε / συμπτύξετε ξεχωριστά.';
 $string['expired'] = 'Λυπούμαστε, αλλά αυτή η δραστηριότητα έκλεισε στις {$a} και δεν είναι πλέον διαθέσιμη';
 $string['fillinatleastoneoption'] = 'Πρέπει να δώσετε τουλάχιστον μία πιθανή απάντηση.';
 $string['fillinatleasttwooptions'] = 'Πρέπει να δώσετε τουλάχιστον δύο πιθανές απαντήσεις.';

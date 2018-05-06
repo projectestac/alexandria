@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_profiling', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_profiling', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_profiling
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,7 +36,7 @@ $string['export'] = 'Exportar';
 $string['exportproblem'] = 'Ocorreu um problema ao exportar a execução do perfil "{$a->runid}" correspondentes ao pedido "{$a->listurl}".';
 $string['exportthis'] = 'Exportar esta execução do perfil';
 $string['import'] = 'Importar';
-$string['importok'] = 'O Ficheiro "{$a}" foi importado com sucesso';
+$string['importok'] = 'O ficheiro "{$a}" foi importado com sucesso';
 $string['importprefix'] = 'Importar prefixo';
 $string['importproblem'] = 'Ocorreu um problema ao importar o ficheiro "{$a}".';
 $string['lastrunof'] = 'Summary of last run of {$a}';

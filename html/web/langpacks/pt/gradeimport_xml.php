@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeimport_xml', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradeimport_xml', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   gradeimport_xml
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,11 +26,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['errbadxmlformat'] = 'Erro - formato XML inválido';
-$string['errduplicategradeidnumber'] = 'Erro - existem duas notas com o número de identificação \'$a\' nesta disciplina. Tal não devia ser possível.';
+$string['errduplicategradeidnumber'] = 'Erro - existem duas notas com o número de identificação \'{$a}\' nesta disciplina. Tal não devia ser possível.';
 $string['errduplicateidnumber'] = 'Erro - número de identificação duplicado';
-$string['errincorrectgradeidnumber'] = 'Erro - o número de identificação \'$a\' do ficheiro de importação não corresponde a nenhuma nota.';
+$string['errincorrectgradeidnumber'] = 'Erro - o número de identificação \'{$a}\' do ficheiro de importação não corresponde a nenhuma nota.';
 $string['errincorrectidnumber'] = 'Erro - número de identificação incorreto';
-$string['errincorrectuseridnumber'] = 'Erro - o número de identificação \'$a\' do ficheiro de importação não corresponde a nenhum utilizador.';
+$string['errincorrectuseridnumber'] = 'Erro - o número de identificação \'{$a}\' do ficheiro de importação não corresponde a nenhum utilizador.';
 $string['error'] = 'Ocorreram erros';
 $string['errorduringimport'] = 'Ocorreu um erro ao tentar importar: {$a}';
 $string['fileurl'] = 'URL do ficheiro remoto';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'wiki', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'wiki', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   wiki
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -95,7 +95,7 @@ $string['filenotuploadederror'] = 'Le fichier « {$a} » n\'a pas pu être dé
 $string['files'] = 'Fichiers';
 $string['filtername'] = 'Liens automatiques des wikis';
 $string['firstpagetitle'] = 'Nom de la première page';
-$string['firstpagetitle_help'] = 'Titre de la première page du wiki';
+$string['firstpagetitle_help'] = 'Titre de la première page du wiki. Une fois le wiki créé, ce titre ne peut plus être modifié.';
 $string['forceformat'] = 'Imposer le format';
 $string['forceformat_help'] = 'Si la case est cochée (format imposé), il n\'est pas possible de choisir le format pour modifier une page du wiki.';
 $string['format'] = 'Format';

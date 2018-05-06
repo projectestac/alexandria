@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_lpmigrate', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_lpmigrate', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_lpmigrate
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -61,7 +61,7 @@ $string['missingmappings'] = 'Fehlende Zuordnungen';
 $string['performmigration'] = 'Migration ausführen';
 $string['pluginname'] = 'Kompetenzen-Migrationstool';
 $string['results'] = 'Ergebnisse';
-$string['startdatefrom'] = 'Startdatum ab';
+$string['startdatefrom'] = 'Kursbeginn ab';
 $string['unmappedin'] = 'Keine Zuordnung in {$a}';
 $string['warningcouldnotremovecoursecompetency'] = 'Diese Kurs Kompetenzen konnten nicht entfernt werden.';
 $string['warningcouldnotremovemodulecompetency'] = 'Die Aktivität oder Ressourcen Kompetenz konnte nicht entfernt werden.';

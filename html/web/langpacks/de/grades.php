@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'grades', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   grades
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -94,13 +94,16 @@ $string['aggregationcoefweight'] = 'Gewichtung der Aspekte';
 $string['aggregationcoefweight_help'] = '<h2>Gewichtung des Wertes</h2>
 <p>Gewichtung der Bewertungen dieser Aktivität bei der Berechnung der Teil- oder Gesamtnote.
 </p>';
-$string['aggregation_help'] = 'Die Aggregation legt fest, wie die Bewertungen innerhalb einer Kategorie zusammengerechnet werden.
+$string['aggregation_help'] = 'Diese Einstellung legt fest, wie die einzelnen Bewertungsaspekte der Kategorie zusammengefasst werden.
 
-* Durchschnitt: Die Summe aller Werte wird durch die Anzahl der Werte geteilt.
-* Mittelwert (Median): Wenn die Werte in aufsteigender Reihe aufgelistet werden, wird der mittlere Wert benutzt.
-* Niedrigster Wert
-* Höchster Wert
-* Häufigster Wert: Der Wert, der am häufigsten vorkommt (wird oft bei Bewertungen ohne Zahlen verwandt)
+* Durchschnittsbewertung: Arithmetische Mittel der Quotienten aus erreichter Punktezahl und Maximalpunktzahl.
+* Gewichteter Durchschnittswert: Jeder Bewertungsaspekt wird mit einer Gewichtung versehen.
+* Einfach gewichteter Durchschnittswert: Bewertungsaspekt mit hoher Maximalpunktzahl haben eine hohe Gewichtung.
+* Durchschnittsbewertung (mit Zusatzpunkten): Wird nicht mehr unterstützt; sollte nicht verwendet werden.
+* Median aller Bewertungen: Wenn die Werte in aufsteigender Reihe aufgelistet werden, wird der mittlere Wert benutzt.
+* Niedrigste Bewertung
+* Höchste Bewertung
+* Modus (Modalwert) aller Bewertungen: Der Wert, der am häufigsten vorkommt (Wird oft bei Bewertungen ohne Zahlen verwandt.)
 * Natürlich: Die Punktwerte der einzelnen Bewertungen werden addiert.';
 $string['aggregationhintdropped'] = '(Unberücksichtigt)';
 $string['aggregationhintexcluded'] = '(Unberücksichtigt)';
@@ -269,7 +272,7 @@ $string['forelementtypes'] = 'für die ausgewählten {$a}';
 $string['forstudents'] = 'Für Teilnehmer/innen';
 $string['full'] = 'Vollständig';
 $string['fullmode'] = 'Zur vollständigen Ansicht wechseln';
-$string['generalsettings'] = 'Grundeinstellungen';
+$string['generalsettings'] = 'Allgemeines';
 $string['grade'] = 'Bewertung';
 $string['gradeadministration'] = 'Bewertungsverwaltung';
 $string['gradealreadyupdated'] = '{$a} Bewertungen wurden nicht imprtiert, da diese Bewertungen älter waren als die im Bewertungsebereich vorhandenen. Um den Import dennoch fortzuführen verwenden Sie die \'Import erzwingen\'-Funktion.';
@@ -362,6 +365,8 @@ $string['gradereport'] = 'Bewertungsbericht';
 $string['graderreport'] = 'Bewerterübersicht';
 $string['grades'] = 'Bewertungen';
 $string['gradesforuser'] = 'Bewertung für {$a->user}';
+$string['gradesmoduledeletionpendingwarning'] = 'Warnung: Aktivitätslöschung in Bearbeitung! Einige Bewertungen werden dabei entfernt.';
+$string['gradesmoduledeletionprefix'] = '[Löschung in Bearbeitung]';
 $string['gradesonly'] = 'Zu den Bewertungen wechseln';
 $string['gradessettings'] = 'Bewertungseinstellungen';
 $string['gradetype'] = 'Bewertungstyp';
@@ -464,7 +469,7 @@ $string['linkedactivity'] = 'Verknüpfte Aktivität';
 $string['linkedactivity_help'] = '<h2>Verlinkte Aktivität</h2>
 <p>Festlegung der Zuordnung einer Aktivität zu einem Lernziel. Dies ist sinnvoll, um Leistungen der Teilnehmer/innen zu messen, die nicht über Notendimensionen erfasst werden sollen.
 </p>';
-$string['linktoactivity'] = 'Link zur Aktivität {$a->name}';
+$string['linktoactivity'] = 'Link zur Aktivität {$a->name} {$a->title}';
 $string['lock'] = 'Sperren';
 $string['locked'] = 'Gesperrt';
 $string['locked_help'] = 'Mit der Aktivierung werden die Bewertungen nicht mehr automatisch durch die Lernaktivität aktualisiert. ';
@@ -632,7 +637,7 @@ $string['pointsdescending'] = 'sortieren, Punkte absteigend';
 $string['positionfirst'] = 'Erste';
 $string['positionlast'] = 'Letzte';
 $string['preferences'] = 'Grundeinstellungen';
-$string['prefgeneral'] = 'Allgemein';
+$string['prefgeneral'] = 'Allgemeines';
 $string['prefletters'] = 'Notenstufen und -grenzen';
 $string['prefrows'] = 'Spezielle Zeilen';
 $string['prefshow'] = 'Schalter zeigen/verbergen';
@@ -689,7 +694,7 @@ $string['selectauser'] = 'Nutzer/in wählen';
 $string['selectdestination'] = 'Ziel für {$a} auswählen';
 $string['separator'] = 'Trennzeichen';
 $string['separator_help'] = 'Wählen Sie den Trenner für die CSV-Datei aus (standardmäßig Semikolon).';
-$string['sepcolon'] = 'Komma';
+$string['sepcolon'] = 'Doppelpunkt';
 $string['sepcomma'] = 'Komma';
 $string['sepsemicolon'] = 'Semikolon';
 $string['septab'] = 'Tab';

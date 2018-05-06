@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_manual', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_manual', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_manual
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,19 +40,25 @@ $string['deleteselectedusers'] = 'Ausgewählte Nutzereinschreibungen löschen';
 $string['editselectedusers'] = 'Ausgewählte Nutzereinschreibungen bearbeiten';
 $string['enrolledincourserole'] = 'In \'{$a->course}\' als \'{$a->role}\' eingeschrieben';
 $string['enrolusers'] = 'Nutzer/innen einschreiben';
-$string['expiredaction'] = 'Festlegungen zum Einschreibungszeitraum';
+$string['expiredaction'] = 'Aktion bei Einschreibungsablauf';
 $string['expiredaction_help'] = 'Legen Sie fest was nach dem Ablauf der Einschreibung in einem Kurs erfolgt. Denken Sie daran, dass bei der Austragung des Nutzers aus dem Kurs einige Daten nicht mehr verfügbar sind.';
 $string['expirymessageenrolledbody'] = 'Guten Tag {$a->user},
 
 Sie sind derzeit im Kurs \'{$a->course}\' eingeschrieben. Die Teilnahmedauer lauft am {$a->timeend} ab. Danach ist ein Zugriff auf den Kurs nicht mehr möglich.
 
-Wenn Sie Fragen haben, wenden Sie sich bitte an {$a->enroller}.';
+Wenn Sie Fragen haben, wenden Sie sich bitte an {$a->enroller}.
+
+Ihr E-Learning-Team';
 $string['expirymessageenrolledsubject'] = 'Benachrichtigung zum Teilnahmeende';
-$string['expirymessageenrollerbody'] = 'Die Einschreibung in den Kurs \'{$a->course}\' läuft für folgende Nutzer in den nächsten {$a->threshold} ab:
+$string['expirymessageenrollerbody'] = 'Guten Tag,
+
+im Kurs \'{$a->course}\' läuft für folgende Nutzer/in/nen innerhalb der nächsten  {$a->threshold}  die Einschreibung ab:
 
 {$a->users}
 
-Um die Einschreibedauer zu verlängern: {$a->extendurl}';
+Sie können auf der folgenden Seite die Einschreibedauer verlängern: {$a->extendurl}
+
+Ihr E-Learning Team';
 $string['expirymessageenrollersubject'] = 'Benachrichtigung zum Teilnahmeende';
 $string['manual:config'] = 'Manuelle Einschreibung verwalten';
 $string['manual:enrol'] = 'Nutzer/innen einschreiben';

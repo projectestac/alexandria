@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'error', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   error
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,16 +25,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activityisscheduledfordeletion'] = '活動削除中 ...';
 $string['alreadyloggedin'] = 'あなたはすでに {$a} としてログインしています。異なるユーザとしてログインする前にログアウトする必要があります。';
 $string['authnotexisting'] = '認証プラグインがありません。';
-$string['backupcontainexternal'] = 'このバックアップファイルには、ローカルに設定されていない外部Moodleネットワークホストが含まれています。';
+$string['backupcontainexternal'] = 'このバックアップファイルにはローカルに設定されていない外部Moodleネットワークホストが含まれています。';
 $string['backuptablefail'] = 'バックアップテーブルを正常に設定できませんでした!';
 $string['blockcannotconfig'] = 'このブロックはグローバル設定をサポートしません。';
 $string['blockcannotinistantiate'] = 'ブロックオブジェクトのインストール中に問題が発生しました。';
 $string['blockcannotread'] = 'blockid= {$a} のデータを読み込めませんでした。';
 $string['blockdoesnotexist'] = 'このブロックはありません。';
 $string['blockdoesnotexistonpage'] = 'このブロック (id={$a->instanceid}) はこのページ ({$a->url}) にはありません。';
-$string['blocknameconflict'] = 'ネーミングコンフリクト: ブロック {$a->name} には、既存のブロック {$a->conflict} と同じタイトルが設定されています!';
+$string['blocknameconflict'] = 'ネーミングコンフリクト: ブロック {$a->name} には既存のブロック {$a->conflict} と同じタイトルが設定されています!';
 $string['callbackrejectcomment'] = 'このコメントの追加をコメントコールバックが拒否しました。';
 $string['cannotaddcoursemodule'] = '新しいコースモジュールを追加できませんでした。';
 $string['cannotaddcoursemoduletosection'] = '新しいコースモジュールをセクションに追加できませんでした。';
@@ -176,7 +177,8 @@ $string['categorynamerequired'] = 'カテゴリ名は必須入力です。';
 $string['categorytoolong'] = 'カテゴリ名が長すぎます。';
 $string['commentmisconf'] = 'コメントIDの設定が正しくありません。';
 $string['componentisuptodate'] = 'コンポーネントは最新です。';
-$string['confirmsesskeybad'] = '申し訳ございません、このアクションの実行に関して、あなたのセッションキーでは確認できませんでした。このセキュリティ機能は、あなたのユーザ名により重要な機能が不測または悪意により実行されることを防いでいます。本当にこの機能を実行したいか確認してください。';
+$string['confirmationnotenabled'] = 'このサイトではユーザ確認は有効にされていません。';
+$string['confirmsesskeybad'] = '申し訳ございません、このアクションの実行に関して、あなたのセッションキーでは確認できませんでした。このセキュリティ機能はあなたのユーザ名により重要な機能が不測または悪意により実行されることを防いでいます。本当にこの機能を実行したいか確認してください。';
 $string['couldnotassignrole'] = 'あなたへのロール割り当て中に、深刻ですが不明なエラーが発生しました。';
 $string['couldnotupdatenoexistinguser'] = 'ユーザを更新できません - ユーザが存在しません。';
 $string['countriesphpempty'] = 'エラー: 言語パック {$a} のファイル「countries.php」が空または存在しません。';
@@ -227,6 +229,7 @@ $string['duplicaterolename'] = 'この名称のロールはすでに登録され
 $string['duplicateroleshortname'] = 'この省略名のロールはすでに登録されています!';
 $string['duplicateusername'] = '重複ユーザ名 - レコードをスキップ';
 $string['emailfail'] = 'メール送信に失敗しました。';
+$string['enddatebeforestartdate'] = 'コース終了日はコース開始日の後にする必要があります。';
 $string['error'] = 'エラーが発生しました。';
 $string['errorcleaningdirectory'] = 'ディレクトリ「 {$a} 」のクリーニング中にエラーが発生しました。';
 $string['errorcopyingfiles'] = 'ファイルのコピー中にエラーが発生しました。';
@@ -442,6 +445,7 @@ $string['nopermissiontoviewletergrade'] = '評定文字を閲覧するパーミ�
 $string['nopermissiontoviewpage'] = 'あなたはこのページを閲覧できません。';
 $string['nosite'] = 'トップレベルのコースが見つかりませんでした!';
 $string['nositeid'] = 'サイトIDがありません。';
+$string['nostartdatenoenddate'] = 'コース開始日も設定されている場合のみ、コース終了日を設定することができます。';
 $string['nostatstodisplay'] = '申し訳ございません、表示するデータがありません。';
 $string['notallowedtoupdateprefremotely'] = 'あなたはこのユーザのプリファレンスをリモートで更新することを許可されていません。';
 $string['notavailable'] = '現在利用できません';
@@ -449,6 +453,8 @@ $string['notlocalisederrormessage'] = '{$a}';
 $string['notmemberofgroup'] = 'あなたはこのコースグループのメンバーではありません。';
 $string['notownerofkey'] = 'あなたはこのキーのオーナーではありません。';
 $string['nousers'] = 'そのようなユーザは登録されていません!';
+$string['oauth1accesstoken'] = 'OAuth 1.0エラー: 私たちはアクセストークンを取得できませんでした。';
+$string['oauth1requesttoken'] = 'OAuth 1.0エラー: 私たちアクセストークンを取得できませんでした。サービスプロバイダが一時的に停止しているようです。';
 $string['onlyadmins'] = '管理者のみ可能です。';
 $string['onlyeditingteachers'] = '編集権限を持った教師のみ可能です。';
 $string['onlyeditown'] = 'あなたはあなた自身の情報のみ編集できます。';
@@ -468,6 +474,7 @@ $string['querystringcannotbeempty'] = 'クエリストリングは空白にで�
 $string['redirecterrordetected'] = 'サポートされないリダイレクトが検出されました。スクリプトの実行が停止されました。';
 $string['refoundto'] = '払戻し可能額: {$a}';
 $string['refoundtoorigi'] = '注文金額の払戻し: {$a}';
+$string['registrationdisabled'] = 'このサイトでは登録が無効にされています。';
 $string['remotedownloaderror'] = '<p>あなたのサーバへのコンポーネントのダウンロードに失敗しました。プロキシ設定を確認してください。PHP cURL拡張モジュールの使用を強くお勧めします。</p>
 <p><a href="{$a->url}">{$a->url}</a>ファイルを手動でダウンロードした後、あなたのサーバの「{$a->dest}」にコピーおよび展開してください。</p>';
 $string['remotedownloadnotallowed'] = 'あなたのサーバにコンポーネントをダウンロードすることができません (allow_url_fopenが無効です)。<br /><br /><a href="{$a->url}">{$a->url}</a>ファイルを手動でダウンロードして、サーバの「 {$a->dest} 」にコピーした後、展開してください。';
@@ -478,7 +485,7 @@ $string['restorechecksumfailed'] = 'あなたのセッションに保存され�
 $string['restore_path_element_missingmethod'] = 'リストアメソッド {$a} がありません。開発者により定義される必要があります。';
 $string['restore_path_element_noobject'] = 'リストアオブジェクト {$a} はオブジェクトではありません。';
 $string['restrictedcontextexception'] = '申し訳ございません、外部関数の実行により、コンテクストの制限に違反します。';
-$string['restricteduser'] = '申し訳ございません、あなたのアカウント「 {$a} 」では、この処理を実行できません。';
+$string['restricteduser'] = '申し訳ございません、あなたのアカウント「 {$a} 」ではこの処理を実行できません。';
 $string['reverseproxyabused'] = '申し訳ございません、リバースプロキシが有効にされているため、サーバに直接アクセスできません。<br />サーバ管理者にご連絡ください。';
 $string['rpcerror'] = 'あなたのMNET通信が失敗しました! 以下、あなたの管理者に報告するためのエラーメッセージです: {$a}';
 $string['scheduledbackupsdisabled'] = 'スケジュールバックアップはサーバ管理者により無効にされています。';
@@ -497,6 +504,7 @@ $string['sessionipnomatch2'] = '<p>申し訳ございません、あなたのIP�
 <p>続ける場合、このページをリフレッシュするため、F5キーを押してください。</p>';
 $string['sessionwaiterr'] = 'セッションロックを待っている間にタイムアウトしました。<br />あなたの現在のリクエスト終了を待って、後ほど再度お試しください。';
 $string['shortnametaken'] = '省略名がすでに別のコース ({$a}) で使用されています。';
+$string['sitepolicynotagreed'] = 'サイトポリシーに同意されていません: <a href="{$a}">サイトポリシーを開くにはここをクリックしてください。</a>';
 $string['socksnotsupported'] = 'PHP4ではSOCKS5プロキシはサポートされていません。';
 $string['spellcheckernotconf'] = 'スペルチェッカが設定されていません。';
 $string['sslonlyaccess'] = '申し訳ございません、セキュリティ上の理由から、httpsアクセスのみ許可されています。';
@@ -506,6 +514,7 @@ $string['statsnodata'] = 'このコースおよび期間の組み合わせデー
 $string['storedfilecannotcreatefile'] = 'ローカルプールファイルのファイルを作成できません。datarootディレクトリのパーミッションおよびディスクスペースを確認してください。';
 $string['storedfilecannotcreatefiledirs'] = 'ローカルファイルの保存ディレクトリを作成できません。datarootのパーミッションを確認してください。';
 $string['storedfilecannotread'] = 'ファイルを読み込めません。ファイルが存在しないか、パーミッションに問題があります。';
+$string['storedfilecannotreadfile'] = 'ファイル「 {$a} 」を読むことができません。ファイルが存在しないかパーミッションに問題があります。';
 $string['storedfilenotcreated'] = 'ファイル「 {$a->contextid}/{$a->filearea}/{$a->itemid}{$a->filepath}{$a->filename} 」を作成できません。';
 $string['storedfileproblem'] = 'ローカルファイルに関して、不明な例外が発生しました ({$a})。';
 $string['tagdisabled'] = 'タグが無効にされています!';
@@ -546,7 +555,7 @@ $string['unknowuploadaction'] = 'エラー: 不明なアップロード操作「
 $string['unspecifycourseid'] = 'コースID、省略名またはIDナンバーを指定してください。';
 $string['unsupportedevent'] = 'サポートされていないイベントタイプです。';
 $string['unsupportedstate'] = 'サポートされていない完了ステータスです。';
-$string['unsupportedwebserver'] = '申し訳ございません、ウェブサーバソフトウェア ({$a}) は、サポートされていません。';
+$string['unsupportedwebserver'] = '申し訳ございません、ウェブサーバソフトウェア ({$a}) はサポートされていません。';
 $string['upgraderequires19'] = 'エラー: サーバに新しいMoodleバージョンがインストールされました。残念ですが、前のバージョンからのアップグレードはサポートされていません。<br />最初に、最新の1.9.xリリースにアップグレードしてください。オリジナルファイルを再インストールすることで、あなたは前のバージョンに戻ることができます。';
 $string['upgraderunning'] = 'サイトはアップグレード中です。後ほどお試しください。';
 $string['urlnotdefinerss'] = 'RSSフィードのURLが定義されていません。';
@@ -555,7 +564,7 @@ $string['useradminodelete'] = '管理者アカウントは削除することが�
 $string['userautherror'] = '不明な認証プラグインです。';
 $string['userauthunsupported'] = 'ここでは認証プラグインがサポートされていません。';
 $string['useremailduplicate'] = '重複メールアドレス';
-$string['usermustbemnet'] = 'MNETアクセスコントロールリストのユーザには、リモートMNETのユーザを使用してください。';
+$string['usermustbemnet'] = 'MNETアクセスコントロールリストのユーザにはリモートMNETのユーザを使用してください。';
 $string['usernotaddederror'] = 'ユーザは追加されませんでした - エラー。';
 $string['usernotaddedregistered'] = 'ユーザは追加されませんでした - すでに登録されています。';
 $string['usernotavailable'] = 'あなたはこのユーザの詳細を閲覧できません。';
@@ -563,6 +572,7 @@ $string['usernotdeletedadmin'] = 'ユーザは削除されませんでした - �
 $string['usernotdeletederror'] = 'ユーザは削除されませんでした - エラー。';
 $string['usernotdeletedmissing'] = 'ユーザは削除されませんでした - ユーザ名が見つかりませんでした。';
 $string['usernotdeletedoff'] = 'ユーザは削除されませんでした - 削除が許可されていません。';
+$string['usernotfullysetup'] = 'ユーザは完全には設定されていません。';
 $string['usernotincourse'] = 'このユーザはこのコースに登録されていません!';
 $string['usernotrenamedadmin'] = '管理者アカウントはリネームできません。';
 $string['usernotrenamedexists'] = 'ユーザはリネームされませんでした - 新しいユーザ名がすでに使用されています。';

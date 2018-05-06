@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_comments', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignsubmission_comments', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   assignsubmission_comments
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['blindmarkingname'] = 'Participante {$a}';
+$string['blindmarkingviewfullname'] = 'Participante {$a->participantnumber} ({$a->participantfullname})';
 $string['default'] = 'Ativo por predefinição';
 $string['default_help'] = 'Se ativar esta opção, este método de trabalho estará ativo por predefinição para todos os novos trabalhos.';
 $string['enabled'] = 'Comentários';

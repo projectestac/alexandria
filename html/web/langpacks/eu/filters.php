@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filters', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filters', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   filters
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -76,6 +76,7 @@ $string['off'] = 'Itzalita';
 $string['offbutavailable'] = 'Itzalita, baina eskuragarri';
 $string['on'] = 'Piztuta';
 $string['profilefilterfield'] = 'Profil-eremuaren izena';
+$string['profilefilterlimiter'] = 'Profil-eremuko operadorea';
 $string['profilelabel'] = '{$a->label}: {$a->profile} {$a->operator} {$a->value}';
 $string['profilelabelnovalue'] = '{$a->label}: {$a->profile} {$a->operator}';
 $string['removeall'] = 'Ezabatu iragazki guztiak';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_charmap', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'atto_charmap', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   atto_charmap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -110,7 +110,7 @@ $string['forall'] = 'для всех';
 $string['fractiononehalf'] = 'одна вторая';
 $string['fractiononequarter'] = 'одна четвертая';
 $string['fractionslash'] = 'дробь';
-$string['fractionthreequarters'] = 'три червертых';
+$string['fractionthreequarters'] = 'Три четверти';
 $string['functionflorin'] = 'функция';
 $string['gamma'] = 'гамма';
 $string['gamma_caps'] = 'Гамма';

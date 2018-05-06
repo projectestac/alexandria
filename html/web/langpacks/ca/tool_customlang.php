@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_customlang', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_customlang', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_customlang
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -48,7 +48,7 @@ $string['markinguptodate'] = 'Marca la personalització per actualitzar';
 $string['markinguptodate_help'] = 'La traducció personalitzada pot estar obsoleta si l\'idioma anglès original o la traducció principal han estat modificades des de que la cadena va ser personalitzada al seu lloc. Reviseu la traducció personalitzada. Si creieu que es troba actualitzada, feu clic a la casella de verificació. Editeu-la en cas contrari.';
 $string['markuptodate'] = 'marcar com actualitzada';
 $string['modifiedno'] = 'No hi ha cadenes modificades per desar.';
-$string['modifiednum'] = 'Hi ha {$a} cadenes modificades. Voleu desar-les al paquet d\'idioma local?';
+$string['modifiednum'] = 'Nombre de cadenes modificades: {$a}. Voleu desar-les al paquet d\'idioma local?';
 $string['nostringsfound'] = 'No s\'han trobat cadenes, modifica la configuració del filtre.';
 $string['placeholder'] = 'Marcadors de posició';
 $string['placeholder_help'] = 'Els marcadors de posició són declaracions especials tals com \'{$a}\' o {$a->something}\' dins una cadena. Aquestes declaracions són reemplaçades amb un valor quan la cadena és impresa.

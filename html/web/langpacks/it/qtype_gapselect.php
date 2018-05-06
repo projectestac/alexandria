@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_gapselect', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_gapselect', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_gapselect
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,9 +38,9 @@ $string['errornoslots'] = 'Il testo della domanda deve contenere dei segnaposto 
 $string['errorquestiontextblank'] = 'Devi inserire il testo della domanda.';
 $string['group'] = 'Gruppo';
 $string['pleaseputananswerineachbox'] = 'Per favore inserisci una risposta in ciascuno spazio';
-$string['pluginname'] = 'Scelta della parole mancanti';
-$string['pluginnameadding'] = 'Inserimento domanda Scelta della parole mancanti';
-$string['pluginnameediting'] = 'Modifica domanda Scelta della parole mancanti';
+$string['pluginname'] = 'Scelta delle parole mancanti';
+$string['pluginnameadding'] = 'Inserimento domanda Scelta delle parole mancanti';
+$string['pluginnameediting'] = 'Modifica domanda Scelta delle parole mancanti';
 $string['pluginname_help'] = 'Inserisci del testo del tipo "Il [[1]] saltò sopra il [[2]]", quindi inserisci sotto le parole mancanti in 1 e 2,';
 $string['pluginnamesummary'] = 'Nel testo della domanda le parole mancanti vengono inserite tramite menu a discesa.';
 $string['shuffle'] = 'Rimescola';

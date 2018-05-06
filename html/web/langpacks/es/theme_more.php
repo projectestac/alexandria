@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'theme_more', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'theme_more', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   theme_more
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -68,5 +68,6 @@ $string['region-side-post'] = 'Derecha';
 $string['region-side-pre'] = 'Izquierda';
 $string['secondarybackground'] = 'Color secundario de fondo de página';
 $string['secondarybackground_desc'] = 'El color de fondo de cualquier contenido secundario, tal como los bloques.';
+$string['smalllogo'] = 'Logo pequeño';
 $string['textcolor'] = 'Color del texto';
 $string['textcolor_desc'] = 'Color del texto';

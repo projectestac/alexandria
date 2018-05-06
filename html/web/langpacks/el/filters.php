@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filters', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filters', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   filters
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,6 +37,7 @@ $string['categoryrole'] = 'Ρόλος κατηγορίας';
 $string['contains'] = 'περιέχει';
 $string['content'] = 'Περιεχόμενο';
 $string['contentandheadings'] = 'Περιεχόμενο και τίτλοι';
+$string['coursecategory'] = 'κατηγορία μαθήματος';
 $string['courserole'] = 'Ρόλος μαθήματος';
 $string['courserolelabel'] = '{$a->label} είναι {$a->rolename} στο {$a->coursename} από {$a->categoryname}';
 $string['courserolelabelerror'] = 'Σφάλμα {$a->label}: το μάθημα {$a->coursename} δεν υπάρχει';
@@ -58,7 +59,7 @@ $string['isafter'] = 'είναι μετά';
 $string['isanyvalue'] = 'είναι οποιαδήποτε τιμή';
 $string['isbefore'] = 'είναι πριν';
 $string['isdefined'] = 'είναι ορισμένο';
-$string['isempty'] = 'είναι άδειο';
+$string['isempty'] = 'είναι κενό';
 $string['isequalto'] = 'είναι ίσο με';
 $string['isnotdefined'] = 'δεν είναι ορισμένο';
 $string['isnotequalto'] = 'δεν είναι ίσο με';

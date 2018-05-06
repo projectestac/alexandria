@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choice', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   choice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,8 @@ $string['allowmultiple'] = 'Permitir seleccionar más de una opción';
 $string['allowupdate'] = 'Permitir la actualización de la consulta';
 $string['answered'] = 'Contestado';
 $string['atleastoneoption'] = 'Necesita proporcionar al menos una respuesta posible.';
+$string['calendarend'] = 'Cierre de la consulta {$a}';
+$string['calendarstart'] = 'Apertura de la consulta {$a}';
 $string['cannotsubmit'] = 'Lo lamentamos, se ha producido un error con el envío de su respuesta. Por favor inténtelo de nuevo.';
 $string['choice'] = 'Opción';
 $string['choiceactivityname'] = 'Consulta: {$a}';
@@ -37,7 +39,7 @@ $string['choice:addinstance'] = 'Añadir una nueva opción';
 $string['choice:choose'] = 'Registrar una elección';
 $string['choiceclose'] = 'Hasta';
 $string['choicecloseson'] = 'La consulta se cierra el {$a}';
-$string['choice:deleteresponses'] = 'Eliminar respuestas';
+$string['choice:deleteresponses'] = 'Modificar y eliminar respuestas';
 $string['choice:downloadresponses'] = 'Descargar respuestas';
 $string['choicefull'] = 'Esta opción está completa y no hay espacios disponibles.';
 $string['choicename'] = 'Título de la consulta';
@@ -49,14 +51,20 @@ no necesita las 6 opciones. Las opciones no rellenadas no aparecerán en el cues
 $string['choice:readresponses'] = 'Ver respuestas';
 $string['choicesaved'] = 'Su elección ha sido guardada';
 $string['choicetext'] = 'Pregunta a responder';
+$string['choice:view'] = 'Ver actividad de consulta';
 $string['chooseaction'] = 'Elija una acción ...';
+$string['chooseoption'] = 'Elige: {$a}';
+$string['closebeforeopen'] = 'Has especificado una fecha de cierre previa a la de la fecha de apertura.';
 $string['completionsubmit'] = 'Mostrar como completada cuando el usuario selecciona una opción';
 $string['description'] = 'Descripción';
 $string['displayhorizontal'] = 'Mostrar horizontalmente';
 $string['displaymode'] = 'Modo de visualización de las opciones';
 $string['displayvertical'] = 'Mostrar verticalmente';
 $string['eventanswercreated'] = 'Consulta respondida';
+$string['eventanswerdeleted'] = 'Consulta borrada';
+$string['eventanswersubmitted'] = 'Consulta hecha';
 $string['eventanswerupdated'] = 'Consulta actualizada';
+$string['eventreportdownloaded'] = 'Informe de selección descargado';
 $string['eventreportviewed'] = 'Informe de Consulta visto';
 $string['expired'] = 'Lo sentimos, esta actividad se cerró el {$a} y ya no está disponible';
 $string['full'] = '(Lleno)';
@@ -119,6 +127,7 @@ $string['responsesresultgraphheader'] = 'Vista de gráfica';
 $string['responsesto'] = 'Respuestas para {$a}';
 $string['results'] = 'Resultados';
 $string['savemychoice'] = 'Guardar mi elección';
+$string['search:activity'] = 'Consulta - información de actividad';
 $string['showpreview'] = 'Mostrar previsualización';
 $string['showpreview_help'] = 'Permitir a los estudiantes ver las opciones disponibles antes de que la consulta esté abierta para enviar.';
 $string['showunanswered'] = 'Mostrar columna de no respondidas';
@@ -126,7 +135,6 @@ $string['skipresultgraph'] = 'Pasar por alto gráfico de resultados';
 $string['spaceleft'] = 'espacio disponible';
 $string['spacesleft'] = 'espacios disponibles';
 $string['taken'] = 'Tomadas';
-$string['timerestrict'] = 'Restringir la respuesta a este período';
 $string['userchoosethisoption'] = 'Usuarios que eligieron esta opción';
 $string['viewallresponses'] = 'Ver {$a} respuestas';
 $string['withselected'] = 'Con seleccionados';

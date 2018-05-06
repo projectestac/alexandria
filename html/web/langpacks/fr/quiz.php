@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -421,7 +421,7 @@ $string['importingquestions'] = 'Importation de {$a} questions à partir du fich
 $string['importmax10error'] = 'Cette question comporte une erreur. Il est impossible d\'avoir plus de 10 réponses';
 $string['importmaxerror'] = 'Cette question comporte une erreur. Elle propose trop de réponses.';
 $string['importquestions'] = 'Importer les questions d\'un fichier';
-$string['inactiveoverridehelp'] = '* Le participant n\'a pas le rôle ou n\'appartient pas au groupe adéquat pour effectuer le test';
+$string['inactiveoverridehelp'] = '* L\'étudiant n\'est pas dans le groupe correct ou n\'a pas le rôle adéquat pour effectuer le test, ou le test est caché';
 $string['incorrect'] = 'Incorrect';
 $string['indivresp'] = 'Réponses de chaque personne à toutes les questions';
 $string['info'] = 'Info';
@@ -495,7 +495,7 @@ $string['navigatenext'] = 'Page suivante';
 $string['navigateprevious'] = 'Page précédente';
 $string['navmethod'] = 'Méthode de navigation';
 $string['navmethod_free'] = 'Libre';
-$string['navmethod_help'] = 'Lorsque la navigation séquentielle est activée, les participants doivent parcourir le test dans l\'ordre et ne peuvent ni revenir à la page précédente, ni sauter vers une page suivante.';
+$string['navmethod_help'] = 'Lorsque la navigation séquentielle est activée, les participants doivent parcourir le test dans l\'ordre et ne peuvent ni revenir à la page précédente, ni passer à une page ultérieure.';
 $string['navmethod_seq'] = 'Séquentielle';
 $string['navnojswarning'] = 'Attention ! Ces liens n\'enregistrent pas vos réponses. Utilisez le bouton suivant au bas de la page.';
 $string['neverallononepage'] = 'Jamais, toutes les questions sur une page';
@@ -503,6 +503,7 @@ $string['newattemptfail'] = 'Erreur ! Impossible de commencer une tentative de 
 $string['newpage'] = 'Nouvelle page';
 $string['newpageevery'] = 'Commencer automatiquement une nouvelle page';
 $string['newpage_help'] = 'Pour les tests longs, il peut être utile de répartir le test sur plusieurs pages, en définissant un nombre de questions par page. Lorsque vous ajouterez des questions au test, les boutons de changement de page seront automatiquement introduits, selon le paramètre indiqué ici. Par ailleurs, vous pourrez également déplacer manuellement ce changement de page, en modifiant la page.';
+$string['newsectionheading'] = 'Nouveau titre';
 $string['noanswers'] = 'Aucune réponse n\'a été sélectionnée !';
 $string['noattempts'] = 'Aucune tentative n\'a été réalisée sur ce test';
 $string['noattemptsfound'] = 'Aucune tentative trouvée.';
@@ -696,7 +697,7 @@ $string['reattemptquiz'] = 'Effectuer de nouveau le test';
 $string['recentlyaddedquestion'] = 'Question ajoutée récemment !';
 $string['recurse'] = 'Afficher aussi les questions des sous-catégories';
 $string['redoesofthisquestion'] = 'Autres questions déjà répondues ici : {$a}';
-$string['redoquestion'] = 'Répondre à nouveau à la question';
+$string['redoquestion'] = 'Tenter une autre question semblable';
 $string['regrade'] = 'Recalculer les notes de toutes les tentatives';
 $string['regradecomplete'] = 'Toutes les notes ont été recalculées';
 $string['regradecount'] = '{$a->changed} sur {$a->attempt} notes ont été changées';
@@ -886,8 +887,6 @@ $string['timeleft'] = 'Temps restant';
 $string['timelimit'] = 'Temps disponible';
 $string['timelimitexeeded'] = 'Désolé ! La limite de temps est échue !';
 $string['timelimit_help'] = 'Si ce réglage est activité, le temps imparti est indiqué sur la page initiale du test et un compte à rebours est affiché dans le bloc de navigation du test.';
-$string['timelimitmin'] = 'Temps disponible (minutes)';
-$string['timelimitsec'] = 'Temps disponible (secondes)';
 $string['timestr'] = '%H:%M:%S, le %d.%m.%y';
 $string['timesup'] = 'Le chrono est enclenché !';
 $string['timetaken'] = 'Temps mis';

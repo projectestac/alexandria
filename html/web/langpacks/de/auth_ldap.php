@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_ldap', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -43,18 +43,18 @@ $string['auth_ldap_create_context_key'] = 'Kontext für neue Nutzer/innen';
 $string['auth_ldap_create_error'] = 'Fehler beim Anlegen des Nutzerkontos in LDAP';
 $string['auth_ldap_creators'] = 'Liste von Gruppen oder Kontexten, deren Mitglieder Kurse verwalten und neu anlegen dürfen (Liste der Kursersteller/innen). Mehrere Gruppen werden durch ein \';\' (Semikolon) getrennt. Normalerweise hat der Eintrag diese Form: \'cn=teachers,ou=staff,o=myorg\'';
 $string['auth_ldap_creators_key'] = 'Kursersteller/innen';
-$string['auth_ldapdescription'] = '<p>Diese Anmeldemethode ermöglicht die Authentifizierung über einen externen LDAP-Server.
+$string['auth_ldapdescription'] = '<p>Diese Anmeldemethode ermöglicht die Authentifizierung über einen externen LDAP-Server.</p>
 
-<p>Um ein neues LDAP-basiertes Nutzerkonto in Moodle anzulegen, muss vorher das LDAP-Nutzerkonto existieren. Beim ersten Login wird automatisch ein neues Nutzerkonto in der Moodle-Datenbank, wobei Anmeldename und Kennwort vorher von LDAP geprüft werden. Das Modul sorgt dafür, dass ausgewählte Nutzerdaten von LDAP in die Moodle-Datenbank übernommen werden können. Wenn das Kennwort weiterhin ausschließlich von LDAP verwaltet wird, ermöglicht dies einheitliche Anmeldedaten in unterschiedlichen Moodle-Instanzen und bei anderen Servern.
+<p>Um ein neues LDAP-basiertes Nutzerkonto in Moodle anzulegen, muss vorher das LDAP-Nutzerkonto existieren. Beim ersten Login wird automatisch ein neues Nutzerkonto in der Moodle-Datenbank, wobei Anmeldename und Kennwort vorher von LDAP geprüft werden. Das Modul sorgt dafür, dass ausgewählte Nutzerdaten von LDAP in die Moodle-Datenbank übernommen werden können. Wenn das Kennwort weiterhin ausschließlich von LDAP verwaltet wird, ermöglicht dies einheitliche Anmeldedaten in unterschiedlichen Moodle-Instanzen und bei anderen Servern.</p>
 
-<p>Bei allen weiteren Logins werden weiterhin Anmeldename und Kennwort vom LDAP-Server überprüft.';
+<p>Bei allen weiteren Logins werden weiterhin Anmeldename und Kennwort vom LDAP-Server überprüft.</p>';
 $string['auth_ldap_expiration_desc'] = 'Setzen Sie \'Nein\' (\'no\'), um das Gültigkeitsende für Kennwörter nicht zu prüfen. Wenn Sie \'LDAP\' wählen, wird diese Überprüfung direkt über LDAP abgewickelt.';
 $string['auth_ldap_expiration_key'] = 'Gültigkeitsende';
 $string['auth_ldap_expiration_warning_desc'] = 'Diese Zahl gibt an, wie viele Tage vor dem Gültigkeitsende von Kennwörtern eine Warnung versendet wird.';
 $string['auth_ldap_expiration_warning_key'] = 'Warnung zum Gültigkeitsende';
 $string['auth_ldap_expireattr_desc'] = 'Optional: Überschreibt die LDAP Attribute, die das Ablaufdatum für Kennwörter enthält.';
 $string['auth_ldap_expireattr_key'] = 'Merkmal für Gültigkeitsende';
-$string['auth_ldapextrafields'] = 'Die folgenden Felder sind optional. Im Nutzerprofil können automatisch einige Moodle-Felder mit ausgewählten Nutzerdaten aus <b>LDAP-Feldern</b> vorbelegt werden. <p>Wenn Sie die nachfolgenden Einträge leer lassen, wird nichts von LDAP übertragen und die Moodle-Voreinstellungen werden verwendet. In diesem Fall muss das Nutzerprofil beim ersten Login selbst fertig ausgefüllt werden. <p>Zusätzlich wird eingestellt, welche Felder im Nutzerprofil bearbeitbar sein sollen.';
+$string['auth_ldapextrafields'] = 'Die folgenden Felder sind optional. Im Nutzerprofil können automatisch einige Moodle-Felder mit ausgewählten Nutzerdaten aus <b>LDAP-Feldern</b> vorbelegt werden. <p>Wenn Sie die nachfolgenden Einträge leer lassen, wird nichts von LDAP übertragen und die Moodle-Voreinstellungen werden verwendet. In diesem Fall muss das Nutzerprofil beim ersten Login selbst fertig ausgefüllt werden.</p> <p>Zusätzlich wird eingestellt, welche Felder im Nutzerprofil bearbeitbar sein sollen.</p>';
 $string['auth_ldap_graceattr_desc'] = 'Optional: Merkmal für GraceLogin ändern';
 $string['auth_ldap_gracelogin_key'] = 'Merkmal für GraceLogin';
 $string['auth_ldap_gracelogins_desc'] = 'LDAP-GraceLogin aktivieren. Wenn das Gültigkeitsende von Kennwörtern erreicht ist, können sich die Nutzer/innen noch solange weiter einloggen, bis der GraceLogin-Zähler den Wert 0 hat. Nach dem Aktivieren der Einstellung wird eine GraceLogin-Mitteilung angezeigt, sobald die Gültigkeitsende erreicht ist.';
@@ -81,7 +81,7 @@ $string['auth_ldap_opt_deref'] = 'Legt fest wie Aliasbezeichnungen bei der Suche
 $string['auth_ldap_opt_deref_key'] = 'Aliase berücksichtigen';
 $string['auth_ldap_passtype'] = 'Geben Sie das Format für neue Kennwörter auf dem LDAP-Server an.';
 $string['auth_ldap_passtype_key'] = 'Kennwortformat';
-$string['auth_ldap_passwdexpire_settings'] = 'Gültigkeitsablauf von Kennwörtern';
+$string['auth_ldap_passwdexpire_settings'] = 'Gültigkeitsablauf von LDAP-Kennwörtern';
 $string['auth_ldap_preventpassindb'] = 'Wählen Sie \'ja\', um Kennwörter <b>nicht</b> in die Moodle-Datenbank zu übernehmen';
 $string['auth_ldap_preventpassindb_key'] = 'Kennwörter nicht cachen';
 $string['auth_ldap_search_sub'] = 'Nutzersuche auch in Subkontexten durchführen';
@@ -111,7 +111,7 @@ $string['auth_ntlmsso_ie_fastpath_yesattempt'] = 'Ja, andere NTLM Browser versuc
 $string['auth_ntlmsso_ie_fastpath_yesform'] = 'Ja, alle anderen Browser benutzen das normale Login';
 $string['auth_ntlmsso_maybeinvalidformat'] = 'Der Nutzername konnte aus dem Header des REMOTE_USER nicht ausgelesen werden. Ist das Format richtig konfiguriert?';
 $string['auth_ntlmsso_missing_username'] = 'Sie müssen zumindest den %username% im Format des entfernten Nutzernamen festlegen.';
-$string['auth_ntlmsso_remoteuserformat'] = 'Wenn Sie \'NTLM\' als \'Authentifizierungstyp\' verwenden, können Sie hier das Format von externen Nutzernamen angeben. Bleibt der Eintrag leer wird das Standardformat verwendet. Verwenden Sie den optionalen <b>%domain%</b> Platzhalter, um festzulegen wo der Domainname erscheint und den erforderlichen Platzhalter <b>%username%</b> für den Nutzernamenort. <br /><br />Häufig genutzte Formate sind <tt>%domain%%username%</tt> (MS Windows default), <tt>%domain%/%username%</tt>, <tt>%domain%+%username%</tt> und einfach <tt>%username%</tt> (wenn kein Domainteil verwendet wird).';
+$string['auth_ntlmsso_remoteuserformat'] = 'Wenn Sie \'NTLM\' als \'Authentifizierungstyp\' verwenden, können Sie hier das Format von externen Nutzernamen angeben. Bleibt der Eintrag leer, wird das Standardformat DOMAIN\\username verwendet. Verwenden Sie den optionalen <b>%domain%</b> Platzhalter, um festzulegen wo der Domainname erscheint, und den erforderlichen Platzhalter <b>%username%</b> für den Nutzernamenort. <br /><br />Häufig genutzte Formate sind <tt>%domain%%username%</tt> (MS Windows default), <tt>%domain%/%username%</tt>, <tt>%domain%+%username%</tt> und einfach <tt>%username%</tt> (wenn kein Domainteil verwendet wird).';
 $string['auth_ntlmsso_remoteuserformat_key'] = 'Format externer Nutzernamen';
 $string['auth_ntlmsso_subnet'] = 'Tragen Sie in dieses Feld eine Maske für ein Subnet ein, um NTLM-SSO auf IP-Adressen aus diesem Subnet zu beschränken. Mehrere Subnetze werden kommagetrennt angegeben. Format: xxx.xxx.xxx.xxx/bitmask';
 $string['auth_ntlmsso_subnet_key'] = 'Subnet';
@@ -123,7 +123,7 @@ $string['didntfindexpiretime'] = 'Für die Funktion password_expire() wurde kein
 $string['didntgetusersfromldap'] = 'Kein Nutzerkonto über LDAP einlesbar! Fehler?';
 $string['gotcountrecordsfromldap'] = '{$a} Datensätze von LDAP eingelesen';
 $string['morethanoneuser'] = 'Mehr als ein Nutzerkonto in LDAP gefunden! Es wird nur das erste Nutzerkonto verwendet.';
-$string['needbcmath'] = 'Sie benötigen die PHP- Extension BCMath, um GraceLogins mit dem Active Directory nutzen zu können';
+$string['needbcmath'] = 'Sie benötigen die PHP-Extension BCMath, um das Prüfen abgelaufener Kennwörter mit Active Directory nutzen zu können.';
 $string['needmbstring'] = 'Sie benötigen die PHP-Extension mbstring, um Kennwörter im Active Directory ändern zu können';
 $string['nodnforusername'] = 'Fehler in der Funktion user_update_password(). Kein DN für: {$a->username}';
 $string['noemail'] = 'Der Versuch Ihnen eine E-Mail zu senden ist gescheitert!';
@@ -136,9 +136,9 @@ $string['ntlmsso_attempting'] = 'NTLM-SSO versuchen...';
 $string['ntlmsso_failed'] = 'Die automatische Anmeldung ist fehlgeschlagen. Versuchen Sie das normale Login...';
 $string['ntlmsso_isdisabled'] = 'NTLM-SSO ist deaktiviert.';
 $string['ntlmsso_unknowntype'] = 'Unbekannter NTLM-SSO-Typ!';
-$string['pagedresultsnotsupp'] = 'LDAP paged results werden nicht unterstützt. Entweder unterstützt Ihre PHP Version dies nicht oder Sie haben Moodle so konfiguriert, dass die LDAP Protokoll Version 2 verwandt wird.';
+$string['pagedresultsnotsupp'] = 'LDAP paged results werden nicht unterstützt. Entweder unterstützt Ihre PHP Version dies nicht oder Sie haben Moodle zur Verwendung der LDAP-Protokollversion 2 konfiguriert oder Moodle kann bei Ihren LDAP-Server den paged Support nicht erkennen.';
 $string['pagesize'] = 'Stellen Sie sicher, dass dieser Wert kleiner ist als die Obergrenze Ihres LDAP-Servers für eine einzelne Datenbankabfrage.';
-$string['pagesize_key'] = 'Einträge pro Seite';
+$string['pagesize_key'] = 'Seitengröße';
 $string['pluginname'] = 'LDAP-Server';
 $string['pluginnotenabled'] = 'Plugin nicht aktiviert!';
 $string['renamingnotallowed'] = 'Namensänderungen sind in LDAP nicht erlaubt';

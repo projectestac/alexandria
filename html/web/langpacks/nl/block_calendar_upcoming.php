@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_calendar_upcoming', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_calendar_upcoming', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   block_calendar_upcoming
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['calendar_upcoming:addinstance'] = 'Voeg een komende activiteitenblok toe';
-$string['calendar_upcoming:myaddinstance'] = 'Voeg een nieuw komende activiteitenblok toe aan  Mijn startpagina';
+$string['calendar_upcoming:addinstance'] = 'Voeg een komend activiteitenblok toe';
+$string['calendar_upcoming:myaddinstance'] = 'Voeg een nieuw komend activiteitenblok toe aan Mijn startpagina';
 $string['pluginname'] = 'Binnenkort';

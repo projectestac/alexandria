@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'en', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choicegroup', language 'en', branch 'MOODLE_32_STABLE'
  *
  * @package   choicegroup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -117,7 +117,9 @@ $string['notyetresultsviewable'] = 'The results will be visible after this activ
 $string['numberofuser'] = 'The number of users';
 $string['option'] = 'Group';
 $string['page-mod-choice-x'] = 'Any Group choice module page';
+$string['pleaseselectonegroup'] = 'Please select at least one group to chose from.';
 $string['pleasesetgroups'] = 'Please create at least two groups in this course.';
+$string['pleasesetonegroup'] = 'Please create at least one group in this course.';
 $string['pluginadministration'] = 'Choice administration';
 $string['pluginname'] = 'Group choice';
 $string['privacy'] = 'Privacy of results';

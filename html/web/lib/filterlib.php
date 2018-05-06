@@ -272,6 +272,36 @@ class filter_manager {
             $filter->setup($page, $context);
         }
     }
+
+    /**
+     * Setup the page for globally available filters.
+     *
+     * This helps setting up the page for filters which may be applied to
+     * the page, even if they do not belong to the current context, or are
+     * not yet visible because the content is lazily added (ajax). This method
+     * always uses to the system context which determines the globally
+     * available filters.
+     *
+     * This should only ever be called once per request.
+     *
+     * @param moodle_page $page The page.
+     * @since Moodle 3.2
+     */
+    public function setup_page_for_globally_available_filters($page) {
+        $context = context_system::instance();
+        $filterdata = filter_get_globally_enabled_filters_with_config();
+        foreach ($filterdata as $name => $config) {
+            if (isset($this->textfilters[$context->id][$name])) {
+                $filter = $this->textfilters[$context->id][$name];
+            } else {
+                $filter = $this->make_filter_object($name, $context, $config);
+                if (is_null($filter)) {
+                    continue;
+                }
+            }
+            $filter->setup($page, $context);
+        }
+    }
 }
 
 
@@ -695,6 +725,46 @@ function filter_get_globally_enabled() {
 }
 
 /**
+ * Get the globally enabled filters.
+ *
+ * This returns the filters which could be used in any context. Essentially
+ * the filters which are not disabled for the entire site.
+ *
+ * @return array Keys are filter names, and values the config.
+ */
+function filter_get_globally_enabled_filters_with_config() {
+    global $DB;
+
+    $sql = "SELECT f.filter, fc.name, fc.value
+              FROM {filter_active} f
+         LEFT JOIN {filter_config} fc
+                ON fc.filter = f.filter
+               AND fc.contextid = f.contextid
+             WHERE f.contextid = :contextid
+               AND f.active != :disabled
+          ORDER BY f.sortorder";
+
+    $rs = $DB->get_recordset_sql($sql, [
+        'contextid' => context_system::instance()->id,
+        'disabled' => TEXTFILTER_DISABLED
+    ]);
+
+    // Massage the data into the specified format to return.
+    $filters = array();
+    foreach ($rs as $row) {
+        if (!isset($filters[$row->filter])) {
+            $filters[$row->filter] = array();
+        }
+        if ($row->name !== null) {
+            $filters[$row->filter][$row->name] = $row->value;
+        }
+    }
+    $rs->close();
+
+    return $filters;
+}
+
+/**
  * Return the names of the filters that should also be applied to strings
  * (when they are enabled).
  *
@@ -957,7 +1027,7 @@ function filter_preload_activities(course_modinfo $modinfo) {
 
     // Get all filter_active rows relating to all these contexts
     list ($sql, $params) = $DB->get_in_or_equal($allcontextids);
-    $filteractives = $DB->get_records_select('filter_active', "contextid $sql", $params);
+    $filteractives = $DB->get_records_select('filter_active', "contextid $sql", $params, 'sortorder');
 
     // Get all filter_config only for the cm contexts
     list ($sql, $params) = $DB->get_in_or_equal($cmcontextids);

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'page', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'page', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   page
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,7 +36,9 @@ $string['modulenameplural'] = 'Σελίδες';
 $string['page:addinstance'] = 'Προσθήκη νέου πόρου σελίδας';
 $string['page:view'] = 'Εμφάνιση περιεχομένου σελίδας';
 $string['pluginname'] = 'Σελίδα';
+$string['popupheight'] = 'Ύψος αναδυόμενου παράθυρου (σε εικονοστοιχεία)';
 $string['popupheightexplain'] = 'Καθορίζει το προεπιλεγμένο ύψος του αναδυόμενου παράθυρου.';
+$string['popupwidth'] = 'Πλάτος αναδυόμενου παράθυρου (σε εικονοστοιχεία)';
 $string['popupwidthexplain'] = 'Καθορίζει το προεπιλεγμένο πλάτος του αναδυόμενου παράθυρου.';
 $string['printintro'] = 'Εμφάνιση περιγραφής σελίδας';
 $string['printintroexplain'] = 'Εμφάνιση περιγραφής σελίδας πάνω από το περιεχόμενο;';

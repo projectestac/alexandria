@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'survey', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'survey', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   survey
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -182,6 +182,7 @@ $string['downloadinfo'] = 'Вы можете скачать данные анк�
 $string['downloadresults'] = 'Скачать результаты';
 $string['downloadtext'] = 'Скачать результаты в текстовом формате';
 $string['editingasurvey'] = 'Редактирование анкеты';
+$string['errorunabletosavenotes'] = 'При сохранении заметок произошла ошибка.';
 $string['eventreportdownloaded'] = 'Скачан отчет по анкете';
 $string['eventreportviewed'] = 'Показан отчет по анкете';
 $string['eventresponsesubmitted'] = 'Ответ на анкету отправлен';

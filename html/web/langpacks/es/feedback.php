@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'feedback', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'feedback', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   feedback
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -52,8 +52,9 @@ $string['checkbox'] = 'Elección múltiple (se permiten varias respuestas - casi
 $string['check_values'] = 'Respuestas posibles';
 $string['choosefile'] = 'Seleccione un archivo';
 $string['chosen_feedback_response'] = 'respuesta elegida';
-$string['completed'] = 'completada';
+$string['completed'] = 'Completada';
 $string['completed_feedbacks'] = 'Respuestas enviadas';
+$string['completedon'] = 'Completada en {$a}';
 $string['complete_the_form'] = 'Responda a las preguntas...';
 $string['completionsubmit'] = 'Ver como "completado" si se envía la encuesta';
 $string['configallowfullanonymous'] = 'Si se establece esta opción la encuesta puede ser respondida por usuarios que previamente no hayan iniciado la sesión. Esto sólo afecta a las encuestas de la página principal.';
@@ -68,6 +69,7 @@ $string['creating_templates'] = 'Guardar estas preguntas como plantilla nueva';
 $string['delete_entry'] = 'Borrar entrada';
 $string['delete_item'] = 'Borrar pregunta';
 $string['delete_old_items'] = 'Borrar ítems antiguos';
+$string['delete_pagebreak'] = 'Borrar salto de página';
 $string['delete_template'] = 'Borrar plantilla';
 $string['delete_templates'] = 'Borrar plantilla...';
 $string['depending'] = 'Dependencias';
@@ -88,6 +90,7 @@ $string['dependitem'] = 'Depende del item';
 $string['dependvalue'] = 'Depende del valor';
 $string['description'] = 'Descripción';
 $string['do_not_analyse_empty_submits'] = 'No analizar envíos vacíos';
+$string['downloadresponseas'] = 'Descargar todas las respuestas como:';
 $string['dropdown'] = 'Opción múltiple (sólo una respuesta - lista desplegable)';
 $string['dropdownlist'] = 'Opción múltiple  - una respuesta (desplegable)';
 $string['dropdownrated'] = 'Lista desplegable (clasificada)';
@@ -112,6 +115,7 @@ $string['export_to_excel'] = 'Exportar a Excel';
 $string['feedback:addinstance'] = 'Añadir una nueva encuesta';
 $string['feedbackclose'] = 'Permitir respuestas a';
 $string['feedback:complete'] = 'Cumplimente la encuesta';
+$string['feedbackcompleted'] = '{$a->username} ha completado {$a->feedbackname}';
 $string['feedback:createprivatetemplate'] = 'Crear plantilla privada';
 $string['feedback:createpublictemplate'] = 'Crear plantilla pública';
 $string['feedback:deletesubmissions'] = 'Eliminar envíos completados';
@@ -143,6 +147,7 @@ Para mantener los comentarios anónimos debe haber un mínimo de 2 respuestas re
 $string['item_label'] = 'Etiqueta';
 $string['item_name'] = 'Pregunta';
 $string['label'] = 'Etiqueta';
+$string['labelcontents'] = 'Contenidos';
 $string['line_values'] = 'Clasificación';
 $string['mapcourse'] = 'Asignar encuesta a cursos';
 $string['mapcourse_help'] = 'Por defecto, los formularios de encuesta creados en su página de inicio están disponibles en todo el sitio y aparecerá en todos los cursos utilizando el bloque de encuestas. Puede forzar que el formulario de encuestas se visualice haciendo que sea un bloque fijo o puede limitar los cursos en los que se mostrará el formulario de encuesta mediante su asignación a cursos específicos.';
@@ -151,10 +156,12 @@ $string['mapcoursenone'] = 'No hay cursos asignados. La encuesta está disponibl
 $string['mapcourses'] = 'Asignar encuesta a cursos';
 $string['mapcourses_help'] = 'Una vez seleccionados los cursos correspondientes a partir de la búsqueda, es posible asociarlos con esta encuesta utilizando el mapeo. Para seleccionar varios cursos mantenga pulsada la tecla Ctrl mientras hace clic en los nombres de los cursos. Se puede quitar la asociación de un curso a una encuesta en cualquier momento.';
 $string['mappedcourses'] = 'Cursos asignados';
+$string['mappingchanged'] = 'El mapeo del curso ha cambiado';
 $string['max_args_exceeded'] = 'Se admite un máximo de 6 argumentos; demasiados argumentos para';
 $string['maximal'] = 'máximo';
 $string['messageprovider:message'] = 'Recordatorio de encuesta';
 $string['messageprovider:submission'] = 'Notificaciones de encuesta';
+$string['minimal'] = 'mínimo';
 $string['mode'] = 'Modo';
 $string['modulename'] = 'Encuesta';
 $string['modulename_help'] = 'El módulo de actividad Encuesta permite que un profesor pueda crear una encuesta personalizada para obtener la opinión de los participantes utilizando una variedad de tipos de pregunta, como  opción múltiple, sí/no o texto.
@@ -193,6 +200,7 @@ $string['not_completed_yet'] = 'Aún no se ha finalizado';
 $string['no_templates_available_yet'] = 'No hay plantillas disponibles';
 $string['not_selected'] = 'No seleccionada';
 $string['not_started'] = 'no comenzado';
+$string['numberoutofrange'] = 'Número fuera de rango';
 $string['numeric'] = 'Respuesta numérica';
 $string['numeric_range_from'] = 'Rango desde';
 $string['numeric_range_to'] = 'Rango hasta';
@@ -238,6 +246,7 @@ $string['save_entries'] = 'Enviar sus respuestas';
 $string['save_item'] = 'Guardar pregunta';
 $string['saving_failed'] = 'No se pudo guardar';
 $string['saving_failed_because_missing_or_false_values'] = 'No se pudo guardar debido a valores ausentes o falsos';
+$string['search:activity'] = 'Retroalimentación - información de actividad';
 $string['search_course'] = 'Buscar curso';
 $string['searchcourses'] = 'Buscar cursos';
 $string['searchcourses_help'] = 'Buscar el código o el nombre del (los) curso(s) que desea asociar con esta encuesta.';
@@ -255,12 +264,14 @@ $string['site_after_submit'] = 'Sitio tras el envío';
 $string['sort_by_course'] = 'Ordenar por curso';
 $string['start'] = 'Inicio';
 $string['started'] = 'comenzado';
+$string['startedon'] = 'Empezado el {$a}';
 $string['stop'] = 'Fin';
 $string['subject'] = 'Materia';
 $string['switch_group'] = 'Cambiar grupo';
 $string['switch_item_to_not_required'] = 'cambiar a: respuesta no obligatoria';
 $string['switch_item_to_required'] = 'cambiar a: respuesta obligatoria';
 $string['template'] = 'Plantilla';
+$string['template_deleted'] = 'Plantilla eliminada';
 $string['templates'] = 'Plantillas';
 $string['template_saved'] = 'Plantilla guardada';
 $string['textarea'] = 'Respuesta de texto larga';

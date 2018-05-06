@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshop', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'workshop', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   workshop
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -33,10 +33,10 @@ $string['allocation'] = 'Attribution des travaux';
 $string['allocationconfigured'] = 'Attribution configurée';
 $string['allocationdone'] = 'Attribution effectuée';
 $string['allocationerror'] = 'Erreur d\'attribution';
-$string['allowedfiletypesforoverallfeedback'] = 'Types de fichier autorisés pour annexe de feedback';
-$string['allowedfiletypesforoverallfeedback_help'] = 'Les types de fichier autorisés pour annexe de feedback peuvent être restreints en indiquant une liste d\'extensions de fichiers, séparées par des virgules, par exemple « png, jpg, jpeg, gif ». Si le champ est laissé vide, tous les types de fichiers sont autorisés.';
-$string['allowedfiletypesforsubmission'] = 'Types de fichier autorisés pour travail à remettre';
-$string['allowedfiletypesforsubmission_help'] = 'Les types de fichier autorisés pour travail à remettre peuvent être restreints en indiquant une liste d\'extensions de fichiers, séparées par des virgules, par exemple « png, jpg, jpeg, gif ». Si le champ est laissé vide, tous les types de fichiers sont autorisés.';
+$string['allowedfiletypesforoverallfeedback'] = 'Types de fichier autorisés en annexe du feedback';
+$string['allowedfiletypesforoverallfeedback_help'] = 'Les types de fichier autorisés en annexe du feedback peuvent être restreints en indiquant une liste d\'extensions de fichiers, séparées par des virgules, par exemple « png, jpg, jpeg, gif ». Si le champ est laissé vide, tous les types de fichiers sont autorisés.';
+$string['allowedfiletypesforsubmission'] = 'Types de fichier autorisés pour le travail à remettre';
+$string['allowedfiletypesforsubmission_help'] = 'Les types de fichier autorisés pour le travail à remettre peuvent être restreints en indiquant une liste d\'extensions de fichiers, séparées par des virgules, par exemple « png, jpg, jpeg, gif ». Si le champ est laissé vide, tous les types de fichiers sont autorisés.';
 $string['allsubmissions'] = 'Tous les travaux remis ({$a})';
 $string['alreadygraded'] = 'Déjà noté';
 $string['areaconclusion'] = 'Texte de conclusion';
@@ -63,17 +63,18 @@ $string['assessmentendevent'] = '{$a} (délai d\'évaluation)';
 $string['assessmentform'] = 'Formulaire d\'évaluation';
 $string['assessmentofsubmission'] = '<a href="{$a->assessmenturl}">Évaluation</a> de <a href="{$a->submissionurl}">{$a->submissiontitle}</a>';
 $string['assessmentreference'] = 'Évaluation de référence';
-$string['assessmentreferenceconflict'] = 'Il n\'est pas possible d\'évaluer un travail exemple pour lequel vous avez fourni une évaluation de référence.';
+$string['assessmentreferenceconflict'] = 'Il n\'est pas possible d\'évaluer un travail exemplaire pour lequel vous avez fourni une évaluation de référence.';
 $string['assessmentreferenceneeded'] = 'Vous devez évaluer ce travail exemplaire pour fournir une référence d\'évaluation. Cliquer « Continuer » pour évaluer le travail exemplaire.';
-$string['assessmentsettings'] = 'Réglages d\'évaluation';
+$string['assessmentsettings'] = 'Modalités d\'évaluation';
 $string['assessmentstart'] = 'Début des évaluations';
 $string['assessmentstartdatetime'] = 'Ouvert pour évaluation dès le {$a->daydatetime} ({$a->distanceday})';
 $string['assessmentstartevent'] = '{$a} (ouverture de l\'évaluation)';
-$string['assessmentweight'] = 'Coefficient de l\'évaluation';
+$string['assessmentweight'] = 'Pondération de l\'évaluation';
 $string['assignedassessments'] = 'Travaux à évaluer';
 $string['assignedassessmentsnone'] = 'Vous n\'avez pas de travail à évaluer';
 $string['backtoeditform'] = 'Revenir au formulaire';
 $string['byfullname'] = 'par <a href="{$a->url}">{$a->name}</a>';
+$string['byfullnamewithoutlink'] = 'par {$a}';
 $string['calculategradinggrades'] = 'Calculer les notes des évaluations';
 $string['calculategradinggradesdetails'] = 'attendues : {$a->expected}<br />calculées : {$a->calculated}';
 $string['calculatesubmissiongrades'] = 'Calculer les notes des travaux remis';
@@ -115,10 +116,10 @@ $string['evaluation'] = 'Notation des évaluations';
 $string['evaluationmethod'] = 'Méthode de notation des évaluations';
 $string['evaluationmethod_help'] = 'La méthode de notation des évaluations détermine comment est calculée la note pour les évaluations données. Vous pouvez la faire recalculer les notes à plusieurs reprises avec différents réglages tant que le résultat ne vous satisfait pas.';
 $string['evaluationsettings'] = 'Réglages de la notation des évaluations';
-$string['eventassessableuploaded'] = 'Travail déposé';
+$string['eventassessableuploaded'] = 'Un travail a été déposé.';
 $string['eventassessmentevaluated'] = 'Évaluation notée';
 $string['eventassessmentevaluationsreset'] = 'Notes des évaluations réinitialisées';
-$string['eventassessmentreevaluated'] = 'Évaluation re-notée';
+$string['eventassessmentreevaluated'] = 'Évaluation ré-évaluée';
 $string['eventphaseswitched'] = 'Phase changée';
 $string['eventsubmissionassessed'] = 'Travail evalué';
 $string['eventsubmissionassessmentsreset'] = 'Évaluations de travail effacées';
@@ -145,6 +146,7 @@ $string['examplesbeforesubmission'] = 'Les travaux exemplaires doivent être év
 $string['examplesmode'] = 'Mode d\'évaluation des travaux exemplaires';
 $string['examplesubmissions'] = 'Travaux exemplaires';
 $string['examplesvoluntary'] = 'L\'évaluation des travaux exemplaires est facultative';
+$string['exportsubmission'] = 'Exporter cette page';
 $string['feedbackauthor'] = 'Feedback pour l\'auteur';
 $string['feedbackauthorattachment'] = 'Annexe';
 $string['feedbackby'] = 'Feedback de {$a}';
@@ -186,13 +188,13 @@ $string['latesubmissions_desc'] = 'Autoriser la remise des travaux après le dé
 $string['latesubmissions_help'] = 'Si ce réglage est activé, les participants peuvent remettre leur travail après le délai fixé ou durant la phase d\'évaluation. Les travaux remis en retard ne pourront en revanche pas être modifiés.';
 $string['maxbytes'] = 'Taille maximale des annexes aux travaux';
 $string['modulename'] = 'Atelier';
-$string['modulename_help'] = 'Le module d\'activité atelier permet la récolte, la lecture et l\'évaluation par les pairs de travaux de participants.
+$string['modulename_help'] = 'Le module d\'activité atelier permet de récolter, lire et évaluer par les pairs des travaux de participants.
 
-Les participants remettent des contenus numériques (fichiers), par exemple des documents traitement de textes, feuilles de calculs, etc. et peuvent aussi saisir directement des textes au moyen de l\'éditeur WYSIWYG.
+Les participants remettent des fichiers numériques (par exemple des documents de textes riches, des feuilles de calculs, etc.) et peuvent aussi saisir directement des textes au moyen d\'un éditeur de texte.
 
-Les travaux remis sont évalués au moyen d\'un formulaire d\'évaluation multi-critères défini par l\'enseignant. Le processus d\'évaluation par les pairs ainsi que la compréhension du formulaire d\'évaluation peuvent être entraînés à l\'avance au moyen de travaux exemplaires proposés par l\'enseignant avec des évaluations de référence. Les participants ont l\'opportunité d\'évaluer un ou plusieurs travaux de pairs, si nécessaire de façon anonyme.
+Les travaux remis sont évalués au moyen d\'un formulaire d\'évaluation multi-critères défini par l\'enseignant. Au moyen de travaux exemplaires proposés par l\'enseignant avec des évaluations de référence, les participants peuvent tester le processus d\'évaluation par les pairs et vérifier leur compréhension du formulaire d\'évaluation. Les participants ont l\'opportunité d\'évaluer un ou plusieurs travaux de pairs, si nécessaire, anonymement.
 
-Les participants obtiennent deux notes dans l\'activité atelier : une note pour le travail qu\'ils remettent, ainsi qu\'une note pour la qualité de leur évaluation des travaux de pairs. Les deux notes sont enregistrées dans le carnet de notes.';
+Les participants peuvent obtenir deux notes dans l\'activité atelier : une pour le travail qu\'ils remettent et l\'autre pour la qualité de leur évaluation des travaux de pairs. Les deux notes sont enregistrées dans le carnet de notes.';
 $string['modulenameplural'] = 'Ateliers';
 $string['mysubmission'] = 'Mon travail remis';
 $string['nattachments'] = 'Nombre maximal d\'annexes jointes';
@@ -222,7 +224,7 @@ $string['participantrevierof'] = 'Le participant est évaluateur de';
 $string['participantreviewedby'] = 'Le participant est évalué par';
 $string['phaseassessment'] = 'Phase d\'évaluation';
 $string['phaseclosed'] = 'Fermé';
-$string['phaseevaluation'] = 'Phase de notation de l\'évaluation';
+$string['phaseevaluation'] = 'Phase de notation des évaluations';
 $string['phasesetup'] = 'Phase de mise en place';
 $string['phasesoverlap'] = 'La phase de remise des travaux et celle de l\'évaluation ne peuvent pas se chevaucher';
 $string['phasesubmission'] = 'Phase de remise';
@@ -239,7 +241,7 @@ $string['recentassessments'] = 'Évaluations de l\'atelier :';
 $string['recentsubmissions'] = 'Travaux remis de l\'atelier';
 $string['resetassessments'] = 'Supprimer toutes les évaluations';
 $string['resetassessments_help'] = 'Vous pouvez choisir de ne supprimer que les évaluations attribuées sans affecter les travaux remis. Si des travaux doivent être supprimés, leurs évaluations seront également supprimées et cette option peut être ignorée. Ce réglage concerne également les évaluations des travaux exemplaires.';
-$string['resetphase'] = 'Passer à la phase mise en place';
+$string['resetphase'] = 'Passer à la phase de mise en place';
 $string['resetphase_help'] = 'Si ce réglage est activé, tous les ateliers seront passés à la phase de mise en place.';
 $string['resetsubmissions'] = 'Supprimer tous les travaux remis';
 $string['resetsubmissions_help'] = 'Tous les travaux remis et leurs évaluations vont être supprimés, à l\'exception des travaux exemplaires et de leur évaluation.';
@@ -280,6 +282,8 @@ $string['submissiongrade'] = 'Note pour le travail remis';
 $string['submissiongrade_help'] = 'Ce réglage détermine la note maximale pouvant être obtenue pour le travail remis.';
 $string['submissiongradeof'] = 'Note pour le travail remis (sur {$a})';
 $string['submissionlastmodified'] = 'Dernière modification';
+$string['submissionrequiredcontent'] = 'Veuillez saisir du texte ou ajouter un fichier.';
+$string['submissionrequiredfile'] = 'Veuillez ajouter un fichier ou saisir du texte.';
 $string['submissionsettings'] = 'Réglages de remise des travaux';
 $string['submissionsreport'] = 'Rapport de remise de l\'atelier';
 $string['submissionstart'] = 'Début de la remise des travaux';
@@ -290,7 +294,7 @@ $string['submittednotsubmitted'] = 'Remis ({$a->submitted}) / non remis ({$a->no
 $string['subplugintype_workshopallocation'] = 'Méthode d\'attribution des travaux';
 $string['subplugintype_workshopallocation_plural'] = 'Méthodes d\'attribution des travaux';
 $string['subplugintype_workshopeval'] = 'Méthode de notation des évaluations';
-$string['subplugintype_workshopeval_plural'] = 'Méthodes d\'évaluation de la notation';
+$string['subplugintype_workshopeval_plural'] = 'Méthodes de notation des évaluations';
 $string['subplugintype_workshopform'] = 'Stratégie d\'évaluation';
 $string['subplugintype_workshopform_plural'] = 'Stratégies d\'évaluation';
 $string['switchingphase'] = 'Changement de phase';
@@ -301,18 +305,23 @@ $string['switchphase30auto'] = 'L\'atelier passera automatiquement dans la phase
 $string['switchphase30info'] = 'Vous allez passer cet atelier à la <strong>phase d\'évaluation</strong>. Durant cette phase, les évaluateurs peuvent évaluer les travaux qui leur ont été attribués (dans l\'intervalle de temps défini pour l\'évaluation des travaux, le cas échéant).';
 $string['switchphase40info'] = 'Vous allez passer cet atelier à la <strong>phase de notation</strong>. Durant cette phase, les participants ne peuvent pas modifier leur travail remis, ni leurs évaluations. Les enseignants peuvent utiliser les outils de notation pour calculer les notes finales et fournir un feedback aux évaluateurs.';
 $string['switchphase50info'] = 'Vous allez fermer cet atelier. Ceci permettra aux notes calculées d\'apparaître dans le carnet de notes. Les étudiants pourront voir leur travail et les évaluations qu\'ils ont reçues.';
+$string['switchphasenext'] = 'Passer à la phase suivante';
 $string['taskassesspeers'] = 'Évaluer vos pairs';
 $string['taskassesspeersdetails'] = 'total : {$a->total}<br />restant : {$a->todo}';
 $string['taskassessself'] = 'Vous évaluer vous-même';
 $string['taskconclusion'] = 'Fournir une conclusion à l\'activité';
+$string['taskdone'] = 'Tâche effectuée';
+$string['taskfail'] = 'Tâche échouée';
+$string['taskinfo'] = 'Info de tâche';
 $string['taskinstructauthors'] = 'Fournir des instructions pour la remise des travaux';
 $string['taskinstructreviewers'] = 'Fournir des instructions pour l\'évaluation';
 $string['taskintro'] = 'Saisir l\'introduction de l\'atelier';
 $string['tasksubmit'] = 'Remettre votre travail';
+$string['tasktodo'] = 'Tâche à effectuer';
 $string['toolbox'] = 'Boîte à outil atelier';
 $string['undersetup'] = 'L\'atelier est en cours de mise en place. Veuillez attendre qu\'il passe à la phase suivante.';
 $string['useexamples'] = 'Utiliser des travaux exemplaires';
-$string['useexamples_desc'] = 'Des travaux exemplaires sont fournis pour l\'entraînement à l\'évaluation';
+$string['useexamples_desc'] = 'Des travaux exemplaires sont fournis pour tester le processus d\'évaluation';
 $string['useexamples_help'] = 'Si ce réglage est activé, les participants pourront évaluer un ou plusieurs travaux exemplaires et comparer leur évaluation avec celle fournie en référence. La note n\'est pas comptée dans la note d\'évaluation.';
 $string['usepeerassessment'] = 'Utiliser les évaluations par les pairs';
 $string['usepeerassessment_desc'] = 'Les étudiants peuvent évaluer les travaux de leurs collègues';
@@ -320,18 +329,20 @@ $string['usepeerassessment_help'] = 'Si ce réglage est activé, des travaux de 
 $string['userdatecreated'] = 'remis le <span>{$a}</span>';
 $string['userdatemodified'] = 'modifié le <span>{$a}</span>';
 $string['userplan'] = 'Planning de l\'atelier';
+$string['userplanaccessibilityskip'] = 'Aller directement aux tâches actuelles';
 $string['userplanaccessibilitytitle'] = 'Ligne du temps de l\'atelier avec {$a} phases';
 $string['userplancurrentphase'] = 'Phase actuelle';
-$string['userplan_help'] = 'Le planning de l\'atelier affiche les différentes phases de l\'activité et la liste des tâches de chaque phase. La phase en cours est mise en évidence et les tâches accomplies sont assorties d\'une coche.';
+$string['userplan_help'] = 'La ligne de temps de l\'atelier affiche les différentes phases de l\'activité et la liste des tâches de chaque phase. La phase en cours est mise en évidence et les tâches accomplies sont assorties d\'une coche.';
 $string['useselfassessment'] = 'Utiliser les auto-évaluations';
 $string['useselfassessment_desc'] = 'Les étudiants peuvent évaluer leur propre travail';
 $string['useselfassessment_help'] = 'Si ce réglage est activé, les participants auront la possibilité d\'évaluer leur propre travail. Ils recevront une note pour leur évaluation en plus de la note pour leur propre travail.';
-$string['weightinfo'] = 'Coefficient : {$a}';
+$string['weightinfo'] = 'Pondération : {$a}';
 $string['withoutsubmission'] = 'Évaluateur sans travail remis';
 $string['workshop:addinstance'] = 'Ajouter un atelier';
 $string['workshop:allocate'] = 'Attribuer les travaux remis pour évaluation';
 $string['workshop:deletesubmissions'] = 'Supprimer des travaux remis';
 $string['workshop:editdimensions'] = 'Modifier les formulaires d\'évaluation';
+$string['workshop:exportsubmissions'] = 'Exporter les travaux remis';
 $string['workshop:ignoredeadlines'] = 'Ignorer les restrictions de temps';
 $string['workshop:manageexamples'] = 'Gérer les travaux exemplaires';
 $string['workshopname'] = 'Nom de l\'atelier';
@@ -340,7 +351,7 @@ $string['workshop:peerassess'] = 'Évaluer ses pairs';
 $string['workshop:publishsubmissions'] = 'Publier les travaux remis';
 $string['workshop:submit'] = 'Remettre un travail';
 $string['workshop:switchphase'] = 'Changer de phase';
-$string['workshop:view'] = 'Consulter les ateliers';
+$string['workshop:view'] = 'Consulter l\'atelier';
 $string['workshop:viewallassessments'] = 'Voir toutes les évaluations';
 $string['workshop:viewallsubmissions'] = 'Voir tous les travaux remis';
 $string['workshop:viewauthornames'] = 'Voir les noms des auteurs';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_task', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_task', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_task
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,7 @@ $string['component'] = 'Компонент';
 $string['corecomponent'] = 'Ядро';
 $string['default'] = 'По умолчанию';
 $string['disabled'] = 'Задача отключена';
-$string['disabled_help'] = 'Отключенные задания не будут запускаться при вызове cron. Тем не менее, вы можете запустить их выполнение вручную с помощью инструмента командной строки.';
+$string['disabled_help'] = 'Отключенные задачи не будут запускаться при вызове cron. Тем не менее, вы можете запустить их выполнение вручную с помощью инструмента командной строки.';
 $string['edittaskschedule'] = 'Изменение расписания задачи «{$a}»';
 $string['faildelay'] = 'Задержка после неудачного запуска';
 $string['lastruntime'] = 'Последний запуск';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_completion', language 'en', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_completion', language 'en', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['description'] = 'Require students to complete (or not complete) another activity.';
 $string['error_selectcmid'] = 'You must select an activity for the completion condition.';
+$string['error_selectcmidpassfail'] = 'You must select an activity with "Require grade" completion condition set.';
 $string['label_cm'] = 'Activity or resource';
 $string['label_completion'] = 'Required completion status';
 $string['missing'] = '(Missing activity)';

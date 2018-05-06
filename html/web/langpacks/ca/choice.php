@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choice', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   choice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,18 +30,20 @@ $string['allowmultiple'] = 'Permet seleccionar més d\'una resposta';
 $string['allowupdate'] = 'Permet canviar la resposta';
 $string['answered'] = 'Contestades';
 $string['atleastoneoption'] = 'Heu de proporcionar almenys una possible resposta.';
+$string['calendarend'] = 'La consulta es tanca el {$a}';
+$string['calendarstart'] = 'La consulta s\'obre el {$a}';
 $string['cannotsubmit'] = 'Hi ha hagut un problema en la tramesa de la vostra resposta. Torneu-ho a intentar.';
 $string['choice'] = 'Consulta';
 $string['choiceactivityname'] = 'Consulta: {$a}';
 $string['choice:addinstance'] = 'Afegeix una consulta nova';
 $string['choice:choose'] = 'Grava una consulta';
-$string['choiceclose'] = 'Fins';
+$string['choiceclose'] = 'Permet respostes fins a';
 $string['choicecloseson'] = 'Tanca la consulta en {$a}';
-$string['choice:deleteresponses'] = 'Suprimeix les respostes';
+$string['choice:deleteresponses'] = 'Modifica i suprimeix les respostes';
 $string['choice:downloadresponses'] = 'Baixa les respostes';
 $string['choicefull'] = 'Aquesta consulta està completa i no queden espais disponibles.';
 $string['choicename'] = 'Títol de la consulta';
-$string['choiceopen'] = 'Oberta';
+$string['choiceopen'] = 'Permet respostes des de';
 $string['choiceoptions'] = 'Opcions de la tria';
 $string['choiceoptions_help'] = 'Aquí és on especifiqueu les opcions que els participants han de triar.
 
@@ -49,7 +51,9 @@ Podeu emplenar les que vulgueu: en podeu deixar en blanc si no necessiteu les si
 $string['choice:readresponses'] = 'Mostra les respostes';
 $string['choicesaved'] = 'S\'ha desat la consulta';
 $string['choicetext'] = 'Text de la consulta';
-$string['chooseaction'] = 'Trieu una acció ...';
+$string['choice:view'] = 'Visualitza l\'activitat consulta';
+$string['chooseaction'] = 'Tria una acció...';
+$string['chooseoption'] = 'Tria: {$a}';
 $string['closebeforeopen'] = 'Heu especificat una data de tancament anterior a la data d\'obertura.';
 $string['completionsubmit'] = 'Mostra com a completada quan l\'usuari fa una tria';
 $string['description'] = 'Descripció';
@@ -58,6 +62,7 @@ $string['displaymode'] = 'Mode de visualització de les opcions';
 $string['displayvertical'] = 'En vertical';
 $string['eventanswercreated'] = 'S\'ha fet l\'elecció';
 $string['eventanswerdeleted'] = 'S\'ha esborrat la resposta de les opcions';
+$string['eventanswersubmitted'] = 'S\'ha realitzat una elecció';
 $string['eventanswerupdated'] = 'S\'ha actualitzat l\'elecció';
 $string['eventreportdownloaded'] = 'S\'ha baixat l\'informe d\'eleccions';
 $string['eventreportviewed'] = 'S\'ha visualitzat l\'informe d\'elecció';
@@ -82,7 +87,7 @@ L\'activitat de consulta es pot utilitzar:
 
 * Per tal de verificar ràpidament la comprensió dels estudiants
 
-* Per facilitar la presa de decisions dels estudiants, per exemple, permetent que els estudiants votin sobre algun aspecte del curs.';
+* Per facilitar la presa de decisions dels estudiants; per exemple, permetent que els estudiants votin sobre algun aspecte del curs.';
 $string['modulenameplural'] = 'Consultes';
 $string['moveselectedusersto'] = 'Mou els usuaris seleccionats a...';
 $string['multiplenotallowederror'] = 'No estan permeses respostes múltiples en aquesta consulta';
@@ -104,7 +109,7 @@ $string['previewonly'] = 'Això és sols una vista prèvia de les opcions dispon
 $string['privacy'] = 'Confidencialitat dels resultats';
 $string['publish'] = 'Publica els resultats';
 $string['publishafteranswer'] = 'Mostra els resultats als estudiants després que contestin';
-$string['publishafterclose'] = 'Mostra els resultats als estudiants  només després que s\'hagi tancat la consulta';
+$string['publishafterclose'] = 'Mostra els resultats als estudiants només després que s\'hagi tancat la consulta';
 $string['publishalways'] = 'Mostra sempre els resultats als estudiants';
 $string['publishanonymous'] = 'Publica els resultats anònimament, sense mostrar els noms dels estudiants';
 $string['publishnames'] = 'Publica els resultats complets, amb els noms dels estudiants i les seves respostes';
@@ -124,7 +129,6 @@ $string['skipresultgraph'] = 'Omet el gràfic de resultats';
 $string['spaceleft'] = 'Espai disponible';
 $string['spacesleft'] = 'Espais disponibles';
 $string['taken'] = 'Ocupat';
-$string['timerestrict'] = 'Limita les respostes a aquest període de temps';
 $string['userchoosethisoption'] = 'Usuaris que han escollit aquesta opció';
 $string['viewallresponses'] = 'Visualitza respostes ({$a})';
 $string['withselected'] = 'Amb la selecció';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_database', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_database', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['database:unenrol'] = 'Ακύρωση εγγραφής χρηστών σε αναστολή';
 $string['dbencoding'] = 'Κωδικοποίηση βάσης δεδομένων';
 $string['dbhost'] = 'Όνομα ή IP του εξυπηρετητή';
 $string['dbhost_desc'] = 'Πληκτρολογήστε την IP διεύθυνση του εξυπηρετητή της βάσης δεδομένων ή το όνομα του εξυπηρετητή';
@@ -45,9 +46,11 @@ $string['defaultrole'] = 'Προεπιλεγμένος ρόλος';
 $string['defaultrole_desc'] = 'Ο ρόλος που θα ανατεθεί από προεπιλογή αν κανένας άλλος ρόλος δεν καθορίζεται στον εξωτερικό πίνακα.';
 $string['ignorehiddencourses'] = 'Αγνοήστε τα κρυφά μαθήματα';
 $string['ignorehiddencourses_desc'] = 'Αν ενεργοποιηθεί οι χρήστες δεν θα εγγράφονται στα μαθήματα που έχουν ορισθεί ως μη διαθέσιμα για τους μαθητές.';
+$string['localcategoryfield'] = 'Τοπικό πεδίο κατηγορίας';
 $string['localcoursefield'] = 'Το όνομα του πεδίου στον πίνακα μαθημάτων που χρησιμοποιείται για αντιστοίχιση με την απομακρυσμένη βάση δεδομένων (π.χ. idnumber).';
 $string['localrolefield'] = 'Το όνομα του πεδίου στον πίνακα ρόλων που χρησιμοποιείται για αντιστοίχιση με την απομακρυσμένη βάση δεδομένων (π.χ. shortname).';
 $string['localuserfield'] = 'Το όνομα του πεδίου στον πίνακα χρηστών που χρησιμοποιείται για αντιστοίχιση με την απομακρυσμένη βάση δεδομένων (π.χ. idnumber).';
+$string['newcoursecategory'] = 'Πεδίο νέας κατηγορίας μαθημάτων';
 $string['newcoursefullname'] = 'Πεδίο πλήρους ονόματος νέου μαθήματος';
 $string['newcourseidnumber'] = 'Πεδίο ID αριθμού νέου μαθήματος';
 $string['newcourseshortname'] = 'Πεδίο σύντομου ονόματος νέου μαθήματος';

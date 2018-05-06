@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'logstore_standard', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'logstore_standard', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   logstore_standard
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,4 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['buffersize'] = 'Idazteko buffer-aren tamaina';
 $string['pluginname'] = 'Agerraldi estandarra';
+$string['pluginname_desc'] = 'Ekitaldiak Moodle-ko datu-basean gordetzen dituen agerraldi-erregistro gehigarri bat.';
+$string['taskcleanup'] = 'Garbitu agerraldien taula';

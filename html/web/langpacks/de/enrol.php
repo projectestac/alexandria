@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -81,7 +81,7 @@ $string['eventuserenrolmentupdated'] = 'Nutzereinschreibung aktualisiert';
 $string['expirynotify'] = 'Benachrichtigung bevor Teilnahme endet';
 $string['expirynotifyall'] = 'Einschreibender und eingeschriebene Nutzer/innen';
 $string['expirynotifyenroller'] = 'Nur Einschreibender';
-$string['expirynotify_help'] = 'Die Einstellung legt fest, ob vor dem Ablauf der Teilnahmedauer eine Benachrichtigung erfolgen soll.';
+$string['expirynotify_help'] = 'Die Einstellung legt fest, ob vor Ablauf der Teilnahmedauer eine Benachrichtigung erfolgen soll.';
 $string['expirynotifyhour'] = 'Stunde zum Versand der Ablaufmitteilungen';
 $string['expirythreshold'] = 'Benachrichtigungsgrenze';
 $string['expirythreshold_help'] = 'Wie lange vor dem Ablauf sollen Nutzer/innen benachrichtigt werden?';
@@ -104,7 +104,7 @@ $string['migratetomanual'] = 'Auf manuelle Einschreibung ändern';
 $string['nochange'] = 'Ohne Änderung';
 $string['noexistingparticipants'] = 'Keine existierenden Teilnehmer/innen';
 $string['nogroup'] = 'Keine Gruppe';
-$string['noguestaccess'] = 'Gäste dürfen nicht auf diesen Kurs zugreifen. Melden Sie sich bitte an.';
+$string['noguestaccess'] = 'Gäste dürfen nicht auf diesen Kurs zugreifen. Melden Sie sich an.';
 $string['none'] = 'Keine';
 $string['notenrollable'] = 'Sie können sich nicht selbst in diesen Kurs einschreiben.';
 $string['notenrolledusers'] = 'Weitere Nutzer/innen';
@@ -122,6 +122,9 @@ $string['rolefromcategory'] = '{$a->role} (vererbt vom Kursbereich)';
 $string['rolefrommetacourse'] = '{$a->role} (vererbt aus Kurszuordnung)';
 $string['rolefromsystem'] = '{$a->role} (zugewiesen für die Website)';
 $string['rolefromthiscourse'] = '{$a->role} (zugewiesen in diesem Kurs)';
+$string['sendfromcoursecontact'] = 'Vom Kurskontakt';
+$string['sendfromkeyholder'] = 'Vom Einschreibeschlüssel-Halter';
+$string['sendfromnoreply'] = 'Von der Nicht-Antworten-Adresse';
 $string['startdatetoday'] = 'Heute';
 $string['synced'] = 'synchronisiert';
 $string['testsettings'] = 'Einstellungen prüfen';

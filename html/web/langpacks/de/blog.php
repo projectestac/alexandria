@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'blog', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -89,10 +89,15 @@ $string['entryerrornotyours'] = 'Dies ist kein eigener Beitrag';
 $string['entrysaved'] = 'Beitrag wurde gespeichert';
 $string['entrytitle'] = 'Titel';
 $string['eventblogassociationadded'] = 'Blogverknüpfung angelegt';
+$string['eventblogassociationdeleted'] = 'Blogverbindung gelöscht';
 $string['eventblogentriesviewed'] = 'Blogeinträge angezeigt';
+$string['eventblogexternaladded'] = 'Externer Blog verbunden';
+$string['eventblogexternalremoved'] = 'Externer Blog unverbunden';
+$string['eventblogexternalupdated'] = 'Externer Blog aktualisiert';
 $string['evententryadded'] = 'Blogeintrag hinzugefügt';
 $string['evententrydeleted'] = 'Blogeintrag gelöscht';
 $string['evententryupdated'] = 'Beitrag aktualisiert';
+$string['eventexternalblogsviewed'] = 'Extern verbundene Blogs angezeigt';
 $string['externalblogcrontime'] = 'Cronjob für externe Blogs';
 $string['externalblogdeleteconfirm'] = 'Diesen externen Blog abmelden?';
 $string['externalblogdeleted'] = 'Externer Blog ist nicht registriert';
@@ -116,13 +121,13 @@ $string['myprofileuserblogs'] = 'Alle Blogbeiträge anzeigen';
 $string['name'] = 'Name';
 $string['name_help'] = 'Geben Sie einen beschreibenden Namen für Ihren externen Blog an. Falls kein Name eingetragen ist, wird der Titel des externen Blogs benutzt.';
 $string['noentriesyet'] = 'Keine sichtbaren Beiträge';
-$string['noguestpost'] = 'Gäste dürfen keine Blogeinträge veröffentlichen!';
+$string['noguestpost'] = 'Gäste dürfen keine Blogeinträge schreiben.';
 $string['nopermissionstodeleteentry'] = 'Sie haben nicht die erforderliche Rechte zum Löschen dieses Blogeintrags';
 $string['norighttodeletetag'] = 'Sie dürfen dieses Schlagwort nicht löschen: {$a}';
 $string['nosuchentry'] = 'Kein solcher Blogeintrag vorhanden';
 $string['notallowedtoedit'] = 'Sie haben nicht das Recht, diesen Beitrag zu bearbeiten.';
 $string['numberofentries'] = 'Einträge: {$a}';
-$string['numberoftags'] = 'Zahl der gezeigenden Schlagwörter';
+$string['numberoftags'] = 'Zahl der angezeigten Schlagwörter';
 $string['page-blog-edit'] = 'Blogbearbeitungsseiten';
 $string['page-blog-index'] = 'Bloganzeigeseiten';
 $string['page-blog-x'] = 'Alle Blogseiten';
@@ -151,7 +156,6 @@ $string['retrievedfrom'] = 'Wiederhergestellt von';
 $string['rssfeed'] = 'RSS Feed für diesen Blog';
 $string['searchterm'] = 'Suche: {$a}';
 $string['settingsupdatederror'] = 'Fehler: Die Blogeinstellungen konnten nicht aktualisiert werden.';
-$string['siteblog'] = 'Website-Blog: {$a}';
 $string['siteblogdisable'] = 'Website-Blogs wurden nicht aktiviert';
 $string['siteblogheading'] = 'Website-Blog';
 $string['siteblogs'] = 'Nach Anmeldung auf der Website sichtbar';
@@ -179,7 +183,7 @@ $string['viewcourseblogs'] = 'Alle Beiträge zum Kurs';
 $string['viewentriesbyuseraboutcourse'] = 'Beiträge zum Kurs von {$a}';
 $string['viewgroupblogs'] = 'Alle Beiträge für Gruppe ...';
 $string['viewgroupentries'] = 'Gruppenbeiträge';
-$string['viewmodblogs'] = 'Alle Beiträge zu Modul ...';
+$string['viewmodblogs'] = 'Alle Beiträge zu ...';
 $string['viewmodentries'] = 'Modulbeiträge';
 $string['viewmyentries'] = 'Meine Beiträge';
 $string['viewmyentriesaboutcourse'] = 'Meine Beiträge zum Kurs';
@@ -187,4 +191,5 @@ $string['viewmyentriesaboutmodule'] = 'Meine Beiträge zu {$a}';
 $string['viewsiteentries'] = 'Alle Beiträge';
 $string['viewuserentries'] = 'Alle Beiträge von {$a}';
 $string['worldblogs'] = 'Ohne Anmeldung weltweit für alle sichtbar';
+$string['wrongexternalid'] = 'Falsche externe Blog-ID';
 $string['wrongpostid'] = 'Falsche Blogeintrag-ID';

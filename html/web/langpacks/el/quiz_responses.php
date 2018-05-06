@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_responses', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz_responses', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz_responses
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,3 +36,7 @@ $string['responsesoptions'] = 'Επιλογές απαντήσεων';
 $string['responsesreport'] = 'Αναφορά απαντήσεων';
 $string['responsestitle'] = 'Αναλυτικές απαντήσεις';
 $string['rightanswerx'] = 'Σωστή απάντηση {$a}';
+$string['showattempts'] = 'Μόνο εμφάνιση / λήψη προσπαθειών';
+$string['summaryofquestiontext'] = 'Σύνοψη ερώτησης';
+$string['summaryofresponse'] = 'Σύνοψη απάντησης που δόθηκε';
+$string['summaryofrightanswer'] = 'Σύνοψη σωστής απάντησης';

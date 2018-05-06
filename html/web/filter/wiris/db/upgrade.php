@@ -30,7 +30,7 @@ function xmldb_filter_wiris_upgrade($oldversion) {
 
     $dbman = $DB->get_manager();
 
-    if ($oldversion <= 2016101700) {
+    if ($oldversion < 2016101701) {
          // Define table filter_wiris to be created.
         $table = new xmldb_table('filter_wiris_formulas');
 
@@ -73,6 +73,48 @@ function xmldb_filter_wiris_upgrade($oldversion) {
 
         // Wiris savepoint reached.
         upgrade_plugin_savepoint(true, 2017030100, 'filter', 'wiris');
+    }
+
+    if ($oldversion < 2017050800) {
+
+        // Define field timecreated to be added to filter_wiris_formulas.
+        $table = new xmldb_table('filter_wiris_formulas');
+        $field = new xmldb_field('timecreated', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'alt');
+
+        // Conditionally launch add field timecreated.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Keys with utf8mb4 collation have a maxium of 191 characters
+        // This collation is recommended in Moodle 3.3 and upcoming versions: https://tracker.moodle.org/browse/MDL-54901.
+
+        // Define key md5 (unique) to be dropped form filter_wiris_formulas.
+        $table = new xmldb_table('filter_wiris_formulas');
+        $index = new xmldb_index('md5', XMLDB_INDEX_UNIQUE, array('md5'));
+
+        $dbman->drop_index($table, $index);
+
+        $table = new xmldb_table('filter_wiris_formulas');
+        $field = new xmldb_field('md5', XMLDB_TYPE_CHAR, '128', null, XMLDB_NOTNULL, null, null, 'id');
+
+        // Launch change of precision for field md5.
+        $dbman->change_field_precision($table, $field);
+
+        $key = new xmldb_key('md5', XMLDB_KEY_UNIQUE, array('md5'));
+
+        // Launch add key md5.
+        $dbman->add_key($table, $key);
+
+        // Wiris savepoint reached.
+        upgrade_plugin_savepoint(true, 2017050800, 'filter', 'wiris');
+    }
+
+    if ($oldversion < 2017102400) {
+        unset_config('filter_wiris_editor_enable');
+        unset_config('filter_wiris_chem_editor_enable');
+        // Wiris savepoint reached.
+        upgrade_plugin_savepoint(true, 2017102400, 'filter', 'wiris');
     }
 
     return true;

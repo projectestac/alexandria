@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_upload', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository_upload', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   repository_upload
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['configplugin'] = 'アップロードプラグインの設定';
 $string['pluginname'] = 'ファイルのアップロード';
 $string['pluginname_help'] = 'ファイルをMoodleにアップロードする';
 $string['upload_error_cant_write'] = 'ディスクへのファイル書き込みに失敗しました。';
-$string['upload_error_extension'] = 'ファイルアップロードに関して、PHP実行が停止しました。';
+$string['upload_error_extension'] = 'ファイルアップロードに関してPHP実行が停止しました。';
 $string['upload_error_form_size'] = 'アップロードファイルがHTMLフォームで指定されているMAX_FILE_SIZEディレクティブを超えました。';
 $string['upload_error_ini_size'] = 'アップロードファイルがphp.iniのupload_max_filesizeディレクティブを超えました。';
 $string['upload_error_invalid_file'] = 'ファイル「 {$a} 」は空またはフォルダです。フォルダをアップロードするには最初にZIP圧縮してください。';

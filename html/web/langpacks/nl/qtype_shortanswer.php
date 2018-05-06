@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_shortanswer', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_shortanswer', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_shortanswer
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['addmoreanswerblanks'] = 'Lege lijnen voor {no} meer antwoorden';
 $string['answer'] = 'Antwoord: {$a}';
 $string['answermustbegiven'] = 'Je moet een antwoord ingeven als er een cijfer of feedback is';
 $string['answerno'] = 'Antwoord {$a}';
-$string['caseno'] = 'Neen, niet hoofdlettergevoelig';
+$string['caseno'] = 'Nee, niet hoofdlettergevoelig';
 $string['casesensitive'] = 'Hoofdlettergevoelig';
 $string['caseyes'] = 'Ja, hoofdlettergevoelig';
 $string['correctansweris'] = 'Het juiste antwoord is: {$a}';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'data', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -46,7 +46,7 @@ $string['autogenallforms'] = 'すべてのデフォルトテンプレートを�
 $string['autolinkurl'] = 'URLにオートリンクする';
 $string['availablefromdate'] = '開始日時';
 $string['availabletags'] = '利用可能なタグ';
-$string['availabletags_help'] = 'タグはエントリが編集または閲覧されるときにフィールドや他のアイテムと置換されるテンプレート内の入れ物です。
+$string['availabletags_help'] = 'タグはエントリが編集または閲覧される時にフィールドや他のアイテムと置換されるテンプレート内の入れ物です。
 
 フィールドは次のようなフォーマットとなります: [fieldname]]。他のタグすべては次のようなフォーマットとなります:  ##sometag##
 
@@ -56,6 +56,8 @@ $string['availabletodatevalidation'] = '終了日時を開始日時の前にす�
 $string['blank'] = 'ブランク';
 $string['buttons'] = '操作';
 $string['bynameondate'] = '{$a->date} - {$a->name} の投稿';
+$string['calendarend'] = 'データベース {$a} 終了';
+$string['calendarstart'] = 'データベース {$a} 開始';
 $string['cancel'] = 'キャンセル';
 $string['cannotaccesspresentsother'] = 'あなたは他のユーザのプリセットへのアクセスを許可されていません。';
 $string['cannotadd'] = 'エントリを追加できません!';
@@ -97,6 +99,7 @@ $string['data:managetemplates'] = 'テンプレートを管理する';
 $string['data:manageuserpresets'] = 'すべてのテンプレートプリセットを管理する';
 $string['data:rate'] = 'エントリを評価する';
 $string['data:readentry'] = 'エントリを読む';
+$string['data:view'] = 'データベース活動を表示する';
 $string['data:viewallratings'] = '個別のユーザから与えられた実評価すべてを表示する';
 $string['data:viewalluserpresets'] = 'すべてのユーザのプリセットを表示する';
 $string['data:viewanyrating'] = 'すべてのユーザが受けた評価合計を表示する';
@@ -127,6 +130,7 @@ $string['editordisable'] = 'エディタを無効にする';
 $string['editorenable'] = 'エディタを有効にする';
 $string['emptyadd'] = '追加用テンプレートが空です。デフォルトフォームを生成しています ...';
 $string['emptyaddform'] = 'あなたはどのフィールドにも入力していません!';
+$string['enabletemplateeditorcheck'] = '本当にエディタを有効にしてもよろしいですか? テンプレート保存時にコンテンツが変更されてしまうことになります。';
 $string['entries'] = 'エントリ';
 $string['entrieslefttoadd'] = 'この活動を完了するにはさらに {$a->entriesleft} 件以上のエントリを追加してください。';
 $string['entrieslefttoaddtoview'] = '他の参加者のエントリを閲覧するにはさらに {$a->entrieslefttoview} 件以上のエントリを追加してください。';
@@ -335,6 +339,7 @@ $string['savesuccess'] = '正常に保存されました。あなたのプリセ
 $string['savetemplate'] = 'テンプレートを保存する';
 $string['search'] = '検索';
 $string['search:activity'] = 'データベース - 活動情報';
+$string['search:entry'] = 'データベース - エントリ';
 $string['selectedrequired'] = '選択したすべてを含む';
 $string['showall'] = 'すべてのエントリを表示する';
 $string['single'] = '個別表示';
@@ -352,18 +357,18 @@ $string['timeadded'] = '追加日時';
 $string['timemodified'] = '修正日時';
 $string['todatabase'] = '>> データベース';
 $string['type'] = 'フィールドタイプ';
-$string['undefinedprocessactionmethod'] = 'アクション「 {$a} 」を処理するためのメソッドがData_Presetに定義されていません。';
+$string['undefinedprocessactionmethod'] = 'アクション「 {$a} 」を処理するためのアクションメソッドがData_Presetに定義されていません。';
 $string['unsupportedexport'] = '({$a->fieldtype}) をエクスポートできません。';
 $string['updatefield'] = '既存のフィールドを更新します。';
 $string['uploadfile'] = 'ファイルをアップロードする';
 $string['uploadrecords'] = 'ファイルからエントリをアップロードする';
-$string['uploadrecords_help'] = 'エントリはテキストファイル経由でアップロードすることができます。ファイルのフォーマットは下記のとおりです:
+$string['uploadrecords_help'] = 'テキストファイルによりエントリをアップロードすることができます。ファイルのフォーマットは以下のとおりです:
 
 * それぞれの行には1レコードを含みます。
 * それぞれのレコードはカンマ (または他のデリミタ) で区切られた一連のデータです。
 * 最初のレコードにはファイル内の残りのレコードを定義するフィールド名一覧を含みます。
 
-フィールドエンクロージャはレコード内のフィールド囲む文字です。通常、設定する必要はありません。';
+フィールド囲み文字はレコード内のフィールドを囲む文字です。通常、設定する必要はありません。';
 $string['url'] = 'URL';
 $string['usedate'] = '検索に含む';
 $string['usestandard'] = 'プリセットを使用する';

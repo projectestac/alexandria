@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'chat', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,6 +42,7 @@ $string['chat:readlog'] = 'Ver registros de chat';
 $string['chatreport'] = 'Sesiones';
 $string['chat:talk'] = 'Hablar en un chat';
 $string['chattime'] = 'Próxima cita';
+$string['chat:view'] = 'Ver actividad del chat';
 $string['compact'] = 'Compacto';
 $string['composemessage'] = 'Escriba un mensaje';
 $string['configmethod'] = 'El método ajax del chat trabaja de forma interna contactando de forma regular con el servidor para llevar a cabo las actualizaciones.
@@ -126,6 +127,7 @@ $string['repeattimes'] = 'Repetir/publicar tiempo de las sesiones';
 $string['repeatweekly'] = 'A la misma hora todas las semanas';
 $string['saidto'] = 'dicho a';
 $string['savemessages'] = 'Guardar sesiones pasadas';
+$string['search:activity'] = 'Chat - información de actividad';
 $string['seesession'] = 'Ver esta sesión';
 $string['send'] = 'Enviar';
 $string['sending'] = 'Enviando';
@@ -137,7 +139,7 @@ $string['sessions'] = 'Sesiones';
 $string['sessionstart'] = 'La próxima sesión de chat empezará el {$a->date}, (dentro de {$a->fromnow})';
 $string['strftimemessage'] = '%H:%M';
 $string['studentseereports'] = 'Todos pueden ver las sesiones pasadas';
-$string['studentseereports_help'] = 'Si se selecciona \'No\', solo los usuarios que tienen el permiso \'mod/chat:readlog\' pueden ver los registros de chat';
+$string['studentseereports_help'] = 'Si se selecciona \'No\', solo los usuarios que tienen la capacidad \'mod/chat:readlog\' pueden ver los registros de chat';
 $string['talk'] = 'Charla';
 $string['updatemethod'] = 'Actualizar método';
 $string['updaterate'] = 'Tasa de Actualización:';

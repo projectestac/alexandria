@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_mnet', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_mnet', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_mnet
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,5 +36,5 @@ $string['rpc_negotiation_timeout'] = 'RPCネゴシエーションタイムアウ
 $string['sso_idp_description'] = 'このサービスを公開するにより、あなたのユーザは再度ログインせずに {$a} サイトを散策することができます。<ul><li><em>従属関係</em>: あなたは {$a} のSSO (サービスプロバイダ) サービスに<strong>登録</strong>する必要があります。</li></ul><br />このサービスに登録することにより、{$a} からの認証済みユーザは再度ログインせずにあなたのサイトにアクセスできます。<ul><li><em>従属関係</em>: あなたは {$a} にSSO (サービスプロバイダ) サービスを<strong>公開</strong>する必要があります。</li></ul><br />';
 $string['sso_idp_name'] = 'SSO (アイデンティティプロバイダ)';
 $string['sso_mnet_login_refused'] = 'ユーザ名 {$a->user} は {$a->host} からのログインを許可されていません。';
-$string['sso_sp_description'] = 'このサービスを公開することにより、{$a} からの認証済みユーザは、再度ログインせずにあなたのサイトにアクセスできます。<ul><li><em>従属関係</em>: あなたは {$a} のSSO (アイデンティティプロバイダ) サービスに<strong>登録</strong>する必要があります。</li></ul><br />このサービスに登録することにより、あなたのユーザは再度ログインせずに {$a} サイトを散策することができます。<ul><li><em>従属関係</em>: あなたは {$a} にSSO (アイデンティティプロバイダ) サービスを<strong>公開</strong>する必要があります。</li></ul><br />';
+$string['sso_sp_description'] = 'このサービスを公開することにより {$a} からの認証済みユーザは再度ログインせずにあなたのサイトにアクセスできます。<ul><li><em>従属関係</em>: あなたは {$a} のSSO (アイデンティティプロバイダ) サービスに<strong>登録</strong>する必要があります。</li></ul><br />このサービスに登録することによりあなたのユーザは再度ログインせずに {$a} サイトを散策することができます。<ul><li><em>従属関係</em>: あなたは {$a} にSSO (アイデンティティプロバイダ) サービスを<strong>公開</strong>する必要があります。</li></ul><br />';
 $string['sso_sp_name'] = 'SSO (サービスプロバイダ)';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_wiris', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'atto_wiris', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   atto_wiris
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['error_connection'] = 'Ocorreu um erro ao carregar o módulo WIRIS';
 $string['pluginname'] = 'Módulo WIRIS para Atto';
 $string['wiris_cas_title'] = 'Calculadora';
 $string['wiris_chem_editor_title'] = 'Editor de Química';

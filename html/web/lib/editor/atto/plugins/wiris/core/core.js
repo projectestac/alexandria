@@ -1,7 +1,7 @@
 var _wrs_popupWindow;
 
 wrs_addEvent(window, 'message', function (e) {
-    if (e.source = _wrs_popupWindow && typeof e.wrs_processed == 'undefined') {
+    if (e.source = _wrs_popupWindow && typeof e.wrs_processed == 'undefined' && typeof e.data.isWirisMessage != 'undefined') {
         e.wrs_processed = true;
         var postVariable = {};
         postVariable.id = e.data.id;
@@ -21,6 +21,33 @@ wrs_addEvent(window, 'message', function (e) {
     }
 });
 
+/**
+ * Fires an element event.
+ * @param {object} element element where event should be fired.
+ * @param {string} event event to fire.
+ * @ignore
+ */
+function wrs_fireEvent(element, event) {
+    if (document.createEvent){
+        var eventObject = document.createEvent('HTMLEvents');
+        eventObject.initEvent(event, true, true);
+        return !element.dispatchEvent(eventObject);
+    }
+
+    var eventObject = document.createEventObject();
+    return element.fireEvent('on' + event, eventObject)
+}
+
+wrs_addEvent(window, 'mouseup', function (e) {
+
+    if (typeof(_wrs_modalWindow) !== 'undefined' && _wrs_modalWindow != null) {
+        if (_wrs_modalWindow.properties.state != "maximized") {
+            _wrs_modalWindow.overlayDiv.style.display = 'none';
+        }
+        _wrs_modalWindow.fireEditorEvent('mouseup');
+    }
+});
+
 // Vars.
 var _wrs_currentPath = window.location.toString().substr(0, window.location.toString().lastIndexOf('/') + 1);
 var _wrs_editMode = typeof _wrs_editMode != 'undefined' ? _wrs_editMode : undefined;
@@ -32,7 +59,7 @@ var _wrs_range;
 // LaTex client cache.
 var _wrs_int_LatexCache = {};
 
-// Accessible client cache
+// Accessible client cache.
 var _wrs_int_AccessibleCache = {};
 
 var _wrs_xmlCharacters = {
@@ -75,6 +102,9 @@ var _wrs_staticNodeLengths = {
     'IMG': 1,
     'BR': 1
 }
+
+// Translated languages.
+var _wrs_languages = 'ar,ca,cs,da,de,en,es,et,eu,fi,fr,gl,he,hr,hu,it,ja,ko,nl,no,pl,pt,pt_br,ru,sv,tr,zh,el';
 
 // Backwards compatibily.
 
@@ -259,7 +289,7 @@ function wrs_addClass(element, className) {
  * @ignore
  */
 function wrs_containsClass(element, className) {
-    if (!('className' in element)) {
+    if (element == null || !('className' in element)) {
         return false;
     }
 
@@ -547,6 +577,12 @@ function wrs_createObject(objectCode, creator) {
  * @ignore
  */
 function wrs_createObjectCode(object) {
+
+    // In case that the image was not created, the object can be null or undefined.
+    if (typeof object == 'undefined' || object == null) {
+        return;
+    }
+
     if (object.nodeType == 1) { // ELEMENT_NODE.
         var output = '<' + object.tagName;
 
@@ -771,36 +807,18 @@ function wrs_endParseSaveMode(code) {
         if (_wrs_conf_saveMode == 'safeXml') {
             convertToXml = true;
             convertToSafeXml = true;
+            code = wrs_codeImgTransform(code, 'img2mathml');
         }
         else if (_wrs_conf_saveMode == 'xml') {
             convertToXml = true;
+            code = wrs_codeImgTransform(code, 'img2mathml');
+        }
+        else if (_wrs_conf_saveMode == 'base64' && _wrs_conf_editMode == 'image') {
+            code = wrs_codeImgTransform(code, 'img264');
         }
     }
 
-    if (_wrs_conf_saveMode == 'base64' && _wrs_conf_editMode == 'image') {
-        code = wrs_codeImgTransform(code, 'img264');
-    } else if (convertToXml || convertToSafeXml) {
-        code = wrs_codeImgTransform(code, 'img2mathml');
-    }
-
     return code;
-}
-
-/**
- * Fires an element event.
- * @param {object} element element where event should be fired.
- * @param {string} event event to fire.
- * @ignore
- */
-function wrs_fireEvent(element, event) {
-    if (document.createEvent){
-        var eventObject = document.createEvent('HTMLEvents');
-        eventObject.initEvent(event, true, true);
-        return !element.dispatchEvent(eventObject);
-    }
-
-    var eventObject = document.createEventObject();
-    return element.fireEvent('on' + event, eventObject)
 }
 
 /**
@@ -885,7 +903,15 @@ function wrs_getLatexFromMathML(mathml) {
         'mml': mathml
     };
 
-    return wrs_getContent(_wrs_conf_servicePath, data);
+    var jsonResponse = JSON.parse(wrs_getContent(_wrs_conf_servicePath, data));
+
+    var latex;
+
+    if (jsonResponse.status == "ok") {
+        latex = jsonResponse.result.text;
+    }
+
+    return latex;
 }
 
 /**
@@ -1010,10 +1036,19 @@ function wrs_getMathMLFromLatex(latex, includeLatexOnSemantics) {
         data['saveLatex'] = '';
     }
 
-    var mathML = wrs_getContent(_wrs_conf_servicePath, data);
-    // Populate LatexCache.
-    wrs_populateLatexCache(latex, mathML);
-    return mathML.split("\r").join('').split("\n").join(' ');
+    var jsonResponse = JSON.parse(wrs_getContent(_wrs_conf_servicePath, data));
+
+    var output;
+    if (jsonResponse.status == "ok") {
+        var output = jsonResponse.result.text;
+        output = output.split("\r").join('').split("\n").join(' ');
+        // Populate LatexCache.
+        wrs_populateLatexCache(latex, output);
+    } else {
+        output = "$$" + latex + "$$";
+    }
+
+    return output;
 }
 
 /**
@@ -1495,8 +1530,6 @@ function wrs_getElementsByNameFromString(code, name, autoClosed) {
  */
 function wrs_insertElementOnSelection(element, focusElement, windowTarget) {
     try {
-        focusElement.focus();
-
         // Integration function
         // If wrs_int_insertElementOnSelection function exists on
         // integration script can call focus method from the editor instance.
@@ -1505,6 +1538,12 @@ function wrs_insertElementOnSelection(element, focusElement, windowTarget) {
         // help's WIRIS plugin to focus properly on the current editor window.
         if (typeof wrs_int_insertElementOnSelection != 'undefined') {
             wrs_int_insertElementOnSelection();
+            if (!_wrs_range) {
+                focusElement.focus();
+            }
+        }
+        else {
+            focusElement.focus();
         }
 
         if (_wrs_isNewElement) {
@@ -1569,6 +1608,14 @@ function wrs_insertElementOnSelection(element, focusElement, windowTarget) {
                     range.selectNode(element);
                     position = range.endOffset;
                     selection.collapse(node, position);
+                    // Integration function
+                    // If wrs_int_setCaretPosition function exists on
+                    // integration script can call caret method from the editor instance.
+                    // With this method we can call proper specific editor methods which in some scenarios
+                    // help's WIRIS plugin to set caret position properly on the current editor window.
+                    if (typeof wrs_int_selectRange != 'undefined') {
+                        wrs_int_selectRange(range);
+                    }
                 }
             }
         }
@@ -1706,11 +1753,6 @@ function wrs_mathmlEncode(input) {
     input = input.split(_wrs_xmlCharacters.ampersand).join(_wrs_safeXmlCharacters.ampersand);
     input = input.split(_wrs_xmlCharacters.quote).join(_wrs_safeXmlCharacters.quote);
 
-    // Transform ="<" --> "&lt;".
-    // Transform =">" --> "&gt;".
-    // input = input.split("=" + _wrs_safeXmlCharacters.doubleQuote + _wrs_safeXmlCharacters.tagOpener + _wrs_safeXmlCharacters.doubleQuote).join("=" + _wrs_safeXmlCharacters.doubleQuote + "&lt;" + _wrs_safeXmlCharacters.doubleQuote);
-    // input = input.split("=" + _wrs_safeXmlCharacters.doubleQuote + _wrs_safeXmlCharacters.tagCloser + _wrs_safeXmlCharacters.doubleQuote).join("=" + _wrs_safeXmlCharacters.doubleQuote + "&gt;" + _wrs_safeXmlCharacters.doubleQuote);
-
     return input;
 }
 
@@ -1724,11 +1766,16 @@ function wrs_mathmlEntities(mathml) {
     var toReturn = '';
 
     for (var i = 0; i < mathml.length; ++i) {
+
         var character = mathml.charAt(i);
 
         // Parsing > 128 characters.
-        if (mathml.charCodeAt(i) > 128) {
-            toReturn += '&#' + mathml.charCodeAt(i) + ';';
+        if (mathml.codePointAt(i) > 128) {
+            toReturn += '&#' + mathml.codePointAt(i) + ';'
+            // For UTF-32 characters we need to move the index one position.
+            if (mathml.codePointAt(i) > 0xffff) {
+                i++;
+            }
         }
         else if (character == '&') {
             var end = mathml.indexOf(';', i + 1);
@@ -1823,7 +1870,14 @@ function wrs_mathmlToAccessible(mathml, language, data) {
     }
     else {
         data['service'] = 'mathml2accessible';
-        var accessibleText = wrs_getContent(_wrs_conf_servicePath, data);
+        data['lang'] = _wrs_int_langCode;
+        var accesibleJsonResponse = JSON.parse(wrs_getContent(_wrs_conf_servicePath, data));
+        if (accesibleJsonResponse.status != 'error') {
+            accessibleText = accesibleJsonResponse.result.text;
+        }
+        else {
+            accessibleText = 'Error converting from MathML to accessible text.';
+        }
     }
 
     return accessibleText;
@@ -1927,7 +1981,7 @@ function wrs_mathmlToImgObject(creator, mathml, wirisProperties, language) {
     var baseline;
     var imgObject = creator.createElement('img');
     imgObject.align = 'middle';
-
+    imgObject.style.maxWidth = 'none';
     var data = (wirisProperties) ? wirisProperties : {};
 
     if (window._wrs_conf_useDigestInsteadOfMathml && _wrs_conf_useDigestInsteadOfMathml) {
@@ -1935,6 +1989,7 @@ function wrs_mathmlToImgObject(creator, mathml, wirisProperties, language) {
     }
 
     data['mml'] = mathml;
+    data['lang'] = language;
 
     if (_wrs_conf_setSize) {
         // Request metrics of the generated image.
@@ -1963,13 +2018,19 @@ function wrs_mathmlToImgObject(creator, mathml, wirisProperties, language) {
         imgObject.setAttribute('data-custom-editor', mathmlSubstring);
     }
 
-    // Performance enabled
+    // Performance enabled.
     if (_wrs_conf_wirisPluginPerformance && (_wrs_conf_saveMode == 'xml' || _wrs_conf_saveMode == 'safeXml')) {
 
         var result = JSON.parse(wrs_createShowImageSrc(mathml, data, language));
         if (result["status"] == 'warning') {
             // POST call.
-             result = JSON.parse(wrs_getContent(_wrs_conf_showimagePath, data));
+            // if the mathml is malformed, this function will throw an exception.
+            try {
+                result = JSON.parse(wrs_getContent(_wrs_conf_showimagePath, data));
+            }
+            catch (e) {
+                return;
+            }
         }
         result = result.result;
         if (result['format'] == 'png') {
@@ -2086,8 +2147,14 @@ function wrs_openEditorWindow(language, target, isIframe) {
     }
 
     try {
-        var selection = target.contentWindow.getSelection();
-        _wrs_range = selection.getRangeAt(0);
+        if (isIframe) {
+            var selection = target.contentWindow.getSelection();
+            _wrs_range = selection.getRangeAt(0);
+        }
+        else {
+            var selection = getSelection();
+            _wrs_range = selection.getRangeAt(0);
+        }
     }
     catch (e) {
         _wrs_range = null;
@@ -2120,7 +2187,12 @@ function wrs_openEditorWindow(language, target, isIframe) {
     _wrs_temporalRange = null;
 
     if (target) {
-        var selectedItem = wrs_getSelectedItem(target, isIframe);
+        var selectedItem;
+        if (typeof wrs_int_getSelectedItem != 'undefined') {
+            selectedItem = wrs_int_getSelectedItem(target, isIframe);
+        } else {
+            selectedItem = wrs_getSelectedItem(target, isIframe);
+        }
 
         if (selectedItem != null) {
             if (selectedItem.caretPosition === undefined) {
@@ -2174,7 +2246,7 @@ function wrs_openEditorWindow(language, target, isIframe) {
     }
 
     var title = wrs_int_getCustomEditorEnabled() != null ? wrs_int_getCustomEditorEnabled().title : 'WIRIS EDITOR math';
-    if (!_wrs_conf_modalWindow) {
+    if (typeof _wrs_conf_modalWindow != 'undefined' && _wrs_conf_modalWindow === false) {
         _wrs_popupWindow = window.open(path, title, _wrs_conf_editorAttributes);
         return _wrs_popupWindow;
     }
@@ -2186,11 +2258,10 @@ function wrs_openEditorWindow(language, target, isIframe) {
             var fileref = document.createElement("link");
             fileref.setAttribute("rel", "stylesheet");
             fileref.setAttribute("type", "text/css");
-            fileref.setAttribute("href", window.parent._wrs_conf_path + '/core/modal.css');
+            fileref.setAttribute("href", wrs_concatenateUrl(_wrs_conf_path, '/core/modal.css'));
             document.getElementsByTagName("head")[0].appendChild(fileref);
             _wrs_css_loaded = true;
         }
-        _wrs_modalWindow.setTitle(title);
         _wrs_modalWindow.open();
     }
 }
@@ -2412,13 +2483,13 @@ wrs_PluginEvent.prototype.preventDefault = function () {
 }
 
 /**
- * Fires one WIRIS event
+ * Fires WIRIS plugin event listeners
  * @param  {String} eventName event name
  * @param  {Object} e         event properties
  * @return {bool}             false if event has been prevented.
  * @ignore
  */
-function wrs_fireEvent(eventName, e) {
+function wrs_fireEventListeners(eventName, e) {
     for (var i = 0; i < wrs_pluginListeners.length && !e.cancelled; ++i) {
         if (wrs_pluginListeners[i][eventName]) {
             // Calling listener.
@@ -2447,6 +2518,8 @@ function wrs_updateFormula(focusElement, windowTarget, mathml, wirisProperties, 
     // - editMode (read only)
     // - wirisProperties
     // - language (read only).
+
+    editMode = editMode !== null ? editMode : _wrs_editMode;
     var e = new wrs_PluginEvent();
 
     e.mathml = mathml;
@@ -2463,7 +2536,7 @@ function wrs_updateFormula(focusElement, windowTarget, mathml, wirisProperties, 
     e.language = language;
     e.editMode = editMode;
 
-    if (wrs_fireEvent('onBeforeFormulaInsertion', e)) {
+    if (wrs_fireEventListeners('onBeforeFormulaInsertion', e)) {
         return;
     }
 
@@ -2494,7 +2567,7 @@ function wrs_updateFormula(focusElement, windowTarget, mathml, wirisProperties, 
         wrs_insertElementOnSelection(e.node, focusElement, windowTarget);
     }
 
-    if (wrs_fireEvent('onAfterFormulaInsertion', e)) {
+    if (wrs_fireEventListeners('onAfterFormulaInsertion', e)) {
         return;
     }
 }
@@ -2538,7 +2611,7 @@ function wrs_urldecode(input) {
 function wrs_urlencode(clearString) {
     var output = '';
     // Method encodeURIComponent doesn't encode !'()*~ .
-    output = encodeURIComponent(clearString).replace(/!/g, '%21').replace(/'/g, '%27').replace(/\(/g, '%28').replace(/\)/g, '%29').replace(/\*/g, '%2A').replace(/~/g, '%7E');
+    output = encodeURIComponent(clearString);
     return output;
 }
 
@@ -2576,12 +2649,26 @@ function wrs_setImgSize(img, url, json) {
     if (json) {
         // Cleaning data:image/png;base64.
         if (_wrs_conf_imageFormat == 'svg') {
-            var ar = getMetricsFromSvgString(url);
+            // SVG format.
+            // If SVG is encoded in base64 we need to convert the base64 bytes into a SVG string.
+            if (_wrs_conf_saveMode != 'base64') {
+                var ar = getMetricsFromSvgString(url);
+            } else {
+                var base64String = img.src.substr( img.src.indexOf('base64,') + 7, img.src.length);
+                var svgString = '';
+                var bytes = wrs_b64ToByteArray(base64String, base64String.length);
+                for (var i = 0; i < bytes.length; i++) {
+                    svgString += String.fromCharCode(bytes[i]);
+                }
+                var ar = getMetricsFromSvgString(svgString);
+            }
+            // PNG format: we store all metrics information in the first 88 bytes.
         } else {
             var base64String = img.src.substr( img.src.indexOf('base64,') + 7, img.src.length);
-            bytes = wrs_b64ToByteArray(base64String, 88);
+            var bytes = wrs_b64ToByteArray(base64String, 88);
             var ar = wrs_getMetricsFromBytes(bytes);
         }
+        // Backwards compatibility: we store the metrics into createimage response.
     } else {
         var ar = wrs_urlToAssArray(url);
     }
@@ -2606,14 +2693,16 @@ function wrs_fixAfterResize(img) {
     img.removeAttribute('style');
     img.removeAttribute('width');
     img.removeAttribute('height');
+    // In order to avoid resize with max-width css property.
+    img.style.maxWidth = 'none';
     if (_wrs_conf_setSize) {
         if (img.src.indexOf("data:image") != -1) {
             if (_wrs_conf_imageFormat == 'svg') {
-                // data:image/svg+xml;charset=utf8, = 32
+                // ...data:image/svg+xml;charset=utf8, = 32.
                 var svg = wrs_urldecode(img.src.substring(32, img.src.length))
                 wrs_setImgSize(img, svg, true);
             } else {
-                // data:image/png;base64, == 22
+                // ...data:image/png;base64, == 22.
                 var base64 = img.src.substring(22,img.src.length);
                 wrs_setImgSize(img, base64, true);
             }
@@ -2625,48 +2714,116 @@ function wrs_fixAfterResize(img) {
 
 function wrs_initSetSize() {
     // Override _wrs_conf_setSize to align formulas when xml or safeXml mode are enabled.
-    _wrs_conf_setSize = _wrs_conf_setSize || _wrs_conf_saveMode == 'xml' || _wrs_conf_saveMode == 'safeXml' || (_wrs_conf_saveMode == 'base64' && _wrs_conf_editMode == 'default');
+    _wrs_conf_setSize = _wrs_conf_setSize || _wrs_conf_saveMode == 'xml' || _wrs_conf_saveMode == 'safeXml' || (_wrs_conf_saveMode == 'base64' && _wrs_conf_editMode == 'default')
+     || (_wrs_conf_saveMode == 'image' && _wrs_conf_imageFormat == 'svg');
 }
 
+/**
+ * Loads a set of global variables containing server configuration.
+ * This method calls to configurationjs service, converting the response
+ * JSON into javascript variables
+ * @ignore
+ */
 function wrs_loadConfiguration() {
     if (typeof _wrs_conf_path == 'undefined') {
-        // Discover path.
-        var scriptName = "core/core.js";
-        var col = document.getElementsByTagName("script");
-        for (i = 0; i < col.length; i++) {
-            var d;
-            var src;
-            d = col[i];
-            src = d.src;
-            var j = src.lastIndexOf(scriptName);
-            if (j >= 0) {
-                // That's my script!
-                baseURL = src.substr(0, j - 1);
-            }
+        _wrs_conf_path = wrs_getCorePath();
+    }
+
+    var httpRequest = typeof XMLHttpRequest != 'undefined' ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
+    var configUrl = _wrs_int_conf_file.indexOf("/") == 0 || _wrs_int_conf_file.indexOf("http") == 0 ? _wrs_int_conf_file : wrs_concatenateUrl(_wrs_conf_path, _wrs_int_conf_file);
+    httpRequest.open('GET', configUrl, false);
+    httpRequest.send(null);
+
+    var jsonConfiguration = JSON.parse(httpRequest.responseText);
+
+    // JSON structure: {{jsVariableName, jsVariableValue}}.
+
+    var variables = Object.keys(jsonConfiguration);
+
+    for (var variable in variables) {
+        window[variables[variable]] = jsonConfiguration[variables[variable]];
+    }
+
+    // Services path (tech dependant).
+    wrs_loadServicePaths(configUrl);
+
+    // End configuration.
+    _wrs_conf_configuration_loaded = true;
+    if (typeof _wrs_conf_core_loaded != 'undefined') {
+        _wrs_conf_plugin_loaded = true;
+    }
+}
+
+function wrs_loadServicePaths(url) {
+    // Services path (tech dependant).
+    _wrs_conf_createimagePath = url.replace('configurationjs', 'createimage');
+    _wrs_conf_showimagePath = url.replace('configurationjs', 'showimage');
+    _wrs_conf_editorPath = url.replace('configurationjs', 'editor');
+    _wrs_conf_CASPath = url.replace('configurationjs', 'cas');
+    _wrs_conf_createcasimagePath = url.replace('configurationjs', 'createcasimage');
+    _wrs_conf_getmathmlPath = url.replace('configurationjs', 'getmathml');
+    _wrs_conf_servicePath = url.replace('configurationjs', 'service');
+}
+
+_wrs_conf_plugin_loaded = true;
+
+function wrs_getCorePath() {
+    var scriptName = "core/core.js";
+    var col = document.getElementsByTagName("script");
+    for (var i = 0; i < col.length; i++) {
+        var d;
+        var src;
+        d = col[i];
+        src = d.src;
+        var j = src.lastIndexOf(scriptName);
+        if (j >= 0) {
+            // That's my script!
+            return src.substr(0, j - 1);
         }
-        _wrs_conf_path = baseURL;
+    }
+}
+
+function wrs_loadLangFile() {
+    // When a language is not defined, put english (en) as default.
+    if (typeof _wrs_int_langCode == 'undefined' || _wrs_int_langCode == null) {
+        _wrs_int_langCode = 'en';
+    }
+
+    langArray = _wrs_languages.split(',');
+
+    if (langArray.indexOf(_wrs_int_langCode) == -1) {
+        _wrs_int_langCode = _wrs_int_langCode.substr(0,2);
+    }
+
+    if (langArray.indexOf(_wrs_int_langCode) == -1) {
+        _wrs_int_langCode = 'en';
     }
 
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    // Sometimes _wrs_conf_path contains a final "/" because is obtained using some editor's API.
-    // With this variable we avoid URL's with doubles //.
-    var newConfPath = _wrs_conf_path.lastIndexOf("/") == _wrs_conf_path.length - 1 ? _wrs_conf_path + _wrs_int_conf_file : _wrs_conf_path + "/" + _wrs_int_conf_file;
-    var configUrl = _wrs_int_conf_file.indexOf("/") == 0 || _wrs_int_conf_file.indexOf("http") == 0 ? _wrs_int_conf_file : newConfPath;
-    configUrl = configUrl.replace(/([^:]\/)\/+/g, "$1");
-    script.src = configUrl;
-    document.getElementsByTagName('head')[0].appendChild(script); // Asynchronous load of configuration.
+    script.src = wrs_getCorePath() + "/lang/" + _wrs_int_langCode + "/strings.js";
+    document.getElementsByTagName('head')[0].appendChild(script);
 }
 
-var _wrs_conf_core_loaded = true;
+function wrs_concatenateUrl(path1, path2) {
+    var separator = "";
+    if ((path1.indexOf("/") != path1.length) && (path2.indexOf("/") != 0)) {
+        separator = "/";
+    }
+    return (path1 + separator + path2).replace(/([^:]\/)\/+/g, "$1");
+}
 
+// Loading javascript configuration.
 if (typeof _wrs_conf_configuration_loaded == 'undefined') {
     wrs_loadConfiguration();
 } else {
+    var configUrl = _wrs_int_conf_file.indexOf("/") == 0 || _wrs_int_conf_file.indexOf("http") == 0 ? _wrs_int_conf_file : wrs_concatenateUrl(_wrs_conf_path, _wrs_int_conf_file);
+    // If javascript configuration is loaded we need to load service paths manually.
+    wrs_loadServicePaths(configUrl);
     _wrs_conf_plugin_loaded = true;
 }
 
-
+wrs_loadLangFile()
 
 /**
  * Create modal window with embebbed iframe
@@ -2684,7 +2841,7 @@ function wrs_createModalWindow() {
         var fileref = document.createElement("link");
         fileref.setAttribute("rel", "stylesheet");
         fileref.setAttribute("type", "text/css");
-        fileref.setAttribute("href", window.parent._wrs_conf_path + '/core/modal.css');
+        fileref.setAttribute("href", wrs_concatenateUrl(_wrs_conf_path, '/core/modal.css'));
         document.getElementsByTagName("head")[0].appendChild(fileref);
         _wrs_css_loaded = true;
     }
@@ -2696,10 +2853,13 @@ function wrs_createModalWindow() {
  * Closes modal window
  */
 function wrs_closeModalWindow() {
-    wrs_int_disableCustomEditors();
-    wrs_int_notifyWindowClosed();
-    _wrs_editMode = (window._wrs_conf_defaultEditMode) ? _wrs_conf_defaultEditMode : 'images';
-    _wrs_modalWindow.close();
+    // We avoid to close window when it's closed
+    if(_wrs_modalWindow.isOpen()) {
+        wrs_int_disableCustomEditors();
+        wrs_int_notifyWindowClosed();
+        _wrs_editMode = (window._wrs_conf_defaultEditMode) ? _wrs_conf_defaultEditMode : 'images';
+        _wrs_modalWindow.close();
+    }
 }
 
 /**
@@ -3207,14 +3367,16 @@ function getMetricsFromSvgString(svgString) {
  */
 function wrs_int_getCustomEditorEnabled() {
     var customEditorEnabled = null;
-    Object.keys(_wrs_int_customEditors).forEach(function(key) {
+    for (var key in _wrs_int_customEditors) {
         if (_wrs_int_customEditors[key].enabled) {
-            customEditorEnabled = _wrs_int_customEditors[key]
+            customEditorEnabled = _wrs_int_customEditors[key];
+            break;
         }
-    });
+    }
 
     return customEditorEnabled;
 }
+
 
 /**
  * Disable all custom editors
@@ -3349,13 +3511,105 @@ if (!Object.keys) {
     }());
 }
 
+/*! http://mths.be/codepointat v0.1.0 by @mathias */
+if (!String.prototype.codePointAt) {
+    (function() {
+        'use strict'; // needed to support `apply`/`call` with `undefined`/`null`
+        var codePointAt = function(position) {
+            if (this == null) {
+                throw TypeError();
+            }
+            var string = String(this);
+            var size = string.length;
+            // `ToInteger`
+            var index = position ? Number(position) : 0;
+            if (index != index) { // better `isNaN`
+                index = 0;
+            }
+            // Account for out-of-bounds indices:
+            if (index < 0 || index >= size) {
+                return undefined;
+            }
+            // Get the first code unit
+            var first = string.charCodeAt(index);
+            var second;
+            if ( // check if it’s the start of a surrogate pair
+                first >= 0xD800 && first <= 0xDBFF && // high surrogate
+                size > index + 1 // there is a next code unit
+            ) {
+                second = string.charCodeAt(index + 1);
+                if (second >= 0xDC00 && second <= 0xDFFF) { // low surrogate
+                    // http://mathiasbynens.be/notes/javascript-encoding#surrogate-formulae
+                    return (first - 0xD800) * 0x400 + second - 0xDC00 + 0x10000;
+                }
+            }
+            return first;
+        };
+        if (Object.defineProperty) {
+            Object.defineProperty(String.prototype, 'codePointAt', {
+                'value': codePointAt,
+                'configurable': true,
+                'writable': true
+            });
+        } else {
+            String.prototype.codePointAt = codePointAt;
+        }
+    }());
+}
+
 /**
  * Add a new callback to a WIRIS plugins listener.
  * @param {object} listener an Object containing listener name and a callback.
+ * @ignore
  */
 function wrs_addPluginListener(listener) {
     wrs_pluginListeners.push(listener);
 }
+
+/**
+ * For now its not possible comunicate directly between editor.js and ModalWindow object.
+ * We need to use this method to call ModalWindow prototype from editor.js
+ * @param  {object} editor WIRIS Editor
+ * @ignore
+ */
+function wrs_setModalWindowEditor(editor) {
+    if (_wrs_conf_modalWindow) {
+        _wrs_modalWindow.setEditor(editor);
+    }
+}
+
+/**
+ * Get the base URL (i.e the URL on core.js lives).
+ */
+function wrs_getServerPath() {
+    url = wrs_getCorePath();
+    var hostNameIndex = url.indexOf("/", url.indexOf("/") + 2);
+    return url.substr(0, hostNameIndex);
+}
+
+/**
+ * This method updates all services paths if there are relative with the absolute
+ * URL path.
+ * @ignore
+ */
+function wrs_updateContextPath() {
+    if (typeof _wrs_conf_plugin_loaded == 'undefined') {
+            setTimeout(wrs_updateContextPath, 100);
+    } else {
+        if (_wrs_conf_showimagePath.indexOf("/") == 0) {
+            serverPath = wrs_getServerPath()
+            _wrs_conf_showimagePath = serverPath + _wrs_conf_showimagePath;
+            _wrs_conf_editorPath = serverPath + _wrs_conf_editorPath;
+            _wrs_conf_CASPath = serverPath + _wrs_conf_CASPath;
+            _wrs_conf_createimagePath = serverPath + _wrs_conf_createimagePath;
+            _wrs_conf_createcasimagePath = serverPath + _wrs_conf_createcasimagePath;
+            _wrs_conf_getmathmlPath = serverPath + _wrs_conf_getmathmlPath;
+            _wrs_conf_servicePath = serverPath + _wrs_conf_servicePath;
+        }
+    }
+}
+
+wrs_updateContextPath();
 
 // Production steps of ECMA-262, Edition 5, 15.4.4.18
 // Reference: http://es5.github.io/#x15.4.4.18.
@@ -3418,6 +3672,64 @@ if (!Array.prototype.forEach) {
         // 8. return undefined.
     };
 }
+/**
+ * EditorListener constructor
+ * @ignore
+ */
+function EditorListener(){
+    this.isContentChanged = false;
+    this.waitingForChanges = false;
+}
+/**
+ * EditorListener method set if content is changed
+ * @ignore
+ */
+EditorListener.prototype.setIsContentChanged = function(value){
+    this.isContentChanged = value;
+}
+/**
+ * EditorListener method to get if content is changed
+ * @ignore
+ */
+EditorListener.prototype.getIsContentChanged = function(value){
+    return this.isContentChanged;
+}
+/**
+ * EditorListener method to wait changes
+ * @ignore
+ */
+EditorListener.prototype.setWaitingForChanges = function(value){
+    this.waitingForChanges = value;
+}
+/**
+ * EditorListener method to overwrite
+ * @ignore
+ */
+EditorListener.prototype.caretPositionChanged = function(editor){};
+/**
+ * EditorListener method to overwrite
+ * @ignore
+ */
+EditorListener.prototype.clipboardChanged = function(editor){};
+/**
+ * EditorListener method to set if content is changed
+ * @ignore
+ */
+EditorListener.prototype.contentChanged = function(editor){
+    if(this.waitingForChanges === true && this.isContentChanged === false){
+        this.isContentChanged = true;
+    }
+}
+/**
+ * EditorListener method to overwrite
+ * @ignore
+ */
+EditorListener.prototype.styleChanged = function(editor){}
+/**
+ * EditorListener method to overwrite
+ * @ignore
+ */
+EditorListener.prototype.transformationReceived = function(editor){}
 // @codingStandardsIgnoreStart
 (function(){
 var HxOverrides = function() { }
@@ -3978,6 +4290,9 @@ function ModalWindow(path, editorAttributes) {
     var ua = navigator.userAgent.toLowerCase();
     var isAndroid = ua.indexOf("android") > -1;
     var isIOS = ((ua.indexOf("ipad") > -1) || (ua.indexOf("iphone") > -1));
+    this.iosSoftkeyboardOpened = false;
+    this.iosMeasureUnit = ua.indexOf("crios") == -1 ? "%" : "vh";
+    this.iosDivHeight = "100" + this.iosMeasureUnit;
 
     var deviceWidth = window.outerWidth;
     var deviceHeight = window.outerHeight;
@@ -4009,6 +4324,8 @@ function ModalWindow(path, editorAttributes) {
     }
 
     this.properties.iframeAttributes = iframeAttributes;
+    this.modalHeight = parseInt(this.properties.iframeAttributes['height']);
+    this.modalWidth = parseInt(this.properties.iframeAttributes['width']);
 
     this.title = '';
 
@@ -4030,23 +4347,23 @@ function ModalWindow(path, editorAttributes) {
 
     attributes = {};
     attributes['class'] = 'wrs_modal_close_button';
-    attributes['title'] = 'Close';
-    var closeModalDiv = wrs_createElement('div', attributes);
-    // closeModalDiv.innerHTML = '&times;';
+    attributes['title'] = strings['close'];
+    var closeModalDiv = wrs_createElement('a', attributes);
+    closeModalDiv.setAttribute('role','button');
     this.closeDiv = closeModalDiv;
 
     attributes = {};
     attributes['class'] = 'wrs_modal_stack_button';
-    attributes['title'] = 'Full-screen';
-    var stackModalDiv = wrs_createElement('div', attributes);
-    // stackModalDiv.innerHTML = '/';
+    attributes['title'] = strings['fullscreen'];
+    var stackModalDiv = wrs_createElement('a', attributes);
+    stackModalDiv.setAttribute('role','button');
     this.stackDiv = stackModalDiv;
 
     attributes = {};
     attributes['class'] = 'wrs_modal_minimize_button';
-    attributes['title'] = 'Minimise';
-    var minimizeModalDiv = wrs_createElement('div', attributes);
-    // minimizeModalDiv.innerHTML = "_";
+    attributes['title'] = strings['minimise'];
+    var minimizeModalDiv = wrs_createElement('a', attributes);
+    minimizeModalDiv.setAttribute('role','button');
     this.minimizeDiv = minimizeModalDiv;
 
     attributes = {};
@@ -4056,7 +4373,9 @@ function ModalWindow(path, editorAttributes) {
     this.containerDiv = containerDiv;
 
     attributes = {};
+    attributes['id'] = 'wrs_modal_iframe_id';
     attributes['class'] = 'wrs_modal_iframe';
+    attributes['title'] = 'WIRIS Editor Modal Window';
     attributes['src'] = iframeAttributes['src'];
     attributes['frameBorder'] = "0";
     var iframeModal = wrs_createElement('iframe', attributes);
@@ -4067,8 +4386,12 @@ function ModalWindow(path, editorAttributes) {
     var iframeModalContainer = wrs_createElement('div', attributes);
     this.iframeContainer = iframeModalContainer;
 
-    this.editor = null;
+    // We create iframe inside _wrs_conf_path origin.
+    this.iframeOrigin = this.getOriginFromUrl(_wrs_conf_path);
 
+    this.lastImageWasNew = true;
+
+    this.toolbar = null;
 }
 
 ModalWindow.prototype.create = function() {
@@ -4077,6 +4400,12 @@ ModalWindow.prototype.create = function() {
     this.titleBardDiv.appendChild(this.minimizeDiv);
     this.titleBardDiv.appendChild(this.titleDiv);
     this.iframeContainer.appendChild(this.iframe);
+
+    wrs_addEvent(this.overlayDiv, 'mouseup', function (e) {
+        if (typeof(_wrs_modalWindow) !== 'undefined' && _wrs_modalWindow != null) {
+            _wrs_modalWindow.fireEditorEvent('mouseup');
+        }
+    });
 
     if (!this.deviceProperties['isMobile'] && !this.deviceProperties['isAndroid'] && !this.deviceProperties['isIOS']) {
         this.containerDiv.appendChild(this.titleBardDiv);
@@ -4103,50 +4432,121 @@ ModalWindow.prototype.create = function() {
     _wrs_popupWindow = this.iframe.contentWindow;
     this.properties.open = true;
     this.properties.created = true;
+
+    if (typeof _wrs_conf_modalWindow != "undefined" && _wrs_conf_modalWindow && _wrs_conf_modalWindowFullScreen) {
+        this.maximizeModalWindow();
+    }
+    // This method obtain a width of scrollBar
+    this.scrollbarWidth = this.getScrollBarWidth();
 }
 
 ModalWindow.prototype.open = function() {
 
-    this.hideKeyboard();
+    if (this.deviceProperties['isIOS'] || this.deviceProperties['isAndroid'] || this.deviceProperties['isMobile']) {
+        // Due to editor wait we need to wait until editor focus.
+        setTimeout(function() { _wrs_modalWindow.hideKeyboard() }, 300);
+    }
 
-    if (this.properties.open == true) {
-        this.iframe.contentWindow._wrs_modalWindowProperties.editor.setMathML(wrs_mathmlDecode(_wrs_temporalImage.getAttribute('data-mathml')));
-    } else if (this.properties.created) {
+    if (this.properties.open == true || this.properties.created) {
 
-        this.containerDiv.style.visibility = '';
-        this.overlayDiv.style.visibility = '';
-        this.containerDiv.style.display = '';
-        this.overlayDiv.style.display = '';
-
-        var editor = this.iframe.contentWindow._wrs_modalWindowProperties.editor;
-
-        this.properties.open = true;
-        if (customEditor = wrs_int_getCustomEditorEnabled()) {
-            toolbar = customEditor.toolbar ? customEditor.toolbar : wrs_attributes['toolbar'];
-            if (typeof editor.params.toolbar == 'undefined' || editor.params.toolbar != toolbar) {
-                editor.setParams({'toolbar' : toolbar});
+        if (this.properties.open == true) {
+            this.updateToolbar();
+            if (_wrs_isNewElement) {
+                this.updateMathMLContent();
+                this.lastImageWasNew = true;
             }
-        } else if (typeof editor.params.toolbar != 'undefined' && editor.params.toolbar != 'general') {
-            editor.setParams({'toolbar' : 'general'});
+            else {
+                this.setMathMLWithCallback(wrs_mathmlDecode(_wrs_temporalImage.getAttribute(_wrs_conf_imageMathmlAttribute)));
+                this.lastImageWasNew = false;
+            }
         }
+        else {
+            this.containerDiv.style.visibility = '';
+            this.containerDiv.style.opacity = '';
+            this.containerDiv.style.display = '';
+            this.overlayDiv.style.visibility = '';
+            this.overlayDiv.style.display = '';
 
-        if (_wrs_isNewElement) {
-            if (this.properties.deviceProperties.isAndroid || this.properties.deviceProperties.isIOS) {
-                editor.setMathML('<math><semantics><annotation encoding="application/json">[]</annotation></semantics></math>"');
+            this.properties.open = true;
+
+            this.updateToolbar();
+
+            if (_wrs_isNewElement) {
+                this.updateMathMLContent();
+                this.lastImageWasNew = true;
             } else {
-                editor.setMathML('<math/>');
+                this.setMathMLWithCallback(wrs_mathmlDecode(_wrs_temporalImage.getAttribute(_wrs_conf_imageMathmlAttribute)));
+                this.lastImageWasNew = false;
             }
-        } else {
-            editor.setMathML(wrs_mathmlDecode(_wrs_temporalImage.getAttribute('data-mathml')));
+
+            if (!this.properties.deviceProperties.isAndroid && !this.properties.deviceProperties.isIOS) {
+                this.stackModalWindow();
+            }
         }
 
-        editor.focus();
-        if (!this.properties.deviceProperties.isAndroid && !this.properties.deviceProperties.isIOS) {
-            this.stackModalWindow();
+        if (typeof _wrs_conf_modalWindow != "undefined" && _wrs_conf_modalWindow && _wrs_conf_modalWindowFullScreen) {
+            this.maximizeModalWindow();
+        }
+
+        if (this.deviceProperties['isIOS']) {
+            this.iosSoftkeyboardOpened = false;
+            this.setIframeContainerHeight("100" + this.iosMeasureUnit);
         }
     } else {
+        var title = wrs_int_getCustomEditorEnabled() != null ? wrs_int_getCustomEditorEnabled().title : 'WIRIS EDITOR math';
+        _wrs_modalWindow.setTitle(title);
         this.create();
     }
+
+}
+
+/**
+ * It put correct toolbar depending if exist other custom toolbars at the same time (e.g: Chemistry)
+ * @ignore
+ */
+ModalWindow.prototype.updateToolbar = function() {
+    if (customEditor = wrs_int_getCustomEditorEnabled()) {
+        var toolbar = customEditor.toolbar ? customEditor.toolbar : _wrs_int_wirisProperties['toolbar'];
+        _wrs_modalWindow.setTitle(customEditor.title);
+        if (this.toolbar == null || this.toolbar != toolbar) {
+            this.setToolbar(toolbar);
+        }
+    } else {
+        var toolbar = this.checkToolbar();
+        _wrs_modalWindow.setTitle('WIRIS EDITOR math');
+        if (this.toolbar == null || this.toolbar != toolbar) {
+            this.setToolbar(toolbar);
+            wrs_int_disableCustomEditors();
+        }
+    }
+}
+
+/**
+ * It returns correct toolbar depending on the configuration local or serverside.
+ * @ignore
+ */
+ModalWindow.prototype.checkToolbar = function() {
+    var toolbar = (typeof _wrs_conf_editorParameters == 'undefined' || typeof _wrs_conf_editorParameters['toolbar'] == 'undefined') ? 'general' : _wrs_conf_editorParameters['toolbar'];
+    if(toolbar == 'general'){
+        toolbar = (typeof _wrs_int_wirisProperties == 'undefined' || typeof _wrs_int_wirisProperties['toolbar'] == 'undefined') ? 'general' : _wrs_int_wirisProperties['toolbar'];
+    }
+    return toolbar;
+}
+
+/**
+ * It controls cases where is needed to set an empty mathml or copy the current mathml value.
+ * @ignore
+ */
+ModalWindow.prototype.updateMathMLContent = function() {
+    if (this.properties.deviceProperties.isAndroid || this.properties.deviceProperties.isIOS) {
+        this.setMathMLWithCallback('<math><semantics><annotation encoding="application/json">[]</annotation></semantics></math>"');
+    } else {
+        this.setMathMLWithCallback('<math/>');
+    }
+}
+
+ModalWindow.prototype.isOpen = function() {
+    return this.properties.open;
 }
 
 /**
@@ -4154,16 +4554,24 @@ ModalWindow.prototype.open = function() {
  * @ignore
  */
 ModalWindow.prototype.close = function() {
+    this.setMathML('<math/>');
     this.overlayDiv.style.visibility = 'hidden';
     this.containerDiv.style.visibility = 'hidden';
     this.containerDiv.style.display = 'none';
+    this.containerDiv.style.opacity = '0';
     this.overlayDiv.style.display = 'none';
     this.properties.open = false;
     wrs_int_disableCustomEditors();
-    document.getElementsByClassName('wrs_modal_iframe')[0].contentWindow._wrs_modalWindowProperties.editor.setMathML('<math/>');
-    // Properties to initial state
+    // Properties to initial state.
     this.properties.state = '';
     this.properties.previousState = '';
+    setTimeout(
+        function() {
+            if (typeof _wrs_currentEditor != 'undefined' && _wrs_currentEditor) {
+                _wrs_currentEditor.focus();
+            }
+        }, 100);
+    _wrs_popupWindow.postMessage({'objectName' : 'editorClose'}, this.iframeOrigin);
 }
 
 ModalWindow.prototype.addClass = function(cls) {
@@ -4217,6 +4625,11 @@ ModalWindow.prototype.createModalWindowDesktop = function() {
 
 ModalWindow.prototype.createModalWindowAndroid = function() {
     this.addClass('wrs_modal_android');
+    window.addEventListener('resize', function (e) {
+        if (_wrs_conf_modalWindow) {
+            _wrs_modalWindow.orientationChangeAndroidSoftkeyboard();
+        }
+    });
 }
 
 /**
@@ -4225,8 +4638,13 @@ ModalWindow.prototype.createModalWindowAndroid = function() {
  */
 
 ModalWindow.prototype.createModalWindowIos = function() {
-
     this.addClass('wrs_modal_ios');
+    // Refresh the size when the orientation is changed
+    window.addEventListener('resize', function (e) {
+        if (_wrs_conf_modalWindow) {
+            _wrs_modalWindow.orientationChangeIosSoftkeyboard();
+        }
+    });
 }
 
 ModalWindow.prototype.stackModalWindow = function () {
@@ -4235,11 +4653,13 @@ ModalWindow.prototype.stackModalWindow = function () {
     } else {
         this.properties.previousState = this.properties.state;
         this.properties.state = 'stack';
-
         this.containerDiv.style.top = null;
-        this.containerDiv.style.rifgh = null;
         this.containerDiv.style.left = null;
         this.containerDiv.style.position = null;
+        this.containerDiv.style.bottom = '0px';
+        this.containerDiv.style.right = '10px';
+
+        this.overlayDiv.style.background = "rgba(0,0,0,0)";
 
         this.stackDiv.title = "Full-screen";
 
@@ -4251,8 +4671,13 @@ ModalWindow.prototype.stackModalWindow = function () {
         this.iframe.style.height = (parseInt(300) + 3) + 'px';
         this.iframe.style.margin = '6px';
         this.removeClass('wrs_maximized');
+        this.minimizeDiv.title = "Minimise";
         this.removeClass('wrs_minimized');
         this.addClass('wrs_stack');
+        if (typeof _wrs_popupWindow != 'undefined' && _wrs_popupWindow) {
+            _wrs_popupWindow.postMessage({'objectName' : 'editorResize', 'arguments': [_wrs_modalWindow.iframeContainer.offsetHeight - 10]}, this.iframeOrigin);
+        }
+
     }
 }
 
@@ -4271,6 +4696,10 @@ ModalWindow.prototype.minimizeModalWindow = function() {
         this.containerDiv.style.left = null;
         this.containerDiv.style.top = null;
         this.containerDiv.style.position = null;
+        this.containerDiv.style.right = "10px";
+        this.containerDiv.style.bottom = "0px";
+        this.overlayDiv.style.background = "rgba(0,0,0,0)";
+        this.minimizeDiv.title = "Maximise";
 
         if (wrs_containsClass(this.overlayDiv, 'wrs_stack')) {
             this.removeClass('wrs_stack');
@@ -4291,16 +4720,15 @@ ModalWindow.prototype.maximizeModalWindow = function() {
     this.properties.previousState = this.properties.state;
     this.properties.state = 'maximized';
 
-    var modalHeight = parseInt(this.properties.iframeAttributes['height']);
-    var modalWidth = parseInt(this.properties.iframeAttributes['width']);
-    this.iframeContainer.style.width = modalWidth + 'px';
-    this.iframeContainer.style.height = modalHeight + 'px';
-    this.containerDiv.style.width = (modalWidth + 12) + 'px';
+    this.iframeContainer.style.width = this.modalWidth + 'px';
+    this.iframeContainer.style.height = this.modalHeight + 'px';
+    this.containerDiv.style.width = (this.modalWidth + 12) + 'px';
     this.iframe.style.width = this.properties.iframeAttributes['width'] + 'px';
     this.iframe.style.height = (parseInt(this.properties.iframeAttributes['height']) + 3) + 'px';
     this.iframe.style.margin = '6px';
     this.removeClass('wrs_drag');
     if (wrs_containsClass(this.overlayDiv, 'wrs_minimized')) {
+        this.minimizeDiv.title = "Minimise";
         this.removeClass('wrs_minimized');
     } else if (wrs_containsClass(this.overlayDiv, 'wrs_stack')) {
         this.containerDiv.style.left = null;
@@ -4308,7 +4736,15 @@ ModalWindow.prototype.maximizeModalWindow = function() {
         this.removeClass('wrs_stack');
     }
     this.stackDiv.title = "Exit full-screen";
+    this.overlayDiv.style.background = "rgba(0,0,0,0.8)";
+    this.overlayDiv.style.display = '';
     this.addClass('wrs_maximized');
+
+    this.containerDiv.style.bottom = window.innerHeight / 2 - this.containerDiv.offsetHeight / 2 + "px";
+    this.containerDiv.style.right = window.innerWidth / 2 - this.containerDiv.offsetWidth / 2 + "px";
+    this.containerDiv.style.position = "fixed";
+    _wrs_popupWindow.postMessage({'objectName' : 'editorResize', 'arguments': [_wrs_modalWindow.iframeContainer.offsetHeight - 10]}, this.iframeOrigin);
+
 }
 
 /**
@@ -4323,8 +4759,7 @@ ModalWindow.prototype.addListeners = function() {
     wrs_addEvent(document.body, 'mousedown', this.startDrag.bind(this));
     wrs_addEvent(window, 'mouseup', this.stopDrag.bind(this));
     wrs_addEvent(document, 'mouseup', this.stopDrag.bind(this));
-    wrs_addEvent(this.iframe.contentWindow, 'mouseup', this.stopDrag.bind(this));
-    wrs_addEvent(document.body, 'mousemove', this.drag.bind(this));
+    wrs_addEvent(document, 'mousemove', this.drag.bind(this));
 }
 
 /**
@@ -4340,7 +4775,7 @@ ModalWindow.prototype.removeListeners = function() {
     wrs_removeEvent(window, 'mouseup', this.stopDrag);
     wrs_removeEvent(document, 'mouseup', this.stopDrag);
     wrs_removeEvent(document.getElementsByClassName("wrs_modal_iframe")[0], 'mouseup', this.stopDrag);
-    wrs_removeEvent(document.body, 'mousemove', this.drag);
+    wrs_removeEvent(document, 'mousemove', this.drag);
 }
 
 
@@ -4351,7 +4786,7 @@ ModalWindow.prototype.removeListeners = function() {
  * @ignore
  */
 ModalWindow.prototype.eventClient = function(ev) {
-    if (typeof(ev.clientX) == 'undefined') {
+    if (typeof(ev.clientX) == 'undefined' && ev.changedTouches) {
         var client = {
             X : ev.changedTouches[0].clientX,
             Y : ev.changedTouches[0].clientY
@@ -4366,6 +4801,17 @@ ModalWindow.prototype.eventClient = function(ev) {
     }
 }
 
+
+/**
+ * Set the overlay div display
+ *
+ * @param {event} ev touchstart or mousedown event.
+ * @ignore
+ */
+ModalWindow.prototype.setOverlayDiv = function(ev) {
+    this.overlayDiv.style.display = '';
+}
+
 /**
  * Start drag function: set the object _wrs_dragDataObject with the draggable object offsets coordinates.
  * when drag starts (on touchstart or mousedown events).
@@ -4378,18 +4824,38 @@ ModalWindow.prototype.startDrag = function(ev) {
         return;
     }
     if (ev.target.className == 'wrs_modal_title') {
-        if(!this.dragDataobject) {
+        if(typeof this.dragDataObject === 'undefined' || this.dragDataObject === null) {
             ev = ev || event;
+            // Save first click mouse point on screen
             this.dragDataObject = {
-                x: this.eventClient(ev).X - (isNaN(parseInt(window.getComputedStyle(this.containerDiv)).left && parseInt(window.getComputedStyle(this.containerDiv).left > 0 )) ? this.containerDiv.offsetLeft : parseInt(window.getComputedStyle(this.containerDiv).left)),
-                y: this.eventClient(ev).Y - (isNaN(parseInt(window.getComputedStyle(this.containerDiv).top)) ? this.containerDiv.offsetTop : parseInt(window.getComputedStyle(this.containerDiv).top))
+                x: this.eventClient(ev).X,
+                y: this.eventClient(ev).Y
             };
-        };
+            // Reset last drag position when start drag
+            this.lastDrag = {
+                x: "0px",
+                y: "0px"
+            };
+            // Init right and bottom values for window modal if it isn't exist.
+            if(this.containerDiv.style.right == ''){
+                this.containerDiv.style.right = "0px";
+            }
+            if(this.containerDiv.style.bottom == ''){
+                this.containerDiv.style.bottom = "0px";
+            }
+            // Disable mouse events on editor when we start to drag modal.
+            this.iframe.style['pointer-events'] = 'none';
+            // Needed for IE11 for apply disabled mouse events on editor because iexplorer need a dinamic object to apply this property.
+            if (navigator.userAgent.search("Msie/") >= 0 || navigator.userAgent.search("Trident/") >= 0 || navigator.userAgent.search("Edge/") >= 0 ) {
+                this.iframe.style['position'] = 'relative';
+            }
+            // Apply class for disable involuntary select text when drag.
+            wrs_addClass(document.body, 'wrs_noselect');
+            // Obtain screen limits for prevent overflow.
+            this.limitWindow = this.getLimitWindow();
+        }
     }
 
-    if (typeof dialogContainerDiv != 'undefined') {
-        this.addClass('wrs_drag');
-    }
 }
 
 /**
@@ -4402,12 +4868,82 @@ ModalWindow.prototype.drag = function(ev) {
     if(this.dragDataObject) {
         ev.preventDefault();
         ev = ev || event;
-        this.containerDiv.style.left = this.eventClient(ev).X - this.dragDataObject.x + "px";
-        this.containerDiv.style.top = this.eventClient(ev).Y - this.dragDataObject.y + "px";
+        // Calculate max and min between actual mouse position and limit of screeen. It restric the movement of modal into window.
+        var limitY = Math.min(this.eventClient(ev).Y + window.pageYOffset,this.limitWindow.minPointer.y + window.pageYOffset);
+        limitY = Math.max(this.limitWindow.maxPointer.y + window.pageYOffset,limitY);
+        var limitX = Math.min(this.eventClient(ev).X + window.pageXOffset,this.limitWindow.minPointer.x + window.pageXOffset);
+        limitX = Math.max(this.limitWindow.maxPointer.x + window.pageXOffset,limitX);
+        // Substract limit with first position to obtain relative pixels increment to the anchor point.
+        var dragX = limitX - this.dragDataObject.x + "px";
+        var dragY = limitY - this.dragDataObject.y + "px";
+        // Save last valid position of modal before window overflow.
+        this.lastDrag = {
+            x: dragX,
+            y:dragY
+        };
+        // This move modal with hadware acceleration.
+        this.containerDiv.style.transform = "translate3d(" + dragX + "," + dragY + ",0)";
         this.containerDiv.style.position = 'absolute';
-        this.containerDiv.style.bottom = null;
-        wrs_removeClass(this.containerDiv, 'wrs_stack');
     }
+}
+/**
+ * Get limits of actual window to limit modal movement
+ * @param {mouseX,mouseY} mouseX and mouseY are coordinates of actual mouse on screen.
+ * @ignore
+ */
+ModalWindow.prototype.getLimitWindow = function() {
+    // Obtain dimentions of window page.
+    var maxWidth = window.innerWidth;
+    var maxHeight = window.innerHeight;
+
+    // Calculate relative position of mouse point into window.
+    var offSetToolbarY = (this.containerDiv.offsetHeight + parseInt(this.containerDiv.style.bottom)) - (maxHeight - (this.dragDataObject.y - window.pageXOffset));
+    var offSetToolbarX = maxWidth - this.scrollbarWidth - (this.dragDataObject.x - window.pageXOffset) - parseInt(this.containerDiv.style.right);
+
+    // Calculate limits with sizes of window, modal and mouse position.
+    var minPointerY = maxHeight - this.containerDiv.offsetHeight + offSetToolbarY;
+    var maxPointerY = this.titleDiv.offsetHeight - (this.titleDiv.offsetHeight - offSetToolbarY);
+    var minPointerX = maxWidth - offSetToolbarX - this.scrollbarWidth;
+    var maxPointerX = (this.containerDiv.offsetWidth - offSetToolbarX);
+    var minPointer = {x: minPointerX,y: minPointerY};
+    var maxPointer = {x: maxPointerX,y: maxPointerY};
+    return {minPointer : minPointer, maxPointer:maxPointer};
+}
+/**
+ * Get Scrollbar width size of browser
+ * @ignore
+ */
+ModalWindow.prototype.getScrollBarWidth = function() {
+    // Create a paragraph with full width of page.
+    var inner = document.createElement('p');
+    inner.style.width = "100%";
+    inner.style.height = "200px";
+
+    // Create a hidden div to compare sizes.
+    var outer = document.createElement('div');
+    outer.style.position = "absolute";
+    outer.style.top = "0px";
+    outer.style.left = "0px";
+    outer.style.visibility = "hidden";
+    outer.style.width = "200px";
+    outer.style.height = "150px";
+    outer.style.overflow = "hidden";
+    outer.appendChild(inner);
+
+    document.body.appendChild(outer);
+    var widthOuter = inner.offsetWidth;
+
+    // Change type overflow of paragraph for measure scrollbar.
+    outer.style.overflow = 'scroll';
+    var widthInner = inner.offsetWidth;
+
+    // If measure is the same, we compare with internal div.
+    if (widthOuter == widthInner) {
+        widthInner = outer.clientWidth;
+    }
+    document.body.removeChild(outer);
+
+    return (widthOuter - widthInner);
 }
 
 /**
@@ -4417,36 +4953,180 @@ ModalWindow.prototype.drag = function(ev) {
  * @ignore
  */
 ModalWindow.prototype.stopDrag = function(ev) {
-    wrs_addClass(this.containerDiv, 'wrs_drag');
+    // Due to we have multiple events that call this function, we need only to execute the next modifiers one time,
+    // when the user stops to drag and dragDataObject is not null (the object to drag is attached).
+    if (this.dragDataObject) {
+        // If modal doesn't change, it's not necessary to set position with interpolation
+        if(this.containerDiv.style.position != 'fixed'){
+            this.containerDiv.style.position = 'fixed';
+            // Fixed position makes the coords relative to the main window. So that, we need to transform
+            // the absolute coords to relative.
+            this.containerDiv.style.transform = '';
+            this.containerDiv.style.right = parseInt(this.containerDiv.style.right) - parseInt(this.lastDrag.x) + pageXOffset + "px";
+            this.containerDiv.style.bottom = parseInt(this.containerDiv.style.bottom) - parseInt(this.lastDrag.y) + pageYOffset + "px";
+        }
+        // We make focus on editor after drag modal windows to prevent lose focus.
+        this.focus();
+        // Restore mouse events on iframe
+        this.iframe.style['pointer-events'] = 'auto';
+        // Restore static state of iframe if we use iexplorer
+        if (navigator.userAgent.search("Msie/") >= 0 || navigator.userAgent.search("Trident/") >= 0 || navigator.userAgent.search("Edge/") >= 0 ) {
+            this.iframe.style['position'] = null;
+        }
+        // Active text select event
+        wrs_removeClass(document.body, 'wrs_noselect');
+    }
     this.dragDataObject = null;
 }
 
 /**
- * Hide soft keyboards.
- *
+ * Hide soft keyboards on IOS systems.
  * @ignore
  */
 ModalWindow.prototype.hideKeyboard = function() {
-    // ...creating temp field.
-    var field = document.createElement('input');
-    field.setAttribute('type', 'text');
-    // ...hiding temp field from peoples eyes.
-    // ...-webkit-user-modify is nessesary for Android 4.x.
-    field.setAttribute('style', 'position:absolute; top: 0px; opacity: 0; -webkit-user-modify: read-write-plaintext-only; left:0px;');
-    document.body.appendChild(field);
-
-    // ...adding onfocus event handler for out temp field.
-    field.onfocus = function(){
-          // ...this timeout of 200ms is nessasary for Android 2.3.x.
-          setTimeout(function() {
-
-                field.setAttribute('style', 'display:none;');
-                setTimeout(function() {
-                    document.body.removeChild(field);
-                    document.body.focus();
-                }, 14);
-
-          }, 200);
-    };
-    field.focus();
+    document.activeElement.blur();
 }
+
+
+/**
+ * Returns the origin (i.e protocol + hostname + port) from an url string.
+ * This method is used to get the iframe window origin to allow postMessages.
+ * @param  {string} url url string
+ * @return {string}     origin string
+ * @ignore
+ */
+ModalWindow.prototype.getOriginFromUrl = function(url) {
+    var parser = document.createElement('a');
+    parser.href = url;
+    return parser.protocol.indexOf('//') == -1 ? parser.protocol + '//' + parser.host : parser.protocol + parser.host;
+}
+
+/**
+ * Enable safe cross-origin comunication betweenWIRIS Plugin and WIRIS Editor. We can't call directly
+ * WIRIS Editor methods because the content iframe could be in a different domain.
+ * We use postMessage method to create a wrapper between modal window and editor.
+ *
+ */
+
+/**
+ * Set a MathML into editor.
+ * @param {string} mathml MathML string.
+ * @ignore
+ */
+ModalWindow.prototype.setMathML = function(mathml) {
+    _wrs_popupWindow.postMessage({'objectName' : 'editor', 'methodName' : 'setMathML', 'arguments': [mathml]}, this.iframeOrigin);
+    this.focus();
+}
+/**
+ * Set a MathML into editor and call function in back.
+ * @param {string} mathml MathML string.
+ * @ignore
+ */
+ModalWindow.prototype.setMathMLWithCallback = function(mathml) {
+    _wrs_popupWindow.postMessage({'objectName' : 'editorCallback', 'arguments': [mathml]}, this.iframeOrigin);
+    this.focus();
+}
+
+/**
+ * Set a toolbar into editor.
+ * @param {string} toolbar toolbar name.
+ * @ignore
+ */
+ModalWindow.prototype.setToolbar = function(toolbar) {
+    this.toolbar = toolbar;
+    _wrs_popupWindow.postMessage({'objectName' : 'editor', 'methodName' : 'setParams', 'arguments': [{'toolbar' : toolbar}]}, this.iframeOrigin);
+}
+
+/**
+ * Set focus on editor.
+ * @ignore
+ */
+ModalWindow.prototype.focus = function() {
+    // Focus on iframe explicit
+    // We add this focus in iframe beacuse tiny3 have a problem with focus in chrome and it can't focus iframe automaticly
+    if (navigator.userAgent.search("Chrome/") >= 0 && navigator.userAgent.search('Edge') == -1) {
+        this.iframe.focus();
+    }
+    _wrs_popupWindow.postMessage({'objectName' : 'editor', 'methodName' : 'focus', 'arguments': null}, this.iframeOrigin);
+}
+
+
+/**
+ * Fires editor event
+ * @param  {string} eventName event name
+ * @ignore
+ */
+ModalWindow.prototype.fireEditorEvent = function(eventName) {
+    _wrs_popupWindow.postMessage({'objectName' : 'editorEvent', 'eventName' : eventName, 'arguments': null}, this.iframeOrigin);
+}
+
+/**
+ * Returns true when the device is on portrait mode.
+ * @ignore
+ */
+ModalWindow.prototype.portraitMode = function () {
+    return window.innerHeight > window.innerWidth;
+}
+
+/**
+ * Change container sizes when the keyboard is opened on iOS.
+ * @ignore
+ */
+ModalWindow.prototype.openedIosSoftkeyboard = function () {
+    if (!this.iosSoftkeyboardOpened && this.iosDivHeight != null &&this.iosDivHeight == "100" + this.iosMeasureUnit) {
+        if (this.portraitMode()) {
+            this.setIframeContainerHeight("63" + this.iosMeasureUnit);
+        }
+        else {
+            this.setIframeContainerHeight("40" + this.iosMeasureUnit);
+        }
+    }
+    this.iosSoftkeyboardOpened = true;
+}
+
+/**
+ * Change container sizes when the keyboard is closed on iOS.
+ * @ignore
+ */
+ModalWindow.prototype.closedIosSoftkeyboard = function () {
+    this.iosSoftkeyboardOpened = false;
+    this.setIframeContainerHeight("100" + this.iosMeasureUnit);
+}
+
+/**
+ * Change container sizes when orientation is changed on iOS.
+ * @ignore
+ */
+ModalWindow.prototype.orientationChangeIosSoftkeyboard = function () {
+    if (this.iosSoftkeyboardOpened) {
+        if (this.portraitMode()) {
+            this.setIframeContainerHeight("63" + this.iosMeasureUnit);
+        }
+        else {
+            this.setIframeContainerHeight("40" + this.iosMeasureUnit);
+        }
+    }
+    else {
+        this.setIframeContainerHeight("100" + this.iosMeasureUnit);
+    }
+}
+
+/**
+ * Change container sizes when orientation is changed on Android.
+ * @ignore
+ */
+ModalWindow.prototype.orientationChangeAndroidSoftkeyboard = function () {
+    this.setIframeContainerHeight("100%");
+}
+
+/**
+ * Set iframe container height.
+ * @ignore
+ */
+ModalWindow.prototype.setIframeContainerHeight = function (height) {
+    this.iosDivHeight = height;
+    _wrs_modalWindow.iframeContainer.style.height = height;
+    _wrs_popupWindow.postMessage({'objectName' : 'editorResize', 'arguments': [_wrs_modalWindow.iframeContainer.offsetHeight - 10]}, this.iframeOrigin);
+}
+
+var _wrs_conf_core_loaded = true;

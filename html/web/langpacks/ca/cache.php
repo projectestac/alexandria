@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cache', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'cache', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   cache
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -41,6 +41,7 @@ $string['cachedef_config'] = 'Paràmetres de configuració';
 $string['cachedef_coursecat'] = 'Llistat de categories del curs per a l\'usuari particular';
 $string['cachedef_coursecatrecords'] = 'Registres de les categories del curs';
 $string['cachedef_coursecattree'] = 'Arbre de les categories del curs';
+$string['cachedef_coursecompletion'] = 'Estat de compleció del curs';
 $string['cachedef_coursecontacts'] = 'Llista de contactes del curs';
 $string['cachedef_coursemodinfo'] = 'Informació acumulada sobre mòduls i seccions per a cada curs';
 $string['cachedef_databasemeta'] = 'Metainformació de la base de dades';
@@ -51,10 +52,13 @@ $string['cachedef_groupdata'] = 'Informació del grup del curs';
 $string['cachedef_htmlpurifier'] = 'Purificador HTML - contingut netejat';
 $string['cachedef_langmenu'] = 'Llista d\'idiomes disponibles';
 $string['cachedef_locking'] = 'Blocatge';
+$string['cachedef_message_processors_enabled'] = 'Estat d\'habilitació dels processadors de missatges';
+$string['cachedef_message_time_last_message_between_users'] = 'Temps de creació del missatge mes recent entre usuaris';
 $string['cachedef_navigation_expandcourse'] = 'Navegació expansible pels cursos';
 $string['cachedef_observers'] = 'Observadors d\'esdeveniments';
 $string['cachedef_plugin_functions'] = 'Crides de retorn disponibles per als connectors';
 $string['cachedef_plugin_manager'] = 'Gestor d\'informació de connectors';
+$string['cachedef_postprocessedcss'] = 'CSS post processat';
 $string['cachedef_questiondata'] = 'Definicions de qüestions';
 $string['cachedef_repositories'] = 'Dades d\'instàncies dels repositoris';
 $string['cachedef_string'] = 'Memòria cau de cadenes d\'idioma';
@@ -107,9 +111,6 @@ $string['localstorenotification'] = 'Aquest cau es pot mapar tranquil·lament a 
 $string['lockdefault'] = 'Per defecte';
 $string['locking'] = 'Blocatge';
 $string['locking_help'] = 'El bloqueig és un mecanisme que restringeix l\'accés a les dades emmagatzemades en memòria cau per un procés per evitar que les dades siguin sobreescrites. El mètode de bloqueig determina com s\'adquireix el bloqueig i es comprova.';
-$string['lockingmeans'] = 'Mecanisme de bloqueig';
-$string['lockmethod'] = 'Mètode de blocatge';
-$string['lockmethod_help'] = 'Aquest és el mètode de blocatge utilitzat quan es requereix des d\'aquest magatzem.';
 $string['lockname'] = 'Nom';
 $string['locknamedesc'] = 'El nom ha de ser únic i sols pot tindre els caràcters: a-zA-Z_';
 $string['locknamenotunique'] = 'El nom que heu seleccionat no és únic. Si us plau seleccioneu un nom únic.';

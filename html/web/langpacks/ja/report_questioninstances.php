@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_questioninstances', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'report_questioninstances', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   report_questioninstances
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['editquestionshere'] = 'このコンテクストの問題を編集する
 $string['eventreportviewed'] = 'レポートが閲覧されました。';
 $string['getreport'] = 'レポートを取得する';
 $string['hiddenquestions'] = '非表示';
-$string['intro'] = 'このレポートでは、特定の問題タイプを含むシステムのコンテクストを一覧表示します。';
+$string['intro'] = 'このレポートでは特定の問題タイプを含むシステムのコンテクストを一覧表示します。';
 $string['pluginname'] = '問題インスタンス';
 $string['questioninstances:view'] = '問題インスタンスレポートを表示する';
 $string['reportforallqtypes'] = 'すべての問題タイプのレポート';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'badges', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   badges
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -60,7 +60,7 @@ $string['archiveconfirm'] = 'Eliminar y mantener las insignias otorgadas existen
 $string['archivehelp'] = '<p>Esta opción significa que la insignia se marcará como "retirada" y ya no aparecerá en la lista de insignias. Los usuarios no podrán ganar esta insignia, sin embargo los destinatarios de la insignia existentes seguirán pudiendo mostrarla en su página de perfil y subirla a sus mochilas externas. </p>
 <p> Si desea que sus usuarios pueden mantener el acceso a las insignias obtenidas es importante seleccionar esta opción en lugar de eliminar totalmente las insignias.</p>';
 $string['attachment'] = 'Adjuntar insignia al mensaje';
-$string['attachment_help'] = 'Si se selecciona, se adjuntará una insignia al correo electrónico que se podrá descargar';
+$string['attachment_help'] = 'Si se selecciona, se adjuntará una archivo de insignia emitida al e-mail del destinatario para descarga. (Los adjuntos deben ser habilitados en Administración del sitio  > Extensiones > Salidas de mensaje > Email para usar esta opción.)';
 $string['award'] = 'Otorgar insignia';
 $string['awardedtoyou'] = 'Emitida para mi';
 $string['awardoncron'] = 'El acceso a las insignias se activó con éxito. Muchos usuarios pueden ganar simultáneamente esta insignia. Para garantizar el funcionamiento del sitio, esta acción llevará un cierto tiempo de proceso.';
@@ -247,6 +247,13 @@ $string['error:requesttimeout'] = 'Terminó el tiempo de solicitud de conexión 
 $string['error:save'] = 'No se puede guardar la insignia';
 $string['error:userdeleted'] = '{$a->user} (Este usuario ya no existe en {$a->site})';
 $string['eventbadgeawarded'] = 'Insignia concedida';
+$string['eventbadgecreated'] = 'Insignia creada';
+$string['eventbadgedeleted'] = 'Insignia borrada';
+$string['eventbadgedisabled'] = 'Insignia deshabilitada';
+$string['eventbadgeduplicated'] = 'Insignia duplicada';
+$string['eventbadgeenabled'] = 'Insignia habilitada';
+$string['eventbadgeupdated'] = 'Insignia actualizada';
+$string['eventbadgeviewed'] = 'Insignia vista';
 $string['evidence'] = 'Evidencia';
 $string['existingrecipients'] = 'Destinatarios de insignias existentes';
 $string['expired'] = 'Expirada';
@@ -346,6 +353,7 @@ $string['reviewconfirm'] = '<p> Con esto, hará que su insignia sea visible para
 <p> Una vez que la insignia haya sido emitida será <strong>bloqueada</strong> - ciertos ajustes incluyendo los criterios y los ajustes de caducidad ya no se podrán modificar. </p>
 
 <p> ¿Está seguro de que desea permitir el acceso a la insignia \'{$a}\'? </p>';
+$string['revoke'] = 'Quitar insignia';
 $string['save'] = 'Guardar';
 $string['searchname'] = 'Buscar por nombre';
 $string['selectaward'] = 'Por favor, seleccione el rol que le gustaría usar para otorgar esta insignia:';

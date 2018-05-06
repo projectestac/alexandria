@@ -15,11 +15,13 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package moodlecore
- * @subpackage backup-moodle2
- * @copyright 2010 onwards Eloy Lafuente (stronk7) {@link http://stronk7.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package mod_questionnaire
+ * @copyright  2016 Mike Churchward (mike.churchward@poetgroup.org)
+ * @author     Mike Churchward
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
+defined('MOODLE_INTERNAL') || die();
 
 /**
  * Define all the backup steps that will be used by the backup_questionnaire_activity_task
@@ -38,7 +40,7 @@ class backup_questionnaire_activity_structure_step extends backup_activity_struc
         // Define each element separated.
         $questionnaire = new backup_nested_element('questionnaire', array('id'), array(
             'course', 'name', 'intro', 'introformat', 'qtype',
-            'respondenttype', 'resp_eligible', 'resp_view', 'opendate',
+            'respondenttype', 'resp_eligible', 'resp_view', 'notifications', 'opendate',
             'closedate', 'resume', 'navigate', 'grade', 'sid', 'timemodified', 'completionsubmit', 'autonum'));
 
         $surveys = new backup_nested_element('surveys');

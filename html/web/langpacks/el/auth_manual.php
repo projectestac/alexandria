@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_manual', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_manual', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_manual
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,4 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['auth_manualdescription'] = 'Αυτή η μέθοδος αφαιρεί τη δυνατότητα από τους χρήστες να δημιουργούν δικούς τους λογαριασμούς. Όλοι οι λογαριασμοί πρέπει να δημιουργηθούν από το διαχειριστή.';
+$string['passwdexpiretime'] = 'Διάρκεια κωδικού πρόσβασης';
 $string['pluginname'] = 'Μη αυτόματη δημιουργία λογαριασμού';

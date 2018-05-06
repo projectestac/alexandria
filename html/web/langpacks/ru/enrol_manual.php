@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_manual', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_manual', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_manual
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,7 +40,7 @@ $string['deleteselectedusers'] = 'Отчислить выбранных поль
 $string['editselectedusers'] = 'Изменить зачисления выбранных пользователей';
 $string['enrolledincourserole'] = 'Записан на курс «{$a->course}» как «{$a->role}»';
 $string['enrolusers'] = 'Запись пользователей на курс';
-$string['expiredaction'] = 'Действие при истечении срока записи';
+$string['expiredaction'] = 'Действие при истечении срока зачисления';
 $string['expiredaction_help'] = 'Выберите выполняемое действие при истечении срока записи пользователя в курсе. Обратите внимание, что из курса удаляются некоторые настройки  и данные пользователя при исключении его из курса.';
 $string['expirymessageenrolledbody'] = 'Уважаемый(ая) {$a->user}, уведомляем Вас, что обучение в курсе «{$a->course}» истекает {$a->timeend}. При необходимости свяжитесь с {$a->enroller}.';
 $string['expirymessageenrolledsubject'] = 'Уведомление об окончании обучения';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_uploaduser', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_uploaduser', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_uploaduser
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,7 +35,7 @@ $string['deleteerrors'] = '削除エラー';
 $string['encoding'] = 'エンコーディング';
 $string['errormnetadd'] = 'リモートユーザを追加できません。';
 $string['errors'] = 'エラー';
-$string['invalidupdatetype'] = 'あなたは選択した「アップロードタイプ」でこのオプションを選択することはできません。';
+$string['invalidupdatetype'] = '選択したアップロードタイプでこのオプションを選択することはできません。';
 $string['invaliduserdata'] = 'ユーザ {$a} のデータに無効なデータが検出されたため、自動的に削除されました。';
 $string['nochanges'] = '変更なし';
 $string['pluginname'] = 'ユーザアップロード';
@@ -51,7 +51,7 @@ $string['uploadpicture_cannotunzip'] = '画像ファイルを展開できませ�
 $string['uploadpicture_invalidfilename'] = '画像ファイル {$a} のファイル名に無効な文字があります。スキップします。';
 $string['uploadpicture_overwrite'] = '既存のユーザ画像を上書きしますか?';
 $string['uploadpictures'] = 'ユーザ画像をアップロードする';
-$string['uploadpictures_help'] = 'ZIP圧縮したイメージファイルをユーザ画像としてアップロードすることができます。イメージファイルは、「選択されたユーザ属性.拡張子」という形で名前付けをする必要があります。例えば「user1234.jpg」はusernameが「user1234」のユーザ用となります。';
+$string['uploadpictures_help'] = 'ZIP圧縮したイメージファイルをユーザ画像としてアップロードすることができます。イメージファイルは「選択されたユーザ属性.拡張子」という形で名前付けをする必要があります。例えば「user1234.jpg」はusernameが「user1234」のユーザ用となります。';
 $string['uploadpicture_userfield'] = '画像にマッチさせるユーザ属性';
 $string['uploadpicture_usernotfound'] = '「 {$a->userfield} 」の値が「 {$a->uservalue} 」のユーザは存在しません。スキップします。';
 $string['uploadpicture_userskipped'] = 'ユーザ {$a} をスキップします (画像登録済みです)。';
@@ -76,7 +76,7 @@ $string['usersrenamed'] = 'ユーザがリネームされました';
 $string['usersskipped'] = 'ユーザがスキップされました';
 $string['usersupdated'] = 'ユーザが更新されました';
 $string['usersweakpassword'] = '弱いパスワードを持ったユーザ';
-$string['uubulk'] = '「バルクユーザ処理」を選択する';
+$string['uubulk'] = 'バルクユーザ処理を選択する';
 $string['uubulkall'] = 'すべてのユーザ';
 $string['uubulknew'] = '新しいユーザ';
 $string['uubulkupdated'] = '更新されたユーザ';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'feedback', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'feedback', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   feedback
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -52,6 +52,7 @@ $string['checkbox'] = 'Kryssruta';
 $string['check_values'] = 'Kryssruta - fyll i alternativ att välja bland';
 $string['choosefile'] = 'Välj en fil';
 $string['chosen_feedback_response'] = 'valt svar för Egen enkät';
+$string['closebeforeopen'] = 'Slutdatumet ligger före startdatumet.';
 $string['completed'] = 'Ifyllt';
 $string['completed_feedbacks'] = 'Fullgjorda Egna enkäter';
 $string['complete_the_form'] = 'Fyll i hela formuläret';
@@ -90,6 +91,7 @@ $string['dependitem'] = 'beroende komponent';
 $string['dependvalue'] = 'beroende värde';
 $string['description'] = 'Beskrivning';
 $string['do_not_analyse_empty_submits'] = 'Analysera inte tomma inskickningar';
+$string['downloadresponseas'] = 'Ladda ned alla svar som:';
 $string['dropdown'] = 'Flervals-, kortsvar är tillåtna (nedrullningsmeny)';
 $string['dropdownlist'] = 'Nedrullningslista';
 $string['dropdownrated'] = 'Nedrullningsmeny';
@@ -107,8 +109,8 @@ Du kan se den här:
 $string['emailteachermailhtml'] = '{$a->username} har fullgjort en Egen enkät enligt: <i>\'{$a->feedback}\'</i><br /><br />
 Du kan se den: <a href="{$a->url}">här</a>.';
 $string['entries_saved'] = 'Inläggen har sparats';
-$string['eventresponsedeleted'] = 'Svar borttaget';
-$string['eventresponsesubmitted'] = 'Svar inlämnat';
+$string['eventresponsedeleted'] = 'Svar borttagen';
+$string['eventresponsesubmitted'] = 'Svar inlämnad';
 $string['export_questions'] = 'Exportera frågor';
 $string['export_to_excel'] = 'Exportera till Excel';
 $string['feedback:addinstance'] = 'Lägg till ny enkät';

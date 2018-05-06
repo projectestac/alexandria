@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'calendar', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   calendar
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -67,7 +67,7 @@ $string['errorcannotimport'] = '現在、あなたはカレンダー購読を設
 $string['errorhasuntilandcount'] = '「UNTIL」または「COUNT」は反復ルールに出現させることができますが「UNTIL」および「COUNT」は同じ反復ルールに存在させることはできません。';
 $string['errorinvalidbydayprefix'] = 'BYDAYルールの前の整数値は「MONTHLY」または「YEARLY」ルールにのみ渡すことができます。';
 $string['errorinvalidbydaysuffix'] = 'BYDAYルールの一部の有効な週の曜日の値は「MO」「TU」「WE」「TH」「FR」「SA」「SU」です。';
-$string['errorinvalidbyhour'] = 'BYHOURルールの有効な値は0～59です。';
+$string['errorinvalidbyhour'] = 'BYHOURルールの有効な値は0～23です。';
 $string['errorinvalidbyminute'] = 'BYMINUTEルールの有効な値は0～59です。';
 $string['errorinvalidbymonth'] = 'BYMONTHルールの有効な値は1～12です。';
 $string['errorinvalidbymonthday'] = 'BYMONTHDAYルールの有効な値は1～31または-31～-1です。';
@@ -105,8 +105,14 @@ $string['eventsdeleted'] = '削除済みイベント';
 $string['eventsfor'] = '{$a} イベント';
 $string['eventsimported'] = 'インポート済みイベント: {$a}';
 $string['eventskey'] = 'イベントキー';
+$string['eventspersonal'] = 'マイパーソナルイベント';
 $string['eventsrelatedtocourses'] = 'コースに関連したイベント';
+$string['eventsrelatedtogroups'] = 'グループ関連イベント';
 $string['eventstarttime'] = '開始日時';
+$string['eventstoexport'] = 'エクスポートするイベント';
+$string['eventsubscriptioncreated'] = 'カレンダー購読が作成されました。';
+$string['eventsubscriptiondeleted'] = 'カレンダー購読が削除されました。';
+$string['eventsubscriptionupdated'] = 'カレンダー購読が更新されました。';
 $string['eventsupdated'] = '更新済みイベント: {$a}';
 $string['eventtime'] = '時間';
 $string['eventview'] = 'イベント詳細';
@@ -173,10 +179,10 @@ $string['pref_startwday_help'] = 'あなたがここで選択した曜日を週�
 $string['pref_timeformat'] = '時間フォーマット';
 $string['pref_timeformat_help'] = 'あなたは時間表示に関して、12時間または24時間フォーマットを選択することができます。「デフォルト」を選択した場合、あなたのサイトの言語設定に基づき自動的に時間フォーマットが選択されます。';
 $string['quickdownloadcalendar'] = 'クイックダウンロード / カレンダーを購読する';
-$string['recentupcoming'] = '最近および次の60日';
+$string['recentupcoming'] = '最近および次の60日間';
 $string['repeatedevents'] = '繰り返しイベント';
 $string['repeateditall'] = '変更内容を他の {$a} 件の繰り返しイベントに適用する';
-$string['repeateditthis'] = '変更内容をこのイベントのみに適用する。';
+$string['repeateditthis'] = '変更内容をこのイベントにのみ適用する。';
 $string['repeatevent'] = 'このイベントを繰り返す';
 $string['repeatnone'] = '繰り返しなし';
 $string['repeatweeksl'] = '毎週、作成イベント数';
@@ -201,7 +207,8 @@ $string['thu'] = '木';
 $string['thursday'] = '木曜日';
 $string['timeformat_12'] = '12時間 (午前/午後)';
 $string['timeformat_24'] = '24時間';
-$string['today'] = '今日';
+$string['timeperiod'] = '期間';
+$string['today'] = '本日';
 $string['tomorrow'] = '明日';
 $string['tt_deleteevent'] = 'イベントを削除する';
 $string['tt_editevent'] = 'イベントを編集する';

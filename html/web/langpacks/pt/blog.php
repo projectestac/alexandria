@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'blog', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,7 +40,7 @@ $string['backupblogshelp'] = 'Quando ativos, os blogues são incluídos nas cóp
 $string['blockexternalstitle'] = 'Blogues externos';
 $string['blocktitle'] = 'Nome do bloco de palavras-chave';
 $string['blog'] = 'Blogue';
-$string['blogaboutthis'] = 'Blogue sobre {$a->type}';
+$string['blogaboutthis'] = 'Blogue sobre este(a) {$a->type}';
 $string['blogaboutthiscourse'] = 'Adicionar mensagem sobre esta disciplina';
 $string['blogaboutthismodule'] = 'Adicionar mensagem sobre {$a}';
 $string['blogadministration'] = 'Administração do Blogue';
@@ -48,10 +48,10 @@ $string['blogdeleteconfirm'] = 'Apagar a mensagem \'{$a}\' do Blogue?';
 $string['blogdisable'] = 'O sistema de blogues está desativado!';
 $string['blogentries'] = 'Mensagens do blogue';
 $string['blogentriesabout'] = 'Mensagens do blogue: {$a}';
-$string['blogentriesbygroupaboutcourse'] = 'Mensagens do blogue sobre {$a->course} por {$a->group}';
-$string['blogentriesbygroupaboutmodule'] = 'Mensagens do blogue sobre {$a->mod} por {$a->group}';
-$string['blogentriesbyuseraboutcourse'] = 'Mensagens do blogue sobre {$a->course} por {$a->user}';
-$string['blogentriesbyuseraboutmodule'] = 'Mensagens do blogue sobre {$a->mod} por {$a->user}';
+$string['blogentriesbygroupaboutcourse'] = 'Mensagens de blogue sobre {$a->course} por {$a->group}';
+$string['blogentriesbygroupaboutmodule'] = 'Mensagens de blogue sobre {$a->mod} por {$a->group}';
+$string['blogentriesbyuseraboutcourse'] = 'Mensagens de blogue sobre {$a->course} por {$a->user}';
+$string['blogentriesbyuseraboutmodule'] = 'Mensagens de blogue sobre {$a->mod} por {$a->user}';
 $string['blogentrybyuser'] = 'Mensagem do blogue por {$a}';
 $string['blogpreferences'] = 'Preferências do Blogue';
 $string['blogs'] = 'Blogues';
@@ -89,10 +89,15 @@ $string['entryerrornotyours'] = 'Esta mensagem não é da sua autoria';
 $string['entrysaved'] = 'A sua mensagem foi gravada';
 $string['entrytitle'] = 'Título da mensagem';
 $string['eventblogassociationadded'] = 'Associação de blogue criada';
+$string['eventblogassociationdeleted'] = 'Associação de blogues eliminada';
 $string['eventblogentriesviewed'] = 'Entradas de blogue visualizadas';
+$string['eventblogexternaladded'] = 'Blogue externo registado';
+$string['eventblogexternalremoved'] = 'Removido o registo do blogue externo';
+$string['eventblogexternalupdated'] = 'Blogue externo atualizado';
 $string['evententryadded'] = 'Entrada de blogue adicionada';
 $string['evententrydeleted'] = 'Entrada de blogue eliminada';
 $string['evententryupdated'] = 'A mensagem do blogue foi atualizada';
+$string['eventexternalblogsviewed'] = 'Visualizados os blogues externos registados';
 $string['externalblogcrontime'] = 'Agendar cron do blogue externo';
 $string['externalblogdeleteconfirm'] = 'Cancelar o registo deste blogue externo?';
 $string['externalblogdeleted'] = 'O blogue externo foi cancelado';
@@ -136,7 +141,7 @@ $string['publishtocourseassoc'] = 'Membros da disciplina associada';
 $string['publishtocourseassocparam'] = 'Membros de {$a}';
 $string['publishtogroup'] = 'Os utilizadores partilham um grupo consigo';
 $string['publishtogroupassoc'] = 'Os seus membros do grupo na disciplina associada';
-$string['publishtogroupassocparam'] = 'Os membros do grupo em {$ a}';
+$string['publishtogroupassocparam'] = 'Os membros do grupo em {$a}';
 $string['publishto_help'] = 'Existem 3 opções:
 
 * O próprio (rascunho) - Apenas você e o administrador podem ver a mensagem
@@ -151,7 +156,6 @@ $string['retrievedfrom'] = 'Obtido em';
 $string['rssfeed'] = 'Blogue Listas RSS';
 $string['searchterm'] = 'Pesquisar: {$a}';
 $string['settingsupdatederror'] = 'Ocorreu um erro e as preferências não foram atualizadas';
-$string['siteblog'] = 'Blogue do site: {$a}';
 $string['siteblogdisable'] = 'O blogue do site não está ativo';
 $string['siteblogheading'] = 'Blogue do site';
 $string['siteblogs'] = 'Todos os utilizadores do site podem ver todas as entradas dos blogues';
@@ -187,4 +191,5 @@ $string['viewmyentriesaboutmodule'] = 'Ver as minhas mensagens sobre {$a}';
 $string['viewsiteentries'] = 'Ver todas as mensagens';
 $string['viewuserentries'] = 'Ver todas as mensagens por {$a}';
 $string['worldblogs'] = 'Todos podem ler as mensagens configuradas para estarem acessíveis a todos';
+$string['wrongexternalid'] = 'ID de blog externo errado';
 $string['wrongpostid'] = 'ID da mensagem incorreto';

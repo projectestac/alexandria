@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_completion', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_completion', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['description'] = 'Eis van leerlingen om een andere activiteit te voltooien (of niet te voltooien)';
 $string['error_selectcmid'] = 'Je moet een activiteit selecteren voor de voorwaarde "voltooien".';
+$string['error_selectcmidpassfail'] = 'Je moet een activiteit selecteren met voltooiingsconditie "Cijfer vereist" ingesteld.';
 $string['label_cm'] = 'Activiteit of bron';
 $string['label_completion'] = 'Vereiste voltooiingsstatus';
 $string['missing'] = '(Ontbrekende activiteit)';

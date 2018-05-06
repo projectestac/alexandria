@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'completion', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,8 +30,8 @@ $string['activities'] = 'Jarduerak';
 $string['activitiescompleted'] = 'Jarduera-osaketa';
 $string['activitiescompletednote'] = 'Oharra: Jarduera-osaketak ezarrita egon behar du jarduera batean beheko zerrenda ager dadin.';
 $string['activityaggregation'] = 'Bete beharreko baldintzak';
-$string['activityaggregation_all'] = 'Aukeratutako jarduera guztiak osatu behar dira';
-$string['activityaggregation_any'] = 'Aukeratutako edozein jarduera osatu behar da';
+$string['activityaggregation_all'] = 'Aukeratutako jarduera GUZTIAK osatu behar dira';
+$string['activityaggregation_any'] = 'Aukeratutako EDOZEIN jarduera osatu behar da';
 $string['activitycompletion'] = 'Jarduera-osaketa';
 $string['aggregationmethod'] = 'Osatu beharreko elementu-kopurua';
 $string['all'] = 'Guztiak';
@@ -111,7 +111,7 @@ $string['datepassed'] = 'Data igarota';
 $string['days'] = 'Egun';
 $string['daysoftotal'] = '{$a->days} egun {$a->total}-(e)tik';
 $string['deletecompletiondata'] = 'Ezabatu osaketaren datuak';
-$string['dependencies'] = 'Menpekotasunak';
+$string['dependencies'] = 'Mendekotasunak';
 $string['dependenciescompleted'] = 'Beste ikastaro batzuen osaketa';
 $string['editcoursecompletionsettings'] = 'Ikastaro-osaketaren ezarpenak editatu';
 $string['enablecompletion'] = 'Osaketaren jarraipena gaitu';
@@ -123,7 +123,7 @@ $string['err_nocourses'] = 'Ikastaro-osaketa ez dago beste inongo ikastarotan ga
 $string['err_nograde'] = 'Ikastaro honetan ez da ezarri ikastaroa gainditzeko kalifikaziorik. Irizpide hau gaitzeko gainditzeko kalifikazioa sortu behar duzu ikastaro honetarako.';
 $string['err_noroles'] = 'Ez dago ikastaro honetan \'moodle/course:markcomplete\' gaitasuna duen rolik.';
 $string['err_nousers'] = 'Ikastaro edo talde honetan ez dago osaketa-informazioa duen ikaslerik. (Berez, osaketa-infomazioa ikasleei bakarrik erakusten zaie eta beraz, ikaslerik ez badago, errore hau ikusiko duzu. Kudeatzaileek aldatu egin dezakete aukera hau)';
-$string['err_settingslocked'] = 'Ikasleren batek dagoeneko osatu du irizpide bat eta, beraz, ezarpenak blokeatu egin dira. Osaketa-irizpideen ezarpenak desblokeatuta, aldez aurretik dagoen erabiltzaileen edozein datu ezabatu egingo da eta horrek nahasmendua sor dezake.';
+$string['err_settingslocked'] = 'Ikasle batek edo bat baino gehiagok agoeneko osatu du irizpidea eta, beraz, ezarpenak blokeatu egin dira. Osaketa-irizpideen ezarpenak desblokeatuta, aldez aurretik dagoen erabiltzaileen edozein datu ezabatu egingo da eta horrek nahasmendua sor dezake.';
 $string['err_system'] = 'Barne-errore bat gertatu da osaketa-sisteman. (Kudeatzaileek aurerrapenaren informazioa gaitu ahal dute xehetasun gehiago ikusteko).';
 $string['eventcoursecompleted'] = 'Ikastaroa osatu da';
 $string['eventcoursecompletionupdated'] = 'Ikastaro-osaketa eguneratu da';

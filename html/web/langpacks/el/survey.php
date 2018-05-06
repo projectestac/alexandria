@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'survey', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'survey', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   survey
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -190,6 +190,7 @@ $string['collespintro'] = 'Ο σκοπός αυτής της έρευνας εί
 
 Σας ευχαριστούμε πολύ.';
 $string['collespname'] = 'COLLES (Προτιμώμενη)';
+$string['completionsubmit'] = 'Ο μαθητής πρέπει να υποβάλλει στη δραστηριότητα για να την ολοκληρώσει';
 $string['customintro'] = 'Κείμενο εισαγωγής';
 $string['deleteallanswers'] = 'Διαγραφή όλων των απαντήσεων';
 $string['deleteanalysis'] = 'Διαγραφή της ανάλυσης απαντήσεων';
@@ -233,9 +234,9 @@ $string['scales'] = 'Κλίμακες';
 $string['scaletimes5'] = 'Σχεδόν ποτέ, Σπάνια, Μερικές φορές, Συχνά, Σχεδόν πάντα';
 $string['seemoredetail'] = 'Κάντε κλικ εδώ για να δείτε περισσότερες λεπτομέρειες';
 $string['selectedquestions'] = 'Επιλεγμένες ερωτήσεις μιας κλίμακας, όλοι οι μαθητές';
-$string['summary'] = 'Περίληψη';
-$string['survey:addinstance'] = 'Προσθέστε μία νέα έρευνα';
-$string['surveycompleted'] = 'Έχετε ολοκληρώσει αυτή την έρευνα. Το παρακάτω γράφημα δείχνει μια περίληψη των αποτελεσμάτων σας, σε σύγκριση με τους μέσους όρους της τάξης.';
+$string['summary'] = 'Σύνοψη';
+$string['survey:addinstance'] = 'Προσθήκη νέας έρευνας';
+$string['surveycompleted'] = 'Έχετε ολοκληρώσει αυτή την έρευνα. Το παρακάτω γράφημα δείχνει μια σύνοψη των αποτελεσμάτων σας, σε σύγκριση με τους μέσους όρους της τάξης.';
 $string['surveycompletednograph'] = 'Έχετε ολοκληρώσει αυτή την έρευνα.';
 $string['survey:download'] = 'Κατεβάστε τις απαντήσεις';
 $string['surveygraph'] = 'Γραφική παράσταση';

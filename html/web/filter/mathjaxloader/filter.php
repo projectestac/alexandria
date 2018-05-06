@@ -99,11 +99,7 @@ class filter_mathjaxloader extends moodle_text_filter {
         static $jsinitialised = false;
 
         if (empty($jsinitialised)) {
-            if (is_https()) {
-                $url = get_config('filter_mathjaxloader', 'httpsurl');
-            } else {
-                $url = get_config('filter_mathjaxloader', 'httpurl');
-            }
+            $url = get_config('filter_mathjaxloader', 'httpsurl');
             $lang = $this->map_language_code(current_language());
             $url = new moodle_url($url, array('delayStartupUntil' => 'configured'));
 
@@ -115,6 +111,9 @@ class filter_mathjaxloader extends moodle_text_filter {
             $page->requires->js_module($moduleconfig);
 
             $config = get_config('filter_mathjaxloader', 'mathjaxconfig');
+            $wwwroot = new moodle_url('/');
+
+            $config = str_replace('{wwwroot}', $wwwroot->out(true), $config);
 
             $params = array('mathjaxconfig' => $config, 'lang' => $lang);
 

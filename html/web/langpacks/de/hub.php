@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hub', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'hub', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   hub
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -165,7 +165,7 @@ $string['registermoochtips'] = 'Registrieren Sie Ihre Website bei Moodle, um Sic
 $string['registersite'] = 'Auf {$a} registrieren';
 $string['registerwith'] = 'Zugriff für einen Hub registrieren';
 $string['registrationconfirmed'] = 'Registrierung der Website bestätigt';
-$string['registrationconfirmedon'] = 'Danke für die Registrierung Ihrer Website! Die Anmeldeinformationen werden regelmäßig über die Task \'Website-Registrierung\' aktualisiert.';
+$string['registrationconfirmedon'] = 'Danke für die Registrierung Ihrer Website! Die Anmeldeinformationen werden über die automatische Website-Registierung aktualisiert.';
 $string['registrationinfo'] = 'Registrierungsinformation';
 $string['registrationupdated'] = 'Registrierung wurde erneuert.';
 $string['registrationupdatedfailed'] = 'Registrierung ist fehlgeschlagen.';

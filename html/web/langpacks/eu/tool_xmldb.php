@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_xmldb', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_xmldb', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_xmldb
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['actual'] = 'Oraingoa';
 $string['aftertable'] = 'Taularen ondoren:';
 $string['back'] = 'Atzera';
 $string['backtomainview'] = 'Itzuli orri nagusira';
-$string['cannotuseidfield'] = '"id" eremua ezin da sartu. Berez numeratua dagoen zutabea da.';
+$string['cannotuseidfield'] = '"id" eremua ezin da sartu. Zutabe auto-zenbakitua da.';
 $string['change'] = 'Aldatu';
 $string['charincorrectlength'] = 'Char eremuaren luzera desegokia';
 $string['checkbigints'] = 'Egiaztatu integer-ak';
@@ -59,8 +59,10 @@ $string['documentationintro'] = 'Dokumentazioa automatikoki sortzen da XMLDB  da
 $string['down'] = 'Behera';
 $string['duplicate'] = 'Bikoiztu';
 $string['duplicatefieldname'] = 'Dagoeneko bada izen hori duen beste eremu bat';
+$string['duplicatefieldsused'] = 'Bikoiztutako eremuak erabili dira';
 $string['duplicateindexname'] = 'Bikoiztu aurkibidearen izena';
-$string['duplicatekeyname'] = 'Badago dagoeneko izen bereko beste giltza bat';
+$string['duplicatekeyname'] = 'Dagoeneko bada izen hori duen beste giltza bat';
+$string['duplicatetablename'] = 'Dagoeneko bada izen hori duen beste taula bat';
 $string['edit'] = 'Editatu';
 $string['edit_field'] = 'Editatu eremua';
 $string['edit_field_save'] = 'Gorde eremua';
@@ -80,6 +82,7 @@ $string['fieldsnotintable'] = 'Eremua ez da taulan existitzen';
 $string['fieldsusedinindex'] = 'Eremu hau aurkibide gisa erabilitzen da';
 $string['fieldsusedinkey'] = 'Eremu hau giltza bezala erabiltzen da.';
 $string['filenotwriteable'] = 'Idatzi ezineko fitxategia';
+$string['fkviolationdetails'] = '{$a->tablename} taulan, {$a->numrows} errenkadetatik {$a->keyname} kanpo giltza urratzen duten {$a->numviolations} errenkada daude.';
 $string['floatincorrectdecimals'] = 'Float eremuaren hamartarren kopuru ezegokia';
 $string['floatincorrectlength'] = 'Float eremuaren luzera ezegokia';
 $string['generate_all_documentation'] = 'Dokumentazio osoa';
@@ -96,14 +99,14 @@ $string['integerincorrectlength'] = 'Integer eremuaren luzera desegokia';
 $string['key'] = 'Giltza';
 $string['keynameempty'] = 'Giltzaren izena ezin da hutsik egon';
 $string['keys'] = 'Giltzak';
-$string['listreservedwords'] = 'Erreserbatutako Hitzen Zerrenda<br/>(<a href="https://docs.moodle.org/dev/XMLDB_reserved_words" target="_blank">XMLDB_reserved_words</a> zerrenda eguneratua mantentzeko erabilia)';
+$string['listreservedwords'] = 'Erreserbatutako Hitzen Zerrenda<br/>(<a href="http://docs.moodle.org/en/XMLDB_reserved_words" target="_blank">XMLDB_reserved_words</a> eguneratuta mantentzeko erabilia)';
 $string['load'] = 'Igo';
 $string['main_view'] = 'Ikuspegi nagusia';
 $string['missing'] = 'Ez dago';
 $string['missingindexes'] = 'Falta diren aurkibideak atzeman dira';
-$string['mustselectonefield'] = 'Eremu bat aukeratu behar duzu horrekin lotutako ekintzak ikusteko!';
-$string['mustselectoneindex'] = 'Aurkibide bat aukeratu behar duzu horrekin lotutako ekintzak ikusteko!';
-$string['mustselectonekey'] = 'Giltz bat aukeratu behar duzu horrekin lotutako ekintzak ikusteko!';
+$string['mustselectonefield'] = 'Eremu bat aukeratu behar duzu horrekin lotutako ekintzak ikusteko.';
+$string['mustselectoneindex'] = 'Aurkibide bat aukeratu behar duzu horrekin lotutako ekintzak ikusteko.';
+$string['mustselectonekey'] = 'Giltz bat aukeratu behar duzu horrekin lotutako ekintzak ikusteko.';
 $string['newfield'] = 'Eremu berria';
 $string['newindex'] = 'Aurkibide berria';
 $string['newkey'] = 'Giltza berria';
@@ -111,7 +114,8 @@ $string['newtable'] = 'Taula berria';
 $string['newtablefrommysql'] = 'Taula berria MySQL-etik';
 $string['new_table_from_mysql'] = 'Taula berria MySQL-etik';
 $string['nofieldsspecified'] = 'Ez da eremurik zehaztu';
-$string['nomissingindexesfound'] = 'Ez da atzeman aurkibideak falta direnik, zure datu-baseak ez du beste eragiketaren beharrik.';
+$string['nomissingindexesfound'] = 'Ez da atzeman aurkibideak falta direla. Zure DBak ez du beste eragiketaren beharrik.';
+$string['noviolatedforeignkeysfound'] = 'Ez da urratutako kanpoko giltzarik aurkitu';
 $string['numberincorrectdecimals'] = 'Hamartarren kopuru ezegokia zenbakizko eremuan';
 $string['numberincorrectlength'] = 'Zenbakizko eremuaren luzera ezegokia';
 $string['pluginname'] = 'XMLDB editorea';
@@ -143,14 +147,17 @@ $string['view_structure_sql'] = 'Ikusi SQL egitura';
 $string['view_table_php'] = 'Ikusi PHP taula';
 $string['view_table_sql'] = 'Ikusi SQL taula';
 $string['viewxml'] = 'XML';
-$string['violatedforeignkeys'] = 'Bortxatutako kanpoko giltzak';
-$string['violatedforeignkeysfound'] = 'Bortxatutako kanpoko giltzak aurkitu dira';
+$string['violatedforeignkeys'] = 'Urratutako kanpoko giltzak';
+$string['violatedforeignkeysfound'] = 'Urratutako kanpoko giltzak aurkitu dira';
 $string['violations'] = 'Bortxaketak';
 $string['wrong'] = 'Okerra';
 $string['wrongdefaults'] = 'Berezko balore okerrak aurkitu dira';
-$string['wrongints'] = 'Integer okerrak aurkitu dira';
+$string['wrongints'] = 'Zenbaki oso okerrak aurkitu dira';
 $string['wronglengthforenum'] = 'Enum eremuaren luzera ez da zuzena';
-$string['wrongreservedwords'] = 'Une honetan erabilitako erreserbatutako hitzak<br />(ohartu taularen izenak ez direla garrantzizkoak $CFG->prefix erabiltzen bada)';
-$string['yesmissingindexesfound'] = '<p>Zure DBn hainbat aurkibide falta direla atzeman da. Hemen xehetasunak ikus ditzakezu, bai eta sortu ahal izateko gogoko SQL interfazean egikaritu beharreko SQL komandoak ere. Gogoratu aurretik zure datuen segurtasun-kopia bat egiteaz!</p><p> Behin egindakoan, oso gomendagarria da berriz ere funtzionalitate hau egikaritzea aurkibideak ez direla falta egiaztatzeko.</p>';
-$string['yeswrongdefaultsfound'] = '<p>Zure datu-basean arazoak sortzen dituzten berezko balore batzuk aurkitu dira. Hemen dituzu horien zehaztasunak eta sortzeko zure SQL interfaz gogokoenean egikaritu behar diren SQL ekintzak. Gogoratu aurretik zure datuen segurtasun-kopia bat egiteaz!</p><p>Egindakoan, funtzio hau berriz ere abiaraztea gomendatzen da arazoak sortzen dituzte berezko beste balorerik ez dagoela ziurtatzeko.</p>';
-$string['yeswrongintsfound'] = '<p>Zure datu-basean hainbat oso oker aurkitu dira. Hemen dituzu horien zehaztasunak eta sortzeko zure SQL interfaz gogokoenean egikaritu behar diren SQL ekintzak. <p><p></p>Egindakoan, funtzio hau berriz ere abiaraztea gomendatzen da beste oso okerrik ez dagoela ziurtatzeko.</p>';
+$string['wrongreservedwords'] = 'Une honetan erabilitako Erreserbatutako Hitzak<br />(ohartu taularen izenak ez direla garrantzizkoak $CFG->prefix erabiltzen bada)';
+$string['yesmissingindexesfound'] = '<p>Zure DBn hainbat aurkibide falta direla atzeman da. Hemen xehetasunak ikus ditzakezu, bai eta sortu ahal izateko gogoko SQL interfazean egikaritu beharreko SQL komandoak ere.</p>
+<p>Behin egindakoan, gomendagarria da berriz ere funtzionalitate hau egikaritzea aurkibideak ez direla falta egiaztatzeko.</p>';
+$string['yeswrongdefaultsfound'] = '<p>Zure datu-basean arazoak sortzen dituzten berezko balore batzuk aurkitu dira. Hemen dituzu horien zehaztasunak eta sortzeko zure SQL interfaz gogokoenean egikaritu behar diren SQL ekintzak (aurretik egin, ahaztu gabe, zure datuen segurtasun-kopia).</p>
+<p>Egindakoan, funtzio hau berriz ere abiaraztea gomendatzen da arazoak sortzen dituzte berezko beste balorerik ez dagoela ziurtatzeko.</p>';
+$string['yeswrongintsfound'] = '<p>Zure datu-basean hainbat integer oker aurkitu dira. Hemen dituzu horien zehaztasunak eta sortzeko zure SQL interfaz gogokoenean egikaritu behar diren SQL ekintzak (aurretik egin, ahaztu gabe, zure datuen segurtasun-kopia).</p>
+<p>Egindakoan, funtzio hau berriz ere abiaraztea gomendatzen da beste oso okerrik ez dagoela ziurtatzeko.</p>';

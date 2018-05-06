@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   availability
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,7 @@ $string['addrestriction'] = 'Προσθέστε περιορισμό ...';
 $string['and'] = 'και';
 $string['enableavailability'] = 'Ενεργοποίηση διαθεσιμότητας υπό συνθήκες';
 $string['enableavailability_desc'] = 'Εαν ενεργοποιηθεί, σας επιτρέπει να θέσετε συνθήκες (με βάση ημερομηνία, βαθμό και ολοκλήρωση) οι οποίες θα καθορίζουν εάν μια δραστηριότητα είναι διαθέσιμη στους μαθητές.';
+$string['hidden_marker'] = '(διαφορετικά κρυμμένο)';
 $string['invalid'] = 'Παρακαλούμε να ορίσετε';
 $string['label_sign'] = 'Τύπος περιορισμού';
 $string['listheader_multi_after'] = 'από τα ακόλουθα';
@@ -39,8 +40,11 @@ $string['listheader_multi_or'] = 'κάθε';
 $string['listheader_sign_neg'] = 'δεν πρέπει να';
 $string['listheader_sign_pos'] = 'πρέπει';
 $string['list_or'] = 'Οποιαδήποτε από:';
+$string['list_root_and'] = 'Μη διαθέσιμο εκτός:';
 $string['list_root_and_hidden'] = 'Μη διαθέσιμο (κρυφό) εκτός:';
+$string['list_root_or'] = 'Μη διαθέσιμο εκτός οποιοδήποτε από:';
 $string['list_root_or_hidden'] = 'Μη διαθέσιμο (κρυφό) εκτός και ισχύει ένα από τα:';
 $string['manageplugins'] = 'Διαχειριστείτε τους περιορισμούς';
 $string['or'] = 'ή';
 $string['restrictaccess'] = 'Περιορισμός διαθεσιμότητας';
+$string['show_verb'] = 'Πατήστε για εμφάνιση';

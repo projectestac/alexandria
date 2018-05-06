@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'question', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -189,7 +189,7 @@ $string['filecantmovefrom'] = 'Die Fragedateien können von Ihnen nicht verschob
 $string['filecantmoveto'] = 'Die Fragedateien können von Ihnen nicht verschoben oder kopiert werden. Sie verfügen nicht über ausreichende Rechte Sie an diesen Ort zu verschieben.';
 $string['fileformat'] = 'Dateiformat';
 $string['filesareacourse'] = 'Dateibereich im Kurs';
-$string['filesareasite'] = 'Dateibereich der Website';
+$string['filesareasite'] = 'Dateien der Website';
 $string['filestomove'] = 'Dateien nach {$a} kopieren / verschieben?';
 $string['fillincorrect'] = 'Richtige Lösung';
 $string['firsttry'] = 'Erster Versuch';

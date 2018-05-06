@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_profile', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_profile', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_profile
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['conditiontitle'] = 'Fält för användarprofil';
 $string['description'] = 'Styr åtkomst baserad på fält i studentenprofilen';
+$string['error_selectfield'] = 'Du måste välja ett profilfält';
+$string['error_setvalue'] = 'Du måste skriva in ett värde';
 $string['op_contains'] = 'innehåller';
 $string['op_doesnotcontain'] = 'innehåller inte';
 $string['op_endswith'] = 'slutar med';

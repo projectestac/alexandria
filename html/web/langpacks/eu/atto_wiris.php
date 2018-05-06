@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_wiris', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'atto_wiris', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   atto_wiris
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,4 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'WIRIS plugina Atto-rako';
-$string['wiris_editor_title'] = 'WIRIS editorea';
+$string['wiris_cas_title'] = 'Kalkulagailua';
+$string['wiris_chem_editor_title'] = 'Kimika-editorea';
+$string['wiris_editor_title'] = 'Matematika-editorea';

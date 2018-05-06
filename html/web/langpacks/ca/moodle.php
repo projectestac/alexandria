@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'moodle', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'moodle', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   moodle
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -60,7 +60,7 @@ $string['addedtogroup'] = 'S\'ha afegit al grup {$a}';
 $string['addedtogroupnot'] = 'No s\'ha afegit al grup {$a}';
 $string['addedtogroupnotenrolled'] = 'No s\'ha afegit al grup {$a} perquè aquesta persona no està inscrita al curs';
 $string['addfilehere'] = 'Afegeix fitxer(s) aquí';
-$string['addinganew'] = 'S\'està afegint un nou {$a}';
+$string['addinganew'] = 'S\'està afegint una activitat nova o un recurs nou: {$a}';
 $string['addinganewto'] = 'S\'està afegint un nou {$a->what} a {$a->to}';
 $string['addingdatatoexisting'] = 'S\'estan afegint dades a les existents';
 $string['additionalnames'] = 'Noms addicionals';
@@ -74,7 +74,6 @@ $string['addresource'] = 'Afegeix un recurs...';
 $string['addresourceoractivity'] = 'Afegeix una activitat o un recurs';
 $string['addresourcetosection'] = 'Afegeix un recurs a la secció  \'{$a}\'';
 $string['address'] = 'Adreça';
-$string['addressedto'] = 'A';
 $string['addstudent'] = 'Afegeix estudiant';
 $string['addsubcategory'] = 'Afegeix una subcategoria';
 $string['addteacher'] = 'Afegeix professor/a';
@@ -324,15 +323,11 @@ $string['coursebulkaction'] = 'Accions massives per als cursos seleccionats';
 $string['coursecategories'] = 'Categories de cursos';
 $string['coursecategory'] = 'Categoria del curs';
 $string['coursecategorydeleted'] = 'S\'ha suprimit la categoria de cursos {$a}';
-$string['coursecategory_help'] = '<p>L\'administrador de Moodle pot haver configurat diferents categories de cursos.</p>
-
-<p>Per exemple: &quot;Ci&egrave;ncies&quot;, &quot;Humanitats&quot;, &quot;Seguretat i Salut&quot;, etc.</p>
-
-<p>Trieu la m&eacute;s adequada per al vostre curs. Aquesta elecci&oacute; determinarà on es mostra el vostre curs dins de la llista de cursos i pot facilitar que els estudiants el trobin.</p>';
+$string['coursecategory_help'] = 'Aquest paràmetre determina en quina categoria, dins la llista de cursos, apareixerà el curs.';
 $string['coursecatmanagement'] = 'Gestió de la categoria i del curs';
 $string['coursecompletion'] = 'Compleció del curs';
 $string['coursecompletions'] = 'Compleció dels cursos';
-$string['coursecreators'] = 'Creador/a de cursos';
+$string['coursecreators'] = 'Creador de cursos';
 $string['coursecreatorsdescription'] = 'Els creadors de cursos poden crear nous cursos.';
 $string['coursedeleted'] = 'S\'ha suprimit el curs {$a}';
 $string['coursedetails'] = 'Detalls del curs';
@@ -340,6 +335,8 @@ $string['coursedisplay'] = 'Disposició del curs';
 $string['coursedisplay_help'] = 'Aquest paràmetre determina si el curs complet es mostra en una pàgina o es divideix en diverses pàgines.';
 $string['coursedisplay_multi'] = 'Mostra una secció per pàgina';
 $string['coursedisplay_single'] = 'Mostra totes les seccions en una pàgina';
+$string['courseduration'] = 'Durada del curs';
+$string['courseduration_desc'] = 'La durada del curs s\'utilitza per calcular la data de finalització del curs que hi ha per defecte. La data de finalització del curs s\'utilitza per determinar si un curs s\'ha d\'incloure a la llista de cursos d\'un usuari. També es pot utilitzar per als informes personalitzats. Els usuaris poden continuar entrant al curs després de la data de finalització.';
 $string['courseextendednamedisplay'] = '{$a->shortname} {$a->fullname}';
 $string['coursefiles'] = 'Fitxers del curs heretats';
 $string['coursefilesedit'] = 'Edita els fitxers del curs heretats';
@@ -355,7 +352,7 @@ $string['coursehelpforce'] = 'Imposa el mode de grup del curs a totes les activi
 $string['coursehelpformat'] = 'La pàgina principal del curs es visualitzarà amb aquest format.';
 $string['coursehelphiddensections'] = 'Com es mostraran als estudiants les seccions ocultes del curs.';
 $string['coursehelpmaximumupload'] = 'Definiu la mida màxima dels fitxers que es poden penjar al curs, limitada per la configuració del lloc.';
-$string['coursehelpnewsitemsnumber'] = 'El nombre d\'elements recents del fòrum de notícies que apareixen al bloc d\'«últimes notícies» de la pàgina principal del curs. Si s\'estableix a zero, el bloc d\'últimes notícies no es mostrarà.';
+$string['coursehelpnewsitemsnumber'] = 'Nombre de notícies recents que apareixen al bloc d\'últimes notícies de la pàgina principal del curs. Si s\'estableix a zero, el fòrum de  notícies no es crearà.';
 $string['coursehelpnumberweeks'] = 'Nombre de seccions del curs (només aplicable a alguns formats de curs).';
 $string['coursehelpshowgrades'] = 'Habiliteu la visualització del butlletí de qualificacions. Aquest paràmetre no impedeix que les qualificacions es visualitzin dins de les activitats individuals.';
 $string['coursehidden'] = 'Aquest curs no està disponible actualment per als estudiants';
@@ -370,9 +367,10 @@ $string['coursenotaccessible'] = 'Aquest curs no permet accés públic';
 $string['courseoverview'] = 'Resum de cursos';
 $string['courseoverviewfiles'] = 'Fitxers de resum del curs';
 $string['courseoverviewfilesext'] = 'Extensions dels fitxers de resum del curs';
-$string['courseoverviewfiles_help'] = 'Els fitxers de resum del curs, com ara imatges, es mostren en la llista dels cursos juntament amb el resum.';
+$string['courseoverviewfiles_help'] = 'Els fitxers de resum del curs, com ara les imatges, es mostren a la llista dels cursos, juntament amb el resum.';
 $string['courseoverviewfileslimit'] = 'Límit de fitxers de resum del curs';
 $string['courseoverviewgraph'] = 'Gràfica resum de cursos';
+$string['coursepreferences'] = 'Preferències del curs';
 $string['courseprofiles'] = 'Perfils del curs';
 $string['coursereasonforrejecting'] = 'Motius de la denegació d\'aquesta sol·licitud';
 $string['coursereasonforrejectingemail'] = 'Aquest text s\'enviarà per correu a la persona sol·licitant';
@@ -402,7 +400,7 @@ $string['coursesmovedout'] = 'S\'han tret els cursos de: {$a}';
 $string['coursespending'] = 'Cursos pendents d\'aprovació';
 $string['coursestart'] = 'Inici del curs';
 $string['coursesummary'] = 'Resum del curs';
-$string['coursesummary_help'] = 'El resum del curs s\'inclou en la llista de cursos. Quan es cerca un curs es cerca també en els resums, a més dels noms dels cursos.';
+$string['coursesummary_help'] = 'El resum del curs s\'inclou a la llista de cursos. Quan se cerca un curs, aquesta cerca no només es fa pel nom, també s\'hi inclou el text del resum del curs.';
 $string['coursetitle'] = 'Curs: {$a->course}';
 $string['courseupdates'] = 'Actualitzacions del curs';
 $string['create'] = 'Crea';
@@ -496,6 +494,7 @@ $string['deletechecktype'] = 'Confirmeu que voleu suprimir aquest {$a->type}?';
 $string['deletechecktypename'] = 'Confirmeu que voleu suprimir  {$a->type} «{$a->name}»?';
 $string['deletecheckwarning'] = 'Esteu a punt de suprimir aquests fitxers';
 $string['deletecomment'] = 'Elimina aquest comentari';
+$string['deletecommentbyon'] = 'Suprimeix el comentari publicat per {$a->user} a les {$a->time}';
 $string['deletecompletely'] = 'Suprimeix-los completament';
 $string['deletecourse'] = 'Suprimeix un curs';
 $string['deletecoursecheck'] = 'Esteu absolutament segur que voleu suprimir completament aquest curs i totes les dades que conté?';
@@ -510,6 +509,7 @@ $string['deletingcourse'] = 'S\'està suprimint {$a}';
 $string['deletingexistingcoursedata'] = 'S\'estan suprimint les dades existents del curs';
 $string['deletingolddata'] = 'S\'estan suprimint dades antigues';
 $string['department'] = 'Departament';
+$string['deprecatedeventname'] = '{$a} (en desús)';
 $string['desc'] = 'Descendent';
 $string['description'] = 'Descripció';
 $string['deselectall'] = 'Desselecciona-ho tot';
@@ -523,7 +523,7 @@ $string['displayingrecords'] = 'S\'estan mostrant {$a} registres';
 $string['displayingusers'] = 'S\'estan visualitzant els usuaris {$a->start} a {$a->end}';
 $string['displayonpage'] = 'Visualitza en la pàgina';
 $string['dndcourse'] = 'Podeu arrossegar i deixar anar aquest curs per alterar la seva ordenació o moure\'l a una altra categoria.';
-$string['dndenabled_inbox'] = 'Podeu arrossegar i deixar anar fitxers aquí per a afegir-los-hi.';
+$string['dndenabled_inbox'] = 'Podeu arrossegar i deixar anar fitxers aquí per a afegir-los-hi';
 $string['dndnotsupported'] = 'La pujada via «retalla i enganxa» no està suportada';
 $string['dndnotsupported_help'] = 'El vostre navegador no suporta la pujada via «retalla i enganxa».<br />Aquesta funcionalitat està disponible en les versions recents de Chrome, Firefox i Safari, així com en l\'Internet Explorer v10 i posteriors.';
 $string['dndnotsupported_insentence'] = '«retalla i enganxa» no està suportat';
@@ -618,13 +618,13 @@ $string['emailconfirmsent'] = '<p>S\'ha enviat un correu a la vostra adreça <b>
 <p>Si seguiu tenint problemes, contacteu amb l\'administrador del lloc.</p>';
 $string['emaildigest'] = 'Tipus de resum de missatge de correu electrònic';
 $string['emaildigestcomplete'] = 'Complet (missatge de correu electrònic diari amb els missatges complets dels fòrums)';
-$string['emaildigest_help'] = 'Aquest és la configuració del resum diari que els fòrums faran servir per defecte.
+$string['emaildigest_help'] = 'Aquesta és la configuració del resum diari que els fòrums faran servir per defecte.
 
  * Sense resum: rebreu un correu electrònic per cada missatge enviat a fòrums.
 * Resum, missatges complets: rebreu un correu diari amb el contingut complet de cada missatge enviat a fòrums.
-* Resum, només capçaleres: rebreu un correu diari amb les capçaleres de cada missatge evniat a fòrums.
+* Resum, només capçaleres: rebreu un correu diari amb les capçaleres de cada missatge enviat a fòrums.
 
-També podeu triar una configuració diferent per a cada fòrum si així ho desitgeu.';
+També podeu triar una configuració diferent per a cada fòrum, si voleu.';
 $string['emaildigestoff'] = 'Sense resum (un missatge de correu electrònic per cada missatge dels fòrums)';
 $string['emaildigestsubjects'] = 'Assumptes (missatge de correu electrònic diari només amb els assumptes)';
 $string['emaildisable'] = 'Aquesta adreça de correu està inhabilitada.';
@@ -637,6 +637,8 @@ $string['emaildisplayyes'] = 'Permet que tothom vegi la meva adreça electrònic
 $string['emailenable'] = 'Aquesta adreça de correu està habilitada.';
 $string['emailenableclick'] = 'Feu clic aquí per tornar a habilitar l\'enviament de correu a aquesta adreça';
 $string['emailexists'] = 'Aquesta adreça de correu ja està registrada.';
+$string['emailexistshintlink'] = 'Recupera el nom d\'usuari o la contrasenya oblidades';
+$string['emailexistssignuphint'] = 'Tal vegada heu creat un compte amb anterioritat? {$a}';
 $string['emailformat'] = 'Format del missatge de correu electrònic';
 $string['emailmustbereal'] = 'Nota: l\'adreça de correu ha de ser una adreça real';
 $string['emailnotallowed'] = 'Les adreces de correu d\'aquests dominis no són permeses ({$a})';
@@ -655,20 +657,16 @@ En la majoria de programes de correu, la línia de dalt s\'hauria de veure com u
 Si necessiteu ajuda, contacteu amb l\'administrador del lloc:
 
 {$a->admin}';
-$string['emailpasswordchangeinfodisabled'] = '{$a->firstname},
+$string['emailpasswordchangeinfodisabled'] = 'Hola {$a->firstname},
 
 Algú (probablement vós) ha sol·licitat una contrasenya nova per al vostre compte a «{$a->sitename}».
 
-Malauradament, el vostre compte d\'aquest lloc ha estat inhabilitat i no es pot reinicialitzar. Contacteu amb l\'administrador del lloc:
-
-{$a->admin}';
-$string['emailpasswordchangeinfofail'] = '{$a->firstname},
+Malauradament, el vostre compte d\'aquest lloc ha estat inhabilitat i la contrasenya no es pot canviar. Contacteu amb l\'administrador del lloc {$a->admin}.';
+$string['emailpasswordchangeinfofail'] = 'Hola {$a->firstname},
 
 Algú (probablement vós) ha sol·licitat una contrasenya nova per al vostre compte a «{$a->sitename}».
 
-Malauradament, en aquest lloc no es poden canviar les contrasenyes. Contacteu amb l\'administrador del lloc:
-
-{$a->admin}';
+Malauradament, en aquest lloc no es poden canviar les contrasenyes. Contacteu amb l\'administrador del lloc {$a->admin}.';
 $string['emailpasswordchangeinfosubject'] = '{$a}: informació de canvi de contrasenya';
 $string['emailpasswordconfirmation'] = '{$a->firstname},
 
@@ -687,7 +685,7 @@ Si necessiteu ajuda, contacteu amb l\'administrador del lloc:
 $string['emailpasswordconfirmationsubject'] = '{$a}: confirmació de canvi de contrasenya';
 $string['emailpasswordconfirmmaybesent'] = '<p>Si heu proporcionat un nom d\'usuari o una adreça de correu correctes aviat rebreu un missatge de correu electrònic.</p>
 <p>Aquest missatge conté instruccions senzilles per a confirmar i completar el canvi de contrasenya. Si continueu tenint dificultats podeu contactar amb l\'administració del lloc.</p>';
-$string['emailpasswordconfirmnoemail'] = '<p> El compte d\'usuari que heu especificat no té cap adreça de correu electrònic registrada </p>
+$string['emailpasswordconfirmnoemail'] = '<p>El compte d\'usuari que heu especificat no té cap adreça de correu electrònic registrada.</p>
 <p>Poseu-vos en contacte amb l\'administrador del lloc. </p>';
 $string['emailpasswordconfirmnotsent'] = '<p> L\'usuari que heu proporcionat no identifica un compte d\'usuari existent. </p>
 <p> Verifiqueu la informació introduïda i torneu a provar. Si continueu tenint problemes, poseu-vos en contacte amb l\'administrador del lloc. </p>';
@@ -714,9 +712,12 @@ $string['emailresetconfirmsent'] = 'S\'ha enviat un correu electrònic a la seva
 Si continueu tenint problemes, poseu-vos en contacte amb l\'administrador del lloc.';
 $string['emailtoprivatefiles'] = 'També podeu enviar fitxers per correu electrònic com a fitxers adjunts directament al vostre espai de fitxers privats. Adjunteu els vostres fitxers a un missatge de correu electrònic i envieu-ho a {$a}';
 $string['emailtoprivatefilesdenied'] = 'El vostre administrador ha inhabilitat l\'opció de pujar els vostres fitxers personals.';
+$string['emailvia'] = '{$a->name} (via {$a->siteshortname})';
 $string['emptydragdropregion'] = 'regió buida';
 $string['enable'] = 'Habilita';
 $string['encryptedcode'] = 'Codi xifrat';
+$string['enddate'] = 'Data de finalització del curs';
+$string['enddate_help'] = 'La data de finalització del curs s\'utilitza només per als informes. Els usuaris poden continuar entrant al curs després de la data de finalització.';
 $string['english'] = 'anglès';
 $string['enrolmentmethods'] = 'Mètodes d\'Inscripció';
 $string['entercourse'] = 'Feu clic per entrar en aquest curs';
@@ -736,9 +737,11 @@ $string['eventcontentviewed'] = 'Contingut mostrat';
 $string['eventcoursecategorycreated'] = 'Categoria creada';
 $string['eventcoursecategorydeleted'] = 'Categoria suprimida';
 $string['eventcoursecategoryupdated'] = 'Categoria actualitzada';
+$string['eventcoursecategoryviewed'] = 'Categoria mostrada';
 $string['eventcoursecontentdeleted'] = 'Contingut del curs suprimit';
 $string['eventcoursecreated'] = 'Curs creat';
 $string['eventcoursedeleted'] = 'Curs suprimit';
+$string['eventcourseinformationviewed'] = 'Resum del curs mostrat';
 $string['eventcoursemodulecreated'] = 'Mòdul de curs creat';
 $string['eventcoursemoduledeleted'] = 'Mòdul de curs suprimit';
 $string['eventcoursemoduleinstancelistviewed'] = 'Llista d\'instàncies de mòduls de curs vistos';
@@ -749,6 +752,7 @@ $string['eventcourseresetstarted'] = 'Reinici del curs començat';
 $string['eventcourserestored'] = 'Curs restaurat';
 $string['eventcoursesectiondeleted'] = 'S\'ha esborrat una secció del curs';
 $string['eventcoursesectionupdated'] = 'Secció de curs actualitzada';
+$string['eventcoursessearched'] = 'Cursos cercats';
 $string['eventcourseupdated'] = 'Curs actualitzat';
 $string['eventcourseuserreportviewed'] = 'Informe d\'usuari del curs vist';
 $string['eventcourseviewed'] = 'Curs vist';
@@ -759,6 +763,7 @@ $string['eventemailfailed'] = 'Error en enviar el correu electrònic';
 $string['eventname'] = 'Nom de l\'esdeveniment';
 $string['eventrecentactivityviewed'] = 'Activitat recent vista';
 $string['eventsearchindexed'] = 'S\'han indexat les dades de cerca';
+$string['eventsearchresultsviewed'] = 'Resultats de la cerca mostrats';
 $string['eventunknownlogged'] = 'Esdeveniment desconegut';
 $string['eventusercreated'] = 'Usuari creat';
 $string['eventuserdeleted'] = 'Usuari suprimit';
@@ -824,13 +829,13 @@ $string['forgotteninvalidurl'] = 'L\'URL de canvi de contrasenya no és vàlid';
 $string['format'] = 'Format';
 $string['format_help'] = 'El format del curs determina la disposició de la pàgina del curs.
 
-* Format d\'activitat única - Per mostrar una única activitat o recurs (com ara un qüestionari o paquet SCORM) a la pàgina del curs.
+* Format d\'activitat única - Per mostrar una activitat o un recurs únics (com ara un qüestionari o un paquet SCORM) a la pàgina del curs.
 
 * Format social - Es mostra un fòrum a la pàgina del curs.
 
 * Format per temes - La pàgina del curs s\'organitza en seccions temàtiques.
 
-* Format setmanal - La pàgina del curs s\'organitza en seccions setmanals, amb la primera setmana començant en la data d\'inici del curs.';
+* Format setmanal - La pàgina del curs s\'organitza en seccions setmanals, en les quals la primera setmana comença en la data d\'inici del curs.';
 $string['formathtml'] = 'Format HTML';
 $string['formatmarkdown'] = 'Format Markdown';
 $string['formatplain'] = 'Format text';
@@ -927,15 +932,13 @@ $string['hiddenassign'] = 'Assignació oculta';
 $string['hiddenfromstudents'] = 'Ocult per a l\'estudiantat';
 $string['hiddensections'] = 'Temes ocults';
 $string['hiddensectionscollapsed'] = 'Els temes ocults es mostren en format reduït';
-$string['hiddensections_help'] = '<p>Aquesta opció us permet decidir com veuran els estudiants les seccions ocultes del vostre curs.</p>
-
-<p>Per defecte es mostra una petita àrea (en forma reduïda, generalment en gris) que indica on és la secció oculta, però no es poden veure les activitats o els text ocults. Això és útil particularment en el format setmanal, perquè així queda clar quines setmanes hi ha curs i quines no.</p>
-
-<p>Si ho preferiu poden restar completament ocultes, de manera que els estudiants no sàpiguen ni tan sols que existeixen aquestes seccions.</p>';
+$string['hiddensections_help'] = 'Aquest paràmetre determina si les seccions ocultes es mostren als estudiants en format reduït (potser per a un curs en format setmanal per indicar-hi les vacances) o si es troben completament ocultes.';
 $string['hiddensectionsinvisible'] = 'Els temes ocults són completament invisibles';
 $string['hide'] = 'Oculta';
 $string['hideadvancedsettings'] = 'Oculta paràmetres avançats';
+$string['hidechartdata'] = 'Oculta dades del gràfic';
 $string['hidepicture'] = 'Oculta imatge';
+$string['hidepopoverwindow'] = 'Oculta la finestra emergent';
 $string['hidesection'] = 'Oculta secció {$a}';
 $string['hidesettings'] = 'Oculta paràmetres';
 $string['hideshowblocks'] = 'Oculta o mostra blocs';
@@ -961,7 +964,7 @@ $string['idnumber'] = 'Número ID';
 $string['idnumbercourse'] = 'Número ID del curs';
 $string['idnumbercoursecategory'] = 'Número ID';
 $string['idnumbercoursecategory_help'] = 'El número ID d\'un curs sols s\'usa quan se cerquen cursos contra sistemes externs, i no es mostra enlloc. Si el curs té un codi oficial, poseu-lo aquí; en cas contrari, deixeu-ho en blanc.';
-$string['idnumbercourse_help'] = '<p>Moodle no visualitza mai el número ID del curs. Només s\'utilitza per identificar el curs contra sistemes externs. Si teniu un codi oficial del curs podeu usar-lo aquí. Si no, podeu deixar-lo en blanc.</p>';
+$string['idnumbercourse_help'] = '<p>Moodle no mostra mai el número ID del curs. Només s\'utilitza per identificar el curs contra sistemes externs. Si teniu un codi oficial del curs, podeu usar-lo aquí. Si no, podeu deixar aquest camp en blanc.</p>';
 $string['idnumbergroup'] = 'Número ID de grup';
 $string['idnumbergroup_help'] = 'El número ID d\'un grup només es fa servir quan es compara el grup contra sistemes externs i no es veurà en cap lloc del lloc web. Si el grup té un nom de codi oficial es pot introduir, en cas contrari el camp es pot deixar en blanc.';
 $string['idnumbergrouping'] = 'Número ID de l\'agrupament';
@@ -1035,6 +1038,7 @@ $string['list'] = 'Llista';
 $string['listfiles'] = 'Llista dels fitxers de {$a}';
 $string['listofallpeople'] = 'Llista de tota la gent';
 $string['listofcourses'] = 'Llista de cursos';
+$string['loading'] = 'S\'està carregant';
 $string['loadinghelp'] = 'S\'està carregant...';
 $string['local'] = 'Local';
 $string['localplugins'] = 'Connectors locals';
@@ -1080,6 +1084,7 @@ $string['manageeditorfiles'] = 'Gestiona fitxers utilitzats per l\'editor';
 $string['managefilters'] = 'Filtres';
 $string['managemodules'] = 'Mòduls';
 $string['manageroles'] = 'Rols i permisos';
+$string['markallread'] = 'Marca-ho tot com a llegit';
 $string['markedthistopic'] = 'Aquest tema està marcat com a tema actual';
 $string['markthistopic'] = 'Marca aquest tema com a tema actual';
 $string['matchingsearchandrole'] = 'Trobats \'{$a->search}\' i {$a->role}';
@@ -1100,7 +1105,7 @@ $string['maxnumberweeks_desc'] = 'El valor màxim en el menú desplegable del no
 $string['maxnumcoursesincombo'] = 'Navega per els<a href="{$a->link}">{$a->numberofcourses} cursos</a>.';
 $string['maxsize'] = 'Mida màxima: {$a}';
 $string['maxsizeandareasize'] = 'Mida màxima per als fitxers nous: {$a->size}, límit global: {$a->areasize}';
-$string['maxsizeandattachments'] = 'Mida màxima per als nous fitxers, {$a->size}, adjunts màxims: {$a->attachments}';
+$string['maxsizeandattachments'] = 'Mida màxima dels fitxers nous: {$a->size}, màxim d\'adjuncions: {$a->attachments}';
 $string['maxsizeandattachmentsandareasize'] = 'Mida màxima per als fitxers nous: {$a->size}, nombre màxim de fitxers adjunts: {$a->attachments}, límit global: {$a->areasize}';
 $string['memberincourse'] = 'Membre del curs';
 $string['messagebody'] = 'Cos del missatge';
@@ -1173,6 +1178,7 @@ $string['more'] = 'més';
 $string['morehelp'] = 'Més ajuda';
 $string['moreinfo'] = 'Més informació';
 $string['moreinformation'] = 'Més informació d\'aquest error';
+$string['morenavigationlinks'] = 'Més...';
 $string['moreprofileinfoneeded'] = 'Doneu-nos més informació sobre vós';
 $string['mostrecently'] = 'més recent';
 $string['move'] = 'Mou';
@@ -1239,40 +1245,13 @@ En la majoria de programes de correu, l\'adreça s\'hauria de presentar com un e
 
 Salutacions de l\'administrador de «{$a->sitename}»,
 {$a->signoff}';
-$string['newpicture'] = 'Nova imatge';
-$string['newpicture_help'] = '<p>Podeu penjar al servidor una imatge que tingueu al vostre ordinador que servir&agrave; per representar-vos en diferents llocs.</p>
-
-<p>Per aquesta ra&oacute;, tot i que podeu utilitzar la imatge que vulgueu, la millor idea &eacute;s posar un primer pla de la vostra cara.</p>
-
-<p>La imatge ha d\'estar en format JPG o PNG (normalment el nom del fitxer ha d\'acabar en .jpg o .png).</p>
-
-<p>Podeu obtenir aquest fitxer mitjan&ccedil;ant qualsevol dels m&egrave;todes seg&uuml;ents:</p>
-
-<OL>
-
-  <li>Si feu servir una c&agrave;maradigital, molt probablement les fotos es transferiran al vostre ordinador en el format correcte.</li>
-
-  <li>Podeu escanejar una fotografia que tingueu en paper. Assegureu-vos que la deseu en format JPG o PNG. </li>
-
-  <li>Si sou artistes, podeu fer-vos un autoretrat amb una programa de dibuix.</li>
-
-  <li>Finalment, podeu &quot;robar&quot; imatges del web. <a target="google" href="http://images.google.com/">http://images.google.com</a> &eacute;s un magn&iacute;fic lloc on cercar imatges. Un cop en trobeu una podeu desar-la al vostre ordinador.</li>
-
-</ol>
-
-<p>Per penjar la imatge feu clic al bot&oacute; &quot;Navega&quot; d\'aquesta p&agrave;gina i seleccioneu la imatge al vostre disc dur.</p>
-
-<p>NOTA: assegureu-vos que l\'arxiu no supera la mida m&agrave;xima indicada o no es podr&agrave; penjar.</p>
-
-<p>En acabat feu clic al bot&oacute; &quot;Actualitza perfil&quot; al capdavall p&agrave;gina i la imatge es retallar&agrave; i es reduir&agrave; a una mida de 100x100 p&iacute;xels. </p>
-
-<p>Quan torneu a visualitzar el vostre perfil &eacute;s possible que no hagi canviat la imatge. En aquest cas feu servir el comandament &quot;Actualitza&quot; o &quot;Reload&quot; del navegador.
-
-  del vostre programa navegador.</p>';
+$string['newpicture'] = 'Imatge nova';
+$string['newpicture_help'] = 'Per afegir una imatge nova, exploreu i seleccioneu una imatge (en format JPG o PNG); després, cliqueu a «Actualitza perfil». La imatge es retallarà com un quadre i es redimensionarà a 100x100 píxels.';
+$string['newpictureusernotsetup'] = 'La imatge del perfil només pot afegir-se quan tota la informació requerida del perfil s\'ha desat.';
 $string['newsectionname'] = 'Nom nou per a la secció {$a}';
 $string['newsitem'] = 'Notícia';
 $string['newsitems'] = 'Notícies';
-$string['newsitemsnumber'] = 'Notícies per mostrar';
+$string['newsitemsnumber'] = 'Nombre de notícies';
 $string['newsitemsnumber_help'] = '<p>En els formats de curs &quot;setmanal&quot; i per &quot;temes&quot; apareix un f&ograve;rum especial anomenat &quot;Not&iacute;cies&quot;. &Eacute;s un bon lloc per publicar els avisos que hagin de veure tots els estudiants. Per defecte tots els estudiants estan subscrits a aquest f&ograve;rum i reben els avisos per correu electr&ograve;nic.</p>
 
 <p>Aquest par&agrave;metre determina quants &iacute;tems apareixen a la p&agrave;gina inicial del curs, en un quadre de not&iacute;cies a la banda dreta.</p>
@@ -1369,19 +1348,19 @@ $string['now'] = 'ara';
 $string['numattempts'] = '{$a} intents d\'inici de sessió fallits';
 $string['numberofcourses'] = 'Nombre de cursos';
 $string['numberweeks'] = 'Nombre de temes/setmanes';
-$string['numday'] = 'dia {$a}';
+$string['numday'] = '{$a} dia';
 $string['numdays'] = '{$a} dies';
 $string['numhours'] = '{$a} hores';
 $string['numletters'] = '{$a} cartes';
 $string['numminutes'] = '{$a} minuts';
-$string['nummonth'] = 'mes {$a}';
+$string['nummonth'] = '{$a} mes';
 $string['nummonths'] = '{$a} mesos';
 $string['numseconds'] = '{$a} segons';
 $string['numviews'] = '{$a} visualitzacions';
-$string['numweek'] = 'setmana {$a}';
+$string['numweek'] = '{$a} setmana';
 $string['numweeks'] = '{$a} setmanes';
 $string['numwords'] = '{$a} paraules';
-$string['numyear'] = 'any {$a}';
+$string['numyear'] = '{$a} any';
 $string['numyears'] = '{$a} anys';
 $string['ok'] = 'OK';
 $string['oldpassword'] = 'Contrasenya actual';
@@ -1443,8 +1422,8 @@ $string['phpinfo'] = 'informació PHP';
 $string['pictureof'] = 'Imatge {$a}';
 $string['pictureofuser'] = 'Imatge de l\'usuari';
 $string['pleaseclose'] = 'Tanqueu aquesta finestra.';
-$string['pleasesearchmore'] = 'Si-us-plau cerqueu més encara';
-$string['pleaseusesearch'] = 'Si-us-plau utilitzeu la cerca';
+$string['pleasesearchmore'] = 'Cerqueu més encara';
+$string['pleaseusesearch'] = 'Utilitzeu la cerca';
 $string['plugin'] = 'Connector';
 $string['plugincheck'] = 'Comprovació de connectors';
 $string['plugindeletefiles'] = 'Totes les dades associades amb el connector \'{$a->name}\' has sigut esborrades de la base de dades. Per prevenir  la reinstal·lació del connector, hauríeu de suprimir el següent directori del servidor: {$a->directory}';
@@ -1550,7 +1529,7 @@ $string['resourcedisplayauto'] = 'Automàtic';
 $string['resourcedisplaydownload'] = 'Imposa que es baixi';
 $string['resourcedisplayembed'] = 'Incrusta';
 $string['resourcedisplayframe'] = 'En un marc';
-$string['resourcedisplaynew'] = 'Nova finestra';
+$string['resourcedisplaynew'] = 'Finestra nova';
 $string['resourcedisplayopen'] = 'Obre';
 $string['resourcedisplaypopup'] = 'En una finestra emergent';
 $string['resources'] = 'Recursos';
@@ -1698,7 +1677,7 @@ $string['settings'] = 'Paràmetres';
 $string['shortname'] = 'Nom curt';
 $string['shortnamecollisionwarning'] = '[*] = Aquest nom curt ja l\'utilitza un altre curs i caldrà canviar-lo quan s\'aprovi';
 $string['shortnamecourse'] = 'Nom curt del curs';
-$string['shortnamecourse_help'] = '<p>Moltes institucions tenen una forma abreujada de referir-se als cursos, amb un codi com ara BP102 o NTAE. Encara que no utilitzeu habitualment aquest tipus de codis, n\'heu de posar un aquí. S\'utilitzar&agrave; en diferents ocasions en què el nom complet no resulta adequat: per exemple en l\'assumpte d\'un correu electr&ograve;nic.</p>';
+$string['shortnamecourse_help'] = 'El nom curt del curs es mostra a la navegació i s\'utilitza a la línia de l\'assumpte dels missatges de correu electrònic del curs.';
 $string['shortnametaken'] = 'Aquest nom curt ja el fa servir un altre curs ({$a})';
 $string['shortnameuser'] = 'Nom curt de l\'usuari';
 $string['shortsitename'] = 'Nom curt del lloc (p. e. una paraula)';
@@ -1710,22 +1689,24 @@ $string['showallcourses'] = 'Mostra tots els cursos';
 $string['showallusers'] = 'Mostra tots els usuaris';
 $string['showblockcourse'] = 'Mostra llista de cursos que contenen el bloc';
 $string['showcategory'] = 'Mostra {$a}';
+$string['showchartdata'] = 'Mostra les dades del gràfic';
 $string['showcomments'] = 'Mostra/oculta comentaris';
 $string['showcommentsnonjs'] = 'Mostra comentaris';
 $string['showdescription'] = 'Mostra la descripció a la pàgina del curs';
-$string['showdescription_help'] = 'Si s\'habilita la descripció de sobre es mostrarà en la pàgina del curs a sota de l\'enllaç a l\'activitat o el recurs.';
+$string['showdescription_help'] = 'Si s\'habilita, la descripció de sobre es mostrarà en la pàgina del curs a sota de l\'enllaç a l\'activitat o el recurs.';
 $string['showgrades'] = 'Mostra qualificacions a l\'estudiantat';
 $string['showgrades_help'] = '<p>Moltes activitats poden ser qualificades.</p>
 
 <p>Per defecte, els resultats de totes les qualificacions del curs es poden veure a la p&agrave;gina de Qualificacions, disponible des de la p&agrave;gina principal del curs. </p>
 
 <p>Si el professor no vol fer serveir qualificacions en el seu curs, o vol ocultar les qualificacions als estudiants, pot inhabilitar la visualitzaci&oacute; de les qualificacions en els Par&agrave;metres del configuraci&oacute; del curs. Aix&ograve; no impedeix qualificar cada activitat, simplement inhabilita la la visualitzaci&oacute; dels resultats pels estudiants.</p>';
-$string['showingacourses'] = 'S\'estan mostrant tots els {$a} cursos';
-$string['showingxofycourses'] = 'S\'estan mostrant els cursos des de  {$a->start} fins {$a->end} de {$a->total} cursos';
+$string['showingacourses'] = 'S\'estan mostrant tots els cursos: {$a}';
+$string['showingxofycourses'] = 'S\'està mostrant del curs {$a->start} al curs {$a->end} d\'un total de {$a->total} cursos';
 $string['showlistofcourses'] = 'Mostra la llista de cursos';
 $string['showmodulecourse'] = 'Mostra llista de cursos que contenen l\'activitat';
 $string['showonly'] = 'Mostra només';
 $string['showperpage'] = 'Mostra {$a} per pàgina';
+$string['showpopoverwindow'] = 'Mostra una finestra emergent';
 $string['showrecent'] = 'Mostra l\'activitat recent';
 $string['showreports'] = 'Mostra informes d\'activitat';
 $string['showreports_help'] = '<p>Hi ha informes d\'activitat de cada participant que mostren la seva activitat dins del curs. Aquests informes inclouen tant una llista de les seves aportacions com uns registres d\'accés detallats.</p>
@@ -1738,6 +1719,9 @@ $string['showreports_help'] = '<p>Hi ha informes d\'activitat de cada participan
 $string['showsettings'] = 'Mostra paràmetres';
 $string['showtheselogs'] = 'Mostra aquests registres';
 $string['showthishelpinlanguage'] = 'Mostra aquesta ajuda en l\'idioma: {$a}';
+$string['sidepanel'] = 'Panell lateral';
+$string['signoutofotherservices'] = 'Tanca la sessió a tot arreu';
+$string['signoutofotherservices_help'] = 'Si està marcada, la sessió es tancarà a tots els dispositius i sistemes que utilitzen serveis web, com ara l\'aplicació per a mòbils.';
 $string['since'] = 'Des de';
 $string['sincelast'] = 'des del darrer inici de sessió';
 $string['site'] = 'Lloc';
@@ -1767,7 +1751,7 @@ $string['skipped'] = 'Omesos';
 $string['skiptocategorylisting'] = 'Passa a les llistes de categories';
 $string['skiptocoursedetails'] = 'Passa a la informació detallada del curs';
 $string['skiptocourselisting'] = 'Passa a les llistes de cursos';
-$string['skypeid'] = 'ID de l\'Skype';
+$string['skypeid'] = 'ID de Skype';
 $string['socialheadline'] = 'Fòrum social - darrers temes';
 $string['someallowguest'] = 'Alguns cursos poden permetre l\'accés de visitants';
 $string['someerrorswerefound'] = 'Falta informació o és incorrecta. Teniu els detalls més avall.';
@@ -1852,6 +1836,9 @@ $string['switchdevicedefault'] = 'Canvia al tema estàndard.';
 $string['switchdevicerecommended'] = 'Canvia al tema recomanat per al teu dispositiu.';
 $string['switchrolereturn'] = 'Torna al meu rol normal';
 $string['switchroleto'] = 'Canvia rol a...';
+$string['switchroleto_help'] = 'Trieu un rol per fer-vos una idea de com veurà el curs un usuari que tingui aquest rol.
+
+Tingueu en compte que aquesta visualització pot no ser perfecta. (<a href="https://docs.moodle.org/ca/Switch_roles">Vegeu-ne els detalls i les alternatives</a>.)';
 $string['tag'] = 'Etiqueta';
 $string['tagalready'] = 'Aquesta etiqueta ja existeix';
 $string['tagmanagement'] = 'Afegeix/suprimeix d\'etiquetes...';
@@ -1963,7 +1950,7 @@ $string['userdata'] = 'Dades d\'usuari';
 $string['userdeleted'] = 'S\'ha suprimit aquest compte d\'usuari';
 $string['userdescription'] = 'Descripció';
 $string['userdescription_help'] = 'Podeu escriure un text que us descrigui en aquest quadre. Serà el que llegiran els altres usuaris si consulten el vostre perfil.';
-$string['userdetails'] = 'Més detall';
+$string['userdetails'] = 'Més dades de l\'usuari';
 $string['userfiles'] = 'Fitxers d\'usuari';
 $string['userlist'] = 'Llista d\'usuaris';
 $string['usermenu'] = 'Menú d\'usuari';
@@ -1977,7 +1964,7 @@ $string['usernameoremail'] = 'Introduïu el nom d\'usuari o l\'adreça de correu
 $string['usernotconfirmed'] = 'No s\'ha pogut confirmar {$a}';
 $string['userpic'] = 'Imatge de l\'usuari';
 $string['users'] = 'Usuaris';
-$string['userselectorautoselectunique'] = 'Si només un usuari coincideix amb la cerca, marca\'l automàticament';
+$string['userselectorautoselectunique'] = 'Si només un usuari coincideix amb la cerca, marca\'l automàticament.';
 $string['userselectorpreserveselected'] = 'Mantingues els usuaris seleccionats, encara que ja no concordin amb la cerca.';
 $string['userselectorsearchanywhere'] = 'Cerca coincidències amb el criteri de cerca a qualsevol dels camps que es mostren.';
 $string['usersnew'] = 'Nous usuaris';

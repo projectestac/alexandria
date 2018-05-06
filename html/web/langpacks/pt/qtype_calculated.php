@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_calculated', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_calculated', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_calculated
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -69,7 +69,7 @@ $string['functiontakesoneortwoargs'] = 'A função {$a} tem de ter um ou dois ar
 $string['functiontakestwoargs'] = 'A função {$a} tem de ter exatamente dois argumentos';
 $string['generatevalue'] = 'Gerar um novo valor entre';
 $string['getnextnow'] = 'Gerar novo \'Conjunto a adicionar\' sem adicionar o atual';
-$string['hexanotallowed'] = 'No conjunto de valores <strong>{$a->name}</strong> o formato hexadecimal  $a->value não é permitido';
+$string['hexanotallowed'] = 'No conjunto de valores <strong>{$a->name}</strong> o formato hexadecimal {$a->value} não é permitido';
 $string['illegalformulasyntax'] = 'Síntaxe de fórmula inválida a começar com {$a}';
 $string['incorrectfeedback'] = 'Para qualquer resposta incorreta';
 $string['itemno'] = 'Conjunto {$a}';
@@ -124,16 +124,16 @@ $string['replacewithrandom'] = 'Substituir por um valor aleatório';
 $string['reuseifpossible'] = 'Usar valor já existente na série, se disponível';
 $string['setno'] = 'Conjunto {$a}';
 $string['setwildcardvalues'] = 'Conjunto(s) de valores das variáveis';
-$string['sharedwildcard'] = 'Série partilhada <strong>{$a}</strong>';
+$string['sharedwildcard'] = 'Série partilhada {<strong>{$a}</strong>}';
 $string['sharedwildcardname'] = 'Série partilhada';
 $string['sharedwildcards'] = 'Séries partilhadas';
 $string['showitems'] = 'Mostrar';
 $string['significantfigures'] = 'com {$a}';
 $string['significantfiguresformat'] = 'algarismos significativos';
-$string['synchronize'] = 'Sincronizar os dados das séries numéricas partilhadas com outras perguntas do teste';
+$string['synchronize'] = 'Sincronizar os dados dos conjuntos de dados partilhados com outras perguntas de um teste';
 $string['synchronizeno'] = 'Não sincronizar';
 $string['synchronizeyes'] = 'Sincronizar';
-$string['synchronizeyesdisplay'] = 'Sincronizar e mostrar o nome das séries numéricas partilhadas como prefixo do nome da pergunta';
+$string['synchronizeyesdisplay'] = 'Sincronizar e mostrar o nome dos conjuntos de dados partilhados tal como prefixo do nome da pergunta';
 $string['tolerance'] = 'Tolerância &plusmn;';
 $string['tolerancetype'] = 'Tipo';
 $string['trueanswerinsidelimits'] = 'Resposta correta : {$a->correct} dentro dos limites do valor aceite de {$a->true}';

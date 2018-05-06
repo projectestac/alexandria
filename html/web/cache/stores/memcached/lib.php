@@ -229,8 +229,60 @@ class cachestore_memcached extends cache_store implements cache_is_configurable 
         $version = phpversion('memcached');
         $this->candeletemulti = ($version && version_compare($version, self::REQUIRED_VERSION, '>='));
 
-        // Test the connection to the main connection.
-        $this->isready = @$this->connection->set("ping", 'ping', 1);
+        $this->isready = $this->is_connection_ready();
+    }
+
+    /**
+     * Confirm whether the connection is ready and usable.
+     *
+     * @return boolean
+     */
+    public function is_connection_ready() {
+        if (!@$this->connection->set("ping", 'ping', 1)) {
+            // Test the connection to the server.
+            return false;
+        }
+
+        if ($this->isshared) {
+            // There is a bug in libmemcached which means that it is not possible to purge the cache in a shared cache
+            // configuration.
+            // This issue currently affects:
+            // - memcached 1.4.23+ with php-memcached <= 2.2.0
+            // The following combinations are not affected:
+            // - memcached <= 1.4.22 with any version of php-memcached
+            // - any version of memcached with php-memcached >= 3.0.1
+
+
+            // This check is cheapest as it does not involve connecting to the server at all.
+            $safecombination = false;
+            $extension = new ReflectionExtension('memcached');
+            if ((version_compare($extension->getVersion(), '3.0.1') >= 0)) {
+                // This is php-memcached version >= 3.0.1 which is a safe combination.
+                $safecombination = true;
+            }
+
+            if (!$safecombination) {
+                $allsafe = true;
+                foreach ($this->connection->getVersion() as $version) {
+                    $allsafe = $allsafe && (version_compare($version, '1.4.22') <= 0);
+                }
+                // All memcached servers connected are version <= 1.4.22 which is a safe combination.
+                $safecombination = $allsafe;
+            }
+
+            if (!$safecombination) {
+                // This is memcached 1.4.23+ and php-memcached < 3.0.1.
+                // The issue may have been resolved in a subsequent update to any of the three libraries.
+                // The only way to safely determine if the combination is safe is to call getAllKeys.
+                // A safe combination will return an array, whilst an affected combination will return false.
+                // This is the most expensive check.
+                if (!is_array($this->connection->getAllKeys())) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     /**
@@ -733,31 +785,25 @@ class cachestore_memcached extends cache_store implements cache_is_configurable 
         }
 
         $store = new cachestore_memcached($name, $configuration);
-        $store->initialise($definition);
+        // If store is ready then only initialise.
+        if ($store->is_ready()) {
+            $store->initialise($definition);
+        }
 
         return $store;
     }
 
     /**
-     * Creates a test instance for unit tests if possible.
-     * @param cache_definition $definition
-     * @return bool|cachestore_memcached
+     * Generates the appropriate configuration required for unit testing.
+     *
+     * @return array Array of unit test configuration data to be used by initialise().
      */
-    public static function initialise_unit_test_instance(cache_definition $definition) {
-        if (!self::are_requirements_met()) {
-            return false;
-        }
+    public static function unit_test_configuration() {
+        // If the configuration is not defined correctly, return only the configuration know about.
         if (!defined('TEST_CACHESTORE_MEMCACHED_TESTSERVERS')) {
-            return false;
+            return [];
         }
-
-        $configuration = array();
-        $configuration['servers'] = explode("\n", TEST_CACHESTORE_MEMCACHED_TESTSERVERS);
-
-        $store = new cachestore_memcached('Test memcached', $configuration);
-        $store->initialise($definition);
-
-        return $store;
+        return ['servers' => explode("\n", TEST_CACHESTORE_MEMCACHED_TESTSERVERS)];
     }
 
     /**

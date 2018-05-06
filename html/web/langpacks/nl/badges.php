@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'badges', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   badges
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -81,14 +81,36 @@ Je moet dit oplossen op een productie-site als je van plan bent om badges uit te
 De enige URL die nodig is voor verificatie is [your-site-url]/badges/assertion.php. Als je je firewall wijzigt zodat die URL toegankelijk is, dan zal badge verificatie werken.';
 $string['backpackbadges'] = 'Je hebt {$a->totalbadges} badge(s) van {$a->totalcollections} collecties.
 <a href="mybackpack.php">Wijzig backpack-instellingen</a>.';
+$string['backpackcannotsendverification'] = 'Kan e-mail voor verificatie niet versturen';
 $string['backpackconnection'] = 'Backpack connectie';
+$string['backpackconnectioncancelattempt'] = 'Verbind door een ander e-mailadres te gebruiken';
+$string['backpackconnectionconnect'] = 'Verbind met Backpack';
 $string['backpackconnection_help'] = 'Via deze pagina kun je een verbinding instellen met een externe "backpack provider". Door te verbinden met een backpack kun je externe badges tonen op deze site en kun je badges die hier verdiend zijn naar je backpack duwen.
 
 Op dit moment wordt enkel <a href="http://backpack.openbadges.org">Mozilla OpenBadges Backpack</a> ondersteund. Je moet inschrijven op de backpack service voor je een backpackconnectie kunt opzetten op deze pagina.';
+$string['backpackconnectionresendemail'] = 'Stuur de e-mail voor verificatie opnieuw';
+$string['backpackconnectionunexpectedresult'] = 'Er was een probleem met het verbinden met Backpack. Probeer opnieuw.<br><br>Neem contact op met je systeembeheerder als dit probleem blijft bestaan.';
 $string['backpackdetails'] = 'Backpack instellingen';
 $string['backpackemail'] = 'E-mailadres';
 $string['backpackemail_help'] = 'E-mailadres dat met je backpack geassocieerd is.
 Als je verbindt worden alle badges die je op deze site verdient gekoppeld aan dit e-mailadres.';
+$string['backpackemailverificationpending'] = 'Wachten op verificatie';
+$string['backpackemailverifyemailbody'] = 'Hallo,
+
+Er is een nieuwe verbinding gevraagd naar jouw OpenBadges backpack door \'{$a->sitename}\' met jouw e-mailadres.
+
+Klik om deze vraag te bevestigen en de verbinding met jouw backpack te activeren op onderstaande link.
+
+{$a->link}
+
+In de meeste e-mailprogramma\'s zou dit moeten verschijnen als een blauwe link waarop je kunt klikken. Als dat niet werkt, kopieer en plak het adres dan in de adresbalk bovenaan je browser.
+
+Als je hulp nodig hebt, neem dan contact op met je site-beheerder,
+{$a->admin}';
+$string['backpackemailverifyemailsubject'] = '{$a}: OpenBadges Backpack e-mailverificatie';
+$string['backpackemailverifypending'] = 'Er is een e-mail verstuurd naar <strong>{$a}</strong>. Klik op de verificatielink in de e-mail om je Backpack-verbinding te activeren.';
+$string['backpackemailverifysuccess'] = 'Bedankt voor het verifiëren van je e-mailadres. Je bent nu verbonden met jouw Backpack.';
+$string['backpackemailverifytokenmismatch'] = 'Het token in de link waarop je geklikt hebt, komt niet overeen met het opgeslagen token. Zorg ervoor dat je klikt op de link van de meest recente e-mail die je ontvangen hebt.';
 $string['backpackimport'] = 'Badge import instellingen';
 $string['backpackimport_help'] = 'Nadat de backpack-verbinding gelukt is, kunnen badges uit je backpack getoond worden op jouw badges-pagina en je profielpagina.
 
@@ -214,10 +236,13 @@ $string['error:backpackemailnotfound'] = 'Het e-mailadres \'{$a} is niet verbond
 $string['error:backpackloginfailed'] = 'Je kon niet verbonden worden met een externe backpack om volgende reden: {$a}';
 $string['error:backpacknotavailable'] = 'Je site is niet toegankelijk vanaf het internet. Badges die door deze site uitgegeven worden kunnen niet gecontroleerd worden door een externe backpackservice.';
 $string['error:backpackproblem'] = 'Er was een probleem met het verbinden met je backpack service. Probeer later nog eens.';
+$string['error:badgeawardnotfound'] = 'Kan deze badge niet controleren. Deze badge kan ingetrokken zijn.';
+$string['error:badgenotfound'] = 'Badge niet gevonden';
 $string['error:badjson'] = 'De connectiepoging gaf ongeldige gegevens terug.';
 $string['error:cannotact'] = 'Kan de badge niet activeren.';
 $string['error:cannotawardbadge'] = 'Kan de badge niet uitreiken aan de gebruiker.';
 $string['error:cannotdeletecriterion'] = 'Dit criterium kan niet verwijderd worden.';
+$string['error:cannotrevokebadge'] = 'Kan badge van gebruiker niet intrekken.';
 $string['error:clone'] = 'Kan de badge niet klonen.';
 $string['error:connectionunknownreason'] = 'De connectie is mislukt, maar er is geen reden opgegeven.';
 $string['error:duplicatename'] = 'Er bestaat al een badge met die naam in het systeem.';
@@ -246,7 +271,20 @@ $string['error:requesterror'] = 'De verbindingsaanvraag is mislukt (foutcode {$a
 $string['error:requesttimeout'] = 'De tijd voor de verbindingsaanvraag is verlopen.';
 $string['error:save'] = 'Kan de badge niet bewaren.';
 $string['error:userdeleted'] = '{$a->user} (Deze gebruiker bestaat niet meer in {$a->site})';
+$string['eventbadgearchived'] = 'Badge gearchiveerd';
 $string['eventbadgeawarded'] = 'Badge toegekend';
+$string['eventbadgecreated'] = 'Badge gemaakt';
+$string['eventbadgecriteriacreated'] = 'Badge-criteria gemaakt';
+$string['eventbadgecriteriadeleted'] = 'Badge-criteria verwijderd';
+$string['eventbadgecriteriaupdated'] = 'Badge-criteria aangepast';
+$string['eventbadgedeleted'] = 'Badge verwijderd';
+$string['eventbadgedisabled'] = 'Badge uitgeschakeld';
+$string['eventbadgeduplicated'] = 'Badge gekopiëerd';
+$string['eventbadgeenabled'] = 'Badge ingeschakeld';
+$string['eventbadgelistingviewed'] = 'Badge-lijst bekeken';
+$string['eventbadgerevoked'] = 'Badge ingetrokken';
+$string['eventbadgeupdated'] = 'Badge aangepast';
+$string['eventbadgeviewed'] = 'Badge bekeken';
 $string['evidence'] = 'Bewijs';
 $string['existingrecipients'] = 'Bestaande badge ontvangers';
 $string['expired'] = 'Verlopen';
@@ -348,6 +386,7 @@ $string['reviewconfirm'] = '<p>Dit maakt jouw badges zichtbaar voor gebruikers e
 <p>Als er een badge uitgereikt is, dan wordt die geblokkeerd - sommige instellingen zoals de criteria en de verloopdatum kan dan niet meer gewijzigd worden.</p>
 
 <p>Weet je zeker dat je toegang tot badge \'{$a}\' wil inschakelen?</p>';
+$string['revoke'] = 'Badge intrekken';
 $string['save'] = 'Bewaar';
 $string['searchname'] = 'Zoek op naam';
 $string['selectaward'] = 'Kies de rol die je wil gebruiken om de badge uit te reiken:';

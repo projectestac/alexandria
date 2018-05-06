@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio_mahara', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'portfolio_mahara', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   portfolio_mahara
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['enableleap2a'] = 'Gaitu Leap2A portfoliorako laguntza (Mahara 1.3 edo altuagoa beharrezkoa da)';
 $string['err_invalidhost'] = 'MNet ostalari baliogabea';
 $string['err_networkingoff'] = 'Moodle sarea itzalita dago';
 $string['err_nomnetauth'] = 'Moodle Sarea motako  autentifikaziorako plugina desgaituta dago';

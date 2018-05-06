@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'role', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   role
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -106,6 +106,7 @@ $string['badges:deletebadge'] = 'Ta bort märken';
 $string['badges:earnbadge'] = 'Ta märke';
 $string['badges:manageglobalsettings'] = 'Administrera globala inställningar för märken';
 $string['badges:manageownbadges'] = 'Visa och administrera egna tagna märken';
+$string['badges:revokebadge'] = 'Återkalla ett märke från en användare';
 $string['badges:viewawarded'] = 'Visa användare som tagit ett specifikt märke utan att kunna tilldela ett märke';
 $string['badges:viewbadges'] = 'Visa tillgängliga märken utan att ha tagit dem';
 $string['badges:viewotherbadges'] = 'Visa publika märken i andra användares profiler';

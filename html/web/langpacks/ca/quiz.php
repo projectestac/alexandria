@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['accessnoticesheader'] = 'Podeu previsualitzar aquest qüestionari, però no podrieu contestar-lo perquè:';
+$string['accessnoticesheader'] = 'Podeu previsualitzar aquest qüestionari, però si fos un intent real no podríeu contestar-lo perquè:';
 $string['action'] = 'Acció';
 $string['activityoverview'] = 'Teniu qüestionaris per respondre';
 $string['adaptive'] = 'Mode adaptatiu';
@@ -404,7 +404,7 @@ $string['gradingdetailspenalty'] = 'Aquesta tramesa ha rebut una penalització d
 $string['gradingdetailszeropenalty'] = 'Aquesta tramesa no ha estat penalitzada.';
 $string['gradingmethod'] = 'Mètode de qualificació: {$a}';
 $string['groupoverrides'] = 'Excepcions de grup';
-$string['groupoverridesdeleted'] = 'S\'han suprimit les excepcions de grup';
+$string['groupoverridesdeleted'] = 'S\'han esborrat les excepcions de grup';
 $string['groupsnone'] = 'No hi ha grups en aquest curs';
 $string['guestsno'] = 'Els visitants no poden contestar els qüestionaris ni veure\'ls';
 $string['hidebreaks'] = 'Amaga els salts de pàgina';
@@ -471,7 +471,7 @@ $string['messageprovider:confirmation'] = 'Confirmació de les vostres trameses 
 $string['messageprovider:submission'] = 'Notificació de trameses de qüestionari';
 $string['min'] = 'Mín.';
 $string['minutes'] = 'minuts';
-$string['missingcorrectanswer'] = 'S\'ha d\'especificar la resposta correcta';
+$string['missingcorrectanswer'] = 'Cal especificar la resposta correcta';
 $string['missingitemtypename'] = 'Falta el nom';
 $string['missingquestion'] = 'Aquesta pregunta sembla no existir ja';
 $string['modulename'] = 'Qüestionari';
@@ -584,10 +584,10 @@ $string['overduemustbesubmittedby'] = 'Aquest intent ha arribat al termini de ve
 $string['override'] = 'Excepció';
 $string['overridedeletegroupsure'] = 'Segur que voleu sborrar l\'excepció pel grup {$a}?';
 $string['overridedeleteusersure'] = 'Segur que voleu esborrar l\'excepció per l\'usuari {$a}?';
-$string['overridegroup'] = 'Estableix una excepció pel grup';
+$string['overridegroup'] = 'Estableix una excepció per al grup';
 $string['overridegroupeventname'] = '{$a->quiz} - {$a->group}';
 $string['overrides'] = 'Excepcions';
-$string['overrideuser'] = 'Estableix una excepció per l\'usuari';
+$string['overrideuser'] = 'Estableix una excepció per a l\'usuari';
 $string['overrideusereventname'] = '{$a->quiz} - Excepció';
 $string['page-mod-quiz-attempt'] = 'Pàgina de l\'intent del qüestionari';
 $string['page-mod-quiz-edit'] = 'Edita la pàgina del qüestionari';
@@ -713,9 +713,9 @@ $string['regradenotallowed'] = 'No teniu permís per a tornar a qualificar aques
 $string['regradingquestion'] = 'S\'està recalculant "{$a}".';
 $string['regradingquiz'] = 'S\'està requalificant el qüestionari "{$a}"';
 $string['remove'] = 'Suprimeix';
-$string['removeallgroupoverrides'] = 'Suprimeix totes les excepcions de grup';
+$string['removeallgroupoverrides'] = 'Esborra totes les excepcions de grup';
 $string['removeallquizattempts'] = 'Suprimeix tots els intents del qüestionari';
-$string['removealluseroverrides'] = 'Suprimeix totes les excepcions d\'usuari';
+$string['removealluseroverrides'] = 'Esborra totes les excepcions d\'usuari';
 $string['removeemptypage'] = 'Elimina la pàgina buida';
 $string['removepagebreak'] = 'Elimina el salt de pàgina';
 $string['removeselected'] = 'Elimina la selecció';
@@ -909,8 +909,6 @@ $string['timeleft'] = 'Temps restant';
 $string['timelimit'] = 'Temps màxim';
 $string['timelimitexeeded'] = 'Heu esgotat el temps';
 $string['timelimit_help'] = 'Si està activat, el límit de temps s\'indica a la pàgina inicial del qüestionari i en el bloc de navegació del qüestionari es mostra un temporitzador de compte enrere.';
-$string['timelimitmin'] = 'Temps màxim (minuts)';
-$string['timelimitsec'] = 'Límit de temps (segons)';
 $string['timestr'] = '%d/%m/%y - %H:%M:%S';
 $string['timesup'] = 'Temps esgotat';
 $string['timetaken'] = 'Temps emprat';
@@ -938,7 +936,7 @@ $string['upgradingveryoldquizattempts'] = 'Actualitza intents molt antics:  {$a-
 $string['url'] = 'URL';
 $string['usedcategorymoved'] = 'Aquesta categoria s\'ha mogut al nivell del lloc perquè és una categoria publicada que encara s\'utilitza en altres cursos.';
 $string['useroverrides'] = 'Excepcions d\'usuari';
-$string['useroverridesdeleted'] = 'S\'han suprimit les excepcions d\'usuari';
+$string['useroverridesdeleted'] = 'S\'han esborrat les excepcions d\'usuari';
 $string['usersnone'] = 'Els estudiants no poden accedir a aquest qüestionari';
 $string['validate'] = 'Valida';
 $string['viewallanswers'] = 'Visualitza {$a} qüestionaris completats';

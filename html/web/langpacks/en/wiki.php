@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'wiki', language 'en', branch 'MOODLE_31_STABLE'
+ * Strings for component 'wiki', language 'en', branch 'MOODLE_32_STABLE'
  *
  * @package   wiki
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -95,7 +95,7 @@ $string['filenotuploadederror'] = 'File \'{$a}\' could not be uploaded correctly
 $string['files'] = 'Files';
 $string['filtername'] = 'Wiki auto-linking';
 $string['firstpagetitle'] = 'First page name';
-$string['firstpagetitle_help'] = 'Title of the first page of the wiki.';
+$string['firstpagetitle_help'] = 'Title of the first page of the wiki. Once the wiki is created, the title can no longer be changed.';
 $string['forceformat'] = 'Force format';
 $string['forceformat_help'] = 'If the format is forced (checkbox ticked), there is no option to choose a format when editing a wiki page.';
 $string['format'] = 'Format';

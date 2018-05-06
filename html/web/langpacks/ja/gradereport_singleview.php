@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_singleview', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradereport_singleview', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   gradereport_singleview
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,7 +37,7 @@ $string['entrypage'] = '評定ユーザまたは評定項目';
 $string['eventgradereportviewed'] = '評定シングルビューレポートが閲覧されました。';
 $string['exclude'] = '除外';
 $string['excludeall'] = 'すべての評点を除外する';
-$string['excludefor'] = '{$a}　の除外';
+$string['excludefor'] = '{$a} の除外';
 $string['excludenone'] = 'どの評点も除外しない';
 $string['feedbackfor'] = '{$a} のフィードバック';
 $string['filtergrades'] = '{$a} の評点を表示します。';

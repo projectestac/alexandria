@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_overview', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradereport_overview', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   gradereport_overview
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,5 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['gradesoverview'] = '成绩概览';
 $string['overview:view'] = '查看总体报表';
 $string['pluginname'] = '总体报表';

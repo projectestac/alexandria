@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_online_users', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_online_users', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   block_online_users
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,6 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['configtimetosee'] = 'Antal minuter som beh&ouml;vs f&ouml;r att uppt&auml;cka en anv&auml;ndare som &auml;r online just nu.';
+$string['online_users:addinstance'] = 'Lägg till blocket Inloggad användare';
+$string['online_users:myaddinstance'] = 'Lägg till blocket Inloggad användare på Mitt Moodle';
 $string['online_users:viewlist'] = 'Visa en lista över inloggade användare';
 $string['periodnminutes'] = 'De senaste {$a} minuterna';
 $string['pluginname'] = 'Användare som är <br />inloggade just nu';

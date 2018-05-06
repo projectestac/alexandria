@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_customlang', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_customlang', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_customlang
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['checkin'] = 'Guardar strings no pacote linguístico';
 $string['checkout'] = 'Abrir pacote linguístico para edição';
 $string['checkoutdone'] = 'A carregar pacote linguístico';
 $string['checkoutinprogress'] = 'A inserir strings no tradutor';
-$string['confirmcheckin'] = 'Está prestes a inserir as strings modificadas no seu pacote linguistico local. Isto irá exportar as strings personalizadas do tradutor para a diretoria Moodle data e o Moodle irá começar a usar essas strings. Prima o botão \'Continuar\' para proceder à alteração.';
+$string['confirmcheckin'] = 'Está prestes a inserir strings modificadas no seu pacote linguístico local. Isto irá exportar as strings personalizadas do tradutor para a diretoria Moodledata e o Moodle irá começar a usar estas strings. Prima o botão \'Continuar\' para proceder à alteração.';
 $string['customlang:edit'] = 'Editar tradução local';
 $string['customlang:view'] = 'Ver tradução local';
 $string['filter'] = 'Filtrar strings';

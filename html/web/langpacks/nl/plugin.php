@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plugin', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'plugin', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   plugin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -140,6 +140,8 @@ $string['type_gradingform'] = 'Geavanceerde beoordelingsmethode';
 $string['type_gradingform_plural'] = 'Geavanceerde beoordelingsmethodes';
 $string['type_local'] = 'Lokale plugin';
 $string['type_local_plural'] = 'lokale plugins';
+$string['type_media'] = 'Media-speler';
+$string['type_media_plural'] = 'Media-spelers';
 $string['type_message'] = 'Berichten-output';
 $string['type_message_plural'] = 'Berichten-outputs';
 $string['type_mnetservice'] = 'MNet service';
@@ -151,7 +153,7 @@ $string['type_plagiarism_plural'] = 'Plagiaatspreventieplugins';
 $string['type_portfolio'] = 'Portfolio';
 $string['type_portfolio_plural'] = 'Portfolio\'s';
 $string['type_profilefield'] = 'Profielveldtype';
-$string['type_profilefield_plural'] = 'Profielbveldtypes';
+$string['type_profilefield_plural'] = 'Profielveldtypes';
 $string['type_qbehaviour'] = 'Vragengedrag';
 $string['type_qbehaviour_plural'] = 'Vragengedrag';
 $string['type_qformat'] = 'Vraag import/export opmaak';
@@ -172,8 +174,8 @@ $string['type_webservice'] = 'Webservice protocol';
 $string['type_webservice_plural'] = 'Webservice protocols';
 $string['uninstall'] = 'Verwijder';
 $string['uninstallconfirm'] = 'Je gaat plugin <em> {$a->name}</em> verwijderen. Alles in de databank dat hiermee geassocieerd is , zal gewist worden, inclusief de configuratie, logs, gebruikersbestanden die door de plugin beheerd worden enz. Er is geen enkele manier om dit ongedaan te maken en Moodle maakt geen backup om hiervan te herstellen. Weet je ZEKER dat je hiermee wil doorgaan?';
-$string['uninstalldelete'] = 'Alle gegevens die geassocieerd zijn met plugin <em> {$a->name}</em> zijn uit de database verwijderd. Om te verhinderen dat de plugin zichzelf terug installeerd, moet de map waarin die staat <em> {$a->rootdir}</em> manueel verwijderd worden van je server. Moodle kan dat niet zelf, bij gebrek aan schrijfrecht op die map.';
-$string['uninstalldeleteconfirm'] = 'Alle gegevens die geassocieerd zijn met plugin <em> {$a->name}</em> zijn uit de database verwijderd. Om te verhinderen dat de plugin zichzelf terug installeerd, moet de map waarin die staat <em> {$a->rootdir}</em> verwijderd worden van je server. Wil je de plugin-map nu verwijderen?';
+$string['uninstalldelete'] = 'Alle gegevens die geassocieerd zijn met plugin <em> {$a->name}</em> zijn uit de database verwijderd. Om te verhinderen dat de plugin zichzelf terug installeert, moet de map waarin die staat <em> {$a->rootdir}</em> manueel verwijderd worden van je server. Moodle kan dat niet zelf bij gebrek aan schrijfrecht op die map.';
+$string['uninstalldeleteconfirm'] = 'Alle gegevens die geassocieerd zijn met plugin <em> {$a->name}</em> zijn uit de database verwijderd. Om te verhinderen dat de plugin zichzelf terug installeert, moet de map waarin die staat <em> {$a->rootdir}</em> verwijderd worden van je server. Wil je de plugin-map nu verwijderen?';
 $string['uninstalldeleteconfirmexternal'] = 'Het lijkt er op dat de huidige versie van de plugin via een broncodebeheersysteem  ({$a}) is geïnstalleerd. Als je deze map verwijdert, dan verlies je misschien belangrijke informatie over wijzigingen aan de code. Verzeker jezelf ervan dat je deze plugin wil verwijderen voor je verder gaat.';
 $string['uninstallextraconfirmblock'] = 'Er zijn {$a->instances} exemplaren van dit blok';
 $string['uninstallextraconfirmenrol'] = 'Er zijn {$a->enrolments} gebruikers aangemeld';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choicegroup', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   choicegroup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -38,6 +38,8 @@ $string['answered'] = 'Risposte';
 $string['applytoallgroups'] = 'Applica a tutti i gruppi';
 $string['available_groups'] = 'Gruppi disponibili';
 $string['byparticipants'] = 'di {$a} partecipanti';
+$string['char_bullet_collapsed'] = '►';
+$string['char_bullet_expanded'] = '▼';
 $string['char_limitui_parenthesis_end'] = ')';
 $string['char_limitui_parenthesis_start'] = '(';
 $string['choice'] = 'Scelta';
@@ -111,7 +113,9 @@ $string['notyetresultsviewable'] = 'I risultati saranno visibili soltanto dopo l
 $string['numberofuser'] = 'Il numero degli utenti';
 $string['option'] = 'Gruppo';
 $string['page-mod-choice-x'] = 'Pagina contenente ogni scelta del gruppo';
+$string['pleaseselectonegroup'] = 'Selezionare almeno un gruppo.';
 $string['pleasesetgroups'] = 'Per favore crea almeno due gruppi nel corso.';
+$string['pleasesetonegroup'] = 'Creare almeno un gruppo in questo corso.';
 $string['pluginadministration'] = 'Amministrazione Scelta gruppo';
 $string['pluginname'] = 'Scelta gruppo';
 $string['privacy'] = 'Privatezza dei risultati';

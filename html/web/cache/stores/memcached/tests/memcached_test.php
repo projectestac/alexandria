@@ -61,11 +61,13 @@ class cachestore_memcached_test extends cachestore_tests {
         $this->resetAfterTest(true);
 
         $definition = cache_definition::load_adhoc(cache_store::MODE_APPLICATION, 'cachestore_memcached', 'phpunit_test');
-        $instance = cachestore_memcached::initialise_unit_test_instance($definition);
+        $instance = new cachestore_memcached('Memcached Test', cachestore_memcached::unit_test_configuration());
 
-        if (!$instance) { // Something prevented memcached store to be inited (extension, TEST_CACHESTORE_MEMCACHED_TESTSERVERS...).
+        if (!$instance->is_ready()) {
+            // Something prevented memcached store to be inited (extension, TEST_CACHESTORE_MEMCACHED_TESTSERVERS...).
             $this->markTestSkipped();
         }
+        $instance->initialise($definition);
 
         $keys = array(
             // Alphanumeric.
@@ -168,7 +170,7 @@ class cachestore_memcached_test extends cachestore_tests {
         $definition = cache_definition::load_adhoc(cache_store::MODE_APPLICATION, 'cachestore_memcached', 'phpunit_test');
         $instance = cachestore_memcached::initialise_test_instance($definition);
 
-        if (!$instance) {
+        if (!$instance->is_ready()) {
             $this->markTestSkipped();
         }
 
@@ -181,7 +183,7 @@ class cachestore_memcached_test extends cachestore_tests {
             set_config('testname', $testserver, 'cachestore_memcached');
             set_config('testservers', $testserver, 'cachestore_memcached');
             $checkinstance = cachestore_memcached::initialise_test_instance($definition);
-            if (!$checkinstance) {
+            if (!$checkinstance->is_ready()) {
                 $this->markTestSkipped();
             }
             $checkinstances[] = $checkinstance;
@@ -286,6 +288,10 @@ class cachestore_memcached_test extends cachestore_tests {
 
         $definition = cache_definition::load_adhoc(cache_store::MODE_APPLICATION, 'cachestore_memcached', 'phpunit_test');
         $cachestore = $this->create_test_cache_with_config($definition, array('isshared' => true));
+        if (!$cachestore->is_connection_ready()) {
+            $this->markTestSkipped('Could not test cachestore_memcached. Connection is not ready.');
+        }
+
         $connection = new Memcached(crc32(__METHOD__));
         $connection->addServers($this->get_servers(TEST_CACHESTORE_MEMCACHED_TESTSERVERS));
         $connection->setOptions(array(

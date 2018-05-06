@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'error', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   error
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activityisscheduledfordeletion'] = 'Suppression d\'activité en cours...';
 $string['alreadyloggedin'] = 'Vous êtes déjà authentifié sous le nom {$a}. Veuillez vous déconnecter avant de vous connecter sous un autre nom.';
 $string['authnotexisting'] = 'Le plugin d\'autorisation n\'existe pas';
 $string['backupcontainexternal'] = 'Ce fichier de sauvegarde comporte des hôtes externes Réseau Moodle qui ne sont pas configurés localement';
@@ -176,6 +177,7 @@ $string['categorynamerequired'] = 'Un nom est requis pour la catégorie';
 $string['categorytoolong'] = 'Nom de catégorie trop long';
 $string['commentmisconf'] = 'L\'identifiant du commentaire est mal configuré';
 $string['componentisuptodate'] = 'Le composant est à jour';
+$string['confirmationnotenabled'] = 'La confirmation utilisateur n\'est pas activée sur ce site';
 $string['confirmsesskeybad'] = 'Désolé, votre identifiant de session n\'a pas pu être confirmé pour exécuter cette action. Cette sécurité vous protège contre l\'exécution accidentelle ou malfaisante en votre nom de fonctions essentielles. Veuillez vérifier que vous avez vraiment voulu effectuer cette action';
 $string['couldnotassignrole'] = 'Une erreur inconnue, mais sérieuse, est survenue lors de l\'attribution d\'un rôle à vous-même';
 $string['couldnotupdatenoexistinguser'] = 'Impossible de modifier l\'utilisateur, qui n\'existe pas';
@@ -224,6 +226,7 @@ $string['duplicaterolename'] = 'Un rôle portant ce nom existe déjà !';
 $string['duplicateroleshortname'] = 'Un rôle portant ce nom abrégé existe déjà !';
 $string['duplicateusername'] = 'Nom d\'utilisateur à double : ligne ignorée';
 $string['emailfail'] = 'Échec de l\'envoi par courriel';
+$string['enddatebeforestartdate'] = 'La date de fin doit être postérieure à la date de début.';
 $string['error'] = 'Une erreur est survenue';
 $string['errorcleaningdirectory'] = 'Erreur lors du nettoyage du dossier « {$a} »';
 $string['errorcopyingfiles'] = 'Erreur lors de la copie de fichiers';
@@ -310,7 +313,7 @@ $string['invalidcourselevel'] = 'Niveau de contexte incorrect';
 $string['invalidcoursemodule'] = 'Identifiant de module de cours non valide';
 $string['invalidcoursenameshort'] = 'Le nom abrégé du cours n\'est pas valide';
 $string['invaliddata'] = 'Les données envoyées ne sont pas valides';
-$string['invaliddatarootpermissions'] = 'Des droits d\'accès non valides ont été détectées lors de la création d\'un dossier. Veuillez activer le débogage pour plus de détails.';
+$string['invaliddatarootpermissions'] = 'Des droits d\'accès non valides ont été détectés lors de la création d\'un dossier. Veuillez activer le débogage pour plus de détails.';
 $string['invaliddevicetype'] = 'Type d\'appareil non valide';
 $string['invalidelementid'] = 'Identifiant d\'élément incorrect !';
 $string['invalidentry'] = 'Article non valide';
@@ -375,8 +378,8 @@ $string['maxareabytes'] = 'Le fichier dépasse l\'espace disponible dans cette z
 $string['maxbytes'] = 'Le fichier dépasse la taille maximale permise.';
 $string['maxbytesfile'] = 'La taille du fichier {$a->file} est trop grande. La taille maximale d\'un fichier à déposer est de {$a->size}.';
 $string['messagingdisable'] = 'La messagerie est désactivée sur ce site';
-$string['mimetexisnotexist'] = 'Votre serveur n\'est pas configurer que faire tourner mimeTeX. Veuillez télécharger le programme approprié à votre plateforme sur <a href="http://moodle.org/download/mimetex/">http://moodle.org/download/mimetex/</a>, ou les sources en C du programme ici <a href="http://www.forkosh.com/mimetex.zip"> http://www.forkosh.com/mimetex.zip</a>, les compiler et placer le programme dans le dossier moodle/filter/tex/';
-$string['mimetexnotexecutable'] = 'Votre programme mimetex n\'est pas exécutable !';
+$string['mimetexisnotexist'] = 'Votre serveur n\'est pas configuré pour lancer mimeTeX. Veuillez télécharger le programme approprié à votre plateforme sur <a href="http://moodle.org/download/mimetex/">http://moodle.org/download/mimetex/</a>, ou les sources en C du programme ici <a href="http://www.forkosh.com/mimetex.zip"> http://www.forkosh.com/mimetex.zip</a>, les compiler et placer le programme dans le dossier moodle/filter/tex/';
+$string['mimetexnotexecutable'] = 'Votre programme <i>mimetex</i> n\'est pas exécutable !';
 $string['missingfield'] = 'Le champ « {$a} » est manquant';
 $string['missingkeyinsql'] = 'Erreur : paramètre « {$a} » manquant dans la requête';
 $string['missing_moodle_backup_xml_file'] = 'Fichier de sauvegarde XML manquant : {$a}';
@@ -439,6 +442,7 @@ $string['nopermissiontoviewletergrade'] = 'Vous n\'êtes pas autorisé à voir l
 $string['nopermissiontoviewpage'] = 'Vous n\'êtes pas autorisé à voir cette page';
 $string['nosite'] = 'Impossible de trouver le cours du site';
 $string['nositeid'] = 'Aucun identifiant de site';
+$string['nostartdatenoenddate'] = 'Une date de fin de cours ne peut être définie que si une date de début est également définie.';
 $string['nostatstodisplay'] = 'Il n\'y a pour le moment pas de statistique à afficher';
 $string['notallowedtoupdateprefremotely'] = 'Vous n\'avez pas l\'autorisation de modifier cette préférence utilisateur à distance';
 $string['notavailable'] = 'Ceci n\'est actuellement pas disponible';
@@ -446,6 +450,8 @@ $string['notlocalisederrormessage'] = '{$a}';
 $string['notmemberofgroup'] = 'Vous n\'êtes pas membre de ce groupe';
 $string['notownerofkey'] = 'Vous n\'êtes pas le possesseur de cette clef';
 $string['nousers'] = 'Aucun utilisateur !';
+$string['oauth1accesstoken'] = 'Erreur OAuth 1.0 : impossible de récupérer le jeton d\'accès.';
+$string['oauth1requesttoken'] = 'Erreur OAuth 1.0 : impossible de récupérer le jeton de requête. Le fournisseur de service est peut-être temporairement inatteignable.';
 $string['onlyadmins'] = 'Seuls les administrateurs peuvent faire ceci';
 $string['onlyeditingteachers'] = 'Seuls les enseignants avec droit de modification peuvent faire ceci';
 $string['onlyeditown'] = 'Vous ne pouvez modifier que vos propres informations';
@@ -463,6 +469,7 @@ $string['querystringcannotbeempty'] = 'La chaîne de requête ne peut pas être 
 $string['redirecterrordetected'] = 'Redirection non supportée. L\'exécution du script a été stoppée.';
 $string['refoundto'] = 'Peut être remboursé à {$a}';
 $string['refoundtoorigi'] = 'Remboursement au montant original : {$a}';
+$string['registrationdisabled'] = 'L\'enregistrement est désactivé sur ce site';
 $string['remotedownloaderror'] = '<p>Le téléchargement du composant sur votre serveur a échoué. Veuillez vérifier les réglages de proxy. L\'extension cURL de PHP est vivement recommandée.</p>
 <p>Vous devez télécharger manuellement le fichier <a href="{$a->url}">{$a->url}</a>, le copier sur votre serveur à l\'emplacement « {$a->dest} » et le décompresser à cet endroit.</p>';
 $string['remotedownloadnotallowed'] = 'Le téléchargement de composants sur votre serveur n\'est pas autorisé (l\'option allow_url_fopen est désactivée).<br /><br />Vous devez télécharger manuellement le fichier <a href="{$a->url}">{$a->url}</a>, le copier vers « {$a->dest} » dans votre serveur et le décompresser';
@@ -492,6 +499,7 @@ $string['sessionipnomatch2'] = '<p>Votre adresse IP semble avoir changé depuis 
 <p>Si vous voulez continuer, veuillez actualiser l\'affichage de cette page.</p>';
 $string['sessionwaiterr'] = 'Durée dépassée au cours de l\'attente pour un verrouillage de session.<br />Veuillez attendre que vos requêtes actuelles se terminent et essayer plus tard.';
 $string['shortnametaken'] = 'Ce nom abrégé est déjà utilisé pour un autre cours ({$a})';
+$string['sitepolicynotagreed'] = 'Règlement du site pas approuvé : <a href="{$a}">veuillez cliquer ici pour ouvrir le règlement du site</a>.';
 $string['socksnotsupported'] = 'Le proxy SOCKS5 n\'est pas supporté en PHP4';
 $string['spellcheckernotconf'] = 'Le correcteur orthographique n\'est pas configuré';
 $string['sslonlyaccess'] = 'Pour des raisons de sécurité, seules les connexions sécurisées https sont autorisées.';
@@ -501,6 +509,7 @@ $string['statsnodata'] = 'Aucune donnée disponible pour ce cours et cette péri
 $string['storedfilecannotcreatefile'] = 'Impossible de créer un fichier local de pool. Veuillez vérifier les autorisations du dossier de données ainsi que l\'espace disque disponible.';
 $string['storedfilecannotcreatefiledirs'] = 'Impossible de créer les dossiers de la collection locale de fichiers. Veuillez vérifier les droits d\'accès au dossier de données.';
 $string['storedfilecannotread'] = 'Impossible de lire le fichier. Soit il n\'existe pas, soit il y a un problème de droits d\'accès.';
+$string['storedfilecannotreadfile'] = 'Impossible de lire « {$a} ». Le fichier n\'existe pas ou il y a un problème de permission.';
 $string['storedfilenotcreated'] = 'Impossible de créer le fichier « {$a->contextid}/{$a->component}/{$a->filearea}/{$a->itemid}{$a->filepath}{$a->filename} »';
 $string['storedfileproblem'] = 'Exception inconnue en rapport avec les fichiers locaux ({$a})';
 $string['tagdisabled'] = 'Les tags sont désactivés !';
@@ -558,6 +567,7 @@ $string['usernotdeletedadmin'] = 'Utilisateur non supprimé. Impossible de suppr
 $string['usernotdeletederror'] = 'L\'utilisateur n\'a pas été supprimé : erreur inconnue';
 $string['usernotdeletedmissing'] = 'L\'utilisateur n\'a pas été supprimé : le nom d\'utilisateur n\'a pas été trouvé';
 $string['usernotdeletedoff'] = 'L\'utilisateur n\'a pas été supprimé : la suppression n\'est pas autorisée';
+$string['usernotfullysetup'] = 'Utilisateur pas complètement défini';
 $string['usernotincourse'] = 'Cet utilisateur ne participe pas à ce cours !';
 $string['usernotrenamedadmin'] = 'Impossible de modifier le nom des comptes administrateur';
 $string['usernotrenamedexists'] = 'Le nom d\'utilisateur n\'a pas été modifié : le nouveau nom est déjà utilisé';

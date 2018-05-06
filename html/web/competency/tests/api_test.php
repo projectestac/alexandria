@@ -166,6 +166,8 @@ class core_competency_api_testcase extends advanced_testcase {
 
     /**
      * Test updating a template.
+     *
+     * @expectedException coding_exception
      */
     public function test_update_template() {
         $cat = $this->getDataGenerator()->create_category();
@@ -184,7 +186,6 @@ class core_competency_api_testcase extends advanced_testcase {
         $this->assertEquals('success', $template->get_shortname());
 
         // Trying to change the context.
-        $this->setExpectedException('coding_exception');
         api::update_template((object) array('id' => $template->get_id(), 'contextid' => context_coursecat::instance($cat->id)));
     }
 
@@ -510,6 +511,9 @@ class core_competency_api_testcase extends advanced_testcase {
         }
     }
 
+    /**
+     * @expectedException coding_exception
+     */
     public function test_create_plan_from_template() {
         $this->resetAfterTest(true);
         $this->setAdminUser();
@@ -531,7 +535,6 @@ class core_competency_api_testcase extends advanced_testcase {
         $this->assertFalse($plan);
 
         // Check that api::create_plan cannot be used.
-        $this->setExpectedException('coding_exception');
         unset($record->id);
         $plan = api::create_plan($record);
     }
@@ -753,6 +756,8 @@ class core_competency_api_testcase extends advanced_testcase {
 
     /**
      * Test that the method to complete a plan.
+     *
+     * @expectedException coding_exception
      */
     public function test_complete_plan() {
         global $DB;
@@ -833,7 +838,6 @@ class core_competency_api_testcase extends advanced_testcase {
         }
 
         // Completing a plan that is completed throws an exception.
-        $this->setExpectedException('coding_exception');
         api::complete_plan($plan);
     }
 
@@ -4495,6 +4499,9 @@ class core_competency_api_testcase extends advanced_testcase {
         $this->assertTrue(evidence::record_exists($ev2->get_id()));
     }
 
+    /**
+     * @expectedException required_capability_exception
+     */
     public function test_delete_evidence_without_permissions() {
         $this->resetAfterTest();
         $dg = $this->getDataGenerator();
@@ -4507,7 +4514,6 @@ class core_competency_api_testcase extends advanced_testcase {
         $ev1 = $ccg->create_evidence(['usercompetencyid' => $uc1->get_id()]);
 
         $this->setUser($u1);
-        $this->setExpectedException('required_capability_exception');
 
         api::delete_evidence($ev1);
     }
@@ -4558,6 +4564,9 @@ class core_competency_api_testcase extends advanced_testcase {
     }
 
     public function test_list_user_competencies_to_review() {
+        global $CFG;
+        require_once($CFG->dirroot . '/user/lib.php');
+
         $dg = $this->getDataGenerator();
         $this->resetAfterTest();
         $ccg = $dg->get_plugin_generator('core_competency');
@@ -4574,10 +4583,12 @@ class core_competency_api_testcase extends advanced_testcase {
 
         $u1 = $dg->create_user();
         $u2 = $dg->create_user();
+        $u3 = $dg->create_user();
         $f1 = $ccg->create_framework();
         $c1 = $ccg->create_competency(['competencyframeworkid' => $f1->get_id()]);
         $c2 = $ccg->create_competency(['competencyframeworkid' => $f1->get_id()]);
         $c3 = $ccg->create_competency(['competencyframeworkid' => $f1->get_id()]);
+        $c4 = $ccg->create_competency(['competencyframeworkid' => $f1->get_id()]);
         $uc1a = $ccg->create_user_competency(['userid' => $u1->id, 'competencyid' => $c1->get_id(),
             'status' => user_competency::STATUS_IDLE]);
         $uc1b = $ccg->create_user_competency(['userid' => $u1->id, 'competencyid' => $c2->get_id(),
@@ -4590,14 +4601,23 @@ class core_competency_api_testcase extends advanced_testcase {
             'status' => user_competency::STATUS_IDLE]);
         $uc2c = $ccg->create_user_competency(['userid' => $u2->id, 'competencyid' => $c3->get_id(),
             'status' => user_competency::STATUS_IN_REVIEW]);
+        $uc3a = $ccg->create_user_competency(['userid' => $u3->id, 'competencyid' => $c4->get_id(),
+            'status' => user_competency::STATUS_WAITING_FOR_REVIEW]);
 
         // The reviewer can review all plans waiting for review, or in review where they are the reviewer.
         $this->setUser($reviewer);
         $result = api::list_user_competencies_to_review();
-        $this->assertEquals(3, $result['count']);
+        $this->assertEquals(4, $result['count']);
         $this->assertEquals($uc2a->get_id(), $result['competencies'][0]->usercompetency->get_id());
         $this->assertEquals($uc1b->get_id(), $result['competencies'][1]->usercompetency->get_id());
         $this->assertEquals($uc1c->get_id(), $result['competencies'][2]->usercompetency->get_id());
+        $this->assertEquals($uc3a->get_id(), $result['competencies'][3]->usercompetency->get_id());
+
+        // Now, let's delete user 3.
+        // It should not be listed on user competencies to review any more.
+        user_delete_user($u3);
+        $result = api::list_user_competencies_to_review();
+        $this->assertEquals(3, $result['count']);
 
         // The reviewer cannot view the plans when they do not have the permission in the user's context.
         role_assign($roleprohibit, $reviewer->id, context_user::instance($u2->id)->id);

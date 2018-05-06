@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_boxnet', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository_boxnet', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   repository_boxnet
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['apikey'] = 'Clave de API';
 $string['boxnet:view'] = 'Mostrar el repositorio Box.net';
+$string['clientid'] = 'ID del cliente';
+$string['clientsecret'] = 'Clave secreta del cliente';
 $string['configplugin'] = 'Configuración de Box.net';
 $string['information'] = 'Obtener una clave de API desde la <a href="http://www.box.net/developers/services">página de desarrolladores Box.net</ a> para su sitio Moodle.';
 $string['invalidpassword'] = 'Contraseña incorrecta';

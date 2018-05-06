@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'question', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -413,6 +413,7 @@ $string['submissionoutofsequencefriendlymessage'] = 'Ha introducido datos fuera 
 $string['submit'] = 'Enviar';
 $string['submitandfinish'] = 'Enviar y terminar';
 $string['submitted'] = 'Enviar: {$a}';
+$string['tagarea_question'] = 'Preguntas';
 $string['technicalinfo'] = 'Información técnica';
 $string['technicalinfo_help'] = 'Esta información técnica probablemente solo le sea útil a los desarrolladores que trabajan en nuevos tipos de preguntas. Tambén podría serle útil a quienes tratan de diagnosticar problemas con las preguntas.';
 $string['technicalinfomaxfraction'] = 'Fracción máxima: {$a}';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -155,7 +155,7 @@ $string['license'] = 'Licence';
 $string['linkexternal'] = 'Lien externe';
 $string['listview'] = 'Afficher en liste';
 $string['loading'] = 'Chargement...';
-$string['login'] = 'Connexion à votre compte';
+$string['login'] = 'Se connecter à votre compte';
 $string['logout'] = 'Déconnexion';
 $string['lostsource'] = 'Erreur. La source est manquante. {$a}';
 $string['makefileinternal'] = 'Faire une copie du fichier';
@@ -165,6 +165,7 @@ $string['manage'] = 'Gérer les dépôts';
 $string['manageinstances'] = 'Gérer les instances';
 $string['manageurl'] = 'Gestion';
 $string['manageuserrepository'] = 'Gérer le dépôt personnel';
+$string['missingsourcekey'] = 'La clef source est manquante. Cette clef doit être fournie pour récupérer le fichier.';
 $string['moving'] = 'Déplacement';
 $string['name'] = 'Nom';
 $string['newfolder'] = 'Nouveau dossier';
@@ -187,7 +188,6 @@ $string['original'] = 'Original';
 $string['overwrite'] = 'Écraser';
 $string['overwriteall'] = 'Tout écraser';
 $string['path'] = 'Chemin';
-$string['personalrepositories'] = 'Dépôts personnels disponibles';
 $string['plugin'] = 'Plugins de dépôt';
 $string['pluginerror'] = 'Erreurs dans le plugin de dépôt.';
 $string['pluginname'] = 'Nom du plugin de dépôt';

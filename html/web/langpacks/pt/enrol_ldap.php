@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_ldap', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_ldap', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,7 @@ $string['autocreate'] = '<p>As disciplinas podem ser criadas automaticamente cas
 $string['autocreate_key'] = 'Criação automática';
 $string['autocreation_settings'] = 'Configurações para criação automática de disciplinas';
 $string['autoupdate_settings'] = 'Atualização das definições automáticas da disciplina';
-$string['autoupdate_settings_desc'] = 'Selecione os ficheiros a atualizar quando o script de sincronização estiver a ser executado (enrol/ldap/cli/sync.php).</p><p> Uma atualização irá decorrer quando pelo menos um campo estiver selecionado.</p>';
+$string['autoupdate_settings_desc'] = '<p>Selecione os ficheiros a atualizar quando o script de sincronização estiver a ser executado (enrol/ldap/cli/sync.php).</p><p> Uma atualização irá decorrer quando pelo menos um campo estiver selecionado.</p>';
 $string['bind_dn'] = 'Se desejar indique neste campo um nome de utilizador de <em>bind</em> para pesquisar utilizadores. Ex: cn=ldapuser,ou=public,o=org';
 $string['bind_dn_key'] = 'DN do utilizador de <em>bind</em>';
 $string['bind_pw'] = 'Senha do utilizador de <em>bind</em>';
@@ -64,8 +64,8 @@ $string['course_summary_updateonsync'] = 'Atualizar o sumário durante o script 
 $string['course_summary_updateonsync_key'] = 'Atualizar sumário';
 $string['courseupdated'] = 'A disciplina com o número de ID \'{$a->idnumber}\' foi atualizada com sucesso.';
 $string['courseupdateskipped'] = 'A disciplina com o número de ID \'{$a->idnumber}\' não requer atualização. A ignorar...';
-$string['createcourseextid'] = 'CRIAR Utilizador inscrito numa disciplina que não existe: "{$a->courseextid}"';
-$string['createnotcourseextid'] = 'Utilizador inscrito numa disciplina que não existe: "{$a->courseextid}"';
+$string['createcourseextid'] = 'CRIAR Utilizador inscrito numa disciplina que não existe: \'{$a->courseextid}\'';
+$string['createnotcourseextid'] = 'Utilizador inscrito numa disciplina que não existe: \'{$a->courseextid}\'';
 $string['creatingcourse'] = 'A criar a disciplina "{$a}" ...';
 $string['duplicateshortname'] = 'A criação da disciplina falhou. Duplique o nome curto. A disciplina com o número ID \'{$a->idnumber}\' será ignorada.';
 $string['editlock'] = 'Bloquear valor';
@@ -84,13 +84,13 @@ $string['group_memberofattribute'] = 'Nome do atributo que determina os grupos a
 $string['group_memberofattribute_key'] = 'Atributo <strong>Member of</strong>';
 $string['host_url'] = 'Esta configuração permite definir o URL do servidor LDAP. Ex: ldap://ldap.myorg.com/ ou ldaps://ldap.myorg.com/';
 $string['host_url_key'] = 'URL do servidor';
-$string['idnumber_attribute'] = 'Se o <em>membership</em> do grupo contém DN\'s, indique o mesmo atributo que usou para o mapeamento do <strong>ID Number</strong> do utilizador nas configurações da autenticação LDAP.';
+$string['idnumber_attribute'] = 'Se o <em>group membership</em> contém <em>distinguished names</em>, indique o mesmo atributo que usou para o mapeamento do \'ID Number\' do utilizador nas configurações da autenticação LDAP.';
 $string['idnumber_attribute_key'] = 'Atributo <strong>ID number</strong>';
 $string['ldap_encoding'] = 'Esta configuração permite definir a codificação usada pelo servidor LDAP. Provavelmente será utf-8. Os sistemas MS AD v2 normalmente usam a codificação predefinida na plataforma (cp1252, cp1250, etc.)';
 $string['ldap_encoding_key'] = 'Codificação LDAP';
 $string['ldap:manage'] = 'Gerir instâncias de inscrições LDAP';
 $string['memberattribute'] = 'Atributo <strong>LDAP member</strong>';
-$string['memberattribute_isdn'] = 'Se o membership do grupo contém DNs é necessário indicar aqui esses valores. Em caso afirmativo, é obrigatório preencher as restantes configurações desta secção.';
+$string['memberattribute_isdn'] = 'Se o <em>group membership</em> contém <em>distinguished names</em> é necessário indicar aqui esses valores. Em caso afirmativo, é obrigatório preencher as restantes configurações desta secção.';
 $string['memberattribute_isdn_key'] = 'O atributo "Member" usa dn';
 $string['nested_groups'] = 'Pretender utilizar grupos de grupos (\'nested groups\') para a inscrição?';
 $string['nested_groups_key'] = 'Grupos de grupos';
@@ -99,7 +99,7 @@ $string['nosuchrole'] = 'O papel "{$a}" não existe';
 $string['objectclass'] = 'objectClass a usar na pesquisas de disciplinas. Nomalmente "group" ou "posixGroup".';
 $string['objectclass_key'] = 'Object class';
 $string['ok'] = 'OK!';
-$string['opt_deref'] = 'Se o membership dos grupos contiver DN\'s indique como são manipulados os <em>aliases</em> na pesquisa. Selecione um dos seguintes valores: "Não" (LDAP_DEREF_NEVER) ou "Sim" (LDAP_DEREF_ALWAYS).';
+$string['opt_deref'] = 'Se o <em>group membership</em> contém <em>distinguished names</em> indique como são tratados os <em>aliases</em> durante uma pesquisa. Selecione um dos seguintes valores: "Não" (LDAP_DEREF_NEVER) ou "Sim" (LDAP_DEREF_ALWAYS).';
 $string['opt_deref_key'] = 'Desreferenciar <em>aliases</em>';
 $string['phpldap_noextension'] = '<em>Este módulo de inscrição não pode ser usado porque a extensão LDAP do PHP não está instalada ou não está ativada.</em>';
 $string['pluginname'] = 'Inscrições LDAP';
@@ -107,7 +107,7 @@ $string['pluginname_desc'] = '<p>Este módulo de inscrição permite utilizar um
 $string['pluginnotenabled'] = 'O módulo não está ativo!';
 $string['role_mapping'] = '<p>Para cada papel que quiser mapear do LDAP terá que indicar a lista de contextos onde as disciplinas de cada papel estão localizadas. Separa cada contexto com ";".</p><p>É também necessário especificar o atributo que o servidor LDAP usa para guardar a informação de pertença a um grupo.Normalmente "member" ou "memberUid"</p>';
 $string['role_mapping_attribute'] = 'Atributo do membro LDAP para {$a}';
-$string['role_mapping_context'] = 'Contextos LDAP para $a}';
+$string['role_mapping_context'] = 'Contextos LDAP para {$a}';
 $string['role_mapping_key'] = 'Mapeamento de papéis do LDAP';
 $string['roles'] = 'Mapeamento de papéis';
 $string['server_settings'] = 'Configurações do servidor LDAP';
@@ -118,11 +118,11 @@ $string['unassignrole'] = 'A retirar o papel "{$a->role_shortname}" ao utilizado
 $string['unassignrolefailed'] = 'Falha ao retirar o papel "{$a->role_shortname}" ao utilizador "{$a->user_username}" na disciplina "{$a->course_shortname}" (identificador da disciplina {$a->course_id})';
 $string['unassignroleid'] = 'A retirar o papel com identificador "{$a->role_id}" do utilizador com identificador "{$a->user_id}"';
 $string['updatelocal'] = 'Atualizar dados locais';
-$string['user_attribute'] = 'Se o membership de grupo contiver DN\'s indique o atributo usado para nomear/procurar utilizadores. Se estiver a usar autenticação LDAP este atributo deve ser o mesmo indicado no mapeamento do campo <strong>ID Number</strong> no módulo de autenticação LDAP';
+$string['user_attribute'] = 'Se o <em>group membership</em> contém <em>distinguished names</em> indique o atributo usado para nomear/procurar utilizadores. Se estiver a usar autenticação LDAP este atributo deve ser o mesmo indicado no mapeamento do campo \'ID Number\' no módulo de autenticação LDAP';
 $string['user_attribute_key'] = 'Atributo <strong>ID number</strong>';
-$string['user_contexts'] = 'Se o membership de grupo contiver DNs indique os contextos onde estão localizados os utilizadores. Os contextos devem ser separados por ";". Ex: ou=users,o=org; ou=others,o=org';
+$string['user_contexts'] = 'Se o <em>group membership</em> contém <em>distinguished names</em> indique os contextos onde estão localizados os utilizadores. Os diferentes contextos devem ser separados por ";". Ex: ou=users,o=org; ou=others,o=org';
 $string['user_contexts_key'] = 'Contextos';
-$string['user_search_sub'] = 'Se o membership de grupo contiver DN\'s indique se a pesquisa de utilizadores é feita também nos subcontextos.';
+$string['user_search_sub'] = 'Se o <em>group membership</em> contém <em>distinguished names</em> indique se a pesquisa de utilizadores é feita também nos subcontextos.';
 $string['user_search_sub_key'] = 'Pesquisar em subcontextos';
 $string['user_settings'] = 'Configuração de procura de utilizadores';
 $string['user_type'] = 'Se o <em>membership</em> de grupo contiver DN\'s indique a forma como os utilizadores são armazenados no LDAP.';

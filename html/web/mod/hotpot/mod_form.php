@@ -454,16 +454,40 @@ class mod_hotpot_mod_form extends moodleform_mod {
                 $mform->setType($name, PARAM_INT);
             }
 
-            $id = 'fgroup_id_'.$timename.'_elements';
+            // js_amd_inline is available in Moodle >= 3.3
+            $js_amd_inline = method_exists($PAGE->requires, 'js_amd_inline');
+
             $text = '';
-            $text .= html_writer::tag('a', get_string('all'), array('onclick' => 'select_all_in("DIV", "fitem", "'.$id.'")'));
-            $text .= ' / ';
-            $text .= html_writer::tag('a', get_string('none'), array('onclick' => 'deselect_all_in("DIV", "fitem", "'.$id.'")'));
+            $id = 'fgroup_id_'.$timename.'_elements';
+
+            if ($js_amd_inline) {
+                $text .= html_writer::tag('a', get_string('all'), array('href' => '#', 'id' => $name.'selectall'));
+                $text .= ' / ';
+                $text .= html_writer::tag('a', get_string('none'), array('href' => '#', 'id' => $name.'selectnone'));
+            } else {
+                $text .= html_writer::tag('a', get_string('all'), array('onclick' => 'select_all_in("DIV", "fitem", "'.$id.'")'));
+                $text .= ' / ';
+                $text .= html_writer::tag('a', get_string('none'), array('onclick' => 'deselect_all_in("DIV", "fitem", "'.$id.'")'));
+            }
             $elements[] = &$mform->createElement('static', '', '', html_writer::tag('span', $text));
 
             $mform->addGroup($elements, $timename.'_elements', get_string('review'.$timename, $plugin), null, false);
             if ($timename=='afterclose') {
                 $mform->disabledIf('afterclose_elements', 'timeclose[off]', 'checked');
+            }
+
+            if ($js_amd_inline) {
+                $PAGE->requires->js_amd_inline("
+                require(['jquery'], function($) {
+                    $('#{$name}selectall').click(function(e) {
+                        $('#{$id}').find('input:checkbox').prop('checked', true);
+                        e.preventDefault();
+                    });
+                    $('#{$name}selectnone').click(function(e) {
+                        $('#{$id}').find('input:checkbox').prop('checked', false);
+                        e.preventDefault();
+                    });
+                });");
             }
         }
 
@@ -694,15 +718,30 @@ class mod_hotpot_mod_form extends moodleform_mod {
 
         // add module icons, if possible
         if ($modinfo) {
+            // in some browsers (e.g. Chrome) the icons only display
+            // when the "size" attribute is set for the SELECT tag
+            // but this also means that you MUST scroll to see all
+            // item in the SELECT list, so perhaps the code below
+            // could be removed.
             $element = reset($mform->getElement($type.'cm_elements')->getElements());
+            if (method_exists($PAGE->theme, 'image_url')) {
+                $image_url = 'image_url'; // Moodle >= 3.3
+            } else {
+                $image_url = 'pix_url'; // Moodle <= 3.2
+            }
             for ($i=0; $i<count($element->_optGroups); $i++) {
                 $optgroup = &$element->_optGroups[$i];
                 for ($ii=0; $ii<count($optgroup['options']); $ii++) {
                     $option = &$optgroup['options'][$ii];
                     if (isset($option['attr']['value']) && $option['attr']['value']>0) {
                         $cmid = $option['attr']['value'];
-                        $url = $PAGE->theme->pix_url('icon', $modinfo->cms[$cmid]->modname)->out();
-                        $option['attr']['style'] = "background-image: url($url); background-repeat: no-repeat; background-position: 1px 2px; min-height: 20px;";
+                        $modname = $modinfo->cms[$cmid]->modname;
+                        $url = $PAGE->theme->$image_url('icon', $modname)->out();
+                        $option['attr']['style'] = 'background-image: url('.$url.'); '.
+                                                   'background-repeat: no-repeat; '.
+                                                   'background-position: 1px 2px; '.
+                                                   'min-height: 20px; '.
+                                                   'padding-left: 12px;';
                     }
                 }
             }
@@ -747,7 +786,11 @@ class mod_hotpot_mod_form extends moodleform_mod {
 
             // extract boolean switches for page options
             foreach (hotpot::text_page_options($type) as $name => $mask) {
-                $data[$type.'_'.$name] = $data[$type.'options'] & $mask;
+                if (array_key_exists($type.'options', $data)) {
+                    $data[$type.'_'.$name] = $data[$type.'options'] & $mask;
+                } else {
+                    $data[$type.'_'.$name] = 0;
+                }
             }
 
             // setup custom wysiwyg editor

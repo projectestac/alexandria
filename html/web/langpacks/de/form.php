@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'form', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'form', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   form
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -41,7 +41,7 @@ $string['err_nopunctuation'] = 'Sie dürfen hier keine Satzseichen verwenden.';
 $string['err_numeric'] = 'Sie müssen hier eine Zahl eingeben.';
 $string['err_rangelength'] = 'Sie müssen hier zwischen {$a->format[0]} und {$a->format[1]} Buchstaben eingeben.';
 $string['err_required'] = 'Sie müssen hier einen Wert eingeben.';
-$string['general'] = 'Grundeinträge';
+$string['general'] = 'Allgemeines';
 $string['hideadvanced'] = 'Optionale Felder verbergen';
 $string['hour'] = 'Stunde';
 $string['minute'] = 'Minute';
@@ -53,8 +53,13 @@ $string['nomethodforaddinghelpbutton'] = 'Es gibt keine Möglichkeit, einen Hilf
 $string['nonexistentformelements'] = 'Sie versuchen, Hilfebuttons zu nicht existierenden Formularelementen hinzuzufügen: {$a}';
 $string['noselection'] = 'Keine Auswahl';
 $string['nosuggestions'] = 'Keine Vorschläge';
+$string['novalue'] = 'Keine Eingabe';
+$string['novalueclicktoset'] = 'Anklicken zur Texteingabe';
 $string['optional'] = 'Optionale Einträge';
 $string['othersettings'] = 'Andere Einstellungen';
+$string['passwordunmaskedithint'] = 'Passwort ändern';
+$string['passwordunmaskinstructions'] = 'Drücken Sie Enter um die Änderungen zu speichern';
+$string['passwordunmaskrevealhint'] = 'Klartext';
 $string['requiredelement'] = 'Pflichtfeld';
 $string['revealpassword'] = 'Klartext';
 $string['security'] = 'Sicherheit';

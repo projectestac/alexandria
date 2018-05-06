@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_questioninstances', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'report_questioninstances', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   report_questioninstances
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['editquestionshere'] = 'Editar preguntas en este contexto';
+$string['eventreportviewed'] = 'Informe visto';
 $string['getreport'] = 'Obtener el informe';
 $string['hiddenquestions'] = 'Ocultos';
 $string['intro'] = 'Este informe presenta todos los contextos en el sitema donde hay preguntas de un tipo concreto.';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tag', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tag', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   tag
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -45,6 +45,7 @@ $string['helprelatedtags'] = 'Kommaseparerade rubriker som är relaterade';
 $string['id'] = 'id';
 $string['manageofficialtags'] = 'Administrera officiella etiketter';
 $string['managetags'] = 'Administrera rubriker för intressen';
+$string['moretags'] = 'mer...';
 $string['name'] = 'Namn på etikett';
 $string['namesalreadybeeingused'] = 'Namn på etiketter som redan är tagna i bruk';
 $string['newname'] = 'Nytt namn på etikett';

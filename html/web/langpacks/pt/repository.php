@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -86,7 +86,7 @@ $string['createinstance'] = 'Criar uma instância de repositório';
 $string['createrepository'] = 'Criar uma instância de repositório';
 $string['createxxinstance'] = 'Criar instância de "{$a}"';
 $string['date'] = 'Data';
-$string['datecreated'] = 'Criado';
+$string['datecreated'] = 'Criado:';
 $string['deleted'] = 'O repositório foi apagado';
 $string['deleterepository'] = 'Apagar este repositório';
 $string['detailview'] = 'Ver detalhes';
@@ -148,14 +148,14 @@ $string['invalidjson'] = 'String JSON inválida';
 $string['invalidparams'] = 'Parâmetros inválidos';
 $string['invalidplugin'] = 'Repositório de módulo {$a} inválido';
 $string['invalidrepositoryid'] = 'Identificador de repositório inválido';
-$string['isactive'] = 'Ativo(a)?';
+$string['isactive'] = 'Ativo?';
 $string['keyword'] = 'Senha';
 $string['lastmodified'] = 'Modificado pela última vez:';
 $string['license'] = 'Licença';
 $string['linkexternal'] = 'Hiperligação externa';
 $string['listview'] = 'Ver na forma de lista';
 $string['loading'] = 'A carregar...';
-$string['login'] = 'Autentique-se com seus dados de acesso';
+$string['login'] = 'Autentique-se na sua conta';
 $string['logout'] = 'Sair';
 $string['lostsource'] = 'Erro. A origem não existe {$a}.';
 $string['makefileinternal'] = 'Criar uma cópia do ficheiro';
@@ -165,13 +165,14 @@ $string['manage'] = 'Gerir repositórios';
 $string['manageinstances'] = 'Gerir instâncias';
 $string['manageurl'] = 'Gerir';
 $string['manageuserrepository'] = 'Gerir repositório individual';
+$string['missingsourcekey'] = 'A chave da origem está em falta. Esta chave também deve ser indicada para recuperar o ficheiro.';
 $string['moving'] = 'A mover';
 $string['name'] = 'Nome';
 $string['newfolder'] = 'Nova pasta';
 $string['newfoldername'] = 'Nome da pasta a criar';
 $string['noenter'] = 'Nada inserido';
 $string['nofilesattached'] = 'Sem ficheiros selecionados';
-$string['nofilesavailable'] = 'Não há ficheiros disponíveis';
+$string['nofilesavailable'] = 'Não existem ficheiros disponíveis';
 $string['nomorefiles'] = 'Não são permitidos mais anexos';
 $string['nopathselected'] = 'Ainda não foi selecionado um caminho de destino (clicar duas vezes num nó da árvore para selecionar)';
 $string['nopermissiontoaccess'] = 'Sem permissão para aceder a este repositório.';
@@ -187,7 +188,6 @@ $string['original'] = 'Original';
 $string['overwrite'] = 'Substituir';
 $string['overwriteall'] = 'Substituir todos';
 $string['path'] = 'Caminho';
-$string['personalrepositories'] = 'Instâncias de repositório disponíveis';
 $string['plugin'] = 'Módulos de repositório';
 $string['pluginerror'] = 'Erros no módulo de repositório.';
 $string['pluginname'] = 'Nome do módulo de repositório';
@@ -223,7 +223,8 @@ $string['setmainfile_help'] = 'Se existirem vários ficheiros na pasta, o fichei
 $string['settings'] = 'Configurações';
 $string['setupdefaultplugins'] = 'A configurar módulos de repositório predefinidos';
 $string['siteinstances'] = 'Instâncias de repositórios do site';
-$string['size'] = 'Tamanho';
+$string['size'] = 'Tamanho:';
+$string['sourcekeymismatch'] = 'O URL da origem não corresponde à origem.';
 $string['submit'] = 'Enviar';
 $string['sync'] = 'Sincronizar';
 $string['syncfiletimeout'] = 'Tempo limite de sincronização de ficheiros';

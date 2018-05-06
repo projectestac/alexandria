@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'completion', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -68,7 +68,7 @@ $string['completionicons_help'] = 'Accanto ai nomi delle attività possono  comp
 
 Se viene visualizzata una casella con il bordo tratteggiato, sarà visualizzato un segno di spunta quando l\'attività sarà stata completata secondo i criteri impostati dal docente.
 
-Se viene visualizzata una casella con il bordo continuo, è possibile fare click sulla casella per indicare l\'attività come completata. (In caso di ripensamenti, è possibile fare click nuovamente sulla casella per rimuovere il completamento). La spunta è opzionale ed è utile per tracciare lo stato di completamento delle attività nel corso.';
+Se viene visualizzata una casella con il bordo continuo, è possibile fare click sulla casella per indicare l\'attività come completata. (In caso di ripensamenti, è possibile fare click nuovamente sulla casella per rimuovere il completamento).';
 $string['completion_manual'] = 'Gli studenti possono spuntare manualmente l\'attività per indicarla completata';
 $string['completionmenuitem'] = 'Completamento';
 $string['completion-n'] = 'Non completato';

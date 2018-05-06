@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'folder', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'folder', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   folder
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['bynameondate'] = 'Von {$a->name} - {$a->date}';
 $string['contentheader'] = 'Inhalt';
 $string['display'] = 'Verzeichnisinhalt anzeigen';
 $string['display_help'] = 'Wenn der Verzeichnisinhalt auf der Kursseite dargestellt werden soll, erscheint kein Link zu einer neuen Seite. Die Beschreibung wird nur gezeigt, wenn "Bescheibung auf der Kursseite anzeigen" ausgewählt wurde.
@@ -34,10 +35,10 @@ $string['displayinline'] = 'Auf der Kursseite';
 $string['displaypage'] = 'Auf separater Seite';
 $string['dnduploadmakefolder'] = 'Dateien entpacken und Verzeichnisse anlegen';
 $string['downloadfolder'] = 'Verzeichnis herunterladen';
-$string['eventallfilesdownloaded'] = 'ZIP-Archiv des Verzeichnisses heruntergeladen';
-$string['eventfolderupdated'] = 'Verzeichnis aktualisiert';
+$string['eventallfilesdownloaded'] = 'Verzeichnis wurde heruntergeladen';
+$string['eventfolderupdated'] = 'Verzeichnis wurde aktualisiert';
 $string['folder:addinstance'] = 'Verzeichnis hinzufügen';
-$string['foldercontent'] = 'Dateien und Unterverzeichnisse';
+$string['foldercontent'] = 'Dateien und Verzeichnisse';
 $string['folder:managefiles'] = 'Dateien im Verzeichnis verwalten';
 $string['folder:view'] = 'Verzeichnisinhalt sehen';
 $string['maxsizetodownload'] = 'Max. Verzeichnisgröße (MB) zum Herunterladen';
@@ -47,13 +48,14 @@ $string['modulename_help'] = 'Wenn Sie eine größere Anzahl von Dateien in Ihre
 
 Laden Sie mehrere Dateien als gepacktes ZIP-Archiv hoch und entpacken Sie sie im Verzeichnis. Auch eine Struktur mit Unterverzeichnissen bleibt beim Übertragen in ein Verzeichnis erhalten.';
 $string['modulenameplural'] = 'Verzeichnisse';
+$string['newfoldercontent'] = 'Neuer Ordnerinhalt';
 $string['noautocompletioninline'] = 'Der automatische Abschluss kann nicht gleichzeitig mit der Anzeige "Auf der Kursseite" gewählt werden';
 $string['page-mod-folder-view'] = 'Verzeichnishauptseite';
 $string['page-mod-folder-x'] = 'Jede Verzeichnisseite';
 $string['pluginadministration'] = 'Verzeichnis-Administration';
 $string['pluginname'] = 'Verzeichnis';
 $string['search:activity'] = 'Verzeichnis';
-$string['showdownloadfolder'] = 'Herunterladen von Verzeichnissen anzeigen';
+$string['showdownloadfolder'] = 'Taste \'Verzeichnis herunterladen\' anzeigen';
 $string['showdownloadfolder_help'] = 'Wenn Sie für diese Option \'Ja\' wählen, wird eine Taste zum Herunterladen des Verzeichnisinhalts als ZIP-Archiv angezeigt.';
 $string['showexpanded'] = 'Unterverzeichnisse aufgeklappt anzeigen';
 $string['showexpanded_help'] = 'Wenn diese Option aktiviert ist, werden Unterverzeichnisse standardmäßig geöffnet dargestellt.';

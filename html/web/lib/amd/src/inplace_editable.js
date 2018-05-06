@@ -60,6 +60,13 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
         };
 
         var updateValue = function(mainelement, value) {
+            var pendingId = [
+                    mainelement.attr('data-itemid'),
+                    mainelement.attr('data-component'),
+                    mainelement.attr('data-itemtype'),
+                ].join('-');
+            M.util.js_pending(pendingId);
+
             addSpinner(mainelement);
             ajax
                 .call([{
@@ -77,6 +84,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                             templates.replaceNode(mainelement, newelement, js);
                             newelement.find('[data-inplaceeditablelink]').focus();
                             newelement.trigger({type: 'updated', ajaxreturn: data, oldvalue: oldvalue});
+                            M.util.js_complete(pendingId);
                         });
                     },
                     fail: function(ex) {
@@ -85,6 +93,7 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                                 newvalue: value
                             });
                         removeSpinner(mainelement);
+                        M.util.js_complete(pendingId);
                         mainelement.trigger(e);
                         if (!e.isDefaultPrevented()) {
                             notification.exception(ex);
@@ -129,7 +138,8 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
                         attr('id', uniqueId('id_inplacevalue_', 20)).
                         attr('value', el.attr('data-value')).
                         attr('aria-describedby', instr.attr('id')).
-                        addClass('ignoredirty'),
+                        addClass('ignoredirty').
+                        addClass('form-control'),
                     lbl = $('<label class="accesshide">' + mainelement.attr('data-editlabel') + '</label>').
                         attr('for', inputelement.attr('id'));
                 el.html('').append(instr).append(lbl).append(inputelement);
@@ -163,8 +173,9 @@ define(['jquery', 'core/ajax', 'core/templates', 'core/notification', 'core/str'
 
         var turnEditingOnSelect = function(el, options) {
             var i,
-                inputelement = $('<select></select>')
-                    .attr('id', uniqueId('id_inplacevalue_', 20)),
+                inputelement = $('<select></select>').
+                    attr('id', uniqueId('id_inplacevalue_', 20)).
+                    addClass('custom-select'),
                 lbl = $('<label class="accesshide">' + mainelement.attr('data-editlabel') + '</label>')
                     .attr('for', inputelement.attr('id'));
             for (i in options) {

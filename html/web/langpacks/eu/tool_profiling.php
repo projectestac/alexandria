@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_profiling', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_profiling', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_profiling
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,11 +29,14 @@ $string['comment'] = 'Iruzkina';
 $string['cputime'] = 'CPU denbora';
 $string['executiontime'] = 'Egikaritze-denbora';
 $string['export'] = 'Esportatu';
+$string['exportthis'] = 'Esportatu profilen araberako exekuzioak';
 $string['import'] = 'Inportatu';
 $string['importok'] = '"{$a}" fitxategia ondo inportatu da';
 $string['importprefix'] = 'Inportatu aurrizkia';
 $string['memory'] = 'Erabilitako memoria';
 $string['pluginname'] = 'Profilen araberako exekuzioak';
+$string['profilingruns'] = 'Profilen araberako exekuzioak';
+$string['profilingrunsfor'] = 'Profilen araberako exekuzioak honentzat: {$a}';
 $string['summaryof'] = '{$a}(r)en laburpena';
 $string['viewdetails'] = 'Ikusi profilaren xehetasunak';
 $string['viewdiff'] = 'Ikusi profilaren ezberdinatasunen xehetasunak honekin:';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignfeedback_editpdf', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   assignfeedback_editpdf
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -99,6 +99,6 @@ $string['test_unoconvok'] = 'Het unoconv pad is juist geconfigureerd.';
 $string['test_unoconvversionnotsupported'] = 'De unoconv versie die je hebt geïnstalleerd wordt niet ondersteund. De beoordelingsfunctie vereist versie 0.7 of hoger.';
 $string['tool'] = 'Gereedschap';
 $string['toolbarbutton'] = '{$a->tool} {$a->shortcut}';
-$string['viewfeedbackonline'] = 'Bekijk een geannoteerde pdf...';
+$string['viewfeedbackonline'] = 'Bekijk verbeterde opdracht...';
 $string['white'] = 'Wit';
 $string['yellow'] = 'Geel';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'data', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -55,12 +55,14 @@ $string['availabletodatevalidation'] = 'Eskuragarri egoteko azken eguna ezin da 
 $string['blank'] = 'Hutsik';
 $string['buttons'] = 'Ekintzak';
 $string['bynameondate'] = 'Egilea eta data: {$a->name} - {$a->date}';
+$string['calendarend'] = '{$a} datu-basea itxiko da';
+$string['calendarstart'] = '{$a} datu-basea irekiko da';
 $string['cancel'] = 'Utzi';
 $string['cannotaccesspresentsother'] = 'Ez duzu beste erabiltzaile batzuen aurretiko ezarpenetara sartzeko baimenik';
 $string['cannotadd'] = 'Ezin da sarrerarik gehitu';
 $string['cannotdeletepreset'] = 'Errorea aurretiko ezarpena ezabatzean!';
 $string['cannotoverwritepreset'] = 'Errorea aurretiko ezarpenak gainidaztean';
-$string['cannotunziptopreset'] = 'Ezin izan da aurretiko ezarpenen direktorioa deskonprimitu';
+$string['cannotunziptopreset'] = 'Ezin izan da aurretiko ezarpenen karpeta deskonprimatu';
 $string['checkbox'] = 'Aukera anitzeko laukitxoa';
 $string['chooseexportfields'] = 'Aukeratu esportatu nahi duzun eremua';
 $string['chooseexportformat'] = 'Aukeratu zein formatuta esportatu nahi duzun hona:';
@@ -70,7 +72,7 @@ $string['comment'] = 'Iruzkina';
 $string['commentdeleted'] = 'Iruzkina ezabatu da';
 $string['commentempty'] = 'Iruzkina hutsik zegoen';
 $string['comments'] = 'Iruzkinak';
-$string['commentsaved'] = 'Iruzkinak gorde dira';
+$string['commentsaved'] = 'Iruzkina gorde da';
 $string['commentsn'] = '{$a} iruzkin';
 $string['commentsoff'] = 'Iruzkinak ez daude gaituta';
 $string['configenablerssfeeds'] = 'Honek datu-base osorako RSS jarioen aukera indarrean jarriko du. Datu-base bakoitzeko RSS jarioak eskuz gaitu beharko dituzu.';
@@ -95,7 +97,7 @@ $string['csvimport_help'] = '<p>CSVk zera esan nahi du: Comma-Separated-Values (
 <p>Kontuz! Baliteke eremu-formatu guztiak onargarriak ez izatea.</p>';
 $string['csvwithselecteddelimiter'] = '<acronym title="Comma Separated Values">CSV</acronym> testua eta aukeratutako banatzailea';
 $string['data:addinstance'] = 'Gehitu beste datu-base bat';
-$string['data:approve'] = 'Onartu eta zabdaldu onartutako sarrerak';
+$string['data:approve'] = 'Onartu eta bertan behera utzi onartutako sarrerak';
 $string['data:comment'] = 'Iruzkinak idatzi';
 $string['data:exportallentries'] = 'Datu-baseko sarrera guztiak esportatu ';
 $string['data:exportentry'] = 'Datu-baseko sarrera bat esportatu ';
@@ -107,6 +109,7 @@ $string['data:managetemplates'] = 'Txantiloiak kudeatu';
 $string['data:manageuserpresets'] = 'Txantiloien aurretiko ezarpenak kudeatu';
 $string['data:rate'] = 'Sarrerak kalifikatu';
 $string['data:readentry'] = 'Sarrerak irakurri';
+$string['data:view'] = 'Ikusi datu-basearen aktibitatea';
 $string['data:viewallratings'] = 'Erabiltzaileek emandako kalifikazio guztiak ikusi';
 $string['data:viewalluserpresets'] = 'Erabiltzaile guztien aurretiko ezarpenak ikusi';
 $string['data:viewanyrating'] = 'Besteren batek denera jasotako kalifikazioak ikusi';
@@ -137,6 +140,7 @@ $string['editordisable'] = 'Editorea desgaitu';
 $string['editorenable'] = 'Editorea gaitu';
 $string['emptyadd'] = 'Txantiloia eranstekoa hutsik dago, lehenetsitako formularioa sortzen...';
 $string['emptyaddform'] = 'Ez duzu eremuren bat bete!';
+$string['enabletemplateeditorcheck'] = 'Ziur zaude editorea gaitu nahi duzula? Honek edukia aldatzea eragin dezake txantiloia gordetzean.';
 $string['entries'] = 'Sarrerak';
 $string['entrieslefttoadd'] = '{$a->entriesleft} sarrera gehiago gehitu behar dituzu jarduera hau osatzeko.';
 $string['entrieslefttoaddtoview'] = '{$a->entrieslefttoview} sarrera gehiago gehitu behar dituzu beste partaideen sarrerak ikusi ahal izateko.';
@@ -155,7 +159,7 @@ $string['eventtemplateupdated'] = 'Txantiloia eguneratu da';
 $string['eventtemplateviewed'] = 'Txantiloia ikusi da';
 $string['example'] = 'Datu-basea moduluaren adibidea';
 $string['excel'] = 'Excel';
-$string['expired'] = 'Barkatu, jarduera hau {$a} datan itxi zen eta dagoeneko ez dago eskuragarri';
+$string['expired'] = 'Sentitzen dugu, jarduera hau {$a} datan itxi zen eta dagoeneko ez dago eskuragarri';
 $string['export'] = 'Esportatu';
 $string['exportaszip'] = 'Esportatu zip gisa';
 $string['exportaszip_help'] = '<p>Honek txantiloiak zure ordenagailura jaisten uzten dizu. Beste datu-base batera eraman ahalko dituzu "Zip fitxategitik inportatu" izeneko aukeraz baliatuta.</p>';
@@ -173,7 +177,7 @@ $string['fieldheight'] = 'Altuera';
 $string['fieldheightlistview'] = 'Altuera zerrenda-ikuspegian';
 $string['fieldheightsingleview'] = 'Altuera ikuspegi xumean';
 $string['fieldids'] = 'Eremuak';
-$string['fieldmappings'] = 'Eremu mapeoak';
+$string['fieldmappings'] = 'Eremu-loturak';
 $string['fieldmappings_help'] = '<p>Menu honek datuak aldez aurretik dagoen datu-base batetik
 hartzeko aukera ematen dizu. Datua eremu batean mantentzeko, eremu berriarekin
 lotu behar duzu, eta bertan agertuko da datua. Zuri ere utzi ahal da eremu bat,
@@ -235,7 +239,7 @@ $string['latlongkmllabelling'] = 'Nola etiketatu itemak KML fitxategietan (Googl
 $string['latlonglinkservicesdisplayed'] = 'Erakutsi beharreko zerbitzuak konektatu';
 $string['latlongotherfields'] = 'Bestelako eremuak';
 $string['list'] = 'Ikusi zerrenda';
-$string['listtemplate'] = 'Txantiloi-zerrenda';
+$string['listtemplate'] = 'Zerrenda-txantiloia';
 $string['longitude'] = 'Longitudea';
 $string['manageapproved'] = 'Baimendu onartutako sarreren edizioa';
 $string['manageapproved_help'] = 'Ezgaitzen bada aurrerantzean sortu zituen erabiltzaileak ezingo ditu onartutako sarrerak editatu edo ezabatu. Ezarpen honek ez dauka eraginik \'Onarpenik behar da\' egon ezean.';
@@ -290,14 +294,14 @@ $string['noaccess'] = 'Orri honetara ez duzu sarbiderik';
 $string['nodefinedfields'] = 'Aurretiko ezarpen berriak ez du definitutako eremurik!';
 $string['nofieldcontent'] = 'Ez da eremuaren edukia aurkitu';
 $string['nofieldindatabase'] = 'Datu-base honetarako eremurik ez da definitu, batzuk erantsi mesedez';
-$string['nolisttemplate'] = 'Oraindik ez da txantiloi-zerrenda zehaztu';
+$string['nolisttemplate'] = 'Oraindik ez da zerrenda-txantiloia zehaztu';
 $string['nomatch'] = 'Ez da sarrera egokirik aurkitu!';
 $string['nomaximum'] = 'Gehienezkorik ez';
 $string['norecords'] = 'Datu-basean sarrerarik ez';
-$string['nosingletemplate'] = 'Txantiloia ez da oraindik zehaztu';
+$string['nosingletemplate'] = 'Banakako txantiloia ez da oraindik zehaztu';
 $string['notapproved'] = 'Sarrera ez da oraindik onartu';
 $string['notinjectivemap'] = 'Ez dago mapa injektiborik';
-$string['notopenyet'] = 'Barkatu, jarduera hau ez dago eskuragarri {$a} arte';
+$string['notopenyet'] = 'Sentitzen dugu, jarduera hau ez dago eskuragarri {$a} arte';
 $string['number'] = 'Zenbakia';
 $string['numberrssarticles'] = 'Sarrerak RSS jarioan';
 $string['numnotapproved'] = 'Onarpenaren zain';
@@ -324,7 +328,7 @@ $string['recordapproved'] = 'Sarrera onartu da';
 $string['recorddeleted'] = 'Sarrera ezabatu da';
 $string['recorddisapproved'] = 'Onartu gabeko sarrera';
 $string['recordsnotsaved'] = 'Ez da sarrerarik gorde. Igotako fitxategiaren formatua aztertu, mesedez.';
-$string['recordssaved'] = 'sarrera(k) gordeta';
+$string['recordssaved'] = 'sarrerak gorde dira';
 $string['requireapproval'] = 'Onarpenik behar da';
 $string['requireapproval_help'] = '<p>Ikasleek sarrerak ikusi aurretik, irakasleak onartu behar lituzke? Aukera hau erabilgarria izan daiteke moderazioa egiteko.</p>';
 $string['required'] = 'Beharrekoa';
@@ -333,7 +337,9 @@ $string['requiredentries_help'] = '<p>Partaide bakoitzari bidaltzeko eskatzen za
 
 <p>Ez da jarduera amaitutzat emango erabiltzaileak behar duen sarrera-kopurua bidali arte.</p>';
 $string['requiredentriestoview'] = 'Ikusi aurretik behar diren sarrerak';
-$string['requiredentriestoview_help'] = 'Datu-basearen gainerako sarrerak ikusi baino lehen, partaideek bidali behar duten sarrera-kopurua zehartu behar da hemen.';
+$string['requiredentriestoview_help'] = 'Datu-basearen gainerako sarrerak ikusi baino lehen, partaideek bidali behar duten sarrera-kopurua zehaztu behar da hemen.
+
+Oharra: sarrera-kopuru bat derrigortzen bada, esteka automatikoak egiteko iragazkia ezgaitu beharko litzateke, honek ezin baitu jakin erabiltzaileak eskatutako sarrera kopurura iritsi den.';
 $string['requiredfield'] = 'Beharrezko eremua';
 $string['resetsettings'] = 'Berrabiarazi iragazkiak';
 $string['resettemplate'] = 'Txantiloia berriz kargatu';
@@ -343,21 +349,22 @@ $string['rssglobaldisabled'] = 'Desgaituta. Gunearen konfigurazio-aldagaiak ikus
 $string['rsstemplate'] = 'RSS txantiloia';
 $string['rsstitletemplate'] = 'RSS txantiloiaren izenburua';
 $string['save'] = 'Gorde';
-$string['saveandadd'] = 'Ikusi gabe gorde';
-$string['saveandview'] = 'Sarrera gorde eta ikusi';
+$string['saveandadd'] = 'Gorde eta gehitu beste bat';
+$string['saveandview'] = 'Gorde eta ikusi';
 $string['saveaspreset'] = 'Gorde aurretiko ezarpen gisa';
 $string['saveaspreset_help'] = '<p>Honek oraingo txantiloia aurretiko ezerpen gisa argitaratzen
 du guneko edonork ikusi eta erabili ahal izateko moduan. Aurretiko
 ezarpenen zerrendan agertuko da. Edozein momentutan kendu ahal izango duzu.</p>';
-$string['savesettings'] = 'Konfigurazioa gorde';
+$string['savesettings'] = 'Gorde ezarpenak';
 $string['savesuccess'] = 'Egoki gordeta. Zure aurretiko ezarpena eskuragarri dago orain gune osoan.';
 $string['savetemplate'] = 'Txantiloia gorde';
 $string['search'] = 'Bilatu';
 $string['search:activity'] = 'Datu-basea - jardueraren informazioa';
+$string['search:entry'] = 'Datu-basea - sarrerak';
 $string['selectedrequired'] = 'Aukeratutako guztia beharrezkoa';
 $string['showall'] = 'Erakutsi sarrera guztiak';
-$string['single'] = 'Sarrera bakarra';
-$string['singletemplate'] = 'Txantiloi bakarra';
+$string['single'] = 'Ikusi banaka';
+$string['singletemplate'] = 'Banakako txantiloia';
 $string['subplugintype_datafield'] = 'Datu-basearen eremu-mota';
 $string['subplugintype_datafield_plural'] = 'Datu-basearen eremu-motak';
 $string['subplugintype_datapreset'] = 'Aurretiko ezarpena';

@@ -5,6 +5,19 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		if(!php_Boot::$skip_constructor) {
 		parent::__construct();
 	}}
+	public function getAccessProvider() {
+		if($this->accessProvider === null) {
+			$classpath = $this->getConfiguration()->get(com_wiris_quizzes_impl_ConfigurationImpl::$ACCESSPROVIDER_CLASSPATH);
+			if(!($classpath === "")) {
+				com_wiris_quizzes_impl_ClasspathLoader::load($classpath);
+			}
+			$className = $this->getConfiguration()->get(com_wiris_quizzes_impl_ConfigurationImpl::$ACCESSPROVIDER_CLASS);
+			if(!($className === "")) {
+				$this->accessProvider = Type::createInstance(Type::resolveClass($className), new _hx_array(array()));
+			}
+		}
+		return $this->accessProvider;
+	}
 	public function getLockProvider() {
 		if($this->locker === null) {
 			$className = $this->getConfiguration()->get(com_wiris_quizzes_impl_ConfigurationImpl::$LOCKPROVIDER_CLASS);
@@ -43,10 +56,11 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 	}
 	public function getResourceUrl($name) {
 		$c = $this->getConfiguration();
+		$version = $c->get(com_wiris_quizzes_api_ConfigurationKeys::$VERSION);
 		if("true" === $c->get(com_wiris_quizzes_api_ConfigurationKeys::$RESOURCES_STATIC)) {
-			return $c->get(com_wiris_quizzes_api_ConfigurationKeys::$RESOURCES_URL) . "/" . $name;
+			return $c->get(com_wiris_quizzes_api_ConfigurationKeys::$RESOURCES_URL) . "/" . $name . "?v=" . $version;
 		} else {
-			return $c->get(com_wiris_quizzes_api_ConfigurationKeys::$PROXY_URL) . "?service=resource&name=" . $name;
+			return $c->get(com_wiris_quizzes_api_ConfigurationKeys::$PROXY_URL) . "?service=resource&name=" . $name . "&v=" . $version;
 		}
 	}
 	public function getPairings($c, $u) {
@@ -63,8 +77,8 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		if($u === 0) {
 			return $p;
 		}
-		$n = Math::floor($c / $u);
-		$d = Math::floor(_hx_mod($c, $u));
+		$n = intval($c / $u);
+		$d = intval(_hx_mod($c, $u));
 		$i = null;
 		$cc = 0;
 		$cu = 0;
@@ -112,7 +126,9 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		$s->register(new com_wiris_quizzes_impl_QuestionImpl());
 		$s->register(new com_wiris_quizzes_impl_QuestionRequestImpl());
 		$s->register(new com_wiris_quizzes_impl_QuestionResponseImpl());
+		$s->register(new com_wiris_quizzes_impl_SubQuestion(0));
 		$s->register(new com_wiris_quizzes_impl_QuestionInstanceImpl());
+		$s->register(new com_wiris_quizzes_impl_SubQuestionInstance(0));
 		$s->register(new com_wiris_quizzes_impl_ResultError());
 		$s->register(new com_wiris_quizzes_impl_ResultErrorLocation());
 		$s->register(new com_wiris_quizzes_impl_ResultGetCheckAssertions());
@@ -122,6 +138,7 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		$s->register(new com_wiris_quizzes_impl_TranslationNameChange());
 		$s->register(new com_wiris_quizzes_impl_UserData());
 		$s->register(new com_wiris_quizzes_impl_Variable());
+		$s->register(new com_wiris_quizzes_impl_Parameter());
 		return $s;
 	}
 	public function removeHandAnnotations($mathml) {
@@ -173,118 +190,31 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 	}
 	public function newTranslationRequest($q, $lang) {
 		$r = new com_wiris_quizzes_impl_QuestionRequestImpl();
-		$r->question = $q;
+		$r->question = $this->removeSubquestions($q);
 		$p = new com_wiris_quizzes_impl_ProcessGetTranslation();
 		$p->lang = $lang;
 		$r->addProcess($p);
 		return $r;
 	}
-	public function breakCompoundAnswers($q, $u) {
-		$assertions = new _hx_array(array());
-		$correctAnswers = new _hx_array(array());
-		$userAnswers = new _hx_array(array());
-		$aux = new _hx_array(array());
-		$i = null;
-		{
-			$_g1 = 0; $_g = $q->correctAnswers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$c = $q->correctAnswers[$i1];
-				$parts = com_wiris_quizzes_impl_HTMLTools::parseCompoundAnswer($c);
-				$aux[$c->id] = $parts->length;
-				$j = null;
-				{
-					$_g3 = 0; $_g2 = $parts->length;
-					while($_g3 < $_g2) {
-						$j1 = $_g3++;
-						$cc = new com_wiris_quizzes_impl_CorrectAnswer();
-						$cc->type = $c->type;
-						$cc->id = 1000 + $c->id * 1000 + $j1;
-						$cc->content = $parts[$j1][1];
-						$cc->weight = 1.0 / $parts->length;
-						$correctAnswers->push($cc);
-						unset($j1,$cc);
-					}
-					unset($_g3,$_g2);
-				}
-				unset($parts,$j,$i1,$c);
-			}
+	public function removeSubquestions($q) {
+		$qi = $q->getImpl();
+		if($qi === null || $qi->subquestions === null || $qi->subquestions->length === 0) {
+			return $qi;
 		}
-		{
-			$_g1 = 0; $_g = $u->answers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$a = $u->answers[$i1];
-				$parts = com_wiris_quizzes_impl_HTMLTools::parseCompoundAnswer($a);
-				$j = null;
-				{
-					$_g3 = 0; $_g2 = $parts->length;
-					while($_g3 < $_g2) {
-						$j1 = $_g3++;
-						$ca = new com_wiris_quizzes_impl_Answer();
-						$ca->id = 1000 + $a->id * 1000 + $j1;
-						$ca->set($parts[$j1][1]);
-						$userAnswers->push($ca);
-						unset($j1,$ca);
-					}
-					unset($_g3,$_g2);
-				}
-				unset($parts,$j,$i1,$a);
-			}
-		}
-		{
-			$_g1 = 0; $_g = $q->assertions->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$a = $q->assertions[$i1];
-				$n = $aux[$a->getCorrectAnswer()];
-				$j = null;
-				{
-					$_g2 = 0;
-					while($_g2 < $n) {
-						$j1 = $_g2++;
-						$ca = new com_wiris_quizzes_impl_Assertion();
-						$ca->name = $a->name;
-						$ca->parameters = $a->parameters;
-						$assertions->push($ca);
-						if($a->name === com_wiris_quizzes_impl_Assertion::$EQUIVALENT_FUNCTION) {
-							$caa = new _hx_array(array());
-							$aa = new _hx_array(array());
-							$k = null;
-							{
-								$_g3 = 0;
-								while($_g3 < $n) {
-									$k1 = $_g3++;
-									$caa[$k1] = 1000 + $a->getCorrectAnswer() * 1000 + $k1;
-									$aa[$k1] = 1000 + $a->getAnswer() * 1000 + $k1;
-									unset($k1);
-								}
-								unset($_g3);
-							}
-							$ca->setCorrectAnswers($caa);
-							$ca->setAnswers($aa);
-							break;
-							unset($k,$caa,$aa);
-						} else {
-							$ca->setCorrectAnswer(1000 + $a->getCorrectAnswer() * 1000 + $j1);
-							$ca->setAnswer(1000 + $a->getAnswer() * 1000 + $j1);
-						}
-						unset($j1,$ca);
-					}
-					unset($_g2);
-				}
-				unset($n,$j,$i1,$a);
-			}
-		}
-		$q->correctAnswers = $correctAnswers;
-		$q->assertions = $assertions;
-		$u->answers = $userAnswers;
+		$qq = new com_wiris_quizzes_impl_QuestionImpl();
+		$qq->id = $qi->id;
+		$qq->wirisCasSession = $qi->wirisCasSession;
+		$qq->options = $qi->options;
+		$qq->localData = $qi->localData;
+		$qq->correctAnswers = $qi->correctAnswers;
+		$qq->assertions = $qi->assertions;
+		return $qq;
 	}
 	public function newFeedbackRequest($html, $question, $instance) {
 		$r = $this->newEvalMultipleAnswersRequest(null, null, $question, $instance);
 		$qr = $r;
 		$qi = $instance;
-		$this->setVariables($html, $qi, $qr);
+		$this->setVariables($html, $question, $qi, $qr);
 		return $r;
 	}
 	public function newEvalMultipleAnswersRequest($correctAnswers, $userAnswers, $question, $instance) {
@@ -297,260 +227,409 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 			$qi = $instance;
 		}
 		$qq = new com_wiris_quizzes_impl_QuestionImpl();
+		$uu = new com_wiris_quizzes_impl_UserData();
+		$uu->answers = new _hx_array(array());
 		if($q !== null) {
 			$qq->wirisCasSession = $q->wirisCasSession;
 			$qq->options = $q->options;
 		}
-		$i = null;
-		$k = null;
-		$qq->assertions = new _hx_array(array());
-		if($q !== null && $q->assertions !== null && $q->assertions->length > 0) {
-			$_g1 = 0; $_g = $q->assertions->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$qq->assertions->push($q->assertions[$i1]);
-				unset($i1);
-			}
-		}
-		$uu = new com_wiris_quizzes_impl_UserData();
 		if($qi !== null && $qi->userData !== null) {
 			$uu->randomSeed = $qi->userData->randomSeed;
 		} else {
 			$qqi = new com_wiris_quizzes_impl_QuestionInstanceImpl();
 			$uu->randomSeed = $qqi->userData->randomSeed;
 		}
+		$i = 0;
 		if($correctAnswers !== null) {
 			$_g1 = 0; $_g = $correctAnswers->length;
 			while($_g1 < $_g) {
 				$i1 = $_g1++;
-				$value = $correctAnswers[$i1];
+				$value = com_wiris_util_xml_MathMLUtils::removeStrokesAnnotation($correctAnswers[$i1]);
 				if($value === null) {
 					$value = "";
 				}
 				$qq->setCorrectAnswer($i1, $value);
 				unset($value,$i1);
 			}
-		} else {
-			if($q !== null) {
-				$_g1 = 0; $_g = $q->getCorrectAnswersLength();
-				while($_g1 < $_g) {
-					$i1 = $_g1++;
-					$ca = $q->getCorrectAnswer($i1);
-					if($ca !== null) {
-						$qq->setCorrectAnswer($i1, $ca);
-						_hx_array_get($qq->correctAnswers, $i1)->weight = _hx_array_get($q->correctAnswers, $i1)->weight;
-					}
-					unset($i1,$ca);
-				}
-			}
-		}
-		{
-			$_g1 = 0; $_g = $qq->getCorrectAnswersLength();
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$ca = $qq->correctAnswers[$i1];
-				if($ca !== null && $ca->content !== null) {
-					$ca->content = com_wiris_util_xml_MathMLUtils::removeStrokesAnnotation($ca->content);
-				}
-				unset($i1,$ca);
-			}
 		}
 		if($userAnswers !== null) {
 			$_g1 = 0; $_g = $userAnswers->length;
 			while($_g1 < $_g) {
 				$i1 = $_g1++;
-				$uu->setUserAnswer($i1, $userAnswers[$i1]);
+				$uu->setUserAnswer($i1, $this->removeHandAnnotations($userAnswers[$i1]));
 				unset($i1);
 			}
-		} else {
+		}
+		$qq->assertions = new _hx_array(array());
+		$i = -1;
+		$lastCaNum = $qq->getCorrectAnswersLength();
+		$lastUaNum = $uu->answers->length;
+		$lastAssNum = 0;
+		while($i < 0 || $q !== null && $q->subquestions !== null && $i < $q->subquestions->length || ($i < 0 || $qi !== null && $qi->subinstances !== null && $i < $qi->subinstances->length)) {
+			$qa = null;
+			if($q !== null) {
+				$qa = com_wiris_quizzes_impl_QuizzesBuilderImpl_0($this, $correctAnswers, $i, $instance, $lastAssNum, $lastCaNum, $lastUaNum, $q, $qa, $qi, $qq, $question, $userAnswers, $uu);
+			}
+			$ua = null;
 			if($qi !== null) {
-				$_g1 = 0; $_g = $qi->getStudentAnswersLength();
+				$ua = com_wiris_quizzes_impl_QuizzesBuilderImpl_1($this, $correctAnswers, $i, $instance, $lastAssNum, $lastCaNum, $lastUaNum, $q, $qa, $qi, $qq, $question, $ua, $userAnswers, $uu);
+			}
+			$step = com_wiris_quizzes_impl_QuizzesBuilderImpl_2($this, $correctAnswers, $i, $instance, $lastAssNum, $lastCaNum, $lastUaNum, $q, $qa, $qi, $qq, $question, $ua, $userAnswers, $uu);
+			$j = null;
+			if($correctAnswers === null && $qa !== null) {
+				$_g1 = 0; $_g = $qa->getCorrectAnswersLength();
 				while($_g1 < $_g) {
-					$i1 = $_g1++;
-					$sa = $qi->getStudentAnswer($i1);
-					if($sa !== null) {
-						$uu->setUserAnswer($i1, $sa);
-					}
-					unset($sa,$i1);
-				}
-			}
-		}
-		if($uu->answers === null) {
-			$uu->answers = new _hx_array(array());
-		}
-		{
-			$_g1 = 0; $_g = $uu->answers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				if($uu->answers[$i1] === null || _hx_array_get($uu->answers, $i1)->content === null) {
-					$uu->setUserAnswer($i1, "");
-				} else {
-					$uu->setUserAnswer($i1, $this->removeHandAnnotations(_hx_array_get($uu->answers, $i1)->content));
-				}
-				unset($i1);
-			}
-		}
-		if($qq->assertions === null) {
-			$qq->assertions = new _hx_array(array());
-		}
-		$syntax = null;
-		{
-			$_g1 = 0; $_g = $qq->assertions->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				if(_hx_array_get($qq->assertions, $i1)->isSyntactic()) {
-					$syntax = $qq->assertions[$i1];
-				}
-				unset($i1);
-			}
-		}
-		if($syntax === null) {
-			$syntax = new com_wiris_quizzes_impl_Assertion();
-			$syntax->addCorrectAnswer(0);
-			$syntax->name = com_wiris_quizzes_impl_Assertion::$SYNTAX_EXPRESSION;
-			$qq->assertions->push($syntax);
-		}
-		{
-			$_g1 = 0; $_g = $uu->answers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$foundSyntax = false;
-				{
-					$_g3 = 0; $_g2 = $qq->assertions->length;
-					while($_g3 < $_g2) {
-						$k1 = $_g3++;
-						$ass = $qq->assertions[$k1];
-						if($ass->isSyntactic() && com_wiris_util_type_Arrays::containsInt($ass->getAnswers(), $i1)) {
-							$foundSyntax = true;
+					$j1 = $_g1++;
+					$ca = $qa->getCorrectAnswer($j1);
+					if($ca !== null) {
+						$ca = com_wiris_util_xml_MathMLUtils::removeStrokesAnnotation($ca);
+						$qq->setCorrectAnswer($lastCaNum + $j1, $ca);
+						_hx_array_get($qq->correctAnswers, $lastCaNum + $j1)->weight = _hx_array_get($qa->correctAnswers, $j1)->weight;
+						if($i >= 0) {
+							_hx_array_get($qq->correctAnswers, $lastCaNum + $j1)->id = $step . _hx_string_rec($j1, "");
 						}
-						unset($k1,$ass);
 					}
-					unset($_g3,$_g2);
+					unset($j1,$ca);
 				}
-				if(!$foundSyntax) {
-					$syntax->addAnswer($i1);
-				}
-				unset($i1,$foundSyntax);
+				unset($_g1,$_g);
 			}
-		}
-		if($qi !== null && $qi->hasVariables()) {
-			$_g1 = 0; $_g = $qq->getCorrectAnswersLength();
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$value = $qq->getCorrectAnswer($i1);
-				if(com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_PLAIN_TEXT === $q->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_INPUT_FIELD) || $syntax->name === com_wiris_quizzes_impl_Assertion::$SYNTAX_STRING) {
-					$value = $qi->expandVariablesText($value);
-				} else {
-					$value = $qi->expandVariablesMathMLEval($value);
+			if($userAnswers === null && $ua !== null && $ua->answers !== null) {
+				$_g1 = 0; $_g = $ua->answers->length;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$aa = _hx_array_get($ua->answers, $j1)->content;
+					if($aa !== null) {
+						$aa = $this->removeHandAnnotations($aa);
+						$uu->setUserAnswer($lastUaNum + $j1, $aa);
+						if($i >= 0) {
+							_hx_array_get($uu->answers, $lastUaNum + $j1)->id = $step . _hx_string_rec($j1, "");
+						}
+					}
+					unset($j1,$aa);
 				}
-				$qq->setCorrectAnswer($i1, $value);
-				unset($value,$i1);
+				unset($_g1,$_g);
 			}
-		}
-		$equivall = new _hx_array(array());
-		$i = $qq->assertions->length - 1;
-		while($i >= 0) {
-			if(_hx_array_get($qq->assertions, $i)->name === com_wiris_quizzes_impl_Assertion::$EQUIVALENT_ALL) {
-				$correctanswer = _hx_array_get($qq->assertions, $i)->getCorrectAnswer();
-				$j = $qq->assertions->length - 1;
-				while($j >= 0) {
-					if(_hx_array_get($qq->assertions, $j)->isSyntactic()) {
-						_hx_array_get($qq->assertions, $j)->removeCorrectAnswer($correctanswer);
-						if(_hx_array_get($qq->assertions, $j)->getCorrectAnswers()->length === 0) {
-							$qq->assertions->remove($qq->assertions[$j]);
-							if($j < $i) {
-								$i--;
+			if($i < 0) {
+				$lastCaNum = 0;
+				$lastUaNum = 0;
+			}
+			$syntax = null;
+			if($qa !== null && $qa->assertions !== null) {
+				$_g1 = 0; $_g = $qa->assertions->length;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$ass = _hx_array_get($qa->assertions, $j1)->copy();
+					if($i >= 0) {
+						$caids = $ass->getCorrectAnswers();
+						$k = null;
+						{
+							$_g3 = 0; $_g2 = $caids->length;
+							while($_g3 < $_g2) {
+								$k1 = $_g3++;
+								$caids[$k1] = $step . $caids[$k1];
+								unset($k1);
+							}
+							unset($_g3,$_g2);
+						}
+						$ass->setCorrectAnswers($caids);
+						$uaids = $ass->getAnswers();
+						{
+							$_g3 = 0; $_g2 = $uaids->length;
+							while($_g3 < $_g2) {
+								$k1 = $_g3++;
+								$uaids[$k1] = $step . $uaids[$k1];
+								unset($k1);
+							}
+							unset($_g3,$_g2);
+						}
+						$ass->setAnswers($uaids);
+						unset($uaids,$k,$caids);
+					}
+					if($ass->isSyntactic()) {
+						$syntax = $ass;
+					}
+					$qq->assertions->push($ass);
+					unset($j1,$ass);
+				}
+				unset($_g1,$_g);
+			}
+			if($syntax === null) {
+				$syntax = new com_wiris_quizzes_impl_Assertion();
+				$syntax->addCorrectAnswer($step . "0");
+				$syntax->name = com_wiris_quizzes_impl_Assertion::$SYNTAX_EXPRESSION;
+				$qq->assertions->push($syntax);
+			}
+			{
+				$_g1 = $lastUaNum; $_g = $uu->answers->length;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$foundSyntax = false;
+					$k = null;
+					{
+						$_g3 = $lastAssNum; $_g2 = $qq->assertions->length;
+						while($_g3 < $_g2) {
+							$k1 = $_g3++;
+							$ass = $qq->assertions[$k1];
+							if($ass->isSyntactic() && com_wiris_util_type_Arrays::containsArray($ass->getAnswers(), $step . _hx_string_rec(($j1 - $lastUaNum), ""))) {
+								$foundSyntax = true;
+							}
+							unset($k1,$ass);
+						}
+						unset($_g3,$_g2);
+					}
+					if(!$foundSyntax) {
+						$syntax->addAnswer($step . _hx_string_rec(($j1 - $lastUaNum), ""));
+					}
+					unset($k,$j1,$foundSyntax);
+				}
+				unset($_g1,$_g);
+			}
+			if($qi !== null && $qi->hasVariables()) {
+				$_g1 = $lastCaNum; $_g = $qq->getCorrectAnswersLength();
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$value = $qq->getCorrectAnswer($j1);
+					if(com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_INPUT_FIELD_PLAIN_TEXT === $qa->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_INPUT_FIELD) || $syntax->name === com_wiris_quizzes_impl_Assertion::$SYNTAX_STRING) {
+						$value = $qi->expandVariablesText($value);
+					} else {
+						$value = $qi->expandVariablesMathMLEval($value);
+					}
+					$qq->setCorrectAnswer($j1, $value);
+					unset($value,$j1);
+				}
+				unset($_g1,$_g);
+			}
+			$j = $qq->assertions->length - 1;
+			while($j >= $lastAssNum) {
+				if(_hx_array_get($qq->assertions, $j)->name === com_wiris_quizzes_impl_Assertion::$EQUIVALENT_ALL) {
+					$correctanswer = _hx_array_get($qq->assertions, $j)->getCorrectAnswer();
+					$k = $qq->assertions->length - 1;
+					while($k >= $lastAssNum) {
+						if(_hx_array_get($qq->assertions, $k)->isSyntactic()) {
+							_hx_array_get($qq->assertions, $k)->removeCorrectAnswer($correctanswer);
+							if(_hx_array_get($qq->assertions, $k)->getCorrectAnswers()->length === 0) {
+								$qq->assertions->remove($qq->assertions[$k]);
+								if($k < $j) {
+									$j--;
+								}
+							}
+						}
+						$k--;
+					}
+					unset($k,$correctanswer);
+				}
+				$j--;
+			}
+			$usedcorrectanswers = new _hx_array(array());
+			{
+				$_g1 = 0; $_g = $qq->getCorrectAnswersLength() - $lastCaNum;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$usedcorrectanswers[$j1] = false;
+					unset($j1);
+				}
+				unset($_g1,$_g);
+			}
+			$usedanswers = new _hx_array(array());
+			{
+				$_g1 = 0; $_g = $uu->answers->length - $lastCaNum;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$usedanswers[$j1] = false;
+					unset($j1);
+				}
+				unset($_g1,$_g);
+			}
+			{
+				$_g1 = $lastAssNum; $_g = $qq->assertions->length;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					$ass = $qq->assertions[$j1];
+					$corr = $this->getIndex($ass->getCorrectAnswer());
+					$ans = $this->getIndex($ass->getAnswer());
+					if($ass->isEquivalence()) {
+						if($corr < $usedcorrectanswers->length) {
+							$usedcorrectanswers[$corr] = true;
+						}
+						if($ans < $usedanswers->length) {
+							$usedanswers[$ans] = true;
+						}
+					} else {
+						if($ass->isCheck()) {
+							if($ans < $usedanswers->length) {
+								$usedanswers[$ans] = true;
 							}
 						}
 					}
+					unset($j1,$corr,$ass,$ans);
+				}
+				unset($_g1,$_g);
+			}
+			$pairs = $this->getPairings($qq->getCorrectAnswersLength() - $lastCaNum, $uu->answers->length - $lastUaNum);
+			{
+				$_g1 = 0; $_g = $usedcorrectanswers->length;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					if(!$usedcorrectanswers[$j1]) {
+						$k = null;
+						{
+							$_g3 = 0; $_g2 = $pairs->length;
+							while($_g3 < $_g2) {
+								$k1 = $_g3++;
+								if($pairs[$k1][0] === $j1) {
+									$user = $pairs[$k1][1];
+									$qq->setParametrizedAssertion(com_wiris_quizzes_impl_Assertion::$EQUIVALENT_SYMBOLIC, $step . _hx_string_rec($j1, ""), $step . _hx_string_rec($user, ""), null);
+									$usedanswers[$user] = true;
+									unset($user);
+								}
+								unset($k1);
+							}
+							unset($_g3,$_g2);
+						}
+						unset($k);
+					}
+					unset($j1);
+				}
+				unset($_g1,$_g);
+			}
+			{
+				$_g1 = 0; $_g = $usedanswers->length;
+				while($_g1 < $_g) {
+					$j1 = $_g1++;
+					if(!$usedanswers[$j1]) {
+						$k = null;
+						{
+							$_g3 = 0; $_g2 = $pairs->length;
+							while($_g3 < $_g2) {
+								$k1 = $_g3++;
+								if($pairs[$k1][1] === $j1) {
+									$qq->setParametrizedAssertion(com_wiris_quizzes_impl_Assertion::$EQUIVALENT_SYMBOLIC, $step . _hx_string_rec($pairs[$k1][0], ""), $step . _hx_string_rec($j1, ""), null);
+								}
+								unset($k1);
+							}
+							unset($_g3,$_g2);
+						}
+						unset($k);
+					}
+					unset($j1);
+				}
+				unset($_g1,$_g);
+			}
+			if($qa !== null && $qa->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_COMPOUND_ANSWER) === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_COMPOUND_ANSWER_TRUE) {
+				$assertions = new _hx_array(array());
+				$correctAns = new _hx_array(array());
+				$userAns = new _hx_array(array());
+				$aux = new Hash();
+				$j = $qq->getCorrectAnswersLength();
+				while($qq->correctAnswers !== null && $qq->correctAnswers->length > 0 && $j > $lastCaNum) {
+					$c = $qq->correctAnswers->pop();
+					$parts = com_wiris_quizzes_impl_HTMLTools::parseCompoundAnswer($c);
+					$aux->set($c->id, $parts->length);
+					$k = null;
+					{
+						$_g1 = 0; $_g = $parts->length;
+						while($_g1 < $_g) {
+							$k1 = $_g1++;
+							$cc = new com_wiris_quizzes_impl_CorrectAnswer();
+							$cc->type = $c->type;
+							$cc->id = $c->id . "_c" . _hx_string_rec($k1, "");
+							$cc->content = $parts[$k1][1];
+							$cc->weight = 1.0 / $parts->length;
+							$correctAns->push($cc);
+							unset($k1,$cc);
+						}
+						unset($_g1,$_g);
+					}
 					$j--;
+					unset($parts,$k,$c);
 				}
-				unset($j,$correctanswer);
-			}
-			$i--;
-		}
-		$usedcorrectanswers = new _hx_array(array());
-		{
-			$_g1 = 0; $_g = $qq->getCorrectAnswersLength();
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$usedcorrectanswers[$i1] = false;
-				unset($i1);
-			}
-		}
-		$usedanswers = new _hx_array(array());
-		{
-			$_g1 = 0; $_g = $uu->answers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$usedanswers[$i1] = false;
-				unset($i1);
-			}
-		}
-		{
-			$_g1 = 0; $_g = $qq->assertions->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				$ass = $qq->assertions[$i1];
-				if($ass->isEquivalence()) {
-					$usedcorrectanswers[$ass->getCorrectAnswer()] = true;
-					$usedanswers[$ass->getAnswer()] = true;
-				} else {
-					if($ass->isCheck()) {
-						$usedanswers[$ass->getAnswer()] = true;
-					}
-				}
-				unset($i1,$ass);
-			}
-		}
-		$pairs = $this->getPairings($qq->getCorrectAnswersLength(), $uu->answers->length);
-		{
-			$_g1 = 0; $_g = $usedcorrectanswers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				if(!$usedcorrectanswers[$i1]) {
-					$_g3 = 0; $_g2 = $pairs->length;
-					while($_g3 < $_g2) {
-						$k1 = $_g3++;
-						if($pairs[$k1][0] === $i1) {
-							$user = $pairs[$k1][1];
-							$qq->setAssertion(com_wiris_quizzes_impl_Assertion::$EQUIVALENT_SYMBOLIC, $i1, $user);
-							$usedanswers[$user] = true;
-							unset($user);
+				$j = $uu->answers->length;
+				while($uu->answers !== null && $uu->answers->length > 0 && $j > $lastUaNum) {
+					$a = $uu->answers->pop();
+					$parts = com_wiris_quizzes_impl_HTMLTools::parseCompoundAnswer($a);
+					$k = null;
+					{
+						$_g1 = 0; $_g = $parts->length;
+						while($_g1 < $_g) {
+							$k1 = $_g1++;
+							$ca = new com_wiris_quizzes_impl_Answer();
+							$ca->id = $a->id . "_c" . _hx_string_rec($k1, "");
+							$ca->set($parts[$k1][1]);
+							$userAns->push($ca);
+							unset($k1,$ca);
 						}
-						unset($k1);
+						unset($_g1,$_g);
 					}
-					unset($_g3,$_g2);
+					$j--;
+					unset($parts,$k,$a);
 				}
-				unset($i1);
-			}
-		}
-		{
-			$_g1 = 0; $_g = $usedanswers->length;
-			while($_g1 < $_g) {
-				$i1 = $_g1++;
-				if(!$usedanswers[$i1]) {
-					$_g3 = 0; $_g2 = $pairs->length;
-					while($_g3 < $_g2) {
-						$k1 = $_g3++;
-						if($pairs[$k1][1] === $i1) {
-							$qq->setAssertion(com_wiris_quizzes_impl_Assertion::$EQUIVALENT_SYMBOLIC, $pairs[$k1][0], $i1);
+				$j = $qq->assertions->length;
+				while($qq->assertions !== null && $qq->assertions->length > 0 && $j > $lastAssNum) {
+					$a = $qq->assertions->pop();
+					$n = $aux->get($a->getCorrectAnswer());
+					$k = null;
+					{
+						$_g = 0;
+						while($_g < $n) {
+							$k1 = $_g++;
+							$ca = new com_wiris_quizzes_impl_Assertion();
+							$ca->name = $a->name;
+							$ca->parameters = $a->parameters;
+							$assertions->push($ca);
+							if($a->name === com_wiris_quizzes_impl_Assertion::$EQUIVALENT_FUNCTION) {
+								$caa = new _hx_array(array());
+								$aa = new _hx_array(array());
+								$l = null;
+								{
+									$_g1 = 0;
+									while($_g1 < $n) {
+										$l1 = $_g1++;
+										$caa[$l1] = $a->getCorrectAnswer() . "_c" . _hx_string_rec($l1, "");
+										$aa[$l1] = $a->getAnswer() . "_c" . _hx_string_rec($l1, "");
+										unset($l1);
+									}
+									unset($_g1);
+								}
+								$ca->setCorrectAnswers($caa);
+								$ca->setAnswers($aa);
+								break;
+								unset($l,$caa,$aa);
+							} else {
+								$ca->setCorrectAnswer($a->getCorrectAnswer() . "_c" . _hx_string_rec($k1, ""));
+								$ca->setAnswer($a->getAnswer() . "_c" . _hx_string_rec($k1, ""));
+							}
+							unset($k1,$ca);
 						}
-						unset($k1);
+						unset($_g);
 					}
-					unset($_g3,$_g2);
+					$j--;
+					unset($n,$k,$a);
 				}
-				unset($i1);
+				$qq->correctAnswers = (($qq->correctAnswers === null) ? $correctAns : $qq->correctAnswers->concat($correctAns));
+				$qq->assertions = (($qq->assertions === null) ? $assertions : $qq->assertions->concat($assertions));
+				$uu->answers = (($uu->answers === null) ? $userAns : $uu->answers->concat($userAns));
+				unset($userAns,$correctAns,$aux,$assertions);
 			}
-		}
-		if($q !== null && $q->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_COMPOUND_ANSWER) === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_COMPOUND_ANSWER_TRUE) {
-			$this->breakCompoundAnswers($qq, $uu);
+			$lastCaNum = $qq->getCorrectAnswersLength();
+			$lastUaNum = $uu->answers->length;
+			$lastAssNum = $qq->assertions->length;
+			$i++;
+			unset($usedcorrectanswers,$usedanswers,$ua,$syntax,$step,$qa,$pairs,$j);
 		}
 		$qr = new com_wiris_quizzes_impl_QuestionRequestImpl();
 		$qr->question = $qq;
 		$qr->userData = $uu;
 		$qr->checkAssertions();
 		return $qr;
+	}
+	public function getIndex($id) {
+		$i = _hx_index_of($id, "_", null) + 1;
+		$j = _hx_index_of($id, "_", $i);
+		if($j === -1) {
+			return Std::parseInt(_hx_substr($id, $i, null));
+		} else {
+			return Std::parseInt(_hx_substr($id, $i, $j - $i));
+		}
 	}
 	public function newEvalRequest($correctAnswer, $userAnswer, $q, $qi) {
 		$correctAnswers = (($correctAnswer === null) ? null : new _hx_array(array($correctAnswer)));
@@ -573,13 +652,68 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 	public function getConfiguration() {
 		return com_wiris_quizzes_impl_ConfigurationImpl::getInstance();
 	}
-	public function setVariables($html, $qi, $qr) {
+	public function removeAnswerVariables($variables, $q, $qi) {
+		$qq = _hx_deref(($q))->getImpl();
+		if($qq->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER) === "true") {
+			$name = $qq->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER_NAME);
+			$defname = $qq->defaultOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER_NAME);
+			if($defname === $name) {
+				$lang = com_wiris_quizzes_impl_HTMLTools::casSessionLang($qq->getAlgorithm());
+				$name = com_wiris_quizzes_impl_Translator::getInstance($lang)->t($name);
+			}
+			$n = 0;
+			$i = null;
+			{
+				$_g1 = 0; $_g = $variables->length;
+				while($_g1 < $_g) {
+					$i1 = $_g1++;
+					if(StringTools::startsWith($variables[$i1], $name)) {
+						$after = _hx_substr($variables[$i1], strlen($name), null);
+						if(strlen($after) === 0 || com_wiris_util_type_IntegerTools::isInt($after) && Std::parseInt($after) <= $qi->getStudentAnswersLength()) {
+							$variables[$i1] = null;
+							$n++;
+						} else {
+							if($qq->getLocalData(com_wiris_quizzes_impl_LocalData::$KEY_OPENANSWER_COMPOUND_ANSWER) === com_wiris_quizzes_impl_LocalData::$VALUE_OPENANSWER_COMPOUND_ANSWER_TRUE) {
+								$qqi = $qi;
+								$parts = com_wiris_quizzes_impl_HTMLTools::parseCompoundAnswer($qqi->userData->answers[0]);
+								if(com_wiris_util_type_IntegerTools::isInt($after) && Std::parseInt($after) <= $parts->length) {
+									$variables[$i1] = null;
+									$n++;
+								}
+								unset($qqi,$parts);
+							}
+						}
+						unset($after);
+					}
+					unset($i1);
+				}
+			}
+			if($n > 0) {
+				$newvariables = new _hx_array(array());
+				$j = 0;
+				{
+					$_g1 = 0; $_g = $variables->length;
+					while($_g1 < $_g) {
+						$i1 = $_g1++;
+						if($variables[$i1] !== null) {
+							$newvariables[$j++] = $variables[$i1];
+						}
+						unset($i1);
+					}
+				}
+				$variables = $newvariables;
+			}
+		}
+		return $variables;
+	}
+	public function setVariables($html, $q, $qi, $qr) {
 		$variables = null;
 		if($html === null) {
 			$variables = $this->extractQuestionInstanceVariableNames($qi);
 		} else {
 			$h = new com_wiris_quizzes_impl_HTMLTools();
 			$variables = $h->extractVariableNames($html);
+			$variables = $this->removeAnswerVariables($variables, $q, $qi);
 		}
 		if($variables->length > 0) {
 			$qr->variables($variables, com_wiris_quizzes_impl_MathContent::$TYPE_TEXT);
@@ -599,9 +733,9 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 			$qi = new com_wiris_quizzes_impl_QuestionInstanceImpl();
 		}
 		$qr = new com_wiris_quizzes_impl_QuestionRequestImpl();
-		$qr->question = $q;
+		$qr->question = $this->removeSubquestions($q);
 		$qr->userData = $qi->userData;
-		$this->setVariables($html, $qi, $qr);
+		$this->setVariables($html, $q, $qi, $qr);
 		return $qr;
 	}
 	public function readQuestionInstance($xml) {
@@ -633,8 +767,38 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 			if("," === $q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_DECIMAL_SEPARATOR) || "," === $q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_DIGIT_GROUP_SEPARATOR) && StringTools::startsWith($q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_FLOAT_FORMAT), ",")) {
 				$qi->setLocalData(com_wiris_quizzes_impl_LocalData::$KEY_ITEM_SEPARATOR, ";");
 			}
+			if($q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER) === "true") {
+				$answername = $q->getOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER_NAME);
+				if($q->defaultOption(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER_NAME) === $answername) {
+					$alg = $q->getAlgorithm();
+					if($alg !== null) {
+						$lang = com_wiris_quizzes_impl_HTMLTools::casSessionLang($alg);
+						if($lang !== null && !(com_wiris_quizzes_impl_QuestionInstanceImpl::$DEF_ALGORITHM_LANGUAGE === $lang)) {
+							$qi->setLocalData(com_wiris_quizzes_impl_QuestionInstanceImpl::$KEY_ALGORITHM_LANGUAGE, $lang);
+						}
+					}
+				} else {
+					$qi->setLocalData(com_wiris_quizzes_api_QuizzesConstants::$OPTION_STUDENT_ANSWER_PARAMETER_NAME, $answername);
+				}
+			}
+			if($q->subquestions !== null && $q->subquestions->length > 0) {
+				$i = null;
+				{
+					$_g1 = 0; $_g = $q->subquestions->length;
+					while($_g1 < $_g) {
+						$i1 = $_g1++;
+						$qi->pushSubinstance($q->subquestions[$i1]);
+						unset($i1);
+					}
+				}
+			}
 		}
 		return $qi;
+	}
+	public function newMultipleQuestion() {
+		$q = new com_wiris_quizzes_impl_QuestionImpl();
+		$q->subquestions = new _hx_array(array());
+		return $q;
 	}
 	public function newQuestion() {
 		$q = new com_wiris_quizzes_impl_QuestionImpl();
@@ -646,6 +810,7 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		}
 		return $this->uibuilder;
 	}
+	public $accessProvider;
 	public $locker;
 	public $imagesCache;
 	public $variablesCache;
@@ -668,4 +833,25 @@ class com_wiris_quizzes_impl_QuizzesBuilderImpl extends com_wiris_quizzes_api_Qu
 		return com_wiris_quizzes_impl_QuizzesBuilderImpl::$singleton;
 	}
 	function __toString() { return 'com.wiris.quizzes.impl.QuizzesBuilderImpl'; }
+}
+function com_wiris_quizzes_impl_QuizzesBuilderImpl_0(&$»this, &$correctAnswers, &$i, &$instance, &$lastAssNum, &$lastCaNum, &$lastUaNum, &$q, &$qa, &$qi, &$qq, &$question, &$userAnswers, &$uu) {
+	if($i < 0) {
+		return $q;
+	} else {
+		return $q->subquestions[$i];
+	}
+}
+function com_wiris_quizzes_impl_QuizzesBuilderImpl_1(&$»this, &$correctAnswers, &$i, &$instance, &$lastAssNum, &$lastCaNum, &$lastUaNum, &$q, &$qa, &$qi, &$qq, &$question, &$ua, &$userAnswers, &$uu) {
+	if($i < 0) {
+		return $qi->userData;
+	} else {
+		return _hx_array_get($qi->subinstances, $i)->userData;
+	}
+}
+function com_wiris_quizzes_impl_QuizzesBuilderImpl_2(&$»this, &$correctAnswers, &$i, &$instance, &$lastAssNum, &$lastCaNum, &$lastUaNum, &$q, &$qa, &$qi, &$qq, &$question, &$ua, &$userAnswers, &$uu) {
+	if($i < 0) {
+		return "";
+	} else {
+		return "s" . _hx_string_rec($i, "") . "_";
+	}
 }

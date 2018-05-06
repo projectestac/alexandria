@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_grader', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradereport_grader', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   gradereport_grader
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,6 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['ajaxchoosescale'] = 'Επιλέξτε';
+$string['ajaxerror'] = 'Σφάλμα';
+$string['ajaxfailedupdate'] = 'Δεν είναι εφικτή η ενημέρωση [1] από [2]';
 $string['grader:manage'] = 'Διαχείριση της αναφοράς βαθμολογητή';
 $string['grader:view'] = 'Εμφάνιση της αναφοράς βαθμολογητή';
 $string['pluginname'] = 'Αναφορά βαθμολογητή';

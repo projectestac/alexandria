@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'book', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'book', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   book
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,11 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addafter'] = 'Afegeix un capítol nou';
+$string['addafter'] = 'Afegeix un nou capítol';
 $string['book:addinstance'] = 'Afegeix un llibre nou';
 $string['book:edit'] = 'Edita els capítols';
 $string['book:read'] = 'Mostra el llibre';
 $string['book:viewhiddenchapters'] = 'Mostra capítols amagats';
+$string['chapterandsubchaptersdeleted'] = 'S\'han eliminat el capítol «{$a->title}» i els subcapítols {$a->subchapters}';
+$string['chapterdeleted'] = 'S\'ha eliminat el capítol «{$a->title}»';
 $string['chapters'] = 'Capítols';
 $string['chaptertitle'] = 'Títol del capítol';
 $string['confchapterdelete'] = 'Realment voleu esborrar aquest capítol?';
@@ -60,9 +62,11 @@ $string['movechapterup'] = 'Mou amunt el capítol «{$a}»';
 $string['navexit'] = 'Surt del llibre';
 $string['navimages'] = 'Imatges';
 $string['navnext'] = 'Següent';
+$string['navnexttitle'] = 'Següent: {$a}';
 $string['navoptions'] = 'Opcions disponibles per als enllaços navegables';
 $string['navoptions_desc'] = 'Opcions per mostrar la navegació a les pàgines del llibre';
-$string['navprev'] = 'Prèvi';
+$string['navprev'] = 'Anterior';
+$string['navprevtitle'] = 'Anterior: {$a}';
 $string['navstyle'] = 'Estil de navegació';
 $string['navstyle_help'] = '*Imatges - Les icones s\'usen en navegació
 *Text - Els títols dels capítols s\'usen en navegació';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_community', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_community', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   block_community
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,7 @@ $string['addcommunitycourse'] = 'Gehitu komunitate-ikastaroa';
 $string['addcourse'] = 'Bilatu';
 $string['addedtoblock'] = 'Ikastaro honetarako esteka komunitateak bilatzeko blokean gehitu da';
 $string['additionalcoursedesc'] = '{$a->lang} Sortzailea: {$a->creatorname} - Editorea: {$a->publishername} - Gaia: {$a->subject} - Audientzia: {$a->audience} - Hezkuntza-maila: {$a->educationallevel} - Lizentzia: {$a->license}';
-$string['addtocommunityblock'] = 'Ikastaro honetarako esteka gorde';
+$string['addtocommunityblock'] = 'Gorde ikastaro honetarako esteka';
 $string['audience'] = 'Honentzat diseinatuta';
 $string['audience_help'] = 'Zein ikastaro-mota ari zara bilatzen? Ikasleentzako ohiko ikastaroen antzera, hezitzaile edo Moodle kudeatzaile-komunitateen arabera bilatu behar zenuke';
 $string['blocks'] = 'Blokeak';

@@ -211,4 +211,80 @@ class format_topics_testcase extends advanced_testcase {
             $this->assertEquals(1, preg_match('/^Can not find data record in database/', $e->getMessage()));
         }
     }
+
+    /**
+     * Test get_default_course_enddate.
+     *
+     * @return void
+     */
+    public function test_default_course_enddate() {
+        global $CFG, $DB;
+
+        $this->resetAfterTest(true);
+
+        require_once($CFG->dirroot . '/course/tests/fixtures/testable_course_edit_form.php');
+
+        $this->setTimezone('UTC');
+
+        $params = array('format' => 'topics', 'numsections' => 5, 'startdate' => 1445644800);
+        $course = $this->getDataGenerator()->create_course($params);
+        $category = $DB->get_record('course_categories', array('id' => $course->category));
+
+        $args = [
+            'course' => $course,
+            'category' => $category,
+            'editoroptions' => [
+                'context' => context_course::instance($course->id),
+                'subdirs' => 0
+            ],
+            'returnto' => new moodle_url('/'),
+            'returnurl' => new moodle_url('/'),
+        ];
+
+        $courseform = new testable_course_edit_form(null, $args);
+        $courseform->definition_after_data();
+
+        $enddate = $params['startdate'] + get_config('moodlecourse', 'courseduration');
+
+        $weeksformat = course_get_format($course->id);
+        $this->assertEquals($enddate, $weeksformat->get_default_course_enddate($courseform->get_quick_form()));
+
+    }
+
+    /**
+     * Test for get_view_url() to ensure that the url is only given for the correct cases
+     */
+    public function test_get_view_url() {
+        global $CFG;
+        $this->resetAfterTest();
+
+        $linkcoursesections = $CFG->linkcoursesections;
+
+        // Generate a course with two sections (0 and 1) and two modules.
+        $generator = $this->getDataGenerator();
+        $course1 = $generator->create_course(array('format' => 'topics'));
+        course_create_sections_if_missing($course1, array(0, 1));
+
+        $data = (object)['id' => $course1->id];
+        $format = course_get_format($course1);
+        $format->update_course_format_options($data);
+
+        // In page.
+        $CFG->linkcoursesections = 0;
+        $this->assertNotEmpty($format->get_view_url(null));
+        $this->assertNotEmpty($format->get_view_url(0));
+        $this->assertNotEmpty($format->get_view_url(1));
+        $CFG->linkcoursesections = 1;
+        $this->assertNotEmpty($format->get_view_url(null));
+        $this->assertNotEmpty($format->get_view_url(0));
+        $this->assertNotEmpty($format->get_view_url(1));
+
+        // Navigation.
+        $CFG->linkcoursesections = 0;
+        $this->assertNull($format->get_view_url(1, ['navigation' => 1]));
+        $this->assertNull($format->get_view_url(0, ['navigation' => 1]));
+        $CFG->linkcoursesections = 1;
+        $this->assertNotEmpty($format->get_view_url(1, ['navigation' => 1]));
+        $this->assertNotEmpty($format->get_view_url(0, ['navigation' => 1]));
+    }
 }

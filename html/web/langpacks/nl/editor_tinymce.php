@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_tinymce', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'editor_tinymce', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   editor_tinymce
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -552,7 +552,7 @@ $string['media_dlg:preload_auto'] = 'Laat de browser van de gebruiker beslissen'
 $string['media_dlg:preload_metadata'] = 'Video metadata vooraf laden';
 $string['media_dlg:preload_none'] = 'Niet vooraf laden';
 $string['media_dlg:preview'] = 'Voorbeeld';
-$string['media_dlg:progress'] = 'Voortgang';
+$string['media_dlg:progress'] = 'Vordering';
 $string['media_dlg:qt_options'] = 'QuickTime opties';
 $string['media_dlg:qtsrc'] = 'QT bron';
 $string['media_dlg:qtsrcchokespeed'] = 'Chokesnelheid';

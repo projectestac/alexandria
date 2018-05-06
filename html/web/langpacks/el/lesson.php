@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lesson', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'lesson', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   lesson
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -34,17 +34,19 @@ $string['activitylink_help'] = '<p align="center"><b>Συνδεσμος δρασ
 
 <p>Το μενού περιέχει όλες τις δραστηριότητες για αυτό το μάθημα. Εάν γίνει επιλογή, τότε ένας σύνδεσμος προς αυτή τη δραστηριότητα θα εμφανιστεί στο τέλος του Μαθήματος.</p>';
 $string['activitylinkname'] = 'Πήγαινε στο: {$a}';
-$string['addabranchtable'] = 'Προσθήκη ενός πίνακα διακλαδώδεων';
-$string['addanendofbranch'] = 'Προσθήκη ενός τέλους διακλάδωσης';
+$string['addabranchtable'] = 'Προσθήκη σελίδας περιεχομένου';
+$string['addanendofbranch'] = 'Προσθήκη τέλους διακλάδωσης';
 $string['addanewpage'] = 'Προσθήκη νέας σελίδας';
 $string['addaquestionpage'] = 'Προσθήκη σελίδας ερωτήσεων';
 $string['addaquestionpagehere'] = 'Προσθήκη σελίδας ερωτήσεων εδώ';
+$string['addbranchtable'] = 'Προσθήκη σελίδας περιεχομένου';
 $string['addcluster'] = 'Προσθήκη συστοιχίας';
-$string['addedabranchtable'] = 'Προστέθηκε ένας πίνακας διακλαδώδεων';
-$string['addedanendofbranch'] = 'Προστέθηκε ένα τέλος διακλάδωσης';
-$string['addedaquestionpage'] = 'Προστέθηκε μια σελίδα ερωτήσεων';
+$string['addedabranchtable'] = 'Προστέθηκε σελίδα περιεχομένου';
+$string['addedanendofbranch'] = 'Προστέθηκε τέλος διακλάδωσης';
+$string['addedaquestionpage'] = 'Προστέθηκε σελίδα ερωτήσεων';
 $string['addedcluster'] = 'Προστέθηκε συστοιχία';
 $string['addedendofcluster'] = 'Προστέθηκε τέλος συστοιχίας';
+$string['addendofbranch'] = 'Προσθήκη τέλους διακλάδωσης';
 $string['addendofcluster'] = 'Προσθήκη τέλους συστοιχίας';
 $string['addpage'] = 'Προσθήκη μίας σελίδας';
 $string['anchortitle'] = 'Αρχή κύριου περιεχόμενου';
@@ -185,7 +187,8 @@ $string['displayreview_help'] = '<p align="center"><b>Προβολή Κουμπ�
 <p>Αυτό θα προβάλει ένα κουμπί έπειτα από μια λανθασμένα απαντημένη ερώτηση, επιτρέποντας στο μαθητή να ξαναπροσπαθήσει. Δεν είναι συμβατό με ερωτήσεις διαγωνίσματος για αυτό αγνοήστε το, εάν χρησιμοποιείτε ερωτήσεις διαγωνίσματος.</p>';
 $string['displayscorewithessays'] = 'Πήρατε {$a->score} στα {$a->tempmaxgrade} για τις αυτόματα βαθμολογούμενες ερωτήσεις.<br>Οι {$a->essayquestions} ερωτήσεις έκθεσης θα βαθμολογηθούν και θα προστεθούν<br />στον τελικό σας βαθμό αργότερα.<br /><br />Ο τρέχον βαθμός σας χωρίς τις ερωτήσεις έκθεσης είναι {$a->score} στα {$a->grade}';
 $string['displayscorewithoutessays'] = 'Ο βαθμός σας είναι {$a->score} (στα {$a->grade}).';
-$string['edit'] = 'Edit';
+$string['edit'] = 'Επεξεργασία';
+$string['editendofbranch'] = 'Επεξεργασία σελίδας τέλους διακλάδωσης';
 $string['editlessonsettings'] = 'Επεξεργασία ρυθμίσεων ενότητας';
 $string['editpagecontent'] = 'Επεξεργασία περιεχομένων σελίδας';
 $string['email'] = 'Ηλεκτρονικό Ταχυδρομείο';
@@ -193,6 +196,7 @@ $string['emailallgradedessays'] = 'Αποστολή με ηλεκτρονικό 
 $string['emailgradedessays'] = 'Αποστολή με ηλεκτρονικό ταχυδρομείο τις βαθμολογημένες εκθέσεις';
 $string['emailsuccess'] = 'Τα μηνύματα ηλεκτρονικού ταχυδρομείου στάλθηκαν με επιτυχία';
 $string['emptypassword'] = 'Ο κωδικός πρόσβασης δεν μπορεί να είναι κενός';
+$string['enabled'] = 'Ενεργοποιημένο';
 $string['endofbranch'] = 'Τέλος διακλάδωσης';
 $string['endofclustertitle'] = 'Τέλος συστοιχίας';
 $string['endoflesson'] = 'Τέλος ενότητας';
@@ -202,7 +206,6 @@ $string['enterpassword'] = 'Παρακαλώ εισάγετε τον κωδικ�
 $string['eolstudentoutoftime'] = 'Προσοχή: Βγήκατε εκτός χρόνου σε αυτή την ενότητα. Η τελευταία απάντησή σας μπορεί να μη μετρήσει αν δόθηκε μετά το τέλος του χρόνου.';
 $string['eolstudentoutoftimenoanswers'] = 'Δεν απαντήσατε καμία ερώτηση. Πήρατε 0 σε αυτή την ενότητα.';
 $string['essay'] = 'Έκθεση';
-$string['essayemailmessage'] = '<p>Έκθεση:<blockquote>{$a->question}</blockquote></p><p>Η απάντησή σας:<blockquote><em>{$a->response}</em></blockquote></p><p>Τα σχόλια του καθηγητή {$a->teacher}:<blockquote><em>{$a->comment}</em></blockquote></p><p>Πήρατε  {$a->earned} στα {$a->outof} για αυτήν την ερώτηση έκθεσης.</p><p>Ο βαθμός σας στην ενότητα έχει αλλάξει σε {$a->newgrade}%.</p>';
 $string['essayemailmessage2'] = '<p>Έκθεση:<blockquote>{$a->question}</blockquote></p><p>Η απάντησή σας:<blockquote><em>{$a->response}</em></blockquote></p><p>Τα σχόλια του βαθμολογητή:<blockquote><em>{$a->comment}</em></blockquote></p><p>Πήρατε  {$a->earned} στα {$a->outof} για αυτήν την ερώτηση έκθεσης.</p><p>Ο βαθμός σας στην ενότητα έχει αλλάξει σε {$a->newgrade}&#37;.</p>';
 $string['essayemailsubject'] = 'Ο βαθμός σας για την {$a} ερώτηση';
 $string['essays'] = 'Εκθέσεις';
@@ -334,7 +337,6 @@ $string['jumps_help'] = '<p align="center"><b>Ο σύνδεσμος μετάβα
 $string['jumpsto'] = 'Μεταπήδηση σε <em>{$a}</em>';
 $string['leftduringtimed'] = 'Αποχωρήσατε κατά τη διάρκεια χρονομετρημένης ενότητας. <br />Παρακαλώ, πατήστε Συνέχεια για να επανεκκινήσετε την ενότητα.';
 $string['leftduringtimednoretake'] = 'Αποχωρήσατε κατά τη διάρκεια χρονομετρημένης ενότητας και <br />δεν έχετε το δικαίωμα να επαναλάβεται ή να συνεχίσετε την ενότητα.';
-$string['lessonattempted'] = 'Έγινε προσπάθεια της ενότητας';
 $string['lessonclosed'] = 'Αυτή η ενότητα έκλεισε {$a}.';
 $string['lessoncloses'] = 'Κλείσιμο ενότητας';
 $string['lessoncloseson'] = 'Η ενότητα κλείνει στις {$a}';
@@ -428,7 +430,7 @@ $string['moving'] = 'Μεταφορά σελίδας: {$a}';
 $string['multianswer'] = 'Πολλαπλή απάντηση';
 $string['multipleanswer'] = 'Πολλαπλή απάντηση';
 $string['nameapproved'] = 'Το όνομα εγκρίθηκε';
-$string['namereject'] = 'Συγγνώμη, το όνομά σας απορρίφθηκε από το φίλτρο.<br />Παρακαλώ επιλέξτε κάποιο άλλο όνομα.';
+$string['namereject'] = 'Συγνώμη, το όνομά σας απορρίφθηκε από το φίλτρο.<br />Παρακαλώ επιλέξτε κάποιο άλλο όνομα.';
 $string['nextpage'] = 'Επόμενη σελίδα';
 $string['noanswer'] = 'Καμία απάντηση δεν δόθηκε. Παρακαλώ, πηγαίνετε πίσω και καταχωρήστε την απαντησή σας.';
 $string['noattemptrecordsfound'] = 'Δεν βρέθηκαν προσπάθειες: δεν δόθηκε βαθμός';
@@ -528,7 +530,7 @@ $string['practice_help'] = '<p align="center"><b>Εξάσκηση Ενότητα
 
 <p>Ένα μάθημα πρακτικής δεν θα εμφανίζεται στό βαθμολόγιο.</p>';
 $string['preprocesserror'] = 'Ένα σφάλμα συνέβη κατά την προεπεξεργασία!';
-$string['preview'] = 'Προεπισκόπιση';
+$string['preview'] = 'Προεπισκόπηση';
 $string['previewlesson'] = 'Προεπισκόπηση {$a}';
 $string['previouspage'] = 'Προηγούμενη σελίδα';
 $string['processerror'] = 'Ένα σφάλμα συνέβη κατά την επεξεργασία!';

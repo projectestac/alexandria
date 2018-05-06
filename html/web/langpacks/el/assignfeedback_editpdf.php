@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignfeedback_editpdf', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   assignfeedback_editpdf
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -31,7 +31,9 @@ $string['blue'] = 'Μπλέ';
 $string['cannotopenpdf'] = 'Δεν μπορεί να ανοιχτεί το PDF. Το αρχείο μπορεί να είναι κατεστραμμένο ή μη υποστηριζόμενο τύπος αρχείου.';
 $string['clear'] = 'Καθαρισμός';
 $string['colourpicker'] = 'Επιλογέας χρώματος';
+$string['command'] = 'Εντολή:';
 $string['comment'] = 'Σχόλια';
+$string['commentcolour'] = 'Χρώμα σχολίου';
 $string['couldnotsavepage'] = 'Δεν μπόρεσε να αποθηκευτεί η σελίδα {$a}';
 $string['currentstamp'] = 'Στάμπα';
 $string['deleteannotation'] = 'Διαγραφή σχολιασμού';

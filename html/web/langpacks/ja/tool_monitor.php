@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_monitor', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_monitor', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_monitor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,7 +42,7 @@ $string['disablefieldswarning'] = 'このルールはすでに購読されてい
 $string['duplicaterule'] = 'ルールを複製する';
 $string['editrule'] = 'ルールを編集する';
 $string['enablehelp'] = 'イベントモニタリングを有効/無効にする';
-$string['enablehelp_help'] = 'あなたがルールを作成および購読するためには、イベントモニタリングを有効にする必要があります。イベントモニタリングを有効にすることにより、あなたのサイトのパフォーマンスに影響することに留意してください。';
+$string['enablehelp_help'] = 'あなたがルールを作成および購読するためにはイベントモニタリングを有効にする必要があります。イベントモニタリングを有効にすることによりあなたのサイトのパフォーマンスに影響することに留意してください。';
 $string['errorincorrectevent'] = '選択されたプラグインに関連するイベントを選択してください。';
 $string['event'] = 'イベント';
 $string['eventnotfound'] = 'イベントが見つかりませんでした。';
@@ -99,5 +99,5 @@ $string['subhelp'] = '購読詳細';
 $string['subhelp_help'] = 'この購読はイベント「 {$a->eventname} 」が「 {$a->moduleinstance} 」内で {$a->minutes} 分間のうちに {$a->frequency} 回発生することを監視します。';
 $string['subscribeto'] = 'ルール「 {$a} 」を購読する';
 $string['taskchecksubscriptions'] = '無効なルール購読を有効/無効にする';
-$string['taskcleanevents'] = '不要なイベントモニタイベントをすべて削除する';
+$string['taskcleanevents'] = 'イベントモニタイベントをすべて削除する';
 $string['unsubscribe'] = '購読解除';

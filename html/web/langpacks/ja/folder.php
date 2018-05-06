@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'folder', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'folder', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   folder
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,9 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['bynameondate'] = 'by {$a->name} - {$a->date}';
 $string['contentheader'] = 'コンテンツ';
-$string['display'] = 'フォルダコンテンツの表示';
-$string['display_help'] = 'あなたがコースページでのフォルダコンテンツ表示を選択した場合、別ページへのリンクは表示されません。「コースページに説明を表示する」がチェックされた場合のみ、説明が表示されます。<br /> この場合、参加者の閲覧動作が記録されないことに留意してください。';
+$string['display'] = 'フォルダコンテンツを表示する';
+$string['display_help'] = 'あなたがコースページでのフォルダコンテンツ表示を選択した場合、別ページへのリンクは表示されません。「コースページに説明を表示する」がチェックされた場合のみ説明が表示されます。<br /> この場合、参加者の閲覧動作が記録されないことに留意してください。';
 $string['displayinline'] = 'コースページにインライン表示する';
 $string['displaypage'] = '別ページに表示する';
 $string['dnduploadmakefolder'] = 'ファイルを展開してフォルダを作成する';
@@ -41,13 +42,14 @@ $string['folder:view'] = 'フォルダコンテンツを表示する';
 $string['maxsizetodownload'] = '最大フォルダダウンロードサイズ  (MB)';
 $string['maxsizetodownload_help'] = 'ZIPファイルとしてダウンロードできるフォルダの最大サイズです。ゼロに設定された場合、フォルダサイズに制限はありません。';
 $string['modulename'] = 'フォルダ';
-$string['modulename_help'] = 'フォルダモジュールにおいて、コースページでのスクロールを減らすために教師は多くの関連ファイルを単一のフォルダ内に表示することができます。ZIP圧縮したフォルダを表示のためにアップロードおよび展開または空のフォルダを作成して、その中にファイルをアップロードすることができます。
+$string['modulename_help'] = 'フォルダモジュールにおいてコースページでのスクロールを減らすために教師は多くの関連ファイルを単一のフォルダ内に表示することができます。ZIP圧縮したフォルダを表示のためにアップロードおよび展開または空のフォルダを作成してその中にファイルをアップロードすることができます。
 
-フォルダは下記のように使用することができます:
+フォルダは以下のように使用することができます:
 
 * 例えば過去のPDF版の試験問題または学生プロジェクトで使用するイメージコレクションのように1つのテーマに関する一連のファイル用として
-* コースページ内の教師に共有アップロードスペースを提供するため (教師のみ閲覧できるようフォルダの非表示にする)';
+* コースページ内の教師に共有アップロードスペースを提供するため (教師のみ閲覧できるようフォルダを非表示にする)';
 $string['modulenameplural'] = 'フォルダ';
+$string['newfoldercontent'] = '新しいフォルダコンテンツ';
 $string['noautocompletioninline'] = '活動閲覧による自動完了は「コースページにインライン表示する」オプションと同時に選択することはできません。';
 $string['page-mod-folder-view'] = 'フォルダモジュールメインページ';
 $string['page-mod-folder-x'] = 'すべてのフォルダモジュールページ';

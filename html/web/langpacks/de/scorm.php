@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'scorm', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   scorm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -85,6 +85,8 @@ $string['compatibilitysettings'] = 'Kompatibilität';
 $string['completed'] = 'Abgeschlossen';
 $string['completionscorerequired'] = 'Mindestpunkte notwendig';
 $string['completionscorerequired_help'] = 'Wenn diese Option aktiviert ist, müssen Teilnehmer/innen neben anderen Anforderungen auch die angegebene Mindestpunkte erreichen, um dieses Lernpaket als \'abgeschlossen\' markieren zu können.';
+$string['completionstatusallscos'] = 'Alle Scos sind erforderlich, um den Abschlussstatus zurückzugeben';
+$string['completionstatusallscos_help'] = 'Einige SCORM Pakete enthalten mehrere Komponenten oder "scos" - bei Aktivierung müssen alle scos innerhalb des Pakets den entsprechenden lesson_status für diese Aktivität zurücksenden um als abgeschlossen markiert zu werden.';
 $string['completionstatus_completed'] = 'Erledigt';
 $string['completionstatus_passed'] = 'Durchlaufen';
 $string['completionstatusrequired'] = 'Status erforderlich';
@@ -161,7 +163,7 @@ $string['framewidth'] = 'Die Einstellung definiert die Breite der Darstellung.';
 $string['fromleft'] = 'Von links';
 $string['fromtop'] = 'Von oben';
 $string['fullscreen'] = 'Auf Bildschirmgröße anpassen';
-$string['general'] = 'Grunddaten';
+$string['general'] = 'Allgemeines';
 $string['gradeaverage'] = 'Durchschnittsnote';
 $string['gradeforattempt'] = 'Bewertung für Versuch';
 $string['gradehighest'] = 'Höchstnote';
@@ -207,6 +209,7 @@ $string['lastattemptlock_help'] = 'Diese Option legt fest, ob Teilnehmer/innen n
 $string['location'] = 'Adresse anzeigen';
 $string['masteryoverride'] = 'Status für die Punktzahlüberschreibung zum Bestehen';
 $string['masteryoverridedesc'] = 'Diese Einstellung legt die Vorgabe für die Punktzahl zum Bestehen fest.';
+$string['masteryoverride_help'] = 'Wenn die Option aktiviert ist, wird der Status unter Einbeziehung des Raw-Score und des Master-Score neu berechnet und jeder Status überschrieben, der von SCORM (einschließlich "unvollständig") bereitgestellt wird. Voraussetzung ist dabei, dass ein Mastery-Score und ein Raw-Score gesetzt sind und das LMSFinish aufgerufen wird.';
 $string['max'] = 'Höchstpunktzahl';
 $string['maximumattempts'] = 'Zahl der Versuche';
 $string['maximumattemptsdesc'] = 'Diese Einstellung legt die maximale Anzahl von Versuchen für eine Aktivität fest';
@@ -410,3 +413,4 @@ Hinweise zur Nutzung mehrfacher Versuche:
 * Die Einstellungen \'Abschluss einfordern\', \'Neuen Versuch einfordern\' und \'Nach letztem Versuch sperren\' bieten zusätzliche Möglichkeiten für mehrerer Versuche.';
 $string['width'] = 'Breite';
 $string['window'] = 'Fenster';
+$string['youmustselectastatus'] = 'Sie müssen einen erforderlichen Status auswählen';

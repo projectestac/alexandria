@@ -69,7 +69,7 @@ function workshop_supports($feature) {
  */
 function workshop_add_instance(stdclass $workshop) {
     global $CFG, $DB;
-    require_once(dirname(__FILE__) . '/locallib.php');
+    require_once(__DIR__ . '/locallib.php');
 
     $workshop->phase                 = workshop::PHASE_SETUP;
     $workshop->timecreated           = time();
@@ -147,7 +147,7 @@ function workshop_add_instance(stdclass $workshop) {
  */
 function workshop_update_instance(stdclass $workshop) {
     global $CFG, $DB;
-    require_once(dirname(__FILE__) . '/locallib.php');
+    require_once(__DIR__ . '/locallib.php');
 
     $workshop->timemodified          = time();
     $workshop->id                    = $workshop->instance;
@@ -400,7 +400,7 @@ function workshop_user_outline($course, $user, $mod, $workshop) {
  */
 function workshop_user_complete($course, $user, $mod, $workshop) {
     global $CFG, $DB, $OUTPUT;
-    require_once(dirname(__FILE__).'/locallib.php');
+    require_once(__DIR__.'/locallib.php');
     require_once($CFG->libdir.'/gradelib.php');
 
     $workshop   = new workshop($workshop, $mod, $course);
@@ -1517,7 +1517,8 @@ function workshop_get_file_info($browser, $areas, $course, $cm, $context, $filea
 
         } else {
 
-            $sql = "SELECT s.id, u.lastname, u.firstname
+            $userfields = get_all_user_name_fields(true, 'u');
+            $sql = "SELECT s.id, $userfields
                       FROM {workshop_submissions} s
                       JOIN {user} u ON (s.authorid = u.id)
                      WHERE s.example = 0 AND s.workshopid = ?";

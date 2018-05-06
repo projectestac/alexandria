@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cache', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'cache', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   cache
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -41,6 +41,7 @@ $string['cachedef_config'] = 'Configuratie-instellingen';
 $string['cachedef_coursecat'] = 'Cursuscategorielijst voor een bepaalde gebruiker';
 $string['cachedef_coursecatrecords'] = 'Cursuscategorie-records';
 $string['cachedef_coursecattree'] = 'Cursuscategorieboomstructuur';
+$string['cachedef_coursecompletion'] = 'Cursus voltooiingsstatus';
 $string['cachedef_coursecontacts'] = 'Lijst met cursuscontacten';
 $string['cachedef_coursemodinfo'] = 'Geaccumuleerde informatie over modules en secties voor elke cursus';
 $string['cachedef_databasemeta'] = 'Meta-informatie databank';
@@ -51,10 +52,13 @@ $string['cachedef_groupdata'] = 'Cursus groepsinformatie';
 $string['cachedef_htmlpurifier'] = 'HTML Purifier - opgeschoonde inhoud';
 $string['cachedef_langmenu'] = 'Lijst van beschikbare talen';
 $string['cachedef_locking'] = 'Blokkeren';
+$string['cachedef_message_processors_enabled'] = 'Status van ingeschakelde berichtenprocessors';
+$string['cachedef_message_time_last_message_between_users'] = 'Tijd aangemaakt voor meest recente bericht tussen gebruikers';
 $string['cachedef_navigation_expandcourse'] = 'Navigatie uitklapbare cursussen';
 $string['cachedef_observers'] = 'Actie wachters';
 $string['cachedef_plugin_functions'] = 'Plugins beschikbare callbacks';
 $string['cachedef_plugin_manager'] = 'Plugin infobeheerder';
+$string['cachedef_postprocessedcss'] = 'Nabewerkt CSS';
 $string['cachedef_questiondata'] = 'Vraagdefinities';
 $string['cachedef_repositories'] = 'Opslagruimtegegevens';
 $string['cachedef_string'] = 'Taalstringcache';
@@ -107,9 +111,6 @@ $string['localstorenotification'] = 'Deze cache kan veilig gekoppeld worden aan 
 $string['lockdefault'] = 'Standaard';
 $string['locking'] = 'Blokkeren';
 $string['locking_help'] = 'Locking is een mechanisme dat de toegang tot gegevens in cache beperkt tot één proces tegelijk om te voorkomen dat de gegevens overschreven worden. De methode van locking bepaalt hoe de lock bekomen en gecontroleerd wordt.';
-$string['lockingmeans'] = 'Blokkeringsmechanisme';
-$string['lockmethod'] = 'Blokkeermethode';
-$string['lockmethod_help'] = 'Dit is de blokkermethode die gebruikt wordt als dit vereist wordt door deze opslag.';
 $string['lockname'] = 'Naam';
 $string['locknamedesc'] = 'De naam moet uniek zijn en mag enkel letters, hoofdletters en underscore bevatten (a-z, A-Z, _ )';
 $string['locknamenotunique'] = 'De gekozen naam is niet uniek. Kies een unieke naam.';

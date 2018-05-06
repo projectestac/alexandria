@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_settings', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_settings', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   block_settings
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,5 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['enabledock'] = 'Να επιτρέπεται ο χρήστης να προσθέσει αυτό το μπλοκ';
 $string['pluginname'] = 'Διαχείριση';
 $string['settings:addinstance'] = 'Προσθέστε νέο μπλοκ διαχείρισης';

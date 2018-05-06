@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_history', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradereport_history', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   gradereport_history
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,4 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['foundnusers'] = 'Βρέθηκαν {$a} χρήστες';
+$string['foundoneuser'] = 'Βρέθηκε 1 χρήστης';
+$string['grader'] = 'Βαθμολογητής';
 $string['preferences'] = 'Προτιμήσεις ιστορικού βαθμού';
+$string['selectedusers'] = 'Επιλεγμένοι χρήστες';
+$string['source'] = 'Πηγή';

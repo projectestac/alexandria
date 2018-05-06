@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_filetypes', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_filetypes', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_filetypes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -52,7 +52,7 @@ $string['error_defaulticon'] = 'Другое расширение файла с 
 $string['error_extension'] = 'Расширение файла <strong>{$a}</strong> уже существует или является некорректным. Расширения файлов должны быть уникальными и не должны содержать специальных символов.';
 $string['error_notfound'] = 'Тип файла с расширением {$a} не найден.';
 $string['extension'] = 'Расширение';
-$string['extension_help'] = 'Расширение имени файла без точки, например, &lsquo;mobi&rsquo;';
+$string['extension_help'] = 'Расширение имени файла без точки, напр, «mobi»';
 $string['groups'] = 'Группы типов';
 $string['groups_help'] = 'Необязательный список групп типов файлов, к которым этот тип принадлежит. Это типичные категории, такие как «документы» и «изображения».';
 $string['icon'] = 'Значок файла';

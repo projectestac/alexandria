@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'rating', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'rating', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   rating
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -44,7 +44,7 @@ $string['aggregatetype_help'] = 'Agregazio-motak definitzen du nola batuko diren
 $string['allowratings'] = 'Gaitu elementuak puntuatu ahal izateko?';
 $string['allratingsforitem'] = 'Bidalitako puntuazio guztiak';
 $string['capabilitychecknotavailable'] = 'Egiaztatzeko gaitasuna ez dago eskura jarduera gorde arte';
-$string['couldnotdeleteratings'] = 'Barkatu, ezin da ezabatu zeren norbaitek kalifikatu baitu';
+$string['couldnotdeleteratings'] = 'Sentitzen dugu, ezin da ezabatu zeren norbaitek kalifikatu baitu';
 $string['norate'] = 'Elementuak sailkatzea ez dago gaituta!';
 $string['noratings'] = 'Ez da puntuaziorik bidali';
 $string['noviewanyrate'] = 'Zeure mezuen emaitzak bakarrik ikus ditzakezu';

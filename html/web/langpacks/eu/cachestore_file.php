@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cachestore_file', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'cachestore_file', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   cachestore_file
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,3 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['autocreate'] = 'Sortu karpeta automatikoki';
 $string['path'] = 'Cache-bidea';
 $string['pluginname'] = 'Fitxategi-cachea';
+$string['singledirectory'] = 'Karpeta bakarreko biltegia';

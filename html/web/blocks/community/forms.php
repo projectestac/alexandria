@@ -109,6 +109,13 @@ class community_hub_search_form extends moodleform {
             $mform->addElement('static', 'errorhub', '', $error);
         }
 
+        // Hubdirectory returns old URL for the moodle.net hub, substitute it.
+        foreach ($hubs as $key => $hub) {
+            if ($hub['url'] === HUB_OLDMOODLEORGHUBURL) {
+                $hubs[$key]['url'] = HUB_MOODLEORGHUBURL;
+            }
+        }
+
         //display list of registered on hub
         $registrationmanager = new registration_manager();
         $registeredhubs = $registrationmanager->get_registered_on_hubs();
@@ -240,22 +247,11 @@ class community_hub_search_form extends moodleform {
 
             $publicationmanager = new course_publish_manager();
             $options = $publicationmanager->get_sorted_subjects();
-            foreach ($options as $key => &$option) {
-                $keylength = strlen($key);
-                if ($keylength == 10) {
-                    $option = "&nbsp;&nbsp;" . $option;
-                } else if ($keylength == 12) {
-                    $option = "&nbsp;&nbsp;&nbsp;&nbsp;" . $option;
-                }
-            }
-            $options = array_merge(array('all' => get_string('any')), $options);
-            $mform->addElement('select', 'subject', get_string('subject', 'block_community'),
+            $mform->addElement('searchableselector', 'subject', get_string('subject', 'block_community'),
                     $options, array('id' => 'communitysubject'));
             $mform->setDefault('subject', $subject);
             unset($options);
             $mform->addHelpButton('subject', 'subject', 'block_community');
-            $this->init_javascript_enhancement('subject', 'smartselect',
-                    array('selectablecategories' => true, 'mode' => 'compact'));
 
             require_once($CFG->libdir . "/licenselib.php");
             $licensemanager = new license_manager();

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'form', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'form', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   form
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,9 +30,9 @@ $string['advancedelement'] = 'Elementu aurreratua';
 $string['close'] = 'Itxi';
 $string['day'] = 'Eguna';
 $string['display'] = 'Erakutsi';
-$string['err_alphanumeric'] = 'Hemen hizkiak eta zenbakiak baino ezin dituzu idatzi';
+$string['err_alphanumeric'] = 'Hemen letrak eta zenbakiak baino ezin dituzu idatzi';
 $string['err_email'] = 'Hemen benetako e-posta helbide bat idatzi behar duzu';
-$string['err_lettersonly'] = 'Hemen hizkiak baino ezin dituzu idatzi';
+$string['err_lettersonly'] = 'Hemen letrak baino ezin dituzu idatzi';
 $string['err_maxfiles'] = 'Ez duzu {$a} baino fitxategi gehiago erantsi behar hemen.';
 $string['err_maxlength'] = 'Hemen ezin duzu {$a->format} baino karaktere gehiago idatzi.';
 $string['err_minlength'] = 'Hemen gutxienez {$a->format} karaktere idatzi behar dituzu';
@@ -48,13 +48,18 @@ $string['minute'] = 'Minutua';
 $string['miscellaneoussettings'] = 'Beste hainbat ezarpen';
 $string['modstandardels'] = 'Moduluaren ezarpen bateratuak';
 $string['month'] = 'Hilabetea';
-$string['mustbeoverriden'] = '{$a} klaseko Abstract form_definition() metodoak baliogatuan egon behar du; mesedez, konpondu kodea.';
+$string['mustbeoverriden'] = '{$a} klaseko Abstract form_definition() metodoak baimenduta egon behar du; mesedez, konpondu kodea.';
 $string['nomethodforaddinghelpbutton'] = '{$a->name} (class {$a->classname}) formularioaren elementuari laguntza botoia gehitzeko metodorik ez dago';
 $string['nonexistentformelements'] = '{$a} formularioaren elementua ez dago eta ezin zaio laguntza-botoirik gehitu';
 $string['noselection'] = 'Aukeratu gabe';
 $string['nosuggestions'] = 'Iradokizunik ez';
+$string['novalue'] = 'Ez duzu ezer sartu';
+$string['novalueclicktoset'] = 'Klik egin testua idazteko';
 $string['optional'] = 'Aukerakoa';
 $string['othersettings'] = 'Beste ezarpen batzuk';
+$string['passwordunmaskedithint'] = 'Aldatu pasahitza';
+$string['passwordunmaskinstructions'] = 'Sakatu Enter aldaketak gordetzeko';
+$string['passwordunmaskrevealhint'] = 'Azaldu';
 $string['requiredelement'] = 'Beharrezko eremua';
 $string['revealpassword'] = 'Azaldu';
 $string['security'] = 'Segurtasuna';
@@ -67,6 +72,6 @@ $string['showmore'] = 'Erakutsi gehiago...';
 $string['somefieldsrequired'] = 'Formulario honetan {$a} marka dutenak derrigorrezko eremuak dira.';
 $string['time'] = 'Denbora';
 $string['timeunit'] = 'Denbora-unitatea';
-$string['timing'] = 'Denbora';
+$string['timing'] = 'Denbora-tartea';
 $string['unmaskpassword'] = 'Desmaskaratu';
 $string['year'] = 'Urtea';

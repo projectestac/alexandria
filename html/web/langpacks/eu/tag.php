@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tag', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tag', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tag
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -63,12 +63,14 @@ $string['eventtagflagged'] = 'Etiketa markatu da';
 $string['eventtagremoved'] = 'Etiketa ezabatu da elementutik';
 $string['eventtagunflagged'] = 'Etiketa ez-markatua';
 $string['eventtagupdated'] = 'Etiketa eguneratu da';
+$string['exclusivemode'] = 'Erakutsi bakarrik hemen etiketatutakoak: {$a->tagarea}';
 $string['flag'] = 'Markatu';
 $string['flagasinappropriate'] = 'Ezegoki markatu';
 $string['flagged'] = 'Etiketa markatu da';
 $string['helprelatedtags'] = 'Harremana duten etiketak komaz banatuta';
 $string['id'] = 'id';
 $string['inalltagcoll'] = 'Edonon';
+$string['inputstandardtags'] = 'Idatzi etiketa berrien zerrenda komaz banatuta';
 $string['lesstags'] = 'gutxiago...';
 $string['manageofficialtags'] = 'Etiketa ofizialak kudeatu';
 $string['managestandardtags'] = 'Kudeatu etiketa estandarrak';
@@ -77,6 +79,7 @@ $string['managetags'] = 'Etiketak kudeatu';
 $string['moretags'] = 'gehiago...';
 $string['name'] = 'Izena';
 $string['namesalreadybeeingused'] = 'Etiketa-izenak dagoeneko erabiltzen ari dira';
+$string['newcollnamefor'] = 'izen berria {$a} etiketa-bildumarako';
 $string['newname'] = 'Izen berria';
 $string['newnamefor'] = '{$a} etiketarako izen berria';
 $string['nextpage'] = 'Gehiago';
@@ -108,13 +111,18 @@ $string['searchtags'] = 'Etiketak bilatu';
 $string['seeallblogs'] = 'Ikusi etiketa hau duten blog-sarrera guztiak: "{$a}"';
 $string['select'] = 'Aukeratu';
 $string['selectcoll'] = 'Aukeratu etikta-bilduma';
+$string['selectmultipletags'] = 'Mesedez, aukera ezazu etiketa bat baino gehiago';
 $string['selecttag'] = 'Aukeratu {$a} etiketa';
 $string['settypedefault'] = 'Ezabatu etiketa estandarretatik';
 $string['settypeofficial'] = 'Egin ofizial';
+$string['settypestandard'] = 'Egin estandar';
+$string['showingfirsttags'] = 'Etiketa ospetsuenak {$a} erakusten';
+$string['showstandard'] = 'Etiketa estandarren erabilera';
 $string['standardforce'] = 'Behartu';
 $string['standardhide'] = 'Ez iradoki';
 $string['standardsuggest'] = 'Iradoki';
-$string['standardtag'] = 'Estandarrra';
+$string['standardtag'] = 'Estandarra';
+$string['suredeletecoll'] = 'Ziur al zaude "{$a}" etiketa-bilduma ezabatu nahi duzula?';
 $string['tag'] = 'Etiketa';
 $string['tagarea_blog_external'] = 'Kanpoko blog-sarrerak';
 $string['tagarea_course'] = 'Ikastaroak';

@@ -50,6 +50,7 @@ class qtype_wq_question extends question_with_responses {
      *   The random seed to be used in this question.
      * **/
     public function start_attempt(question_attempt_step $step, $variant) {
+        global $USER;
         $this->base->start_attempt($step, $variant);
 
         // Get variables from WIRIS quizzes service.
@@ -57,6 +58,7 @@ class qtype_wq_question extends question_with_responses {
         $text = $this->join_all_text();
         $this->wirisquestioninstance = $builder->newQuestionInstance($this->wirisquestion);
         $this->wirisquestioninstance->setRandomSeed($variant);
+        $this->wirisquestioninstance->setParameter('user_id', $USER->id);
 
         // Begin testing code. It's never used in production.
         global $CFG;
@@ -278,6 +280,26 @@ class qtype_wq_question extends question_with_responses {
         }
 
         return $text;
+    }
+
+    /**
+     * @return String Return all the question text without feedback texts.
+     */
+    public function join_question_text() {
+        $text = $this->questiontext;
+        foreach ($this->hints as $hint) {
+            $tet .= ' ' . $hint->hint;
+        }
+        return $text;
+    }
+
+    /**
+     *
+     * @return String Return the general feedback text in a single string so WIRIS
+     * quizzes can extract the variable placeholders.
+     */
+    public function join_feedback_text() {
+        return $this->generalfeedback;
     }
 
     public function call_wiris_service($request) {

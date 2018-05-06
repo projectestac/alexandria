@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filters', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filters', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   filters
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -70,7 +70,7 @@ $string['isnotequalto'] = 'no és igual a';
 $string['limiterfor'] = 'limitador de camp {$a}';
 $string['neveraccessed'] = 'No s\'ha accedit mai';
 $string['nevermodified'] = 'No s\'ha modificat mai';
-$string['newfilter'] = 'Nou filtre';
+$string['newfilter'] = 'Filtre nou';
 $string['nofiltersenabled'] = 'No s\'ha activat cap connecto de filtre per aquest lloc.';
 $string['off'] = 'Inactiu';
 $string['offbutavailable'] = 'Inactiu, però disponible';

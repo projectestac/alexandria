@@ -174,6 +174,17 @@ class lesson_page_type_branchtable extends lesson_page {
             $retries = 0;
         }
 
+        // First record this page in lesson_branch. This record may be needed by lesson_unseen_branch_jump.
+        $branch = new stdClass;
+        $branch->lessonid = $this->lesson->id;
+        $branch->userid = $USER->id;
+        $branch->pageid = $this->properties->id;
+        $branch->retry = $retries;
+        $branch->flag = $branchflag;
+        $branch->timeseen = time();
+        $branch->nextpageid = 0;    // Next page id will be set later.
+        $branch->id = $DB->insert_record("lesson_branch", $branch);
+
         //  this is called when jumping to random from a branch table
         $context = context_module::instance($PAGE->cm->id);
         if($newpageid == LESSON_UNSEENBRANCHPAGE) {
@@ -199,16 +210,9 @@ class lesson_page_type_branchtable extends lesson_page {
             $newpageid = lesson_unseen_branch_jump($this->lesson, $USER->id);
         }
 
-        // Record this page in lesson_branch.
-        $branch = new stdClass;
-        $branch->lessonid = $this->lesson->id;
-        $branch->userid = $USER->id;
-        $branch->pageid = $this->properties->id;
-        $branch->retry = $retries;
-        $branch->flag = $branchflag;
-        $branch->timeseen = time();
+        // Update record to set nextpageid.
         $branch->nextpageid = $newpageid;
-        $DB->insert_record("lesson_branch", $branch);
+        $DB->update_record("lesson_branch", $branch);
 
         redirect(new moodle_url('/mod/lesson/view.php', array('id' => $PAGE->cm->id, 'pageid' => $newpageid)));
     }
@@ -251,7 +255,9 @@ class lesson_page_type_branchtable extends lesson_page {
         $formattextdefoptions->context = $answerpage->context;
 
         foreach ($answers as $answer) {
-            $data = "<input type=\"button\" name=\"$answer->id\" value=\"".s(strip_tags(format_text($answer->answer, FORMAT_MOODLE,$formattextdefoptions)))."\" disabled=\"disabled\"> ";
+            $data = "<input type=\"button\" class=\"btn btn-secondary\" name=\"$answer->id\" " .
+                    "value=\"".s(strip_tags(format_text($answer->answer, FORMAT_MOODLE, $formattextdefoptions)))."\" " .
+                    "disabled=\"disabled\"> ";
             $data .= get_string('jumpsto', 'lesson', $this->get_jump_name($answer->jumpto));
             $answerdata->answers[] = array($data, "");
             $answerpage->answerdata = $answerdata;
@@ -313,7 +319,11 @@ class lesson_add_page_form_branchtable extends lesson_add_page_form_base {
 
         $jumptooptions = lesson_page_type_branchtable::get_jumptooptions($firstpage, $lesson);
 
-        $mform->setDefault('qtypeheading', get_string('addabranchtable', 'lesson'));
+        if ($this->_customdata['edit']) {
+            $mform->setDefault('qtypeheading', get_string('editbranchtable', 'lesson'));
+        } else {
+            $mform->setDefault('qtypeheading', get_string('addabranchtable', 'lesson'));
+        }
 
         $mform->addElement('hidden', 'firstpage');
         $mform->setType('firstpage', PARAM_BOOL);

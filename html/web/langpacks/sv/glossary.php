@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'glossary', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   glossary
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -310,6 +310,7 @@ $string['onebyline'] = '(en per rad)';
 $string['pluginadministration'] = 'Administration av ord- och begreppslista';
 $string['pluginname'] = 'Ord- och begreppslista';
 $string['popupformat'] = 'Popup-format';
+$string['print'] = 'Skriv ut';
 $string['printerfriendly'] = 'Utskriftsvänlig version';
 $string['printviewnotallowed'] = 'Visning av utskrift är inte tillåten.';
 $string['question'] = 'Fråga';

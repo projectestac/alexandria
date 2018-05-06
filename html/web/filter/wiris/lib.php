@@ -98,7 +98,7 @@ function wrs_createsessionid() {
 function wrs_setinitialsession($sessionid, $xml) {
     $wrap = com_wiris_system_CallWrapper::getInstance();
     $wrap->start();
-    $h = new com_wiris_plugin_impl_HttpImpl('http://www.wiris.net/demo/wiris/set', null);
+    $h = new com_wiris_plugin_impl_HttpImpl('https://stateful.wiris.net/wiris/set', null);
     $h->setParameter('session_id', $sessionid);
     $h->setParameter('value', $xml);
     $h->setParameter('revision', 1);
@@ -128,7 +128,7 @@ function wrs_filterapplettojnlp($text) {
             $srcstart = strpos($appletcode, ' src="') + strlen(' src="');
             $srcend = strpos($appletcode, '.png"', 0);
             $src = substr($appletcode, $srcstart, $srcend - $srcstart + 4);
-            $hreflink = 'http://www.wiris.net/demo/wiris/wiriscas.jnlp?session_id=' . $sessionid;
+            $hreflink = 'http://stateful.wiris.net/demo/wiris/wiriscas.jnlp?session_id=' . $sessionid;
             $output .= html_writer::start_tag('a', array('href' => $hreflink));
             $img = '';
             if (method_exists('html_writer', 'img')) {
@@ -171,5 +171,7 @@ function wrs_loadclasses() {
         require_once($CFG->dirroot . '/filter/wiris/classes/pluginwrapper.php');
         require_once($CFG->dirroot . '/filter/wiris/classes/paramsprovider.php');
         require_once($CFG->dirroot . '/filter/wiris/classes/configurationupdater.php');
+        require_once($CFG->dirroot . '/filter/wiris/classes/pluginwrapperconfigurationupdater.php');
+        require_once($CFG->dirroot . '/filter/wiris/classes/accessprovider.php');
     }
 }

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshop', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'workshop', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   workshop
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -74,6 +74,7 @@ $string['assignedassessments'] = 'Toegewezen inzendingen om te beoordelen';
 $string['assignedassessmentsnone'] = 'Je hebt geen inzending toegewezen om te evalueren';
 $string['backtoeditform'] = 'Terug naar bewerkscherm';
 $string['byfullname'] = 'door <a href="{$a->url}">{$a->name}</a>';
+$string['byfullnamewithoutlink'] = 'bij {$a}';
 $string['calculategradinggrades'] = 'Bereken beoordelingscijfers';
 $string['calculategradinggradesdetails'] = 'verwacht: {$a->expected}<br />berekend: {$a->calculated}';
 $string['calculatesubmissiongrades'] = 'Bereken de inzendingscijfers';
@@ -145,6 +146,7 @@ $string['examplesbeforesubmission'] = 'De voorbeelden moeten beoordeeld worden v
 $string['examplesmode'] = 'Modus voor de beoordeling van voorbeeldtaken';
 $string['examplesubmissions'] = 'Voorbeeldinzendingen';
 $string['examplesvoluntary'] = 'Het beoordelen van een voorbeeldtaak is op vrijwillige basis';
+$string['exportsubmission'] = 'Exporteer deze pagina';
 $string['feedbackauthor'] = 'Feedback voor de auteur';
 $string['feedbackauthorattachment'] = 'Bijlage';
 $string['feedbackby'] = 'Feedback door {$a}';
@@ -173,9 +175,9 @@ $string['gradinggradecalculated'] = 'Berekend cijfer voor beoordeling';
 $string['gradinggrade_help'] = 'Deze instelling bepaalt het maximumcijfer dat kan behaald worden voor de beoordeling van een taak.';
 $string['gradinggradeof'] = 'Cijfer voor beoordeling (van {$a})';
 $string['gradinggradeover'] = 'Overschrijf cijfer voor beoordeling';
-$string['gradingsettings'] = 'Beoordelingsinstellingen';
+$string['gradingsettings'] = 'Cijferinstellingen';
 $string['groupnoallowed'] = 'Je hebt toegang tot geen enkele groep in deze workshop';
-$string['iamsure'] = 'Ja, ik ben zeker';
+$string['iamsure'] = 'Ja, ik weet het zeker';
 $string['info'] = 'Info';
 $string['instructauthors'] = 'Instructies voor taak';
 $string['instructreviewers'] = 'Instructies voor beoordeling';
@@ -220,9 +222,9 @@ $string['page-mod-workshop-x'] = 'Elke pagina van de Workshop';
 $string['participant'] = 'Deelnemer';
 $string['participantrevierof'] = 'Deelnemer is beoordeler van';
 $string['participantreviewedby'] = 'Deelnemer is beoordeeld door';
-$string['phaseassessment'] = 'Evaluatiefase';
+$string['phaseassessment'] = 'Beoordelingsfase';
 $string['phaseclosed'] = 'Gesloten';
-$string['phaseevaluation'] = 'Evaluatie van de beoordeling fase';
+$string['phaseevaluation'] = 'Evaluatie van de beoordelingsfase';
 $string['phasesetup'] = 'Opstartfase';
 $string['phasesoverlap'] = 'De inzendingsfase en de evaluatiefase kunnen elkaar niet overlappen';
 $string['phasesubmission'] = 'Inzendingsfase';
@@ -281,6 +283,8 @@ $string['submissiongrade'] = 'Cijfer voor taak';
 $string['submissiongrade_help'] = 'Deze instelling bepaalt het maximumcijfer dat behaald kan worden voor een ingestuurde taak.';
 $string['submissiongradeof'] = 'Cijfer voor taak (op {$a}';
 $string['submissionlastmodified'] = 'Laatst gewijzigd';
+$string['submissionrequiredcontent'] = 'Je moet wat tekst of een bestand toevoegen.';
+$string['submissionrequiredfile'] = 'Je moet een bestand of wat tekst toevoegen.';
 $string['submissionsettings'] = 'Taak instellingen';
 $string['submissionsreport'] = 'Workshop insturingsrapport';
 $string['submissionstart'] = 'Inzenden kan vanaf';
@@ -302,25 +306,31 @@ $string['switchphase30auto'] = 'De workshop zal automatisch naar de evaluatiefas
 $string['switchphase30info'] = 'Je gaat de Workshop in de <strong>Beoordelingsfase</strong> schakelen. In deze fase kunnen beoordelaars de taken beoordelen die ze toegewezen gekregen hebben (binnen de beoordelings data indien ingesteld).';
 $string['switchphase40info'] = 'Je gaat de Workshop in de <strong>Evaluatiecijfers fase</strong> schakelen. In deze fase kunnen gebruikers hun taak en hun beoordelingen niet meer wijzigen. Leraren kunnen in deze fase de evaluatietools gebruiken om een eindcijfer te berekenen en om feedback aan de leerlingen en beoordelaars te geven.';
 $string['switchphase50info'] = 'Je gaat de Workshop sluiten. Hierdoor zullen de berekende cijfers in de cijferlijst verschijnen. Leerlingen kunnen dan hun taken en de beoordelingen ervan bekijken .';
-$string['taskassesspeers'] = 'Evalueer anderen';
+$string['switchphasenext'] = 'Schakel naar de volgende fase';
+$string['taskassesspeers'] = 'Beoordeel anderen';
 $string['taskassesspeersdetails'] = 'totaal: {$a->total}<br />te doen: {$a->todo}';
-$string['taskassessself'] = 'Evalueer jezelf';
+$string['taskassessself'] = 'Beoordeel jezelf';
 $string['taskconclusion'] = 'Geef een conclusie voor de activiteit';
+$string['taskdone'] = 'Taak klaar';
+$string['taskfail'] = 'Taak mislukt';
+$string['taskinfo'] = 'Taak informatie';
 $string['taskinstructauthors'] = 'Geef instructies voor de taak';
 $string['taskinstructreviewers'] = 'Geef instructies voor de beoordeling';
 $string['taskintro'] = 'Geef een beschrijving voor de Workshop';
 $string['tasksubmit'] = 'Stuur je werk in';
+$string['tasktodo'] = 'Taak gepland';
 $string['toolbox'] = 'Gereedschapskist voor de Workshop';
 $string['undersetup'] = 'De Workshop wordt nu klaargemaakt. Wacht tot die naar de volgende fase geschakeld is.';
 $string['useexamples'] = 'Voorbeeldtaken';
 $string['useexamples_desc'] = 'Er worden voorbeeldtaken voorzien om het beoordelen te oefenen';
 $string['useexamples_help'] = 'Indien ingeschakeld kunnen gebruikers een of meer voorbeeldtaken beoordelen en hun beoordeling vergelijken met een referentiebeoordeling. Het cijfer wordt niet gebruikt voor de berekening van de beoordeling.';
-$string['usepeerassessment'] = 'Peer-evaluatie';
+$string['usepeerassessment'] = 'Peer assessment';
 $string['usepeerassessment_desc'] = 'Leerlingen kunnen het werk van anderen beoordelen';
 $string['usepeerassessment_help'] = 'Indien ingeschakeld kan een gebruiker taken van andere gebruikers toegewezen krijgen om te beoordelen en zal die gebruiker een cijfer krijgen voor die beoordeling, naast het cijfer dat die krijgt voor zijn eigen taak.';
 $string['userdatecreated'] = 'ingestuurd op <span>{$a}</span>';
 $string['userdatemodified'] = 'gewijzigd op <span>{$a}</span>';
 $string['userplan'] = 'Workshop planner';
+$string['userplanaccessibilityskip'] = 'Huidige taak overslaan';
 $string['userplanaccessibilitytitle'] = 'Workshop tijdslijn met {$a} fases';
 $string['userplancurrentphase'] = 'Huidige fase';
 $string['userplan_help'] = 'De Workshop planner toont alle fasen van de activiteit en toont een lijst van taken per fase. De huidige fase is gemarkeerd en het voltooien van een taak wordt gemarkeerd met een vinkje.';
@@ -333,6 +343,7 @@ $string['workshop:addinstance'] = 'Voeg een nieuwe workshop toe';
 $string['workshop:allocate'] = 'Taken toewijzen voor beoordeling';
 $string['workshop:deletesubmissions'] = 'Verwijder inzendingen';
 $string['workshop:editdimensions'] = 'Bewerk beoordelingsformulieren';
+$string['workshop:exportsubmissions'] = 'Exporteer inzendingen';
 $string['workshop:ignoredeadlines'] = 'Negeer tijdsbeperkingen';
 $string['workshop:manageexamples'] = 'Beheer voorbeeldtaken';
 $string['workshopname'] = 'Workshop naam';

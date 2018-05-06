@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'notes', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   notes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['addnewnote'] = '新しいノートを追加する';
 $string['addnewnoteselect'] = 'ノートを書くユーザを選択する';
 $string['bynameondate'] = 'by {$a->name} - {$a->date}';
 $string['cannotdeletepost'] = '投稿の削除中にエラーが発生しました。';
-$string['configenablenotes'] = '個々のユーザに関するノートの保存を有効にします。';
+$string['configenablenotes'] = '個別のユーザに関するノートの保存を有効にします。';
 $string['content'] = 'コンテンツ';
 $string['course'] = 'コース';
 $string['coursenotes'] = 'コースノート';

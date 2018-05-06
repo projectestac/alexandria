@@ -52,11 +52,11 @@ $action = (empty($id)) ? 'add' : 'edit';
 
 $external = new stdClass();
 
-// Check that this id exists.
-if (!empty($id) && !$DB->record_exists('blog_external', array('id' => $id))) {
-    print_error('wrongexternalid', 'blog');
-} else if (!empty($id)) {
-    $external = $DB->get_record('blog_external', array('id' => $id));
+// Retrieve the external blog record.
+if (!empty($id)) {
+    if (!$external = $DB->get_record('blog_external', array('id' => $id, 'userid' => $USER->id))) {
+        print_error('wrongexternalid', 'blog');
+    }
     $external->autotags = core_tag_tag::get_item_tags_array('core', 'blog_external', $id);
 }
 
@@ -88,6 +88,13 @@ if ($externalblogform->is_cancelled()) {
                     context_user::instance($newexternal->userid), $data->autotags);
             blog_sync_external_entries($newexternal);
 
+            // Log this action.
+            $eventparms = array('context' => $context,
+                'objectid' => $newexternal->id,
+                'other' => array('url' => $newexternal->url));
+            $event = \core\event\blog_external_added::create($eventparms);
+            $event->trigger();
+
             break;
 
         case 'edit':
@@ -104,6 +111,14 @@ if ($externalblogform->is_cancelled()) {
                 $external->timemodified = time();
 
                 $DB->update_record('blog_external', $external);
+
+                // Log this action.
+                $eventparms = array('context' => $context,
+                    'objectid' => $external->id,
+                    'other' => array('url' => $external->url));
+                $event = \core\event\blog_external_updated::create($eventparms);
+                $event->trigger();
+
                 core_tag_tag::set_item_tags('core', 'blog_external', $external->id,
                         context_user::instance($external->userid), $data->autotags);
             } else {

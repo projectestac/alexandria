@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'calendar', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   calendar
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -91,8 +91,14 @@ $string['eventsdeleted'] = 'Eventos elimindados';
 $string['eventsfor'] = '{$a} eventos';
 $string['eventsimported'] = 'Eventos importados: {$a}';
 $string['eventskey'] = 'Clave de eventos';
+$string['eventspersonal'] = 'Mis eventos personales';
 $string['eventsrelatedtocourses'] = 'Eventos referidos a los cursos';
+$string['eventsrelatedtogroups'] = 'Eventos relacionados con grupos';
 $string['eventstarttime'] = 'Hora de comienzo';
+$string['eventstoexport'] = 'Eventos a exportar';
+$string['eventsubscriptioncreated'] = 'Suscripción al calendario creada';
+$string['eventsubscriptiondeleted'] = 'Suscripción al calendario eliminada';
+$string['eventsubscriptionupdated'] = 'Suscripción al calendario actualizada';
 $string['eventsupdated'] = 'Eventos actualizados: {$a}';
 $string['eventtime'] = 'Hora';
 $string['eventview'] = 'Detalles del evento';
@@ -114,7 +120,7 @@ $string['group'] = 'Grupo';
 $string['groupevent'] = 'Evento de grupo';
 $string['groupevents'] = 'Eventos de grupo';
 $string['hidecourseevents'] = 'Ocultar eventos de curso';
-$string['hideglobalevents'] = 'Ocultar eventos globales';
+$string['hideglobalevents'] = 'Ocultar eventos de sitio';
 $string['hidegroupsevents'] = 'Ocultar eventos de grupo';
 $string['hideuserevents'] = 'Ocultar eventos del usuario';
 $string['hourly'] = 'Cada hora';
@@ -187,6 +193,7 @@ $string['thu'] = 'Jue';
 $string['thursday'] = 'Jueves';
 $string['timeformat_12'] = '12 horas (am/pm)';
 $string['timeformat_24'] = '24 horas';
+$string['timeperiod'] = 'Periodo de tiempo';
 $string['today'] = 'Hoy';
 $string['tomorrow'] = 'Mañana';
 $string['tt_deleteevent'] = 'Eliminar evento';

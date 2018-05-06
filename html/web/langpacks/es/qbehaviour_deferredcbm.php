@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_deferredcbm', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qbehaviour_deferredcbm', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   qbehaviour_deferredcbm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,3 +42,4 @@ $string['judgementok'] = 'Ok';
 $string['judgementsummary'] = 'Respuestas: {$a->responses}. Precisión: {$a->fraction}. (Rango óptimo {$a->idealrangelow} a {$a->idealrangehigh}). Usted estuvo {$a->judgement} usando éste nivel de certeza.';
 $string['noquestions'] = 'No hay respuestas';
 $string['pluginname'] = 'Retroalimentación diferida con CBM';
+$string['weightx'] = 'Peso {$a}';

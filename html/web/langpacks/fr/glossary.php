@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'glossary', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   glossary
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -198,7 +198,7 @@ $string['glossary:managecomments'] = 'Gérer les commentaires';
 $string['glossary:manageentries'] = 'Gérer les articles';
 $string['glossary:rate'] = 'Évaluer les articles';
 $string['glossarytype'] = 'Type de glossaire';
-$string['glossarytype_help'] = 'Un glossaire principal est un glossaire dans lequel les articles d\'un glossaire secondaire peuvent être importés. Il ne peut y avoir qu\'un seul glossaire principal par cours. Si la fonctionnalité d\'importation d\'articles de glossaire n\'est pas requise dans un cours, tous ses glossaires peuvent être des glossaires secondaires.';
+$string['glossarytype_help'] = 'Un glossaire principal est un glossaire dans lequel les articles d\'un glossaire secondaire peuvent être importés. Il ne peut y avoir qu\'un seul glossaire principal par cours. Si la fonctionnalité d\'importation d\'articles de glossaire n\'est pas requise, tous ses glossaires du cours peuvent être des glossaires secondaires.';
 $string['glossary:view'] = 'Voir les glossaires';
 $string['glossary:viewallratings'] = 'Voir toutes les évaluations brutes données par des participants';
 $string['glossary:viewanyrating'] = 'Voir toutes les évaluations globales';

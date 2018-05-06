@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'form', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'form', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   form
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -53,8 +53,11 @@ $string['nomethodforaddinghelpbutton'] = '无法对表单元素 {$a->name} (类 
 $string['nonexistentformelements'] = '试图向不存在的表单元素“{$a}”添加帮助按钮';
 $string['noselection'] = '没有选项';
 $string['nosuggestions'] = '没有建议';
+$string['novalueclicktoset'] = '点击输入密码';
 $string['optional'] = '可选项';
 $string['othersettings'] = '其他设置';
+$string['passwordunmaskinstructions'] = '按enter键以保存更改';
+$string['passwordunmaskrevealhint'] = '显示密码';
 $string['requiredelement'] = '此处不能为空。';
 $string['revealpassword'] = '显示密码';
 $string['security'] = '安全设置';

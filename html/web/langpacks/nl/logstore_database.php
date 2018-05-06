@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'logstore_database', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'logstore_database', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   logstore_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,8 @@ $string['buffersize_help'] = 'Aantal log-items die in één keer in de databank 
 $string['conectexception'] = 'Kan niet verbinden met databank';
 $string['create'] = 'Maak';
 $string['databasecollation'] = 'Databankcollatie';
+$string['databasehandlesoptions'] = 'Databank behandelt opties';
+$string['databasehandlesoptions_help'] = 'Behandelt de externe databank zijn eigen opties.';
 $string['databasepersist'] = 'Persistente databankverbindingen';
 $string['databaseschema'] = 'Databankschema';
 $string['databasesettings'] = 'Databankinstellingen';

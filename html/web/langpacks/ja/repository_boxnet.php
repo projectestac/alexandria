@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_boxnet', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository_boxnet', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   repository_boxnet
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -41,4 +41,4 @@ $string['pluginname_help'] = 'Boxのリポジトリ';
 $string['saved'] = 'Boxデータが保存されました。';
 $string['shareurl'] = '共有URL';
 $string['username'] = 'Boxユーザ名';
-$string['warninghttps'] = 'Boxのリポジトリを動作させるには、あなたのウェブサイトがHTTPSを使用している必要があります。';
+$string['warninghttps'] = 'Boxのリポジトリを動作させるにはあなたのウェブサイトがHTTPSを使用している必要があります。';

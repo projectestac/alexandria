@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_ddwtos', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_ddwtos', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_ddwtos
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addmorechoiceblanks'] = 'Шаблоны для еще {no} вариантов';
 $string['answer'] = 'Ответ';
+$string['blank'] = 'пусто';
 $string['correctansweris'] = 'Верный ответ: {$a}';
 $string['infinite'] = 'несколько';
 $string['pleaseputananswerineachbox'] = 'Пожалуйста, введите ответ в каждое поле';

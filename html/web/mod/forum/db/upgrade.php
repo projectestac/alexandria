@@ -177,5 +177,53 @@ function xmldb_forum_upgrade($oldversion) {
     // Moodle v3.1.0 release upgrade line.
     // Put any upgrade step following this.
 
+    if ($oldversion < 2016091200) {
+
+        // Define field lockdiscussionafter to be added to forum.
+        $table = new xmldb_table('forum');
+        $field = new xmldb_field('lockdiscussionafter', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, '0', 'displaywordcount');
+
+        // Conditionally launch add field lockdiscussionafter.
+        if (!$dbman->field_exists($table, $field)) {
+            $dbman->add_field($table, $field);
+        }
+
+        // Forum savepoint reached.
+        upgrade_mod_savepoint(true, 2016091200, 'forum');
+    }
+
+    // Automatically generated Moodle v3.2.0 release upgrade line.
+    // Put any upgrade step following this.
+
+    if ($oldversion < 2016120501) {
+
+        // Remove duplicate entries from forum_subscriptions.
+        // Find records with multiple userid/forum combinations and find the highest ID.
+        // Later we will remove all those entries.
+        $sql = "
+            SELECT MIN(id) as minid, userid, forum
+            FROM {forum_subscriptions}
+            GROUP BY userid, forum
+            HAVING COUNT(id) > 1";
+
+        if ($duplicatedrows = $DB->get_recordset_sql($sql)) {
+            foreach ($duplicatedrows as $row) {
+                $DB->delete_records_select('forum_subscriptions',
+                    'userid = :userid AND forum = :forum AND id <> :minid', (array)$row);
+            }
+        }
+        $duplicatedrows->close();
+
+        // Define key useridforum (primary) to be added to forum_subscriptions.
+        $table = new xmldb_table('forum_subscriptions');
+        $key = new xmldb_key('useridforum', XMLDB_KEY_UNIQUE, array('userid', 'forum'));
+
+        // Launch add key useridforum.
+        $dbman->add_key($table, $key);
+
+        // Forum savepoint reached.
+        upgrade_mod_savepoint(true, 2016120501, 'forum');
+    }
+
     return true;
 }

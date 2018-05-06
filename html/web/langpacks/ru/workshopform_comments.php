@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_comments', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'workshopform_comments', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   workshopform_comments
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addmoredimensions'] = 'Добавить еще критерии - {$a}';
 $string['dimensioncomment'] = 'Комментарий';
+$string['dimensioncommentfor'] = 'Комментарий к {$a}';
 $string['dimensiondescription'] = 'Описание';
 $string['dimensionnumber'] = 'Критерий {$a}';
 $string['pluginname'] = 'Комментарии';

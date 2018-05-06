@@ -375,7 +375,7 @@ class backup_course_structure_step extends backup_structure_step {
         $course = new backup_nested_element('course', array('id', 'contextid'), array(
             'shortname', 'fullname', 'idnumber',
             'summary', 'summaryformat', 'format', 'showgrades',
-            'newsitems', 'startdate',
+            'newsitems', 'startdate', 'enddate',
             'marker', 'maxbytes', 'legacyfiles', 'showreports',
             'visible', 'groupmode', 'groupmodeforce',
             'defaultgroupingid', 'lang', 'theme',
@@ -522,7 +522,7 @@ class backup_enrolments_structure_step extends backup_structure_step {
         $enrol->annotate_ids('role', 'roleid');
 
         // Add enrol plugin structure.
-        $this->add_plugin_structure('enrol', $enrol, false);
+        $this->add_plugin_structure('enrol', $enrol, true);
 
         return $enrolments;
     }
@@ -869,6 +869,14 @@ class backup_calendarevents_structure_step extends backup_structure_step {
                         AND (eventtype = 'course' OR eventtype = 'group')";
             $calendar_items_params = array('courseid'=>backup::VAR_COURSEID);
             $event->set_source_sql($calendar_items_sql, $calendar_items_params);
+        } else if ($this->name == 'activity_calendar') {
+            $params = array('instance' => backup::VAR_ACTIVITYID, 'modulename' => backup::VAR_MODNAME);
+            // If we don't want to include the userinfo in the backup then setting the courseid
+            // will filter out all of the user override events (which have a course id of zero).
+            if (!$this->get_setting_value('userinfo')) {
+                $params['courseid'] = backup::VAR_COURSEID;
+            }
+            $event->set_source_table('event', $params);
         } else {
             $event->set_source_table('event', array('courseid' => backup::VAR_COURSEID, 'instance' => backup::VAR_ACTIVITYID, 'modulename' => backup::VAR_MODNAME));
         }
@@ -1780,6 +1788,7 @@ class backup_main_structure_step extends backup_structure_step {
         $info['original_course_fullname']  = $originalcourseinfo->fullname;
         $info['original_course_shortname'] = $originalcourseinfo->shortname;
         $info['original_course_startdate'] = $originalcourseinfo->startdate;
+        $info['original_course_enddate']   = $originalcourseinfo->enddate;
         $info['original_course_contextid'] = context_course::instance($this->get_courseid())->id;
         $info['original_system_contextid'] = context_system::instance()->id;
 
@@ -1795,7 +1804,7 @@ class backup_main_structure_step extends backup_structure_step {
             'name', 'moodle_version', 'moodle_release', 'backup_version',
             'backup_release', 'backup_date', 'mnet_remoteusers', 'include_files', 'include_file_references_to_external_content', 'original_wwwroot',
             'original_site_identifier_hash', 'original_course_id', 'original_course_format',
-            'original_course_fullname', 'original_course_shortname', 'original_course_startdate',
+            'original_course_fullname', 'original_course_shortname', 'original_course_startdate', 'original_course_enddate',
             'original_course_contextid', 'original_system_contextid'));
 
         $details = new backup_nested_element('details');

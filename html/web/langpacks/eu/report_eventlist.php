@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_eventlist', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'report_eventlist', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   report_eventlist
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['abstractclass'] = 'Laburpen motakoa';
 $string['action'] = 'Ekintza';
+$string['affectedtable'] = 'Inplikatutako taula';
 $string['all'] = 'Guztiak';
 $string['clear'] = 'Garbitu';
 $string['component'] = 'Osagaia';
@@ -35,6 +37,8 @@ $string['delete'] = 'ezabatu';
 $string['details'] = 'Xehetasunak';
 $string['dname'] = 'Izena';
 $string['edulevel'] = 'Hezkuntza-maila';
+$string['errorinvaliddirectory'] = 'Ekitaldiaren karpeta ez da existitzen edo ez da baliagarria';
+$string['errorinvalidevent'] = 'Emandako ekitaldia baliogabea da.';
 $string['eventcode'] = 'Ekitaldiaren kodea';
 $string['eventexplanation'] = 'Ekitaldiaren azalpena';
 $string['eventname'] = 'Ekitaldiaren izena';
@@ -49,6 +53,7 @@ $string['parentevent'] = 'Goragoko ekitaldia';
 $string['participating'] = 'Partaidetza';
 $string['pluginname'] = 'Ekitaldi-zerrenda';
 $string['read'] = 'irakurri';
+$string['relatedobservers'] = 'Ekitaldi honi begiratzen dioten pluginak';
 $string['since'] = 'Noiztik';
 $string['teaching'] = 'Irakaskuntza';
 $string['typedeclaration'] = 'Ekitaldien beste parametro batzuk';

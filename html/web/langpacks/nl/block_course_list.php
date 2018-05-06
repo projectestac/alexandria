@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_course_list', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_course_list', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   block_course_list
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 $string['adminview'] = 'Bekijk als beheerder';
 $string['allcourses'] = 'Beheerder ziet alle cursussen';
 $string['configadminview'] = 'Wat moet de beheerder zien in het "Cursussenlijst"-blok?';
-$string['confighideallcourseslink'] = 'Verberg de "Alle cursussen"-link onder de lijst met cursussen.  ( Deze instelling wijzigt het scherm van de beheerder niet.)';
+$string['confighideallcourseslink'] = 'Verberg de "Alle cursussen"-link onder de lijst met cursussen.  (Deze instelling wijzigt het scherm van de beheerder niet.)';
 $string['course_list:addinstance'] = 'Voeg een nieuw cursusblok toe';
 $string['course_list:myaddinstance'] = 'Voeg een nieuw cursusblok toe aan Mijn startpagina';
-$string['hideallcourseslink'] = 'Verberg \'Alle cursussen\' link';
+$string['hideallcourseslink'] = 'Verberg "Alle cursussen"-link';
 $string['owncourses'] = 'Beheerder ziet eigen cursussen';
 $string['pluginname'] = 'Cursussen';

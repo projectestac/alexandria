@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_generator', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_generator', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_generator
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -39,10 +39,10 @@ As disciplinas criadas com base nesta funcionalidade podem ocupar muito espaço 
 (Para evitar um uso acidental, esta funcionalidade encontra-se desativada, a não ser que tenha selecionado também o nível PROGRAMADOR em Mensagem de erro.)';
 $string['coursesize_0'] = 'XS (aprox. 10KB; criada em aprox. 1 segundos)';
 $string['coursesize_1'] = 'S (aprox. 10MB; criada em aprox. 30 segundos)';
-$string['coursesize_2'] = 'M (aprox. 10MB; criada em aprox. 5 minutos)';
-$string['coursesize_3'] = 'L (aprox. 1GB; criada em aprox. 1 hora)';
-$string['coursesize_4'] = 'XL (aprox. 10GB; criada em aprox. 4 horas)';
-$string['coursesize_5'] = 'XXL (aprox. 20GB; criada em aprox. 8 horas)';
+$string['coursesize_2'] = 'M (aprox. 100MB; criado em aprox. 2 minutos)';
+$string['coursesize_3'] = 'L (aprox. 1GB; criado em aprox. 30 minutos)';
+$string['coursesize_4'] = 'XL (aprox. 10GB; criado em aprox. 2 horas)';
+$string['coursesize_5'] = 'XXL (aprox. 20GB; criado em aprox. 4 horas)';
 $string['coursewithoutusers'] = 'A disciplina selecionada não tem utilizadores';
 $string['createcourse'] = 'Criar disciplina';
 $string['createtestplan'] = 'Criar plano de teste';
@@ -106,7 +106,7 @@ Isto faz parte do \'tool_generator\' e por isso funciona corretamente com as dis
 Deve considerar a capacidade dos seus servidores durante a execução de grandes planos de teste, pois a quantidade de carga gerada pelo JMeter pode ser especialmente grande. O período de ramp-up foi ajustado de acordo com o número de segmentos (utilizadores) para reduzir este tipo de problemas, mas a carga é ainda é muito grande.
 
 ** Não execute o plano de teste num servidor de produção**. Esta funcionalidade apenas cria ficheiros para o JMeter, o que por si só não causa nenhum perigo, mas **NUNCA** deverá executar este plano de teste num servidor de desenvolvimento.';
-$string['testplansize_0'] = 'XS ({$a->users} utilizadores, {$a->loops}';
+$string['testplansize_0'] = 'XS ({$a->users} utilizadores, {$a->loops})';
 $string['testplansize_1'] = 'S ({$a->users} utilizadores, {$a->loops} loops e {$a->rampup} período de ramp-up)';
 $string['testplansize_2'] = 'M ({$a->users} utilizadores, {$a->loops} loops e {$a->rampup} período de ramp-up)';
 $string['testplansize_3'] = 'L ({$a->users} utilizadores, {$a->loops} loops e {$a->rampup} período de ramp-up)';

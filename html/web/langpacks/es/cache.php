@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cache', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'cache', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   cache
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -46,6 +46,7 @@ $string['cachedef_coursemodinfo'] = 'Información acumulada sobre los módulos y
 $string['cachedef_databasemeta'] = 'Meta Información de Base de Datos';
 $string['cachedef_eventinvalidation'] = 'Invalidación de evento';
 $string['cachedef_externalbadges'] = 'Insignias externas de un usuario concreto';
+$string['cachedef_grade_categories'] = 'Consulta de categorías de grado';
 $string['cachedef_groupdata'] = 'Información de grupos del curso';
 $string['cachedef_htmlpurifier'] = 'Depurador de HTML - Limpieza de contenido';
 $string['cachedef_langmenu'] = 'Lista de idiomas disponibles';
@@ -58,6 +59,9 @@ $string['cachedef_questiondata'] = 'Definiciones de preguntas';
 $string['cachedef_repositories'] = 'Datos de repositorios';
 $string['cachedef_string'] = 'Caché de cadenas de idioma';
 $string['cachedef_suspended_userids'] = 'Listado de usuarios suspendidos por curso';
+$string['cachedef_tagindexbuilder'] = 'Resultados de la búsqueda de elementos etiquetados';
+$string['cachedef_tags'] = 'Etiquetas de colecciones y áreas';
+$string['cachedef_temp_tables'] = 'Tabla temporal de caché';
 $string['cachedef_userselections'] = 'Información empleada para mantener las selecciones del usuario en Moodle';
 $string['cachedef_yuimodules'] = 'Definiciones de módulos YUI';
 $string['cachelock_file_default'] = 'Bloqueo de archivo por defecto';
@@ -104,9 +108,6 @@ $string['lockdefault'] = 'Por defecto';
 $string['locking'] = 'Bloqueando';
 $string['locking_help'] = 'El bloqueo es un mecanismo que restringe el acceso a datos en caché a un proceso a la vez, previene que los datos se
 sobrescriban. El método de bloqueo determina cómo el bloqueo es adquirido y comprobado.';
-$string['lockingmeans'] = 'Mecanismo de bloqueo';
-$string['lockmethod'] = 'Método de bloqueo';
-$string['lockmethod_help'] = 'Este es el método usado para bloquear cuando se requiera para este almacén.';
 $string['lockname'] = 'Nombre';
 $string['locknamedesc'] = 'El nombre debe ser único y sólo puede contener caracteres: a-z_A-Z';
 $string['locknamenotunique'] = 'El nombre elegido no es único. Elija un nombre diferente, por favor.';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_group', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_group', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_group
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,12 +26,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['anygroup'] = '(Qualquer grupo)';
-$string['description'] = 'Permitir apenas os alunos que pertencem a um grupo específico, ou todos os grupos.';
+$string['description'] = 'Permitir apenas os alunos que pertencem a um grupo específico, ou a todos os grupos.';
 $string['error_selectgroup'] = 'Tem de selecionar um grupo.';
 $string['missing'] = '(Grupo em falta)';
 $string['pluginname'] = 'Restrição por grupo';
-$string['requires_anygroup'] = 'Você pertence a qualquer grupo';
+$string['requires_anygroup'] = 'Pertence a qualquer grupo';
 $string['requires_group'] = 'Pertence a <strong>{$a}</strong>';
-$string['requires_notanygroup'] = 'Você não pertence a nenhum grupo';
-$string['requires_notgroup'] = 'Você não pertence a <strong>{$a}</strong>';
+$string['requires_notanygroup'] = 'Não pertence a nenhum grupo';
+$string['requires_notgroup'] = 'Não pertence a <strong>{$a}</strong>';
 $string['title'] = 'Grupo';

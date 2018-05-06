@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'search', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'search', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   search
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -49,11 +49,12 @@ $string['documentsindatabase'] = 'Έγγραφα στη βάση δεδομέν�
 $string['documentsinindex'] = 'Έγγραφα στο ευρετήριο';
 $string['duration'] = 'Διάρκεια';
 $string['emptydatabaseerror'] = 'Ο πίνακας της βάσης δεδομένων δεν υπάρχει ή δεν περιέχει εγγραφές ευρετηρίου.';
+$string['enginenotfound'] = 'Αδυναμία εύρεσης μηχανισμού {$a}';
 $string['enteryoursearchquery'] = 'Δώστε τους όρους για έρευνα';
 $string['errors'] = 'Σφάλματα';
 $string['filesinindexdirectory'] = 'Αρχεία στον κατάλογο ευρετηρίου';
 $string['globalsearch'] = 'Καθολική αναζήτηση';
-$string['globalsearchdisabled'] = 'Η καθολική έρευνα δεν είναι ενεργοποιημένη.';
+$string['globalsearchdisabled'] = 'Η καθολική αναζήτηση δεν είναι ενεργοποιημένη.';
 $string['invalidindexerror'] = 'Ο κατάλογος ευρετηρίου περιέχει εσφαλμένα ή καθόλου δεδομένα.';
 $string['ittook'] = 'Χρειάστηκαν';
 $string['next'] = 'Επόμενο';
@@ -64,8 +65,8 @@ $string['resultsreturnedfor'] = 'αποτελέσματα βρέθηκαν γι�
 $string['runindexer'] = 'Δημιουργία ευρετηρίου';
 $string['runindexertest'] = 'Δημιουργία ευρετηρίου (δοκιμή)';
 $string['score'] = 'Βαθμολογία';
-$string['search'] = 'Έρευνα';
-$string['searching'] = 'Γίνεται έρευνα στο...';
+$string['search'] = 'Αναζήτηση';
+$string['searching'] = 'Γίνεται αναζήτηση στο...';
 $string['seconds'] = 'δευτερόλεπτα';
 $string['solutions'] = 'Λύσεις';
 $string['statistics'] = 'Στατιστικά';

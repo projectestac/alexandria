@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_uploadcourse', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_uploadcourse', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_uploadcourse
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -70,7 +70,7 @@ $string['coursetemplatename_help'] = 'Indiquez ici le nom abrégé d\'un cours e
 $string['coursetorestorefromdoesnotexist'] = 'Le cours indiqué pour servir de modèle n\'existe pas';
 $string['courseupdated'] = 'Cours modifié';
 $string['createall'] = 'Tour créer, en incrémentant si nécessaire le nom abrégé';
-$string['createnew'] = 'Créer uniquement les nouveaux cours et sauter les cours existants';
+$string['createnew'] = 'Créer uniquement les nouveaux cours et passer les cours existants';
 $string['createorupdate'] = 'Créer de nouveaux cours ou modifier les cours existants';
 $string['csvdelimiter'] = 'Délimiteur CSV';
 $string['csvdelimiter_help'] = 'Délimiteur du fichier CSV';

@@ -118,6 +118,7 @@ class com_wiris_plugin_impl_PluginBuilderImpl extends com_wiris_plugin_api_Plugi
 		$config = $this->getConfiguration();
 		if(Type::resolveClass("com.wiris.editor.services.PublicServices") !== null) {
 			if($config->getProperty(com_wiris_plugin_api_ConfigurationKeys::$SERVICE_HOST, null) === "www.wiris.net") {
+				return $this->getConfiguration()->getProperty(com_wiris_plugin_api_ConfigurationKeys::$CONTEXT_PATH, "/") . "/editor/editor";
 			}
 		}
 		$protocol = $config->getProperty(com_wiris_plugin_api_ConfigurationKeys::$SERVICE_PROTOCOL, null);
@@ -183,6 +184,12 @@ class com_wiris_plugin_impl_PluginBuilderImpl extends com_wiris_plugin_api_Plugi
 		return $this->updaterChain;
 	}
 	public function initialize($sac, $conf) {
+		if($this->storageAndCacheCacheObject === null) {
+			$this->storageAndCacheCacheObject = new com_wiris_plugin_impl_CacheImpl($conf);
+		}
+		if($this->storageAndCacheCacheFormulaObject === null) {
+			$this->storageAndCacheCacheFormulaObject = new com_wiris_plugin_impl_CacheFormulaImpl($conf);
+		}
 		$sac->init($this->storageAndCacheInitObject, $conf, $this->storageAndCacheCacheObject, $this->storageAndCacheCacheFormulaObject);
 	}
 	public function getStorageAndCache() {
@@ -241,6 +248,12 @@ class com_wiris_plugin_impl_PluginBuilderImpl extends com_wiris_plugin_api_Plugi
 	public function setStorageAndCache($store) {
 		$this->store = $store;
 	}
+	public function getAccessProvider() {
+		return $this->accessProvider;
+	}
+	public function setAccessProvider($provider) {
+		$this->accessProvider = $provider;
+	}
 	public function getCustomParamsProvider() {
 		return $this->customParamsProvider;
 	}
@@ -250,9 +263,10 @@ class com_wiris_plugin_impl_PluginBuilderImpl extends com_wiris_plugin_api_Plugi
 	public function addConfigurationUpdater($conf) {
 		$this->updaterChain->push($conf);
 	}
-	public $customParamsProvider;
-	public $storageAndCacheCacheFormulaObject;
-	public $storageAndCacheCacheObject;
+	public $accessProvider = null;
+	public $customParamsProvider = null;
+	public $storageAndCacheCacheFormulaObject = null;
+	public $storageAndCacheCacheObject = null;
 	public $storageAndCacheInitObject;
 	public $updaterChain;
 	public $store;

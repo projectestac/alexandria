@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'data', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -56,9 +56,9 @@ $string['buttons'] = 'Ενέργειας';
 $string['bynameondate'] = 'από {$a->name} - {$a->date}';
 $string['cancel'] = 'Ακύρωση';
 $string['cannotaccesspresentsother'] = 'Δε σας επιτρέπεται η πρόσβαση σε προκαθορισμένες τιμές άλλων χρηστών';
-$string['cannotadd'] = 'Δεν είναι δυνατή η προσθήκη καταχωρήσεων!';
+$string['cannotadd'] = 'Αδυναμία προσθήκης καταχωρήσεων!';
 $string['cannotdeletepreset'] = 'Σφάλμα κατά τη διαγραφή του προτύπου!';
-$string['cannotunziptopreset'] = 'Δεν είναι δυνατή η αποσυμπίεση στον προκαθορισμένο κατάλογο';
+$string['cannotunziptopreset'] = 'Αδυναμία αποσυμπίεσης στον προκαθορισμένο κατάλογο';
 $string['checkbox'] = 'Κουμπί επιλογής';
 $string['chooseexportfields'] = 'Επιλέξτε τα πεδία που επιθυμείτε να εξαγάγετε:';
 $string['chooseexportformat'] = 'Επιλέξτε το φορμάτ στο οποίο θέλετε να εξαγάγετε:';
@@ -110,7 +110,7 @@ $string['data:comment'] = 'Καταγραφή σχολίων';
 $string['data:exportallentries'] = 'Εξαγωγή όλων των καταχωρήσεων στη βάση';
 $string['data:exportentry'] = 'Εξαγωγή μιας καταχώρησης στη βάση';
 $string['data:exportownentry'] = 'Εξαγωγή ιδίας καταχώρησης στης βάση';
-$string['data:managecomments'] = 'Διαχείριση σχολίων';
+$string['data:managecomments'] = 'Διαχείρηση σχολίων';
 $string['data:manageentries'] = 'Διαχείριση καταχωρήσεων';
 $string['data:managetemplates'] = 'Διαχείριση προτύπων';
 $string['data:manageuserpresets'] = 'Διαχείριση των ρυθμίσεων όλων των προτύπων';
@@ -152,11 +152,13 @@ $string['entrysaved'] = 'Η καταχώρησή σας αποθηκεύτηκε
 $string['errormustbeteacher'] = 'Πρέπει να είστε καθηγητής για να χρησιμοποιήσετε αυτή την σελίδα!';
 $string['example'] = 'Παράδειγμα αρθρώματος βάσης δεδομένων';
 $string['excel'] = 'Excel';
+$string['expired'] = 'Η δραστηριότητα αυτή έκλεισε στις {$a} και δεν είναι πλέον διαθέσιμη';
 $string['export'] = 'Εξαγωγή';
 $string['exportaszip'] = 'Εξαγωγή ως συμπιεσμένο αρχείο';
 $string['exportaszip_help'] = '<p align="center"><strong>Εξαγωγή σε αρχείο zip</strong></p>
 <p>Με τη λειτουργία αυτή μπορείτε να εξάγετε τη αυτή τη βάσης δεδομένων σε ένα αρχείο, το οποίο στη συνέχεια μπορεί να μεταφερθεί και να εισαχθεί σε άλλη βάση δεδομένων με τη λειτουργία "Εισαγωγή από αρχείο zip".</p>';
 $string['exportedtozip'] = 'Εξήχθη σε προσωρινό συμπιεσμένο αρχείο...';
+$string['exportentries'] = 'Εξαγωγή καταχωρίσεων';
 $string['failedpresetdelete'] = 'Σφάλμα κατά τη διαγραφή προτύπου!';
 $string['fieldadded'] = 'Προστέθηκε πεδίο';
 $string['fieldallowautolink'] = 'Να επιτρέπεται η αυτόματη σύνδεση';
@@ -203,6 +205,7 @@ $string['headerlisttemplate'] = 'Ορίζει την διεπαφή πλοήγη
 $string['headerrsstemplate'] = 'Ορίζει την εμφάνιση των καταχωρήσεων στα RSS feeds';
 $string['headersingletemplate'] = 'Ορίζει την διεπαφή πλοήγησης για μια καταχώρηση';
 $string['importsuccess'] = 'Οι ρυθμίσεις εφαρμόστηκαν με επιτυχία.';
+$string['includetime'] = 'Συμπερίληψη ώρας προσθήκης / τροποποίησης';
 $string['insufficiententries'] = 'περισσότερες καταχωρήσεις απαιτούνται για την εμφάνιση αυτής της βάσης δεδομένων';
 $string['intro'] = 'Εισαγωγή';
 $string['invalidaccess'] = 'Η πρόσβαση σε αυτήν τη σελίδα δεν είναι σωστή';
@@ -238,7 +241,7 @@ $string['modulename'] = 'Βάση δεδομένων';
 $string['modulenameplural'] = 'Βάσεις δεδομένων';
 $string['more'] = 'Περισσότερα';
 $string['moreurl'] = 'Περισσότερα URL';
-$string['movezipfailed'] = 'Δεν είναι δυνατή η μετακίνηση του συμπιεσμένου αρχείου';
+$string['movezipfailed'] = 'Αδυναμία μετακίνησης συμπιεσμένου αρχείου';
 $string['multientry'] = 'Επαναλαμβανόμενη καταχώρηση';
 $string['multimenu'] = 'Μενού (Πολλαπλή επιλογή)';
 $string['multipletags'] = 'Βρέθηκαν πολλαπλές ετικέτες! Το πρότυπο δεν αποθηκεύτηκε';
@@ -268,7 +271,9 @@ $string['nomatch'] = 'Δεν βρέθηκαν καταχωρήσεις που ν
 $string['nomaximum'] = 'Χωρίς μέγιστο';
 $string['norecords'] = 'Δεν υπάρχουν καταχωρήσεις στη βάση δεδομένων';
 $string['nosingletemplate'] = 'Το ατομικό πρότυπο δεν έχει οριστεί ακόμα';
+$string['notapproved'] = 'Δεν έχει ακόμη εγκριθεί.';
 $string['notinjectivemap'] = 'Δεν είναι injective map';
+$string['notopenyet'] = 'Συγνώμη, αυτή η δραστηριότητα δεν είναι διαθέσιμη μέχρι {$a}';
 $string['number'] = 'Αριθμός';
 $string['numberrssarticles'] = 'RSS Άρθρα';
 $string['numnotapproved'] = 'Εκκρεμεί';
@@ -277,8 +282,9 @@ $string['ods'] = '<acronym title="OpenDocument Spreadsheet">ODS</acronym> (OpenO
 $string['optionaldescription'] = 'Μικρή περιγραφή (προαιρετικό)';
 $string['optionalfilename'] = 'Όνομα αρχείου (προαιρετικό)';
 $string['other'] = 'Άλλο';
-$string['overwrite'] = 'Επικάλυψη';
-$string['overwritesettings'] = 'Επικάλυψη τρέχουσας ρύθμισης';
+$string['overrwritedesc'] = 'Αντικατάσταση προκαθορισμένου αν υπάρχει ήδη';
+$string['overwrite'] = 'Αντικατάσταση';
+$string['overwritesettings'] = 'Αντικατάσταση τρέχουσας ρύθμισης';
 $string['pagesize'] = 'Καταχωρήσεις ανά σελίδα';
 $string['participants'] = 'Συμμετέχοντες';
 $string['picture'] = 'Εικόνα';

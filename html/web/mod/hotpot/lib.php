@@ -105,6 +105,11 @@ function hotpot_add_instance(stdclass $data, $mform) {
     // update gradebook item
     hotpot_grade_item_update($data);
 
+    if (class_exists('\core_completion\api')) {
+        $completiontimeexpected = (empty($data->completionexpected) ? null : $data->completionexpected);
+        \core_completion\api::update_completion_date_event($data->coursemodule, 'hotpot', $data->id, $completiontimeexpected);
+    }
+
     return $data->id;
 }
 
@@ -133,6 +138,11 @@ function hotpot_update_instance(stdclass $data, $mform) {
     } else {
         // recalculate grades for all users
         hotpot_update_grades($data);
+    }
+
+    if (class_exists('\core_completion\api')) {
+        $completiontimeexpected = (empty($data->completionexpected) ? null : $data->completionexpected);
+        \core_completion\api::update_completion_date_event($data->coursemodule, 'hotpot', $data->id, $completiontimeexpected);
     }
 
     return true;
@@ -640,7 +650,7 @@ function hotpot_print_recent_activity($course, $viewfullnames, $timestart) {
  *     $activity->timestamp : the time that the content was recorded in the database
  */
 function hotpot_get_recent_mod_activity(&$activities, &$index, $timestart, $courseid, $coursemoduleid=0, $userid=0, $groupid=0) {
-    global $CFG, $DB, $USER;
+    global $CFG, $DB, $OUTPUT, $USER;
 
     // CONTRIB-4025 don't allow students to see each other's scores
     $coursecontext = hotpot_get_context(CONTEXT_COURSE, $courseid);
@@ -729,15 +739,10 @@ function hotpot_get_recent_mod_activity(&$activities, &$index, $timestart, $cour
         $userid = $attempt->userid;
         if (! array_key_exists($userid, $users[$cmid])) {
             $users[$cmid][$userid] = (object)array(
-                'id'        => $userid,
-                'userid'    => $userid,
-                'firstname' => $attempt->firstname,
-                'lastname'  => $attempt->lastname,
-                'fullname'  => fullname($attempt),
-                'picture'   => $attempt->picture,
-                'imagealt'  => $attempt->imagealt,
-                'email'     => $attempt->email,
-                'attempts'  => array()
+                'userid'   => $userid,
+                'fullname' => fullname($attempt),
+                'picture'  => $OUTPUT->user_picture($attempt, array('courseid' => $courseid)),
+                'attempts' => array(),
             );
         }
         // add this attempt by this user at this course module
@@ -765,16 +770,7 @@ function hotpot_get_recent_mod_activity(&$activities, &$index, $timestart, $cour
                 'type' => 'hotpot',
                 'cmid' => $cmid,
                 'name' => $name,
-                'user' => (object)array(
-                    'id'        => $user->id,
-                    'userid'    => $user->userid,
-                    'firstname' => $user->firstname,
-                    'lastname'  => $user->lastname,
-                    'fullname'  => $user->fullname,
-                    'picture'   => $user->picture,
-                    'imagealt'  => $user->imagealt,
-                    'email'     => $user->email
-                ),
+                'user' => $user,
                 'attempts'  => $user->attempts,
                 'timestamp' => $user->attempts[$max_unumber]->timemodified
             );
@@ -816,8 +812,13 @@ function hotpot_print_recent_mod_activity($activity, $courseid, $detail, $modnam
         $row->cells[] = $cell;
 
         // activity icon and link to activity
-        $src = $OUTPUT->pix_url('icon', $activity->type);
-        $img = html_writer::tag('img', array('src'=>$src, 'class'=>'icon', $alt=>$activity->name));
+        if (method_exists($OUTPUT, 'image_icon')) {
+            // Moodle >= 3.3
+            $img = $OUTPUT->image_icon('icon', $modnames[$activity->type], $activity->type);
+        } else {
+            // Moodle <= 3.2
+            $img = $OUTPUT->pix_icon('icon', $modnames[$activity->type], $activity->type);
+        }
 
         // link to activity
         $href = new moodle_url('/mod/hotpot/view.php', array('id' => $activity->cmid));
@@ -845,8 +846,7 @@ function hotpot_print_recent_mod_activity($activity, $courseid, $detail, $modnam
     $cell->rowspan = $rowspan;
     $row->cells[] = $cell;
 
-    $picture = $OUTPUT->user_picture($activity->user, array('courseid'=>$courseid));
-    $cell = new html_table_cell($picture, array('width'=>35, 'valign'=>'top', 'class'=>'forumpostpicture'));
+    $cell = new html_table_cell($activity->user->picture, array('width'=>35, 'valign'=>'top', 'class'=>'forumpostpicture'));
     $cell->rowspan = $rowspan;
     $row->cells[] = $cell;
 
@@ -2295,3 +2295,32 @@ function hotpot_get_completion_state($course, $cm, $userid, $type) {
     return $state;
 }
 
+/**
+ * This function receives a calendar event and returns the action associated with it, or null if there is none.
+ *
+ * This is used by block_myoverview in order to display the event appropriately. If null is returned then the event
+ * is not displayed on the block.
+ *
+ * @param calendar_event $event
+ * @param \core_calendar\action_factory $factory
+ * @return \core_calendar\local\event\entities\action_interface|null
+ */
+function mod_hotpot_core_calendar_provide_event_action(calendar_event $event,
+                                                            \core_calendar\action_factory $factory) {
+    $cm = get_fast_modinfo($event->courseid)->instances['hotpot'][$event->instance];
+
+    $completion = new \completion_info($cm->get_course());
+
+    $completiondata = $completion->get_data($cm, false);
+
+    if ($completiondata->completionstate != COMPLETION_INCOMPLETE) {
+        return null;
+    }
+
+    return $factory->create_instance(
+            get_string('view'),
+            new \moodle_url('/mod/hotpot/view.php', ['id' => $cm->id]),
+            1,
+            true
+    );
+}

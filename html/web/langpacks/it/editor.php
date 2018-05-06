@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'editor', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   editor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -92,7 +92,7 @@ $string['lefttoright'] = 'Direzione da sinistra a destra';
 $string['linkproperties'] = 'Proprietà  collegamento';
 $string['linktarget'] = 'destinazione';
 $string['linktargetblank'] = 'Nuova finestra';
-$string['linktargetnone'] = 'Niente';
+$string['linktargetnone'] = 'Nessuno';
 $string['linktargetother'] = 'Altro (fuori servizio)';
 $string['linktargetself'] = 'Stesso frame';
 $string['linktargettop'] = 'Stessa finestra';

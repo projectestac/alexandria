@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_ddmarker', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_ddmarker', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_ddmarker
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,3 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['correctansweris'] = 'Η σωστή απάντηση είναι: {$a}';
+$string['formerror_nobgimage'] = 'Θα πρέπει να επιλέξετε μια εικόνα που θα χρησιμοποιηθεί ως φόντο για την περιοχή μεταφοράς και απόθεσης.';
+$string['pluginname'] = 'Δείκτες μεταφοράς και απόθεσης';
+$string['pluginnameadding'] = 'Προσθήκη δεικτών μεταφοράς και απόθεσης';
+$string['pluginnameediting'] = 'Επεξεργασία δεικτών μεταφοράς και απόθεσης';
+$string['pluginname_help'] = 'Οι δείκτες μεταφοράς και απόθεσης απαιτούν από τον ερωτώμενο να μεταφέρει ετικέτες κειμένου και να τις αποθέσει σε καθορισμένες ζώνες απόθεσης σε μια εικόνα φόντου.';
+$string['previewareaheader'] = 'Προεπισκόπηση';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hub', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'hub', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   hub
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -51,7 +51,7 @@ $string['contactable_help'] = 'この設定を有効にした場合、あなた�
 $string['contactemail'] = '連絡先メール';
 $string['contactname'] = '連絡先名';
 $string['contactphone'] = '電話';
-$string['contactphone_help'] = '電話番号はハブ管理者のみに表示され、パブリックに公開されることはありません。';
+$string['contactphone_help'] = '電話番号はハブ管理者にのみ表示されパブリックに公開されることはありません。';
 $string['continue'] = '続ける';
 $string['contributornames'] = '他の寄稿者';
 $string['contributornames_help'] = 'このフィールドを使用することで、あなたはこのコースに寄稿した人の氏名を一覧表示することができます。';
@@ -99,7 +99,7 @@ $string['errorcronnoxmlrpc'] = '登録を更新するにはXML-RPCを有効に�
 $string['errorhublisting'] = 'Moodleのハブリスト検索中にエラーが発生しました。後で再度お試しください ({$a})。';
 $string['errorlangnotrecognized'] = '提供された言語コードはMoodleでは使用できません。{$a} にご連絡ください。';
 $string['errorregistration'] = '登録中にエラーが発生しました。後ほど再度お試しください ({$a})。';
-$string['errorunpublishcourses'] = '予期しないエラーが発生したため、ハブからコースを削除できませんでした。再度お試しいただくか (推奨)、ハブ管理者にご連絡ください。';
+$string['errorunpublishcourses'] = '予期しないエラーが発生したためハブからコースを削除できませんでした。再度お試しいただくか (推奨)、ハブ管理者にご連絡ください。';
 $string['existingscreenshotnumber'] = '{$a} 件のスクリーンショットがあります。ハブ管理者があなたのコースを有効にした後、これらのスクリーンショットを閲覧することができるようになります。';
 $string['existingscreenshots'] = '既存のスクリーンショット';
 $string['forceunregister'] = 'はい、登録データを消去します';
@@ -267,4 +267,4 @@ $string['wrongtoken'] = '不明な理由により登録に失敗しました (�
 $string['wrongurlformat'] = '正しくないURLフォーマット';
 $string['xmlrpcdisabledcommunity'] = 'サーバでXML-RPC拡張モジュールが有効にされていません。あなたはコースを検索およびダウンロードすることができません。';
 $string['xmlrpcdisabledpublish'] = 'サーバでXML-RPC拡張モジュールが有効にされていません。あなたはコースを公開または公開済みコースを管理することができません。';
-$string['xmlrpcdisabledregistration'] = 'サーバでXML-RPC拡張モジュールが有効にされていません。有効にするまで、あなたは登録解除またはあなたの登録を更新することができません。';
+$string['xmlrpcdisabledregistration'] = 'サーバでXML-RPC拡張モジュールが有効にされていません。有効にするまであなたは登録を解除または登録を更新することはできません。';

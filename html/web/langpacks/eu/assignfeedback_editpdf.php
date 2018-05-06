@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignfeedback_editpdf', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   assignfeedback_editpdf
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -50,6 +50,7 @@ $string['editpdf_help'] = 'Ikasleen bidalketak zuzenean nabigatzailean jaso eta 
 $string['enabled'] = 'PDF oharra';
 $string['enabled_help'] = 'Gaituta, irakasleak oharrak dituen PDF fitxategia sortu ahal izango du zereginak markatzean. Honela, irakasleak aukera izango du iruzkinak marrazkiak eta zigiluak zuzenean ikasleen lanean gehitzeko, Oharra nabigatzailean egiten da eta ez da aparteko softwarerik behar.';
 $string['errorgenerateimage'] = 'Erroea ghostscript-a erabiliz irudia sortzean, errorearen informazioa: {$a}';
+$string['errorpdfpage'] = 'Errorea gertatu da orri hau sortzean.';
 $string['filter'] = 'Iragazi iruzkinak...';
 $string['generatefeedback'] = 'Sortu PDF feedbacka-a';
 $string['generatingpdf'] = 'PDF feedback-a sortzen...';
@@ -67,7 +68,7 @@ $string['output'] = 'Irteera:';
 $string['oval'] = 'Obaloa';
 $string['pagenumber'] = '{$a} orria';
 $string['pagexofy'] = '{$a->page} orri {$a->total}-(e)tik';
-$string['pathtogspathdesc'] = 'Mesedez kontuan izan PDF oharrak erabiltzeko beharrezkoa dela ghostscript-erako bide-izena {$a}-n zehazturik egotea.';
+$string['pathtogspathdesc'] = 'Mesedez kontuan izan PDF oharrek ghostscript-erako bide-izena {$a}-n zehazturik egon behar dutela.';
 $string['pathtounoconvpathdesc'] = 'Mesedez kontuan izan PDF oharrak erabiltzeko beharrezkoa dela unoconv-erako bide-izena {$a}-n zehazturik egotea.';
 $string['pen'] = 'Arkatza';
 $string['pluginname'] = 'PDF oharra';
@@ -83,7 +84,7 @@ $string['stamps'] = 'Zigiluak';
 $string['stampsdesc'] = 'Zigiluak irudi-fitxategia izan behar du (gomendatutako tamaina: 40x40). Irudi hauek zigilua tresnarekin erabil daitezke PDF oharretarako.';
 $string['test_doesnotexist'] = 'Ghostscript helbideak ez dagoen fitxategi batera eramaten du';
 $string['test_empty'] = 'Ghostscritp helbidea hutsik dago - mesedez, idatzi helbide egokia';
-$string['testgs'] = 'Aztertu ghostscript helbidea';
+$string['testgs'] = 'Probatu ghostscript helbidea';
 $string['test_isdir'] = 'Ghostscript helbidea karpetara batera doa, mesedez, sartu ghostscript programa zuk zehaztutako helbidean';
 $string['test_notestfile'] = 'PDF azterketa galdu da';
 $string['test_notexecutable'] = 'Ghostscript helbidea exekuta ezin daitekeen fitxategi batera doa';

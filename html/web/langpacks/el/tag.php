@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tag', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tag', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   tag
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,7 @@ $string['addotags'] = 'Προσθήκη επίσημης ετικέτας';
 $string['addtagtomyinterests'] = 'Προσθήκη του "{$a}" στα ενδιαφέροντά μου';
 $string['changename'] = 'Αλλαγή ονόματος ετικέτας';
 $string['changetype'] = 'Αλλαγή τύπου ετικέτας';
+$string['component'] = 'Συστατικό';
 $string['count'] = 'Αριθμός';
 $string['coursetags'] = 'Ετικέτες μαθήματος';
 $string['delete'] = 'Διαγραφή';
@@ -54,6 +55,7 @@ $string['officialtag'] = 'Επίσημη ετικέτα';
 $string['otags'] = 'Επίσημες ετικέτες';
 $string['othertags'] = 'Άλλες ετικέτες (χωρισμένες με κόμματα)';
 $string['owner'] = 'Ιδιοκτήτης';
+$string['prevpage'] = 'Επιστροφή';
 $string['ptags'] = 'Ετικέτες χρηστών (χωρισμένες με κόμματα)';
 $string['relatedblogs'] = 'Τελευταίες καταχωρήσεις ιστολογίου';
 $string['relatedtags'] = 'Σχετικές ετικέτες';
@@ -69,8 +71,10 @@ $string['searchtags'] = 'Αναζήτηση ετικετών';
 $string['seeallblogs'] = 'Δείτε όλες τις καταχωρήσεις ιστολογίων σχετικές με "{$a}"...';
 $string['select'] = 'Επιλέξτε';
 $string['showingfirsttags'] = 'Προβάλλονται οι {$a} περισσότερο δημοφιλείς ετικέτες';
+$string['standardforce'] = 'Επιβολή';
 $string['tag'] = 'Ετικέτα';
 $string['tagarea_course_modules'] = 'Δραστηριότητες και πόροι';
+$string['tagareaenabled'] = 'Ενεργοποιημένο';
 $string['tagarea_user'] = 'Ενδιαφέροντα χρήστη';
 $string['tagdescription'] = 'Περιγραφή ετικέτας';
 $string['taggedwith'] = 'σχετικό με "{$a}"';

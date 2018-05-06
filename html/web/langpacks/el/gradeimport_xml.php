@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeimport_xml', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradeimport_xml', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   gradeimport_xml
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,7 +32,9 @@ $string['errincorrectgradeidnumber'] = 'Σφάλμα - ο αναγνωριστι
 $string['errincorrectidnumber'] = 'Σφάλμα - λανθασμένος αναγνωριστικός αριθμός';
 $string['errincorrectuseridnumber'] = 'Σφάλμα - ο αναγνωριστικός αριθμός \'{$a}\' από το αρχείο εισαγωγής δεν αντιστοιχεί σε κάποιον χρήστη.';
 $string['error'] = 'Συνέβησαν σφάλματα';
-$string['fileurl'] = 'Τοποθεσία απομακρυσμένου αρχείου';
+$string['errorduringimport'] = 'Προέκυψε σφάλμα κατα την εισαγωγή: {$a}';
+$string['fileurl'] = 'URL απομακρυσμένου αρχείου';
+$string['importxml'] = 'Εισαγωγή XML';
 $string['pluginname'] = 'Αρχείο XML';
 $string['xml:publish'] = 'Δημοσίευση εισαγωγής βαθμών από αρχείο XML';
 $string['xml:view'] = 'Εισαγωγή βαθμών από αρχείο XML';

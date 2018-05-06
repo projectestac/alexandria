@@ -794,21 +794,34 @@ class file_storage {
      *
      * @param int $contextid context ID
      * @param string $component component
-     * @param string $filearea file area
+     * @param mixed $filearea file area/s, you cannot specify multiple fileareas as well as an itemid
      * @param int $itemid item ID or all files if not specified
      * @param string $sort A fragment of SQL to use for sorting
      * @param bool $includedirs whether or not include directories
+     * @param int $updatedsince return files updated since this time
      * @return stored_file[] array of stored_files indexed by pathanmehash
      */
-    public function get_area_files($contextid, $component, $filearea, $itemid = false, $sort = "itemid, filepath, filename", $includedirs = true) {
+    public function get_area_files($contextid, $component, $filearea, $itemid = false, $sort = "itemid, filepath, filename",
+                                    $includedirs = true, $updatedsince = 0) {
         global $DB;
 
-        $conditions = array('contextid'=>$contextid, 'component'=>$component, 'filearea'=>$filearea);
-        if ($itemid !== false) {
+        list($areasql, $conditions) = $DB->get_in_or_equal($filearea, SQL_PARAMS_NAMED);
+        $conditions['contextid'] = $contextid;
+        $conditions['component'] = $component;
+
+        if ($itemid !== false && is_array($filearea)) {
+            throw new coding_exception('You cannot specify multiple fileareas as well as an itemid.');
+        } else if ($itemid !== false) {
             $itemidsql = ' AND f.itemid = :itemid ';
             $conditions['itemid'] = $itemid;
         } else {
             $itemidsql = '';
+        }
+
+        $updatedsincesql = '';
+        if (!empty($updatedsince)) {
+            $conditions['time'] = $updatedsince;
+            $updatedsincesql = 'AND f.timemodified > :time';
         }
 
         $sql = "SELECT ".self::instance_sql_fields('f', 'r')."
@@ -817,7 +830,8 @@ class file_storage {
                        ON f.referencefileid = r.id
                  WHERE f.contextid = :contextid
                        AND f.component = :component
-                       AND f.filearea = :filearea
+                       AND f.filearea $areasql
+                       $updatedsincesql
                        $itemidsql";
         if (!empty($sort)) {
             $sql .= " ORDER BY {$sort}";
@@ -1194,6 +1208,27 @@ class file_storage {
     }
 
     /**
+     * Add new file record to database and handle callbacks.
+     *
+     * @param stdClass $newrecord
+     */
+    protected function create_file($newrecord) {
+        global $DB;
+        $newrecord->id = $DB->insert_record('files', $newrecord);
+
+        if ($newrecord->filename !== '.') {
+            // Callback for file created.
+            if ($pluginsfunction = get_plugins_with_function('after_file_created')) {
+                foreach ($pluginsfunction as $plugintype => $plugins) {
+                    foreach ($plugins as $pluginfunction) {
+                        $pluginfunction($newrecord);
+                    }
+                }
+            }
+        }
+    }
+
+    /**
      * Add new local file based on existing local file.
      *
      * @param stdClass|array $filerecord object or array describing changes
@@ -1307,7 +1342,7 @@ class file_storage {
         }
 
         try {
-            $newrecord->id = $DB->insert_record('files', $newrecord);
+            $this->create_file($newrecord);
         } catch (dml_exception $e) {
             throw new stored_file_creation_exception($newrecord->contextid, $newrecord->component, $newrecord->filearea, $newrecord->itemid,
                                                      $newrecord->filepath, $newrecord->filename, $e->debuginfo);
@@ -1475,7 +1510,7 @@ class file_storage {
         $newrecord->pathnamehash = $this->get_pathname_hash($newrecord->contextid, $newrecord->component, $newrecord->filearea, $newrecord->itemid, $newrecord->filepath, $newrecord->filename);
 
         try {
-            $newrecord->id = $DB->insert_record('files', $newrecord);
+            $this->create_file($newrecord);
         } catch (dml_exception $e) {
             if ($newfile) {
                 $this->deleted_file_cleanup($newrecord->contenthash);
@@ -1592,7 +1627,7 @@ class file_storage {
         $newrecord->pathnamehash = $this->get_pathname_hash($newrecord->contextid, $newrecord->component, $newrecord->filearea, $newrecord->itemid, $newrecord->filepath, $newrecord->filename);
 
         try {
-            $newrecord->id = $DB->insert_record('files', $newrecord);
+            $this->create_file($newrecord);
         } catch (dml_exception $e) {
             if ($newfile) {
                 $this->deleted_file_cleanup($newrecord->contenthash);
@@ -2202,7 +2237,12 @@ class file_storage {
             mkdir($trashpath, $this->dirpermissions, true);
         }
         rename($contentfile, $trashfile);
-        chmod($trashfile, $this->filepermissions); // fix permissions if needed
+
+        // Fix permissions, only if needed.
+        $currentperms = octdec(substr(decoct(fileperms($trashfile)), -4));
+        if ((int)$this->filepermissions !== $currentperms) {
+            chmod($trashfile, $this->filepermissions);
+        }
     }
 
     /**

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_offline', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignfeedback_offline', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   assignfeedback_offline
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -45,7 +45,7 @@ $string['nochanges'] = 'Aucune modification de note n\'a été trouvée dans le 
 $string['offlinegradingworksheet'] = 'Notes';
 $string['pluginname'] = 'Formulaire d\'évaluation hors ligne';
 $string['processgrades'] = 'Importer des notes';
-$string['skiprecord'] = 'Sauter l\'enregistrement';
+$string['skiprecord'] = 'Passer l\'enregistrement';
 $string['updatedgrades'] = '{$a} notes et feedbacks modifiés';
 $string['updaterecord'] = 'Mettre à jour l\'enregistrement';
 $string['uploadgrades'] = 'Déposer un formulaire d\'évaluation';

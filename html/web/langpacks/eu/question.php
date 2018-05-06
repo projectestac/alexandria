@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'question', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   question
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -59,7 +59,7 @@ $string['cannotfindquestionfile'] = 'Ezin izan da galderen fitxategia aurkitu zi
 $string['cannotgetdsfordependent'] = 'Ezin da zehaztutako datu-multzoa lortu galdera dependenterako!  (galdera: {$a->id}, datasetitem: {$a->item})';
 $string['cannotgetdsforquestion'] = 'Ezin da zehaztutako datu-multzoa lortu kalkulatutako galderarako!  (galdera: {$})';
 $string['cannothidequestion'] = 'Ezin izan da galdera ezkutatu';
-$string['cannotimportformat'] = 'Barkatu, oraindik ez dago inplementatuta formatu honen inportazioa!';
+$string['cannotimportformat'] = 'Sentitzen dugu, oraindik ez dago inplementatuta formatu honen inportazioa!';
 $string['cannotinsertquestion'] = 'Ezin da beste galdera bat txertatu!';
 $string['cannotinsertquestioncatecontext'] = 'Ezin izan da galdera-kategoria berria txertatu {$a->cat}, legez kontrako contextid {$a->ctx}';
 $string['cannotloadquestion'] = 'Ezin da galdera kargatu';
@@ -77,7 +77,7 @@ $string['categorycurrent'] = 'Oraingo kategoria';
 $string['categorycurrentuse'] = 'Erabili kategoria hau';
 $string['categorydoesnotexist'] = 'Ez da kategoria hau existitzen';
 $string['categoryinfo'] = 'Kategoriaren informazioa';
-$string['categorymove'] = '\'{$a->name}\' kategoriak {$a->count} galdera ditu (horietako batzuk ezkutuan dauden edo ausazko galdera moduan gehituta dauden galdetegietan erabiliak egon daitezke).  Mesedez, hauek mugitzeko beste kategoria bat aukeratu.';
+$string['categorymove'] = '\'{$a->name}\' kategoriak {$a->count} galdera ditu (horietako batzuk ezkutuan dauden edo ausazko galdera moduan gehituta dauden galdetegietan erabiliak egon daitezke). Mesedez, hauek mugitzeko beste kategoria bat aukeratu.';
 $string['categorymoveto'] = 'Gorde kategorian';
 $string['categorynamecantbeblank'] = 'Kategiaren izena ezin da hutsik egon';
 $string['changeoptions'] = 'Aldatu aukerak';

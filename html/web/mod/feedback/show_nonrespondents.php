@@ -97,7 +97,8 @@ if ($action == 'sendmessage' AND has_capability('moodle/course:bulkmessaging', $
     if (is_array($messageuser)) {
         foreach ($messageuser as $userid) {
             $senduser = $DB->get_record('user', array('id'=>$userid));
-            $eventdata = new stdClass();
+            $eventdata = new \core\message\message();
+            $eventdata->courseid         = $course->id;
             $eventdata->name             = 'message';
             $eventdata->component        = 'mod_feedback';
             $eventdata->userfrom         = $USER;
@@ -107,6 +108,9 @@ if ($action == 'sendmessage' AND has_capability('moodle/course:bulkmessaging', $
             $eventdata->fullmessageformat = FORMAT_PLAIN;
             $eventdata->fullmessagehtml  = $htmlmessage;
             $eventdata->smallmessage     = '';
+            $eventdata->courseid         = $course->id;
+            $eventdata->contexturl       = $link3;
+            $eventdata->contexturlname   = $feedback->name;
             $good = $good && message_send($eventdata);
         }
         if (!empty($good)) {
@@ -267,7 +271,7 @@ if (!$students) {
         echo '<legend class="ftoggler">'.get_string('send_message', 'feedback').'</legend>';
         echo '<div>';
         echo '<label for="feedback_subject">'.get_string('subject', 'feedback').'&nbsp;</label>';
-        echo '<input type="text" id="feedback_subject" size="50" maxlength="255" name="subject" value="'.$subject.'" />';
+        echo '<input type="text" id="feedback_subject" size="50" maxlength="255" name="subject" value="'.s($subject).'" />';
         echo '</div>';
         print_textarea(true, 15, 25, 30, 10, "message", $message);
         print_string('formathtml');

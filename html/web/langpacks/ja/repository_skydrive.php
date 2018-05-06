@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_skydrive', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository_skydrive', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   repository_skydrive
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 $string['cachedef_foldername'] = 'フォルダ名キャッシュ';
 $string['clientid'] = 'クライアントID';
 $string['configplugin'] = 'Microsoft OneDriveを設定する';
-$string['oauthinfo'] = '<p>このプラグインを使用するためには、あなたのサイトを<a href="https://manage.dev.live.com/Applications/Index">Microsoft</a>に登録する必要があります。</p>
+$string['oauthinfo'] = '<p>このプラグインを使用するためにはあなたのサイトを<a href="https://account.live.com/developers/applications">Microsoft</a>に登録する必要があります。</p>
 
-<p>登録処理の一環として、あなたは「リダイレクトドメイン」として、次のURLを入力する必要があります:</p>
+<p>登録処理の一環としてあなたは「リダイレクトドメイン」として次のURLを入力する必要があります:</p>
 
 <p>{$a->callbackurl}</p>
 

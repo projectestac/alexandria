@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_grader', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradereport_grader', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   gradereport_grader
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -36,5 +36,6 @@ $string['grader:view'] = 'Kalifikatzailearen txostena ikusi';
 $string['overriddengrade'] = 'Baliogabetutako kalifikazioa';
 $string['pluginname'] = 'Kalifikatzailea';
 $string['preferences'] = 'Kalifikatzailearen hobespenak';
+$string['summarygrader'] = 'Lehen zutabean ikasleen izenak izango dituen taula bat, eta aktibitate kalifikagarriak gainean ikastaro eta kategorietan multzokatuta dituena.';
 $string['useractivityfeedback'] = '{$a} feedback';
 $string['useractivitygrade'] = '{$a} kalifikazio';

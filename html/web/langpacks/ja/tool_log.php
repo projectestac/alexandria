@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_log', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_log', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_log
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['actlogshdr'] = '利用可能なログストア';
-$string['configlogplugins'] = 'すべての必要なプラグインを有効にして、適切な順番に配置してください。';
+$string['configlogplugins'] = 'すべての必要なプラグインを有効にして適切な順序に配置してください。';
 $string['logging'] = 'ロギング';
 $string['managelogging'] = 'ログストアを管理する';
 $string['pluginname'] = 'ログストアマネージャ';

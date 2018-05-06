@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_youtube', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository_youtube', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   repository_youtube
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['apierror'] = '{$a}';
 $string['apikey'] = 'API-sleutel';
-$string['configplugin'] = 'YouTupe opslagruimte configuratie';
+$string['configplugin'] = 'Configuratie YouTube opslagruimte';
 $string['information'] = 'Haal een  <a href="https://developers.google.com/youtube/v3/getting-started">Google API Key</a> voor jouw Moodle site.';
 $string['pluginname'] = 'YouTube video\'s';
 $string['search'] = 'Zoek video\'s';

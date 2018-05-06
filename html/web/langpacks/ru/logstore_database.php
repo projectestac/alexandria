@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'logstore_database', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'logstore_database', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   logstore_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,8 @@ $string['buffersize_help'] = 'Количество записей журнала
 $string['conectexception'] = 'Не удалось подключиться к базе данных.';
 $string['create'] = 'Создание';
 $string['databasecollation'] = 'Сравнение (collation) базы данных';
+$string['databasehandlesoptions'] = 'Параметры соединения определяются базой данных';
+$string['databasehandlesoptions_help'] = 'Заданы ли во внешней базе данных значения по умолчанию для параметров соединения (схема, collation), чтобы можно было не передавать их из moodle?';
 $string['databasepersist'] = 'Постоянное соединение с базой данных';
 $string['databaseschema'] = 'Схема базы данных';
 $string['databasesettings'] = 'Настройки базы данных';

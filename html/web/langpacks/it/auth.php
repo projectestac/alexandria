@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   auth
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,7 +40,7 @@ $string['auth_common_settings'] = 'Impostazioni tipiche';
 $string['auth_data_mapping'] = 'Mappatura dei dati';
 $string['authenticationoptions'] = 'Opzioni di autenticazione';
 $string['auth_fieldlock'] = 'Campi bloccati nel profilo utente';
-$string['auth_fieldlock_expl'] = '<p><b>Blocca valore:</b>Se abilitato, impedirà  agli utenti e agli amministratori di Moodle di modificare il campo direttamente. Utilizzare questa opzione se si sta gestendo questi dati in un sistema di autenticazione esterno.</p>';
+$string['auth_fieldlock_expl'] = '<p><b>Blocco del campo:</b> gli utenti e agli amministratori di Moodle non potranno modificare il campo. L\'impostazione è utile se si mappano i campi del profilo utente da una fonte di autenticazione esterna.</p>';
 $string['auth_fieldlocks'] = 'Campi bloccati nel profilo utente';
 $string['auth_fieldlocks_help'] = '<p>È possibile bloccare uno o più campi del profilo utente. La funzione può risultare particolarmente utile in quei siti dove i dati dei profili utente sono gestiti a mano dagli amministratori, i quali possono modificare i record degli utenti oppure caricarli utilizzando la funzione \'Importa utenti\'.</p><p>Se si bloccano campi che Moodle considera obbligatori, accertarsi di fornire tali dati durante la creazione di account, altrimenti gli account incompleti non saranno utilizzabili.</p><p>Per evitare questo problema, è possibile utilizzare l\'opzione \'Libero se vuoto\'.</p>';
 $string['authinstructions'] = 'In questo campo è possibile inserire istruzioni per il login specifiche per i vostri utenti. Lasciando vuoto il campo verranno visualizzate le istruzioni di default.';
@@ -55,17 +55,17 @@ $string['auth_passwordwillexpire'] = 'La password scadrà tra {$a} giorni. Vuoi 
 $string['auth_remove_delete'] = 'Cancella interna';
 $string['auth_remove_keep'] = 'Mantieni interna';
 $string['auth_remove_suspend'] = 'Sospendi interna';
-$string['auth_remove_user'] = 'Specifica cosa fare con gli account di utenti interni durante la sincronizzazione in massa quando gli utenti sono stati rimossi dalla fonte esterna. Solo gli utenti sospesi sono automaticamente riattivati se riappaiono nella fonte esterna.';
+$string['auth_remove_user'] = 'Imposta cosa fare con gli account di utenti interni durante la sincronizzazione in massa quando gli utenti non sono più presenti nella fonte esterna. Solo gli utenti sospesi saranno riattivati automaticamente qualora fossero nuovamente presenti nella fonte esterna.';
 $string['auth_remove_user_key'] = 'Utente esterno rimosso';
 $string['auth_sync_script'] = 'Sincronizzazione account utenti';
 $string['auth_sync_suspended'] = 'Consente di sincronizzare lo stato di sospensione degli utenti locali tramite l\'attributo di sospensione.';
-$string['auth_sync_suspended_key'] = 'Sincronizza sospensione degli account locali';
-$string['auth_updatelocal'] = 'Aggiorna dati interni';
-$string['auth_updatelocal_expl'] = '<p><b>Aggiorna dati interni:</b> Se abilitato, il campo sarà  aggiornato (dall\'autenticazione esterna) tutte le volte che l\'utente accede o c\'è una sincronizzazione utente. I campi impostati per l\'aggiornamento locale devono essere bloccati.</p>';
-$string['auth_updateremote'] = 'Aggiorna dati esterni';
-$string['auth_updateremote_expl'] = '<p><b>Aggiorna dati esterni:</b> Se abilitato, l\'autenticazione esterna sarà  aggiornata quando i dati dell\'utente sono aggiornati. I campi devono essere sboccati per consentirne la modifica.</p>';
+$string['auth_sync_suspended_key'] = 'Sincronizza localmente la sospensione dell\'utente';
+$string['auth_updatelocal'] = 'Aggiornamento dati locali';
+$string['auth_updatelocal_expl'] = '<p><b>Aggiornameno dati locali:</b> Il campo sarà aggiornato con i dati provenienti dall\'autenticazione esterna tutte le volte che l\'utente si autenticherà o verrà effettuata una sincronizzazione degli utenti. Si consiglia di bloccare I campi locali impostati per essere aggiornati.</p>';
+$string['auth_updateremote'] = 'Aggiornamento dati esterni';
+$string['auth_updateremote_expl'] = '<p><b>Aggiornamento dati esterni:</b> Il campo presenti nell\'autenticazione esterna sarà  aggiornato se i dati locali dell\'utente saranno modificati. In questo caso i campi del profilo utente non devono essere bloccati affinché sia possibile la modifica.</p>';
 $string['auth_updateremote_ldap'] = '<p><b>Nota:</b> Aggiornando i dati esterni LDAP è richiesta l\'impostazione di binddn e di bindpw a un utente di bind con privilegi di modifica per tutti i dati degli utenti. Questo attualmente non preserva gli attributi multivalore, e rimuoverà  i valori aggiuntivi durante l\'aggiornamento.</p>';
-$string['auth_user_create'] = 'Abilita creazione utente';
+$string['auth_user_create'] = 'Creazione utenti';
 $string['auth_user_creation'] = 'I nuovi utenti (anonimi) possono iscriversi alla sorgente di autenticazione esterna e confermare tramite email. Se abiliti questo, ricorda anche di configurare le opzioni specifiche del modulo per la creazione degli utenti';
 $string['auth_usernameexists'] = 'Il nome utente scelto è già  utilizzato. Sceglierne uno nuovo.';
 $string['auto_add_remote_users'] = 'Aggiungi automaticamente gli utenti remoti';
@@ -83,7 +83,9 @@ $string['emailupdatemessage'] = 'Gentile {$a->fullname},
 
 hai richiesto la modifica dell\'indirizzo email del tuo account sul sito {$a->site}. Per confermare la richiesta, apri il link seguente con il browser:
 
-{$a->url}';
+{$a->url}
+
+Per chiarimenti, contatta il supporto: {$a->supportemail}';
 $string['emailupdatesuccess'] = 'L\'indirizzo email dell\'utente <em>{$a->fullname}</em> è stato modificato in <em>{$a->email}</em>.';
 $string['emailupdatetitle'] = 'Conferma del cambio di email su {$a->site}';
 $string['enterthenumbersyouhear'] = 'Inserisci i numeri che senti';
@@ -99,7 +101,7 @@ $string['errorpasswordupdate'] = 'Si è verificato un errore durante l\'aggiorna
 $string['eventuserloggedin'] = 'Autenticato utente';
 $string['eventuserloggedinas'] = 'Autenticato utente come altro utente';
 $string['eventuserloginfailed'] = 'Fallita autenticazione utente';
-$string['forcechangepassword'] = 'Obbliga il cambiamento della password';
+$string['forcechangepassword'] = 'Cambiamento della password';
 $string['forcechangepasswordfirst_help'] = 'Obbliga gli utenti a cambiare la password al primo accesso a Moodle.';
 $string['forcechangepassword_help'] = 'Obbliga gli utenti a cambiare la password al prossimo accesso a Moodle.';
 $string['forgottenpassword'] = 'E\' possibile inserire un URL che sarà usato come pagina di recupero delle password. L\'impostazione è particolarmente utile per quei siti dove le password sono gestite esternamente a Moodle. Non inserendo un URL sarà usata la pagina di default per il recupero delle password.';
@@ -143,9 +145,9 @@ $string['selfregistration'] = 'Auto creazione account';
 $string['selfregistration_help'] = 'Impostando un plugin per l\'auto creazione di account, come ad esempio il plugin per la creazione di account via email, qualsiasi visitatore del sito potrà crearsi un account. Tale funzione espone il sito al rischio che spammer possano creare account per inviare post indesiderati attraverso forum, blog od altre funzioni. Per evitare questo rischio è bene disabilitare l\' Auto creazione di account  oppure limitarla attraverso l\'impostazione <em>Domini di posta autorizzati</em> oppure ancora attivando il reCAPTCHA.';
 $string['sha1'] = 'Hash SHA-1';
 $string['showguestlogin'] = 'E\' possibile visualizzare o nascondere  il pulsante \'login come ospite\' nella pagina di login standard';
-$string['stdchangepassword'] = 'Utilizzare la pagina standard per il cambiamento della password?';
-$string['stdchangepassword_expl'] = 'Se il sistema di autenticazione esterna consente il cambiamento delle password attraverso Moodle, cambiate questo su Si. Questa impostazione esclude l\'URL per cambiare la password.';
-$string['stdchangepassword_explldap'] = 'Nota: Si raccomanda di utilizzare LDAP su una connessione criptata con SSL (ldaps://) se il server è remoto.';
+$string['stdchangepassword'] = 'Utilizza la pagina standard per il cambiamento della password';
+$string['stdchangepassword_expl'] = 'Se il sistema di autenticazione esterna consente il cambiamento delle password attraverso Moodle, impostare a Si. Questa impostazione esclude l\'URL per cambiare la password.';
+$string['stdchangepassword_explldap'] = 'Nota: Qualora il server fosse remoto, si raccomanda di utilizzare LDAP su una connessione criptata con SSL (ldaps://) .';
 $string['suspended'] = 'Account sospeso';
 $string['suspended_help'] = 'Gli account sospesi non possono autenticarsi, non possono usare i web service e non ricevono messaggi.';
 $string['testsettings'] = 'Test impostazioni';

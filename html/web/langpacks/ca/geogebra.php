@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'geogebra', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'geogebra', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   geogebra
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -122,6 +122,7 @@ $string['showToolBar'] = 'Mostra la barra d\'eines';
 $string['showToolBarHelp'] = 'Mostra l\'ajuda de la barra d\'eines';
 $string['status'] = 'Estat';
 $string['submitandfinish'] = 'Entrega i acaba';
+$string['timing'] = 'Temporització';
 $string['total'] = 'Total';
 $string['unfinished'] = 'No finalitzat';
 $string['ungraded'] = 'Sense qualificar';

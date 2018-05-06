@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'access', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'access', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   access
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,10 +37,10 @@ $string['monthnext'] = 'Mois suivant';
 $string['monthprev'] = 'Mois précédent';
 $string['showblocka'] = 'Afficher bloc {$a}';
 $string['sitemap'] = 'Carte du site';
-$string['skipa'] = 'Sauter {$a}';
-$string['skipblock'] = 'Sauter le bloc';
-$string['skipnavigation'] = 'Sauter la navigation';
-$string['skipto'] = 'Sauter vers {$a}';
+$string['skipa'] = 'Passer {$a}';
+$string['skipblock'] = 'Passer le bloc';
+$string['skipnavigation'] = 'Passer la navigation';
+$string['skipto'] = 'Passer à {$a}';
 $string['tocontent'] = 'Passer au contenu principal';
 $string['tonavigation'] = 'Vers la navigation';
 $string['youarehere'] = 'Vous êtes ici';

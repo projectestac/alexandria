@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'glossary', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   glossary
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -77,10 +77,10 @@ $string['attachment_help'] = '<p align="center"><b>Επισυναπτόμενα 
 <p> Εάν γίνει επεξεργασία εκ νέου ενός επισυναπτομένου αρχείου και μείνει κενό, τότε το αυθεντικό αρχείο παραμένει.</p>';
 $string['author'] = 'συγγραφέας';
 $string['authorview'] = 'Προβολή ανά συγγραφέα';
-$string['back'] = 'Πίσω';
-$string['cantinsertcat'] = 'Δεν είναι δυνατή η εισαγωγή κατηγορίας';
-$string['cantinsertrec'] = 'Δεν είναι δυνατή η εισαγωγή εγγραφής';
-$string['cantinsertrel'] = 'Δεν είναι δυνατή η εισαγωγή σχέσης κατηγορίας-εγγραφής';
+$string['back'] = 'Επιστροφή';
+$string['cantinsertcat'] = 'Αδυναμία εισαγωγής κατηγορίας';
+$string['cantinsertrec'] = 'Αδυναμία εισαγωγής εγγραφής';
+$string['cantinsertrel'] = 'Αδυναμία εισαγωγής σχέσης κατηγορίας-εγγραφής';
 $string['casesensitive'] = 'Αυτή η εγγραφή είναι ευαίσθητη σε μικρά/κεφαλαία';
 $string['casesensitive_help'] = '<p align="center"><b>Ευαισθησία κατά το ταίριασμα χαρακτήρων</b></p>
 
@@ -186,6 +186,7 @@ $string['displayformat_help'] = '<p align="center"><strong>Διάταξη Εμφ
   ακολουθώντας τις οδηγίες που θα βρουν στο αρχείο <strong>mod/</strong><strong>glossary/</strong><strong>formats/</strong><strong>README.</strong><strong>txt</strong>.</p>';
 $string['displayformats'] = 'Μορφές προβολής';
 $string['displayformatssetup'] = 'Ρύθμιση Μορφών προβολής';
+$string['duplicatecategory'] = 'Διπλότυπη κατηγορία';
 $string['duplicateentry'] = 'Διπλή εγγραφή';
 $string['editalways'] = 'Πάντα επεξεργασία';
 $string['editalways_help'] = '<p align="center"><strong>Τροποποίηση πάντα</strong></p>
@@ -219,6 +220,9 @@ $string['errconceptalreadyexists'] = 'Αυτή η έννοια υπάρχει ή
 $string['errdeltimeexpired'] = 'Δεν μπορείτε να το διαγράψετε αυτό. Ο χρόνος έληξε!';
 $string['erredittimeexpired'] = 'Ο χρόνος επεξεργασίας αυτής της καταχώρησης έληξε.';
 $string['errorparsingxml'] = 'Συνέβησαν σφάλματα κατά την ανάλυση αυτού του αρχείου. Σιγουρευτείτε οτι η σύνταξη του είναι έγκυρη XML.';
+$string['eventcategorycreated'] = 'Η κατηγορία δημιουργήθηκε';
+$string['eventcategorydeleted'] = 'Η κατηγορία διαγράφηκε';
+$string['eventcategoryupdated'] = 'Η κατηγορία ενημερώθηκε';
 $string['explainaddentry'] = 'Προσθέστε μια νέα εγγραφή στο τρέχον λεξικό.<br /> Η έννοια και ο ορισμός είναι υποχρεωτικά πεδία.';
 $string['explainall'] = 'Εμφανίζει όλες τις εγγραφές σε μια σελίδα';
 $string['explainalphabet'] = 'Προβολή του λεξικού χρησιμοποιώντας αυτό το ευρετήριο';
@@ -272,7 +276,7 @@ $string['importedentries'] = 'Εισαγόμενες εγγραφές';
 $string['importentries'] = 'Εισαγωγή εγγραφών';
 $string['importentriesfromxml'] = 'Εισαγωγή καταχωρλησεων από αρχείο XML';
 $string['includegroupbreaks'] = 'Περιλαμβάνονται οι διαχωριστές ομάδων';
-$string['isglobal'] = 'Είναι αυτό το λεξικό παγκόσμιο;';
+$string['isglobal'] = 'Είναι αυτό το λεξικό καθολικό;';
 $string['isglobal_help'] = '<p align="center"><b>Ορισμός γενικού λεξιλογίου όρων</b></p>
 
 <p>Οι Γενικοί Διαχειριστές (administrators) μπορούν να ορίσουν ένα λεξιλόγιο όρων ως γενικό.</p>
@@ -289,7 +293,7 @@ $string['linkcategory_help'] = '<p align="center"><strong>Αυτόματη σύ�
 <p align="left"><em>Σημείωση:</em> Οι κατηγορίες συνδέονται βασιζόμενες σε   αντιστοιχία ολόκληρης της λέξης και σε αντιστοιχία κεφαλαίων-μικρών.</p>';
 $string['linking'] = 'Αυτόματοι σύνδεσμοι';
 $string['mainglossary'] = 'Κύριο λεξικό';
-$string['maxtimehaspassed'] = 'Συγγνώμη, αλλά ο μέγιστος χρόνος για την επεξεργασία αυτού του σχολίου ({$a}) έχει περάσει!';
+$string['maxtimehaspassed'] = 'Συγνώμη, αλλά ο μέγιστος χρόνος για την επεξεργασία αυτού του σχολίου ({$a}) έχει περάσει!';
 $string['modulename'] = 'Λεξικό';
 $string['modulenameplural'] = 'Λεξικά';
 $string['newentries'] = 'Νέες εγγραφές λεξικού';

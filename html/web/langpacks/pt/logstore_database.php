@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'logstore_database', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'logstore_database', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   logstore_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,6 +30,8 @@ $string['buffersize_help'] = 'Número de entradas de registos de atividade inser
 $string['conectexception'] = 'Não é possível ligar à base de dados.';
 $string['create'] = 'Criar';
 $string['databasecollation'] = 'Verificação de base de dados';
+$string['databasehandlesoptions'] = 'Opções de execução da base de dados';
+$string['databasehandlesoptions_help'] = 'A base de dados remota executa as suas próprias opções.';
 $string['databasepersist'] = 'Ligações de base de dados persistentes';
 $string['databaseschema'] = 'Esquema de base de dados';
 $string['databasesettings'] = 'Configurações de base de dados';

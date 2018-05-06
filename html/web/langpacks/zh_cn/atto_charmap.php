@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_charmap', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'atto_charmap', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   atto_charmap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,5 +29,7 @@ $string['aacute'] = 'a-尖锐';
 $string['aacute_caps'] = 'A-尖锐';
 $string['angle'] = '角度';
 $string['approximatelyequalto'] = '约等于';
+$string['insertcharacter'] = '插入字符';
+$string['pluginname'] = '插入字符';
 $string['trademarksign'] = '贸易标识符(TM)';
 $string['upwardsarrow'] = '向上的箭头';

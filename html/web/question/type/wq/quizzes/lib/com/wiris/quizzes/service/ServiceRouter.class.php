@@ -37,6 +37,15 @@ class com_wiris_quizzes_service_ServiceRouter {
 		$res->close();
 	}
 	public function service($request, $res) {
+		$accessProvider = com_wiris_quizzes_impl_QuizzesBuilderImpl::getInstance()->getAccessProvider();
+		if($accessProvider !== null) {
+			if($accessProvider->isEnabled()) {
+				if(!$accessProvider->requireAccess()) {
+					$res->sendError(403, "Forbidden");
+					return;
+				}
+			}
+		}
 		if($request->getParameter("service") === null) {
 			$res->sendError(400, "Missing \"service\" parameter.");
 			return;
@@ -144,7 +153,11 @@ class com_wiris_quizzes_service_ServiceRouter {
 		while($it->hasNext()) {
 			$service = $it->next();
 			if(StringTools::startsWith($url, com_wiris_quizzes_service_ServiceRouter::$router->get($service))) {
-				return com_wiris_quizzes_service_ServiceRouter::$serviceMimes->get($service);
+				if($service === "grammar" && _hx_index_of($url, "json=true", null) !== -1) {
+					return "application/json";
+				} else {
+					return com_wiris_quizzes_service_ServiceRouter::$serviceMimes->get($service);
+				}
 			}
 			unset($service);
 		}

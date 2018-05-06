@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'group', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   group
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -109,7 +109,7 @@ $string['groupmodeforce'] = 'Gruppenmodus vorgeben';
 $string['groupmodeforce_help'] = 'Wenn der Gruppenmodus erzwungen wird, dann wird der Gruppenmodus des Kurses auch auf jede Aktivität im Kurs angewendet. Die Gruppeneinstellungen in jeder Aktivität werden ignoriert.';
 $string['groupmode_help'] = 'Für den Gruppenmodus stehen drei Optionen zur Verfügung:
 
-* Keine Gruppen - Im Kurs gibt es keine Gruppen im Kurs und alle nutzen alles zusammen.
+* Keine Gruppen - Im Kurs gibt es keine Gruppen und alle nutzen alles zusammen.
 * Getrennte Gruppen - Im Kurs gibt es getrennte Gruppen, d.h. jedes Gruppenmitglied kann nur Mitglieder der eigenen Gruppe sehen, alle andern sind unsichtbar.
 * Sichtbare Gruppen - Im Kurs gibt es sichtbare Gruppen, d.h. jedes Gruppenmitglied arbeitet in der eigenen Gruppe, kann aber die anderen Gruppen sehen.
 

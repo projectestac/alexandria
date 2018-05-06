@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,17 +29,20 @@ $string['activaterep'] = 'Ενεργοί χώροι αποθήκευσης';
 $string['activerepository'] = 'Υπομονάδες λογισμικού ενεργών χώρων αποθήκευσης';
 $string['add'] = 'Προσθήκη';
 $string['addfile'] = 'Προσθήκη...';
+$string['addfiletext'] = 'Προσθήκη αρχείου';
 $string['addplugin'] = 'Προσθήκη μιας υπομονάδας λογισμικού χώρου αποθήκευσης';
 $string['allowexternallinks'] = 'Επιτρέπονται εξωτερικοί σύνδεσμοι';
 $string['areacategoryintro'] = 'Εισαγωγή στην κατηγορία';
 $string['areacourseintro'] = 'Εισαγωγή στο μάθημα';
+$string['areacourseoverviewfiles'] = 'Αρχεία σύνοψης μαθήματος';
 $string['arearoot'] = 'Σύστημα';
 $string['areauserdraft'] = 'Προσχέδια';
 $string['areauserpersonal'] = 'Προσωπικά';
 $string['areauserprofile'] = 'Προφίλ';
 $string['attachment'] = 'Συνημμένα';
 $string['author'] = 'Συγγραφέας';
-$string['back'] = '&lt; Επιστροφή';
+$string['back'] = '« Επιστροφή';
+$string['backtodraftfiles'] = '&laquo; Επιστροφή στη διαχείριση προσχέδιων αρχείων';
 $string['cachecleared'] = 'Τα αρχεία στην προσωρινή μνήμη διαγράφονται';
 $string['cacheexpire'] = 'Λήξη προσωρινής μνήμης';
 $string['cannotinitplugin'] = 'Η κλήση plugin_init απέτυχε';
@@ -68,7 +71,7 @@ $string['downloadfolder'] = 'Μεταφόρτωση όλων';
 $string['downloadsucc'] = 'Το αρχείο μεταφορτώθηκε με επιτυχία';
 $string['editrepositoryinstance'] = 'Επεξεργασία στιμιότυπου χώρου αποθήκευσης';
 $string['emptylist'] = 'Κενή λίστα';
-$string['emptytype'] = 'Αποτυχία δημιουργίας τύπου χώρου αποθήκευσης: το όνομα του τύπου είναι κενό';
+$string['emptytype'] = 'Αδυναμία δημιουργίας τύπου χώρου αποθήκευσης: το όνομα του τύπου είναι κενό';
 $string['enablecourseinstances'] = 'Ενεργοποίηση χώρων αποθήκευσης μαθήματος';
 $string['enableuserinstances'] = 'Ενεργοποίηση χώρων αποθήκευσης χρήστη';
 $string['entername'] = 'Παρακαλώ εισάγετε όνομα φακέλου';
@@ -79,6 +82,7 @@ $string['filename'] = 'Όνομα αρχείου';
 $string['filenotnull'] = 'Πρέπει να επιλέξετε ένα αρχείο για ανέβασμα.';
 $string['filepicker'] = 'Επιλογέας αρχείου';
 $string['filesaved'] = 'Το αρχείο αποθηκεύτηκε';
+$string['foldernotfound'] = 'Αδυναμία εύρεσης φακέλου';
 $string['getfile'] = 'Επιλογή αυτού του αρχείου';
 $string['iconview'] = 'Εμφάνιση ως εικονίδια';
 $string['instance'] = 'στιγμιότυπο';
@@ -102,6 +106,7 @@ $string['manageuserrepository'] = 'Διαχείριση μεμονωμένου �
 $string['noenter'] = 'Δεν εισήχθη τίποτα';
 $string['nofilesattached'] = 'Δεν υπάρχουν επισυναπτόμενα αρχεία';
 $string['nofilesavailable'] = 'Δεν υπάρχουν διαθέσιμα αρχεία';
+$string['nomorefiles'] = 'Δεν επιτρέπονται άλλα συνημμένα';
 $string['nopermissiontoaccess'] = 'Χωρίς δικαίωμα πρόσβασης σε αυτό το χώρο αποθήκευσης';
 $string['noresult'] = 'Χωρίς αποτέλεσμα αναζήτησης';
 $string['notyourinstances'] = 'Δεν μπορείτε να δείτε/επεξεργαστείτε στιγμιότυπα χώρου αναζήτησης ενός άλλου χρήστη';
@@ -109,7 +114,8 @@ $string['off'] = 'Ενεργοποιμένο αλλά κρυφό';
 $string['on'] = 'Ενεργοποιημένο και ορατό';
 $string['openpicker'] = 'Επιλέξτε ένα αρχείο...';
 $string['operation'] = 'Λειτουργία';
-$string['personalrepositories'] = 'Προσωπικοί χώροι αποθήκευσης';
+$string['overwrite'] = 'Αντικατάσταση';
+$string['overwriteall'] = 'Αντικατάσταση όλων';
 $string['plugin'] = 'Υπομονάδες λογισμικού χώρου αποθήκευσης';
 $string['pluginname'] = 'Όνομα πρόσθετης λειτουργίας χώρου αποθήκευσης';
 $string['pluginnamehelp'] = 'Αν το αφήσετε κενό θα χρησιμοποιηθεί το προεπιλεγμένο όνομα.';

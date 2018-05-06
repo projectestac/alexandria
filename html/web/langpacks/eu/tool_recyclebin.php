@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_recyclebin', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_recyclebin', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_recyclebin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -49,7 +49,7 @@ $string['eventitemrestored'] = 'Elementua berrezarri da';
 $string['eventitemrestored_desc'] = '{$a->objectid} IDa duen elementua berrezarri da.';
 $string['invalidcontext'] = 'Emandako testuingurua baliogabea da.';
 $string['noitemsinbin'] = 'Ez dago elementurik zakarrontzian.';
-$string['notenabled'] = 'Barkatu, baina kudeatzaileak zakarrontzia desgaitu du.';
+$string['notenabled'] = 'Sentitzen dugu, baina kudeatzaileak zakarrontzia desgaitu du.';
 $string['pluginname'] = 'Zakarrontzia';
 $string['recyclebin:deleteitems'] = 'Ezabatu zakarrontziko elementuak';
 $string['recyclebin:restoreitems'] = 'Berrezarri zakarrontziko elementuak';

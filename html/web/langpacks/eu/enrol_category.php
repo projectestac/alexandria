@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_category', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_category', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_category
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,5 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['category:config'] = 'Konfiguratu kategoria-matrikulazio instantziak';
 $string['category:synchronised'] = 'Rol-esleipen sinkronizatuak ikastaro-matrikulaziorako';
 $string['pluginname'] = 'Kategoria-matrikulazioak';
+$string['pluginname_desc'] = 'Kategoria-matrikulazioko gehigarria ikastaro-kategorietan rol esleipenak egitea ahalbidetzen duen konponbidea zaharkitua da. Honen ordez kohorte bidezko sinkronizazioa erabiltzea gomendatzen da.';

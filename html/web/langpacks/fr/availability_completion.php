@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_completion', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_completion', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['description'] = 'Requiert l\'achèvement (ou le non-achèvement) d\'une autre activité par les étudiants.';
 $string['error_selectcmid'] = 'Vous devez choisir une activité pour la condition d\'achèvement.';
+$string['error_selectcmidpassfail'] = 'Une activité avec la condition d\'achèvement « Requiert une note » doit être sélectionnée.';
 $string['label_cm'] = 'Activité ou ressource';
 $string['label_completion'] = 'État d\'achèvement requis';
 $string['missing'] = '(Activité manquante)';

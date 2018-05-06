@@ -475,6 +475,7 @@ class report extends \mod_scorm\report {
                         $row[] = scorm_grade_user_attempt($scorm, $scouser->userid, $scouser->attempt);
                     }
                     // Print out all scores of attempt.
+                    $emptyrow = $download ? '' : '&nbsp;';
                     foreach ($scoes as $sco) {
                         if ($sco->launch != '') {
                             if ($trackdata = scorm_get_tracks($sco->id, $scouser->userid, $scouser->attempt)) {
@@ -508,7 +509,7 @@ class report extends \mod_scorm\report {
                                         if (isset($trackdata->$element)) {
                                             $row[] = s($trackdata->$element);
                                         } else {
-                                            $row[] = '&nbsp;';
+                                            $row[] = $emptyrow;
                                         }
                                     }
                                     if ($displayoptions['resp']) {
@@ -516,7 +517,7 @@ class report extends \mod_scorm\report {
                                         if (isset($trackdata->$element)) {
                                             $row[] = s($trackdata->$element);
                                         } else {
-                                            $row[] = '&nbsp;';
+                                            $row[] = $emptyrow;
                                         }
                                     }
                                     if ($displayoptions['right']) {
@@ -534,7 +535,7 @@ class report extends \mod_scorm\report {
                                             }
                                             $row[] = $rightans;
                                         } else {
-                                            $row[] = '&nbsp;';
+                                            $row[] = $emptyrow;
                                         }
                                     }
                                     if ($displayoptions['result']) {
@@ -542,7 +543,7 @@ class report extends \mod_scorm\report {
                                         if (isset($trackdata->$element)) {
                                             $row[] = s($trackdata->$element);
                                         } else {
-                                            $row[] = '&nbsp;';
+                                            $row[] = $emptyrow;
                                         }
                                     }
                                 }
@@ -558,7 +559,7 @@ class report extends \mod_scorm\report {
                                 }
                                 // Complete the empty cells.
                                 for ($i = 0; $i < count($columns) - $nbmaincolumns; $i++) {
-                                    $row[] = '&nbsp;';
+                                    $row[] = $emptyrow;
                                 }
                             }
                         }
@@ -588,7 +589,8 @@ class report extends \mod_scorm\report {
                                                     get_string('selectnone', 'scorm'));
                         echo '&nbsp;&nbsp;';
                         echo \html_writer::empty_tag('input', array('type' => 'submit',
-                                                                    'value' => get_string('deleteselected', 'scorm')));
+                                                                    'value' => get_string('deleteselected', 'scorm'),
+                                                                    'class' => 'btn btn-secondary'));
                         echo \html_writer::end_tag('td').\html_writer::end_tag('tr').\html_writer::end_tag('table');
                         // Close form.
                         echo \html_writer::end_tag('div');
@@ -600,17 +602,23 @@ class report extends \mod_scorm\report {
                         echo \html_writer::start_tag('td');
                         echo $OUTPUT->single_button(new \moodle_url($PAGE->url,
                                                                    array('download' => 'ODS') + $displayoptions),
-                                                                   get_string('downloadods'));
+                                                                   get_string('downloadods'),
+                                                                   'post',
+                                                                   ['class' => 'm-t-1']);
                         echo \html_writer::end_tag('td');
                         echo \html_writer::start_tag('td');
                         echo $OUTPUT->single_button(new \moodle_url($PAGE->url,
                                                                    array('download' => 'Excel') + $displayoptions),
-                                                                   get_string('downloadexcel'));
+                                                                   get_string('downloadexcel'),
+                                                                   'post',
+                                                                   ['class' => 'm-t-1']);
                         echo \html_writer::end_tag('td');
                         echo \html_writer::start_tag('td');
                         echo $OUTPUT->single_button(new \moodle_url($PAGE->url,
                                                                    array('download' => 'CSV') + $displayoptions),
-                                                                   get_string('downloadtext'));
+                                                                   get_string('downloadtext'),
+                                                                   'post',
+                                                                   ['class' => 'm-t-1']);
                         echo \html_writer::end_tag('td');
                         echo \html_writer::start_tag('td');
                         echo \html_writer::end_tag('td');

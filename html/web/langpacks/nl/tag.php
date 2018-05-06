@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tag', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tag', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   tag
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -39,7 +39,7 @@ $string['changetagcoll'] = 'Wijzig de tag-collectie van zone {$a}';
 $string['changetype'] = 'Wijzig tag-type';
 $string['collnameexplained'] = 'Laat het veld leeg om de standaardwaarde te gebruiken: {$a}';
 $string['combined'] = 'Tags zijn gecombineerd';
-$string['combineselected'] = 'Combineer geselcteerde';
+$string['combineselected'] = 'Combineer geselecteerde';
 $string['component'] = 'Component';
 $string['confirmdeletetag'] = 'Weet je zeker dat je deze tag wil verwijderen?';
 $string['confirmdeletetags'] = 'Weet je zeker dat je deze geselecteerde tags wil verwijderen?';
@@ -71,7 +71,7 @@ $string['eventtagflagged'] = 'Tag gemarkeerd';
 $string['eventtagremoved'] = 'Tag verwijderd van een item';
 $string['eventtagunflagged'] = 'Tag markering verwijderd';
 $string['eventtagupdated'] = 'Tag aangepast';
-$string['exclusivemode'] = 'Toon enkle getagd {$a->tagarea}';
+$string['exclusivemode'] = 'Toon enkel getagd {$a->tagarea}';
 $string['flag'] = 'Markeer';
 $string['flagasinappropriate'] = 'Markeer als niet geschikt';
 $string['flagged'] = 'Tag gemarkeerd';

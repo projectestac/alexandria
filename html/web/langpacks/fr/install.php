@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'install', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'install', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   install
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -121,6 +121,7 @@ $string['mysqliextensionisnotpresentinphp'] = 'La configuration de l\'extension 
 $string['nativemariadb'] = 'MariaDB (native/mariadb)';
 $string['nativemariadbhelp'] = '<p>La base de données permet l\'enregistrement de la plupart des réglages et des données de Moodle. Elle doit être configurée ici.</p>
 <p>Le nom de la base de données, son nom d\'utilisateur et son mot de passe sont des champs obligatoires ; le préfixe des tables est optionnel.</p>
+<p>Le nom de la base de données ne doit comporter que des caractères alphanumériques, le dollar ($) et le caractère soulignement (_).</p>
 <p>Si la base de données n\'existe pas encore et que l\'utilisateur indiqué a les droits d\'accès requis, Moodle tentera de créer une nouvelle base de données avec les permissions et réglages adéquats.</p>
 <p>Ce pilote de base de données n\'est pas compatible avec le moteur MyISAM.</p>';
 $string['nativemssql'] = 'SQL*Server FreeTDS (native/mssql)';
@@ -128,6 +129,7 @@ $string['nativemssqlhelp'] = 'Vous devez maintenant configurer la base de donné
 $string['nativemysqli'] = 'MySQL amélioré (natif, mysqli)';
 $string['nativemysqlihelp'] = '<p>La base de données permet l\'enregistrement de la plupart des réglages et des données de Moodle. Elle doit être configurée ici.</p>
 <p>Le nom de la base de données, son nom d\'utilisateur et son mot de passe sont des champs obligatoires ; le préfixe des tables est optionnel.</p>
+<p>Le nom de la base de données ne doit comporter que des caractères alphanumériques, le dollar ($) et le caractère soulignement (_).</p>
 <p>Si la base de données n\'existe pas encore et que l\'utilisateur indiqué a les droits d\'accès requis, Moodle tentera de créer une nouvelle base de données avec les permissions et réglages adéquats.</p>';
 $string['nativeoci'] = 'Oracle (natif, oci)';
 $string['nativeocihelp'] = 'Vous devez maintenant configurer la base de données où seront stockées les données de Moodle. Cette base de données doit être déjà créée, tout comme le nom d\'utilisateur et le mot de passe pour y accéder. Le préfixe des tables est obligatoire.';
@@ -148,7 +150,7 @@ $string['pathsrodataroot'] = 'Le dossier de données n\'est pas accessible en é
 $string['pathsroparentdataroot'] = 'Le dossier parent ({$a->parent}) n\'est pas accessible en écriture. Le dossier de données ({$a->dataroot}) ne peut pas être créé par l\'installeur.';
 $string['pathssubadmindir'] = 'Quelques rares hébergeurs utilisent « /admin » comme URL spéciale pour l\'accès à un tableau de bord ou d\'autres fonctionnalités. Malheureusement ceci entre en conflit avec l\'emplacement standard des pages d\'administration de Moodle. Vous pouvez corriger ceci en renommant le dossier admin de votre installation Moodle et en plaçant le nouveau nom choisi dans ce champ. Par exemple, <em>moodleadmin</em>. Ceci modifiera tous les liens de l\'administration de Moodle.';
 $string['pathssubdataroot'] = '<p>Un dossier dans lequel Moodle stockera tous les fichiers qui seront déposés par les utilisateurs.</p>
-<p>Ce dossier doit être accessible en lecture et en écriture par le serveur web (dénomé « nobody » ou « apache » ou encore « www-data »).</p>
+<p>Ce dossier doit être accessible en lecture et en écriture par l\'utilisateur système du serveur web (habituellement nommé « www-data », « nobody » ou encore « apache »).</p>
 <p>Il ne doit pas être accessible directement via le web.</p>
 <p>Si ce dossier n\'existe pas encore, Moodle tentera de le créer au cours du processus d\'installation.</p>';
 $string['pathssubdirroot'] = '<p>Le chemin d\'accès complet au dossier contenant le code source de Moodle.</p>';
@@ -161,7 +163,9 @@ $string['pathswrongadmindir'] = 'Le dossier d\'administration n\'existe pas';
 $string['pgsqlextensionisnotpresentinphp'] = 'La configuration de l\'extension PGSQL de PHP n\'a pas été effectuée correctement. De ce fait, PHP ne peut communiquer avec PostgreSQL. Veuillez contrôler votre fichier « php.ini » ou recompiler PHP.';
 $string['phpextension'] = 'Extension PHP {$a}';
 $string['phpversion'] = 'Version de PHP';
-$string['phpversionhelp'] = '<p>Moodle nécessite au minimum la version 4.3.0 ou 5.1.0 (5.0.x a bon nombre de problèmes).</p><p>Vous utilisez actuellement la version {$a}.</p><p>Pour que Moodle fonctionne, vous devez mettre à jour PHP ou aller chez un hébergeur ayant une version récente de PHP.<br />(Si vous avez une version 5.0.x, vous pouvez aussi re-passer à la version 4.4.x)</p>';
+$string['phpversionhelp'] = '<p>Moodle nécessite au minimum la version 5.6.5 ou 7.1 (la version 7.0.x a des limitations avec certains moteurs de base de données).</p>
+<p>Vous utilisez actuellement la version {$a}.</p>
+<p>Veuillez mettre à jour PHP ou passer à un hébergement avec une version plus récente de PHP.</p>';
 $string['releasenoteslink'] = 'Pour des informations sur cette version de Moodle, veuillez lire les notes de version à {$a}';
 $string['safemode'] = 'Safe Mode';
 $string['safemodeerror'] = 'Moodle risque de rencontrer des problèmes lorsque le mode « safe mode » est activé';

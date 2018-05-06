@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'message_jabber', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'message_jabber', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   message_jabber
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['configjabberhost'] = 'Dieser Server soll verwendet werden, um Jabber-Mitteilungen zu versenden';
+$string['configjabberhost'] = 'Server für den Versand von Jabber-Mitteilungen';
 $string['configjabberpassword'] = 'Das Kennwort ist für die Verbindung zum Jabber-Server notwendig.';
 $string['configjabberport'] = 'Über diesen Port wird die Verbindung zum Jabber-Server aufgebaut.';
 $string['configjabberserver'] = 'XMPP-Host-ID (leer, wenn dies der gleiche Server wie der Jabber-Server ist)';
@@ -37,4 +37,4 @@ $string['jabberport'] = 'Jabber-Port';
 $string['jabberserver'] = 'XMPP-Server';
 $string['jabberusername'] = 'Jabber-Anmeldename';
 $string['notconfigured'] = 'Der Jabber-Server ist nicht konfiguriert, so dass keine Jabber-Mitteilungen versandt werden können.';
-$string['pluginname'] = 'Jabber Mitteilung';
+$string['pluginname'] = 'Jabber';

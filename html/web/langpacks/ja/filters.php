@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filters', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filters', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   filters
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,7 +42,7 @@ $string['courserole'] = 'コースロール';
 $string['courserolelabel'] = '{$a->label} は {$a->categoryname} 内の {$a->coursename} の {$a->rolename} です。';
 $string['courserolelabelerror'] = '{$a->label} エラー: コース {$a->coursename} がありません。';
 $string['coursevalue'] = 'コース値';
-$string['datelabelisafter'] = '{$a->label} が {$a->after} 以降';
+$string['datelabelisafter'] = '{$a->label} が {$a->after} 以後';
 $string['datelabelisbefore'] = '{$a->label} が {$a->before} 以前';
 $string['datelabelisbetween'] = '{$a->label} が {$a->after} および {$a->before} の間';
 $string['defaultx'] = 'デフォルト ({$a})';
@@ -52,14 +52,14 @@ $string['endswith'] = '次の文字で終わる';
 $string['filterallwarning'] = 'ヘッディングおよびコンテンツにフィルタを適用する場合、あなたのサーバに対する負荷を極めて増大させます。「適用先」設定は控えめに使ってください。主な使用は多言語コンテンツフィルタです。';
 $string['filtersettings'] = 'フィルタ設定';
 $string['filtersettingsforin'] = '{$a->context} の {$a->filter} に関するフィルタ設定';
-$string['filtersettings_help'] = 'このページでは、あなたはサイトの特定部分においてフィルタを有効または無効にすることができます。
+$string['filtersettings_help'] = 'このページではあなたはサイトの特定部分においてフィルタを有効または無効にすることができます。
 
-いくつかのフィルタにおいて、あなたはローカル設定を設定することができます。この場合、フィルタ名の次に「設定」リンクが表示されます。';
+いくつかのフィルタにおいてあなたはローカル設定を設定することができます。この場合、フィルタ名の次に「設定」リンクが表示されます。';
 $string['filtersettingsin'] = '{$a} のフィルタ設定';
 $string['firstaccess'] = '初回アクセス';
 $string['globalrolelabel'] = '{$a->label} が {$a->value}';
 $string['isactive'] = '有効?';
-$string['isafter'] = '次の日付以降';
+$string['isafter'] = '次の日付以後';
 $string['isanyvalue'] = 'どの値でも';
 $string['isbefore'] = '次の日付以前';
 $string['isdefined'] = '次が定義されている';

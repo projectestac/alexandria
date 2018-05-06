@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choice', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   choice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -30,18 +30,20 @@ $string['allowmultiple'] = 'Permitir selecionar mais do que uma opção';
 $string['allowupdate'] = 'Permitir mudar a resposta';
 $string['answered'] = 'Respondido';
 $string['atleastoneoption'] = 'Tem de inserir pelo menos uma opção de resposta';
+$string['calendarend'] = 'Sondagem fecha a {$a}';
+$string['calendarstart'] = 'Sondagem abre a {$a}';
 $string['cannotsubmit'] = 'Desculpe, surgiu um problema ao submeter a sua escolha. Por favor, tente novamente.';
 $string['choice'] = 'Opção de resposta';
 $string['choiceactivityname'] = 'Sondagem: {$a}';
 $string['choice:addinstance'] = 'Adicionar nova sondagem';
 $string['choice:choose'] = 'Responder';
-$string['choiceclose'] = 'Fim';
+$string['choiceclose'] = 'Permitir respostas até';
 $string['choicecloseson'] = 'A sondagem encerra em {$a}';
-$string['choice:deleteresponses'] = 'Apagar respostas';
+$string['choice:deleteresponses'] = 'Modificar e apagar respostas';
 $string['choice:downloadresponses'] = 'Descarregar respostas';
 $string['choicefull'] = 'Esta opção está completa, tendo já atingido o número máximo de respostas permitidas.';
 $string['choicename'] = 'Designação';
-$string['choiceopen'] = 'Início';
+$string['choiceopen'] = 'Permitir respostas a partir de';
 $string['choiceoptions'] = 'Opções de resposta';
 $string['choiceoptions_help'] = 'Especifique as opções de resposta que os participantes podem escolher.
 
@@ -49,15 +51,18 @@ Pode preencher o número de opções que pretender, sendo que as que deixar em b
 $string['choice:readresponses'] = 'Ver respostas';
 $string['choicesaved'] = 'A sua resposta foi guardada';
 $string['choicetext'] = 'Questão da sondagem';
+$string['choice:view'] = 'Ver atividade Sondagem';
 $string['chooseaction'] = 'Selecione uma ação...';
+$string['chooseoption'] = 'Escolha: {$a}';
 $string['closebeforeopen'] = 'Especificou uma data de fecho anterior à data de abertura.';
 $string['completionsubmit'] = 'Mostrar como concluída após o aluno submeter a sua resposta';
 $string['description'] = 'Descrição';
 $string['displayhorizontal'] = 'Disposição horizontal';
 $string['displaymode'] = 'Modo de exibição das opções';
 $string['displayvertical'] = 'Disposição vertical';
-$string['eventanswercreated'] = 'Opção selecionada';
+$string['eventanswercreated'] = 'Resposta à Sondagem gravada';
 $string['eventanswerdeleted'] = 'Resposta à Sondagem eliminada';
+$string['eventanswersubmitted'] = 'Sondagem feita';
 $string['eventanswerupdated'] = 'Opção atualizada';
 $string['eventreportdownloaded'] = 'Relatório de respostas submetidas descarregado';
 $string['eventreportviewed'] = 'Relatório da Sondagem visualizado';
@@ -81,7 +86,7 @@ A Sondagem pode ser utilizada:
 * Como uma pergunta rápida para estimular o pensamento sobre um tópico, testando assim rapidamente a compreensão dos alunos;
 * Para facilitar a tomada de decisões, por exemplo, permitindo que os alunos votem em algo.';
 $string['modulename_link'] = 'mod/choice/view';
-$string['modulenameplural'] = 'Opções de resposta';
+$string['modulenameplural'] = 'Sondagens';
 $string['moveselectedusersto'] = 'Mover os utilizadores selecionados para...';
 $string['multiplenotallowederror'] = 'Múltiplas respostas não são permitidas nesta sondagem';
 $string['mustchooseone'] = 'Deve selecionar uma opção de resposta antes de gravar.';
@@ -95,7 +100,7 @@ $string['numberofuserinpercentage'] = 'Percentagem de respostas';
 $string['option'] = 'Opção de resposta';
 $string['optionno'] = 'Opção {no}';
 $string['options'] = 'Opções';
-$string['page-mod-choice-x'] = 'Qualquer página da sondagem';
+$string['page-mod-choice-x'] = 'Qualquer página da atividade sondagem';
 $string['pluginadministration'] = 'Administração da Sondagem';
 $string['pluginname'] = 'Sondagem';
 $string['previewonly'] = 'Esta é apenas uma pré-visualização das opções disponíveis para esta atividade. Não poderá submeter a sua escolha até {$a}.';
@@ -122,7 +127,6 @@ $string['skipresultgraph'] = 'Saltar gráfico de resultados';
 $string['spaceleft'] = 'Número de respostas disponível';
 $string['spacesleft'] = 'Número de respostas disponíveis';
 $string['taken'] = 'Completa';
-$string['timerestrict'] = 'Restringir respostas a este período';
 $string['userchoosethisoption'] = 'Utilizadores que escolheram esta opção';
 $string['viewallresponses'] = 'Ver {$a} respostas';
 $string['withselected'] = 'Com os selecionados';

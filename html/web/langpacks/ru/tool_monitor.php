@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_monitor', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_monitor', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_monitor
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -98,5 +98,5 @@ $string['subdeletesuccess'] = 'Подписка удалена';
 $string['subhelp'] = 'Информация о подписке';
 $string['subhelp_help'] = 'Это подписка на уведомления о случаях, когда в модуле «{$a->moduleinstance}» событие «{$a->eventname}» происходит {$a->frequency} раз(а) за {$a->minutes} мин.';
 $string['subscribeto'] = 'Подписаться на правило «{$a}»';
-$string['taskcleanevents'] = 'Удаление неиспользуемых данных модуля отслеживания событий';
+$string['taskcleanevents'] = 'Очистить данные отслеживания событий';
 $string['unsubscribe'] = 'Отказаться от подписки';

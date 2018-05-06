@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_task', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_task', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_task
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,7 +42,7 @@ $string['resettasktodefaults'] = 'Zet geplande taken terug naar standaardwaarden
 $string['resettasktodefaults_help'] = 'Hiermee zullen alle lokale wijzigingen verworpen worden en wordt de planning voor deze taak terug op de standaardinstellingen gezet.';
 $string['scheduledtaskchangesdisabled'] = 'De Moodleconfiguratie verhindert het maken van wijzigingen aan de lijst met geplande taken.';
 $string['scheduledtasks'] = 'Geplande taken';
-$string['taskdisabled'] = 'Taak uitsgeschakeld';
+$string['taskdisabled'] = 'Taak uitgeschakeld';
 $string['taskscheduleday'] = 'Dag';
 $string['taskscheduleday_help'] = 'Dag van de maand-veld voor taakschema. Het veld maakt gebruik van hetzelfde formaat als unix cron. Enkele voorbeelden zijn: <br/><ul><li> <strong>*</strong> Elke dag </li><li> <strong>* / 2</strong> Elke 2e dag </li><li> <strong>1</strong> De eerste van de maand </li><li> <strong>1,15</strong> De eerste en de vijftiende van elke maand </li></ul>';
 $string['taskscheduledayofweek'] = 'Dag van de week';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_ldap', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -99,7 +99,7 @@ $string['auth_ldap_usertypeundefined2'] = 'config.user_type is niet gedefinieerd
 $string['auth_ldap_version'] = 'De versie van het LDAP-protocol die jouw server gebruikt.';
 $string['auth_ldap_version_key'] = 'Versie';
 $string['auth_ntlmsso'] = 'NTLM SSO';
-$string['auth_ntlmsso_enabled'] = 'Zet dit op Ja om Single-sign-on met het NTLM-domein te bekomen.<strong>Opmerking</strong>dit vereist bijkomende instellingen op de webserver. Zie <a href="http://docs.moodle.org/nl/NTLM_authenticatie">http://docs.moodle.org/nl/NTLM_authenticatie</a';
+$string['auth_ntlmsso_enabled'] = 'Zet dit op Ja om Single-sign-on met het NTLM-domein te bekomen.<strong>Opmerking</strong>dit vereist bijkomende instellingen op de webserver. Zie <a href="http://docs.moodle.org/nl/NTLM_authenticatie">http://docs.moodle.org/nl/NTLM_authenticatie</a>';
 $string['auth_ntlmsso_enabled_key'] = 'Inschakelen';
 $string['auth_ntlmsso_ie_fastpath'] = 'Zet op ja om NTLM SSO fast path in in te schakelen (slaat sommige stappen over als de browser MS Internet Explorer is).';
 $string['auth_ntlmsso_ie_fastpath_attempt'] = 'Probeer NTLM met alle browsers';
@@ -108,8 +108,8 @@ $string['auth_ntlmsso_ie_fastpath_yesattempt'] = 'Ja, probeer NTLM met alle brow
 $string['auth_ntlmsso_ie_fastpath_yesform'] = 'Ja, alle andere browsers gebruiken een standaard loginformulier';
 $string['auth_ntlmsso_maybeinvalidformat'] = 'Kon de gebruikersnaam niet uit de REMOTE_USER header halen. Is de geconfigureerde format correct?';
 $string['auth_ntlmsso_missing_username'] = 'Je moet minstens %username% gebruiken in externe gebruikersnaam format.';
-$string['auth_ntlmsso_remoteuserformat'] = 'Als je \'NTLM\' in \'Authenticatietype\' gekozen hebt, dan kun je hier de opmaak van de externe gebruikersnaam opgeven. Als je dit leeg laat, dan zal de standaard DOMAINusername opmaak gebruikt worden. Je kunt de optionele <b>%domain%</b> plaatshouder gebruiken om op te geven waar de gebruikersnaam komt en de verplichte <b>%username%</b> plaatshouder om te tonen waar de gebruikersnaam komt. <br /><br />Enkele voorbeelden van veelgebruikte opmaak zijn
-<tt>%domain%%username%</tt> (MS Windows standaard), <tt>%domain%/%username%</tt>, <tt>%domain%+%username%</tt> of gewoon <tt>%username%</tt> (als er geen domeindeel is)';
+$string['auth_ntlmsso_remoteuserformat'] = 'Als je \'NTLM\' in \'Authenticatietype\' gekozen hebt, dan kun je hier de opmaak van de externe gebruikersnaam opgeven. Als je dit leeg laat, dan zal de standaard DOMEIN\\gebruikersnaam opmaak gebruikt worden. Je kunt de optionele <b>%domain%</b> plaatshouder gebruiken om op te geven waar de gebruikersnaam komt en de verplichte <b>%username%</b> plaatshouder om te tonen waar de gebruikersnaam komt. <br /><br />Enkele voorbeelden van veelgebruikte opmaak zijn
+<tt>%domain%\\%username%</tt> (MS Windows standaard), <tt>%domain%/%username%</tt>, <tt>%domain%+%username%</tt> of gewoon <tt>%username%</tt> (als er geen domeindeel is)';
 $string['auth_ntlmsso_remoteuserformat_key'] = 'Format externe gebruikersnaam';
 $string['auth_ntlmsso_subnet'] = 'Indien ingeschakeld, zal alleen SSO geprobeerd worden met clients in dit subnet. Opmaak: xxx.xxx.xxx.xxx/bitmask. Verschillende subnets worden gescheiden met een \',\' (komma).';
 $string['auth_ntlmsso_subnet_key'] = 'Subnet';
@@ -134,7 +134,7 @@ $string['ntlmsso_attempting'] = 'Single sign on via NTLM wordt geprobeerd...';
 $string['ntlmsso_failed'] = 'Auto-login mislukt, probeer de gewone loginpagina...';
 $string['ntlmsso_isdisabled'] = 'NTLM SSO is uitgeschakeld';
 $string['ntlmsso_unknowntype'] = 'Onbekend ntimsso type!';
-$string['pagedresultsnotsupp'] = 'Gepagineerde LDAP-resultaten niet ondersteund (ofwel ondersteunt je PHP-versie het niet, ofwel heb je Moodle geconfigureerd om LDAP protocol versie 2 te gebruiken)';
+$string['pagedresultsnotsupp'] = 'Gepagineerde LDAP-resultaten niet ondersteund (ofwel ondersteunt je PHP-versie het niet, ofwel heb je Moodle geconfigureerd om LDAP protocol versie 2 te gebruiken of Moodle kan je LDAP-server niet contacteren om te zien of paginering beschikbaar is.)';
 $string['pagesize'] = 'Zorg ervoor dat deze waarde kleiner is dan je LDAP-server result set size limit (het maximale aantal items dat via één query opgehaald kan worden)';
 $string['pagesize_key'] = 'Paginagrootte';
 $string['pluginname'] = 'LDAP-server';

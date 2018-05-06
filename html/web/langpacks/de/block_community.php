@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_community', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_community', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   block_community
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -81,7 +81,7 @@ $string['language'] = 'Sprache';
 $string['language_help'] = 'Sie können nach Kursen suchen, die in einer bestimmten Sprache verfasst sind.';
 $string['licence'] = 'Lizenz';
 $string['licence_help'] = 'Sie können nach Kursen suchen, die in einer bestimmten Art lizensiert sind.';
-$string['moredetails'] = 'Mehr Details';
+$string['moredetails'] = 'Weitere Details';
 $string['mycommunities'] = 'Meine Communities:';
 $string['next'] = 'Weiter';
 $string['nocomments'] = 'Keine Kommentare';

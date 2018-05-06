@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_section_links', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_section_links', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   block_section_links
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -32,9 +32,9 @@ $string['incby2_help'] = 'Met deze waarde neemt de sectie toe telkens er een sec
 $string['jumptocurrenttopic'] = 'Ga naar het huidige onderwerp';
 $string['jumptocurrentweek'] = 'Ga naar deze week';
 $string['numsections1'] = 'Aantal secties';
-$string['numsections1_help'] = 'Als het aantal secties in de cursus dit aantal bereikt, dan wordt de toenemen met-waarde gebruikt.';
+$string['numsections1_help'] = 'Als het aantal secties in de cursus dit aantal bereikt, dan wordt de toenemen-met-waarde gebruikt.';
 $string['numsections2'] = 'Alternatief aantal secties';
-$string['numsections2_help'] = 'Als het aantal secties in de cursus dit aantal bereikt, dan wordt de toenemen met-waarde gebruikt.';
+$string['numsections2_help'] = 'Als het aantal secties in de cursus dit aantal bereikt, dan wordt de toenemen-met-waarde gebruikt.';
 $string['pluginname'] = 'Sectie hyperlinks';
 $string['section_links:addinstance'] = 'Voeg een nieuw sectielinksblok toe';
 $string['topics'] = 'Onderwerpen';

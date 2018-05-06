@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'backup', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'backup', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   backup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['autoactivedescription'] = 'Wählen Sie, ob eine automatische Sicherung durchgeführt werden soll. Falls Sie "Manuell" auswählen, sind automatische Sicherungen nur noch über das CLI-Script "automated backups" möglich. Dieses CLI-Script kann manuell oder über einen Cronjob gestartet werden.';
+$string['autoactivedescription'] = 'Wählen Sie, ob eine automatische Sicherung durchgeführt werden soll. Falls Sie die Option \'Manuell\' auswählen, sind automatische Sicherungen nur noch über das CLI-Script \'automated backups\' möglich. Dieses CLI-Script kann manuell in der Befehlszeile oder über einen Cronjob gestartet werden.';
 $string['autoactivedisabled'] = 'Deaktiviert';
 $string['autoactiveenabled'] = 'Aktiviert';
 $string['autoactivemanual'] = 'Manuell';
@@ -90,7 +90,9 @@ $string['configgeneralactivities'] = 'Standard für die Einbeziehung von Aktivit
 $string['configgeneralanonymize'] = 'Standard für die Anonymisierung aller nutzerbezogenen Informationen in eine Sicherung';
 $string['configgeneralbadges'] = 'Diese Option legt fest, ob Auszeichnungen standardmäßig in eine Sicherung einbezogen werden.';
 $string['configgeneralblocks'] = 'Standard für die Einbeziehung von Blöcken in eine Sicherung';
+$string['configgeneralcalendarevents'] = 'Diese Option legt die Standardeinstellung für die Einbeziehung von Kalendereinträgen in Kurssicherungen fest.';
 $string['configgeneralcomments'] = 'Standard für die Einbeziehung von Kommentaren in eine Sicherung';
+$string['configgeneralcompetencies'] = 'Diese Option legt die Standardeinstellung für die Einbeziehung von Kompetenzen in Kurssicherungen fest.';
 $string['configgeneralfilters'] = 'Standard für die Einbeziehung von Filtern in eine Sicherung';
 $string['configgeneralgroups'] = 'Diese Option legt die Standardeinstellung für Gruppen und Gruppierungen in Kurssicherungen fest.';
 $string['configgeneralhistories'] = 'Standard für die Einbeziehung von Nutzerverläufen in eine Sicherung';
@@ -138,7 +140,9 @@ $string['generalanonymize'] = 'Informationen anonymisieren';
 $string['generalbackdefaults'] = 'Allgemeines';
 $string['generalbadges'] = 'Auszeichnungen einbeziehen';
 $string['generalblocks'] = 'Blöcke einbeziehen';
+$string['generalcalendarevents'] = 'Kalender einbeziehen';
 $string['generalcomments'] = 'Kommentare einbeziehen';
+$string['generalcompetencies'] = 'Kompetenzen einbeziehen';
 $string['generalfilters'] = 'Filter einbeziehen';
 $string['generalgradehistories'] = 'Verlauf einbeziehen';
 $string['generalgroups'] = 'Gruppen und Gruppierungen einbeziehen';
@@ -167,6 +171,7 @@ $string['importgeneralduplicateadminallowed_desc'] = 'Wenn es auf dem System ein
 $string['importgeneralmaxresults'] = 'Max. Anzahl von Kursen für den Import';
 $string['importgeneralmaxresults_desc'] = 'Diese Option legt fest, wie viele Kurse im ersten Schritt des Importprozesses maximal angezeigt werden.';
 $string['importgeneralsettings'] = 'Standardwerte für den Import';
+$string['importsettings'] = 'Generelle Importeinstellungen';
 $string['importsuccess'] = 'Import vollständig. Klicken Sie auf Weiter, um in den Kurs zu gelangen.';
 $string['includeactivities'] = 'Einbeziehen:';
 $string['includeditems'] = 'Einbezogene Elemente:';
@@ -202,7 +207,7 @@ $string['restoreexecutionsuccess'] = 'Der Kurs wurde erfolgreich wiederhergestel
 $string['restorefileweremissing'] = 'Einige Dateien konnten nicht wiederhergestellt werden. Sie fehlten im Backup.';
 $string['restorenewcoursefullname'] = 'Neuer Kursname';
 $string['restorenewcourseshortname'] = 'Kurzer Kursname des neuen Kurses';
-$string['restorenewcoursestartdate'] = 'Neuer Starttermin';
+$string['restorenewcoursestartdate'] = 'Neuer Kursbeginn';
 $string['restorerolemappings'] = 'Wiederherstellen Rollenzuordnungen';
 $string['restorerootsettings'] = 'Einstellungen wiederherstellen';
 $string['restoresection'] = 'Abschnitt wiederherstellen';

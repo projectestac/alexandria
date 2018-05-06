@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_myprofile', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_myprofile', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   block_myprofile
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -39,7 +39,7 @@ $string['display_lastaccess'] = 'Letzten Zugriff anzeigen';
 $string['display_lastip'] = 'Letzte IP anzeigen';
 $string['display_msn'] = 'MNS anzeigen';
 $string['display_phone1'] = 'Telefon anzeigen';
-$string['display_phone2'] = 'Mobile anzeigen';
+$string['display_phone2'] = 'Mobiltelefon anzeigen';
 $string['display_picture'] = 'Foto anzeigen';
 $string['display_skype'] = 'Skype anzeigen';
 $string['display_un'] = 'Name anzeigen';

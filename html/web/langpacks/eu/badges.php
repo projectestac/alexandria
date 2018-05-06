@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'badges', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   badges
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -84,13 +84,35 @@ Zure gunea ez badago aktiboa probako dominak sortu eta eman ditzakezu beti ere a
 
 Egiaztatzeko beharrezko den URL bakarra [zure-gunearen-urla]/badges/assertion.php, da eta  fitxategi horretarako kanpoko sarbidea baimentzeko firewall-a aldatu ahal baduzu, dominek egiaztapenak funtzionatu egingo du.';
 $string['backpackbadges'] = '{$a->totalbadges} domina duzu {$a->totalcollections} bildumatatik erakutsiak. <a href="mybackpack.php">Aldatu motxilaren ezarpenak</a>.';
+$string['backpackcannotsendverification'] = 'Ezin da bidali egiaztapenerako e-posta';
 $string['backpackconnection'] = 'Motxilarako konexioa';
+$string['backpackconnectioncancelattempt'] = 'Konektatu beste e-posta helbide bat erabilita';
+$string['backpackconnectionconnect'] = 'Konektatu  motxilara';
 $string['backpackconnection_help'] = 'Orri honek kanpoko motxila-hornitzaile baterako konexioa konfiguratzeko aukera ematen dizu. Motxila batera konektatzeak kanpoko dominak gune honetan erakusteko aukera ematen dizu eta bertan irabazitako dominak zeure motxilara igotzea.
 
 Une honetan, <a href="http://backpack.openbadges.org">OpenBadges Mozilla Motxila</a> baino ez da bateragarria. Izena eman behar da orri honetan motxilarako konexioa konfiguratzen saiatzen hasi aurretik motxila-zerbitzua izateko.';
+$string['backpackconnectionresendemail'] = 'Berriz bidali egiaztapenerako e-posta';
+$string['backpackconnectionunexpectedresult'] = 'Arazoa gertatu da motxilarekin konektatzean. Mesedez saiatu berriz. <br><br>Arazoa konpondu ezean, jar zaitez harremanetan sistemako kudeatzailearekin.';
 $string['backpackdetails'] = 'Motxilaren ezarpenak';
 $string['backpackemail'] = 'E-posta helbidea';
 $string['backpackemail_help'] = 'Zure motxilarekin lotutako e-posta helbidea. Konektatuta zauden bitartean, gune honetan irabazitako dominak e-posta helbide honekin lotuko dira.';
+$string['backpackemailverificationpending'] = 'Egiaztapena falta da';
+$string['backpackemailverifyemailbody'] = 'Kaixo,
+
+Zure OpenBadges motxilara konexio berri baten eskaera egin da \'{$a->sitename}\' gunetik zure e-posta helbidea erabilita.
+
+Konfirmatu eta zure motxilako konexioa aktibatzeko mesedez jo hona:
+
+{$a->link}
+
+E-posta programa gehienetan goiko helbidea lotura urdin bat gisa agertu beharko litzateke eta zuk zuzenean klik egiteko aukera izan. Ez bada horrela, helbidea kopiatu eta zure nabigatzailearen goialdean dagoen helbide-barran itsasi.
+
+Laguntza behar baduzu, mesedez jarri harremanetan zure guneko kudeatzailearekin:
+{$a->admin}';
+$string['backpackemailverifyemailsubject'] = '{$a}: OpenBadges-en motxilarako e-posta bidezko egiaztapena';
+$string['backpackemailverifypending'] = 'e-posta helbidea konprobatzeko mezua bidali da <strong>{$a}</strong> helbidera. Klik egin bertan agertzen den estekan zure motxilako konexioa aktibatzeko.';
+$string['backpackemailverifysuccess'] = 'Eskerrik asko zure e-posta helbidea konprobatzeagatik. Orain zure motxilarekin konektatuta zaude.';
+$string['backpackemailverifytokenmismatch'] = 'Klik egin duzun estekaren token-a ez dator bat gordetako token-arekin. Ziurta ezazu jasotako azken e-posta mezuko estekan klik egin duzula.';
 $string['backpackimport'] = 'Domina inportatzeko ezarpenak';
 $string['backpackimport_help'] = 'Motxilarako konexio egokia ezarri ondoren, zure motxilako dominak zure dominen orrian eta zure profil-orrian ikusi ahal izango dira.
 
@@ -216,10 +238,13 @@ $string['error:backpackemailnotfound'] = '\'{$a}\' e-posta ez dago inongo motxil
 $string['error:backpackloginfailed'] = 'Ezin zara kanpoko motxila batera konektatu ondorengo arrazoia dela-eta: {$a}';
 $string['error:backpacknotavailable'] = 'Zure gunea ez dago internet bidez eskuragarri eta, beraz, gune honetan emandako edozein domina kanpoko motxila-zerbitzuek ezin izango dute egiaztatu.';
 $string['error:backpackproblem'] = 'Arazo bat dago zure motxila-zerbitzu hornitzailearekin konektatzeko. Mesedez, saiatu berriz geroxeago.';
+$string['error:badgeawardnotfound'] = 'Ezin da emandako domina hau egiaztatu. Baliteke domina hau kendu izana.';
+$string['error:badgenotfound'] = 'Domina ez da aurkitu';
 $string['error:badjson'] = 'Konexio-saiakerak balio ez duten datuak eman ditu.';
 $string['error:cannotact'] = 'Ezin da domina aktibatu.';
 $string['error:cannotawardbadge'] = 'Ezin zaio domina erabiltzaile bati eman.';
 $string['error:cannotdeletecriterion'] = 'Irizpide hau ezin da ezabatu.';
+$string['error:cannotrevokebadge'] = 'Ezin zaio erabiltzaile bati domina bat kendu';
 $string['error:clone'] = 'Ezin da domina klonatu.';
 $string['error:connectionunknownreason'] = 'Konexioa ez da egoki burutu, baina arrazoia ez dakigu.';
 $string['error:duplicatename'] = 'Badago aldez aurretik izen hori duen domina sisteman.';
@@ -248,7 +273,20 @@ $string['error:requesterror'] = 'Konexio-eskariak huts egin du (errore-kodea {$a
 $string['error:requesttimeout'] = 'Konexio-eskaera tartea agortu egin da konexio burutu baino lehen.';
 $string['error:save'] = 'Ezin da domina gorde.';
 $string['error:userdeleted'] = '{$a->user} (Erabiltzaile hau ez dago dagoeneko {$a->site} -n)';
+$string['eventbadgearchived'] = 'Domina artxibatu da';
 $string['eventbadgeawarded'] = 'Domina lortu da';
+$string['eventbadgecreated'] = 'Domina sortu da';
+$string['eventbadgecriteriacreated'] = 'Dominarako irizpidea sortu da';
+$string['eventbadgecriteriadeleted'] = 'Dominarako irizpidea ezabatu da';
+$string['eventbadgecriteriaupdated'] = 'Dominarako irizpidea eguneratu da';
+$string['eventbadgedeleted'] = 'Domina ezabatu da';
+$string['eventbadgedisabled'] = 'Domina desgaitu da';
+$string['eventbadgeduplicated'] = 'Domina bikoiztu da';
+$string['eventbadgeenabled'] = 'Domina gaitu da';
+$string['eventbadgelistingviewed'] = 'Dominen zerrenda ikusi da';
+$string['eventbadgerevoked'] = 'Domina kendu da';
+$string['eventbadgeupdated'] = 'Domina eguneratu da';
+$string['eventbadgeviewed'] = 'Domina ikusi da';
 $string['evidence'] = 'Ebidentzia';
 $string['existingrecipients'] = 'Existitzen diren domina-jasotzaileak';
 $string['expired'] = 'Iraungita';
@@ -350,6 +388,7 @@ $string['reviewconfirm'] = '<p> hau eginda, erabiltzaileek zure domina ikusi aha
 <p> Domina lehenengoz eman orduko <strong>blokeatu</strong> egingo da - hainbat ezarpen, irizpideak eta iraungitze ezarpenak barne, ezin izango dira aldatu. </p>
 
 <p> Ziur al zaude \'{$a}\' dominarako sarbidea baimendu nahi duzula? </p>';
+$string['revoke'] = 'Kendu domina';
 $string['save'] = 'Gorde';
 $string['searchname'] = 'BIlatu izenaren arabera';
 $string['selectaward'] = 'Mesedez, aukeratu zein rol erabili nahi duzun domina hau emateko:';

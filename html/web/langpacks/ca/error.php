@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'error', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   error
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activityisscheduledfordeletion'] = 'Eliminació de l\'activitat en curs...';
 $string['alreadyloggedin'] = 'Ja esteu registrat com {$a}, heu de tancar la sessió abans d\'identificar-vos com a un altre usuari.';
 $string['authnotexisting'] = 'No existeix el connector d\'autorització.';
 $string['backupcontainexternal'] = 'Aquest fitxer de còpia de seguretat conté hostes en xarxa de Moodle externs que no han estat configurats localment.';
@@ -49,7 +50,7 @@ $string['cannotcallscript'] = 'No podeu cridar aquest script d\'aquesta manera.'
 $string['cannotcallusgetselecteduser'] = 'No podeu cridar user_selector::get_selected_user si multi select és cert.';
 $string['cannotcreatebackupdir'] = 'No s\'ha pogut crear el directori de còpies de seguretat. Cal que l\'administrador del lloc assigni els permisos.';
 $string['cannotcreatecategory'] = 'No s\'ha inserit la categoria';
-$string['cannotcreatedboninstall'] = '<p>No és pot crear la base de dades.</p> <p>La base de dades especificada no existeix i l\'usuari que heu proporcionat no té permís per a crear-la.</p>
+$string['cannotcreatedboninstall'] = '<p>No es pot crear la base de dades.</p> <p>La base de dades especificada no existeix i l\'usuari que heu proporcionat no té permís per a crear-la.</p>
 <p>L\'administrador del lloc hauria de verificar la configuració de la base de dades.</p>';
 $string['cannotcreategroup'] = 'S\'ha produït un error en crear la categoria';
 $string['cannotcreatelangbase'] = 'S\'ha produït un error. No s\'ha creat el directori base d\'idiomes.';
@@ -175,6 +176,7 @@ $string['categorynamerequired'] = 'El nom de la categoria és obligatori.';
 $string['categorytoolong'] = 'Nom de categoria massa llarg';
 $string['commentmisconf'] = 'L\'ID del comentari està mal configurat';
 $string['componentisuptodate'] = 'El component està actualitzat';
+$string['confirmationnotenabled'] = 'La confirmació de l\'usuari no està habilitada en aquest lloc';
 $string['confirmsesskeybad'] = 'No s\'ha pogut confirmar la vostra clau de sessió per portar a terme aquesta acció. Aquesta característica de seguretat impedeix que s\'executin funcions importants en el vostre nom de manera accidental o fraudulenta. Confirmeu que volíeu realment executar aquesta funció.';
 $string['couldnotassignrole'] = 'S\'ha produït un error greu sense especificar mentre se us intentava assignar un rol';
 $string['couldnotupdatenoexistinguser'] = 'No s\'ha pogut actualitzar l\'usuari perquè no existeix.';
@@ -193,8 +195,8 @@ $string['csvinvalidcols'] = '<b>Fitxer CSV no vàlid:</b> La primera línia ha d
 $string['csvinvalidcolsnum'] = 'Fitxer CSV no vàlid. Cada línia ha d\'incloure 49 o 70 camps';
 $string['csvloaderror'] = 'S\'ha produït un error durant la càrrega del fitxer CSV: {$a}';
 $string['csvweirdcolumns'] = 'El format del fitxer CSV no és vàlid. El nombre de columnes no és constant.';
-$string['dbconnectionfailed'] = '<p>Error: ha fallat la connexió amb la Base de dades</p> <p>És possible que la Base de dades estigui sobrecarregada o que no funcioni correctament.</p> <p>
-L\'administrador del lloc també hauria de comprovar que els detalls de la Base de dades estan correctament especificats a config.php</p>';
+$string['dbconnectionfailed'] = '<p>Error: ha fallat la connexió amb la base de dades</p> <p>És possible que la base de dades estigui sobrecarregada o que no funcioni correctament.</p> <p>
+L\'administrador del lloc també hauria de comprovar que els detalls de la base de dades estan correctament especificats a config.php</p>';
 $string['dbdriverproblem'] = '<p>Error: s\'ha detectat un problema en el motor de la Base de dades</p> <p>L\'administrador del lloc hauria de verificar la configuració del servidor</p><p>{$a}</p>';
 $string['dbsessionbroken'] = 'S\'ha detectat un problema seriós en la sessió de la Base de dades.<br /><br />Notifiqueu-ho a l\'administrador del servidor.';
 $string['dbsessionhandlerproblem'] = 'S\'ha produït un error en configurar la sessió de la Base de dades. Notifiqueu-ho a l\'administrador del servidor.';
@@ -224,6 +226,7 @@ $string['duplicaterolename'] = 'Ja existeix un rol amb aquest nom.';
 $string['duplicateroleshortname'] = 'Ja existeix un rol amb aquest nom curt.';
 $string['duplicateusername'] = 'Nom d\'usuari duplicat - s\'ha omès aquest registre';
 $string['emailfail'] = 'S\'ha produït un error en enviar el correu.';
+$string['enddatebeforestartdate'] = 'La data de finalització del curs ha de ser posterior a la data d\'inici.';
 $string['error'] = 'S\'ha produït un error';
 $string['errorcleaningdirectory'] = 'S\'ha produït un error en netejar el directori "{$a}"';
 $string['errorcopyingfiles'] = 'S\'ha produït un error en copiar els fitxers';
@@ -439,6 +442,7 @@ $string['nopermissiontoviewletergrade'] = 'Cal tenir el permís per veure les qu
 $string['nopermissiontoviewpage'] = 'No teniu permís per veure aquesta pàgina';
 $string['nosite'] = 'No s\'ha pogut trobar un curs de nivell màxim';
 $string['nositeid'] = 'No hi ha cap ID pel lloc';
+$string['nostartdatenoenddate'] = 'La data de finalització d\'un curs només pot ser introduïda si també ho està la data d\'inici.';
 $string['nostatstodisplay'] = 'No hi ha dades disponibles per a mostrar';
 $string['notallowedtoupdateprefremotely'] = 'No teniu permís per actualitzar remotament les preferències de l\'usuari';
 $string['notavailable'] = 'Això no està disponible actualment';
@@ -463,6 +467,7 @@ $string['querystringcannotbeempty'] = 'La cadena de consulta no pot estar buida.
 $string['redirecterrordetected'] = 'Ha finalitzat l\'execució de l\'script perquè s\'ha detectat un redireccionament sense suport.';
 $string['refoundto'] = 'Poden reemborsar-se a {$a}';
 $string['refoundtoorigi'] = 'S\'ha retornat a la quantitat original: {$a}';
+$string['registrationdisabled'] = 'No s\'ha habilitat el registre en aquest lloc';
 $string['remotedownloaderror'] = '<p>No s\'ha pogut baixar el component al vostre servidor. Verifiqueu els paràmetres del servidor intermediari. Es recomana vivament l\'extensió cURL de PHP.</p>
 <p>Haureu de baixar manualment el fitxer <a href="{$a->url}">{$a->url}</a>, copiar-lo a la ubicació «{$a->dest}» del vostre servidor i descomprimir-lo allí.</p>';
 $string['remotedownloadnotallowed'] = 'El vostre servidor no permet baixar components ((allow_url_fopen inhabilitat).<br /><br />Heu de baixar manualment el fitxer <a href="{$a->url}">{$a->url}</a>, copiar-lo a la ubicació «{$a->dest}» del vostre servidor i descomprimir-lo allà.';
@@ -491,6 +496,7 @@ $string['sessionipnomatch'] = 'Sembla que el vostre número IP ha canviat des qu
 $string['sessionipnomatch2'] = '<p>Sembla que la vostra adreça IP ha canviat des del moment en què heu iniciat la sessió per primer cop. Aquesta funció de seguretat impedeix el robatori de la vostra identitat mentre tingueu una sessió iniciada en aquest lloc. Podeu veure aquest error si utilitzeu xarxes sense fils o si esteu en <em>roaming</em> entre xarxes diferents. Pregunteu a l\'administrador del lloc per obtenir més ajuda.</p><p>Si voleu continuar premeu la tecla F5 per refrescar aquesta pàgina.</p>';
 $string['sessionwaiterr'] = 'S\'ha excedit el temps mentre s\'esperava a tancar la sessió.<br />Espereu que acabi la sol·licitud en curs i torneu-ho a provar més tard.';
 $string['shortnametaken'] = 'El nom curt ja està essent utilitzat per a un altre curs  ({$a})';
+$string['sitepolicynotagreed'] = 'En desacord amb la política del lloc: <a href="{$a}">Cliqueu aquí per consultar la política del lloc.</a>';
 $string['socksnotsupported'] = 'L\'intermediari SOCKS5 no funciona en PHP4';
 $string['spellcheckernotconf'] = 'No s\'ha habilitat la correcció ortogràfica';
 $string['sslonlyaccess'] = 'Per raons de seguretat només estan permeses les connexions https';
@@ -500,6 +506,7 @@ $string['statsnodata'] = 'No hi ha disponible cap dada sobre la combinació de c
 $string['storedfilecannotcreatefile'] = 'No es pot crear el conjunt de fitxers associats al fitxer local. Verifiqueu els permisos de dataroot i l\'espai disponible al disc.';
 $string['storedfilecannotcreatefiledirs'] = 'No s\'han pogut crear els directoris locals del repositori de fitxers. Verifiqueu els permisos de datarrot.';
 $string['storedfilecannotread'] = 'No es pot llegir el fitxer bé perquè no existeix, bé perquè hi ha problemes amb els permisos.';
+$string['storedfilecannotreadfile'] = 'No es pot llegir l\'arxiu «{$a}». O l\'arxiu no existeix o hi ha un problema de permisos.';
 $string['storedfilenotcreated'] = 'No s\'ha pogut crear el fitxer "{$a->contextid}/{$a->component}/{$a->filearea}/{$a->itemid}{$a->filepath}{$a->filename}"';
 $string['storedfileproblem'] = 'Hi ha una excepció desconeguda en relació amb els fitxers locals ({$ a})';
 $string['tagdisabled'] = 'S\'han desactivat les etiquetes';
@@ -537,7 +544,7 @@ $string['unknoworder'] = 'Ordenació desconeguda';
 $string['unknowparamtype'] = 'Tipus de paràmetre desconegut: {$a}';
 $string['unknowquestiontype'] = 'Tipus de pregunta sense suport {$a}';
 $string['unknowuploadaction'] = 'S\'ha produït un error: acció de càrrega ({$a}) desconeguda';
-$string['unspecifycourseid'] = 'Heu d\'especificar un ID de curs, un nom curt o un idnumber';
+$string['unspecifycourseid'] = 'Heu d\'especificar un ID de curs, un nom curt o un número ID';
 $string['unsupportedevent'] = 'Tipus d\'esdeveniment sense suport.';
 $string['unsupportedstate'] = 'Estat de compleció sense suport';
 $string['unsupportedwebserver'] = 'El programari del servidor web ({$a}) no és compatible.';
@@ -557,6 +564,7 @@ $string['usernotdeletedadmin'] = 'No s\'ha eliminat l\'usuari: no es poden elimi
 $string['usernotdeletederror'] = 'L\'usuari no s\'ha suprimit - s\'ha produït un error';
 $string['usernotdeletedmissing'] = 'L\'usuari no s\'ha suprimit - no s\'ha pogut trobat el nom d\'usuari';
 $string['usernotdeletedoff'] = 'L\'usuari no s\'ha suprimit - no és permès de suprimir';
+$string['usernotfullysetup'] = 'La configuració de l\'usuari no s\'ha completat';
 $string['usernotincourse'] = 'Aquest usuari no és en aquest curs.';
 $string['usernotrenamedadmin'] = 'No es pot canviar el nom dels comptes d\'administració';
 $string['usernotrenamedexists'] = 'No s\'ha canviat el nom de l\'usuari - el nom nou ja s\'està utilitzant';

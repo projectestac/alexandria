@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_messageinbound', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_messageinbound', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_messageinbound
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -59,7 +59,7 @@ $string['mailsettings'] = 'メール設定';
 $string['message_handlers'] = 'メッセージハンドラ';
 $string['messageinbound'] = 'インバウンドメッセージ';
 $string['messageinboundenabled'] = '受信メール処理を有効にする';
-$string['messageinboundenabled_desc'] = '適切な情報をメッセージ送信するためには、受信メール処理を有効にする必要があります。';
+$string['messageinboundenabled_desc'] = '適切な情報をメッセージ送信するためには受信メール処理を有効にする必要があります。';
 $string['messageinboundgeneralconfiguration'] = '一般設定';
 $string['messageinboundgeneralconfiguration_desc'] = '受信メッセージ処理ではあなたがMoodle内でメールを受信および処理することができます。これはフォーラム投稿に返信するために、またはユーザプライベートファイルにファイルを追加するためにメールを送信する用途に使用することができます。';
 $string['messageinboundhost'] = '受信メールサーバ';
@@ -73,11 +73,11 @@ $string['messageinboundhostuser_desc'] = 'これはあなたのメールアカ�
 $string['messageinboundmailboxconfiguration_desc'] = 'ユーザがメッセージを送信する場合、「address+data@example.com」 のようなフォーマットで生成されたアドレスに送ります。信頼できるアドレスをMoodleから生成するには通常あなたが「@」記号の前に使用するアドレス、および「@」記号の後に使用するドメインを分けて指定してください。例えば例のメールボックス名は「address」、そしてメールドメインは「example.com」となります。この目的のためにあなたは専用のメールアカウントを使用すべきです。';
 $string['messageprocessingerror'] = 'あなたは最近Moodleに件名「 {$a->subject} 」のメールを送信しましたが、残念なことに、処理されませんでした。
 
-エラー詳細は下記のとおりです。
+エラー詳細は以下のとおりです。
 
 {$a->error}';
-$string['messageprocessingerrorhtml'] = '<p>あなたは最近Moodleに件名「 {$a->subject} 」のメールを送信しましたが、残念なことに、処理されませんでした。</p>
-<p>エラー詳細は下記のとおりです。</p>
+$string['messageprocessingerrorhtml'] = '<p>あなたは最近Moodleに件名「 {$a->subject} 」のメールを送信しましたが、残念なことに処理されませんでした。</p>
+<p>エラー詳細は以下のとおりです。</p>
 <p>{$a->error}</p>';
 $string['messageprocessingfailed'] = 'あなたが送信した件名「 {$a->subject} 」のメールを処理できませんでした。エラーメッセージは次のとおりです: {$a->message}';
 $string['messageprocessingfailedunknown'] = 'あなたが送信した件名「 {$a->subject} 」のメールを処理できませんでした。詳細情報に関して、あなたのシステム管理者にご連絡ください。';
@@ -87,7 +87,7 @@ $string['messageprocessingsuccess'] = '{$a->plain} さん
 $string['messageprocessingsuccesshtml'] = '{$a->html} さん
 
 <p>将来的にこれらの通知を受信したくない場合、<a href="{$a->messagepreferencesurl}">あなたのパーソナルメッセージングプリファレンスを編集</a>することができます。</p>';
-$string['messageprovider:invalidrecipienthandler'] = 'あなたから受信した受信メッセージのメッセージ確認';
+$string['messageprovider:invalidrecipienthandler'] = 'あなたから受信メッセージが到着したことを確認するメッセージ';
 $string['messageprovider:messageprocessingerror'] = '受信メッセージを処理できなかった場合の警告';
 $string['messageprovider:messageprocessingsuccess'] = 'メッセージが正常に送信された場合の確認';
 $string['name'] = '名称';

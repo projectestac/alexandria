@@ -19,9 +19,9 @@ require_once($CFG->dirroot . '/question/type/wq/config.php');
 // BEGIN HELPERS FUNCTIONS.
 function wrs_assert_simple($condition) {
     if ($condition) {
-        return '<span class="ok wrs_filter wrs_plugin">OK</span>';
+        return '<span class="ok wrs_filter wrs_plugin">'. get_string('ok', 'qtype_wq').'</span>';
     } else {
-        return '<span class="error wrs_filter wrs_plugin">ERROR</span>';
+        return '<span class="error wrs_filter wrs_plugin">'. get_string('error', 'qtype_wq').'</span>';
     }
 }
 
@@ -40,9 +40,9 @@ function wrs_assert($condition, $reporttext, $solutionlink) {
 
 function wrs_getstatus($condition) {
     if ($condition) {
-            return '<span class="ok wrs_filter wrs_plugin">OK</span>';
+            return '<span class="ok wrs_filter wrs_plugin">'. get_string('ok', 'qtype_wq').'</span>';
     } else {
-            return '<span class="error wrs_filter wrs_plugin">ERROR</span>';
+            return '<span class="error wrs_filter wrs_plugin">'. get_string('error', 'qtype_wq').'</span>';
     }
 }
 
@@ -94,6 +94,10 @@ if (isset($plugin->release)) {
     $version = $plugin->release;
     $reporttext = get_string('info_test1_rt1', 'qtype_wq') . $version;
     $condition = true;
+} else if ($plugin->maturity == MATURITY_BETA) {
+    $version = $plugin->version;
+    $reporttext = get_string('info_test1_rt1', 'qtype_wq') . $version;
+    $condition = true;
 } else {
     $reporttext = get_string('info_test1_rt2', 'qtype_wq');
     $condition = false;
@@ -121,6 +125,9 @@ if (isset($plugin->release)) {
         $reporttext = get_string('info_test2_rt2', 'qtype_wq') . ' ' . $version . ' ' . $plugininfo;
         $condition = false;
     }
+} else if ($plugin->maturity == MATURITY_BETA) {
+    $reporttext = get_string('info_test2_rt1', 'qtype_wq') . ' ' . $plugininfo;
+    $condition = true;
 } else {
     $reporttext = get_string('info_test2_rt3', 'qtype_wq') . ' ' . $plugininfo;
     $condition = false;
@@ -162,44 +169,44 @@ $output = '';
 $output .= html_writer::start_tag('tr', array('class' => 'wrs_filter wrs_plugin'));
 
 $expectedplugins = array(
-    'TrueFalse' => [
+    'TrueFalse' => array(
         'name' => get_string('info_test4_pluginname1', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/truefalsewiris',
         'url' => 'https://moodle.org/plugins/qtype_truefalsewiris'
-    ],
-    'ShortAnswer' => [
+    ),
+    'ShortAnswer' => array(
         'name' => get_string('info_test4_pluginname2', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/shortanswerwiris',
         'url' => 'https://moodle.org/plugins/qtype_shortanswerwiris'
-    ],
-    'MultiAnswer' => [
+    ),
+    'MultiAnswer' => array(
         'name' => get_string('info_test4_pluginname3', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/multianswerwiris',
         'url' => 'https://moodle.org/plugins/qtype_multianswerwiris'
-    ],
-    'MultipleChoice' => [
+    ),
+    'MultipleChoice' => array(
         'name' => get_string('info_test4_pluginname4', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/multichoicewiris',
         'url' => 'https://moodle.org/plugins/qtype_multichoicewiris'
-    ],
-    'Matching' => [
+    ),
+    'Matching' => array(
         'name' => get_string('info_test4_pluginname5', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/matchwiris',
         'url' => 'https://moodle.org/plugins/qtype_matchwiris'
-    ],
-    'Essay' => [
+    ),
+    'Essay' => array(
         'name' => get_string('info_test4_pluginname6', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/essaywiris',
         'url' => 'https://moodle.org/plugins/qtype_essaywiris'
-    ],
-    'WQ' => [
+    ),
+    'WQ' => array(
         'name' => get_string('info_test4_pluginname7', 'qtype_wq'),
         'path' => $CFG->dirroot . '/question/type/wq',
         'url' => 'https://moodle.org/plugins/qtype_shortanswerwiris'
-    ]
+    )
 );
-$missingplugins = [];
-$installedplugins = [];
+$missingplugins = array();
+$installedplugins = array();
 
 foreach ($expectedplugins as $key => $plugin) {
     if (! empty($plugin['path']) ) {

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_numerrors', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'workshopform_numerrors', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   workshopform_numerrors
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,6 +29,7 @@ $string['addmoredimensions'] = 'Espacios en blanco para {$a} afirmaciones más';
 $string['configgrade0'] = 'Palabra por defecto que describe la evaluación negativa de una afirmación.';
 $string['configgrade1'] = 'Palabra por defecto que describe la evaluación positiva de una afirmación.';
 $string['dimensioncomment'] = 'Comentario';
+$string['dimensioncommentfor'] = 'Comentario para {$a}';
 $string['dimensiondescription'] = 'Descripción';
 $string['dimensiongrade'] = 'Calificación';
 $string['dimensionnumber'] = 'Afirmación {$a}';

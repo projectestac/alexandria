@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'data', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -56,6 +56,8 @@ $string['availabletodatevalidation'] = 'Das Datum \'Verfügbar bis\' kann nicht 
 $string['blank'] = 'Leer';
 $string['buttons'] = 'Aktionen';
 $string['bynameondate'] = 'von {$a->name} - {$a->date}';
+$string['calendarend'] = 'Datenbank {$a} endet';
+$string['calendarstart'] = 'Datenbank {$a} beginnt';
 $string['cancel'] = 'Abbrechen';
 $string['cannotaccesspresentsother'] = 'Sie können nicht auf Vorlagen anderer Nutzer/innen zugreifen.';
 $string['cannotadd'] = 'Kann keine Einträge hinzufügen!';
@@ -78,7 +80,7 @@ $string['configenablerssfeeds'] = 'Mit dieser Funktion aktivieren Sie RSS-Feeds 
 $string['confirmdeletefield'] = 'Möchten Sie dieses Feld wirklich in der Datenbank löschen?';
 $string['confirmdeleterecord'] = 'Möchten Sie diesen Datensatz wirklich in der Datenbank löschen?';
 $string['confirmdeleterecords'] = 'Möchten Sie diese EInträge wirklich löschen?';
-$string['csstemplate'] = 'CSS für Vorlagen';
+$string['csstemplate'] = 'CSS-Vorlage';
 $string['csvfailed'] = 'Die Daten aus der CSV-Datei konnten nicht gelesen werden.';
 $string['csvfile'] = 'CSV-Datei';
 $string['csvimport'] = 'CSV-Dateiimport';
@@ -97,6 +99,7 @@ $string['data:managetemplates'] = 'Vorlagen verwalten';
 $string['data:manageuserpresets'] = 'Vorlagensätze verwalten';
 $string['data:rate'] = 'Einträge bewerten';
 $string['data:readentry'] = 'Einträge lesen';
+$string['data:view'] = 'Datenbankaktivität anzeigen';
 $string['data:viewallratings'] = 'Alle Einzelwertungen anzeigen';
 $string['data:viewalluserpresets'] = 'Alle Vorlagensätze anzeigen';
 $string['data:viewanyrating'] = 'Alle Gesamtwertungen anzeigen';
@@ -127,6 +130,7 @@ $string['editordisable'] = 'Editor ausschalten';
 $string['editorenable'] = 'Editor einschalten';
 $string['emptyadd'] = 'Eine Vorlage für das Eintragen neuer Daten ist noch nicht vorhanden. Es wird ein Basisformular erstellt...';
 $string['emptyaddform'] = 'Sie haben keine Einträge vorgenommen!';
+$string['enabletemplateeditorcheck'] = 'Sind Sie sicher, dass Sie den Bearbeitungsmodus aktivieren wollen? Dies könnte dazu führen, dass Inhalt verändert wird, wenn das Template gespeichert wird.';
 $string['entries'] = 'Einträge';
 $string['entrieslefttoadd'] = 'Sie müssen {$a->entriesleft} (weitere) Einträge vornehmen, um diese Aktivität zu beenden.';
 $string['entrieslefttoaddtoview'] = 'Sie müssen {$a->entrieslefttoview} (weitere) Einträge vornehmen, bevor Sie andere Teilnehmerbeiträge betrachten können.';
@@ -328,6 +332,7 @@ $string['savesuccess'] = 'Erfolgreich gespeichert. Ihr Vorlagensatz wird ab sofo
 $string['savetemplate'] = 'Vorlage speichern';
 $string['search'] = 'Suche';
 $string['search:activity'] = 'Datenbank - Aktivitätsinformation';
+$string['search:entry'] = 'Datenbank - Einträge';
 $string['selectedrequired'] = 'Gesamte Auswahl ist erforderlich';
 $string['showall'] = 'Alle Einträge anzeigen';
 $string['single'] = 'Einzelansicht';

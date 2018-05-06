@@ -24,7 +24,7 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-require_once(dirname(__FILE__).'/../../config.php');
+require_once(__DIR__.'/../../config.php');
 require_once("{$CFG->libdir}/completionlib.php");
 
 /**
@@ -160,7 +160,7 @@ if ($csv) {
     $PAGE->requires->js_function_call('textrotate_init', null, true);
 
     // Handle groups (if enabled)
-    groups_print_course_menu($course, $CFG->wwwroot.'/report/completion/?course='.$course->id);
+    groups_print_course_menu($course, $CFG->wwwroot.'/report/completion/index.php?course='.$course->id);
 }
 
 // Generate where clause
@@ -206,7 +206,7 @@ if ($total) {
 }
 
 // Build link for paging
-$link = $CFG->wwwroot.'/report/completion/?course='.$course->id;
+$link = $CFG->wwwroot.'/report/completion/index.php?course='.$course->id;
 if (strlen($sort)) {
     $link .= '&amp;sort='.$sort;
 }
@@ -311,7 +311,8 @@ if (!$csv) {
         exit;
     }
 
-    print '<table id="completion-progress" class="generaltable flexible boxaligncenter completionreport" style="text-align: left" cellpadding="5" border="1">';
+    print '<table id="completion-progress" class="table table-bordered generaltable flexible boxaligncenter
+        completionreport" style="text-align: left" cellpadding="5" border="1">';
 
     // Print criteria group names
     print PHP_EOL.'<thead><tr style="vertical-align: top">';
@@ -436,10 +437,10 @@ if (!$csv) {
 
     if ($firstnamesort) {
         print
-            get_string('firstname')." / <a href=\"./?course={$course->id}{$sistring}\">".
+            get_string('firstname')." / <a href=\"./index.php?course={$course->id}{$sistring}\">".
             get_string('lastname').'</a>';
     } else {
-        print "<a href=\"./?course={$course->id}&amp;sort=firstname{$sistring}\">".
+        print "<a href=\"./index.php?course={$course->id}&amp;sort=firstname{$sistring}\">".
             get_string('firstname').'</a> / '.
             get_string('lastname');
     }

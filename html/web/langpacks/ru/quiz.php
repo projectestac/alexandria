@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -108,7 +108,7 @@ $string['attemptsonly'] = 'Показывать только студентов 
 $string['attemptstate'] = 'Состояние';
 $string['attemptstillinprogress'] = 'Выполняющиеся попытки';
 $string['attemptsunlimited'] = 'Не ограничено';
-$string['autosaveperiod'] = 'Интервал автосохранения';
+$string['autosaveperiod'] = 'Период автосохранения';
 $string['autosaveperiod_desc'] = 'Ответы студентов могут автоматически сохраняться во время попыток прохождения теста. Ответы сохраняются каждый раз при изменении ответа, а также по истечении этого периода. Данное значение — компромисс: малое значение задержки увеличивает нагрузку на сервер, но снижает вероятность потери работ студентов. Если Вы собираетесь существенно уменьшить период задержки, то нужно постепенно снижать это значение  и следить за нагрузкой сервера. Если нагрузка становится слишком высокой, снова увеличьте задержку. Для отключения автосохранения задайте период, равный 0.';
 $string['back'] = 'Вернуться к просмотру вопроса';
 $string['backtocourse'] = 'Вернуться к курсу';
@@ -387,6 +387,8 @@ $string['grademethod_help'] = 'Если разрешены несколько п
 * Последняя попытка (все прочие попытки не учитываются).';
 $string['gradesdeleted'] = 'Оценки теста удалены';
 $string['gradesofar'] = '{$a->method}: {$a->mygrade} / {$a->quizgrade}.';
+$string['gradetopassmustbeset'] = 'Проходная оценка не может быть равна нулю, так как у этого теста задан метод завершения, требующий прохождения оценки. Установите ненулевое значение.';
+$string['gradetopassnotset'] = 'Для этого теста не задана проходная оценка, поэтому вы не можете использовать этот параметр. Вместо него используйте установку требуемой оценки.';
 $string['gradingdetails'] = 'Баллов за ответ: {$a->raw}/{$a->max}.';
 $string['gradingdetailsadjustment'] = 'С учетом предыдущих штрафов набрано <strong>{$a->cur}/{$a->max}</strong>.';
 $string['gradingdetailspenalty'] = 'Данный ответ повлек штраф {$a}.';
@@ -692,7 +694,7 @@ $string['reattemptquiz'] = 'Пройти тест заново';
 $string['recentlyaddedquestion'] = 'Недавно добавленный вопрос!';
 $string['recurse'] = 'Включать также вопросы из  подкатегорий';
 $string['redoesofthisquestion'] = '? Другие вопросы, на которые можно дать ответ здесь: {$a}';
-$string['redoquestion'] = 'Повторно ответить на вопрос';
+$string['redoquestion'] = 'Попробуйте другой вопрос, подобный этому';
 $string['regrade'] = 'Переоценить все попытки';
 $string['regradecomplete'] = 'Все попытки были заново оценены';
 $string['regradecount'] = '{$a->changed} из {$a->attempt} оценки были изменены';
@@ -814,7 +816,7 @@ $string['serverinfo'] = 'Информация о сервере';
 $string['servers'] = 'Серверы';
 $string['serverurl'] = 'Адрес сервера';
 $string['settingsoverrides'] = 'Настройки переопределений';
-$string['shortanswer'] = 'Краткий ответ';
+$string['shortanswer'] = 'Короткий ответ';
 $string['show'] = 'Показать';
 $string['showall'] = 'Отображать все вопросы на одной странице';
 $string['showblocks'] = 'Отображать блоки во время прохождения теста';
@@ -857,7 +859,7 @@ $string['startattempt'] = 'Начать попытку';
 $string['startedon'] = 'Тест начат';
 $string['startnewpreview'] = 'Начать новый просмотр';
 $string['stateabandoned'] = 'Не отправленные';
-$string['statefinished'] = 'Завершено';
+$string['statefinished'] = 'Завершенные';
 $string['statefinisheddetails'] = 'Отправлено {$a}';
 $string['stateinprogress'] = 'В процессе';
 $string['statenotloaded'] = 'Структура вопроса {$a} не была загружена из базы данных';
@@ -885,8 +887,6 @@ $string['timeleft'] = 'Оставшееся время';
 $string['timelimit'] = 'Ограничение времени';
 $string['timelimitexeeded'] = 'Извините, время закончилось!';
 $string['timelimit_help'] = 'Если включено, то ограничение по времени устанавливается на начальной странице теста и отсчет таймера отображается в блоке навигации теста.';
-$string['timelimitmin'] = 'Ограничение времени (в минутах)';
-$string['timelimitsec'] = 'Ограничение времени (в секундах)';
 $string['timestr'] = '%d/%m/%y в %H:%M:%S';
 $string['timesup'] = 'Время закончилось!';
 $string['timetaken'] = 'Прошло времени';

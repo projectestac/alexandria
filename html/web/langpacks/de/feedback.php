@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'feedback', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'feedback', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   feedback
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -34,7 +34,7 @@ $string['analysis'] = 'Auswertung';
 $string['anonymous'] = 'Anonym';
 $string['anonymous_edit'] = 'Anonym ausfüllen';
 $string['anonymous_entries'] = 'Anonyme Einträge ({$a})';
-$string['anonymous_user'] = 'Anonymer Nutzer';
+$string['anonymous_user'] = 'Anonyme Person';
 $string['append_new_items'] = 'Neue Elemente anfügen';
 $string['autonumbering'] = 'Automatische Nummerierung';
 $string['autonumbering_help'] = 'Diese Option aktiviert die automatische Nummerierung aller Fragen.';
@@ -54,9 +54,10 @@ $string['checkbox'] = 'Mehrere Antworten erlaubt (Checkboxen)';
 $string['check_values'] = 'Antworten';
 $string['choosefile'] = 'Datei auswählen';
 $string['chosen_feedback_response'] = 'Gewählte Feedback-Antwort';
-$string['closebeforeopen'] = 'Sie haben das Enddatum früher als das Anfangsdatum angegeben.';
-$string['completed'] = 'Ausgefüllt';
+$string['closebeforeopen'] = 'Das Feedbackende muss nach dem Feedbackbeginn liegen.';
+$string['completed'] = 'Abgeschlossen';
 $string['completed_feedbacks'] = 'Ausgefüllte Feedbacks';
+$string['completedon'] = 'Abgeschlossen am {$a}';
 $string['complete_the_form'] = 'Formular ausfüllen...';
 $string['completionsubmit'] = 'Als abgeschlossen ansehen, wenn das Feedback abgegeben wurde';
 $string['configallowfullanonymous'] = 'Wenn diese Option aktiviert ist, kann ein Feedback ohne vorhergehende Anmeldung abgegeben werden. Dies betrifft aber ausschließlich Feedbacks auf der Startseite.';
@@ -64,7 +65,7 @@ $string['confirmdeleteentry'] = 'Möchten Sie diesen Eintrag wirklich löschen?'
 $string['confirmdeleteitem'] = 'Möchten Sie dieses Element wirklich löschen?';
 $string['confirmdeletetemplate'] = 'Möchten Sie diese Vorlage wirklich löschen?';
 $string['confirmusetemplate'] = 'Möchten Sie diese Vorlage wirklich nutzen?';
-$string['continue_the_form'] = 'Ausfüllen fortsetzen';
+$string['continue_the_form'] = 'Beantwortung der Fragen fortsetzen ...';
 $string['count_of_nums'] = 'Anzahl von Werten';
 $string['courseid'] = 'Kurs-ID';
 $string['creating_templates'] = 'Diese Fragen als neue Vorlage speichern';
@@ -129,7 +130,7 @@ $string['feedback:createpublictemplate'] = 'Erstellen eines öffentlichten Templ
 $string['feedback:deletesubmissions'] = 'Vollständige Einträge löschen';
 $string['feedback:deletetemplate'] = 'Templates löschen';
 $string['feedback:edititems'] = 'Fragen bearbeiten';
-$string['feedback_is_not_for_anonymous'] = 'Das Feedback ist für anonyme Teilnehmer nicht möglich.';
+$string['feedback_is_not_for_anonymous'] = 'Das Feedback ist für anonyme Personen nicht möglich.';
 $string['feedback_is_not_open'] = 'Feedback ist zu diesem Zeitpunkt nicht möglich';
 $string['feedback:mapcourse'] = 'Kurse globalen Feedbacks zuordnen';
 $string['feedbackopen'] = 'Antworten erlauben ab';
@@ -172,9 +173,11 @@ $string['messageprovider:submission'] = 'Mitteilung bei Feedback';
 $string['minimal'] = 'Minimal';
 $string['mode'] = 'Modus';
 $string['modulename'] = 'Feedback';
-$string['modulename_help'] = 'Mit dem Feedback-Modul können Sie eigene Umfragen oder Evaluationsformulare anlegen, wofür Ihnen eine Reihe von Fragetypen zur Verfügung stehen.
+$string['modulename_help'] = 'Mit dem Feedback können Sie eigene Umfragen oder Evaluationsformulare anlegen, wofür eine Reihe von Fragetypen zur Verfügung stehen.
 
-Die Antworten können Personen zugeordnet oder anonym erfolgen. Zeigen Sie den Teilnehmer/innen die Ergebnisse und/oder exportieren Sie die Daten später.
+Die Antworten können Personen zugeordnet oder anonym erfolgen. Die Ergebnisse können Sie nach dem Ausfüllen anzeigen lassen und später als Datei exportieren.
+
+Feedbacks auf der Startseite können völlig anonym auch von nicht angemeldeten Personen ausgefüllt und abgegeben werden.
 
 Legen Sie Feedback-Fragebögen zentral an und setzen Sie sie in ausgewählten Kursen ein.';
 $string['modulenameplural'] = 'Feedbacks';
@@ -187,7 +190,7 @@ $string['multichoicerated'] = 'Multiple-Choice (skaliert)';
 $string['multichoicetype'] = 'Typ';
 $string['multichoice_values'] = 'Antworten';
 $string['multiplesubmit'] = 'Mehrfache Abgabe';
-$string['multiplesubmit_help'] = 'Wenn die Option für anonyme Auswertungen aktiviert ist, dürfen Teilnehmer/innen das Feedback beliebig oft abgeben.';
+$string['multiplesubmit_help'] = 'Wenn die Option für anonyme Auswertungen aktiviert ist, dürfen Nutzer/innen das Feedback beliebig oft abgeben.';
 $string['name'] = 'Name';
 $string['name_required'] = 'Name benötigt';
 $string['next_page'] = 'Nächste Seite';
@@ -267,7 +270,8 @@ $string['show_nonrespondents'] = 'Ohne Antwort';
 $string['site_after_submit'] = 'Seite nach Eingabe';
 $string['sort_by_course'] = 'Sortiert nach Kursen';
 $string['start'] = 'Start';
-$string['started'] = 'gestartet';
+$string['started'] = 'Begonnen';
+$string['startedon'] = 'Begonnen am {$a}';
 $string['stop'] = 'Ende';
 $string['subject'] = 'Thema';
 $string['switch_group'] = 'Gruppe wechseln';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'badges', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'badges', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   badges
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -79,15 +79,36 @@ Auf einer produktiven Website sollten Sie das Problem lösen. Andernfalls könne
 
 Die einzige URL, die für die Verifizierung benötigt wird, ist [website]/badges/assertion.php. Wenn Sie Ihre Firewall so konfigurieren, dass der Zugriff auf dieses Skript erlaubt ist, dann funktioniert die Verifizierung von Auszeichnungen.';
 $string['backpackbadges'] = 'Sie haben {$a->totalbadges} Auszeichnung(en), die aus {$a->totalcollections} Sammlung(en) angezeigt werden. <a href="mybackpack.php">Backpack konfigurieren</a>.';
+$string['backpackcannotsendverification'] = 'Eine Bestätigungsmitteilung konnte nicht gesendet werden.';
 $string['backpackconnection'] = 'Verbindung zum Backpack';
+$string['backpackconnectioncancelattempt'] = 'Verwenden Sie zum Verbinden eine andere E-Mail-Adresse.';
+$string['backpackconnectionconnect'] = 'Zum Backpack verbinden';
 $string['backpackconnection_help'] = 'Auf dieser Seite können Sie Verbindungen zu externen Backpack-Diensten konfigurieren. Eine Verbindung zu einem externen Backpack-Dienst ermöglicht es, externe Auszeichnungen in Moodle anzuzeigen und in Moodle erworbene Auszeichnungen in das externe Backpack zu exportieren.
 
 Derzeit wird nur der Backpack-Dienst <a href="http://backpack.openbadges.org">Mozilla OpenBadges Backpack</a> unterstützt. Sie müssen sich erst bei einem externen Backpack-Dienst anmelden, bevor sie die zugehörigen Verbindung in Moodle konfigurieren können.';
+$string['backpackconnectionresendemail'] = 'Bestätigungsmitteilung erneut senden';
+$string['backpackconnectionunexpectedresult'] = 'Problem bei der Verbindung zum Backpack. Versuchen Sie es noch einmal.<br><br>Falls dieses Problem dauerhaft besteht, melden Sie sich beim Administrator der Website.';
 $string['backpackdetails'] = 'Backpack konfigurieren';
 $string['backpackemail'] = 'E-Mail-Adresse';
 $string['backpackemail_help'] = 'E-Mail-Adresse, die mit Ihrem Backpack-Dienst verknüpft ist
 
 Wenn eine Verbindung zum Backpack-Dienst besteht, werden alle Auszeichnungen dieser Website an diese E-Mail-Adresse zugeordnet.';
+$string['backpackemailverificationpending'] = 'Bestätigung ausstehend';
+$string['backpackemailverifyemailbody'] = 'Guten Tag,
+
+unter Verwendung Ihrer E-Mail-Adresse wurde von \'{$a->sitename}\' eine neue Verbindung zu Ihrem OpenBadges-Backpack angefordert. Um die Verbindung zu prüfen und zu aktivieren, klicken Sie bitte auf den nachfolgenden Link.
+
+{$a->link}
+
+In den meisten E-Mail-Programmen sollte dieser Link blau und anklickbar sein. Falls das nicht funktioniert, kopieren Sie die Adresse vollständig und fügen Sie sie in die Adresszeile Ihres Webbrowsers ein.
+
+Wenn Sie Hilfe benötigen, wenden Sie sich an den Administrator der Website, {$a->admin}
+
+Ihr E-Learning-Team';
+$string['backpackemailverifyemailsubject'] = '{$a}: E-Mail-Bestätigung für OpenBadges-Backpack';
+$string['backpackemailverifypending'] = 'Eine Bestätigungsmitteilung wurde an <strong>{$a}</strong> versendet. Klicken Sie auf den Bestätigungslink in der E-Mail, um die Backpack-Verbindung zu aktivieren.';
+$string['backpackemailverifysuccess'] = 'Danke für die Bestätigung Ihrer E-Mail-Adresse. Sie sind jetzt mit Ihrem Backpack verbunden.';
+$string['backpackemailverifytokenmismatch'] = 'Das Token im angeklickten Link stimmt nicht mit dem gespeicherten Token überein. Prüfen Sie, ob Sie wirklich den Link in der aktuellsten E-Mail angeklickt haben.';
 $string['backpackimport'] = 'Importeinstellungen';
 $string['backpackimport_help'] = 'Wenn die Verbindung zum Backpack erfolgreich hergestellt ist, können Auszeichnungen aus Ihrem Backpack auf Ihrer Seite \'Meine Auszeichnungen\' und in Ihrem Nutzerprofil angezeigt werden.
 
@@ -99,7 +120,7 @@ $string['badgeimage_help'] = 'Dieses Bild wird verwendet, wenn die Auszeichnung 
 Fügen Sie ein Bild im Format jpg oder png hinzu.
 
 Das Bild wird in quadratische Form und geeignete Größe skaliert.';
-$string['badgeprivacysetting'] = 'Einstellungen zur Privatsphäre';
+$string['badgeprivacysetting'] = 'Privatsphäre für Auszeichnungen';
 $string['badgeprivacysetting_help'] = 'Sie können die erworbenen Auszeichnungen in Ihren Nutzerprofil anzeigen lassen. Diese Einstellung legt fest, ob neue Auszeichnungen automatisch angezeigt werden.
 
 Sie können die Sichtbarkeit einer Auszeichnung jederzeit auf der Seite \'Meine Auszeichnungen\' ändern.';
@@ -212,10 +233,13 @@ $string['error:backpackemailnotfound'] = 'Die E-Mail \'{$a}\' ist nicht mit eine
 $string['error:backpackloginfailed'] = 'Sie konnten nicht mit einem externen Backpack verbunden werden: {$a}';
 $string['error:backpacknotavailable'] = 'Ihre Website ist nicht über das Internet erreichbar. Die Auszeichnungen, die auf Ihrer Website verliehen werden, können nicht von externen Backpack-Diensten überprüft werden.';
 $string['error:backpackproblem'] = 'Die Verbindung zu Ihrem Backpack-Provider ist fehlgeschlagen. Versuchen Sie es später noch einmal.';
+$string['error:badgeawardnotfound'] = 'Die Auszeichnungn kann nicht bestätigt werden. Sie wurde evtl. zurückgezogen.';
+$string['error:badgenotfound'] = 'Auszeichnung nicht gefunden';
 $string['error:badjson'] = 'Der Verbindungsversuch hat ungültige Daten geliefert';
 $string['error:cannotact'] = 'Die Auszeichnung kann nicht aktiviert werden.';
 $string['error:cannotawardbadge'] = 'Die Auszeichnung kann nicht an Nutzer/innen verliehen werden.';
 $string['error:cannotdeletecriterion'] = 'Das Kriterium kann nicht gelöscht werden.';
+$string['error:cannotrevokebadge'] = 'Das Badge kann dem Nutzer nicht entzogen werden.';
 $string['error:clone'] = 'Die Auszeichnung kann nicht dupliziert werden.';
 $string['error:connectionunknownreason'] = 'Die Verbindung ist fehlgeschlagen, aber es wurde kein Grund angegeben.';
 $string['error:duplicatename'] = 'Eine Auszeichnung mit diesem Namen existiert bereits.';
@@ -224,7 +248,7 @@ $string['error:guestuseraccess'] = 'Sie sind derzeit als Gast angemeldet. Um Aus
 $string['error:invalidbadgeurl'] = 'Unzulässige URL für Auszeichnungsverleiher';
 $string['error:invalidcriteriatype'] = 'Falscher Kriteriumstyp';
 $string['error:invalidexpiredate'] = 'Das Ablaufdatum muss in der Zukunft liegen.';
-$string['error:invalidexpireperiod'] = 'Der Ablaufzeitraum kann nicht negativ oder gleich Null sein';
+$string['error:invalidexpireperiod'] = 'Der Ablaufdauer kann nicht negativ oder gleich Null sein';
 $string['error:noactivities'] = 'In diesem Kurs wurde für keine Aktivität ein Aktivitätsabschluss konfiguriert.';
 $string['error:noassertion'] = 'Eine Bestätigung wurde nicht geliefert. Eventuell haben Sie die Dialog abgebrochen, bevor das Login abgeschlossen war.';
 $string['error:nocourses'] = 'Die Abschlussverfolgung ist für keinen Kurs Ihrer Moodle-Site aktiviert. Deshalb kann kein Kurs zur Auswahl angezeigt werden. Sie können die Abschlussverfolgung in den Kurseinstellungen aktivieren.';
@@ -243,7 +267,20 @@ $string['error:requesterror'] = 'Die Verbindung ist fehlgeschlagen. (Fehlercode 
 $string['error:requesttimeout'] = 'Die Verbindung ist fehlgeschlagen (Timeout)';
 $string['error:save'] = 'Die Auszeichnung kann nicht gesichert werden.';
 $string['error:userdeleted'] = '{$a->user} (Dieses Nutzerkonto wurde in {$a->site} gelöscht)';
+$string['eventbadgearchived'] = 'Auszeichnung archiviert';
 $string['eventbadgeawarded'] = 'Auszeichnung verliehen';
+$string['eventbadgecreated'] = 'Auszeichnung angelegt';
+$string['eventbadgecriteriacreated'] = 'Kriterien für Auszeichnung angelegt';
+$string['eventbadgecriteriadeleted'] = 'Kriterien für Auszeichnung gelöscht';
+$string['eventbadgecriteriaupdated'] = 'Kriterien für Auszeichnung aktualisiert';
+$string['eventbadgedeleted'] = 'Auszeichnung gelöscht';
+$string['eventbadgedisabled'] = 'Auszeichnung deaktiviert';
+$string['eventbadgeduplicated'] = 'Auszeichnung dupliziert';
+$string['eventbadgeenabled'] = 'Auszeichnung aktiviert';
+$string['eventbadgelistingviewed'] = 'Auszeichnungsliste angezeigt';
+$string['eventbadgerevoked'] = 'Auszeichnung zurückgezogen';
+$string['eventbadgeupdated'] = 'Auszeichnung aktualisiert';
+$string['eventbadgeviewed'] = 'Auszeichnung angezeigt';
 $string['evidence'] = 'Evidenz';
 $string['existingrecipients'] = 'Vorhandene Empfänger/innen';
 $string['expired'] = 'Abgelaufen';
@@ -296,7 +333,7 @@ $string['noawards'] = 'Diese Auszeichnung wurde noch nicht verliehen.';
 $string['nobackpack'] = 'Mit diesem Nutzerkonto ist kein Backpack-Dienst verbunden.<br/>';
 $string['nobackpackbadges'] = 'Es gibt keine Auszeichnungen in der gewählten Sammlung. <a href="mybackpack.php">Legen Sie weitere Sammlungen an.</a>';
 $string['nobackpackcollections'] = 'Es wurden keine Sammlungen ausgewählt. <a href="mybackpack.php">Legen Sie eine Sammlung an.</a>';
-$string['nobadges'] = 'Es sind keine Auszeichnungen verfügbar.';
+$string['nobadges'] = 'Keine Auszeichnungen verfügbar';
 $string['nocriteria'] = 'Es wurde noch keine Kriterien für die Verleihung dieser Auszeichnung festgelegt.';
 $string['noexpiry'] = 'Diese Auszeichnung hat kein Ablaufdatum.';
 $string['noparamstoadd'] = 'Es gibt keine weiteren Parameter für dieses Kriterium.';
@@ -338,13 +375,14 @@ $string['recipientvalidationproblem'] = 'Nutzer/in kann nicht als Empfänger/in 
 $string['relative'] = 'Relative Zeit';
 $string['requiredcourse'] = 'Sie müssen mindestens einen Kurs für dieses Kriterium auswählen.';
 $string['reviewbadge'] = 'Auszeichnungskriterien geändert';
-$string['reviewconfirm'] = '<p> Hiermit machen Sie Ihre Auszeichnung für Nutzer/innen sichtbar und ermöglichen Ihnen diese zu erwerben.</p>
+$string['reviewconfirm'] = '<p>Hiermit machen Sie Ihre Auszeichnung für Nutzer/innen sichtbar und ermöglichen Ihnen diese zu erwerben.</p>
 
 <p>Es ist möglich, dass Nutzer/innen bereits früher die Kriterien für die Auszeichnung erfüllt haben. Ihnen wird die Auszeichnung nun umgehend zugeweisen.</p>
 
 <p>Nachdem die Auszeichnung vergeben wurde, werden einige Einstellungen wie z.B. die Kriterien für Veränderungen oder die Gültigkeitsdauer <strong>gesperrt </strong>.</p>
 
 <p>Wollen Sie die Auszeichnung \'{$a}\' nun aktivieren?</p>';
+$string['revoke'] = 'Auszeichnung zurückziehen';
 $string['save'] = 'Speichern';
 $string['searchname'] = 'Nach Name suchen';
 $string['selectaward'] = 'Wählen Sie die Rolle, die diese Auszeichnung verleihen darf:';

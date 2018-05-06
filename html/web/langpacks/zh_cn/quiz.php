@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -387,6 +387,8 @@ $string['grademethod_help'] = '当允许学生多次参加测验，提交了多�
 * 最后一次答题（其它次都被忽略）';
 $string['gradesdeleted'] = '测验成绩已删除';
 $string['gradesofar'] = '{$a->method}: {$a->mygrade} / {$a->quizgrade}';
+$string['gradetopassmustbeset'] = '通过分数不能为零，因为这个测验的完成方法要求及格。请设置一个非零值。';
+$string['gradetopassnotset'] = '这个测验没有分数通过设置，所以你不能使用这个选项。请使用要求的等级设置。';
 $string['gradingdetails'] = '这次提交的分数：{$a->raw}/{$a->max}。';
 $string['gradingdetailsadjustment'] = '扣除先前的罚分，此次得分 <strong>{$a->cur}/{$a->max}</strong>。';
 $string['gradingdetailspenalty'] = '此次提交被罚 {$a} 分';
@@ -878,8 +880,6 @@ $string['timeleft'] = '剩余时间';
 $string['timelimit'] = '时间限制';
 $string['timelimitexeeded'] = '很抱歉！时间已用完！';
 $string['timelimit_help'] = '如果启用，会有一个浮动窗口（必须激活JavaScript）显示倒计时的计时器。当时间耗尽，会自动提交测验，包括所有已经回答过的题目。';
-$string['timelimitmin'] = '时间限制（分钟）';
-$string['timelimitsec'] = '时间限制（秒）';
 $string['timestr'] = '%y 年 %m 月 %d 日的 %H:%M:%S';
 $string['timesup'] = '时间到！';
 $string['timetaken'] = '耗时';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_ldap', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'auth_ldap', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   auth_ldap
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -76,7 +76,7 @@ $string['auth_ldap_opt_deref'] = 'Esta configuração define como os <i>aliases<
 $string['auth_ldap_opt_deref_key'] = 'Desreferenciar <i>aliases</i>';
 $string['auth_ldap_passtype'] = 'Esta configuração define o formato das senhas que são criadas ou alteradas no servidor LDAP.';
 $string['auth_ldap_passtype_key'] = 'Formato da senha';
-$string['auth_ldap_passwdexpire_settings'] = 'Configuração de expiração das senhas do LDAP';
+$string['auth_ldap_passwdexpire_settings'] = 'Configurações da expiração da senha do LDAP';
 $string['auth_ldap_preventpassindb'] = 'Selecione o valor "Sim" para evitar que as senhas sejam armazenadas na base de dados do Moodle.';
 $string['auth_ldap_preventpassindb_key'] = 'Sem armazenamento de senhas em cache';
 $string['auth_ldap_search_sub'] = 'Procurar utilizadores em subcontextos.';
@@ -118,12 +118,12 @@ $string['didntfindexpiretime'] = 'password_expire() não conseguiu encontrar int
 $string['didntgetusersfromldap'] = 'Não foram encontrados utilizadores no servidor LDAP -- erro? -- a terminar operação';
 $string['gotcountrecordsfromldap'] = 'Foram encontrados {$a} registos no LDAP';
 $string['morethanoneuser'] = 'ATENÇÃO! Foram encontrados mais do que um utilizador no LDAP. Será utilizado o primeiro.';
-$string['needbcmath'] = 'Para utilizar a tolerância de autenticação na Ative Directory é preciso instalar e ativar a extensão BCMath do PHP';
+$string['needbcmath'] = 'Para utilizar a verificação de senha expirada na Ative Directory é preciso instalar e ativar a extensão BCMath do PHP';
 $string['needmbstring'] = 'Para alterar senhas na Ative Directory é preciso instalar e ativar a extensão mbstring do PHP';
 $string['nodnforusername'] = 'Ocorreu um erro na função user_update_password(). Não existe DN para: {$a->username}';
 $string['noemail'] = 'Ocorreu um erro ao tentar enviar o e-mail';
 $string['notcalledfromserver'] = 'Não deve ser invocado pelo servidor web!';
-$string['noupdatestobedone'] = 'Não existem atualização a fazer';
+$string['noupdatestobedone'] = 'Não existem atualização a efetuar';
 $string['nouserentriestoremove'] = 'Não existem registos de utilizador a apagar';
 $string['nouserentriestorevive'] = 'Não existem registos de utilizador a reativar';
 $string['nouserstobeadded'] = 'Nenhum registo de utilizadores para criar';

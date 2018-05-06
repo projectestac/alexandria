@@ -216,10 +216,13 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
     /// Currently supported only for ldap-authentication module
         $userauth = get_auth_plugin($USER->auth);
         if (!isguestuser() and !empty($userauth->config->expiration) and $userauth->config->expiration == 1) {
+            $externalchangepassword = false;
             if ($userauth->can_change_password()) {
                 $passwordchangeurl = $userauth->change_password_url();
                 if (!$passwordchangeurl) {
                     $passwordchangeurl = $CFG->httpswwwroot.'/login/change_password.php';
+                } else {
+                    $externalchangepassword = true;
                 }
             } else {
                 $passwordchangeurl = $CFG->httpswwwroot.'/login/change_password.php';
@@ -233,7 +236,15 @@ if ($frm and isset($frm->username)) {                             // Login WITH 
                 echo $OUTPUT->footer();
                 exit;
             } elseif (intval($days2expire) < 0 ) {
-                set_user_preference('auth_forcepasswordchange', 1, $USER);
+                if ($externalchangepassword) {
+                    // We end the session if the change password form is external. This prevents access to the site
+                    // until the password is correctly changed.
+                    require_logout();
+                } else {
+                    // If we use the standard change password form, this user preference will be reset when the password
+                    // is changed. Until then it will prevent access to the site.
+                    set_user_preference('auth_forcepasswordchange', 1, $USER);
+                }
                 echo $OUTPUT->header();
                 echo $OUTPUT->confirm(get_string('auth_passwordisexpired', 'auth'), $passwordchangeurl, $urltogo);
                 echo $OUTPUT->footer();
@@ -283,23 +294,21 @@ if (empty($SESSION->wantsurl)) {
 
 /// Redirect to alternative login URL if needed
 if (!empty($CFG->alternateloginurl)) {
-    $loginurl = $CFG->alternateloginurl;
+    $loginurl = new moodle_url($CFG->alternateloginurl);
 
-    if (strpos($SESSION->wantsurl, $loginurl) === 0) {
-        //we do not want to return to alternate url
-        $SESSION->wantsurl = NULL;
+    $loginurlstr = $loginurl->out(false);
+
+    if (strpos($SESSION->wantsurl, $loginurlstr) === 0) {
+        // We do not want to return to alternate url.
+        $SESSION->wantsurl = null;
     }
 
+    // If error code then add that to url.
     if ($errorcode) {
-        if (strpos($loginurl, '?') === false) {
-            $loginurl .= '?';
-        } else {
-            $loginurl .= '&';
-        }
-        $loginurl .= 'errorcode='.$errorcode;
+        $loginurl->param('errorcode', $errorcode);
     }
 
-    redirect($loginurl);
+    redirect($loginurl->out(false));
 }
 
 // make sure we really are on the https page when https login required
@@ -320,24 +329,6 @@ if (empty($frm->username) && $authsequence[0] != 'shibboleth') {  // See bug 518
     }
 
     $frm->password = "";
-}
-
-if (!empty($frm->username)) {
-    $focus = "password";
-} else {
-    $focus = "username";
-}
-
-if (!empty($CFG->registerauth) or is_enabled_auth('none') or !empty($CFG->auth_instructions)) {
-    $show_instructions = true;
-} else {
-    $show_instructions = false;
-}
-
-$potentialidps = array();
-foreach($authsequence as $authname) {
-    $authplugin = get_auth_plugin($authname);
-    $potentialidps = array_merge($potentialidps, $authplugin->loginpage_idp_list($SESSION->wantsurl));
 }
 
 if (!empty($SESSION->loginerrormsg)) {
@@ -370,13 +361,9 @@ if (isloggedin() and !isguestuser()) {
     echo $OUTPUT->confirm(get_string('alreadyloggedin', 'error', fullname($USER)), $logout, $continue);
     echo $OUTPUT->box_end();
 } else {
-    include("index_form.html");
-    if ($errormsg) {
-        $PAGE->requires->js_init_call('M.util.focus_login_error', null, true);
-    } else if (!empty($CFG->loginpageautofocus)) {
-        //focus username or password
-        $PAGE->requires->js_init_call('M.util.focus_login_form', null, true);
-    }
+    $loginform = new \core_auth\output\login($authsequence, $frm->username);
+    $loginform->set_error($errormsg);
+    echo $OUTPUT->render($loginform);
 }
 
 echo $OUTPUT->footer();

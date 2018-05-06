@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'choicegroup', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   choicegroup
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -60,7 +60,7 @@ $string['choicetext'] = 'Auswahltext';
 $string['chooseaction'] = 'Aktion auswählen...';
 $string['choosegroup'] = 'Gruppe wählen';
 $string['collapse_all_groupings'] = 'Alle Gruppierungen einklappen';
-$string['completionsubmit'] = 'Als abgeschlossen anzeigen, wenn die Wahl durchgeführt wurde';
+$string['completionsubmit'] = 'Als abgeschlossen anzeigen, wenn die Person eine Wahl getroffen hat.';
 $string['createdate'] = 'Erstellungsdatum der Gruppe';
 $string['defaultsettings'] = 'Standardeinstellungen';
 $string['del'] = 'Entfernen';
@@ -112,7 +112,9 @@ $string['notyetresultsviewable'] = 'Die Ergebnisse werden nach dem Ende der Wahl
 $string['numberofuser'] = 'Nutzerzahl';
 $string['option'] = 'Gruppe';
 $string['page-mod-choice-x'] = 'Jede Seite der Gruppenwahl';
+$string['pleaseselectonegroup'] = 'Mindestens eine Gruppe zur Auswahl selektieren';
 $string['pleasesetgroups'] = 'Mindestens zwei Gruppen in diesem Kurs anlegen';
+$string['pleasesetonegroup'] = 'Mindestens eine Gruppe in diesem Kurs anlegen';
 $string['pluginadministration'] = 'Wahladministration';
 $string['pluginname'] = 'Gruppenwahl';
 $string['privacy'] = 'Anonymität';

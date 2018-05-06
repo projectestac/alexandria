@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'error', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   error
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activityisscheduledfordeletion'] = 'Eliminación de la actividad en progreso...';
 $string['alreadyloggedin'] = 'Usted ya está en el sistema como {$a}, es necesario cerrar la sesión antes de acceder como un usuario diferente.';
 $string['authnotexisting'] = 'El plugin de autorización no existe';
 $string['backupcontainexternal'] = 'Este archivo de copia de seguridad contiene Moodle Network Hosts externos que no están configurados localmente';
@@ -148,7 +149,7 @@ $string['cannotsetupcapformod'] = 'No se pueden establecer los permisos para {$a
 $string['cannotsetupcapforplugin'] = 'No se pueden establecer los permisos para {$a}';
 $string['cannotshowhidecoursesincategory'] = 'No se puede mostrar/ocultar los cursos en la categoría {$a}';
 $string['cannotsignup'] = 'No puede crear una nueva cuenta porque actualmente estás logueado como {$a}.';
-$string['cannotunassigncap'] = 'No se puede revocar la asignación del permiso obsoleto {$a->cap} del rol {$a->role}';
+$string['cannotunassigncap'] = 'No se puede revocar la asignación de capacidad obsoleta {$a->cap} del rol {$a->role}';
 $string['cannotunassignrolefrom'] = 'No se puede revocar la asignación de este usuario del Id de rol: {$a}';
 $string['cannotunzipfile'] = 'No se puede descomprimir el archivo';
 $string['cannotupdatemod'] = 'No se puede actualizar {$a}';
@@ -173,6 +174,7 @@ $string['categorynamerequired'] = 'Se requiere un nombre para la categoría';
 $string['categorytoolong'] = 'Nombre de categoría demasiado largo';
 $string['commentmisconf'] = 'ID del comentario está mal configurado';
 $string['componentisuptodate'] = 'El componente está actualizado';
+$string['confirmationnotenabled'] = 'La confirmación del usuario no está activada en este sitio';
 $string['confirmsesskeybad'] = 'Lo sentimos, pero su clave de sesión no ha podido ser confirmada para llevar a cabo esta acción. Esta característica de seguridad previene contra la ejecución en su nombre (accidental o maliciosa) de funciones importantes. Por favor, asegúrese de que realmente deseaba ejecutar esta función.';
 $string['couldnotassignrole'] = 'Al intentar asignarle un rol, ha ocurrido un error grave no especificado';
 $string['couldnotupdatenoexistinguser'] = 'No se puede actualizar el usuario - el usuario no existe';
@@ -226,6 +228,7 @@ $string['duplicaterolename'] = 'Ya hay un rol con ese nombre!';
 $string['duplicateroleshortname'] = 'Ya hay un rol con ese nombre corto!';
 $string['duplicateusername'] = 'Nombre de usuario duplicado: registro pasado por alto';
 $string['emailfail'] = 'Enviar el correo electrónico fallo';
+$string['enddatebeforestartdate'] = 'La fecha de finalización del curso debe ser después de la de inicio del curso.';
 $string['error'] = 'Se produjo un error';
 $string['errorcleaningdirectory'] = 'Error al limpiar el directorio  "{$a}"';
 $string['errorcopyingfiles'] = 'Error al copiar archivos';
@@ -237,6 +240,7 @@ $string['erroronline'] = 'Error en la línea {$a}';
 $string['erroroutput'] = 'Error de salida, deshabilite la redirección automática.';
 $string['errorparsingxml'] = 'Error al analizar XML: {$a->errorstring} en la línea {$a->errorline}, carácter {$a->errorchar}';
 $string['errorprocessingarchive'] = 'Error procesando archivo histórico';
+$string['error_question_answers_missing_in_db'] = 'Error al buscar la respuesta  correspondiente a "{$a->answer}" en la tabla question_answers de la base de datos. Esto sucede porque mientras estaba restaurando la pregunta con la id {$a->filequestionid} del fichero de copia, se ha encontrado una pregunta existente con la id  {$a->dbquestionid} en la base de datos.';
 $string['errorreadingfile'] = 'Error al leer el archivo  "{$a}"';
 $string['errorsavingrequest'] = 'Se produjo un error al intentar salvar su petición.';
 $string['errorsettinguserpref'] = 'Error al ajustar las preferencias de usuario';
@@ -258,6 +262,7 @@ $string['forumblockingtoomanyposts'] = 'Usted ha excedido el umbral de tiempo pa
 $string['generalexceptionmessage'] = 'Excepción - {$a}';
 $string['gradecantregrade'] = 'Ha ocurrido un error durante el cálculo de las calificaciones: {$a}';
 $string['gradepubdisable'] = 'Publicación de calificaciones deshabilitada';
+$string['gradesneedregrading'] = 'Las calificaciones de este curso necesitan ser recalculadas';
 $string['groupalready'] = 'El usuario ya pertence al grupo {$a}';
 $string['groupexistforcourse'] = 'En este curso ya hay un grupo "{$a}".';
 $string['groupexistforcoursewithidnumber'] = '{$a->problemgroup}: El grupo "{$a->name}" con un idnumber "{$a->idnumber}" ya existe en este curso';
@@ -303,6 +308,7 @@ $string['invalidcomponent'] = 'Componente del nombre inválido';
 $string['invalidconfirmdata'] = 'La confirmación de los datos no es válida';
 $string['invalidcontext'] = 'Contexto no válido';
 $string['invalidcourse'] = 'Curso no válido';
+$string['invalidcourseformat'] = 'Formato de curso inválido';
 $string['invalidcourseid'] = 'Está intentando usar una ID de curso no válida';
 $string['invalidcourselevel'] = 'Nivel de contexto incorrecto';
 $string['invalidcoursemodule'] = 'ID de módulo de curso no válida';

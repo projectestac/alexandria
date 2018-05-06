@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_filetypes', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_filetypes', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_filetypes
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -34,12 +34,14 @@ $string['description'] = 'Pertsonalizatu deskribapena';
 $string['descriptiontype'] = 'Deskribapen-mota';
 $string['displaydescription'] = 'Deskribapena';
 $string['editfiletypes'] = 'Editatu existitzen den fitxategi-mota bat';
+$string['emptylist'] = 'Ez dago definitutako fitxategi-motarik.';
 $string['error_notfound'] = '{$a} luzapena duen fitxategi-mota ezin izan da aurkitu.';
 $string['extension'] = 'Luzapena';
 $string['groups'] = 'Mota';
 $string['icon'] = 'Fitxategiaren ikonoa';
 $string['mimetype'] = 'MIME mota';
 $string['pluginname'] = 'Fitxategi-motak';
+$string['revertfiletype'] = 'Berrezarri fitxategi-mota';
 $string['source'] = 'Mota';
 $string['source_custom'] = 'Pertsonalizatu';
 $string['source_deleted'] = 'Ezabatu da';

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'webservice', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   webservice
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -73,7 +73,6 @@ $string['editservice'] = 'サービスを編集する: {$a->name} (id: {$a->id})
 $string['enabled'] = '有効';
 $string['enabledocumentation'] = '開発者ドキュメントを有効にする';
 $string['enabledocumentationdescription'] = '有効にされたプロトコルに関する詳細ウェブサービスドキュメンテーションを閲覧することができます。';
-$string['enablemobilewsoverview'] = '{$a->manageservicelink} 管理ページに移動して「 {$a->enablemobileservice} 」設定をチェックした後、保存してください。あなたのためにすべてが設定され、すべてのサイトユーザがオフィシャルMoodle appを利用できるようになります。現在のステータス: {$a->wsmobilestatus}';
 $string['enableprotocols'] = 'プロトコルを有効にする';
 $string['enableprotocolsdescription'] = '少なくとも1つのプロトコルを有効にする必要があります。セキュリティ上の理由から、使用されるプロトコルのみ有効にしてください。';
 $string['enablews'] = 'ウェブサービスを有効にする';
@@ -103,7 +102,7 @@ $string['externalservices'] = '外部サービス';
 $string['externalserviceusers'] = '外部サービスユーザ';
 $string['failedtolog'] = 'ログ失敗';
 $string['filenameexist'] = 'すでにファイル名が使用されています: {$a}';
-$string['forbiddenwsuser'] = '未確認、削除済みまたはゲストユーザに対して、トークンを作成できません。';
+$string['forbiddenwsuser'] = '未確認、削除済みまたはゲストユーザにトークンを作成できません。';
 $string['function'] = '関数';
 $string['functions'] = '関数';
 $string['generalstructure'] = '全体構造';
@@ -128,8 +127,6 @@ $string['missingpassword'] = 'パスワードがありません。';
 $string['missingrequiredcapability'] = 'ケイパビリティ {$a} は必須です。';
 $string['missingusername'] = 'ユーザ名がありません。';
 $string['missingversionfile'] = 'コーディングエラー: コンポーネント {$a} のversion.phpファイルがありません。';
-$string['mobilewsdisabled'] = '無効';
-$string['mobilewsenabled'] = '有効';
 $string['nameexists'] = 'この名称はすでに別のサービスで使用されています。';
 $string['nocapabilitytouseparameter'] = 'ユーザにはパラメータ「 {$a} 」を使用するための必須ケイパビリティがありません。';
 $string['nofunctions'] = 'このサービスに関数はありません。';
@@ -187,10 +184,10 @@ $string['step'] = 'ステップ';
 $string['supplyinfo'] = '詳細';
 $string['testauserwithtestclientdescription'] = 'ウェブサービステストクライアントを使用してサービスへの外部アクセスをシミュレートします。シミュレートする前、「moodle/webservice:createtoken」ケイパビリティを設定したユーザでログインした後、ユーザプリファレンス設定経由でセキュリティキー (トークン) を取得してください。あなたはこのトークンをテストクライアントで使用します。また、テストクライアントでは有効にされたトークン認証のプロトコルを選択します。<strong>警告: あなたがテストする関数はこのユーザに対して実行されます。関数の選択には十分注意してください!</strong>';
 $string['testclient'] = 'ウェブサービステストクライアント';
-$string['testclientdescription'] = '* ウェブサービステストクライアントは関数を<strong>実際</strong>に<strong>実行</strong> します。あなたが知らない関数をテストしないでください。<br/>
-* まだ、既存のすべてのウェブサービス関数はテストクライアントに実装されていません。<br/>
-* ユーザがアクセスできない関数をテストする場合、あなたが許可していない関数をテストすることができます。<br/>
-* 明確なエラーメッセージを表示するには {$a->atag} のデバッグメッセージを　<strong>{$a->mode}</strong>　に設定してください。';
+$string['testclientdescription'] = '* ウェブサービステストクライアントは関数を<strong>実際</strong>に<strong>実行</strong> します。あなたが知らない関数をテストしないでください。<br />
+* まだ、既存のすべてのウェブサービス関数はテストクライアントに実装されていません。<br />
+* ユーザがアクセスできない関数をテストする場合、あなたが許可していない関数をテストすることができます。<br />
+* 明確なエラーメッセージを表示するには {$a->atag} のデバッグメッセージを <strong>{$a->mode}</strong> に設定してください。';
 $string['testwithtestclient'] = 'サービスをテストする';
 $string['testwithtestclientdescription'] = 'ウェブサービステストクライアントを使用してサービスへの外部アクセスをシミュレートします。有効にされたトークン認証のプロトコルを使用してください。<strong>警告: あなたのテストする関数が実行されます。関数の選択には十分注意してください!</strong>';
 $string['token'] = 'トークン';
@@ -210,9 +207,10 @@ $string['usernameorid_help'] = 'ユーザ名またはユーザIDを入力して�
 $string['usernameoridnousererror'] = 'このユーザ名/ユーザIDでユーザは見つかりませんでした。';
 $string['usernameoridoccurenceerror'] = 'このユーザ名で2名以上のユーザが見つかりました。ユーザIDを入力してください。';
 $string['usernotallowed'] = 'ユーザはこのサービスを許可されていません。あなたはまず最初に {$a} の許可されたユーザ管理ページでこのユーザを許可する必要があります。';
+$string['userservices'] = 'ユーザサービス: {$a}';
 $string['usersettingssaved'] = 'ユーザ設定が保存されました。';
 $string['validuntil'] = '有効期限';
-$string['validuntil_help'] = '設定した場合、この日付以降、このユーザに対するサービスが無効となります。';
+$string['validuntil_help'] = '設定した場合、この日付以後、このユーザに対するサービスが無効となります。';
 $string['webservice'] = 'ウェブサービス';
 $string['webservices'] = 'ウェブサービス';
 $string['webservicesoverview'] = '概要';

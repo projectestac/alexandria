@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_essay', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_essay', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_essay
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -45,7 +45,7 @@ $string['pluginnameadding'] = 'Entsegu motako galdera gehitzen ';
 $string['pluginnameediting'] = 'Entsegu motako galdera editatzen ';
 $string['pluginname_help'] = 'Galderari erantzuteko (irudi bat izan dezakeena) ikasleak paragrafo bat edo bi dituen testua idatzi behar du. Galdera hauei ez zaie kalifikazioa ezarriko irakasleak berrikusi eta eskuz kalifikatu arte.';
 $string['pluginnamesummary'] = 'Pare bat esaldi edo paragrafoko erantzuna ematen uzten du. Hauek eskuz kalifikatu behar dira.';
-$string['responsefieldlines'] = 'Erantzuteko koadroaren tamaina';
+$string['responsefieldlines'] = 'Erantzuteko laukiaren tamaina';
 $string['responseformat'] = 'Ebazpenaren formatua';
 $string['responseisrequired'] = 'Beharrezkoa da ikasleak testua idaztea';
 $string['responsenotrequired'] = 'Testu-sarrera aukerakoa da';

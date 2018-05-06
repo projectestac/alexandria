@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'scorm', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   scorm
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -89,6 +89,7 @@ $string['compatibilitysettings'] = 'Configuración de compatibilidad';
 $string['completed'] = 'Finalizado';
 $string['completionscorerequired'] = 'Requiere puntuación mínima';
 $string['completionscorerequired_help'] = 'Al habilitar este parámetro se requerirá que el usuario tenga al menos la puntuación mínima registrada para que se marque la actividad SCORM como finalizada, así como cualquier otro requerimiento de Finalización de Actividad.';
+$string['completionstatusallscos'] = 'Requiere que todos los scos devuelvan el estado de finalización';
 $string['completionstatus_completed'] = 'Finalizado';
 $string['completionstatus_passed'] = 'Pasado';
 $string['completionstatusrequired'] = 'Se requiere estado';
@@ -213,6 +214,7 @@ $string['lastattemptlock'] = 'Bloquear después último intento';
 $string['lastattemptlockdesc'] = 'Esta preferencia fija el valor por defecto para el bloqueo después de ajustar el intento final';
 $string['lastattemptlock_help'] = 'Si se activa, al estudiante se le impide el lanzamiento del reproductor SCORM después de haber utilizado todos los intentos que tenía asignados.';
 $string['location'] = 'Mostrar la barra de ubicación';
+$string['masteryoverridedesc'] = 'Esta preferencia establece el valor por defecto de la nota mínima para aprobar sobrescribiendo el valor establecido.';
 $string['max'] = 'Calificación máxima';
 $string['maximumattempts'] = 'Número de intentos';
 $string['maximumattemptsdesc'] = 'Esta preferencia fija el valor por defecto sobre el número máximo de intentos en una actividad';
@@ -352,6 +354,7 @@ $string['scormtype_help'] = 'Este ajuste determina cómo se incluye el paquete e
 $string['scorm:viewreport'] = 'Ver informes';
 $string['scorm:viewscores'] = 'Ver puntuaciones';
 $string['scrollbars'] = 'Permitir desplazamiento de la ventana';
+$string['search:activity'] = 'Paquete SCORM - información de actividad';
 $string['selectall'] = 'Seleccionar todo';
 $string['selectnone'] = 'Deseleccionar todo';
 $string['show'] = 'Mostrar';
@@ -381,6 +384,7 @@ $string['totaltime'] = 'Hora';
 $string['trackcorrectcount'] = 'Conteo correcto';
 $string['trackcorrectcount_help'] = 'Número de resultados correctos para la pregunta';
 $string['trackid'] = 'ID';
+$string['trackid_help'] = 'Este es el identificador establecido por tu paquete SCORM para esta pregunta,';
 $string['trackingloose'] = 'ATENCIÓN: ¡Los datos de rastreo de este paquete se perderán!';
 $string['tracklatency'] = 'Latencia';
 $string['tracklatency_help'] = 'Tiempo transucrrido entre el momento en que la se puso a disposición del alumno la interacción para respoder y el momento de la primera respuesta';
@@ -399,6 +403,7 @@ $string['tracksuspenddata_help'] = 'proporciona espacio para almacenar y recuper
 $string['tracktime'] = 'Hora';
 $string['tracktime_help'] = 'Hora en la que se inició el intento';
 $string['tracktype'] = 'Tipo';
+$string['tracktype_help'] = 'El tipo de pregunta, por ejemplo "selección" o "respuesta corta".';
 $string['trackweight'] = 'Peso';
 $string['trackweight_help'] = 'Peso asigando al elemento';
 $string['type'] = 'Tipo';
@@ -410,6 +415,7 @@ $string['undercontent'] = 'Bajo el contenido';
 $string['unziperror'] = 'Ha ocurrido un error durante la descompresión del paquete';
 $string['updatefreq'] = 'Actualizar frecuencia automáticamente';
 $string['updatefreqdesc'] = 'Esta preferencia fija el valor por defecto sobre la frecuencia de actualización automática de una actividad';
+$string['updatefreq_error'] = 'La frecuencia de auto-actualización únicamente puede ser establecida si el paquete está hospedado externamente';
 $string['updatefreq_help'] = 'Esto permite descargar y actualizar automáticamente el paquete externo';
 $string['validateascorm'] = 'Validar un paquete SCORM';
 $string['validation'] = 'Resultado de la validación';

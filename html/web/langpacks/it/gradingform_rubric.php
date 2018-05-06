@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_rubric', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'gradingform_rubric', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   gradingform_rubric
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addcriterion'] = 'Aggiungi criterio';
-$string['alwaysshowdefinition'] = 'Gli utenti potranno visualizzare un\'anteprima del rubric in uso  (altrimenti il rubric sarà visibile solo dopo la valutazione)';
+$string['alwaysshowdefinition'] = 'Gli utenti potranno visualizzare un\'anteprima del rubric (altrimenti il rubric sarà visibile solo dopo la valutazione)';
 $string['backtoediting'] = 'Torna alla modifica';
 $string['confirmdeletecriterion'] = 'Sei sicuro di eliminare questo criterio?';
 $string['confirmdeletelevel'] = 'Sei sicuro di eliminare questo livello?';
@@ -46,7 +46,7 @@ $string['err_nocriteria'] = 'Il rubric deve contenere almeno un criterio';
 $string['err_nodefinition'] = 'La definizione del livello non può essere lasciata in bianco';
 $string['err_nodescription'] = 'La descrizione del criterio non può essere lasciata in bianco';
 $string['err_novariations'] = 'I livelli del criterio non possono valere tutti lo stesso punteggio.';
-$string['err_scoreformat'] = 'I punteggi per ciascun livello devono essere numeri non negativi';
+$string['err_scoreformat'] = 'I punteggi per ciascun livello devono essere numeri validi';
 $string['err_totalscore'] = 'Il punteggio massimo possibile del rubric deve essere maggiore di zero.';
 $string['gradingof'] = 'Valutazione di {$a}';
 $string['level'] = 'Livello {$a->definition}, punti {$a->score}.';
@@ -54,6 +54,8 @@ $string['leveldefinition'] = 'Definizione livello {$a}';
 $string['leveldelete'] = 'Elimina livello {$a}';
 $string['levelempty'] = 'Click per modificare il livello';
 $string['levelsgroup'] = 'Gruppo di livelli';
+$string['lockzeropoints'] = 'Calcola la valutazione basandosi sul rubric con un punteggio minimo di 0';
+$string['lockzeropoints_help'] = 'L\'impostazione si applica solamente se il numero minimo di punti per ciascun criterio è maggiore di 0. Se selezionata, la valutazione minima ottenibile con il rubric sarà maggiore di 0. Se non selezionata, la valutazione minima possibile con il rubric sarà mappata alla valutazione più bassa dell\'attività (ossia 0 a meno che non venga utilizzata una scala).';
 $string['name'] = 'Nome';
 $string['needregrademessage'] = 'La definizione del rubric è stata cambiata dopo la valutazione di questo studente. Lo studente non potrà visualizzare questo rubric finché non controllerai il rubric e aggiornerai la valutazione';
 $string['pluginname'] = 'Rubric';
@@ -65,9 +67,11 @@ $string['regradeoption1'] = 'Da valutare nuovamente';
 $string['restoredfromdraft'] = 'NOTA: l\'ultimo tentativo di valutare questa persona non è stato salvato correttamente e sono quindi state ripristinate le valutazioni in bozza. Se vuoi annullare questi cambiamenti usa il pulsante "Annulla" qui sotto.';
 $string['rubric'] = 'Rubric';
 $string['rubricmapping'] = 'Regole di conversione del punteggio in valutazione';
-$string['rubricmappingexplained'] = 'Il punteggio minimo di questo rubric è b>{$a->minscore} points</b> e sarà convertito nel voto minimo disponibile per questo modulo (pari a zero a meno di usare una scala).
-Il punteggio massimo <b>{$a->maxscore} points</b> sarà convertito nel voto massimo.<br />I punteggi intermedi saranno pure convertiti ed arrotondati al voto più vicino.<br />
-Se si utilizza una scala al posto di un voto, il punteggio sarà convertito nell\'elemento corrispondente della scala considerando la scala come una sequenza di valori interi consecutivi.';
+$string['rubricmappingexplained'] = 'Il punteggio minimo di questo rubric è b>{$a->minscore} points</b> e sarà convertito nel voto minimo disponibile per questo modulo (pari a zero a meno di usare una scala). Il punteggio massimo di <b>{$a->maxscore} punti</b> sarà convertito nel voto massimo. I punteggi intermedi saranno pure convertiti ed arrotondati al voto più vicino.
+
+Se si utilizza una scala al posto di un voto, il punteggio sarà convertito nell\'elemento corrispondente della scala considerando la scala come una sequenza di valori interi consecutivi.
+
+Il calcolo della valutazione può essere modificato selezionando \'Calcola la valutazione basata sul rubric con un punteggio minimo pari a 0\'';
 $string['rubricnotcompleted'] = 'Per favore seleziona qualcosa per ciascun criterio';
 $string['rubricoptions'] = 'Opzioni rubric';
 $string['rubricstatus'] = 'Stato del rubric';

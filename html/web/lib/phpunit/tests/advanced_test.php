@@ -306,7 +306,7 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
         } catch (moodle_exception $e) {
             $this->assertInstanceOf('dml_exception', $e);
         }
-        $DB = $this->getMock(get_class($DB));
+        $DB = $this->createMock(get_class($DB));
         $this->assertNull($DB->get_record('pokus', array()));
         // Rest continues after reset.
     }
@@ -424,7 +424,8 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
         $user2 = $this->getDataGenerator()->create_user();
 
         // Any core message will do here.
-        $message1 = new stdClass();
+        $message1 = new \core\message\message();
+        $message1->courseid          = 1;
         $message1->component         = 'moodle';
         $message1->name              = 'instantmessage';
         $message1->userfrom          = $user1;
@@ -436,7 +437,8 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
         $message1->smallmessage      = 'small message';
         $message1->notification      = 0;
 
-        $message2 = new stdClass();
+        $message2 = new \core\message\message();
+        $message2->courseid          = 1;
         $message2->component         = 'moodle';
         $message2->name              = 'instantmessage';
         $message2->userfrom          = $user2;
@@ -501,7 +503,8 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
 
         $sink = $this->redirectMessages();
 
-        $message3 = new stdClass();
+        $message3 = new \core\message\message();
+        $message3->courseid          = 1;
         $message3->component         = 'xxxx_yyyyy';
         $message3->name              = 'instantmessage';
         $message3->userfrom          = $user2;
@@ -547,7 +550,8 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
         $this->assertTrue(phpunit_util::is_redirecting_messages());
         $this->assertEquals(1, $sink->count());
 
-        $message = new stdClass();
+        $message = new \core\message\message();
+        $message->courseid          = 1;
         $message->component         = 'moodle';
         $message->name              = 'instantmessage';
         $message->userfrom          = get_admin();
@@ -657,5 +661,24 @@ class core_phpunit_advanced_testcase extends advanced_testcase {
         } else {
             $this->assertSame('en_AU.UTF-8', setlocale(LC_TIME, 0));
         }
+    }
+
+    /**
+     * This test sets a user agent and makes sure that it is cleared when the test is reset.
+     */
+    public function test_it_resets_useragent_after_test() {
+        $this->resetAfterTest();
+        $fakeagent = 'New user agent set.';
+
+        // Sanity check: it should not be set when test begins.
+        self::assertFalse(core_useragent::get_user_agent_string(), 'It should not be set at first.');
+
+        // Set a fake useragent and check it was set properly.
+        core_useragent::instance(true, $fakeagent);
+        self::assertSame($fakeagent, core_useragent::get_user_agent_string(), 'It should be the forced agent.');
+
+        // Reset test data and ansure the useragent was cleaned.
+        self::resetAllData(false);
+        self::assertFalse(core_useragent::get_user_agent_string(), 'It should not be set again, data was reset.');
     }
 }

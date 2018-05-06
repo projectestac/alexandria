@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'chat', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   chat
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -42,6 +42,7 @@ $string['chat:readlog'] = 'Просматривать журнал сообще�
 $string['chatreport'] = 'Сессии чата';
 $string['chat:talk'] = 'Высказываться в чате';
 $string['chattime'] = 'Следующее время чата';
+$string['chat:view'] = 'Просматривать элемент курса «Чат»';
 $string['compact'] = 'Компактный';
 $string['composemessage'] = 'Написать сообщение';
 $string['configmethod'] = 'В режиме AJAX используется интерфейс, который автоматически соединяется с сервером для обновления сообщений.
@@ -135,7 +136,7 @@ $string['serverip'] = 'IP сервера';
 $string['servermax'] = 'Пользователей макс.';
 $string['serverport'] = 'Порт сервера';
 $string['sessions'] = 'Чат-сессии';
-$string['sessionstart'] = 'Следующий сеанс чата начнется в: {$a}';
+$string['sessionstart'] = 'Следующий сеанс чата начнётся: {$a->date}, (через {$a->fromnow})';
 $string['strftimemessage'] = '%H:%M';
 $string['studentseereports'] = 'Все могут посмотреть сессии';
 $string['studentseereports_help'] = 'Если выбрано значение «Нет», то только пользователи с правом «mod/chat:readlog» смогут просматривать журнал чата';

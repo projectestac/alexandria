@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   availability
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,10 +26,10 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['accessrestrictions'] = 'Restriccions d\'accés';
-$string['addrestriction'] = 'Afegeix una restricció ...';
+$string['addrestriction'] = 'Afegeix una restricció...';
 $string['and'] = 'i';
 $string['condition_group'] = 'Conjunt de restriccions';
-$string['condition_group_info'] = 'Afegeix un conjunt de restriccions imbricades per a aplicar la lògica complexa';
+$string['condition_group_info'] = 'Afegeix un conjunt de restriccions imbricades per aplicar la lògica complexa.';
 $string['enableavailability'] = 'Habilita l\'accés restringit';
 $string['enableavailability_desc'] = 'Si s\'activa, això us permet establir les condicions que controlen si es pot accedir a una activitat o un recurs  (segons la data, la qualificació o la compleció).';
 $string['error_list_nochildren'] = 'Els conjunts de restriccions haurien de contenir almenys una condició.';

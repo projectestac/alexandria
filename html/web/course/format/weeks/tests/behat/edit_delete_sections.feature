@@ -25,35 +25,29 @@ Feature: Sections can be edited and deleted in weeks format
     And I turn editing mode on
 
   Scenario: View the default name of the general section in weeks format
-    When I click on "Edit section" "link" in the "li#section-0" "css_element"
+    When I edit the section "0"
     Then I should see "Use default section name [General]"
 
   Scenario: Edit the default name of the general section in weeks format
-    When I click on "Edit section" "link" in the "li#section-0" "css_element"
-    And I set the following fields to these values:
+    When I edit the section "0" and I fill the form with:
       | Use default section name | 0                           |
       | name                     | This is the general section |
-    And I press "Save changes"
     Then I should see "This is the general section" in the "li#section-0" "css_element"
 
   Scenario: View the default name of the second section in weeks format
-    When I click on "Edit week" "link" in the "li#section-2" "css_element"
+    When I edit the section "2"
     Then I should see "Use default section name [8 May - 14 May]"
 
   Scenario: Edit section summary in weeks format
-    When I click on "Edit week" "link" in the "li#section-2" "css_element"
-    And I set the following fields to these values:
+    When I edit the section "2" and I fill the form with:
       | Summary | Welcome to section 2 |
-    And I press "Save changes"
     Then I should see "Welcome to section 2" in the "li#section-2" "css_element"
 
   Scenario: Edit section default name in weeks format
     Given I should see "8 May - 14 May" in the "li#section-2" "css_element"
-    When I click on "Edit week" "link" in the "li#section-2" "css_element"
-    And I set the following fields to these values:
+    When I edit the section "2" and I fill the form with:
       | Use default section name | 0                       |
       | name                     | This is the second week |
-    And I press "Save changes"
     Then I should see "This is the second week" in the "li#section-2" "css_element"
     And I should not see "8 May - 14 May" in the "li#section-2" "css_element"
 
@@ -62,11 +56,11 @@ Feature: Sections can be edited and deleted in weeks format
     When I click on "Edit week name" "link" in the "li#section-1" "css_element"
     And I set the field "New name for week 1 May - 7 May" to "Midterm evaluation"
     And I press key "13" in the field "New name for week 1 May - 7 May"
-    Then I should not see "1 May - 7 May" in the "#region-main" "css_element"
+    Then I should not see "1 May - 7 May" in the "region-main" "region"
     And "New name for week" "field" should not exist
     And I should see "Midterm evaluation" in the "li#section-1" "css_element"
     And I follow "Course 1"
-    And I should not see "1 May - 7 May" in the "#region-main" "css_element"
+    And I should not see "1 May - 7 May" in the "region-main" "region"
     And I should see "Midterm evaluation" in the "li#section-1" "css_element"
 
   Scenario: Deleting the last section in weeks format

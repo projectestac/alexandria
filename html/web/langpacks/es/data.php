@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'data', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'data', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   data
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -52,9 +52,12 @@ $string['availabletags_help'] = '<p align="center"><strong>Marcas disponibles</s
 <p>Los botones tienen el siguiente formato: ##somebutton##</p>
 <p>En la plantilla actual sólo pueden usarse las marcas que están en la lista de "Marcas disponibles".</p>';
 $string['availabletodate'] = 'Disponible hasta';
+$string['availabletodatevalidation'] = 'La fecha de disponibilidad de fin no puede ser previa a la fecha de disponibilidad de comienzo.';
 $string['blank'] = 'En blanco';
 $string['buttons'] = 'Acciones';
 $string['bynameondate'] = 'por {$a->name} - {$a->date}';
+$string['calendarend'] = 'Base de datos {$a} cerrada';
+$string['calendarstart'] = 'Base de datos {$a} abierta';
 $string['cancel'] = 'Cancelar';
 $string['cannotaccesspresentsother'] = 'No se le permite acceder a los ajustes previos de otros usuarios';
 $string['cannotadd'] = 'No se pueden añadir entradas';
@@ -115,6 +118,7 @@ $string['data:managetemplates'] = 'Gestionar plantillas';
 $string['data:manageuserpresets'] = 'Gestionar ajustes previos de plantillas';
 $string['data:rate'] = 'Calificar entradas';
 $string['data:readentry'] = 'Leer entradas';
+$string['data:view'] = 'Ver actividad de la base de datos';
 $string['data:viewallratings'] = 'Ver todas las calificaciones emitidas por los usuarios';
 $string['data:viewalluserpresets'] = 'Ver ajustes previos de todos los usuarios';
 $string['data:viewanyrating'] = 'Ver el total de calificaciones que alguien recibió
@@ -127,6 +131,7 @@ $string['dateentered'] = 'Fecha introducida';
 $string['defaultfielddelimiter'] = '(el valor por defecto es la coma)';
 $string['defaultfieldenclosure'] = '(el valor por defecto es ninguno)';
 $string['defaultsortfield'] = 'Campo de ordenación por defecto';
+$string['delcheck'] = 'Checkbox de borrado masivo';
 $string['delete'] = 'Eliminar';
 $string['deleteallentries'] = 'Eliminar todas las entradas';
 $string['deletecomment'] = '¿Está seguro de que desea eliminar este comentario?';
@@ -179,7 +184,7 @@ $string['fielddescription'] = 'Descripción de campo';
 $string['fieldenclosure'] = 'Cierre de campo';
 $string['fieldheight'] = 'Altura';
 $string['fieldheightlistview'] = 'Altura en vista de lista';
-$string['fieldheightsingleview'] = 'Altura en vista simple';
+$string['fieldheightsingleview'] = 'Altura en vista individual';
 $string['fieldids'] = 'Ids. de campo';
 $string['fieldmappings'] = 'Mapeos de campo';
 $string['fieldmappings_help'] = '<p align="center"><strong>Mapeos de campo</strong></p>
@@ -200,7 +205,7 @@ $string['fields'] = 'Campos';
 $string['fieldupdated'] = 'Campos actualizados';
 $string['fieldwidth'] = 'Anchura';
 $string['fieldwidthlistview'] = 'Anchura en vista de lista';
-$string['fieldwidthsingleview'] = 'Anchura en vista simple';
+$string['fieldwidthsingleview'] = 'Anchura en vista individual';
 $string['file'] = 'Archivo';
 $string['fileencoding'] = 'Codificación';
 $string['filesnotgenerated'] = 'No se han generado todos los archivos: {$a}';
@@ -219,7 +224,7 @@ $string['headercsstemplate'] = 'Define los estilos CSS locales para las demás p
 $string['headerjstemplate'] = 'Define Javascript personalizado para las demás plantillas';
 $string['headerlisttemplate'] = 'Define la interfaz de navegación para entradas múltiples';
 $string['headerrsstemplate'] = 'Define la apariencia de las entradas en canales RSS';
-$string['headersingletemplate'] = 'Define la interfaz de navegación en canales RSS';
+$string['headersingletemplate'] = 'Define la interfaz de navegación para una entrada individual';
 $string['importentries'] = 'Importar entradas';
 $string['importsuccess'] = 'El ajuste previo ha sido aplicado con éxito.';
 $string['includeapproval'] = 'Incluya el estado de aprobación';
@@ -305,7 +310,7 @@ $string['nolisttemplate'] = 'La plantilla de lista no está definida aún';
 $string['nomatch'] = 'No se han encontrado entradas';
 $string['nomaximum'] = 'No máximo';
 $string['norecords'] = 'No hay entradas en la base de datos';
-$string['nosingletemplate'] = 'Aún no se ha definido la plantilla simple';
+$string['nosingletemplate'] = 'Aún no se ha definido la plantilla individual';
 $string['notapproved'] = 'La entrada aún no ha sido aprobada.';
 $string['notinjectivemap'] = 'No mapa inyectivo';
 $string['notopenyet'] = 'Lo sentimos, esta actividad no está disponible hasta {$a}';
@@ -363,10 +368,11 @@ $string['savesettings'] = 'Guardar ajustes';
 $string['savesuccess'] = 'Guardado con éxito. Su ajuste previo estará ahora disponible en todo el sitio.';
 $string['savetemplate'] = 'Guardar plantilla';
 $string['search'] = 'Buscar';
+$string['search:activity'] = 'Base de datos - información de actividad';
 $string['selectedrequired'] = 'Se requieren todos los seleccionados';
 $string['showall'] = 'Mostrar todas las entradas';
-$string['single'] = 'Ver uno por uno';
-$string['singletemplate'] = 'Plantilla simple';
+$string['single'] = 'Ver individual';
+$string['singletemplate'] = 'Plantilla Individual';
 $string['subplugintype_datafield'] = 'Tipo de campo de la base de datos';
 $string['subplugintype_datafield_plural'] = '	
 Tipos de campo de la base de datos';

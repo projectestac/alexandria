@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'questionnaire', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'questionnaire', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   questionnaire
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -120,7 +120,7 @@ Podeu importar aquest fitxer en un full de càlcul (per exemple: Calc del LibreO
 $string['dropdown'] = 'Quadre de llista desplegable de selecció';
 $string['dropdown_help'] = 'No hi ha cap diferència entre usar el quadre de llista desplegable de selecció i els botons d\'opció, excepte, potser, per a llistes d\'opcions molt llargues, per estalviar espai a la pantalla.';
 $string['edit'] = 'Edita';
-$string['editingquestionnaire'] = 'S\'estan editant els paràmetres del qüestionari';
+$string['editingquestionnaire'] = 'S\'estan editant els paràmetres de l\'enquesta';
 $string['editquestion'] = 'S\'està editant la pregunta {$a}';
 $string['email'] = 'Correu electrònic';
 $string['errnewname'] = 'Aquest nom ja es fa servir; trieu-ne un altre.';
@@ -223,6 +223,7 @@ $string['maxtextlength'] = 'Longitud màxima del text';
 $string['maxtextlength_help'] = 'Per al tipus de pregunta Quadre d\'edició, introduïu la Longitud del quadre d\'edició i la Longitud màxima del text que hagi d\'introduir l\'enquestat.
 Els valors per defecte són 20 caràcters per a l\'amplària del quadre d\'edició i 25 caràcters per a la longitud màxima del text introduït.';
 $string['messageprovider:message'] = 'Recordatori del qüestionari';
+$string['messageprovider:notification'] = 'Tramesa de l\'enquesta';
 $string['minforcedresponses'] = 'Nombre mínim obligatori de respostes';
 $string['minforcedresponses_help'] = 'Utilitzeu aquests paràmetres per forçar els alumnes a marcar un mínim i un màxim de quadres de selecció. Per forçar un nombre exacte de seleccions, establiu el mínim i el màxim en el mateix valor. Si només voleu un mínim o un màxim, establiu-ne el valor i deixeu l\'altre a **0**.
 Si establiu el mínim i/o el màxim de quadres marcats i la resposta no s\'ajusta a aquests marges, s\'emet un missatge d\'avís. Òbviament, és millor que les persones que respondran l\'enquesta coneguin per endavant les condicions de resposta.';
@@ -263,6 +264,8 @@ $string['notavail'] = 'Aquesta enquesta encara no està disponible. Proveu-ho m�
 $string['noteligible'] = 'No podeu fer aquesta enquesta';
 $string['notemplatesurveys'] = 'No hi ha cap plantilla d\'enquesta';
 $string['notenoughscaleitems'] = 'Heu d\'introduir un valor mínim de 2 elements de l\'escala';
+$string['notifications'] = 'Envia notificacions de la tramesa';
+$string['notifications_help'] = 'Envia una notificació als rols amb la capacitat «mod/questionnaire:submissionnotification» quan es fa una tramesa.';
 $string['notopen'] = 'Aquesta enquesta s\'obrirà el dia {$a}.';
 $string['notrequired'] = 'Resposta no requerida';
 $string['not_started'] = 'no s\'ha iniciat';
@@ -309,7 +312,7 @@ $string['page'] = 'Pàgina';
 $string['pageof'] = 'Pàgina {$a->page} de {$a->totpages}';
 $string['participant'] = 'Participant';
 $string['pluginadministration'] = 'Administració del mòdul Questionnaire';
-$string['pluginname'] = 'Qüestionari';
+$string['pluginname'] = 'Enquesta';
 $string['position'] = 'posició';
 $string['possibleanswers'] = 'Respostes possibles';
 $string['posteddata'] = 'S\'ha obtingut una pàgina amb dades:';
@@ -372,7 +375,8 @@ $string['realm_help'] = '* **Hi ha tres tipus d\'enquestes:**
 $string['redirecturl'] = 'L\'URL cap a on es redirecciona l\'usuari després de completar l\'enquesta';
 $string['remove'] = 'Esborra';
 $string['removeallquestionnaireattempts'] = 'Suprimeix totes les respostes de les enquestes';
-$string['removenotinuse'] = 'Aquesta enquesta solia dependre d\'una enquesta pública que s\'ha eliminat. Ja no es pot utilitzar, i seria recomanable eliminar-la.';
+$string['removenotinuse'] = 'Aquesta enquesta solia dependre d\'una enquesta pública que s\'ha esborrat.
+Ja no es pot utilitzar més, i seria convenient esborrar-la.';
 $string['required'] = 'Resposta requerida';
 $string['required_help'] = 'Si marqueu ***Sí***, es requerirà una resposta a aquesta pregunta, és a dir, no es podrà trametre l\'enquesta fins que s\'hagi respost a aquesta pregunta';
 $string['requiredparameter'] = 'S\'ha deixat en blanc algun paràmetre obligatori.';

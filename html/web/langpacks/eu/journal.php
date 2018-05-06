@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'journal', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'journal', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   journal
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -35,7 +35,8 @@ $string['editingends'] = 'Editazeko epea amaituko da';
 $string['entries'] = 'Sarrerak';
 $string['entry'] = 'Sarrera';
 $string['evententriesviewed'] = 'Egunkari-sarrerak ikusi dira';
-$string['evententryupdated'] = 'Egunakari-sarrera eguneratu da';
+$string['evententrycreated'] = 'Egunkari-sarrera sortu da';
+$string['evententryupdated'] = 'Egunkari-sarrera eguneratu da';
 $string['eventfeedbackupdated'] = 'Egunkariaren feedbacka eguneratu da';
 $string['eventjournalcreated'] = 'Egunkaria sortu da';
 $string['eventjournaldeleted'] = 'Egunkaria ezabatu da';
@@ -62,6 +63,8 @@ $string['newjournalentries'] = 'Egunkari-sarrera berriak';
 $string['nodeadline'] = 'Betik zabalik';
 $string['noentriesmanagers'] = 'Ez dago irakaslerik';
 $string['noentry'] = 'Sarrerarik ez';
+$string['noratinggiven'] = 'Ez da kalifkaziorik eman';
+$string['notopenuntil'] = 'Egunkaria ez da zabalduko ondoko datara arte:';
 $string['notstarted'] = 'Oraindik ez duzu egunkari hau hasi';
 $string['pluginadministration'] = 'Egunkariaren kudeaketa';
 $string['pluginname'] = 'Egunkaria';

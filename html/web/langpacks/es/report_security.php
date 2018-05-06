@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_security', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'report_security', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   report_security
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -111,6 +111,9 @@ $string['check_unsecuredataroot_error'] = '!Su directorio dataroot <code>{$a}</c
 $string['check_unsecuredataroot_name'] = 'Directorio dataroot inseguro';
 $string['check_unsecuredataroot_ok'] = 'El directorio de datos (normalmente /moodledata) no debe ser accesible desde la web';
 $string['check_unsecuredataroot_warning'] = '!Su directorio dataroot <code>{$a}</code> ¡ está en el lugar equivocado y puede estar expuesto a la web!';
+$string['check_webcron_name'] = 'Cron web';
+$string['check_webcron_ok'] = 'Los usuarios anónimos no pueden acceder al cron.';
+$string['check_webcron_warning'] = 'Los usuarios anónimos pueden acceder al cron.';
 $string['configuration'] = 'Configuración';
 $string['description'] = 'Descripción';
 $string['details'] = 'Detalles';

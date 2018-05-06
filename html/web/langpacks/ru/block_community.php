@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_community', language 'ru', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_community', language 'ru', branch 'MOODLE_32_STABLE'
  *
  * @package   block_community
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -58,7 +58,7 @@ $string['downloadingcourse'] = 'Загрузка курса';
 $string['downloadingsize'] = 'Файл курса загружается ({$a->total} Mб). Пожалуйста, подождите...';
 $string['downloadtemplate'] = 'Создание курса из шаблона';
 $string['educationallevel'] = 'Образовательный уровень';
-$string['educationallevel_help'] = 'Какой образовательный уровень  Вас интересует? В случае Сообщества педагогов каждый уровень характеризует уровень их преподавания.';
+$string['educationallevel_help'] = 'Какой образовательный уровень Вас интересует? В случае Сообщества педагогов каждый уровень характеризует уровень их преподавания.';
 $string['enroldownload'] = 'Найти';
 $string['enroldownload_help'] = 'Описания некоторых курсов в выбранном каталоге размещены в целях рекламы, чтобы люди могли перейти и записаться на них на исходном сайте.
 

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'portfolio', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   portfolio
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -56,9 +56,9 @@ $string['dontwait'] = 'Não aguardar';
 $string['enabled'] = 'Ativar portefólios';
 $string['enableddesc'] = 'Se ativar esta opção, os utilizadores podem exportar conteúdo, tal como tópicos dos fóruns e submissões de trabalhos, para portefólios externos ou páginas HTML.';
 $string['err_uniquename'] = 'O nome do portefólio deve ser único (por cada módulo)';
-$string['exportalreadyfinished'] = 'A exportação do portefólio está completa';
-$string['exportalreadyfinisheddesc'] = 'A exportação do portefólio está completa';
-$string['exportcomplete'] = 'A exportação do portefólio está completa';
+$string['exportalreadyfinished'] = 'A exportação do portefólio está concluída';
+$string['exportalreadyfinisheddesc'] = 'A exportação do portefólio está concluída';
+$string['exportcomplete'] = 'A exportação do portefólio está concluída';
 $string['exportedpreviously'] = 'Exportações anteriores';
 $string['exportexceptionnoexporter'] = 'Foi lançada uma exceção do tipo "portfolio_export_exception" com uma sessão ativa, mas sem objeto de exportação';
 $string['exportexpired'] = 'A exportação do portefólio expirou';

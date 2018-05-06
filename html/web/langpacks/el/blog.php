@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'blog', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,9 +28,10 @@ defined('MOODLE_INTERNAL') || die();
 $string['addnewentry'] = 'Προσθήκη νέας καταχώρησης';
 $string['addnewexternalblog'] = 'Καταχώρηση εξωτερικού ιστολογίου';
 $string['associatewithcourse'] = 'Ιστολόγιο σχετικά με το μάθημα {$a->coursename}';
+$string['associatewithmodule'] = 'Ιστολόγιο σχετικά με {$a->modtype}: {$a->modname}';
 $string['autotags'] = 'Προσθέστε αυτές τις ετικέτες';
 $string['autotags_help'] = 'Εισάγετε μία ή περισσότερες τοπικές ετικέτες (χωρισμένες με κόμμα) που επιθυμείτε να προσθέσετε αυτόματα σε κάθε καταχώρηση ιστολογίου που αντιγράφεται από το εξωτερικό ιστολόγιο στο τοπικό σας ιστολόγιο.';
-$string['backupblogshelp'] = 'Αν ενεργοποιηθεί, τα ιστολόγια θα συμπεριλαμβάνονται στα αυτόματα αντίγραφα ασφαλείας της σελίδας';
+$string['backupblogshelp'] = 'Αν ενεργοποιηθεί, τα ιστολόγια θα περιλαμβάνονται στα αυτόματα αντίγραφα ασφαλείας της σελίδας';
 $string['blockexternalstitle'] = 'Εξωτερικά ιστολόγια';
 $string['blocktitle'] = 'Ετικέτες ιστολογίων';
 $string['blog'] = 'Ιστολόγιο';
@@ -38,7 +39,7 @@ $string['blogaboutthiscourse'] = 'Προσθέστε μια καταχώρηση
 $string['blogdeleteconfirm'] = 'Διαγραφή αυτού του ιστολογίου;';
 $string['blogdisable'] = 'Η χρήση ιστολογίων έχει απενεργοποιηθεί!';
 $string['blogentries'] = 'Καταχωρήσεις ιστολογίων';
-$string['blogpreferences'] = 'Ρυθμίσεις ιστολογίου';
+$string['blogpreferences'] = 'Προτιμήσεις ιστολογίου';
 $string['blogs'] = 'Ιστολόγια';
 $string['blogssite'] = 'Ιστολόγια Ιστοτόπου';
 $string['blogtags'] = 'Ετικέτες Ιστολογίων';
@@ -97,8 +98,8 @@ $string['publishtosite'] = 'Οποιονδήποτε στη σελίδα';
 $string['publishtoworld'] = 'Οποιονδήποτε στον κόσμο';
 $string['relatedblogentries'] = 'Σχετικές καταχωρήσεις σε ιστολόγια';
 $string['rssfeed'] = 'RSS feed Ιστολογίου';
+$string['searchterm'] = 'Αναζήτηση: {$a}';
 $string['settingsupdatederror'] = 'Σφάλμα κατά την ενημέρωση ρύθμισης ιστολογίου';
-$string['siteblog'] = 'Ιστολόγιο σελίδας: {$a}';
 $string['siteblogdisable'] = 'Το ιστολόγιο σελίδας είναι απενεργοποιημένο';
 $string['siteblogs'] = 'Όλοι οι χρήστες μπορούν να δουν όλα τα ιστολόγια';
 $string['tagdatelastused'] = 'Η ετικέτα ημερομηνίας χρησιμοποιήθηκε τελευταία';
@@ -107,6 +108,7 @@ $string['tagsort'] = 'Ταξινόμηση ετικετών ανά';
 $string['tagtext'] = 'Κείμενο ετικέτας';
 $string['timewithin'] = 'Εμφάνιση ετικετών που χρησιμοποιήθηκαν τις Ν τελευταίες μέρες';
 $string['updateentrywithid'] = 'Ανανέωση εγγραφής';
+$string['url'] = 'URL τροφοδοσίας RSS';
 $string['url_help'] = 'Εισάγετε τo URL του RSS feed για το εξωτερικό σας ιστολόγιο';
 $string['userblog'] = 'Ιστολόγιο χρήστη: {$a}';
 $string['viewallmyentries'] = 'Προβολή όλων των καταχωρήσεων μου';

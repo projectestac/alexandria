@@ -256,11 +256,23 @@ class com_wiris_util_xml_XmlSerializer {
 			if($this->mode === com_wiris_util_xml_XmlSerializer::$MODE_WRITE && $content !== null && $this->ignoreTagStackCount === 0) {
 				$textNode = null;
 				if(strlen($content) > 100 || StringTools::startsWith($content, "<") && StringTools::endsWith($content, ">")) {
-					$textNode = Xml::createCData($content);
+					$k = _hx_index_of($content, "]]>", null);
+					$i = 0;
+					while($k > -1) {
+						$subcontent = _hx_substr($content, $i, $k - $i + 2);
+						$textNode = Xml::createCData($subcontent);
+						$this->element->addChild($textNode);
+						$i = $k + 2;
+						$k = _hx_index_of($content, "]]>", $i);
+						unset($subcontent);
+					}
+					$str = _hx_substr($content, $i, null);
+					$textNode = Xml::createCData($str);
+					$this->element->addChild($textNode);
 				} else {
 					$textNode = com_wiris_util_xml_WXmlUtils::createPCData($this->element, $content);
+					$this->element->addChild($textNode);
 				}
-				$this->element->addChild($textNode);
 			}
 		}
 		return $content;
@@ -285,6 +297,31 @@ class com_wiris_util_xml_XmlSerializer {
 		}
 		return $a;
 	}
+	public function stringToArrayString($s) {
+		if($s === null) {
+			return null;
+		}
+		return _hx_explode(",", $s);
+	}
+	public function stringArrayToString($a) {
+		if($a === null) {
+			return null;
+		}
+		$i = null;
+		$sb = new StringBuf();
+		{
+			$_g1 = 0; $_g = $a->length;
+			while($_g1 < $_g) {
+				$i1 = $_g1++;
+				if($i1 !== 0) {
+					$sb->add(",");
+				}
+				$sb->add($a[$i1]);
+				unset($i1);
+			}
+		}
+		return $sb->b;
+	}
 	public function arrayToString($a) {
 		if($a === null) {
 			return null;
@@ -303,6 +340,9 @@ class com_wiris_util_xml_XmlSerializer {
 			}
 		}
 		return $sb->b;
+	}
+	public function attributeStringArray($name, $value, $def) {
+		return $this->stringToArrayString($this->attributeString($name, $this->stringArrayToString($value), $this->stringArrayToString($def)));
 	}
 	public function attributeIntArray($name, $value, $def) {
 		return $this->stringToArray($this->attributeString($name, $this->arrayToString($value), $this->arrayToString($def)));
@@ -423,6 +463,12 @@ class com_wiris_util_xml_XmlSerializer {
 		$this->rawxmls = new _hx_array(array());
 		$s->onSerialize($this);
 		$res = $this->element->toString();
+		if(StringTools::startsWith($res, "<__document")) {
+			$res = _hx_substr($res, _hx_index_of($res, ">", null) + 1, null);
+		}
+		if(StringTools::endsWith($res, "</__document>")) {
+			$res = _hx_substr($res, 0, strlen($res) - strlen("</__document>"));
+		}
 		$i = null;
 		{
 			$_g1 = 0; $_g = $this->rawxmls->length;
@@ -438,6 +484,11 @@ class com_wiris_util_xml_XmlSerializer {
 			}
 		}
 		return $res;
+	}
+	public function readXml($xml) {
+		$this->setCurrentElement($xml);
+		$this->mode = com_wiris_util_xml_XmlSerializer::$MODE_READ;
+		return $this->readNode();
 	}
 	public function read($xml) {
 		$document = Xml::parse($xml);

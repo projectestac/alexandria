@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_task', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'tool_task', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   tool_task
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['asap'] = 'ASAP';
 $string['blocking'] = 'Blocage';
 $string['component'] = 'Composant';
-$string['corecomponent'] = 'Cœur';
+$string['corecomponent'] = 'Cœur';
 $string['default'] = 'Défaut';
 $string['disabled'] = 'Désactivé';
 $string['disabled_help'] = 'Les tâches programmées désactivées ne sont pas lancées par le cron, mais peuvent cependant être lancées manuellement via l\'outil CLI.';

@@ -59,6 +59,14 @@ require('tabs.php');
 $mygroupid = groups_get_activity_group($cm, true);
 groups_print_activity_menu($cm, $url);
 
+// Button "Export to excel".
+if (has_capability('mod/feedback:viewreports', $context) && $feedbackstructure->get_items()) {
+    echo $OUTPUT->container_start('form-buttons');
+    $aurl = new moodle_url('/mod/feedback/analysis_to_excel.php', ['sesskey' => sesskey(), 'id' => $id]);
+    echo $OUTPUT->single_button($aurl, get_string('export_to_excel', 'feedback'));
+    echo $OUTPUT->container_end();
+}
+
 // Show the summary.
 $summary = new mod_feedback\output\summary($feedbackstructure, $mygroupid);
 echo $OUTPUT->render_from_template('mod_feedback/summary', $summary->export_for_template($OUTPUT));
@@ -78,11 +86,9 @@ echo '<div>';
 if ($check_anonymously) {
     // Print the items in an analysed form.
     foreach ($items as $item) {
-        echo "<table class=\"analysis itemtype_{$item->typ}\">";
         $itemobj = feedback_get_item_class($item->typ);
         $printnr = ($feedback->autonumbering && $item->itemnr) ? ($item->itemnr . '.') : '';
         $itemobj->print_analysed($item, $printnr, $mygroupid);
-        echo '</table>';
     }
 } else {
     echo $OUTPUT->heading_with_help(get_string('insufficient_responses_for_this_group', 'feedback'),

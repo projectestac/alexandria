@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'booktool_importhtml', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'booktool_importhtml', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   booktool_importhtml
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,7 +29,7 @@ $string['doimport'] = 'Import';
 $string['errornochapters'] = 'Keine Kapitel in der Datei gefunden';
 $string['import'] = 'Kapitel importieren';
 $string['importhtml:import'] = 'Kapitel importieren';
-$string['importing'] = 'Import läuft...';
+$string['importing'] = 'Import läuft ...';
 $string['importingchapters'] = 'Kapitel ins Buch importieren';
 $string['pluginname'] = 'Kapitelimport';
 $string['relinking'] = 'Neuverlinkung läuft ...';

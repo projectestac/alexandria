@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'fr', branch 'MOODLE_31_STABLE'
+ * Strings for component 'group', language 'fr', branch 'MOODLE_32_STABLE'
  *
  * @package   group
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addedby'] = 'Ajouté par {$a}';
-$string['addgroup'] = 'Ajouter un utilisateur au groupe';
+$string['addgroup'] = 'Ajouter l\'utilisateur à un groupe';
 $string['addgroupstogrouping'] = 'Ajouter le groupe au groupement';
 $string['addgroupstogroupings'] = 'Ajouter/retirer des groupes';
 $string['adduserstogroup'] = 'Ajouter/retirer des utilisateurs';

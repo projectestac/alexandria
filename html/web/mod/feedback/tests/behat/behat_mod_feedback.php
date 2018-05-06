@@ -74,6 +74,24 @@ class behat_mod_feedback extends behat_base {
     }
 
     /**
+     * Adds a question to the existing feedback with filling the form.
+     *
+     * The form for creating a question should be on one page.
+     *
+     * @When /^I add a page break to the feedback$/
+     */
+    public function i_add_a_page_break_to_the_feedback() {
+
+        $questiontype = $this->escape(get_string('add_pagebreak', 'feedback'));
+        $additem = $this->escape(get_string('add_item', 'feedback'));
+
+        $this->execute('behat_forms::i_select_from_the_singleselect', array($questiontype, $additem));
+
+        // Wait again, for page to reloaded.
+        $this->execute('behat_general::i_wait_to_be_redirected');
+    }
+
+    /**
      * Quick way to generate answers to a one-page feedback.
      *
      * @When /^I log in as "(?P<user_name_string>(?:[^"]|\\")*)" and complete feedback "(?P<feedback_name_string>(?:[^"]|\\")*)" in course "(?P<course_name_string>(?:[^"]|\\")*)" with:$/
@@ -126,6 +144,38 @@ class behat_mod_feedback extends behat_base {
         );
 
         $this->compare_exports(file_get_contents($CFG->dirroot . '/' . $filename), $result);
+    }
+
+    /**
+     * Clicks on Show chart data to display chart data if not visible.
+     *
+     * @Then /^I show chart data for the "(?P<feedback_name_string>(?:[^"]|\\")*)" feedback$/
+     * @param string $feedbackname name of the feedback for which chart data needs to be shown.
+     */
+    public function i_show_chart_data_for_the_feedback($feedbackname) {
+
+        $feedbackxpath = "//th[contains(normalize-space(string(.)), \"" . $feedbackname . "\")]/ancestor::table/" .
+            "following-sibling::div[contains(concat(' ', normalize-space(@class), ' '), ' chart-area ')][1]" .
+            "//p[contains(concat(' ', normalize-space(@class), ' '), ' chart-table-expand ') and ".
+            "//a[contains(normalize-space(string(.)), '".get_string('showchartdata')."')]]";
+
+        $charttabledataxpath = $feedbackxpath .
+            "/following-sibling::div[contains(concat(' ', normalize-space(@class), ' '), ' chart-table-data ')][1]";
+
+        // If chart data is not visible then expand.
+        $node = $this->get_selected_node("xpath_element", $charttabledataxpath);
+        if ($node) {
+            if (!$node->isVisible()) {
+                // Focus on node, before checking if it's visible.
+                $node->focus();
+                $this->execute('behat_general::i_click_on_in_the', array(
+                    get_string('showchartdata'),
+                    'link',
+                    $feedbackxpath,
+                    'xpath_element'
+                ));
+            }
+        }
     }
 
     /**

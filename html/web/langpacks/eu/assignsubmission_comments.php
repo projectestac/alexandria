@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_comments', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignsubmission_comments', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   assignsubmission_comments
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['blindmarkingname'] = '{$a} partaidea';
+$string['blindmarkingviewfullname'] = '{$a->participantnumber}. partaidea ({$a->participantfullname})';
 $string['default'] = 'Berez gaituta';
 $string['default_help'] = 'Ezarriz gero, bidalketa-metodo hau berez gaituko da zeregin berri guztietan';
 $string['enabled'] = 'Bidalketaren iruzkinak';

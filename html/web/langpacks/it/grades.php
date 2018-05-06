@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'it', branch 'MOODLE_31_STABLE'
+ * Strings for component 'grades', language 'it', branch 'MOODLE_32_STABLE'
  *
  * @package   grades
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -175,7 +175,7 @@ $string['editverbose'] = 'Modifica {$a->category} {$a->itemmodule} {$a->itemname
 $string['enableajax'] = 'Abilita AJAX';
 $string['enableajax_help'] = 'Abilita AJAX nel registro del valutatore, semplificando e accelerando le operazioni più comuni. E\' necessario che il browser dell\'utente supporti JavaScript.';
 $string['enableoutcomes'] = 'Abilita obiettivi';
-$string['enableoutcomes_help'] = 'Abilitando gli Obiettivi (in inglese Outcome, chiamati anche Competenze, Standard, Criteri) sarà possibile valutare il raggiungimento di obiettivi formativi tramite scale di valutazione qualitative. L\'abilitazione degli obiettivi rende possibile questo tipo di valutazione in qualsiasi corso.';
+$string['enableoutcomes_help'] = 'L\'abilitazione degli obiettivi rende possibile la valutazione con scale.';
 $string['encoding'] = 'Codifica';
 $string['encoding_help'] = 'Seleziona la codifica dei caratteri dei dati (la codifica standard è UTF-8). Se viene selezionata una codifica errata, il problema sarà visibile durante l\'anteprima.';
 $string['errorcalculationbroken'] = 'Possibile presenza di riferimento circolare o formula di calcolo errata.';
@@ -323,6 +323,8 @@ $string['gradereport'] = 'Report valutazioni';
 $string['graderreport'] = 'Registro valutatore';
 $string['grades'] = 'Valutazioni';
 $string['gradesforuser'] = 'Voti di {$a->user}';
+$string['gradesmoduledeletionpendingwarning'] = 'Attenzione: l\'eliminazione dell\'attività è in corso, le valutazioni stanno per essere eliminate.';
+$string['gradesmoduledeletionprefix'] = '[Eliminazione in corso]';
 $string['gradesonly'] = 'Solo le valutazioni';
 $string['gradessettings'] = 'Impostazioni generali';
 $string['gradetype'] = 'Tipo valutazione';
@@ -421,7 +423,7 @@ $string['letterreal'] = 'Letterale (vera)';
 $string['letters'] = 'Graduatoria letterale';
 $string['linkedactivity'] = 'Attività collegata';
 $string['linkedactivity_help'] = '<p>Indica l\'attività (o le attività) alla quale è collegato l\'obiettivo. Gli obiettivi sono utili per misurare le performance di uno studente in base a criteri diversi dal voto.</p>';
-$string['linktoactivity'] = 'Collegamento all\'attività {$a->name}';
+$string['linktoactivity'] = 'Collegamento all\'attività {$a->name} {$a->title}';
 $string['lock'] = 'Blocca';
 $string['locked'] = 'Bloccato';
 $string['locked_help'] = 'Impedisce l\'aggiornamento automatico del voto da parte dell\'attività correlata.';

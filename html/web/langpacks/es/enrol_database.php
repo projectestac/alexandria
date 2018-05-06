@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_database', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'enrol_database', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   enrol_database
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['database:config'] = 'Configurar instancias de matriculación en la base de datos';
 $string['database:unenrol'] = 'Dar de baja usuarios suspendidos';
 $string['dbencoding'] = 'Codificación de base de datos';
 $string['dbhost'] = 'Host de la base de datos';

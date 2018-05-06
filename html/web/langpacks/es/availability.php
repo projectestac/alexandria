@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   availability
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -44,11 +44,11 @@ $string['label_multi'] = 'Restricciones';
 $string['label_sign'] = 'Tipo de restricción';
 $string['list_and'] = 'Todos:';
 $string['list_and_hidden'] = 'Todos (si no, oculto)';
-$string['listheader_multi_after'] = 'de la siguiente';
-$string['listheader_multi_and'] = 'todo';
-$string['listheader_multi_before'] = 'emparejar';
-$string['listheader_multi_or'] = 'cualquiera';
-$string['listheader_sign_before'] = 'Estudiante';
+$string['listheader_multi_after'] = 'las siguientes restricciones';
+$string['listheader_multi_and'] = 'todas';
+$string['listheader_multi_before'] = 'cumplir';
+$string['listheader_multi_or'] = 'cualquiera de';
+$string['listheader_sign_before'] = 'El estudiante';
 $string['listheader_sign_neg'] = 'no debe';
 $string['listheader_sign_pos'] = 'debe';
 $string['listheader_single'] = 'cumplir lo siguiente';

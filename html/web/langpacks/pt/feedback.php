@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'feedback', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'feedback', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   feedback
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['add_item'] = 'Adicionar questão';
+$string['add_item'] = 'Adicionar uma pergunta';
 $string['add_pagebreak'] = 'Adicionar quebra de página';
 $string['adjustment'] = 'Ajustamento';
 $string['after_submit'] = 'Após submissão';
@@ -55,8 +55,9 @@ $string['check_values'] = 'Respostas possíveis';
 $string['choosefile'] = 'Selecionar ficheiro';
 $string['chosen_feedback_response'] = 'resposta do inquérito escolhida';
 $string['closebeforeopen'] = 'Especificou uma data de fim anterior à data de início.';
-$string['completed'] = 'concluído';
+$string['completed'] = 'Concluído';
 $string['completed_feedbacks'] = 'Respostas submetidas';
+$string['completedon'] = 'Concluído a {$a}';
 $string['complete_the_form'] = 'Responder às questões...';
 $string['completionsubmit'] = 'Ver como concluído se o inquérito tiver sido submetido';
 $string['configallowfullanonymous'] = 'Se selecionar \'Sim\', o inquérito pode ser concluído por utilizadores não autenticados. Apenas é aplicável a inquéritos na página de autenticação.';
@@ -64,7 +65,7 @@ $string['confirmdeleteentry'] = 'Tem a certeza que pretende apagar esta resposta
 $string['confirmdeleteitem'] = 'Tem a certeza que pretende apagar este item?';
 $string['confirmdeletetemplate'] = 'Tem a certeza que pretende apagar este modelo?';
 $string['confirmusetemplate'] = 'Tem a certeza que pretende aplicar este modelo?';
-$string['continue_the_form'] = 'Continuar o inquérito';
+$string['continue_the_form'] = 'Continuar a responder às perguntas...';
 $string['count_of_nums'] = 'Contagem de números';
 $string['courseid'] = 'ID da disciplina';
 $string['creating_templates'] = 'Gravar estas questões como um novo modelo';
@@ -78,20 +79,20 @@ $string['depending'] = 'Dependências';
 $string['depending_help'] = 'Esta opção permite que uma questão  só seja exibida se tiver sido dada uma determinada resposta a uma questão prévia.<br />
 <strong>Siga os passos seguintes para criar uma dependência:</strong><br />
 <ol>
-<li>Crie uma pergunta que condicionará a exibição de outras perguntas.</li>
-<li>Adicione uma quebra de página (as questões dependentes não podem ocupar a mesma página).</li>
-<li>Adicione as perguntas cuja exibição depende da resposta à pergunta anterior.<br />
-<li>Selecione a pergunta na lista "Dependência de" e indique o valor necessário na caixa de texto "Resposta requerida".</li>
+    <li>Crie uma pergunta que condicionará a exibição de outras perguntas.</li>
+    <li>Adicione uma quebra de página (as questões dependentes não podem ocupar a mesma página).</li>
+    <li>Adicione as perguntas cuja exibição depende da resposta à pergunta anterior.<br />
+    <li>Selecione a pergunta na lista "Dependência de" e indique o valor necessário na caixa de texto "Resposta requerida".</li>
 </ol>
 <strong>Por exemplo:</strong>
 <ol>
-<li>Questão: Tem um carro? R: sim/não</li>
-<li>Quebra de página</li>
-<li>Questão: De que cor é o seu carro?<br />
-(esta questão depende da resposta à primeira questão ser "sim")</li>
-<li>Questão: Porque não tem um carro?<br />
-(esta questão depende da resposta à primeira questão ser "não")</li>
-<li> ... outros itens</li>
+    <li>Questão: Tem um carro? R: sim/não</li>
+    <li>Quebra de página</li>
+    <li>Questão: De que cor é o seu carro?<br />
+        (esta questão depende da resposta à primeira questão ser "sim")</li>
+    <li>Questão: Porque não tem um carro?<br />
+        (esta questão depende da resposta à primeira questão ser "não")</li>
+    <li> ... outros itens</li>
 </ol>';
 $string['dependitem'] = 'Dependência de';
 $string['dependvalue'] = 'Resposta requerida';
@@ -169,7 +170,7 @@ $string['minimal'] = 'mínimo';
 $string['mode'] = 'Modo';
 $string['modulename'] = 'Inquérito';
 $string['modulename_help'] = 'O módulo <b>Inquérito</b> permite a criação de inquéritos configuráveis.';
-$string['modulenameplural'] = 'Inquérito';
+$string['modulenameplural'] = 'Inquéritos';
 $string['movedown_item'] = 'Mover esta questão para baixo';
 $string['move_here'] = 'Mover para aqui';
 $string['move_item'] = 'Mover esta questão';
@@ -194,7 +195,7 @@ $string['notavailable'] = 'este inquérito não se encontra disponível';
 $string['not_completed_yet'] = 'Incompletos';
 $string['no_templates_available_yet'] = 'Ainda não existem modelos disponíveis';
 $string['not_selected'] = 'Não respondido';
-$string['not_started'] = 'por iniciar';
+$string['not_started'] = 'Por iniciar';
 $string['numberoutofrange'] = 'Valor fora do intervalo';
 $string['numeric'] = 'Resposta numérica';
 $string['numeric_range_from'] = 'Valor mínimo';
@@ -203,11 +204,11 @@ $string['of'] = 'de';
 $string['oldvaluespreserved'] = 'Todas as questões antigas e os seus valores serão preservadas';
 $string['oldvalueswillbedeleted'] = 'As questões atuais e as respostas de todos os utilizadores serão apagadas.';
 $string['only_one_captcha_allowed'] = 'Apenas é permitido inserir um CAPTCHA em cada inquérito';
-$string['overview'] = 'Visão geral';
+$string['overview'] = 'Visão global';
 $string['page'] = 'Página';
 $string['page_after_submit'] = 'Mensagem de conclusão';
 $string['pagebreak'] = 'Quebra de página';
-$string['page-mod-feedback-x'] = 'Qualquer página do módulo de pedido de opinião';
+$string['page-mod-feedback-x'] = 'Qualquer página da atividade Inquérito';
 $string['parameters_missing'] = 'Faltam parâmetros a';
 $string['picture'] = 'Imagem';
 $string['picture_file_list'] = 'Lista de imagens';
@@ -259,7 +260,8 @@ $string['show_nonrespondents'] = 'Utilizadores que não responderam';
 $string['site_after_submit'] = 'Site após submissão';
 $string['sort_by_course'] = 'Ordenar por disciplina';
 $string['start'] = 'Iniciar';
-$string['started'] = 'iniciado';
+$string['started'] = 'Iniciado';
+$string['startedon'] = 'Iniciado em {$a}';
 $string['stop'] = 'Fim';
 $string['subject'] = 'Assunto';
 $string['switch_group'] = 'Mudar grupo';
@@ -276,7 +278,7 @@ $string['textfield'] = 'Resposta de texto curto';
 $string['textfield_maxlength'] = 'Limite de caracteres';
 $string['textfield_size'] = 'Largura do campo de resposta';
 $string['there_are_no_settings_for_recaptcha'] = 'O Captcha não foi configurado';
-$string['this_feedback_is_already_submitted'] = 'Já completou esta atividade';
+$string['this_feedback_is_already_submitted'] = 'Já concluiu esta atividade';
 $string['typemissing'] = 'não foi indicado o valor "tipo"';
 $string['update_item'] = 'Gravar alterações';
 $string['url_for_continue'] = 'Hiperligação para a próxima atividade';

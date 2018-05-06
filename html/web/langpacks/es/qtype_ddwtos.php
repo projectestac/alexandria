@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_ddwtos', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qtype_ddwtos', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   qtype_ddwtos
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,7 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addmorechoiceblanks'] = 'Espacios en blanco para {no} más opciones';
 $string['answer'] = 'Respuesta';
+$string['blank'] = 'vacío';
 $string['correctansweris'] = 'La respuesta correcta es: {$a}';
+$string['infinite'] = 'Ilimitado';
 $string['pleaseputananswerineachbox'] = 'Por favor, ponga una respuesta en cada caja.';
 $string['pluginname'] = 'Arrastrar y soltar sobre texto';
 $string['pluginnameadding'] = 'Añadiendo arrastrar y soltar sobre texto';

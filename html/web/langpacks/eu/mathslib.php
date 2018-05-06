@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mathslib', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'mathslib', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   mathslib
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,18 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['anunexpectederroroccured'] = 'espero ez zen errorea gertatu da';
+$string['cannotassigntoconstant'] = '\'{$a}\' ezin zaio konstanteari ezarri';
+$string['cannotredefinebuiltinfunction'] = 'ezin da berezko \'{$a}()\' funtzioa berdefinitu';
+$string['divisionbyzero'] = 'zero zatitzailea duen zatiketa';
+$string['expectingaclosingbracket'] = 'parentesia ixtea espero zen';
 $string['illegalcharactergeneral'] = 'Legez kanpoko karakterea \'{$a}\'';
 $string['illegalcharacterunderscore'] = 'Legez kanpoko karakterea \'_\'';
+$string['implicitmultiplicationnotallowed'] = 'eragiketa-ikurra espero zen, biderkatze inplizitua ez dago baimenduta.';
 $string['internalerror'] = 'barne errorea';
-$string['undefinedvariable'] = 'definitu gabeko \'{$a}\' aldagaia';
+$string['operatorlacksoperand'] = '\'{$a}\' eragiketari eragingai falta zaio';
+$string['undefinedvariable'] = 'definitu \'{$a}\' bariablea';
+$string['undefinedvariableinfunctiondefinition'] = 'Zehaztugabeko \'{$a}\' aldagaia funtzioaren definizioan';
+$string['unexpectedclosingbracket'] = 'espero ez zen parentesi-ixtea';
+$string['unexpectedcomma'] = 'espero ez zen koma';
+$string['unexpectedoperator'] = 'espero ez zen \'{$a}\' eragiketa-ikurra';
+$string['wrongnumberofarguments'] = 'argumentu-kopuru okerra ({$a->given} eman dira, {$a->expected} espero ziren)';

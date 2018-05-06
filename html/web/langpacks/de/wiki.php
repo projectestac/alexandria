@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'wiki', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'wiki', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   wiki
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -95,7 +95,7 @@ $string['filenotuploadederror'] = 'Datei \'{$a}\' konnte nicht hochgeladen werde
 $string['files'] = 'Dateien';
 $string['filtername'] = 'Autoverlinkung im Wiki';
 $string['firstpagetitle'] = 'Name der Startseite';
-$string['firstpagetitle_help'] = 'Der Name der Startseite im Wiki kann nachträglich nicht geändert werden!';
+$string['firstpagetitle_help'] = 'Der Name der Startseite im Wiki kann nicht geändert werden, sobald das Wiki angelegt wurde.';
 $string['forceformat'] = 'Format vorgeben';
 $string['forceformat_help'] = 'Wenn das Format vorgegeben ist, kann bei der Erstellung einer neuen Wikiseite kein anderes Format eingestellt werden.';
 $string['format'] = 'Format';

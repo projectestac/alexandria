@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'langconfig', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'langconfig', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   langconfig
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -40,15 +40,15 @@ $string['oldcharset'] = 'ISO-8859-1';
 $string['strftimedate'] = '%Y(e)ko %Bk %d';
 $string['strftimedatefullshort'] = '%y/%m/%d';
 $string['strftimedateshort'] = '%Bk %d';
-$string['strftimedatetime'] = '%Y(e)ko %Bren %d(a)n, %H:%Metan';
+$string['strftimedatetime'] = '%Y(e)ko %Bren %d(e)n, %H:%M(e)an';
 $string['strftimedatetimeshort'] = '%Y/%m/%d  %H:%M';
 $string['strftimedaydate'] = '%A, %Y(e)ko  %Bk %d';
-$string['strftimedaydatetime'] = '%A, %Y(e)ko %Bren %d(a)n, %H:%M(e)tan';
+$string['strftimedaydatetime'] = '%A, %Y(e)ko %Bren %d(e)an, %H:%M(e)an';
 $string['strftimedayshort'] = '%A, %Bk %d';
-$string['strftimedaytime'] = '%a, %H:%Metan';
+$string['strftimedaytime'] = '%a, %H:%M(e)an';
 $string['strftimemonthyear'] = '%Y(e)ko %B';
-$string['strftimerecent'] = '%bk %d, %H:%Metan';
-$string['strftimerecentfull'] = '%a, %Y(e)ko %bren %d(a)n, %H:%M(e)tan';
+$string['strftimerecent'] = '%bk %d, %H:%M(e)an';
+$string['strftimerecentfull'] = '%a, %Y(e)ko %bren %d(e)an, %H:%M(e)an';
 $string['strftimetime'] = '%H:%M %p';
 $string['thisdirection'] = 'ltr';
 $string['thisdirectionvertical'] = 'btt';

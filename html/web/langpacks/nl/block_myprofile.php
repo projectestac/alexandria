@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_myprofile', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_myprofile', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   block_myprofile
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -44,7 +44,7 @@ $string['display_picture'] = 'Toon afbeelding';
 $string['display_skype'] = 'Toon Skype';
 $string['display_un'] = 'Toon naam';
 $string['display_yahoo'] = 'Toon Yahoo';
-$string['myprofile:addinstance'] = 'Voeg een nieuw aangemelde gebruikersblok toe';
-$string['myprofile:myaddinstance'] = 'Voeg een nieuw aangemelde gebruikersblok toe aan Mijn startpagina.';
+$string['myprofile:addinstance'] = 'Voeg een nieuw aangemeld gebruikersblok toe';
+$string['myprofile:myaddinstance'] = 'Voeg een nieuw aangemeld gebruikersblok toe aan Mijn startpagina.';
 $string['myprofile_settings'] = 'Zichtbare gebruikersinformatie';
 $string['pluginname'] = 'Aangemelde gebruiker';

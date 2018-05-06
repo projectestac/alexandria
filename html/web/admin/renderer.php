@@ -276,12 +276,15 @@ class core_admin_renderer extends plugin_renderer_base {
      * @param int|null $availableupdatesfetch timestamp of the most recent updates fetch or null (unknown)
      * @param string[] $cachewarnings An array containing warnings from the Cache API.
      * @param array $eventshandlers Events 1 API handlers.
+     * @param bool $themedesignermode Warn about the theme designer mode.
+     * @param bool $devlibdir Warn about development libs directory presence.
      *
      * @return string HTML to output.
      */
     public function admin_notifications_page($maturity, $insecuredataroot, $errorsdisplayed,
             $cronoverdue, $dbproblems, $maintenancemode, $availableupdates, $availableupdatesfetch,
-            $buggyiconvnomb, $registered, array $cachewarnings = array(), $eventshandlers = 0) {
+            $buggyiconvnomb, $registered, array $cachewarnings = array(), $eventshandlers = 0,
+            $themedesignermode = false, $devlibdir = false) {
         global $CFG;
         $output = '';
 
@@ -290,6 +293,8 @@ class core_admin_renderer extends plugin_renderer_base {
         $output .= $this->legacy_log_store_writing_error();
         $output .= empty($CFG->disableupdatenotifications) ? $this->available_updates($availableupdates, $availableupdatesfetch) : '';
         $output .= $this->insecure_dataroot_warning($insecuredataroot);
+        $output .= $this->development_libs_directories_warning($devlibdir);
+        $output .= $this->themedesignermode_warning($themedesignermode);
         $output .= $this->display_errors_warning($errorsdisplayed);
         $output .= $this->buggy_iconv_warning($buggyiconvnomb);
         $output .= $this->cron_overdue_warning($cronoverdue);
@@ -520,6 +525,24 @@ class core_admin_renderer extends plugin_renderer_base {
     }
 
     /**
+     * Render a warning that a directory with development libs is present.
+     *
+     * @param bool $devlibdir True if the warning should be displayed.
+     * @return string
+     */
+    protected function development_libs_directories_warning($devlibdir) {
+
+        if ($devlibdir) {
+            $moreinfo = new moodle_url('/report/security/index.php');
+            $warning = get_string('devlibdirpresent', 'core_admin', ['moreinfourl' => $moreinfo->out()]);
+            return $this->warning($warning, 'error');
+
+        } else {
+            return '';
+        }
+    }
+
+    /**
      * Render an appropriate message if dataroot is insecure.
      * @param bool $errorsdisplayed
      * @return string HTML to output.
@@ -530,6 +553,19 @@ class core_admin_renderer extends plugin_renderer_base {
         }
 
         return $this->warning(get_string('displayerrorswarning', 'admin'));
+    }
+
+    /**
+     * Render an appropriate message if themdesignermode is enabled.
+     * @param bool $themedesignermode true if enabled
+     * @return string HTML to output.
+     */
+    protected function themedesignermode_warning($themedesignermode) {
+        if (!$themedesignermode) {
+            return '';
+        }
+
+        return $this->warning(get_string('themedesignermodewarning', 'admin'));
     }
 
     /**
@@ -768,15 +804,35 @@ class core_admin_renderer extends plugin_renderer_base {
 
         if (!$registered) {
 
-            $registerbutton = $this->single_button(new moodle_url('/admin/registration/register.php',
-                    array('huburl' =>  HUB_MOODLEORGHUBURL, 'hubname' => 'Moodle.org')),
+            if (has_capability('moodle/site:config', context_system::instance())) {
+                $registerbutton = $this->single_button(new moodle_url('/admin/registration/register.php',
+                    array('huburl' =>  HUB_MOODLEORGHUBURL, 'hubname' => 'Moodle.net')),
                     get_string('register', 'admin'));
+                $str = 'registrationwarning';
+            } else {
+                $registerbutton = '';
+                $str = 'registrationwarningcontactadmin';
+            }
 
-            return $this->warning( get_string('registrationwarning', 'admin')
-                    . '&nbsp;' . $this->help_icon('registration', 'admin') . $registerbutton );
+            return $this->warning( get_string($str, 'admin')
+                    . '&nbsp;' . $this->help_icon('registration', 'admin') . $registerbutton ,
+                'error alert alert-danger');
         }
 
         return '';
+    }
+
+    /**
+     * Return an admin page warning if site is not registered with moodle.org
+     *
+     * @since Moodle 3.2.5
+     * @return string
+     */
+    public function warn_if_not_registered() {
+        global $CFG;
+        require_once($CFG->dirroot . '/' . $CFG->admin . '/registration/lib.php');
+        $registrationmanager = new registration_manager();
+        return $this->registration_warning($registrationmanager->get_registeredhub(HUB_MOODLEORGHUBURL) ? true : false);
     }
 
     /**
@@ -1598,7 +1654,7 @@ class core_admin_renderer extends plugin_renderer_base {
                 $row = new html_table_row();
                 $row->attributes['class'] = 'type-' . $plugin->type . ' name-' . $plugin->type . '_' . $plugin->name;
 
-                if ($this->page->theme->resolve_image_location('icon', $plugin->type . '_' . $plugin->name)) {
+                if ($this->page->theme->resolve_image_location('icon', $plugin->type . '_' . $plugin->name, null)) {
                     $icon = $this->output->pix_icon('icon', '', $plugin->type . '_' . $plugin->name, array('class' => 'icon pluginicon'));
                 } else {
                     $icon = $this->output->pix_icon('spacer', '', 'moodle', array('class' => 'icon pluginicon noicon'));
@@ -1892,14 +1948,21 @@ class core_admin_renderer extends plugin_renderer_base {
                 } else {
                     $report = $this->doc_link(join($linkparts, '/'), get_string($stringtouse, 'admin', $rec));
                 }
+                // Enclose report text in div so feedback text will be displayed underneath it.
+                $report = html_writer::div($report);
 
                 // Format error or warning line
-                if ($errorline || $warningline) {
-                    $messagetype = $errorline? 'error':'warn';
+                if ($errorline) {
+                    $messagetype = 'error';
+                    $statusclass = 'label-important';
+                } else if ($warningline) {
+                    $messagetype = 'warn';
+                    $statusclass = 'label-warning';
                 } else {
                     $messagetype = 'ok';
+                    $statusclass = 'label-success';
                 }
-                $status = '<span class="'.$messagetype.'">'.$status.'</span>';
+                $status = html_writer::span($status, 'label ' . $statusclass);
                 // Here we'll store all the feedback found
                 $feedbacktext = '';
                 // Append the feedback if there is some

@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qformat_missingword', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qformat_missingword', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   qformat_missingword
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['beginanswernotfound'] = 'インポートされたファイルコンテンツ内に必須の「{」が見つかりませんでした。';
-$string['endanswernotfound'] = 'インポートされたファイルコンテンツ内に必須の「}」が見つかりませんでした。';
-$string['noanswerfound'] = '問題内に答えがありません。';
+$string['beginanswernotfound'] = 'インポートされたファイルコンテンツ内に必須の「{」文字が見つかりませんでした。';
+$string['endanswernotfound'] = 'インポートされたファイルコンテンツ内に必須の「}」文字が見つかりませんでした。';
+$string['noanswerfound'] = '問題に答えがありません。';
 $string['pluginname'] = 'Missing wordフォーマット';
 $string['pluginname_help'] = 'Missing wordフォーマットではテキストファイルを使用して問題をインポートすることができます。';

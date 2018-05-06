@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qformat_missingword', language 'pt', branch 'MOODLE_31_STABLE'
+ * Strings for component 'qformat_missingword', language 'pt', branch 'MOODLE_32_STABLE'
  *
  * @package   qformat_missingword
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -29,5 +29,5 @@ $string['beginanswernotfound'] = 'Não foi possível encontrar o carácter obrig
 $string['endanswernotfound'] = 'Não foi possível encontrar o carácter obrigatório "}" no conteúdo importado do ficheiro.';
 $string['noanswerfound'] = 'Não foram encontradas respostas à pergunta';
 $string['pluginname'] = 'Formato palavra em falta';
-$string['pluginname_help'] = 'O Formato palavra em falta omisso permite exportar perguntas via ficheiro de texto.';
+$string['pluginname_help'] = 'O formato Palavra em falta permite importar perguntas via ficheiro de texto.';
 $string['pluginname_link'] = 'Formato palavra em falta';

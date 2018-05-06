@@ -28,9 +28,9 @@ defined('MOODLE_INTERNAL') || die();
 
 global $CFG;    // access to global variables during unit test
 
-require_once(dirname(dirname(__FILE__)) . '/lib.php');                  // interface definition
-require_once(dirname(dirname(dirname(__FILE__))) . '/locallib.php');    // workshop internal API
-require_once(dirname(__FILE__) . '/settings_form.php');                 // settings form
+require_once(__DIR__ . '/../lib.php');            // interface definition
+require_once(__DIR__ . '/../../locallib.php');    // workshop internal API
+require_once(__DIR__ . '/settings_form.php');     // settings form
 
 /**
  * Allocates the submissions randomly
@@ -164,13 +164,14 @@ class workshop_random_allocator implements workshop_allocator {
             // by reviewer
             $result->log(get_string('numofdeallocatedassessment', 'workshopallocation_random', count($delassessments)), 'info');
             foreach ($delassessments as $delassessmentkey => $delassessmentid) {
-                $a = new stdclass();
-                $a->authorname      = fullname((object)array(
-                        'lastname'  => $assessments[$delassessmentid]->authorlastname,
-                        'firstname' => $assessments[$delassessmentid]->authorfirstname));
-                $a->reviewername    = fullname((object)array(
-                        'lastname'  => $assessments[$delassessmentid]->reviewerlastname,
-                        'firstname' => $assessments[$delassessmentid]->reviewerfirstname));
+                $author = (object) [];
+                $reviewer = (object) [];
+                username_load_fields_from_object($author, $assessments[$delassessmentid], 'author');
+                username_load_fields_from_object($reviewer, $assessments[$delassessmentid], 'reviewer');
+                $a = [
+                    'authorname' => fullname($author),
+                    'reviewername' => fullname($reviewer),
+                ];
                 if (!is_null($assessments[$delassessmentid]->grade)) {
                     $result->log(get_string('allocationdeallocategraded', 'workshopallocation_random', $a), 'error', 1);
                     unset($delassessments[$delassessmentkey]);

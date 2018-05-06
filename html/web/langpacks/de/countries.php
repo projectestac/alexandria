@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'countries', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'countries', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   countries
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -80,7 +80,7 @@ $string['CV'] = 'Cabo Verde';
 $string['CW'] = 'Curaçao';
 $string['CX'] = 'Weihnachtsinseln';
 $string['CY'] = 'Zypern';
-$string['CZ'] = 'Tschechische Republik';
+$string['CZ'] = 'Tschechien';
 $string['DE'] = 'Deutschland';
 $string['DJ'] = 'Djibuti';
 $string['DK'] = 'Dänemark';

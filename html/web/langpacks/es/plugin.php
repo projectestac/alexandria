@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plugin', language 'es', branch 'MOODLE_31_STABLE'
+ * Strings for component 'plugin', language 'es', branch 'MOODLE_32_STABLE'
  *
  * @package   plugin
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -104,6 +104,8 @@ $string['status_upgrade'] = 'Para actualizar';
 $string['status_uptodate'] = 'Instalado';
 $string['supportedmoodleversions'] = 'Versiones de Moodle soportadas';
 $string['systemname'] = 'Identificador';
+$string['type_antivirus'] = 'Extensión de Antivirus';
+$string['type_antivirus_plural'] = 'Extensiones de antivirus';
 $string['type_auth'] = 'Método de identificación';
 $string['type_auth_plural'] = 'Extensiones de identificación';
 $string['type_availability'] = 'Restricciones disponibles';
@@ -118,6 +120,8 @@ $string['type_calendartype'] = 'Tipo de calendario';
 $string['type_calendartype_plural'] = 'Tipos de calendario';
 $string['type_coursereport'] = 'Informe de curso';
 $string['type_coursereport_plural'] = 'Informes del curso';
+$string['type_dataformat'] = 'Formato de datos';
+$string['type_dataformat_plural'] = 'Formatos de datos';
 $string['type_editor'] = 'Editor';
 $string['type_editor_plural'] = 'Editores';
 $string['type_enrol'] = 'Método de matriculación';
@@ -136,6 +140,8 @@ $string['type_gradingform'] = 'Método de calificación avanzado';
 $string['type_gradingform_plural'] = 'Métodos de calificación avanzados';
 $string['type_local'] = 'Extensión (plugin) local';
 $string['type_local_plural'] = 'Extensiones (plugins) locales';
+$string['type_media'] = 'Reproductor multimedia';
+$string['type_media_plural'] = 'Reproductores multimedia';
 $string['type_message'] = 'Salida de mensajes';
 $string['type_message_plural'] = 'Salidas de mensajería';
 $string['type_mnetservice'] = 'Servicio MNet';
@@ -158,6 +164,8 @@ $string['type_report'] = 'Informe del sitio';
 $string['type_report_plural'] = 'Informes';
 $string['type_repository'] = 'Repositorio';
 $string['type_repository_plural'] = 'Repositorios';
+$string['type_search'] = 'Buscador';
+$string['type_search_plural'] = 'Buscadores';
 $string['type_theme'] = 'Tema';
 $string['type_theme_plural'] = 'Temas';
 $string['type_tool'] = 'Herramienta de Administración';

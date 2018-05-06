@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_completion', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'availability_completion', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   availability_completion
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['description'] = 'Behartu ikasleak beste jarduera bat osatzera (edo ez osatzera).';
 $string['error_selectcmid'] = 'Jarduera bat aukeratu behar duzu osaketa-baldintzarako.';
+$string['error_selectcmidpassfail'] = '"Kalifikazioa behar du" baldintza zehaztuta duen jarduera bat aukeratu behar duzu.';
 $string['label_cm'] = 'Jarduera edo baliabidea';
 $string['label_completion'] = 'Osaketaren egoera beharrezkoa da.';
 $string['missing'] = '(Jarduera falta da)';

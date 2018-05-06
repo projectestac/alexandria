@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'imscc', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'imscc', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   imscc
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,4 +37,4 @@ $string['cc_import_req_php5'] = 'エラー: 共通カートリッジのインポ
 $string['cc_import_req_xsl'] = 'エラー: 共通カートリッジのインポートにはXSLが必要です。';
 $string['checkingforimscc'] = 'IMS-CC確認中 ...';
 $string['enable_cc_import'] = 'CCインポートを有効にする';
-$string['enable_cc_import_description'] = 'この設定では、標準リストア機能を使用する共通カートリッジ (IMS-CC) パッケージのインポートを有効にします。あなたのサーバにPHP5、DOM、XSLおよびLIBXML (2.6.30またはそれ以上) 拡張モジュールがインストールされている必要があることに留意してください。';
+$string['enable_cc_import_description'] = 'この設定では標準リストア機能を使用する共通カートリッジ (IMS-CC) パッケージのインポートを有効にします。あなたのサーバにPHP5、DOM、XSLおよびLIBXML (2.6.30またはそれ以上) 拡張モジュールがインストールされている必要があることに留意してください。';

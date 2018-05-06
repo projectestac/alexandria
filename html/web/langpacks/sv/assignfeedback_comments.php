@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_comments', language 'sv', branch 'MOODLE_31_STABLE'
+ * Strings for component 'assignfeedback_comments', language 'sv', branch 'MOODLE_32_STABLE'
  *
  * @package   assignfeedback_comments
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,6 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['commentinline'] = 'Kommentera i den inlämnade texten';
+$string['commentinlinedefault'] = 'Kommentera i den inlämnade texten som standard';
+$string['commentinlinedefault_help'] = 'Om detta är aktiverat kommer funktionen Kommentera i den inlämnade texten att vara standardinställningen för alla nya uppgifter.';
+$string['commentinline_help'] = 'Om detta är aktiverat kopieras den inlämnande texten in i återkopplingsfältet vid betygssättningen. Detta gör det enklare att kommentera direkt i den inlämnade texten (t.ex. i en annan färg) eller att ändra originaltexten.';
 $string['default'] = 'Aktiverat som standard';
 $string['default_help'] = 'Om detta aktiveras, kommer denna återkopplingsmetod vara aktiverad som standard för alla nya uppgifter';
 $string['enabled'] = 'Återkoppling/kommentarer';

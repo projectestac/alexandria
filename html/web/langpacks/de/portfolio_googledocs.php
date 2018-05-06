@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio_googledocs', language 'de', branch 'MOODLE_31_STABLE'
+ * Strings for component 'portfolio_googledocs', language 'de', branch 'MOODLE_32_STABLE'
  *
  * @package   portfolio_googledocs
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['clientid'] = 'Client ID';
-$string['noauthtoken'] = 'Von Google wurde kein Authentifikationstoken empfangen. Bitte stellen Sie sicher, dass Sie für Moodle den Zugriff auf Ihr Googlekonto erlauben';
+$string['noauthtoken'] = 'Von Google wurde kein Authentifikationstoken empfangen. Stellen Sie sicher, dass Moodle auf Ihr Google-Konto zugreifen darf.';
 $string['nooauthcredentials'] = 'OAuth Credentials erforderlich';
 $string['nooauthcredentials_help'] = 'Um das Google Drive Portfolio zu verwenden, sind die OAuth Einstellungen für dieses Portfolio vorzunehmen.';
 $string['nosessiontoken'] = 'Ein Export zu Google wird wegen eines fehlenden Sessiontokens verhindert';

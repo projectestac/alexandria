@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_security', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'report_security', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   report_security
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -37,6 +37,8 @@ $string['check_defaultuserrole_notset'] = 'Berezko rola ez da ezarri.';
 $string['check_defaultuserrole_ok'] = 'Autentifikatutako erabiltzaile-rolaren definizioa ONDO dago.';
 $string['check_displayerrors_name'] = 'PHP erroreak erakustea';
 $string['check_displayerrors_ok'] = 'PHP erroreak erakustea desgaituta.';
+$string['check_emailchangeconfirmation_error'] = 'Erabiltzaileek edozein posta-helbide sar dezakete.';
+$string['check_emailchangeconfirmation_info'] = 'Erabiltzaileek baimendutako domeinuetako posta-helbideak sar ditzakete.';
 $string['check_emailchangeconfirmation_name'] = 'E-posta aldaketaren baieztatzea';
 $string['check_emailchangeconfirmation_ok'] = 'E-postaren aldaketaren baieztatzea erabiltzaile-profilean';
 $string['check_embed_error'] = 'Nahi beste objektu enbotatu ahal izatea gaituta - hau oso arriskutsua izan daiteke zerbitzari gehienentzat';
@@ -60,6 +62,7 @@ $string['check_mediafilterswf_name'] = '.swf media iragazkia gaituta';
 $string['check_mediafilterswf_ok'] = 'Flash media iragazkia ez dago gaituta.';
 $string['check_noauth_name'] = 'Autentifikatu gabe';
 $string['check_noauth_ok'] = '"Autentifikatu gabe" plugina desgaituta dago.';
+$string['check_openprofiles_error'] = 'Edozeinek ikus ditzake erabiltzaileen profilak saioa hasi gabe ere.';
 $string['check_openprofiles_name'] = 'Zabaldu erabiltzaileen profilak';
 $string['check_openprofiles_ok'] = 'Erabiltzaileen profilak ikusi ahal izateko, beharrezkoa da saioa hastea.';
 $string['check_passwordpolicy_error'] = 'Pasahitzen politika ez da ezarri.';
@@ -69,7 +72,7 @@ $string['check_riskadmin_detailsok'] = '<p>Mesedez, egiazta ezazu sistemako kude
 $string['check_riskadmin_detailswarning'] = '<p>Mesedez, egiazta ezazu sistemako kudeatzaileen zerrenda hau:</p>{$a->admins}
 <p>Gomendagarria da kudeatzaile-rola sistemaren testuinguruan baino ez esleitzea. Ondoko erabiltzaileek izan dute kudeatzaile-rola esleituta:</p>{$a->unsupporte}';
 $string['check_riskadmin_name'] = 'Kudeatzaileak';
-$string['check_riskadmin_ok'] = 'Zerbitzariko {$a} kudeatzaile aurkituta.';
+$string['check_riskadmin_ok'] = 'Zerbitzariko {$a} kudeatzaile aurkitu dira.';
 $string['check_riskadmin_unassign'] = '<a href="{$a->url}">{$a->fullname} ({$a->email}) berrikusi rol-esleipena</a>';
 $string['check_riskbackup_editoverride'] = '<a href="{$a->url}">{$a->name} in {$a->contextname}</a>';
 $string['check_riskbackup_editrole'] = '<a href="{$a->url}">{$a->name}</a>';
@@ -81,6 +84,9 @@ $string['check_unsecuredataroot_error'] = 'Zure dataroot direktorioa <code>{$a}<
 $string['check_unsecuredataroot_name'] = 'dataroot ez da segurua';
 $string['check_unsecuredataroot_ok'] = 'Dataroot direktorioak ez du egon behar web-etik eskuratzeko moduan.';
 $string['check_unsecuredataroot_warning'] = 'Zure dataroot direktorioa <code>{$a}</code> okerreko kokagunean dago eta agerian dago web-ean!.';
+$string['check_webcron_name'] = 'Web cron-a';
+$string['check_webcron_ok'] = 'Erabiltzaile anonimoek ez dute sarbiderik cron-era.';
+$string['check_webcron_warning'] = 'Erabiltzaile anonimoak cron-era sar daitezke.';
 $string['configuration'] = 'Ezarpenak';
 $string['description'] = 'Deskribapena';
 $string['details'] = 'Xehetasunak';

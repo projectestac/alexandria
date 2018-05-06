@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'blog', language 'zh_cn', branch 'MOODLE_31_STABLE'
+ * Strings for component 'blog', language 'zh_cn', branch 'MOODLE_32_STABLE'
  *
  * @package   blog
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -50,7 +50,7 @@ $string['blogentries'] = '博客文章';
 $string['blogentriesabout'] = '关于{$a}的博客';
 $string['blogentriesbygroupaboutcourse'] = '{$a->group}发表的关于{$a->course}的博客';
 $string['blogentriesbygroupaboutmodule'] = '{$a->group}发表的关于{$a->mod}的博客';
-$string['blogentriesbyuseraboutcourse'] = '{$a->user}关于{$this->course}的博客';
+$string['blogentriesbyuseraboutcourse'] = '{$a->user}关于 {$a->course}的博客';
 $string['blogentriesbyuseraboutmodule'] = '{$a->user}关于此{$this->mod}的博客';
 $string['blogentrybyuser'] = '{$a}发表的博客';
 $string['blogpreferences'] = '博客选项';
@@ -151,7 +151,6 @@ $string['retrievedfrom'] = '取自';
 $string['rssfeed'] = '博客RSS种子';
 $string['searchterm'] = '搜索：{$a}';
 $string['settingsupdatederror'] = '错误，无法更新博客的使用偏好设定。';
-$string['siteblog'] = '全站博客：{$a}';
 $string['siteblogdisable'] = '未启用网站博客';
 $string['siteblogheading'] = '站点博客';
 $string['siteblogs'] = '注册用户可以浏览所有博客';
@@ -175,7 +174,7 @@ $string['viewallmodentries'] = '查看关于此{$a->type}的所有博客';
 $string['viewallmyentries'] = '浏览我的博客';
 $string['viewblogentries'] = '关于{$a->type}的博客';
 $string['viewblogsfor'] = '查看所有条目...';
-$string['viewcourseblogs'] = '查看所有与此课程有个的博客';
+$string['viewcourseblogs'] = '查看所有与此课程有关的博客';
 $string['viewentriesbyuseraboutcourse'] = '查看{$a}发表的与此课程有关的博客';
 $string['viewgroupblogs'] = '查看小组的条目...';
 $string['viewgroupentries'] = '小组条目';

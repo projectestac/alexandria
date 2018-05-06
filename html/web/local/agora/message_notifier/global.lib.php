@@ -9,6 +9,7 @@ function message_notifier_count_unread_messages(){
                      JOIN {message_working} mw ON m.id = mw.unreadmessageid
                      JOIN {message_processors} p ON mw.processorid = p.id
                     WHERE m.useridto = :userid
+                      AND m.useridfrom > 0
                       AND p.name='popup'";
     return $DB->count_records_sql($messagesql, array('userid' => $USER->id));
 }
@@ -23,6 +24,7 @@ function message_notifier_get_messages($limit = 10){
                      JOIN {message_working} mw ON m.id = mw.unreadmessageid
                      JOIN {message_processors} p ON mw.processorid = p.id
                     WHERE m.useridto = :userid
+                      AND m.useridfrom > 0
                       AND p.name='popup'";
     return $DB->get_records_sql($messagesql, array('userid' => $USER->id), 0, $limit);
 }
@@ -62,7 +64,7 @@ function message_notifier_get_badge(){
     $output .= '<span class="num_overlay" id="message_count" '.$extracss.'>'.$num_messages.'</span>';
     $output .= '</div>';
     $output .= '<ul id="message_contents" class="dropdown-menu">';
-    $output .= '<li class="viewall"><a href="'.$CFG->wwwroot.'/message/index.php">'.get_string('messagehistoryfull','message').'</a></li>';
+    $output .= '<li class="viewall"><a href="'.$CFG->wwwroot.'/message/index.php">'.get_string('messagehistoryfull','local_agora').'</a></li>';
     $output .= '</ul>';
     $output .= '</div>';
 

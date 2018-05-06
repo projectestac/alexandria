@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_rss_client', language 'el', branch 'MOODLE_31_STABLE'
+ * Strings for component 'block_rss_client', language 'el', branch 'MOODLE_32_STABLE'
  *
  * @package   block_rss_client
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addfeed'] = 'Προσθήκη αρχείου RSS με URL:';
+$string['addfeed'] = 'Προσθήκη URL ροής ειδήσεων (RSS):';
 $string['addheadlineblock'] = 'Προσθήκη μπλοκ τίτλων RSS';
 $string['addnew'] = 'Προσθήκη νέου';
-$string['addnewfeed'] = 'Προσθήκη ροής RSS';
+$string['addnewfeed'] = 'Προσθήκη ροής ειδήσεων (RSS)';
 $string['cannotmakemodification'] = 'Δεν επιτρέπονται τροποποιήσεις σ\' αυτό το RSS.';
 $string['choosefeedlabel'] = 'Επιλέξτε τα RSS τα οποία θα θέλατε να εμφανίζονται σε αυτό το μπλοκ:';
 $string['clientchannellink'] = 'Σελίδα πηγών:';
@@ -39,6 +39,7 @@ $string['configblock'] = 'Ρύθμιση μπλοκ';
 $string['couldnotfindfeed'] = 'Δεν βρέθηκε το RSS με id {$a}';
 $string['customtitlelabel'] = 'Δικός σας τίτλος (αφήστε κενό για χρήση του τίτλου του RSS):';
 $string['deletefeedconfirm'] = 'Σίγουρα θέλετε να διαγράψετε αυτό το RSS;';
+$string['disabledrssfeeds'] = 'Οι τροφοδοτήσεις RSS είναι απενεργοποιημένες';
 $string['displaydescriptionlabel'] = 'Εμφάνιση περιγραφής για κάθε σύνδεσμο;';
 $string['editfeeds'] = 'Επεξεργασία RSS';
 $string['editnewsfeeds'] = 'Επεξεργασία RSS';

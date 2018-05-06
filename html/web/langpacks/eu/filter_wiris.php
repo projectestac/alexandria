@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_wiris', language 'eu', branch 'MOODLE_31_STABLE'
+ * Strings for component 'filter_wiris', language 'eu', branch 'MOODLE_32_STABLE'
  *
  * @package   filter_wiris
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,5 +25,16 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['accessproviderenabled'] = 'Sarbide-kontrola';
+$string['alloweditorpluginactive'] = 'WIRIS editorea beti aktibo';
+$string['atto'] = 'Atto';
+$string['clearcache'] = 'Garbitu cache-a';
+$string['connectionsettings'] = 'Konexio-ezarpenak';
+$string['disabled'] = 'Desgaituta';
+$string['editorsettings'] = 'Editorearen ezarpenak';
+$string['enabled'] = 'Gaituta';
+$string['error'] = 'ERROREA';
 $string['filtername'] = 'WIRIS iragazkia - Matematika';
+$string['imageserviceport'] = 'Zerbitzuaren ataka';
+$string['imageserviceprotocol'] = 'Zerbitzuaren protokoloa';
 $string['pluginname'] = 'WIRIS iragazkia - Matematika';

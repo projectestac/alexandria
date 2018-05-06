@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'ja', branch 'MOODLE_31_STABLE'
+ * Strings for component 'repository', language 'ja', branch 'MOODLE_32_STABLE'
  *
  * @package   repository
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -114,7 +114,7 @@ $string['enternewname'] = '新しいファイル名を入力してください�
 $string['error'] = '不明なエラーが発生しました!';
 $string['errordoublereference'] = 'このファイルに対するショートカットはすでに存在しているため、ファイルをショートカット/エイリアスで上書きできません。';
 $string['errornotyourfile'] = 'あなたが追加していないファイルを取得することはできません。';
-$string['errorpostmaxsize'] = 'あなたがアップロードを試みたファイルはサーバが処理するには多き過ぎます。';
+$string['errorpostmaxsize'] = 'あなたがアップロードを試みたファイルはサーバが処理するには大き過ぎます。';
 $string['erroruniquename'] = 'リポジトリインスタンス名はユニークにしてください。';
 $string['errorwhilecommunicatingwith'] = 'リポジトリ「 {$a} 」との通信中にエラーが発生しました。';
 $string['errorwhiledownload'] = 'ファイルのダウンロード中にエラーが発生しました: {$a}';
@@ -155,7 +155,7 @@ $string['license'] = 'ライセンス';
 $string['linkexternal'] = '外部にリンクする';
 $string['listview'] = 'リストビュー';
 $string['loading'] = '読み込み中 ...';
-$string['login'] = 'あなたのアカウントにログインする:';
+$string['login'] = 'あなたのアカウントにログインする';
 $string['logout'] = 'ログアウト';
 $string['lostsource'] = 'エラー、ソースがありません。 {$a}';
 $string['makefileinternal'] = 'ファイルのコピーを作成する';
@@ -165,6 +165,7 @@ $string['manage'] = 'リポジトリを管理する';
 $string['manageinstances'] = 'インスタンスを管理する';
 $string['manageurl'] = '管理';
 $string['manageuserrepository'] = '個別のリポジトリを管理する';
+$string['missingsourcekey'] = 'ソースキーがありません。このキーはファイルを検索するためにも提供される必要があります。';
 $string['moving'] = '移動';
 $string['name'] = '名称';
 $string['newfolder'] = '新しいフォルダ';
@@ -187,7 +188,6 @@ $string['original'] = 'オリジナル';
 $string['overwrite'] = '上書き';
 $string['overwriteall'] = 'すべてを上書きする';
 $string['path'] = 'パス';
-$string['personalrepositories'] = '利用可能なリポジトリインスタンス';
 $string['plugin'] = 'リポジトリプラグイン';
 $string['pluginerror'] = 'リポジトリプラグインにエラーが発生しました。';
 $string['pluginname'] = 'リポジトリプラグイン名';
@@ -224,6 +224,7 @@ $string['settings'] = '設定';
 $string['setupdefaultplugins'] = 'デフォルトリポジトリプラグインの設定';
 $string['siteinstances'] = 'サイトのリポジトリインスタンス';
 $string['size'] = 'サイズ';
+$string['sourcekeymismatch'] = 'ソースURLがソースキーと合致しません。';
 $string['submit'] = '送信';
 $string['sync'] = '同期';
 $string['syncfiletimeout'] = 'ファイル同期タイムアウト';

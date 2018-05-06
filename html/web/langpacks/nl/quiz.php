@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'nl', branch 'MOODLE_31_STABLE'
+ * Strings for component 'quiz', language 'nl', branch 'MOODLE_32_STABLE'
  *
  * @package   quiz
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -291,7 +291,7 @@ Bedankt voor het insturen van je antwoorden voor \'{$a->quizname}\'
 uit de cursus \'{$a->coursename}\'
 op {$a->submissiontime}.
 
-Deze e-mail bevestigd dat we je antwoorden ontvangen hebben.
+Deze e-mail bevestigt dat we je antwoorden ontvangen hebben.
 
 Je kunt deze test vinden op {$a->quizurl}.';
 $string['emailconfirmsmall'] = 'Bedankt voor het insturen van je antwoorden voor \'{$a->quizname}\'';
@@ -526,6 +526,7 @@ $string['newpage'] = 'Nieuwe pagina';
 $string['newpageevery'] = 'Start automatisch een nieuwe pagina';
 $string['newpage_help'] = '<p>Voor langere testen is het een goed idee om deze te verdelen over verschillende pagina\'s door het aantal vragen per pagina te beperken. Wanneer je vragen aan de test toevoegt, worden de paginascheidingen automatisch ingevoegd, afhankelijk van de instelling die je hier gemaakt hebt. Je kunt de paginascheidingen later ook met de hand verplaatsen op de pagina voor het bewerken van de test.
 </p>';
+$string['newsectionheading'] = 'Nieuwe kop';
 $string['noanswers'] = 'Er zijn geen antwoorden geselecteerd!';
 $string['noattempts'] = 'Er zijn geen pogingen geweest om deze test te maken';
 $string['noattemptsfound'] = 'Geen pogingen gevonden';
@@ -587,7 +588,7 @@ $string['outof'] = '{$a->grade} op een maximum van {$a->maxgrade}';
 $string['outofpercent'] = '{$a->grade} op een maximum van {$a->maxgrade} ({$a->percent}%)';
 $string['outofshort'] = '{$a->grade}/{$a->maxgrade}';
 $string['overallfeedback'] = 'Algemene feedback test';
-$string['overallfeedback_help'] = 'De algemene feedback is een tekst die aan de leerlingen wordt getoond nadat ze de hele test beëindicht hebben. Door puntenmarges in te geven (als percentage of als cijfer) kan de tekst afhankelijk gemaakt worden van het behaalde cijfer.';
+$string['overallfeedback_help'] = 'De algemene feedback is een tekst die aan de leerlingen wordt getoond nadat ze de hele test beëindigd hebben. Door puntenmarges in te geven (als percentage of als cijfer) kan de tekst afhankelijk gemaakt worden van het behaalde cijfer.';
 $string['overdue'] = 'Te laat';
 $string['overduehandling'] = 'Wanneer de tijd verlopen is';
 $string['overduehandlingautoabandon'] = 'Pogingen moeten ingestuurd worden voor de tijd verlopen is of ze worden niet meegeteld';
@@ -719,7 +720,7 @@ $string['reattemptquiz'] = 'Herkans de test';
 $string['recentlyaddedquestion'] = 'Recent toegevoegde vraag!';
 $string['recurse'] = 'Toon ook vragen in subcategorieën';
 $string['redoesofthisquestion'] = 'Andere vragen hier geprobeerd: {$a}';
-$string['redoquestion'] = 'Vraag opnieuw beantwoorden';
+$string['redoquestion'] = 'Probeer een andere vraag zoals de deze';
 $string['regrade'] = 'Herbereken alle pogingen';
 $string['regradecomplete'] = 'Alle pogingen zijn herberekend';
 $string['regradecount'] = '{$a->changed} van de {$a->attempt} cijfers zijn gewijzigd';
@@ -936,8 +937,6 @@ $string['timeleft'] = 'Resterende tijd';
 $string['timelimit'] = 'Tijdsduurlimiet';
 $string['timelimitexeeded'] = 'Sorry, de tijdsduur voor deze test is overschreden!';
 $string['timelimit_help'] = 'Indien ingeschakeld, wordt de beschikbare tijd getoond op de initiële testpagina en wordt er een aftellende timer getoond in het navigatieblok van de test.';
-$string['timelimitmin'] = 'Tijdslimiet (minuten)';
-$string['timelimitsec'] = 'Tijdslimiet (seconden)';
 $string['timestr'] = '%H:%M:%S op %d/%m/%y';
 $string['timesup'] = 'Tijd is op!';
 $string['timetaken'] = 'Gebruikte tijd';

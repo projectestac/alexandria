@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'ca', branch 'MOODLE_31_STABLE'
+ * Strings for component 'group', language 'ca', branch 'MOODLE_32_STABLE'
  *
  * @package   group
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -150,8 +150,8 @@ $string['namingscheme_help'] = 'El símbol de l\'arrova (@) es pot fer servir pe
 <br/>
 El símbol de l\'encoixinat (#) es pot fer servir per crear grups amb noms que contenen números. Per exemple Grup # generarà grups anomenats Grup 1, Grup 2, Grup 3, ...';
 $string['newgrouping'] = 'Nou agrupament';
-$string['newpicture'] = 'Nova imatge';
-$string['newpicture_help'] = 'Seleccioneu una imatge en format JPG o PNG. La imatge es retallarà i escalarà a un quadrat de 100x100 píxels.';
+$string['newpicture'] = 'Imatge nova';
+$string['newpicture_help'] = 'Seleccioneu una imatge en format JPG o PNG. La imatge es retallarà com un quadre i es redimensionarà a 100x100 píxels.';
 $string['noallocation'] = 'Sense ubicació';
 $string['nogroup'] = 'Sense grup';
 $string['nogrouping'] = 'Sense agrupaments';
