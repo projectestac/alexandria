@@ -949,7 +949,13 @@ function scorm_pluginfile($course, $cm, $context, $filearea, $args, $forcedownlo
         return false;
     }
 
+// XTEC - ALEXANDRIA ******* MODIFICAT - Remove the course module from require_login so it doesn't crash with orphaned course scorms
+    require_login($course, true);
+// ***** ORIGINAL
+/*
     require_login($course, true, $cm);
+*/
+// ***** FI
 
     $canmanageactivity = has_capability('moodle/course:manageactivities', $context);
     $lifetime = null;
