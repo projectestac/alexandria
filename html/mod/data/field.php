@@ -339,12 +339,16 @@ if (($mode == 'new') && (!empty($newtype)) && confirm_sesskey()) {          /// 
     $options = array();
     $options[DATA_TIMEADDED]    = get_string('timeadded', 'data');
 // TODO: we will need to change defaultsort db to unsinged to make these work in 2.0
-/*        $options[DATA_TIMEMODIFIED] = get_string('timemodified', 'data');
+
+//XTEC - ALEXANDRIA ************ DESCOMENTAT - Per poder ordenar per altres camps.
+    $options[DATA_TIMEMODIFIED] = get_string('timemodified', 'data');
     $options[DATA_FIRSTNAME]    = get_string('authorfirstname', 'data');
     $options[DATA_LASTNAME]     = get_string('authorlastname', 'data');
     if ($data->approval and has_capability('mod/data:approve', $context)) {
         $options[DATA_APPROVED] = get_string('approved', 'data');
-    }*/
+    }
+//*************** FI
+
     echo '<optgroup label="'.get_string('other', 'data').'">';
     foreach ($options as $key => $name) {
         if ($data->defaultsort == $key) {

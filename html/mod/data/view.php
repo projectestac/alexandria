@@ -22,6 +22,11 @@
 //                                                                       //
 ///////////////////////////////////////////////////////////////////////////
 
+// XTEC - ALEXANDRIA ************ AFEGIT
+// 2010.08.31
+    header('X-Frame-Options: GOFORIT');
+//**************** FI
+
     require_once(__DIR__ . '/../../config.php');
     require_once($CFG->dirroot . '/mod/data/locallib.php');
     require_once($CFG->libdir . '/rsslib.php');
@@ -288,7 +293,15 @@
 
 /// Delete any requested records
 
+// XTEC - ALEXANDRIA ************ MODIFICAT - Only admin users can delete entries
+// 2010.08.31
+    if ($delete && confirm_sesskey() && $canmanageentries) {
+//************ ORIGINAL
+/*
     if ($delete && confirm_sesskey() && (data_user_can_manage_entry($delete, $data, $context))) {
+*/
+//************ FI
+
         if ($confirm = optional_param('confirm',0,PARAM_INT)) {
             if (data_delete_record($delete, $data, $course->id, $cm->id)) {
                 echo $OUTPUT->notification(get_string('recorddeleted','data'), 'notifysuccess');
