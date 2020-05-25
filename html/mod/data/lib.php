@@ -23,6 +23,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// XTEC - ALEXANDRIA ************ AFEGIT - Functions to report an abuse of the content and show downloads
+require_once($CFG->dirroot.'/local/alexandria/data/datalib.php');
+//*************** FI
+
 // Some constants
 define ('DATA_MAX_ENTRIES', 50);
 define ('DATA_PERPAGE_SINGLE', 1);
@@ -1151,6 +1155,12 @@ function data_delete_instance($id) {    // takes the dataid
     }
 
     $cm = get_coursemodule_from_instance('data', $data->id);
+
+// XTEC - ALEXANDRIA ***** AFEGIT - Patch to prevent crash when deleting a course with a missing course module context
+// 2013.12.11 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    if (!$cm) return false;
+// ***** FI
+
     $context = context_module::instance($cm->id);
 
 /// Delete all the associated information
@@ -1433,7 +1443,17 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
     // Then we generate strings to replace for normal tags
         foreach ($fields as $field) {
             $patterns[]='[['.$field->field->name.']]';
+
+// XTEC - ALEXANDRIA **************** MODIFICAT - If it's empty, we tag it
+// 2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    	    $value = highlight($search, $field->display_browse_field($record->id, $template));
+            $replacement[] = alexandria_get_replacement($value, $field->field->name, $template, $record, $context);
+// ***** ORIGINAL
+/*
             $replacement[] = highlight($search, $field->display_browse_field($record->id, $template));
+*/
+// ***** FI
+
         }
 
         $canmanageentries = has_capability('mod/data:manageentries', $context);
@@ -1569,6 +1589,22 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
                 core_tag_tag::get_item_tags('mod_data', 'data_records', $record->id), '', 'data-tags');
         }
 
+// XTEC - ALEXANDRIA ************ AFEGIT - Added course ratings, downloads information and recordid
+// 2013.10.29
+        $patterns[]='##downloads##';
+        $replacement[] = alexandria_get_downloads($record->id);
+
+        $patterns[]='##abuse_report##';
+        $replacement[] = alexandria_abuse_report_button($record->id);
+
+        $patterns[]='##approved##';
+        if (has_capability('mod/data:approve', $context) && ($data->approval) && (!$record->approved)) {
+            $replacement[] = 'tobeapproved';
+        } else {
+            $replacement[] = '';
+        }
+//************ FI
+
         // actual replacement of the tags
         $newtext = str_ireplace($patterns, $replacement, $data->{$template});
 
@@ -1607,6 +1643,28 @@ function data_print_template($template, $records, $data, $search='', $page=0, $r
             }
         }
     }
+
+// XTEC - ALEXANDRIA ***** AFEGIT - Hide previously tagged rows of empty fields
+// 2013.11.07 Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
+    if ($template == 'singletemplate') {
+    	echo '<script>
+    		var emptyFields = Y.all(\'.dataEmptyField\');
+	    	emptyFields.each(function (node) {
+    			var tr = node.ancestor(\'tr\');
+			tr.setStyle(\'display\', \'none\');
+			var table = tr.ancestor(\'table\');
+			var nodelist = table.all(\'td\');
+			for(var i=0;i<nodelist.size();i++) {
+		 		var cell = nodelist.item(i).getDOMNode();
+				if (cell.rowSpan > 1) {
+					cell.rowSpan = cell.rowSpan - 1;
+				}
+			}
+    		});
+	</script>';
+    }
+// ***** FI
+
 }
 
 /**
