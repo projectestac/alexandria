@@ -58,10 +58,22 @@ class restore_data_activity_structure_step extends restore_activity_structure_st
 
         // Any changes to the list of dates that needs to be rolled should be same during course restore and course reset.
         // See MDL-9367.
+
+// XTEC - ALEXANDRIA ************** MODIFICAT - Les bases de dades importades sempre estan disponibles
+// 2014.02.26 @pferre22
+        $data->timeavailablefrom = '0';
+        $data->timeavailableto = '0';
+        $data->timeviewfrom = '0';
+        $data->timeviewto = '0';
+//**************** ORIGINAL
+/*
         $data->timeavailablefrom = $this->apply_date_offset($data->timeavailablefrom);
         $data->timeavailableto = $this->apply_date_offset($data->timeavailableto);
         $data->timeviewfrom = $this->apply_date_offset($data->timeviewfrom);
         $data->timeviewto = $this->apply_date_offset($data->timeviewto);
+*/
+//**************** FI
+
         $data->assesstimestart = $this->apply_date_offset($data->assesstimestart);
         $data->assesstimefinish = $this->apply_date_offset($data->assesstimefinish);
 

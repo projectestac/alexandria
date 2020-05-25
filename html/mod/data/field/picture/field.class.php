@@ -52,7 +52,19 @@ class data_field_picture extends data_field_base {
                 $id = $DB->insert_record('data_content', $content);
                 $content = $DB->get_record('data_content', array('id' => $id));
             }
+
+// XTEC - ALEXANDRIA ***** MODIFICAT - Capture error if cannot read the file
+            try {
+                    file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+            } catch(Exception $e) {
+                    $content->content = null;
+            }
+// ***** CODI ORIGINAL
+/*
             file_prepare_draft_area($itemid, $this->context->id, 'mod_data', 'content', $content->id);
+*/
+// ***** FI
+
             if (!empty($content->content)) {
                 if ($file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
                     $usercontext = context_user::instance($USER->id);
