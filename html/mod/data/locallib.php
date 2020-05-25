@@ -1417,6 +1417,28 @@ function data_approve_entry($entryid, $approve) {
     $newrecord->id = $entryid;
     $newrecord->approved = $approve ? 1 : 0;
     $DB->update_record('data_records', $newrecord);
+
+// XTEC - ALEXANDRIA ***** AFEGIT - When it's approved, allow guest access and schedule the backup (Review!)
+    global $CFG;
+    if ($approve && $fieldid = $DB->get_field('data_fields', 'id', array('dataid' => $entryid, 'name' => $CFG->data_coursefieldid))) {
+        if ($courseid = $DB->get_field('data_content', 'content', array('recordid' => $entryid, 'fieldid' => $fieldid))) {
+            if ($guestenrol = $DB->get_record('enrol', array('enrol' => 'guest', 'courseid' => $courseid))) {
+                $guestenrol->status = 0;
+                $DB->update_record('enrol', $guestenrol);
+            }
+            if ($backup = $DB->get_record('backup_courses', array('courseid' => $courseid))) {
+                $backup->nextstarttime = time();
+                $DB->update_record('backup_courses', $backup);
+            } else {
+                $backup = new stdclass();
+                $backup->courseid = $courseid;
+                $backup->nextstarttime = time();
+                $DB->insert_record('backup_courses', $backup);
+            }
+        }
+    }
+// ***** FI
+
 }
 
 /**
@@ -1478,6 +1500,15 @@ function data_update_record_fields_contents($data, $record, $context, $datarecor
     foreach ($processeddata->fields as $fieldname => $field) {
         $field->update_content($record->id, $datarecord->$fieldname, $fieldname);
     }
+
+// XTEC - ALEXANDRIA ************ AFEGIT - If the database updated is a courses database, we update de course as well
+    global $CFG;
+    if (in_array($record->dataid, explode(',', $CFG->data_coursesdataid))) {
+        $coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
+        $courseid = $DB->get_field('data_content', 'content', array('recordid' => $record->id, 'fieldid' => $coursefieldid));
+        override_course_values($courseid, $record->id, false);
+    }
+// ********* FI
 
     // Trigger an event for updating this record.
     $event = \mod_data\event\record_updated::create(array(
