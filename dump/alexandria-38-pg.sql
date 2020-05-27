@@ -25432,6 +25432,7 @@ COPY public.mdl_block_positions (id, blockinstanceid, contextid, pagetype, subpa
 --
 
 COPY public.mdl_block_recent_activity (id, courseid, cmid, timecreated, userid, action, modname) FROM stdin;
+1	1	1	1590567208	2	0	\N
 \.
 
 
@@ -25496,7 +25497,7 @@ COPY public.mdl_cache_filters (id, filter, version, md5key, rawtext, timemodifie
 --
 
 COPY public.mdl_cache_flags (id, flagtype, name, timemodified, value, expiry) FROM stdin;
-1	userpreferenceschanged	2	1590510953	1	1590518153
+1	userpreferenceschanged	2	1590567097	1	1590574297
 \.
 
 
@@ -30888,6 +30889,7 @@ COPY public.mdl_context (id, contextlevel, instanceid, path, depth, locked) FROM
 15	80	10	/1/15	2	0
 16	80	11	/1/16	2	0
 17	80	12	/1/17	2	0
+18	70	1	/1/2/18	3	0
 \.
 
 
@@ -30904,7 +30906,7 @@ COPY public.mdl_context_temp (id, path, depth, locked) FROM stdin;
 --
 
 COPY public.mdl_course (id, category, sortorder, fullname, shortname, idnumber, summary, summaryformat, format, showgrades, newsitems, startdate, enddate, relativedatesmode, marker, maxbytes, legacyfiles, showreports, visible, visibleold, groupmode, groupmodeforce, defaultgroupingid, lang, calendartype, theme, timecreated, timemodified, requested, enablecompletion, completionnotify, cacherev) FROM stdin;
-1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1590510526
+1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1590567210
 \.
 
 
@@ -30971,6 +30973,7 @@ COPY public.mdl_course_format_options (id, courseid, format, sectionid, name, va
 --
 
 COPY public.mdl_course_modules (id, course, module, instance, section, idnumber, added, score, indent, visible, visibleoncoursepage, visibleold, groupmode, groupingid, completion, completiongradeitemnumber, completionview, completionexpected, showdescription, availability, deletioninprogress) FROM stdin;
+1	1	6	1	1		1590567208	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
 \.
 
 
@@ -31003,6 +31006,7 @@ COPY public.mdl_course_request (id, fullname, shortname, summary, summaryformat,
 --
 
 COPY public.mdl_course_sections (id, course, section, name, summary, summaryformat, sequence, visible, availability, timemodified) FROM stdin;
+1	1	1	\N		1	1	1	\N	1590567118
 \.
 
 
@@ -31035,6 +31039,7 @@ COPY public.mdl_customfield_field (id, shortname, name, type, description, descr
 --
 
 COPY public.mdl_data (id, course, name, intro, introformat, comments, timeavailablefrom, timeavailableto, timeviewfrom, timeviewto, requiredentries, requiredentriestoview, maxentries, rssarticles, singletemplate, listtemplate, listtemplateheader, listtemplatefooter, addtemplate, rsstemplate, rsstitletemplate, csstemplate, jstemplate, asearchtemplate, approval, manageapproved, scale, assessed, assesstimestart, assesstimefinish, defaultsort, defaultsortdir, editany, notification, timemodified, config, completionentries) FROM stdin;
+1	1	Biblioteca de cursos Moodle	<p><p>Aquesta és la base de dades de \r\ncursos Moodle. Hi podeu aportar còpies de seguretat (en format .zip) de \r\ncursos de Moodle que hàgiu elaborat i que no siguin més grans de 20 Mb \r\ntot i que, per tal que es puguin restaurar directament als espais del \r\nservei Àgora, <b>és recomanable que no superin els 10 Mb</b>. --&gt; <span>Com pujar cursos de Moodle.</span></p>\r\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/resource/view.php?id=9">Característiques dels materials</a>.</p>\r\n<p>Per cercar cursos utilitzeu la pestanya "<b>Cerca</b>". També podeu \r\nordenar els cursos per data de creació, autor/a, títol, nivell educatiu i\r\n altres dades a partir de les opcions de la part inferior de la pàgina.</p>\r\n<p>Des de la fitxa individual <b>cliqueu sobre el nom del curs</b> per tal de veure'l complet.</p>\r\n<hr>\r\n<p><span size="5">IMPORTANT:</span></p>\r\n<p></p>\r\n<p>Tingueu en compte que la llicència genèrica del lloc és Creative Commons Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els drets d'autoria. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\r\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència Creative Commons</b>.</p><br></p>	1	0	0	0	0	0	0	0	0	0			\N	\N			\N	\N	\N	\N	1	1	100	0	0	0	0	0	0	0	1590567208	\N	0
 \.
 
 
@@ -31059,6 +31064,23 @@ COPY public.mdl_data_content (id, fieldid, recordid, content, content1, content2
 --
 
 COPY public.mdl_data_fields (id, dataid, type, name, description, required, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) FROM stdin;
+1	1	text	Nom	Nom	1				\N	\N	\N	\N	\N	\N	\N
+2	1	text	Nom curt	Nom curt	0				\N	\N	\N	\N	\N	\N	\N
+3	1	text	Autor/a	Autor/a	1				\N	\N	\N	\N	\N	\N	\N
+4	1	multimenu	Nivell educatiu	Nivell educatiu	1	Educació Infantil\r\nCI Primària\r\nCM Primària\r\nCS Primària\r\nESO\r\nBatxillerat\r\nEducació especial\r\nCFGM\r\nCFGS\r\nFormació de persones adultes\r\nFormació permanent\r\nAltres			\N	\N	\N	\N	\N	\N	\N
+6	1	menu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\r\nCS-Ciències socials\r\nCC-Cultura clàssica\r\nEF-Educació física\r\nEC-Educació per a la ciutadania\r\nFI-Filosofia\r\nRE-Història i cultura de les religions\r\nLA-Llengua aranesa a la Val d'Aran\r\nLS-Llengua castellana i literatura\r\nLC-Llengua catalana i literatura\r\nLE-Llengües estrangeres\r\nMA-Matemàtiques\r\nMU-Música\r\nSC-Servei Comunitari\r\nTE-Tecnologies\r\nTU-Tutoria\r\nEV-Visual i plàstica\r\nIN-Interdisciplinar\r\n\r\nAL-Altres			\N	\N	\N	\N	\N	\N	\N
+7	1	multimenu	Àmbit competencial	Àmbit competencial	0	Comunicativa, lingüística i audiovisual\r\nArtística i cultural\r\nGestió i tractament de la informació digital\r\nMatemàtica\r\nAprendre a aprendre\r\nAutonomia i iniciativa personal \r\nConeixement i la interacció amb el món\r\nSocial i ciutadana			\N	\N	\N	\N	\N	\N	\N
+8	1	textarea	Descripció	Descripció	1		60	20	1		\N	\N	\N	\N	\N
+9	1	file	Fitxer	Fitxer	0			52428800	3	\N	\N	\N	\N	\N	\N
+10	1	text	Versió del curs	Versió del curs	0				\N	\N	\N	\N	\N	\N	\N
+11	1	text	Versió de Moodle	Versió de Moodle	0				\N	\N	\N	\N	\N	\N	\N
+12	1	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
+13	1	text	courseid	Identificador del curs	0				\N	\N	\N	\N	\N	\N	\N
+14	1	url	Enllaç	Enllaç	0				\N	\N	\N	\N	\N	\N	\N
+15	1	url	Fitxa de MeRLí	Fitxa de MeRLí	0				\N	\N	\N	\N	\N	\N	\N
+16	1	menu	Llicència	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\r\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\r\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\r\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\r\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\r\nCreative Commons: Reconeixement (cc-by)			\N	\N	\N	\N	\N	\N	\N
+17	1	multimenu	Idioma	Idioma	0	Català\r\nAranès\r\nCastellà\r\nAnglès\r\nFrancès\r\nItalià\r\nAlemany\r\nPortuguès\r\nAltres			\N	\N	\N	\N	\N	\N	\N
+18	1	menu	Família professional	Família professional	0	Activitats físiques i esportives\r\nAdministració i gestió\r\nAgrària\r\nArts i artesanies\r\nArts gràfiques\r\nComerç i màrqueting\r\nEdificació i obra civil\r\nElectricitat i electrònica\r\nEnergia i aigua\r\nFabricació mecànica\r\nFusta, moble i suro\r\nHoteleria i turisme\r\nImatge i so\r\nFormació i Orientació Laboral\r\nImatge personal\r\nIndústries alimentàries\r\nIndústries extractives\r\nInformàtica i comunicacions\r\nInstal·lació i manteniment\r\nMarítim pesquera\r\nQuímica\r\nSanitat\r\nSeguretat i medi ambient\r\nServeis socioculturals i a la comunitat\r\nTèxtil, confecció i pell\r\nTransport i manteniment de vehicles\r\nVidre i ceràmica			\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -32541,6 +32563,7 @@ COPY public.mdl_glossary_formats (id, name, popupformatname, visible, showgroup,
 --
 
 COPY public.mdl_grade_categories (id, courseid, parent, depth, path, fullname, aggregation, keephigh, droplow, aggregateonlygraded, aggregateoutcomes, timecreated, timemodified, hidden) FROM stdin;
+1	1	\N	1	/1/	?	13	0	0	1	0	1590567126	1590567126	0
 \.
 
 
@@ -32549,6 +32572,8 @@ COPY public.mdl_grade_categories (id, courseid, parent, depth, path, fullname, a
 --
 
 COPY public.mdl_grade_categories_history (id, action, oldid, source, timemodified, loggeduser, courseid, parent, depth, path, fullname, aggregation, keephigh, droplow, aggregateonlygraded, aggregateoutcomes, aggregatesubcats, hidden) FROM stdin;
+1	1	1	system	1590567126	2	1	\N	0	\N	?	13	0	0	1	0	0	0
+2	2	1	system	1590567126	2	1	\N	1	/1/	?	13	0	0	1	0	0	0
 \.
 
 
@@ -32589,6 +32614,7 @@ COPY public.mdl_grade_import_values (id, itemid, newgradeitem, userid, finalgrad
 --
 
 COPY public.mdl_grade_items (id, courseid, categoryid, itemname, itemtype, itemmodule, iteminstance, itemnumber, iteminfo, idnumber, calculation, gradetype, grademax, grademin, scaleid, outcomeid, gradepass, multfactor, plusfactor, aggregationcoef, aggregationcoef2, sortorder, display, decimals, hidden, locked, locktime, needsupdate, weightoverride, timecreated, timemodified) FROM stdin;
+1	1	\N	\N	course	\N	1	\N	\N	\N	\N	1	0.00000	0.00000	\N	\N	0.00000	1.00000	0.00000	0.00000	0.00000	1	0	\N	0	0	0	0	0	1590567126	1590567208
 \.
 
 
@@ -32597,6 +32623,8 @@ COPY public.mdl_grade_items (id, courseid, categoryid, itemname, itemtype, itemm
 --
 
 COPY public.mdl_grade_items_history (id, action, oldid, source, timemodified, loggeduser, courseid, categoryid, itemname, itemtype, itemmodule, iteminstance, itemnumber, iteminfo, idnumber, calculation, gradetype, grademax, grademin, scaleid, outcomeid, gradepass, multfactor, plusfactor, aggregationcoef, aggregationcoef2, sortorder, hidden, locked, locktime, needsupdate, display, decimals, weightoverride) FROM stdin;
+1	1	1	system	1590567126	2	1	\N	\N	course	\N	1	\N	\N	\N	\N	1	100.00000	0.00000	\N	\N	0.00000	1.00000	0.00000	0.00000	0.00000	1	0	0	0	1	0	\N	0
+2	2	1	aggregation	1590567208	2	1	\N	\N	course	\N	1	\N	\N	\N	\N	1	0.00000	0.00000	\N	\N	0.00000	1.00000	0.00000	0.00000	0.00000	1	0	0	0	1	0	\N	0
 \.
 
 
@@ -33418,6 +33446,32 @@ COPY public.mdl_log_queries (id, qtype, sqltext, sqlparams, error, info, backtra
 --
 
 COPY public.mdl_logstore_standard_log (id, eventname, component, action, target, objecttable, objectid, crud, edulevel, contextid, contextlevel, contextinstanceid, userid, courseid, relateduserid, anonymous, other, timecreated, origin, ip, realuserid) FROM stdin;
+1484	\\core\\event\\user_loggedin	core	loggedin	user	user	2	r	0	1	10	0	2	0	\N	0	{"username":"admin"}	1590567097	web	192.168.33.1	\N
+1485	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1590567099	web	192.168.33.1	\N
+1486	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1590567117	web	192.168.33.1	\N
+1487	\\core\\event\\course_section_created	core	created	course_section	course_sections	1	c	1	2	50	1	2	1	\N	0	{"sectionnum":1}	1590567118	web	192.168.33.1	\N
+1488	\\core\\event\\grade_item_created	core	created	grade_item	grade_items	1	c	0	2	50	1	2	1	\N	0	{"itemname":null,"itemtype":"course","itemmodule":null}	1590567126	web	192.168.33.1	\N
+1489	\\core\\event\\course_module_created	core	created	course_module	course_modules	1	c	1	18	70	1	2	1	\N	0	{"modulename":"data","instanceid":1,"name":"Biblioteca de cursos Moodle"}	1590567208	web	192.168.33.1	\N
+1490	\\core\\event\\grade_item_updated	core	updated	grade_item	grade_items	1	u	0	2	50	1	2	1	\N	0	{"itemname":null,"itemtype":"course","itemmodule":null}	1590567208	web	192.168.33.1	\N
+1491	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	1	c	1	18	70	1	2	1	\N	0	{"fieldname":"Nom","dataid":"1"}	1590567262	web	192.168.33.1	\N
+1492	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	2	c	1	18	70	1	2	1	\N	0	{"fieldname":"Nom curt","dataid":"1"}	1590567314	web	192.168.33.1	\N
+1493	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	3	c	1	18	70	1	2	1	\N	0	{"fieldname":"Autor\\/a","dataid":"1"}	1590567393	web	192.168.33.1	\N
+1494	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	4	c	1	18	70	1	2	1	\N	0	{"fieldname":"Nivell educatiu","dataid":"1"}	1590567430	web	192.168.33.1	\N
+1495	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	5	c	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0rea curricular","dataid":"1"}	1590567473	web	192.168.33.1	\N
+1496	\\mod_data\\event\\field_deleted	mod_data	deleted	field	data_fields	5	d	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0rea curricular","dataid":"1"}	1590567507	web	192.168.33.1	\N
+1497	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	6	c	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0rea curricular","dataid":"1"}	1590567549	web	192.168.33.1	\N
+1498	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	7	c	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0mbit competencial","dataid":"1"}	1590567600	web	192.168.33.1	\N
+1499	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	8	c	1	18	70	1	2	1	\N	0	{"fieldname":"Descripci\\u00f3","dataid":"1"}	1590567661	web	192.168.33.1	\N
+1500	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	9	c	1	18	70	1	2	1	\N	0	{"fieldname":"Fitxer","dataid":"1"}	1590567715	web	192.168.33.1	\N
+1501	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	10	c	1	18	70	1	2	1	\N	0	{"fieldname":"Versi\\u00f3 del curs","dataid":"1"}	1590567747	web	192.168.33.1	\N
+1502	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	11	c	1	18	70	1	2	1	\N	0	{"fieldname":"Versi\\u00f3 de Moodle","dataid":"1"}	1590567774	web	192.168.33.1	\N
+1503	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	12	c	1	18	70	1	2	1	\N	0	{"fieldname":"Data de creaci\\u00f3","dataid":"1"}	1590567827	web	192.168.33.1	\N
+1504	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	13	c	1	18	70	1	2	1	\N	0	{"fieldname":"courseid","dataid":"1"}	1590567872	web	192.168.33.1	\N
+1505	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	14	c	1	18	70	1	2	1	\N	0	{"fieldname":"Enlla\\u00e7","dataid":"1"}	1590567903	web	192.168.33.1	\N
+1506	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	15	c	1	18	70	1	2	1	\N	0	{"fieldname":"Fitxa de MeRL\\u00ed","dataid":"1"}	1590568010	web	192.168.33.1	\N
+1507	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	16	c	1	18	70	1	2	1	\N	0	{"fieldname":"Llic\\u00e8ncia","dataid":"1"}	1590568057	web	192.168.33.1	\N
+1508	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	17	c	1	18	70	1	2	1	\N	0	{"fieldname":"Idioma","dataid":"1"}	1590568100	web	192.168.33.1	\N
+1509	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	18	c	1	18	70	1	2	1	\N	0	{"fieldname":"Fam\\u00edlia professional","dataid":"1"}	1590568149	web	192.168.33.1	\N
 \.
 
 
@@ -36684,6 +36738,8 @@ COPY public.mdl_search_simpledb_index (id, docid, itemid, title, content, contex
 
 COPY public.mdl_sessions (id, state, sid, userid, sessdata, timecreated, timemodified, firstip, lastip) FROM stdin;
 2	0	al3a99tr9mc4l46cjpr85idq8j	2	\N	1590510009	1590511506	192.168.33.1	192.168.33.1
+4	0	16q8gffhsm437bseg342esdojq	0	\N	1590567051	1590567051	192.168.33.1	192.168.33.1
+5	0	cs44rdqquuf93uknhnbjm3173h	2	\N	1590567097	1590568149	192.168.33.1	192.168.33.1
 \.
 
 
@@ -38610,7 +38666,7 @@ COPY public.mdl_url (id, course, name, intro, introformat, externalurl, display,
 
 COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, icq, skype, yahoo, aim, msn, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, url, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename) FROM stdin;
 1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0													en	gregorian		99	0	0	0	0			0		This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N
-2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1590511036	0	1590510009	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
+2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1590568149	1590510009	1590567097	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
 \.
 
 
@@ -39214,7 +39270,7 @@ SELECT pg_catalog.setval('public.mdl_block_positions_id_seq', 1, false);
 -- Name: mdl_block_recent_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 1, true);
 
 
 --
@@ -39508,7 +39564,7 @@ SELECT pg_catalog.setval('public.mdl_config_plugins_id_seq', 2141, true);
 -- Name: mdl_context_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_context_id_seq', 17, true);
+SELECT pg_catalog.setval('public.mdl_context_id_seq', 18, true);
 
 
 --
@@ -39578,7 +39634,7 @@ SELECT pg_catalog.setval('public.mdl_course_modules_completion_id_seq', 1, false
 -- Name: mdl_course_modules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_course_modules_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_course_modules_id_seq', 1, true);
 
 
 --
@@ -39599,7 +39655,7 @@ SELECT pg_catalog.setval('public.mdl_course_request_id_seq', 1, false);
 -- Name: mdl_course_sections_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_course_sections_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_course_sections_id_seq', 1, true);
 
 
 --
@@ -39641,14 +39697,14 @@ SELECT pg_catalog.setval('public.mdl_data_content_id_seq', 1, false);
 -- Name: mdl_data_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_data_fields_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_data_fields_id_seq', 18, true);
 
 
 --
 -- Name: mdl_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_data_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_data_id_seq', 1, true);
 
 
 --
@@ -39662,7 +39718,7 @@ SELECT pg_catalog.setval('public.mdl_data_records_id_seq', 1, false);
 -- Name: mdl_editor_atto_autosave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 4, true);
 
 
 --
@@ -40068,14 +40124,14 @@ SELECT pg_catalog.setval('public.mdl_glossary_id_seq', 1, false);
 -- Name: mdl_grade_categories_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_grade_categories_history_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_grade_categories_history_id_seq', 2, true);
 
 
 --
 -- Name: mdl_grade_categories_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_grade_categories_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_grade_categories_id_seq', 1, true);
 
 
 --
@@ -40110,14 +40166,14 @@ SELECT pg_catalog.setval('public.mdl_grade_import_values_id_seq', 1, false);
 -- Name: mdl_grade_items_history_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_grade_items_history_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_grade_items_history_id_seq', 2, true);
 
 
 --
 -- Name: mdl_grade_items_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_grade_items_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_grade_items_id_seq', 1, true);
 
 
 --
@@ -40579,7 +40635,7 @@ SELECT pg_catalog.setval('public.mdl_log_queries_id_seq', 1, false);
 -- Name: mdl_logstore_standard_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1480, true);
+SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1509, true);
 
 
 --
@@ -41839,7 +41895,7 @@ SELECT pg_catalog.setval('public.mdl_search_simpledb_index_id_seq', 1, false);
 -- Name: mdl_sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 2, true);
+SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 5, true);
 
 
 --
