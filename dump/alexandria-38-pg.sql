@@ -25441,6 +25441,7 @@ COPY public.mdl_block_recent_activity (id, courseid, cmid, timecreated, userid, 
 --
 
 COPY public.mdl_block_recentlyaccesseditems (id, courseid, cmid, userid, timeaccess) FROM stdin;
+1	1	1	2	1591119352
 \.
 
 
@@ -25497,7 +25498,7 @@ COPY public.mdl_cache_filters (id, filter, version, md5key, rawtext, timemodifie
 --
 
 COPY public.mdl_cache_flags (id, flagtype, name, timemodified, value, expiry) FROM stdin;
-1	userpreferenceschanged	2	1590567097	1	1590574297
+1	userpreferenceschanged	2	1591119347	1	1591126547
 \.
 
 
@@ -31039,7 +31040,7 @@ COPY public.mdl_customfield_field (id, shortname, name, type, description, descr
 --
 
 COPY public.mdl_data (id, course, name, intro, introformat, comments, timeavailablefrom, timeavailableto, timeviewfrom, timeviewto, requiredentries, requiredentriestoview, maxentries, rssarticles, singletemplate, listtemplate, listtemplateheader, listtemplatefooter, addtemplate, rsstemplate, rsstitletemplate, csstemplate, jstemplate, asearchtemplate, approval, manageapproved, scale, assessed, assesstimestart, assesstimefinish, defaultsort, defaultsortdir, editany, notification, timemodified, config, completionentries) FROM stdin;
-1	1	Biblioteca de cursos Moodle	<p><p>Aquesta és la base de dades de \r\ncursos Moodle. Hi podeu aportar còpies de seguretat (en format .zip) de \r\ncursos de Moodle que hàgiu elaborat i que no siguin més grans de 20 Mb \r\ntot i que, per tal que es puguin restaurar directament als espais del \r\nservei Àgora, <b>és recomanable que no superin els 10 Mb</b>. --&gt; <span>Com pujar cursos de Moodle.</span></p>\r\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/resource/view.php?id=9">Característiques dels materials</a>.</p>\r\n<p>Per cercar cursos utilitzeu la pestanya "<b>Cerca</b>". També podeu \r\nordenar els cursos per data de creació, autor/a, títol, nivell educatiu i\r\n altres dades a partir de les opcions de la part inferior de la pàgina.</p>\r\n<p>Des de la fitxa individual <b>cliqueu sobre el nom del curs</b> per tal de veure'l complet.</p>\r\n<hr>\r\n<p><span size="5">IMPORTANT:</span></p>\r\n<p></p>\r\n<p>Tingueu en compte que la llicència genèrica del lloc és Creative Commons Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els drets d'autoria. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\r\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència Creative Commons</b>.</p><br></p>	1	0	0	0	0	0	0	0	0	0			\N	\N			\N	\N	\N	\N	1	1	100	0	0	0	0	0	0	0	1590567208	\N	0
+1	1	Biblioteca de cursos Moodle	<p><p>Aquesta és la base de dades de \r\ncursos Moodle. Hi podeu aportar còpies de seguretat (en format .zip) de \r\ncursos de Moodle que hàgiu elaborat i que no siguin més grans de 20 Mb \r\ntot i que, per tal que es puguin restaurar directament als espais del \r\nservei Àgora, <b>és recomanable que no superin els 10 Mb</b>. --&gt; <span>Com pujar cursos de Moodle.</span></p>\r\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/resource/view.php?id=9">Característiques dels materials</a>.</p>\r\n<p>Per cercar cursos utilitzeu la pestanya "<b>Cerca</b>". També podeu \r\nordenar els cursos per data de creació, autor/a, títol, nivell educatiu i\r\n altres dades a partir de les opcions de la part inferior de la pàgina.</p>\r\n<p>Des de la fitxa individual <b>cliqueu sobre el nom del curs</b> per tal de veure'l complet.</p>\r\n<hr>\r\n<p><span size="5">IMPORTANT:</span></p>\r\n<p></p>\r\n<p>Tingueu en compte que la llicència genèrica del lloc és Creative Commons Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els drets d'autoria. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\r\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència Creative Commons</b>.</p><br></p>	1	0	0	0	0	0	0	0	0	0	<div class="database-entry-info">\r\n<h3>[[Nom]]</h3>\r\n<table class="table table-striped" cellpadding="5">\r\n<tbody>\r\n<tr><th>Descàrrega:</th>\r\n<td>\r\n<p>[[Fitxer]]</p>\r\n<p style="line-height: 1.231;">[[courseid]]</p>\r\n</td>\r\n</tr>\r\n<tr><th valign="top">Descripció:</th>\r\n<td>[[Descripció]]</td>\r\n</tr>\r\n<tr><th valign="top">Autor/a:</th>\r\n<td>[[Autor/a]]</td>\r\n</tr>\r\n<tr><th valign="top">Nivell/s educatiu/s:</th>\r\n<td>[[Nivell educatiu]]</td>\r\n</tr>\r\n<tr><th valign="top">Àrea curricular:</th>\r\n<td>[[Àrea curricular]]</td>\r\n</tr>\r\n<tr><th valign="top">Àmbit/s competencial/s:</th>\r\n<td>[[Àmbit competencial]]</td>\r\n</tr>\r\n<tr><th valign="top">Família professional:</th>\r\n<td>[[Família professional]]</td>\r\n</tr>\r\n<tr><th valign="top">Idioma/es:</th>\r\n<td>[[Idioma]]</td>\r\n</tr>\r\n<tr><th valign="top">Llicència d'ús:</th>\r\n<td>[[Llicència]]</td>\r\n</tr>\r\n<tr><th valign="top">Versió de Moodle:</th>\r\n<td>[[Versió de Moodle]]</td>\r\n</tr>\r\n<tr><th valign="top">Data de creació:</th>\r\n<td>[[Data de creació]]</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><hr></div>\r\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br>Darrera modificació: ##timemodified##</div>\r\n<script type="text/javascript">// <![CDATA[\r\nload_addthis();\r\n// ]]></script>	<div class="database-entry ##approved##">\r\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\r\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> -&nbsp;[[Data de creació]]</p>\r\n[[Àrea curricular]] -&nbsp;##downloads## descàrregues\r\n<div class="content">[[Descripció]]</div>\r\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form">\r\n    <label>Nom *</label>\r\n    <br>\r\n    [[Nom]]\r\n    <br>\r\n    <span class="help-block">Nom del curs que l'identificarà a la base de dades i al llistat per categories.</span>\r\n    <br>\r\n\r\n    <label>Descripció *</label>\r\n    <br>\r\n    [[Descripció]]\r\n    <br>\r\n    <span class="help-block">Feu una breu descripció de les característiques del curs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades dels cursos.</span>\r\n    <br>\r\n\r\n    <label>Autor/a *</label>\r\n    <br>\r\n    [[Autor/a]]\r\n    <br>\r\n    <span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span>\r\n    <br>\r\n\r\n    <label> Còpia de seguretat del curs *</label>\r\n    <br>\r\n    [[Fitxer]]\r\n    <br>\r\n    <span class="help-block">Mida màxima 20 MB. Consulteu el document\r\n        <a href="http://agora/alexandria/web/mod/resource/view.php?id=9">Característiques dels materials</a> i la PMF\r\n        <a href="http://alexandria.xtec.cat/mod/glossary/view.php?id=10&amp;mode=entry&amp;hook=5" target="_blank">\r\n            Què puc fer si el meu curs supera la mida màxima?</a> per a més informació.</span>\r\n    <br>\r\n\r\n    <label>Nivell educatiu *</label>\r\n    <br>\r\n    [[Nivell educatiu]]\r\n    <br>\r\n    <span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla CTRL.</span>\r\n    <br>\r\n\r\n    <label>Àrea curricular *</label>\r\n    <br>\r\n    [[Àrea curricular]]\r\n    <span class="help-block">Seleccioneu l'opció més escaient.</span>\r\n    <br>\r\n\r\n    <label> Àmbit competencial</label>\r\n    <br>\r\n    [[Àmbit competencial]]\r\n    <span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla CTRL.</span>\r\n    <br>\r\n\r\n    <label>Família professional</label>\r\n    <br>\r\n    [[Família professional]]\r\n    <span class="help-block"> Seleccioneu l'opció més escaient (per a cursos de Cicles Formatius).</span>\r\n    <br>\r\n\r\n    <label>Idioma</label>\r\n    <br>\r\n    [[Idioma]]\r\n    <span class="help-block"> Seleccioneu l'idioma en què estan escrits els continguts del curs.</span>\r\n    <br>\r\n\r\n    <label>Llicència d'ús</label>\r\n    <br>\r\n    [[Llicència]]\r\n    <span class="help-block">La llicència per defecte, si no s'especifica cap altra, és Creative Commons Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank"> text legal</a> )</span>\r\n    <br>\r\n\r\n    <label>Data de creació [[Data de creació]]</label>\r\n    <br>\r\n\r\n    <p>\r\n        <strong>AVÍS</strong>: L'enviament d'aquest formulari porta implícita l'acceptació de les\r\n        <a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank"> condicions d'ús</a> d'aquest espai.\r\n    </p>\r\n    <p>\r\n        <strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong>\r\n    </p>\r\n    <p>\r\n        <strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong>\r\n    </p>\r\n</div>	<p><span style="line-height: 1.231;">[[Descripció]]</span><span style="line-height: 1.231;"><br></span></p>		.defaulttemplate{text-align:left;}\r\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\r\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\r\ndiv.author a{color:white}\r\n	function load_addthis() {\r\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\r\n}	<div class="defaulttemplate">\r\n<table class="table table-striped" cellpadding="5">\r\n<tbody>\r\n<tr><th valign="top">Nom del curs:</th>\r\n<td>[[Nom]]</td>\r\n</tr>\r\n<tr><th valign="top">Nivell educatiu:</th>\r\n<td>[[Nivell educatiu]]</td>\r\n</tr>\r\n<tr><th valign="top">Àrea curricular:</th>\r\n<td>[[Àrea curricular]]</td>\r\n</tr>\r\n<tr><th valign="top">Àmbit competencial:</th>\r\n<td>[[Àmbit competencial]]</td>\r\n</tr>\r\n<tr><th valign="top">Família professional:</th>\r\n<td>[[Família professional]]</td>\r\n</tr>\r\n<tr><th valign="top">Descripció:</th>\r\n<td>[[Descripció]]</td>\r\n</tr>\r\n<tr><th valign="top">Autor/a:</th>\r\n<td>[[Autor/a]]</td></tr></tbody></table><br></div>	1	1	100	0	0	0	0	0	0	0	1590567208	\N	0
 \.
 
 
@@ -31098,6 +31099,14 @@ COPY public.mdl_data_records (id, userid, groupid, dataid, timecreated, timemodi
 
 COPY public.mdl_editor_atto_autosave (id, elementid, contextid, pagehash, userid, drafttext, draftid, pageinstance, timemodified) FROM stdin;
 3	id_s__summary	1	6c218dfff68b30a998b8733daf1ebd60694348c2	2		-1	yui_3_17_2_1_1590511031193_45	1590511030
+8	listtemplateheader	1	254c5a8371a83dfeb0f257d0a0577f869ef8768a	2		-1	yui_3_17_2_1_1591119513228_45	1591119514
+9	template	1	f82a5b8650c42d2a44df794cbbf89677b048887d	2		-1	yui_3_17_2_1_1591119513228_333	1591119514
+10	listtemplatefooter	1	254c5a8371a83dfeb0f257d0a0577f869ef8768a	2		-1	yui_3_17_2_1_1591119513228_609	1591119514
+12	template	1	8d8c5568542947301699b1ce8a033d9214fa1812	2		-1	yui_3_17_2_1_1591119580425_45	1591119580
+14	template	1	f316e6fedaea30df20c4aa01874fa2454bc033c6	2		-1	yui_3_17_2_1_1591119643648_45	1591119644
+17	template	1	bf9b3f5ae8a950c61eecb81ab25318854f1da4dd	2		-1	yui_3_17_2_1_1591120587913_45	1591120588
+20	template	1	1df9c60f7bff68530625dee638950d188662d258	2		-1	yui_3_17_2_1_1591120654795_45	1591120655
+21	rsstitletemplate	1	4c2cdc184143cc5b0cd8ed8919a9135bdcf1a3b5	2		-1	yui_3_17_2_1_1591120654795_333	1591120655
 \.
 
 
@@ -33446,32 +33455,6 @@ COPY public.mdl_log_queries (id, qtype, sqltext, sqlparams, error, info, backtra
 --
 
 COPY public.mdl_logstore_standard_log (id, eventname, component, action, target, objecttable, objectid, crud, edulevel, contextid, contextlevel, contextinstanceid, userid, courseid, relateduserid, anonymous, other, timecreated, origin, ip, realuserid) FROM stdin;
-1484	\\core\\event\\user_loggedin	core	loggedin	user	user	2	r	0	1	10	0	2	0	\N	0	{"username":"admin"}	1590567097	web	192.168.33.1	\N
-1485	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1590567099	web	192.168.33.1	\N
-1486	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1590567117	web	192.168.33.1	\N
-1487	\\core\\event\\course_section_created	core	created	course_section	course_sections	1	c	1	2	50	1	2	1	\N	0	{"sectionnum":1}	1590567118	web	192.168.33.1	\N
-1488	\\core\\event\\grade_item_created	core	created	grade_item	grade_items	1	c	0	2	50	1	2	1	\N	0	{"itemname":null,"itemtype":"course","itemmodule":null}	1590567126	web	192.168.33.1	\N
-1489	\\core\\event\\course_module_created	core	created	course_module	course_modules	1	c	1	18	70	1	2	1	\N	0	{"modulename":"data","instanceid":1,"name":"Biblioteca de cursos Moodle"}	1590567208	web	192.168.33.1	\N
-1490	\\core\\event\\grade_item_updated	core	updated	grade_item	grade_items	1	u	0	2	50	1	2	1	\N	0	{"itemname":null,"itemtype":"course","itemmodule":null}	1590567208	web	192.168.33.1	\N
-1491	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	1	c	1	18	70	1	2	1	\N	0	{"fieldname":"Nom","dataid":"1"}	1590567262	web	192.168.33.1	\N
-1492	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	2	c	1	18	70	1	2	1	\N	0	{"fieldname":"Nom curt","dataid":"1"}	1590567314	web	192.168.33.1	\N
-1493	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	3	c	1	18	70	1	2	1	\N	0	{"fieldname":"Autor\\/a","dataid":"1"}	1590567393	web	192.168.33.1	\N
-1494	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	4	c	1	18	70	1	2	1	\N	0	{"fieldname":"Nivell educatiu","dataid":"1"}	1590567430	web	192.168.33.1	\N
-1495	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	5	c	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0rea curricular","dataid":"1"}	1590567473	web	192.168.33.1	\N
-1496	\\mod_data\\event\\field_deleted	mod_data	deleted	field	data_fields	5	d	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0rea curricular","dataid":"1"}	1590567507	web	192.168.33.1	\N
-1497	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	6	c	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0rea curricular","dataid":"1"}	1590567549	web	192.168.33.1	\N
-1498	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	7	c	1	18	70	1	2	1	\N	0	{"fieldname":"\\u00c0mbit competencial","dataid":"1"}	1590567600	web	192.168.33.1	\N
-1499	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	8	c	1	18	70	1	2	1	\N	0	{"fieldname":"Descripci\\u00f3","dataid":"1"}	1590567661	web	192.168.33.1	\N
-1500	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	9	c	1	18	70	1	2	1	\N	0	{"fieldname":"Fitxer","dataid":"1"}	1590567715	web	192.168.33.1	\N
-1501	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	10	c	1	18	70	1	2	1	\N	0	{"fieldname":"Versi\\u00f3 del curs","dataid":"1"}	1590567747	web	192.168.33.1	\N
-1502	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	11	c	1	18	70	1	2	1	\N	0	{"fieldname":"Versi\\u00f3 de Moodle","dataid":"1"}	1590567774	web	192.168.33.1	\N
-1503	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	12	c	1	18	70	1	2	1	\N	0	{"fieldname":"Data de creaci\\u00f3","dataid":"1"}	1590567827	web	192.168.33.1	\N
-1504	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	13	c	1	18	70	1	2	1	\N	0	{"fieldname":"courseid","dataid":"1"}	1590567872	web	192.168.33.1	\N
-1505	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	14	c	1	18	70	1	2	1	\N	0	{"fieldname":"Enlla\\u00e7","dataid":"1"}	1590567903	web	192.168.33.1	\N
-1506	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	15	c	1	18	70	1	2	1	\N	0	{"fieldname":"Fitxa de MeRL\\u00ed","dataid":"1"}	1590568010	web	192.168.33.1	\N
-1507	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	16	c	1	18	70	1	2	1	\N	0	{"fieldname":"Llic\\u00e8ncia","dataid":"1"}	1590568057	web	192.168.33.1	\N
-1508	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	17	c	1	18	70	1	2	1	\N	0	{"fieldname":"Idioma","dataid":"1"}	1590568100	web	192.168.33.1	\N
-1509	\\mod_data\\event\\field_created	mod_data	created	field	data_fields	18	c	1	18	70	1	2	1	\N	0	{"fieldname":"Fam\\u00edlia professional","dataid":"1"}	1590568149	web	192.168.33.1	\N
 \.
 
 
@@ -36740,6 +36723,7 @@ COPY public.mdl_sessions (id, state, sid, userid, sessdata, timecreated, timemod
 2	0	al3a99tr9mc4l46cjpr85idq8j	2	\N	1590510009	1590511506	192.168.33.1	192.168.33.1
 4	0	16q8gffhsm437bseg342esdojq	0	\N	1590567051	1590567051	192.168.33.1	192.168.33.1
 5	0	cs44rdqquuf93uknhnbjm3173h	2	\N	1590567097	1590568149	192.168.33.1	192.168.33.1
+7	0	fft022dfbsm5g7jhn706qtbqvi	2	\N	1591119347	1591120712	192.168.33.1	192.168.33.1
 \.
 
 
@@ -38666,7 +38650,7 @@ COPY public.mdl_url (id, course, name, intro, introformat, externalurl, display,
 
 COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, icq, skype, yahoo, aim, msn, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, url, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename) FROM stdin;
 1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0													en	gregorian		99	0	0	0	0			0		This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N
-2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1590568149	1590510009	1590567097	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
+2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1591120654	1590567097	1591119347	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
 \.
 
 
@@ -39277,7 +39261,7 @@ SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 1, true);
 -- Name: mdl_block_recentlyaccesseditems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_recentlyaccesseditems_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_block_recentlyaccesseditems_id_seq', 1, true);
 
 
 --
@@ -39718,7 +39702,7 @@ SELECT pg_catalog.setval('public.mdl_data_records_id_seq', 1, false);
 -- Name: mdl_editor_atto_autosave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 4, true);
+SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 21, true);
 
 
 --
@@ -40635,7 +40619,7 @@ SELECT pg_catalog.setval('public.mdl_log_queries_id_seq', 1, false);
 -- Name: mdl_logstore_standard_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1509, true);
+SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1536, true);
 
 
 --
@@ -41895,7 +41879,7 @@ SELECT pg_catalog.setval('public.mdl_search_simpledb_index_id_seq', 1, false);
 -- Name: mdl_sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 5, true);
+SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 7, true);
 
 
 --
