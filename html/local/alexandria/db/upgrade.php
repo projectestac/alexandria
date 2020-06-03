@@ -20,108 +20,123 @@
 // Please do not forget to use upgrade_set_timeout()
 // before any action that may take longer time to finish.
 
+/**
+ * @param $oldversion
+ * @return bool
+ * @throws coding_exception
+ * @throws ddl_exception
+ * @throws ddl_field_missing_exception
+ * @throws ddl_table_missing_exception
+ * @throws dml_exception
+ * @throws downgrade_exception
+ * @throws upgrade_exception
+ */
 function xmldb_local_alexandria_upgrade($oldversion) {
     global $CFG, $DB;
 
     $dbman = $DB->get_manager();
 
     if ($oldversion < 2014022400) {
-    	$dataconfigs = array(
-			'data_categoryfieldid',
-			'data_coursefieldid',
-			'data_creationdatefieldid',
-			'data_creatorfieldid',
-			'data_filefieldid',
-			'data_fullnamefieldid',
-			'data_licensefieldid',
-			'data_shortnamefieldid',
-			'data_summaryfieldid',
-			'data_urlfieldid',
-	    );
-	    foreach($dataconfigs as $config) {
-			if (!empty($CFG->$config) && is_numeric($CFG->$config)) {
-				$fieldname = $DB->get_field('data_fields','name',array('id' => $CFG->$config));
-				set_config($config,$fieldname);
-			}
-	    }
-    	if($dbman->table_exists('block_download_course')){
-			$sql = "SELECT dc.id,
+        $dataconfigs = array(
+            'data_categoryfieldid',
+            'data_coursefieldid',
+            'data_creationdatefieldid',
+            'data_creatorfieldid',
+            'data_filefieldid',
+            'data_fullnamefieldid',
+            'data_licensefieldid',
+            'data_shortnamefieldid',
+            'data_summaryfieldid',
+            'data_urlfieldid',
+        );
+
+        foreach ($dataconfigs as $config) {
+            if (!empty($CFG->$config) && is_numeric($CFG->$config)) {
+                $fieldname = $DB->get_field('data_fields', 'name', array('id' => $CFG->$config));
+                set_config($config, $fieldname);
+            }
+        }
+
+        if ($dbman->table_exists('block_download_course')) {
+            $sql = "SELECT dc.id,
 			IFNULL((
 				    SELECT downloading FROM {block_download_course} bdc
 			    	WHERE bdc.course IN (
 			            	SELECT content FROM {data_content} dc2
 				            WHERE dc2.fieldid IN (
 			    	                SELECT id FROM {data_fields} df
-			            	        WHERE df.name =  '".$CFG->data_coursefieldid."'
+			            	        WHERE df.name =  '" . $CFG->data_coursefieldid . "'
 				            ) AND dc2.recordid = dc.recordid
 			    	)
 			),0) as downloads
 			FROM {data_content} dc
 			WHERE dc.fieldid IN (
 			    	SELECT df.id FROM {data_fields} df
-				    WHERE df.name =  '".$CFG->data_filefieldid."'
+				    WHERE df.name =  '" . $CFG->data_filefieldid . "'
 			) AND dc.recordid IN (
 			    	SELECT id FROM {data_records} dr
 			    	WHERE dr.dataid = 2
 			)";
 
-			$records = $DB->get_records_sql($sql);
-			foreach($records as $record) {
-				$content = $DB->get_record('data_content',array('id' => $record->id));
-				$content->content4 = $record->id;
-				$DB->update_record('data_content',$content);
-			}
-		}
+            $records = $DB->get_records_sql($sql);
+            foreach ($records as $record) {
+                $content = $DB->get_record('data_content', array('id' => $record->id));
+                $content->content4 = $record->id;
+                $DB->update_record('data_content', $content);
+            }
+        }
 
-    	$table = new xmldb_table('data_abuse_reports');
-		$field = new xmldb_field('id');
-	        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);
-		$table->addField($field);
+        $table = new xmldb_table('data_abuse_reports');
+        $field = new xmldb_field('id');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, XMLDB_SEQUENCE, null, null, null);
+        $table->addField($field);
 
-		$field = new xmldb_field('recordid');
-	        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
-		$table->addField($field);
+        $field = new xmldb_field('recordid');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
+        $table->addField($field);
 
-		$field = new xmldb_field('abusetopic');
-	        $field->set_attributes(XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, null, null);
-		$table->addField($field);
+        $field = new xmldb_field('abusetopic');
+        $field->set_attributes(XMLDB_TYPE_CHAR, '20', null, XMLDB_NOTNULL, null, null, null, null);
+        $table->addField($field);
 
-		$field = new xmldb_field('report_author');
-	        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
-		$table->addField($field);
+        $field = new xmldb_field('report_author');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
+        $table->addField($field);
 
-		$field = new xmldb_field('abusedescription');
-	        $field->set_attributes(XMLDB_TYPE_TEXT, 'big', null, XMLDB_NOTNULL, null, null, null, null);
-		$table->addField($field);
+        $field = new xmldb_field('abusedescription');
+        $field->set_attributes(XMLDB_TYPE_TEXT, 'big', null, XMLDB_NOTNULL, null, null, null, null);
+        $table->addField($field);
 
-		$field = new xmldb_field('created');
-	        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
-		$table->addField($field);
+        $field = new xmldb_field('created');
+        $field->set_attributes(XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, null, null, '0');
+        $table->addField($field);
 
-		$table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'), null, null);
-		$table->add_key('report_author', XMLDB_KEY_FOREIGN, array('report_author'), 'user', array('id'));
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'), null, null);
+        $table->add_key('report_author', XMLDB_KEY_FOREIGN, array('report_author'), 'user', array('id'));
 
-	    $result = $DB->get_manager()->create_table($table);
+        $result = $DB->get_manager()->create_table($table);
 
-		upgrade_plugin_savepoint(true, 2014022400, 'local', 'alexandria');
+        upgrade_plugin_savepoint(true, 2014022400, 'local', 'alexandria');
     }
 
     if ($oldversion < 2014031300) {
-    	require_once($CFG->dirroot.'/local/alexandria/data/datalib.php');
-    	$file_fields = $DB->get_records('data_fields', array('type'=>'file'));
-    	foreach($file_fields as $file_field) {
-    		if(!empty($file_field->param4)){
-				$file_field->param4 = ALEXANDRIA_PDI_PDF;
-				$file_field->param5 = '';
-				$DB->update_record('data_fields',$file_field);
-    		} else if(!empty($file_field->param5)){
-    			$file_field->param4 = ALEXANDRIA_SCORM;
-				$file_field->param5 = '';
-				$DB->update_record('data_fields',$file_field);
-    		}
-    	}
+        require_once($CFG->dirroot . '/local/alexandria/data/datalib.php');
 
-		upgrade_plugin_savepoint(true, 2014031300, 'local', 'alexandria');
+        $file_fields = $DB->get_records('data_fields', array('type' => 'file'));
+
+        foreach ($file_fields as $file_field) {
+            if (!empty($file_field->param4)) {
+                $file_field->param4 = ALEXANDRIA_PDI_PDF;
+                $file_field->param5 = '';
+                $DB->update_record('data_fields', $file_field);
+            } else if (!empty($file_field->param5)) {
+                $file_field->param4 = ALEXANDRIA_SCORM;
+                $file_field->param5 = '';
+                $DB->update_record('data_fields', $file_field);
+            }
+        }
+
+        upgrade_plugin_savepoint(true, 2014031300, 'local', 'alexandria');
     }
 
     if ($oldversion < 2015110200) {
@@ -171,7 +186,11 @@ function xmldb_local_alexandria_upgrade($oldversion) {
 
 /**
  * Enables and configures alexandria webservices.
+ *
  * @return boolean success
+ * @throws coding_exception
+ * @throws dml_exception
+ * @throws moodle_exception
  */
 function enable_alexandria_webservices() {
     global $DB, $CFG, $USER, $OUTPUT;
@@ -187,6 +206,7 @@ function enable_alexandria_webservices() {
     // Enable alexandria service.
     $webservicemanager = new webservice();
     $service = $webservicemanager->get_external_service_by_shortname($servicename);
+
     if (!$service) {
         // Force install service.
         external_update_descriptions('local_alexandria');
@@ -195,10 +215,10 @@ function enable_alexandria_webservices() {
             echo $OUTPUT->notification('Alexandria services not found', 'error');
             return false;
         } else {
-            echo $OUTPUT->notification('Creation of alexandria services forced. ID: '.$service->id, 'success');
+            echo $OUTPUT->notification('Creation of alexandria services forced. ID: ' . $service->id, 'success');
         }
     } else {
-        echo $OUTPUT->notification('Found alexandria services. ID: '.$service->id, 'success');
+        echo $OUTPUT->notification('Found alexandria services. ID: ' . $service->id, 'success');
     }
 
     $service->enabled = 1;
@@ -206,6 +226,7 @@ function enable_alexandria_webservices() {
 
     // Enable REST server.
     $activeprotocols = empty($CFG->webserviceprotocols) ? array() : explode(',', $CFG->webserviceprotocols);
+
     if (!in_array('rest', $activeprotocols)) {
         $activeprotocols[] = 'rest';
         set_config('webserviceprotocols', implode(',', $activeprotocols));
@@ -227,23 +248,23 @@ function enable_alexandria_webservices() {
     assign_capability('webservice/rest:use', CAP_ALLOW, $roleid, $systemcontext->id, true);
     echo $OUTPUT->notification('Role capabilities assigned', 'success');
 
-    $user = $DB->get_record('user',  array('username' => 'wsalexandria'));
+    $user = $DB->get_record('user', array('username' => 'wsalexandria'));
     if (!$user) {
         $user = create_user_record('wsalexandria', '*', 'none');
         $user->firstname = 'Webservice';
         $user->lastname = 'Alexandria';
         $user->email = 'wsalexandria@invalid.invalid';
-        $DB->update_record('user',  $user);
-        echo $OUTPUT->notification('Created user wsalexandria with userid '.$user->id, 'success');
+        $DB->update_record('user', $user);
+        echo $OUTPUT->notification('Created user wsalexandria with userid ' . $user->id, 'success');
     } else {
-        echo $OUTPUT->notification('User wsalexandria found with userid '.$user->id, 'success');
+        echo $OUTPUT->notification('User wsalexandria found with userid ' . $user->id, 'success');
     }
 
     role_assign($roleid, $user->id, $systemcontext->id);
 
     // Create the token if it doesn't exists.
     $token = $DB->get_record('external_tokens',
-            array('userid' => $user->id, 'externalserviceid' => $service->id, 'tokentype' => EXTERNAL_TOKEN_PERMANENT));
+        array('userid' => $user->id, 'externalserviceid' => $service->id, 'tokentype' => EXTERNAL_TOKEN_PERMANENT));
 
     if ($USER->id) {
         $creatorid = $USER->id;
@@ -264,9 +285,9 @@ function enable_alexandria_webservices() {
         $newtoken->timecreated = time();
 
         $DB->insert_record('external_tokens', $newtoken);
-        echo $OUTPUT->notification('Created token '.$newtoken->token, 'success');
+        echo $OUTPUT->notification('Created token ' . $newtoken->token, 'success');
     } else {
-        echo $OUTPUT->notification('Token found '.$token->token, 'success');
+        echo $OUTPUT->notification('Token found ' . $token->token, 'success');
     }
 
     return true;

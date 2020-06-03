@@ -15,32 +15,32 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 require_once('../../../config.php');
-require_once($CFG->dirroot.'/mod/scorm/locallib.php');
+require_once($CFG->dirroot . '/mod/scorm/locallib.php');
 
-$id    = optional_param('id', '', PARAM_INT);    // Course Module ID, or
-$a     = optional_param('a', '', PARAM_INT);     // scorm ID
+$id = optional_param('id', '', PARAM_INT);    // Course Module ID, or
+$a = optional_param('a', '', PARAM_INT);     // scorm ID
 $scoid = required_param('scoid', PARAM_INT);     // sco ID.
 
 $delayseconds = 2;  // Delay time before sco launch, used to give time to browser to define API.
 
 if (!empty($id)) {
-    if (! $cm = get_coursemodule_from_id('scorm', $id)) {
+    if (!$cm = get_coursemodule_from_id('scorm', $id)) {
         print_error('invalidcoursemodule');
     }
-    if (! $course = $DB->get_record('course', array('id' => $cm->course))) {
+    if (!$course = $DB->get_record('course', array('id' => $cm->course))) {
         print_error('coursemisconf');
     }
-    if (! $scorm = $DB->get_record('scorm', array('id' => $cm->instance))) {
+    if (!$scorm = $DB->get_record('scorm', array('id' => $cm->instance))) {
         print_error('invalidcoursemodule');
     }
 } else if (!empty($a)) {
-    if (! $scorm = $DB->get_record('scorm', array('id' => $a))) {
+    if (!$scorm = $DB->get_record('scorm', array('id' => $a))) {
         print_error('coursemisconf');
     }
-    if (! $course = $DB->get_record('course', array('id' => $scorm->course))) {
+    if (!$course = $DB->get_record('course', array('id' => $scorm->course))) {
         print_error('coursemisconf');
     }
-    if (! $cm = get_coursemodule_from_instance('scorm', $scorm->id, $course->id)) {
+    if (!$cm = get_coursemodule_from_instance('scorm', $scorm->id, $course->id)) {
         print_error('invalidcoursemodule');
     }
 } else {
@@ -48,7 +48,7 @@ if (!empty($id)) {
 }
 $PAGE->set_url('/local/alexandria/scorm/loadSCO_preview.php', array('scoid' => $scoid, 'id' => $cm->id));
 
-try{
+try {
     $PAGE->set_cm($cm, $course); // Set's up global $COURSE.
 } catch (Exception $e) {
     $sectionid = course_add_cm_to_section(SITEID, $cm->id, 1);
@@ -68,10 +68,10 @@ if (!empty($scoid)) {
         if ($sco->launch == '') {
             // Search for the next launchable sco.
             if ($scoes = $DB->get_records_select(
-                    'scorm_scoes',
-                    'scorm = ? AND '.$DB->sql_isnotempty('scorm_scoes', 'launch', false, true).' AND id > ?',
-                    array($scorm->id, $sco->id),
-                    'sortorder, id')) {
+                'scorm_scoes',
+                'scorm = ? AND ' . $DB->sql_isnotempty('scorm_scoes', 'launch', false, true) . ' AND id > ?',
+                array($scorm->id, $sco->id),
+                'sortorder, id')) {
                 $sco = current($scoes);
             }
         }
@@ -82,7 +82,7 @@ if (!empty($scoid)) {
 if (!isset($sco)) {
     $scoes = $DB->get_records_select(
         'scorm_scoes',
-        'scorm = ? AND '.$DB->sql_isnotempty('scorm_scoes', 'launch', false, true),
+        'scorm = ? AND ' . $DB->sql_isnotempty('scorm_scoes', 'launch', false, true),
         array($scorm->id),
         'sortorder, id'
     );
@@ -118,12 +118,12 @@ if ($version == 'AICC') {
     }
     $scoparams = '';
     if (isset($sco->parameters) && (!empty($sco->parameters))) {
-        $scoparams = '&'. $sco->parameters;
+        $scoparams = '&' . $sco->parameters;
     }
-    $launcher = $sco->launch.$connector.'aicc_sid='.$aiccsid.'&aicc_url='.$CFG->wwwroot.'/mod/scorm/aicc.php'.$scoparams;
+    $launcher = $sco->launch . $connector . 'aicc_sid=' . $aiccsid . '&aicc_url=' . $CFG->wwwroot . '/mod/scorm/aicc.php' . $scoparams;
 } else {
     if (isset($sco->parameters) && (!empty($sco->parameters))) {
-        $launcher = $sco->launch.$connector.$sco->parameters;
+        $launcher = $sco->launch . $connector . $sco->parameters;
     } else {
         $launcher = $sco->launch;
     }
@@ -134,7 +134,7 @@ if (scorm_external_link($sco->launch)) {
     $result = $launcher;
 } else if ($scorm->scormtype === SCORM_TYPE_EXTERNAL) {
     // Remote learning activity.
-    $result = dirname($scorm->reference).'/'.$launcher;
+    $result = dirname($scorm->reference) . '/' . $launcher;
 } else if ($scorm->scormtype === SCORM_TYPE_LOCAL && strtolower($scorm->reference) == 'imsmanifest.xml') {
     // This SCORM content sits in a repository that allows relative links.
     $result = "$CFG->wwwroot/pluginfile.php/$context->id/mod_scorm/imsmanifest/$scorm->revision/$launcher";
@@ -175,69 +175,70 @@ echo html_writer::start_tag('head');
 echo html_writer::tag('title', 'LoadSCO');
 ?>
     <script type="text/javascript">
-    //<![CDATA[
-    var myApiHandle = null;
-    var myFindAPITries = 0;
+        //<![CDATA[
+        var myApiHandle = null;
+        var myFindAPITries = 0;
 
-    function myGetAPIHandle() {
-       myFindAPITries = 0;
-       if (myApiHandle == null) {
-          myApiHandle = myGetAPI();
-       }
-       return myApiHandle;
-    }
-
-    function myFindAPI(win) {
-       while ((win.<?php echo $lmsapi; ?> == null) && (win.parent != null) && (win.parent != win)) {
-          myFindAPITries++;
-          // Note: 7 is an arbitrary number, but should be more than sufficient
-          if (myFindAPITries > 7) {
-             return null;
-          }
-          win = win.parent;
-       }
-       return win.<?php echo $lmsapi; ?>;
-    }
-
-    // hun for the API - needs to be loaded before we can launch the package
-    function myGetAPI() {
-       var theAPI = myFindAPI(window);
-       if ((theAPI == null) && (window.opener != null) && (typeof(window.opener) != "undefined")) {
-          theAPI = myFindAPI(window.opener);
-       }
-       if (theAPI == null) {
-          return null;
-       }
-       return theAPI;
-    }
-
-   function doredirect() {
-        if (myGetAPIHandle() != null) {
-            location = "<?php echo $result ?>";
+        function myGetAPIHandle() {
+            myFindAPITries = 0;
+            if (myApiHandle == null) {
+                myApiHandle = myGetAPI();
+            }
+            return myApiHandle;
         }
-        else {
-            document.body.innerHTML = "<p><?php echo get_string('activityloading', 'scorm');?>" +
-                                        "<span id='countdown'><?php echo $delayseconds ?></span> " +
-                                        "<?php echo get_string('numseconds', 'moodle', '');?>. &nbsp; " +
-                                        "<img src='<?php echo $OUTPUT->pix_url('wait', 'scorm') ?>'></p>";
-            var e = document.getElementById("countdown");
-            var cSeconds = parseInt(e.innerHTML);
-            var timer = setInterval(function() {
-                                            if( cSeconds && myGetAPIHandle() == null ) {
-                                                e.innerHTML = --cSeconds;
-                                            } else {
-                                                clearInterval(timer);
-                                                document.body.innerHTML = "<p><?php echo get_string('activitypleasewait', 'scorm');?></p>";
-                                                location = "<?php echo $result ?>";
-                                            }
-                                        }, 1000);
+
+        function myFindAPI(win) {
+            while ((win.<?php echo $lmsapi; ?> == null) && (win.parent != null) && (win.parent != win)) {
+                myFindAPITries++;
+                // Note: 7 is an arbitrary number, but should be more than sufficient
+                if (myFindAPITries > 7) {
+                    return null;
+                }
+                win = win.parent;
+            }
+            return win.<?php echo $lmsapi; ?>;
         }
-    }
-    //]]>
+
+        // hun for the API - needs to be loaded before we can launch the package
+        function myGetAPI() {
+            var theAPI = myFindAPI(window);
+            if ((theAPI == null) && (window.opener != null) && (typeof (window.opener) != "undefined")) {
+                theAPI = myFindAPI(window.opener);
+            }
+            if (theAPI == null) {
+                return null;
+            }
+            return theAPI;
+        }
+
+        function doredirect() {
+            if (myGetAPIHandle() != null) {
+                location = "<?php echo $result ?>";
+            } else {
+                document.body.innerHTML = "<p><?php echo get_string('activityloading', 'scorm');?>" +
+                    "<span id='countdown'><?php echo $delayseconds ?></span> " +
+                    "<?php echo get_string('numseconds', 'moodle', '');?>. &nbsp; " +
+                    "<img src='<?php echo $OUTPUT->pix_url('wait', 'scorm') ?>'></p>";
+                var e = document.getElementById("countdown");
+                var cSeconds = parseInt(e.innerHTML);
+                var timer = setInterval(function () {
+                    if (cSeconds && myGetAPIHandle() == null) {
+                        e.innerHTML = --cSeconds;
+                    } else {
+                        clearInterval(timer);
+                        document.body.innerHTML = "<p><?php echo get_string('activitypleasewait', 'scorm');?></p>";
+                        location = "<?php echo $result ?>";
+                    }
+                }, 1000);
+            }
+        }
+
+        //]]>
     </script>
     <noscript>
-        <meta http-equiv="refresh" content="0;url=<?php echo $result ?>" />
+        <meta http-equiv="refresh" content="0;url=<?php echo $result ?>"/>
     </noscript>
+
 <?php
 echo html_writer::end_tag('head');
 echo html_writer::tag('body', html_writer::tag('p', get_string('activitypleasewait', 'scorm')), array('onload' => "doredirect();"));
