@@ -17,10 +17,10 @@
 // This page prints a particular instance of aicc/scorm package.
 
 require_once('../../../config.php');
-require_once($CFG->dirroot.'/mod/scorm/locallib.php');
+require_once($CFG->dirroot . '/mod/scorm/locallib.php');
 //require_once($CFG->libdir . '/completionlib.php');
 
-$id = "";
+$id = '';
 $a = optional_param('a', '', PARAM_INT);         // scorm ID
 $scoid = required_param('scoid', PARAM_INT);  // sco ID
 $mode = 'browse'; // navigation mode
@@ -28,19 +28,19 @@ $currentorg = ''; // selected organization
 $newattempt = 'off'; // the user request to start a new attempt.
 $displaymode = 'popup';
 
-$guest = $DB->get_record('user', array('username'=>'guest'));
+$guest = $DB->get_record('user', array('username' => 'guest'));
 if (!$USER) {
     $USER = $guest;
 }
 
 if (!empty($a)) {
-    if (! $scorm = $DB->get_record("scorm", array("id" => $a))) {
+    if (!$scorm = $DB->get_record("scorm", array("id" => $a))) {
         print_error('invalidcoursemodule');
     }
-    if (! $course = $DB->get_record("course", array("id" => $scorm->course))) {
+    if (!$course = $DB->get_record("course", array("id" => $scorm->course))) {
         print_error('coursemisconf');
     }
-    if (! $cm = get_coursemodule_from_instance("scorm", $scorm->id, $course->id)) {
+    if (!$cm = get_coursemodule_from_instance("scorm", $scorm->id, $course->id)) {
         print_error('invalidcoursemodule');
     }
 } else {
@@ -95,7 +95,7 @@ if (empty($collapsetocwinsize)) {
 //require_login($course, false, $cm);
 
 $strscorms = get_string('modulenameplural', 'scorm');
-$strscorm  = get_string('modulename', 'scorm');
+$strscorm = get_string('modulename', 'scorm');
 $strpopup = get_string('popup', 'scorm');
 $strexit = get_string('exitactivity', 'scorm');
 
@@ -105,7 +105,7 @@ if ($displaymode == 'popup') {
     $PAGE->set_pagelayout('embedded');
 } else {
     $shortname = format_string($course->shortname, true, array('context' => $coursecontext));
-    $pagetitle = strip_tags("$shortname: ".format_string($scorm->name));
+    $pagetitle = strip_tags("$shortname: " . format_string($scorm->name));
     $PAGE->set_title($pagetitle);
     $PAGE->set_heading($course->fullname);
 }
@@ -131,10 +131,10 @@ if (!$available) {
 */
 // TOC processing
 $scorm->version = strtolower(clean_param($scorm->version, PARAM_SAFEDIR));   // Just to be safe.
-if (!file_exists($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'lib.php')) {
+if (!file_exists($CFG->dirroot . '/mod/scorm/datamodels/' . $scorm->version . 'lib.php')) {
     $scorm->version = 'scorm_12';
 }
-require_once($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'lib.php');
+require_once($CFG->dirroot . '/mod/scorm/datamodels/' . $scorm->version . 'lib.php');
 
 $result = scorm_get_toc($USER, $scorm, $cm->id, TOCJSLINK, $currentorg, $scoid, $mode, $attempt, true, true);
 $sco = $result->sco;
@@ -147,8 +147,8 @@ if ($scorm->lastattemptlock == 1 && $result->attemptleft == 0) {
 }
 */
 
-$scoidstr = '&amp;scoid='.$sco->id;
-$modestr = '&amp;mode='.$mode;
+$scoidstr = '&amp;scoid=' . $sco->id;
+$modestr = '&amp;mode=' . $mode;
 
 $SESSION->scorm = new stdClass();
 $SESSION->scorm->scoid = $sco->id;
@@ -170,19 +170,19 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
 }
 */
 
-$PAGE->requires->data_for_js('scormplayerdata', Array('launch' => false,
-                                                       'currentorg' => '',
-                                                       'sco' => 0,
-                                                       'scorm' => 0,
-                                                       'courseid' => $scorm->course,
-                                                       'cwidth' => $scorm->width,
-                                                       'cheight' => $scorm->height,
-                                                       'popupoptions' => $scorm->options), true);
+$PAGE->requires->data_for_js('scormplayerdata', array('launch' => false,
+    'currentorg' => '',
+    'sco' => 0,
+    'scorm' => 0,
+    'courseid' => $scorm->course,
+    'cwidth' => $scorm->width,
+    'cheight' => $scorm->height,
+    'popupoptions' => $scorm->options), true);
 $PAGE->requires->js('/mod/scorm/request.js', true);
 $PAGE->requires->js('/lib/cookies.js', true);
 
-if (file_exists($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'.js')) {
-    $PAGE->requires->js('/mod/scorm/datamodels/'.$scorm->version.'.js', true);
+if (file_exists($CFG->dirroot . '/mod/scorm/datamodels/' . $scorm->version . '.js')) {
+    $PAGE->requires->js('/mod/scorm/datamodels/' . $scorm->version . '.js', true);
 } else {
     $PAGE->requires->js('/mod/scorm/datamodels/scorm_12.js', true);
 }
@@ -203,7 +203,7 @@ $name = false;
 echo html_writer::start_div('', array('id' => 'scormpage'));
 echo html_writer::start_div('', array('id' => 'tocbox'));
 echo html_writer::div(html_writer::tag('script', '', array('id' => 'external-scormapi', 'type' => 'text/JavaScript')), '',
-                        array('id' => 'scormapi-parent'));
+    array('id' => 'scormapi-parent'));
 
 /*if ($scorm->hidetoc == SCORM_TOC_POPUP or $mode == 'browse' or $mode == 'review') {
     echo html_writer::start_div('', array('id' => 'scormtop'));
@@ -218,7 +218,7 @@ echo html_writer::div(html_writer::tag('script', '', array('id' => 'external-sco
 echo html_writer::start_div('', array('id' => 'toctree'));
 
 //if (empty($scorm->popup) || $displaymode == 'popup') {
-    echo $result->toc;
+echo $result->toc;
 /*} else {
     // Added incase javascript popups are blocked we don't provide a direct link
     // to the pop-up as JS communication can fail - the user must disable their pop-up blocker.
@@ -266,16 +266,16 @@ if (empty($scorm->popup) || $displaymode == 'popup') {
     );
     $scorm->nav = intval($scorm->nav);
     $PAGE->requires->js_init_call('M.mod_scorm.init', array($scorm->nav, $scorm->navpositionleft, $scorm->navpositiontop,
-                            $scorm->hidetoc, $collapsetocwinsize, $result->toctitle, $name, $sco->id, $adlnav), false, $jsmodule);
+        $scorm->hidetoc, $collapsetocwinsize, $result->toctitle, $name, $sco->id, $adlnav), false, $jsmodule);
 }
 if (!empty($forcejs)) {
     echo $OUTPUT->box(get_string("forcejavascriptmessage", "scorm"), "generalbox boxaligncenter forcejavascriptmessage");
 }
 
-if (file_exists($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'.php')) {
-    include_once($CFG->dirroot.'/mod/scorm/datamodels/'.$scorm->version.'.php');
+if (file_exists($CFG->dirroot . '/mod/scorm/datamodels/' . $scorm->version . '.php')) {
+    include_once($CFG->dirroot . '/mod/scorm/datamodels/' . $scorm->version . '.php');
 } else {
-    include_once($CFG->dirroot.'/mod/scorm/datamodels/scorm_12.php');
+    include_once($CFG->dirroot . '/mod/scorm/datamodels/scorm_12.php');
 }
 
 // Add the checknet system to keep checking for a connection.

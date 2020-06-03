@@ -16,34 +16,34 @@
 
 /**
  * Web service for local alexandria
+ *
  * @package    local_alexandria
  * @subpackage db
  * @since      Moodle 3.1
  * @copyright  2016 Pau Ferrer Ocaña
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 $functions = array(
     'local_alexandria_get_databases' => array(
-        'classname'   => 'local_alexandria_external',
-        'methodname'  => 'get_databases',
-        'classpath'   => 'local/alexandria/externallib.php',
+        'classname' => 'local_alexandria_external',
+        'methodname' => 'get_databases',
+        'classpath' => 'local/alexandria/externallib.php',
         'description' => 'Returns databases to search with their fields',
-        'type'        => 'read',
-        'services'     => array('alexandria'),
+        'type' => 'read',
+        'services' => array('alexandria'),
     ),
     'local_alexandria_search' => array(
-        'classname'   => 'local_alexandria_external',
-        'methodname'  => 'search',
-        'classpath'   => 'local/alexandria/externallib.php',
+        'classname' => 'local_alexandria_external',
+        'methodname' => 'search',
+        'classpath' => 'local/alexandria/externallib.php',
         'description' => 'Returns the results of a search on Alexandria database',
-        'type'        => 'read',
-        'services'     => array('alexandria'),
+        'type' => 'read',
+        'services' => array('alexandria'),
     ),
 );
 
 $services = array(
-   'Alexandria Hub'  => array(
+    'Alexandria Hub' => array(
         'functions' => array(), // Unused as we add the service in each function definition, third party services would use this.
         'enabled' => 1,
         'restrictedusers' => 0,
