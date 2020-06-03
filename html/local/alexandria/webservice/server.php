@@ -27,7 +27,7 @@ define('NO_DEBUG_DISPLAY', true);
 define('NO_MOODLE_COOKIES', true);
 
 require('../../../config.php');
-require_once($CFG->dirroot."/local/alexandria/webservice/locallib.php");
+require_once($CFG->dirroot . '/local/alexandria/webservice/locallib.php');
 
 if (!webservice_protocol_is_enabled('rest')) {
     die;
@@ -36,5 +36,3 @@ if (!webservice_protocol_is_enabled('rest')) {
 $server = new alexandria_webservice_rest_server(WEBSERVICE_AUTHMETHOD_PERMANENT_TOKEN);
 $server->run();
 die;
-
-
