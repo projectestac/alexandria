@@ -179,15 +179,12 @@ class data_field_file extends data_field_base {
 
 // XTEC - ALEXANDRIA ************ MODIFICAT - If it's a course, we get the file from automated backups area
 // 2013.11.29 @mespinosa
-        if (!$file = alexandria_get_file($recordid, $this->field->id)) {
-            return null;
-        }
 //************ ORIGINAL
-/*
+
         if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
             return null;
         }
-*/
+//var_dump($file);
 // ***** FI
 
         return $file;
@@ -199,7 +196,8 @@ class data_field_file extends data_field_base {
         if (!$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
             return '';
         }
-
+//var_dump($this->field);
+//var_dump($content);
         if (empty($content->content)) {
 
 // XTEC - ALEXANDRIA ************ AFEGIT - Disapprove SCORM or PDI if file doesn't exist 
@@ -273,7 +271,7 @@ class data_field_file extends data_field_base {
                     </div>
                 </div>';
             } else {
-                $src = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id;
+                $src = $CFG->wwwroot . '/local/alexandria/data/download.php?rid=' . $recordid . '&fid=' . $this->field->id . '&cid=' . $this->context->id;
                 $str  = $OUTPUT->pix_icon(file_file_icon($file), get_mimetype_description($file), 'moodle', array('width' => 16, 'height' => 16)). '&nbsp;';
 
                 $dwnldinfo = alexandria_get_download_info($recordid, $this->field->id);
