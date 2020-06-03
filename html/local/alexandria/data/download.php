@@ -1,20 +1,21 @@
 <?php
-//2013.12.17 - Marc Espinosa Zamora <marc.espinosa.zamora@upcnet.es>
 
 /**
  * Download this course
  *
- * @copyright &copy; 2009 Education Department of Catalonia
+ * @copyright 2009 Education Department of Catalonia
  * @author sara.arjona@gmail.com
  * @author marc.espinosa.zamora@upcnet.es
+ * @author Toni Ginard
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
 require_once('../../../config.php');
 require_once('datalib.php');
 
-$recordid = required_param( 'rid', PARAM_INT );
-$fieldid = required_param( 'fid', PARAM_INT );
-$contextid = required_param( 'cid', PARAM_INT );
-$forcedownload = optional_param( 'force', true, PARAM_BOOL);
+$recordid = required_param('rid', PARAM_INT);
+$fieldid = required_param('fid', PARAM_INT);
+$contextid = required_param('cid', PARAM_INT);
+$forcedownload = optional_param('force', true, PARAM_BOOL);
+
 alexandria_download_file($recordid, $fieldid, $contextid, $forcedownload);
