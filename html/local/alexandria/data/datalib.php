@@ -26,11 +26,11 @@ function alexandria_get_downloads($recordid, $fieldid = false) {
     return (int)$DB->get_field('data_content', 'content4', array('recordid' => $recordid, 'fieldid' => $fieldid));
 }
 
-function alexandria_download_file($recordid, $fieldid, $forcedownload) {
-	global $CFG, $DB;
+function alexandria_download_file($recordid, $fieldid, $contextid, $forcedownload) {
+	global $CFG;
 	require_once($CFG->libdir.'/filelib.php');
 
-	$file = alexandria_get_file($recordid, $fieldid);
+	$file = alexandria_get_file($recordid, $fieldid, $contextid);
 	if ($file) {
         if ($forcedownload) {
             alexandria_update_downloadings($recordid, $fieldid);
@@ -41,20 +41,26 @@ function alexandria_download_file($recordid, $fieldid, $forcedownload) {
 	send_file_not_found();
 }
 
-function alexandria_get_file($recordid, $fieldid) {
+function alexandria_get_file($recordid, $fieldid, $contextid) {
 	global $CFG, $DB;
 	require_once($CFG->libdir.'/filelib.php');
 
 	$record = $DB->get_record('data_records', array('id' => $recordid));
 	$field = $DB->get_record('data_fields', array('id' => $fieldid));
+
 	if ($record && $field) {
+        $data_content_id = $DB->get_field('data_content', 'id', ['fieldid' => $field->id, 'recordid' => $record->id]);
 		$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+
 		$fs = get_file_storage();
+
 		if ($field->param4 == ALEXANDRIA_COURSE_BACKUP) {
-			// Course from automated backup area
-			$coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
-			$courseid = $DB->get_field('data_content', 'content', array('fieldid' => $coursefieldid, 'recordid' => $recordid));
-			return alexandria_get_course_file($courseid);
+            $files = $fs->get_area_files($contextid, 'mod_data', 'content', $data_content_id, 'timecreated DESC');
+            foreach ($files as $file) {
+                if (!$file->is_directory()) {
+                    return $file;
+                }
+            }
 		} else {
 			// Get other files
             if (!$content = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid' => $recordid))) {
@@ -78,9 +84,12 @@ function alexandria_get_course_file($courseid) {
 
 	$fs = get_file_storage();
 	$context = context_course::instance($courseid, IGNORE_MISSING);
+//	var_dump($context);
 	if ($context) {
 		// Course from automated backup area
-		$files = $fs->get_area_files($context->id, 'backup', 'automated', false, 'timecreated DESC');
+		$files = $fs->get_area_files($context->id, 'mod_data', 'content', false, 'timecreated DESC');
+//        var_dump($files);
+//        exit;
 		foreach ($files as $file) {
 			if (!$file->is_directory()) {
 		        return $file;
@@ -91,8 +100,8 @@ function alexandria_get_course_file($courseid) {
 }
 
 function alexandria_update_downloadings($recordid, $fieldid) {
-    global $CFG, $DB;
-	$dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+    global $DB;
+
     $record = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid' => $recordid));
 
     $value = $record->content4;
@@ -106,6 +115,7 @@ function alexandria_update_downloadings($recordid, $fieldid) {
     $record->content4 = $value;
     $record->content1 = str_replace("'", "\'", $record->content1);
     $DB->update_record('data_content', $record);
+
     return $value;
 }
 
