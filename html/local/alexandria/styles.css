@@ -1,7 +1,7 @@
 /* SCORM
 2011.05.23 @fcasanel */
 
-#preview_data iframe{
+#preview_data iframe {
     width: 100%;
     height: 500px;
     z-index: 1;
@@ -18,7 +18,6 @@ body.preview_scorm, body.preview_scorm #page {
     margin-left: 13px;
 }
 
-
 /* Database */
 .database-entry {
     min-height: 20px;
@@ -29,17 +28,17 @@ body.preview_scorm, body.preview_scorm #page {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,0.05);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
-.database-entry .subject{
+.database-entry .subject {
     font-size: 1.2em;
     font-weight: bold;
 }
 
-.database-entry .content{
+.database-entry .content {
     padding: 20px;
 }
 
@@ -51,15 +50,14 @@ body.preview_scorm, body.preview_scorm #page {
     margin-bottom: 20px;
 }
 
-.database-entry-info table{
+.database-entry-info table {
     width: 100%;
 }
 
-.database-entry-form label{
+.database-entry-form label {
     font-weight: bold;
 }
 
-.database-entry-form .help-block{
+.database-entry-form .help-block {
     font-size: 0.8em;
 }
-
