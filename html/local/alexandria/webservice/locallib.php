@@ -15,7 +15,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-require_once($CFG->dirroot."/webservice/rest/locallib.php");
+require_once($CFG->dirroot . '/webservice/rest/locallib.php');
 
 /**
  * Alexandria XML-RPC web server.
@@ -24,7 +24,6 @@ require_once($CFG->dirroot."/webservice/rest/locallib.php");
  * @copyright 2009 Moodle Pty Ltd (http://moodle.com)
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 class alexandria_webservice_rest_server extends webservice_rest_server {
 
     /**
