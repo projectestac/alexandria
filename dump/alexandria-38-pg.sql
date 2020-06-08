@@ -25433,6 +25433,7 @@ COPY public.mdl_block_positions (id, blockinstanceid, contextid, pagetype, subpa
 
 COPY public.mdl_block_recent_activity (id, courseid, cmid, timecreated, userid, action, modname) FROM stdin;
 1	1	1	1590567208	2	0	\N
+2	1	2	1591633629	2	0	\N
 \.
 
 
@@ -25442,6 +25443,7 @@ COPY public.mdl_block_recent_activity (id, courseid, cmid, timecreated, userid, 
 
 COPY public.mdl_block_recentlyaccesseditems (id, courseid, cmid, userid, timeaccess) FROM stdin;
 1	1	1	2	1591119352
+2	1	2	2	1591635447
 \.
 
 
@@ -25498,7 +25500,7 @@ COPY public.mdl_cache_filters (id, filter, version, md5key, rawtext, timemodifie
 --
 
 COPY public.mdl_cache_flags (id, flagtype, name, timemodified, value, expiry) FROM stdin;
-1	userpreferenceschanged	2	1591119347	1	1591126547
+1	userpreferenceschanged	2	1591633541	1	1591640741
 \.
 
 
@@ -30891,6 +30893,7 @@ COPY public.mdl_context (id, contextlevel, instanceid, path, depth, locked) FROM
 16	80	11	/1/16	2	0
 17	80	12	/1/17	2	0
 18	70	1	/1/2/18	3	0
+19	70	2	/1/2/19	3	0
 \.
 
 
@@ -30907,7 +30910,7 @@ COPY public.mdl_context_temp (id, path, depth, locked) FROM stdin;
 --
 
 COPY public.mdl_course (id, category, sortorder, fullname, shortname, idnumber, summary, summaryformat, format, showgrades, newsitems, startdate, enddate, relativedatesmode, marker, maxbytes, legacyfiles, showreports, visible, visibleold, groupmode, groupmodeforce, defaultgroupingid, lang, calendartype, theme, timecreated, timemodified, requested, enablecompletion, completionnotify, cacherev) FROM stdin;
-1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1590567210
+1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1591633631
 \.
 
 
@@ -30975,6 +30978,7 @@ COPY public.mdl_course_format_options (id, courseid, format, sectionid, name, va
 
 COPY public.mdl_course_modules (id, course, module, instance, section, idnumber, added, score, indent, visible, visibleoncoursepage, visibleold, groupmode, groupingid, completion, completiongradeitemnumber, completionview, completionexpected, showdescription, availability, deletioninprogress) FROM stdin;
 1	1	6	1	1		1590567208	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
+2	1	6	2	1		1591633629	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
 \.
 
 
@@ -31007,7 +31011,7 @@ COPY public.mdl_course_request (id, fullname, shortname, summary, summaryformat,
 --
 
 COPY public.mdl_course_sections (id, course, section, name, summary, summaryformat, sequence, visible, availability, timemodified) FROM stdin;
-1	1	1	\N		1	1	1	\N	1590567118
+1	1	1	\N		1	1,2	1	\N	1590567118
 \.
 
 
@@ -31041,6 +31045,7 @@ COPY public.mdl_customfield_field (id, shortname, name, type, description, descr
 
 COPY public.mdl_data (id, course, name, intro, introformat, comments, timeavailablefrom, timeavailableto, timeviewfrom, timeviewto, requiredentries, requiredentriestoview, maxentries, rssarticles, singletemplate, listtemplate, listtemplateheader, listtemplatefooter, addtemplate, rsstemplate, rsstitletemplate, csstemplate, jstemplate, asearchtemplate, approval, manageapproved, scale, assessed, assesstimestart, assesstimefinish, defaultsort, defaultsortdir, editany, notification, timemodified, config, completionentries) FROM stdin;
 1	1	Biblioteca de cursos Moodle	<p><p>Aquesta és la base de dades de \r\ncursos Moodle. Hi podeu aportar còpies de seguretat (en format .zip) de \r\ncursos de Moodle que hàgiu elaborat i que no siguin més grans de 20 Mb \r\ntot i que, per tal que es puguin restaurar directament als espais del \r\nservei Àgora, <b>és recomanable que no superin els 10 Mb</b>. --&gt; <span>Com pujar cursos de Moodle.</span></p>\r\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/resource/view.php?id=9">Característiques dels materials</a>.</p>\r\n<p>Per cercar cursos utilitzeu la pestanya "<b>Cerca</b>". També podeu \r\nordenar els cursos per data de creació, autor/a, títol, nivell educatiu i\r\n altres dades a partir de les opcions de la part inferior de la pàgina.</p>\r\n<p>Des de la fitxa individual <b>cliqueu sobre el nom del curs</b> per tal de veure'l complet.</p>\r\n<hr>\r\n<p><span size="5">IMPORTANT:</span></p>\r\n<p></p>\r\n<p>Tingueu en compte que la llicència genèrica del lloc és Creative Commons Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els drets d'autoria. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\r\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència Creative Commons</b>.</p><br></p>	1	0	0	0	0	0	0	0	0	0	<div class="database-entry-info">\r\n<h3>[[Nom]]</h3>\r\n<table class="table table-striped" cellpadding="5">\r\n<tbody>\r\n<tr><th>Descàrrega:</th>\r\n<td>\r\n<p>[[Fitxer]]</p>\r\n<p style="line-height: 1.231;">[[courseid]]</p>\r\n</td>\r\n</tr>\r\n<tr><th valign="top">Descripció:</th>\r\n<td>[[Descripció]]</td>\r\n</tr>\r\n<tr><th valign="top">Autor/a:</th>\r\n<td>[[Autor/a]]</td>\r\n</tr>\r\n<tr><th valign="top">Nivell/s educatiu/s:</th>\r\n<td>[[Nivell educatiu]]</td>\r\n</tr>\r\n<tr><th valign="top">Àrea curricular:</th>\r\n<td>[[Àrea curricular]]</td>\r\n</tr>\r\n<tr><th valign="top">Àmbit/s competencial/s:</th>\r\n<td>[[Àmbit competencial]]</td>\r\n</tr>\r\n<tr><th valign="top">Família professional:</th>\r\n<td>[[Família professional]]</td>\r\n</tr>\r\n<tr><th valign="top">Idioma/es:</th>\r\n<td>[[Idioma]]</td>\r\n</tr>\r\n<tr><th valign="top">Llicència d'ús:</th>\r\n<td>[[Llicència]]</td>\r\n</tr>\r\n<tr><th valign="top">Versió de Moodle:</th>\r\n<td>[[Versió de Moodle]]</td>\r\n</tr>\r\n<tr><th valign="top">Data de creació:</th>\r\n<td>[[Data de creació]]</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><hr></div>\r\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br>Darrera modificació: ##timemodified##</div>\r\n<script type="text/javascript">// <![CDATA[\r\nload_addthis();\r\n// ]]></script>	<div class="database-entry ##approved##">\r\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\r\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> -&nbsp;[[Data de creació]]</p>\r\n[[Àrea curricular]] -&nbsp;##downloads## descàrregues\r\n<div class="content">[[Descripció]]</div>\r\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form">\r\n    <label>Nom *</label>\r\n    <br>\r\n    [[Nom]]\r\n    <br>\r\n    <span class="help-block">Nom del curs que l'identificarà a la base de dades i al llistat per categories.</span>\r\n    <br>\r\n\r\n    <label>Descripció *</label>\r\n    <br>\r\n    [[Descripció]]\r\n    <br>\r\n    <span class="help-block">Feu una breu descripció de les característiques del curs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades dels cursos.</span>\r\n    <br>\r\n\r\n    <label>Autor/a *</label>\r\n    <br>\r\n    [[Autor/a]]\r\n    <br>\r\n    <span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span>\r\n    <br>\r\n\r\n    <label> Còpia de seguretat del curs *</label>\r\n    <br>\r\n    [[Fitxer]]\r\n    <br>\r\n    <span class="help-block">Mida màxima 20 MB. Consulteu el document\r\n        <a href="http://agora/alexandria/web/mod/resource/view.php?id=9">Característiques dels materials</a> i la PMF\r\n        <a href="http://alexandria.xtec.cat/mod/glossary/view.php?id=10&amp;mode=entry&amp;hook=5" target="_blank">\r\n            Què puc fer si el meu curs supera la mida màxima?</a> per a més informació.</span>\r\n    <br>\r\n\r\n    <label>Nivell educatiu *</label>\r\n    <br>\r\n    [[Nivell educatiu]]\r\n    <br>\r\n    <span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla CTRL.</span>\r\n    <br>\r\n\r\n    <label>Àrea curricular *</label>\r\n    <br>\r\n    [[Àrea curricular]]\r\n    <span class="help-block">Seleccioneu l'opció més escaient.</span>\r\n    <br>\r\n\r\n    <label> Àmbit competencial</label>\r\n    <br>\r\n    [[Àmbit competencial]]\r\n    <span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla CTRL.</span>\r\n    <br>\r\n\r\n    <label>Família professional</label>\r\n    <br>\r\n    [[Família professional]]\r\n    <span class="help-block"> Seleccioneu l'opció més escaient (per a cursos de Cicles Formatius).</span>\r\n    <br>\r\n\r\n    <label>Idioma</label>\r\n    <br>\r\n    [[Idioma]]\r\n    <span class="help-block"> Seleccioneu l'idioma en què estan escrits els continguts del curs.</span>\r\n    <br>\r\n\r\n    <label>Llicència d'ús</label>\r\n    <br>\r\n    [[Llicència]]\r\n    <span class="help-block">La llicència per defecte, si no s'especifica cap altra, és Creative Commons Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank"> text legal</a> )</span>\r\n    <br>\r\n\r\n    <label>Data de creació [[Data de creació]]</label>\r\n    <br>\r\n\r\n    <p>\r\n        <strong>AVÍS</strong>: L'enviament d'aquest formulari porta implícita l'acceptació de les\r\n        <a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank"> condicions d'ús</a> d'aquest espai.\r\n    </p>\r\n    <p>\r\n        <strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong>\r\n    </p>\r\n    <p>\r\n        <strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong>\r\n    </p>\r\n</div>	<p><span style="line-height: 1.231;">[[Descripció]]</span><span style="line-height: 1.231;"><br></span></p>		.defaulttemplate{text-align:left;}\r\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\r\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\r\ndiv.author a{color:white}\r\n	function load_addthis() {\r\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\r\n}	<div class="defaulttemplate">\r\n<table class="table table-striped" cellpadding="5">\r\n<tbody>\r\n<tr><th valign="top">Nom del curs:</th>\r\n<td>[[Nom]]</td>\r\n</tr>\r\n<tr><th valign="top">Nivell educatiu:</th>\r\n<td>[[Nivell educatiu]]</td>\r\n</tr>\r\n<tr><th valign="top">Àrea curricular:</th>\r\n<td>[[Àrea curricular]]</td>\r\n</tr>\r\n<tr><th valign="top">Àmbit competencial:</th>\r\n<td>[[Àmbit competencial]]</td>\r\n</tr>\r\n<tr><th valign="top">Família professional:</th>\r\n<td>[[Família professional]]</td>\r\n</tr>\r\n<tr><th valign="top">Descripció:</th>\r\n<td>[[Descripció]]</td>\r\n</tr>\r\n<tr><th valign="top">Autor/a:</th>\r\n<td>[[Autor/a]]</td></tr></tbody></table><br></div>	1	1	100	0	0	0	0	0	0	0	1590567208	\N	0
+2	1	Biblioteca de materials per a les PDI	<p>Aquesta és la base de dades de materials per a les pissarres digitals interactives (<span class="nolink">PDI</span>).</p>\r\n<ul>\r\n<li>Hi podeu aportar <b>fitxers amb el material en formats diversos</b> (notebook, xbk...) i d'una mida inferior a 20 MB. --&gt; <span class="glossary autolink glossaryid1">Com pujar materials per a PDI.</span></li>\r\n<li>La <b>imatge adjunta</b> ha d'estar en format gif, jpg o png (no adjunteu imatges en format bmp).</li>\r\n<li>Per tal que el material es pugui <b>previsualitzar</b> heu d'adjuntar un fitxer en <span class="nolink">PDF</span> (inferior a 10 MB).</li>\r\n</ul>\r\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=9">Característiques dels materials</a>.</p>\r\n<p>Per <b>cercar materials</b> utilitzeu la pestanya "Cerca". També podeu ordenar-los per data de creació, autor/a, títol, nivell educatiu i altres dades a partir de les opcions de la part inferior de la pàgina.</p>\r\n<hr style="width: 100%; height: 2px;">\r\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\r\n<p></p>\r\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\r\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	0	<div class="database-entry-info">\r\n<h3>[[Nom]]</h3>\r\n<table class="table table-striped" cellpadding="5">\r\n<tbody>\r\n<tr><th>Fitxer:</th>\r\n<td colspan="2">[[Fitxer]]</td>\r\n</tr>\r\n<tr>\r\n<td>URL permanent:</td>\r\n<td colspan="2"><a href="##moreurl##">##moreurl##</a></td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Descripció:</td>\r\n<td>[[Descripció]]</td>\r\n<td rowspan="9">[[Imatge]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Autor/a:</td>\r\n<td>[[Autor/a]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Nivell/s educatiu/s:</td>\r\n<td>[[Nivell educatiu]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Àrea curricular:</td>\r\n<td>[[Àrea curricular]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Àmbit/s competencial/s:</td>\r\n<td>[[Àmbit competencial]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Tipus de fitxer:</td>\r\n<td>[[Tipus de fitxer]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Llicència d'ús</td>\r\n<td>[[Llicència d'ús]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Data de creació:</td>\r\n<td>[[Data de creació]]</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><br><hr></div>\r\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br>Darrera modificació:&nbsp;##timemodified##</div>\r\n<script type="text/javascript">// <![CDATA[\r\nload_addthis();\r\n// ]]></script>	<div class="database-entry ##approved##">\r\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\r\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> -&nbsp;[[Data de creació]]</p>\r\n<p>[[Àrea curricular]] -&nbsp;##downloads## descàrregues</p>\r\n<div class="content" style="float: left; width: 70%; clear: left;">[[Descripció]]</div>\r\n<div style="float: right; width: 25%;">[[Imatge]]</div>\r\n<div class="clearfix">&nbsp;</div>\r\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label>Nom del recurs *</label><br></div><div class="database-entry-form">[[Nom]] <br></div><div class="database-entry-form"><span class="help-block">Nom del recurs que l'identificarà a la base de dades.</span> <label><br></label></div><div class="database-entry-form"><label>Descripció&nbsp;*</label><br></div><div class="database-entry-form">[[Descripció]] <br></div><div class="database-entry-form"><span class="help-block">Feu una breu descripció de les característiques del recurs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades.</span></div><div class="database-entry-form"><span class="help-block"></span> <label>Autor/a *</label></div><div class="database-entry-form"><label></label>[[Autor/a]] <br></div><div class="database-entry-form"><span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <label><br></label></div><div class="database-entry-form"><label>Nivell educatiu *</label><br></div><div class="database-entry-form">[[Nivell educatiu]] <br></div><div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <br></div><div class="database-entry-form"><label>Àrea curricular *</label></div><div class="database-entry-form"><label></label>[[Àrea curricular]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Seleccioneu l'opció més escaient.</span> <label><br></label></div><div class="database-entry-form"><label>Àmbit competencial *</label><br></div><div class="database-entry-form">[[Àmbit competencial]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label><br></label></div><div class="database-entry-form"><label>Fitxer&nbsp;*</label><br></div><div class="database-entry-form">[[Fitxer]] <br></div><div class="database-entry-form"><span class="help-block"><strong>Important</strong>: Mida màxima 20 MB. Consulteu el document&nbsp;<a href="http://alexandria.xtec.cat/mod/resource/view.php?id=9">Característiques dels materials</a>&nbsp;per a més informació.</span> <label><br></label></div><div class="database-entry-form"><label>Tipus de fitxer</label></div><div class="database-entry-form"><label></label>[[Tipus de fitxer]] <br></div><div class="database-entry-form"><span class="help-block">Seleccioneu el tipus de fitxer.</span> <br></div><div class="database-entry-form"><label>PDF *</label><br></div><div class="database-entry-form">[[pdf]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Adjunteu el material en un fitxer en format PDF que permeti previsualitzar-lo. <br><strong>Important</strong>: Mida màxima 10 MB.</span> <br></div><div class="database-entry-form"><label>Imatge *</label><br></div><div class="database-entry-form">[[Imatge]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Adjunteu una imatge representativa del material.</span> <label><br></label></div><div class="database-entry-form"><label>Llicència d'ús&nbsp;*</label></div><div class="database-entry-form"><label></label>[[Llicència d'ús]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">La llicència per defecte, si no s'especifica cap altra, és&nbsp;<em>Creative Commons Reconeixement- No cormercial - Compartir igual</em>&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank">text legal</a>)</span> <label><br></label></div><div class="database-entry-form"><label>Data de creació</label><br></div><div class="database-entry-form">[[Data de creació]]\r\n<p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank">condicions d'ús</a> d'aquest espai.</p>\r\n<p><strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong></p>\r\n<p><strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\r\n</div>	<p>[[Descripció]]</p>		.defaulttemplate{text-align:left;}\r\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\r\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\r\n\r\ntd.firstcol{\r\nwidth: 115px!important;\r\ntext-align: left;\r\nvertical-align:middle;\r\n}\r\n\r\ntd{ vertical-align:top!important;}	function load_addthis() {\r\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\r\n}	<div class="defaulttemplate">\r\n<table class="table table-striped" cellpadding="5">\r\n<tbody>\r\n<tr>\r\n<td>Nom del recurs:</td>\r\n<td>[[Nom]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Nivell educatiu:</td>\r\n<td>[[Nivell educatiu]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Àrea curricular:</td>\r\n<td>[[Àrea curricular]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Àmbit competencial:</td>\r\n<td>[[Àmbit competencial]]</td>\r\n</tr>\r\n<tr>\r\n<td>Autor/a:</td>\r\n<td>[[Autor/a]]</td>\r\n</tr>\r\n<tr>\r\n<td valign="top">Tipus de fitxer:</td>\r\n<td>[[Tipus de fitxer]]</td>\r\n</tr>\r\n</tbody>\r\n</table>\r\n</div>	1	1	100	0	0	0	0	0	0	0	1591633629	\N	0
 \.
 
 
@@ -31082,6 +31087,21 @@ COPY public.mdl_data_fields (id, dataid, type, name, description, required, para
 16	1	menu	Llicència	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\r\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\r\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\r\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\r\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\r\nCreative Commons: Reconeixement (cc-by)			\N	\N	\N	\N	\N	\N	\N
 17	1	multimenu	Idioma	Idioma	0	Català\r\nAranès\r\nCastellà\r\nAnglès\r\nFrancès\r\nItalià\r\nAlemany\r\nPortuguès\r\nAltres			\N	\N	\N	\N	\N	\N	\N
 18	1	menu	Família professional	Família professional	0	Activitats físiques i esportives\r\nAdministració i gestió\r\nAgrària\r\nArts i artesanies\r\nArts gràfiques\r\nComerç i màrqueting\r\nEdificació i obra civil\r\nElectricitat i electrònica\r\nEnergia i aigua\r\nFabricació mecànica\r\nFusta, moble i suro\r\nHoteleria i turisme\r\nImatge i so\r\nFormació i Orientació Laboral\r\nImatge personal\r\nIndústries alimentàries\r\nIndústries extractives\r\nInformàtica i comunicacions\r\nInstal·lació i manteniment\r\nMarítim pesquera\r\nQuímica\r\nSanitat\r\nSeguretat i medi ambient\r\nServeis socioculturals i a la comunitat\r\nTèxtil, confecció i pell\r\nTransport i manteniment de vehicles\r\nVidre i ceràmica			\N	\N	\N	\N	\N	\N	\N
+19	2	text	Nom	Nom	1										
+20	2	text	Nom curt	Nom curt	0				\N	\N	\N	\N	\N	\N	\N
+21	2	text	Autor/a	Autor/a	1				\N	\N	\N	\N	\N	\N	\N
+22	2	multimenu	Nivell educatiu	Nivell educatiu	1	Educació Infantil\r\nCI Primària\r\nCM Primària\r\nCS Primària\r\nESO\r\nBatxillerat\r\nEducació especial\r\nCFGM\r\nCFGS\r\nFormació de persones adultes\r\nFormació permanent\r\nAltres			\N	\N	\N	\N	\N	\N	\N
+23	2	menu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\r\nCS-Ciències socials\r\nCC-Cultura clàssica\r\nEF-Educació física\r\nEC-Educació per a la ciutadania\r\nFI-Filosofia\r\nRE-Història i cultura de les religions\r\nLA-Llengua aranesa a la Val d'Aran\r\nLS-Llengua castellana i literatura\r\nLC-Llengua catalana i literatura\r\nLE-Llengües estrangeres\r\nMA-Matemàtiques\r\nMU-Música\r\nTE-Tecnologies\r\nTU-Tutoria\r\nEV-Visual i plàstica\r\nIN-Interdisciplinar\r\nAL-Altres			\N	\N	\N	\N	\N	\N	\N
+24	2	multimenu	Àmbit competencial	Àmbit competencial	1	Comunicativa, lingüística i audiovisual\r\nArtística i cultural\r\nGestió i tractament de la informació digital\r\nMatemàtica\r\nAprendre a aprendre\r\nAutonomia i iniciativa personal \r\nConeixement i la interacció amb el món\r\nSocial i ciutadana			\N	\N	\N	\N	\N	\N	\N
+25	2	textarea	Descripció	Descripció	1		60	20	1	0	\N	\N	\N	\N	\N
+26	2	file	Fitxer	Fitxer	1			20971520	4	\N	\N	\N	\N	\N	\N
+27	2	menu	Llicència d'ús	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\r\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\r\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\r\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\r\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\r\nCreative Commons: Reconeixement (cc-by)			\N	\N	\N	\N	\N	\N	\N
+28	2	multimenu	Idioma	Idioma	0	Català\r\nAranès\r\nCastellà\r\nAnglès\r\nFrancès\r\nItalià\r\nAlemany\r\nPortuguès\r\nAltres			\N	\N	\N	\N	\N	\N	\N
+29	2	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
+30	2	text	Versió del recurs	Versió del recurs	0				\N	\N	\N	\N	\N	\N	\N
+31	2	menu	Tipus de fitxer	Tipus de fitxer	0	PDI Smart: .xbk\r\nPDI Smart: .notebook\r\nPDI Interwrite: .gwb\r\nPDI Mimio: .ink\r\nPDI Promethean: .flp\r\nPDI Promethean: .flipchart\r\nOpenSankore: .ubz\r\nStarboard: .yar\r\nInteractive White Board: .iwb\r\nPresentació: .odp, .ppt...\r\nFormat de video .avi\r\nFormat de vídeo .mpeg\r\nArxiu comprimit: .zip, .rar...			\N	\N	\N	\N	\N	\N	\N
+32	2	picture	Imatge	Captura de pantalla	1	400		2097152	200		\N	\N	\N	\N	\N
+33	2	file	pdf	pdf	1			10485760	1	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -31107,6 +31127,14 @@ COPY public.mdl_editor_atto_autosave (id, elementid, contextid, pagehash, userid
 17	template	1	bf9b3f5ae8a950c61eecb81ab25318854f1da4dd	2		-1	yui_3_17_2_1_1591120587913_45	1591120588
 20	template	1	1df9c60f7bff68530625dee638950d188662d258	2		-1	yui_3_17_2_1_1591120654795_45	1591120655
 21	rsstitletemplate	1	4c2cdc184143cc5b0cd8ed8919a9135bdcf1a3b5	2		-1	yui_3_17_2_1_1591120654795_333	1591120655
+27	listtemplateheader	1	6e51d9169975658db1be2971f94df1705e728dc6	2		-1	yui_3_17_2_1_1591634464396_46	1591634464
+28	template	1	ba154382b87ae5d0fec2155a8d28bbef4758c4d2	2		-1	yui_3_17_2_1_1591634464396_334	1591634464
+29	listtemplatefooter	1	6e51d9169975658db1be2971f94df1705e728dc6	2		-1	yui_3_17_2_1_1591634464396_610	1591634464
+30	template	1	6d8baa305b6474e0cf46c0335826c3dfc8817421	2		-1	yui_3_17_2_1_1591634510684_46	1591634510
+32	template	1	10708fe0637c6eaba4cdac5ff548a3e8fdd99144	2	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td>Nom del recurs:</td>\n<td>[[Nom]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell educatiu:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit competencial:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td>Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Tipus de fitxer:</td>\n<td>[[Tipus de fitxer]]</td>\n</tr>\n</tbody>\n</table>\n</div>	-1	yui_3_17_2_1_1591634555372_46	1591634615
+34	template	1	e5df43ccc63e98eac8ab960689091f9eff74dabb	2		-1	yui_3_17_2_1_1591635324827_46	1591635325
+37	template	1	afbefafd47c1a94174bb66e6ca95e442d58ec07d	2		-1	yui_3_17_2_1_1591635366183_46	1591635366
+38	rsstitletemplate	1	b7ad575ddac350cf81bd4f1c82f6f8cfd22b88d2	2		-1	yui_3_17_2_1_1591635366183_334	1591635366
 \.
 
 
@@ -36724,6 +36752,7 @@ COPY public.mdl_sessions (id, state, sid, userid, sessdata, timecreated, timemod
 4	0	16q8gffhsm437bseg342esdojq	0	\N	1590567051	1590567051	192.168.33.1	192.168.33.1
 5	0	cs44rdqquuf93uknhnbjm3173h	2	\N	1590567097	1590568149	192.168.33.1	192.168.33.1
 7	0	fft022dfbsm5g7jhn706qtbqvi	2	\N	1591119347	1591120712	192.168.33.1	192.168.33.1
+9	0	5kc5fcmn0i7s61c8kj94e1utnr	2	\N	1591633541	1591635429	192.168.33.1	192.168.33.1
 \.
 
 
@@ -38650,7 +38679,7 @@ COPY public.mdl_url (id, course, name, intro, introformat, externalurl, display,
 
 COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, icq, skype, yahoo, aim, msn, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, url, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename) FROM stdin;
 1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0													en	gregorian		99	0	0	0	0			0		This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N
-2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1591120654	1590567097	1591119347	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
+2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1591635396	1591119347	1591633541	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
 \.
 
 
@@ -39254,14 +39283,14 @@ SELECT pg_catalog.setval('public.mdl_block_positions_id_seq', 1, false);
 -- Name: mdl_block_recent_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 1, true);
+SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 2, true);
 
 
 --
 -- Name: mdl_block_recentlyaccesseditems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_recentlyaccesseditems_id_seq', 1, true);
+SELECT pg_catalog.setval('public.mdl_block_recentlyaccesseditems_id_seq', 2, true);
 
 
 --
@@ -39548,7 +39577,7 @@ SELECT pg_catalog.setval('public.mdl_config_plugins_id_seq', 2141, true);
 -- Name: mdl_context_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_context_id_seq', 18, true);
+SELECT pg_catalog.setval('public.mdl_context_id_seq', 19, true);
 
 
 --
@@ -39618,7 +39647,7 @@ SELECT pg_catalog.setval('public.mdl_course_modules_completion_id_seq', 1, false
 -- Name: mdl_course_modules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_course_modules_id_seq', 1, true);
+SELECT pg_catalog.setval('public.mdl_course_modules_id_seq', 2, true);
 
 
 --
@@ -39681,14 +39710,14 @@ SELECT pg_catalog.setval('public.mdl_data_content_id_seq', 1, false);
 -- Name: mdl_data_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_data_fields_id_seq', 18, true);
+SELECT pg_catalog.setval('public.mdl_data_fields_id_seq', 33, true);
 
 
 --
 -- Name: mdl_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_data_id_seq', 1, true);
+SELECT pg_catalog.setval('public.mdl_data_id_seq', 2, true);
 
 
 --
@@ -39702,7 +39731,7 @@ SELECT pg_catalog.setval('public.mdl_data_records_id_seq', 1, false);
 -- Name: mdl_editor_atto_autosave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 21, true);
+SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 38, true);
 
 
 --
@@ -40619,7 +40648,7 @@ SELECT pg_catalog.setval('public.mdl_log_queries_id_seq', 1, false);
 -- Name: mdl_logstore_standard_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1536, true);
+SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1581, true);
 
 
 --
@@ -41879,7 +41908,7 @@ SELECT pg_catalog.setval('public.mdl_search_simpledb_index_id_seq', 1, false);
 -- Name: mdl_sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 7, true);
+SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 9, true);
 
 
 --
