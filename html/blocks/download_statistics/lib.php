@@ -1,7 +1,7 @@
 <?php
 
 function block_download_statistics_fields() {
-    global $CFG,$DB;
+    global $DB;
 
     $sql = "
 	SELECT df.id, df.dataid, df.name  FROM {data_fields} df
@@ -36,7 +36,7 @@ function block_download_statistics_fields() {
         $fields[$i]['id'] = $value->id;
         $fields[$i]['name'] = $value->name;
 
-        $sql = 'SELECT SUM(`content4`) FROM {data_content} WHERE `fieldid`=' . $value->id;
+        $sql = 'SELECT SUM(CAST(content4 AS INTEGER)) FROM {data_content} WHERE fieldid = ' . $value->id;
         if (! $downloads = $DB->get_field_sql($sql)){
             $fields[$i]['downloads'] = 0;
         }else{
