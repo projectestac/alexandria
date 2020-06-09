@@ -25501,7 +25501,7 @@ COPY public.mdl_cache_filters (id, filter, version, md5key, rawtext, timemodifie
 --
 
 COPY public.mdl_cache_flags (id, flagtype, name, timemodified, value, expiry) FROM stdin;
-1	userpreferenceschanged	2	1591633541	1	1591640741
+1	userpreferenceschanged	2	1591686506	1	1591693706
 \.
 
 
@@ -26584,7 +26584,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 122	grade_report_shownumberofgrades	0
 123	grade_report_averagesdisplaytype	inherit
 124	grade_report_rangesdisplaytype	inherit
-24	themerev	1590510590
 5	theme	xtec2020
 25	jsrev	1590510526
 13	filterall	0
@@ -26592,6 +26591,7 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 36	enablewebservices	1
 26	templaterev	1590510526
 125	grade_report_averagesdecimalpoints	inherit
+24	themerev	1591686419
 126	grade_report_rangesdecimalpoints	inherit
 127	grade_report_historyperpage	50
 128	grade_report_overview_showrank	0
@@ -28802,6 +28802,24 @@ COPY public.mdl_config_log (id, userid, timemodified, plugin, name, value, oldva
 1801	2	1590510877	\N	cronclionly	0	1
 1802	2	1590510877	\N	passwordpolicy	0	1
 1803	2	1590511000	\N	defaulthomepage	0	1
+1804	2	1591644487	theme_xtec2020	logo	/logo.png	
+1805	2	1591644487	theme_xtec2020	headerbg	#445d8b	#f4f4f4
+1806	2	1591644487	theme_xtec2020	colorset	personalitzat	grana
+1807	2	1591644487	theme_xtec2020	maincolor	#457FB9	#AC2013
+1808	2	1591644487	theme_xtec2020	fontcolor	#457FB9	#303030
+1809	2	1591644487	theme_xtec2020	linkscolor	#457FB9	#AC2013
+1810	2	1591644487	theme_xtec2020	customcss	#logo-top {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#title-header h1{\r\n display: none;\r\n}	
+1811	2	1591644598	theme_xtec2020	headerbg	#f4f4f4	#445d8b
+1812	2	1591644895	theme_xtec2020	customcss	#logo-top {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header-headings h1{\r\n display: none;\r\n}	#logo-top {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#title-header h1{\r\n display: none;\r\n}
+1813	2	1591644995	theme_xtec2020	customcss	#logo-top {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n.page-header-headings h1{\r\n display: none;\r\n}	#logo-top {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header-headings h1{\r\n display: none;\r\n}
+1814	2	1591646630	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#logo-top {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n.page-header-headings h1{\r\n display: none;\r\n}
+1815	2	1591646812	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center; !important\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#page-header {\r\nbackground-position: left center;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
+1816	2	1591646908	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#page-header {\r\nbackground-position: left center; !important\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
+1817	2	1591647028	theme_xtec2020	headerbg	#ffffff	#f4f4f4
+1818	2	1591647372	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\npadding-right: 20px;\r\npadding-left: 20px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
+1819	2	1591686060	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin: 0 auto;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
+1820	2	1591686126	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin-left: 0px;\r\nmargin-right: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
+1821	2	1591686419	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}	#page-header {\r\nbackground-position: left center !important;\r\nmax-width: 1680px;\r\nmargin-left: 0px;\r\nmargin-right: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
 \.
 
 
@@ -30844,8 +30862,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2116	qtype_wq	quizzeswirisurl	http://www.wiris.net/demo/wiris
 2117	qtype_wq	access_provider_enabled	0
 2118	atto_fontfamily	fontselectlist	Arial=Arial, Helvetica, sans-serif;\r\nTimes=Times New Roman, Times, serif;\r\nCourier=Courier New, Courier, mono;\r\nGeorgia=Georgia, Times New Roman, Times, serif;\r\nVerdana=Verdana, Geneva, sans-serif;\r\nTrebuchet=Trebuchet MS, Helvetica, sans-serif;
-2119	theme_xtec2020	logo	
-2120	theme_xtec2020	headerbg	#f4f4f4
 2121	theme_xtec2020	footnote	
 2122	theme_xtec2020	website	
 2123	theme_xtec2020	email	
@@ -30859,15 +30875,17 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2131	theme_xtec2020	pinterest	
 2132	theme_xtec2020	youtube	
 2133	theme_xtec2020	skype	
-2134	theme_xtec2020	colorset	grana
-2135	theme_xtec2020	maincolor	#AC2013
-2136	theme_xtec2020	fontcolor	#303030
-2137	theme_xtec2020	linkscolor	#AC2013
 2138	theme_xtec2020	fontsize	100
 2139	theme_xtec2020	fontstyle	normal
 2140	theme_xtec2020	importcss	
-2141	theme_xtec2020	customcss	
 1799	enrol_ldap	objectclass	(objectClass=*)
+2119	theme_xtec2020	logo	/logo.png
+2134	theme_xtec2020	colorset	personalitzat
+2135	theme_xtec2020	maincolor	#457FB9
+2136	theme_xtec2020	fontcolor	#457FB9
+2137	theme_xtec2020	linkscolor	#457FB9
+2120	theme_xtec2020	headerbg	#ffffff
+2141	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}
 \.
 
 
@@ -30912,7 +30930,7 @@ COPY public.mdl_context_temp (id, path, depth, locked) FROM stdin;
 --
 
 COPY public.mdl_course (id, category, sortorder, fullname, shortname, idnumber, summary, summaryformat, format, showgrades, newsitems, startdate, enddate, relativedatesmode, marker, maxbytes, legacyfiles, showreports, visible, visibleold, groupmode, groupmodeforce, defaultgroupingid, lang, calendartype, theme, timecreated, timemodified, requested, enablecompletion, completionnotify, cacherev) FROM stdin;
-1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1591639053
+1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1591644803	0	0	0	1591644803
 \.
 
 
@@ -31133,7 +31151,6 @@ COPY public.mdl_data_records (id, userid, groupid, dataid, timecreated, timemodi
 --
 
 COPY public.mdl_editor_atto_autosave (id, elementid, contextid, pagehash, userid, drafttext, draftid, pageinstance, timemodified) FROM stdin;
-3	id_s__summary	1	6c218dfff68b30a998b8733daf1ebd60694348c2	2		-1	yui_3_17_2_1_1590511031193_45	1590511030
 8	listtemplateheader	1	254c5a8371a83dfeb0f257d0a0577f869ef8768a	2		-1	yui_3_17_2_1_1591119513228_45	1591119514
 9	template	1	f82a5b8650c42d2a44df794cbbf89677b048887d	2		-1	yui_3_17_2_1_1591119513228_333	1591119514
 10	listtemplatefooter	1	254c5a8371a83dfeb0f257d0a0577f869ef8768a	2		-1	yui_3_17_2_1_1591119513228_609	1591119514
@@ -31158,6 +31175,9 @@ COPY public.mdl_editor_atto_autosave (id, elementid, contextid, pagehash, userid
 54	template	1	1c4bfc54eabc29379259a4125f28893f4b205ff4	2		-1	yui_3_17_2_1_1591641355209_46	1591641355
 51	template	1	7fa1948951a5c59583b4e5c3d1fd689a1964708e	2	<div class="database-entry-form"><label>Nom del recurs *</label><br></div>\n<div class="database-entry-form">[[Nom]] <br></div>\n<div class="database-entry-form"><span class="help-block">Nom del recurs que l'identificarà a la base de dades.</span> <label><br></label></div>\n<div class="database-entry-form"><label>Descripció&nbsp;*</label></div>\n<div class="database-entry-form">[[Descripció]] <br></div>\n<div class="database-entry-form"><span class="help-block">Feu una breu descripció de les característiques del material, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades.</span> <br></div><div class="database-entry-form"><label>Autor/a *</label></div>\n<div class="database-entry-form">[[Autor/a]] <br></div>\n<div class="database-entry-form"><span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <br></div>\n<div class="database-entry-form"><label>Nivell educatiu *</label></div>\n<div class="database-entry-form">[[Nivell educatiu]] <span class="help-block"><br></span></div>\n<div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span><br></div>\n<div class="database-entry-form"><label>Àrea curricular&nbsp;*</label><br></div>\n<div class="database-entry-form">[[Àrea curricular]] <span class="help-block"><br></span></div>\n<div class="database-entry-form"><span class="help-block">Seleccioneu l'opció més escaient.</span> <br></div>\n<div class="database-entry-form"><label>Àmbit competencial *</label><br></div>\n<div class="database-entry-form">[[Àmbit competencial]] <span class="help-block"><br></span></div>\n<div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span><br></div>\n<div class="database-entry-form"><label>Fitxer *</label></div>\n<div class="database-entry-form">[[Fitxer SCORM]] <span class="help-block"><br></span></div>\n<div class="database-entry-form"><span class="help-block">Mida màxima 20 MB.</span><br></div>\n<div class="database-entry-form"><label>Fitxer font</label><br></div>\n<div class="database-entry-form">[[Fitxer font]] <span class="help-block"><br></span></div>\n<div class="database-entry-form"><span class="help-block">Fitxer editable, per exemple en format .elp d'eXelearning.</span><br></div>\n<div class="database-entry-form"><label><span class="help-block" style="color: rgb(89, 89, 89); display: block; margin-bottom: 10px; font-size: 0.8em; font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; "></span></label><label>Imatge</label><br></div>\n<div class="database-entry-form">[[Imatges]] <span class="help-block"><br></span></div>\n<div class="database-entry-form"><span class="help-block">Adjunteu una imatge representativa del material.</span> <br></div>\n<div class="database-entry-form"><label>Llicència d'ús&nbsp;*</label><br></div>\n<div class="database-entry-form">[[Llicència d'ús]] <br></div>\n<div class="database-entry-form"><span class="help-block">La llicència per defecte, si no s'especifica cap altra, és&nbsp;<em>Creative Commons Reconeixement- No comercial - Compartir igual</em>&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank">text legal</a>)</span>    <label><br></label></div>\n<div class="database-entry-form"><label>Data de creació</label>[[Data de creació]] <label><br></label><label><br></label>\n    <p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank">condicions d'ús</a> d'aquest espai.</p>\n    <p><strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong></p>\n    <p><strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	-1	yui_3_17_2_1_1591641250652_46	1591641311
 55	rsstitletemplate	1	d0266de9588e2460a48b47d8c856e205eefa55ae	2		-1	yui_3_17_2_1_1591641355209_334	1591641355
+59	id_s_theme_xtec2020_footnote	1	24005af4bfe4c1ea9a9ba1a0e885f6cb8a79ac41	2		-1	yui_3_17_2_1_1591644655674_91	1591644656
+61	id_s__summary	1	6c218dfff68b30a998b8733daf1ebd60694348c2	2		-1	yui_3_17_2_1_1591644805176_45	1591644805
+71	id_s_theme_xtec2020_footnote	1	30ddd4c8d2e2b9aef655d5ad521214ce865f7a72	2		-1	yui_3_17_2_1_1591686446083_61	1591686446
 \.
 
 
@@ -32420,6 +32440,47 @@ COPY public.mdl_files (id, contenthash, pathnamehash, contextid, component, file
 3	75c101cb8cb34ea573cd25ac38f8157b1de901b8	68317eab56c67d32aeaee5acf509a0c4aa828b6b	1	assignfeedback_editpdf	stamps	0	/	sad.png	2	966	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
 4	0c5190a24c3943966541401c883eacaa20ca20cb	695a55ff780e61c9e59428aa425430b0d6bde53b	1	assignfeedback_editpdf	stamps	0	/	tick.png	2	1039	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
 5	8c96a486d5801e0f4ab8c411f561f1c687e1f865	373e63af262a9b8466ba8632551520be793c37ff	1	assignfeedback_editpdf	stamps	0	/	cross.png	2	861	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
+6	87793262feb64e380ecaa5ab39f92756b9629afa	50c094f4f09216689a7ecef08c8daebdc7a10cdf	5	user	draft	523555553	/	logo.png	2	5234	image/png	0	O:8:"stdClass":1:{s:6:"source";s:8:"logo.png";}	Administrador Alexandria	allrightsreserved	1591644347	1591644347	0	\N
+7	da39a3ee5e6b4b0d3255bfef95601890afd80709	003825b947affe51f98c4cc6191b93498217e176	5	user	draft	523555553	/	.	2	0	\N	0	\N	\N	\N	1591644347	1591644347	0	\N
+8	64eac2c0349c35b4b30b40b6595f34c9135c8bed	bcd400fff099111f24a8354dee1b4bb69849f89d	1	core	preview	0	/thumb/	87793262feb64e380ecaa5ab39f92756b9629afa	\N	3416	image/png	0	\N	\N	\N	1591644348	1591644348	0	\N
+9	da39a3ee5e6b4b0d3255bfef95601890afd80709	74c104d54c05b5f8c633a36da516d37e6c5279e4	1	core	preview	0	/thumb/	.	\N	0	\N	0	\N	\N	\N	1591644348	1591644348	0	\N
+10	da39a3ee5e6b4b0d3255bfef95601890afd80709	884555719c50529b9df662a38619d04b5b11e25c	1	core	preview	0	/	.	\N	0	\N	0	\N	\N	\N	1591644348	1591644348	0	\N
+11	87793262feb64e380ecaa5ab39f92756b9629afa	8a9d8567919d439775e7a96015ac864bf5fe0f43	1	theme_xtec2020	logo	0	/	logo.png	2	5234	image/png	0	logo.png	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+19	87793262feb64e380ecaa5ab39f92756b9629afa	e9d588ebe1e53c807de6ac243242ee8126fe20e1	5	user	draft	1616091	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+14	da39a3ee5e6b4b0d3255bfef95601890afd80709	987c4b2851d7e6158b476c5381707c5cea159d94	5	user	draft	731805958	/	.	2	0	\N	0	\N	\N	\N	1591644489	1591644489	0	\N
+13	87793262feb64e380ecaa5ab39f92756b9629afa	e54320bc361ba73e0f224eb85ebc97b5feec53b2	5	user	draft	731805958	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+24	da39a3ee5e6b4b0d3255bfef95601890afd80709	a5f276419498a3c592bfb40e639202c6e9957832	5	user	draft	342272398	/	.	2	0	\N	0	\N	\N	\N	1591644896	1591644896	0	\N
+16	da39a3ee5e6b4b0d3255bfef95601890afd80709	3952d8550d0af58eb436100ea140bf6915222a0b	5	user	draft	343189810	/	.	2	0	\N	0	\N	\N	\N	1591644600	1591644600	0	\N
+15	87793262feb64e380ecaa5ab39f92756b9629afa	e4f6e71c3ab3c29f558647ff0188cf6a95810c8b	5	user	draft	343189810	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+18	da39a3ee5e6b4b0d3255bfef95601890afd80709	8a4304cfb2d7011bb719d65059d3e1107a13cdef	5	user	draft	863215403	/	.	2	0	\N	0	\N	\N	\N	1591644654	1591644654	0	\N
+17	87793262feb64e380ecaa5ab39f92756b9629afa	ccd515bda717c87408b265459b83cb8465baaefa	5	user	draft	863215403	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+20	da39a3ee5e6b4b0d3255bfef95601890afd80709	27e51fb7d6c2085a064f661d0463fd84170effa9	5	user	draft	1616091	/	.	2	0	\N	0	\N	\N	\N	1591644711	1591644711	0	\N
+22	da39a3ee5e6b4b0d3255bfef95601890afd80709	b5282c5f86c9d919e6784ea2cb7a9fa22f2b7689	5	user	draft	109001816	/	.	2	0	\N	0	\N	\N	\N	1591644821	1591644821	0	\N
+21	87793262feb64e380ecaa5ab39f92756b9629afa	1010f6119057d5e09a9548e80743646a290248e9	5	user	draft	109001816	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+44	da39a3ee5e6b4b0d3255bfef95601890afd80709	0cc4d4f9388a8b179f9cd21a854f076c3b29bef7	5	user	draft	755403411	/	.	2	0	\N	0	\N	\N	\N	1591686129	1591686129	0	\N
+43	87793262feb64e380ecaa5ab39f92756b9629afa	992033ed99fe1ac6de04ede0b760953b9bce9aef	5	user	draft	755403411	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+23	87793262feb64e380ecaa5ab39f92756b9629afa	ad886e28875d9d8aae06879225109ac05f19c46d	5	user	draft	342272398	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+26	da39a3ee5e6b4b0d3255bfef95601890afd80709	274e912ccdfd2a2a9f40ede1679fb21bcd5634f2	5	user	draft	99351853	/	.	2	0	\N	0	\N	\N	\N	1591644997	1591644997	0	\N
+25	87793262feb64e380ecaa5ab39f92756b9629afa	6522535221be59350b3e29c1ace09da8a8c6388d	5	user	draft	99351853	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+28	da39a3ee5e6b4b0d3255bfef95601890afd80709	a5fdf7559b35aba4c25d3f282ce2c73630fda325	5	user	draft	967650992	/	.	2	0	\N	0	\N	\N	\N	1591646631	1591646631	0	\N
+27	87793262feb64e380ecaa5ab39f92756b9629afa	d73f4a2b7581ed0dfa338b224db1e9418421ad6a	5	user	draft	967650992	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+30	da39a3ee5e6b4b0d3255bfef95601890afd80709	b1cf8bc25859db05a00e05d4df547ed2384490bb	5	user	draft	928592163	/	.	2	0	\N	0	\N	\N	\N	1591646814	1591646814	0	\N
+29	87793262feb64e380ecaa5ab39f92756b9629afa	a43ffcb66b9703d54aee20916529d5a659809b18	5	user	draft	928592163	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+32	da39a3ee5e6b4b0d3255bfef95601890afd80709	4d1ee4b2283204bacc9d316f6c9ab3ef70259fb7	5	user	draft	691468383	/	.	2	0	\N	0	\N	\N	\N	1591646910	1591646910	0	\N
+31	87793262feb64e380ecaa5ab39f92756b9629afa	abc98cde581096f8ed6a4d78fd57c19414b618c5	5	user	draft	691468383	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+34	da39a3ee5e6b4b0d3255bfef95601890afd80709	511f61b12c9b57c4c77917a011c1c8cf75018ffe	5	user	draft	308081772	/	.	2	0	\N	0	\N	\N	\N	1591647030	1591647030	0	\N
+33	87793262feb64e380ecaa5ab39f92756b9629afa	3eebb6ef88b50ac829827e3db88105d594647100	5	user	draft	308081772	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+36	da39a3ee5e6b4b0d3255bfef95601890afd80709	ad7f787bd0f2cc833b811de97cd1f76e08a1ca43	5	user	draft	593930497	/	.	2	0	\N	0	\N	\N	\N	1591647320	1591647320	0	\N
+35	87793262feb64e380ecaa5ab39f92756b9629afa	036c65e28e8be4bf1af6804428a30af22253bed9	5	user	draft	593930497	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+38	da39a3ee5e6b4b0d3255bfef95601890afd80709	079cf303c85339140f18cbb503cdb97bfde3d3c6	5	user	draft	70241863	/	.	2	0	\N	0	\N	\N	\N	1591647374	1591647374	0	\N
+37	87793262feb64e380ecaa5ab39f92756b9629afa	4b384acda105190350720fbd2f78f01b88fac255	5	user	draft	70241863	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+40	da39a3ee5e6b4b0d3255bfef95601890afd80709	d4c81b2f7ef17519e30d267b3e3660c7c68f72d1	5	user	draft	966829498	/	.	2	0	\N	0	\N	\N	\N	1591685844	1591685844	0	\N
+39	87793262feb64e380ecaa5ab39f92756b9629afa	4221a958a524f3104ffba738de464228ec9ae9b6	5	user	draft	966829498	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+42	da39a3ee5e6b4b0d3255bfef95601890afd80709	f039a93fb964b2fc86d8053d36c310d6adfde322	5	user	draft	885156363	/	.	2	0	\N	0	\N	\N	\N	1591686062	1591686062	0	\N
+41	87793262feb64e380ecaa5ab39f92756b9629afa	8dd0413611d1bff45a0ee2536407fc0791963538	5	user	draft	885156363	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
+12	da39a3ee5e6b4b0d3255bfef95601890afd80709	deb323edb8e693a033698a609112b4384a5445c6	1	theme_xtec2020	logo	0	/	.	2	0	\N	0	\N	\N	\N	1591644347	1591686129	0	\N
+46	da39a3ee5e6b4b0d3255bfef95601890afd80709	dabe5051e312a4b99b22eb64c93d1f1dd05badf5	5	user	draft	413515261	/	.	2	0	\N	0	\N	\N	\N	1591686421	1591686421	0	\N
+45	87793262feb64e380ecaa5ab39f92756b9629afa	4a252f7d430c4ee1198a331db617147613546060	5	user	draft	413515261	/	logo.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:8:"logo.png";s:8:"original";s:216:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czo4OiJsb2dvLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1591644347	1591644487	0	\N
 \.
 
 
@@ -36771,11 +36832,7 @@ COPY public.mdl_search_simpledb_index (id, docid, itemid, title, content, contex
 --
 
 COPY public.mdl_sessions (id, state, sid, userid, sessdata, timecreated, timemodified, firstip, lastip) FROM stdin;
-2	0	al3a99tr9mc4l46cjpr85idq8j	2	\N	1590510009	1590511506	192.168.33.1	192.168.33.1
-4	0	16q8gffhsm437bseg342esdojq	0	\N	1590567051	1590567051	192.168.33.1	192.168.33.1
-5	0	cs44rdqquuf93uknhnbjm3173h	2	\N	1590567097	1590568149	192.168.33.1	192.168.33.1
-7	0	fft022dfbsm5g7jhn706qtbqvi	2	\N	1591119347	1591120712	192.168.33.1	192.168.33.1
-9	0	5kc5fcmn0i7s61c8kj94e1utnr	2	\N	1591633541	1591641381	192.168.33.1	192.168.33.1
+13	0	obetvq0bpji92lsi6rns02452l	2	\N	1591685823	1591686501	192.168.33.1	192.168.33.1
 \.
 
 
@@ -38702,7 +38759,7 @@ COPY public.mdl_url (id, course, name, intro, introformat, externalurl, display,
 
 COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, icq, skype, yahoo, aim, msn, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, url, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename) FROM stdin;
 1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0													en	gregorian		99	0	0	0	0			0		This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N
-2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1591641336	1591119347	1591633541	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
+2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1591686501	1591644269	1591685823	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
 \.
 
 
@@ -38778,8 +38835,10 @@ COPY public.mdl_user_preferences (id, userid, name, value) FROM stdin;
 1	2	core_message_migrate_data	1
 3	2	email_bounce_count	1
 4	2	email_send_count	1
-5	2	drawer-open-nav	false
 2	2	auth_manual_passwordupdatetime	1590510953
+6	2	filepicker_recentrepository	4
+7	2	filepicker_recentlicense	allrightsreserved
+5	2	drawer-open-nav	false
 \.
 
 
@@ -39586,7 +39645,7 @@ SELECT pg_catalog.setval('public.mdl_config_id_seq', 527, true);
 -- Name: mdl_config_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_config_log_id_seq', 1803, true);
+SELECT pg_catalog.setval('public.mdl_config_log_id_seq', 1821, true);
 
 
 --
@@ -39754,7 +39813,7 @@ SELECT pg_catalog.setval('public.mdl_data_records_id_seq', 1, false);
 -- Name: mdl_editor_atto_autosave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 55, true);
+SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 71, true);
 
 
 --
@@ -39992,7 +40051,7 @@ SELECT pg_catalog.setval('public.mdl_file_conversion_id_seq', 1, false);
 -- Name: mdl_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_files_id_seq', 5, true);
+SELECT pg_catalog.setval('public.mdl_files_id_seq', 46, true);
 
 
 --
@@ -40671,7 +40730,7 @@ SELECT pg_catalog.setval('public.mdl_log_queries_id_seq', 1, false);
 -- Name: mdl_logstore_standard_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1618, true);
+SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1644, true);
 
 
 --
@@ -41931,7 +41990,7 @@ SELECT pg_catalog.setval('public.mdl_search_simpledb_index_id_seq', 1, false);
 -- Name: mdl_sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 9, true);
+SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 13, true);
 
 
 --
@@ -42288,7 +42347,7 @@ SELECT pg_catalog.setval('public.mdl_user_password_resets_id_seq', 1, false);
 -- Name: mdl_user_preferences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_user_preferences_id_seq', 5, true);
+SELECT pg_catalog.setval('public.mdl_user_preferences_id_seq', 7, true);
 
 
 --
