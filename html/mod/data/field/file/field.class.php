@@ -340,7 +340,6 @@ class data_field_file extends data_field_base {
             $cmid = add_course_module($scorm_object);
             $scorm_object->coursemodule = $cmid;
             $scormcontext = context_module::instance($cmid);
-            $sectionid = course_add_cm_to_section($scorm_object->course, $cmid, 1);
         }
 
         file_save_draft_area_files($value, $this->context->id, 'mod_data', 'content', $content->id);
