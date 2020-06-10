@@ -184,7 +184,7 @@ class data_field_file extends data_field_base {
         if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
             return null;
         }
-//var_dump($file);
+
 // ***** FI
 
         return $file;
@@ -196,8 +196,7 @@ class data_field_file extends data_field_base {
         if (!$content = $DB->get_record('data_content', array('fieldid'=>$this->field->id, 'recordid'=>$recordid))) {
             return '';
         }
-//var_dump($this->field);
-//var_dump($content);
+
         if (empty($content->content)) {
 
 // XTEC - ALEXANDRIA ************ AFEGIT - Disapprove SCORM or PDI if file doesn't exist 
@@ -259,7 +258,7 @@ class data_field_file extends data_field_base {
         if (!empty($this->field->param4)) {
             $preview_str = get_string('preview');
             if ($this->field->param4 == ALEXANDRIA_PDI_PDF) {
-                $url = $CFG->wwwroot.'/local/alexandria/data/download.php?rid='.$recordid.'&fid='.$this->field->id.'&force=false';
+                $url = $CFG->wwwroot . '/local/alexandria/data/download.php?rid=' . $recordid . '&fid=' . $this->field->id . '&cid=' . $this->context->id . '&force=false';
                 $icon = $OUTPUT->pix_icon('t/hide', $preview_str, null, array('id' => 'previewImg', 'title' => $preview_str));
                 $str = '<div id="previewButton">'.$icon.'
                         <a id="show" href="#show" onclick="document.getElementById(\'preview_data\').style.display = \'block\'; document.getElementById(\'previewButton\').style.display = \'none\';">'.get_string('preview_resource','local_alexandria').'</a></div>';
