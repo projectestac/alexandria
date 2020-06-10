@@ -32,9 +32,13 @@ class block_about_course extends block_base {
 
         $this->content = new stdClass();
 
-        $rid = $DB->get_field_sql('SELECT recordid FROM {data_content} WHERE content = '.$COURSE->id.' AND fieldid IN (
-    	  SELECT id FROM {data_fields} WHERE  name = \''.$CFG->data_coursefieldid.'\')');
-    	if (!$rid) return $this->content;
+        $rid = $DB->get_field_sql('
+            SELECT recordid FROM {data_content} WHERE content = \'' . $COURSE->id . '\' AND fieldid IN (
+            SELECT id FROM {data_fields} WHERE name = \'' . $CFG->data_coursefieldid . '\')
+                ');
+        if (!$rid) {
+            return $this->content;
+        }
 
     	$dataid = $DB->get_field('data_records','dataid',array('id' => $rid));
     	$author = $DB->get_field_sql('SELECT content FROM {data_content} WHERE recordid = '.$rid.' AND fieldid IN (
