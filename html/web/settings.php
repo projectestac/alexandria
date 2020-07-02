@@ -18,6 +18,10 @@ $CFG->updateminmaturity = 0;
 $CFG->updatenotifybuilds = false;
 $CFG->slasharguments = true;
 
+$CFG->mnet_dispatcher_mode = false;
+$CFG->mnet_localhost_id = 4;
+$CFG->mnet_all_hosts_id = 2;
+
 //Mail
 $CFG->smtpmaxbulk = 20;
 $CFG->noreplyaddress = 'noreply@agora.xtec.cat';
@@ -39,6 +43,9 @@ $CFG->disablecourseajax = 0;
 $CFG->session_handler_class = '\core\session\file';
 $CFG->session_file_save_path = ini_get('session.save_path');
 $CFG->sessiontimeout=3600;
+
+$CFG->session_handler_class = '\core\session\database';
+$CFG->session_database_acquire_lock_timeout = 120;
 
 // These variable define DEFAULT block variables for new courses
 $CFG->defaultblocks_override = 'about_course';
@@ -66,8 +73,6 @@ $CFG->cachedir = $CFG->dataroot.'/cache';
 $CFG->localcachedir = $CFG->dataroot.'/localcache';
 
 $CFG->timezone = 99; // Changed by default to Server's local time
-
-$CFG->mobilecssurl = $CFG->wwwroot.'/theme/xtec2/mobile/style.php';
 
 
 $CFG->forced_plugin_settings = array('filter_wiris' => array('uninstall' => 1));
