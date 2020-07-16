@@ -15,7 +15,7 @@ require_once('datalib.php');
 
 $recordid = required_param('rid', PARAM_INT);
 $fieldid = required_param('fid', PARAM_INT);
-$contextid = required_param('cid', PARAM_INT);
+$contextid = optional_param('cid', 0, PARAM_INT);
 $forcedownload = optional_param('force', true, PARAM_BOOL);
 
 alexandria_download_file($recordid, $fieldid, $contextid, $forcedownload);

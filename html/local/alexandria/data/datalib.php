@@ -73,7 +73,7 @@ function alexandria_download_file($recordid, $fieldid, $contextid, $forcedownloa
  * @throws coding_exception
  * @throws dml_exception
  */
-function alexandria_get_file($recordid, $fieldid, $contextid) {
+function alexandria_get_file($recordid, $fieldid, $contextid = 0) {
     global $CFG, $DB;
     require_once($CFG->libdir . '/filelib.php');
 
@@ -87,6 +87,11 @@ function alexandria_get_file($recordid, $fieldid, $contextid) {
         $fs = get_file_storage();
 
         if ($field->param4 == ALEXANDRIA_COURSE_BACKUP) {
+            if (intval($contextid) == 0) {
+                $cm = get_coursemodule_from_instance('data', $dataid);
+                $context = context_module::instance($cm->id);
+                $contextid = $context->id;
+            }
             $files = $fs->get_area_files($contextid, 'mod_data', 'content', $data_content_id, 'timecreated DESC');
             foreach ($files as $file) {
                 if (!$file->is_directory()) {
@@ -106,7 +111,6 @@ function alexandria_get_file($recordid, $fieldid, $contextid) {
 
     return null;
 }
-
 /**
  * @param $courseid
  * @return stored_file|null
