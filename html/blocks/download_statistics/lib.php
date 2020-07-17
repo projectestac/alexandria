@@ -84,7 +84,7 @@ function get_data_records($limitfrom = 0,$limitnum = 0,$order = null, $direction
 	$sql .= ') '.$direction;
 
 	if (!empty($limitnum))
-		$sql .= ' LIMIT '.$limitfrom.','.$limitnum;
+		$sql .= " LIMIT $limitnum OFFSET $limitfrom ";
 
 	$records = $DB->get_records_sql($sql);
 
