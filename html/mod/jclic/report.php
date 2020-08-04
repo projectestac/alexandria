@@ -39,7 +39,7 @@ if ($id) {
     $course     = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
     $jclic      = $DB->get_record('jclic', array('id' => $cm->instance), '*', MUST_EXIST);
 } else {
-    error('You must specify a course_module ID or an instance ID');
+    print_error('You must specify a course_module ID or an instance ID');
 }
 
 require_login($course, true, $cm);
@@ -241,12 +241,19 @@ if (!empty($users)) {
             $rowclass = ($numsessions > 0) ? 'summary-row' : "";
             $table->add_data($row, $rowclass);
         }
+        $table->pagesize($perpage, $countusers);
+        $table->print_html();  // Print the whole table
+        if (!$countusers) {
+            echo $OUTPUT->notification(get_string('msg_nosessions', 'jclic'), 'notifymessage');
+        }
+        /*
         if ($countusers) {
             $table->pagesize($perpage, $countusers);
             $table->print_html();  // Print the whole table
         } else {
             echo $OUTPUT->notification(get_string('msg_nosessions', 'jclic'), 'notifymessage');
         }
+        */
     }
 } else {
     echo $OUTPUT->notification(get_string('msg_nosessions', 'jclic'), 'notifymessage');

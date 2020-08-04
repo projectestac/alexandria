@@ -22,6 +22,8 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+defined('MOODLE_INTERNAL') || die();
+
 $addons = array(
     "mod_choicegroup" => array(
         "handlers" => array( // Different places where the add-on will display content.
@@ -33,6 +35,7 @@ $addons = array(
                 ),
                 'delegate' => 'CoreCourseModuleDelegate', // Delegate (where to display the link to the add-on)
                 'method' => 'mobile_course_view', // Main function in \mod_choicegroup\output\mobile
+                'init' => 'mobile_init',
                 'offlinefunctions' => array(
                     'mobile_course_view' => array(),
                 ), // Function needs caching for offline.
@@ -40,6 +43,7 @@ $addons = array(
                     'url' => $CFG->wwwroot . '/mod/choicegroup/styles_app.css',
                     'version' => '0.2'
                 ),
+                'displayrefresh' => false, // Hide default refresh button, a custom one will be used.
             )
         ),
         'lang' => array(
@@ -48,6 +52,7 @@ $addons = array(
             array('choicegroupsaved', 'choicegroup'),
             array('members/', 'choicegroup'),
             array('members/max', 'choicegroup'),
+            array('modulename', 'choicegroup'),
             array('pluginname', 'choicegroup'),
             array('removemychoicegroup', 'choicegroup'),
             array('savemychoicegroup', 'choicegroup')

@@ -47,7 +47,87 @@ class filter_wiris_mathjax extends moodle_text_filter {
     }
 
     public function filter($text, array $options = array()) {
+        $n0 = mb_stripos($text, '«math');
+        $n1 = mb_stripos($text, '&laquo;math');
 
+        if ($n0 === false && $n1 === false) {
+            $n2 = mb_stripos($text, '<math');
+
+            if ($n2 === false) {
+                // Nothing to do.
+                return $text;
+            } else {
+                $n3 = mb_strpos($text, '<semantics>');
+                if ($n3 === false) {
+                    return $text;
+                } else {
+                    return $this->fix_semantics($text);
+                }
+            }
+        }
+
+        $text = $this->replace_safe_mathml($text, "«math", "«/math»");
+        $return = $this->replace_safe_mathml($text, "&laquo;math", '&laquo;/math&raquo;');
+        $return = $this->fix_semantics($return);
+        return $return;
+    }
+
+
+    // We replace only the first occurrence because otherwise replacing construction-placeholder-1 would also
+    // replace the construction-placeholder-10. By replacing only the first occurence we avoid this problem.
+    private function replace_first_occurrence($haystack, $needle, $replace) {
+        $pos = strpos($haystack, $needle);
+        if ($pos !== false) {
+            $newstring = substr_replace($haystack, $replace, $pos, strlen($needle));
+            return $newstring;
+        }
+
+        return $haystack;
+    }
+
+    private function fix_semantics($text) {
+        // Add <mrow> tags after the <semantics> tag in LaTeX-annotated MathML to make it standard MathML.
+        $semanticposition = strpos($text, "<semantics>", 0);
+
+        while ($semanticposition !== false) {
+            $semanticposition += strlen("<semantics>");
+            $annotationposition = strpos($text, "<annotation", $semanticposition);
+
+            if ($annotationposition !== false) {
+                $text = substr_replace(substr_replace($text, "</mrow>", $annotationposition, 0),
+                 "<mrow>", $semanticposition, 0);
+                $semanticposition = strpos($text, "<semantics>", $annotationposition + strlen("<mrow></mrow>"));
+            } else {
+                break;
+            }
+        }
+        return $text;
+
+    }
+
+    private function get_substrings($text, $start, $end) {
+        $subs = array();
+        $position = strpos($text, $start, 0);
+        $i = 0;
+
+        while ($position !== false) {
+            $endposition = strpos($text, $end, $position);
+            $endposition += strlen($end);
+            $sub = substr($text, $position, $endposition - $position);
+            $subs[$i] = $sub;
+
+            $i++;
+            if ($endposition === false || $endposition < $position) {
+                // This should not happen.
+                break;
+            }
+
+            $position = strpos($text, $start, $endposition);
+        }
+        return $subs;
+    }
+
+    private function filter_safe_mathml($text) {
         $safexmlentities = [
             'tagOpener' => '&laquo;',
             'tagCloser' => '&raquo;',
@@ -77,43 +157,21 @@ class filter_wiris_mathjax extends moodle_text_filter {
         $text = implode($safexml['tagCloser'], explode($safexmlentities['tagCloser'], $text));
         $text = implode($safexml['doubleQuote'], explode($safexmlentities['doubleQuote'], $text));
         $text = implode($safexml['realDoubleQuote'], explode($safexmlentities['realDoubleQuote'], $text));
-
         // Replace safe XML characters with actual XML characters.
         $text = implode($xml['tagOpener'], explode($safexml['tagOpener'], $text));
         $text = implode($xml['tagCloser'], explode($safexml['tagCloser'], $text));
         $text = implode($xml['doubleQuote'], explode($safexml['doubleQuote'], $text));
         $text = implode($xml['ampersand'], explode($safexml['ampersand'], $text));
         $text = implode($xml['quote'], explode($safexml['quote'], $text));
+        return $text;
+    }
 
-        // We are replacing $ by & when its part of an entity for retrocompatibility.
-        // Now, the standard is replace § by &.
-        $return = '';
-        $currententity = null;
-
-        $array = str_split($text);
-
-        for ($i = 0; $i < count($array); $i++) {
-            $character = $array[$i];
-            if ($currententity === null) {
-                if ($character === '$') {
-                    $currententity = '';
-                } else {
-                    $return .= $character;
-                }
-            } else if ($character === ';') {
-                $return += "&$currententity";
-                $currententity = null;
-            } else if (preg_match("([a-zA-Z0-9#._-] | '-')", $character)) { // Character is part of an entity.
-                $currententity .= $character;
-            } else {
-                $return .= "$$currententity"; // Is not an entity.
-                $currententity = null;
-                $i -= 1; // Parse again the current character.
-            }
+    private function replace_safe_mathml($text, $start, $end) {
+        $smml = $this->get_substrings($text, $start, $end);
+        for ($i = 0; $i < count($smml); $i++) {
+            $text = $this->replace_first_occurrence($text, $smml[$i], $this->filter_safe_mathml($smml[$i]));
         }
-
-        return $return;
-
+        return $text;
     }
 
 }
