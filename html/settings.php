@@ -29,9 +29,14 @@ $CFG->repositorygetfiletimeout = 150;
 $CFG->alternateloginurl='';
 $CFG->mymoodleredirect = false;
 $CFG->enablestats = false;
+$CFG->enableanalytics = false;
 $CFG->themedesignermode = false;
 $CFG->cachejs = true;
 $CFG->slasharguments = true;
+$CFG->themelist = 'xtec2020';
+$CFG->useexternalyui = false;
+$CFG->yuicomboloading = true;
+$CFG->cachetemplates = true;
 //$CFG->loginhttps=0;  /* Database param, to change if there is some problem */
 
 //Authentication
@@ -175,7 +180,7 @@ $CFG->cronclionly = 1; // changed to avoid schools change it
 $CFG->customusermenuitems = "grades,grades|/grade/report/mygrades.php|grades
 messages,message|/message/index.php|message
 badges,badges|/badges/mybadges.php|award
-calendar,calendar|/calendar/view.php|calendar
+calendar,calendar|/calendar/view.php|i/calendar
 preferences,moodle|/user/preferences.php|preferences";
 
 

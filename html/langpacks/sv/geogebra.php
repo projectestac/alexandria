@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'geogebra', language 'sv', branch 'MOODLE_36_STABLE'
+ * Strings for component 'geogebra', language 'sv', branch 'MOODLE_38_STABLE'
  *
  * @package   geogebra
  * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['filetypelocal'] = 'Uppladdad fil';
 $string['save'] = 'Spara';
