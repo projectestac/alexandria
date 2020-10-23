@@ -179,6 +179,9 @@ class data_field_file extends data_field_base {
 
 // XTEC - ALEXANDRIA ************ MODIFICAT - If it's a course, we get the file from automated backups area
 // 2013.11.29 @mespinosa
+        if (!$file = alexandria_get_file($recordid, $this->field->id)) {
+            return null;
+        }
 //************ ORIGINAL
 
         if (!$file = $fs->get_file($this->context->id, 'mod_data', 'content', $content->id, '/', $content->content)) {
