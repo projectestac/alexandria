@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_db', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'auth_db', language 'ar', version '3.8'.
  *
- * @package   auth_db
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     auth_db
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -28,16 +28,16 @@ defined('MOODLE_INTERNAL') || die();
 $string['auth_dbcannotconnect'] = 'تعذر الاتصال بقاعدة البيانات الخارجية.';
 $string['auth_dbcannotreadtable'] = 'تعذرت قراءة الجدول الخارجي.';
 $string['auth_dbcantconnect'] = 'تعذر الاتصال بقاعدة بيانات المصادقة المحددة...';
-$string['auth_dbchangepasswordurl_key'] = 'عنوان تغير كلمة المرور';
+$string['auth_dbchangepasswordurl_key'] = 'رابط تغيير كلمة المرور';
 $string['auth_dbcolumnlist'] = 'الجدول الخارجي يحتوي على الأعمدة الآتية:<br />{$a}';
 $string['auth_dbdebugauthdb'] = 'معالج أخطاء ADOdb';
 $string['auth_dbdebugauthdbhelp'] = 'التحري عن أخطاء اتصال ADOdb بقاعدة البيانات الخارجية - استعمله عند ظهور صفحة فارغة عند تسجيل الدخول. غير مناسب للمواقع الإنتاجية.';
 $string['auth_dbdeleteuser'] = 'تم حذف المستخدم {$a->name} المُعرَّف {$a->id}';
 $string['auth_dbdeleteusererror'] = 'خطأ ما عند حذف المستخدم {$a}';
-$string['auth_dbdescription'] = 'يستخدم هذا الأسلوب جدول بيانات خارجي للتحقق من صحة اسم المستخدم وكلمة المرور. وفي حالة الحسابات الجديدة فقد يتم نسخ المعلومات من الحقول الأخرى أيضا ونقلها إلى نظام Moodle.';
-$string['auth_dbextencoding'] = 'ترميز قاعدة بيانات خارجية';
-$string['auth_dbextencodinghelp'] = 'الترميز المستخدم في قاعدة بيانات خارجية';
-$string['auth_dbextrafields'] = 'هذه الحقول اختيارية، ويمكنك ملء بعض حقول المستخدم في نظام Moodle  مسبقا بالمعلومات من <b>حقول البيانات الخارجية</b> التي تقوم بتحديدها هنا. <br />إذا تركت هذه الأماكن فارغة فسوف يتم اختيار الأوضاع الافتراضية.<br />وفي كل الأحوال، فسوف يتمكن المستخدم من تعديل كل تلك الحقول بعد الدخول.';
+$string['auth_dbdescription'] = 'يستعمل هذا الأسلوب جدول قاعدة بيانات خارجية للتحقق من صحة اسم المستخدم وكلمة المرور. وفي حالة الحسابات الجديدة فقد يتم نسخ المعلومات من الحقول الأخرى أيضاً ونقلها إلى مودل.';
+$string['auth_dbextencoding'] = 'ترميز قاعدة البيانات الخارجية';
+$string['auth_dbextencodinghelp'] = 'الترميز المستعمل في قاعدة البيانات الخارجية';
+$string['auth_dbextrafields'] = 'هذه الحقول إختيارية، ويمكنك ملء بعض حقول المستخدم في مودل مسبقاً بالمعلومات من <b>حقول البيانات الخارجية</b> التي تحددها هنا. <p> إذا تركت هذه الأماكن فارغة فسيتم استعمال القيم الافتراضية.</p><p>في كل الأحوال، سيتمكن المستخدم من تعديل كل تلك الحقول بعد الدخول.</p>';
 $string['auth_dbfieldpass'] = 'اسم الحقل المشتمل على كلمات المرور';
 $string['auth_dbfieldpass_key'] = 'حقل كلمة المرور';
 $string['auth_dbfielduser'] = 'اسم الحقل المشتمل على أسماء المستخدمين. هذا الحقل ينبغي أن يكون من نوع بيانات varchar.';
@@ -52,7 +52,7 @@ $string['auth_dbname_key'] = 'اسم قاعدة البيانات';
 $string['auth_dbnoexttable'] = 'لم يتم تحديد الجدول الخارجي.';
 $string['auth_dbnouserfield'] = 'لم يتم تحديد حقل المستخدم الخارجي.';
 $string['auth_dbpass'] = 'كلمة المرور المطابقة لاسم المستخدم المذكور';
-$string['auth_dbpass_key'] = 'كلمة مرور';
+$string['auth_dbpass_key'] = 'كلمة المرور';
 $string['auth_dbpasstype'] = '<p>حدد التنسيق المستعمل في حقل كلمة المرور.</p> <p>استعمل \'داخلي\' إذا إردت من قاعدة البيانات الخارجية إدارة اسماء المستخدمين وعناوين بريدهم، ولكن إدارة كلمات المرور يقوم بها مودل. إذا استعملت \'داخلي\'، <i>يجب</i> عليك تقديم حقل مشغول بعناوين البريد الالكتروني في قاعدة البيانات الخارجية، وينبغي عليك تنفيذ المهمتين admin/cron.php و auth/db/cli/sync_users.php بشكل دوري. سيرسل مودل رسالة الكترونية إلى المستخدمين الجدد فيها كلمة مرور مؤقتة.</p>';
 $string['auth_dbpasstype_key'] = 'تنسيق كلمة المرور';
 $string['auth_dbreviveduser'] = 'تمت إعادة المستخدم {$a->name} المُعرَّف {$a->id}';
@@ -66,17 +66,17 @@ $string['auth_dbsybasequoting'] = 'استعمل اقتباسات sybase';
 $string['auth_dbsybasequotinghelp'] = 'نمط Sybase لاستعادة علامة الاقتباس المفردة في النص المرمز - مطلوب من أجل Oracle، MS SQL وبعض قواعد البيانات الأخرى. لا تستعملها مع MySQL!';
 $string['auth_dbsyncuserstask'] = 'مزامنة مهمة المستخدمين';
 $string['auth_dbtable'] = 'اسم الجدول في قاعدة البيانات';
-$string['auth_dbtableempty'] = 'الجدول الخارجي فارغ.';
 $string['auth_dbtable_key'] = 'جدول';
+$string['auth_dbtableempty'] = 'الجدول الخارجي فارغ.';
 $string['auth_dbtype'] = 'نوع قاعدة البيانات (أنظر التوثيقات <a href="http://adodb.org/dokuwiki/doku.php" target="_blank">ADOdb - طبقة تجريد قاعدة البيانات لـ PHP</a> للمزيد من التفاصيل).';
-$string['auth_dbtype_key'] = 'قاعدة بيانات';
+$string['auth_dbtype_key'] = 'قاعدة البيانات';
 $string['auth_dbupdateerror'] = 'وقع خطأ عند تحديث قاعدة البيانات الخارجية.';
 $string['auth_dbupdateusers'] = 'تحديث المستخدمين';
 $string['auth_dbupdateusers_description'] = 'فضلاً عن إدراج مستخدمين جدد، تحديث الموجودين منهم.';
 $string['auth_dbupdatinguser'] = 'يجري تحديث المستخدم {$a->name} المُعرَّف {$a->id}';
 $string['auth_dbuser'] = 'اسم المستخدم مع حق الدخول على قاعدة البيانات للقراءة فقط';
-$string['auth_dbuser_key'] = 'مستخدم قاعدة بيانات';
+$string['auth_dbuser_key'] = 'مستخدم قاعدة البيانات';
 $string['auth_dbuserstoadd'] = 'تم أضافة بيانات المستخدم:{$a}';
-$string['auth_dbuserstoremove'] = 'تم إزالت بيانات  المستخدم:{$a}';
+$string['auth_dbuserstoremove'] = 'تم إزالة بيانات المستخدم:{$a}';
 $string['pluginname'] = 'قاعدة البيانات الخارجية';
 $string['privacy:metadata'] = 'إن ملحق مصادقة قاعدة البيانات الخارجية لا يخزن أي بيانات شخصية.';

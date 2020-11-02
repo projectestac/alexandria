@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,18 +12,20 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'en', branch 'MOODLE_38_STABLE'
+ * Strings for component 'error', language 'en', version '3.8'.
  *
- * @package   error
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     error
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['TODO'] = 'TODO';
 $string['activityisscheduledfordeletion'] = 'Activity deletion in progress...';
 $string['agedigitalconsentmapinvalidage'] = '"{$a}" is not a valid value for age.';
 $string['agedigitalconsentmapinvalidcomma'] = '"{$a}" has more or less than one comma separator.';
@@ -241,6 +242,7 @@ $string['duplicateusername'] = 'Duplicate username - skipping record';
 $string['emailfail'] = 'Emailing failed';
 $string['enddatebeforestartdate'] = 'The course end date must be after the start date.';
 $string['error'] = 'Error occurred';
+$string['error_question_answers_missing_in_db'] = 'Failed to find an answer matching "{$a->answer}" in the question_answers database table. This occurred while restoring the question with id {$a->filequestionid} in the backup file, which has been matched to the existing question with id {$a->dbquestionid} in the database.';
 $string['errorcleaningdirectory'] = 'Error cleaning directory "{$a}"';
 $string['errorcopyingfiles'] = 'Error copying files';
 $string['errorcreatingdirectory'] = 'Error creating directory "{$a}"';
@@ -251,7 +253,6 @@ $string['erroronline'] = 'Error on line {$a}';
 $string['erroroutput'] = 'Error output, so disabling automatic redirect.';
 $string['errorparsingxml'] = 'Error parsing XML: {$a->errorstring} at line {$a->errorline}, char {$a->errorchar}';
 $string['errorprocessingarchive'] = 'Error processing archive file';
-$string['error_question_answers_missing_in_db'] = 'Failed to find an answer matching "{$a->answer}" in the question_answers database table. This occurred while restoring the question with id {$a->filequestionid} in the backup file, which has been matched to the existing question with id {$a->dbquestionid} in the database.';
 $string['errorreadingfile'] = 'Error reading file "{$a}"';
 $string['errorsavingrequest'] = 'An error occurred when trying to save your request.';
 $string['errorsettinguserpref'] = 'Error setting user preference';
@@ -320,6 +321,7 @@ $string['invalidcommentparam'] = 'Invalid comment parameters';
 $string['invalidcomponent'] = 'Invalid component name';
 $string['invalidconfirmdata'] = 'Invalid confirmation data';
 $string['invalidcontext'] = 'Invalid context';
+$string['invalidcountrycode'] = 'Invalid country code: {$a}';
 $string['invalidcourse'] = 'Invalid course';
 $string['invalidcourseformat'] = 'Invalid course format';
 $string['invalidcourseid'] = 'You are trying to use an invalid course ID';
@@ -342,6 +344,7 @@ $string['invalidgroupid'] = 'Incorrect group ID specified';
 $string['invalidipformat'] = 'Invalid IP address format';
 $string['invaliditemid'] = 'Incorrect item ID';
 $string['invalidkey'] = 'Incorrect key';
+$string['invalidlanguagecode'] = 'Invalid language code: {$a}';
 $string['invalidlegacy'] = 'Incorrect legacy role definition for type: {$a}';
 $string['invalidmd5'] = 'The check variable was wrong - try again';
 $string['invalidmode'] = 'Invalid mode ({$a})';
@@ -349,7 +352,7 @@ $string['invalidmodule'] = 'Invalid module';
 $string['invalidmoduleid'] = 'Invalid module ID: {$a}';
 $string['invalidmodulename'] = 'Invalid module name: {$a}';
 $string['invalidnum'] = 'Invalid numeric value';
-$string['invalidnumkey'] = '$conditions array may not contain numeric keys, please fix the code!';
+$string['invalidnumkey'] = 'The array $conditions may not contain numeric keys. Please fix the code!';
 $string['invalidoutcome'] = 'Incorrect outcome ID';
 $string['invalidpagesize'] = 'Invalid page size';
 $string['invalidpasswordpolicy'] = 'Invalid password policy';
@@ -391,12 +394,13 @@ $string['loginasnoenrol'] = 'You cannot use enrol or unenrol when in course "Log
 $string['loginasonecourse'] = 'You cannot enter this course.<br /> You have to terminate the "Login as" session before entering any other course.';
 $string['maxareabytes'] = 'The file is larger than the space remaining in this area.';
 $string['maxbytesfile'] = 'The file {$a->file} is too large. The maximum size you can upload is {$a->size}.';
+$string['messageundeliveredbynotificationsettings'] = 'The message could not be sent because personal messages between users (in Notification settings) has been disabled by a site administrator.';
 $string['messagingdisable'] = 'Messaging is disabled on this site';
 $string['mimetexisnotexist'] = 'Your system is not configured to run mimeTeX. You need to obtain the C source from <a href="https://www.forkosh.com/mimetex.zip">https://www.forkosh.com/mimetex.zip</a>, compile it and put the executable into your moodle/filter/tex/ directory.';
 $string['mimetexnotexecutable'] = 'Custom mimetex is not executable!';
+$string['missing_moodle_backup_xml_file'] = 'Backup is missing XML file: {$a}';
 $string['missingfield'] = 'Field "{$a}" is missing';
 $string['missingkeyinsql'] = 'ERROR: missing param "{$a}" in query';
-$string['missing_moodle_backup_xml_file'] = 'Backup is missing XML file: {$a}';
 $string['missingparam'] = 'A required parameter ({$a}) was missing';
 $string['missingparameter'] = 'Parameter missing';
 $string['missingrequiredfield'] = 'Some required field is missing';
@@ -492,9 +496,9 @@ $string['remotedownloadnotallowed'] = 'Download of components to your server isn
 $string['reportnotavailable'] = 'This type of report is only available for the site course';
 $string['requirecorrectaccess'] = 'Invalid url or port.';
 $string['requireloginerror'] = 'Course or activity not accessible.';
-$string['restorechecksumfailed'] = 'Some problem happened with the restore information stored in your session. Please check your PHP memory/DB package size limits. Restore stopped.';
 $string['restore_path_element_missingmethod'] = 'Restore method {$a} is missing. It must be defined by a developer.';
 $string['restore_path_element_noobject'] = 'Restore object {$a} is not an object.';
+$string['restorechecksumfailed'] = 'Some problem happened with the restore information stored in your session. Please check your PHP memory/DB package size limits. Restore stopped.';
 $string['restrictedcontextexception'] = 'Sorry, execution of external function violates context restriction.';
 $string['restricteduser'] = 'Sorry, but your current account "{$a}" is restricted from doing that';
 $string['reverseproxyabused'] = 'Reverse proxy enabled, server can not be accessed directly, sorry.<br />Please contact server administrator.';
@@ -534,7 +538,6 @@ $string['tagnotfound'] = 'The specified tag was not found in the database';
 $string['targetdatabasenotempty'] = 'The target database is not empty. Transfer aborted for safety reasons.';
 $string['textconditionsnotallowed'] = 'Comparisons of text column conditions are not allowed. Please use sql_compare_text() in your query.';
 $string['themenotinstall'] = 'This theme is not installed!';
-$string['TODO'] = 'TODO';
 $string['tokengenerationfailed'] = 'Cannot generate a new token.';
 $string['transactionvoid'] = 'Transaction cannot be voided because it has already been voided';
 $string['unenrolerror'] = 'An error occurred while trying to unenrol that person';

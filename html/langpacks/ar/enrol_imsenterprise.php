@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_imsenterprise', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'enrol_imsenterprise', language 'ar', version '3.8'.
  *
- * @package   enrol_imsenterprise
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     enrol_imsenterprise
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -28,10 +28,10 @@ defined('MOODLE_INTERNAL') || die();
 $string['aftersaving...'] = 'بمجرد حفظ إعداداتك، قد ترغب في';
 $string['allowunenrol'] = 'إسمح لبيانات IMS <strong>بإلغاء انضمام</strong> الطلبة/المعلمين';
 $string['allowunenrol_desc'] = 'عند تمكينه، سيكون بالإمكان إلغاء الانضمامات في المساقات بناءً على بيانات المؤسسة';
-$string['basicsettings'] = 'الأعدادات الأساسية';
+$string['basicsettings'] = 'الإعدادات الأساسية';
 $string['categoryidnumber'] = 'إسمح  بالرمز التعريفي للتصنيف';
 $string['categoryidnumber_desc'] = 'عند تمكينه، سيقوم IMS المؤسسة بإنشاء التصنيف بالرمز التعريفي';
-$string['categoryseparator'] = 'فاصلة التصنيف';
+$string['categoryseparator'] = 'فاصل التصنيف';
 $string['categoryseparator_desc'] = 'ومطلوب عند تمكين "مُعرَّف التصنيف". إنه الحرف الفاصل ما بين اسم التصنيف ورمزه التعريفي.';
 $string['coursesettings'] = 'خيارات بيانات مقرر دراسي';
 $string['createnewcategories'] = 'إنشئ تصنيفات جديدة للمساقات (مخفية) إذا تعذر العثور عليها في مودل';
@@ -59,7 +59,7 @@ $string['imsenterprise:config'] = 'تهيئة عينات انضمام مؤسسة
 $string['imsenterprisecrontask'] = 'معالجة ملف الانضمام';
 $string['imsrolesdescription'] = 'مواصفات مؤسسة IMS تتضمن 8 أنواع أدوار مختلفة. لطفاً، إختر كيفية تعيينها في مودل، بما في ذلك احتمالية تجاهل أي منها.';
 $string['location'] = 'موقع الملف';
-$string['logtolocation'] = 'توثيق موضع مخرجات الملف (فارغ ليكون بلا توثيق)';
+$string['logtolocation'] = 'موضع مخرجات ملف الوقوعات (فارغ ليكون بلا تسجيل للوقوعات)';
 $string['mailadmins'] = 'احط المدير عبر البريد الإلكتروني';
 $string['mailusers'] = 'احط المستخدم عبر البريد الإلكتروني';
 $string['messageprovider:imsenterprise_enrolment'] = 'رسائل انضمام مؤسسة IMS';
@@ -69,7 +69,7 @@ $string['nestedcategories_desc'] = 'عند تمكينه، سيقوم ملف مؤ
 $string['pluginname'] = 'ملف مؤسسة IMS';
 $string['pluginname_desc'] = 'هذه الطريقة ستقوم بالتحقق دورياً من ملف نصي ذي صيغة خاصة في الموضع الذي تحدده وتقوم بمعالجته. ينبغي أن يراعي الملف مواصفات مؤسسة IMS متضمناً عناصر XML للأشخاص، المجموعات، والعضوية .';
 $string['privacy:metadata'] = 'إن ملحق انضمام مؤسسة IMS لا يخزن أي بيانات شخصية.';
-$string['processphoto'] = 'اضف بيانات صورة المستحدم للمحة الشخصية';
+$string['processphoto'] = 'أضف بيانات صورة المستخدم للملف الشخصي';
 $string['processphotowarning'] = 'تحذير: من المرجح أن تؤدي معالجة الصور إلى تعريض المخدم إلى حمل عالٍ. من الموصى به عدم تفعيل هذا الخيار إذا كان متوقعاً معالجة صور عدد كبير من الطلبة.';
 $string['restricttarget'] = 'فقط عالج البيانات إذا تم تحديد المقصد الآتي';
 $string['restricttarget_desc'] = 'ملف بيانات مؤسسة IMS يمكن توظيفه لأهداف متعددة "targets" - أنظمة إدارة تعليم أو أنظمة أخرى مختلفة ضمن المدرسة/الجامعة. من الممكن أن يصار إلى تحديد الوجهة المقصودة من البيانات ضمن ملف مؤسسة IMS عبر تسمية تلك الأنظمة في وسوم <target> المحتواة في وسم <properties>.

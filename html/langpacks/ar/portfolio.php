@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'portfolio', language 'ar', version '3.8'.
  *
- * @package   portfolio
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     portfolio
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -35,11 +35,11 @@ $string['alreadyexporting'] = 'لديك سلفاً محفظة تصدير نشط�
 $string['availableformats'] = 'تنسيقات التصدير المتوفرة';
 $string['callbackclassinvalid'] = 'طبقة رد النداء المحددة غير صالحة أو ليست جزءا من التسلسل الهرمي portfolio_caller';
 $string['callercouldnotpackage'] = 'فشل لحزم البيانات احتياطيا للتصدير: كان الخطأ الأصلي {$a}';
-$string['cannotsetvisible'] = 'لا يمكن تغيير هذا الخيار إلى مرئي - الملحق تم تعطيله تماماً بسبب الإعدادت الخاطئة.';
+$string['cannotsetvisible'] = 'لا يمكن  تغيير هذا الخيار إلى مرئي - البرنامج المساعد تم تعطيله تماماً بسبب الإعدادت الخاطئة';
 $string['commonportfoliosettings'] = 'الإعدادات العامة للمحفظة';
 $string['commonsettingsdesc'] = '<p> تعتمد مدة  نقل إذا ما كانت "متوسطة" أو "عالية" على ما إذا كان المستخدم قادر على الانتظار لاستكمال النقل أم لا. </ P> <P> إذا كانت مدة النقل \'معتدل "فستحدث على الفور دون إذن المستخدم ، أما إذا كانت المدة " معتدل "و" عالي "يعني أن المستخدم يُمنح الخيار لكن يتم التحذير من أن الأمر قد يستغرق بعض الوقت. </ P> <P> وبالإضافة إلى ذلك، بعض الإضافات  قد تتجاهل هذا الخيار تماماً، وإجبار جميع عمليات النقل هذه في قائمة الانتظار. </ P>';
 $string['configexport'] = 'تهيئة البيانات التي تم تصديرها';
-$string['configplugin'] = 'تهيئة ملحق الحافظة';
+$string['configplugin'] = 'تهيئة البرنامج المساعد الحافظة';
 $string['configure'] = 'تهيئة';
 $string['confirmcancel'] = 'هل أنت متأكد من رغبتك بإلغاء هذا التصدير؟';
 $string['confirmexport'] = 'الرجاء تأكيد هذا التصدير';
@@ -54,7 +54,7 @@ $string['displayexpiry'] = 'نقل وقت الانتهاء';
 $string['displayinfo'] = 'معلومات التصدير';
 $string['dontwait'] = 'لا تنتظر';
 $string['enabled'] = 'تفعيل المَحَافظ';
-$string['enableddesc'] = 'عند تمكينه، سيُتاح للمستخدمين تصدير المحتوى، مثل منشورات المنتديات وتسليمات المهام إلى المحافظ الخارجية أو صفحات HTML.';
+$string['enableddesc'] = 'عند تمكينه، سيُتاح للمستخدمين تصدير المحتوى، مثل منشورات المنتديات وتسليمات الواجبات إلى المحافظ الخارجية أو صفحات HTML.';
 $string['err_uniquename'] = 'يجب أن يكون اسم المحفظة فريد من نوعه (لكل برنامج مساعد)';
 $string['exportalreadyfinished'] = 'تم اكتمال تصدير المحفظة!';
 $string['exportalreadyfinisheddesc'] = 'تم اكتمال تصدير المحفظة!';
@@ -79,7 +79,7 @@ $string['format_image'] = 'صورة';
 $string['format_leap2a'] = 'تصميم المحفظة هو  Leap2A';
 $string['format_mbkp'] = 'تنسيق الحفظ الاحتياطي لمودل';
 $string['format_pdf'] = 'PDF';
-$string['format_plainhtml'] = 'HTML';
+$string['format_plainhtml'] = 'أتش تي إم إل HTML';
 $string['format_presentation'] = 'عرض';
 $string['format_richhtml'] = 'HTML مع المرفقات';
 $string['format_spreadsheet'] = 'جداول';
@@ -111,7 +111,7 @@ $string['instanceismisconfigured'] = 'عينة ملحق المحفظة مهيأ�
 $string['instancenotdelete'] = 'فشل حذف المحفظة';
 $string['instancenotsaved'] = 'فشل حفظ المحفظة';
 $string['instancesaved'] = 'تم حفظ المحفظة بنجاح';
-$string['intro'] = 'المحتوى الذي أنشأته، مثل تسليمات المهام، منشورات المنتديات، إدخالات المدونات، يمكن تصديرها إلى محفظة أو تنزيلها.<br>
+$string['intro'] = 'المحتوى الذي أنشأته، مثل تسليمات الواجبات، منشورات المنتديات، إدخالات المدونات، يمكن تصديرها إلى محفظة أو تنزيلها.<br>
 اي محفظة لا ترغب باستعمالها يمكن إخفاؤها بحيث لا يتم إدراجها كأحد وجهات تصدير المحتوى.';
 $string['invalidaddformat'] = 'تنسيق إضافة خاطئ موجه إلى portfolio_add_button. ({$a}) ينبغي أن يكون واحداً من PORTFOLIO_ADD_XXX';
 $string['invalidbuttonproperty'] = 'تعذر العثور على الخاصية ({$a} لـ portfolio_button';
@@ -171,16 +171,16 @@ $string['plugincouldnotpackage'] = 'نعذر رزم بياناتك للتصدي�
 $string['pluginismisconfigured'] = 'ملحق المحفظة مهيأ بشكل خاطئ، يجري تجاوزه الآن. الخطأ كان: {$a}';
 $string['portfolio'] = 'محفظة';
 $string['portfolios'] = 'المحافظ';
-$string['privacy:metadata'] = 'نظام المحفظة الفرعي يعمل بمثابة قناة تمرر الطلبات من الملاحق المختلفة إلى ملاحق المحافظ.';
+$string['privacy:metadata'] = 'نظام المحفظة الفرعي يعمل بمثابة قناة تمرر الطلبات من الملاحق المختلفة إلى ملاحق المحافظ';
 $string['privacy:metadata:instance'] = 'مُعرَّف المحفظة';
-$string['privacy:metadata:instancesummary'] = 'يخزن البيانات عن عينات المحافظ وتفضيلاتها.';
+$string['privacy:metadata:instancesummary'] = 'يخزن البيانات عن عينات المحافظ وتفضيلاتها';
 $string['privacy:metadata:name'] = 'اسم التفضيل';
 $string['privacy:metadata:portfolio_log'] = 'سجل توثيق عمليات نقل المحافظ (يُستعمل لتدقيق التكرارات مستقبلاً)';
 $string['privacy:metadata:portfolio_log:caller_class'] = 'اسم الصنف المستعمل لإنشاء النقل';
 $string['privacy:metadata:portfolio_log:caller_component'] = 'اسم المكون المسؤول عن التصدير';
 $string['privacy:metadata:portfolio_log:time'] = 'مدة النقل (في حالة النقل ضمن طابور، هذه هي المدة الفعلية التي استغرقها النقل وليس عندما بدأها المستخدم)';
 $string['privacy:metadata:portfolio_log:userid'] = 'مُعرَّف المستخدم الذي صدَّر المحتوى';
-$string['privacy:metadata:portfolio_tempdata'] = 'يخزن البيانات المؤقتة لتصديرات المحافظ.';
+$string['privacy:metadata:portfolio_tempdata'] = 'يخزن البيانات المؤقتة لتصديرات المحافظ';
 $string['privacy:metadata:portfolio_tempdata:data'] = 'تصدير البيانات';
 $string['privacy:metadata:portfolio_tempdata:expirytime'] = 'وقت انتهاء صلاحية هذا السجل';
 $string['privacy:metadata:portfolio_tempdata:instance'] = 'عينة ملحق المحفظة المستعمل';

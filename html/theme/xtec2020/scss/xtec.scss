@@ -1,8 +1,8 @@
-$maincolor: #ac2013 !default; //color2
+$maincolor: #ff494e !default; //color2
 $colorcontrast: white !default;
-$fontcolor: #303030 !default; //color4
-$linkscolor: #ac2013 !default; //color5
-$headerbg: #f4f4f4 !default;
+$fontcolor: #007377 !default; //color4
+$linkscolor: #910048 !default; //color5
+$headerbg: #f8f8f8 !default;
 $fontsize: 1rem !default;
 $fontfamily: null !default;
 $texttransform: null !default;
@@ -70,6 +70,22 @@ h4 {
     .row {
         min-height: 93px;
     }
+
+    &.odissea {
+        background-image: url('[[pix:theme|top_odissea]]');
+    }
+    
+    &.alexandria {
+        background-image: url('[[pix:theme|top_alexandria]]');
+    }
+    
+    &.eix {
+        background-image: url('[[pix:theme|top_eix]]');
+    }
+
+    &.eoi {
+        background-image: url('[[pix:theme|top_eoi]]');
+    }    
 }
 
 /* Remove duplicated link to messages */
@@ -394,6 +410,7 @@ nav.fixed-top.navbar {
 
     .moodle_footer img {
         width: 95px;
+        margin-top: -8px;
     }
 }
 
@@ -640,4 +657,60 @@ th, td {
     li * {
         padding-left: 0;
     }
+}
+
+/* 1051-2020-0043 */
+ body#page-admin-report-coursequotas-filemanager div#page.container-fluid section#region-main div#results table.generaltable{
+     font-size: 0.8em;
+ }
+
+div#page.container-fluid div#page-content div#filter_sizer div#filter_caption i{
+    margin-right:5px;
+}
+div#page.container-fluid div#page-content div#filter_sizer div#filter_inner input,
+div#page.container-fluid div#page-content div#filter_sizer div#filter_inner select{
+    margin-bottom:5px;
+}
+
+div#page.container-fluid section#region-main ul.nav-tabs li {
+    margin-right: 10px;
+}
+
+div#page.container-fluid section#region-main ul.nav-tabs li.active a {
+    border-radius: 4px 4px 0 0;
+    border: 1px solid #dee2e6;
+    border-bottom:0px;
+    padding: 5px 10px;
+}
+
+.path-local-alexandriaimporter div#page.container-fluid section#region-main div#alexandria_restore
+.row-fluid{
+    padding: 1.0em;
+}
+
+body#page-local-alexandriaimporter-search div#page.container-fluid  div#page-content section#region-main div#alexandria_restore div.tab-content div.row-fluid div.text-right{
+    width: 100%;
+}
+
+body#page-local-alexandriaimporter-search div#page.container-fluid  div#page-content section#region-main div#alexandria_restore div.tab-content .form-search div.simple{
+    margin-left:30%;
+}
+
+body#page-local-alexandriaimporter-search div#page.container-fluid  div#page-content section#region-main div#alexandria_restore div.tab-content .form-search .controls {
+    display:inline;
+}
+
+body#page-local-alexandriaimporter-search div#page.container-fluid  div#page-content section#region-main div#alexandria_restore div.tab-content #accordion .accordion-group .container-fluid {
+    clear:both;
+    border-top: 1px solid #dee2e6;
+    padding-top: 5px;
+}
+
+body#page-local-alexandriaimporter-search div#page.container-fluid  div#page-content section#region-main div#alexandria_restore div.tab-content #accordion .accordion-group .container-fluid div{
+    float:left;
+}
+
+body#page-local-alexandriaimporter-search div#page.container-fluid  div#page-content section#region-main div#alexandria_restore div.tab-content #accordion .accordion-group .container-fluid div.text-right{
+    float:right;
+    padding-bottom:5px;
 }

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'userkey', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'userkey', language 'ar', version '3.8'.
  *
- * @package   userkey
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     userkey
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -36,14 +36,14 @@ $string['keyvaliduntil'] = 'المفتاح صالح حتى';
 $string['keyvaliduntil_help'] = 'إختر تاريخاً إختيارياً والذي بعده سيبطل مفعول المفتاح (موصى به لأمان إضافي).';
 $string['keyvalue'] = 'قيمة المفتاح';
 $string['newuserkey'] = 'مفتاح جديد للمستخدم';
-$string['privacy:metadata:user_private_key'] = 'المفاتيح الشخصية للمستخدم.';
-$string['privacy:metadata:user_private_key:instance'] = 'عينة النص.';
-$string['privacy:metadata:user_private_key:iprestriction'] = 'مجال عناوين IP الذي يمكن استعمال هذا المفتاح عبره.';
-$string['privacy:metadata:user_private_key:script'] = 'النص البرمجي المسؤول عن مفتاح المستخدم.';
-$string['privacy:metadata:user_private_key:timecreated'] = 'تاريخ ووقت إنشاء المفتاح.';
-$string['privacy:metadata:user_private_key:userid'] = 'المستخدم المرتبط بالمفتاح.';
+$string['privacy:metadata:user_private_key'] = 'المفاتيح الشخصية للمستخدم';
+$string['privacy:metadata:user_private_key:instance'] = 'عينة النص';
+$string['privacy:metadata:user_private_key:iprestriction'] = 'مجال عناوين IP الذي يمكن استعمال هذا المفتاح عبره';
+$string['privacy:metadata:user_private_key:script'] = 'النص البرمجي المسؤول عن مفتاح المستخدم';
+$string['privacy:metadata:user_private_key:timecreated'] = 'تاريخ ووقت إنشاء المفتاح';
+$string['privacy:metadata:user_private_key:userid'] = 'المستخدم المرتبط بالمفتاح';
 $string['privacy:metadata:user_private_key:validuntil'] = 'التاريخ الذي تستمر فيه صلاحية المفتاح';
-$string['privacy:metadata:user_private_key:value'] = 'قيمة المفتاح.';
+$string['privacy:metadata:user_private_key:value'] = 'قيمة المفتاح';
 $string['userkey'] = 'مفتاح المستخدم';
 $string['userkey_help'] = 'إختر مفتاحاً محفوظاً لمنح المستخدمين إمكانية الوصول إلى البيانات المنشورة بواسطة ملحق التصدير هذا، بدون الحاجة للدخول إلى مودل. إختر "إنشاء مفتاح جديد للمستخدم" لتوليد مفتاح جديد عند تقديم هذا النموذج.';
 $string['userkeys'] = 'مفاتيح المستخدم';

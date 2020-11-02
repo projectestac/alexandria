@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'analytics', language 'nl', branch 'MOODLE_38_STABLE'
+ * Strings for component 'analytics', language 'nl', version '3.8'.
  *
- * @package   analytics
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     analytics
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -96,6 +96,7 @@ $string['modeinstructionfacetoface'] = 'Face-to-face';
 $string['modeinstructionfullyonline'] = 'Volledig online';
 $string['modeloutputdir'] = 'Output-map voor modellen';
 $string['modeloutputdirinfo'] = 'De map waar voorspellingsprocessoren al hun evaluatie-informatie opslaan. Nuttig voor foutopsporing en onderzoek.';
+$string['modeloutputdirwithdefaultinfo'] = 'Directory waar voorspellingsprocessors alle evaluatie-informatie opslaan. Handig voor foutopsporing en onderzoek. Indien leeg, wordt \'<strong> {$ a} </strong>\' als standaard gebruikt.';
 $string['modeltimelimit'] = 'Tijdslimiet analyse per model';
 $string['modeltimelimitinfo'] = 'Deze instelling beperkt de tijd voor ieder model om de inhoud van de site te analyseren.';
 $string['neutral'] = 'Neutrale';

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'analytics', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'analytics', language 'ar', version '3.8'.
  *
- * @package   analytics
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     analytics
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -63,21 +63,21 @@ $string['errornotimesplittings'] = 'هذا النموذج ليس لديه أي �
 $string['errorpredictioncontextnotavailable'] = 'لم يعد سياق التنبؤ هذا متاحاً.';
 $string['errorpredictionformat'] = 'تصميم خاطئ لحسابات التنبؤ';
 $string['errorpredictionnotfound'] = 'التنبؤ غير موجود';
-$string['errorpredictionsprocessor'] = 'خطأ في المعالج التنبؤ:';
-$string['errorpredictwrongformat'] = 'رد معالج التنبؤ لا يمكن فهمه: "{$a}"';
+$string['errorpredictionsprocessor'] = 'خطأ في معالج التنبؤات: {$a}';
+$string['errorpredictwrongformat'] = 'لا يمكن فك شفرة عودة معالج التنبؤات: "{$a}"';
 $string['errorprocessornotready'] = 'معالج التوقعات الذي تم اختياره غير جاهز:{$a}';
 $string['errorsamplenotavailable'] = 'العينة المتوقعة لم تعد متوفرة';
 $string['errorunexistingmodel'] = 'نموذج غير موجود {$a}';
 $string['errorunexistingtimesplitting'] = 'طريقة تقسيم الوقت التي تم اختيارها غير متوفرة.';
 $string['errorunknownaction'] = 'إجراء غير معروف';
-$string['eventinsightsviewed'] = 'أفكار تم مشاهدتها';
+$string['eventinsightsviewed'] = 'رؤى ينظر إليها';
 $string['eventpredictionactionstarted'] = 'بدأت عملية التنبؤ';
-$string['fixedack'] = 'تم الاقرار به';
+$string['fixedack'] = 'اعتراف';
 $string['incorrectlyflagged'] = 'مُعلَّم خطأً';
 $string['insightinfomessageaction'] = '{$a->text}: {$a->url}';
 $string['insightinfomessagehtml'] = 'النظام أنتج بعض الافكار لك: <a href="{$a}">{$a}</a>.';
 $string['insightinfomessageplain'] = 'النظام أنتج بعض الافكار لك: {$a}';
-$string['insightmessagesubject'] = 'أفكار جديدة لِ"{$a->contextname}": {$a->insightname}';
+$string['insightmessagesubject'] = 'رؤية جديدة لـ "{$a}"';
 $string['invalidanalysablefortimesplitting'] = 'لا يمكن تحليلها باستخدام طريقة {$a} تقسيم الوقت.';
 $string['invalidtimesplitting'] = 'يحتاج النموذج الذي يحمل المعرّف {$a} إلى طريقة تقسيم الوقت قبل استخدامه للتدرب.';
 $string['levelinstitution'] = 'مستوى التعليم';
@@ -92,17 +92,18 @@ $string['levelinstitutionisced7'] = 'الماجستير أو ما يعادلها
 $string['levelinstitutionisced8'] = 'الدكتوراه أو ما يعادلها من مستوى';
 $string['modeinstruction'] = 'طرق التدريس';
 $string['modeinstructionblendedhybrid'] = 'المخلوط أو الهجين';
-$string['modeinstructionfacetoface'] = 'وجها لوجه';
+$string['modeinstructionfacetoface'] = 'وجهاً لوجه';
 $string['modeinstructionfullyonline'] = 'على الانترنت بالكامل';
 $string['modeloutputdir'] = 'مجلد تخريج النماذج';
 $string['modeloutputdirinfo'] = 'الدليل حيث تخزن معالجات التنبؤ جميع معلومات التقييم. مفيد للتصحيح والبحوث.';
-$string['modeltimelimit'] = 'الوقت اللأقصى لتحليل كل نموذج';
+$string['modeloutputdirwithdefaultinfo'] = 'المجلد الذي تحفظ فيه معالجات التنبؤ كل بيانات التقييم. مفيد لأغراض تصحيح الأخطاء والبحث. إذا كان خالياً، سيتم استعمال  \'<strong>{$a}</strong>\' بمثابة الافتراضي.';
+$string['modeltimelimit'] = 'الوقت الأقصى لتحليل كل نموذج';
 $string['modeltimelimitinfo'] = 'يحدد هذا الإعداد الوقت الذي يقضيه كل نموذج في تحليل محتويات الموقع.';
 $string['neutral'] = 'طبيعي';
-$string['nocourses'] = 'لا توجد مساقات لتحليلها';
+$string['nocourses'] = 'لا توجد مقررات لتحليل';
 $string['nodata'] = 'لا توجد بيانات لتحليلها';
 $string['noevaluationbasedassumptions'] = 'لا يمكن تقييم النماذج القائمة على الافتراضات.';
-$string['noinsights'] = 'لم يتم الإبلاغ عن أي رؤى';
+$string['noinsights'] = 'لم يبلغ عن الأفكار';
 $string['noinsightsmodel'] = 'هذا النموذج لا يولد افكار';
 $string['nonewdata'] = 'لا توجد بيانات جديدة متاحة';
 $string['nonewranges'] = 'لا توجد تنبؤات جديدة حتى الآن';
@@ -122,7 +123,7 @@ $string['predictionsprocessor_help'] = 'معالج التوقعات هو الخ�
 $string['privacy:metadata:analytics:indicatorcalc'] = 'حسابات المؤشر';
 $string['privacy:metadata:analytics:indicatorcalc:contextid'] = 'السياق';
 $string['privacy:metadata:analytics:indicatorcalc:endtime'] = 'نهاية وقت الحساب';
-$string['privacy:metadata:analytics:indicatorcalc:indicator'] = 'فئة حاسبة المؤشر';
+$string['privacy:metadata:analytics:indicatorcalc:indicator'] = 'درجة آلة حاسبة مؤشر';
 $string['privacy:metadata:analytics:indicatorcalc:sampleid'] = 'الرقم التعريفي للعينة';
 $string['privacy:metadata:analytics:indicatorcalc:sampleorigin'] = 'الجدول الأصلي للعينة';
 $string['privacy:metadata:analytics:indicatorcalc:starttime'] = 'بداية وقت الحساب';

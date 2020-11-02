@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,25 +12,26 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_performance', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'report_performance', language 'ar', version '3.8'.
  *
- * @package   report_performance
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     report_performance
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['check_backup'] = 'الحفظ الاحتياطي';
-$string['check_backup_comment_disable'] = 'قد يتأثر الأداء خلال عملية الحفظ الاحتياطي. عند تمكينه، ينبغي جدولة مهام الحفظ الاحتياطي لتكون خارج أورقات الذروة.';
-$string['check_backup_comment_enable'] = 'قد يتأثر الأداء خلال عملية الحفظ الاحتياطي. ينبغي جدولة مهام الحفظ الاحتياطي لتكون خارج أورقات الذروة.';
+$string['check_backup'] = 'الحفظ الاحتياطي التلقائي';
+$string['check_backup_comment_disable'] = 'قد يتأثر الأداء خلال عملية الحفظ الاحتياطي. عند تمكينه، ينبغي جدولة مهام الحفظ الاحتياطي لتكون خارج أوقات الذروة.';
+$string['check_backup_comment_enable'] = 'قد يتأثر الأداء خلال عملية الحفظ الاحتياطي. ينبغي جدولة مهام الحفظ الاحتياطي لتكون خارج أوقات الذروة.';
 $string['check_backup_details'] = 'تمكين الحفظ الاحتياطي يقوم تلقائياً بإنشاء محفوظات لكل المساقات في المخدم في الوقت الذي تحدده.<p>خلال هذه العملية، سيتم استهلاك المزيد من موارد المخدم مما قد يؤثر على الأداء.</p>';
 $string['check_cachejs_comment_disable'] = 'عند تمكينه، سيتحسن أداء تحميل الصفحات.';
 $string['check_cachejs_comment_enable'] = 'عند تعطيله، قد يكون تحميل الصفحات أبطأ.';
-$string['check_cachejs_details'] = 'استعمال ميزة الخبأ والضغط لـ Javascript يحسن كثيراً من أداء تحميل الصفحات. يوصى به بشدة في المواقع الإنتاجية.';
+$string['check_cachejs_details'] = 'استعمال ميزة الخبء والضغط لـ Javascript يحسن كثيراً من أداء تحميل الصفحات. يوصى به بشدة في المواقع الإنتاجية.';
 $string['check_debugmsg_comment_developer'] = 'إذا تم ضبطه على قيمة مغايرة لـ DEVELOPER، قد يتحسن الأداء قليلاً.';
 $string['check_debugmsg_comment_nodeveloper'] = 'إذا تم ضبطه على DEVELOPER، قد يتأثر الأداء قليلاً.';
 $string['check_debugmsg_details'] = 'نادراً ما تكون هناك فؤائد من الانتقال إلى مستوى المطور، ما لم يتم طلبه من قبل مطور.<p>بمجرد حصولك على رسالة الخطأ ونسخها ولصقها في موضع ما، يوصى بشدة بإعادة وضع الكشف عن الأخطاء إلى لا شيء. رسائل الكشف عن الأخطاء قد تعطي أدلة يستفيد منها المخترق بشأن إعدادات موقعك وقد تؤثر على الأداء.</p>';
@@ -47,8 +47,8 @@ $string['edit'] = 'تحرير';
 $string['enabled'] = 'مُمَكَّن';
 $string['issue'] = 'المشكلة';
 $string['morehelp'] = 'المزيد من المساعدة';
-$string['performancereportdesc'] = 'هذا التقرير يعرض المشاكل التي من شأنها التأثير على الأداء في موقع {$a}';
 $string['performance:view'] = 'معاينة تقرير الأداء';
+$string['performancereportdesc'] = 'هذا التقرير يعرض المشاكل التي من شأنها التأثير على الأداء في موقع {$a}';
 $string['pluginname'] = 'استعراض الأداء';
 $string['privacy:metadata'] = 'إن ملحق استعراض الأداء لا يخزن أي بيانات شخصية.';
 $string['value'] = 'القيمة';

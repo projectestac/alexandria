@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'fr', branch 'MOODLE_38_STABLE'
+ * Strings for component 'repository', language 'fr', version '3.8'.
  *
- * @package   repository
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     repository
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -57,6 +57,7 @@ $string['cannotdownload'] = 'Impossible de télécharger ce fichier';
 $string['cannotdownloaddir'] = 'Impossible de télécharger ce dossier';
 $string['cannotinitplugin'] = 'Échec de l\'initialisation du plugin';
 $string['cannotunzipcontentunreadable'] = 'Impossible de décompresser le fichier, car son contenu ne peut pas être lu.';
+$string['cannotunzipextractfileerror'] = 'Impossible de décompresser cette archive, car un ou plusieurs de ses fichiers sont ne peuvent pas être lus.';
 $string['cannotunzipquotaexceeded'] = 'Impossible de décompresser le fichier, car la taille maximale de la zone de brouillon sera dépassée.';
 $string['choosealink'] = 'Choisir un lien…';
 $string['chooselicense'] = 'Choisir une licence';

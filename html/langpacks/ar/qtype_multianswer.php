@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_multianswer', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'qtype_multianswer', language 'ar', version '3.8'.
  *
- * @package   qtype_multianswer
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     qtype_multianswer
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -42,9 +42,9 @@ $string['nooptionsforsubquestion'] = 'غير قادر على الحصول على
 $string['noquestions'] = 'السؤال أكمل الفراغ (الإجابات المتعددة) "<strong>{$a}</strong>" لا يحتوي على أي سؤال';
 $string['pleaseananswerallparts'] = 'يرجى الإجابة على جميع أجزاء السؤال.';
 $string['pluginname'] = 'الإجابات المضمنة (إكمال الفراغ)';
+$string['pluginname_help'] = 'الإجابات المضمنة (أكمل الفراغ) أسئلة تتكون من تمرير النص مع الأسئلة مثل الإجابة متعددة الخيارات و القصيرة مضمنة داخلها.';
 $string['pluginnameadding'] = 'بإضافة إجابات مضمنة للسؤال (إكمال الفراغ)';
 $string['pluginnameediting'] = 'بتحرير الإجابات المضمنة للسؤال (إكمال الفراغ)';
-$string['pluginname_help'] = 'الإجابات المضمنة (أكمل الفراغ) أسئلة تتكون من تمرير النص مع الأسئلة مثل الإجابة متعددة الخيارات و القصيرة مضمنة داخلها.';
 $string['pluginnamesummary'] = 'أسئلة من هذا النوع هي مرنة للغاية، و لكن يمكن فقط إنشاء طريقة إدخال نصية تحتوي على رموز خاصة .. التي تنشئ مضمنة اختيار من متعدد، و أسئلة الإجابات القصيرة العددية.';
 $string['privacy:metadata'] = 'لا يخزن المكون الإضافي Embedded answers (Cloze) question type  أيّ بيانات شخصية.';
 $string['qtypenotrecognized'] = 'نوع السؤال {$a} غير معروف';

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'webservice', language 'ar', version '3.8'.
  *
- * @package   webservice
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     webservice
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -149,7 +149,7 @@ $string['privacy:metadata:serviceusers:iprestriction'] = 'هناك تقييد ع
 $string['privacy:metadata:serviceusers:timecreated'] = 'تاريخ إنشاء السجل';
 $string['privacy:metadata:serviceusers:userid'] = 'مُعرَّف المستخدم';
 $string['privacy:metadata:serviceusers:validuntil'] = 'التاريخ الذي تستمر إليه المصادقة';
-$string['privacy:metadata:tokens'] = 'سِجل الترميزات للتفاعل مع مودل عبر خدمات الويب أو تطبيقات الجوال.';
+$string['privacy:metadata:tokens'] = 'سِجل الترميزات للتفاعل مع مودل عبر خدمات الويب أو تطبيقات الجوال';
 $string['privacy:metadata:tokens:creatorid'] = 'مُعرَّف المستخدم الذي أنشأ الترميز';
 $string['privacy:metadata:tokens:iprestriction'] = 'هناك تقييد على IP لاستعمال هذا الترميز';
 $string['privacy:metadata:tokens:lastaccess'] = 'تاريخ آخر تعديل في الترميز';
@@ -227,14 +227,14 @@ $string['usersettingssaved'] = 'تم حفظ إعدادات المستخدم';
 $string['validuntil'] = 'صالحة حتى';
 $string['validuntil_help'] = 'عند تأشيره، سيتم إبطال الخدمة بعد هذا التاريخ لهذا المستخدم.';
 $string['webservice'] = 'خدمة الويب';
-$string['webservices'] = 'خدمات الويب';
+$string['webservices'] = 'خدمات الوب';
 $string['webservicesoverview'] = 'نظرة عامة';
 $string['webservicetokens'] = 'ترميزات خدمة الويب';
 $string['wrongusernamepassword'] = 'اسم مستخدم أو كلمة مرور خاطئة';
 $string['wsaccessuserdeleted'] = 'الوصول المرفوض لخدمة ويب لحساب مستخدم محذوف: {$a}';
 $string['wsaccessuserexpired'] = 'الوصول المرفوض لخدمة ويب لحساب مستخدم ذي كلمة مرور منتهية الصلاحية: {$a}';
 $string['wsaccessusernologin'] = 'الوصول المرفوض لخدمة ويب لحساب مستخدم بلا مصادقة دخول: {$a}';
-$string['wsaccessusersuspended'] = 'تم رفض الدخول لخدمة الويب للمستخدم المعلق: {$a}';
+$string['wsaccessusersuspended'] = 'تم رفض الدخول لخدمة الوب للمستخدم المعلق: {$a}';
 $string['wsaccessuserunconfirmed'] = 'الوصول المرفوض لخدمة ويب لحساب مستخدم غير مؤكد: {$a}';
 $string['wsclientdoc'] = 'توثيقات مودل لوكيل خدمة الويب';
 $string['wsdocapi'] = 'توثيقات واجهة برمجة التطبيق';

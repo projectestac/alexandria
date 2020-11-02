@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_oauth2', language 'it', branch 'MOODLE_38_STABLE'
+ * Strings for component 'auth_oauth2', language 'it', version '3.8'.
  *
- * @package   auth_oauth2
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     auth_oauth2
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -67,7 +67,15 @@ $string['emailconfirmlinksent'] = '<p>È stato trovato un account con questo ind
    <p>Una mail dovrebbe essere stata spedita al tuo indirizzo <b>{$a}</b>.</p>
    <p>Contiene istruzioni per collegare i tuoi account.</p>
    <p>Se incontri difficoltà, contatta l\'amministratore del sito.</p>';
-$string['emailpasswordchangeinfosubject'] = '{$a}: Informazioni su cambio password';
+$string['emailpasswordchangeinfo'] = 'Gentile {$a->firstname},
+
+è stata richiesta una nuova password per l\'account \'{$a->username}\' su \'{$a->sitename}\'.
+
+Purtroppo la password non può essere reimpostata perché per autenticati utilizzi un account di un altro sito.
+
+Per favore autenticati come in precedenza utilizzando il collegamento presente nella pagina di autenticazione.
+{$a->admin}';
+$string['emailpasswordchangeinfosubject'] = '{$a}: Informazioni sul cambio password';
 $string['info'] = 'Account esterno';
 $string['issuer'] = 'Servizio OAuth 2';
 $string['issuernologin'] = 'Questo fornitore non può essere utilizzato per autenticarsi.';

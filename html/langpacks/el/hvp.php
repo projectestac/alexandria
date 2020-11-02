@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hvp', language 'el', branch 'MOODLE_38_STABLE'
+ * Strings for component 'hvp', language 'el', version '3.8'.
  *
- * @package   hvp
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     hvp
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -41,7 +41,7 @@ $string['author'] = 'Συγγραφέας';
 $string['authorcomments'] = 'Σχόλια συγγραφέα';
 $string['authorname'] = 'Όνομα συγγραφέα';
 $string['authorrole'] = 'Ρόλος συγγραφέα';
-$string['by'] = 'by';
+$string['by'] = 'από';
 $string['cancellabel'] = 'Άκυρο';
 $string['ccattribution'] = 'Αναφορά Δημιουργού (CC BY)';
 $string['ccattributionnc'] = 'Αναφορά Δημιουργού - Μη Εμπορική Χρήση (CC BY-NC)';
@@ -140,7 +140,7 @@ $string['invalidvideoformat'] = 'Μη έγκυρος μορφότυπος αρχ
 $string['javascriptloading'] = 'Αναμονή για JavaScript...';
 $string['libraries'] = 'Βιβλιοθήκες H5P';
 $string['librarylistactions'] = 'Ενέργειες';
-$string['librarylistinstancedependencies'] = 'Εξαρτήσεις στιγμιότυπου';
+$string['librarylistinstancedependencies'] = 'Εξαρτήσεις στιγμιοτύπου';
 $string['librarylistinstances'] = 'Στιγμιότυπα';
 $string['librarylistlibrarydependencies'] = 'Εξαρτήσεις βιβλιοθήκης';
 $string['librarylisttitle'] = 'Τίτλος';
@@ -153,12 +153,12 @@ $string['licenseCC20'] = '2.0 Γενική';
 $string['licenseCC25'] = '2.5 Γενική';
 $string['licenseCC30'] = '3.0 Unported (χωρίς προσαρμογή στην τοπική νομοθεσία)';
 $string['licenseCC40'] = '4.0 Διεθνής';
-$string['licensee'] = 'Αδειούχος';
-$string['licenseextras'] = 'Επιπρόσθετα άδειας';
 $string['licenseGPL'] = 'Γενική Δημόσια Άδεια';
 $string['licenseV1'] = 'Έκδοση 1';
 $string['licenseV2'] = 'Έκδοση 2';
 $string['licenseV3'] = 'Έκδοση 3';
+$string['licensee'] = 'Αδειούχος';
+$string['licenseextras'] = 'Επιπρόσθετα άδειας';
 $string['licenseversion'] = 'Έκδοση άδειας';
 $string['loadingdata'] = 'Φόρτωση δεδομένων.';
 $string['maximumgrade'] = 'Μέγιστος βαθμός';
@@ -198,7 +198,7 @@ $string['upgradelibrarycontent'] = 'Αναβάθμιση περιεχομένο�
 $string['upgradelibrarymissing'] = 'Σφάλμα: Η βιβλιοθήκη σας λείπει!';
 $string['upgrademessage'] = 'Πρόκειται να αναβαθμίσετε {$a} στιγμιότυπα/-ο περιεχομένου. Παρακαλούμε, επιλέξτε έκδοση αναβάθμισης.';
 $string['upgradenoavailableupgrades'] = 'Δεν υπάρχουν διαθέσιμες αναβαθμίσεις για αυτή τη βιβλιοθήκη.';
-$string['upgradenothingtodo'] = 'Δεν υπάρχει κανένα περιεχόμενο στιγμιότυπου προς αναβάθμιση.';
+$string['upgradenothingtodo'] = 'Δεν υπάρχει κανένα περιεχόμενο στιγμιοτύπου προς αναβάθμιση.';
 $string['upgradereturn'] = 'Επιστροφή';
 $string['upload'] = 'Ανέβασμα';
 $string['uploadlibraries'] = 'Ανέβασμα βιβλιοθηκών';

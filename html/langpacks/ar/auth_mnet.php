@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,23 +12,24 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_mnet', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'auth_mnet', language 'ar', version '3.8'.
  *
- * @package   auth_mnet
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     auth_mnet
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['auth_mnet_auto_add_remote_users'] = 'عندما تختار نعم , سيتم إنشاء سجل مستخدم محلي بشكل تلقائي وذلك عندما يدخل المستخدم البعيد لأول مرة.';
-$string['auth_mnetdescription'] = 'يخول المستخدمين وفقاً لشبكة الثقة المعرفة في إعدادات الشبكة لمودل.';
+$string['auth_mnet_auto_add_remote_users'] = 'عندما ضبطه على نعم، سيتم إنشاء سجل مستخدم محلي بشكل تلقائي عندما يدخل المستخدم البعيد لأول مرة.';
 $string['auth_mnet_roamin'] = 'يمكن لمستخدمي هؤلاء المضيفين التجوال في موقعك';
 $string['auth_mnet_roamout'] = 'بإمكان المستخدمين التجوال عند هؤلاء المضيفين';
 $string['auth_mnet_rpc_negotiation_timeout'] = 'المهلة بالثواني للتخويل وفق بروتوكول النقل (XMLRPC)';
+$string['auth_mnetdescription'] = 'يخول المستخدمين وفقاً لشبكة الثقة المعرفة في إعدادات الشبكة لمودل.';
 $string['auto_add_remote_users'] = 'إضافة تلقائية للمستخدمين البعيدين';
 $string['crontask'] = 'المعالجة الخلفية لمصادقة شبكة مودل';
 $string['pluginname'] = 'مصادقة شبكة مودل';
@@ -97,9 +97,9 @@ $string['privacy:metadata:mnet_session:useragent'] = 'وكيل المستخدم 
 $string['privacy:metadata:mnet_session:userid'] = 'مُعرَّف المستخدم المنتقل إلى النظام البعيد.';
 $string['privacy:metadata:mnet_session:username'] = 'اسم دخول المستخدم المنتقل إلى النظام البعيد.';
 $string['rpc_negotiation_timeout'] = 'مهلة التفاوض لـ (RPC)';
-$string['sso_idp_description'] = 'قم بنشر هذه الخدمة للسماح لمستخدميك بالتجوال في موقع {$a} دون الحاجة إلى إعادة تسجيل الدخول هناك. <ul><li><em>تَبِعة</em>: ينبغي عليك أيضاً <strong>الاشتراك</strong> في SSO (مزود خدمة) للخدمة في {$a}.</li></ul><br />إشترك في هذه الخدمة للسماح للمستخدمين الموثوقين في {$a} للوصول إلى موقعك دون الحاجة إلى إعادة تسجيل الدخول. <ul><li><em>تَبِعة</em>: ينبغي عليك أيضاً  <strong>نشر</strong> خدمة SSO (مزود خدمة) إلى {$a}.</li></ul><br />';
+$string['sso_idp_description'] = 'قم بنشر هذه الخدمة للسماح لمستخدميك بالتجوال في موقع {$a} دون الحاجة إلى إعادة تسجيل الدخول هناك. <ul><li><em>الاعتماد</em>: ينبغي عليك أيضاً <strong>الاشتراك</strong> في SSO (مزود خدمة) للخدمة في {$a}.</li></ul><br />إشترك في هذه الخدمة للسماح للمستخدمين الموثوقين في {$a} للوصول إلى موقعك دون الحاجة إلى إعادة تسجيل الدخول. <ul><li><em>الاعتماد</em>: ينبغي عليك أيضاً  <strong>نشر</strong> خدمة SSO (مزود خدمة) إلى {$a}.</li></ul><br />';
 $string['sso_idp_name'] = 'موفر هوية (SSO)';
 $string['sso_mnet_login_refused'] = 'اسم الدخول {$a->user} غير مسموح له بالدخول من {$a->host}.';
-$string['sso_sp_description'] = 'قم بنشر هذه الخدمة للسماح للمستخدمين الموثوقين في موقع {$a} بالوصول إلى موقعك دون الحاجة إلى إعادة تسجيل الدخول. <ul><li><em>تَبِعة</em>: ينبغي عليك أيضاً <strong>الاشتراك</strong> في SSO (مزود هوية) للخدمة في {$a}.</li></ul><br />إشترك في هذه الخدمة للسماح لمستخدميك بالتجوال في {$a}  دون الحاجة إلى إعادة تسجيل الدخول هناك. <ul><li><em>تَبِعة</em>: ينبغي عليك أيضاً  <strong>نشر</strong> خدمة SSO (مزود هوية) إلى {$a}.</li></ul><br />';
+$string['sso_sp_description'] = 'قم بنشر هذه الخدمة للسماح للمستخدمين الموثوقين في موقع {$a} بالوصول إلى موقعك دون الحاجة إلى إعادة تسجيل الدخول. <ul><li><em>الاعتماد</em>: ينبغي عليك أيضاً <strong>الاشتراك</strong> في SSO (مزود هوية) للخدمة في {$a}.</li></ul><br />إشترك في هذه الخدمة للسماح لمستخدميك بالتجوال في {$a}  دون الحاجة إلى إعادة تسجيل الدخول هناك. <ul><li><em>الاعتماد</em>: ينبغي عليك أيضاً  <strong>نشر</strong> خدمة SSO (مزود هوية) إلى {$a}.</li></ul><br />';
 $string['sso_sp_name'] = 'مزود خدمة (SSO)';
 $string['unknownhost'] = 'مضيف مجهول';

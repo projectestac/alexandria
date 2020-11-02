@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio_boxnet', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'portfolio_boxnet', language 'ar', version '3.8'.
  *
- * @package   portfolio_boxnet
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     portfolio_boxnet
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -41,8 +41,8 @@ $string['notarget'] = 'عليك إما تحديد مجلد موجود أو إن�
 $string['noticket'] = 'تعذر استرجاع التذكرة من Box لبدء جلسة المصادقة';
 $string['password'] = 'كلمة مرورك في Box (لن يتم حفظها)';
 $string['pluginname'] = 'Box';
-$string['privacy:metadata'] = 'هذا الملحق يرسل البيانات خارجياً إلى حساب Box مرتبط. هو لا يخزن البيانات محلياً.';
-$string['privacy:metadata:data'] = 'البيانات الشخصية المُمرَّرة عبر نظام المحفظة الفرعي.';
+$string['privacy:metadata'] = 'هذا الملحق يرسل البيانات خارجياً إلى حساب Box مرتبط. هو لا يخزن البيانات محلياً';
+$string['privacy:metadata:data'] = 'البيانات الشخصية المُمرَّرة عبر نظام المحفظة الفرعي';
 $string['sendfailed'] = 'تعذر إرسال المحتوى إلى Box: {$a}';
 $string['setupinfo'] = 'تعليمات الإعداد';
 $string['setupinfodetails'] = 'للحصول على مُعرَّف الزبون وكلمة السر، سجل دخولك في Box وإذهب إلى <a href="{$a->servicesurl}">صفحة مطوري Box</a>. تابع إلى \'إنشاء تطبيق جديد\' وقم بإنشاء تطبيق جديد لموقع مودل الخاص بك. سيتم عرض مُعرَّف الزبون وكلمة السر ضمن مقطع \'عوامل OAuth2\' لنموذج تحرير التطبيق. إختيارياً، يمكنك تقديم معلومات أخرى عن موقع مودل العائد لك.';

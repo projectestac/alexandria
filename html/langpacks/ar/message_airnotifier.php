@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,21 +12,22 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'message_airnotifier', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'message_airnotifier', language 'ar', version '3.8'.
  *
- * @package   message_airnotifier
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     message_airnotifier
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['airnotifier:managedevice'] = 'إدارة الأجهزة';
 $string['airnotifieraccesskey'] = 'مفتاح وصول Airnotifier';
 $string['airnotifierappname'] = 'اسم تطبيق Airnotifier';
-$string['airnotifier:managedevice'] = 'إدارة الأجهزة';
 $string['airnotifiermobileappname'] = 'اسم تطبيق الجوال';
 $string['airnotifierport'] = 'منفذ Airnotifier';
 $string['airnotifierurl'] = 'رابط Airnotifier';
@@ -48,20 +48,20 @@ $string['notconfigured'] = 'لم تتم تهيئة مخدم Airnotifier بعد،
 $string['pluginname'] = 'الجوال';
 $string['privacy:appiddescription'] = 'هذا مُعرَّف للتطبيق الذي هو قيد الاستعمال.';
 $string['privacy:enableddescription'] = 'إذا كان هذا الجهاز مُمَكَّناً لـ airnotifier.';
-$string['privacy:metadata:date'] = 'تاريخ إرسال الرسالة.';
-$string['privacy:metadata:enabled'] = 'فيما إذا كان جهاز airnotifier مُمَكَّناً.';
-$string['privacy:metadata:externalpurpose'] = 'هذه المعلومات ترسل إلى موقع خارجي لنقلها بشكل نهائي إلى جهاز جوال المستخدم.';
-$string['privacy:metadata:fullmessage'] = 'الرسالة الكاملة.';
-$string['privacy:metadata:notification'] = 'فيما إذا كانت هذه الرسالة إشعاراً.';
-$string['privacy:metadata:smallmessage'] = 'مقطع من الرسالة.';
-$string['privacy:metadata:subject'] = 'سطر الموضوع في الرسالة.';
-$string['privacy:metadata:tableexplanation'] = 'معلومات جهاز Airnotifier تخزن هنا.';
+$string['privacy:metadata:date'] = 'تاريخ إرسال الرسالة';
+$string['privacy:metadata:enabled'] = 'فيما إذا كان جهاز airnotifier مُمَكَّناً';
+$string['privacy:metadata:externalpurpose'] = 'هذه المعلومات ترسل إلى موقع خارجي لنقلها بشكل نهائي إلى جهاز جوال المستخدم';
+$string['privacy:metadata:fullmessage'] = 'الرسالة الكاملة';
+$string['privacy:metadata:notification'] = 'فيما إذا كانت هذه الرسالة إشعاراً';
+$string['privacy:metadata:smallmessage'] = 'مقطع من الرسالة';
+$string['privacy:metadata:subject'] = 'سطر الموضوع في الرسالة';
+$string['privacy:metadata:tableexplanation'] = 'معلومات جهاز Airnotifier تخزن هنا';
 $string['privacy:metadata:userdeviceid'] = 'المُعرَّف المؤدي إلى جهاز جوال المستخدم';
-$string['privacy:metadata:userfromfullname'] = 'الاسم الكامل للمستخدم الذي أرسل الرسالة.';
-$string['privacy:metadata:userfromid'] = 'مُعرَّف المستخدم لمؤلف الرسالة.';
+$string['privacy:metadata:userfromfullname'] = 'الاسم الكامل للمستخدم الذي أرسل الرسالة';
+$string['privacy:metadata:userfromid'] = 'مُعرَّف المستخدم لمؤلف الرسالة';
 $string['privacy:metadata:userid'] = 'مُعرَّف المستخدم الذي أرسل الرسالة';
-$string['privacy:metadata:username'] = 'اسم المستخدم.';
-$string['privacy:metadata:usersubsystem'] = 'هذا الملحق مرتبط بنظام المستخدم الفرعي.';
+$string['privacy:metadata:username'] = 'اسم المستخدم للمستخدم';
+$string['privacy:metadata:usersubsystem'] = 'هذا الملحق مرتبط بنظام المستخدم الفرعي';
 $string['privacy:subcontext'] = 'مراسلة Airnotifier';
 $string['requestaccesskey'] = 'أطلب مفتاح الوصول';
 $string['showhide'] = 'تمكين/تعطيل الجهاز';

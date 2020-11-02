@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'nl', branch 'MOODLE_38_STABLE'
+ * Strings for component 'repository', language 'nl', version '3.8'.
  *
- * @package   repository
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     repository
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -56,6 +56,9 @@ $string['cannotdelete'] = 'Kan dit bestand niet verwijderen';
 $string['cannotdownload'] = 'Kan dit bestand niet downloaden';
 $string['cannotdownloaddir'] = 'Kan deze map niet downloaden';
 $string['cannotinitplugin'] = 'Call plugin_init mislukt';
+$string['cannotunzipcontentunreadable'] = 'Can bestand niet uitpakken omdat de inhoud van het bestand niet gelezen kan worden.';
+$string['cannotunzipextractfileerror'] = 'Kan dit bestand niet uitpakken omdat één of meerdere bestanden niet gelezen kunnen worden.';
+$string['cannotunzipquotaexceeded'] = 'Kan dit bestand niet uitpakken omdat de maximale grootte, toegestaan in deze kladwerkomgeving overschreden zal worden.';
 $string['choosealink'] = 'Kies een link...';
 $string['chooselicense'] = 'Kies een licentie';
 $string['cleancache'] = 'Verwijder cache-bestanden';

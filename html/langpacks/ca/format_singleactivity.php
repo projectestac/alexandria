@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_singleactivity', language 'ca', branch 'MOODLE_38_STABLE'
+ * Strings for component 'format_singleactivity', language 'ca', version '3.8'.
  *
- * @package   format_singleactivity
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     format_singleactivity
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -33,5 +33,6 @@ $string['erroractivitytype'] = 'El tipus d\'activitat no està definit en els pa
 $string['orphaned'] = 'Òrfena';
 $string['orphanedwarning'] = 'Els usuaris no podran arribar a aquestes activitats.';
 $string['pluginname'] = 'Format d\'activitat única';
+$string['privacy:metadata'] = 'El connector del format d\'activitat única no emmagatzema cap dada personal.';
 $string['sectionname'] = '';
-$string['warningchangeformat'] = 'Quan canvieu el format del curs actual a «Activitat única», comproveu que heu suprimit totes les activitats extra del curs, inclosos els «Anuncis». Fixeu-vos que l\'estructura de les seccions pot haver-se modificat.';
+$string['warningchangeformat'] = 'Quan canvieu el format del curs actual a «Activitat única», comproveu que heu suprimit totes les activitats extra del curs, inclosos els «Anuncis». Tingueu en compte que l\'estructura del curs por veure\'s modificada.';

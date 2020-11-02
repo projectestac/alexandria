@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,23 +12,22 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'ltiservice_memberships', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'ltiservice_memberships', language 'ar', version '3.8'.
  *
- * @package   ltiservice_memberships
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     ltiservice_memberships
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['allow'] = 'استعمل هذه الخدمة لاسترداد معلومات الأعضاء حسب إعدادات الخصوصية';
+$string['allow'] = 'استخدم هذه الخدمة لاسترداد معلومات الأعضاء حسب إعدادات الخصوصية';
 $string['ltiservice_memberships'] = 'أسماء IMS LTI و الأدوار المعطاة';
-$string['ltiservice_memberships_help'] = 'اسمح للأداة باسترداد معلومات العضو من المادة باستخدام خدمة IMS LTI للأسماء و الأدوار المعطاة.
-سيتم تطبيق إعدادات الخصوصية. بالنسبة لطلبات مستوى المادة، ستستند هذه إلى إعدادات ضبط الأدوات.
-إذا كنت ترغب في إرسال مثل هذه التفاصيل دائمًا ، فلا تفوض الخيار أمام المعلمين. ستستخدم طلبات مستوى الارتباط دائمًا إعدادات الخصوصية التي تنطبق على الرابط.';
+$string['ltiservice_memberships_help'] = 'السماح للأداة باسترداد معلومات الأعضاء من المساق باستعمال خدمة IMS LTI للأسماء والأدوار المعطاة. سيتم تطبيق إعدادات الخصوصية. بالنسبة للطلبات على مستوى المساق، ستستند هذه إلى إعدادات الأداة. إذا كنت ترغب في إرسال مثل هذه التفاصيل دائماً، فلا تفوض الخيار للمعلمين. ستستعمل الطلبات التي على مستوى الروابط دائماً إعدادات الخصوصية التي تنطبق على الرابط.';
 $string['notallow'] = 'لا تستخدم هذه الخدمة';
 $string['pluginname'] = 'الأسماء والأدوار المقدمة من خدمة أدوات التعلم المشترك (LTI)';
 $string['privacy:metadata:email'] = 'البريد الإلكتروني للمستخدم الذي يستخدم  أدوات التعلم المشترك (LTI) كعميل.';

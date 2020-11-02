@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lti', language 'sv', branch 'MOODLE_38_STABLE'
+ * Strings for component 'lti', language 'sv', version '3.8'.
  *
- * @package   lti
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     lti
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -42,8 +42,8 @@ $string['donotallow'] = 'Tillåt inte';
 $string['edittype'] = 'Ändra konfiguration för external tool';
 $string['embed'] = 'Bädda in';
 $string['embed_no_blocks'] = 'Bädda in utan block';
-$string['enableemailnotification'] = 'Skicka notifieringar med e-post';
-$string['enableemailnotification_help'] = 'Om aktiverat kommer elever motta meddelanden med e-post när deras verktygsinlämningar har betygsats.';
+$string['enableemailnotification'] = 'Skicka notiser med e-post';
+$string['enableemailnotification_help'] = 'Om aktiverat kommer elever motta notiser via e-post när deras verktygsinlämningar har betygsatts.';
 $string['errormisconfig'] = 'Felkonfigurerat verktyg. Be din Moodleadministratör att rätta till konfigurationen av verktyget.';
 $string['failedtoconnect'] = 'Moodle kunde inte kommunicera med "{$a}" systemet';
 $string['filter_basiclti_configlink'] = 'Konfigurera dina önskade webbplatser och deras lösenord';
@@ -52,13 +52,21 @@ $string['fixexistingconf'] = 'Använd en existerande konfiguration för den felk
 $string['fixnew'] = 'Ny konfiguration';
 $string['fixnewconf'] = 'Definiera en ny konfiguration för den felkonfigurerade instansen';
 $string['fixold'] = 'Använd existerande';
-$string['forced_help'] = 'Denna inställning har tvingats i en kursnivå eller webbplatsnivå konfiguration för verktyg. Du kan inte ändra den från detta gränssnitt.';
 $string['force_ssl'] = 'Tvinga SSL';
 $string['force_ssl_help'] = 'Om valt tvingas alla publicerare av detta verktyg att använda SSL.
 
 Som tillägg, alla webservice förfrågningar från verktygsleverantören kommer använda SSL.
 
 Om detta alternativ används kontrollera att denna Moodleplats och verktygsleverantören stödjer SSL.';
+$string['forced_help'] = 'Denna inställning har tvingats i en kursnivå eller webbplatsnivå konfiguration för verktyg. Du kan inte ändra den från detta gränssnitt.';
 $string['global_tool_types'] = 'Globala verktygstyper';
 $string['return_to_course'] = 'Klicka <a href="{$a->link}" target="_top">here</a> för att återgå till kursen.';
 $string['submissions'] = 'Inskickningar';
+$string['toolproxy_help'] = 'Externa verktygsregistreringar gör att Moodle-webbplatsadministratörer kan konfigurera externa verktyg från en verktygsproxy som erhållits från en verktygsleverantör som stöder LTI 2.0. En registrerings-URL som tillhandahålls av verktygsleverantören är allt som krävs för att initiera processen. De funktioner och tjänster som erbjuds verktygsleverantören väljs vid konfigurering av en ny registrering.
+
+Verktygsregistreringar som anges på denna sida är uppdelade i fyra kategorier:
+
+* **Konfigurerade** - Dessa verktygsregistreringar har ställts in men registreringsprocessen har ännu inte startats.
+* **Väntande** - Registreringsprocessen för dessa verktygsregistreringar har startats men inte slutförts. Öppna och spara inställningarna för att flytta den tillbaka till kategorin \'Konfigurerad\'.
+* **Accepterad** - Dessa verktygsregistreringar har godkänts; de resurser som anges i verktygsproxyn kommer att visas på sidan för förkonfigurerade verktyg med en initial status \'Väntande\'.
+* **Avvisad** - Dessa verktygsregistreringar är sådana som avvisades under registreringsprocessen. Öppna och spara inställningarna för att flytta den tillbaka till kategorin \'Konfigurerad\' så att registreringsprocessen kan startas på nytt.';

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,18 +12,20 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'pt', branch 'MOODLE_38_STABLE'
+ * Strings for component 'error', language 'pt', version '3.8'.
  *
- * @package   error
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     error
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['TODO'] = 'TODO';
 $string['activityisscheduledfordeletion'] = 'A atividade está a ser apagada...';
 $string['agedigitalconsentmapinvalidage'] = 'Não foi possível aceder a {$a->url} para verificar a notificação de pagamento instantâneo: {$a->result}';
 $string['agedigitalconsentmapinvalidcomma'] = '"{$a}" tem mais ou menos que um separador de vírgula.';
@@ -239,6 +240,7 @@ $string['duplicateusername'] = 'Nome de utilizador duplicado - registo ignorado'
 $string['emailfail'] = 'Falhou o envio de e-mail';
 $string['enddatebeforestartdate'] = 'A data de conclusão da disciplina deve ser posterior à data de início.';
 $string['error'] = 'Ocorreu um erro';
+$string['error_question_answers_missing_in_db'] = 'Não foi possível encontrar uma resposta correspondente a "{$a->answer}" na tabela \'question_answers\' da base de dados. Ocorreu ao restaurar a pergunta com o id {$a->filequestionid} do ficheiro da cópia de segurança, que correspondia à pergunta existente com o id {$a->dbquestionid} na base de dados .';
 $string['errorcleaningdirectory'] = 'Erro ao limpar a pasta "{$a}"';
 $string['errorcopyingfiles'] = 'Erro ao copiar ficheiros';
 $string['errorcreatingdirectory'] = 'Erro ao criar pasta "{$a}"';
@@ -249,11 +251,10 @@ $string['erroronline'] = 'Erro na linha {$a}';
 $string['erroroutput'] = 'Erro de envio. O redirecionamento automático vai ser desativado.';
 $string['errorparsingxml'] = 'Erro ao analisar XML: {$a->errorstring} na linha {$a->errorline}, carácter {$a->errorchar}';
 $string['errorprocessingarchive'] = 'Erro ao processar o ficheiro de arquivo';
-$string['error_question_answers_missing_in_db'] = 'Não foi possível encontrar uma resposta correspondente a "{$a->answer}" na tabela \'question_answers\' da base de dados. Ocorreu ao restaurar a pergunta com o id {$a->filequestionid} do ficheiro da cópia de segurança, que correspondia à pergunta existente com o id {$a->dbquestionid} na base de dados .';
 $string['errorreadingfile'] = 'Erro na leitura do ficheiro "{$a}"';
 $string['errorsavingrequest'] = 'Ocorreu um erro ao salvar o seu pedido.';
 $string['errorsettinguserpref'] = 'Ocorreu um erro de configuração das preferências de utilizador';
-$string['errorunzippingfiles'] = 'Erro ao descomprimir ficheiros ZIP';
+$string['errorunzippingfiles'] = 'Erro ao descompactar os ficheiros';
 $string['expiredkey'] = 'Chave expirada';
 $string['externalauthpassworderror'] = 'Senha não-vazia para autenticação externa';
 $string['externalfilenolocation'] = 'Os ficheiros externos não possuem caminho';
@@ -284,7 +285,7 @@ $string['groupnotaddedtogroupingerror'] = 'O grupo "{$a->groupname}" não foi ad
 $string['groupunknown'] = 'O grupo {$a} não está associado à disciplina especificada';
 $string['groupusernotmember'] = 'O utilizador não é membro deste grupo.';
 $string['guestcantaccessprofiles'] = 'Os visitantes não podem aceder aos perfis de utilizador. Autentique-se com uma conta de utilizador para continuar.';
-$string['guestnocomment'] = 'Os visitantes não têm permissão para inserir comentários!';
+$string['guestnocomment'] = 'Os visitantes não podem inserir comentários';
 $string['guestnoeditprofile'] = 'Os visitantes não podem editar o seu perfil';
 $string['guestnoeditprofileother'] = 'O perfil do visitante não pode ser editado';
 $string['guestnorate'] = 'Os visitantes não podem avaliar mensagens';
@@ -313,11 +314,12 @@ $string['invalidcategoryid'] = 'ID de categoria incorreto!';
 $string['invalidcomment'] = 'Comentário incorreto';
 $string['invalidcommentarea'] = 'Area de comentários inválida';
 $string['invalidcommentid'] = 'ID de comentário inválido';
-$string['invalidcommentitemid'] = 'ID de item de comentário inválido';
+$string['invalidcommentitemid'] = 'ID do item de comentário inválido';
 $string['invalidcommentparam'] = 'Os parâmetros são inválidos';
 $string['invalidcomponent'] = 'O nome é inválido';
 $string['invalidconfirmdata'] = 'Informação de confirmação inválida';
 $string['invalidcontext'] = 'Contexto inválido';
+$string['invalidcountrycode'] = 'Código de país inválido: {$a}';
 $string['invalidcourse'] = 'Disciplina não válida';
 $string['invalidcourseformat'] = 'Formato da disciplina inválido';
 $string['invalidcourseid'] = 'Está a tentar usar ID de disciplina inválido';
@@ -338,8 +340,9 @@ $string['invalidfunction'] = 'Função incorreta';
 $string['invalidgradeitemid'] = 'ID do item da nota incorreto';
 $string['invalidgroupid'] = 'Especificado ID de grupo incorreto';
 $string['invalidipformat'] = 'Formato inválido de endereço IP';
-$string['invaliditemid'] = 'ID de item incorreto';
+$string['invaliditemid'] = 'ID do item incorreto';
 $string['invalidkey'] = 'Chave incorreta';
+$string['invalidlanguagecode'] = 'Código de idioma inválido: {$a}';
 $string['invalidlegacy'] = 'Definição incorreta de papel para o tipo de legado: {$a}';
 $string['invalidmd5'] = 'A variável de verificação está errada - tente novamente.';
 $string['invalidmode'] = 'Modo ({$a}) inválido';
@@ -347,7 +350,7 @@ $string['invalidmodule'] = 'Módulo inválido';
 $string['invalidmoduleid'] = 'ID do módulo inválido: {$a}';
 $string['invalidmodulename'] = 'Nome do módulo inválido: {$a}';
 $string['invalidnum'] = 'Valor numérico inválido';
-$string['invalidnumkey'] = '$conditions a matriz não pode conter chaves numéricas, por favor, corriga o código!!';
+$string['invalidnumkey'] = 'A matriz $conditions não pode conter chaves numéricas. Por favor, corrija o código!!';
 $string['invalidoutcome'] = 'ID do resultado da aprendizagem incorreto';
 $string['invalidpagesize'] = 'O tamanho da página é inválido';
 $string['invalidpasswordpolicy'] = 'A política de senha é inválida';
@@ -355,7 +358,7 @@ $string['invalidpaymentmethod'] = 'O método de pagamento é inválido: {$a}';
 $string['invalidqueryparam'] = 'ERRO: Número incorreto de parâmetros de consulta. Esperado {$a->expected}, obteve {$a->actual}.';
 $string['invalidratingarea'] = 'Area de avaliações inválida';
 $string['invalidrecord'] = 'Não foi possível encontrar dados referentes a este registo na tabela \'{$a}\' da base de dados.';
-$string['invalidrecordunknown'] = 'Não é possível encontrar os dados do registo na base de dados';
+$string['invalidrecordunknown'] = 'Não foi possível encontrar os dados na base de dados';
 $string['invalidrequest'] = 'Pedido inválido';
 $string['invalidrole'] = 'Papel inválido';
 $string['invalidroleid'] = 'ID do papel inválido';
@@ -389,12 +392,13 @@ $string['loginasnoenrol'] = 'Não pode realizar nem anular inscrições quando s
 $string['loginasonecourse'] = 'Não pode entrar nesta disciplina.<br /> Tem de terminar a sessão "Entrar como" antes de entrar em qualquer outra disciplina.';
 $string['maxareabytes'] = 'Este ficheiro é maior do que o espaço restante nesta área.';
 $string['maxbytesfile'] = 'O ficheiro \'{$a->file}\' é muito grande. Apenas pode carregar ficheiros com um tamanho máximo de {$a->size}.';
+$string['messageundeliveredbynotificationsettings'] = 'A mensagem não foi enviada porque as mensagens pessoais entre utilizadores (nas configurações de Notificação) foram desativadas por um administrador do site.';
 $string['messagingdisable'] = 'A troca de mensagens está desativada neste site';
 $string['mimetexisnotexist'] = 'O seu sistema não está configurado para executar mimeTeX. É necessário  obter o código fonte em C a partir de <a href="http://www.forkosh.com/mimetex.zip">http://www.forkosh.com/mimetex.zip</a>, compilá-lo e colocar o executável na pasta moodle/filter/tex/.';
 $string['mimetexnotexecutable'] = 'Mimetex Custom não é executável!';
+$string['missing_moodle_backup_xml_file'] = 'Na cópia de segurança fica em falta o ficheiro: {$a}';
 $string['missingfield'] = 'O campo "{$a}" está em falta.';
 $string['missingkeyinsql'] = 'ERRO: falta o parâmetro "{$a}" na consulta';
-$string['missing_moodle_backup_xml_file'] = 'Na cópia de segurança fica em falta o ficheiro: {$a}';
 $string['missingparam'] = 'Um parâmetro necessário ({$a}) está em falta';
 $string['missingparameter'] = 'Parâmetro em falta';
 $string['missingrequiredfield'] = 'Um dos campos obrigatórios está em falta';
@@ -484,14 +488,14 @@ $string['redirecterrordetected'] = 'Não há suporte para redirecionar, a execu�
 $string['refoundto'] = 'Pode ser reembolsado para {$a}';
 $string['refoundtoorigi'] = 'Reembolsado para o valor original: {$a}';
 $string['registrationdisabled'] = 'O registo está desativado neste site';
-$string['remotedownloaderror'] = 'Não foi possível descarregar o componente para o servidor. Verifique as configurações do proxy. A instalação da extensão cURL do PHP é muito recomendada.<br /><br />Terá de descarregar manualmente o ficheiro <a href="{$a->url}">{$a->url}</a>, copiá-lo para a pasta "{$a->dest}" no seu servidor e descompactá-lo';
+$string['remotedownloaderror'] = 'Não foi possível descarregar o componente para o servidor. Verifique as configurações do proxy. É altamente recomendado a instalação da extensão cURL do PHP.<br /><br />Terá de descarregar manualmente o ficheiro <a href="{$a->url}">{$a->url}</a>, copiá-lo para a pasta "{$a->dest}" no seu servidor e descompactá-lo.';
 $string['remotedownloadnotallowed'] = 'Não é permitido descarregar para este servidor  (o parâmetro allow_url_fopen está desativado).<br /><br />Terá que fazer descarregar o ficheiro <a href="{$a->url}">{$a->url}</a> manualmente, copiá-lo para a pasta "{$a->dest}" no servidor e descompactá-lo.';
 $string['reportnotavailable'] = 'Este tipo de relatório está disponível somente para a disciplina do site';
 $string['requirecorrectaccess'] = 'URL ou porta inválido';
 $string['requireloginerror'] = 'A disciplina ou atividade não está disponível';
-$string['restorechecksumfailed'] = 'Ocorreu um problema com o restauro das informações armazenadas na sua sessão. Verifique os limites da memória do PHP e/ou da base de dados. O processo de restauro parou.';
 $string['restore_path_element_missingmethod'] = 'O método de restauro {$a} está em falta. Deve ser definido por um programador.';
 $string['restore_path_element_noobject'] = 'O objeto restaurado {$a} não é um objeto.';
+$string['restorechecksumfailed'] = 'Ocorreu um problema com o restauro das informações armazenadas na sua sessão. Verifique os limites da memória do PHP e/ou da base de dados. O processo de restauro parou.';
 $string['restrictedcontextexception'] = 'A execução de funções externas viola restrições de contexto.';
 $string['restricteduser'] = 'A sua conta atual "{$a}" não tem permissões para fazer isso.';
 $string['reverseproxyabused'] = 'Proxy reverso ativado, o servidor não pode ser acessado diretamente. <br/> Por favor, contacte o administrador do servidor.';
@@ -530,7 +534,6 @@ $string['tagnotfound'] = 'A senha especificada não foi encontrada na base de da
 $string['targetdatabasenotempty'] = 'A base de dados de destino não está vazia. A transferência foi cancelada por razões de segurança.';
 $string['textconditionsnotallowed'] = 'Não são permitidas comparações de condições de colunas de texto. Utilize a função sql_compare_text() no seu pedido.';
 $string['themenotinstall'] = 'O tema não está instalado!';
-$string['TODO'] = 'TODO';
 $string['tokengenerationfailed'] = 'Não é possível gerar um novo token.';
 $string['transactionvoid'] = 'A transação não pode ser anulada porque já foi cancelada';
 $string['unenrolerror'] = 'Ocorreu um erro ao tentar cancelar o papel dessa pessoa';

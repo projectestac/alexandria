@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'ru', branch 'MOODLE_38_STABLE'
+ * Strings for component 'choice', language 'ru', version '3.8'.
  *
- * @package   choice
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     choice
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -30,17 +30,19 @@ $string['allowmultiple'] = 'Разрешить выбор более одног�
 $string['allowupdate'] = 'Разрешить изменение выбора';
 $string['answered'] = 'Получено ответов';
 $string['atleastoneoption'] = 'Вы должны выбрать по крайней мере один из возможных ответов.';
-$string['calendarend'] = 'Опрос закрывается {$a}';
+$string['calendarend'] = '{$a} закрывается';
 $string['calendarstart'] = 'Опрос открывается {$a}';
 $string['cannotsubmit'] = 'Извините, возникла проблема при отправке Вашего ответа на опрос. Пожалуйста, повторите снова.';
 $string['choice'] = 'Вариант ответа';
-$string['choiceactivityname'] = 'Опрос: {$a}';
 $string['choice:addinstance'] = 'Добавлять новый опрос';
 $string['choice:choose'] = 'Записывать выбор';
-$string['choiceclose'] = 'Разрешить отвечать до';
-$string['choicecloseson'] = 'Опрос закрывается {$a}';
 $string['choice:deleteresponses'] = 'Изменять и удалять ответы';
 $string['choice:downloadresponses'] = 'Скачивать ответы';
+$string['choice:readresponses'] = 'Просматривать ответы на опрос';
+$string['choice:view'] = 'Просматривать Опрос';
+$string['choiceactivityname'] = 'Опрос: {$a}';
+$string['choiceclose'] = 'Разрешить отвечать до';
+$string['choicecloseson'] = 'Опрос закрывается {$a}';
 $string['choicefull'] = 'Один или несколько выбранных вами вариантов уже заполнены. Ваш ответ не был сохранен. Пожалуйста, сделайте другой выбор.';
 $string['choicename'] = 'Название опроса';
 $string['choiceopen'] = 'Разрешить отвечать с';
@@ -48,10 +50,8 @@ $string['choiceoptions'] = 'Варианты ответа';
 $string['choiceoptions_help'] = 'Здесь вы указываете варианты, которые могут выбрать участники.
 
 Вы можете заполнить любое количество из них. Если вы оставите некоторые варианты пустыми, они не будут отображаться. Если вам нужно более 8 вариантов, нажмите кнопку «Добавить 3 поля в форму».';
-$string['choice:readresponses'] = 'Просматривать ответы на опрос';
 $string['choicesaved'] = 'Ваш выбор сохранен';
 $string['choicetext'] = 'Текст опроса';
-$string['choice:view'] = 'Просматривать Опрос';
 $string['chooseaction'] = 'Выберите действие...';
 $string['chooseoption'] = 'Опрос: {$a}';
 $string['closebeforeopen'] = 'Вы указали дату закрытия ранее даты открытия.';

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'editor', language 'ar', version '3.8'.
  *
- * @package   editor
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     editor
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -29,24 +29,24 @@ $string['about'] = 'حول هذا المحرر';
 $string['absbottom'] = 'أسفل النص';
 $string['acteditorshhdr'] = 'محررات النصوص المتوافرة';
 $string['address'] = 'عنوان';
-$string['alertnoselectedtext'] = 'يجب أن تختار النص أولاً';
+$string['alertnoselectedtext'] = '!يجب أن تختار النص أولاً';
 $string['alignment'] = 'محاذاة';
 $string['alternatetext'] = 'النص البديل';
-$string['anchorhelp'] = 'يقوم هذا بأنشاء مثبت فقط، يستلزم عليك انشاء الرابط';
+$string['anchorhelp'] = 'قوم هذا بإنشاء مثبت فقط، يستلزم عليك إنشاء الرابط يدوياً';
 $string['anchorname'] = 'اسم المثبت';
 $string['anchors'] = 'مثبتات';
-$string['baseline'] = 'اساس';
-$string['bold'] = 'داكن';
+$string['baseline'] = 'أساس';
+$string['bold'] = 'غامق';
 $string['borderthickness'] = 'ُسمك الاطار';
 $string['bottom'] = 'سفلي';
 $string['browse'] = 'استعرض';
 $string['cancel'] = 'إلغاء';
 $string['cellpadding'] = 'نطاق الخلية';
 $string['cellspacing'] = 'المسافة بين الخلايا';
-$string['choosechar'] = 'أختر حرف';
-$string['chooseicon'] = 'أختر أيقونه للأدراج';
-$string['close'] = 'مغلق';
-$string['closeafterreplace'] = 'أغلق بعد الأستبدال';
+$string['choosechar'] = 'إختر الحرف';
+$string['chooseicon'] = 'أختر أيقونه للإدراج';
+$string['close'] = 'أغلق';
+$string['closeafterreplace'] = 'أغلق بعد الاستبدال';
 $string['cols'] = 'أعمدة';
 $string['configeditorplugins'] = 'الرجاء اختيار ملاحق المحررات التي ترغب باستتعمالها ورتبهم حسب ما تراه مناسباً.';
 $string['copy'] = 'أنسخ المختار';
@@ -107,10 +107,10 @@ $string['mustenterurl'] = 'يجب ادخال العنوان';
 $string['nolink'] = 'إمنع الربط التلقائي';
 $string['normal'] = 'عادي';
 $string['notimage'] = 'الملف المختار ليس صورة. الرجاء إختيار صورة';
-$string['notset'] = 'غير مُعد';
-$string['ok'] = 'OK';
+$string['notset'] = 'غير محدد';
+$string['ok'] = 'موافقة';
 $string['options'] = 'خيارات';
-$string['orderedlist'] = 'قائمة منطمة';
+$string['orderedlist'] = 'قائمة منظمة';
 $string['outdent'] = 'إنقاص المسافة البادئة';
 $string['paste'] = 'انسخ من الحافظة';
 $string['path'] = 'مسار';
@@ -123,24 +123,24 @@ $string['preview'] = 'معاينة';
 $string['privacy:metadata:preference:htmleditor'] = 'تفضيلات محرر النص';
 $string['privacy:preference:htmleditor'] = 'المحرر الذي تفضل استعماله لكتابة نصوص HTML هو {$a}';
 $string['properties'] = 'خصائص';
-$string['redo'] = 'إعادة اخر عمل';
+$string['redo'] = 'إعادة الإجراء الأخير';
 $string['regularexpressions'] = 'استعمل تعابير عادية';
 $string['removelink'] = 'استبعاد الرابط';
 $string['rename'] = 'إعادة تسمية';
-$string['replaceall'] = 'أستبدال الكل';
-$string['replacewith'] = 'أستبدال';
+$string['replaceall'] = 'استبدال الكل';
+$string['replacewith'] = 'استبدال';
 $string['right'] = 'يمين';
 $string['righttoleft'] = 'اتجاه النص من اليمين إلى اليسار';
 $string['rows'] = 'صفوف';
-$string['searchandreplace'] = 'بحث وأستبدال';
-$string['searchnotfound'] = 'لم يتم العثور على أي جمل';
+$string['searchandreplace'] = 'بحث واستبدال';
+$string['searchnotfound'] = '!لم يتم العثور على أي جمل';
 $string['selectcolor'] = 'اختر اللون';
 $string['selection'] = 'اختيار';
-$string['showhelp'] = 'المساعدة لستخدام المحرر';
+$string['showhelp'] = 'المساعدة لاستخدام المحرر';
 $string['size'] = 'حجم';
 $string['spacing'] = 'المسافة بين الاسطر';
 $string['strikethrough'] = 'يتوسَّطه خط';
-$string['subscript'] = 'احرف سفليه';
+$string['subscript'] = 'أحرف سفلية';
 $string['superscript'] = 'احرف علوية';
 $string['textindicator'] = 'الاسلوب الحالي';
 $string['textmode'] = 'انت في وضع النص.  استخدم أزرار[<>] لتتنقل إلى وضع ستحصل على ماتشاهد.';
@@ -148,7 +148,7 @@ $string['texttop'] = 'أعلى النص';
 $string['top'] = 'علوي';
 $string['type'] = 'نوع';
 $string['underline'] = 'تسطير';
-$string['undo'] = 'إلغي اخر عمل';
+$string['undo'] = 'التراجع عن الإجراء الأخير';
 $string['unorderedlist'] = 'قائمة نقطية';
 $string['upload'] = 'رفع';
 $string['vertical'] = 'عموديّ/ رأسي';

@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_grader', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'gradereport_grader', language 'ar', version '3.8'.
  *
- * @package   gradereport_grader
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     gradereport_grader
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -37,14 +37,14 @@ $string['overriddengrade'] = 'علامة تم تجاوزها';
 $string['pluginname'] = 'تقرير المُقِّيم';
 $string['preferences'] = 'تفضيلات تقرير المقيم';
 $string['privacy:metadata:preference:grade_report_aggregationposition'] = 'فيما إذا كان ينبغي عَرض عمودَي إجمالي التصنيف وإجمالي المساق عند بداية التقرير أو نهايته';
-$string['privacy:metadata:preference:grade_report_averagesdecimalpoints'] = 'عدد المراتب العشرية المستعملة لعرض المتوسطات، أو فيما إذا كان إعداد المراتب العشرية العمومي للتصنيف أو مفردة التقييم هو المستعمل (وراثة).';
-$string['privacy:metadata:preference:grade_report_averagesdisplaytype'] = 'فيما إذا كان المتوسط (المعدل) معروضاً بقيمه الحقيقية، نسبه المئوية، أو بالحروف، أو أن طريقة العرض للتصنيف أو مفردة التقييم هي المستعملة (وراثة).';
-$string['privacy:metadata:preference:grade_report_enableajax'] = 'فيما إذا كان ينبغي إضافة مستوى من وظائف AJAX إلى تقرير المقيم، لتبسيط وتسريع العمليات الشائعة.';
+$string['privacy:metadata:preference:grade_report_averagesdecimalpoints'] = 'عدد المراتب العشرية المستعملة لعرض المتوسطات، أو فيما إذا كان إعداد المراتب العشرية العمومي للتصنيف أو مفردة التقييم هو المستعمل (وراثة)';
+$string['privacy:metadata:preference:grade_report_averagesdisplaytype'] = 'فيما إذا كان المتوسط (المعدل) معروضاً بقيمه الحقيقية، نسبه المئوية، أو بالحروف، أو أن طريقة العرض للتصنيف أو مفردة التقييم هي المستعملة (وراثة)';
+$string['privacy:metadata:preference:grade_report_enableajax'] = 'فيما إذا كان ينبغي إضافة مستوى من وظائف AJAX إلى تقرير المقيم، لتبسيط وتسريع العمليات الشائعة';
 $string['privacy:metadata:preference:grade_report_grader_collapsed_categories'] = 'قائمة تصنيفات سجل العلامات القابلة للطي';
 $string['privacy:metadata:preference:grade_report_meanselection'] = 'فيما إذا كان ينبغي تضمين الخلايا غير الحاوية على علامات عند احتساب المتوسط (المعدل) لكل تصنيف أو مفردة تقييم';
 $string['privacy:metadata:preference:grade_report_quickgrading'] = 'فيما إذا كان ينبغي عرض مربع إدخال لكل علامة مما يسمح بتحرير العديد من العلامات في نفس الوقت';
-$string['privacy:metadata:preference:grade_report_rangesdecimalpoints'] = 'عدد المراتب العشرية المستعملة لعرض كل مدى، أو فيما إذا كان إعداد المراتب العشرية العمومي للتصنيف أو مفردة التقييم هو المستعمل (وراثة).';
-$string['privacy:metadata:preference:grade_report_rangesdisplaytype'] = 'فيما إذا كان المدى معروضاً بقيمه الحقيقية، نسبه المئوية، أو بالحروف، أو أن طريقة العرض للتصنيف أو مفردة التقييم هي المستعملة (وراثة).';
+$string['privacy:metadata:preference:grade_report_rangesdecimalpoints'] = 'عدد المراتب العشرية المستعملة لعرض كل مدى، أو فيما إذا كان إعداد المراتب العشرية العمومي للتصنيف أو مفردة التقييم هو المستعمل (وراثة)';
+$string['privacy:metadata:preference:grade_report_rangesdisplaytype'] = 'فيما إذا كان المدى معروضاً بقيمه الحقيقية، نسبه المئوية، أو بالحروف، أو أن طريقة العرض للتصنيف أو مفردة التقييم هي المستعملة (وراثة)';
 $string['privacy:metadata:preference:grade_report_showactivityicons'] = 'فيما إذا كان ينبغي إظهار أيقونة النشاط بجوار اسمه';
 $string['privacy:metadata:preference:grade_report_showanalysisicon'] = 'فيما إذا كان ينبغي إظهار أيقونة تحليل العلامة افتراضياً. إذا كانت وحدة النشاط تدعمه، فستكون أيقونة تحليل العلامة رابطاً إلى صفحة ذات تفاصيل أكثر توضح العلامة وكيفية الحصول عليها';
 $string['privacy:metadata:preference:grade_report_showaverages'] = 'فيما إذا كان ينبغي عرض سطر إضافي يحتوي على المتوسط (المعدل) لكل تصنيف أو مفردة تقييم';

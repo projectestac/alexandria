@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,18 +12,20 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'ja', branch 'MOODLE_38_STABLE'
+ * Strings for component 'error', language 'ja', version '3.8'.
  *
- * @package   error
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     error
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['TODO'] = 'TODO';
 $string['activityisscheduledfordeletion'] = '活動削除中 ...';
 $string['agedigitalconsentmapinvalidage'] = '「 {$a} 」は有効な年齢の値ではありません。';
 $string['agedigitalconsentmapinvalidcomma'] = '「 {$a} 」には1つ以上のカンマ区切りがあります。';
@@ -241,6 +242,7 @@ $string['duplicateusername'] = '重複ユーザ名 - レコードをスキップ
 $string['emailfail'] = 'メール送信に失敗しました。';
 $string['enddatebeforestartdate'] = 'コース終了日はコース開始日の後にする必要があります。';
 $string['error'] = 'エラーが発生しました。';
+$string['error_question_answers_missing_in_db'] = 'question_answers databaseテーブルから「 {$a->answer} 」に合致する答えを見つけることができませんでした。これはバックアップファイルからデータベース内の既存のID  {$a->dbquestionid} の問題に合致するID {$a->filequestionid} の問題のリストア中に発生しました。';
 $string['errorcleaningdirectory'] = 'ディレクトリ「 {$a} 」のクリーニング中にエラーが発生しました。';
 $string['errorcopyingfiles'] = 'ファイルのコピー中にエラーが発生しました。';
 $string['errorcreatingdirectory'] = 'ディレクトリ「 {$a} 」の作成中にエラーが発生しました。';
@@ -251,7 +253,6 @@ $string['erroronline'] = '{$a} 行目にエラーがあります。';
 $string['erroroutput'] = '出力エラーが発生したため、自動リダイレクトを無効にします。';
 $string['errorparsingxml'] = 'XML構文解析エラー: {$a->errorstring} / エラー箇所: {$a->errorline} 行目 / エラー文字: {$a->errorchar}';
 $string['errorprocessingarchive'] = 'アーカイブファイルの処理中にエラーが発生しました。';
-$string['error_question_answers_missing_in_db'] = 'question_answers databaseテーブルから「 {$a->answer} 」に合致する答えを見つけることができませんでした。これはバックアップファイルからデータベース内の既存のID  {$a->dbquestionid} の問題に合致するID {$a->filequestionid} の問題のリストア中に発生しました。';
 $string['errorreadingfile'] = 'ファイル「 {$a} 」の読み取り中にエラーが発生しました。';
 $string['errorsavingrequest'] = 'あなたのリクエストを保存中にエラーが発生しました。';
 $string['errorsettinguserpref'] = 'ユーザプリファレンス設定中にエラーが発生しました。';
@@ -320,6 +321,7 @@ $string['invalidcommentparam'] = '無効なコメントパラメータです。'
 $string['invalidcomponent'] = '無効なコンポーネント名です。';
 $string['invalidconfirmdata'] = '無効な確認データです。';
 $string['invalidcontext'] = '無効なコンテクストです。';
+$string['invalidcountrycode'] = '無効な国コードです: {$a}';
 $string['invalidcourse'] = '無効なコースです。';
 $string['invalidcourseformat'] = '無効なコースフォーマットです。';
 $string['invalidcourseid'] = 'あなたは無効なコースIDの使用を試みています。';
@@ -342,6 +344,7 @@ $string['invalidgroupid'] = '不正なグループIDが指定されました。'
 $string['invalidipformat'] = '無効なIPアドレスフォーマットです。';
 $string['invaliditemid'] = 'アイテムIDが正しくありません。';
 $string['invalidkey'] = 'キーが正しくありません。';
+$string['invalidlanguagecode'] = '無効な言語コード: {$a}';
 $string['invalidlegacy'] = '正しくないタイプのレガシーロール定義: {$a}';
 $string['invalidmd5'] = 'チェック変数が正しくありません - 再度お試しください。';
 $string['invalidmode'] = '無効なモード ({$a}) です。';
@@ -349,7 +352,7 @@ $string['invalidmodule'] = '無効なモジュールです。';
 $string['invalidmoduleid'] = '無効なモジュールID ({$a}) です。';
 $string['invalidmodulename'] = '無効なモジュール名 ({$a}) です。';
 $string['invalidnum'] = '無効な数値です。';
-$string['invalidnumkey'] = '$conditions配列には数字キーを含むことができません、コードを修正してください!';
+$string['invalidnumkey'] = '$conditions配列には数字キーを含むことができません。コードを修正してください!';
 $string['invalidoutcome'] = '正しくないアウトカムIDです。';
 $string['invalidpagesize'] = '無効なページサイズです。';
 $string['invalidpasswordpolicy'] = '無効なパスワードポリシーです。';
@@ -391,12 +394,13 @@ $string['loginasnoenrol'] = 'コースに「... としてログイン」して�
 $string['loginasonecourse'] = 'あなたはこのコースに入ることはできません。<br />他のコースに入る前に現在の「... としてログイン」セッションを終了する必要があります。';
 $string['maxareabytes'] = 'ファイルがこのエリアの空き容量を超えています。';
 $string['maxbytesfile'] = 'ファイル {$a->file} は大きすぎます。あなたがアップロードできる最大サイズは {$a->size} です。';
+$string['messageundeliveredbynotificationsettings'] = 'サイト管理者によりユーザ間のパーソナルメッセージが無効にされているため、メッセージを送信できませんでした。';
 $string['messagingdisable'] = 'このサイトではメッセージングが無効にされています。';
 $string['mimetexisnotexist'] = 'あなたのシステムはmimeTeXを実行できるよう設定されていません。あなたはC言語のソースを<a href="https://www.forkosh.com/mimetex.zip">https://www.forkosh.com/mimetex.zip</a>から取得する必要があります。ダウンロードしたファイルをコンパイルした後、 あなたの「moodle/filter/tex/」ディレクトリに入れてください。';
 $string['mimetexnotexecutable'] = 'カスタムmimetexを実行できません!';
+$string['missing_moodle_backup_xml_file'] = 'バックアップにXMLファイルがありません: {$a}';
 $string['missingfield'] = 'フィールド「 {$a} 」 がありません。';
 $string['missingkeyinsql'] = 'エラー: クエリにパラメータ「 {$a} 」がありません。';
-$string['missing_moodle_backup_xml_file'] = 'バックアップにXMLファイルがありません: {$a}';
 $string['missingparam'] = '必須パラメータ ({$a}) がありません。';
 $string['missingparameter'] = 'パラメータがありません。';
 $string['missingrequiredfield'] = 'いくつかの必須入力フィールドが入力されていません。';
@@ -492,9 +496,9 @@ $string['remotedownloadnotallowed'] = 'あなたのサーバにコンポーネ�
 $string['reportnotavailable'] = 'このタイプのレポートはサイトコースのみで利用できます。';
 $string['requirecorrectaccess'] = '無効なURLまたはポートです。';
 $string['requireloginerror'] = 'コースまたは活動にアクセスできません。';
-$string['restorechecksumfailed'] = 'あなたのセッションに保存されているリストア情報に問題が生じました。あなたのPHPメモリ/DBパッケージサイズ制限を確認してください。リストアを停止しました。';
 $string['restore_path_element_missingmethod'] = 'リストアメソッド {$a} がありません。開発者により定義される必要があります。';
 $string['restore_path_element_noobject'] = 'リストアオブジェクト {$a} はオブジェクトではありません。';
+$string['restorechecksumfailed'] = 'あなたのセッションに保存されているリストア情報に問題が生じました。あなたのPHPメモリ/DBパッケージサイズ制限を確認してください。リストアを停止しました。';
 $string['restrictedcontextexception'] = '申し訳ございません、外部関数の実行により、コンテクストの制限に違反します。';
 $string['restricteduser'] = '申し訳ございません、あなたのアカウント「 {$a} 」ではこの処理を実行できません。';
 $string['reverseproxyabused'] = '申し訳ございません、リバースプロキシが有効にされているため、サーバに直接アクセスできません。<br />サーバ管理者にご連絡ください。';
@@ -534,7 +538,6 @@ $string['tagnotfound'] = '指定されたタグはデータベースで見つか
 $string['targetdatabasenotempty'] = 'ターゲットデータベースが空ではありません。安全上の理由から、転送は中止されました。';
 $string['textconditionsnotallowed'] = 'テキストカラムコンディションの比較は許可されていません。あなたのクエリにはsql_compare_text()を使用してください。';
 $string['themenotinstall'] = 'このテーマはインストールされていません!';
-$string['TODO'] = 'TODO';
 $string['tokengenerationfailed'] = '新しいトークンを生成できません。';
 $string['transactionvoid'] = 'すでに取り消されているため、トランザクションを取り消すことはできません。';
 $string['unenrolerror'] = 'ユーザの登録解除中にエラーが発生しました。';

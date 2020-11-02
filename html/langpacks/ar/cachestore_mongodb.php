@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cachestore_mongodb', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'cachestore_mongodb', language 'ar', version '3.8'.
  *
- * @package   cachestore_mongodb
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     cachestore_mongodb
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -32,10 +32,11 @@ $string['extendedmode_help'] = 'إذا مكّن .. مفتاح مجموعات ك�
 سوف تحول هذا على إضافة أحمال صغيرة لذلك ينبغي أن يتم إلا إذا كنت بحاجة إليها.';
 $string['password'] = 'كلمة المرور';
 $string['password_help'] = 'كلمة مرور للمستخدم المتصل.';
-$string['pleaseupgrademongo'] = 'أنت تستعمل إصداراً قديماً من امتداد PHP Mongo (<1.3). سيتم إسقاط دعم الإصدارات القديمة من هذا الملحق مستقبلاً. يرجى أخذ الترقية بعين الاعتبار.';
+$string['pleaseupgrademongo'] = 'أنت تستخدم إصدارًا قديمًا من امتداد PHP Mongo (<1.3). سيتم إسقاط دعم الإصدارات القديمة من ملحق Mongo في المستقبل.
+يرجى النظر في الترقية.';
 $string['pluginname'] = 'MongoDB';
-$string['privacy:metadata:mongodb'] = 'يخزن ملحق مخزن خبأ MongoDB؛ البيانات لفترة وجيزة كجزء من وظائف التخزين المؤقت. يتم تخزين هذه البيانات على خادم MongoDB حيث تتم إزالة البيانات بانتظام.';
-$string['privacy:metadata:mongodb:data'] = 'البيانات المختلفة المخزنة في الخبأ';
+$string['privacy:metadata:mongodb'] = 'يخزن البرنامج المساعد MongoDB cachestore البيانات لفترة وجيزة كجزء من وظائف التخزين المؤقت. يتم تخزين هذه البيانات على خادم MongoDB حيث تتم إزالة البيانات بانتظام.';
+$string['privacy:metadata:mongodb:data'] = 'البيانات المختلفة المخزنة في ذاكرة التخزين المؤقت';
 $string['replicaset'] = 'مجموعة النسخ المماثلة';
 $string['replicaset_help'] = 'اسم مجموعة النسخ المماثلة للاتصال. إذا تم إعطاء هذا فسيتم تحديد الرئيسي باستخدام أمر قاعدة البيانات ismaster على الفروع، لذلك قد ينتهي السائق من الاتصال بالخادم إن لم يكن مدرج في القائمة.';
 $string['server'] = 'الخادم';
@@ -45,6 +46,6 @@ $string['testserver_desc'] = 'هذه هي سلسلة الاتصال بخادم �
 $string['username'] = 'اسم  المستخدم';
 $string['username_help'] = 'اسم المستخدم لاستخدامه عند إجراء الاتصال.';
 $string['usesafe'] = 'استخدام آمن';
-$string['usesafe_help'] = 'عند تمكينه، سيتم استعمال خيار الاستعمال الآمن خلال عمليات الإدراج، الإحضار، والإزالة. إذا كنت قد حددتَ مجموعة النسخ المتماثلة فسيتم فرض ذلك على أيّ حال.';
+$string['usesafe_help'] = 'إذا مكّن سيتم استخدام خيار الاستخدام الآمن خلال عمليات الإدراج، الحصول على ، و الإزالة. و إذا كنت قد حددت مجموعة النسخ المتماثلة فهذا إجبار على أيّ حال.';
 $string['usesafevalue'] = 'استخدام القيم الآمنة';
 $string['usesafevalue_help'] = 'يمكنك الاختيار لتوفير قيمة محددة للاستخدام الآمن. هذا يحدد عدد الخوادم التي يجب أن تكتمل عملياتها قبل أن تعتبر قد تم الانتهاء منها.';

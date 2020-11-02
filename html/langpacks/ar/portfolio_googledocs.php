@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio_googledocs', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'portfolio_googledocs', language 'ar', version '3.8'.
  *
- * @package   portfolio_googledocs
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     portfolio_googledocs
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -33,6 +33,6 @@ $string['nosessiontoken'] = 'ترميز الجلسة غير موجود مما ي
 $string['oauthinfo'] = '<p>لاستعمال هذا الملحق، عليك تسجيل موقعك في Google، كما هو موصوف في التوثيقات <a href="{$a->docsurl}">Google OAuth 2.0 setup</a>.</p><p>كجزء من عملية التسجيل، عليك إدخال الرابط الآتي بمثابة \'Authorized Redirect URIs\':</p><p>{$a->callbackurl}</p><p>بمجرد التسجيل، سيتم تزويدك بمُعرَّف الزبون وكلمة السر وبهما يمكنك تهيئة كل ملاحق Google Drive و Picasa.</p>';
 $string['pluginname'] = 'Google Drive';
 $string['privacy:metadata'] = 'هذا الملحق يرسل البيانات خارجياً إلى حساب Google مرتبط. هو لا يحفظ البيانات محلياً.';
-$string['privacy:metadata:data'] = 'البيانات الشخصية المُمرَّرة عبر نظام المحفظة الفرعي.';
+$string['privacy:metadata:data'] = 'البيانات الشخصية المُمرَّرة عبر نظام المحفظة الفرعي';
 $string['secret'] = 'كلمة السر';
 $string['sendfailed'] = 'فشل نقل الملف {$a} إلى Google';

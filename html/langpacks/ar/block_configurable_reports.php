@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_configurable_reports', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'block_configurable_reports', language 'ar', version '3.8'.
  *
- * @package   block_configurable_reports
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     block_configurable_reports
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -41,6 +41,19 @@ $string['conditionexpr_conditions'] = 'شرط';
 $string['configurable_reports:managereports'] = 'إدارة التقارير';
 $string['configurable_reports:managesqlreports'] = 'إدارة تقارير SQL';
 $string['configurable_reports:viewreports'] = 'عرض التقارير';
+$string['coursededicationtime'] = 'الوقت الحصري للمساق';
 $string['currentuser'] = 'المستخدم الحالي';
+$string['datatables_sortascending'] = ': تنشيط فرز العمود تصاعدياً';
+$string['datatables_sortdescending'] = ': تنشيط فرز العمود تنازلياً';
+$string['dbpass'] = 'كلمة مرور قاعدة البيانات';
+$string['dbpassinfo'] = 'كلمة مرور قاعدة البيانات البعيدة (لاسم المستخدم أعلاه)';
 $string['email_send'] = 'إرسل';
+$string['executeatinfo'] = 'سيقوم مشغل الوظائف الدورة لمودل بتشغيل استعلامات مجدولة لـ SQL بعد الوقت المحدد، مرة كل 24 ساعة';
+$string['filtercourses_summary'] = 'هذا المرشح يظهر قائمة من المساقات. يمكن إختيار مساق واحد في كل مرة.';
+$string['lastexecutiontime'] = 'وقت التنفيذ = {$a} (ثوان)';
+$string['previousdays'] = 'الأيام السابقة';
+$string['report_timeline'] = 'تقرير الجدول الزمني';
 $string['reports'] = 'تقارير';
+$string['timeinterval'] = 'الفاصل الزمني';
+$string['timeline'] = 'الجدول الزمني';
+$string['timemode'] = 'نمط الوقت';

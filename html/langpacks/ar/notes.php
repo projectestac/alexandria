@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'ar', branch 'MOODLE_38_STABLE'
+ * Strings for component 'notes', language 'ar', version '3.8'.
  *
- * @package   notes
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     notes
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -52,7 +52,7 @@ $string['nocontent'] = 'لا يمكن أن يكون محتوى الملاحظة 
 $string['nonotes'] = 'لا يوجد إلى الآن أي ملاحظات من هذا النوع';
 $string['nopermissiontodelete'] = 'لا يمكنك حذف هذه الملاحظة';
 $string['note'] = 'ملاحظة';
-$string['notes'] = 'ملاحظات';
+$string['notes'] = 'الملاحظات';
 $string['notesdisabled'] = 'عذراً، الملاحظات معطلة.';
 $string['notesnotvisible'] = 'أنت غير مخوّل لعرض هذه الملاحظات.';
 $string['nouser'] = 'يجب أن تحدد مستخدماً';
@@ -60,8 +60,8 @@ $string['page-notes-index'] = 'صفحة الملاحظات الرئيسية';
 $string['page-notes-x'] = 'أي صفحات خاصة بالملاحظات';
 $string['personal'] = 'شخصي';
 $string['personalnotes'] = 'ملاحظات شخصية';
-$string['privacy:metadata:core_notes'] = 'مكون الملاحظات يحفظ ملاحظات المستخدم ضمن نواة النظام الفرعية.';
-$string['privacy:metadata:core_notes:content'] = 'محتوى الملاحظة.';
+$string['privacy:metadata:core_notes'] = 'مكون الملاحظات يحفظ ملاحظات المستخدم ضمن نواة النظام الفرعية';
+$string['privacy:metadata:core_notes:content'] = 'محتوى الملاحظة';
 $string['privacy:metadata:core_notes:courseid'] = 'مُعرَّف المساق المتعلق بالملاحظة';
 $string['privacy:metadata:core_notes:created'] = 'وقت وتاريخ إنشاء الملاحظة';
 $string['privacy:metadata:core_notes:lastmodified'] = 'وقت وتاريخ آخر تحديث للملاحظة';

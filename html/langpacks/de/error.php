@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,18 +12,20 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'de', branch 'MOODLE_38_STABLE'
+ * Strings for component 'error', language 'de', version '3.8'.
  *
- * @package   error
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     error
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['TODO'] = 'Zu erledigen';
 $string['activityisscheduledfordeletion'] = 'Aktivitätslöschung ...';
 $string['agedigitalconsentmapinvalidage'] = '\'{$a}\' ist kein gültiger Wert für das Alter.';
 $string['agedigitalconsentmapinvalidcomma'] = '\'{$a}\' hat mehr oder weniger als ein Kommatrennzeichen.';
@@ -172,8 +173,8 @@ $string['cannotuseadminadminorteacher'] = 'Sie müssen Trainer/in oder Administr
 $string['cannotusepage'] = 'Ausschließlich Trainer/innen und Administrator/innen können diese Seite nutzen';
 $string['cannotusepage2'] = 'Sie dürfen diese Seite nicht verwenden.';
 $string['cannotviewcategory'] = 'Sie haben nicht das Recht, die Kursliste anzuzeigen.';
-$string['cannotviewprofile'] = 'Sie können dieses Nutzerprofil nicht ansehen';
-$string['cannotviewreport'] = 'Sie können diesen Bericht nicht ansehen';
+$string['cannotviewprofile'] = 'Sie dürfen dieses Nutzerprofil nicht sehen';
+$string['cannotviewreport'] = 'Sie dürfen diesen Bericht nicht sehen';
 $string['cannotwritefile'] = 'In die Datei \'{$a}\' kann nicht geschieben werden';
 $string['categoryerror'] = 'Kursbereichsfehler';
 $string['categoryidnumbertaken'] = 'Die ID-Nummer wird bereits für einen anderen Kursbereich verwendet.';
@@ -196,10 +197,12 @@ $string['coursemisconf'] = 'Kurs ist falsch konfiguriert.';
 $string['courserequestdisabled'] = 'Die Kursanträge wurden von Administrator/innen deaktiviert.';
 $string['csvcolumnduplicates'] = 'Doppelte Spalten gefunden';
 $string['csvemptyfile'] = 'Die CSV-Datei ist leer';
-$string['csvfewcolumns'] = 'Nicht genügend Spalten vorhanden - bitte prüfen Sie die Trennzeicheneinstellung';
+$string['csvfewcolumns'] = 'Die Spaltenzahl ist falsch - bitte prüfen Sie die Trennzeicheneinstellung';
+$string['csvfileerror'] = 'Mit dem Format der CSV-Datei stimmt etwas nicht. Bitte überprüfen Sie, ob die Anzahl der Überschriften und Spalten übereinstimmt und ob das Trennzeichen und die Dateikodierung korrekt sind: {$a}';
 $string['csvinvalidcols'] = 'Ungültige CSV-Datei: Die erste Zeile muss die Feldbezeichner enthalten. Der Dateityp muss \'erweiterte Felder / Komma getrennt\' oder \'erweiterte Felder mit CAVV-Ergebniscode / Komma getrennt\' sein.';
 $string['csvinvalidcolsnum'] = 'Ungültige CSV-Datei - jede Zeile muss 49 oder 70 Felder enthalten';
 $string['csvloaderror'] = 'Fehler beim Laden der CSV-Datei aufgetreten: {$a}';
+$string['csvnodata'] = 'Ungültige CSV-Datei – Die CSV-Datei hat Kopfzeilen, enthält aber keine Daten.';
 $string['csvweirdcolumns'] = 'Ungültiges CSV-Format - die Anzahl der Datenfelder ist nicht konstant!';
 $string['dbconnectionfailed'] = '<p>Fehler: Datenbankverbindung fehlgeschlagen</p>
 <p>Es ist möglich, dass die Datenbank überlastet ist oder nicht ordentlich läuft.</p>
@@ -238,6 +241,7 @@ $string['duplicateusername'] = 'Doppelter Anmeldename - Datensatz überspringen'
 $string['emailfail'] = 'E-Mail-Versand fehlgeschlagen';
 $string['enddatebeforestartdate'] = 'Das Kursende muss nach dem Kursbeginn liegen.';
 $string['error'] = 'Fehler aufgetreten';
+$string['error_question_answers_missing_in_db'] = 'Das Finden einer passenden Antwort "{$a->answer}" in der question_answers Datenbank-Tabelle ist fehlgeschlagen. Dies trat während der Wiederherstellung der Frage mit ID {$a->filequestionid} in der Backup-Datei auf, welche der existierenden Frage mit ID {$a->dbquestionid} in der Datenbank zugeordnet wurde.';
 $string['errorcleaningdirectory'] = 'Fehler beim Bereinigen des Verzeichnisses "{$a}"';
 $string['errorcopyingfiles'] = 'Fehler beim Kopieren der Dateien';
 $string['errorcreatingdirectory'] = 'Fehler beim Erstellen des Verzeichnisses "{$a}"';
@@ -248,7 +252,6 @@ $string['erroronline'] = 'Fehler in Zeile {$a}';
 $string['erroroutput'] = 'Fehleranzeige. Die automatische Weiterleitung ist deaktiviert.';
 $string['errorparsingxml'] = 'Fehler beim Parsen von XML: {$a->errorstring} in Zeile {$a->errorline}, Zeichen {$a->errorchar}';
 $string['errorprocessingarchive'] = 'Fehler bei der Verarbeitung einer Archivdatei';
-$string['error_question_answers_missing_in_db'] = 'Das Finden einer passenden Antwort "{$a->answer}" in der question_answers Datenbank-Tabelle ist fehlgeschlagen. Dies trat während der Wiederherstellung der Frage mit ID {$a->filequestionid} in der Backup-Datei auf, welche der existierenden Frage mit ID {$a->dbquestionid} in der Datenbank zugeordnet wurde.';
 $string['errorreadingfile'] = 'Fehler beim Lesen der Datei "{$a}"';
 $string['errorsavingrequest'] = 'Fehler beim Versuch, Ihre Abfrage zu speichern';
 $string['errorsettinguserpref'] = 'Fehler beim Setzen der Nutzereinstellungen';
@@ -317,6 +320,7 @@ $string['invalidcommentparam'] = 'Ungültiger Kommentarparameter';
 $string['invalidcomponent'] = 'Ungültiger Komponentenname';
 $string['invalidconfirmdata'] = 'Ungültige Bestätigungsdaten';
 $string['invalidcontext'] = 'Ungültiger Kontext';
+$string['invalidcountrycode'] = 'Ungültiger Ländercode: {$a}';
 $string['invalidcourse'] = 'Ungültiger Kurs';
 $string['invalidcourseformat'] = 'Ungültiges Kursformat';
 $string['invalidcourseid'] = 'Sie versuchen, eine ungültige Kurs-ID zu benutzen.';
@@ -339,6 +343,7 @@ $string['invalidgroupid'] = 'Falsche Gruppen-ID angegeben';
 $string['invalidipformat'] = 'Ungültiges IP-Adressformat';
 $string['invaliditemid'] = 'Falsche Aspekt-ID';
 $string['invalidkey'] = 'Falscher Schlüssel';
+$string['invalidlanguagecode'] = 'Ungültiger Sprachcode: {$a}';
 $string['invalidlegacy'] = 'Falsche Rollenvererbung für den Typ: {$a}';
 $string['invalidmd5'] = 'Der Prüfwert ist ungültig. Versuchen Sie es bitte nochmal!';
 $string['invalidmode'] = 'Ungültiger Modus ({$a})';
@@ -388,12 +393,13 @@ $string['loginasnoenrol'] = 'Das "Einschreiben" oder "Abmelden" für einem Kurs 
 $string['loginasonecourse'] = 'Sie können sich in diesen Kurs nicht eintragen.<br /> Beenden Sie zuerst die Funktion "Login als", um sich dann in den anderen Kurs einzutragen.';
 $string['maxareabytes'] = 'Diese Datei ist zu groß';
 $string['maxbytesfile'] = 'Die Datei {$a->file} ist zu groß. Die maximale Größe zum Hochladen ist {$a->size}.';
+$string['messageundeliveredbynotificationsettings'] = 'Die Nachricht konnte nicht gesendet werden, da persönliche Nachrichten zwischen Benutzern (in den Benachrichtigungseinstellungen) von einem Site-Administrator deaktiviert wurden.';
 $string['messagingdisable'] = 'Die Mitteilungen sind für diese Website deaktiviert.';
 $string['mimetexisnotexist'] = 'Ihr System ist nicht konfiguriert, um mimeTeX ausführen zu können. Sie müssen den C-Quellcode unter <a href="https://www.forkosh.com/mimetex.zip"> https://www.forkosh.com/mimetex.zip</a> herunterladen, kompilieren und das ausführbare Programm in das Verzeichnis moodle/filter/tex/ legen.';
 $string['mimetexnotexecutable'] = 'Das spezifische Programm mimetex ist nicht ausführbar!';
+$string['missing_moodle_backup_xml_file'] = 'XML-Datei im Backup fehlt: {$a}';
 $string['missingfield'] = 'Feld "{$a}" fehlt';
 $string['missingkeyinsql'] = 'Fehler: fehlender Parameter "{$a}" in der Abfrage';
-$string['missing_moodle_backup_xml_file'] = 'XML-Datei im Backup fehlt: {$a}';
 $string['missingparam'] = 'Notwendiger Parameter "{$a}" fehlt';
 $string['missingparameter'] = 'Fehlender Parameter';
 $string['missingrequiredfield'] = 'Einige erforderliche Felder sind nicht ausgefüllt.';
@@ -426,17 +432,17 @@ $string['nocategorydelete'] = 'Kursbereich "{$a}" kann nicht gelöscht werden!';
 $string['nocontext'] = 'Dieser Kurs hat keine gültigen Zusammenhänge.';
 $string['nodata'] = 'Keine Daten';
 $string['noexistingcategory'] = 'Kein Kursbereich vorhanden';
-$string['nofile'] = 'Datei nicht spezifiziert';
+$string['nofile'] = 'Keine Datei ausgewählt';
 $string['nofiltersenabled'] = 'Keine Filter aktiviert';
 $string['nofolder'] = 'Gesuchtes Verzeichnis existiert nicht';
-$string['noformdesc'] = 'Für diese Aktivität wurde keine formslib-Formularbeschreibungsdatei gefunden.';
+$string['noformdesc'] = 'Für diese Aktivität wurde keine Formularbeschreibungsdatei formslib gefunden.';
 $string['noguest'] = 'Keine Gäste!';
 $string['noinstances'] = 'Es gibt keine Instanzen von {$a} in diesem Kurs!';
 $string['nologinas'] = 'Sie dürfen sich nicht in der Rolle dieser Person einloggen';
 $string['nonmeaningfulcontent'] = 'Kein sinnvoller Inhalt';
 $string['noparticipants'] = 'Keine Teilnehmer/innen für diesen Kurs gefunden';
 $string['noparticipatorycms'] = 'Sie haben keine beteiligten Kursmodule für einen Bericht.';
-$string['nopermissions'] = 'Sie haben derzeit keine Rechte, dies zu tun ({$a}).';
+$string['nopermissions'] = 'Sie haben aktuell nicht die Rechte, dies zu tun ({$a}).';
 $string['nopermissiontocomment'] = 'Sie können keine Kommentare hinzufügen';
 $string['nopermissiontodelentry'] = 'Sie dürfen Diesen Kommentar nicht löschen!';
 $string['nopermissiontoeditcomment'] = 'Sie dürfen keine fremden Kommentare bearbeiten!';
@@ -447,7 +453,7 @@ $string['nopermissiontomanagegroup'] = 'Sie haben keine Berechtigung, Gruppen zu
 $string['nopermissiontorate'] = 'Bewertung von Beiträgen ist nicht erlaubt!';
 $string['nopermissiontoshow'] = 'Kein Recht zum Anzeigen!';
 $string['nopermissiontounlock'] = 'Kein Recht zum Freigeben!';
-$string['nopermissiontoupdatecalendar'] = 'Sie haben nicht die Rechte, den Termin zu aktualisieren.';
+$string['nopermissiontoupdatecalendar'] = 'Sie haben aktuell nicht die Rechte, den Termin zu aktualisieren.';
 $string['nopermissiontoviewgrades'] = 'Bewertungen können nicht angezeigt werden';
 $string['nopermissiontoviewletergrade'] = 'Kein Recht zur Anzeige von Notenstufen';
 $string['nopermissiontoviewpage'] = 'Sie haben keinen Zugriff auf diese Seite';
@@ -488,9 +494,9 @@ $string['remotedownloadnotallowed'] = 'Der Download von Komponenten auf Ihren Se
 $string['reportnotavailable'] = 'Dieser Berichtstyp ist nur für die Startseite verfügbar';
 $string['requirecorrectaccess'] = 'Ungültige URL oder ungültiger Port';
 $string['requireloginerror'] = 'Kurs oder Aktivität nicht benutzbar';
-$string['restorechecksumfailed'] = 'Bei der Wiederherstellung sind Probleme aufgetreten. Bitte prüfen Sie die Einstellungen \'PHP memory limit\' und \'DB package size\'.';
 $string['restore_path_element_missingmethod'] = 'Die Wiederherstellungsmethode {$a} fehlt. Sie muss von einem Entwickler definiert werden.';
 $string['restore_path_element_noobject'] = 'Wiederherstellungsobjekt {$a} ist kein Objekt.';
+$string['restorechecksumfailed'] = 'Bei der Wiederherstellung sind Probleme aufgetreten. Bitte prüfen Sie die Einstellungen \'PHP memory limit\' und \'DB package size\'.';
 $string['restrictedcontextexception'] = 'Missachtung von Kontextbeschränkungen beim Ausführen einer externen Funktion';
 $string['restricteduser'] = 'Mit Ihrer aktuellen Anmeldung \'{$a}\' sind Sie nicht zu dieser Aktion berechtigt.';
 $string['reverseproxyabused'] = 'Die Einstellung Reverse Proxy wurde aktiviert. Entschuldigung, aber Sie können nicht direkt auf einen anderen Server zugreifen.<br />Bitte nehmen Sie Kontakt mit den Administrator/innen auf.';
@@ -529,7 +535,6 @@ $string['tagnotfound'] = 'Der verwendete Tag wurde in der Datenbank nicht gefund
 $string['targetdatabasenotempty'] = 'Die Zieldatenbank ist nicht leer. Aus Sicherheitsgründen wurde die Übertragung abgebrochen.';
 $string['textconditionsnotallowed'] = 'Ein Vergleich der Textspaltenbedingungen ist nicht zugelassen. Bitte verwenden Sie in Ihrer Abfrage sql_compare_text() . ';
 $string['themenotinstall'] = 'Dieses Design ist nicht verfügbar!';
-$string['TODO'] = 'Zu erledigen';
 $string['tokengenerationfailed'] = 'Das neue Token kann nicht erzeugt werden';
 $string['transactionvoid'] = 'Transaktion konnte nicht geleert werden, da sie bereits leer war.';
 $string['unenrolerror'] = 'Beim Austragen der Person ist ein Fehler aufgetreten.';
@@ -561,7 +566,7 @@ $string['unknowquestiontype'] = 'Nicht unterstützter Fragetyp: {$a}';
 $string['unknowuploadaction'] = 'Fehler: Unbekannter Uploadvorgang ({$a})';
 $string['unspecifycourseid'] = 'Es muss die Kurs-ID, die Kurzbezeichnung oder ID-Nummer angegeben werden.';
 $string['unsupportedevent'] = 'Ereignistyp wird nicht unterstützt';
-$string['unsupportedstate'] = 'Vollständigkeitsstatus wird nicht unterstützt';
+$string['unsupportedstate'] = 'Abschlussstatus wird nicht unterstützt';
 $string['unsupportedwebserver'] = 'Die Webserver-Software ({$a}) wird nicht unterstützt.';
 $string['upgraderequires19'] = 'Fehler! Es wurde eine neue Moodle-Version auf dem Server installiert. Leider wird das direkte Upgrade auf diese Version nicht unterstützt!<br/>Führen Sie zuerst eine Upgrade auf die letzte Version von 1.9.x durch. Sie haben auch die Möglichkeit, auf die zuvor installierte Version zurückzugreifen wenn Sie die ursprünglichen Dateien wieder reinstallieren.';
 $string['upgraderunning'] = 'Diese Website wird gerade aktualisiert. Bitte versuchen Sie es später nochmal.';

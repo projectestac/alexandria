@@ -1,6 +1,5 @@
 <?php
-
-// This file is part of Moodle - http://moodle.org/
+// This file is part of Moodle - https://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
 // it under the terms of the GNU General Public License as published by
@@ -13,14 +12,15 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'antivirus_clamav', language 'it', branch 'MOODLE_38_STABLE'
+ * Strings for component 'antivirus_clamav', language 'it', version '3.8'.
  *
- * @package   antivirus_clamav
- * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     antivirus_clamav
+ * @category    string
+ * @copyright   1999 Martin Dougiamas and contributors
+ * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 defined('MOODLE_INTERNAL') || die();
@@ -31,7 +31,7 @@ $string['configclamactlikevirus'] = 'Considera infetto il file';
 $string['configclamdonothing'] = 'Considera non infetto il file';
 $string['configclamfailureonupload'] = 'E\' possibile definire il comportamento quando Clam è impostato per controllare i file caricati ma non fosse configurato correttamente oppure non dovesse funzionare. Selezionando "Considera infetto il file", i file saranno spostati nella cartella di quarantena o eliminati. Selezionando "Considera non infetto il file", i file saranno salvati normalmente. In entrambi i casi gli amministratori saranno avvertiti del problema incontrato da Clam. ATTENZIONE: se hai selezionato "Considera infetto il file" e Clam non dovesse funzionare (di solito perché è errato il percorso dell\'eseguibile), TUTTI i file caricati saranno spostati nella cartella di quarantena oppure eliminati.';
 $string['errorcantopensocket'] = 'La connessione al domain socket Unix ha provocato un errore: {$a}';
-$string['errorclamavnoresponse'] = 'ClamAV non risponde: verifica lo stato del demone.';
+$string['errorclamavnoresponse'] = 'ClamAV non risponde: verificare lo stato del demone.';
 $string['errornounixsocketssupported'] = 'Il trasporto domain socket Unix non è supportato su questo sistema. Per favore utilizza l\'opzione Linea di comando.';
 $string['invalidpathtoclam'] = 'Il percorso di ClamAV, {$a}, non è corretto.';
 $string['pathtoclam'] = 'Linea di comando';
