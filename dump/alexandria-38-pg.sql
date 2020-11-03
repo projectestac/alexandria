@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.12 (Ubuntu 10.12-0ubuntu0.18.04.1)
+-- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -9226,7 +9226,8 @@ CREATE TABLE public.mdl_hvp (
     filtered text,
     slug character varying(255) DEFAULT ''::character varying NOT NULL,
     timecreated bigint DEFAULT 0 NOT NULL,
-    timemodified bigint DEFAULT 0 NOT NULL
+    timemodified bigint DEFAULT 0 NOT NULL,
+    completionpass smallint DEFAULT 0
 );
 
 
@@ -25496,7 +25497,9 @@ COPY public.mdl_cache_filters (id, filter, version, md5key, rawtext, timemodifie
 --
 
 COPY public.mdl_cache_flags (id, flagtype, name, timemodified, value, expiry) FROM stdin;
-1	userpreferenceschanged	2	1590510953	1	1590518153
+2	accesslib/dirtycontexts	/1	1604425701	1	1604432901
+3	userpreferenceschanged	3	1604426262	1	1604433462
+1	userpreferenceschanged	2	1604426337	1	1604433537
 \.
 
 
@@ -25516,7 +25519,6 @@ COPY public.mdl_capabilities (id, name, captype, contextlevel, component, riskbi
 9	moodle/backup:backupcourse	write	50	moodle	28
 10	moodle/backup:backupsection	write	50	moodle	28
 11	moodle/backup:backupactivity	write	70	moodle	28
-12	moodle/backup:backuptargetimport	write	50	moodle	28
 13	moodle/backup:downloadfile	write	50	moodle	28
 14	moodle/backup:configure	write	50	moodle	28
 15	moodle/backup:userinfo	read	50	moodle	8
@@ -25583,12 +25585,12 @@ COPY public.mdl_capabilities (id, name, captype, contextlevel, component, riskbi
 76	moodle/course:ignorefilesizelimits	write	50	moodle	0
 77	moodle/course:manageactivities	write	70	moodle	4
 78	moodle/course:activityvisibility	write	70	moodle	0
-79	moodle/course:viewhiddenactivities	write	70	moodle	0
 80	moodle/course:viewparticipants	read	50	moodle	0
 81	moodle/course:changefullname	write	50	moodle	4
 82	moodle/course:changeshortname	write	50	moodle	4
 83	moodle/course:changelockedcustomfields	write	50	moodle	16
 84	moodle/course:configurecustomfields	write	10	moodle	16
+79	moodle/course:viewhiddenactivities	read	70	moodle	0
 85	moodle/course:renameroles	write	50	moodle	0
 86	moodle/course:changeidnumber	write	50	moodle	4
 87	moodle/course:changecategory	write	50	moodle	4
@@ -25636,7 +25638,6 @@ COPY public.mdl_capabilities (id, name, captype, contextlevel, component, riskbi
 129	moodle/site:doclinks	read	10	moodle	0
 130	moodle/course:sectionvisibility	write	50	moodle	0
 131	moodle/course:useremail	write	50	moodle	0
-132	moodle/course:viewhiddensections	write	50	moodle	0
 133	moodle/course:setcurrentsection	write	50	moodle	0
 134	moodle/course:movesections	write	50	moodle	0
 135	moodle/site:mnetlogintoremote	read	10	moodle	0
@@ -26224,6 +26225,8 @@ COPY public.mdl_capabilities (id, name, captype, contextlevel, component, riskbi
 717	local/rcommon:importcredentials	write	10	local_rcommon	0
 718	local/rcommon:managecredentials	write	10	local_rcommon	0
 719	local/rcommon:editowncredentials	write	10	local_rcommon	0
+12	moodle/backup:backuptargetimport	read	50	moodle	28
+132	moodle/course:viewhiddensections	read	50	moodle	0
 \.
 
 
@@ -26485,7 +26488,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 27	gdversion	2
 28	licenses	unknown,allrightsreserved,public,cc,cc-nd,cc-nc-nd,cc-nc,cc-nc-sa,cc-sa
 29	badges_site_backpack	1
-30	version	2019111803.02
 31	enableoutcomes	0
 32	usecomments	1
 33	usetags	1
@@ -26518,7 +26520,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 61	enablegravatar	0
 62	gravatardefaulturl	mm
 63	agedigitalconsentverification	0
-64	agedigitalconsentmap	*, 16\nAT, 14\nES, 14\nUS, 13
 65	sitepolicy	
 66	sitepolicyguest	
 67	enablecourserequests	1
@@ -26579,14 +26580,14 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 122	grade_report_shownumberofgrades	0
 123	grade_report_averagesdisplaytype	inherit
 124	grade_report_rangesdisplaytype	inherit
-24	themerev	1590510590
-5	theme	xtec2020
-25	jsrev	1590510526
-13	filterall	0
 2	rolesactive	1
 36	enablewebservices	1
-26	templaterev	1590510526
 125	grade_report_averagesdecimalpoints	inherit
+13	filterall	0
+5	theme	xtec2020
+26	templaterev	1604425712
+30	version	2019111805
+25	jsrev	1604425712
 126	grade_report_rangesdecimalpoints	inherit
 127	grade_report_historyperpage	50
 128	grade_report_overview_showrank	0
@@ -26862,7 +26863,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 403	profilingimportprefix	(I)
 279	calendar_exportsalt	TAh27Uy5CkCQ2MDECMJ6LKbqUaXAS5c8K3xlRn5J8IXAu7UT2y2RqwvWc5HH
 377	emailfromvia	1
-404	release	3.8.3+ (Build: 20200515)
 405	branch	38
 480	frontpagecourselimit	200
 481	commentsperpage	15
@@ -26951,10 +26951,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 493	timezone	Europe/Madrid
 494	registerauth	
 410	registrationpending	0
-407	scheduledtaskreset	1590510526
-406	localcachedirpurged	1590510526
-408	allversionshash	7216f76c275c8bc3de71774b523c23325f3e8b4f
-158	langrev	1590510526
 498	hotpot_enablecron	
 499	hotpot_enableswf	1
 500	hotpot_enableobfuscate	1
@@ -26966,6 +26962,9 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 506	vicensvives_apiurl	http://api.vicensvivesdigital.com/rest
 507	vicensvives_sharekey	
 508	vicensvives_sharepass	
+404	release	3.8.5 (Build: 20200914)
+406	localcachedirpurged	1604425712
+407	scheduledtaskreset	1604425712
 509	block_courses_vicensvives_maxcourses	10
 510	block_courses_vicensvives_defaultcategory	1
 511	vicensvives_moodlews	1
@@ -26986,6 +26985,13 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 526	data_creationdatefieldid	Data de creació
 527	data_moodleversionfieldid	Versió de Moodle
 475	profileroles	3,4,5
+64	agedigitalconsentmap	*, 16\nAT, 14\nBE, 13\nBG, 14\nCY, 14\nCZ, 15\nDK, 13\nEE, 13\nES, 14\nFI, 13\nFR, 15\nGB, 13\nGR, 15\nIT, 14\nLT, 14\nLV, 13\nMT, 13\nNO, 13\nPT, 13\nSE, 13\nUS, 13
+408	allversionshash	6128d95fcfc3a935754d0d0035969a1cdd8b387c
+158	langrev	1604425712
+529	recaptchapublickey	
+530	recaptchaprivatekey	
+531	supportemail	alexandria@xtec.cat
+24	themerev	1604426127
 \.
 
 
@@ -28797,6 +28803,18 @@ COPY public.mdl_config_log (id, userid, timemodified, plugin, name, value, oldva
 1801	2	1590510877	\N	cronclionly	0	1
 1802	2	1590510877	\N	passwordpolicy	0	1
 1803	2	1590511000	\N	defaulthomepage	0	1
+1804	2	1604425796	\N	recaptchapublickey		\N
+1805	2	1604425796	\N	recaptchaprivatekey		\N
+1806	2	1604425796	\N	supportemail	alexandria@xtec.cat	\N
+1807	2	1604425837	logstore_standard	loglifetime	60	0
+1808	2	1604426120	theme_xtec2020	logo	/logo_alexandria.png	
+1809	2	1604426120	theme_xtec2020	headerbg	#ffffff	#f4f4f4
+1810	2	1604426120	theme_xtec2020	colorset	personalitzat	grana
+1811	2	1604426120	theme_xtec2020	maincolor	#457FB9	#AC2013
+1812	2	1604426120	theme_xtec2020	fontcolor	#457FB9	#303030
+1813	2	1604426120	theme_xtec2020	linkscolor	#457FB9	#AC2013
+1814	2	1604426120	theme_xtec2020	fontsize	90	100
+1815	2	1604426120	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}\r\n\r\nth, tr, td {\r\n    border: 1px solid #dee2e6 !important;\r\n}\r\n\r\n#nav-drawer a[data-key="myhome"] {\r\n    display: none;\r\n}\r\n\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n/* Text i botó d'accés de visitants */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\r\n    order: 5;\r\n}\r\n/* Text d'oblit de contrasenya */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\r\n    order: 3;\r\n}\r\n/* Text de les galetes */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\r\n    order: 4;\r\n}\r\n/* Text "Autentiqueu-vos utilitzant el vostre compte a:" */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\r\n    order: 1;\r\n}\r\n/* Botó de Google */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\r\n    order: 2;\r\n}	
 \.
 
 
@@ -29042,7 +29060,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 750	tool_innodb	version	2019111800
 236	mod_folder	version	2019111800
 751	tool_installaddon	version	2019111800
-238	mod_forum	version	2019111801
 239	mod_glossary	version	2019111800
 240	mod_imscp	version	2019111800
 242	mod_label	version	2019111800
@@ -29058,10 +29075,8 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 255	mod_url	version	2019111800
 257	mod_wiki	version	2019111800
 259	mod_workshop	version	2019111800
-260	auth_cas	version	2019111800
 262	auth_db	version	2019111800
 264	auth_email	version	2019111800
-265	auth_ldap	version	2019111800
 267	auth_lti	version	2019111800
 268	auth_manual	version	2019111800
 269	auth_mnet	version	2019111800
@@ -29106,6 +29121,8 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 319	message	airnotifier_provider_mod_quiz_submission_permitted	permitted
 320	message	airnotifier_provider_mod_quiz_confirmation_permitted	permitted
 323	message	airnotifier_provider_mod_quiz_attempt_overdue_permitted	permitted
+260	auth_cas	version	2019111801
+265	auth_ldap	version	2019111801
 326	message	airnotifier_provider_mod_lesson_graded_essay_permitted	permitted
 329	message	airnotifier_provider_enrol_self_expiry_notification_permitted	permitted
 330	message	airnotifier_provider_enrol_flatfile_flatfile_enrolment_permitted	permitted
@@ -29504,7 +29521,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 723	tool_cohortroles	version	2019111801
 724	tool_customlang	version	2019111800
 778	tool_mobile	version	2019111800
-726	tool_dataprivacy	version	2019111800
 727	message	airnotifier_provider_tool_dataprivacy_contactdataprotectionofficer_permitted	permitted
 728	message	email_provider_tool_dataprivacy_contactdataprotectionofficer_permitted	permitted
 729	message	jabber_provider_tool_dataprivacy_contactdataprotectionofficer_permitted	permitted
@@ -29991,7 +30007,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1258	auth_cas	opt_deref	0
 1259	auth_cas	user_attribute	
 1260	auth_cas	memberattribute	
-1261	auth_cas	memberattribute_isdn	
 1262	auth_cas	objectclass	
 1263	auth_cas	attrcreators	
 1264	auth_cas	groupecreators	
@@ -30190,7 +30205,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1457	auth_ldap	user_attribute	
 1458	auth_ldap	suspended_attribute	
 1459	auth_ldap	memberattribute	
-1460	auth_ldap	memberattribute_isdn	
 1461	auth_ldap	objectclass	
 1462	auth_ldap	forcechangepassword	0
 1463	auth_ldap	stdchangepassword	0
@@ -30623,7 +30637,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1891	logstore_legacy	loglegacy	0
 1892	logstore_standard	logguests	1
 1893	logstore_standard	jsonformat	1
-1894	logstore_standard	loglifetime	0
 1895	logstore_standard	buffersize	50
 1896	mlbackend_python	useserver	0
 1897	mlbackend_python	host	
@@ -30673,18 +30686,7 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1942	tool_mobile	disabledfeatures	
 1943	tool_mobile	custommenuitems	
 1944	tool_mobile	customlangstrings	
-1945	qtype_essaywiris	version	2020011300
-1946	qtype_matchwiris	version	2020011300
-1947	qtype_multianswerwiris	version	2020011300
-1948	qtype_multichoicewiris	version	2020011300
 1949	qtype_ordering	version	2019121400
-1950	qtype_shortanswerwiris	version	2020011300
-1951	qtype_truefalsewiris	version	2020011300
-1952	qtype_wq	version	2020011300
-1953	mod_choicegroup	version	2019051002
-1954	mod_geogebra	version	2019010600
-1955	mod_hotpot	version	2020030143
-1957	mod_hvp	version	2020020500
 1959	mod_hvp	site_type	network
 1960	mod_hvp	site_uuid	fad48287-5922-4b4f-a9ab-f4ead569f3ed
 1961	mod_hvp	content_type_cache_updated_at	1590510518
@@ -30701,9 +30703,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1972	message	popup_provider_mod_hvp_confirmation_permitted	permitted
 1973	message	message_provider_mod_hvp_confirmation_loggedin	airnotifier,email
 1974	message	message_provider_mod_hvp_confirmation_loggedoff	airnotifier,email
-1975	mod_jclic	version	2018112000
-1977	mod_journal	version	2020020700
-1978	mod_questionnaire	version	2020011506
 1980	message	airnotifier_provider_mod_questionnaire_message_permitted	permitted
 1981	message	email_provider_mod_questionnaire_message_permitted	permitted
 1982	message	jabber_provider_mod_questionnaire_message_permitted	permitted
@@ -30715,24 +30714,30 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1988	message	jabber_provider_mod_questionnaire_notification_permitted	permitted
 1989	message	popup_provider_mod_questionnaire_notification_permitted	permitted
 1990	message	message_provider_mod_questionnaire_notification_loggedin	email
+1946	qtype_matchwiris	version	2020061600
+1947	qtype_multianswerwiris	version	2020061600
+1948	qtype_multichoicewiris	version	2020061600
+1950	qtype_shortanswerwiris	version	2020061600
+1951	qtype_truefalsewiris	version	2020061600
+1952	qtype_wq	version	2020061600
+1953	mod_choicegroup	version	2020070100
+1954	mod_geogebra	version	2020090800
+1955	mod_hotpot	version	2020060544
+1957	mod_hvp	version	2020080400
+1975	mod_jclic	version	2020072400
+1977	mod_journal	version	2020091100
+1978	mod_questionnaire	version	2020011508
 1991	message	message_provider_mod_questionnaire_notification_loggedoff	email
 1992	mod_qv	version	2019010700
 1993	mod_rcontent	version	2017101000
 1995	block_about_course	version	2013111900
 1996	block_abuse_reports	version	2013111901
-1997	block_completion_progress	version	2020033000
-1998	block_courses_vicensvives	version	2018090100
 1999	block_download_statistics	version	2013111900
-2000	block_licenses_vicensvives	version	2018090100
 2001	block_my_books	version	2015111700
 2003	block_rgrade	version	2016090500
-2004	filter_wiris	version	2020051400
 2005	format_simple	version	2012121100
-2006	format_vv	version	2018090100
 2007	report_coursequotas	version	2016091400
 2008	qformat_hotpot	version	2019111022
-2009	theme_xtec2020	version	2020042000
-2010	local_agora	version	2016021600
 2011	local_alexandria	version	2016091900
 2013	local_alexandriaimporter	version	2016021600
 2014	local_bigdata	version	2016021601
@@ -30740,7 +30745,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2016	local_oauth	version	2016021600
 2017	local_rcommon	version	2017101000
 2019	rcommon	enabled	1
-2020	local_wsvicensvives	version	2018090100
 2021	hotpotattempt_hp	version	2010112400
 2022	hotpotattempt_html	version	2010112400
 2023	hotpotattempt_qedoc	version	2010112400
@@ -30755,7 +30759,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2032	atto_cloze	version	2017072802
 2033	atto_fontfamily	version	2020010600
 2034	atto_fontsize	version	2015042701
-2035	atto_wiris	version	2020022400
 1913	editor_atto	toolbar	collapse = collapse\nstyle1 = title, bold, italic\nlist = unorderedlist, orderedlist\nlinks = link\nfiles = image, media, recordrtc, managefiles, h5p\nstyle2 = underline, strike, subscript, superscript\nalign = align\nindent = indent\ninsert = equation, charmap, table, clear\nundo = undo\naccessibility = accessibilitychecker, accessibilityhelper\nmath = wiris\nother = html
 2037	choicegroup	sortgroupsby	1
 2038	mod_hvp	enable_save_content_state	1
@@ -30817,6 +30820,14 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2094	filter_wiris	editormodalwindowfullscreen	0
 2095	filter_wiris	access_provider_enabled	0
 2096	local_agora	environment_url	
+1998	block_courses_vicensvives	version	2020090800
+2000	block_licenses_vicensvives	version	2020090800
+2004	filter_wiris	version	2020090300
+2006	format_vv	version	2020090800
+2009	theme_xtec2020	version	2020080703
+2010	local_agora	version	2020072300
+2020	local_wsvicensvives	version	2020090800
+2035	atto_wiris	version	2020090300
 2097	local_alexandriaimporter	alexandria_url	http://alexandria.xtec.cat
 2098	local_alexandriaimporter	alexandria_token	
 2099	local_alexandriaimporter	show_description	
@@ -30839,8 +30850,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2116	qtype_wq	quizzeswirisurl	http://www.wiris.net/demo/wiris
 2117	qtype_wq	access_provider_enabled	0
 2118	atto_fontfamily	fontselectlist	Arial=Arial, Helvetica, sans-serif;\r\nTimes=Times New Roman, Times, serif;\r\nCourier=Courier New, Courier, mono;\r\nGeorgia=Georgia, Times New Roman, Times, serif;\r\nVerdana=Verdana, Geneva, sans-serif;\r\nTrebuchet=Trebuchet MS, Helvetica, sans-serif;
-2119	theme_xtec2020	logo	
-2120	theme_xtec2020	headerbg	#f4f4f4
 2121	theme_xtec2020	footnote	
 2122	theme_xtec2020	website	
 2123	theme_xtec2020	email	
@@ -30854,15 +30863,24 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2131	theme_xtec2020	pinterest	
 2132	theme_xtec2020	youtube	
 2133	theme_xtec2020	skype	
-2134	theme_xtec2020	colorset	grana
-2135	theme_xtec2020	maincolor	#AC2013
-2136	theme_xtec2020	fontcolor	#303030
-2137	theme_xtec2020	linkscolor	#AC2013
-2138	theme_xtec2020	fontsize	100
 2139	theme_xtec2020	fontstyle	normal
 2140	theme_xtec2020	importcss	
-2141	theme_xtec2020	customcss	
 1799	enrol_ldap	objectclass	(objectClass=*)
+1945	qtype_essaywiris	version	2020061600
+238	mod_forum	version	2019111802
+1261	auth_cas	memberattribute_isdn	0
+1460	auth_ldap	memberattribute_isdn	0
+1997	block_completion_progress	version	2020081000
+726	tool_dataprivacy	version	2019111801
+1894	logstore_standard	loglifetime	60
+2119	theme_xtec2020	logo	/logo_alexandria.png
+2120	theme_xtec2020	headerbg	#ffffff
+2134	theme_xtec2020	colorset	personalitzat
+2135	theme_xtec2020	maincolor	#457FB9
+2136	theme_xtec2020	fontcolor	#457FB9
+2137	theme_xtec2020	linkscolor	#457FB9
+2138	theme_xtec2020	fontsize	90
+2141	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}\r\n\r\nth, tr, td {\r\n    border: 1px solid #dee2e6 !important;\r\n}\r\n\r\n#nav-drawer a[data-key="myhome"] {\r\n    display: none;\r\n}\r\n\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n/* Text i botó d'accés de visitants */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\r\n    order: 5;\r\n}\r\n/* Text d'oblit de contrasenya */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\r\n    order: 3;\r\n}\r\n/* Text de les galetes */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\r\n    order: 4;\r\n}\r\n/* Text "Autentiqueu-vos utilitzant el vostre compte a:" */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\r\n    order: 1;\r\n}\r\n/* Botó de Google */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\r\n    order: 2;\r\n}
 \.
 
 
@@ -30888,6 +30906,7 @@ COPY public.mdl_context (id, contextlevel, instanceid, path, depth, locked) FROM
 15	80	10	/1/15	2	0
 16	80	11	/1/16	2	0
 17	80	12	/1/17	2	0
+18	30	3	/1/18	2	0
 \.
 
 
@@ -30904,7 +30923,7 @@ COPY public.mdl_context_temp (id, path, depth, locked) FROM stdin;
 --
 
 COPY public.mdl_course (id, category, sortorder, fullname, shortname, idnumber, summary, summaryformat, format, showgrades, newsitems, startdate, enddate, relativedatesmode, marker, maxbytes, legacyfiles, showreports, visible, visibleold, groupmode, groupmodeforce, defaultgroupingid, lang, calendartype, theme, timecreated, timemodified, requested, enablecompletion, completionnotify, cacherev) FROM stdin;
-1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1590510526
+1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1604425712
 \.
 
 
@@ -31076,6 +31095,7 @@ COPY public.mdl_data_records (id, userid, groupid, dataid, timecreated, timemodi
 
 COPY public.mdl_editor_atto_autosave (id, elementid, contextid, pagehash, userid, drafttext, draftid, pageinstance, timemodified) FROM stdin;
 3	id_s__summary	1	6c218dfff68b30a998b8733daf1ebd60694348c2	2		-1	yui_3_17_2_1_1590511031193_45	1590511030
+5	id_s_theme_xtec2020_footnote	1	30ddd4c8d2e2b9aef655d5ad521214ce865f7a72	2		-1	yui_3_17_2_1_1604426148517_61	1604426149
 \.
 
 
@@ -31829,6 +31849,7 @@ COPY public.mdl_external_functions (id, name, classname, methodname, classpath, 
 599	local_clickedu_get_grades	local_clickedu_external	get_grades	local/clickedu/externallib.php	local_clickedu		\N
 600	local_wsvicensvives_update_lti_grade	local_wsvicensvives_external	update_lti_grade	local/wsvicensvives/externallib.php	local_wsvicensvives		\N
 601	local_wsvicensvives_get_lti_grade	local_wsvicensvives_external	update_lti_grade	local/wsvicensvives/externallib.php	local_wsvicensvives		\N
+602	core_output_load_fontawesome_icon_system_map	core\\external\\output\\icon_system\\load_fontawesome_map	execute	\N	moodle		\N
 \.
 
 
@@ -31850,384 +31871,384 @@ COPY public.mdl_external_services (id, name, enabled, requiredcapability, restri
 --
 
 COPY public.mdl_external_services_functions (id, externalserviceid, functionname) FROM stdin;
-1	1	core_badges_get_user_badges
-2	1	core_blog_get_entries
-3	1	core_blog_view_entries
-4	1	core_calendar_get_calendar_monthly_view
-5	1	core_calendar_get_calendar_day_view
-6	1	core_calendar_get_calendar_upcoming_view
-7	1	core_calendar_update_event_start_day
-8	1	core_calendar_create_calendar_events
-9	1	core_calendar_delete_calendar_events
-10	1	core_calendar_get_calendar_events
-11	1	core_calendar_get_action_events_by_timesort
-12	1	core_calendar_get_action_events_by_course
-13	1	core_calendar_get_action_events_by_courses
-14	1	core_calendar_get_calendar_event_by_id
-15	1	core_calendar_submit_create_update_form
-16	1	core_calendar_get_calendar_access_information
-17	1	core_calendar_get_allowed_event_types
-18	1	core_comment_get_comments
-19	1	core_comment_add_comments
-20	1	core_comment_delete_comments
-21	1	core_completion_get_activities_completion_status
-22	1	core_completion_get_course_completion_status
-23	1	core_completion_mark_course_self_completed
-24	1	core_completion_update_activity_completion_status_manually
-25	1	core_course_get_categories
-26	1	core_course_get_contents
-27	1	core_course_get_course_module
-28	1	core_course_get_course_module_by_instance
-29	1	core_course_get_courses
-30	1	core_course_search_courses
-31	1	core_course_view_course
-32	1	core_course_get_user_navigation_options
-33	1	core_course_get_user_administration_options
-34	1	core_course_get_courses_by_field
-35	1	core_course_check_updates
-36	1	core_course_get_updates_since
-37	1	core_course_get_enrolled_courses_by_timeline_classification
-38	1	core_course_get_recent_courses
-39	1	core_course_set_favourite_courses
-40	1	core_enrol_get_course_enrolment_methods
-41	1	core_enrol_get_enrolled_users
-42	1	core_enrol_search_users
-43	1	core_enrol_get_users_courses
-44	1	core_files_get_files
-45	1	core_get_component_strings
-46	1	core_grades_grader_gradingpanel_point_fetch
-47	1	core_grades_grader_gradingpanel_point_store
-48	1	core_message_get_conversations
-49	1	core_grades_grader_gradingpanel_scale_fetch
-50	1	core_grades_grader_gradingpanel_scale_store
-51	1	core_group_get_activity_allowed_groups
-52	1	core_group_get_activity_groupmode
-53	1	core_group_get_course_groupings
-54	1	core_group_get_course_groups
-55	1	core_group_get_course_user_groups
-56	1	core_message_mute_conversations
-57	1	core_message_unmute_conversations
-58	1	core_message_block_user
-59	1	core_message_block_contacts
-60	1	core_message_create_contacts
-61	1	core_message_get_contact_requests
-62	1	core_message_create_contact_request
-63	1	core_message_confirm_contact_request
-64	1	core_message_decline_contact_request
-65	1	core_message_get_received_contact_requests_count
-66	1	core_message_delete_contacts
-67	1	core_message_delete_conversation
-68	1	core_message_delete_conversations_by_id
-69	1	core_message_delete_message
-70	1	core_message_get_blocked_users
-71	1	core_message_data_for_messagearea_search_messages
-72	1	core_message_message_search_users
-73	1	core_message_data_for_messagearea_conversations
-74	1	core_message_data_for_messagearea_contacts
-75	1	core_message_data_for_messagearea_messages
-76	1	core_message_get_contacts
-77	1	core_message_get_user_contacts
-78	1	core_message_get_conversation
-79	1	core_message_get_conversation_between_users
-80	1	core_message_get_self_conversation
-81	1	core_message_get_messages
-82	1	core_message_get_conversation_counts
-83	1	core_message_get_unread_conversation_counts
-84	1	core_message_get_conversation_members
-85	1	core_message_get_member_info
-86	1	core_message_get_unread_conversations_count
-87	1	core_message_mark_all_notifications_as_read
-88	1	core_message_mark_all_messages_as_read
-89	1	core_message_mark_all_conversation_messages_as_read
-90	1	core_message_mark_message_read
-91	1	core_message_mark_notification_read
-92	1	core_message_message_processor_config_form
-93	1	core_message_search_contacts
-94	1	core_message_send_instant_messages
-95	1	core_message_send_messages_to_conversation
-96	1	core_message_get_conversation_messages
-97	1	core_message_unblock_user
-98	1	core_message_unblock_contacts
-99	1	core_message_get_user_notification_preferences
-100	1	core_message_get_user_message_preferences
-101	1	core_message_set_favourite_conversations
-102	1	core_message_unset_favourite_conversations
-103	1	core_message_delete_message_for_all_users
-104	1	core_notes_create_notes
-105	1	core_notes_delete_notes
-106	1	core_notes_get_course_notes
-107	1	core_notes_view_notes
-108	1	core_question_update_flag
-109	1	core_rating_get_item_ratings
-110	1	core_rating_add_rating
-111	1	core_tag_get_tagindex
-112	1	core_tag_get_tagindex_per_area
-113	1	core_tag_get_tag_areas
-114	1	core_tag_get_tag_collections
-115	1	core_tag_get_tag_cloud
-116	1	core_user_add_user_device
-117	1	core_user_add_user_private_files
-118	1	core_user_get_course_user_profiles
-119	1	core_user_get_users_by_field
-120	1	core_user_remove_user_device
-121	1	core_user_update_user_preferences
-122	1	core_user_view_user_list
-123	1	core_user_view_user_profile
-124	1	core_user_get_user_preferences
-125	1	core_user_update_picture
-126	1	core_user_set_user_preferences
-127	1	core_user_agree_site_policy
-128	1	core_user_get_private_files_info
-129	1	core_competency_competency_viewed
-130	1	core_competency_list_course_competencies
-131	1	core_competency_get_scale_values
-132	1	core_competency_user_competency_viewed
-133	1	core_competency_user_competency_viewed_in_plan
-134	1	core_competency_user_competency_viewed_in_course
-135	1	core_competency_user_competency_plan_viewed
-136	1	core_competency_grade_competency_in_course
-137	1	core_competency_delete_evidence
-138	1	core_webservice_get_site_info
-139	1	core_block_get_course_blocks
-140	1	core_block_get_dashboard_blocks
-141	1	core_filters_get_available_in_context
-142	1	core_h5p_get_trusted_h5p_file
-143	1	mod_assign_get_grades
-144	1	mod_assign_get_assignments
-145	1	mod_assign_get_submissions
-146	1	mod_assign_get_user_flags
-147	1	mod_assign_set_user_flags
-148	1	mod_assign_get_user_mappings
-149	1	mod_assign_revert_submissions_to_draft
-150	1	mod_assign_lock_submissions
-151	1	mod_assign_unlock_submissions
-152	1	mod_assign_save_submission
-153	1	mod_assign_submit_for_grading
-154	1	mod_assign_save_grade
-155	1	mod_assign_save_grades
-156	1	mod_assign_save_user_extensions
-157	1	mod_assign_reveal_identities
-158	1	mod_assign_view_grading_table
-159	1	mod_assign_view_submission_status
-160	1	mod_assign_get_submission_status
-161	1	mod_assign_list_participants
-162	1	mod_assign_submit_grading_form
-163	1	mod_assign_get_participant
-164	1	mod_assign_view_assign
-165	1	mod_book_view_book
-166	1	mod_book_get_books_by_courses
-167	1	mod_chat_login_user
-168	1	mod_chat_get_chat_users
-169	1	mod_chat_send_chat_message
-170	1	mod_chat_get_chat_latest_messages
-171	1	mod_chat_view_chat
-172	1	mod_chat_get_chats_by_courses
-173	1	mod_chat_get_sessions
-174	1	mod_chat_get_session_messages
-175	1	mod_choice_get_choice_results
-176	1	mod_choice_get_choice_options
-177	1	mod_choice_submit_choice_response
-178	1	mod_choice_view_choice
-179	1	mod_choice_get_choices_by_courses
-180	1	mod_choice_delete_choice_responses
-181	1	mod_data_get_databases_by_courses
-182	1	mod_data_view_database
-183	1	mod_data_get_data_access_information
-184	1	mod_data_get_entries
-185	1	mod_data_get_entry
-186	1	mod_data_get_fields
-187	1	mod_data_search_entries
-188	1	mod_data_approve_entry
-189	1	mod_data_delete_entry
-190	1	mod_data_add_entry
-191	1	mod_data_update_entry
-192	1	mod_feedback_get_feedbacks_by_courses
-193	1	mod_feedback_get_feedback_access_information
-194	1	mod_feedback_view_feedback
-195	1	mod_feedback_get_current_completed_tmp
-196	1	mod_feedback_get_items
-197	1	mod_feedback_launch_feedback
-198	1	mod_feedback_get_page_items
-199	1	mod_feedback_process_page
-200	1	mod_feedback_get_analysis
-201	1	mod_feedback_get_unfinished_responses
-202	1	mod_feedback_get_finished_responses
-203	1	mod_feedback_get_non_respondents
-204	1	mod_feedback_get_responses_analysis
-205	1	mod_feedback_get_last_completed
-206	1	mod_folder_view_folder
-207	1	mod_folder_get_folders_by_courses
-208	1	mod_forum_get_forums_by_courses
-209	1	mod_forum_get_discussion_posts
-210	1	mod_forum_get_forum_discussion_posts
-211	1	mod_forum_get_forum_discussions_paginated
-212	1	mod_forum_get_forum_discussions
-213	1	mod_forum_view_forum
-214	1	mod_forum_view_forum_discussion
-215	1	mod_forum_add_discussion_post
-216	1	mod_forum_add_discussion
-217	1	mod_forum_can_add_discussion
-218	1	mod_forum_get_forum_access_information
-219	1	mod_forum_set_subscription_state
-220	1	mod_forum_set_lock_state
-221	1	mod_forum_toggle_favourite_state
-222	1	mod_forum_set_pin_state
-223	1	mod_forum_delete_post
-224	1	mod_forum_get_discussion_post
-225	1	mod_forum_prepare_draft_area_for_post
-226	1	mod_forum_update_discussion_post
-227	1	mod_glossary_get_glossaries_by_courses
-228	1	mod_glossary_view_glossary
-229	1	mod_glossary_view_entry
-230	1	mod_glossary_get_entries_by_letter
-231	1	mod_glossary_get_entries_by_date
-232	1	mod_glossary_get_categories
-233	1	mod_glossary_get_entries_by_category
-234	1	mod_glossary_get_authors
-235	1	mod_glossary_get_entries_by_author
-236	1	mod_glossary_get_entries_by_author_id
-237	1	mod_glossary_get_entries_by_search
-238	1	mod_glossary_get_entries_by_term
-239	1	mod_glossary_get_entries_to_approve
-240	1	mod_glossary_get_entry_by_id
-241	1	mod_glossary_add_entry
-242	1	mod_imscp_view_imscp
-243	1	mod_imscp_get_imscps_by_courses
-244	1	mod_label_get_labels_by_courses
-245	1	mod_lesson_get_lessons_by_courses
-246	1	mod_lesson_get_lesson_access_information
-247	1	mod_lesson_view_lesson
-248	1	mod_lesson_get_questions_attempts
-249	1	mod_lesson_get_user_grade
-250	1	mod_lesson_get_user_attempt_grade
-251	1	mod_lesson_get_content_pages_viewed
-252	1	mod_lesson_get_user_timers
-253	1	mod_lesson_get_pages
-254	1	mod_lesson_launch_attempt
-255	1	mod_lesson_get_page_data
-256	1	mod_lesson_process_page
-257	1	mod_lesson_finish_attempt
-258	1	mod_lesson_get_attempts_overview
-259	1	mod_lesson_get_user_attempt
-260	1	mod_lesson_get_pages_possible_jumps
-261	1	mod_lesson_get_lesson
-262	1	mod_lti_get_tool_launch_data
-263	1	mod_lti_get_ltis_by_courses
-264	1	mod_lti_view_lti
-265	1	mod_page_view_page
-266	1	mod_page_get_pages_by_courses
-267	1	mod_quiz_get_quizzes_by_courses
-268	1	mod_quiz_view_quiz
-269	1	mod_quiz_get_user_attempts
-270	1	mod_quiz_get_user_best_grade
-271	1	mod_quiz_get_combined_review_options
-272	1	mod_quiz_start_attempt
-273	1	mod_quiz_get_attempt_data
-274	1	mod_quiz_get_attempt_summary
-275	1	mod_quiz_save_attempt
-276	1	mod_quiz_process_attempt
-277	1	mod_quiz_get_attempt_review
-278	1	mod_quiz_view_attempt
-279	1	mod_quiz_view_attempt_summary
-280	1	mod_quiz_view_attempt_review
-281	1	mod_quiz_get_quiz_feedback_for_grade
-282	1	mod_quiz_get_quiz_access_information
-283	1	mod_quiz_get_attempt_access_information
-284	1	mod_quiz_get_quiz_required_qtypes
-285	1	mod_resource_view_resource
-286	1	mod_resource_get_resources_by_courses
-287	1	mod_scorm_view_scorm
-288	1	mod_scorm_get_scorm_attempt_count
-289	1	mod_scorm_get_scorm_scoes
-290	1	mod_scorm_get_scorm_user_data
-291	1	mod_scorm_insert_scorm_tracks
-292	1	mod_scorm_get_scorm_sco_tracks
-293	1	mod_scorm_get_scorms_by_courses
-294	1	mod_scorm_launch_sco
-295	1	mod_scorm_get_scorm_access_information
-296	1	mod_survey_get_surveys_by_courses
-297	1	mod_survey_view_survey
-298	1	mod_survey_get_questions
-299	1	mod_survey_submit_answers
-300	1	mod_url_view_url
-301	1	mod_url_get_urls_by_courses
-302	1	mod_wiki_get_wikis_by_courses
-303	1	mod_wiki_view_wiki
-304	1	mod_wiki_view_page
-305	1	mod_wiki_get_subwikis
-306	1	mod_wiki_get_subwiki_pages
-307	1	mod_wiki_get_subwiki_files
-308	1	mod_wiki_get_page_contents
-309	1	mod_wiki_get_page_for_editing
-310	1	mod_wiki_new_page
-311	1	mod_wiki_edit_page
-312	1	mod_workshop_get_workshops_by_courses
-313	1	mod_workshop_get_workshop_access_information
-314	1	mod_workshop_get_user_plan
-315	1	mod_workshop_view_workshop
-316	1	mod_workshop_add_submission
-317	1	mod_workshop_update_submission
-318	1	mod_workshop_delete_submission
-319	1	mod_workshop_get_submissions
-320	1	mod_workshop_get_submission
-321	1	mod_workshop_get_submission_assessments
-322	1	mod_workshop_get_assessment
-323	1	mod_workshop_get_assessment_form_definition
-324	1	mod_workshop_get_reviewer_assessments
-325	1	mod_workshop_update_assessment
-326	1	mod_workshop_get_grades
-327	1	mod_workshop_evaluate_assessment
-328	1	mod_workshop_get_grades_report
-329	1	mod_workshop_view_submission
-330	1	mod_workshop_evaluate_submission
-331	1	enrol_guest_get_instance_info
-332	1	enrol_self_get_instance_info
-333	1	enrol_self_enrol_user
-334	1	message_airnotifier_is_system_configured
-335	1	message_airnotifier_are_notification_preferences_configured
-336	1	message_airnotifier_get_user_devices
-337	1	message_airnotifier_enable_device
-338	1	message_popup_get_popup_notifications
-339	1	message_popup_get_unread_popup_notification_count
-340	1	block_recentlyaccesseditems_get_recent_items
-341	1	block_starredcourses_get_starred_courses
-342	1	report_insights_set_notuseful_prediction
-343	1	report_insights_set_fixed_prediction
-344	1	report_insights_action_executed
-345	1	gradereport_overview_get_course_grades
-346	1	gradereport_overview_view_grade_report
-347	1	gradereport_user_get_grades_table
-348	1	gradereport_user_view_grade_report
-349	1	gradereport_user_get_grade_items
-350	1	tool_analytics_potential_contexts
-351	1	tool_lp_data_for_course_competencies_page
-352	1	tool_lp_data_for_plans_page
-353	1	tool_lp_data_for_plan_page
-354	1	tool_lp_data_for_user_evidence_list_page
-355	1	tool_lp_data_for_user_evidence_page
-356	1	tool_lp_data_for_user_competency_summary
-357	1	tool_lp_data_for_user_competency_summary_in_plan
-358	1	tool_lp_data_for_user_competency_summary_in_course
-359	1	tool_mobile_get_plugins_supporting_mobile
-360	1	tool_mobile_get_public_config
-361	1	tool_mobile_get_config
-362	1	tool_mobile_get_autologin_key
-363	1	tool_mobile_get_content
-364	1	tool_mobile_call_external_functions
 365	2	mod_questionnaire_submit_questionnaire_response
 366	4	local_clickedu_get_activities
 367	4	local_clickedu_get_grades
 368	5	local_wsvicensvives_update_lti_grade
 369	5	local_wsvicensvives_get_lti_grade
-370	1	mod_choicegroup_get_choicegroup_options
-371	1	mod_choicegroup_submit_choicegroup_response
-372	1	mod_choicegroup_view_choicegroup
-373	1	mod_choicegroup_delete_choicegroup_responses
-374	1	mod_journal_get_entry
-375	1	mod_journal_set_text
-376	1	mod_questionnaire_submit_questionnaire_response
 377	3	local_alexandria_get_databases
 378	3	local_alexandria_search
+379	1	core_badges_get_user_badges
+380	1	core_blog_get_entries
+381	1	core_blog_view_entries
+382	1	core_calendar_get_calendar_monthly_view
+383	1	core_calendar_get_calendar_day_view
+384	1	core_calendar_get_calendar_upcoming_view
+385	1	core_calendar_update_event_start_day
+386	1	core_calendar_create_calendar_events
+387	1	core_calendar_delete_calendar_events
+388	1	core_calendar_get_calendar_events
+389	1	core_calendar_get_action_events_by_timesort
+390	1	core_calendar_get_action_events_by_course
+391	1	core_calendar_get_action_events_by_courses
+392	1	core_calendar_get_calendar_event_by_id
+393	1	core_calendar_submit_create_update_form
+394	1	core_calendar_get_calendar_access_information
+395	1	core_calendar_get_allowed_event_types
+396	1	core_comment_get_comments
+397	1	core_comment_add_comments
+398	1	core_comment_delete_comments
+399	1	core_completion_get_activities_completion_status
+400	1	core_completion_get_course_completion_status
+401	1	core_completion_mark_course_self_completed
+402	1	core_completion_update_activity_completion_status_manually
+403	1	core_course_get_categories
+404	1	core_course_get_contents
+405	1	core_course_get_course_module
+406	1	core_course_get_course_module_by_instance
+407	1	core_course_get_courses
+408	1	core_course_search_courses
+409	1	core_course_view_course
+410	1	core_course_get_user_navigation_options
+411	1	core_course_get_user_administration_options
+412	1	core_course_get_courses_by_field
+413	1	core_course_check_updates
+414	1	core_course_get_updates_since
+415	1	core_course_get_enrolled_courses_by_timeline_classification
+416	1	core_course_get_recent_courses
+417	1	core_course_set_favourite_courses
+418	1	core_enrol_get_course_enrolment_methods
+419	1	core_enrol_get_enrolled_users
+420	1	core_enrol_search_users
+421	1	core_enrol_get_users_courses
+422	1	core_files_get_files
+423	1	core_get_component_strings
+424	1	core_grades_grader_gradingpanel_point_fetch
+425	1	core_grades_grader_gradingpanel_point_store
+426	1	core_message_get_conversations
+427	1	core_grades_grader_gradingpanel_scale_fetch
+428	1	core_grades_grader_gradingpanel_scale_store
+429	1	core_group_get_activity_allowed_groups
+430	1	core_group_get_activity_groupmode
+431	1	core_group_get_course_groupings
+432	1	core_group_get_course_groups
+433	1	core_group_get_course_user_groups
+434	1	core_message_mute_conversations
+435	1	core_message_unmute_conversations
+436	1	core_message_block_user
+437	1	core_message_block_contacts
+438	1	core_message_create_contacts
+439	1	core_message_get_contact_requests
+440	1	core_message_create_contact_request
+441	1	core_message_confirm_contact_request
+442	1	core_message_decline_contact_request
+443	1	core_message_get_received_contact_requests_count
+444	1	core_message_delete_contacts
+445	1	core_message_delete_conversation
+446	1	core_message_delete_conversations_by_id
+447	1	core_message_delete_message
+448	1	core_message_get_blocked_users
+449	1	core_message_data_for_messagearea_search_messages
+450	1	core_message_message_search_users
+451	1	core_message_data_for_messagearea_conversations
+452	1	core_message_data_for_messagearea_contacts
+453	1	core_message_data_for_messagearea_messages
+454	1	core_message_get_contacts
+455	1	core_message_get_user_contacts
+456	1	core_message_get_conversation
+457	1	core_message_get_conversation_between_users
+458	1	core_message_get_self_conversation
+459	1	core_message_get_messages
+460	1	core_message_get_conversation_counts
+461	1	core_message_get_unread_conversation_counts
+462	1	core_message_get_conversation_members
+463	1	core_message_get_member_info
+464	1	core_message_get_unread_conversations_count
+465	1	core_message_mark_all_notifications_as_read
+466	1	core_message_mark_all_messages_as_read
+467	1	core_message_mark_all_conversation_messages_as_read
+468	1	core_message_mark_message_read
+469	1	core_message_mark_notification_read
+470	1	core_message_message_processor_config_form
+471	1	core_message_search_contacts
+472	1	core_message_send_instant_messages
+473	1	core_message_send_messages_to_conversation
+474	1	core_message_get_conversation_messages
+475	1	core_message_unblock_user
+476	1	core_message_unblock_contacts
+477	1	core_message_get_user_notification_preferences
+478	1	core_message_get_user_message_preferences
+479	1	core_message_set_favourite_conversations
+480	1	core_message_unset_favourite_conversations
+481	1	core_message_delete_message_for_all_users
+482	1	core_notes_create_notes
+483	1	core_notes_delete_notes
+484	1	core_notes_get_course_notes
+485	1	core_notes_view_notes
+486	1	core_question_update_flag
+487	1	core_rating_get_item_ratings
+488	1	core_rating_add_rating
+489	1	core_tag_get_tagindex
+490	1	core_tag_get_tagindex_per_area
+491	1	core_tag_get_tag_areas
+492	1	core_tag_get_tag_collections
+493	1	core_tag_get_tag_cloud
+494	1	core_user_add_user_device
+495	1	core_user_add_user_private_files
+496	1	core_user_get_course_user_profiles
+497	1	core_user_get_users_by_field
+498	1	core_user_remove_user_device
+499	1	core_user_update_user_preferences
+500	1	core_user_view_user_list
+501	1	core_user_view_user_profile
+502	1	core_user_get_user_preferences
+503	1	core_user_update_picture
+504	1	core_user_set_user_preferences
+505	1	core_user_agree_site_policy
+506	1	core_user_get_private_files_info
+507	1	core_competency_competency_viewed
+508	1	core_competency_list_course_competencies
+509	1	core_competency_get_scale_values
+510	1	core_competency_user_competency_viewed
+511	1	core_competency_user_competency_viewed_in_plan
+512	1	core_competency_user_competency_viewed_in_course
+513	1	core_competency_user_competency_plan_viewed
+514	1	core_competency_grade_competency_in_course
+515	1	core_competency_delete_evidence
+516	1	core_webservice_get_site_info
+517	1	core_block_get_course_blocks
+518	1	core_block_get_dashboard_blocks
+519	1	core_filters_get_available_in_context
+520	1	core_h5p_get_trusted_h5p_file
+521	1	mod_assign_get_grades
+522	1	mod_assign_get_assignments
+523	1	mod_assign_get_submissions
+524	1	mod_assign_get_user_flags
+525	1	mod_assign_set_user_flags
+526	1	mod_assign_get_user_mappings
+527	1	mod_assign_revert_submissions_to_draft
+528	1	mod_assign_lock_submissions
+529	1	mod_assign_unlock_submissions
+530	1	mod_assign_save_submission
+531	1	mod_assign_submit_for_grading
+532	1	mod_assign_save_grade
+533	1	mod_assign_save_grades
+534	1	mod_assign_save_user_extensions
+535	1	mod_assign_reveal_identities
+536	1	mod_assign_view_grading_table
+537	1	mod_assign_view_submission_status
+538	1	mod_assign_get_submission_status
+539	1	mod_assign_list_participants
+540	1	mod_assign_submit_grading_form
+541	1	mod_assign_get_participant
+542	1	mod_assign_view_assign
+543	1	mod_book_view_book
+544	1	mod_book_get_books_by_courses
+545	1	mod_chat_login_user
+546	1	mod_chat_get_chat_users
+547	1	mod_chat_send_chat_message
+548	1	mod_chat_get_chat_latest_messages
+549	1	mod_chat_view_chat
+550	1	mod_chat_get_chats_by_courses
+551	1	mod_chat_get_sessions
+552	1	mod_chat_get_session_messages
+553	1	mod_choice_get_choice_results
+554	1	mod_choice_get_choice_options
+555	1	mod_choice_submit_choice_response
+556	1	mod_choice_view_choice
+557	1	mod_choice_get_choices_by_courses
+558	1	mod_choice_delete_choice_responses
+559	1	mod_data_get_databases_by_courses
+560	1	mod_data_view_database
+561	1	mod_data_get_data_access_information
+562	1	mod_data_get_entries
+563	1	mod_data_get_entry
+564	1	mod_data_get_fields
+565	1	mod_data_search_entries
+566	1	mod_data_approve_entry
+567	1	mod_data_delete_entry
+568	1	mod_data_add_entry
+569	1	mod_data_update_entry
+570	1	mod_feedback_get_feedbacks_by_courses
+571	1	mod_feedback_get_feedback_access_information
+572	1	mod_feedback_view_feedback
+573	1	mod_feedback_get_current_completed_tmp
+574	1	mod_feedback_get_items
+575	1	mod_feedback_launch_feedback
+576	1	mod_feedback_get_page_items
+577	1	mod_feedback_process_page
+578	1	mod_feedback_get_analysis
+579	1	mod_feedback_get_unfinished_responses
+580	1	mod_feedback_get_finished_responses
+581	1	mod_feedback_get_non_respondents
+582	1	mod_feedback_get_responses_analysis
+583	1	mod_feedback_get_last_completed
+584	1	mod_folder_view_folder
+585	1	mod_folder_get_folders_by_courses
+586	1	mod_forum_get_forums_by_courses
+587	1	mod_forum_get_discussion_posts
+588	1	mod_forum_get_forum_discussion_posts
+589	1	mod_forum_get_forum_discussions_paginated
+590	1	mod_forum_get_forum_discussions
+591	1	mod_forum_view_forum
+592	1	mod_forum_view_forum_discussion
+593	1	mod_forum_add_discussion_post
+594	1	mod_forum_add_discussion
+595	1	mod_forum_can_add_discussion
+596	1	mod_forum_get_forum_access_information
+597	1	mod_forum_set_subscription_state
+598	1	mod_forum_set_lock_state
+599	1	mod_forum_toggle_favourite_state
+600	1	mod_forum_set_pin_state
+601	1	mod_forum_delete_post
+602	1	mod_forum_get_discussion_post
+603	1	mod_forum_prepare_draft_area_for_post
+604	1	mod_forum_update_discussion_post
+605	1	mod_glossary_get_glossaries_by_courses
+606	1	mod_glossary_view_glossary
+607	1	mod_glossary_view_entry
+608	1	mod_glossary_get_entries_by_letter
+609	1	mod_glossary_get_entries_by_date
+610	1	mod_glossary_get_categories
+611	1	mod_glossary_get_entries_by_category
+612	1	mod_glossary_get_authors
+613	1	mod_glossary_get_entries_by_author
+614	1	mod_glossary_get_entries_by_author_id
+615	1	mod_glossary_get_entries_by_search
+616	1	mod_glossary_get_entries_by_term
+617	1	mod_glossary_get_entries_to_approve
+618	1	mod_glossary_get_entry_by_id
+619	1	mod_glossary_add_entry
+620	1	mod_imscp_view_imscp
+621	1	mod_imscp_get_imscps_by_courses
+622	1	mod_label_get_labels_by_courses
+623	1	mod_lesson_get_lessons_by_courses
+624	1	mod_lesson_get_lesson_access_information
+625	1	mod_lesson_view_lesson
+626	1	mod_lesson_get_questions_attempts
+627	1	mod_lesson_get_user_grade
+628	1	mod_lesson_get_user_attempt_grade
+629	1	mod_lesson_get_content_pages_viewed
+630	1	mod_lesson_get_user_timers
+631	1	mod_lesson_get_pages
+632	1	mod_lesson_launch_attempt
+633	1	mod_lesson_get_page_data
+634	1	mod_lesson_process_page
+635	1	mod_lesson_finish_attempt
+636	1	mod_lesson_get_attempts_overview
+637	1	mod_lesson_get_user_attempt
+638	1	mod_lesson_get_pages_possible_jumps
+639	1	mod_lesson_get_lesson
+640	1	mod_lti_get_tool_launch_data
+641	1	mod_lti_get_ltis_by_courses
+642	1	mod_lti_view_lti
+643	1	mod_page_view_page
+644	1	mod_page_get_pages_by_courses
+645	1	mod_quiz_get_quizzes_by_courses
+646	1	mod_quiz_view_quiz
+647	1	mod_quiz_get_user_attempts
+648	1	mod_quiz_get_user_best_grade
+649	1	mod_quiz_get_combined_review_options
+650	1	mod_quiz_start_attempt
+651	1	mod_quiz_get_attempt_data
+652	1	mod_quiz_get_attempt_summary
+653	1	mod_quiz_save_attempt
+654	1	mod_quiz_process_attempt
+655	1	mod_quiz_get_attempt_review
+656	1	mod_quiz_view_attempt
+657	1	mod_quiz_view_attempt_summary
+658	1	mod_quiz_view_attempt_review
+659	1	mod_quiz_get_quiz_feedback_for_grade
+660	1	mod_quiz_get_quiz_access_information
+661	1	mod_quiz_get_attempt_access_information
+662	1	mod_quiz_get_quiz_required_qtypes
+663	1	mod_resource_view_resource
+664	1	mod_resource_get_resources_by_courses
+665	1	mod_scorm_view_scorm
+666	1	mod_scorm_get_scorm_attempt_count
+667	1	mod_scorm_get_scorm_scoes
+668	1	mod_scorm_get_scorm_user_data
+669	1	mod_scorm_insert_scorm_tracks
+670	1	mod_scorm_get_scorm_sco_tracks
+671	1	mod_scorm_get_scorms_by_courses
+672	1	mod_scorm_launch_sco
+673	1	mod_scorm_get_scorm_access_information
+674	1	mod_survey_get_surveys_by_courses
+675	1	mod_survey_view_survey
+676	1	mod_survey_get_questions
+677	1	mod_survey_submit_answers
+678	1	mod_url_view_url
+679	1	mod_url_get_urls_by_courses
+680	1	mod_wiki_get_wikis_by_courses
+681	1	mod_wiki_view_wiki
+682	1	mod_wiki_view_page
+683	1	mod_wiki_get_subwikis
+684	1	mod_wiki_get_subwiki_pages
+685	1	mod_wiki_get_subwiki_files
+686	1	mod_wiki_get_page_contents
+687	1	mod_wiki_get_page_for_editing
+688	1	mod_wiki_new_page
+689	1	mod_wiki_edit_page
+690	1	mod_workshop_get_workshops_by_courses
+691	1	mod_workshop_get_workshop_access_information
+692	1	mod_workshop_get_user_plan
+693	1	mod_workshop_view_workshop
+694	1	mod_workshop_add_submission
+695	1	mod_workshop_update_submission
+696	1	mod_workshop_delete_submission
+697	1	mod_workshop_get_submissions
+698	1	mod_workshop_get_submission
+699	1	mod_workshop_get_submission_assessments
+700	1	mod_workshop_get_assessment
+701	1	mod_workshop_get_assessment_form_definition
+702	1	mod_workshop_get_reviewer_assessments
+703	1	mod_workshop_update_assessment
+704	1	mod_workshop_get_grades
+705	1	mod_workshop_evaluate_assessment
+706	1	mod_workshop_get_grades_report
+707	1	mod_workshop_view_submission
+708	1	mod_workshop_evaluate_submission
+709	1	enrol_guest_get_instance_info
+710	1	enrol_self_get_instance_info
+711	1	enrol_self_enrol_user
+712	1	message_airnotifier_is_system_configured
+713	1	message_airnotifier_are_notification_preferences_configured
+714	1	message_airnotifier_get_user_devices
+715	1	message_airnotifier_enable_device
+716	1	message_popup_get_popup_notifications
+717	1	message_popup_get_unread_popup_notification_count
+718	1	block_recentlyaccesseditems_get_recent_items
+719	1	block_starredcourses_get_starred_courses
+720	1	report_insights_set_notuseful_prediction
+721	1	report_insights_set_fixed_prediction
+722	1	report_insights_action_executed
+723	1	gradereport_overview_get_course_grades
+724	1	gradereport_overview_view_grade_report
+725	1	gradereport_user_get_grades_table
+726	1	gradereport_user_view_grade_report
+727	1	gradereport_user_get_grade_items
+728	1	tool_analytics_potential_contexts
+729	1	tool_lp_data_for_course_competencies_page
+730	1	tool_lp_data_for_plans_page
+731	1	tool_lp_data_for_plan_page
+732	1	tool_lp_data_for_user_evidence_list_page
+733	1	tool_lp_data_for_user_evidence_page
+734	1	tool_lp_data_for_user_competency_summary
+735	1	tool_lp_data_for_user_competency_summary_in_plan
+736	1	tool_lp_data_for_user_competency_summary_in_course
+737	1	tool_mobile_get_plugins_supporting_mobile
+738	1	tool_mobile_get_public_config
+739	1	tool_mobile_get_config
+740	1	tool_mobile_get_autologin_key
+741	1	tool_mobile_get_content
+742	1	tool_mobile_call_external_functions
+743	1	mod_choicegroup_get_choicegroup_options
+744	1	mod_choicegroup_submit_choicegroup_response
+745	1	mod_choicegroup_view_choicegroup
+746	1	mod_choicegroup_delete_choicegroup_responses
+747	1	mod_journal_get_entry
+748	1	mod_journal_set_text
+749	1	mod_questionnaire_submit_questionnaire_response
 \.
 
 
@@ -32338,6 +32359,15 @@ COPY public.mdl_files (id, contenthash, pathnamehash, contextid, component, file
 3	75c101cb8cb34ea573cd25ac38f8157b1de901b8	68317eab56c67d32aeaee5acf509a0c4aa828b6b	1	assignfeedback_editpdf	stamps	0	/	sad.png	2	966	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
 4	0c5190a24c3943966541401c883eacaa20ca20cb	695a55ff780e61c9e59428aa425430b0d6bde53b	1	assignfeedback_editpdf	stamps	0	/	tick.png	2	1039	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
 5	8c96a486d5801e0f4ab8c411f561f1c687e1f865	373e63af262a9b8466ba8632551520be793c37ff	1	assignfeedback_editpdf	stamps	0	/	cross.png	2	861	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
+6	87793262feb64e380ecaa5ab39f92756b9629afa	13fddd34e5f40c23653f6f751a09e31b6b568dbb	5	user	draft	651931632	/	logo_alexandria.png	2	5234	image/png	0	O:8:"stdClass":1:{s:6:"source";s:19:"logo_alexandria.png";}	Administrador Alexandria	allrightsreserved	1604425963	1604425963	0	\N
+7	da39a3ee5e6b4b0d3255bfef95601890afd80709	a6d733cafb531f111eb0ee5a42b3455ca8f0ab23	5	user	draft	651931632	/	.	2	0	\N	0	\N	\N	\N	1604425964	1604425964	0	\N
+8	64eac2c0349c35b4b30b40b6595f34c9135c8bed	bcd400fff099111f24a8354dee1b4bb69849f89d	1	core	preview	0	/thumb/	87793262feb64e380ecaa5ab39f92756b9629afa	\N	3416	image/png	0	\N	\N	\N	1604425964	1604425964	0	\N
+9	da39a3ee5e6b4b0d3255bfef95601890afd80709	74c104d54c05b5f8c633a36da516d37e6c5279e4	1	core	preview	0	/thumb/	.	\N	0	\N	0	\N	\N	\N	1604425964	1604425964	0	\N
+10	da39a3ee5e6b4b0d3255bfef95601890afd80709	884555719c50529b9df662a38619d04b5b11e25c	1	core	preview	0	/	.	\N	0	\N	0	\N	\N	\N	1604425964	1604425964	0	\N
+11	87793262feb64e380ecaa5ab39f92756b9629afa	0b875f1e7e869fd9b3de12164748ea2f0ab43626	1	theme_xtec2020	logo	0	/	logo_alexandria.png	2	5234	image/png	0	logo_alexandria.png	Administrador Alexandria	allrightsreserved	1604425963	1604426120	0	\N
+12	da39a3ee5e6b4b0d3255bfef95601890afd80709	deb323edb8e693a033698a609112b4384a5445c6	1	theme_xtec2020	logo	0	/	.	2	0	\N	0	\N	\N	\N	1604425964	1604426120	0	\N
+14	da39a3ee5e6b4b0d3255bfef95601890afd80709	98b5c3eadea5402afccd3cb5ffd87560db251bff	5	user	draft	328301829	/	.	2	0	\N	0	\N	\N	\N	1604426123	1604426123	0	\N
+13	87793262feb64e380ecaa5ab39f92756b9629afa	29887b60eb4cc1642c9df155ac4d20a50cdf8f6f	5	user	draft	328301829	/	logo_alexandria.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:19:"logo_alexandria.png";s:8:"original";s:232:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czoxOToibG9nb19hbGV4YW5kcmlhLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1604425963	1604426120	0	\N
 \.
 
 
@@ -32844,7 +32874,7 @@ COPY public.mdl_hotpot_strings (id, string, md5key) FROM stdin;
 -- Data for Name: mdl_hvp; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_hvp (id, course, name, intro, introformat, json_content, embed_type, disable, main_library_id, content_type, authors, source, year_from, year_to, license, license_version, changes, license_extras, author_comments, default_language, filtered, slug, timecreated, timemodified) FROM stdin;
+COPY public.mdl_hvp (id, course, name, intro, introformat, json_content, embed_type, disable, main_library_id, content_type, authors, source, year_from, year_to, license, license_version, changes, license_extras, author_comments, default_language, filtered, slug, timecreated, timemodified, completionpass) FROM stdin;
 \.
 
 
@@ -33158,10 +33188,10 @@ COPY public.mdl_license (id, shortname, fullname, source, enabled, version) FROM
 --
 
 COPY public.mdl_lock_db (id, resourcekey, expires, owner) FROM stdin;
-1	core_coursecattree_core_coursecattree_cache	\N	\N
-2	core_modinfo_build_course_cache_1	\N	\N
 3	core_theme_get_css_content_boost	\N	\N
+2	core_modinfo_build_course_cache_1	\N	\N
 4	core_theme_get_css_content_xtec2020	\N	\N
+1	core_coursecattree_core_coursecattree_cache	\N	\N
 \.
 
 
@@ -33418,6 +33448,24 @@ COPY public.mdl_log_queries (id, qtype, sqltext, sqlparams, error, info, backtra
 --
 
 COPY public.mdl_logstore_standard_log (id, eventname, component, action, target, objecttable, objectid, crud, edulevel, contextid, contextlevel, contextinstanceid, userid, courseid, relateduserid, anonymous, other, timecreated, origin, ip, realuserid) FROM stdin;
+1481	\\core\\event\\user_loggedin	core	loggedin	user	user	2	r	0	1	10	0	2	0	\N	0	{"username":"admin"}	1604425598	web	192.168.33.1	\N
+1482	\\core\\event\\config_log_created	core	created	config_log	config_log	1804	c	0	1	10	0	2	0	\N	0	{"name":"recaptchapublickey","oldvalue":null,"value":"","plugin":null}	1604425796	web	192.168.33.1	\N
+1483	\\core\\event\\config_log_created	core	created	config_log	config_log	1805	c	0	1	10	0	2	0	\N	0	{"name":"recaptchaprivatekey","oldvalue":null,"value":"","plugin":null}	1604425796	web	192.168.33.1	\N
+1484	\\core\\event\\config_log_created	core	created	config_log	config_log	1806	c	0	1	10	0	2	0	\N	0	{"name":"supportemail","oldvalue":null,"value":"alexandria@xtec.cat","plugin":null}	1604425796	web	192.168.33.1	\N
+1485	\\core\\event\\config_log_created	core	created	config_log	config_log	1807	c	0	1	10	0	2	0	\N	0	{"name":"loglifetime","oldvalue":"0","value":"60","plugin":"logstore_standard"}	1604425837	web	192.168.33.1	\N
+1486	\\core\\event\\config_log_created	core	created	config_log	config_log	1808	c	0	1	10	0	2	0	\N	0	{"name":"logo","oldvalue":"","value":"\\/logo_alexandria.png","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1487	\\core\\event\\config_log_created	core	created	config_log	config_log	1809	c	0	1	10	0	2	0	\N	0	{"name":"headerbg","oldvalue":"#f4f4f4","value":"#ffffff","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1488	\\core\\event\\config_log_created	core	created	config_log	config_log	1810	c	0	1	10	0	2	0	\N	0	{"name":"colorset","oldvalue":"grana","value":"personalitzat","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1489	\\core\\event\\config_log_created	core	created	config_log	config_log	1811	c	0	1	10	0	2	0	\N	0	{"name":"maincolor","oldvalue":"#AC2013","value":"#457FB9","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1490	\\core\\event\\config_log_created	core	created	config_log	config_log	1812	c	0	1	10	0	2	0	\N	0	{"name":"fontcolor","oldvalue":"#303030","value":"#457FB9","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1491	\\core\\event\\config_log_created	core	created	config_log	config_log	1813	c	0	1	10	0	2	0	\N	0	{"name":"linkscolor","oldvalue":"#AC2013","value":"#457FB9","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1492	\\core\\event\\config_log_created	core	created	config_log	config_log	1814	c	0	1	10	0	2	0	\N	0	{"name":"fontsize","oldvalue":"100","value":"90","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1493	\\core\\event\\config_log_created	core	created	config_log	config_log	1815	c	0	1	10	0	2	0	\N	0	{"name":"customcss","oldvalue":"","value":"#page-header {\\r\\nbackground-position: left center !important;\\r\\nmargin-left: 0px;\\r\\n}\\r\\n\\r\\n#page-header h1{\\r\\n display: none;\\r\\n}\\r\\n\\r\\nth, tr, td {\\r\\n    border: 1px solid #dee2e6 !important;\\r\\n}\\r\\n\\r\\n#nav-drawer a[data-key=\\"myhome\\"] {\\r\\n    display: none;\\r\\n}\\r\\n\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\\r\\n    display: flex;\\r\\n    flex-direction: column;\\r\\n}\\r\\n\\/* Text i bot\\u00f3 d'acc\\u00e9s de visitants *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\\r\\n    order: 5;\\r\\n}\\r\\n\\/* Text d'oblit de contrasenya *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\\r\\n    order: 3;\\r\\n}\\r\\n\\/* Text de les galetes *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\\r\\n    order: 4;\\r\\n}\\r\\n\\/* Text \\"Autentiqueu-vos utilitzant el vostre compte a:\\" *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\\r\\n    order: 1;\\r\\n}\\r\\n\\/* Bot\\u00f3 de Google *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\\r\\n    order: 2;\\r\\n}","plugin":"theme_xtec2020"}	1604426120	web	192.168.33.1	\N
+1494	\\core\\event\\user_created	core	created	user	user	3	c	0	18	30	3	2	0	3	0	null	1604426262	web	192.168.33.1	\N
+1495	\\core\\event\\user_updated	core	updated	user	user	2	u	0	5	30	2	2	0	2	0	null	1604426333	web	192.168.33.1	\N
+1496	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1604426339	web	192.168.33.1	\N
+1497	\\core\\event\\user_loggedout	core	loggedout	user	user	2	r	0	1	10	0	2	0	\N	0	{"sessionid":"l8ie441bvnk07s53tomoqne9g3"}	1604426347	web	192.168.33.1	\N
+1498	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	0	1	\N	0	null	1604426347	web	192.168.33.1	\N
 \.
 
 
@@ -36683,7 +36731,7 @@ COPY public.mdl_search_simpledb_index (id, docid, itemid, title, content, contex
 --
 
 COPY public.mdl_sessions (id, state, sid, userid, sessdata, timecreated, timemodified, firstip, lastip) FROM stdin;
-2	0	al3a99tr9mc4l46cjpr85idq8j	2	\N	1590510009	1590511506	192.168.33.1	192.168.33.1
+5	0	77iahkqrjqqs4994u4upp0s019	0	VVNFUnxPOjg6InN0ZENsYXNzIjo3OntzOjI6ImlkIjtpOjA7czoxMDoibW5ldGhvc3RpZCI7czoxOiIxIjtzOjEwOiJwcmVmZXJlbmNlIjthOjA6e31zOjc6InNlc3NrZXkiO3M6MTA6IjhjWGhBRUZkUFYiO3M6MjU6ImFqYXhfdXBkYXRhYmxlX3VzZXJfcHJlZnMiO2E6MTp7czoxNToiZHJhd2VyLW9wZW4tbmF2IjtzOjU6ImFscGhhIjt9czo2OiJhY2Nlc3MiO2E6Mzp7czoyOiJyYSI7YToxOntzOjI6Ii8xIjthOjE6e2k6NjtpOjY7fX1zOjQ6InRpbWUiO2k6MTYwNDQyNjM0NztzOjM6InJzdyI7YTowOnt9fXM6NToiZW5yb2wiO2E6Mjp7czo4OiJlbnJvbGxlZCI7YTowOnt9czo5OiJ0ZW1wZ3Vlc3QiO2E6MDp7fX19U0VTU0lPTnxPOjg6InN0ZENsYXNzIjoyOntzOjQ6ImxhbmciO3M6MjoiY2EiO3M6MTg6ImNhY2hlc3RvcmVfc2Vzc2lvbiI7YToxOntzOjMwOiJkZWZhdWx0X3Nlc3Npb24tY29yZS9jb3Vyc2VjYXQiO2E6Njp7czo0MzoiX19sYXN0YWNjZXNzX191MF83N2lhaGtxcmpxcXM0OTk0dTR1cHAwczAxOSI7YToyOntpOjA7aToxNjA0NDI2MzQ3O2k6MTtpOjE2MDQ0MjYzNDc7fXM6NzA6InUwXzc3aWFoa3FyanFxczQ5OTR1NHVwcDBzMDE5XzZhMzIyYjdmYjg5YzAyYmM5N2RiYjRiMjFlNzY5MDQ5ZTdjMDViMzIiO2E6Mjp7aTowO3M6Mzk6IjE2MDQ0MjYzNDcuNzUwMy01ZmExOWE2YmI3MmZlOS4xNjM2MzIyMiI7aToxO2k6MTYwNDQyNjM0Nzt9czo3MDoidTBfNzdpYWhrcXJqcXFzNDk5NHU0dXBwMHMwMTlfMjYzNTU4YThkYWQyNGU2Y2I3Yjc3NWM3MjU2ODg0MDY0ZjVjNDAxYyI7YToyOntpOjA7YTowOnt9aToxO2k6MTYwNDQyNjM0Nzt9czo3MDoidTBfNzdpYWhrcXJqcXFzNDk5NHU0dXBwMHMwMTlfYzc1Y2Q5OWMzZmJhNDc0MTRkMWM5MmJjNDBjODE0NDI5MmZjOWY4MiI7YToyOntpOjA7YToxOntpOjA7czoxOiIxIjt9aToxO2k6MTYwNDQyNjM0Nzt9czo3MDoidTBfNzdpYWhrcXJqcXFzNDk5NHU0dXBwMHMwMTlfOGUxZDVkNDcwN2NkNDZjZWE1MDc0YTViZDNmYmU1MTlkNDI0NGJiMSI7YToyOntpOjA7YTowOnt9aToxO2k6MTYwNDQyNjM0Nzt9czo3MDoidTBfNzdpYWhrcXJqcXFzNDk5NHU0dXBwMHMwMTlfYzA4NWUzMzZlNjU5Y2ZkYWUwYzZkMWJiM2E5MmY5ZjgxMzI0YzAyNyI7YToyOntpOjA7aTowO2k6MTtpOjE2MDQ0MjYzNDc7fX19fQ==	1604426347	1604426348	192.168.33.1	192.168.33.1
 \.
 
 
@@ -36918,51 +36966,9 @@ COPY public.mdl_task_log (id, type, component, classname, userid, timestart, tim
 --
 
 COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextruntime, blocking, minute, hour, day, month, dayofweek, faildelay, customised, disabled) FROM stdin;
-1	moodle	\\core\\task\\session_cleanup_task	0	1590509940	0	*	*	*	*	*	0	0	0
-2	moodle	\\core\\task\\delete_unconfirmed_users_task	0	1590512400	0	0	*	*	*	*	0	0	0
-3	moodle	\\core\\task\\delete_incomplete_users_task	0	1590512700	0	5	*	*	*	*	0	0	0
-4	moodle	\\core\\task\\backup_cleanup_task	0	1590513000	0	10	*	*	*	*	0	0	0
-5	moodle	\\core\\task\\tag_cron_task	0	1590542220	0	17	3	*	*	*	0	0	0
-6	moodle	\\core\\task\\context_cleanup_task	0	1590510300	0	25	*	*	*	*	0	0	0
-7	moodle	\\core\\task\\cache_cleanup_task	0	1590510600	0	30	*	*	*	*	0	0	0
-8	moodle	\\core\\task\\messaging_cleanup_task	0	1590510900	0	35	*	*	*	*	0	0	0
-9	moodle	\\core\\task\\send_new_user_passwords_task	0	1590509940	0	*	*	*	*	*	0	0	0
-10	moodle	\\core\\task\\send_failed_login_notifications_task	0	1590509940	0	*	*	*	*	*	0	0	0
-11	moodle	\\core\\task\\create_contexts_task	0	1590530400	1	0	0	*	*	*	0	0	0
-12	moodle	\\core\\task\\legacy_plugin_cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
-13	moodle	\\core\\task\\grade_cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
-14	moodle	\\core\\task\\grade_history_cleanup_task	0	1590531540	0	*	0	*	*	*	0	0	0
-15	moodle	\\core\\task\\completion_regular_task	0	1590509940	0	*	*	*	*	*	0	0	0
-16	moodle	\\core\\task\\completion_daily_task	0	1590516540	0	9	20	*	*	*	0	0	0
-17	moodle	\\core\\task\\portfolio_cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
-18	moodle	\\core\\task\\plagiarism_cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
-19	moodle	\\core\\task\\calendar_cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
-20	moodle	\\core\\task\\blog_cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
-21	moodle	\\core\\task\\question_preview_cleanup_task	0	1590509940	0	*	*	*	*	*	0	0	0
-22	moodle	\\core\\task\\question_stats_cleanup_task	0	1590509940	0	*	*	*	*	*	0	0	0
-23	moodle	\\core\\task\\registration_cron_task	0	1590646020	0	7	8	*	*	4	0	0	0
-24	moodle	\\core\\task\\check_for_updates_task	0	1590516000	0	0	*/2	*	*	*	0	0	0
-25	moodle	\\core\\task\\cache_cron_task	0	1590511800	0	50	*	*	*	*	0	0	0
-26	moodle	\\core\\task\\automated_backup_task	0	1590511800	0	50	*	*	*	*	0	0	0
-27	moodle	\\core\\task\\badges_cron_task	0	1590510000	0	*/5	*	*	*	*	0	0	0
-28	moodle	\\core\\task\\badges_message_task	0	1590510000	0	*/5	*	*	*	*	0	0	0
-29	moodle	\\core\\task\\file_temp_cleanup_task	0	1590512100	0	55	*/6	*	*	*	0	0	0
-30	moodle	\\core\\task\\file_trash_cleanup_task	0	1590512100	0	55	*/6	*	*	*	0	0	0
-31	moodle	\\core\\task\\search_index_task	0	1590510600	0	*/30	*	*	*	*	0	0	0
-32	moodle	\\core\\task\\search_optimize_task	0	1590531300	0	15	*/12	*	*	*	0	0	0
-33	moodle	\\core\\task\\stats_cron_task	0	1590530400	0	0	0	*	*	*	0	0	0
-34	moodle	\\core\\task\\password_reset_cleanup_task	0	1590530400	0	0	*/6	*	*	*	0	0	0
-35	moodle	\\core\\task\\complete_plans_task	0	1590513300	0	15	*	*	*	*	0	0	0
-36	moodle	\\core\\task\\sync_plans_from_template_cohorts_task	0	1590509940	0	19	*	*	*	*	0	0	0
-37	moodle	\\core_files\\task\\conversion_cleanup_task	0	1590537780	0	3	2	*	*	*	0	0	0
-38	moodle	\\core\\oauth2\\refresh_system_tokens_task	0	1590510600	0	30	*	*	*	*	0	0	0
-39	moodle	\\core\\task\\analytics_cleanup_task	0	1590511320	0	42	*	*	*	*	0	0	0
-40	moodle	\\core\\task\\task_log_cleanup_task	0	1590541500	0	5	3	*	*	*	0	0	0
-41	moodle	\\core\\task\\h5p_get_content_types_task	0	1591012860	0	1	14	1	*	*	0	0	0
 42	qtype_random	\\qtype_random\\task\\remove_unused_questions	0	1590513300	0	15	*	*	*	*	0	0	0
 43	mod_assign	\\mod_assign\\task\\cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
 44	mod_chat	\\mod_chat\\task\\cron_task	0	1590510000	0	*/5	*	*	*	*	0	0	0
-45	mod_forum	\\mod_forum\\task\\cron_task	0	1590509940	0	*	*	*	*	*	0	0	0
 46	mod_lti	\\mod_lti\\task\\clean_access_tokens	0	1590592200	0	10	17	*	*	*	0	0	0
 47	mod_quiz	\\mod_quiz\\task\\update_overdue_attempts	0	1590509940	0	*	*	*	*	*	0	0	0
 48	mod_quiz	\\mod_quiz\\task\\legacy_quiz_reports_cron	0	1590509940	0	*	*	*	*	*	0	0	0
@@ -36970,10 +36976,7 @@ COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextrunti
 50	mod_scorm	\\mod_scorm\\task\\cron_task	0	1590510000	0	*/5	*	*	*	*	0	0	0
 51	mod_workshop	\\mod_workshop\\task\\cron_task	0	1590510000	0	*	*	*	*	*	0	0	0
 52	mod_workshop	\\mod_workshop\\task\\legacy_workshop_allocation_cron	0	1590510000	0	*	*	*	*	*	0	0	0
-53	auth_cas	\\auth_cas\\task\\sync_task	0	1590530400	0	0	0	*	*	*	0	0	1
 54	auth_db	\\auth_db\\task\\sync_users	0	1590591720	0	2	17	*	*	*	0	0	1
-55	auth_ldap	\\auth_ldap\\task\\sync_roles	0	1590530400	0	0	0	*	*	*	0	0	1
-56	auth_ldap	\\auth_ldap\\task\\sync_task	0	1590530400	0	0	0	*	*	*	0	0	1
 57	auth_mnet	\\auth_mnet\\task\\cron_task	0	1590510000	0	*	*	*	*	*	0	0	0
 58	enrol_category	\\enrol_category\\task\\enrol_category_sync	0	1590510000	0	*	*	*	*	*	0	0	0
 59	enrol_cohort	\\enrol_cohort\\task\\enrol_cohort_sync	0	1590510060	0	21	*	*	*	*	0	0	0
@@ -36981,6 +36984,48 @@ COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextrunti
 61	enrol_flatfile	\\enrol_flatfile\\task\\flatfile_sync_task	0	1590513300	0	15	*	*	*	*	0	0	0
 62	enrol_imsenterprise	\\enrol_imsenterprise\\task\\cron_task	0	1590513000	0	10	*	*	*	*	0	0	0
 63	enrol_ldap	\\enrol_ldap\\task\\sync_enrolments	0	1590519960	0	6	21	*	*	*	0	0	1
+3	moodle	\\core\\task\\delete_incomplete_users_task	0	1604426700	0	5	*	*	*	*	0	0	0
+4	moodle	\\core\\task\\backup_cleanup_task	0	1604427000	0	10	*	*	*	*	0	0	0
+5	moodle	\\core\\task\\tag_cron_task	0	1604456280	0	18	3	*	*	*	0	0	0
+6	moodle	\\core\\task\\context_cleanup_task	0	1604427900	0	25	*	*	*	*	0	0	0
+7	moodle	\\core\\task\\cache_cleanup_task	0	1604428200	0	30	*	*	*	*	0	0	0
+8	moodle	\\core\\task\\messaging_cleanup_task	0	1604428500	0	35	*	*	*	*	0	0	0
+9	moodle	\\core\\task\\send_new_user_passwords_task	0	1604425740	0	*	*	*	*	*	0	0	0
+10	moodle	\\core\\task\\send_failed_login_notifications_task	0	1604425740	0	*	*	*	*	*	0	0	0
+11	moodle	\\core\\task\\create_contexts_task	0	1604444400	1	0	0	*	*	*	0	0	0
+12	moodle	\\core\\task\\legacy_plugin_cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+13	moodle	\\core\\task\\grade_cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+14	moodle	\\core\\task\\grade_history_cleanup_task	0	1604447340	0	*	0	*	*	*	0	0	0
+15	moodle	\\core\\task\\completion_regular_task	0	1604425740	0	*	*	*	*	*	0	0	0
+16	moodle	\\core\\task\\completion_daily_task	0	1604509620	0	7	18	*	*	*	0	0	0
+17	moodle	\\core\\task\\portfolio_cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+18	moodle	\\core\\task\\plagiarism_cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+19	moodle	\\core\\task\\calendar_cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+20	moodle	\\core\\task\\blog_cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+21	moodle	\\core\\task\\question_preview_cleanup_task	0	1604425740	0	*	*	*	*	*	0	0	0
+22	moodle	\\core\\task\\question_stats_cleanup_task	0	1604425740	0	*	*	*	*	*	0	0	0
+23	moodle	\\core\\task\\registration_cron_task	0	1604632740	0	19	4	*	*	5	0	0	0
+24	moodle	\\core\\task\\check_for_updates_task	0	1604430000	0	0	*/2	*	*	*	0	0	0
+25	moodle	\\core\\task\\cache_cron_task	0	1604425800	0	50	*	*	*	*	0	0	0
+26	moodle	\\core\\task\\automated_backup_task	0	1604425800	0	50	*	*	*	*	0	0	0
+27	moodle	\\core\\task\\badges_cron_task	0	1604425800	0	*/5	*	*	*	*	0	0	0
+28	moodle	\\core\\task\\badges_message_task	0	1604425800	0	*/5	*	*	*	*	0	0	0
+29	moodle	\\core\\task\\file_temp_cleanup_task	0	1604426100	0	55	*/6	*	*	*	0	0	0
+30	moodle	\\core\\task\\file_trash_cleanup_task	0	1604426100	0	55	*/6	*	*	*	0	0	0
+31	moodle	\\core\\task\\search_index_task	0	1604426400	0	*/30	*	*	*	*	0	0	0
+32	moodle	\\core\\task\\search_optimize_task	0	1604445300	0	15	*/12	*	*	*	0	0	0
+33	moodle	\\core\\task\\stats_cron_task	0	1604444400	0	0	0	*	*	*	0	0	0
+35	moodle	\\core\\task\\complete_plans_task	0	1604427300	0	15	*	*	*	*	0	0	0
+36	moodle	\\core\\task\\sync_plans_from_template_cohorts_task	0	1604426580	0	3	*	*	*	*	0	0	0
+37	moodle	\\core_files\\task\\conversion_cleanup_task	0	1604451900	0	5	2	*	*	*	0	0	0
+38	moodle	\\core\\oauth2\\refresh_system_tokens_task	0	1604428200	0	30	*	*	*	*	0	0	0
+39	moodle	\\core\\task\\analytics_cleanup_task	0	1604428920	0	42	*	*	*	*	0	0	0
+40	moodle	\\core\\task\\task_log_cleanup_task	0	1604466000	0	0	6	*	*	*	0	0	0
+41	moodle	\\core\\task\\h5p_get_content_types_task	0	1606853820	0	17	21	1	*	*	0	0	0
+45	mod_forum	\\mod_forum\\task\\cron_task	0	1604425740	0	*	*	*	*	*	0	0	0
+53	auth_cas	\\auth_cas\\task\\sync_task	0	1604444400	0	0	0	*	*	*	0	0	1
+55	auth_ldap	\\auth_ldap\\task\\sync_roles	0	1604444400	0	0	0	*	*	*	0	0	1
+56	auth_ldap	\\auth_ldap\\task\\sync_task	0	1604444400	0	0	0	*	*	*	0	0	1
 64	enrol_lti	\\enrol_lti\\task\\sync_grades	0	1590510600	0	*/30	*	*	*	*	0	0	0
 65	enrol_lti	\\enrol_lti\\task\\sync_members	0	1590510600	0	*/30	*	*	*	*	0	0	0
 66	enrol_manual	\\enrol_manual\\task\\sync_enrolments	0	1590510000	0	*/10	*	*	*	*	0	0	0
@@ -36999,10 +37044,6 @@ COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextrunti
 79	tool_analytics	\\tool_analytics\\task\\train_models	0	1590584400	0	0	15	*	*	*	0	0	0
 80	tool_analytics	\\tool_analytics\\task\\predict_models	0	1590523200	0	0	22	*	*	*	0	0	0
 81	tool_cohortroles	\\tool_cohortroles\\task\\cohort_role_sync	0	1590510060	0	21	*	*	*	*	0	0	0
-82	tool_dataprivacy	\\tool_dataprivacy\\task\\expired_retention_period	0	1590595200	0	0	18	*	*	*	0	0	0
-83	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_contexts	0	1590566400	0	0	10	*	*	*	0	0	0
-84	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_requests	0	1590595740	0	9	18	*	*	*	0	0	0
-85	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_existing_deleted_users	0	1590512400	0	0	19	*	*	*	0	0	1
 86	tool_langimport	\\tool_langimport\\task\\update_langpacks_task	0	1590545700	0	15	4	*	*	*	0	0	0
 87	tool_messageinbound	\\tool_messageinbound\\task\\pickup_task	0	1590510000	0	*	*	*	*	*	0	0	0
 88	tool_messageinbound	\\tool_messageinbound\\task\\cleanup_task	0	1590537300	0	55	1	*	*	*	0	0	0
@@ -37016,15 +37057,22 @@ COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextrunti
 96	workshopallocation_scheduled	\\workshopallocation_scheduled\\task\\cron_task	0	1590510000	0	*	*	*	*	*	0	0	0
 97	logstore_legacy	\\logstore_legacy\\task\\cleanup_task	0	1590549060	0	11	5	*	*	*	0	0	0
 98	logstore_standard	\\logstore_standard\\task\\cleanup_task	0	1590546120	0	22	4	*	*	*	0	0	0
-99	mod_hvp	\\mod_hvp\\task\\look_for_updates	0	1590513180	0	13	19	*	*	*	0	0	0
-100	mod_hvp	\\mod_hvp\\task\\remove_tmpfiles	0	1590570960	0	16	11	*	*	*	0	0	0
-101	mod_hvp	\\mod_hvp\\task\\remove_old_log_entries	0	1590531060	0	11	0	*	*	*	0	0	0
-102	mod_hvp	\\mod_hvp\\task\\remove_old_auth_tokens	0	1590512880	0	8	*	*	*	*	0	0	0
-103	mod_questionnaire	\\mod_questionnaire\\task\\cleanup	0	1590531600	0	20	*/12	*	*	*	0	0	0
-104	local_agora	\\local_agora\\task\\adware	0	1590888300	0	25	3	*	*	0	0	0	0
-105	local_agora	\\local_agora\\task\\scripts	0	1590510540	0	*	*	*	*	*	0	0	0
 106	local_bigdata	\\local_bigdata\\task\\export	0	1590539640	0	34	2	*	*	*	0	0	1
 107	local_oauth	\\local_oauth\\task\\clean	0	1590510540	0	*	*	*	*	*	0	0	0
+1	moodle	\\core\\task\\session_cleanup_task	0	1604425740	0	*	*	*	*	*	0	0	0
+2	moodle	\\core\\task\\delete_unconfirmed_users_task	0	1604426400	0	0	*	*	*	*	0	0	0
+34	moodle	\\core\\task\\password_reset_cleanup_task	0	1604444400	0	0	*/6	*	*	*	0	0	0
+99	mod_hvp	\\mod_hvp\\task\\look_for_updates	0	1604449080	0	18	1	*	*	*	0	0	0
+100	mod_hvp	\\mod_hvp\\task\\remove_tmpfiles	0	1604474160	0	16	8	*	*	*	0	0	0
+101	mod_hvp	\\mod_hvp\\task\\remove_old_log_entries	0	1604433900	0	5	21	*	*	*	0	0	0
+102	mod_hvp	\\mod_hvp\\task\\remove_old_auth_tokens	0	1604426460	0	1	*	*	*	*	0	0	0
+103	mod_questionnaire	\\mod_questionnaire\\task\\cleanup	0	1604445240	0	14	*/12	*	*	*	0	0	0
+82	tool_dataprivacy	\\tool_dataprivacy\\task\\expired_retention_period	0	1604480400	0	0	10	*	*	*	0	0	0
+83	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_contexts	0	1604466000	0	0	6	*	*	*	0	0	0
+84	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_requests	0	1604477100	0	5	9	*	*	*	0	0	0
+85	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_existing_deleted_users	0	1604502660	0	11	16	*	*	*	0	0	1
+104	local_agora	\\local_agora\\task\\adware	0	1604802300	0	25	3	*	*	0	0	0	0
+105	local_agora	\\local_agora\\task\\scripts	0	1604425740	0	*	*	*	*	*	0	0	0
 \.
 
 
@@ -38593,6 +38641,94 @@ COPY public.mdl_upgrade_log (id, type, plugin, version, targetversion, info, det
 1374	0	atto_wiris	\N	2020022400	Starting plugin installation	\N		2	1590510525
 1375	0	atto_wiris	2020022400	2020022400	Upgrade savepoint reached	\N		2	1590510525
 1376	0	atto_wiris	2020022400	2020022400	Plugin installed	\N		2	1590510525
+1377	0	core	2019111803.02	2019111805	Starting core upgrade	\N		2	1604425700
+1378	0	core	2019111803.14	2019111805	Upgrade savepoint reached	\N		2	1604425700
+1379	0	core	2019111804.01	2019111805	Upgrade savepoint reached	\N		2	1604425700
+1380	0	core	2019111804.08	2019111805	Upgrade savepoint reached	\N		2	1604425700
+1381	0	core	2019111805	2019111805	Upgrade savepoint reached	\N		2	1604425700
+1382	0	core	2019111805	2019111805	Core upgraded	\N		2	1604425701
+1383	0	qtype_essaywiris	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425703
+1384	0	qtype_essaywiris	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425703
+1385	0	qtype_essaywiris	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1386	0	qtype_matchwiris	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425704
+1387	0	qtype_matchwiris	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425704
+1388	0	qtype_matchwiris	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1389	0	qtype_multianswerwiris	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425704
+1390	0	qtype_multianswerwiris	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425704
+1391	0	qtype_multianswerwiris	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1392	0	qtype_multichoicewiris	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425704
+1393	0	qtype_multichoicewiris	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425704
+1394	0	qtype_multichoicewiris	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1395	0	qtype_shortanswerwiris	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425704
+1396	0	qtype_shortanswerwiris	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425704
+1397	0	qtype_shortanswerwiris	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1398	0	qtype_truefalsewiris	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425704
+1399	0	qtype_truefalsewiris	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425704
+1400	0	qtype_truefalsewiris	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1401	0	qtype_wq	2020011300	2020061600	Starting plugin upgrade	\N		2	1604425704
+1402	0	qtype_wq	2020061600	2020061600	Upgrade savepoint reached	\N		2	1604425704
+1403	0	qtype_wq	2020061600	2020061600	Plugin upgraded	\N		2	1604425704
+1404	0	mod_choicegroup	2019051002	2020070100	Starting plugin upgrade	\N		2	1604425704
+1405	0	mod_choicegroup	2020070100	2020070100	Upgrade savepoint reached	\N		2	1604425704
+1406	0	mod_choicegroup	2020070100	2020070100	Plugin upgraded	\N		2	1604425704
+1407	0	mod_forum	2019111801	2019111802	Starting plugin upgrade	\N		2	1604425704
+1408	0	mod_forum	2019111802	2019111802	Upgrade savepoint reached	\N		2	1604425704
+1409	0	mod_forum	2019111802	2019111802	Plugin upgraded	\N		2	1604425704
+1410	0	mod_geogebra	2019010600	2020090800	Starting plugin upgrade	\N		2	1604425704
+1411	0	mod_geogebra	2020090800	2020090800	Upgrade savepoint reached	\N		2	1604425704
+1412	0	mod_geogebra	2020090800	2020090800	Plugin upgraded	\N		2	1604425705
+1413	0	mod_hotpot	2020030143	2020060544	Starting plugin upgrade	\N		2	1604425705
+1414	0	mod_hotpot	2020060544	2020060544	Upgrade savepoint reached	\N		2	1604425705
+1415	0	mod_hotpot	2020060544	2020060544	Plugin upgraded	\N		2	1604425705
+1416	0	mod_hvp	2020020500	2020080400	Starting plugin upgrade	\N		2	1604425705
+1417	0	mod_hvp	2020080400	2020080400	Upgrade savepoint reached	\N		2	1604425705
+1418	0	mod_hvp	2020080400	2020080400	Plugin upgraded	\N		2	1604425705
+1419	0	mod_jclic	2018112000	2020072400	Starting plugin upgrade	\N		2	1604425705
+1420	0	mod_jclic	2020072400	2020072400	Upgrade savepoint reached	\N		2	1604425705
+1421	0	mod_jclic	2020072400	2020072400	Plugin upgraded	\N		2	1604425705
+1422	0	mod_journal	2020020700	2020091100	Starting plugin upgrade	\N		2	1604425705
+1423	0	mod_journal	2020091100	2020091100	Upgrade savepoint reached	\N		2	1604425705
+1424	0	mod_journal	2020091100	2020091100	Plugin upgraded	\N		2	1604425706
+1425	0	mod_questionnaire	2020011506	2020011508	Starting plugin upgrade	\N		2	1604425706
+1426	0	mod_questionnaire	2020011507	2020011508	Upgrade savepoint reached	\N		2	1604425706
+1427	0	mod_questionnaire	2020011508	2020011508	Upgrade savepoint reached	\N		2	1604425706
+1428	0	mod_questionnaire	2020011508	2020011508	Plugin upgraded	\N		2	1604425706
+1429	0	auth_cas	2019111800	2019111801	Starting plugin upgrade	\N		2	1604425707
+1430	0	auth_cas	2019111801	2019111801	Upgrade savepoint reached	\N		2	1604425707
+1431	0	auth_cas	2019111801	2019111801	Plugin upgraded	\N		2	1604425707
+1432	0	auth_ldap	2019111800	2019111801	Starting plugin upgrade	\N		2	1604425707
+1433	0	auth_ldap	2019111801	2019111801	Upgrade savepoint reached	\N		2	1604425707
+1434	0	auth_ldap	2019111801	2019111801	Plugin upgraded	\N		2	1604425707
+1435	0	block_completion_progress	2020033000	2020081000	Starting plugin upgrade	\N		2	1604425707
+1436	0	block_completion_progress	2020081000	2020081000	Upgrade savepoint reached	\N		2	1604425707
+1437	0	block_completion_progress	2020081000	2020081000	Plugin upgraded	\N		2	1604425707
+1438	0	block_courses_vicensvives	2018090100	2020090800	Starting plugin upgrade	\N		2	1604425707
+1439	0	block_courses_vicensvives	2020090800	2020090800	Upgrade savepoint reached	\N		2	1604425707
+1440	0	block_courses_vicensvives	2020090800	2020090800	Plugin upgraded	\N		2	1604425707
+1441	0	block_licenses_vicensvives	2018090100	2020090800	Starting plugin upgrade	\N		2	1604425708
+1442	0	block_licenses_vicensvives	2020090800	2020090800	Upgrade savepoint reached	\N		2	1604425708
+1443	0	block_licenses_vicensvives	2020090800	2020090800	Plugin upgraded	\N		2	1604425708
+1444	0	filter_wiris	2020051400	2020090300	Starting plugin upgrade	\N		2	1604425709
+1445	0	filter_wiris	2020090300	2020090300	Upgrade savepoint reached	\N		2	1604425709
+1446	0	filter_wiris	2020090300	2020090300	Plugin upgraded	\N		2	1604425709
+1447	0	format_vv	2018090100	2020090800	Starting plugin upgrade	\N		2	1604425709
+1448	0	format_vv	2020090800	2020090800	Upgrade savepoint reached	\N		2	1604425709
+1449	0	format_vv	2020090800	2020090800	Plugin upgraded	\N		2	1604425709
+1450	0	tool_dataprivacy	2019111800	2019111801	Starting plugin upgrade	\N		2	1604425710
+1451	0	tool_dataprivacy	2019111801	2019111801	Upgrade savepoint reached	\N		2	1604425710
+1452	0	tool_dataprivacy	2019111801	2019111801	Plugin upgraded	\N		2	1604425710
+1453	0	theme_xtec2020	2020042000	2020080703	Starting plugin upgrade	\N		2	1604425710
+1454	0	theme_xtec2020	2020080703	2020080703	Upgrade savepoint reached	\N		2	1604425710
+1455	0	theme_xtec2020	2020080703	2020080703	Plugin upgraded	\N		2	1604425710
+1456	0	local_agora	2016021600	2020072300	Starting plugin upgrade	\N		2	1604425710
+1457	0	local_agora	2020072300	2020072300	Upgrade savepoint reached	\N		2	1604425710
+1458	0	local_agora	2020072300	2020072300	Plugin upgraded	\N		2	1604425710
+1459	0	local_wsvicensvives	2018090100	2020090800	Starting plugin upgrade	\N		2	1604425710
+1460	0	local_wsvicensvives	2020090800	2020090800	Upgrade savepoint reached	\N		2	1604425710
+1461	0	local_wsvicensvives	2020090800	2020090800	Plugin upgraded	\N		2	1604425710
+1462	0	atto_wiris	2020022400	2020090300	Starting plugin upgrade	\N		2	1604425711
+1463	0	atto_wiris	2020090300	2020090300	Upgrade savepoint reached	\N		2	1604425711
+1464	0	atto_wiris	2020090300	2020090300	Plugin upgraded	\N		2	1604425711
 \.
 
 
@@ -38610,7 +38746,8 @@ COPY public.mdl_url (id, course, name, intro, introformat, externalurl, display,
 
 COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, icq, skype, yahoo, aim, msn, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, url, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename) FROM stdin;
 1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0													en	gregorian		99	0	0	0	0			0		This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N
-2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	alexandria@xtec.cat	0													ca	gregorian		99	1590510009	1590511036	0	1590510009	192.168.33.1		0			1	1	0	1	1	0	0	1590510754	0	\N				
+3	manual	1	0	0	0	1	xtecadmin	$2y$10$qzUE1w3TGCuFrVmTFpYecuG1w9EUXDPh66JB9Vn/LwaStwaqJBmRW		Administrador	XTEC	xtecadmin@xtec.invalid	0												CT	ca	gregorian		99	0	0	0	0			0			1	1	0	0	1	0	1604426262	1604426262	0					
+2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	admin@xtec.invalid	0												CT	ca	gregorian		99	1590510009	1604426333	1590510009	1604425598	192.168.33.1		0			1	1	0	0	1	0	0	1604426333	0					
 \.
 
 
@@ -38684,10 +38821,15 @@ COPY public.mdl_user_password_resets (id, userid, timerequested, timererequested
 
 COPY public.mdl_user_preferences (id, userid, name, value) FROM stdin;
 1	2	core_message_migrate_data	1
-3	2	email_bounce_count	1
-4	2	email_send_count	1
-5	2	drawer-open-nav	false
 2	2	auth_manual_passwordupdatetime	1590510953
+6	2	filepicker_recentrepository	4
+7	2	filepicker_recentlicense	allrightsreserved
+8	3	auth_forcepasswordchange	0
+9	3	email_bounce_count	1
+10	3	email_send_count	1
+3	2	email_bounce_count	0
+4	2	email_send_count	0
+5	2	drawer-open-nav	false
 \.
 
 
@@ -39270,7 +39412,7 @@ SELECT pg_catalog.setval('public.mdl_cache_filters_id_seq', 1, false);
 -- Name: mdl_cache_flags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_cache_flags_id_seq', 1, true);
+SELECT pg_catalog.setval('public.mdl_cache_flags_id_seq', 3, true);
 
 
 --
@@ -39487,14 +39629,14 @@ SELECT pg_catalog.setval('public.mdl_competency_userevidencecomp_id_seq', 1, fal
 -- Name: mdl_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_config_id_seq', 527, true);
+SELECT pg_catalog.setval('public.mdl_config_id_seq', 531, true);
 
 
 --
 -- Name: mdl_config_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_config_log_id_seq', 1803, true);
+SELECT pg_catalog.setval('public.mdl_config_log_id_seq', 1815, true);
 
 
 --
@@ -39508,7 +39650,7 @@ SELECT pg_catalog.setval('public.mdl_config_plugins_id_seq', 2141, true);
 -- Name: mdl_context_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_context_id_seq', 17, true);
+SELECT pg_catalog.setval('public.mdl_context_id_seq', 18, true);
 
 
 --
@@ -39662,7 +39804,7 @@ SELECT pg_catalog.setval('public.mdl_data_records_id_seq', 1, false);
 -- Name: mdl_editor_atto_autosave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 7, true);
 
 
 --
@@ -39795,14 +39937,14 @@ SELECT pg_catalog.setval('public.mdl_events_queue_id_seq', 1, false);
 -- Name: mdl_external_functions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_external_functions_id_seq', 601, true);
+SELECT pg_catalog.setval('public.mdl_external_functions_id_seq', 602, true);
 
 
 --
 -- Name: mdl_external_services_functions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_external_services_functions_id_seq', 378, true);
+SELECT pg_catalog.setval('public.mdl_external_services_functions_id_seq', 749, true);
 
 
 --
@@ -39900,7 +40042,7 @@ SELECT pg_catalog.setval('public.mdl_file_conversion_id_seq', 1, false);
 -- Name: mdl_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_files_id_seq', 5, true);
+SELECT pg_catalog.setval('public.mdl_files_id_seq', 14, true);
 
 
 --
@@ -40579,7 +40721,7 @@ SELECT pg_catalog.setval('public.mdl_log_queries_id_seq', 1, false);
 -- Name: mdl_logstore_standard_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1480, true);
+SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1498, true);
 
 
 --
@@ -41839,7 +41981,7 @@ SELECT pg_catalog.setval('public.mdl_search_simpledb_index_id_seq', 1, false);
 -- Name: mdl_sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 2, true);
+SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 5, true);
 
 
 --
@@ -42119,7 +42261,7 @@ SELECT pg_catalog.setval('public.mdl_tool_usertours_tours_id_seq', 2, true);
 -- Name: mdl_upgrade_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_upgrade_log_id_seq', 1376, true);
+SELECT pg_catalog.setval('public.mdl_upgrade_log_id_seq', 1464, true);
 
 
 --
@@ -42147,7 +42289,7 @@ SELECT pg_catalog.setval('public.mdl_user_enrolments_id_seq', 1, false);
 -- Name: mdl_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_user_id_seq', 2, true);
+SELECT pg_catalog.setval('public.mdl_user_id_seq', 3, true);
 
 
 --
@@ -42196,7 +42338,7 @@ SELECT pg_catalog.setval('public.mdl_user_password_resets_id_seq', 1, false);
 -- Name: mdl_user_preferences_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_user_preferences_id_seq', 5, true);
+SELECT pg_catalog.setval('public.mdl_user_preferences_id_seq', 10, true);
 
 
 --
@@ -48748,6 +48890,13 @@ CREATE INDEX mdl_forupost_par_ix ON public.mdl_forum_posts USING btree (parent);
 
 
 --
+-- Name: mdl_forupost_pri_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_forupost_pri_ix ON public.mdl_forum_posts USING btree (privatereplyto);
+
+
+--
 -- Name: mdl_forupost_use_ix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -50785,10 +50934,10 @@ CREATE UNIQUE INDEX mdl_ques_catidn_uix ON public.mdl_question USING btree (cate
 
 
 --
--- Name: mdl_ques_cou_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_ques_cou2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_ques_cou_ix ON public.mdl_questionnaire USING btree (course);
+CREATE INDEX mdl_ques_cou2_ix ON public.mdl_questionnaire USING btree (course);
 
 
 --
@@ -50827,10 +50976,10 @@ CREATE INDEX mdl_ques_res_ix ON public.mdl_questionnaire USING btree (resp_view)
 
 
 --
--- Name: mdl_ques_sid_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_ques_sid2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_ques_sid_ix ON public.mdl_questionnaire USING btree (sid);
+CREATE INDEX mdl_ques_sid2_ix ON public.mdl_questionnaire USING btree (sid);
 
 
 --
@@ -50988,10 +51137,10 @@ CREATE INDEX mdl_quesddwt_que_ix ON public.mdl_question_ddwtos USING btree (ques
 
 
 --
--- Name: mdl_quesdepe_que_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_quesdepe_que2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_quesdepe_que_ix ON public.mdl_questionnaire_dependency USING btree (questionid);
+CREATE INDEX mdl_quesdepe_que2_ix ON public.mdl_questionnaire_dependency USING btree (questionid);
 
 
 --
@@ -51002,17 +51151,17 @@ CREATE INDEX mdl_quesdepe_sur_ix ON public.mdl_questionnaire_dependency USING bt
 
 
 --
--- Name: mdl_quesfbsect_sur_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_quesfbsect_sur2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_quesfbsect_sur_ix ON public.mdl_questionnaire_fb_sections USING btree (surveyid);
+CREATE INDEX mdl_quesfbsect_sur2_ix ON public.mdl_questionnaire_fb_sections USING btree (surveyid);
 
 
 --
--- Name: mdl_quesfeed_sec_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_quesfeed_sec2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_quesfeed_sec_ix ON public.mdl_questionnaire_feedback USING btree (sectionid);
+CREATE INDEX mdl_quesfeed_sec2_ix ON public.mdl_questionnaire_feedback USING btree (sectionid);
 
 
 --
@@ -51079,10 +51228,10 @@ CREATE INDEX mdl_quesques_surdel_ix ON public.mdl_questionnaire_question USING b
 
 
 --
--- Name: mdl_quesqueschoi_que_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_quesqueschoi_que2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_quesqueschoi_que_ix ON public.mdl_questionnaire_quest_choice USING btree (question_id);
+CREATE INDEX mdl_quesqueschoi_que2_ix ON public.mdl_questionnaire_quest_choice USING btree (question_id);
 
 
 --
@@ -51093,10 +51242,10 @@ CREATE UNIQUE INDEX mdl_quesquestype_typ_uix ON public.mdl_questionnaire_questio
 
 
 --
--- Name: mdl_quesresp_que_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_quesresp_que2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_quesresp_que_ix ON public.mdl_questionnaire_response USING btree (questionnaireid);
+CREATE INDEX mdl_quesresp_que2_ix ON public.mdl_questionnaire_response USING btree (questionnaireid);
 
 
 --
@@ -51156,10 +51305,10 @@ CREATE INDEX mdl_quesresptext_resque_ix ON public.mdl_questionnaire_response_tex
 
 
 --
--- Name: mdl_quessurv_cou_ix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_quessurv_cou2_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE INDEX mdl_quessurv_cou_ix ON public.mdl_questionnaire_survey USING btree (courseid);
+CREATE INDEX mdl_quessurv_cou2_ix ON public.mdl_questionnaire_survey USING btree (courseid);
 
 
 --
