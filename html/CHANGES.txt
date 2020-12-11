@@ -8,7 +8,6 @@ Changes 21.05.20
 ---------------------------------------------------------------------------------------
 - Upgraded module H5P to version 1.22.2
 - Upgraded report coursequotas (Improved performance)
-- Moved sessions from database to redis
 - Disabled cursors with hold
 - Local redislock: Added plugin
 - Local agora: Removed unused old scripts
@@ -46,6 +45,7 @@ Changes 20.12.10
 - Upgraded module jclic
 - Upgraded block completion_progress
 - Upgraded atto plugin Cloze
+- Added block configurable_reports
 - Theme xtec2020: Added colorset PEDC and reworked general design
 - Theme xtec2020: Replaced specific xtecadmin check by generic access function, compatible with Odissea and Alexandria
 - User bulk capitalize: Fixed functionality
