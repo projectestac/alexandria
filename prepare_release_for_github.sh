@@ -8,7 +8,7 @@ if [ "$#" -ne 1 ] ; then
 fi
 
 version=$1
-app=odissea
+app=alexandria
 filename=$app"_v"$version
 
 cd /tmp
