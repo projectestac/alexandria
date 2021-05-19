@@ -82,14 +82,33 @@ function alexandria_get_file($recordid, $fieldid, $contextid = 0) {
 
     if ($record && $field) {
         $data_content_id = $DB->get_field('data_content', 'id', ['fieldid' => $field->id, 'recordid' => $record->id]);
-        $dataid = $DB->get_field('data_records', 'dataid', array('id' => $recordid));
+
+        $cm = get_coursemodule_from_instance('data', $record->dataid);
+        $context = context_module::instance($cm->id);
 
         $fs = get_file_storage();
 
         if ($field->param4 == ALEXANDRIA_COURSE_BACKUP) {
+            // Try to get last automated backup file
+            $coursefieldid = $DB->get_field('data_fields', 'id', array('name' => $CFG->data_coursefieldid, 'dataid' => $record->dataid));
+            $fieldcontentcourse = $DB->get_record('data_content', array('recordid' => $recordid, 'fieldid' => intval($coursefieldid)));
+            if (isset($fieldcontentcourse->content)) {
+                $contextcourse = context_course::instance($fieldcontentcourse->content, IGNORE_MISSING);
+
+                $automatedbackups = get_config('backup', 'backup_auto_active');
+                if (!empty($automatedbackups) && !empty($contextcourse->id)) {
+                    $files = $fs->get_area_files($contextcourse->id, 'backup', 'automated', false, 'timecreated');
+                    $files = array_reverse($files);
+                    foreach ($files as $file) {
+                        if (!$file->is_directory()) {
+                            return $file;
+                        }
+                    }
+                }
+            }
+
+            // Try to get original uploaded file
             if (intval($contextid) == 0) {
-                $cm = get_coursemodule_from_instance('data', $dataid);
-                $context = context_module::instance($cm->id);
                 $contextid = $context->id;
             }
             $files = $fs->get_area_files($contextid, 'mod_data', 'content', $data_content_id, 'timecreated DESC');
@@ -103,8 +122,6 @@ function alexandria_get_file($recordid, $fieldid, $contextid = 0) {
             if (!$content = $DB->get_record('data_content', array('fieldid' => $fieldid, 'recordid' => $recordid))) {
                 return null;
             }
-            $cm = get_coursemodule_from_instance('data', $dataid);
-            $context = context_module::instance($cm->id);
             return $fs->get_file($context->id, 'mod_data', 'content', $content->id, '/', $content->content);
         }
     }
