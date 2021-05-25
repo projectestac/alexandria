@@ -98,7 +98,7 @@ $string['commented'] = 'Kommenterade: {$a}';
 $string['commentormark'] = 'Kommentera eller åsidosätt betyg';
 $string['comments'] = 'Kommentarer';
 $string['commentx'] = 'Kommentar: {$a}';
-$string['complete'] = 'Komplett';
+$string['complete'] = 'Slutför';
 $string['contexterror'] = 'Du borde inte ha hamnat här om Du inte håller på att flytta en kategori från ett annat sammanhang';
 $string['copy'] = 'Kopiera från {$a} och ändra länkar';
 $string['correct'] = 'Rätt';
@@ -122,7 +122,7 @@ $string['deletequestionscheck'] = 'Är du helt säker på att du vill ta bort de
 $string['deletingbehaviour'] = 'Radera frågebeteende "{$a}"';
 $string['deletingqtype'] = 'Raderar frågetyp \'{$a}';
 $string['didnotmatchanyanswer'] = '[Matchade inte något svar]';
-$string['disabled'] = 'Avaktiverad';
+$string['disabled'] = 'Inaktiverad';
 $string['displayoptions'] = 'Visa alternativ';
 $string['disterror'] = 'Distributionen {$a} förorsakade problem';
 $string['donothing'] = 'Kopiera inte eller flytta filer eller ändra länkar.';
@@ -261,7 +261,7 @@ $string['flagged'] = 'Flaggad';
 $string['flagthisquestion'] = 'Flagga denna fråga';
 $string['formquestionnotinids'] = 'Formuläret innehåll en fråga som saknar frågeID';
 $string['fractionsnomax'] = 'Ett av svaren bör ha ett resultat på 100% så att det blir möjligt att få full poäng på den här frågan.';
-$string['generalfeedback'] = 'Generell återkoppling';
+$string['generalfeedback'] = 'Allmän återkoppling';
 $string['generalfeedback_help'] = 'Generell återkoppling visas för eleven efter att denne har svarat på frågan. Till skillnad från specifik återkoppling, som beror på frågetyp och vilket svar eleven gav, visas samma generella återkoppling för alla elever.
 
 Du kan använda generell återkoppling för att ge elever ett bearbetat svar och eventuellt en länk till mer information som de kan använda om de inte förstod frågorna.';
@@ -271,11 +271,11 @@ $string['hintn'] = 'Ledtråd {no}';
 $string['hintnoptions'] = 'Alternativ för ledtråd {no}';
 $string['hinttext'] = 'Ledtrådstext';
 $string['howquestionsbehave'] = 'Hur frågor beter sig';
-$string['howquestionsbehave_help'] = 'Elever kan interagera med frågorna i ett test på flera olika sätt. Till exempel vill du kanske att eleverna ska svara på alla frågor och sedan lämna in hela testet innan de får några poäng eller någon återkoppling. Detta motsvarar inställningen \'Uppskjuten återkoppling\'.
+$string['howquestionsbehave_help'] = 'Eleverna kan interagera med frågorna i testet på olika sätt. Du vill kanske vill att eleverna anger ett svar på varje fråga och sedan skickar in hela testet innan något blir betygsatt, eller innan de får återkoppling. I detta fall skulle inställningen vara "Fördröjd återkoppling".
 
-Alternativt vill du att eleverna skickar in varje fråga för sig medan de genomför testet för att de ska få omedelbar återkoppling samt, om de inte svarar rätt, kunna prova att svara igen med sänkt poäng. Detta motsvarar inställningen \'Interaktivt med multipla försök\'.
+Alternativt kan du vilja att studenter skickar in varje fråga efterhand för att få omedelbar återkoppling om de inte svarar rätt. De kan sedan försöka igen, dock med ett poängavdrag. I detta fall skulle inställningen vara "Interaktivt med flera försök".
 
-Dessa två lägen är troligen de mest vanligen använda för frågebeteenden.';
+Detta är förmodligen de två vanligaste inställningarna.';
 $string['idnumber'] = 'ID-nummer';
 $string['idnumber_help'] = 'Om ID-nummer används måste ID-numret vara unikt inom varje frågekategori. Det möjliggör ett annat sätt att identifiera en fråga som ibland är användbar, men kan oftast lämnas tomt.';
 $string['ignorebroken'] = 'Ta inte hänsyn till brutna länkar';
@@ -436,7 +436,7 @@ $string['questionidmismatch'] = 'Identiteten för frågan stämmer inte överren
 $string['questionname'] = 'Frågenamn';
 $string['questionnamecopy'] = '{$a} (kopia)';
 $string['questionno'] = 'Fråga {$a}';
-$string['questionpreviewdefaults'] = 'Förvalda värden för förhandsgranskning av frågan';
+$string['questionpreviewdefaults'] = 'Standardinställningar för förhandsgranskning av frågor';
 $string['questionpreviewdefaults_desc'] = 'Dessa förvalda värden används när en användare för första gången förhandsgranskar en fråga i frågebanken. När en användare har förhandsgranskat en fråga lagras deras personliga preferenser som användarinställningar.';
 $string['questions'] = 'Frågor';
 $string['questionsaveerror'] = 'Ett fel uppstod när frågan - ({$a}) sparades';
@@ -450,7 +450,7 @@ $string['questiontype'] = 'Frågetyp';
 $string['questionuse'] = 'Använd frågan i den här aktiviteten';
 $string['questionvariant'] = 'Frågevariant';
 $string['questionx'] = 'Fråga {$a}';
-$string['requiresgrading'] = 'Kräver rättning';
+$string['requiresgrading'] = 'Kräver betygsättning';
 $string['responsehistory'] = 'Svarshistorik';
 $string['restart'] = 'Börja om';
 $string['restartwiththeseoptions'] = 'Börja om med de här alternativen';

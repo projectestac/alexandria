@@ -27,10 +27,18 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['attempt'] = 'محاولة';
 $string['attempts'] = 'محاولات';
+$string['attemptsremaining'] = 'المحاولات المتبقية لهذا النشاط:';
+$string['description'] = 'الوصف';
 $string['enableRightClick'] = 'تمكين النقر بزر الفأرة الأيمن';
+$string['event_course_module_viewed'] = 'وحدة مساق تمت معاينتها';
+$string['event_instances_list_viewed'] = 'قائمة عيِّنات تمت معاينتها';
+$string['filetypelocal'] = 'الملف المرفوع';
+$string['firstattempt'] = 'المحاولة الأولى';
 $string['interfaceoptionsgrp'] = 'واجهة المستخدم';
 $string['modulename'] = 'جيوجبرا';
 $string['modulenameplural'] = 'جيوجبرا';
+$string['nomoreattempts'] = 'لم تبقَ أي محاولات لهذا النشاط';
 $string['pluginname'] = 'جيوجبرا';
 $string['privacy:metadata:geogebra_attempts:userid'] = 'مُعرَّف المستخدم المجيب على نشاط geogebra هذا';
+$string['redirecttocourse'] = 'لقد تم حفظ النشاط. يجري الرجوع إلى الصفحة الرئيسية للمقرر.';
 $string['showAlgebraInput'] = 'إظهار شريط الإدخال';

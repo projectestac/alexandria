@@ -45,7 +45,7 @@ $string['canceledit'] = 'إلغاء تحرير الرسالة';
 $string['cancelselection'] = 'ألغِ تحديد الرسالة';
 $string['cantblockuser'] = 'لا يمكنك حظر {$a} لأن لديهم دور بصلاحية مراسلة كل المستخدمين.';
 $string['contactableprivacy'] = 'إقبل الرسائل من:';
-$string['contactableprivacy_coursemember'] = 'جهات اتصالي وأي أحد في مساقاتي';
+$string['contactableprivacy_coursemember'] = 'جهات اتصالي وأي أحد في مقرراتي';
 $string['contactableprivacy_onlycontacts'] = 'جهات اتصالي فقط';
 $string['contactableprivacy_site'] = 'أي أحد في الموقع';
 $string['contactblocked'] = 'تم حظر جهة الاتصال';
@@ -69,10 +69,12 @@ $string['disableall'] = 'تعطيل الاشعارات';
 $string['disabled'] = 'المحادثات غير مفعّلة على هذا الموقع';
 $string['disallowed'] = 'غير مسموح';
 $string['editmessages'] = 'تعديل الرسائل';
-$string['emailtagline'] = 'هذه نسخة من رسالة أرست لك على "{$a->sitename}".يمكنك الرد من هنا: {$a->url}.';
+$string['emailtagline'] = 'هذه نسخة من رسالة أرست لك على "{$a->sitename}".
+يمكنك الرد من هنا: {<p><a href="{$a->url}">{$a->url}</a></p>}.';
 $string['enabled'] = 'تم تفعيله';
 $string['errorcallingprocessor'] = 'خطأ عند استدعاء الناتج المُعرَّف';
 $string['errorconversationdoesnotexist'] = 'المحادثة غير موجودة';
+$string['errormessagetoolong'] = 'الرسالة تزيد على الحد الأقصى المسموح به.';
 $string['errortranslatingdefault'] = 'خطأ عند ترجمة الإعداد الافتراضي المقدم من قبل الملحق. يجري استعمال إفتراضات النظام بدلاً منه.';
 $string['eventgroupmessagesent'] = 'تم إرسال الرسالة إلى المجموعة';
 $string['eventmessagecontactadded'] = 'تمت إضافة جهة اتصال الرسالة';
@@ -80,12 +82,12 @@ $string['eventmessagecontactblocked'] = 'تم حظر جهة اتصال الرس�
 $string['eventmessagecontactremoved'] = 'تم حذف جهة اتصال الرسالة';
 $string['eventmessagecontactunblocked'] = 'تم إلغاء حظر جهة اتصال الرسالة';
 $string['eventmessagedeleted'] = 'تم حذف الرسالة';
-$string['eventmessagesent'] = 'تم ارسال الرسالة';
+$string['eventmessagesent'] = 'تم إرسال الرسالة';
 $string['eventmessageuserblocked'] = 'تم حظر المستخدم';
 $string['eventmessageuserunblocked'] = 'تم إلغاء حظر المستخدم';
-$string['eventmessageviewed'] = 'تم عرض الرسالة';
+$string['eventmessageviewed'] = 'رسالة تمت معاينتها';
 $string['eventnotificationsent'] = 'تم إرسال الإشعار';
-$string['eventnotificationviewed'] = 'تمت معاينة الإشعار';
+$string['eventnotificationviewed'] = 'إشعار تمت معاينته';
 $string['forced'] = 'غلق';
 $string['groupconversations'] = 'المجموعة';
 $string['groupinfo'] = 'معلومات المجموعة';
@@ -120,7 +122,7 @@ $string['messagedrawerviewsearch'] = 'نتائج البحث في المراسل�
 $string['messagedrawerviewsettings'] = 'إعدادات المراسلة';
 $string['messageoutputs'] = 'ملاحق الإشعارات';
 $string['messagepreferences'] = 'مراجع الرسالة';
-$string['messages'] = 'رسائل';
+$string['messages'] = 'الرسائل';
 $string['messagesselected:'] = 'المراسلات المحددة:';
 $string['messagingdatahasnotbeenmigrated'] = 'مراسلاتك غير متاحة مؤقتاً بسبب الترقية في البنية التحتية لنظام المراسلة. لطفاً، انتظر إكتمال عملية ترحيلها.';
 $string['messagingdisabled'] = 'المحادثات غير مفعلة على هذا الموقع، سيتم إرسال بريد إلكتروني عوضاً عن ذلك';
@@ -201,7 +203,7 @@ $string['privacy:metadata:messages:fullmessagehtml'] = 'تنسيق HTML للمر
 $string['privacy:metadata:messages:smallmessage'] = 'نسخة مصغرة من المراسلة';
 $string['privacy:metadata:messages:subject'] = 'موضوع المراسلة';
 $string['privacy:metadata:messages:timecreated'] = 'وقت إنشاء المراسلة';
-$string['privacy:metadata:messages:useridfrom'] = 'مُعرَّف المستخدم الذي أرسل المراسلة';
+$string['privacy:metadata:messages:useridfrom'] = 'مُعرَّف المستخدم الذي أرسل الرسالة';
 $string['privacy:metadata:notifications'] = 'الإشعارات';
 $string['privacy:metadata:notifications:component'] = 'المكون المسؤول عن إرسال الإشعار';
 $string['privacy:metadata:notifications:contexturl'] = 'الرابط المتعلق بهذا الإشعار';
@@ -223,7 +225,7 @@ $string['privacy_desc'] = 'بإمكانك تقييد من تسمح له بمرا
 $string['processorsettings'] = 'اعدادات المعالج';
 $string['removecontact'] = 'ازل جهة الاتصال';
 $string['removecontactconfirm'] = 'هل أنت متأكد من رغبتك في إزالة {$a} من جهات اتصالك؟';
-$string['removecoursefilter'] = 'أزل المرشح من المساق {$a}';
+$string['removecoursefilter'] = 'أزل المرشح من المقرر الدراسي {$a}';
 $string['removefromfavourites'] = 'إرفع النجمة عن المحادثة';
 $string['removefromyourcontacts'] = 'إحذف من جهات اتصالك';
 $string['requirecontacttomessage'] = 'أنت بحاجة إلى مطالبة {$a} لإضافتك إلى جهات اتصالهم لتتمكن من مراسلتهم.';
@@ -231,7 +233,7 @@ $string['requiresconfiguration'] = 'يتطلب التهيئة';
 $string['searchcombined'] = 'البحث عن الأشخاص والرسائل';
 $string['searchforuser'] = 'البحث عن مستخدم';
 $string['searchforuserorcourse'] = 'ابحث عن مستخدم أو مقرر';
-$string['searchmessages'] = 'أبحث في الرسائل';
+$string['searchmessages'] = 'البحث في الرسائل';
 $string['seeall'] = 'مشاهدة الكل';
 $string['selectmessagestodelete'] = 'اختر رسائل لحذفها';
 $string['selectnotificationtoview'] = 'اختر من قائمة الاشعارات لعرض تفاصيل أكثر';

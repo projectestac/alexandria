@@ -82,7 +82,7 @@ $string['unitedit'] = 'Editatu unitatea';
 $string['unitgraded'] = 'Unitatea derrigorrezkoa da, eta kalifikatuko da.';
 $string['unithandling'] = 'Unitatearen erabilera';
 $string['unitincorrect'] = 'Ez duzu unitate zuzena eman.';
-$string['unitmandatory'] = 'Beharrezkoa';
+$string['unitmandatory'] = 'Derrigorrezkoa';
 $string['unitmandatory_help'] = '* Erantzuna idatzitako unitatea erabilita kalifikatuko da.
 
 * Unitatearen penalizazioa aplikatuko da unitatearen eremua hutsik utziz gero.';
@@ -108,6 +108,6 @@ $string['validnumberformats_help'] = '* zenbaki arruntak 13500.67, 13 500.67, 13
 
 * era esponentzialetarako, adibidez 1.350067 * 10<sup>4</sup>, erabili 1.350067 E4 edo 1.350067 E04';
 $string['validnumbers'] = '13500.67, 13 500.67, 13,500.67, 13500,67, 13 500,67, 1.350067 E4 edo 1.350067 E04';
-$string['xmustbenumeric'] = '{$a}-(e)k zenbakia izan behar du.';
-$string['xmustnotbenumeric'] = '{$a}-(e)k ezin da zenbakia.';
+$string['xmustbenumeric'] = '{$a}(e)k zenbakia izan behar du.';
+$string['xmustnotbenumeric'] = '{$a}(e)k ezin da zenbakia.';
 $string['youmustenteramultiplierhere'] = 'Biderkatzaile bat zehaztu behar duzu';

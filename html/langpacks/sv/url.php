@@ -42,34 +42,39 @@ $string['displayselect_help'] = 'Denna inställning bestämmer hur webblänken s
 * Pop-up – Öppnar ett mindre fönster med webbadressen. Fönstrets storlek och andra egenskaper kan ställas in.';
 $string['displayselectexplain'] = 'Välj visningstyp, tyvärr är inte alla typer lämpliga för alla URL:er.';
 $string['externalurl'] = 'Extern URL';
-$string['framesize'] = 'Höjd på ram';
+$string['framesize'] = 'Ramstorlek';
+$string['indicator:cognitivedepth'] = 'URL kognitiv';
+$string['indicator:cognitivedepth_help'] = 'Denna indikator baseras på det kognitiva djup som uppnåtts av studenten i en URL-resurs.';
+$string['indicator:cognitivedepthdef'] = 'URL kognitiv';
+$string['indicator:cognitivedepthdef_help'] = 'Deltagaren har nått denna procentandel av det kognitiva engagemang som erbjuds av URL-resurserna under detta analysintervall (Nivåer = Ingen visning, Visa)';
+$string['indicator:socialbreadth'] = 'URL social';
+$string['indicator:socialbreadth_help'] = 'Denna indikator baseras på den sociala bredd som uppnåtts av studenten i en URL-resurs.';
+$string['indicator:socialbreadthdef'] = 'URL social';
+$string['indicator:socialbreadthdef_help'] = 'Deltagaren har nått denna procentandel av det sociala engagemanget som erbjuds av URL-resurserna under detta analysintervall (Nivåer = Inget deltagande, Deltagaren ensamt)';
 $string['invalidstoredurl'] = 'Kan inte visa, angiven URL är ogiltig.';
 $string['invalidurl'] = 'Angiven URL är ogiltig';
-$string['modulename'] = 'URL/Webbadress';
-$string['modulename_help'] = 'Med URL-(uniform resource locater) eller webbadress-modulen kan en lärare skapa en en webblänk som en kursresurs.
+$string['modulename'] = 'URL';
+$string['modulename_help'] = 'URL-modulen gör det möjligt för en lärare att tillhandahålla en webblänk som kursresurs. Det går att länka till allt som är fritt tillgängligt online, till exempel dokument eller bilder.  Webbadressen behöver inte vara startsidan för en webbplats. Webbadressen till en viss webbsida kan kopieras och klistras in eller en lärare kan använda filväljaren och välja en länk från en lagringsplats som Flickr, YouTube eller Wikimedia (beroende på vilka lagringsplatser som är aktiverade på webbplatsen).
 
-Allt som är fritt tillgängliga på nätet, såsom dokument eller bilder, kan länkas. URL/webbadressen behöver inte vara startsidan på en webbplats. Webbadressen till önskat webbsida kan kopieras och klistras eller en lärare kan använda "filepicker" och välja en länk från ett arkiv som Flickr, YouTube eller Wikimedia (beroende på vilka förråd är aktiverade för webbplatsen).
+Det finns ett antal visningsalternativ för webbadressen, till exempel inbäddad eller att den öppnas i ett nytt fönster och avancerade alternativ för att skicka information, till exempel en deltagares namn, till webbadressen om det behövs.
 
-Det finns ett antal visningsalternativ för URL, till exempel "inbäddad" eller "öppna i ett nytt fönster".
-
-Det finns även avancerade inställningsalternativ som gör det möjligt att definiera informationsöverföring till webbadressen (t.ex. elevs namn) om det behövs eller önskas.
-
-Observera att URL/webbadresser även kan läggas till andra resurser eller aktiviteter genom att använda sig av textredigeraren i respektive element.';
+Observera att webbadresser även kan läggas till i någon annan resurs eller aktivitetstyp via textredigeraren.';
 $string['modulenameplural'] = 'URLer';
 $string['page-mod-url-x'] = 'Valfri URL modulsida';
-$string['parameterinfo'] = 'parameter=variabel';
-$string['parametersheader'] = 'Parametrar';
+$string['parameterinfo'] = '&amp;parameter=variabel';
+$string['parametersheader'] = 'URL-variabler';
 $string['parametersheader_help'] = 'Vissa interna Moodlevariabler kan bli automatiskt bifogade till URL:en. Skriv ditt namn för parametern i varje textruta(or) och välj sedan den nödvändiga matchande variabeln.';
 $string['pluginadministration'] = 'Administration av modulen URL';
-$string['pluginname'] = 'URL/Webbadress';
+$string['pluginname'] = 'URL';
 $string['popupheight'] = 'Höjd på popup-fönster (i pixlar)';
 $string['popupheightexplain'] = 'Anger standardhöjden på popup-fönster';
 $string['popupwidth'] = 'Bredd på popup-fönster (i pixlar)';
 $string['popupwidthexplain'] = 'Anger standardbredden på popup-fönster';
 $string['printintro'] = 'Visa beskrivning för URL';
 $string['printintroexplain'] = 'Visa URL beskrivning nedanför innehållet? Vissa visningstyper kanske inte visas beskrivningen även om detta är valt.';
+$string['privacy:metadata'] = 'Plugin-modulen URL lagrar ingen personlig information.';
 $string['rolesinparams'] = 'Ta med namn på roller i parametrar';
 $string['search:activity'] = 'URL';
 $string['serverurl'] = 'URL till server';
-$string['url:addinstance'] = 'Lägg till en ny URL/webbadress';
-$string['url:view'] = 'Visa URL/Webbadress';
+$string['url:addinstance'] = 'Lägg till en ny URL';
+$string['url:view'] = 'Visa URL';

@@ -33,7 +33,7 @@ $string['autocreation_settings'] = 'Einstellungen für automatisch angelegte Kur
 $string['autoupdate_settings'] = 'Einstellungen für automatisch aktualisierte Kurse';
 $string['autoupdate_settings_desc'] = '<p>Wählen Sie die Felder aus, die aktualisiert werden sollen, wenn die geplante Aufgabe "LDAP-Einschreibungen synchronisieren" ausgeführt wird.</p>
 <p>Wenn mindestens ein Feld ausgewählt ist, erfolgt die Aktualisierung.</p>';
-$string['bind_dn'] = 'Wenn Sie einen sog. bind-user für die LDAP-Suche nach Nutzer/innen verwenden wollen, geben Sie diesen  hier an, z.B. \'cn=ldapuser,ou=public,o=org\'.';
+$string['bind_dn'] = 'Wenn Sie einen sog. bind-user für die LDAP-Suche nach Nutzer/innen verwenden wollen, geben Sie diesen hier an, z.B. \'cn=ldapuser,ou=public,o=org\'';
 $string['bind_dn_key'] = 'Anmeldename des Bind Users';
 $string['bind_pw'] = 'Kennwort für den Bind-User';
 $string['bind_pw_key'] = 'Kennwort';
@@ -78,7 +78,7 @@ $string['explodegroupusertypenotsupported'] = 'ldap_explode_group() unterstützt
 $string['extcourseidinvalid'] = 'Ungültige externe Kurs-ID! ';
 $string['extremovedsuspend'] = 'Deaktivierte Einschreibung von Nutzer/in \'{$a->user_username}\' in den Kurs \'{$a->course_shortname}\' (ID {$a->course_id})';
 $string['extremovedsuspendnoroles'] = 'Deaktivierte Einschreibung und entfernte Rollen von Nutzer/in \'{$a->user_username}\' in den Kurs \'{$a->course_shortname}\' (ID {$a->course_id})';
-$string['extremovedunenrol'] = 'Nutzer/in \'{$a->user_username}\' aus dem Kurs \'{$a->course_shortname}\' (id {$a->course_id}) abmelden';
+$string['extremovedunenrol'] = 'Nutzer/in \'{$a->user_username}\' vom Kurs \'{$a->course_shortname}\' (id {$a->course_id}) abmelden';
 $string['failed'] = 'Fehlgeschlagen!';
 $string['general_options'] = 'Allgemeines';
 $string['group_memberofattribute'] = 'Name des Attribut, das die Zugehörigkeit eines Nutzers zu einer Gruppe festlegt (z.B. memberOf, groupMembership, etc)';
@@ -97,7 +97,7 @@ $string['nested_groups'] = 'Möchten Sie enthaltene Gruppen (Gruppen innerhalb v
 $string['nested_groups_key'] = 'Enthaltene Gruppen';
 $string['nested_groups_settings'] = 'Einstellungen für enthaltene Gruppen';
 $string['nosuchrole'] = 'Diese Rolle ist nicht vorhanden: \'{$a}\'';
-$string['objectclass'] = 'objectClass für Kurssuche in LDAP, normalerweise \'posixGroup\'.';
+$string['objectclass'] = 'objectClass für Kurssuche in LDAP, normalerweise \'group\' oder \'posixGroup\'';
 $string['objectclass_key'] = 'Object Class';
 $string['ok'] = 'OK';
 $string['opt_deref'] = 'Wenn die Gruppenzugehörigkeit bevorzugte Namen enthält, legen Sie fest, wie Aliase bei der Suche behandelt werden. Wählen Sie einen der folgenden Werte aus: \'Nein\' (LDAP_DEREF_NEVER) oder \'Ja\' (LDAP_DEREF_ALWAYS)';

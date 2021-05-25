@@ -32,8 +32,7 @@ $string['autocreate'] = '<p> Курсы могут создаваться авт
 $string['autocreate_key'] = 'Автоматическое создание';
 $string['autocreation_settings'] = 'Параметры автоматического создания курса';
 $string['autoupdate_settings'] = 'Настройки автоматического обновления курса';
-$string['autoupdate_settings_desc'] = '<p>Выберите поля для обновления при выполнении скрипта синхронизации  (enrol/ldap/cli/sync.php). </p>
-<p>Обновление будет происходить при выборе хотя бы одного поля.</p>';
+$string['autoupdate_settings_desc'] = '<p> Выберите поля для обновления при выполнении запланированной задачи «Синхронизация регистраций LDAP». </p> <p>Обновление будет происходить при выборе хотя бы одного поля.</p>';
 $string['bind_dn'] = 'Если Вы хотите использовать характеристики пользователя для поиска пользователей, укажите их здесь. Например: «cn=ldapuser,ou=public,o=org»';
 $string['bind_dn_key'] = 'Привязка отличительных имен';
 $string['bind_pw'] = 'Пароль для привязки пользователей';
@@ -117,7 +116,7 @@ $string['role_mapping_key'] = 'Карта ролей из LDAP';
 $string['roles'] = 'Сопоставление роли';
 $string['server_settings'] = 'Параметры сервера LDAP';
 $string['synccourserole'] = '== Синхронизация курса «{$a->idnumber}» для роли «{$a->role_shortname}»';
-$string['syncenrolmentstask'] = 'Задача синхронизировать регистрацию';
+$string['syncenrolmentstask'] = 'Синхронизации зачисления из LDAP';
 $string['template'] = 'Дополнительно: автоматически создаваемые курсы могут копировать свои настройки из шаблона курса';
 $string['template_key'] = 'Шаблон';
 $string['unassignrole'] = 'Отмена назначения роли «{$a->role_shortname}» пользователя «{$a->user_username}» из курса «{$a->course_shortname}» (ID {$a->course_id})';

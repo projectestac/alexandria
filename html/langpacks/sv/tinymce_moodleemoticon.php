@@ -25,5 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['moodleemoticon:desc'] = 'Infoga smiley';
-$string['pluginname'] = 'Infoga smiley';
+$string['moodleemoticon:desc'] = 'Infoga uttrycksikon';
+$string['pluginname'] = 'Infoga uttrycksikon';
+$string['privacy:metadata'] = 'Pluginmodulen TinyMCE Infoga uttrycksikon lagrar ingen personlig information.';
+$string['requireemoticon'] = 'Kräv filtret uttrycksikon';
+$string['requireemoticon_desc'] = 'Om aktiverat visas knappen för uttrycksikoner enbart om filtret är aktivt i redigeringskontextet.';

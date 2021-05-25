@@ -42,6 +42,8 @@ $string['allowunenrol_desc'] = '<p>Enterprise data kan lägga till eller ta bort
   <li>Det finns en &lt;medlems&gt;-komponent som anger en &lt;tidsram> för registreringen och som kan specificera start- och slutdatum för registrering av just denne/a student/ elev/ deltagare/ lärande. Dessa datum laddas in i Moodles datatabell för registrering om det finns en sådan och efter det angivna slutdatumet kommer studenten/ eleven/ deltagaren/ den lärande inte längre att kunna få tillgång till just den kursen.</li>
 </ul>';
 $string['basicsettings'] = 'Grundläggande inställlningar';
+$string['categoryidnumber'] = 'Tillåt id-nummer för kategori';
+$string['categoryseparator'] = 'Kategoriavgränsare';
 $string['coursesettings'] = 'Alternativ för kursdata';
 $string['createnewcategories'] = 'Skapa nya (dolda) kurskategorier om det inte går att hitta några i Moodle.';
 $string['createnewcourses'] = 'Skapa nya (dolda) kurser om det inte går att hitta några i Moodle.';
@@ -49,12 +51,14 @@ $string['createnewusers'] = 'Skapa användarkonton för användare som ännu int
 $string['cronfrequency'] = 'Hur ofta cron processas';
 $string['deleteusers'] = 'Ta bort användarkonton när detta är angivet i IMS data.';
 $string['doitnow'] = 'importera en IMS Enterprise nu';
-$string['filelockedmail'] = 'Det går inte att radera den textfil (som baserar sig på en IMS-fil) och som du använder för registreringar ({$a}) med hjälp av processen för cron. Detta innebär vanligtvis att det är något problem med rättigheterna. Var snäll och ställ in rättigheterna så att Moodle kan ta bort filen annars kan den komma att processas upprepade gånger.';
+$string['filelockedmail'] = 'Det går inte att radera den textfil (som baserar sig på en IMS-fil) och som du använder för registreringar ({$a}) med hjälp av processen för cron. Detta innebär vanligtvis att det är något problem med rättigheterna. Vänligen ställ in rättigheterna så att Moodle kan ta bort filen annars kan den komma att processas upprepade gånger.';
 $string['filelockedmailsubject'] = 'Viktigt fel: fil för registreringar';
 $string['fixcasepersonalnames'] = 'Ändra personnamn till stora bokstäver';
 $string['fixcaseusernames'] = 'Ändra användarnamn till små bokstäver';
-$string['imsrolesdescription'] = 'Specifikationen för IMS Enterprise inkluderar 8 olika specifika typer av roller. Var snäll och välj hur du vill att de ska tilldelas i Moodle, inklusive huruvida någon av dem inte ska användas.';
-$string['location'] = 'Placering av fil';
+$string['ignore'] = 'Ignorera';
+$string['imsenterprisecrontask'] = 'Bearbeta kursregistreringsfil';
+$string['imsrolesdescription'] = 'Specifikationen för IMS Enterprise inkluderar 8 olika specifika typer av roller. Vänligen välj hur du vill att de ska tilldelas i Moodle, inklusive huruvida någon av dem inte ska användas.';
+$string['location'] = 'Sökväg till fil';
 $string['logtolocation'] = 'Loggfil för placering av output (tom om det inte finns några loggar)';
 $string['mailadmins'] = 'Meddela administratören via e-post';
 $string['mailusers'] = 'Meddela användarna via e-post';

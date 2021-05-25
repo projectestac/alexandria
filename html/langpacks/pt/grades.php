@@ -505,7 +505,7 @@ $string['modgradecategorycantchangegradetyporscalemsg'] = 'Esta categoria possui
 $string['modgradecategoryrescalegrades'] = 'Recalcular ajustamento de notas';
 $string['modgradecategoryrescalegrades_help'] = 'Ao alterar as notas máximas de um item da pauta, deve indicar se pretende que esta ação altere, ou não, a percentagem das notas já existentes.
 
-Se definir esta configuração como \'Sim\', quaisquer notas reajustadas já existentes serão novamente reajustadas para que a percentagem da nota permaneça igual.
+Se definir esta configuração como \'Sim\', quaisquer notas existentes já reajustadas serão novamente reajustadas para que a percentagem da nota permaneça igual.
 
 Por exemplo, se esta configuração for definida como \'Sim\', ao mudar a nota máxima de um item de 10 para 20, isto levaria a que uma nota de 6/10 (60%) fosse ajustada para 12/20 (60%). Se esta configuração for definida como \'Não\', a nota permanecerá inalterada, o que requer um ajuste manual dos itens de avaliação para garantir pontuações corretas.';
 $string['modgradedonotmodify'] = 'Não modificar as notas existentes';
@@ -556,7 +556,7 @@ $string['nooutcome'] = 'Nenhum resultado da aprendizagem';
 $string['nooutcomes'] = 'Os itens dos resultados da aprendizagem devem estar ligados a resultado da aprendizagem da disciplina, mas não existem nesta disciplina. Pretende adicionar?';
 $string['nopermissiontoresetweights'] = 'Sem permissão para redefinir os pesos';
 $string['nopublish'] = 'Não publicar';
-$string['noreports'] = 'Não se encontra inscrito, nem a lecionar nenhuma disciplina neste site.';
+$string['noreports'] = 'Não está inscrito, nem a lecionar, em qualquer disciplina deste site.';
 $string['norolesdefined'] = 'Não existem papéis definidos em Administração > Notas > Configurações > Papéis avaliados';
 $string['noscales'] = 'Os resultados da aprendizagem devem estar ligadas a uma escala da disciplina ou escala global, mas não existe nenhuma. Pretende adicionar uma?';
 $string['noselectedcategories'] = 'não foram selecionadas quaisquer categorias.';

@@ -714,8 +714,8 @@ Se o endereço acima não for apresentado como uma hiperligação em que basta c
 Se necessitar de ajuda, contacte o(a) administrador(a) da plataforma:
 {$a->admin}';
 $string['emailpasswordconfirmationsubject'] = '{$a}:  Confirmação de alteração da senha';
-$string['emailpasswordconfirmmaybesent'] = '<p>Se indicou um nome de utilizador ou endereço de e-mail correto, deverá receber um e-mail.</p>
-<p>Este e-mail contém as instruções para confirmar e concluir o processo de alteração de senha. Se continuar a ter dificuldades, por favor, contacte o administrador do site.</p>';
+$string['emailpasswordconfirmmaybesent'] = '<p>Se indicou um nome de utilizador ou um endereço de e-mail correto, deverá receber um e-mail.</p>
+<p>O e-mail contém as instruções para confirmar e concluir o processo de alteração da senha. Se continuar a ter dificuldades, por favor, contacte o administrador do site.</p>';
 $string['emailpasswordconfirmnoemail'] = '<p>A conta de utilizador que especificou não possui um endereço de e-mail guardado.</p>
 <p>Por favor, contacte o administrador do site.</p>';
 $string['emailpasswordconfirmnotsent'] = '<p>O detalhe de utilizador que forneceu não identifica nenhuma conta de utilizador existente.</p>
@@ -1399,7 +1399,7 @@ $string['nocoursesyet'] = 'Nenhuma disciplina nesta categoria';
 $string['nodstpresets'] = 'O administrador do sistema não ativou o suporte para horário de verão.';
 $string['nofilesselected'] = 'Não foram selecionados ficheiros para serem restaurados';
 $string['nofilesyet'] = 'A sua disciplina ainda não tem nenhum ficheiro';
-$string['nofiltersapplied'] = 'Nenhum filtro está aplicado';
+$string['nofiltersapplied'] = 'Nenhum filtro aplicado';
 $string['nograde'] = 'Nenhuma nota';
 $string['nohelpforactivityorresource'] = 'Não existe atualmente nenhuma ajuda associada a esse recurso ou atividade';
 $string['noimagesyet'] = 'A sua disciplina ainda não tem nenhuma imagem';
@@ -1972,7 +1972,7 @@ $string['successduration'] = 'Operação realizada com sucesso ({$a} segundos)';
 $string['summary'] = 'Sumário';
 $string['summary_help'] = 'Um sumário é um texto curto cujo o objetivo é fornecer informação para preparar os alunos para as atividades dentro do tópico ou semana. O texto é mostrado na página da disciplina sob o nome da secção.';
 $string['summaryof'] = 'Sumário de {$a}';
-$string['supplyinfo'] = 'Insira alguma informação sobre si';
+$string['supplyinfo'] = 'Insira alguns dados sobre si';
 $string['suspended'] = 'Suspenso';
 $string['suspendedusers'] = 'Utilizadores suspensos';
 $string['switchdevicedefault'] = 'Mudar para o tema standard';

@@ -25,24 +25,39 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['crontask'] = 'Bakgrundsbearbetning av schemalagd fördelning';
+$string['currentstatus'] = 'Nuvarande status';
+$string['currentstatusexecution'] = 'Status';
 $string['currentstatusexecution1'] = 'Utförd {$a->datetime}';
 $string['currentstatusexecution2'] = 'Utförs igen {$a->datetime}';
-$string['currentstatusexecution3'] = 'Utförs {$a->datetime}';
-$string['currentstatusexecution4'] = 'Väntar på utförande';
-$string['currentstatusnext'] = 'Nästa utförande';
-$string['currentstatusresetinfo'] = 'Kryssa i rutan och spara formuläret för att nollställa resultatet';
-$string['currentstatusresult'] = 'Färskt resultat';
-$string['enablescheduled'] = 'Ta tilldelning enligt tidtabell i bruk';
-$string['enablescheduledinfo'] = 'Tilldela automatiskt inlämningar i slutet av inlämningsfasen';
-$string['pluginname'] = 'Planerad tilldelning';
-$string['randomallocationsettings'] = 'Inställningar för tilldelning';
-$string['resultdisabled'] = 'Tilldelning enligt tidtabell är avstängd';
-$string['resultenabled'] = 'Tilldelning enligt tidtabell är i bruk';
-$string['resultfailed'] = 'Utlottningen av utvärderare misslyckades';
-$string['resultfailedconfig'] = 'Tilldelning enligt tidtabell är fel inställd';
-$string['resultfaileddeadline'] = 'Workshopens inlämningstid är inte angiven';
-$string['resultfailedphase'] = 'Workshopen är inte i inlämningsskedet';
-$string['resultvoid'] = 'Inga utvärderare tilldelades';
-$string['resultvoidexecuted'] = 'Utvärderare har redan valts';
-$string['scheduledallocationsettings'] = 'Inställningar för tilldelning enligt tidtabell';
-$string['setup'] = 'Ställ in tilldelning enligt tidtabell';
+$string['currentstatusexecution3'] = 'Kommer att utföras {$a->datetime}';
+$string['currentstatusexecution4'] = 'Väntar på att utföras';
+$string['currentstatusnext'] = 'Nästa körning';
+$string['currentstatusnext_help'] = 'I vissa fall schemaläggs fördelningen automatiskt igen även om den redan har utförts. Detta kan till exempel inträffa om tidsfristen för inlämningar har förlängts.';
+$string['currentstatusreset'] = 'Återställ';
+$string['currentstatusreset_help'] = 'Om du sparar formuläret med den här kryssrutan markerad kommer det att resultera i att nuvarande status återställs. All information om den tidigare körningen kommer att tas bort så att fördelningen kan utföras igen (om aktiverad ovan).';
+$string['currentstatusresetinfo'] = 'Kryssa i rutan och spara formuläret för att nollställa körningsresultatet';
+$string['currentstatusresult'] = 'Senaste körningsresultat';
+$string['enablescheduled'] = 'Aktivera schemalagd fördelning';
+$string['enablescheduledinfo'] = 'Fördela automatiskt inlämningar i slutet av inlämningsfasen';
+$string['pluginname'] = 'Schemalagd fördelning';
+$string['privacy:metadata'] = 'Pluginmodulen Schemalagd fördelning lagrar ingen personlig information. Faktiska personuppgifter om vem som bedömer vem lagras av själva workshopmodulen och bifogas exporterade bedömningar.';
+$string['randomallocationsettings'] = 'Fördelningsinställningar';
+$string['randomallocationsettings_help'] = 'Parametrar för metoden för slumpmässig fördelning definieras här. De kommer att användas av pluginmodulen Slumpmässig fördelning för den faktiska tilldelningen av inlämningar.';
+$string['resultdisabled'] = 'Schemalagd fördelning inaktiverad';
+$string['resultenabled'] = 'Schemalagd fördelning aktiverad';
+$string['resultexecuted'] = 'Lyckades';
+$string['resultfailed'] = 'Kunde inte fördela inlämningar automatiskt';
+$string['resultfailedconfig'] = 'Schemalagd fördelning felkonfigurerad';
+$string['resultfaileddeadline'] = 'Det finns inget slutdatum för inlämningar angivet för Workshopen';
+$string['resultfailedphase'] = 'Workshopen är inte i inlämningsfasen';
+$string['resultvoid'] = 'Inga inlämningar fördelades';
+$string['resultvoiddeadline'] = 'Inte efter inlämningens slutdatum ännu';
+$string['resultvoidexecuted'] = 'Fördelningen har redan genomförts';
+$string['scheduledallocationsettings'] = 'Inställningar för schemalagd fördelning';
+$string['scheduledallocationsettings_help'] = 'Om den är aktiverad kommer den schemalagda fördelningsmetoden automatiskt att fördela inlämningar för bedömningen i slutet av inlämningsfasen. Slutet av fasen kan definieras i workshopen under "Slutdatum för bedömningar".
+
+Internt utförs slumpallokeringsmetoden med parametrarna som är fördefinierade i det här formuläret. Det innebär att den schemalagda allokeringen fungerar som om läraren utförde den slumpmässiga fördelningen själv i slutet av inlämningsfasen med hjälp av fördelningsinställningarna nedan.
+
+Observera att den schemalagda allokeringen *inte* utförs om du manuellt byter fas i workshopen till bedömningsfasen innan slutdatum för inlämningen. Du måste i så fall själv fördela inlämningarna. Den schemalagda fördelningsmetoden är särskilt användbar när den används tillsammans med funktionen för automatiska fasbyten.';
+$string['setup'] = 'Konfigurera schemalagd fördelning';

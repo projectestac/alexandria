@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['actauthhdr'] = 'Aktive Plugins zur Authentifizierung';
+$string['actauthhdr'] = 'Verfügbare Plugins zur Authentifizierung';
 $string['allowaccountssameemail'] = 'Nutzerkonten mit gleicher E-Mail-Adresse erlauben';
 $string['allowaccountssameemail_desc'] = 'Wenn diese Option aktiviert ist, können mehrere Nutzerkonten die gleiche E-Mail-Adresse verwenden. Probleme hinsichtlich Sicherheit oder Datenschutz könnten entstehen, wenn z.B. eine Bestätigungsmitteilung zur Kennwortänderung versendet wird.';
 $string['alternatelogin'] = 'Bei der Eingabe einer URL wird diese als alternative Login-Seite verwandt. Die Seite sollte ein Formular enthalten, dessen Aktionsfunktion auf <strong>\'{$a}\'</strong> gesetzt ist und außerdem Eingabefelder für den <strong>Anmeldenamen</strong> und das <strong>Kennwort</strong> zurück liefert.<br />Seien Sie sehr sorgfältig bei der Eingabe der URL, denn mit einer falschen URL schließen Sie sich vom Zugriff zur Website aus.<br />Lassen Sie das Feld leer, um die Standard-Anmeldeseite zu verwenden.';
@@ -72,7 +72,7 @@ $string['authenticationoptions'] = 'Authentifizierungsoptionen';
 $string['authinstructions'] = 'Wenn dieses Textfeld leer ist, wird auf der Anmeldeseite der Standardtext angezeigt. Falls Sie eine eigene Anleitung anbieten möchten, welche Anmeldenamen und Kennwörter verwendet werden sollen, schreiben Sie hier Ihren Text.';
 $string['authloginviaemail'] = 'Anmeldung mit E-Mail erlauben';
 $string['authloginviaemail_desc'] = 'Nutzer/innen erlauben, sich mit dem Anmeldenamen oder mit der E-Mail-Adresse anzumelden, falls die E-Mail-Adresse eindeutig ist.';
-$string['auto_add_remote_users'] = 'Automatisches Hinzufügen externer Nutzer';
+$string['auto_add_remote_users'] = 'Automatisches Hinzufügen externer Nutzer/innen';
 $string['cannotmapfield'] = 'Das Profilfeld \'{$a->fieldname}\' kann nicht zugeordnet werden, da sein Kurzname \'{$a->shortname}\' zu lang ist. Um die Zuordnung aktivieren zu können, darf der Kurzname des Profilfelds nur {$a->charlimit} Zeichen haben. <a href="{$a->link}">Profilfelder bearbeiten</a>';
 $string['changepassword'] = 'URL zur Kennwortänderung';
 $string['changepasswordhelp'] = 'Hier können Sie eine Adresse angeben, über die die Nutzer/innen ihren Anmeldenamen erfahren und ihr Kennwort zurücksetzen können, wenn sie ihre Daten vergessen haben. Diese Option wird auf der Anmeldungsseite angezeigt. Wenn Sie dieses Feld leer lassen, wird die Option nicht angeboten.';
@@ -103,7 +103,7 @@ $string['errorminpasswordnonalphanum'] = 'Kennwörter müssen mindestens {$a} So
 $string['errorminpasswordupper'] = 'Kennwörter müssen mindestens {$a} Großbuchstaben enthalten.';
 $string['errorpasswordreused'] = 'Dieses Kennwort wurde bereits benutzt und kann nicht erneut verwendet werden.';
 $string['errorpasswordupdate'] = 'Fehler: Kennwort konnte nicht geändert werden!';
-$string['eventuserloggedin'] = 'Nutzer/in ist angemeldet';
+$string['eventuserloggedin'] = 'Nutzer/in angemeldet';
 $string['eventuserloggedinas'] = 'Nutzer/in ist als andere Person angemeldet';
 $string['eventuserloginfailed'] = 'Nutzeranmeldung fehlgeschlagen';
 $string['forcechangepassword'] = 'Kennwortänderung fordern';
@@ -127,7 +127,7 @@ $string['internal'] = 'Intern';
 $string['limitconcurrentlogins'] = 'Gleichzeitige Anmeldungen begrenzen';
 $string['limitconcurrentlogins_desc'] = 'Wenn diese Option aktiviert ist, wird die Anzahl der Anmeldungen für jeden Benutzer eingeschränkt. Die älteste Sitzung wird beim Erreichen der Grenze beendet, alle nicht gespeicherten Daten gehen verloren. Diese Einstellung ist nicht mit einer Authentifizierung über Single-Sign-On (SSO) kompatibel.';
 $string['locked'] = 'Gesperrt';
-$string['md5'] = 'MD5-Verschlüsselung';
+$string['md5'] = 'MD5-Hash';
 $string['nopasswordchange'] = 'Kennwort kann nicht geändert werden';
 $string['nopasswordchangeforced'] = 'Ohne die Änderung des Kennworts können Sie nicht weitermachen. Falls die Seite zur Änderung des Kennworts nicht verfügbar ist, wenden Sie sich an Administrator/innen der Website.';
 $string['noprofileedit'] = 'Das Profil darf nicht bearbeitet werden';

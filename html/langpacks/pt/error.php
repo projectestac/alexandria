@@ -298,7 +298,7 @@ $string['idnumbertoolong'] = 'O número de identificação é muito longo';
 $string['importformatnotimplement'] = 'Desculpe, importar esse formato ainda não está implementado!';
 $string['incorrectext'] = 'O ficheiro tem uma extensão incorreta';
 $string['inplaceeditableerror'] = 'Erro ao chamar o processador de atualização';
-$string['installproblem'] = 'Por nome não é possível recuperar de erros desencadeados durante a instalação, pode precisar de criar uma nova base de dados ou usar um prefixo da base de dados diferente se quiser tentar novamente a instalação.';
+$string['installproblem'] = 'Normalmente não é possível recuperar de erros desencadeados durante a instalação. Poderá ser preciso criar uma nova base de dados ou usar um prefixo diferente para a base de dados, caso pretenda repetir a instalação.';
 $string['internalauthpassworderror'] = 'Falta senha ou senha inválida de autenticação interna';
 $string['invalidaccess'] = 'Esta página não foi acedida da forma correta';
 $string['invalidaccessparameter'] = 'Parâmetro de acesso inválido';
@@ -475,7 +475,7 @@ $string['orderidnotfound'] = 'ID ordem {$a} não foi encontrado';
 $string['pagenotexist'] = 'Ocorreu um erro pouco frequente (tentativa de acesso a página não existente)';
 $string['pathdoesnotstartslash'] = 'Sem argumentos válidos fornecidos, o caminho não começa com a barra!';
 $string['pleasereport'] = 'Se tiver tempo, diga-nos o que estava a tentar fazer quando ocorreu esse erro:';
-$string['pluginrequirementsnotmet'] = 'O módulo "{$a->pluginname}"  ({$a->pluginversion}) não pôde ser instalado porque requer uma versão mais recente do Moodle (atualmente está a utilizar a versão {$a->currentmoodle}, mas precisa da {$a->requiremoodle}).';
+$string['pluginrequirementsnotmet'] = 'O módulo "{$a->pluginname}" ({$a->pluginversion}) não pôde ser instalado porque requer uma versão mais recente do Moodle (atualmente está a utilizar a versão {$a->currentmoodle} mas é requerida a versão {$a->requiremoodle}).';
 $string['prefixcannotbeempty'] = '<p> Erro: O prefixo da tabela da base de dados não pode estar vazio ({$a}) </p>
  <p> O administrador do site deve corrigir esse problema.</p>';
 $string['prefixtoolong'] = '<p>Erro: O prefixo da tabela da base de dados é muito longo ({$a->dbfamily})</p>

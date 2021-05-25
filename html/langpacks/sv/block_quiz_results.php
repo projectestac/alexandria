@@ -25,5 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Testresultat';
+$string['pluginname'] = 'Testresultat (inaktiverad)';
+$string['privacy:metadata'] = 'Blocket Testresultat visar enbart data lagrad på andra platser.';
 $string['quiz_results:addinstance'] = 'Lägg till ett nytt resultatblock för testet';
