@@ -1,10 +1,25 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 define('ALEXANDRIA_OTHER', 0);
 define('ALEXANDRIA_PDI_PDF', 1);
 define('ALEXANDRIA_SCORM', 2);
 define('ALEXANDRIA_COURSE_BACKUP', 3);
 define('ALEXANDRIA_PDI', 4);
+define('ALEXANDRIA_BACKUPS_TABLENAME', 'local_alexandria_backups');
 
 /**
  * Report abuse
@@ -299,16 +314,21 @@ function alexandria_backup_course($courseid, $doitnow = false) {
         $course = $DB->get_record('course', array('id' => $courseid));
         backup_cron_automated_helper::launch_automated_backup($course, 0, $USER->id);
     } else {
-        // Start doing the backup (approved or not)
-        $backup = $DB->get_record('backup_courses', array('courseid' => $courseid));
-        if (!$backup) {
+        // Queue backup
+        if (!$DB->get_record(ALEXANDRIA_BACKUPS_TABLENAME, array('course_id' => $courseid))) {
             $backup = new stdClass();
-            $backup->courseid = $courseid;
-            $backup->nextstarttime = time();
-            $DB->insert_record('backup_courses', $backup);
-        } else {
-            $DB->set_field('backup_courses', 'nextstarttime', time(), array('courseid' => $courseid));
-        }
+            $backup->course_id = $courseid;
+            $DB->insert_record(ALEXANDRIA_BACKUPS_TABLENAME, $backup);
+
+            // Launch event
+            $contextcourse = \context_course::instance($courseid);
+            $params = array(
+                'context' => $contextcourse,
+                'objectid' => $courseid
+            );
+            $event = \local_alexandria\event\alexandria_backup_db_insert::create($params);
+            $event->trigger();
+        }    
     }
 
     redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
