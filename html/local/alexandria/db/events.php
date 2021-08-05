@@ -12,10 +12,13 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
-
-function xmldb_local_alexandria_install() {
-    global $CFG, $DB;
-}
+//See http://docs.moodle.org/dev/Event_2
+$observers = [
+    [
+        'eventname' => '\core\event\course_deleted',
+        'callback' => 'local_alexandria_coursedeleted_handler',
+        'includefile' => '/local/alexandria/data/handlers.lib.php',
+    ]
+];

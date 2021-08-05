@@ -21,5 +21,15 @@
                 <KEY NAME="report_author" TYPE="foreign" FIELDS="report_author" REFTABLE="user" REFFIELDS="id" PREVIOUS="primary"/>
             </KEYS>
         </TABLE>
+        <TABLE NAME="local_alexandria_backups" COMMENT="Pending courses list (backup)">
+          <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" UNSIGNED="true" SEQUENCE="true" ENUM="false" NEXT="course_id"/>
+          <FIELD NAME="course_id" TYPE="int" LENGTH="20" NOTNULL="false" SEQUENCE="false" PREVIOUS="id"/>
+          <KEYS>
+            <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
+          </KEYS>
+          <INDEXES>
+            <INDEX NAME="courseid" UNIQUE="true" FIELDS="course_id" COMMENT="Course index"/>
+          </INDEXES>
+        </TABLE>
     </TABLES>
 </XMLDB>
