@@ -14,8 +14,25 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * Definition of local_alexandria scheduled tasks.
+ *
+ *
+ * @package local_alexandria
+ * @copyright 2021 TICxCAT
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
+ */
+
 defined('MOODLE_INTERNAL') || die();
 
-function xmldb_local_alexandria_install() {
-    global $CFG, $DB;
-}
+$tasks = array(
+    array(
+        'classname' => 'local_alexandria\task\backup_courses_task',
+        'blocking' => 0,
+        'minute' => '*',
+        'hour' => '*',
+        'day' => '*',
+        'month' => '*',
+        'dayofweek' => '*'
+    )
+);
