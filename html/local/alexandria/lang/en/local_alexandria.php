@@ -1,4 +1,19 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
 $string['pluginname'] = 'Alexandria';
 $string['alexandria'] = 'Alexandria';
 
@@ -81,3 +96,7 @@ $string['preview_notavalaible'] = 'Preview not avalaible';
 // SCORM
 $string['show_index'] = 'Show index >>';
 $string['hide_index'] = 'Hide index <<';
+
+$string['event_backup_db_insert'] = 'Course inserted in Alexandria backups table';
+$string['event_backup_db_delete'] = 'Course deleted in Alexandria backups table';
+$string['backup_courses_task'] = 'Alexandria: Backups courses task';

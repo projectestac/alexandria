@@ -12,10 +12,23 @@
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+// along with Moodle. If not, see <http://www.gnu.org/licenses/>.
 
-defined('MOODLE_INTERNAL') || die();
+/**
+ * Remove course from local_alexandria_backups when the course is removed
+ *
+ * @param $params
+ * @return bool
+ * @throws dml_exception
+ */
+function local_alexandria_coursedeleted_handler($params): bool {
+    global $DB, $CFG;
 
-function xmldb_local_alexandria_install() {
-    global $CFG, $DB;
+    if (!isset($params->objectid) || empty($params->objectid)) {
+        return false;
+    }
+
+    $courseid = intval($params->objectid);
+
+    return $DB->delete_records('local_alexandria_backups', ['course_id' => $courseid]);
 }
