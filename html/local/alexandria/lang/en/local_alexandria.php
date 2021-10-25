@@ -23,7 +23,7 @@ $string['reportabuse'] = 'Report about inappropiate content';
 $string['data_never'] = 'never';
 $string['reportabuse_select'] = 'Select the option that better describes the inappropiate content ';
 $string['reportabuse_copyrights'] = 'Violates the author\'s rights';
-$string['reportabuse_nudity'] = 'It has grave errors of form or content';
+$string['reportabuse_nudity'] = 'It has major errors of form or content';
 $string['reportabuse_other'] = 'Violates another condition (You must specify it)';
 $string['reportabuse_comments'] = 'Add comments to help us to understand your report about inappropiate content.';
 $string['reportabuse_submit'] = 'Send the report';
@@ -98,5 +98,5 @@ $string['show_index'] = 'Show index >>';
 $string['hide_index'] = 'Hide index <<';
 
 $string['event_backup_db_insert'] = 'Course inserted in Alexandria backups table';
-$string['event_backup_db_delete'] = 'Course deleted in Alexandria backups table';
+$string['event_backup_db_delete'] = 'Course deleted from Alexandria backups table';
 $string['backup_courses_task'] = 'Alexandria: Backups courses task';

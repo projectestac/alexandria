@@ -18,12 +18,13 @@
  * Queue Alexandria Backup
  *
  * @copyright 2021 Education Department of Catalonia
- * @author sara.arjona@gmail.com & TICxCAT
+ * @author sara.arjona@gmail.com
+ * @author TICxCAT
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 
-require_once('../../../config.php');
-require_once('datalib.php');
+require_once '../../../config.php';
+require_once 'datalib.php';
 
 require_xtecadmin(true);
 
