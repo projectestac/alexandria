@@ -17,7 +17,6 @@
 /**
  * Definition of local_alexandria scheduled tasks.
  *
- *
  * @package local_alexandria
  * @copyright 2021 TICxCAT
  * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
@@ -25,14 +24,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$tasks = array(
-    array(
+$tasks = [
+    [
         'classname' => 'local_alexandria\task\backup_courses_task',
         'blocking' => 0,
         'minute' => '*',
         'hour' => '*',
         'day' => '*',
         'month' => '*',
-        'dayofweek' => '*'
-    )
-);
+        'dayofweek' => '*',
+    ]
+];

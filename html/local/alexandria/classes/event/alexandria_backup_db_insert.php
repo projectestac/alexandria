@@ -27,12 +27,12 @@ defined('MOODLE_INTERNAL') || die();
  */
 class alexandria_backup_db_insert extends \core\event\base {
 
-	/**
+    /**
      * Returns description of what happened.
      *
      * @return string
      */
-    public function get_description() {
+    public function get_description(): string {
         return "Course {$this->objectid} inserted in Alexandria backup DB table.";
     }
 
@@ -40,8 +40,9 @@ class alexandria_backup_db_insert extends \core\event\base {
      * Return localised event name.
      *
      * @return string
+     * @throws \coding_exception
      */
-    public static function get_name() {
+    public static function get_name(): string {
         return get_string('event_backup_db_insert', 'local_alexandria');
     }
 
@@ -49,9 +50,10 @@ class alexandria_backup_db_insert extends \core\event\base {
      * Get URL related to the action.
      *
      * @return \moodle_url
+     * @throws \moodle_exception
      */
-    public function get_url() {
-        return new \moodle_url('/course/view.php', array('id' => $this->objectid));
+    public function get_url(): \moodle_url {
+        return new \moodle_url('/course/view.php', ['id' => $this->objectid]);
     }
 
     /**
