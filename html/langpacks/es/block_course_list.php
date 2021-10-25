@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_course_list', language 'es', version '3.8'.
+ * Strings for component 'block_course_list', language 'es', version '3.11'.
  *
  * @package     block_course_list
  * @category    string
@@ -27,10 +27,11 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['adminview'] = 'Vista del administrador';
 $string['allcourses'] = 'El administrador ve todos los cursos';
-$string['configadminview'] = '¿Qué debería ver el administrador en el bloque de listado de cursos?';
+$string['configadminview'] = 'Si mostrar todos los cursos en el bloque de cursos o sólo los cursos en los que el administrador está matriculado.';
 $string['confighideallcourseslink'] = 'Ocultar el enlace "Todos los cursos" bajo el listado de cursos. (Esta opción no afecta a la vista del administrador).';
 $string['course_list:addinstance'] = 'Añadir un nuevo bloque de lista de cursos';
 $string['course_list:myaddinstance'] = 'Añadir un nuevo bloque de lista de cursos al Área Personal';
 $string['hideallcourseslink'] = 'Ocultar enlace a "Todos los cursos"';
 $string['owncourses'] = 'El administrador ve sus propios cursos';
 $string['pluginname'] = 'Cursos';
+$string['privacy:metadata'] = 'El bloque de cursos sólo muestra información sobre cursos y no almacena ningún dato por su cuenta.';

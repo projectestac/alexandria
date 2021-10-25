@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_blog_menu', language 'es', version '3.8'.
+ * Strings for component 'block_blog_menu', language 'es', version '3.11'.
  *
  * @package     block_blog_menu
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['blog_menu:addinstance'] = 'Añadir un nuevo bloque de menú de blog';
 $string['pluginname'] = 'Menú de Blog';
+$string['privacy:metadata'] = 'El bloque del menú de blog sólo muestra información almacenada en otras localizaciones.';

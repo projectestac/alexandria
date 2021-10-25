@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'fr', version '3.8'.
+ * Strings for component 'grades', language 'fr', version '3.11'.
  *
  * @package     grades
  * @category    string
@@ -136,7 +136,7 @@ $string['coursegradesettings'] = 'Réglages des notes du cours';
 $string['coursename'] = 'Nom du cours';
 $string['coursescales'] = 'Barèmes du cours';
 $string['coursesettings'] = 'Réglages du cours';
-$string['coursesettingsexplanation'] = 'Les réglages du cours déterminent la présentation du carnet de notes pour tous les participants du cours.';
+$string['coursesettingsexplanation'] = 'Les réglages d\'évaluation du cours déterminent la présentation du carnet de notes pour tous les participants du cours.';
 $string['coursesiamtaking'] = 'Les cours que je suis';
 $string['coursesiamteaching'] = 'Les cours que je donne';
 $string['coursetotal'] = 'Total du cours';
@@ -163,8 +163,9 @@ $string['droplow_help'] = 'Ce réglage permet d\'indiquer le nombre de notes les
 $string['droplowestvalue'] = 'Spécifier la valeur de rejet de la plus petite note';
 $string['droplowestvalues'] = 'Écarter les {$a} valeurs les plus basses';
 $string['dropped'] = 'Ignoré';
-$string['dropxlowest'] = 'Ignorer les <i>n</i> notes les plus basses';
+$string['dropxlowest'] = 'Ignorer les <em>n</em> notes les plus basses';
 $string['dropxlowestwarning'] = 'Remarque : si vous utilisez l\'option « ignorer les n notes les plus basses »,<br />tous les éléments de la catégorie seront considérés comme valant<br />le même nombre de points. Si ces valeurs varient, les résultats seront imprévisibles !';
+$string['duplicatedgradeitem'] = '{$a} (copie)';
 $string['duplicatescale'] = 'Barème en doublon';
 $string['edit'] = 'Modifier';
 $string['editcalculation'] = 'Modifier calcul';
@@ -199,6 +200,7 @@ $string['errorupdatinggradecategoryaggregation'] = 'Erreur lors de la modificati
 $string['errorupdatinggradeitemaggregationcoef'] = 'Erreur lors de la modification du coefficient (pondération ou bonus) de l\'élément d\'évaluation d\'identifiant {$a->id}';
 $string['eventgradedeleted'] = 'Note supprimée';
 $string['eventgradeitemcreated'] = 'Élément d\'évaluation créé';
+$string['eventgradeitemdeleted'] = 'Élément d\'évaluation supprimé';
 $string['eventgradeitemupdated'] = 'Élément d\'évaluation modifié';
 $string['eventgradelettercreated'] = 'Note lettre créée';
 $string['eventgradeletterdeleted'] = 'Note lettre supprimée';
@@ -226,6 +228,7 @@ $string['externalurl'] = 'URL externe';
 $string['externalurl_desc'] = 'Si un carnet de notes externe est utilisé, veuillez indiquer son URL ici.';
 $string['extracreditvalue'] = 'Bonus pour {$a}';
 $string['extracreditwarning'] = 'Remarque : si tous les éléments d\'une catégorie sont cochés comme bonus, cela aura pour effet de les retirer complètement du calcul des notes, puisqu\'il n\'y aura pas de point au total.';
+$string['fail'] = 'Échoué';
 $string['feedback'] = 'Feedback';
 $string['feedback_help'] = 'Ce champ permet à l\'enseignant d\'ajouter des remarques sur la note donnée.';
 $string['feedbackadd'] = 'Ajouter feedback';
@@ -405,6 +408,15 @@ $string['importcsv_help'] = 'Les notes peuvent être importées d\'un fichier CS
 
 Un fichier dont la syntaxe est correcte peut être obtenu à titre d\'exemple en exportant quelques notes. Le fichier peut alors être modifié et enregistré en format CSV.';
 $string['importcustom'] = 'Importer comme objectifs de ce cours';
+$string['importdata'] = 'Données';
+$string['importdata_help'] = 'Les notes peuvent être collées directement depuis une feuille de calcul OpenDocument ou Excel dont le format est le suivant :
+
+* au moins une colonne doit comporter les données d\'identification de l\'utilisateur - nom d\'utilisateur, adresse de courriel ou numéro d\'ID ;
+* chaque autre colonne doit avoir l\'entête d\'une activité ou d\'un élément d\'évaluation présent.
+
+Une feuille de calcul correctement formatée peut être obtenue en exportant d\'abord quelques notes. Elle peut être alors modifiée et enregistrée après l\'ajout d\'autres notes.
+
+Sélectionnez et copiez dans la feuille de calcul les colonnes à importer et collez-les dans ce champ.';
 $string['importerror'] = 'Une erreur est survenue. Ce script n\'a pas été appelé avec les paramètres adéquats.';
 $string['importfailed'] = 'L\'importation a échoué. Aucune donnée n\'a été importée.';
 $string['importfeedback'] = 'Importer les feedbacks';
@@ -439,7 +451,7 @@ $string['itemnamehelp'] = 'Le nom de cet élément, fourni par le module.';
 $string['items'] = 'Éléments';
 $string['itemsedit'] = 'Modifier un élément d\'évaluation';
 $string['keephigh'] = 'Garder les plus hautes';
-$string['keephigh_help'] = 'Cette option permet de ne considérer que les <i>n</i> notes les plus élevées, le nombre <i>n</i> étant sélectionné dans le menu déroulant.';
+$string['keephigh_help'] = 'Cette option permet de ne considérer que les <em>n</em> notes les plus élevées, le nombre <em>n</em> étant sélectionné dans le menu déroulant.';
 $string['keephighestvalues'] = 'Conserver les {$a} notes les plus élevées';
 $string['keymanager'] = 'Gestionnaire de clefs';
 $string['lessthanmin'] = 'La note saisie dans {$a->itemname} pour {$a->username} est inférieure au minimum permis';
@@ -598,6 +610,7 @@ $string['overridesitedefaultgradedisplaytype'] = 'Court-circuiter les réglages 
 $string['overridesitedefaultgradedisplaytype_help'] = 'Si ce réglage est activé, les notes lettres et les valeurs limites des notes peuvent être configurées par cours, au lieu d\'utiliser les valeurs par défaut de la plateforme.';
 $string['overrideweightofa'] = 'Pondération forcée de {$a}';
 $string['parentcategory'] = 'Catégorie mère';
+$string['pass'] = 'Réussi';
 $string['pctoftotalgrade'] = '% de la note maximale';
 $string['percent'] = 'Pourcent';
 $string['percentage'] = 'Pourcentage';
@@ -832,7 +845,7 @@ $string['usepercent'] = 'Utiliser les pourcentages';
 $string['user'] = 'Utilisateur';
 $string['userenrolmentsuspended'] = 'Inscription d\'utilisateurs suspendue';
 $string['userfields_show'] = 'Afficher les champs utilisateur';
-$string['userfields_show_help'] = 'Afficher sur le rapport de l\'évaluateur les champs utilisateur supplémentaires, tels que l\'adresse de courriel. L\'affichage de ces champs est contrôlé par le réglage de site <i>showuseridentity</i>.';
+$string['userfields_show_help'] = 'Afficher sur le rapport de l\'évaluateur les champs utilisateur supplémentaires, tels que l\'adresse de courriel. L\'affichage de ces champs est contrôlé par le réglage de site <em>showuseridentity</em>.';
 $string['usergrade'] = 'Utilisateur {$a->fullname} ({$a->useridnumber}) dans l\'élément {$a->gradeidnumber}';
 $string['userid'] = 'ID utilisateur';
 $string['useridnumberwarning'] = 'Les utilisateurs sans numéro d\'identification sont exclus de l\'exportation, car il ne peuvent pas être importés';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_image', language 'it', version '3.8'.
+ * Strings for component 'atto_image', language 'it', version '3.11'.
  *
  * @package     atto_image
  * @category    string
@@ -39,9 +39,10 @@ $string['enteralt'] = 'Descrizione dell\'immagine utile a coloro che non possono
 $string['enterurl'] = 'Inserisci URL';
 $string['height'] = 'Altezza';
 $string['imageproperties'] = 'Proprietà immagine';
+$string['imageurlrequired'] = 'Un\'immagine deve avere un URL.';
 $string['pluginname'] = 'Inserisci/modifica immagine';
-$string['presentation'] = 'Descrizione non necessaria';
-$string['presentationoraltrequired'] = 'Le immagini devono avere un testo descrittivo oppure si deve indicare che la descrizione non è necessaria.';
+$string['presentation'] = 'L\'immagine è puramente decorativa';
+$string['presentationoraltrequired'] = 'Le immagini devono avere un testo descrittivo oppure si deve indicare che sono puramente decorative.';
 $string['preview'] = 'Anteprima';
 $string['privacy:metadata'] = 'Il plugin atto_image non memorizza dati personali.';
 $string['saveimage'] = 'Salva immagine';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_group', language 'pt', version '3.8'.
+ * Strings for component 'availability_group', language 'pt', version '3.11'.
  *
  * @package     availability_group
  * @category    string
@@ -30,7 +30,7 @@ $string['description'] = 'Permitir apenas os alunos que pertencem a um grupo esp
 $string['error_selectgroup'] = 'Tem de selecionar um grupo.';
 $string['missing'] = '(Grupo em falta)';
 $string['pluginname'] = 'Condição de acesso com base em grupos';
-$string['privacy:metadata'] = 'O módulo Condição de acesso com base em grupos não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Condição de acesso com base em grupos não armazena quaisquer dados pessoais.';
 $string['requires_anygroup'] = 'Pertencer a qualquer grupo';
 $string['requires_group'] = 'Pertencer a <strong>{$a}</strong>';
 $string['requires_notanygroup'] = 'Não pertencer a nenhum grupo';

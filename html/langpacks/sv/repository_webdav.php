@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_webdav', language 'sv', version '3.8'.
+ * Strings for component 'repository_webdav', language 'sv', version '3.11'.
  *
  * @package     repository_webdav
  * @category    string
@@ -25,8 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['configplugin'] = 'WebDAV-konfiguration';
+$string['http'] = 'HTTP';
+$string['https'] = 'HTTPS';
 $string['pluginname'] = 'WebDAV-lagring';
-$string['privacy:metadata'] = 'Pluginmodulen för webDAV-lagringsplats lagrar ingen personlig information, men den flyttas från Moodle till fjärrsystemet.';
+$string['privacy:metadata'] = 'Pluginmodulen WebDAV-lagringsplats lagrar ingen personinformation, men den överförs från Moodle till fjärrsystemet.';
 $string['webdav'] = 'WebDAV';
 $string['webdav:view'] = 'Visa webDAV-lagringsplats';
 $string['webdav_password'] = 'WebDAV serverlösenord';

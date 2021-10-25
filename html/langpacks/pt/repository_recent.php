@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_recent', language 'pt', version '3.8'.
+ * Strings for component 'repository_recent', language 'pt', version '3.11'.
  *
  * @package     repository_recent
  * @category    string
@@ -30,6 +30,8 @@ $string['emptyfilelist'] = 'O repositório está vazio';
 $string['notitle'] = 'Sem título';
 $string['pluginname'] = 'Ficheiros recentes';
 $string['pluginname_help'] = 'Ficheiros usados recentemente pelo utilizador atual';
-$string['privacy:metadata'] = 'O módulo Ficheiros recentes não armazena ou transmite dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Ficheiros recentes não armazena ou transmite quaisquer dados pessoais.';
 $string['recent:view'] = 'Ver módulo do repositório de ficheiros recentes';
 $string['recentfilesnumber'] = 'Número de ficheiros recentes';
+$string['timelimit'] = 'Tempo limite';
+$string['timelimit_help'] = 'Apenas recupera ficheiros recentes dentro do prazo';

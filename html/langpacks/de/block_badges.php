@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_badges', language 'de', version '3.8'.
+ * Strings for component 'block_badges', language 'de', version '3.11'.
  *
  * @package     block_badges
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['badges:addinstance'] = 'Neuen Block \'Letzte Badges\' hinzufügen';
-$string['badges:myaddinstance'] = 'Neuen Block \'Letzte Badges\' zum Dashboard hinzufügen';
+$string['badges:myaddinstance'] = 'Neuen Block \'Letzte Badges\' im Dashboard hinzufügen';
 $string['nothingtodisplay'] = 'Sie haben keine Badges.';
 $string['numbadgestodisplay'] = 'Anzahl der letzten Badges zum Anzeigen';
 $string['pluginname'] = 'Letzte Badges';

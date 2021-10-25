@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'competency', language 'ar', version '3.8'.
+ * Strings for component 'competency', language 'ar', version '3.11'.
  *
  * @package     competency
  * @category    string
@@ -26,9 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['allchildrenarecomplete'] = 'كل الفروع قد اكتملت';
-$string['competencies'] = 'الكفايات';
+$string['competencies'] = 'الكفاءات';
 $string['competenciesarenotenabled'] = 'الكفاءات معطلة.';
-$string['competenciessettings'] = 'إعدادات الكفايات';
+$string['competenciessettings'] = 'إعدادات الكفاءات';
 $string['completeplanstask'] = 'إكمال خطط التعلم المستحقة';
 $string['coursecompetencyoutcome_complete'] = 'أكمل الكفاءة';
 $string['coursecompetencyoutcome_evidence'] = 'إرفق دليلاً';
@@ -141,7 +141,7 @@ $string['privacy:metadata:evidence:actionuserid'] = 'المستخدم المنف
 $string['privacy:metadata:evidence:desca'] = 'العوامل الاختيارية لوصف الدليل القابل للترجمة';
 $string['privacy:metadata:evidence:desccomponent'] = 'مُكون وصف الدليل القابل للترجمة';
 $string['privacy:metadata:evidence:descidentifier'] = 'مُعرَّف لوصف الدليل القابل للترجمة';
-$string['privacy:metadata:evidence:grade'] = 'العلامة ذات الصلة بالدليل';
+$string['privacy:metadata:evidence:grade'] = 'الدرجة ذات الصلة بالدليل';
 $string['privacy:metadata:evidence:note'] = 'ملاحظة (بغير اللغة المحلية) مرفقة مع الدليل';
 $string['privacy:metadata:evidence:url'] = 'رابط ذو صلة بالدليل';
 $string['privacy:metadata:plan:description'] = 'وصف خطة التعلم';
@@ -152,7 +152,7 @@ $string['privacy:metadata:plan:status'] = 'حالة خطة التعلم';
 $string['privacy:metadata:plan:userid'] = 'مُعرَّف المستخدم العائدة إليه خطة التعلم';
 $string['privacy:metadata:timecreated'] = 'وقت إنشاء السجل';
 $string['privacy:metadata:timemodified'] = 'وقت تعديل السجل';
-$string['privacy:metadata:usercomp:grade'] = 'العلامة المعطاة للكفاءة';
+$string['privacy:metadata:usercomp:grade'] = 'الدرجة المعطاة للكفاءة';
 $string['privacy:metadata:usercomp:proficiency'] = 'فيما إذا تحققت الخبرة';
 $string['privacy:metadata:usercomp:reviewerid'] = 'مُعرَّف من قام بالمراجعة';
 $string['privacy:metadata:usercomp:status'] = 'حالة الكفاءة';
@@ -199,6 +199,6 @@ $string['usercommentedonaplanhtml'] = '<p>{$a->fullname} أعطى تعليقاً
 $string['usercommentedonaplansmall'] = '{$a->fullname} أعطى تعليقاً عن خطة التعلم "{$a->plan}".';
 $string['usercommentedonaplansubject'] = '{$a} أعطى تعليقاً عن خطة تعلم.';
 $string['usercompetencystatus_idle'] = 'خاملة';
-$string['usercompetencystatus_inreview'] = 'في المراجعة';
-$string['usercompetencystatus_waitingforreview'] = 'في انتظار المراجعة';
+$string['usercompetencystatus_inreview'] = 'قيد التقييم';
+$string['usercompetencystatus_waitingforreview'] = 'بانتظار التقييم';
 $string['userplans'] = 'خطط التعلم';

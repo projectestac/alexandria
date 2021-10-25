@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_undo', language 'es', version '3.8'.
+ * Strings for component 'atto_undo', language 'es', version '3.11'.
  *
  * @package     atto_undo
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Deshacer/Rehacer';
-$string['privacy:metadata'] = 'El plugin atto_undo no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_undo no almacena ningún dato personal.';
 $string['redo'] = 'Rehacer';
 $string['undo'] = 'Deshacer';

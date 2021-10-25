@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_feedback', language 'es', version '3.8'.
+ * Strings for component 'block_feedback', language 'es', version '3.11'.
  *
  * @package     block_feedback
  * @category    string
@@ -28,3 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['feedback'] = 'Retroalimentación';
 $string['feedback:addinstance'] = 'Añadir un nuevo bloque de retroalimentación';
 $string['pluginname'] = 'Retroalimentación';
+$string['privacy:metadata'] = 'El bloque de retroalimentación sólo muestra información almacenada en otras ubicaciones.';

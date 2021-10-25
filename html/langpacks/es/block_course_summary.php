@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_course_summary', language 'es', version '3.8'.
+ * Strings for component 'block_course_summary', language 'es', version '3.11'.
  *
  * @package     block_course_summary
  * @category    string
@@ -28,3 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['course_summary:addinstance'] = 'Añadir un nuevo bloque de resumen del curso/sitio';
 $string['coursesummary'] = 'Resumen del curso';
 $string['pluginname'] = 'Resumen del Curso/Sitio';
+$string['privacy:metadata'] = 'El bloque de resumen curso/sitio sólo muestra información sobre cursos y no almacena ningún dato por su cuenta.';

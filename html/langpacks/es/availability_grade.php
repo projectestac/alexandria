@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_grade', language 'es', version '3.8'.
+ * Strings for component 'availability_grade', language 'es', version '3.11'.
  *
  * @package     availability_grade
  * @category    string
@@ -37,6 +37,7 @@ $string['missing'] = '(actividad que falta)';
 $string['option_max'] = 'debe ser <';
 $string['option_min'] = 'debe ser ≥';
 $string['pluginname'] = 'Restricción por evaluación';
+$string['privacy:metadata'] = 'El complemento de restricción por calificación no almacena ningún dato personal.';
 $string['requires_any'] = 'Tiene una calificación en <strong>{$a}</strong>';
 $string['requires_max'] = 'Ha obtenido una puntuación adecuada en <strong>{$a}</strong>';
 $string['requires_min'] = 'Consiga la puntuación requerida en <strong>{$a}</strong>';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'zh_cn', version '3.8'.
+ * Strings for component 'format_topics', language 'zh_cn', version '3.11'.
  *
  * @package     format_topics
  * @category    string
@@ -29,10 +29,13 @@ $string['addsections'] = '添加主题';
 $string['currentsection'] = '本主题';
 $string['deletesection'] = '删除主题';
 $string['editsection'] = '编辑主题';
+$string['editsectionname'] = '编辑主题名称';
 $string['hidefromothers'] = '隐藏主题';
+$string['newsectionname'] = '主题{$a}的新名称';
 $string['page-course-view-topics'] = '使用主题格式的课程主页';
 $string['page-course-view-topics-x'] = '使用主题格式的课程页面';
 $string['pluginname'] = '主题格式';
+$string['privacy:metadata'] = '主题格式插件不存储任何个人数据。';
 $string['section0name'] = '常规';
 $string['sectionname'] = '主题';
 $string['showfromothers'] = '显示主题';

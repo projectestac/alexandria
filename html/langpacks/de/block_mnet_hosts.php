@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_mnet_hosts', language 'de', version '3.8'.
+ * Strings for component 'block_mnet_hosts', language 'de', version '3.11'.
  *
  * @package     block_mnet_hosts
  * @category    string
@@ -29,7 +29,7 @@ $string['error_authmnetneeded'] = 'Das Plugin zur MNet-Authentifizierung muss ak
 $string['error_localusersonly'] = 'Remote-Nutzer können nicht über diesen Host auf andere MNet-Server im Netzwerk zugreifen';
 $string['error_roamcapabilityneeded'] = 'Um die Liste der MNet-Server im Netzwerk sehen zu können, ist die Fähigkeit "Zu einer Remote-Anwendung über MNet weiterleiten" nötig';
 $string['mnet_hosts:addinstance'] = 'Neuen Block \'Netzwerkserver\' hinzufügen';
-$string['mnet_hosts:myaddinstance'] = 'Neuen Block \'Netzwerkserver\' zum Dashboard hinzufügen';
+$string['mnet_hosts:myaddinstance'] = 'Neuen Block \'Netzwerkserver\' im Dashboard hinzufügen';
 $string['pluginname'] = 'Netzwerkserver';
 $string['privacy:metadata'] = 'Der Block Netzwerkserver erlaubt eine Interaktion mit anderen Netzwerkservern. Er speichert oder exportiert selber keine Daten';
 $string['server'] = 'Server';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_course_list', language 'de', version '3.8'.
+ * Strings for component 'block_course_list', language 'de', version '3.11'.
  *
  * @package     block_course_list
  * @category    string
@@ -30,7 +30,7 @@ $string['allcourses'] = 'Administrator/innen sehen alle Kurse';
 $string['configadminview'] = 'Im Block \'Kurse\' werden Administrator/innen  alle Kurse angezeigt oder nur diejenigen, in denen sie eingeschrieben ist.';
 $string['confighideallcourseslink'] = 'Wenn diese Option aktiviert ist, wird der Link \'Alle Kurse\' am Ende der Kursliste entfernt (außer für Administrator/innen).';
 $string['course_list:addinstance'] = 'Neuen Block \'Kurse\' hinzufügen';
-$string['course_list:myaddinstance'] = 'Neuen Block \'Kurse\' zum Dashboard hinzufügen';
+$string['course_list:myaddinstance'] = 'Neuen Block \'Kurse\' im Dashboard hinzufügen';
 $string['hideallcourseslink'] = 'Link \'Alle Kurse\' verbergen';
 $string['owncourses'] = 'Administrator/in sieht nur eigene Kurse';
 $string['pluginname'] = 'Kurse';

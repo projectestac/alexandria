@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_fontcolor', language 'el', version '3.8'.
+ * Strings for component 'atto_fontcolor', language 'el', version '3.11'.
  *
  * @package     atto_fontcolor
  * @category    string
@@ -25,5 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['color_black'] = 'Μαύρο';
+$string['color_blue'] = 'Μπλε';
+$string['color_green'] = 'Πράσινο';
+$string['color_red'] = 'Κόκκινο';
+$string['color_white'] = 'Άσπρο';
+$string['color_yellow'] = 'Κίτρινο';
 $string['pluginname'] = 'Χρώμα γραμματοσειράς';
 $string['privacy:metadata'] = 'Το πρόσθετο «atto_fontcolor» δεν αποθηκεύει κανένα προσωπικό δεδομένο.';

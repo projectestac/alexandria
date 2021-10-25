@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'form', language 'it', version '3.8'.
+ * Strings for component 'form', language 'it', version '3.11'.
  *
  * @package     form
  * @category    string
@@ -41,6 +41,7 @@ $string['err_minlength'] = 'Devi inserire almeno {$a->format} caratteri.';
 $string['err_nonzero'] = 'Devi inserire un numero che non cominci con 0.';
 $string['err_nopunctuation'] = 'Non devi inserire segni di punteggiatura.';
 $string['err_numeric'] = 'Devi inserire un numero.';
+$string['err_positiveint'] = 'Devi inserire un numero maggiore di 0.';
 $string['err_rangelength'] = 'Devi inserire tra {$a->format[0]} e {$a->format[1]} caratteri.';
 $string['err_required'] = 'Devi inserire un valore.';
 $string['err_wrappingwhitespace'] = 'Il valore non può iniziar con uno spazio vuoto.';
@@ -48,6 +49,7 @@ $string['err_wrongfileextension'] = 'Non è stato possibile caricare alcuni file
 $string['filesofthesetypes'] = 'Tipi di file accettati:';
 $string['filetypesany'] = 'Tutti i tipi di file';
 $string['filetypesnotall'] = 'Non è consentito selezionare \'Tutti i tipi di file\'.';
+$string['filetypesnotallowed'] = 'I seguenti tipi di file non sono consentiti: {$a}';
 $string['filetypesnotwhitelisted'] = 'I seguenti tipi di file non sono consentiti: {$a}';
 $string['filetypesothers'] = 'Altri file';
 $string['filetypesunknown'] = 'Tipo di file sconosciuto: {$a}';
@@ -62,6 +64,7 @@ $string['mustbeoverriden'] = 'Il metodo astratto form_definition() nella classe 
 $string['newvaluefor'] = 'Nuovo valore di  {$a}';
 $string['nomethodforaddinghelpbutton'] = 'Non c\'è alcun metodo per aggiungere un pulsante di help al form {$a->name} (classe {$a->classname})';
 $string['nonexistentformelements'] = 'Hai tentato di aggiungere pulsanti di help agli elementi di un form inesistente: {$a}';
+$string['nopermissionform'] = 'Non hai l\'autorizzazione per accedere a questo modulo.';
 $string['noselection'] = 'Nessuna selezione';
 $string['nosuggestions'] = 'Non ci sono suggerimenti';
 $string['novalue'] = 'Non è stato inserito nulla';
@@ -82,6 +85,7 @@ $string['showadvanced'] = 'Visualizza impostazioni avanzate';
 $string['showless'] = 'Visualizza meno elementi...';
 $string['showmore'] = 'Visualizza più elementi...';
 $string['somefieldsrequired'] = '{$a} = campi a compilazione obbligatoria';
+$string['suggestions'] = 'Suggerimenti';
 $string['time'] = 'Ora';
 $string['timeunit'] = 'Unità di tempo';
 $string['timing'] = 'Orario';

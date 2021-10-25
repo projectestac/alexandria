@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'imscp', language 'fr', version '3.8'.
+ * Strings for component 'imscp', language 'fr', version '3.11'.
  *
  * @package     imscp
  * @category    string
@@ -30,7 +30,7 @@ $string['areacontent'] = 'Contenu';
 $string['contentheader'] = 'Contenu';
 $string['deploymenterror'] = 'Erreur dans le contenu du paquetage !';
 $string['imscp:addinstance'] = 'Ajouter un paquetage IMS';
-$string['imscp:view'] = 'Consulter les IMS Content';
+$string['imscp:view'] = 'Consulter une activité IMS Content';
 $string['indicator:cognitivedepth'] = 'IMS : aspect cognitif';
 $string['indicator:cognitivedepth_help'] = 'Cet indicateur est basé sur la profondeur cognitive atteinte par l\'étudiant dans une ressource Paquetage IMS content.';
 $string['indicator:cognitivedepthdef'] = 'IMS : aspect cognitif';

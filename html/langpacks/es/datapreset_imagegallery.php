@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datapreset_imagegallery', language 'es', version '3.8'.
+ * Strings for component 'datapreset_imagegallery', language 'es', version '3.11'.
  *
  * @package     datapreset_imagegallery
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['modulename'] = 'Galería de imágenes';
 $string['pluginname'] = 'Galería de imágenes';
+$string['privacy:metadata'] = 'El complemento de galería de imágenes no almacena ningún dato personal.';

@@ -23,6 +23,7 @@
  */
 
 require_once("../config.php");
+require_once($CFG->dirroot . '/course/lib.php');
 
 $formaction = required_param('formaction', PARAM_LOCALURL);
 $id = required_param('id', PARAM_INT);
@@ -78,12 +79,11 @@ if ($formaction == 'bulkchange.php') {
 
     if (empty($plugin) AND $operationname == 'download_participants') {
         // Check permissions.
-        if (has_capability('moodle/course:manageactivities', $context)) {
+        $pagecontext = ($course->id == SITEID) ? context_system::instance() : $context;
+        if (course_can_view_participants($pagecontext)) {
             $plugins = core_plugin_manager::instance()->get_plugins_of_type('dataformat');
             if (isset($plugins[$dataformat])) {
                 if ($plugins[$dataformat]->is_enabled()) {
-                    require_once($CFG->dirroot . '/lib/dataformatlib.php');
-
                     if (empty($userids)) {
                         redirect($returnurl, get_string('noselectedusers', 'bulkusers'));
                     }
@@ -93,7 +93,8 @@ if ($formaction == 'bulkchange.php') {
                         'lastname' => get_string('lastname'),
                     );
 
-                    $identityfields = get_extra_user_fields($context);
+                    // TODO Does not support custom user profile fields (MDL-70456).
+                    $identityfields = \core_user\fields::get_identity_fields($context, false);
                     $identityfieldsselect = '';
 
                     foreach ($identityfields as $field) {
@@ -101,16 +102,50 @@ if ($formaction == 'bulkchange.php') {
                         $identityfieldsselect .= ', u.' . $field . ' ';
                     }
 
-                    if (!empty($userids)) {
-                        list($insql, $inparams) = $DB->get_in_or_equal($userids);
+                    // Ensure users are enrolled in this course context, further limiting them by selected userids.
+                    [$enrolledsql, $enrolledparams] = get_enrolled_sql($context);
+                    [$useridsql, $useridparams] = $DB->get_in_or_equal($userids, SQL_PARAMS_NAMED, 'userid');
+
+                    $params = array_merge($enrolledparams, $useridparams);
+
+                    // If user can only view their own groups then they can only export users from those groups too.
+                    $groupmode = groups_get_course_groupmode($course);
+                    if ($groupmode == SEPARATEGROUPS && !has_capability('moodle/site:accessallgroups', $context)) {
+                        $groups = groups_get_all_groups($course->id, $USER->id, 0, 'g.id');
+                        $groupids = array_column($groups, 'id');
+
+                        [$groupmembersql, $groupmemberparams] = groups_get_members_ids_sql($groupids, $context);
+                        $params = array_merge($params, $groupmemberparams);
+
+                        $groupmemberjoin = "JOIN ({$groupmembersql}) jg ON jg.id = u.id";
+                    } else {
+                        $groupmemberjoin = '';
                     }
 
                     $sql = "SELECT u.firstname, u.lastname" . $identityfieldsselect . "
                               FROM {user} u
-                             WHERE u.id $insql";
+                              JOIN ({$enrolledsql}) je ON je.id = u.id
+                                   {$groupmemberjoin}
+                             WHERE u.id {$useridsql}";
 
-                    $rs = $DB->get_recordset_sql($sql, $inparams);
-                    download_as_dataformat('courseid_' . $course->id . '_participants', $dataformat, $columnnames, $rs);
+                    $rs = $DB->get_recordset_sql($sql, $params);
+
+                    // Provide callback to pre-process all records ensuring user identity fields are escaped if HTML supported.
+                    \core\dataformat::download_data(
+                        'courseid_' . $course->id . '_participants',
+                        $dataformat,
+                        $columnnames,
+                        $rs,
+                        function(stdClass $record, bool $supportshtml) use ($identityfields): stdClass {
+                            if ($supportshtml) {
+                                foreach ($identityfields as $identityfield) {
+                                    $record->{$identityfield} = s($record->{$identityfield});
+                                }
+                            }
+
+                            return $record;
+                        }
+                    );
                     $rs->close();
                 }
             }

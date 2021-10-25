@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_url', language 'sv', version '3.8'.
+ * Strings for component 'datafield_url', language 'sv', version '3.11'.
  *
  * @package     datafield_url
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['fieldtypelabel'] = 'Fält för URL';
 $string['openlinkinnewwindow'] = 'Öppna länk i nytt fönster';
 $string['pluginname'] = 'URL';
-$string['privacy:metadata'] = 'Komponenten för fältet URL lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Komponenten för fältet URL lagrar ingen personinformation.';

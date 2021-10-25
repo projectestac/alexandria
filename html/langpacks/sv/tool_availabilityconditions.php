@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_availabilityconditions', language 'sv', version '3.8'.
+ * Strings for component 'tool_availabilityconditions', language 'sv', version '3.11'.
  *
  * @package     tool_availabilityconditions
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['manageplugins'] = 'Hantera begränsningar';
 $string['pluginname'] = 'Hantera tillgänglighetsvillkor';
-$string['privacy:metadata'] = 'Pluginmodulen Hantera tillgänglighetsvillkor lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Hantera tillgänglighetsvillkor lagrar ingen personinformation.';

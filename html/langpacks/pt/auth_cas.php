@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_cas', language 'pt', version '3.8'.
+ * Strings for component 'auth_cas', language 'pt', version '3.11'.
  *
  * @package     auth_cas
  * @category    string
@@ -81,5 +81,5 @@ $string['auth_casdescription'] = 'Este método utiliza um servidor CAS (Central 
 $string['auth_casnotinstalled'] = 'Não pode utilizar o método de autenticação CAS porque o módulo LDAP do PHP não está instalado.';
 $string['noldapserver'] = 'Não existem servidores LDAP configurados para CAS! A sincronização está desativa..';
 $string['pluginname'] = 'Servidor CAS (SSO)';
-$string['privacy:metadata'] = 'O módulo de autenticação Servidor CAS (SSO) não armazena nenhum dado pessoal.';
+$string['privacy:metadata'] = 'O módulo de autenticação Servidor CAS (SSO) não armazena quaisquer dados pessoais.';
 $string['synctask'] = 'Tarefa de sincronização dos utilizadores de CAS';

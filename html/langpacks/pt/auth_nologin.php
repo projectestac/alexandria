@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_nologin', language 'pt', version '3.8'.
+ * Strings for component 'auth_nologin', language 'pt', version '3.11'.
  *
  * @package     auth_nologin
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['auth_nologindescription'] = 'Plug-in auxiliar que impede os utilizadores de se autenticarem no Moodle e bloqueia o envio de qualquer e-mail a utilizadores nesta situação. Pode ser usado para suspender temporariamente contas de utilizador.';
 $string['pluginname'] = 'Impedir autenticação';
-$string['privacy:metadata'] = 'O módulo Sem autenticação não armazena nenhum dado pessoal.';
+$string['privacy:metadata'] = 'O módulo Sem autenticação não armazena quaisquer dados pessoais.';

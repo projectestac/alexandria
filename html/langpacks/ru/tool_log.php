@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_log', language 'ru', version '3.8'.
+ * Strings for component 'tool_log', language 'ru', version '3.11'.
  *
  * @package     tool_log
  * @category    string
@@ -25,16 +25,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['actlogshdr'] = 'Доступные способы хранения журнала событий';
+$string['actlogshdr'] = 'Доступные журналы событий';
 $string['configlogplugins'] = 'Включите все необходимые плагины и расположите их в нужном порядке.';
 $string['exportlog'] = 'Включать события при экспорте.';
 $string['exportlogdetail'] = 'События, которые относятся к пользователю, включаются в экспорт.';
 $string['logging'] = 'Журнал событий';
-$string['managelogging'] = 'Управление способами хранения журнала событий';
-$string['pluginname'] = 'Управление способами хранения журнала событий';
+$string['managelogging'] = 'Управление журналами событий';
+$string['pluginname'] = 'Управление журналами событий';
 $string['privacy:metadata:logstore'] = 'Хранит историю событий';
 $string['privacy:path:logs'] = 'Журналы';
 $string['privacy:request:origin:cli'] = 'Инструмент командной строки';
+$string['privacy:request:origin:restore'] = 'Резервная копия восстанавливается';
+$string['privacy:request:origin:web'] = 'Стандартный веб-запрос';
+$string['privacy:request:origin:ws'] = 'Мобильное приложение или веб-служба';
 $string['reportssupported'] = 'Поддерживаемые отчеты';
 $string['subplugintype_logstore'] = 'Способ хранения журнала событий';
 $string['subplugintype_logstore_plural'] = 'Способы хранения журнала событий';

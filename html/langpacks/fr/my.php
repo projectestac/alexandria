@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'my', language 'fr', version '3.8'.
+ * Strings for component 'my', language 'fr', version '3.11'.
  *
  * @package     my
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addpage'] = 'Ajouter page';
-$string['alldashboardswerereset'] = 'Toutes les pages du tableau de bord ont été réinitialisés à leur valeur par défaut.';
+$string['alldashboardswerereset'] = 'Toutes les pages du tableau de bord ont été réinitialisées à leur valeur par défaut.';
 $string['allprofileswerereset'] = 'Toutes les pages de profil ont été réinitialisés à leur valeur par défaut.';
 $string['defaultpage'] = 'Page Ma page par défaut';
 $string['defaultprofilepage'] = 'Page de profil par défaut';
@@ -42,3 +42,4 @@ $string['reseterror'] = 'Une erreur est survenue lors de la réinitialisation de
 $string['reseteveryonesdashboard'] = 'Réinitialiser le tableau de bord de tous les utilisateurs';
 $string['reseteveryonesprofile'] = 'Réinitialiser le profil de tous les utilisateurs';
 $string['resetpage'] = 'Réinitialiser la page';
+$string['resettingdashboards'] = 'Réinitialisation des tableaux de bord des utilisateurs…';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_emoticon', language 'zh_cn', version '3.8'.
+ * Strings for component 'filter_emoticon', language 'zh_cn', version '3.11'.
  *
  * @package     filter_emoticon
  * @category    string
@@ -26,5 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = '表情符号显示为图片';
+$string['privacy:metadata'] = '“将表情符号显示为图像”插件不存储任何个人数据。';
 $string['settingformats'] = '应用到格式';
 $string['settingformats_desc'] = '仅当原始文本插入到选择的格式之一时，此插件才生效。';

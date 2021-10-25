@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_multichoice', language 'gl', version '3.8'.
+ * Strings for component 'qtype_multichoice', language 'gl', version '3.11'.
  *
  * @package     qtype_multichoice
  * @category    string
@@ -70,6 +70,8 @@ $string['pluginnamesummary'] = 'Permite seleccionar unha ou varias respostas dun
 $string['privacy:metadata'] = 'O engadido de opción múltiple non almacena ningún dato persoal.';
 $string['selectmulti'] = 'Seleccione unha ou máis:';
 $string['selectone'] = 'Seleccione unha:';
+$string['showstandardinstruction'] = 'Amosar as instruccións estándar';
+$string['showstandardinstruction_help'] = 'Para amosar as instrucións "Selecione unha:" ou "Seleccione unha ou máis:" antes das respostas de múltiple elección.';
 $string['shuffleanswers'] = 'Barallar as respostas?';
 $string['shuffleanswers_desc'] = 'Indica se as opcións deben ser baralladas para cada intento como predeterminado.';
 $string['shuffleanswers_help'] = 'De estar activado, a orde das escollas varía ao chou para cadanseu intento, sempre que «Barallar dentro das preguntas» tamén estea activado nos axustes da actividade.';

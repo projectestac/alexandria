@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scormreport_objectives', language 'es', version '3.8'.
+ * Strings for component 'scormreport_objectives', language 'es', version '3.11'.
  *
  * @package     scormreport_objectives
  * @category    string
@@ -30,4 +30,5 @@ $string['objectivex'] = 'Objetivo {$a}';
 $string['pluginname'] = 'Informe de objetivos';
 $string['privacy:metadata:preference:scorm_report_objectives_score'] = 'Si mostrar el puntaje objetivo en el informe SCORM';
 $string['privacy:metadata:preference:scorm_report_pagesize'] = 'Número de usuarios para mostrar en los informes SCORM';
+$string['score'] = 'puntuación';
 $string['status'] = 'estado';

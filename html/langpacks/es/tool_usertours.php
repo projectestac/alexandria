@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_usertours', language 'es', version '3.8'.
+ * Strings for component 'tool_usertours', language 'es', version '3.11'.
  *
  * @package     tool_usertours
  * @category    string
@@ -54,6 +54,8 @@ $string['delay_help'] = 'Opcionalmente puede elegir añadir un retraso antes de 
 El retraso es en milisegundos.';
 $string['description'] = 'Descripción';
 $string['done'] = 'Finalizado';
+$string['duplicatetour'] = 'Tour duplicado';
+$string['duplicatetour_name'] = '{$a} (copiar)';
 $string['editstep'] = 'Editando "{$a}"';
 $string['enabled'] = 'Habilitado';
 $string['endtour'] = 'Terminar tour';
@@ -62,12 +64,20 @@ $string['event_tour_ended'] = 'Tour terminado';
 $string['event_tour_reset'] = 'Tour reiniciado';
 $string['event_tour_started'] = 'Tour iniciado';
 $string['exporttour'] = 'Exportar tour';
+$string['filter_accessdate'] = 'Fecha de acceso';
+$string['filter_accessdate_enabled'] = 'Habilitar filtro de fecha de acceso';
+$string['filter_accessdate_enabled_help'] = 'Mostrar solo el tour a nuevos usuarios o usuarios que hayan accedido al sitio recientemente.';
 $string['filter_category'] = 'Categoría';
 $string['filter_category_help'] = 'Mostrar el tour en una página que está asociada con un curso en la categoría seleccionada.';
 $string['filter_course'] = 'Cursos';
 $string['filter_course_help'] = 'Mostrar el tour en una página que está asociada con el curso seleccionado.';
 $string['filter_courseformat'] = 'Formato del curso';
 $string['filter_courseformat_help'] = 'Mostrar el tour en una página que está asociada con un curso usando el formato de curso seleccionado.';
+$string['filter_cssselector'] = 'Selector CSS';
+$string['filter_cssselector_help'] = 'Mostrar solo el tour cuando el selector de CSS especificado se encuentre en la página.';
+$string['filter_date_account_creation'] = 'Fecha de creación de la cuenta de usuario dentro de';
+$string['filter_date_first_login'] = 'Fecha de primer acceso del usuario dentro de';
+$string['filter_date_last_login'] = 'Fecha de último acceso del usuario dentro de';
 $string['filter_header'] = 'Filtros del tour';
 $string['filter_help'] = 'Selecione las condiciones bajo las que se mostrará el tour. Todos los filtros deben de coincidir para que un tour se le muestre a un usuario.';
 $string['filter_role'] = 'Rol';
@@ -85,6 +95,7 @@ $string['name'] = 'Nombre';
 $string['newstep'] = 'Nuevo paso';
 $string['newtour'] = 'Crear nuevo tour';
 $string['next'] = 'Siguiente';
+$string['nextstep'] = 'Siguiente';
 $string['options_heading'] = 'Opciones';
 $string['orphan'] = 'Mostrar si el objetivo no se encuentra';
 $string['orphan_help'] = 'Mostrar el paso si no pudo encontrarse el destino en la página.';
@@ -105,6 +116,7 @@ $string['placement_help'] = 'Un paso puede colocarse, ya sea arriba, debajo, a l
 
 Si el paso no cupiera en una página particular en el sitio especificado, será colocado automáticamente en otra parte.';
 $string['pluginname'] = 'Tours para usuarios';
+$string['previousstep'] = 'Anterior';
 $string['privacy:metadata:preference:completed'] = 'La hora en la que un usuario completó por vez última un tour para usuario.';
 $string['privacy:metadata:preference:requested'] = 'La hora en la que un usuario solicitó manualmente por última vez un tour para usuario.';
 $string['privacy:request:preference:completed'] = 'Marcó por última vez el tour para usuario "{$a->name}" como completado en {$a->time}';
@@ -121,7 +133,7 @@ $string['selecttype'] = 'Seleccionar tipo de paso';
 $string['sharedtourslink'] = 'Repositorio de tours';
 $string['skip'] = 'Omitir';
 $string['target'] = 'Objetivo';
-$string['target_block'] = 'Bloquear';
+$string['target_block'] = 'Bloque';
 $string['target_heading'] = 'Destino del paso';
 $string['target_selector'] = 'Selector';
 $string['target_selector_targetvalue'] = 'Selectores CSS';
@@ -197,7 +209,7 @@ $string['tour4_content_icon'] = 'Puede acceder a sus mensajes desde cualquier p�
 Si hay algún mensaje no leído, el número de mensajes no leídos se mostrará aquí también.
 
 Haga clic en el icono para abrir el cajón de mensajes y continuar el recorrido.';
-$string['tour4_content_messaging'] = 'Moodle 3.6 proporciona una nueva interfaz para la mensajería, la capacidad de enviar mensajes de grupo dentro de un curso, junto con un mejor control sobre quién puede enviarle mensajes.';
+$string['tour4_content_messaging'] = 'Esta nueva versión de Moodle proporciona una nueva interfaz para la mensajería, la capacidad de enviar mensajes de grupo dentro de un curso, junto con un mejor control sobre quién puede enviarle mensajes.';
 $string['tour4_content_settings'] = 'Se puede acceder a la configuración de mensajería a través del icono del engranaje. Una nueva configuración de privacidad permite restringir quién puede enviarle mensajes.';
 $string['tour4_content_starred'] = 'Puede elegir iniciar conversaciones particulares para que sean más fáciles de encontrar.';
 $string['tour4_title_groupconvo'] = 'Mensajes de grupo';
@@ -205,6 +217,16 @@ $string['tour4_title_icon'] = 'Mensajería';
 $string['tour4_title_messaging'] = 'Nueva interfaz de mensajería';
 $string['tour4_title_settings'] = 'Opciones de mensajería';
 $string['tour4_title_starred'] = 'Destacado';
+$string['tour_activityinfo_activity_student_content'] = 'Las fechas de la actividad y qué hacer para completar la actividad se muestran en la página de la actividad.';
+$string['tour_activityinfo_activity_student_title'] = 'Nuevo: información de la actividad';
+$string['tour_activityinfo_activity_teacher_content'] = 'Fechas de actividad y condiciones de finalización ahora son mostrados para estudiantes en cada página de actividad (y opcionalmente en la página del curso).
+
+Para actividades que requieren que los estudiantes las marquen manualmente como completadas, un botón \'Marcar como hecha\' es mostrado en la página de la actividad.';
+$string['tour_activityinfo_activity_teacher_title'] = 'Nuevo: información de la actividad';
+$string['tour_activityinfo_course_student_content'] = 'Las fechas de la actividad y/o qué hacer para completar la actividad se muestran en la página del curso.';
+$string['tour_activityinfo_course_student_title'] = 'Nuevo: información de la actividad';
+$string['tour_activityinfo_course_teacher_content'] = 'Las nuevas configuraciones del curso \'Mostrar condiciones de finalización\' y \'Mostrar fechas de actividad\' le permiten elegir si las condiciones de finalización de la actividad (si están configuradas) y/o las fechas se muestran para los estudiantes en la página del curso.';
+$string['tour_activityinfo_course_teacher_title'] = 'Nuevo: información de la actividad';
 $string['tour_final_step_content'] = 'Este es el final del recorrido. No se mostrará de nuevo a menos que lo restablezca utilizando el enlace en el pie de página.';
 $string['tour_final_step_title'] = 'Fin del tour';
 $string['tour_resetforall'] = 'El estado del tour ha sido reiniciado. Se mostrará nuevamente a todos los usuarios.';

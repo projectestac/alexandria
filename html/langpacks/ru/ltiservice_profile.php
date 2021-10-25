@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'ltiservice_profile', language 'ru', version '3.8'.
+ * Strings for component 'ltiservice_profile', language 'ru', version '3.11'.
  *
  * @package     ltiservice_profile
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Служба пользовательского профиля LTI инструмента';
+$string['privacy:metadata'] = 'Плагин Tool Consumer Profile LTI Service не хранит никаких личных данных.';

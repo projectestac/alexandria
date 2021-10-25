@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'ar', version '3.8'.
+ * Strings for component 'enrol', language 'ar', version '3.11'.
  *
  * @package     enrol
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['actenrolshhdr'] = 'الملاحق المتاحة للانضمام إلى المقرر الدراسي';
+$string['actenrolshhdr'] = 'الإضافات المتاحة للانضمام إلى المقرر الدراسي';
 $string['addinstance'] = 'إضافة طريقة';
 $string['addinstanceanother'] = 'أضف الطريقة وأنشئ أخرى';
 $string['ajaxnext25'] = 'الـ 25 التالية';
@@ -34,7 +34,7 @@ $string['ajaxxmoreusersfound'] = 'تم العثور على أكثر من {$a} م
 $string['ajaxxusersfound'] = '{$a} تم العثور على المستخدمين ';
 $string['assignnotpermitted'] = 'ليست لديك الصلاحية أو لا يمكنك تعيين الأدوار في هذا المقرر الدراسي.';
 $string['bulkuseroperation'] = 'عملية بالجملة على المستخدمين';
-$string['configenrolplugins'] = 'الرجاء إختيار الملاحق المطلوبة ثم القيام بترتيبها بشكل مناسب.';
+$string['configenrolplugins'] = 'الرجاء إختيار الإضافات المطلوبة ثم القيام بترتيبها بشكل مناسب.';
 $string['custominstancename'] = 'اسم العينة المخصص';
 $string['defaultenrol'] = 'إضافة النسخة إلى مقررات دراسية جديدة';
 $string['defaultenrol_desc'] = 'من الممكن إضافة هذا الملحق إلى كل المقررات الدراسية الجديدة إفتراضياً.';
@@ -46,9 +46,9 @@ $string['durationdays'] = '{$a} أيام';
 $string['editenrolment'] = 'تحرير الانضمام';
 $string['edituserenrolment'] = 'تحرير انضمام {$a}';
 $string['enrol'] = 'الانضمام';
-$string['enrolcandidates'] = 'المستخدمين غير المسجلين';
+$string['enrolcandidates'] = 'المستخدمون غير المنضمين';
 $string['enrolcandidatesmatching'] = 'مطابقة المستخدمين غير المنضمين';
-$string['enrolcohort'] = 'انضمام الفوج';
+$string['enrolcohort'] = 'انضمام الدفعة';
 $string['enrolcohortusers'] = 'انضمام المستخدمين';
 $string['enroldetails'] = 'تفاصيل الانضمام';
 $string['enrollednewusers'] = 'تم ضم {$a} من المستخدمين الجدد بنجاح';
@@ -61,6 +61,7 @@ $string['enrolmentnew'] = 'تسجيل جديد في {$a}';
 $string['enrolmentnewuser'] = '{$a->user}  قام بالتسجيل في "{$a->course}"';
 $string['enrolmentoptions'] = 'خيارات التسجيل';
 $string['enrolments'] = 'الانضمامات';
+$string['enrolmentupdatedforuser'] = 'انضمام المستخدم "{$a->fullname}" قد تم تحديثه';
 $string['enrolnotpermitted'] = 'ليس لديك الإذن أو من غير المسموح لك أن تسجل شخصاً ما في هذا المقرر';
 $string['enrolperiod'] = 'فترة التسجيل';
 $string['enroltimecreated'] = 'تم إنشاء الانضمام';
@@ -73,16 +74,16 @@ $string['enrolxusers'] = 'ضم {$a} من المستخدمين';
 $string['errajaxfailedenrol'] = 'فشل في تسجيل المستخدم';
 $string['errajaxsearch'] = 'خطأ أثناء البحث عن المستخدمين';
 $string['erroreditenrolment'] = 'وقع خطأ ما عند محاولة تحرير انضمام المستخدم';
-$string['errorenrolcohort'] = 'حصل خطأ عند محاولة إضافة نسخة من إضافة التسجيل"مزامنة فوج" لهذا المقرر.';
-$string['errorenrolcohortusers'] = 'خطأ ما عند ضم أعضاء الفوج إلى هذا المقرر الدراسي.';
+$string['errorenrolcohort'] = 'حصل خطأ عند محاولة إضافة نسخة من إضافة التسجيل"مزامنة دفعة" لهذا المقرر.';
+$string['errorenrolcohortusers'] = 'خطأ ما عند ضم أعضاء الدفعة إلى هذا المقرر الدراسي.';
 $string['errorthresholdlow'] = 'عتبة الإشعار ينبغي أن تكون يوماً واحداً على الأقل.';
 $string['errorwithbulkoperation'] = 'وقع خطأ عند معالجة التعديل الجماعي للانضمام.';
-$string['eventenrolinstancecreated'] = 'تم إنشاء عينة الانضمام';
-$string['eventenrolinstancedeleted'] = 'تم حذف عينة الانضمام';
-$string['eventenrolinstanceupdated'] = 'تم تحديث عينة الانضمام';
-$string['eventuserenrolmentcreated'] = 'المستخدم منضم إلى المقرر الدراسي';
-$string['eventuserenrolmentdeleted'] = 'المستخدم أُلغي انضمامه إلى المقرر الدراسي';
-$string['eventuserenrolmentupdated'] = 'تم تحديث إلغاء انضمام المستخدم';
+$string['eventenrolinstancecreated'] = 'عينة انضمام تم إنشاؤها';
+$string['eventenrolinstancedeleted'] = 'عينة انضمام تم حذفها';
+$string['eventenrolinstanceupdated'] = 'عينة انضمام تم تحديثها';
+$string['eventuserenrolmentcreated'] = 'مستخدم انضم إلى مقرر دراسي';
+$string['eventuserenrolmentdeleted'] = 'مستخدم أُلغي انضمامه إلى مقرر دراسي';
+$string['eventuserenrolmentupdated'] = 'إلغاء انضمام مستخدم تم تحديثه';
 $string['expirynotify'] = 'أرسل إشعاراً قبل انتهاء فترة الانضمام';
 $string['expirynotify_help'] = 'هذا الإعداد يحدد فيما إذا كان يتم إرسال الإشعارات بشأن انتهاء فترة الانضمام.';
 $string['expirynotifyall'] = 'من قام بالضم والمستخدم المنضم';
@@ -95,7 +96,7 @@ $string['extremovedaction_help'] = 'إختر الإجراء الذي تريد ت
 $string['extremovedkeep'] = 'ابقاء المستخدم مسجلاً';
 $string['extremovedsuspend'] = 'عطل التسجيل في مقرر دراسي';
 $string['extremovedsuspendnoroles'] = 'عطل التسجيل في المقرر الدراسي واستبعد الأدوار';
-$string['extremovedunenrol'] = 'الغي تسجيل مستخدم من هذا المقرر الدراسي';
+$string['extremovedunenrol'] = 'إلغاء ضم المستخدم إلى المقرر الدراسي';
 $string['finishenrollingusers'] = 'الانتهاء من ضم المستخدمين';
 $string['foundxcohorts'] = 'تم العثور على {$a} من الأفواج';
 $string['instanceadded'] = 'الطريقة أُضيفت';
@@ -105,7 +106,7 @@ $string['invalidenrolduration'] = 'فترة انضمام غير صحيحة';
 $string['invalidenrolinstance'] = 'عينة انضمام غير صحيحة';
 $string['invalidrequest'] = 'إلتماس غير صحيح';
 $string['invalidrole'] = 'دور غير صحيح';
-$string['manageenrols'] = 'إدارة ملاحق الانضمام';
+$string['manageenrols'] = 'إدارة إضافات الانضمام';
 $string['manageinstance'] = 'إدارة';
 $string['migratetomanual'] = 'إنتقل إلى الانضمام اليدوي';
 $string['nochange'] = 'لا تغيير';
@@ -113,13 +114,13 @@ $string['noexistingparticipants'] = 'لا يوجد مشتركون';
 $string['nogroup'] = 'لا مجموعة';
 $string['noguestaccess'] = 'لا يمكن للضيوف الوصول إلى هذا المقرر الدراسي. يرجى تسجيل الدخول.';
 $string['none'] = 'لا أحد';
-$string['notenrollable'] = 'لا يمكنك التسجيل في هذا المقرر الدراسي.';
+$string['notenrollable'] = 'لا يمكنك ضم نفسك إلى هذا المقرر الدراسي.';
 $string['notenrolledusers'] = 'مستخدمين آخرون';
-$string['otheruserdesc'] = 'المستخدمين التاليين غير مسجلين في هذا المقرر، ولكن لهم أدوار موروثة أو معينة ضمن المقرر.';
+$string['otheruserdesc'] = 'المستخدمون التالية أسماؤهم غير مسجلين في هذا المقرر الدراسي، ولكن لهم أدوار موروثة أو معينة ضمنه.';
 $string['participationactive'] = 'نشط';
 $string['participationnotcurrent'] = 'ليس جارياً';
 $string['participationstatus'] = 'حالة';
-$string['participationsuspended'] = 'معلّق';
+$string['participationsuspended'] = 'مُعلَّق';
 $string['periodend'] = 'حتى {$a}';
 $string['periodnone'] = 'منضم {$a}';
 $string['periodstart'] = 'من {$a}';
@@ -135,7 +136,7 @@ $string['privacy:metadata:user_enrolments:timemodified'] = 'وقت تعديل ا
 $string['privacy:metadata:user_enrolments:timestart'] = 'وقت بدء انضمام المستخدم';
 $string['privacy:metadata:user_enrolments:userid'] = 'مُعرَّف المستخدم';
 $string['proceedtocourse'] = 'استمر إلى محتوى المقرر الدراسي';
-$string['recovergrades'] = 'استعادة علامات المستخدم القديمة قدر المستطاع';
+$string['recovergrades'] = 'استعادة درجات المستخدم القديمة قدر المستطاع';
 $string['rolefromcategory'] = '{$a->role} (موروث من تصنيف المقرر الدراسي)';
 $string['rolefrommetacourse'] = '{$a->role} (موروث من المقرر الدراسي الأصل)';
 $string['rolefromsystem'] = '{$a->role} (مسند على مستوى الموقع)';
@@ -153,8 +154,9 @@ $string['totalunenrolledusers'] = '{$a} مستخدمين أُلغي انضمام
 $string['unassignnotpermitted'] = 'ليست لديك صلاحية إلغاء الأدوار في هذا المقرر الدراسي';
 $string['unenrol'] = 'إلغاء الانضمام';
 $string['unenrolconfirm'] = 'هل تريد حقاً إلغاء انضمام "{$a->user}" (والذي سبق وأن تم ضمه بطريقة "{$a->enrolinstancename}") إلى المقرر الدراسي "{$a->course}"؟';
+$string['unenrolleduser'] = 'تم إلغاء انضمام المستخدم "{$a->fullname}" إلى المقرر الدراسي';
 $string['unenrolme'] = 'إلغاء انضمامي إلى {$a}';
-$string['unenrolnotpermitted'] = 'ليس لديك الإذن أو لايمكنك إلغاء تسجيل هذا المستخدم من هذا المقرر.';
+$string['unenrolnotpermitted'] = 'ليس لديك صلاحية إلغاء انضمام هذا المستخدم إلى هذا المقرر.';
 $string['unenrolroleusers'] = 'إلغاء انضمام المستخدمين';
 $string['uninstallmigrating'] = 'ترحيل "{$a}" من الانضمامات';
 $string['unknowajaxaction'] = 'تم طلب إجراء غير معروف';

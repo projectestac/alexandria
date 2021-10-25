@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_news_items', language 'es', version '3.8'.
+ * Strings for component 'block_news_items', language 'es', version '3.11'.
  *
  * @package     block_news_items
  * @category    string
@@ -28,3 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['news_items:addinstance'] = 'Añadir un nuevo bloque de Avisos recientes';
 $string['news_items:myaddinstance'] = 'Añadir un nuevo bloque de Avisos recientes en el Área personal';
 $string['pluginname'] = 'Avisos recientes';
+$string['privacy:metadata'] = 'El bloque de últimos anuncios solo muestra información almacenada en el foro y no almacena ninguna información.';

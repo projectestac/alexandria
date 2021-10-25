@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_activitynames', language 'es', version '3.8'.
+ * Strings for component 'filter_activitynames', language 'es', version '3.11'.
  *
  * @package     filter_activitynames
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'Enlace automático a nombres de actividad';
+$string['privacy:metadata'] = 'El complemento de enlace automático de nombres de actividades no almacena ningún dato personal.';

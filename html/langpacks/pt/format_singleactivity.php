@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_singleactivity', language 'pt', version '3.8'.
+ * Strings for component 'format_singleactivity', language 'pt', version '3.11'.
  *
  * @package     format_singleactivity
  * @category    string
@@ -33,6 +33,6 @@ $string['erroractivitytype'] = 'O tipo de atividade não é definido nas configu
 $string['orphaned'] = 'Órfão';
 $string['orphanedwarning'] = 'Estas atividades não estão disponíveis para os utilizadores!';
 $string['pluginname'] = 'Formato Atividade Única';
-$string['privacy:metadata'] = 'O módulo Formato Atividade Única não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Formato Atividade Única não armazena quaisquer dados pessoais.';
 $string['sectionname'] = 'Nome da secção';
 $string['warningchangeformat'] = 'Ao alterar o formato atual da disciplina para o "Formato Atividade Única" assegure-se de que removeu todas as atividades extras da disciplina, incluindo o Fórum "Anúncios". Note que a estrutura das secções poderá ser modificada.';

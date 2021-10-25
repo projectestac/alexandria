@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_securewindow', language 'es', version '3.8'.
+ * Strings for component 'quizaccess_securewindow', language 'es', version '3.11'.
  *
  * @package     quizaccess_securewindow
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Regla de acceso por seguridad JavaScripct';
 $string['popupwithjavascriptsupport'] = 'Ventana emergente a pantalla completa con alguna seguridad JavaScript';
+$string['privacy:metadata'] = 'El complemento de la regla de acceso al cuestionario de seguridad de JavaScript no almacena ningún dato personal.';

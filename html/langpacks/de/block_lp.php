@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_lp', language 'de', version '3.8'.
+ * Strings for component 'block_lp', language 'de', version '3.11'.
  *
  * @package     block_lp
  * @category    string
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['competenciestoreview'] = 'Kompetenzen zur Überprüfung';
 $string['lp:addinstance'] = 'Neuen Block \'Lernpläne\' hinzufügen';
-$string['lp:myaddinstance'] = 'Neuen Block \'Lernpläne\' zum Dashboard hinzufügen';
+$string['lp:myaddinstance'] = 'Neuen Block \'Lernpläne\' im Dashboard hinzufügen';
 $string['myplans'] = 'Meine Lernpläne';
 $string['noactiveplans'] = 'Im Moment sind keine aktiven Lernpläne verfügbar.';
 $string['planstoreview'] = 'Pläne zur Prüfung';

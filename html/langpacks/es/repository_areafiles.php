@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_areafiles', language 'es', version '3.8'.
+ * Strings for component 'repository_areafiles', language 'es', version '3.11'.
  *
  * @package     repository_areafiles
  * @category    string
@@ -29,3 +29,4 @@ $string['areafiles:view'] = 'Ver repositorio Archivos incrustados';
 $string['configplugin'] = 'Configuración del repositorio Archivos incrustados';
 $string['pluginname'] = 'Archivos incrustados';
 $string['pluginname_help'] = 'Ficheros adjuntos en el editor de texto actual';
+$string['privacy:metadata'] = 'El plugin de repositorio de ficheros incrustados no almacena ni transmite ningún dato personal.';

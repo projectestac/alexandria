@@ -216,7 +216,7 @@ M.form_filemanager.init = function(Y, options) {
                 this.filemanager.removeClass('fm-maxfiles');
             }
         },
-        refresh: function(filepath) {
+        refresh: function(filepath, action) {
             var scope = this;
             this.currentpath = filepath;
             if (!filepath) {
@@ -233,12 +233,12 @@ M.form_filemanager.init = function(Y, options) {
                     scope.options = obj;
                     scope.lazyloading = {};
                     scope.check_buttons();
-                    scope.render(obj);
+                    scope.render(obj, action);
                 }
             }, true);
         },
         /** displays message in a popup */
-        print_msg: function(msg, type) {
+        print_msg: function(msg, type, options) {
             var header = M.util.get_string('error', 'moodle');
             if (type != 'error') {
                 type = 'info'; // one of only two types excepted
@@ -247,13 +247,17 @@ M.form_filemanager.init = function(Y, options) {
             if (!this.msg_dlg) {
                 this.msg_dlg_node = Y.Node.create(M.form_filemanager.templates.message);
                 var nodeid = this.msg_dlg_node.generateID();
-
+                var previousActiveElement = null;
+                if (typeof options.previousActiveElement != 'undefined') {
+                    previousActiveElement = options.previousActiveElement;
+                }
                 this.msg_dlg = new M.core.dialogue({
                     draggable    : true,
                     bodyContent  : this.msg_dlg_node,
                     centered     : true,
                     modal        : true,
                     visible      : false,
+                    focusAfterHide: previousActiveElement,
                 });
                 this.msg_dlg_node.one('.fp-msg-butok').on('click', function(e) {
                     e.preventDefault();
@@ -269,10 +273,28 @@ M.form_filemanager.init = function(Y, options) {
         is_disabled: function() {
             return this.filemanager.ancestor('.fitem.disabled') != null;
         },
+        getSelectedFiles: function() {
+            var markedFiles = this.filemanager.all('[data-togglegroup=file-selections]:checked');
+            var filenames = [];
+            markedFiles.each(function(item) {
+                var fileinfo = this.options.list.find(function(element) {
+                    return item.getData().fullname == element.fullname;
+                });
+                if (fileinfo && fileinfo != undefined) {
+                    filenames.push({
+                        filepath: fileinfo.filepath,
+                        filename: fileinfo.filename
+                    });
+                }
+            }, this);
+
+            return filenames;
+        },
         setup_buttons: function() {
             var button_download = this.filemanager.one('.fp-btn-download');
             var button_create   = this.filemanager.one('.fp-btn-mkdir');
             var button_addfile  = this.filemanager.one('.fp-btn-add');
+            var buttonDeleteFile = this.filemanager.one('.fp-btn-delete');
 
             // setup 'add file' button
             button_addfile.on('click', this.show_filepicker, this);
@@ -332,6 +354,7 @@ M.form_filemanager.init = function(Y, options) {
                             centered     : true,
                             modal        : true,
                             visible      : false,
+                            focusAfterHide: e.target.ancestor('a', true),
                         });
                         node.one('.fp-dlg-butcreate').set('id', 'fm-mkdir-butcreate-'+this.client_id).on('click',
                                 perform_action, this);
@@ -378,11 +401,13 @@ M.form_filemanager.init = function(Y, options) {
                     return;
                 }
                 image_downloading.setStyle('display', 'inline');
+                var filenames = this.getSelectedFiles();
 
                 // perform downloaddir ajax request
                 this.request({
-                    action: 'downloaddir',
+                    action: 'downloadselected',
                     scope: scope,
+                    params: {selected: Y.JSON.stringify(filenames)},
                     callback: function(id, obj, args) {
                         var image_downloading = scope.filemanager.one('.fp-img-downloading');
                         image_downloading.setStyle('display', 'none');
@@ -401,6 +426,47 @@ M.form_filemanager.init = function(Y, options) {
                         }
                     }
                 });
+            }, this);
+
+            buttonDeleteFile.on('click', function(e) {
+                e.preventDefault();
+                var dialogOptions = {};
+                var filenames = this.getSelectedFiles();
+                var previousActiveElement = e.target.ancestor('a', true);
+
+                if (!filenames.length) {
+                    var options = {};
+                    options.previousActiveElement = previousActiveElement;
+                    this.print_msg(M.util.get_string('nofilesselected', 'repository'), 'error', options);
+                    return;
+                }
+
+                dialogOptions.scope = this;
+                var params = {
+                    selected: Y.JSON.stringify(filenames)
+                };
+                dialogOptions.header = M.util.get_string('confirm', 'moodle');
+                dialogOptions.message = M.util.get_string('confirmdeleteselectedfile', 'repository', filenames.length);
+                dialogOptions.previousActiveElement = previousActiveElement;
+                dialogOptions.callbackargs = [params];
+                dialogOptions.callback = function(params) {
+                    this.request({
+                        action: 'deleteselected',
+                        scope: this,
+                        params: params,
+                        callback: function(id, obj, args) {
+                            // Do something here
+                            args.scope.filecount -= params.length;
+                            if (obj && obj.length) {
+                                args.scope.refresh(obj[0], {action: 'delete'});
+                            }
+                            if (typeof M.core_formchangechecker != 'undefined') {
+                                M.core_formchangechecker.set_form_changed();
+                            }
+                        }
+                    });
+                };
+                this.show_confirm_dialog(dialogOptions);
             }, this);
 
             this.filemanager.all('.fp-vb-icons,.fp-vb-tree,.fp-vb-details').
@@ -556,10 +622,14 @@ M.form_filemanager.init = function(Y, options) {
                 this.processingimages = false;
             }, this), 200)
         },
-        view_files: function(appendfiles) {
+        view_files: function(appendfiles, actionfiles) {
             this.filemanager.removeClass('fm-updating').removeClass('fm-noitems');
             if ((appendfiles == null) && (!this.options.list || this.options.list.length == 0) && this.viewmode != 2) {
                 this.filemanager.addClass('fm-noitems');
+                // This is used to focus after refreshing the list files is empty by deletion file action.
+                if (actionfiles !== undefined && actionfiles.action == 'delete') {
+                    this.filemanager.one('.fp-btn-add a').focus();
+                }
                 return;
             }
             var list = (appendfiles != null) ? appendfiles : this.options.list;
@@ -570,16 +640,28 @@ M.form_filemanager.init = function(Y, options) {
                 this.viewmode = 1;
                 element_template = Y.Node.create(M.form_filemanager.templates.iconfilename);
             }
+
+            if (this.viewmode == 1 || this.viewmode == 2) {
+                this.filemanager.one('.fp-btn-delete').addClass('d-none');
+            } else {
+                this.filemanager.one('.fp-btn-delete').removeClass('d-none');
+            }
             var options = {
                 viewmode : this.viewmode,
                 appendonly : appendfiles != null,
                 filenode : element_template,
+                disablecheckboxes: false,
                 callbackcontext : this,
                 callback : function(e, node) {
                     if (e.preventDefault) { e.preventDefault(); }
                     if (node.type == 'folder') {
                         this.refresh(node.filepath);
                     } else {
+                        // This is used to focus on file after dialogue closed.
+                        var previousActiveElement = e.target.ancestor('a', true);
+                        this.options.previousActiveElement = previousActiveElement;
+                        this.selectui.set('focusOnPreviousTargetAfterHide', true);
+                        this.selectui.set('focusAfterHide', previousActiveElement);
                         this.select_file(node);
                     }
                 },
@@ -624,6 +706,10 @@ M.form_filemanager.init = function(Y, options) {
                             this.print_path();
                         }
                         this.currentpath = node.filepath;
+                        var previousActiveElement = Y.Node(e.event.target).ancestor('a', true);
+                        this.options.previousActiveElement = previousActiveElement;
+                        this.selectui.set('focusOnPreviousTargetAfterHide', true);
+                        this.selectui.set('focusAfterHide', previousActiveElement);
                         this.select_file(node);
                     } else {
                         // save current path and filelist (in case we want to jump to other viewmode)
@@ -639,19 +725,50 @@ M.form_filemanager.init = function(Y, options) {
                 this.lazyloading={};
             }
             this.filemanager.one('.fp-content').fp_display_filelist(options, list, this.lazyloading);
-            this.content_scrolled();
+            if (this.viewmode != 2) {
+                this.content_scrolled();
+            }
+            // This is used to focus after refreshing the list files by update file and set main file action.
+            if (actionfiles !== undefined) {
+                if (actionfiles.action == 'updatefile' || actionfiles.action == 'setmainfile') {
+                    var fileslist = this.filemanager.one('.fp-content');
+                    fileslist.all('a').each(function(parentnode) {
+                        parentnode.all('.fp-filename').each(function(childnode) {
+                            if (childnode.get('innerHTML') == actionfiles.newfilename) {
+                                parentnode.focus();
+                            }
+                        });
+                    });
+                }
+                if (actionfiles.action == 'delete') {
+                    this.filemanager.one('.fp-btn-delete a').focus();
+                }
+            }
         },
-        populate_licenses_select: function(node) {
-            if (!node) {
+        populateLicensesSelect: function(licensenode, filenode) {
+            if (!licensenode) {
                 return;
             }
-            node.setContent('');
-            var licenses = this.options.licenses;
+            licensenode.setContent('');
+            var selectedlicense = this.filepicker_options.defaultlicense;
+            if (filenode) {
+                // File has a license already, use it.
+                selectedlicense = filenode.license;
+            } else if (this.filepicker_options.rememberuserlicensepref && this.get_preference('recentlicense')) {
+                // When 'Remember user licence preference' is enabled use the last license selected by the user, if any.
+                selectedlicense = this.get_preference('recentlicense');
+            }
+            var licenses = this.filepicker_options.licenses;
             for (var i in licenses) {
-                var option = Y.Node.create('<option/>').
+                // Include the file's current license, even if not enabled, to prevent displaying
+                // misleading information about which license the file currently has assigned to it.
+                if (licenses[i].enabled == true || (filenode !== undefined && licenses[i].shortname === filenode.license)) {
+                    var option = Y.Node.create('<option/>').
+                    set('selected', (licenses[i].shortname == selectedlicense)).
                     set('value', licenses[i].shortname).
                     setContent(Y.Escape.html(licenses[i].fullname));
-                node.appendChild(option)
+                    licensenode.appendChild(option);
+                }
             }
         },
         set_current_tree: function(tree) {
@@ -710,10 +827,38 @@ M.form_filemanager.init = function(Y, options) {
                     this.print_msg(M.util.get_string('enternewname', 'repository'), 'error');
                     return;
                 }
-                if ((filenamechanged || filepathchanged) && !confirmed && fileinfo.refcount) {
-                    dialog_options.message = M.util.get_string('confirmrenamefile', 'repository', fileinfo.refcount);
-                    this.show_confirm_dialog(dialog_options);
-                    return;
+
+                if ((filenamechanged || filepathchanged) && !confirmed) {
+                    var warnings = '';
+                    var originalfilenamearr = fileinfo.fullname.split('.');
+                    var originalextension = (originalfilenamearr.length > 1) ? originalfilenamearr.pop() : "";
+                    var newfilenamearr = newfilename.split('.');
+                    var newextension = (newfilenamearr.length > 1) ? newfilenamearr.pop() : "";
+
+                    if (newextension !== originalextension) {
+                        if (newextension === "") {
+                            var string = M.util.get_string('originalextensionremove', 'repository', originalextension);
+                        } else {
+                            var stringvars = {
+                                originalextension: originalextension,
+                                newextension: newextension
+                            }
+                            string = M.util.get_string('originalextensionchange', 'repository', stringvars);
+                        }
+                        warnings = warnings.concat('<li>', string, '</li>');
+                    }
+                    if (fileinfo.refcount) {
+                        var string = M.util.get_string('aliaseschange', 'repository', fileinfo.refcount);
+                        warnings = warnings.concat('<li>', string, '</li>');
+                    }
+                    if (warnings.length > 0) {
+                        var message = '';
+                        var confirmmsg = M.util.get_string('confirmrenamefile', 'repository', fileinfo.refcount);
+                        dialog_options.message = message.concat('<p>', confirmmsg, '</p>',
+                            '<ul class="px-5">', warnings, '</ul>');
+                        this.show_confirm_dialog(dialog_options);
+                        return;
+                    }
                 }
                 if (filenamechanged || filepathchanged || licensechanged || authorchanged) {
                     params = {filepath:fileinfo.filepath, filename:fileinfo.fullname,
@@ -738,7 +883,8 @@ M.form_filemanager.init = function(Y, options) {
                         args.scope.print_msg(obj.error, 'error');
                     } else {
                         args.scope.selectui.hide();
-                        args.scope.refresh((obj && obj.filepath) ? obj.filepath : '/');
+                        var actionfile = {action: action, newfilename: newfilename};
+                        args.scope.refresh((obj && obj.filepath) ? obj.filepath : '/', actionfile);
                         if (typeof M.core_formchangechecker != 'undefined') {
                             M.core_formchangechecker.set_form_changed();
                         }
@@ -762,7 +908,7 @@ M.form_filemanager.init = function(Y, options) {
                     centered     : true,
                     modal        : true,
                     visible      : false,
-                    buttons      : {}
+                    buttons      : {},
                 });
                 var handle_confirm = function(ev) {
                     var dlgopt = this.confirm_dlg.dlgopt;
@@ -783,6 +929,10 @@ M.form_filemanager.init = function(Y, options) {
                 node.one('.fp-dlg-butconfirm').on('click', handle_confirm, this);
                 node.one('.fp-dlg-butcancel').on('click', handle_cancel, this);
             }
+            // This used to focus on before active element after confirm dialogue closed.
+            if (typeof dialog_options.previousActiveElement != 'undefined') {
+                this.confirm_dlg.set('focusAfterHide', dialog_options.previousActiveElement);
+            }
             this.confirm_dlg.dlgopt = dialog_options;
             if (typeof dialog_options.header != 'undefined') {
                 this.confirm_dlg.set('headerContent', dialog_options.header);
@@ -797,7 +947,6 @@ M.form_filemanager.init = function(Y, options) {
             selectnode.all('.fp-saveas,.fp-path,.fp-author,.fp-license').each(function (node) {
                 node.all('label').set('for', node.one('input,select').generateID());
             });
-            this.populate_licenses_select(selectnode.one('.fp-license select'));
             // register event on clicking buttons
             selectnode.one('.fp-file-update').on('click', function(e) {
                 e.preventDefault();
@@ -849,7 +998,7 @@ M.form_filemanager.init = function(Y, options) {
                         callback: function(id, obj, args) {
                             //args.scope.selectui.hide();
                             args.scope.filecount--;
-                            args.scope.refresh(obj.filepath);
+                            args.scope.refresh(obj.filepath, {action: 'delete'});
                             if (typeof M.core_formchangechecker != 'undefined') {
                                 M.core_formchangechecker.set_form_changed();
                             }
@@ -857,6 +1006,10 @@ M.form_filemanager.init = function(Y, options) {
                     });
                 };
                 this.selectui.hide(); // TODO remove this after confirm dialog is replaced with YUI3
+                // This is used to focus on before active element after confirm dialogue closed.
+                if (this.options.previousActiveElement !== undefined) {
+                    dialog_options.previousActiveElement = this.options.previousActiveElement;
+                }
                 this.show_confirm_dialog(dialog_options);
             }, this);
             selectnode.one('.fp-file-zip').on('click', function(e) {
@@ -925,7 +1078,8 @@ M.form_filemanager.init = function(Y, options) {
                     params: params,
                     callback: function(id, obj, args) {
                         args.scope.selectui.hide();
-                        args.scope.refresh(fileinfo.filepath);
+                        var actionfile = {action: 'setmainfile', newfilename: fileinfo.fullname};
+                        args.scope.refresh(fileinfo.filepath, actionfile);
                     }
                 });
             }, this);
@@ -970,8 +1124,7 @@ M.form_filemanager.init = function(Y, options) {
             selectnode.one('.fp-saveas input').set('value', node.fullname);
             var foldername = this.get_parent_folder_name(node);
             selectnode.all('.fp-author input').set('value', node.author ? node.author : '');
-            selectnode.all('.fp-license select option[selected]').set('selected', false);
-            selectnode.all('.fp-license select option[value='+node.license+']').set('selected', true);
+            this.populateLicensesSelect(selectnode.one('.fp-license select'), node);
             selectnode.all('.fp-path select option[selected]').set('selected', false);
             selectnode.all('.fp-path select option').each(function(el){
                 if (el.get('value') == foldername) {
@@ -1062,9 +1215,9 @@ M.form_filemanager.init = function(Y, options) {
             this.selectui.show();
             Y.one('#'+selectnode.get('id')).focus();
         },
-        render: function() {
+        render: function(obj, action) {
             this.print_path();
-            this.view_files();
+            this.view_files(null, action);
         },
         has_folder: function(foldername) {
             var element;

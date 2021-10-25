@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_underline', language 'pt', version '3.8'.
+ * Strings for component 'atto_underline', language 'pt', version '3.11'.
  *
  * @package     atto_underline
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Sublinhado';
-$string['privacy:metadata'] = 'O módulo atto_underline não armazena nenhum dado pessoal.';
+$string['privacy:metadata'] = 'O módulo atto_underline não armazena quaisquer dados pessoais.';

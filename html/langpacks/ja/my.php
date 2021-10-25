@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'my', language 'ja', version '3.8'.
+ * Strings for component 'my', language 'ja', version '3.11'.
  *
  * @package     my
  * @category    string
@@ -39,6 +39,7 @@ $string['pinblocks'] = 'マイMoodleの固定ブロックを設定する';
 $string['pinblocksexplan'] = 'あなたがここで設定したブロックはすべてのMoodleユーザの「マイMoodle」概要ページに表示 (編集不可) されます。';
 $string['privacy:metadata:core_my:preference:user_home_page_preference'] = 'ユーザホームページのプリファレンスです。';
 $string['reseterror'] = 'あなたのページのリセット中にエラーが発生しました。';
-$string['reseteveryonesdashboard'] = 'すべてのユーザのダッシュボードをリセットする';
+$string['reseteveryonesdashboard'] = 'すべてのユーザのダッシュボードを再設定する';
 $string['reseteveryonesprofile'] = 'すべてのユーザのプロファイルをリセットする';
 $string['resetpage'] = 'ページをデフォルトにリセットする';
+$string['resettingdashboards'] = 'ユーザダッシュボードをデフォルトにリセットする ...';

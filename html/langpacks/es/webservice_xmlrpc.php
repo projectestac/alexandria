@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice_xmlrpc', language 'es', version '3.8'.
+ * Strings for component 'webservice_xmlrpc', language 'es', version '3.11'.
  *
  * @package     webservice_xmlrpc
  * @category    string
@@ -26,4 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Protocolo XML-RPC';
+$string['privacy:metadata'] = 'El complemento de protocolo XML-RPC no almacena ningún dato personal.';
 $string['xmlrpc:use'] = 'Usar protocolo XML-RPC';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_selfcompletion', language 'es', version '3.8'.
+ * Strings for component 'block_selfcompletion', language 'es', version '3.11'.
  *
  * @package     block_selfcompletion
  * @category    string
@@ -28,5 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $string['alreadyselfcompleted'] = 'Usted ya se ha marcado a sí mismo como \'finalizado\' en este curso';
 $string['completecourse'] = 'Completar curso';
 $string['pluginname'] = 'Autocompletar';
+$string['privacy:metadata'] = 'El bloque de autocompletar solo muestra información almacenada en otros lugares.';
 $string['selfcompletion:addinstance'] = 'Añadir un nuevo bloque  autocompletar';
 $string['selfcompletionnotenabled'] = 'Los criterios de propia finalización  no se ha habilitado para este curso';

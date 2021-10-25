@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scormreport_interactions', language 'es', version '3.8'.
+ * Strings for component 'scormreport_interactions', language 'es', version '3.11'.
  *
  * @package     scormreport_interactions
  * @category    string
@@ -33,7 +33,9 @@ $string['privacy:metadata:preference:scorm_report_interactions_right'] = 'Si se 
 $string['privacy:metadata:preference:scorm_report_pagesize'] = 'Número de usuarios para mostrar en los informes SCORM';
 $string['questionx'] = 'Pregunta {$a}';
 $string['responsex'] = 'Respuesta {$a}';
+$string['resultx'] = 'Resultado {$a}';
 $string['rightanswerx'] = 'Respuesta correcta {$a}';
 $string['summaryofquestiontext'] = 'Resumen de la pregunta';
 $string['summaryofresponse'] = 'Resumen de respuestas';
+$string['summaryofresult'] = 'Resumen del resultado';
 $string['summaryofrightanswer'] = 'Resumen de respuestas correctas';

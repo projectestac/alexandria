@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_log', language 'sv', version '3.8'.
+ * Strings for component 'report_log', language 'sv', version '3.11'.
  *
  * @package     report_log
  * @category    string
@@ -46,7 +46,7 @@ $string['page-report-log-index'] = 'Kursloggrapport';
 $string['page-report-log-user'] = 'Kursloggrapport användare';
 $string['page-report-log-x'] = 'Valfri loggrapport';
 $string['pluginname'] = 'Loggar';
-$string['privacy:metadata'] = 'Denna plugin lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Loggar lagrar ingen personinformation.';
 $string['restore'] = 'Återställ';
 $string['selectlogreader'] = 'Välj loggläsare';
 $string['web'] = 'Webb';

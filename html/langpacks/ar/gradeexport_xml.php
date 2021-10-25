@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeexport_xml', language 'ar', version '3.8'.
+ * Strings for component 'gradeexport_xml', language 'ar', version '3.11'.
  *
  * @package     gradeexport_xml
  * @category    string
@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['eventgradeexported'] = 'تصدير العلامات بصيغة XML';
+$string['eventgradeexported'] = 'تقديرات بصيغة XML تم تصديرها';
 $string['pluginname'] = 'ملف XML';
-$string['privacy:metadata'] = 'إن ملحق تصدير العلامات بصيغة ملف XML لا يخزن أي بيانات شخصية.';
-$string['xml:publish'] = 'نشر تصدير العلامات بصيغة XML';
-$string['xml:view'] = 'استعمال تصدير العلامات بصيغة XML';
+$string['privacy:metadata'] = 'إن ملحق تصدير التقديرات بصيغة ملف XML لا يخزن أي بيانات شخصية.';
+$string['xml:publish'] = 'نشر تصدير التقديرات بصيغة XML';
+$string['xml:view'] = 'استعمال تصدير التقديرات بصيغة XML';

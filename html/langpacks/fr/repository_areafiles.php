@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_areafiles', language 'fr', version '3.8'.
+ * Strings for component 'repository_areafiles', language 'fr', version '3.11'.
  *
  * @package     repository_areafiles
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['areafiles:view'] = 'Consulter le dépôt Fichiers intégrés';
+$string['areafiles:view'] = 'Consulter un dépôt fichiers intégrés';
 $string['configplugin'] = 'Configuration du dépôt Fichiers intégrés';
 $string['pluginname'] = 'Fichiers intégrés';
 $string['pluginname_help'] = 'Les fichiers intégrés dans l\'éditeur de texte actuel';

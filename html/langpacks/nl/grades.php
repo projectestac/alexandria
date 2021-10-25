@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'nl', version '3.8'.
+ * Strings for component 'grades', language 'nl', version '3.11'.
  *
  * @package     grades
  * @category    string
@@ -182,6 +182,7 @@ $string['droplowestvalues'] = 'Laat de {$a} laagste waarden vallen';
 $string['dropped'] = 'Weggelaten';
 $string['dropxlowest'] = 'Laat de X laagste weg';
 $string['dropxlowestwarning'] = 'Opmerking: als je \'Laat de X laagste weg\' gebruikt, dan gaat het cijferlijst er van uit dat alle items in de categorie dezelfde puntenwaarde hebben. Als de puntenwaarden verschillen, dan zullen de resultaten onvoorspelbaar zijn.';
+$string['duplicatedgradeitem'] = '{$a} (kopie)';
 $string['duplicatescale'] = 'Kopieer schaal';
 $string['edit'] = 'Bewerk';
 $string['editcalculation'] = 'Bewerk berekening';
@@ -216,6 +217,7 @@ $string['errorupdatinggradecategoryaggregation'] = 'Fout bij het aanpassen van h
 $string['errorupdatinggradeitemaggregationcoef'] = 'Fout bij het updaten van de aggregatiecoëfficiënt (weging of bonus) van beoordelingsitem ID {$a->id}';
 $string['eventgradedeleted'] = 'Cijfer verwijderd';
 $string['eventgradeitemcreated'] = 'Cijfer item gemaakt';
+$string['eventgradeitemdeleted'] = 'Cijferitem verwijderd';
 $string['eventgradeitemupdated'] = 'Grade-item bijgewerkt';
 $string['eventgradelettercreated'] = 'Beoordelingsletter gemaakt';
 $string['eventgradeletterdeleted'] = 'Beoordelingsletter verwijderd';
@@ -243,6 +245,7 @@ $string['externalurl'] = 'Externe URL';
 $string['externalurl_desc'] = 'Als je een extern cijferlijst gebruikt, kun je hier de URL opgeven.';
 $string['extracreditvalue'] = 'Extra bonus voor {$a}';
 $string['extracreditwarning'] = 'Opmerking: als je alle items van een categorie als \'Extra krediet\' instelt, haal je ze uit de berekening van de cijfers omdat er geen puntentotaal meer is';
+$string['fail'] = 'Mislukt';
 $string['feedback'] = 'Feedback';
 $string['feedback_help'] = '<p>Notities die de leraar kan maken om bij de beoordelingen te voegen. Dit kan uitgebreide, gepersonaliseerde feedback zijn of een eenvoudige code die verwijst naar een intern systeem of feedback.</p>';
 $string['feedbackadd'] = 'Voeg feedback toe';
@@ -422,6 +425,15 @@ $string['importcsv_help'] = 'Cijfers kunnen als volgt via een CSV-bestand geïmp
 
 Je kunt een bestand verkrijgen met de juiste opmaak door eerst wat cijfers te exporteren. Dat bestand kan dan bewerkt en bewaard worden als CSV-bestand.';
 $string['importcustom'] = 'Importeer als aangepaste resultaten (enkel deze cursus)';
+$string['importdata'] = 'Gegevens';
+$string['importdata_help'] = 'Cijfers kunnen rechtstreeks vanuit een OpenDocument- of Excel-spreadsheet worden geplakt met de volgende indeling:
+
+* Ten minste één kolom moet gebruikersidentiteitsgegevens bevatten - gebruikersnaam, e-mailadres of ID-nummer.
+* Andere kolommen moeten koppen hebben zoals voor bestaande activiteiten of cijferitems.
+
+Een correct opgemaakte spreadsheet kan worden verkregen door eerst enkele cijfers te exporteren. De spreadsheet kan vervolgens worden bewerkt om meer cijfers toe te voegen en opgeslagen.
+
+Selecteer en kopieer de kolommen die u uit het werkblad wilt importeren en plak ze in dit veld.';
 $string['importerror'] = 'Er is een fout opgetreden. Dit script is niet aangeroepen met de juiste parameters.';
 $string['importfailed'] = 'Importeren mislukt. Er zijn geen gegevens geïmporteerd.';
 $string['importfeedback'] = 'Importeer feedback';
@@ -614,6 +626,7 @@ $string['overridesitedefaultgradedisplaytype'] = 'Standaardinstellingen voor de 
 $string['overridesitedefaultgradedisplaytype_help'] = 'Indien aangeduid kunnen de marges voor letter en cijferbeoordeling per cursus ingesteld worden, eerder dan de site standaarden te gebruiken.';
 $string['overrideweightofa'] = 'Weging overschrijven van {$a}';
 $string['parentcategory'] = 'Bovenliggende categorie';
+$string['pass'] = 'Geslaagd';
 $string['pctoftotalgrade'] = '% van totaalcijfer';
 $string['percent'] = 'Procent';
 $string['percentage'] = 'Percentage';

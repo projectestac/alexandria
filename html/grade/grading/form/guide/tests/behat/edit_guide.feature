@@ -16,12 +16,24 @@ Feature: Marking guides can be created and edited
       | user     | course | role           |
       | teacher1 | C1     | editingteacher |
       | student1 | C1     | student        |
-    And I log in as "teacher1"
-    And I am on "Course 1" course homepage with editing mode on
-    And I add a "Assignment" to section "1" and I fill the form with:
-      | Assignment name | Test assignment 1 name      |
-      | Description     | Test assignment description |
+    And the following "activity" exists:
+      | activity                              | assign                           |
+      | course                                | C1                               |
+      | idnumber                              | assign1                          |
+      | name                                  | Test assignment 1 name           |
+      | intro                                 | Test assignment description      |
+      | section                               | 1                                |
+      | assignsubmission_file_enabled         | 1                                |
+      | assignsubmission_onlinetext_enabled   | 1                                |
+      | assignsubmission_file_maxfiles        | 1                                |
+      | assignsubmission_file_maxsizebytes    | 1000                             |
+      | assignfeedback_comments_enabled       | 1                                |
+      | assignfeedback_file_enabled           | 1                                |
+      | assignfeedback_comments_commentinline | 1                                |
+    And I am on the "Test assignment 1 name" "assign activity editing" page logged in as teacher1
+    And I set the following fields to these values:
       | Grading method  | Marking guide               |
+    And I press "Save and return to course"
     # Defining a marking guide
     When I go to "Test assignment 1 name" advanced grading definition page
     And I set the following fields to these values:
@@ -50,7 +62,8 @@ Feature: Marking guides can be created and edited
   @javascript
   Scenario: Deleting criterion and comment
     # Deleting criterion
-    When I go to "Test assignment 1 name" advanced grading definition page
+    When I am on "Course 1" course homepage
+    And I go to "Test assignment 1 name" advanced grading definition page
     And I click on "Delete criterion" "button" in the "Guide criterion B" "table_row"
     And I press "Yes"
     And I press "Save"
@@ -59,7 +72,8 @@ Feature: Marking guides can be created and edited
     And I should see "WARNING: Your marking guide has a maximum grade of 70 points"
     But I should not see "Guide criterion B"
     # Deleting a frequently used comment
-    When I go to "Test assignment 1 name" advanced grading definition page
+    When I am on "Course 1" course homepage
+    And I go to "Test assignment 1 name" advanced grading definition page
     And I click on "Delete comment" "button" in the "Comment 3" "table_row"
     And I press "Yes"
     And I press "Save"
@@ -83,7 +97,6 @@ Feature: Marking guides can be created and edited
     And I wait "1" seconds
     Then the field "Guide criterion B criterion remark" matches value "Comment \"4\""
     When I press "Save changes"
-    And I press "Ok"
     And I follow "Edit settings"
     And I follow "Test assignment 1 name"
     And I navigate to "View all submissions" in current page administration
@@ -91,9 +104,7 @@ Feature: Marking guides can be created and edited
     Then I should see "80" in the "Student 1" "table_row"
     And I log out
     # Viewing it as a student.
-    And I log in as "student1"
-    And I am on "Course 1" course homepage
-    And I follow "Test assignment 1 name"
+    And I am on the "Test assignment 1 name" "assign activity" page logged in as student1
     And I should see "80" in the ".feedback" "css_element"
     And I should see "Marking guide test description" in the ".feedback" "css_element"
     And I should see "Very good"

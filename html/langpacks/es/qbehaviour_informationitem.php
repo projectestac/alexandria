@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_informationitem', language 'es', version '3.8'.
+ * Strings for component 'qbehaviour_informationitem', language 'es', version '3.11'.
  *
  * @package     qbehaviour_informationitem
  * @category    string
@@ -26,4 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Comportamiento para items de información';
+$string['privacy:metadata'] = 'El complemento de comportamiento de preguntas de elementos de información no almacena ningún dato personal.';
 $string['seen'] = 'Visto';

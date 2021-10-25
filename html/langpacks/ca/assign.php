@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assign', language 'ca', version '3.8'.
+ * Strings for component 'assign', language 'ca', version '3.11'.
  *
  * @package     assign
  * @category    string
@@ -123,6 +123,7 @@ $string['clickexpandreviewpanel'] = 'Cliqueu per expandir el plafó de revisió'
 $string['collapsegradepanel'] = 'Contreu el tauler de qualificacions';
 $string['collapsereviewpanel'] = 'Contreu el plafó de revisió';
 $string['comment'] = 'Comentari';
+$string['completiondetail:submit'] = 'Fer una tramesa';
 $string['completionsubmit'] = 'Cal que els estudiants trametin quelcom per completar l\'activitat.';
 $string['configshowrecentsubmissions'] = 'Tothom pot veure les notificacions de trameses en els informes d\'activitat recent.';
 $string['confirmbatchgradingoperation'] = 'Esteu segurs que voleu {$a->operation} per als {$a->count} estudiants?';
@@ -277,6 +278,7 @@ $string['hideshow'] = 'Mostra/Oculta';
 $string['inactiveoverridehelp'] = '* L\'estudiant no té el grup o el rol correcte per realitzar la tramesa.';
 $string['indicator:cognitivedepth'] = 'Tasca cognitiva';
 $string['indicator:cognitivedepth_help'] = 'Aquest indicador es basa en la profunditat cognitiva assolida per l\'estudiant en una activitat del tipus tasca.';
+$string['indicator:cognitivedepthdef_help'] = 'El participant ha assolit aquest percentatge de la implicació cognitiva oferta per les activitats de Tasca en el decurs d\'aquest interval d\'anàlisi (Nivells = No visualització, Visualització, Enviament, Visualització de retroalimentacions, Comenaris a les retroalimentacions, Reenviament després de veure les retroalimentacions)';
 $string['indicator:socialbreadth'] = 'Tasca social';
 $string['indicator:socialbreadth_help'] = 'Aquest indicador es basa en l\'abast social assolit per l\'estudiant en una activitat del tipus tasca.';
 $string['instructionfiles'] = 'Fitxers amb instruccions';
@@ -396,7 +398,7 @@ $string['privacy:metadata:groupid'] = 'ID del grup del qual l\'usuari és membre
 $string['privacy:metadata:mailed'] = 'Ja s\'ha enviat un missatge de correu electrònic a aquest usuari?';
 $string['privacy:metadata:userid'] = 'ID de l\'usuari';
 $string['quickgrading'] = 'Qualificació ràpida';
-$string['quickgrading_help'] = 'La qualificació ràpida us permet assignar qualificacions (i competències) directament en la taula de trameses. La qualificació ràpida no és compatible amb la qualificació avançada i no es recomana quan qualifiquen diverses persones.';
+$string['quickgrading_help'] = 'La qualificació ràpida us permet d\'assignar qualificacions (i resultats) directament a la taula de trameses. La qualificació ràpida no és compatible amb la qualificació avançada i no es recomana quan qualifiquen diverses persones.';
 $string['quickgradingchangessaved'] = 'S\'han desat els canvis en la qualificació';
 $string['quickgradingresult'] = 'Qualificació ràpida';
 $string['recordid'] = 'Identificador';

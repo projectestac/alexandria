@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_rss_client', language 'de', version '3.8'.
+ * Strings for component 'block_rss_client', language 'de', version '3.11'.
  *
  * @package     block_rss_client
  * @category    string
@@ -81,7 +81,7 @@ $string['rss_client:createprivatefeeds'] = 'Persönliche RSS Feeds erstellen';
 $string['rss_client:createsharedfeeds'] = 'Gemeinsame RSS Feeds erstellen';
 $string['rss_client:manageanyfeeds'] = 'Alle RSS Feeds verwalten';
 $string['rss_client:manageownfeeds'] = 'Persönliche RSS Feeds verwalten';
-$string['rss_client:myaddinstance'] = 'Neuen Block \'RSS Feeds\' zum Dashboard hinzufügen';
+$string['rss_client:myaddinstance'] = 'Neuen Block \'RSS Feeds\' im Dashboard hinzufügen';
 $string['seeallfeeds'] = 'Alle RSS Feeds anzeigen';
 $string['sharedfeed'] = 'Gemeinsamer RSS Feed';
 $string['shownumentrieslabel'] = 'Maximale Anzahl der angezeigten Einträge pro Block';

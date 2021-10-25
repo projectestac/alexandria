@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_guest', language 'es', version '3.8'.
+ * Strings for component 'enrol_guest', language 'es', version '3.11'.
  *
  * @package     enrol_guest
  * @category    string
@@ -35,6 +35,7 @@ $string['passwordinvalid'] = 'Contraseña incorrecta, pruebe de nuevo';
 $string['passwordinvalidhint'] = 'La contraseña de acceso es incorrecta, pruebe de nuevo<br/>';
 $string['pluginname'] = 'Acceso de invitados';
 $string['pluginname_desc'] = 'La extensión de acceso de invitados sólo permite el acceso temporal a los cursos, no es realmente una matriculación de usuarios.';
+$string['privacy:metadata'] = 'El complemento de matrícula de acceso de invitado no almacena ningún dato personal.';
 $string['requirepassword'] = 'Se requiere la contraseña de acceso de invitados';
 $string['requirepassword_desc'] = 'Solicitar contraseña de acceso en los nuevos cursos y evitar la eliminación de la contraseña de acceso de los cursos existentes.';
 $string['showhint'] = 'Mostrar pista';

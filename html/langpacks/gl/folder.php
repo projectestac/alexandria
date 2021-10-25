@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'folder', language 'gl', version '3.8'.
+ * Strings for component 'folder', language 'gl', version '3.11'.
  *
  * @package     folder
  * @category    string
@@ -25,12 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['bynameondate'] = 'by {$a->name} - {$a->date}';
+$string['bynameondate'] = 'por {$a->name} - {$a->date}';
 $string['contentheader'] = 'Contido';
-$string['display'] = 'Presentar en pantalla o contido do cartafol';
-$string['display_help'] = 'Se escolle presentar os contidos do cartafol na páxina dun curso, non haberá unha ligazón a unha páxina separada e o título non se presentará.
-A descrición presentarase unicamente cando «Presentar a descrición na páxina do curso» estea marcada.<br/>
-Vexa tamén que a vista de accións dos participantes non se poderá rexistrar neste caso.';
+$string['display'] = 'Presentar na pantalla o contido do cartafol';
+$string['display_help'] = 'Se escolle presentar os contidos do cartafol na páxina dun curso, non haberá ligazón a unha páxina separada. A descrición presentarase unicamente cando «Presentar a descrición na páxina do curso» estea marcada.. Teña en conta que neste caso non é posíbel rexistrar as accións da vista dos participantes.';
 $string['displayinline'] = 'Sobre unha páxina do curso';
 $string['displaypage'] = 'Nunha páxina separada';
 $string['dnduploadmakefolder'] = 'Descomprimir os ficheiros e crear un cartafol';
@@ -41,6 +39,8 @@ $string['folder:addinstance'] = 'Engadir un novo cartafol';
 $string['folder:managefiles'] = 'Xestionar ficheiros no módulo de cartafol';
 $string['folder:view'] = 'Ver o contido do cartafol';
 $string['foldercontent'] = 'Ficheiros e subcartafoles';
+$string['forcedownload'] = 'Forzar a descarga de ficheiros';
+$string['forcedownload_help'] = 'Se algúns ficheiros, como as imaxes ou os ficheiros HTML, deben amosarse no navegador en lugar de descargalos. Teña en conta que por motivos de seguridade, a configuración só debe desmarcarse se todos os usuarios con permisos para xestionar ficheiros no cartafol son usuarios de confianza.';
 $string['indicator:cognitivedepth'] = 'Cartafol cognitivo';
 $string['indicator:cognitivedepth_help'] = 'Este indicador está baseado na profundidade cognitiva acadada polo alumno nun recurso cartafol.';
 $string['indicator:cognitivedepthdef'] = 'Cartafol cognitivo';
@@ -54,7 +54,7 @@ $string['indicator:socialbreadthdef_link'] = 'Indicadores_de_aprendizaxe_analít
 $string['maxsizetodownload'] = 'Tamaño máximo (MB) do cartafol a descargar';
 $string['maxsizetodownload_help'] = 'O tamaño máximo do cartafol que é posíbel descargar como un arquivo ZIP. Se o estabelece a cero o tamaño do cartafol é ilimitado.';
 $string['modulename'] = 'Cartafol';
-$string['modulename_help'] = 'Este cartafol permítelle a un profesor presentar un certo número de ficheiros relacionado dentro dun único cartafol, reducindo así a necesidade de desprazamento sobre a páxina do curso. Pódese subir un cartafol comprimido e descomprimilo para visualizalo u crearse un cartafol baleiro e subir ficheiros dentro del.
+$string['modulename_help'] = 'Este cartafol permítelle a un profesor presentar un certo número de ficheiros relacionado dentro dun único cartafol, reducindo así a necesidade de desprazamento sobre a páxina do curso. Pódese enviar un cartafol comprimido e descomprimilo para visualizalo u crearse un cartafol baleiro e enviar ficheiros dentro del.
 
 Un cartafol pódese usar
 

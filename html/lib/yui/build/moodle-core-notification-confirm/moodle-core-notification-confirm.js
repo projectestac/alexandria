@@ -7,15 +7,15 @@ var DIALOGUE_PREFIX,
     CONFIRMNO,
     TITLE,
     QUESTION,
-    CSS;
+    CSS_CLASSES;
 
-DIALOGUE_PREFIX = 'moodle-dialogue',
-BASE = 'notificationBase',
-CONFIRMYES = 'yesLabel',
-CONFIRMNO = 'noLabel',
-TITLE = 'title',
-QUESTION = 'question',
-CSS = {
+DIALOGUE_PREFIX = 'moodle-dialogue';
+BASE = 'notificationBase';
+CONFIRMYES = 'yesLabel';
+CONFIRMNO = 'noLabel';
+TITLE = 'title';
+QUESTION = 'question';
+CSS_CLASSES = {
     BASE: 'moodle-dialogue-base',
     WRAP: 'moodle-dialogue-wrap',
     HEADER: 'moodle-dialogue-hd',
@@ -28,8 +28,6 @@ CSS = {
 
 // Set up the namespace once.
 M.core = M.core || {};
-/* global CONFIRMYES, CONFIRMNO, QUESTION, BASE, TITLE, DIALOGUE_PREFIX */
-
 /**
  * A dialogue type designed to display a confirmation to the user.
  *
@@ -106,7 +104,7 @@ Y.extend(CONFIRM, M.core.notification.info, {
         this.get(BASE).addClass('moodle-dialogue-confirm');
         this.setStdModContent(Y.WidgetStdMod.BODY, content, Y.WidgetStdMod.REPLACE);
         this.setStdModContent(Y.WidgetStdMod.HEADER,
-                '<h1 id="moodle-dialogue-' + this.get('COUNT') + '-header-text">' + this.get(TITLE) + '</h1>',
+                '<h5 id="moodle-dialogue-' + this.get('COUNT') + '-wrap-header-text">' + this.get(TITLE) + '</h5>',
                 Y.WidgetStdMod.REPLACE);
 
         this._closeEvents.push(

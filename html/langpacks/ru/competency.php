@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'competency', language 'ru', version '3.8'.
+ * Strings for component 'competency', language 'ru', version '3.11'.
  *
  * @package     competency
  * @category    string
@@ -95,7 +95,7 @@ $string['eventuserevidencedeleted'] = 'Удалено доказательств
 $string['eventuserevidenceupdated'] = 'Обновлено доказательство предыдущего обучения.';
 $string['evidence_competencyrule'] = 'Выполнены требования правила компетенции.';
 $string['evidence_coursecompleted'] = 'Курс «{$a}» завершен.';
-$string['evidence_coursemodulecompleted'] = 'Элемент «{$a}» завершен.';
+$string['evidence_coursemodulecompleted'] = 'Элемент «{$a}» выполнен.';
 $string['evidence_courserestored'] = 'Рейтинг был восстановлен вместе с курсом «{$a}».';
 $string['evidence_evidenceofpriorlearninglinked'] = 'Доказательство предыдущего обучения «{$a}» было привязано.';
 $string['evidence_evidenceofpriorlearningunlinked'] = 'Отменена связь доказательства предыдущего обучения «{$a}».';

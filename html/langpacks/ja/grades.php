@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'ja', version '3.8'.
+ * Strings for component 'grades', language 'ja', version '3.11'.
  *
  * @package     grades
  * @category    string
@@ -136,7 +136,7 @@ $string['coursegradesettings'] = 'コース評定設定';
 $string['coursename'] = 'コース名';
 $string['coursescales'] = 'コース評価尺度';
 $string['coursesettings'] = 'コース設定';
-$string['coursesettingsexplanation'] = 'コース設定ではすべてのユーザに対して評定表がどのように表示されるか決定します。';
+$string['coursesettingsexplanation'] = 'コース評定設定ではすべてのユーザに対して評定表がどのように表示されるか決定します。';
 $string['coursesiamtaking'] = '私が受講しているコース';
 $string['coursesiamteaching'] = '私が教えているコース';
 $string['coursetotal'] = 'コース合計';
@@ -165,6 +165,7 @@ $string['droplowestvalues'] = '{$a} 件の最低評点を除外する';
 $string['dropped'] = '件除外';
 $string['dropxlowest'] = '下位X件の除外';
 $string['dropxlowestwarning'] = '注意: 「下位X件の除外」を使用する場合、カテゴリ内のすべての評定項目は同じ最大評点を持つとみなされます。カテゴリ内のそれぞれの評定項目の最大評点が異なる場合、結果は保証されません。';
+$string['duplicatedgradeitem'] = '{$a} (コピー)';
 $string['duplicatescale'] = '尺度の複製';
 $string['edit'] = '編集';
 $string['editcalculation'] = '計算を編集する';
@@ -199,6 +200,7 @@ $string['errorupdatinggradecategoryaggregation'] = '評定カテゴリID {$a->id
 $string['errorupdatinggradeitemaggregationcoef'] = '評定カテゴリID {$a->id} の総計係数 (加重または追加点) 更新中にエラーが発生しました。';
 $string['eventgradedeleted'] = '評点が削除されました。';
 $string['eventgradeitemcreated'] = '評定項目が作成されました。';
+$string['eventgradeitemdeleted'] = '評定項目が削除されました。';
 $string['eventgradeitemupdated'] = '評定項目が更新されました。';
 $string['eventgradelettercreated'] = '評定文字が作成されました。';
 $string['eventgradeletterdeleted'] = '評定文字が削除されました。';
@@ -226,6 +228,7 @@ $string['externalurl'] = '外部URL';
 $string['externalurl_desc'] = '外部評定表が使用されます。ここでURLを指定してください。';
 $string['extracreditvalue'] = '{$a} の追加点';
 $string['extracreditwarning'] = '注意: カテゴリ内のすべての評定項目を追加点扱いにすることにより、評定の計算から評定項目を効果的に除外することができます。これにより合計評点は計算されません。';
+$string['fail'] = '不合格';
 $string['feedback'] = 'フィードバック';
 $string['feedback_help'] = 'この設定を有効にした場合、評定に関するコメントすべてが追加されます。';
 $string['feedbackadd'] = 'フィードバックを追加する';
@@ -405,6 +408,15 @@ $string['importcsv_help'] = '以下のフォーマットのCSVファイルを使
 
 正しいフォーマットのファイルは最初に評定をエクスポートすることにより取得することができます。そのファイルを編集して、CSVファイルとして保存することができます。';
 $string['importcustom'] = 'カスタムアウトカムとしてインポートする (このコースのみ)';
+$string['importdata'] = '日付';
+$string['importdata_help'] = '評定はOpenDocumentまたはExcelスプレッドシートから直接貼り付けることができます。
+
+* 少なくとも1つの列にはユーザ名、メールアドレス、IDナンバー等のユーザ識別データを含む必要があります。
+* その他の列には既存の活動または評定項目に応じた見出しを付ける必要があります。
+
+最初に正しいフォーマットのスプレッドシートはいくつかの評定をエクスポートして入手できます。次にスプレッドシートを編集して成績を追加および保存できます。
+
+あなたがスプレッドシートからインポートしたい列を選択およびコピーしてこのフィールドに貼り付けてください。';
 $string['importerror'] = 'エラーが発生しました。このスクリプトは適正なパラメータでコールされていません。';
 $string['importfailed'] = 'インポートに失敗しました。データはインポートされませんでした。';
 $string['importfeedback'] = 'フィードバックをインポートする';
@@ -598,6 +610,7 @@ $string['overridesitedefaultgradedisplaytype'] = 'サイトデフォルトをオ
 $string['overridesitedefaultgradedisplaytype_help'] = 'この設定を有効にした場合、サイトデフォルトではなく、コースの評定文字および境界が設定されます。';
 $string['overrideweightofa'] = '{$a} の加重をオーバーライドする';
 $string['parentcategory'] = '親カテゴリ';
+$string['pass'] = '合格';
 $string['pctoftotalgrade'] = '評点合計の%';
 $string['percent'] = 'パーセント';
 $string['percentage'] = 'パーセンテージ';

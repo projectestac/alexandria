@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'course', language 'zh_cn', version '3.8'.
+ * Strings for component 'course', language 'zh_cn', version '3.11'.
  *
  * @package     course
  * @category    string
@@ -25,11 +25,42 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activitychooseractivefooter'] = '活动选择器底部的页脚';
+$string['activitychooseractivefooter_desc'] = '活动选择器可以支持向页脚添加项目的插件。';
+$string['activitychoosercategory'] = '活动选择器';
+$string['activitychooserhidefooter'] = '无页脚';
+$string['activitychooserrecommendations'] = '推荐的活动';
+$string['activitychoosersettings'] = '活动选择器设置';
+$string['activitychoosertabmode'] = '活动选择器标签';
+$string['activitychoosertabmode_desc'] = '通过活动选择器，教师可以轻松选择要添加到课程中的活动和资源。 此设置确定应在其中显示哪些标签。 请注意，仅当用户为一个或多个活动标星时，才为用户显示“标星的”标签，并且仅当站点管理员指定了一些推荐活动时，才显示“推荐的”标签。';
+$string['activitychoosertabmodeone'] = '标星的，全部，活动，资源，推荐的';
+$string['activitychoosertabmodethree'] = '标星的，活动，资源，推荐的';
+$string['activitychoosertabmodetwo'] = '标星的，全部，推荐的';
+$string['activitydate:closed'] = '已关闭:';
+$string['activitydate:closes'] = '关闭:';
+$string['activitydate:opened'] = '已打开:';
+$string['activitydate:opens'] = '打开:';
 $string['aria:coursecategory'] = '课程类别';
 $string['aria:courseimage'] = '课程图片';
 $string['aria:coursename'] = '课程名称';
 $string['aria:courseshortname'] = '课程简称';
+$string['aria:defaulttab'] = '默认活动';
 $string['aria:favourite'] = '课程已标星';
+$string['aria:favouritestab'] = '标星的活动';
+$string['aria:modulefavourite'] = '标星{$a}活动';
+$string['aria:recommendedtab'] = '推荐的活动';
+$string['completion_automatic:done'] = '完成:';
+$string['completion_automatic:failed'] = '失败:';
+$string['completion_automatic:todo'] = '要做:';
+$string['completion_manual:aria:done'] = '{$a} 被标记为完成. 点击撤销.';
+$string['completion_manual:aria:markdone'] = '将 {$a} 标记为完成';
+$string['completion_manual:done'] = '完成';
+$string['completion_manual:markdone'] = '标记完成';
+$string['completion_setby:auto:done'] = '完成: {$a->condition} (set by {$a->setby})';
+$string['completion_setby:auto:todo'] = '要做: {$a->condition} (set by {$a->setby})';
+$string['completion_setby:manual:done'] = '{$a->activityname}被 {$a->setby} 标记为完成。点击撤销。';
+$string['completion_setby:manual:markdone'] = '{$a->activityname}被{$a->setby}标记为未完成。点击以标记为完成。';
+$string['completionrequirements'] = '{$a}的完成要求';
 $string['coursealreadyfinished'] = '课程已经结束';
 $string['coursenotyetfinished'] = '课程还没有结束';
 $string['coursenotyetstarted'] = '课程还没有开始';
@@ -42,19 +73,37 @@ $string['customfield_visibility_help'] = '此设置确定谁可以在课程列�
 $string['customfield_visibletoall'] = '每个人';
 $string['customfield_visibletoteachers'] = '教师';
 $string['customfieldsettings'] = '普通课程自定义字段设置';
+$string['downloadcourseconfirmation'] = '您将要下载课程内容的zip文件（不包括无法下载的项目和任何大于{$a}的文件）。';
+$string['downloadcoursecontent'] = '下载课程内容';
+$string['downloadcoursecontent_help'] = '此设置确定具有下载课程内容权限的用户，是否可以下载课程内容（默认情况下，具有学生或教师角色的用户）';
+$string['enabledownloadcoursecontent'] = '启用课程内容下载';
 $string['errorendbeforestart'] = '结束日期({$a})在课程开始日期之前。';
 $string['favourite'] = '标星的课程';
 $string['gradetopassnotset'] = '本课程没有设置及格成绩，可以在课程的成绩项目中设置(成绩册设置)。';
+$string['informationformodule'] = '关于{$a}活动的信息';
+$string['module'] = '活动';
+$string['noaccesssincestartinfomessage'] = '{$a->userfirstname}您好！<p>{$a-> coursename}中的许多学生从未访问过该课程。</p>';
 $string['nocourseactivity'] = '在课程开始和结束之间没有足够的课程活动';
 $string['nocourseendtime'] = '课程没有结束时间';
 $string['nocoursesections'] = '没有课程小节';
 $string['nocoursestudents'] = '没有学生';
+$string['norecentaccessesinfomessage'] = '{$a->userfirstname}，您好！<p>  {$a->coursename} 中的许多学生最近没有访问过该课程。</p>';
+$string['noteachinginfomessage'] = '{$a->userfirstname}，您好！<p>开始日期在下周的课程被确定为没有老师或学生加入。</p>';
 $string['privacy:completionpath'] = '课程完成情况';
 $string['privacy:favouritespath'] = '课程标星的信息';
+$string['privacy:metadata:activityfavouritessummary'] = '此课程系统包含用户已为活动选择器中的哪些项目标星的信息。';
 $string['privacy:metadata:completionsummary'] = '此课程包含用户的课程进度信息。';
 $string['privacy:metadata:favouritessummary'] = '该课程包含与用户标星的课程相关的信息。';
 $string['privacy:perpage'] = '每页显示的课程数。';
+$string['recommend'] = '推荐';
+$string['recommendcheckbox'] = '推荐活动：{$a}';
+$string['relativedatessubmissionduedateafter'] = '课程开始后的{$a->datediffstr}';
+$string['relativedatessubmissionduedatebefore'] = '课程开始前的{$a->datediffstr}';
+$string['searchactivitiesbyname'] = '按名称搜索活动';
+$string['searchresults'] = '搜索结果：{$a}';
 $string['studentsatriskincourse'] = '{$a}课程中处于风险之中的学生';
+$string['studentsatriskinfomessage'] = '{$a->userfirstname}, 您好！<p>已确认{$a->coursename} 课程中的学生处于风险之中。</ p>';
+$string['submitsearch'] = '提交搜索';
 $string['target:coursecompetencies'] = '学生有可能不能完成分配给课程的能力';
 $string['target:coursecompetencies_help'] = '这个目标描述了一个学生是否有不能完成分配给课程的能力的风险。这一目标认为，分配给本课程的所有能力必须在课程结束前完成。';
 $string['target:coursecompletion'] = '学生有可能不符合课程完成条件';

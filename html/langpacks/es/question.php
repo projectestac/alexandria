@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'es', version '3.8'.
+ * Strings for component 'question', language 'es', version '3.11'.
  *
  * @package     question
  * @category    string
@@ -52,6 +52,8 @@ $string['cannotdeletecate'] = 'No puede eliminar la categoría porque es la cate
 $string['cannotdeleteneededbehaviour'] = 'No se puede eliminar el comportamiento de pregunta \'{$a}\'. Existen otros comportamientos instalados que dependen de él.';
 $string['cannotdeleteqtypeinuse'] = 'No puede eliminar la pregunta de tipo \'{$a}\'. Hay preguntas de ese tipo en el banco de preguntas.';
 $string['cannotdeleteqtypeneeded'] = 'No puede eliminar la pregunta de tipo \'{$a}\'. Hay otros tipos de preguntas que dependen de ella.';
+$string['cannotdeletetopcat'] = 'Las categorías superiores no pueden ser eliminadas.';
+$string['cannotedittopcat'] = 'Las categorías superiores no pueden ser editadas.';
 $string['cannotenable'] = 'El tipo de pregunta {$a} no se puede crear directamente';
 $string['cannotenablebehaviour'] = 'El comportamiento de pregunta {$a} no puede emplearse directamente. Es para uso interno exclusivamente.';
 $string['cannotfindcate'] = 'No se ha podido encontrar el registro de la categoría';
@@ -80,8 +82,11 @@ $string['categoryinfo'] = 'Información sobre la categoría';
 $string['categorymove'] = 'La categoría \'{$a->name}\' contiene {$a->count} preguntas (algunas de las cuales pueden ser preguntas antiguas ocultas o aleatorias que todavía se usan en exámenes existentes). Por favor elija otra categoría a donde moverlas.';
 $string['categorymoveto'] = 'Guardar en categoría';
 $string['categorynamecantbeblank'] = 'El nombre de la categoría no puede estar en blanco';
+$string['categorynamewithcount'] = '{$a->name} ({$a->questioncount})';
+$string['categorynamewithidnumber'] = '{$a->name} [{$a->idnumber}]';
+$string['categorynamewithidnumberandcount'] = '{$a->name} [{$a->idnumber}] ({$a->questioncount})';
 $string['changeoptions'] = 'Cambiar opciones';
-$string['changepublishstatuscat'] = '<a href="{$a->caturl}">La categoría "{$a->name}"</a> en curso "{$a->coursename}" cambiará su estatus de intercambio <strong>{$a->changefrom} a {$a->changeto}</strong>.';
+$string['changepublishstatuscat'] = '<a href="{$a->caturl}">La categoría "{$a->name}"</a> en el curso "{$a->coursename}" cambiará su estado de intercambio de {$a->changefrom} a {$a->changeto}.';
 $string['check'] = 'Comprobar';
 $string['chooseqtypetoadd'] = 'Elija un tipo de pregunta a agregar';
 $string['clearwrongparts'] = 'Borrar respuestas incorrectas';
@@ -154,7 +159,19 @@ $string['errorsavingcomment'] = 'Error al guardar el comentario para la pregunta
 $string['errorsavingflags'] = 'Error al guardar el estado.';
 $string['errorupdatingattempt'] = 'Error al actualizar el intento {$a->id} en la base de datos.';
 $string['eventquestioncategorycreated'] = 'Categoría de preguntas creada';
+$string['eventquestioncategorydeleted'] = 'Categoría de preguntas borrada';
+$string['eventquestioncategorymoved'] = 'Categoría de preguntas movida';
+$string['eventquestioncategoryupdated'] = 'Categoría de preguntas actualizada';
+$string['eventquestioncategoryviewed'] = 'Categoría de preguntas visualizada';
+$string['eventquestioncreated'] = 'Pregunta creada';
+$string['eventquestiondeleted'] = 'Pregunta borrada';
+$string['eventquestionmoved'] = 'Pregunta movida';
+$string['eventquestionsexported'] = 'Preguntas exportadas';
+$string['eventquestionsimported'] = 'Preguntas importadas';
+$string['eventquestionupdated'] = 'Pregunta actualizada';
+$string['eventquestionviewed'] = 'Pregunta visualizada';
 $string['export'] = 'Exportar';
+$string['exportasxml'] = 'Exportar como Moodle XML';
 $string['exportcategory'] = 'Exportar categoría';
 $string['exportcategory_help'] = '<p align="center"><b>Categoría de exportación</b></p>
 
@@ -164,6 +181,7 @@ $string['exportcategory_help'] = '<p align="center"><b>Categoría de exportació
 $string['exporterror'] = 'Ha ocurrido un error durante la exportación';
 $string['exportfilename'] = 'preguntas';
 $string['exportnameformat'] = '%Y%m%d-%H%M';
+$string['exportonequestion'] = 'Descargar esta pregunta en formato Moodle XML';
 $string['exportquestions'] = 'Exportar preguntas a un archivo';
 $string['exportquestions_help'] = '<P>Esta función permite exportar una categoría completa de preguntas a un archivo de texto.</p> <p>Por favor, advierta que en muchos formatos de archivo se pierde alguna información cuando se exportan las preguntas. Esto se debe a que muchos formatos no poseen todas las características existentes en las preguntas de Moodle. No puede esperarse exportar preguntas y luego importarlas de modo que ambas sean idénticas. Asimismo, algunos tipos de preguntas no pueden exportarse en absoluto. Compruebe los datos exportados antes de usarlos en un servidor de producción.</p> <P>Los formatos posibles actualmente son:</p> <P><B>Formato GIFT</B></P> <ul> <p>GIFT es el formato de importación/exportación más completo de que se dispone para exportar preguntas Moodle a un archivo de texto. Fue diseñado para que los profesores escribieran fácilmente preguntas en un archivo de texto. Soporta los formatos de elección múltiple, verdadero-falso, respuesta corta, relacionar columnas, preguntas numéricas, así como la inserción de _______ en el formato de "palabra faltante". Advierta que las preguntas incrustadas ("cloze") no se incluyen por el momento. En un archivo de texto pueden mezclarse preguntas de distinto tipo, y el formato soporta asimismo comentarios, nombres de las preguntas, retroalimentación y calificaciones ponderadas (en porcentajes). He aquí algunos ejemplos:</p> <pre> ¿En qué mes de 1492 Colón descubrió América?{~Noviembre ~Septiembre =Octubre} Colón descubrió América el 12 de {~noviembre =octubre ~septiembre} de 1492. Colón descubrió América el 12 de noviembre de 1492.{FALSE} ¿Quién descubrió América el 12 de octubre de 1492?{=Colón =Cristóbal Colón} ¿En qué año llegó Colón a América?{#1492} </pre> <p class="moreinfo"><a href="help.php?file=formatgift.html&amp;module=quiz">Más sobre el formato "GIFT"</a></p> </ul> <p><b>Formato XML Moodle XML</b></p> <ul> <p>Este formato específico de Moodle exporta preguntas en formato simple XML. Esas preguntas pueden luego importarse a cualquier categoría del examen, o usarse en cualquier otro proceso, tal como una transformación XSLT.</p> </ul> <p><b>IMS QTI 2.0</b></p> <ul> <p>Las preguntas se exportan en el formato IMS QTI estándar (version 2.0) format. Note que este modo de exportación genera un grupo de archivos dentro de un único archivo \'zip\'.</p> <p class="moreinfo"><a href="http://www.imsglobal.org/question/" target="_qti">Más información sobre el sitio IMS QTI</a> (sitio externo en una ventana nueva)</p> </ul> <p><b>XHTML</b></p> <ul> <p>Exporta la categoría en una única página de XHTML \'estricto\'. Cada una de las preguntas es ubicada en su propia marca &lt;div&gt;. Si desea usar esta página tal cual, necesitará al menos editar la marca &lt;form&gt; al comienzo de la sección &lt;body&gt; para posibilitar acciones tales como \'mailto\'.</p> </ul> <P>¡Pronto se dispondrá de más formatos, incluyendo WebCT y cualesquiera otros que los usuarios de Moodle quieran incorporar! </p>';
 $string['feedback'] = 'Retroalimentación';
@@ -195,6 +213,8 @@ $string['howquestionsbehave_help'] = 'Los estudiantes pueden interactuar con las
 Alternativamente, usted puede desear que los estudiantes envíen cada pregunta y sobre la marcha obtengan retroalimentación inmediata, y si la respuesta no es correcta, tengan otra otra oportunidad con menor puntuación. Este modo sería \'interactivo con varios intentos\' .
 
 Esos son probablemente los dos modos de comportamiento más comúnmente utilizados.';
+$string['idnumber'] = 'Número de ID';
+$string['idnumber_help'] = 'Si se usa, el número de ID debe ser único dentro de la categoría de la pregunta. Proporciona otra manera de identificar una pregunta que a veces resulta útil, pero generalmente se deja en blanco.';
 $string['ignorebroken'] = 'Pasar por alto enlaces rotos';
 $string['import'] = 'Importar';
 $string['importcategory'] = 'Categoría a donde importar';
@@ -213,7 +233,7 @@ $string['importquestions'] = 'Importar preguntas de un archivo';
 $string['importquestions_help'] = 'Esta función posibilita la importación de preguntas en distintos formatos por medio de un archivo de texto. Advierta que el archivo debe tener la codificación UTF-8.';
 $string['importwrongfiletype'] = 'El tipo de archivo elegido ({$a->actualtype}) no coincide con el tipo esperado por el formato de importación ({$a->expectedtype}).';
 $string['impossiblechar'] = 'Se ha detectado un carácter imposible {$a} como carácter de paréntesis';
-$string['includesubcategories'] = 'Mostrar también preguntas de las sub-categorías';
+$string['includesubcategories'] = 'Mostrar también preguntas de las subcategorías';
 $string['incorrect'] = 'Incorrecta';
 $string['incorrectfeedback'] = 'Para cualquier respuesta incorrecta';
 $string['incorrectfeedbackdefault'] = 'Respuesta incorrecta.';
@@ -342,26 +362,52 @@ $string['penaltyfactor_help'] = '<p>Puede especificar qué fracción de la puntu
 
 El factor de penalización debería ser un número entre 0 y 1. Un factor de penalización de 1 significa que el estudiante ha de dar la respuesta correcta al primer intento para conseguir la calificación máxima. Un factor de penalización de 0 significa que el estudiante puede intentar responder cuantas veces quiera y aun así puede conseguir la calificación máxima.</p>';
 $string['penaltyforeachincorrecttry'] = 'Penalización por cada intento incorrecto';
-$string['penaltyforeachincorrecttry_help'] = 'Cuando se responden preguntas configuradas con "Interactivo con intentos múltiples" o en "Modo adaptativo", de manera que el alumno puede realizar varios intentos para responder a la pregunta de forma correcta, esta opción define el valor de la penalización que se aplica por cada intento incorrecto.
+$string['penaltyforeachincorrecttry_help'] = 'Cuando se realizan preguntas configuradas con el comportamiento \'Interactivo con intentos múltiples\' o en \'Modo adaptativo\', de manera que el alumno pueda realizar varios intentos para responder a la pregunta de forma correcta, esta opción controla con cuánto son penalizados por cada intento incorrecto.
 
-La penalización es proporcional a la calificación total de la pregunta; así, si la pregunta vale tres puntos, y la penalización es de 0.3333333, el estudiante obtiene los 3 puntos si responde correctamente al primer intento, 2 si lo hacen en un segundo intento, y 1 si lo hace en el tercero.';
+La penalización es una proporción de la calificación total de la pregunta; así, si la pregunta vale tres puntos, y la penalización es de 0,3333333 (33,33%), el estudiante obtiene los 3 puntos si responde correctamente al primer intento, 2 si lo hacen en un segundo intento, y 1 si acierta en el tercero.
+
+Para algunas preguntas de varias partes esta lógica para calificar es aplicada por separado a cada parte de la pregunta. Los detalles dependen del tipo de la pregunta y pueden ser complicados, pero el principio básico es darle a los estudiantes créditos por el conocimiento que hayan demostrado de la manera más justa posible.';
 $string['permissionedit'] = 'Editar esta pregunta';
 $string['permissionmove'] = 'Mover esta pregunta';
 $string['permissionsaveasnew'] = 'Guardarla como pregunta nueva';
 $string['permissionto'] = 'Usted tiene permiso para:';
 $string['previewquestion'] = 'Vista previa de la pregunta';
+$string['privacy:metadata:database:question'] = 'Los detalles acerca de una pregunta específica.';
+$string['privacy:metadata:database:question:createdby'] = 'La persona que creó la pregunta.';
+$string['privacy:metadata:database:question:generalfeedback'] = 'La retroalimentación general para esta pregunta.';
+$string['privacy:metadata:database:question:modifiedby'] = 'La persona que actualizó  por última vez la pregunta.';
+$string['privacy:metadata:database:question:name'] = 'El nombre de la pregunta.';
+$string['privacy:metadata:database:question:questiontext'] = 'El texto de la pregunta.';
+$string['privacy:metadata:database:question:timecreated'] = 'La fecha y hora de cuando fue creada esta pregunta.';
+$string['privacy:metadata:database:question:timemodified'] = 'La fecha y hora de cuando fue actualizada esta pregunta.';
+$string['privacy:metadata:database:question_attempt_step_data'] = 'Los pasos de intento de pregunta pueden tener datos adicionales epecíficos para ese paso. Los datos son almacenados en la tabla step_data.';
+$string['privacy:metadata:database:question_attempt_step_data:name'] = 'El nombre del elemento de datos.';
+$string['privacy:metadata:database:question_attempt_step_data:value'] = 'El valor del elemento de datos.';
+$string['privacy:metadata:database:question_attempt_steps'] = 'Cada intento de pregunta tiene un número de pasos para indicar las diferentes fases desde el principio hasta la finalización y hasta la  puntuación. Esta tabla almacena la información para cada uno de estos pasos.';
+$string['privacy:metadata:database:question_attempt_steps:fraction'] = 'La calificación que fue otorgada a este intento de pregunta está escalada a un valor respecto a 1.';
+$string['privacy:metadata:database:question_attempt_steps:state'] = 'El estado de este paso de intento de pregunta al final de la transición del paso.';
+$string['privacy:metadata:database:question_attempt_steps:timecreated'] = 'La fecha y hora en la cual empezó esta transición de paso.';
+$string['privacy:metadata:database:question_attempt_steps:userid'] = 'El usuario que realizó la transición de paso.';
+$string['privacy:metadata:database:question_attempts'] = 'La información acerca de un intento en una pregunta específica.';
+$string['privacy:metadata:database:question_attempts:flagged'] = 'Una indicación de que el usuario ha señalizado esta pregunta dentro de un intento.';
+$string['privacy:metadata:database:question_attempts:responsesummary'] = 'Un resumen de la respuesta a la pregunta.';
+$string['privacy:metadata:database:question_attempts:timemodified'] = 'La hora en la cual fue actualizado el intento a la pregunta.';
+$string['privacy:metadata:link:qbehaviour'] = 'El subsistema de pregunta hace uso del tipo de plugin de comportamientos de Pregunta.';
+$string['privacy:metadata:link:qformat'] = 'El subsistema de pregunta hace uso del tipo de plugin de formato para importar/exportar Pregunta con el propósito de importar y exportar preguntas en diferentes formatos.';
+$string['privacy:metadata:link:qtype'] = 'El subsistema de pregunta interactúa con el tipo de plugin de Tipo de pregunta que contiene los diferentes tipos de preguntas.';
 $string['published'] = 'compartida';
 $string['qtypeveryshort'] = 'T';
 $string['questionaffected'] = '<a href="{$a->qurl}">La pregunta "{$a->name}" ({$a->qtype})</a> está en esta categoría, pero está también siendo usada en <a href="{$a->qurl}">el cuestionario "{$a->quizname}"</a> en otro curso "{$a->coursename}".';
 $string['questionbank'] = 'Banco de preguntas';
 $string['questionbehaviouradminsetting'] = 'Configuraciones del comportamiento de preguntas';
 $string['questionbehavioursdisabled'] = 'Comportamiento de preguntas a deshabilitar';
-$string['questionbehavioursdisabledexplained'] = 'Teclee una lista (separada por comas)  de comportamientos que no desea que aparezcan en el menú desplegable';
+$string['questionbehavioursdisabledexplained'] = 'Introduzca una lista separada por comas de los comportamientos que no desea que aparezcan en el menú desplegable.';
 $string['questionbehavioursorder'] = 'Orden del comportamiento de preguntas';
-$string['questionbehavioursorderexplained'] = 'Teclee una lista (separada por comas)  de comportamientos en el orden que quiere que aparezcan en el menú desplegable';
+$string['questionbehavioursorderexplained'] = 'Introduzca una lista de comportamientos separados por comas en el orden en que desea que aparezcan en el menú desplegable.';
 $string['questioncategory'] = 'Categoría de pregunta';
 $string['questioncatsfor'] = 'Categorías de pregunta para \'{$a}\'';
 $string['questiondoesnotexist'] = 'Esta pregunta no existe.';
+$string['questionformtagheader'] = '{$a} marcas';
 $string['questionidmismatch'] = 'Error en los IDs de las preguntas';
 $string['questionname'] = 'Nombre de la pregunta';
 $string['questionnamecopy'] = '{$a} (copia)';
@@ -374,6 +420,7 @@ $string['questionsinuse'] = '{*Las preguntas marcadas con un asterisco ya están
 $string['questionsmovedto'] = 'Preguntas aún en uso trasladadas a "{$a}" en la categoría de curso padre.';
 $string['questionsrescuedfrom'] = 'Preguntas guardadas del contexto {$a}.';
 $string['questionsrescuedfrominfo'] = 'Estas preguntas (alguna de las cuales puede estar oculta) se han guardado cuando el contexto {$a} fue eliminado debido a que aún están siendo utilizadas por algún cuestionario o por otras actividades.';
+$string['questiontags'] = 'Marcas de pregunta';
 $string['questiontext'] = 'Enunciado de la pregunta';
 $string['questiontype'] = 'Tipo de pregunta';
 $string['questionuse'] = 'Usar pregunta en esta actividad';
@@ -383,9 +430,10 @@ $string['requiresgrading'] = 'Requiere calificación';
 $string['responsehistory'] = 'Historial de respuestas';
 $string['restart'] = 'Comenzar de nuevo';
 $string['restartwiththeseoptions'] = 'Comenzar de nuevo con estas opciones';
+$string['restoremultipletopcats'] = 'El archivo de respaldo contiene más de una categoría de pregunta de nivel superior para el contexto {$a}.';
 $string['reviewresponse'] = 'Revisar respuesta';
 $string['rightanswer'] = 'Respuesta correcta';
-$string['rightanswer_help'] = 'un resumen generado automáticamente de las respuestas correctas. Pudiera estar limitado, por lo que podría desear explicar la solución correcta en la retroalimentación general para la pregunta, y deshabilitar esta opción.';
+$string['rightanswer_help'] = 'Un resumen generado automáticamente de la respuesta correcta. Esto podría estar limitado, por lo que podría querer considerar explicar la solución correcta en la retroalimentación general para la pregunta, y deshabilitar esta opción.';
 $string['save'] = 'Guardar';
 $string['savechangesandcontinueediting'] = 'Guarde cambios y continúe editando';
 $string['saved'] = 'Guardada: {$a}';
@@ -408,6 +456,7 @@ $string['specificfeedback_help'] = 'Retroalimentación que depende de las respue
 $string['started'] = 'Iniciado/a';
 $string['state'] = 'Estado';
 $string['step'] = 'Paso';
+$string['steps'] = 'Pasos';
 $string['stoponerror'] = 'Detenerse si se produce un error';
 $string['stoponerror_help'] = 'Esta opción determina si el proceso de importación se detiene cuando se detecta un error (con lo que no se importan preguntas), o si se ignoran las preguntas que contengan errores y se importan las preguntas válidas.';
 $string['submissionoutofsequence'] = 'Acceso fuera de secuencia. Por favor no haga clic en el botón de regresar del navegador web cuando esté trabajando con las preguntas del examen';
@@ -427,6 +476,7 @@ $string['technicalinfostate'] = 'Estado de pregunta: {$a}';
 $string['technicalinfovariant'] = 'Variante de pregunta: {$a}';
 $string['tofilecategory'] = 'Escribir categoría a archivo';
 $string['tofilecontext'] = 'Escribir contexto a archivo';
+$string['topfor'] = 'Superior para {$a}';
 $string['uninstallbehaviour'] = 'Desinstalar este comportamiento de pregunta';
 $string['uninstallqtype'] = 'Desinstalar este tipo de pregunta';
 $string['unknown'] = 'Desconocido';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'ru', version '3.8'.
+ * Strings for component 'choicegroup', language 'ru', version '3.11'.
  *
  * @package     choicegroup
  * @category    string
@@ -58,7 +58,7 @@ $string['choicetext'] = 'Текст варианта';
 $string['chooseaction'] = 'Выберите действие ...';
 $string['choosegroup'] = 'Выберите группу';
 $string['collapse_all_groupings'] = 'Свернуть все потоки';
-$string['completionsubmit'] = 'Показывать как завершенный, когда пользователь делает выбор';
+$string['completionsubmit'] = 'Показывать как выполненный, когда пользователь сделает выбор';
 $string['createdate'] = 'Дата создания группы';
 $string['defaultsettings'] = 'Настройки по умолчанию';
 $string['del'] = 'Переместить';

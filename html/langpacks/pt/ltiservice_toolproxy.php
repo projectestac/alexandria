@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'ltiservice_toolproxy', language 'pt', version '3.8'.
+ * Strings for component 'ltiservice_toolproxy', language 'pt', version '3.11'.
  *
  * @package     ltiservice_toolproxy
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Serviço de Proxy da Ferramenta';
-$string['privacy:metadata'] = 'O módulo Serviço de Proxy da Ferramenta não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Serviço de Proxy da Ferramenta não armazena quaisquer dados pessoais.';

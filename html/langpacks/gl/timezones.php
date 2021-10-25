@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'timezones', language 'gl', version '3.8'.
+ * Strings for component 'timezones', language 'gl', version '3.11'.
  *
  * @package     timezones
  * @category    string
@@ -190,6 +190,7 @@ $string['america/noronha'] = 'América/Noronha';
 $string['america/north_dakota/beulah'] = 'América/Dakota_do_Norte/Beulah';
 $string['america/north_dakota/center'] = 'América/Dakota_do_Norte/Centro';
 $string['america/north_dakota/new_salem'] = 'América/Dakota_do_Norte/New_Salem';
+$string['america/nuuk'] = 'América/Nuuk';
 $string['america/ojinaga'] = 'America/Ojinaga';
 $string['america/panama'] = 'América/Panamá';
 $string['america/pangnirtung'] = 'América/Pangnirtung';

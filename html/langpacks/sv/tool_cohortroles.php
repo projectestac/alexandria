@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_cohortroles', language 'sv', version '3.8'.
+ * Strings for component 'tool_cohortroles', language 'sv', version '3.11'.
  *
  * @package     tool_cohortroles
  * @category    string
@@ -38,7 +38,7 @@ $string['noassignableroles'] = 'Det finns inga roller som kan tilldelas i använ
 $string['nocohortroleassignmentssaved'] = 'Inga kohortrolltilldelningar sparades.';
 $string['onecohortroleassignmentsaved'] = 'En kohortrolltilldelning sparades.';
 $string['pluginname'] = 'Hantera kohortroller';
-$string['privacy:metadata:tool_cohortroles'] = 'Pluginmodulen Hantera kohortroller lagrar ingen personlig information.';
+$string['privacy:metadata:tool_cohortroles'] = 'Pluginmodulen Hantera kohortroller lagrar ingen personinformation.';
 $string['privacy:metadata:tool_cohortroles:cohortid'] = 'Kohort-ID';
 $string['privacy:metadata:tool_cohortroles:id'] = 'ID för rollmappningsposten';
 $string['privacy:metadata:tool_cohortroles:roleid'] = 'Roll-ID';

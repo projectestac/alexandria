@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_lpmigrate', language 'es', version '3.8'.
+ * Strings for component 'tool_lpmigrate', language 'es', version '3.11'.
  *
  * @package     tool_lpmigrate
  * @category    string
@@ -58,6 +58,7 @@ $string['migratingcourses'] = 'Migrando cursos';
 $string['missingmappings'] = 'Mapeos faltantes';
 $string['performmigration'] = 'Ejecutar la migración';
 $string['pluginname'] = 'Herramienta de migración de competencias';
+$string['privacy:metadata'] = 'El complemento de la herramienta de migración de competencias no almacena ningún dato personal.';
 $string['results'] = 'Resultados';
 $string['startdatefrom'] = 'Fecha de inicio desde';
 $string['unmappedin'] = 'Sin mapeo en {$a}';

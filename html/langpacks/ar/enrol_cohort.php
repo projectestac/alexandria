@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_cohort', language 'ar', version '3.8'.
+ * Strings for component 'enrol_cohort', language 'ar', version '3.11'.
  *
  * @package     enrol_cohort
  * @category    string
@@ -30,10 +30,10 @@ $string['assignrole'] = 'تعيين الدور';
 $string['cohort:config'] = 'تهيئة عينات الأفواج';
 $string['cohort:unenrol'] = 'إلغاء انضمام المستخدمين المعلقة حساباتهم';
 $string['creategroup'] = 'أنشئ مجموعة جديدة';
-$string['defaultgroupnametext'] = 'الفوج {$a->name} {$a->increment}';
-$string['enrolcohortsynctask'] = 'مهمة مزامنة الانضمام إلى الفوج';
-$string['instanceexists'] = 'الفوج سبقت مزامنته مع الدور المحدد';
-$string['pluginname'] = 'مزامنة فوج';
-$string['pluginname_desc'] = 'يقوم ملحق الانضمام إلى الفوج بمزامنة أعضاء الفوج مع الانضمامات إلى المقررات الدراسية.';
-$string['privacy:metadata:core_group'] = 'يمكن لملحق الانضمام إلى الفوج إنشاء مجموعة جديدة أو استعمال مجموعة موجودة لإضافة كل أعضاء الفوج.';
+$string['defaultgroupnametext'] = 'الدفعة {$a->name} {$a->increment}';
+$string['enrolcohortsynctask'] = 'مهمة مزامنة الانضمام إلى الدفعة';
+$string['instanceexists'] = 'الدفعة سبقت مزامنتها مع الدور المحدد';
+$string['pluginname'] = 'مزامنة الدفعة';
+$string['pluginname_desc'] = 'يقوم ملحق الانضمام إلى الدفعة بمزامنة أعضاء الدفعة مع الانضمامات إلى المقررات الدراسية.';
+$string['privacy:metadata:core_group'] = 'يمكن لملحق الانضمام إلى الدفعة إنشاء مجموعة جديدة أو استعمال مجموعة موجودة لإضافة كل أعضاء الدفعة.';
 $string['status'] = 'فَعَّال';

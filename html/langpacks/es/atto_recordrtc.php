@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_recordrtc', language 'es', version '3.8'.
+ * Strings for component 'atto_recordrtc', language 'es', version '3.11'.
  *
  * @package     atto_recordrtc
  * @category    string
@@ -59,7 +59,7 @@ $string['nowebrtc_title'] = 'WebRTC no soportado';
 $string['onlyaudio'] = 'Solo audio';
 $string['onlyvideo'] = 'Solo video';
 $string['pluginname'] = 'RecordRTC (GrabarRTC)';
-$string['privacy:metadata'] = 'El plugin RecordRTC no guarda información personal';
+$string['privacy:metadata'] = 'El complemento RecordRTC no almacena ningún dato personal.';
 $string['recordagain'] = 'Grabar otra vez';
 $string['recordingfailed'] = 'Fallo de grabación, inténtelo de nuevo';
 $string['recordrtc:recordaudio'] = 'Grabar audio directamente dentro del editor de texto';

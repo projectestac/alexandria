@@ -52,6 +52,15 @@
     }
 }
 
+.path-grade-report-grader {
+    span.gradepass {
+        color: $success;
+    }
+    span.gradefail {
+        color: $danger;
+    }
+}
+
 // Rubrics
 #page-grade-grading-manage {
     #activemethodselector {
@@ -70,8 +79,6 @@
         margin-bottom: 1em;
 
         .action {
-            @extend .btn;
-            @extend .btn-lg;
             display: inline-block;
             position: relative;
             vertical-align: top;
@@ -180,10 +187,8 @@
                     padding-top: 6px;
 
                     input {
-                        font-weight: bold;
                         height: 30px;
                         line-height: 1rem;
-                        padding-left: 24px;
                     }
                 }
             }
@@ -280,6 +285,17 @@
         padding-left: 24px;
     }
 
+    td.movehere {
+        padding: 0;
+    }
+
+    td.movehere a.movehere {
+        display: block;
+        width: 100%;
+        height: 2rem;
+        border: 2px dashed $gray-800;
+    }
+
     .category input[type="text"],
     .category .column-range,
     .categoryitem,
@@ -372,7 +388,7 @@
 
     &.generaltable {
         .levelodd {
-            background-color: $table-bg-accent;
+            background-color: $table-accent-bg;
         }
 
         .leveleven {
@@ -405,7 +421,7 @@
         .heading .cell,
         .cell.category,
         .avg .cell {
-            background-color: $gray-lightest;
+            background-color: $gray-100;
         }
 
         table .clickable {
@@ -422,12 +438,20 @@
 
     &.generaltable {
         .levelodd {
-            background-color: $table-bg-accent;
+            background-color: $table-accent-bg;
         }
 
         .leveleven {
             background-color: $table-bg;
         }
+    }
+
+    .column-contributiontocoursetotal,
+    .column-range,
+    .column-percentage,
+    .column-weight {
+        /*rtl:ignore*/
+        direction: ltr;
     }
 }
 

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_textarea', language 'es', version '3.8'.
+ * Strings for component 'datafield_textarea', language 'es', version '3.11'.
  *
  * @package     datafield_textarea
  * @category    string
@@ -29,3 +29,4 @@ $string['fieldtypelabel'] = 'Campo de área de texto';
 $string['maxbytes'] = 'Tamaño máximo de archivo incrustado (bytes)';
 $string['maxbytes_desc'] = 'Si se pone en cero será ilimitado por defecto';
 $string['pluginname'] = 'Área de texto';
+$string['privacy:metadata'] = 'El componente de campo de área de texto no almacena ningún dato personal, utiliza tabla definidas en mod_data.';

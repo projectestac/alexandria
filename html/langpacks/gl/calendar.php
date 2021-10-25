@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'gl', version '3.8'.
+ * Strings for component 'calendar', language 'gl', version '3.11'.
  *
  * @package     calendar
  * @category    string
@@ -55,6 +55,9 @@ $string['courses'] = 'Cursos';
 $string['customexport'] = 'Intervalo personalizado ({$a->timestart} - {$a->timeend})';
 $string['daily'] = 'Diariamente';
 $string['day'] = 'Día';
+$string['dayeventsmany'] = '{$a->num} eventos, {$a->day}';
+$string['dayeventsnone'] = 'Non hai eventos, {$a}';
+$string['dayeventsone'] = '1 evento, {$ a}';
 $string['daynext'] = 'Día seguinte';
 $string['dayprev'] = 'Día anterior';
 $string['dayviewfor'] = 'Vista diaria para:';
@@ -140,7 +143,8 @@ $string['eventtypecourse'] = 'curso';
 $string['eventtypeglobal'] = 'global';
 $string['eventtypegroup'] = 'grupo';
 $string['eventtypemodule'] = 'módulo';
-$string['eventtypesite'] = 'global';
+$string['eventtypeother'] = 'outro';
+$string['eventtypesite'] = 'sitio';
 $string['eventtypeuser'] = 'usuario';
 $string['eventview'] = 'Detalles do evento';
 $string['expired'] = 'Caducado';

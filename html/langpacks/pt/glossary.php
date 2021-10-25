@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'pt', version '3.8'.
+ * Strings for component 'glossary', language 'pt', version '3.11'.
  *
  * @package     glossary
  * @category    string
@@ -90,6 +90,7 @@ $string['commentdeleted'] = 'O comentário foi apagado';
 $string['comments'] = 'Comentários';
 $string['commentson'] = 'Comentários sobre';
 $string['commentupdated'] = 'O comentário foi atualizado';
+$string['completiondetail:entries'] = 'Adicionar entradas: {$a}';
 $string['completionentries'] = 'Número de termos que os alunos têm de criar:';
 $string['completionentriesdesc'] = 'O aluno deve criar pelo menos {$a} entrada(s)';
 $string['completionentriesgroup'] = 'Número de termos exigido';
@@ -122,12 +123,12 @@ $string['displayformat'] = 'Formato de visualização';
 $string['displayformat_help'] = 'Existem sete formatos de visualização do glossário:
 
 * Simples, estilo dicionário - Os autores não são apresentados e os anexos são mostrados como hiperligações
-* Contínuo sem autor - Os termos são exibidos sem qualquer tipo de separação além dos ícones de edição
-* Completo com autor - O glossário é exibido no formato de fórum identificando o autor e exibindo os anexos como hiperligações
-* Completo sem autor - O glossário é exibido no formato de fórum sem identificar o autor e exibindo os anexos como hiperligações
-* Enciclopédia - Idêntico ao "Completo com autor", mas os anexos tipo imagem são exibidos como imagem
-* Lista de Termos - Os termos são listados como links
-* FAQ - As palavras PERGUNTA e RESPOSTA são juntas ao termo e definição, respetivamente';
+* Contínuo sem autor - Os termos são exibidos sem qualquer tipo de separação à parte dos ícones de edição
+* Completo com autor - O glossário é exibido no formato de fórum identificando o autor e exibe os anexos como hiperligações
+* Completo sem autor - O glossário é exibido no formato de fórum sem identificar o autor e exibe os anexos como hiperligações
+* Enciclopédia - Idêntico ao "Completo com autor" mas os anexos tipo imagem são exibidos como imagem incorporadas
+* Lista de Termos - Os termos são listados como hiperligações
+* FAQ - As palavras PERGUNTA e RESPOSTA são acrescentadas, respetivamente, ao termo e à definição';
 $string['displayformatcontinuous'] = 'Contínuo sem autor';
 $string['displayformatdefault'] = 'Igual ao formato de visualização predefinido';
 $string['displayformatdictionary'] = 'Simples, estilo dicionário';
@@ -147,7 +148,7 @@ $string['editcategory'] = 'Editar categoria';
 $string['editentry'] = 'Editar termo';
 $string['editentrya'] = 'Editar entrada: {$a}';
 $string['editingcomment'] = 'A editar comentário';
-$string['entbypage'] = 'Nº de termos por página';
+$string['entbypage'] = 'N.º de termos por página';
 $string['entries'] = 'Termos';
 $string['entrieswithoutcategory'] = 'Termos sem categoria';
 $string['entry'] = 'Termo';
@@ -312,7 +313,7 @@ $string['showall_help'] = 'Se ativar esta opção, os participantes podem consul
 $string['showalphabet'] = 'Mostrar hiperligações para o alfabeto';
 $string['showalphabet_help'] = 'Se ativar esta opção, os participantes podem consultar os termos por letra inicial.';
 $string['showspecial'] = 'Mostrar a hiperligação Especial';
-$string['showspecial_help'] = 'Se ativar esta opção, os participantes podem pesquisar os termos iniciados por carateres especiais como @ e #.';
+$string['showspecial_help'] = 'Se ativar esta opção, os participantes podem pesquisar os termos iniciados por caracteres especiais, tais como @ e #.';
 $string['sortby'] = 'Ordenar por';
 $string['sortbycreation'] = 'Por data de criação';
 $string['sortbylastupdate'] = 'Por última atualização';
@@ -320,7 +321,7 @@ $string['sortchronogically'] = 'Ordenar por ordem cronológica';
 $string['special'] = 'Especial';
 $string['standardview'] = 'Consultar por alfabeto';
 $string['studentcanpost'] = 'Os alunos podem adicionar termos';
-$string['tagarea_glossary_entries'] = 'Entrada do glóssário';
+$string['tagarea_glossary_entries'] = 'Entrada do glossário';
 $string['tagsdeleted'] = 'As tags do glossário foram apagadas';
 $string['totalentries'] = 'Todos os termos';
 $string['usedynalink'] = 'Criar automaticamente hiperligações para o glossário';

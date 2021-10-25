@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_news_items', language 'de', version '3.8'.
+ * Strings for component 'block_news_items', language 'de', version '3.11'.
  *
  * @package     block_news_items
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['news_items:addinstance'] = 'Neuen Block \'Neue Ankündigungen\' hinzufügen';
-$string['news_items:myaddinstance'] = 'Neuen Block \'Neue Ankündigungen\' zum Dashboard hinzufügen';
+$string['news_items:myaddinstance'] = 'Neuen Block \'Neue Ankündigungen\' im Dashboard hinzufügen';
 $string['pluginname'] = 'Neue Ankündigungen';
-$string['privacy:metadata'] = 'Der Block \'Letzte Ankündigungen\' zeigt Daten, die im Forum gespeichert sind und speichert selber keine Daten.';
+$string['privacy:metadata'] = 'Der Block \'Neue Ankündigungen\' zeigt Daten, die im Forum gespeichert sind und speichert selber keine Daten.';

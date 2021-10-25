@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'logstore_standard', language 'eu', version '3.8'.
+ * Strings for component 'logstore_standard', language 'eu', version '3.11'.
  *
  * @package     logstore_standard
  * @category    string
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['buffersize'] = 'Idazteko buffer-aren tamaina';
 $string['jsonformat'] = 'JSON formatua';
 $string['jsonformat_desc'] = 'Erabili JSON formatu estandarra PHPko datu-serien ordez \'Bestelako bat\' datu-base eremuan.';
-$string['pluginname'] = 'Agerraldi estandarra';
+$string['pluginname'] = 'Agerraldi-biltegi estandarra';
 $string['pluginname_desc'] = 'Ekitaldiak Moodleko datu-basean gordetzen dituen agerraldi-erregistro plugin bat.';
 $string['privacy:metadata:log'] = 'Igarotako ekitaldien bilduma';
 $string['privacy:metadata:log:anonymous'] = 'Ekitaldia anonimo gisa markatua izan den edo ez';

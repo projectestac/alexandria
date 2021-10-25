@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_interactive', language 'pt', version '3.8'.
+ * Strings for component 'qbehaviour_interactive', language 'pt', version '3.11'.
  *
  * @package     qbehaviour_interactive
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Interativo com múltiplas tentativas';
-$string['privacy:metadata'] = 'O módulo Comportamento das perguntas Interativo com múltiplas tentativas não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Comportamento das perguntas Interativo com múltiplas tentativas não armazena quaisquer dados pessoais.';
 $string['triesremaining'] = 'Tentativas restantes: {$a}';
 $string['tryagain'] = 'Tentar de novo';

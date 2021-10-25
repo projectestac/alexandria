@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_tinymce', language 'pt', version '3.8'.
+ * Strings for component 'editor_tinymce', language 'pt', version '3.11'.
  *
  * @package     editor_tinymce
  * @category    string
@@ -37,7 +37,7 @@ $string['advanced:bold_desc'] = 'Negrito (Ctrl+B)';
 $string['advanced:bullist_desc'] = 'Inserir/remover lista com marcas';
 $string['advanced:charmap_delta_height'] = '';
 $string['advanced:charmap_delta_width'] = '';
-$string['advanced:charmap_desc'] = 'Inserir carater especial';
+$string['advanced:charmap_desc'] = 'Inserir caráter especial';
 $string['advanced:cleanup_desc'] = 'Limpar código incorreto';
 $string['advanced:clipboard_msg'] = 'Copiar/cortar/colar não está disponível no Mozilla e Firefox. Pretende obter mais informações sobre este assunto?';
 $string['advanced:code'] = 'Código';
@@ -114,7 +114,7 @@ $string['advanced_dlg:accessibility_usage_title'] = 'Utilização geral';
 $string['advanced_dlg:anchor_invalid'] = 'Por favor, especifique um nome de âncora válido.';
 $string['advanced_dlg:anchor_name'] = 'Nome da âncora';
 $string['advanced_dlg:anchor_title'] = 'Inserir/editar âncora';
-$string['advanced_dlg:charmap_title'] = 'Selecionar carater especial';
+$string['advanced_dlg:charmap_title'] = 'Selecionar caráter especial';
 $string['advanced_dlg:charmap_usage'] = 'Use as setas direita e esquerda para navegar';
 $string['advanced_dlg:code_title'] = 'Editor HTML';
 $string['advanced_dlg:code_wordwrap'] = 'Quebra automática de linha';
@@ -330,7 +330,7 @@ $string['common:close'] = 'Fechar';
 $string['common:edit_confirm'] = 'Pretende usar o modo de edição avançado neste campo de texto?';
 $string['common:insert'] = 'Inserir';
 $string['common:invalid_data'] = 'Erro: Inseridos valores inválidos que estão marcados a vermelho.';
-$string['common:invalid_data_min'] = '{#field} tem de ser um número maior do que {#min}';
+$string['common:invalid_data_min'] = '{#field} tem de ser um número maior que {#min}';
 $string['common:invalid_data_number'] = '{#field} tem de ser um número';
 $string['common:invalid_data_size'] = '{#field} tem de ser um número ou percentagem';
 $string['common:more_colors'] = 'Mais cores...';
@@ -344,7 +344,7 @@ $string['contextmenu:full'] = 'Justificado';
 $string['contextmenu:left'] = 'Esquerda';
 $string['contextmenu:right'] = 'Direita';
 $string['customconfig'] = 'Configuração personalizada';
-$string['customconfig_desc'] = 'Configuração personalizada avançada do TinyMCE no formato JSON, por exemplo: {"option1" : "value2", "option2" : "value2"}. Quaisquer opções especificadas aqui substituirão as definições padrão e as dos módulos.';
+$string['customconfig_desc'] = 'Configuração personalizada avançada do TinyMCE no formato JSON, por exemplo, {"option1" : "value2", "option2" : "value2"}. Quaisquer opções especificadas aqui substituirão as definições padrão e as dos módulos.';
 $string['customtoolbar'] = 'Barra de ferramentas do Editor';
 $string['customtoolbar_desc'] = 'Cada linha contém uma lista de nomes de botões separados por vírgulas, use "|" como separador de grupo, as linhas vazias serão ignoradas. Ver aqui a lista de botões predefinidos do TinyMCE <a href="{$a}" target="_blank">{$a}</a> .';
 $string['directionality:ltr_desc'] = 'Da esquerda para direita';
@@ -610,7 +610,7 @@ $string['searchreplace:search_desc'] = 'Localizar';
 $string['searchreplace_dlg:allreplaced'] = 'Foram efetuadas todas as substituições.';
 $string['searchreplace_dlg:direction'] = 'Direção';
 $string['searchreplace_dlg:down'] = 'Abaixo';
-$string['searchreplace_dlg:findnext'] = 'Localizar próximo';
+$string['searchreplace_dlg:findnext'] = 'Localizar seguinte';
 $string['searchreplace_dlg:findwhat'] = 'Localizar';
 $string['searchreplace_dlg:mcase'] = 'Diferenciar maiúsculas';
 $string['searchreplace_dlg:notfound'] = 'A pesquisa foi concluída sem resultados.';

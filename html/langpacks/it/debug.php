@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'debug', language 'it', version '3.8'.
+ * Strings for component 'debug', language 'it', version '3.11'.
  *
  * @package     debug
  * @category    string
@@ -38,7 +38,7 @@ $string['debuginfo'] = 'Informazioni di debug';
 $string['erroroccur'] = 'Si è verificato un errore durante lo svolgimento di questo processo';
 $string['invalidarraysize'] = 'La dimensione degli array è errata nei parametri di {$a}';
 $string['invalideventdata'] = 'Sono stati inviati dati non corretti di un evento: {$a}';
-$string['invalidparameter'] = 'E\' stato rilevato un parametro non valido';
+$string['invalidparameter'] = 'E\' stato rilevato un valore non valido di un parametro';
 $string['invalidresponse'] = 'E\' stato individuato un valore non valido nella risposta';
 $string['line'] = 'Linea';
 $string['missingconfigversion'] = 'La tabella di configurazione non contiene la versione, non è possibile continuare.';

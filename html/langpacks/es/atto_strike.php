@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_strike', language 'es', version '3.8'.
+ * Strings for component 'atto_strike', language 'es', version '3.11'.
  *
  * @package     atto_strike
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Tachar';
-$string['privacy:metadata'] = 'El plugin atto_strike no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_strike no almacena ningún dato personal.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'search', language 'ru', version '3.8'.
+ * Strings for component 'search', language 'ru', version '3.11'.
  *
  * @package     search
  * @category    string
@@ -83,6 +83,8 @@ $string['gradualreindex_confirm'] = 'Вы уверены, что хотите п
 $string['gradualreindex_queued'] = 'Переиндексация была запрошена для {$a->name} ({$a->count} контекстов). Эта индексация будет выполняться запланированной задачей «Построение глобального поискового индекса».';
 $string['incourse'] = 'в курсе «{$a}»';
 $string['index'] = 'Индекс';
+$string['indexwhendisabledfullnotice'] = 'В настоящее время индексирование не разрешено при отключенном поиске. Чтобы включить его, просмотрите настройку <a href="{$a-> url} ">Индексировать при отключении (searchindexwhendisabled) </a>.';
+$string['indexwhendisabledshortnotice'] = 'Индексирование недоступно.';
 $string['invalidindexerror'] = 'Папка индекса содержит не корректный индекс или пуста';
 $string['ittook'] = 'Принято';
 $string['matchingfile'] = 'Совпадения из файла <span class="filename">{$a}</span>';
@@ -120,6 +122,7 @@ $string['search:mycourse'] = 'Мои курсы';
 $string['search:section'] = 'Разделы курса';
 $string['search:user'] = 'Пользователи';
 $string['searcharea'] = 'Область поиска';
+$string['searchareacategories'] = 'Категории области поиска';
 $string['searching'] = 'Поиск в...';
 $string['searchnotpermitted'] = 'Вам не разрешено использовать поиск';
 $string['searchsetupdescription'] = 'Следующие шаги помогут Вам настроить глобальный поиск в Moodle.';

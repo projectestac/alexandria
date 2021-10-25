@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_censor', language 'zh_cn', version '3.8'.
+ * Strings for component 'filter_censor', language 'zh_cn', version '3.11'.
  *
  * @package     filter_censor
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['badwords'] = 'shit,fucked,fucker,fuck,dickhead,dick,cockhead,cock,cunt,asshole,arsehole,prick,bitch,jism,whore,slut,wanker,wank,bastard,dildo,masturbate,orgasm,penis,nigger,pussy,vagina';
 $string['filtername'] = '敏感词审查';
+$string['privacy:metadata'] = 'Word审查插件不存储任何个人数据。';

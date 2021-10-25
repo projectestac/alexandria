@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_profile', language 'es', version '3.8'.
+ * Strings for component 'availability_profile', language 'es', version '3.11'.
  *
  * @package     availability_profile
  * @category    string
@@ -40,6 +40,7 @@ $string['op_isequalto'] = 'es igual a';
 $string['op_isnotempty'] = 'no está vacío';
 $string['op_startswith'] = 'comienza con';
 $string['pluginname'] = 'Restricción por el perfil';
+$string['privacy:metadata'] = 'El complemento de restricción por perfil no almacena ningún dato personal.';
 $string['requires_contains'] = 'Su <strong>{$a->field}</strong> contiene <strong>{$a->value}</strong>';
 $string['requires_doesnotcontain'] = 'Su <strong>{$a->field}</strong> no contiene <strong>{$a->value}</strong>';
 $string['requires_endswith'] = 'Su <strong>{$a->field}</strong> termina en <strong>{$a->value}</strong>';

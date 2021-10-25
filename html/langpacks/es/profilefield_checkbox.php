@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'profilefield_checkbox', language 'es', version '3.8'.
+ * Strings for component 'profilefield_checkbox', language 'es', version '3.11'.
  *
  * @package     profilefield_checkbox
  * @category    string
@@ -26,3 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Casilla de verificación';
+$string['privacy:metadata:profilefield_checkbox:data'] = 'Datos de usuario del campo de perfil de usuario de Casilla de verificación';
+$string['privacy:metadata:profilefield_checkbox:dataformat'] = 'El formato de los datos de usuario del campo de perfil de usuario de Casilla de verificación';
+$string['privacy:metadata:profilefield_checkbox:fieldid'] = 'El ID del campo de perfil';
+$string['privacy:metadata:profilefield_checkbox:tableexplanation'] = 'Datos adicionales del perfil';
+$string['privacy:metadata:profilefield_checkbox:userid'] = 'El ID del usuario cuyos datos se almacenan en el campo de perfil de usuario de Casilla de verificación';

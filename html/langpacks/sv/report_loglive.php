@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_loglive', language 'sv', version '3.8'.
+ * Strings for component 'report_loglive', language 'sv', version '3.11'.
  *
  * @package     report_loglive
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['eventcomponent'] = 'Komponent';
-$string['eventcontext'] = 'Kontext';
+$string['eventcontext'] = 'Händelsekontext';
 $string['eventloggedas'] = '{$a->realusername} som {$a->asusername}';
 $string['eventorigin'] = 'Ursprung';
 $string['eventrelatedfullnameuser'] = 'Berörd användare';
@@ -36,6 +36,6 @@ $string['loglive:view'] = 'Visa live loggar';
 $string['nologreaderenabled'] = 'Ingen aktiv loggläsare';
 $string['pause'] = 'Pausa uppdateringar';
 $string['pluginname'] = 'Live loggar';
-$string['privacy:metadata'] = 'Pluginmodulen Live loggar lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Live loggar lagrar ingen personinformation.';
 $string['resume'] = 'Återuppta realtidsuppdateringar';
 $string['selectlogreader'] = 'Välj loggläsare';

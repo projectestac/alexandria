@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_calculatedsimple', language 'pt', version '3.8'.
+ * Strings for component 'qtype_calculatedsimple', language 'pt', version '3.11'.
  *
  * @package     qtype_calculatedsimple
  * @category    string
@@ -36,7 +36,7 @@ $string['pluginname_link'] = 'pergunta/tipo/numericavariaveisimples';
 $string['pluginnameadding'] = 'A adicionar pergunta numérica com variáveis simples';
 $string['pluginnameediting'] = 'A editar pergunta numérica com variáveis simples';
 $string['pluginnamesummary'] = 'Uma versão simplificada das perguntas numéricas com variáveis, em que os valores das variáveis são selecionados aleatoriamente de uma série de conjuntos de valores definida na própria pergunta.';
-$string['privacy:metadata'] = 'O módulo Pergunta do tipo numérica com variáveis simples não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Pergunta do tipo Numérica com variáveis simples não armazena quaisquer dados pessoais.';
 $string['setno'] = 'Conjunto de valores {$a}';
 $string['setwildcardvalues'] = 'conjunto(s) de valores das variáveis';
 $string['showitems'] = 'Mostrar';

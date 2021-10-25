@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_bold', language 'es', version '3.8'.
+ * Strings for component 'atto_bold', language 'es', version '3.11'.
  *
  * @package     atto_bold
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Negrita';
-$string['privacy:metadata'] = 'El plugin atto_bold no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_bold no almacena ningún dato personal.';

@@ -27,11 +27,11 @@ namespace core_h5p;
 
 defined('MOODLE_INTERNAL') || die();
 
-use \core_h5p\framework as framework;
-use \core_h5p\core as core;
-use \H5PStorage as storage;
-use \H5PValidator as validator;
-use \H5PContentValidator as content_validator;
+use core_h5p\local\library\autoloader;
+use Moodle\H5PContentValidator as content_validator;
+use Moodle\H5peditor;
+use Moodle\H5PStorage as storage;
+use Moodle\H5PValidator as validator;
 
 /**
  * H5P factory class.
@@ -42,6 +42,9 @@ use \H5PContentValidator as content_validator;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class factory {
+
+    /** @var \core_h5p\local\library\autoloader The autoloader */
+    protected $autoloader;
 
     /** @var \core_h5p\core The Moodle H5PCore implementation */
     protected $core;
@@ -58,12 +61,31 @@ class factory {
     /** @var content_validator The Moodle H5PContentValidator implementation */
     protected $content_validator;
 
+    /** @var editor_framework The Moodle H5peditorStorage implementation */
+    protected $editorframework;
+
+    /** @var H5peditor */
+    protected $editor;
+
+    /** @var editor_ajax The Moodle H5PEditorAjaxInterface implementation */
+    protected $editorajaxinterface;
+
     /**
      * factory constructor.
      */
     public function __construct() {
         // Loading classes we need from H5P third party library.
+        $this->autoloader = new autoloader();
         autoloader::register();
+    }
+
+    /**
+     * Returns an instance of the \core_h5p\local\library\autoloader class.
+     *
+     * @return \core_h5p\local\library\autoloader
+     */
+    public function get_autoloader(): autoloader {
+        return $this->autoloader;
     }
 
     /**
@@ -100,9 +122,9 @@ class factory {
     }
 
     /**
-     * Returns an instance of the \H5PStorage class.
+     * Returns an instance of the H5PStorage class.
      *
-     * @return \H5PStorage
+     * @return \Moodle\H5PStorage
      */
     public function get_storage(): storage {
         if (null === $this->storage) {
@@ -113,9 +135,9 @@ class factory {
     }
 
     /**
-     * Returns an instance of the \H5PValidator class.
+     * Returns an instance of the H5PValidator class.
      *
-     * @return \H5PValidator
+     * @return \Moodle\H5PValidator
      */
     public function get_validator(): validator {
         if (null === $this->validator) {
@@ -126,9 +148,9 @@ class factory {
     }
 
     /**
-     * Returns an instance of the \H5PContentValidator class.
+     * Returns an instance of the H5PContentValidator class.
      *
-     * @return \H5PContentValidator
+     * @return Moodle\H5PContentValidator
      */
     public function get_content_validator(): content_validator {
         if (null === $this->content_validator) {
@@ -136,5 +158,28 @@ class factory {
         }
 
         return $this->content_validator;
+    }
+
+    /**
+     * Returns an instance of H5Peditor class.
+     *
+     * @return H5peditor
+     */
+    public function get_editor(): H5peditor {
+        if (null === $this->editor) {
+            if (empty($this->editorframework)) {
+                $this->editorframework = new editor_framework();
+            }
+
+            if (empty($this->editorajaxinterface)) {
+                $this->editorajaxinterface = new editor_ajax();
+            }
+
+            if (empty($this->editor)) {
+                $this->editor = new H5peditor($this->get_core(), $this->editorframework, $this->editorajaxinterface);
+            }
+        }
+
+        return $this->editor;
     }
 }

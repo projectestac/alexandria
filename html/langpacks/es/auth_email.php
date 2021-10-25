@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_email', language 'es', version '3.8'.
+ * Strings for component 'auth_email', language 'es', version '3.11'.
  *
  * @package     auth_email
  * @category    string
@@ -31,3 +31,4 @@ $string['auth_emailrecaptcha'] = 'Agrega elemento de formulario de confirmación
 $string['auth_emailrecaptcha_key'] = 'Habilitar elemento reCAPTCHA';
 $string['auth_emailsettings'] = 'Ajustes';
 $string['pluginname'] = 'Identificación basada en Email';
+$string['privacy:metadata'] = 'El complemento de autenticación con auto registro basado en correo electrónico no almacena ningún dato personal.';

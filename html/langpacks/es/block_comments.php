@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_comments', language 'es', version '3.8'.
+ * Strings for component 'block_comments', language 'es', version '3.11'.
  *
  * @package     block_comments
  * @category    string
@@ -28,3 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['comments:addinstance'] = 'Añadir un nuevo bloque de comentarios';
 $string['comments:myaddinstance'] = 'Añadir un nuevo bloque de comentarios al Área Personal';
 $string['pluginname'] = 'Comentarios';
+$string['privacy:metadata:core_comment'] = 'Un registros de los comentarios añadidos.';

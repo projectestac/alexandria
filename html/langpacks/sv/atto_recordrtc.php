@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_recordrtc', language 'sv', version '3.8'.
+ * Strings for component 'atto_recordrtc', language 'sv', version '3.11'.
  *
  * @package     atto_recordrtc
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['allowedtypes'] = 'Godkända typer';
+$string['allowedtypes'] = 'Tillåtna typer';
 $string['allowedtypes_desc'] = 'Vilka inspelningsknappar som ska visas i Atto. Förutom den här inställningen finns det också funktioner som kan styra åtkomsten till knapparna till särskilda användare i särskilda sammanhang.';
 $string['attachrecording'] = 'Bifoga inspelning';
 $string['audioandvideo'] = 'Audio och video';
@@ -35,17 +35,20 @@ $string['audiortc'] = 'Spela in ljud';
 $string['gumabort'] = 'Något konstigt hände och webbkameran/mikrofonen kunde inte användas';
 $string['gumabort_title'] = 'Något hände';
 $string['gumnotallowed'] = 'Användaren måste tillåta att webbläsaren använder kameran/mikrofonen';
-$string['gumnotallowed_title'] = 'Fel tillstånd';
+$string['gumnotallowed_title'] = 'Felaktiga behörigheter';
 $string['gumnotfound'] = 'Ingen enhet för input är kopplad eller aktiverad';
 $string['gumnotfound_title'] = 'Enhet saknas';
 $string['gumnotreadable'] = 'Något hindrar webbläsarens åtkomst till kameran/mikrofonen';
 $string['gumnotreadable_title'] = 'Hårdvarufel';
-$string['gumnotsupported'] = 'Din webbläsare stödjer inte inspelning via en osäker anslutning och måste stänga programmet';
+$string['gumnotsupported'] = 'Din webbläsare stödjer inte inspelning via en osäker anslutning och måste stänga pluginmodulen';
 $string['gumnotsupported_title'] = 'Inget stöd för osäker anslutning';
-$string['gumoverconstrained_title'] = '';
-$string['gumsecurity'] = 'Din webbläsare stödjer inte inspelning via en osäker anslutning och måste stänga programmet';
+$string['gumoverconstrained'] = 'Nuvarande webbkamera/mikrofon kan inte erbjuda en ström med de nödvändiga begränsningarna';
+$string['gumoverconstrained_title'] = 'Problem med begränsningar';
+$string['gumsecurity'] = 'Din webbläsare stödjer inte inspelning via en osäker anslutning och måste stänga pluginmodulen';
 $string['gumsecurity_title'] = 'Inget stöd för osäker anslutning';
-$string['gumtype_title'] = '';
+$string['gumtype'] = 'Försökte strömma från webbkameran/mikrofonen men inga begränsningar hade angivits';
+$string['gumtype_title'] = 'Ingen begränsning angiven';
+$string['insecurealert'] = 'Din webbläsare kanske förhindrar denna pluginmodul från att fungera, såvida den inte används över HTTPS eller från localhost.';
 $string['insecurealert_title'] = 'Anslutningen är inte säker!';
 $string['nearingmaxsize'] = 'Du har uppnått maxgränsen för uppladdning av filer';
 $string['nearingmaxsize_title'] = 'Inspelningen har stoppats';
@@ -55,18 +58,21 @@ $string['nowebrtc'] = 'Din webbläsare har inget eller bara begränsat stöd fö
 $string['nowebrtc_title'] = 'Det finns inget stöd för WebRTC';
 $string['onlyaudio'] = 'Enbart ljud';
 $string['onlyvideo'] = 'Enbart video';
+$string['pluginname'] = 'RecordRTC';
 $string['privacy:metadata'] = 'Pluginet RecordRTC lagrar inga personuppgifter';
 $string['recordagain'] = 'Spela in en gång till';
 $string['recordingfailed'] = 'Inspelningen gick fel, försök igen';
+$string['recordrtc:recordaudio'] = 'Spela in ljud direkt i textredigeraren';
+$string['recordrtc:recordvideo'] = 'Spela in video direkt i textredigeraren';
 $string['settings'] = 'Inställningar för RecordRTC';
 $string['startrecording'] = 'Starta inspelningen';
 $string['stoprecording'] = 'Stoppa inspelningen';
 $string['timelimit'] = 'Tidsgräns i sekunder';
 $string['timelimit_desc'] = 'Tillåten maxlängd för ljud/videoklipp';
-$string['uploadaborted'] = 'Uppladdning avbröts:';
+$string['uploadaborted'] = 'Uppladdningen avbröts:';
 $string['uploadfailed'] = 'Fel vid uppladdning:';
 $string['uploadfailed404'] = 'Fel vid uppladdning: filen är för stor';
-$string['uploadprogress'] = 'Uppladdning färdig';
+$string['uploadprogress'] = 'slutförd';
 $string['videobitrate'] = 'Strömningshastighet - Video';
 $string['videobitrate_desc'] = 'Videoinspelningskvalitet (högre siffra innebär bättre kvalitet)';
 $string['videortc'] = 'Spela in video';

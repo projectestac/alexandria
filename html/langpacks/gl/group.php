@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'gl', version '3.8'.
+ * Strings for component 'group', language 'gl', version '3.11'.
  *
  * @package     group
  * @category    string
@@ -45,6 +45,7 @@ $string['creategrouping'] = 'Crear agrupamento';
 $string['creategroupinselectedgrouping'] = 'Crear grupo en agrupamento';
 $string['createingrouping'] = 'Crear en agrupamento';
 $string['createorphangroup'] = 'Crear un grupo orfo';
+$string['csvdelimiter'] = 'Delimitador CSV';
 $string['databaseupgradegroups'] = 'A versión dos grupos agora é a {$a}';
 $string['defaultgrouping'] = 'Agrupamento predeterminado:';
 $string['defaultgroupingname'] = 'Agrupamento';
@@ -61,10 +62,11 @@ $string['editgroupsettings'] = 'Editar os axustes de grupo';
 $string['editusersgroupsa'] = 'Editar grupos para «{$a}»';
 $string['enablemessaging'] = 'Mensaxería en grupo';
 $string['enablemessaging_help'] = 'Se está activado, os membros do grupo poden enviar mensaxes aos demais do seu grupo a través do caixón de mensaxería.';
+$string['encoding'] = 'Codificación';
 $string['enrolmentkey'] = 'Chave de matriculación';
 $string['enrolmentkey_help'] = 'Unha chave de matriculación permite que o acceso ao curso estea limitado só a aquelas persoas que coñecen a chave. De especificarse unha chave de matriculación de grupo, entón dita chave non só permitirá aos usuarios acceder ao curso, senón que faraos membros do grupo.
 
-Nota: As chaves de matriculación de grupo deben estar activadas na configuración de automatriculación e debe especificarse tamén unha chave para o curso.';
+Nota: As chaves de matriculación de grupo deben estar activadas nos axustes de automatriculación e debe especificarse tamén unha chave para o curso.';
 $string['enrolmentkeyalreadyinuse'] = 'Esta chave de matriculación xa foi empregada para outro grupo';
 $string['erroraddremoveuser'] = 'Produciuse un erro ao engadir/retirar ao usuario {$a} do grupo';
 $string['erroreditgroup'] = 'Produciuse un erro a crear ou actualizar o grupo {$a}';
@@ -118,11 +120,11 @@ $string['groupmode_help'] = 'Este axuste ten 3 opcións:
 
 O modo de grupo definido a nivel de curso é o modo predeterminado para todas as actividades do curso. Cada actividade que admita grupos pode definir o seu propio modo de grupo, aínda que se o modo de grupo está definido a nivel de curso, o axuste do modo de grupo para cada actividade é ignorado.';
 $string['groupmodeforce'] = 'Forzar o modo de grupo';
-$string['groupmodeforce_help'] = 'De forzarse o modo de grupo, entón aplicase a todas as actividades no curso o modo de grupo. Nese caso ignorase a configuración do modo de grupo.';
+$string['groupmodeforce_help'] = 'De forzarse o modo de grupo, entón aplicase a todas as actividades no curso o modo de grupo. Nese caso ignorase o axuste do modo de grupo.';
 $string['groupmy'] = 'O meu grupo';
 $string['groupname'] = 'Nome do grupo';
 $string['groupnameexists'] = 'O nome de grupo «{$a}» xa existe neste curso. Escolla outro.';
-$string['groupnotamember'] = 'Vostede non é membro deste grupo';
+$string['groupnotamember'] = 'Vaites, vostede non é membro deste grupo';
 $string['groups'] = 'Grupos';
 $string['groupscount'] = 'Grupos ({$a})';
 $string['groupsettingsheader'] = 'Grupos';
@@ -138,9 +140,9 @@ $string['hidepicture'] = 'Agochar a imaxe';
 $string['importgroups'] = 'Importar grupos';
 $string['importgroups_help'] = 'Os grupos poden importarse mediante un ficheiro de texto. O formato do ficheiro ten que ser como sigue:
 
-* Cada liña do ficheiro conten un rexistro
+* Cada liña do ficheiro contén un rexistro
 * Cada rexistro é unha serie de datos separados por comas
-* O primeiro rexistro conten unha lista de nomes de campos que definen o formato do resto do ficheiro
+* O primeiro rexistro contén unha lista de nomes de campos que definen o formato do resto do ficheiro
 * É obrigatorio o nome de campo groupname
 * Son opcionais os nomes de campo: groupidnumber, description, enrolmentkey, groupingname, enablemessaging';
 $string['importgroups_link'] = 'group/import';
@@ -166,8 +168,8 @@ $string['nogroupsassigned'] = 'Non hai grupos asignados';
 $string['nopermissionforcreation'] = 'Non é posíbel crear o grupo «{$a}», vostede non ten os permisos requiridos';
 $string['nosmallgroups'] = 'Evitar o último grupo pequeno';
 $string['notingroup'] = 'Ignorar usuarios en grupos';
-$string['notingrouping'] = '[Fora dun agrupamento]';
-$string['notingrouplist'] = '[Fora dun grupo]';
+$string['notingrouping'] = '[Fóra dun agrupamento]';
+$string['notingrouplist'] = '[Fóra dun grupo]';
 $string['nousersinrole'] = 'Non existen usuarios axeitados no rol seleccionado';
 $string['number'] = 'Número de grupos/membros';
 $string['numgroups'] = 'Número de grupos';

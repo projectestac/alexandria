@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_glossary_random', language 'pt', version '3.8'.
+ * Strings for component 'block_glossary_random', language 'pt', version '3.11'.
  *
  * @package     block_glossary_random
  * @category    string
@@ -42,7 +42,7 @@ $string['notyetglossary'] = 'Tem de ter pelo menos um glossário disponível';
 $string['pluginname'] = 'Termo aleatório do glossário';
 $string['privacy:metadata'] = 'O bloco Termo aleatório do glossário apenas mostra dados armazenados noutros locais.';
 $string['random'] = 'Termo aleatório';
-$string['refresh'] = 'Nº de dias que um termo é exibido';
+$string['refresh'] = 'N.º de dias que um termo é exibido';
 $string['select_glossary'] = 'Selecionar termos deste glossário';
 $string['showconcept'] = 'Exibir conceito (nome) de cada termo';
 $string['title'] = 'Título';

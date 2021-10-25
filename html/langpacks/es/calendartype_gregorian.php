@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendartype_gregorian', language 'es', version '3.8'.
+ * Strings for component 'calendartype_gregorian', language 'es', version '3.11'.
  *
  * @package     calendartype_gregorian
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['name'] = 'Gregoriano';
 $string['pluginname'] = 'Sistema de calendario gregoriano';
+$string['privacy:metadata'] = 'El complemento del formato de calendario gregoriano no almacena ningún dato personal.';

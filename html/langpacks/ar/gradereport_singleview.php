@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_singleview', language 'ar', version '3.8'.
+ * Strings for component 'gradereport_singleview', language 'ar', version '3.11'.
  *
  * @package     gradereport_singleview
  * @category    string
@@ -25,41 +25,42 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['all_grades'] = 'كل العلامات';
+$string['all_grades'] = 'كل التقديرات';
 $string['assessmentname'] = 'مفردة التقييم';
-$string['blanks'] = 'العلامات الفارغة';
+$string['blanks'] = 'التقديرات الفارغة';
 $string['bulkappliesto'] = 'في';
-$string['bulkfor'] = 'علامات {$a}';
+$string['bulkfor'] = 'تقديرات {$a}';
 $string['bulkinsertvalue'] = 'أدرج قيمة';
 $string['bulklegend'] = 'إدراج بالجملة';
 $string['bulkperform'] = 'تنفيذ الإدراج بالجملة';
-$string['entrypage'] = 'إمنح العلامات للمستخدم أو لمفردة التقييم';
+$string['entrypage'] = 'إمنح التقديرات للمستخدم أو لمفردة التقييم';
 $string['eventgradereportviewed'] = 'تقرير تقديرات منفرد تمت معاينته';
 $string['exclude'] = 'استبعد';
-$string['excludeall'] = 'استبعد كل العلامات';
+$string['excludeall'] = 'استبعد كل التقديرات';
 $string['excludefor'] = 'استبعد لـ {$a}';
-$string['excludenone'] = 'لا تستبعد أي علامات';
+$string['excludenone'] = 'لا تستبعد أي تقديرات';
 $string['feedbackfor'] = 'إفادة {$a}';
-$string['filtergrades'] = 'أظهر علامات {$a}.';
+$string['filtergrades'] = 'إظهار تقديرات {$a}.';
 $string['gradefor'] = 'علامة {$a}';
 $string['gradeitem'] = 'مفردة التقييم: {$a}';
 $string['gradeitemcannotbeoverridden'] = 'مفردة التقييم هذه لا يمكن تجاوزها';
-$string['gradeuser'] = 'منح العلامات للمستخدم: {$a}';
-$string['itemsperpage'] = 'فقرات لكل صفحة';
+$string['gradeuser'] = 'منح الدرجة للمستخدم: {$a}';
+$string['itemsperpage'] = 'الفقرات لكل صفحة';
 $string['noscreens'] = 'تعذر العثور على شاشة معاينة منفردة مناسبة.';
 $string['notvalid'] = 'ليست شاشة معاينة منفردة مناسبة: {$a}';
 $string['override'] = 'تجاوز';
-$string['overrideall'] = 'تجاوز كل العلامات';
+$string['overrideall'] = 'أعد كتابة كل التقديرات';
 $string['overridefor'] = 'تجاوز لـ {$a}';
 $string['overridenone'] = 'لا تتجاوز أي علامة';
+$string['overridenoneconfirm'] = 'أنت تحاول تعطيل أعادة كتابة التقديرات. هذا سيؤدي إلى فقدان كل التقديرات التي تم تجاوزها سابقاً. هل أنت متأكد من رغبتك في المتابعة؟';
 $string['pluginname'] = 'معاينة منفردة';
-$string['privacy:metadata'] = 'تقرير معاينة العلامة المنفردة يظهر فقط البيانات المخزونة في مواضع أخرى.';
+$string['privacy:metadata'] = 'تقرير معاينة الدرجة المنفردة يظهر فقط البيانات المخزونة في مواضع أخرى.';
 $string['save'] = 'احفظ';
-$string['savegrades'] = 'يجري حفظ العلامات';
-$string['savegradessuccess'] = 'تم وضع العلامات في {$a} مفردة تقييم';
+$string['savegrades'] = 'يجري حفظ التقديرات';
+$string['savegradessuccess'] = 'تم وضع التقديرات في {$a} مفردة تقييم';
 $string['selectgrade'] = 'إختر مفردة التقييم...';
 $string['selectuser'] = 'إختر المستخدم...';
 $string['singleview:view'] = 'معاينة التقرير';
-$string['summarygrade'] = 'جدول بالمستخدمين مع أعمدة تضم المدى، العلامة، الإفادة، وفيما إذا تم تجاوز علامة معينة أو استبعادها.';
-$string['summaryuser'] = 'جدول بمفردات التقييم مع أعمدة تضم تصنيف العلامة، المدى، العلامة، الإفادة، وفيما إذا تم تجاوز علامة معينة أو استبعادها.';
+$string['summarygrade'] = 'جدول بالمستخدمين مع أعمدة تضم المدى، الدرجة، الإفادة، وفيما إذا تم تجاوز درجة معينة أو استبعادها.';
+$string['summaryuser'] = 'جدول بمفردات التقييم مع أعمدة تضم تصنيف الدرجة، المدى، الدرجة، الإفادة، وفيما إذا تم تجاوز درجة معينة أو استبعادها.';
 $string['userselect'] = 'إختر النشاط';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_adaptivenopenalty', language 'es', version '3.8'.
+ * Strings for component 'qbehaviour_adaptivenopenalty', language 'es', version '3.11'.
  *
  * @package     qbehaviour_adaptivenopenalty
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Modo adaptativo (sin penalización)';
+$string['privacy:metadata'] = 'El complemento de comportamiento de preguntas del modo adaptativo (sin penalizaciones) no almacena ningún dato personal.';

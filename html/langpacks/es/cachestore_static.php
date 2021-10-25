@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cachestore_static', language 'es', version '3.8'.
+ * Strings for component 'cachestore_static', language 'es', version '3.11'.
  *
  * @package     cachestore_static
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Cache de solicitud estática';
+$string['privacy:metadata'] = 'El complemento de almacenamiento en caché de solicitudes estáticas almacena algunos datos, pero esto solo está presente durante la vida útil de una sola solicitud HTTP.';

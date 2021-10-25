@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'booktool_exportimscp', language 'pt', version '3.8'.
+ * Strings for component 'booktool_exportimscp', language 'pt', version '3.11'.
  *
  * @package     booktool_exportimscp
  * @category    string
@@ -30,4 +30,4 @@ $string['exportimscp:export'] = 'Exportar Livro como pacote de conteúdos IMS';
 $string['generateimscp'] = 'Gerar IMS CP';
 $string['nochapters'] = 'Não foram encontrados capítulos, não foi possivel exportar para o formato IMS';
 $string['pluginname'] = 'Exportar livro para IMS CP';
-$string['privacy:metadata'] = 'O módulo Gerar IMS CP não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Gerar IMS CP não armazena quaisquer dados pessoais.';

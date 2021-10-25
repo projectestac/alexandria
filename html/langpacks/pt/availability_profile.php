@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_profile', language 'pt', version '3.8'.
+ * Strings for component 'availability_profile', language 'pt', version '3.11'.
  *
  * @package     availability_profile
  * @category    string
@@ -40,7 +40,7 @@ $string['op_isequalto'] = 'igual a';
 $string['op_isnotempty'] = 'não está vazio';
 $string['op_startswith'] = 'começa com';
 $string['pluginname'] = 'Condição de acesso com base no perfil';
-$string['privacy:metadata'] = 'O módulo Condição de acesso com base no perfil não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Condição de acesso com base no perfil não armazena quaisquer dados pessoais.';
 $string['requires_contains'] = 'O campo <strong>{$a->field}</strong> contém <strong>{$a->value}</strong>';
 $string['requires_doesnotcontain'] = 'O campo <strong>{$a->field}</strong> não contém <strong>{$a->value}</strong>';
 $string['requires_endswith'] = 'O campo <strong>{$a->field}</strong> termina com <strong>{$a->value}</strong>';

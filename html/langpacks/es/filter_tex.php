@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_tex', language 'es', version '3.8'.
+ * Strings for component 'filter_tex', language 'es', version '3.11'.
  *
  * @package     filter_tex
  * @category    string
@@ -36,4 +36,5 @@ $string['pathdvisvgm'] = 'Ruta al binario de <i>dvisvgm</i>';
 $string['pathlatex'] = 'Ruta de <i>latex</i> binario';
 $string['pathmimetex'] = 'Ruta al binario de <i>mimetex</i>';
 $string['pathmimetexdesc'] = 'Moodle usará su propio binario de mimetex salvo que otra ruta válida sea especificada';
+$string['privacy:metadata'] = 'El complemento de notación TeX no almacena ningún dato personal.';
 $string['source'] = 'Fuente TeX';

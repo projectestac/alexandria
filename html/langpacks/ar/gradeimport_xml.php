@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeimport_xml', language 'ar', version '3.8'.
+ * Strings for component 'gradeimport_xml', language 'ar', version '3.11'.
  *
  * @package     gradeimport_xml
  * @category    string
@@ -36,8 +36,8 @@ $string['errorduringimport'] = 'وقع خطأ عند محاولة الاستير
 $string['fileurl'] = 'رابط الملف البعيد';
 $string['fileurl_help'] = 'حقل رابط الملف البعيد هو من أجل إحضار البيانات من مخدم بعيد، مثل أنظمة معلومات الطلبة.';
 $string['importxml'] = 'استيراد XML';
-$string['importxml_help'] = 'يمكن استيراد العلامات بواسطة ملف XML يحتوي على مُعرَّفات المستخدمين ومُعرَّفات النشاطات. للحصول على التنسيق الصحيح، قم أولاً بتصدير بعض العلامات إلى ملف XML ثم عاينه.';
+$string['importxml_help'] = 'يمكن استيراد التقديرات بواسطة ملف XML يحتوي على مُعرَّفات المستخدمين ومُعرَّفات النشاطات. للحصول على التنسيق الصحيح، قم أولاً بتصدير بعض التقديرات إلى ملف XML ثم عاينه.';
 $string['pluginname'] = 'ملف XML';
-$string['privacy:metadata'] = 'إن ملحق استيراد العلامات من XML لا يخزن أي بيانات شخصية.';
-$string['xml:publish'] = 'نشر العلامات المستوردة من XML';
-$string['xml:view'] = 'استيراد العلامات من XML';
+$string['privacy:metadata'] = 'إن ملحق استيراد التقديرات من XML لا يخزن أي بيانات شخصية.';
+$string['xml:publish'] = 'نشر التقديرات المستوردة من XML';
+$string['xml:view'] = 'استيراد التقديرات من XML';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignment_uploadsingle', language 'es', version '3.8'.
+ * Strings for component 'assignment_uploadsingle', language 'es', version '3.11'.
  *
  * @package     assignment_uploadsingle
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Subir uno';
+$string['privacy:metadata'] = 'El complemento de subir una única tarea no almacena ningún dato personal.';

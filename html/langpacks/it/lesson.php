@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lesson', language 'it', version '3.8'.
+ * Strings for component 'lesson', language 'it', version '3.11'.
  *
  * @package     lesson
  * @category    string
@@ -84,6 +84,7 @@ $string['averagescore'] = 'Punteggio medio';
 $string['averagetime'] = 'Tempo medio';
 $string['branch'] = 'Contenuto';
 $string['branchtable'] = 'Contenuto';
+$string['cachedef_overrides'] = 'Informazioni sulle personalizzazioni individuali e di gruppo';
 $string['cancel'] = 'Annulla';
 $string['cannotfindanswer'] = 'Errore: non è stato possibile trovare la risposta';
 $string['cannotfindattempt'] = 'Errore: non è stato possibile trovare il tentativo';
@@ -118,6 +119,8 @@ $string['comments'] = 'I tuoi commenti';
 $string['completed'] = 'Completata';
 $string['completederror'] = 'Completa la lezione';
 $string['completethefollowingconditions'] = 'Devi soddisfare le seguenti condizioni nella lezione <b>{$a}</b> prima di poter procedere.';
+$string['completiondetail:reachend'] = 'Raggiungere la fine dell\'attività';
+$string['completiondetail:timespent'] = 'Trascorrere almeno {$a} nell’attività';
 $string['completionendreached'] = 'Raggiungimento della fine';
 $string['completionendreached_desc'] = 'Lo studente deve raggiungere la fine della lezione per completare l\'attività';
 $string['completiontimespent'] = 'Lo studente deve stare nell\'attività per almeno';
@@ -212,6 +215,7 @@ $string['eolstudentoutoftime'] = 'Attenzione: Il tempo disponibile per svolgere 
 $string['eolstudentoutoftimenoanswers'] = 'Non hai risposto a nessuna domanda. Per questa lezione hai ottenuto 0 punti.';
 $string['essay'] = 'Testo libero';
 $string['essayemailmessage2'] = '<p>Domanda a testo libero:{$a->question}</p><p>La tua replica:<em>{$a->response}</em></p><p>Commenti valutatore:<em>{$a->comment}</em></p><p>Hai ottenuto {$a->earned} su {$a->outof} per questa domanda a testo libero.</p><p>La tua valutazione per la lezione è stata modificata in {$a->newgrade}%.</p>';
+$string['essayemailmessagesmall'] = '<p>Hai ricevuto {$a->earned} su {$a->outof} per questa domanda componimento.</p><p>Il voto della lezione {$a->lesson} è stato modificato in {$a->newgrade}%.</p>';
 $string['essayemailsubject'] = 'Valutazione disponibile per la domanda della lezione';
 $string['essaynotgradedyet'] = 'Il testo libero non è stati ancora valutato';
 $string['essayresponses'] = 'Risposte a testo libero';
@@ -220,6 +224,8 @@ $string['essayscore'] = 'Punteggio testo libero';
 $string['eventcontentpageviewed'] = 'Visualizzata pagina di contenuto';
 $string['eventessayassessed'] = 'Valutata domanda a testo libero';
 $string['eventessayattemptviewed'] = 'Visualizzata domanda a testo libero';
+$string['eventhighscoreadded'] = 'Aggiunto voto migliore';
+$string['eventhighscoresviewed'] = 'Visualizzato voto migliore';
 $string['eventlessonended'] = 'Terminata lezione';
 $string['eventlessonrestarted'] = 'Ri-iniziata lezione';
 $string['eventlessonresumed'] = 'Riavviata lezione';
@@ -319,7 +325,7 @@ $string['maxgrade'] = 'Voto massimo';
 $string['maxgrade_help'] = 'L\'impostazione determina il voto massima che può essere ottenuta nella lezione. Se il valore è impostato a 0, la lezione non apparirà nelle valutazioni.';
 $string['maximumnumberofanswersbranches'] = 'Numero massimo di risposte';
 $string['maximumnumberofanswersbranches_help'] = 'Specifica il numero max. di risposte utilizzabili nella lezione. Se la lezione usa solamente domande del tipo Vero/Falso questo valore può essere impostato a 2. E\' possibile cambiare l\'impostazione in qualsiasi momento in quanto influisce solo la vista docente, senza alterare i dati.';
-$string['maximumnumberofattempts'] = 'Numero massimo di tentativi';
+$string['maximumnumberofattempts'] = 'Numero massimo di tentativi per domanda';
 $string['maximumnumberofattempts_help'] = 'Il massimo numero di tentativi concesso per rispondere a ciascuna domanda. Rispondendo correttamente in modo ripetuto, al termine dei tentativi consentiti verrà visualizzata la pagina successiva della lezione.';
 $string['maximumnumberofattemptsreached'] = 'E\' stato raggiunto il massimo numero di tentativi - Passaggio alla pagina successiva';
 $string['mediaclose'] = 'Visualizza il pulsante chiudi';
@@ -490,6 +496,8 @@ $string['privacy:metadata:timer:starttime'] = 'Data e ora di inizio del tentativ
 $string['privacy:metadata:timer:timemodifiedoffline'] = 'Ultimo momento di registrazione dell\'attività dall\'app mobile.';
 $string['privacy:metadata:timer:userid'] = 'ID dell\'utente';
 $string['privacy:metadata:userpref:lessonview'] = 'Modalità di visualizzazione preferita per la modifica delle lezioni.';
+$string['privacy:path:essayanswers'] = 'Domande componimento';
+$string['privacy:path:essayresponses'] = 'Risposte alle damande componimento';
 $string['privacy:path:pages'] = 'Pagine';
 $string['processerror'] = 'Si è verificato un errore durante l\'elaborazione!';
 $string['progressbar'] = 'Barra di avanzamento';
@@ -585,6 +593,7 @@ $string['usepassword_help'] = 'Per accedere alla lezione sarà necessario conosc
 $string['useroverrides'] = 'Personalizzazioni individuali';
 $string['useroverridesdeleted'] = 'Personalizzazione individuale eliminata';
 $string['usersnone'] = 'Nessuno studente ha accesso alla lezione';
+$string['viewessayanswers'] = 'Visualizza le risposte componimento';
 $string['viewgrades'] = 'Visualizza risultati';
 $string['viewreports'] = 'Visualizza i {$a->attempts} tentativi completati da {$a->student}';
 $string['viewreports2'] = 'Visualizza {$a} tentativi completati';

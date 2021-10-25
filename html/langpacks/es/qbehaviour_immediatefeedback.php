@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_immediatefeedback', language 'es', version '3.8'.
+ * Strings for component 'qbehaviour_immediatefeedback', language 'es', version '3.11'.
  *
  * @package     qbehaviour_immediatefeedback
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['notcomplete'] = 'Sin finalizar';
 $string['pluginname'] = 'Retroalimentación inmediata';
+$string['privacy:metadata'] = 'El complemento de comportamiento de preguntas de comentarios inmediatos no almacena ningún dato personal.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_html', language 'es', version '3.8'.
+ * Strings for component 'atto_html', language 'es', version '3.11'.
  *
  * @package     atto_html
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'HTML';
-$string['privacy:metadata'] = 'El plugin atto_html no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_html no almacena ningún dato personal.';

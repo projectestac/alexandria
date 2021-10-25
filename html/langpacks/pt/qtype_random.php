@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_random', language 'pt', version '3.8'.
+ * Strings for component 'qtype_random', language 'pt', version '3.11'.
  *
  * @package     qtype_random
  * @category    string
@@ -30,7 +30,7 @@ $string['includingsubcategories'] = 'Incluindo subcategorias';
 $string['pluginname'] = 'Aleatória';
 $string['pluginname_help'] = 'A pergunta aleatória não é um tipo de pergunta convencional, mas sim uma maneira de inserir num teste uma pergunta escolhida aleatoriamente de uma determinada categoria.';
 $string['pluginnameediting'] = 'A editar pergunta aleatória';
-$string['privacy:metadata'] = 'O módulo Pergunta do tipo Aleatória não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Pergunta do tipo Aleatória não armazena quaisquer dados pessoais.';
 $string['randomqname'] = 'Aleatória ({$a})';
 $string['randomqnamefromtop'] = 'Pergunta aleatória com erro! Por favor, apague esta pergunta.';
 $string['randomqnamefromtoptags'] = 'Pergunta aleatória com erro! Por favor, apague esta pergunta.';

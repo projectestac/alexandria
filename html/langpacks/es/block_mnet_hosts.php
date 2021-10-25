@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_mnet_hosts', language 'es', version '3.8'.
+ * Strings for component 'block_mnet_hosts', language 'es', version '3.11'.
  *
  * @package     block_mnet_hosts
  * @category    string
@@ -29,6 +29,7 @@ $string['error_authmnetneeded'] = 'La extensión de identificación de MNet debe
 $string['error_localusersonly'] = 'Los usuarios remotos no pueden saltar a otros servidores de la red MNet desde este host';
 $string['error_roamcapabilityneeded'] = 'Los usuarios necesitan el permiso \'Pasar a una aplicación remota vía MNet\' para ver la lista de servidores de la red MNet';
 $string['mnet_hosts:addinstance'] = 'Añadir un nuevo bloque de servidores en red';
-$string['mnet_hosts:myaddinstance'] = 'Añadir un nuevo bloque de servidores en red al Área personal';
+$string['mnet_hosts:myaddinstance'] = 'Añadir un nuevo bloque de servidores de red al Área personal';
 $string['pluginname'] = 'Servidores de Red';
+$string['privacy:metadata'] = 'El bloque de servidores de red sólo permite la interacción con los servidores de red y no almacena ni exporta datos en sí.';
 $string['server'] = 'Servidor';

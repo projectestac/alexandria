@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'chat', language 'pt', version '3.8'.
+ * Strings for component 'chat', language 'pt', version '3.11'.
  *
  * @package     chat
  * @category    string
@@ -109,33 +109,34 @@ O Chat é uma ferramenta particularmente útil em situações em que as pessoas 
 $string['modulename_link'] = 'mod/chat/view';
 $string['modulenameplural'] = 'Chats';
 $string['neverdeletemessages'] = 'Nunca apagar mensagens';
+$string['nextchattime'] = 'Próxima sessão de chat:';
 $string['nextsession'] = 'Próxima sessão';
 $string['no_complete_sessions_found'] = 'Não foram encontradas sessões concluídas.';
 $string['nochat'] = 'Chat não encontrado';
 $string['noguests'] = 'O chat não está disponível para visitantes.';
-$string['nomessages'] = 'Ainda não há mensagens';
+$string['nomessages'] = 'Ainda não existem mensagens';
 $string['nopermissiontoseethechatlog'] = 'Não tem permissão para visualizar as gravações do chat';
 $string['normalkeepalive'] = 'KeepAlive';
 $string['normalstream'] = 'Stream';
 $string['noscheduledsession'] = 'Nenhuma sessão agendada';
 $string['notallowenter'] = 'Não tem permissão para entrar no chat.';
-$string['notlogged'] = 'Você não está autenticado!';
-$string['oldping'] = 'Tempo limite sem atividade';
+$string['notlogged'] = 'Não está autenticado!';
+$string['oldping'] = 'Tempo limite de sem atividade';
 $string['page-mod-chat-x'] = 'Qualquer página da atividade chat';
 $string['pastchats'] = 'Sessões de chat anteriores';
 $string['pluginadministration'] = 'Administração do Chat';
 $string['pluginname'] = 'Chat';
-$string['privacy:metadata:chat_messages_current'] = 'Sessão de chat atual. Estes dados são temporários e são apagados depois da sessão de chat ser apagada.';
+$string['privacy:metadata:chat_messages_current'] = 'Sessão atual do chat. Estes dados são temporários e são apagados depois da sessão de chat ser apagada.';
 $string['privacy:metadata:chat_users'] = 'Continuar a monitorizar que alunos estão em que salas de Chat';
 $string['privacy:metadata:chat_users:firstping'] = 'Hora do primeiro acesso à sala de Chat';
 $string['privacy:metadata:chat_users:ip'] = 'IP do utilizador';
-$string['privacy:metadata:chat_users:lang'] = 'Linguagem do utilizador';
+$string['privacy:metadata:chat_users:lang'] = 'Idioma do utilizador';
 $string['privacy:metadata:chat_users:lastmessageping'] = 'Hora da última mensagem nesta sala de Chat';
 $string['privacy:metadata:chat_users:lastping'] = 'Hora do último acesso à sessão de chat';
 $string['privacy:metadata:chat_users:userid'] = 'O ID do utilizador';
-$string['privacy:metadata:chat_users:version'] = 'Como é que os utilizadores acedem ao chat (sockets/basic/ajax/header_js)';
+$string['privacy:metadata:chat_users:version'] = 'Como os utilizadores acedem ao chat (sockets/basic/ajax/header_js)';
 $string['privacy:metadata:messages'] = 'O registo de mensagens enviadas durante a sessão de chat';
-$string['privacy:metadata:messages:issystem'] = 'Se a mensagem é uma mensagem gerada pelo sistema';
+$string['privacy:metadata:messages:issystem'] = 'Se a mensagem é, ou não, uma mensagem gerada pelo sistema';
 $string['privacy:metadata:messages:message'] = 'A mensagem';
 $string['privacy:metadata:messages:timestamp'] = 'A hora em que a mensagem foi enviada.';
 $string['privacy:metadata:messages:userid'] = 'O ID de utilizador do autor da mensagem';
@@ -154,13 +155,14 @@ $string['send'] = 'Enviar';
 $string['sending'] = 'A enviar';
 $string['serverhost'] = 'Nome do servidor';
 $string['serverip'] = 'IP do servidor';
-$string['servermax'] = 'Num. máx. utilizadores';
+$string['servermax'] = 'Máximo de utilizadores';
 $string['serverport'] = 'Porta do servidor';
 $string['sessions'] = 'Sessões de chat';
 $string['sessionstart'] = 'A próxima sessão de chat será {$a->date} (daqui a {$a->fromnow})';
+$string['sessionstartsin'] = 'A próxima sessão de chat começará {$a} a partir de agora.';
 $string['strftimemessage'] = '%H:%M';
 $string['studentseereports'] = 'Todos podem ver as sessões anteriores';
-$string['studentseereports_help'] = 'Se definir como Não, apenas os utilizadores com a permissão mod/chat:readlog podem ver as gravações das sessões';
+$string['studentseereports_help'] = 'Se definir como Não, apenas os utilizadores com a permissão \'mod/chat:readlog\' podem ver as gravações das sessões';
 $string['talk'] = 'Falar';
 $string['updatemethod'] = 'Método de atualização';
 $string['updaterate'] = 'Frequência de atualização:';

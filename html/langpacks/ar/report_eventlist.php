@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_eventlist', language 'ar', version '3.8'.
+ * Strings for component 'report_eventlist', language 'ar', version '3.11'.
  *
  * @package     report_eventlist
  * @category    string
@@ -54,7 +54,7 @@ $string['participating'] = 'المشاركة';
 $string['pluginname'] = 'قائمة الأحداث';
 $string['privacy:metadata'] = 'إن ملحق قائمة الأحداث لا يخزن أي بيانات شخصية.';
 $string['read'] = 'إقرأ';
-$string['relatedobservers'] = 'الملاحق المراقبة لهذا الحدث';
+$string['relatedobservers'] = 'الإضافات المراقبة لهذا الحدث';
 $string['since'] = 'منذ';
 $string['teaching'] = 'التدريس';
 $string['typedeclaration'] = 'عوامل الحدث الأخرى';

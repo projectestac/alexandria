@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'profilefield_menu', language 'es', version '3.8'.
+ * Strings for component 'profilefield_menu', language 'es', version '3.11'.
  *
  * @package     profilefield_menu
  * @category    string
@@ -26,3 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Menú desplegable';
+$string['privacy:metadata:profilefield_menu:data'] = 'Datos de usuario del campo de perfil de usuario de Menú desplegable';
+$string['privacy:metadata:profilefield_menu:dataformat'] = 'El formato de los datos de usuario del campo de perfil de usuario de Menú desplegable';
+$string['privacy:metadata:profilefield_menu:fieldid'] = 'El ID del campo de perfil';
+$string['privacy:metadata:profilefield_menu:tableexplanation'] = 'Datos adicionales del perfil';
+$string['privacy:metadata:profilefield_menu:userid'] = 'El ID del usuario cuyos datos se almacenan en el campo de perfil de usuario de Menú desplegable';

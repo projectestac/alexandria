@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_boxnet', language 'pt', version '3.8'.
+ * Strings for component 'repository_boxnet', language 'pt', version '3.11'.
  *
  * @package     repository_boxnet
  * @category    string
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['apikey'] = 'Chave da API';
 $string['boxnet:view'] = 'Ver repositório Box';
-$string['cannotcreatereference'] = 'Não é possível criar uma referência, não há permissões suficientes para compartilhar o ficheiro no Box.';
+$string['cannotcreatereference'] = 'Não é possível criar uma referência por não haver permissões suficientes para partilhar o ficheiro no Box.';
 $string['clientid'] = 'ID do Cliente';
 $string['clientsecret'] = 'Senha do Cliente';
 $string['configplugin'] = 'Configurar Box';
@@ -38,8 +38,7 @@ $string['nullfilelist'] = 'Este repositório não contém ficheiros';
 $string['password'] = 'Senha';
 $string['pluginname'] = 'Box';
 $string['pluginname_help'] = 'Repositório em Box';
-$string['privacy:metadata:repository_boxnet'] = 'O módulo repositório Box não armazena dados pessoais, mais transmite dados do utilizador do
-Moodle para o sistema remoto.';
+$string['privacy:metadata:repository_boxnet'] = 'O módulo repositório Box não armazena quaisquer dados pessoais, mas transmite dados do utilizador do Moodle para o sistema remoto.';
 $string['privacy:metadata:repository_boxnet:query'] = 'Pesquisa de texto no repositório Box do utilizador';
 $string['saved'] = 'A informação box foi gravada';
 $string['shareurl'] = 'Partilhar URL';

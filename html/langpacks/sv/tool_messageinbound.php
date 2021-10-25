@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_messageinbound', language 'sv', version '3.8'.
+ * Strings for component 'tool_messageinbound', language 'sv', version '3.11'.
  *
  * @package     tool_messageinbound
  * @category    string
@@ -48,7 +48,7 @@ $string['invalid_recipient_handler'] = 'Om ett giltigt meddelande tas emot men d
 Den här hanteraren behandlar dessa svar.
 
 Det är inte möjligt att inaktivera avsändarverifiering av den här hanteraren eftersom användaren kan svara från en felaktig e-postadress om deras e-postklientkonfiguration är felaktig.';
-$string['invalid_recipient_handler_name'] = 'Ogiltig avsändare-hanterare';
+$string['invalid_recipient_handler_name'] = 'Ogiltig avsändare';
 $string['invalidrecipientdescription'] = 'Meddelandet "{$a->subject}" kunde inte autentiseras, eftersom det skickades från en annan e-postadress än i din användarprofil. För att meddelandet ska autentiseras måste du svara på det här meddelandet.';
 $string['invalidrecipientdescriptionhtml'] = 'Meddelandet "{$a->subject}" kunde inte autentiseras, eftersom det skickades från en annan e-postadress än i din användarprofil. För att meddelandet ska autentiseras måste du svara på det här meddelandet.';
 $string['invalidrecipientfinal'] = 'Meddelandet "{$a->subject}" kunde inte autentiseras. Vänligen kontrollera att du skickar meddelandet från samma adress som i din användarprofil.';
@@ -87,8 +87,8 @@ Om du inte vill fortsätta få dessa notiser kan du ändra dina personliga medde
 $string['messageprocessingsuccesshtml'] = '{$a->html}
 <p>Om du inte vill fortsätta få dessa notiser kan du <a href="{$a->messagepreferencesurl}">ändra dina personliga meddelandeinställningar</a>.</p>';
 $string['messageprovider:invalidrecipienthandler'] = 'Meddelande för att bekräfta att ett inkommande meddelande kom från dig';
-$string['messageprovider:messageprocessingerror'] = 'Varning när ett inkommande meddelande inte kunnat bearbetas.';
-$string['messageprovider:messageprocessingsuccess'] = 'Bekräftelse att ett meddelande har bearbetats framgångsrikt.';
+$string['messageprovider:messageprocessingerror'] = 'Varning när ett inkommande meddelande inte kunnat bearbetas';
+$string['messageprovider:messageprocessingsuccess'] = 'Bekräftelse att ett meddelande har bearbetats';
 $string['name'] = 'Namn';
 $string['noencryption'] = 'Av - ingen kryptering';
 $string['noexpiry'] = 'Förfaller ej';

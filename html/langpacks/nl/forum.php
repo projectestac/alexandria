@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forum', language 'nl', version '3.8'.
+ * Strings for component 'forum', language 'nl', version '3.11'.
  *
  * @package     forum
  * @category    string
@@ -25,8 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['actionsforgraderinterface'] = 'Acties voor de beoordelingsinterface';
+$string['actionsforgraderinterface'] = 'Acties voor de beoordeel-interface';
 $string['actionsforpost'] = 'Acties voor bericht';
+$string['activitydate:due'] = 'Tegen:';
 $string['activityoverview'] = 'Er zijn nieuwe forumberichten';
 $string['addanewdiscussion'] = 'Voeg een nieuw discussieonderwerp toe';
 $string['addanewquestion'] = 'Voeg een nieuwe vraag toe';
@@ -106,7 +107,10 @@ $string['clicktounfavourite'] = 'Jij hebt deze discussie als favoriet gemarkeerd
 $string['clicktounlockdiscussion'] = 'Klik om deze discussie te ontgrendelen';
 $string['clicktounsubscribe'] = 'Je bent ingeschreven op deze discussie. Klik om uit te schrijven.';
 $string['close'] = 'Sluiten';
-$string['closegrader'] = 'Beoordeling sluiten';
+$string['closegrader'] = 'Beoordeler sluiten';
+$string['completiondetail:discussions'] = 'Start discussies: {$a}';
+$string['completiondetail:posts'] = 'Maak forumberichten: {$a}';
+$string['completiondetail:replies'] = 'Post antwoorden: {$a}';
 $string['completiondiscussions'] = 'Leerling moet discussies starten:';
 $string['completiondiscussionsdesc'] = 'Leerling moet minstens {$a} discussie(s) maken';
 $string['completiondiscussionsgroup'] = 'Discussies vereist';
@@ -329,7 +333,7 @@ $string['forum:viewsubscribers'] = 'Bekijk wie e-mail ontvangt';
 $string['forumauthorhidden'] = 'Auteur (verborgen)';
 $string['forumblockingalmosttoomanyposts'] = 'Je nadert de berichtenlimiet. Je hebt {$a->numposts} berichten in de afgelopen {$a->blockperiod} gepost en de limiet is {$a->blockafter} berichten.';
 $string['forumbodydeleted'] = 'De inhoud van dit forumbericht is verwijderd en kan niet meer getoond worden.';
-$string['forumbodyhidden'] = 'Je kunt dit bericht niet bekijken. Mogelijke oorzaken: je hebt zelf nog niets gepost in deze discussie, de maximale tijd tussen twee bewerkingen is nog niet verstreken, de discussie is nog niet gestart of de discussie is afgelopen.';
+$string['forumbodyhidden'] = 'Dit bericht is nu verborgen, waarschijnlijk omdat  je hebt zelf nog niets gepost hebt in deze discussie en de notificatie van je bericht nog niet verzonden is. Een andere mogelijkheid is dat de huidige tijd niet in de periode valt die ingesteld is om dit bericht te tonen.';
 $string['forumgrader'] = 'Forumbeoordelaar';
 $string['forumgradingnavigation'] = 'Forum beoordelen navigatie';
 $string['forumgradingpanel'] = 'Forum beoordelingspaneel';
@@ -356,13 +360,14 @@ $string['grade_forum_name'] = 'Hele forum';
 $string['grade_forum_title'] = 'Cijfer';
 $string['grade_rating_name'] = 'Beoordeling';
 $string['graded'] = 'Beoordeeld';
+$string['gradedby'] = 'Beoordeeld door';
 $string['gradeforrating'] = 'Cijfer voor beoordeling: {$a->str_long_grade}';
 $string['gradeforratinghidden'] = 'Cijfer voor beoordeling verborgen';
 $string['gradeforwholeforum'] = 'Cijfer voor forum: {$a->str_long_grade}';
 $string['gradeforwholeforumhidden'] = 'Cijfer voor forum verborgen';
 $string['gradeitem:forum'] = 'Forum';
-$string['gradeitemnameforrating'] = 'Beoordelingscijfer voor {$a->name}';
-$string['gradeitemnameforwholeforum'] = 'Volledig forumcijfer voor {$a->name}';
+$string['gradeitemnameforrating'] = 'Beoordeling voor {$a->name}';
+$string['gradeitemnameforwholeforum'] = 'Volledige forumbeoordeling voor {$a->name}';
 $string['grades:gradesavedfor'] = 'Cijfer bewaard voor  {$a->fullname}';
 $string['grades:gradesavefailed'] = 'Kon cijfer voor {$a->fullname} niet bewaren: {$a->error}';
 $string['gradeusers'] = 'Beoordeel gebruikers';
@@ -404,7 +409,7 @@ Gebruikers met de mogelijkheid om te antwoorden op gesloten discussies kunnen ee
 $string['locked'] = 'Vergrendeld';
 $string['lockupdated'] = 'De vergrendelingsoptie is bijgewerkt.';
 $string['longpost'] = 'Lang bericht';
-$string['mailnow'] = 'Stuur e-mail onmiddellijk';
+$string['mailnow'] = 'Verstuur meldingen over dit forumbericht zonder vertraging voor bewerken';
 $string['managesubscriptionsoff'] = 'Beëindig het beheren van inschrijvingen';
 $string['managesubscriptionson'] = 'Beheer abonnementen';
 $string['manydiscussions'] = 'Discussies per pagina';
@@ -463,7 +468,7 @@ $string['more'] = 'meer';
 $string['movedmarker'] = '(Verplaatst)';
 $string['movethisdiscussionlabel'] = 'Verplaats de huidige discussie naar het opgegeven forum';
 $string['movethisdiscussionto'] = 'Verplaats deze discussie naar ...';
-$string['mustprovidediscussionorpost'] = 'You moet ofwel een discussie ID of een bericht ID geven om te exporteren';
+$string['mustprovidediscussionorpost'] = 'Je moet ofwel een discussie ID of een bericht ID geven om te exporteren';
 $string['myprofileotherdis'] = 'Forumdiscussies';
 $string['myprofileowndis'] = 'Mijn forumdiscussies';
 $string['myprofileownpost'] = 'Mijn forumberichten';
@@ -537,10 +542,14 @@ $string['postbymailsuccess_html'] = 'Je antwoord <a href="{$a->discussionurl}">{
 $string['postbyuser'] = '{$a->post} door {$a->user}';
 $string['postincontext'] = 'Bekijk dit bericht in zijn context';
 $string['postisprivatereply'] = 'Dit is een privé-antwoord. Het is niet zichtbaar voor andere deelnemers.';
+$string['postmailinfo'] = 'Dit is een kopie van een bericht dat op de {$a} website is toegevoegd.
+
+Klik op deze link om jouw antwoord via de website toe te voegen:';
 $string['postmailinfolink'] = 'Dit is een kopie van een bericht, gepost in {$a->coursename}.
 
 Klik op volgende link om te antwoorden: {$a->replylink}';
 $string['postmailnow'] = '<p>Dit bericht zal onmiddellijk verstuurd worden naar iedereen die e-mail van dit forum wil.</p>';
+$string['postmailreply'] = 'Klik op deze link om te reageren: {$a}';
 $string['postmailsubject'] = '{$a->courseshortname}: {$a->subject}';
 $string['postrating1'] = 'Vooral Separate Knowing';
 $string['postrating2'] = 'Separate en Connected Knowing';
@@ -742,7 +751,7 @@ $string['timedvisible'] = 'Getimede status: Zichtbaar voor alle gebruikers';
 $string['timestartenderror'] = 'De datum van het einde kan niet voor de startdatum zijn.';
 $string['togglediscussionmenu'] = 'Discussiemenu in-/uitschakelen';
 $string['togglefullscreen'] = 'Volledig scherm in-/uitschakelen';
-$string['togglesettingsdrawer'] = 'Schakel instellingenlade';
+$string['togglesettingsdrawer'] = 'Schakel instellingenpaneel';
 $string['trackforum'] = 'Volg ongelezen berichten op';
 $string['tracking'] = 'Volgen';
 $string['trackingoff'] = 'Uit';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_activity_results', language 'es', version '3.8'.
+ * Strings for component 'block_activity_results', language 'es', version '3.11'.
  *
  * @package     block_activity_results
  * @category    string
@@ -63,6 +63,7 @@ $string['error_nogroupsexist'] = 'Error: el bloque está configurado para mostra
 $string['error_unsupportedgradetype'] = 'Error: la actividad seleccionada usa un método de calificación que no es compatible con este bloque.';
 $string['notyetgraded'] = 'Sin calificar por el momento';
 $string['pluginname'] = 'Resultados de la actividad';
+$string['privacy:metadata'] = 'El bloque de resultados de actividades sólo muestra información almacenada en otras localizaciones.';
 $string['unknown'] = 'Escala desconocida';
 $string['worstgrade'] = 'Calificación más baja:';
 $string['worstgrades'] = '{$a} calificaciones más bajas:';

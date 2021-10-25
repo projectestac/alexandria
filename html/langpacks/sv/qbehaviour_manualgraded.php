@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_manualgraded', language 'sv', version '3.8'.
+ * Strings for component 'qbehaviour_manualgraded', language 'sv', version '3.11'.
  *
  * @package     qbehaviour_manualgraded
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Manuellt betygsatt';
-$string['privacy:metadata'] = 'Pluginmodulen för frågebeteende Manuellt betygsatt lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen för frågebeteende Manuellt betygsatt lagrar ingen personinformation.';

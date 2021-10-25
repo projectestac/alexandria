@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_local', language 'es', version '3.8'.
+ * Strings for component 'repository_local', language 'es', version '3.11'.
  *
  * @package     repository_local
  * @category    string
@@ -32,4 +32,5 @@ $string['local:view'] = 'Ver repositorio del servidor';
 $string['notitle'] = 'sin título';
 $string['pluginname'] = 'Archivos locales';
 $string['pluginname_help'] = 'Repositorio en el servidor local de Moodle';
+$string['privacy:metadata'] = 'El plugin de repositorio de servidor de archivos no almacena ni envía ningún dato personal.';
 $string['remember'] = 'Recordarme';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_fontcolor', language 'sv', version '3.8'.
+ * Strings for component 'atto_fontcolor', language 'sv', version '3.11'.
  *
  * @package     atto_fontcolor
  * @category    string
@@ -25,5 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Textfärg';
-$string['privacy:metadata'] = 'Pluginmodulen atto_fontcolor lagrar ingen personlig information.';
+$string['color_black'] = 'Svart';
+$string['color_blue'] = 'Blå';
+$string['color_green'] = 'Grön';
+$string['color_red'] = 'Röd';
+$string['color_white'] = 'Vit';
+$string['color_yellow'] = 'Gul';
+$string['pluginname'] = 'Teckenfärg';
+$string['privacy:metadata'] = 'Pluginmodulen atto_fontcolor lagrar ingen personinformation.';

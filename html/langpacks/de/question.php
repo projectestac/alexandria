@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'question', language 'de', version '3.8'.
+ * Strings for component 'question', language 'de', version '3.11'.
  *
  * @package     question
  * @category    string
@@ -76,7 +76,7 @@ $string['cannotwriteto'] = 'Die exportierten Fragen können nicht nach "{$a}" ge
 $string['categories'] = 'Kategorien';
 $string['category'] = 'Kategorie';
 $string['categorycurrent'] = 'Aktuelle Kategorie';
-$string['categorycurrentuse'] = 'Diese Kategorie benutzen';
+$string['categorycurrentuse'] = 'Diese Kategorie verwenden';
 $string['categorydoesnotexist'] = 'Diese Kategorie gibt es nicht';
 $string['categoryinfo'] = 'Kategoriebeschreibung';
 $string['categorymove'] = 'Die Kategorie \'{$a->name}\' enthält {$a->count} Fragen (von denen einige als verborgene Fragen oder Zufallsfragen noch irgendwo in einem Test benutzt werden). Wählen Sie eine Kategorie aus, um sie dorthin zu verschieben.';
@@ -91,7 +91,7 @@ $string['check'] = 'Prüfen';
 $string['chooseqtypetoadd'] = 'Markieren Sie den gewünschten Fragetyp';
 $string['clearwrongparts'] = 'Falsche Antworten löschen';
 $string['clickflag'] = 'Frage markieren';
-$string['clicktoflag'] = 'Klicken um die Frage zu markieren';
+$string['clicktoflag'] = 'Diese Frage als Referenz markieren';
 $string['clicktounflag'] = 'Markierung entfernen';
 $string['clickunflag'] = 'Markierung entfernen';
 $string['closepreview'] = 'Vorschau schließen';
@@ -109,7 +109,7 @@ $string['correctfeedback'] = 'Für jede richtige Antwort';
 $string['correctfeedbackdefault'] = 'Die Antwort ist richtig.';
 $string['created'] = 'Erstellt';
 $string['createdby'] = 'Erstellt von';
-$string['createdmodifiedheader'] = 'Erstellt / Verändert';
+$string['createdmodifiedheader'] = 'Erstellt / zuletzt gespeichert';
 $string['createnewquestion'] = 'Neue Frage erstellen...';
 $string['cwrqpfs'] = 'Zufallsfragen, die Fragen aus der Unterkategorie auswählen.';
 $string['cwrqpfsinfo'] = '<p>Beim Update auf Moodle 1.9 werden Kategorien, in denen Fragen abgelegt wurden, unterschiedlichen Kontexten zugeordnet. Bei einigen Kategorien kann es vorkommen, dass der Status der Freigabe dabei angepasst werden muss. Dies ist in dem seltenen Fall erforderlich, dass Sie die Funktion zufällig ausgewählte Fragen verwenden und diese aus Kategorien stammen, die sowohl nur in Ihem Kurs, als auch in anderen Kursen verwandt werden. Dies ist in diesem System der Fall. Die spassiert wenn auf unterschiedlichen Hierarchieebenen unterschiedliche Freigabewerte existieren.</p>
@@ -148,7 +148,7 @@ $string['editingquestion'] = 'Frage bearbeiten';
 $string['editquestion'] = 'Frage bearbeiten';
 $string['editquestions'] = 'Fragen bearbeiten';
 $string['editthiscategory'] = 'Diese Kategorie bearbeiten';
-$string['emptyxml'] = 'Unbekannter Fehler- leere imsmanifest.xml-Datei.';
+$string['emptyxml'] = 'Unbekannter Fehler - leere Datei imsmanifest.xml.';
 $string['enabled'] = 'aktiv';
 $string['erroraccessingcontext'] = 'Kein Zugriff auf den Kontext';
 $string['errordeletingquestionsfromcategory'] = 'Fehler beim Löschen von Fragen in der Kategorie {$a}.';
@@ -159,7 +159,7 @@ $string['errorduringregrade'] = 'Frage {$a->qid} konnte nicht neu bewertet werde
 $string['errorfilecannotbecopied'] = 'Fehler: Datei {$a} kann nicht kopiert werden.';
 $string['errorfilecannotbemoved'] = 'Fehler: Datei {$a} kann nicht verschoben werden.';
 $string['errorfileschanged'] = 'Fehler: Dateien, die in Fragen verwendet werden, haben sich seit der letzten Anzeige geändert. ';
-$string['erroritemappearsmorethanoncewithdifferentweight'] = 'Frage ({$a}) erscheint mehrfach im Test mit unterschiedlichen Gewichtungen. Dies wird bei der Erstellung der Statistik nicht unterstützt und kann zu unzuverlässigen Auswertungen führen.';
+$string['erroritemappearsmorethanoncewithdifferentweight'] = 'Die Frage ({$a}) erscheint mehrfach im Test mit unterschiedlichen Gewichtungen. Dies wird für der Erstellung der Statistik nicht unterstützt und könnte zu unzuverlässigen Auswertungen führen.';
 $string['errormanualgradeoutofrange'] = 'Die Bewertung {$a->grade} für die Frage {$a->name} liegt nicht zwischen \'0\' und {$a->maxgrade}. Punkte und Kommentare wurde nicht gespeichert.';
 $string['errormovingquestions'] = 'Fehler beim Verschieben von Fragen mit Ids {$a}.';
 $string['errorpostprocess'] = 'Fehler beim Post-Processing';
@@ -174,7 +174,7 @@ $string['eventquestioncategorydeleted'] = 'Fragenkategorie gelöscht';
 $string['eventquestioncategorymoved'] = 'Fragenkategorie verschoben';
 $string['eventquestioncategoryupdated'] = 'Fragenkategorie aktualisiert';
 $string['eventquestioncategoryviewed'] = 'Fragenkategorie angezeigt';
-$string['eventquestioncreated'] = 'Fragenkategorie angelegt';
+$string['eventquestioncreated'] = 'Frage angelegt';
 $string['eventquestiondeleted'] = 'Frage gelöscht';
 $string['eventquestionmoved'] = 'Frage verschoben';
 $string['eventquestionsexported'] = 'Frage exportiert';
@@ -321,7 +321,7 @@ $string['missingcourseorcmid'] = 'courseid oder cmid muss für print_question  a
 $string['missingcourseorcmidtolink'] = 'courseid oder cmid erforderlich, um get_question_edit_link anzuzeigen.';
 $string['missingimportantcode'] = 'Für diesem Fragetyp fehlt wichtiger Code: {$a}.';
 $string['missingoption'] = 'In der Lückentext-Frage {$a} fehlen Optionen.';
-$string['modified'] = 'Verändert';
+$string['modified'] = 'Zuletzt gespeichert';
 $string['move'] = 'Aus {$a} verschieben und Links ändern.';
 $string['movecategory'] = 'Kategorie verschieben';
 $string['movedquestionsandcategories'] = 'Fragen und Fragenkategorien wurden von {$a->oldplace} nach {$a->newplace} verschoben.';
@@ -389,9 +389,11 @@ $string['penaltyfactor_help'] = 'Diese Option legt fest, welcher Anteil der erre
 
 Der Wert sollte zwischen 0 und 1 liegen. Der Wert "1" bedeutet: Nur bei einer richtigen Antwort im ersten Versuch gibt es Punkte. Der Wert "0" bedeutet: Bei jedem Versuch – auch dem wiederholten – kann die volle Punktzahl erreicht werden. Der Wert "0,1" bedeutet: Beim zweiten Versuch werden für die richtige Antwort nur 90 % der maximal erreichbaren Punktzahl des ersten Versuchs gewertet.';
 $string['penaltyforeachincorrecttry'] = 'Abzug für jeden falschen Versuch';
-$string['penaltyforeachincorrecttry_help'] = 'Sofern der Test im Modus \'Mehrfachbeantwortung (mit Hinweisen)\' oder im Modus \'Mehrfachbeantwortung (mit Abzügen)\' durchgeführt wird, bei dem die Teilnehmer/innen mehrere Versuche zur richtigen Beantwortung haben, kontrolliert diese Option die Höhe des Abzugs für jeden falschen Versuch.
+$string['penaltyforeachincorrecttry_help'] = 'Sofern der Test im Modus \'Mehrfachbeantwortung (mit Hinweisen)\' oder im Modus \'Mehrfachbeantwortung (mit Abzügen)\' durchgeführt wird, bei dem die Teilnehmer/innen mehrere Versuche zur Beantwortung haben, steuert diese Option die Abzüge für jeden falschen Versuch.
 
-Der Abzug wird dabei als Prozentzahl zur erreichbaren Punktzahl angegeben: Gäbe es beispielsweise 3 Punkte und der Abzug wäre 0.3333333, würde eine richtige Antwort im ersten Versuch mit 3 Punkten gewertet, im zweiten Versuch mit 2 Punkten und im dritten Versuch nur noch mit einem Punkt.';
+Der Abzug ist ein Anteil der erreichbaren Punktzahl.  Wenn die Frage z.B. drei Punkte wert ist und der Abzug 0,3333333 beträgt, würde eine richtige Antwort im ersten Versuch mit 3 Punkten gewertet, im zweiten Versuch mit 2 Punkten und im dritten Versuch nur noch mit einem Punkt.
+
+Bei einigen mehrteiligen Fragen wird diese Bewertungslogik separat auf jeden Teil der Frage angewendet. Die Details hängen von der Art der Frage ab und können kompliziert sein, aber das Prinzip besteht darin, den Teilnehmer/innen ihr Wissen so fair wie möglich anzuerkennen.';
 $string['permissionedit'] = 'Diese Frage bearbeiten';
 $string['permissionmove'] = 'Diese Frage verschieben';
 $string['permissionsaveasnew'] = 'Diese Frage  als neue Frage speichern';
@@ -459,8 +461,8 @@ $string['restoremultipletopcats'] = 'Die Sicherungsdatei enthält mehr als eine 
 $string['reviewresponse'] = 'Antworten einsehen';
 $string['rightanswer'] = 'Richtige Antwort';
 $string['rightanswer_help'] = 'Automatisch erzeugte Zusammenfassung der richtigen Antworten. Wenn Sie die richtige Lösung im Gesamtfeedback noch einmal erklären möchten, schalten Sie diese Option aus.';
-$string['save'] = 'Sichern';
-$string['savechangesandcontinueediting'] = 'Sichern und weiter bearbeiten';
+$string['save'] = 'Speichern';
+$string['savechangesandcontinueediting'] = 'Speichern und weiter bearbeiten';
 $string['saved'] = 'Gespeichert: {$a}';
 $string['saveflags'] = 'Den Status der Markierungen speichern';
 $string['selectacategory'] = 'Eine Kategorie wählen:';

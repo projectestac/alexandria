@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_admin_bookmarks', language 'de', version '3.8'.
+ * Strings for component 'block_admin_bookmarks', language 'de', version '3.11'.
  *
  * @package     block_admin_bookmarks
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['admin_bookmarks:addinstance'] = 'Neuen Block \'Lesezeichen\' hinzufügen';
-$string['admin_bookmarks:myaddinstance'] = 'Neuen Block \'Lesezeichen\' zum Dashboard hinzufügen';
+$string['admin_bookmarks:myaddinstance'] = 'Neuen Block \'Lesezeichen\' im Dashboard hinzufügen';
 $string['pluginname'] = 'Lesezeichen';
 $string['privacy:metadata'] = 'Der Block Admin-Lesezeichen zeigt nur Daten an, die an anderen Orten gespeichert sind.';

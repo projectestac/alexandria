@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'folder', language 'it', version '3.8'.
+ * Strings for component 'folder', language 'it', version '3.11'.
  *
  * @package     folder
  * @category    string
@@ -39,6 +39,8 @@ $string['folder:addinstance'] = 'Aggiungere cartelle';
 $string['folder:managefiles'] = 'Gestire file nel modulo cartella';
 $string['folder:view'] = 'Visualizzare contenuto cartella';
 $string['foldercontent'] = 'File e sotto cartelle';
+$string['forcedownload'] = 'Forza scaricamento dei file';
+$string['forcedownload_help'] = 'Se determinati file, come immagini o file HTML, devono essere visualizzati nel browser anziché essere scaricati. Tieni presente che per motivi di sicurezza, l\'impostazione deve essere deselezionata solo se tutti gli utenti con la capacità di gestire i file nella cartella sono utenti attendibili.';
 $string['indicator:cognitivedepth'] = 'Cartella cognitivo';
 $string['indicator:cognitivedepth_help'] = 'L\'indicatore è basato sulla profondità cognitiva toccata dallo studente con risorse Cartella.';
 $string['indicator:cognitivedepthdef'] = 'Cartella cognitivo';

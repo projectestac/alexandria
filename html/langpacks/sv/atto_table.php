@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_table', language 'sv', version '3.8'.
+ * Strings for component 'atto_table', language 'sv', version '3.11'.
  *
  * @package     atto_table
  * @category    string
@@ -29,14 +29,14 @@ $string['addcolumnafter'] = 'Infoga kolumn efter';
 $string['addrowafter'] = 'Infoga rad efter';
 $string['all'] = 'Runt varje cell';
 $string['allowbackgroundcolour'] = 'Tillåt bakgrundsfärg';
-$string['allowborder'] = '';
+$string['allowborder'] = 'Tillåt kantlinjestilar';
 $string['allowborder_desc'] = 'Om aktiv kan tabell- och cellramar anpassas.';
 $string['allowwidth'] = 'Tillåt bredd';
 $string['appearance'] = 'Utseende';
 $string['backgroundcolour'] = 'Bakgrundsfärg';
 $string['bordercolour'] = 'Kantlinjefärg';
 $string['borders'] = 'Kantlinjer';
-$string['bordersize'] = 'Kantlinjernas';
+$string['bordersize'] = 'Kantlinjestorlek';
 $string['borderstyles'] = 'Kantlinjeformat';
 $string['both'] = 'Båda';
 $string['caption'] = 'Rubrik';
@@ -59,9 +59,9 @@ $string['numberofcolumns'] = 'Antal kolumner';
 $string['numberofrows'] = 'Antal rader';
 $string['outer'] = 'Runt tabellen';
 $string['pluginname'] = 'Tabell';
-$string['privacy:metadata'] = 'Pluginmodulen atto_table lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen atto_table lagrar ingen personinformation.';
 $string['rows'] = 'Rader';
-$string['settings'] = 'Tabellformat';
+$string['settings'] = 'Tabellinställningar';
 $string['solid'] = 'Heldragen';
 $string['themedefault'] = 'Temats standard';
 $string['transparent'] = 'Transparent';

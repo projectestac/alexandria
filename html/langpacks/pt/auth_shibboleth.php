@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_shibboleth', language 'pt', version '3.8'.
+ * Strings for component 'auth_shibboleth', language 'pt', version '3.11'.
  *
  * @package     auth_shibboleth
  * @category    string
@@ -26,14 +26,14 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['auth_shib_auth_logo'] = 'Logótipo do método de autenticação';
-$string['auth_shib_auth_logo_description'] = 'Indique um logótipo para o método de autenticação Shibboleth que seja familiar para os seus utilizadores. Pode usar, por exemplo, o logótipo da sua federação Shibboleth, por exemplo: <tt>SWITCHaai Login</tt> ou <tt>InCommon Login</tt>, ou outro similar';
+$string['auth_shib_auth_logo_description'] = 'Indique um logótipo para o método de autenticação Shibboleth que seja familiar para os seus utilizadores. Pode usar, por exemplo, o logótipo da sua federação Shibboleth, por exemplo, <tt>SWITCHaai Login</tt> ou <tt>InCommon Login</tt> ou outro similar';
 $string['auth_shib_auth_method'] = 'Nome do método de autenticação';
 $string['auth_shib_auth_method_description'] = 'Indique um nome para o método de autenticação Shibboleth que seja familiar para os seus utilizadores. Pode usar, por exemplo, o nome da sua federação Shibboleth: SWITCHaai Login ou InCommon Login';
 $string['auth_shib_changepasswordurl'] = 'URL para alteração da senha:';
 $string['auth_shib_contact_administrator'] = 'Caso não esteja associado às organizações indicadas e precise de aceder a uma disciplina neste servidor, por favor, contacte o <a href="mailto:{$a}">Administrador Moodle</a>.';
 $string['auth_shib_convert_data'] = 'API de modificação de dados';
 $string['auth_shib_convert_data_description'] = 'Pode utilizar esta API para modificar os dados provenientes do servidor Shibboleth. Para mais informações, consulte a página <a href="{$a}">README</a>.';
-$string['auth_shib_convert_data_filepath_warning'] = 'Não pode usar um ficheiro que está localizado na diretoria dos dados do site atual ($CFG->dataroot) como a API de modificação de dados.';
+$string['auth_shib_convert_data_filepath_warning'] = 'Não pode usar um ficheiro que está localizado na pasta atual dos dados do site ($CFG->dataroot) como a API de modificação de dados.';
 $string['auth_shib_convert_data_warning'] = 'O ficheiro não existe ou não está disponível para leitura pelo processo do servidor web!';
 $string['auth_shib_idp_list'] = 'Fornecedores de identidade';
 $string['auth_shib_idp_list_description'] = 'Indique uma lista de fornecedores de identidade para que os utilizadores possam escolher um ao se autenticar.<br />Em cada linha devem ser indicados, separados por vírgulas, o identificador do fornecedor de identidade (consultar o ficheiro Shibboleth de metadados) e o seu nome (tal como deve ser apresentado aos utilizadores).<br />Opcionalmente pode ainda ser indicada a localização do iniciador de sessão Shibboleth que será usado pelo Moodle caso faça parte de uma federação.';
@@ -56,9 +56,9 @@ $string['auth_shibboleth_login_long'] = 'Autenticar-se no Moodle via Shibboleth'
 $string['auth_shibboleth_manual_login'] = 'Autenticação Manual';
 $string['auth_shibboleth_select_member'] = 'Sou membro de...';
 $string['auth_shibboleth_select_organization'] = 'Para autenticar-se via Shibboleth, por favor, selecione a sua organização da lista pendente:';
-$string['auth_shibbolethdescription'] = 'Com este método os utilizadores serão criados e autenticados utilizando  Shibboleth. Para mais informações sobre como configurar o seu Moodle com Shibboleth, consulte a página <a href="../auth/shibboleth/README.txt" target="_blank">Shibboleth README</a>.';
+$string['auth_shibbolethdescription'] = 'Com este método os utilizadores serão criados e autenticados utilizando  Shibboleth. Para mais informações sobre como configurar o seu Moodle com Shibboleth, consulte a página <a href="{$a}">Shibboleth README</a>.';
 $string['pluginname'] = 'Shibboleth';
-$string['privacy:metadata'] = 'O módulo de autenticação Shibboleth não armazena nenhum dado pessoal.';
+$string['privacy:metadata'] = 'O módulo de autenticação Shibboleth não armazena quaisquer dados pessoais.';
 $string['shib_invalid_account_error'] = 'Aparentemente encontra-se autenticado via Shibboleth, no entanto o Moodle não encontra uma conta válida associada ao seu nome de utilizador. A sua conta pode não existir ou pode ter sido suspensa.';
 $string['shib_no_attributes_error'] = 'Foi identificado como um utilizador autenticado via Shibboleth, mas o Moodle não recebeu quaisquer informações de utilizador. Confirme, por favor, que o seu fornecedor de identidade está a disponibilizar essa informação ({$a}) ao fornecedor de serviço que o Moodle está a usar. Em alternativa, contacte o administrador do site.';
 $string['shib_not_all_attributes_error'] = 'O Moodle precisa de alguns atributos Shibboleth que não encontrou no seu perfil. Os atributos necessários: {$a}<br />Por favor, contacte o administrador do site ou o seu fornecedor de identidade.';

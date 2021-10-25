@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_questioninstances', language 'sv', version '3.8'.
+ * Strings for component 'report_questioninstances', language 'sv', version '3.11'.
  *
  * @package     report_questioninstances
  * @category    string
@@ -31,7 +31,7 @@ $string['getreport'] = 'Hämta rapporten';
 $string['hiddenquestions'] = 'Dold';
 $string['intro'] = 'Denna rapport visar alla sammanhang där det finns frågor av en viss typ.';
 $string['pluginname'] = 'Frågeinstanser';
-$string['privacy:metadata'] = 'Plugin-modulen Frågeinstanser lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Frågeinstanser lagrar ingen personinformation.';
 $string['questioninstances:view'] = 'Visa rapport';
 $string['reportforallqtypes'] = 'Rapport för alla frågetyper';
 $string['reportformissingqtypes'] = 'Rapport för okända frågetyper';

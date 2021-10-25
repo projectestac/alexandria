@@ -4,6 +4,53 @@ More information on each of the fixes can be found in the project
 development home at https://github.com/projectestac/agora_moodle2
 
 
+Changes 21.10.08
+---------------------------------------------------------------------------------------
+- Upgraded Moodle to version 3.11.3+
+- Updated langpacks
+- assignfeedback_editpdf: Remove all fileareas of component assignfeedback_editpdf during course reset (MDL-69570)
+- Atto plugin cloze: Upgraded version
+- Choicegroup: Upgraded version
+- Clickedu: Upgraded version
+- Hot Potatoes: Upgraded module
+- migratehvp2h5p: Removed dependencies to allow mod_hvp reset
+- Ordering: Upgraded question type
+- Questionnaire: Upgraded module
+- Wiris: Upgraded all components to versions 7.27 / 4.3
+
+
+Changes 21.09.02
+---------------------------------------------------------------------------------------
+- Updated langpacks
+- Clickedu: Upgraded version
+- Coursequotas: Fixed variable name that caused incorrect course size values being saved in database
+- Vicens Vives: Upgraded all components
+
+
+Changes 21.07.14
+---------------------------------------------------------------------------------------
+- Upgraded Moodle to version 3.11.1
+- Updated langpacks
+- Content bank: Restricted access to xtecadmin
+- H5P core: Allow access only to xtecadmin
+- H5P module: Upgraded to version 1.22.3
+- Block completion_progress: Upgraded version
+- Alexandria importer: Improved presentation
+- Choicegroup: Upgraded version
+- Clickedu: Upgraded version
+- Geogebra: Upgraded version
+- Jclic: Upgraded version
+- Questionnaire: Upgraded version
+- Upgraded all wiris plugins
+- Question type ordering: Upgraded version
+- Single task execution: Added param to identify Moodle instance in Agora
+- Cron: Removed minimum time between executions
+- Local Agora: Updated MUC for Moodle 3.11
+- Atto plugin cloze: Upgraded version
+- Theme xtec2020: Added compatibility with Moodle 3.11
+- Activate usage of X-SendFile
+
+
 Changes 21.05.20
 ---------------------------------------------------------------------------------------
 - Upgraded module H5P to version 1.22.2

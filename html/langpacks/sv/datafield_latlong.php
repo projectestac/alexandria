@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_latlong', language 'sv', version '3.8'.
+ * Strings for component 'datafield_latlong', language 'sv', version '3.11'.
  *
  * @package     datafield_latlong
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['fieldtypelabel'] = 'Fält för latitud/longitud';
 $string['pluginname'] = 'Latitud/longitud';
-$string['privacy:metadata'] = 'Fältkomponenten Latitud/longitud lagrar ingen personlig information. Den använder tabeller definierade i mod_data.';
+$string['privacy:metadata'] = 'Fältkomponenten Latitud/longitud lagrar ingen personinformation. Den använder tabeller definierade i mod_data.';

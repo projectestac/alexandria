@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'feedback', language 'ru', version '3.8'.
+ * Strings for component 'feedback', language 'ru', version '3.11'.
  *
  * @package     feedback
  * @category    string
@@ -57,7 +57,8 @@ $string['complete_the_form'] = 'Ответьте на вопросы';
 $string['completed'] = 'Завершено';
 $string['completed_feedbacks'] = 'Отправлено ответов';
 $string['completedon'] = 'Завершено в {$a}';
-$string['completionsubmit'] = 'Рассматривать как завершенный, если представлены ответы';
+$string['completiondetail:submit'] = 'Отправить отзыв';
+$string['completionsubmit'] = 'Рассматривать как выполненный, если представлены ответы';
 $string['configallowfullanonymous'] = 'Если установлено значение этого параметра «Да», то «Обратная связь» на главной странице может быть заполнена без предварительного входа в систему.';
 $string['confirmdeleteentry'] = 'Вы уверены, что хотите удалить эту запись?';
 $string['confirmdeleteitem'] = 'Вы уверены, что хотите удалить этот элемент?';
@@ -102,7 +103,7 @@ $string['downloadresponseas'] = 'Скачать все ответы:';
 $string['drop_feedback'] = 'Удалить из этого курса';
 $string['dropdown'] = 'Множественный выбор - разрешен один ответ (выпадающий список)';
 $string['dropdown_values'] = 'Ответы';
-$string['dropdownlist'] = 'Множественный выбор с одним правильным ответом';
+$string['dropdownlist'] = 'Множественный выбор - один ответ (раскрывающееся меню)';
 $string['dropdownrated'] = 'Выпадающий список (со значениями)';
 $string['edit_item'] = 'Редактировать вопрос';
 $string['edit_items'] = 'Редактировать вопросы';
@@ -147,6 +148,8 @@ $string['importfromthisfile'] = 'импорт из файла';
 $string['includeuserinrecipientslist'] = 'Включить {$a} в список получателей';
 $string['indicator:cognitivedepth'] = 'Обратная связь: познавательный аспект';
 $string['indicator:cognitivedepth_help'] = 'Этот показатель основан на глубине познания, достигнутой студентом при работе с элементом курса «Обратная связь».';
+$string['indicator:cognitivedepthdef'] = 'Обратная связь: познавательный аспект';
+$string['indicator:cognitivedepthdef_help'] = 'Участник достиг этого процента познавательного взаимодействия, предлагаемого элементом курса «Обратная связь» в течение этого интервала анализа (Уровни = Нет просмотра, Просмотр, Отправка)';
 $string['indicator:socialbreadth'] = 'Обратная связь: социальный аспект';
 $string['indicator:socialbreadth_help'] = 'Этот показатель основан на широте общения, которая может быть достигнута студентом при работе с элементом Обратная связь.';
 $string['indicator:socialbreadthdef'] = 'Обратная связь: социальный аспект';

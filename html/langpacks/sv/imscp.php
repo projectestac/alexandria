@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'imscp', language 'sv', version '3.8'.
+ * Strings for component 'imscp', language 'sv', version '3.11'.
  *
  * @package     imscp
  * @category    string
@@ -53,6 +53,6 @@ $string['packagefile'] = 'Paketfil';
 $string['page-mod-imscp-x'] = 'Modulsida för IMS-innehållspaket';
 $string['pluginadministration'] = 'Administrera IMSCP';
 $string['pluginname'] = 'IMS-innehållspaket';
-$string['privacy:metadata'] = 'Pluginmodulen IMS-innehållspaket lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen IMS-innehållspaket lagrar ingen personinformation.';
 $string['search:activity'] = 'IMS-innehållspaket - resursinformation';
 $string['toc'] = 'Innehållsförteckning';

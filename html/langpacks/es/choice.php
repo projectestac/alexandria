@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'es', version '3.8'.
+ * Strings for component 'choice', language 'es', version '3.11'.
  *
  * @package     choice
  * @category    string
@@ -43,7 +43,7 @@ $string['choice:view'] = 'Ver actividad de consulta';
 $string['choiceactivityname'] = 'Consulta: {$a}';
 $string['choiceclose'] = 'Permite respuestas hasta';
 $string['choicecloseson'] = 'La consulta se cierra el {$a}';
-$string['choicefull'] = 'Esta opción está completa y no hay espacios disponibles.';
+$string['choicefull'] = 'Una o más de las opciones que Usted ha seleccionado ya se han llenado. Su respuesta no ha sido guardada. Por favor, haga otra selección.';
 $string['choicename'] = 'Título de la consulta';
 $string['choiceopen'] = 'Permitir respuestas a partir de';
 $string['choiceoptions'] = 'Opciones de la Consulta';
@@ -55,14 +55,15 @@ $string['choicetext'] = 'Texto de la opción';
 $string['chooseaction'] = 'Elija una acción ...';
 $string['chooseoption'] = 'Cambiar a: {$a}';
 $string['closebeforeopen'] = 'Has especificado una fecha de cierre previa a la de la fecha de apertura.';
+$string['completiondetail:submit'] = 'Elija una opción';
 $string['completionsubmit'] = 'Mostrar como completada cuando el usuario selecciona una opción';
 $string['description'] = 'Descripción';
 $string['deselectalloption'] = 'Des-seleccionar todos "{$a}"';
 $string['displayhorizontal'] = 'Mostrar horizontalmente';
 $string['displaymode'] = 'Modo de visualización de las opciones';
 $string['displayvertical'] = 'Mostrar verticalmente';
-$string['eventanswercreated'] = 'Consulta respondida';
-$string['eventanswerdeleted'] = 'Consulta borrada';
+$string['eventanswercreated'] = 'Respuesta de consulta añadida';
+$string['eventanswerdeleted'] = 'Respuesta de consulta eliminada';
 $string['eventanswersubmitted'] = 'Consulta hecha';
 $string['eventanswerupdated'] = 'Consulta actualizada';
 $string['eventreportdownloaded'] = 'Informe de selección descargado';
@@ -80,16 +81,13 @@ $string['indicator:socialbreadth_help'] = 'Este indicador está basado en la amp
 $string['indicator:socialbreadthdef'] = 'Consulta social';
 $string['indicator:socialbreadthdef_help'] = 'El participante ha alcanzado este porcentaje del compromiso social ofrecido por las actividades de Consulta durante este intervalo de análisis (Niveles = Sin participación, Participante solo, Participante con otros)';
 $string['limit'] = 'Límite';
+$string['limita'] = 'Límite: {$a}';
 $string['limitanswers'] = 'Limitar el número de respuestas permitidas';
-$string['limitanswers_help'] = '<p>Esta opción le permite limitar el número de participantes que
-   pueden seleccionar cada opción en particular.</p>
+$string['limitanswers_help'] = 'Esta opción le permite limitar el número de participantes que pueden seleccionar cada opción a elegir. Cuando se alcanza el límite, entonces nadie más puede elegir esa opción.
 
-<p>Una vez que se ha activado, cada opción puede fijar un límite.
-   Cuando se alcanza, nadie más puede seleccionar esa opción. Un
-   límite de cero (0) significa que nadie puede seleccionar esa opción.</p>
+Por favor tenga en cuenta que si Usted usa esta actividad en modo de grupo, entonces el límite es por grupo. Por ejemplo, si el límite es configurado a 5, entonces 5 miembros de cada grupo pueden seleccionar la opción, Si hay 3 grupos, esto significaría que hasta 5 x 3 = 15 participantes podrían seleccionar la opción.
 
-<p>Si está desactivada, cualquier número de participantes puede
-   seleccionar cualquiera de las opciones.</p>';
+Si los límites están deshabilitados, entonces cualquier número de participantes puede seleccionar cada una de las opciones.';
 $string['limitno'] = 'Límite {no}';
 $string['modulename'] = 'Consulta';
 $string['modulename_help'] = 'El módulo Consulta permite al profesor hacer una pregunta especificando las posibles respuestas posibles.
@@ -121,6 +119,7 @@ $string['options'] = 'Opciones';
 $string['page-mod-choice-x'] = 'Cualquier página del módulo Consulta';
 $string['pluginadministration'] = 'Administración';
 $string['pluginname'] = 'Consulta';
+$string['previewing'] = 'Esta es solo una vista previa de las opciones disponibles para esta actividad. Podrá hacer una elección cuando se abra.';
 $string['previewonly'] = 'Esta es solamente una previsualización de las opciones disponibles para esta actividad. No podrá enviar su respuesta a la consulta hasta el {$a}.';
 $string['privacy'] = 'Privacidad de los resultados';
 $string['privacy:metadata:choice_answers'] = 'Información acerca de la(s) respuesta(s) elegida(s) por el usuario para una actividad de consulta dada';
@@ -129,7 +128,7 @@ $string['privacy:metadata:choice_answers:optionid'] = 'La ID de la opción que e
 $string['privacy:metadata:choice_answers:timemodified'] = 'El sello de tiempo que indica cuando fue modificada la Consulta por el usuario';
 $string['privacy:metadata:choice_answers:userid'] = 'La ID del usuario que contesta esta actividad de Consulta';
 $string['publish'] = 'Publicar resultados';
-$string['publishafteranswer'] = 'Mostrar los resultados al estudiante después de su respuesta';
+$string['publishafteranswer'] = 'Mostrar los resultados a los estudiantes después de que respondan';
 $string['publishafterclose'] = 'Mostrar los resultados a los estudiantes sólo después de cerrar la consulta';
 $string['publishalways'] = 'Mostrar siempre los resultados a los estudiantes';
 $string['publishanonymous'] = 'Publicar resultados anónimamente, sin mostrar los nombres de los alumnos';
@@ -143,12 +142,15 @@ $string['publishnot'] = 'No publicar los resultados';
 $string['removemychoice'] = 'Eliminar mi elección';
 $string['removeresponses'] = 'Eliminar todas las respuestas';
 $string['responses'] = 'Respuestas';
+$string['responsesa'] = 'Respuestas: {$a}';
 $string['responsesresultgraphheader'] = 'Vista de gráfica';
 $string['responsesto'] = 'Respuestas para {$a}';
 $string['results'] = 'Resultados';
 $string['savemychoice'] = 'Guardar mi elección';
 $string['search:activity'] = 'Consulta - información de actividad';
 $string['selectalloption'] = 'Seleccionar todos "{$a}"';
+$string['showavailable'] = 'Mostrar espacios disponibles';
+$string['showavailable_help'] = 'Muestra a los participantes el límite de cada opción y el número de respuestas hasta ahora.';
 $string['showpreview'] = 'Mostrar previsualización';
 $string['showpreview_help'] = 'Permitir a los estudiantes ver las opciones disponibles antes de que la consulta esté abierta para enviar.';
 $string['showunanswered'] = 'Mostrar columna de no respondidas';

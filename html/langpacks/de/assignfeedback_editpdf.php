@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'de', version '3.8'.
+ * Strings for component 'assignfeedback_editpdf', language 'de', version '3.11'.
  *
  * @package     assignfeedback_editpdf
  * @category    string
@@ -44,10 +44,10 @@ $string['default'] = 'Bereits aktiviert';
 $string['default_help'] = 'Die gewählte Feedback-Methode wird für alle neuen Aufgaben voreingestellt.';
 $string['deleteannotation'] = 'Anmerkung löschen';
 $string['deletecomment'] = 'Kommentar löschen';
-$string['deletefeedback'] = 'Feedback.pdf löschen';
+$string['deletefeedback'] = 'Feedback-PDF löschen';
 $string['downloadablefilename'] = 'Feedback.pdf';
-$string['downloadfeedback'] = 'Feedback.pdf herunterladen';
-$string['draftchangessaved'] = 'Entwurf für die Anmerkungen gesichert';
+$string['downloadfeedback'] = 'Feedback-PDF herunterladen';
+$string['draftchangessaved'] = 'Entwurf für die Anmerkungen gespeichert';
 $string['drag'] = 'Ziehen';
 $string['editpdf'] = 'Anmerkungen im PDF';
 $string['editpdf_help'] = 'Kommentieren Sie die Lösungen der Teilnehmenden direkt im Browser und erzeugen Sie eine herunterladbare PDF-Datei daraus.';
@@ -57,7 +57,7 @@ $string['errorgenerateimage'] = 'Fehler beim Erstellen des Bildes mit Ghostscrip
 $string['errorpdfpage'] = 'Fehler beim Erstellen dieser Seite';
 $string['expcolcomments'] = 'Alle Kommentare auf-/zuklappen';
 $string['filter'] = 'Kommentare filtern...';
-$string['generatefeedback'] = 'Feedback.pdf erzeugen';
+$string['generatefeedback'] = 'Feedback-PDF erzeugen';
 $string['generatingpdf'] = 'PDF erstellen ...';
 $string['gotopage'] = 'Zur Seite';
 $string['green'] = 'Grün';

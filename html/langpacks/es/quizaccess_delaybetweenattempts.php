@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_delaybetweenattempts', language 'es', version '3.8'.
+ * Strings for component 'quizaccess_delaybetweenattempts', language 'es', version '3.11'.
  *
  * @package     quizaccess_delaybetweenattempts
  * @category    string
@@ -26,5 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Regla acceso de tiempo entre intentos de pregunta';
+$string['privacy:metadata'] = 'El complemento de regla de acceso al cuestionario por demora entre intentos no almacena ningún dato personal.';
 $string['youcannotwait'] = 'Este cuestionario se cierra antes de que se le permita comenzar otro intento de resolverlo.';
 $string['youmustwait'] = 'Debe esperar antes de volver a intentar resolver este cuestionario. Se le permitirá efectuar otro intento después de {$a}.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'calendar', language 'es', version '3.8'.
+ * Strings for component 'calendar', language 'es', version '3.11'.
  *
  * @package     calendar
  * @category    string
@@ -55,6 +55,9 @@ $string['courses'] = 'Cursos';
 $string['customexport'] = 'Intervalo personalizado ({$a->timestart} - {$a->timeend})';
 $string['daily'] = 'Diario';
 $string['day'] = 'Día';
+$string['dayeventsmany'] = '{$a->num} eventos, {$a->day}';
+$string['dayeventsnone'] = 'Sin eventos, {$a}';
+$string['dayeventsone'] = '1 evento, {$a}';
 $string['daynext'] = 'Próximo día';
 $string['dayprev'] = 'Día anterior';
 $string['dayviewfor'] = 'Vista por día para:';
@@ -96,8 +99,8 @@ $string['errornodescription'] = 'Se requiere una descripción';
 $string['errornoeventname'] = 'Se requiere un nombre';
 $string['errornonyearlyfreqwithbyweekno'] = 'La regla BYWEEKNO solamente es válida para reglas YEARLY.';
 $string['errorrequiredurlorfile'] = 'Una URL o un archivo es necesario para importar un calendario.';
-$string['errorrrule'] = 'La regla introducida parece incorrecta';
-$string['errorrruleday'] = 'La regla tiene un parámetro día invalido';
+$string['errorrrule'] = 'La regla de recurrencia aprobada parece incorrecta.';
+$string['errorrruleday'] = 'La regla de recurrencia tiene un parámetro de día inválido.';
 $string['errorrrulefreq'] = 'La regla recurrente tiene un parámetro de frecuencia no válido.';
 $string['eventcalendareventcreated'] = 'Evento de calendario creado';
 $string['eventcalendareventdeleted'] = 'Evento de calendario borrado';
@@ -125,6 +128,7 @@ $string['eventspersonal'] = 'Mis eventos personales';
 $string['eventsrelatedtocategories'] = 'Eventos relacionados con categorías';
 $string['eventsrelatedtocourses'] = 'Eventos referidos a los cursos';
 $string['eventsrelatedtogroups'] = 'Eventos relacionados con grupos';
+$string['eventsskipped'] = 'Eventos saltados: {$a}';
 $string['eventstarttime'] = 'Hora de comienzo';
 $string['eventstoexport'] = 'Eventos a exportar';
 $string['eventsubscriptioncreated'] = 'Suscripción al calendario creada';
@@ -139,6 +143,7 @@ $string['eventtypecourse'] = 'curso';
 $string['eventtypeglobal'] = 'sitio';
 $string['eventtypegroup'] = 'grupo';
 $string['eventtypemodule'] = 'módulo';
+$string['eventtypeother'] = 'otro';
 $string['eventtypesite'] = 'sitio';
 $string['eventtypeuser'] = 'usuario';
 $string['eventview'] = 'Detalles del evento';
@@ -169,7 +174,7 @@ $string['importfromfile'] = 'Archivo (.ics) de calendario';
 $string['importfrominstructions'] = 'Proporcione la URL a un calendario remoto o cargue un archivo';
 $string['importfromurl'] = 'URL del calendario';
 $string['invalideventtype'] = 'El tipo de evento que ha seleccionado no es válido.';
-$string['invalidtimedurationminutes'] = 'La duración en minutos introducida no es válida; por favor, introduzca una duración en minutos mayor que 0 o seleccione sin duración.';
+$string['invalidtimedurationminutes'] = 'La duración en minutos introducida no es válida. Por favor, introduzca una duración en minutos mayor que 0 o seleccione sin duración.';
 $string['invalidtimedurationuntil'] = 'La fecha y hora seleccionadas para la duración hasta es anterior a la fecha de inicio del evento. Por favor, corríjalo antes de seguir.';
 $string['iwanttoexport'] = 'Exportar';
 $string['less'] = 'Menos';
@@ -229,6 +234,7 @@ $string['saturday'] = 'Sábado';
 $string['showeventtype'] = 'Mostrar eventos de {$a}';
 $string['shown'] = 'visibles';
 $string['site'] = 'Sitio';
+$string['siteevent'] = 'Evento del sitio';
 $string['siteevents'] = 'Eventos Globales';
 $string['spanningevents'] = 'Eventos en marcha';
 $string['subscriptionname'] = 'Nombre';
@@ -259,12 +265,13 @@ $string['typegroup'] = 'Evento de grupo';
 $string['typeopen'] = 'Evento abrir';
 $string['typesite'] = 'Evento de sitio';
 $string['typeuser'] = 'Evento de usuario';
-$string['upcomingevents'] = 'Eventos próximos';
+$string['upcomingevents'] = 'Próximos eventos';
 $string['upcomingeventsfor'] = 'Próximos eventos para:';
 $string['urlforical'] = 'URL para exportar a iCalendar, para suscribirse al calendario';
 $string['user'] = 'Usuario';
 $string['userevent'] = 'Evento de usuario';
 $string['userevents'] = 'Eventos de usuario';
+$string['viewupcomingactivitiesdue'] = 'Ver las actividades próximas pendientes';
 $string['wed'] = 'Mié';
 $string['wednesday'] = 'Miércoles';
 $string['weekly'] = 'Semanal';

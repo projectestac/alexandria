@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_deferredfeedback', language 'es', version '3.8'.
+ * Strings for component 'qbehaviour_deferredfeedback', language 'es', version '3.11'.
  *
  * @package     qbehaviour_deferredfeedback
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Retroalimentación diferida';
+$string['privacy:metadata'] = 'El complemento de comportamiento de retroalimentación diferida no almacena ningún dato personal.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grades', language 'en', version '3.8'.
+ * Strings for component 'grades', language 'en', version '3.11'.
  *
  * @package     grades
  * @category    string
@@ -142,7 +142,7 @@ $string['coursegradesettings'] = 'Course grade settings';
 $string['coursename'] = 'Course name';
 $string['coursescales'] = 'Course scales';
 $string['coursesettings'] = 'Course settings';
-$string['coursesettingsexplanation'] = 'Course settings determine how the gradebook appears for all participants in the course.';
+$string['coursesettingsexplanation'] = 'Course grade settings determine how the gradebook appears for all participants in the course.';
 $string['coursesiamtaking'] = 'Courses I am taking';
 $string['coursesiamteaching'] = 'Courses I am teaching';
 $string['coursetotal'] = 'Course total';
@@ -171,6 +171,7 @@ $string['droplowestvalues'] = 'Drop {$a} lowest values';
 $string['dropped'] = 'Dropped';
 $string['dropxlowest'] = 'Drop X lowest';
 $string['dropxlowestwarning'] = 'Note: If you use drop x lowest the grading assumes that all items in the category have the same point value. If point values differ results will be unpredictable';
+$string['duplicatedgradeitem'] = '{$a} (copy)';
 $string['duplicatescale'] = 'Duplicate scale';
 $string['edit'] = 'Edit';
 $string['editcalculation'] = 'Edit calculation';
@@ -205,6 +206,7 @@ $string['errorupdatinggradecategoryaggregation'] = 'Error updating the aggregati
 $string['errorupdatinggradeitemaggregationcoef'] = 'Error updating the aggregation coefficient (weight or extra credit) of grade item ID {$a->id}';
 $string['eventgradedeleted'] = 'Grade deleted';
 $string['eventgradeitemcreated'] = 'Grade item created';
+$string['eventgradeitemdeleted'] = 'Grade item deleted';
 $string['eventgradeitemupdated'] = 'Grade item updated';
 $string['eventgradelettercreated'] = 'Grade letter created';
 $string['eventgradeletterdeleted'] = 'Grade letter deleted';
@@ -232,6 +234,7 @@ $string['externalurl'] = 'External URL';
 $string['externalurl_desc'] = 'If an external gradebook is used, the URL should be specified here.';
 $string['extracreditvalue'] = 'Extra credit value for {$a}';
 $string['extracreditwarning'] = 'Note: Setting all items for a category to extra credit will effectively remove them from the grade calculation. Since there will be no point total';
+$string['fail'] = 'Fail';
 $string['feedback'] = 'Feedback';
 $string['feedback_help'] = 'This box enables any comments about the grade to be added.';
 $string['feedbackadd'] = 'Add feedback';
@@ -412,6 +415,15 @@ $string['importcsv_help'] = 'Grades can be imported via a CSV file with format a
 A file of the correct format can be obtained by first exporting some grades. The file can then be edited and saved as a CSV file.';
 $string['importcsv_link'] = 'grade/import/csv/index';
 $string['importcustom'] = 'Import as custom outcomes (only this course)';
+$string['importdata'] = 'Data';
+$string['importdata_help'] = 'Grades may be pasted directly from an OpenDocument or Excel spreadsheet with format as follows:
+
+* At least one column should contain user identity data - username, email address or ID number.
+* Other columns should have headings as for existing activities or grade items.
+
+A correctly formatted spreadsheet can be obtained by first exporting some grades. The spreadsheet can then be edited to add more grades and saved.
+
+Select and copy the columns you want to import from the spreadsheet and then paste them into this field.';
 $string['importerror'] = 'An error occurred, this script wasn\'t called with the right parameters.';
 $string['importfailed'] = 'Import failed. No data was imported.';
 $string['importfeedback'] = 'Import feedback';
@@ -607,6 +619,7 @@ $string['overridesitedefaultgradedisplaytype'] = 'Override site defaults';
 $string['overridesitedefaultgradedisplaytype_help'] = 'If ticked, grade letters and boundaries for the course may be set, rather than using the site defaults.';
 $string['overrideweightofa'] = 'Override weight of {$a}';
 $string['parentcategory'] = 'Parent category';
+$string['pass'] = 'Pass';
 $string['pctoftotalgrade'] = '% of total grade';
 $string['percent'] = 'Percent';
 $string['percentage'] = 'Percentage';

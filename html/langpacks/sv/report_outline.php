@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_outline', language 'sv', version '3.8'.
+ * Strings for component 'report_outline', language 'sv', version '3.11'.
  *
  * @package     report_outline
  * @category    string
@@ -36,5 +36,5 @@ $string['outline:viewuserreport'] = 'Visa användares aktivitetsrapport';
 $string['page-report-outline-index'] = 'Kursöversiktsrapport';
 $string['page-report-outline-user'] = 'Kursöversiktsrapport (användare)';
 $string['page-report-outline-x'] = 'Valfri översiktsrapport';
-$string['pluginname'] = 'Aktivitet i kursen';
-$string['privacy:metadata'] = 'Pluginmodulen Aktivitetsrapport lagrar ingen personlig information.';
+$string['pluginname'] = 'Aktivitetsrapport';
+$string['privacy:metadata'] = 'Pluginmodulen Aktivitetsrapport lagrar ingen personinformation.';

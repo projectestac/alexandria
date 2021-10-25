@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_singleactivity', language 'es', version '3.8'.
+ * Strings for component 'format_singleactivity', language 'es', version '3.11'.
  *
  * @package     format_singleactivity
  * @category    string
@@ -33,4 +33,6 @@ $string['erroractivitytype'] = 'El tipo de actividad no se encuentra en la confi
 $string['orphaned'] = 'Huérfano';
 $string['orphanedwarning'] = 'Estas actividades son inaccesibles para los usuarios';
 $string['pluginname'] = 'Formato de actividad única';
+$string['privacy:metadata'] = 'El complemento de formato de actividad única no almacena ningún dato personal.';
+$string['sectionname'] = '_';
 $string['warningchangeformat'] = 'Al cambiar el formato del curso existente al de "Actividad única", asegúrese de que ha eliminado todas las actividades adicionales del curso incluyendo los "Avisos". Tenga en cuenta que la estructura de secciones puede verse modificada.';

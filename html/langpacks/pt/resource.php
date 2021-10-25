@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'resource', language 'pt', version '3.8'.
+ * Strings for component 'resource', language 'pt', version '3.11'.
  *
  * @package     resource
  * @category    string
@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['clicktodownload'] = 'Clique na hiperligação {$a} para descarregar o ficheiro.';
 $string['clicktoopen2'] = 'Clique na hiperligação {$a} para ver o ficheiro.';
-$string['configdisplayoptions'] = 'Selecione todas as opções que devem estar disponíveis, as definições existentes não serão alteradas. Prima a tecla CTRL para selecionar múltiplas opções.';
-$string['configframesize'] = 'Quando uma página Web ou um ficheiro são visualizados numa frame, este valor corresponde à altura (em pixeis) da frame superior (que contém a navegação).';
+$string['configdisplayoptions'] = 'Selecione todas as opções que devem estar disponíveis, as definições existentes não serão alteradas. Pressione a tecla CTRL para selecionar múltiplas opções.';
+$string['configframesize'] = 'Quando uma página Web ou um ficheiro são visualizados numa frame, este valor corresponde à altura (em píxeis) da frame superior (que contém a navegação).';
 $string['configparametersettings'] = 'Esta opção define o valor predefinido que é introduzido no painel de configuração de parâmetros quando adiciona um novo recurso. Depois da primeira vez, este valor é substituído pelas preferências individuais do utilizador.';
 $string['configpopup'] = 'Quando se adiciona um recurso que pode ser apresentado numa nova janela, deve ser essa a opção predefinida?';
 $string['configpopupdirectories'] = 'Devem as janelas de pop-up apresentar hiperligações para as pastas por predefinição?';
@@ -42,7 +42,7 @@ $string['configpopuptoolbar'] = 'Devem as janelas de pop-up apresentar, por pred
 $string['configpopupwidth'] = 'Qual deve ser a largura predefinida para as janelas de pop-up?';
 $string['contentheader'] = 'Conteúdo';
 $string['displayoptions'] = 'Opções de visualização disponíveis';
-$string['displayselect'] = 'Exibir em';
+$string['displayselect'] = 'Modo de exibição';
 $string['displayselect_help'] = 'Esta configuração, em conjunto com o tipo de ficheiro e possibilidades do navegador, determina a forma como é exibido o ficheiro. As opções podem ser:
 
 * Automático: é selecionada automaticamente a melhor opção para exibir o ficheiro;
@@ -97,15 +97,15 @@ $string['optionsheader'] = 'Mostrar opções';
 $string['page-mod-resource-x'] = 'Qualquer ficheiro dos recursos';
 $string['pluginadministration'] = 'Administração do Ficheiro';
 $string['pluginname'] = 'Ficheiro';
-$string['popupheight'] = 'Altura da janela de pop-up (em pixeis)';
+$string['popupheight'] = 'Altura da janela pop-up (em píxeis)';
 $string['popupheightexplain'] = 'Altura predefinida da janela de pop-up';
 $string['popupresource'] = 'Este documento deve aparecer numa janela de pop-up.';
 $string['popupresourcelink'] = 'Se tal não acontecer, clique aqui: {$a}';
-$string['popupwidth'] = 'Largura da janela de pop-up (em pixeis)';
+$string['popupwidth'] = 'Largura da janela pop-up (em píxeis)';
 $string['popupwidthexplain'] = 'Largura predefinida da janela de pop-up';
 $string['printintro'] = 'Mostrar descrição do recurso';
 $string['printintroexplain'] = 'Mostrar a descrição do recurso abaixo do conteúdo? Alguns modos de exibição não apresentam o nome do recurso, mesmo com esta configuração ativa.';
-$string['privacy:metadata'] = 'O módulo do recurso Ficheiro não armazena quaisquer dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Ficheiro não armazena quaisquer dados pessoais.';
 $string['resource:addinstance'] = 'Adicionar um novo recurso';
 $string['resource:exportresource'] = 'Exportar recurso';
 $string['resource:view'] = 'Ver recurso';

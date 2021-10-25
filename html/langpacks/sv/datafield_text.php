@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_text', language 'sv', version '3.8'.
+ * Strings for component 'datafield_text', language 'sv', version '3.11'.
  *
  * @package     datafield_text
  * @category    string
@@ -25,6 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['fieldtypelabel'] = 'Textfält';
-$string['pluginname'] = 'Textfält';
-$string['privacy:metadata'] = 'Fältkomponenten Textfält lagrar ingen personlig information. Den använder tabeller definierade i <code>mod_data</code>.';
+$string['fieldtypelabel'] = 'Text';
+$string['pluginname'] = 'Textinmatning';
+$string['privacy:metadata'] = 'Fältkomponenten Text lagrar ingen personinformation. Den använder tabeller definierade i <code>mod_data</code>.';

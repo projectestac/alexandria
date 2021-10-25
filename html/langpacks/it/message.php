@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'message', language 'it', version '3.8'.
+ * Strings for component 'message', language 'it', version '3.11'.
  *
  * @package     message
  * @category    string
@@ -73,12 +73,11 @@ $string['emailtagline'] = 'Questa email contiene una copia del messaggio ricevut
 $string['enabled'] = 'Abilitato';
 $string['errorcallingprocessor'] = 'Si è verificato un errore durante la chiamata all\'instradamento definito';
 $string['errorconversationdoesnotexist'] = 'La conversazione non esiste';
+$string['errormessagetoolong'] = 'Il messaggio è più lungo del massimo consentito.';
 $string['errortranslatingdefault'] = 'Si è verificato un errore durante la trasposizione delle impostazioni di default del plugin, al loro posto verranno utilizzati i default di sistema.';
 $string['eventgroupmessagesent'] = 'Inviato messaggio di gruppo';
 $string['eventmessagecontactadded'] = 'Aggiunto contatto';
-$string['eventmessagecontactblocked'] = 'Bloccato contatto';
 $string['eventmessagecontactremoved'] = 'Eliminato contatto';
-$string['eventmessagecontactunblocked'] = 'Sbloccato contatto';
 $string['eventmessagedeleted'] = 'Eliminato messaggio';
 $string['eventmessagesent'] = 'Inviato messaggio';
 $string['eventmessageuserblocked'] = 'Utente bloccato';
@@ -96,6 +95,7 @@ $string['hidenotificationwindow'] = 'Nascondi finestra delle notifiche';
 $string['individualconversations'] = 'privato';
 $string['info'] = 'Informazioni utente';
 $string['isnotinyourcontacts'] = '{$a} non è nei tuoi contatti';
+$string['loadmore'] = 'Carica di più';
 $string['loggedin'] = 'Online';
 $string['loggedin_help'] = 'Configura la modalità preferita di ricezione notifiche quando sei autenticato';
 $string['loggedindescription'] = 'Quando sono collegato';
@@ -104,23 +104,27 @@ $string['loggedoff_help'] = 'Configura la modalità preferita di ricezione notif
 $string['loggedoffdescription'] = 'Quando non sono collegato';
 $string['managemessageoutputs'] = 'Preferenze di default delle notifiche';
 $string['message'] = 'Messaggio';
+$string['messagecontactrequest'] = '{$a->user} ha richiesto di essere aggiunto ai tuoi contatti. Per rispondere, visita la pagina <a href="{$a->url}">richieste di contatto</a>';
 $string['messagecontactrequestsnotification'] = '{$a} desidera entrare in contatto.';
 $string['messagecontactrequestsnotificationsubject'] = 'Richiesta di contatto da parte di {$a}';
+$string['messagecontactrequestsubject'] = '{$a->sitename}: Richiesta di contatto da {$a->user}';
 $string['messagecontentaudio'] = 'Audio';
 $string['messagecontentimage'] = 'Immagine';
 $string['messagecontentmultimediageneral'] = 'Altri media';
 $string['messagecontentvideo'] = 'Video';
 $string['messagedrawerviewcontact'] = 'Dettagli dell\'utente {$a}';
+$string['messagedrawerviewcontacts'] = 'Contatti';
 $string['messagedrawerviewconversation'] = 'Conversazione con {$a}';
 $string['messagedrawerviewgroupinfo'] = 'Dettagli del gruppo {$a}';
 $string['messagedrawerviewoverview'] = 'Panoramica messaggi';
+$string['messagedrawerviewsearch'] = 'Risultati della ricerca dei messaggi di {$a}';
 $string['messagedrawerviewsettings'] = 'Impostazioni messaggi';
 $string['messageoutputs'] = 'Plugin notifiche';
 $string['messagepreferences'] = 'Preferenze messaggi';
 $string['messages'] = 'Messaggi';
 $string['messagesselected:'] = 'Messaggi selezionati:';
+$string['messagetextrequired'] = 'Per favore inserisci il testo del messaggio';
 $string['messagingdatahasnotbeenmigrated'] = 'I tuoi messaggi non sono disponibili a causa dell\'aggiornamento dell\'infrastruttura di messaggistica. I messaggi saranno nuovamente disponibili al termine della migrazione.';
-$string['messagingdisabled'] = 'I messaggi saranno inviati via email poiché la messaggistica non è abilitata.';
 $string['muteconversation'] = 'Disabilita audio';
 $string['mutedconversation'] = 'Conversazione con audio disabilitato';
 $string['newmessage'] = 'Nuovo messaggio';
@@ -157,6 +161,7 @@ $string['outputdoesnotexist'] = 'L\'instradamento messaggi non esiste';
 $string['outputenabled'] = 'Output abilitato';
 $string['outputnotavailable'] = 'Non disponibile';
 $string['outputnotconfigured'] = 'Non configurato';
+$string['page-message-x'] = 'Qualsiasi pagina con messaggi';
 $string['participants'] = 'Partecipanti';
 $string['pendingcontactrequests'] = 'Hai {$a} richieste di contatto in attesa';
 $string['permitted'] = 'Consentito';
@@ -254,7 +259,7 @@ $string['shownotificationwindowwithcount'] = 'Visualizza la finestra delle notif
 $string['togglemessagemenu'] = 'Visualizza/nascondi menu messaggi';
 $string['togglenotificationmenu'] = 'Visualizza/nascondi menu notifiche';
 $string['totalconversations'] = 'Totale: {$a} conversazioni';
-$string['touserdoesntexist'] = 'Non è possibile mandare un messaggio ad un id utente inesistente ({$a})';
+$string['touserdoesntexist'] = 'Non è possibile inviare un messaggio ad un ID utente inesistente ({$a}).';
 $string['unabletomessage'] = 'Non puoi inviare messaggi a questo utente';
 $string['unblock'] = 'Sblocca';
 $string['unblockcontact'] = 'Sblocca contatto';
@@ -270,8 +275,6 @@ $string['unreadnotification'] = 'Notifiche non lette: {$a}';
 $string['unreadnotifications'] = 'Notifiche non lette: {$a}';
 $string['useentertosend'] = 'Tasto invio per spedire';
 $string['usercantbemessaged'] = 'Non puoi inviare messaggi ad {$a} a causa delle loro preferenze sui messaggi. Prova ad aggiungerli nei contatti.';
-$string['userisblockingyou'] = 'Questo utente ha bloccato la tua possibilità di inviargli messaggi';
-$string['userisblockingyounoncontact'] = '{$a} accetta solamente i messaggi provenienti dai suoi contatti.';
 $string['userwouldliketocontactyou'] = '{$a} desidera entrare in contatto';
 $string['viewfullnotification'] = 'Visualizza la notifica per intero';
 $string['viewmessageswith'] = 'Visualizza messaggi con {$a}';

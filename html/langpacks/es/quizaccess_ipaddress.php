@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_ipaddress', language 'es', version '3.8'.
+ * Strings for component 'quizaccess_ipaddress', language 'es', version '3.11'.
  *
  * @package     quizaccess_ipaddress
  * @category    string
@@ -26,4 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Regla de acceso por dirección IP';
+$string['privacy:metadata'] = 'El complemento de regla de acceso al cuestionario por direcciones IP no almacena ningún dato personal.';
 $string['subnetwrong'] = 'Este cuestionario sólo es accesible desde ciertos lugares: este ordenador no está en la lista de admitidos.';

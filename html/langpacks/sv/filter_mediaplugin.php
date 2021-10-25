@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_mediaplugin', language 'sv', version '3.8'.
+ * Strings for component 'filter_mediaplugin', language 'sv', version '3.11'.
  *
  * @package     filter_mediaplugin
  * @category    string
@@ -31,4 +31,4 @@ $string['filtername'] = 'Pluginmoduler för multimedia';
 $string['linktomedia'] = 'Multimediafiltret hittar en länk i text som pekar på en multimedia resurs och ersätter länken med relevant mediaspelar-kod som kan spela upp resursen. Den ersätter också &lt;video&gt; och &lt;audio&gt;-taggar med utvalda video- och ljudspelare.
 
 <a href="{$a}">Hantera mediaspelare</a>';
-$string['privacy:metadata'] = 'Pluginmodulen Multimedia lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Multimedia lagrar ingen personinformation.';

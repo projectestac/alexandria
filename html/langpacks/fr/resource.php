@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'resource', language 'fr', version '3.8'.
+ * Strings for component 'resource', language 'fr', version '3.11'.
  *
  * @package     resource
  * @category    string
@@ -100,7 +100,7 @@ $string['printintroexplain'] = 'Indique s\'il faut afficher la description de la
 $string['privacy:metadata'] = 'Le plugin de ressource Fichier n\'enregistre aucune donnée personnelle.';
 $string['resource:addinstance'] = 'Ajouter une ressource';
 $string['resource:exportresource'] = 'Exporter des ressources';
-$string['resource:view'] = 'Voir les ressources';
+$string['resource:view'] = 'Consulter les ressources';
 $string['resourcecontent'] = 'Fichiers et sous-dossiers';
 $string['resourcedetails_sizedate'] = '{$a->size} {$a->date}';
 $string['resourcedetails_sizetype'] = '{$a->size} {$a->type}';

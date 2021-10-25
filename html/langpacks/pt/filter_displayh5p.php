@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_displayh5p', language 'pt', version '3.8'.
+ * Strings for component 'filter_displayh5p', language 'pt', version '3.11'.
  *
  * @package     filter_displayh5p
  * @category    string
@@ -30,7 +30,7 @@ $string['allowedsourceslistdesc'] = 'Lista de URLs a partir dos quais os utiliza
 
 \'[id]\' identifica o ID do conteúdo H5P na fonte externa.
 
-Por exemplo:
+Exemplo:
 - H5P.com: https://[xxxxxx].h5p.com/content/[id]
 - Wordpress: http://myserver/wp-admin/admin-ajax.php?action=h5p_embed&id=[id]';
 $string['filtername'] = 'Mostrar H5P';

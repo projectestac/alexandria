@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'es', version '3.8'.
+ * Strings for component 'format_topics', language 'es', version '3.11'.
  *
  * @package     format_topics
  * @category    string
@@ -29,10 +29,13 @@ $string['addsections'] = 'Añadir secciones';
 $string['currentsection'] = 'Tema actual';
 $string['deletesection'] = 'Borrar tema';
 $string['editsection'] = 'Editar tema';
+$string['editsectionname'] = 'Editar nombre del tema';
 $string['hidefromothers'] = 'Ocultar tema';
+$string['newsectionname'] = 'Nuevo nombre para el tema {$a}';
 $string['page-course-view-topics'] = 'Cualquier página principal de curso en formato por temas';
 $string['page-course-view-topics-x'] = 'Cualquier página de curso en formato por temas';
 $string['pluginname'] = 'Formato de temas';
+$string['privacy:metadata'] = 'El complemento de formato de temas no almacena ningún dato personal.';
 $string['section0name'] = 'General';
 $string['sectionname'] = 'Tema';
 $string['showfromothers'] = 'Mostrar tema';

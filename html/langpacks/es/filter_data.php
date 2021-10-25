@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_data', language 'es', version '3.8'.
+ * Strings for component 'filter_data', language 'es', version '3.11'.
  *
  * @package     filter_data
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'Enlace automático a base de datos';
+$string['privacy:metadata'] = 'El complemento de enlace automático de la base de datos no almacena ningún dato personal.';

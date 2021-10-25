@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeexport_ods', language 'es', version '3.8'.
+ * Strings for component 'gradeexport_ods', language 'es', version '3.11'.
  *
  * @package     gradeexport_ods
  * @category    string
@@ -29,4 +29,5 @@ $string['eventgradeexported'] = 'Calificación OpenDocument exportada';
 $string['ods:publish'] = 'Publicar exportación de calificaciones ODS';
 $string['ods:view'] = 'Usar exportación de calificaciones OpenDocument';
 $string['pluginname'] = 'Hoja de cálculo OpenOffice';
+$string['privacy:metadata'] = 'El complemento de exportación de hoja de cálculo de calificaciones en OpenDocument no almacena ningún dato personal.';
 $string['timeexported'] = 'Última descarga de este curso';

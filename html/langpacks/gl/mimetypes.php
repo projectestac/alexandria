@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mimetypes', language 'gl', version '3.8'.
+ * Strings for component 'mimetypes', language 'gl', version '3.11'.
  *
  * @package     mimetypes
  * @category    string
@@ -30,7 +30,7 @@ $string['application/epub_zip'] = 'Libro electrónico EPUB';
 $string['application/json'] = 'Texto {$a->MIMETYPE2}';
 $string['application/msword'] = 'Documento Word';
 $string['application/pdf'] = 'Documento PDF';
-$string['application/vnd.moodle.backup'] = 'Copia de seguranza de Moodle';
+$string['application/vnd.moodle.backup'] = 'Copia de seguridade de Moodle';
 $string['application/vnd.ms-excel'] = 'Folla de cálculo Excel';
 $string['application/vnd.ms-excel.sheet.macroEnabled.12'] = 'Libro_de_traballo Excel 2007 con macros activadas';
 $string['application/vnd.ms-powerpoint'] = 'Presentación Powerpoint';
@@ -64,6 +64,7 @@ $string['group:html_track'] = 'Ficheiros de pistas HTML';
 $string['group:html_video'] = 'Ficheiros de vídeo compatíbeis nativamente cos navegadores';
 $string['group:image'] = 'Ficheiros de imaxe';
 $string['group:media_source'] = 'Medio de transmisión';
+$string['group:optimised_image'] = 'Ficheiros de imaxes a optimizar, como as insignias';
 $string['group:presentation'] = 'Ficheiros de presentación';
 $string['group:sourcecode'] = 'Código fonte';
 $string['group:spreadsheet'] = 'Ficheiros de folla de cálculo';

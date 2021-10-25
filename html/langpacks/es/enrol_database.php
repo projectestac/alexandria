@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_database', language 'es', version '3.8'.
+ * Strings for component 'enrol_database', language 'es', version '3.11'.
  *
  * @package     enrol_database
  * @category    string
@@ -29,7 +29,7 @@ $string['database:config'] = 'Configurar instancias de matriculación en la base
 $string['database:unenrol'] = 'Dar de baja usuarios suspendidos';
 $string['dbencoding'] = 'Codificación de base de datos';
 $string['dbhost'] = 'Host de la base de datos';
-$string['dbhost_desc'] = 'Escriba la dirección IP del servidor de la base de datos o el nombre del host. Use el nombre del sistema DSN si está usando ODBC.';
+$string['dbhost_desc'] = 'Escriba la dirección IP del servidor de la base de datos o el nombre del host. Utilice un nombre de sistema DSN si está usando ODBC. Utilice un PDO DSN si está usando PDO.';
 $string['dbname'] = 'Nombre de la base de datos';
 $string['dbname_desc'] = 'Dejar en blanco si se utiliza un nombre DSN en la base de datos.';
 $string['dbpass'] = 'Contraseña de la base de datos';
@@ -45,7 +45,7 @@ $string['debugdb_desc'] = 'Depurar conexión ADOdb a base de datos externa - se 
 $string['defaultcategory'] = 'Categoría por defecto del nuevo curso';
 $string['defaultcategory_desc'] = 'Categoría por defecto para cursos de creación automática. Usada cuando no se ha especificado o no se ha encontrado el ID de una nueva categoría.';
 $string['defaultrole'] = 'Rol por defecto';
-$string['defaultrole_desc'] = 'Rol que se asigna por defecto si nigún otro rol se especifica en una tabla externa.';
+$string['defaultrole_desc'] = 'Rol que se asigna por defecto si ningún otro rol se especifica en una tabla externa.';
 $string['ignorehiddencourses'] = 'Pasar por alto cursos ocultos';
 $string['ignorehiddencourses_desc'] = 'Si se activa esta opción, los usuarios no serán matriculados en cursos configurados como no disponibles para los estudiantes.';
 $string['localcategoryfield'] = 'Campo de categoría local';
@@ -60,10 +60,13 @@ $string['newcoursetable'] = 'Tabla de nuevos cursos remotos';
 $string['newcoursetable_desc'] = 'Se especifica el nombre de la tabla que contiene la lista de cursos que deberían crearse automáticamente. Si está vacía, significa que no está creado ningún curso.';
 $string['pluginname'] = 'Base de datos externa';
 $string['pluginname_desc'] = 'Puede utilizar una base de datos externa (casi de cualquier tipo) para controlar sus matriculaciones. Se asume que su base de datos externa contiene al menos un campo que contiene un ID de curso, y un campo que contiene un ID de usuario. Estos se comparan con los campos que usted elija en el curso local y las tablas de usuario.';
+$string['privacy:metadata'] = 'El complemento de matrícula a través de base de datos externa no almacena ningún dato personal.';
 $string['remotecoursefield'] = 'Campo curso remoto';
 $string['remotecoursefield_desc'] = 'El nombre del campo en la tabla remota que usamos para casar entradas en la tabla del curso.';
 $string['remoteenroltable'] = 'Tabla de matriculación remota de usuarios';
 $string['remoteenroltable_desc'] = 'Indique el nombre de la tabla que contiene la lista de matrículas de usuario. Si queda vacío significa que no hay sincronización en la matriculación de usuarios.';
+$string['remoteotheruserfield'] = 'Campo de otro usuario remoto';
+$string['remoteotheruserfield_desc'] = 'El nombre del campo en la tabla remota que estamos utilizando para marcar las asignaciones del rol "Otro usuario".';
 $string['remoterolefield'] = 'Campo rol remoto';
 $string['remoterolefield_desc'] = 'El nombre del campo en la tabla remota que usamos para casar entradas en la tabla del curso.';
 $string['remoteuserfield'] = 'Campo usuario remoto';
@@ -72,5 +75,6 @@ $string['settingsheaderdb'] = 'Conexión con la base de datos externa';
 $string['settingsheaderlocal'] = 'Asignación de campos locales';
 $string['settingsheadernewcourses'] = 'Creación de nuevos cursos';
 $string['settingsheaderremote'] = 'Sincronización de matriculación remota';
+$string['syncenrolmentstask'] = 'Tarea de sincronización de las  inscripciones por base de datos externa';
 $string['templatecourse'] = 'Nueva plantilla de curso';
 $string['templatecourse_desc'] = 'Opcional: Auto-crear cursos puede copiar su configuración de una plantilla de curso. Escriba aquí el nombre corto de la plantilla de curso.';

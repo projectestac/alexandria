@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_grouping', language 'es', version '3.8'.
+ * Strings for component 'availability_grouping', language 'es', version '3.11'.
  *
  * @package     availability_grouping
  * @category    string
@@ -29,7 +29,7 @@ $string['description'] = 'Permitir sólo a estudiantes que pertenezcan a un grup
 $string['error_selectgrouping'] = 'Debe seleccionar un agrupamiento.';
 $string['missing'] = '(Agrupamiento faltante)';
 $string['pluginname'] = 'Restricción por agrupamiento';
-$string['privacy:metadata'] = 'La extensión de Restricción por agrupamiento no almacena ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento de Restricción por agrupamiento no almacena ningún dato personal.';
 $string['requires_grouping'] = 'se pertenezca al agrupamiento <strong>{$a}</strong>';
 $string['requires_notgrouping'] = 'No pertenece a un grupo en <strong>{$a}</strong>';
 $string['title'] = 'Agrupamiento';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_social', language 'zh_cn', version '3.8'.
+ * Strings for component 'format_social', language 'zh_cn', version '3.11'.
  *
  * @package     format_social
  * @category    string
@@ -28,4 +28,5 @@ defined('MOODLE_INTERNAL') || die();
 $string['numberdiscussions'] = '话题数量';
 $string['numberdiscussions_help'] = '这里设定要显示多少话题';
 $string['pluginname'] = '社区格式';
+$string['privacy:metadata'] = '社交格式插件不存储任何个人数据。';
 $string['sectionname'] = '小节';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forum', language 'it', version '3.8'.
+ * Strings for component 'forum', language 'it', version '3.11'.
  *
  * @package     forum
  * @category    string
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['actionsforgraderinterface'] = 'Azioni per l\'interfaccia del valutatore';
 $string['actionsforpost'] = 'Azioni per l\'intervento';
+$string['activitydate:due'] = 'Data limite:';
 $string['activityoverview'] = 'Ci sono nuovi interventi nei forum';
 $string['addanewdiscussion'] = 'Aggiungi un argomento di discussione';
 $string['addanewquestion'] = 'Aggiungi nuova domanda';
@@ -107,6 +108,9 @@ $string['clicktounlockdiscussion'] = 'Click per sbloccare la discussione';
 $string['clicktounsubscribe'] = 'Hai sottoscritto la discussione. Click per revocare la sottoscrizione.';
 $string['close'] = 'Chiudi';
 $string['closegrader'] = 'Chiudi valutazioni';
+$string['completiondetail:discussions'] = 'Avviare discussioni : {$a}';
+$string['completiondetail:posts'] = 'Effettuare interventi: {$a}';
+$string['completiondetail:replies'] = 'Dare risposte: {$a}';
 $string['completiondiscussions'] = 'Lo studente deve avviare il seguente numero di discussioni:';
 $string['completiondiscussionsdesc'] = 'Lo studente deve avviare almeno il seguente numero di discussioni: {$a}';
 $string['completiondiscussionsgroup'] = 'Numero minimo discussioni';
@@ -348,7 +352,13 @@ $string['grade_forum_name'] = 'Valutazione del forum';
 $string['grade_forum_title'] = 'Valutazione';
 $string['grade_rating_name'] = 'Valutazione intervento/discussione';
 $string['graded'] = 'Valutato';
+$string['gradedby'] = 'Valutato da';
+$string['gradeforrating'] = 'Voto per la valutazione: {$a->str_long_grade}';
+$string['gradeforratinghidden'] = 'Voto per valutazione nascosto';
+$string['gradeforwholeforum'] = 'Voto per il forum: {$a->str_long_grade}';
+$string['gradeforwholeforumhidden'] = 'Voto per il forum nascosto';
 $string['gradeitem:forum'] = 'Forum';
+$string['gradeitemnameforrating'] = 'Valutazione {$a->name}';
 $string['gradeitemnameforwholeforum'] = 'Valutazione del forum per {$a->name}';
 $string['grades:gradesavedfor'] = 'La valutazione di {$a->fullname} è stata salvata';
 $string['grades:gradesavefailed'] = 'Non è stato possibile salvare la valutazione di {$a->fullname}: {$a->error}';
@@ -525,10 +535,12 @@ $string['postbymailsuccess_html'] = 'Il tuo intervento su "{$a->subject}" è sta
 $string['postbyuser'] = '{$a->post} di {$a->user}';
 $string['postincontext'] = 'Visualizza questo intervento nel contesto';
 $string['postisprivatereply'] = 'Questo intervento è una risposta in privato e non è visibile ad altri utenti.';
+$string['postmailinfo'] = 'Questa è la copia di un intervento effettuato su {$a} .';
 $string['postmailinfolink'] = 'Questa è una copia del messaggio inserito nel forum del corso {$a->coursename}.
 
 Per rispondere, utilizza il link seguente: {$a->replylink}';
 $string['postmailnow'] = '<p>L\' intervento sarà inviato immediatamente nelle email dei sottoscrittori.</p>';
+$string['postmailreply'] = 'Per rispondere fare click sul seguente collegamento: {$a}';
 $string['postmailsubject'] = '{$a->courseshortname}: {$a->subject}';
 $string['postrating1'] = 'Apprendimento prevalentemente separato';
 $string['postrating2'] = 'Apprendimento sia separato sia collegato';

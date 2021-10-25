@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_myprofile', language 'es', version '3.8'.
+ * Strings for component 'block_myprofile', language 'es', version '3.11'.
  *
  * @package     block_myprofile
  * @category    string
@@ -47,3 +47,4 @@ $string['myprofile:addinstance'] = 'Añadir un nuevo bloque de usuario identific
 $string['myprofile:myaddinstance'] = 'Añadir un nuevo bloque de usuario identificado al Área personal';
 $string['myprofile_settings'] = 'Información de usuario visible';
 $string['pluginname'] = 'Usuario identificado';
+$string['privacy:metadata'] = 'El bloque de usuario identificado solo muestra información sobre el usuario identificado y no almacena ninguna información.';

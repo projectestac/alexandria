@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'booktool_importhtml', language 'pt', version '3.8'.
+ * Strings for component 'booktool_importhtml', language 'pt', version '3.11'.
  *
  * @package     booktool_importhtml
  * @category    string
@@ -32,11 +32,11 @@ $string['importhtml:import'] = 'Importar capítulos';
 $string['importing'] = 'A importar';
 $string['importingchapters'] = 'A importar capítulos para o Livro';
 $string['pluginname'] = 'Importação de capítulos de livro';
-$string['privacy:metadata'] = 'O módulo Importar capítulo não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Importar capítulo não armazena quaisquer dados pessoais.';
 $string['relinking'] = 'A recriar hiperligações';
 $string['type'] = 'Tipo';
 $string['typeonefile'] = 'Um ficheiro HTML com capítulos definidos como títulos (H1,H2)';
-$string['typezipdirs'] = 'Cada diretoria representa um capítulo';
+$string['typezipdirs'] = 'Cada pasta representa um capítulo';
 $string['typezipfiles'] = 'Cada ficheiro HTML representa um capítulo';
 $string['ziparchive'] = 'Ficheiro zip';
 $string['ziparchive_help'] = 'Selecione um ficheiro zip que contenha ficheiros HTML, ficheiros multimédia e pastas. Os ficheiros ou diretorias em que o nome termina em "_sub" serão convertidos em subcapítulos.';

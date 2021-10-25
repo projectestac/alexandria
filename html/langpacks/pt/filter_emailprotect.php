@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_emailprotect', language 'pt', version '3.8'.
+ * Strings for component 'filter_emailprotect', language 'pt', version '3.11'.
  *
  * @package     filter_emailprotect
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'Proteção de e-mail';
-$string['privacy:metadata'] = 'O módulo Proteção de e- mail não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Proteção de e-mail não armazena quaisquer dados pessoais.';

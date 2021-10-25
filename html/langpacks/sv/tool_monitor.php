@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_monitor', language 'sv', version '3.8'.
+ * Strings for component 'tool_monitor', language 'sv', version '3.11'.
  *
  * @package     tool_monitor
  * @category    string
@@ -31,7 +31,7 @@ $string['allmodules'] = 'Alla instanser';
 $string['area'] = 'Område';
 $string['areatomonitor'] = 'Övervakningsområde';
 $string['cachedef_eventsubscriptions'] = 'Detta lagrar listan med händelseövervakningar för individuella kurser';
-$string['contactadmin'] = 'Kontakta administratören för att aktivera den.';
+$string['contactadmin'] = 'Kontakta administratören för att aktivera det.';
 $string['core'] = 'System';
 $string['currentsubscriptions'] = 'Nuvarande bevakningar';
 $string['defaultmessagetemplate'] = 'Regel: {rulename}<br />Beskrivning: {description}<br />Händelse: {eventname}';
@@ -59,10 +59,10 @@ $string['inminutes'] = 'i minuter';
 $string['invalidmodule'] = 'Ogiltig modul';
 $string['manage'] = 'Hantera';
 $string['managerules'] = 'Övervakningsregler';
-$string['manageruleslink'] = 'Du kan hantera regler på {$a}-sidan.';
-$string['managesubscriptions'] = 'Hantera händelseövervakning';
+$string['manageruleslink'] = 'Du kan hantera regler på sidan för {$a}.';
+$string['managesubscriptions'] = 'Händelseövervakning';
 $string['managesubscriptionslink'] = 'Du kan skapa bevakningar på {$a}-sidan.';
-$string['messageprovider:notification'] = 'Notiser för bevakningar';
+$string['messageprovider:notification'] = 'Notiser om regelbevakningar';
 $string['messagetemplate'] = 'Notis';
 $string['messagetemplate_help'] = 'En notis skickas till prenumeranter när tröskelvärdet för antal notiser har uppnåtts.
 Det kan omfatta någon eller alla av följande platshållare:

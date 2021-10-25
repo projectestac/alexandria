@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_manual', language 'ru', version '3.8'.
+ * Strings for component 'enrol_manual', language 'ru', version '3.11'.
  *
  * @package     enrol_manual
  * @category    string
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['advanced'] = 'Расширенно';
 $string['alterstatus'] = 'Изменить статус';
 $string['altertimeend'] = 'Изменить время окончания';
 $string['altertimestart'] = 'Изменить время начала';
@@ -64,12 +65,15 @@ $string['pluginname'] = 'Зачисление вручную';
 $string['pluginname_desc'] = 'Плагин ручной записи на курсы позволяет администраторам и преподавателям записывать пользователей на курс вручную, используя соответствующую ссылку в настройках курса. Рекомендуется включить этот плагин, т.к. некоторые другие плагины зависят от него, например, самостоятельная запись.';
 $string['privacy:metadata'] = 'Плагин «Зачисление вручную» не хранит никаких персональных данных.';
 $string['selectcohorts'] = 'Выберите глобальные группы';
+$string['selection'] = 'Выбор';
 $string['selectusers'] = 'Выберите пользователей';
+$string['sendexpirynotificationstask'] = 'Ручная отправка уведомлений об истечении срока действия зачисления';
 $string['status'] = 'Разрешить ручную запись на курсы';
 $string['status_desc'] = 'Разрешить доступ к курсу внутренним зарегистрированным пользователям. Этот параметр  должен быть включен в большинстве случаев.';
 $string['status_help'] = 'Этот параметр определяет, могут ли пользователи быть зачислены вручную (посредством ссылки в установках курса) пользователем с соответствующими правами, например, преподавателем.';
 $string['statusdisabled'] = 'Отключено';
 $string['statusenabled'] = 'Включено';
+$string['syncenrolmentstask'] = 'Ручная синхронизация зачислений';
 $string['unenrol'] = 'Отчислить пользователя';
 $string['unenrolselectedusers'] = 'Отчислить выбранных пользователей';
 $string['unenrolselfconfirm'] = 'Вы действительно хотите исключить себя из курса «{$a}»?';

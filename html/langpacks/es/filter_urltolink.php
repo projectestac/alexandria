@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_urltolink', language 'es', version '3.8'.
+ * Strings for component 'filter_urltolink', language 'es', version '3.11'.
  *
  * @package     filter_urltolink
  * @category    string
@@ -28,5 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $string['embedimages'] = 'Insertar imágenes';
 $string['embedimages_desc'] = 'Reemplazar con imágenes las URLs en los formatos de texto seleccionados.';
 $string['filtername'] = 'Convertir URL en enlaces e imágenes';
+$string['privacy:metadata'] = 'El complemento para convertir URLs en enlaces e imágenes no almacena ningún dato personal.';
 $string['settingformats'] = 'Aplicar a los formatos';
 $string['settingformats_desc'] = 'El filtro se aplicará solo si el texto original fue insertado en uno de los formatos seleccionados.';

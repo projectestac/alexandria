@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_completion', language 'es', version '3.8'.
+ * Strings for component 'report_completion', language 'es', version '3.11'.
  *
  * @package     report_completion
  * @category    string
@@ -37,3 +37,4 @@ $string['page-report-completion-index'] = 'Informe de finalización del curso';
 $string['page-report-completion-user'] = 'Informe de finalización del curso';
 $string['page-report-completion-x'] = 'Cualquier informe de finalización';
 $string['pluginname'] = 'Finalización del curso';
+$string['privacy:metadata'] = 'El informe de finalización del curso sólo muestra datos almacenados en otras ubicaciones.';

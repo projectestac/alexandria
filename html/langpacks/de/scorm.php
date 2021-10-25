@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'de', version '3.8'.
+ * Strings for component 'scorm', language 'de', version '3.11'.
  *
  * @package     scorm
  * @category    string
@@ -61,8 +61,8 @@ $string['attemptstatusmy'] = 'Nur Dashboard';
 $string['attemptsx'] = '{$a} Versuche';
 $string['attr_error'] = 'Falscher Wert für das Attribut ({$a->attr}) im Tag {$a->tag}';
 $string['autocommit'] = 'Automatisch übernehmen';
-$string['autocommit_help'] = 'Die Option legt fest, ob SCORM-Daten automatisch in der Datenbank gesichert werden. Dies ist hilfreich für SCORM-Objekte, die ihre Daten nicht regelmäßig sichern.';
-$string['autocommitdesc'] = 'SCORM-Daten automatisch sichern, wenn sie nicht vom Lernpaket gesichert werden.';
+$string['autocommit_help'] = 'Die Option legt fest, ob SCORM-Daten automatisch in der Datenbank gespeichert werden. Dies ist hilfreich für SCORM-Objekte, die ihre Daten nicht regelmäßig speichern.';
+$string['autocommitdesc'] = 'SCORM-Daten automatisch speichern, wenn sie nicht vom Lernpaket gespeichert werden.';
 $string['autocontinue'] = 'Automatisch fortsetzen';
 $string['autocontinue_help'] = 'Wenn die Option aktiviert ist, wird nach dem Bearbeiten eines Lernobjekts automatisch das nächste verfügbare Lernobjekt aufgerufen. Andernfalls muss eine Taste \'Weiter\' benutzt werden.';
 $string['autocontinuedesc'] = 'Diese Einstellung setzt für diese Aktivität die automatische Fortsetzung.';
@@ -85,6 +85,11 @@ $string['collapsetocwinsize'] = 'Inhaltsverzeichnis einklappen wenn Fenstergrö�
 $string['collapsetocwinsizedesc'] = 'Die Einstellung ermöglicht Ihnen festzulegen, dass das Inhaltsverzeichnis automatisch eingeklappt wird wenn die Fenstergröße kleiner ist als der eingetragene Wert.';
 $string['compatibilitysettings'] = 'Kompatibilität';
 $string['completed'] = 'Abgeschlossen';
+$string['completiondetail:allscos'] = 'Alle Teile dieser Aktivität ausführen';
+$string['completiondetail:completionscore'] = 'Eine Bewertung von {$a} oder mehr erhalten';
+$string['completiondetail:completionstatuscompleted'] = 'Aktivität abschließen';
+$string['completiondetail:completionstatuscompletedandpassed'] = 'Aktivität abschließen und bestehen';
+$string['completiondetail:completionstatuspassed'] = 'Aktivität bestehen';
 $string['completionscorerequired'] = 'Mindestpunkte notwendig';
 $string['completionscorerequired_help'] = 'Wenn diese Option aktiviert ist, müssen Teilnehmer/innen neben anderen Anforderungen auch die angegebene Mindestpunkte erreichen, um dieses Lernpaket als \'abgeschlossen\' markieren zu können.';
 $string['completionscorerequireddesc'] = 'Die Mindestpunktzahl {$a} ist zum Abschluss erforderlich.';
@@ -140,7 +145,7 @@ $string['eventtracksviewed'] = 'Tracks angezeigt';
 $string['eventuserreportviewed'] = 'Nutzerbericht angezeigt';
 $string['everyday'] = 'Jeden Tag';
 $string['everytime'] = 'Alle Nutzungszeiten';
-$string['exceededmaxattempts'] = 'Sie haben die Höchstzahl der Versuche erreicht.';
+$string['exceededmaxattempts'] = 'Sie haben die maximale Anzahl von Versuchen erreicht.';
 $string['exit'] = 'Kurs beenden';
 $string['exitactivity'] = 'Beenden';
 $string['expired'] = 'Entschuldigung, die Aktivität wurde am {$a} geschlossen und ist nicht länger verfügbar';
@@ -238,9 +243,14 @@ $string['missing_tag'] = 'Fehlendes Tag {$a->tag}';
 $string['missingparam'] = 'Parameter fehlt oder ist falsch.';
 $string['mode'] = 'Einstellung';
 $string['modulename'] = 'Lernpaket';
-$string['modulename_help'] = 'In einem Lernpaket sind die Inhalte meist über mehrere Seiten verteilt und werden über eine Navigation aufgerufen. Häufig sind Testfragen direkt integriert. Die Ergebnisse der Bearbeitung können in Moodle gespeichert werden.
+$string['modulename_help'] = 'In einem Lernpaket sind die Inhalte meist über mehrere Seiten verteilt und werden über eine Navigation aufgerufen. Häufig sind Testfragen direkt integriert. Die Endnote wird in den Bewertungen festgehalten.
 
-Ein Lernpaket wird außerhalb von Moodle mit spezieller Autorensoftware erstellt und im Format SCORM gespeichert. SCORM ist ein Standard, der die plattformübergreifende Verwendbarkeit von webbasierten Lerninhalten anstrebt.';
+Ein Lernpaket wird außerhalb von Moodle mit spezieller Autorensoftware erstellt und im Format SCORM gespeichert. SCORM ist ein Standard, der die plattformübergreifende Verwendbarkeit von webbasierten Lerninhalten anstrebt.
+
+Eine Lernpaket-Aktivität kann verwendet werden
+
+* Zur Präsentation von Multimedia-Inhalten und Animationen
+* Als Bewertungsinstrument';
 $string['modulenameplural'] = 'Lernpakete';
 $string['myaiccsessions'] = 'Meine AICC sessions';
 $string['myattempts'] = 'Meine Versuche';
@@ -361,7 +371,7 @@ $string['scormtype_help'] = 'Diese Einstellung legt fest, wie das Lernpaket in d
 * Heruntergeladenes Lernpaket - eine URL zum Lernpaket muss angegeben werden. Das Lernpaket wird heruntergeladen, ausgepackt und lokal gespeichert. Sobald das externe Lernpaket aktualisiert wird, werden alle Änderungen lokal übernommen.
 * Externe AICC URL - Die URL führt zu einer extern abgelegten einzelnen AICC Aktivität. Ein \'Pseudo\'-Paket wird darum herum angelegt werden.';
 $string['scrollbars'] = 'Scrollfunktion im Fenster bereitstellen';
-$string['search:activity'] = 'Lernpaket - Beschreibung';
+$string['search:activity'] = 'Lernpaket - Aktivitätsinfo';
 $string['selectall'] = 'Alles auswählen';
 $string['selectnone'] = 'Alles abwählen';
 $string['show'] = 'Zeigen';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'book', language 'pt', version '3.8'.
+ * Strings for component 'book', language 'pt', version '3.11'.
  *
  * @package     book
  * @category    string
@@ -74,7 +74,7 @@ $string['movechapterup'] = 'Mover capítulo "{$a}" para cima';
 $string['navexit'] = 'Sair do livro';
 $string['navimages'] = 'Botões';
 $string['navnext'] = 'Seguinte';
-$string['navnexttitle'] = 'Próximo: {$a}';
+$string['navnexttitle'] = 'Seguinte: {$a}';
 $string['navoptions'] = 'Opções disponíveis para as hiperligações de navegação';
 $string['navoptions_desc'] = 'Opções para exibir a navegação nas páginas do livro';
 $string['navprev'] = 'Anterior';
@@ -101,7 +101,7 @@ $string['page-mod-book-x'] = 'Qualquer página do recurso Livro';
 $string['pluginadministration'] = 'Administração do Livro';
 $string['pluginname'] = 'Livro';
 $string['previouschapter'] = 'Capítulo anterior';
-$string['privacy:metadata'] = 'O módulo Livro não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Livro não armazena quaisquer dados pessoais.';
 $string['removeallbooktags'] = 'Remover todas as tags do livro';
 $string['search:activity'] = 'Livro - informações sobre o recurso';
 $string['search:chapter'] = 'Livro - capítulos';

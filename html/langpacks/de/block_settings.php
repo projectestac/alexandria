@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_settings', language 'de', version '3.8'.
+ * Strings for component 'block_settings', language 'de', version '3.11'.
  *
  * @package     block_settings
  * @category    string
@@ -29,4 +29,4 @@ $string['enabledock'] = 'Blockverschieben ins Dock erlauben';
 $string['pluginname'] = 'Administration';
 $string['privacy:metadata'] = 'Der Block Administration zeigt nur Daten an, die an anderen Orten gespeichert sind.';
 $string['settings:addinstance'] = 'Neuen Block \'Einstellungen\' hinzufügen';
-$string['settings:myaddinstance'] = 'Neuen Block \'Einstellungen\' zum Dashboard hinzufügen';
+$string['settings:myaddinstance'] = 'Neuen Block \'Einstellungen\' im Dashboard hinzufügen';

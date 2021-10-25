@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_availabilityconditions', language 'es', version '3.8'.
+ * Strings for component 'tool_availabilityconditions', language 'es', version '3.11'.
  *
  * @package     tool_availabilityconditions
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['manageplugins'] = 'Administrar restricciones';
 $string['pluginname'] = 'Gestión de estado de disponibilidad';
+$string['privacy:metadata'] = 'El complemento de gestión de condiciones de disponibilidad no almacena ningún dato personal.';

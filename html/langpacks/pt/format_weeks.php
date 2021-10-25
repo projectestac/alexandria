@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_weeks', language 'pt', version '3.8'.
+ * Strings for component 'format_weeks', language 'pt', version '3.11'.
  *
  * @package     format_weeks
  * @category    string
@@ -37,7 +37,7 @@ $string['newsectionname'] = 'Novo nome para a semana {$a}';
 $string['page-course-view-weeks'] = 'Qualquer página principal de disciplina em formato semanal';
 $string['page-course-view-weeks-x'] = 'Qualquer disciplina em formato semanal';
 $string['pluginname'] = 'Formato Semanal';
-$string['privacy:metadata'] = 'O módulo Formato Semanal não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Formato Semanal não armazena quaisquer dados pessoais.';
 $string['section0name'] = 'Geral';
 $string['sectionname'] = 'Semana';
 $string['showfromothers'] = 'Show week';

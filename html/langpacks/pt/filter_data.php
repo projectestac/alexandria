@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_data', language 'pt', version '3.8'.
+ * Strings for component 'filter_data', language 'pt', version '3.11'.
  *
  * @package     filter_data
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'Autoligação à base de dados';
-$string['privacy:metadata'] = 'O módulo Hiperligação para a base de dados não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Hiperligação para a base de dados não armazena quaisquer dados pessoais.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_undo', language 'pt', version '3.8'.
+ * Strings for component 'atto_undo', language 'pt', version '3.11'.
  *
  * @package     atto_undo
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Anular/Refazer';
-$string['privacy:metadata'] = 'O módulo atto_undo não armazena nenhum dado pessoal.';
+$string['privacy:metadata'] = 'O módulo atto_undo não armazena quaisquer dados pessoais.';
 $string['redo'] = 'Refazer';
 $string['undo'] = 'Anular a ação anterior';

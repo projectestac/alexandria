@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_fontcolor', language 'es', version '3.8'.
+ * Strings for component 'atto_fontcolor', language 'es', version '3.11'.
  *
  * @package     atto_fontcolor
  * @category    string
@@ -25,5 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['color_black'] = 'Negro';
+$string['color_blue'] = 'Azul';
+$string['color_green'] = 'Verde';
+$string['color_red'] = 'Rojo';
+$string['color_white'] = 'Blanco';
+$string['color_yellow'] = 'Amarillo';
 $string['pluginname'] = 'Color de la tipografía';
-$string['privacy:metadata'] = 'El plugin atto_fontcolor no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_fontcolor no almacena ningún dato personal.';

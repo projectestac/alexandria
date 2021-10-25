@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_tags', language 'de', version '3.8'.
+ * Strings for component 'block_tags', language 'de', version '3.11'.
  *
  * @package     block_tags
  * @category    string
@@ -34,10 +34,10 @@ $string['pluginname'] = 'Tags';
 $string['privacy:metadata'] = 'Der Block \'Tags\' zeigt nur Daten an, die an anderen Orten gespeichert sind.';
 $string['recursivecontext'] = 'Abhängigkeiten einbeziehen';
 $string['recursivecontext_help'] = 'Diese Option legt fest, ob Tags nur im aktuellen Kontext angezeigt werden, aber nicht aus untergeordneten Kontexten. Es können z.B. Tags des Kurses angezeigt, aber Tags der Kursaktivitäten ausgeblendet sein.';
-$string['standardonly'] = 'Nur standardmäßige';
+$string['standardonly'] = 'Nur Standard';
 $string['tagcollection'] = 'Tag-Collection';
 $string['tagcollection_help'] = 'Wählen Sie die Collection aus, deren Tags angezeigt werden sollen. Wenn Sie \'beliebige\' auswählen, werden alle Collections außer denen angezeigt, die mit * markiert sind.';
 $string['taggeditemscontext'] = 'Tags im Kontext';
 $string['taggeditemscontext_help'] = 'Sie können die Tag-Cloud auf die Tags beschränken, die nur im aktuellen Kontext (Kursbereich, Kurs, Aktivität) verfügbar sind.';
 $string['tags:addinstance'] = 'Neuen Block \'Tags\' hinzufügen';
-$string['tags:myaddinstance'] = 'Neuen Block \'Tags\' zum Dashboard hinzufügen';
+$string['tags:myaddinstance'] = 'Neuen Block \'Tags\' im Dashboard hinzufügen';

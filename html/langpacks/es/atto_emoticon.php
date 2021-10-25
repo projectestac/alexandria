@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_emoticon', language 'es', version '3.8'.
+ * Strings for component 'atto_emoticon', language 'es', version '3.11'.
  *
  * @package     atto_emoticon
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['insertemoticon'] = 'Insertar emoticon';
 $string['pluginname'] = 'Emoticon';
-$string['privacy:metadata'] = 'El plugin atto_emoticon no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_emoticon no almacena ningún dato personal.';

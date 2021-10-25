@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_menu', language 'pt', version '3.8'.
+ * Strings for component 'datafield_menu', language 'pt', version '3.11'.
  *
  * @package     datafield_menu
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['fieldtypelabel'] = 'Campo menu';
 $string['pluginname'] = 'Menu';
-$string['privacy:metadata'] = 'A componente Campo menu não armazena dados pessoais, usa tabelas definidas em mod_data.';
+$string['privacy:metadata'] = 'O componente do campo Menu não armazena dados pessoais, usa tabelas definidas em mod_data.';

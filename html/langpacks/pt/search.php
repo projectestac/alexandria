@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'search', language 'pt', version '3.8'.
+ * Strings for component 'search', language 'pt', version '3.11'.
  *
  * @package     search
  * @category    string
@@ -103,7 +103,7 @@ $string['order_relevance'] = 'Resultados mais relevantes em primeiro';
 $string['priority'] = 'Prioritário';
 $string['priority_normal'] = 'Normal';
 $string['priority_reindexing'] = 'A reindexar';
-$string['privacy:metadata'] = 'O subsistema de pesquisa não armazena dados pessoais';
+$string['privacy:metadata'] = 'O subsistema de pesquisa não armazena quaisquer dados pessoais.';
 $string['progress'] = 'Progresso';
 $string['queryerror'] = 'A pesquisa que indicou não pôde ser analisada pelo motor de busca: {$a}';
 $string['queueheading'] = 'Fila de indexação adicional ({$a} itens)';

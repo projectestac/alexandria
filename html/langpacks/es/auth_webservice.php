@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_webservice', language 'es', version '3.8'.
+ * Strings for component 'auth_webservice', language 'es', version '3.11'.
  *
  * @package     auth_webservice
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['auth_webservicedescription'] = 'Este método de identificación debería usarse en cuentas de uso exclusivo de clientes del servicio web.';
 $string['pluginname'] = 'Identificación de Servicios Web (\'Web Services\')';
+$string['privacy:metadata'] = 'El complemento de autenticación a través de servicios web no almacena ningún dato personal.';

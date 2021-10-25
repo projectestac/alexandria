@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'currencies', language 'ar', version '3.8'.
+ * Strings for component 'currencies', language 'ar', version '3.11'.
  *
  * @package     currencies
  * @category    string
@@ -174,7 +174,7 @@ $string['USD'] = 'دولار أمريكي';
 $string['UYU'] = 'بيسو أوروغواياني';
 $string['UZS'] = 'سوم اوزبكي';
 $string['VEF'] = 'بوليفار فنزويلي';
-$string['VND'] = 'دونغ فيتنام';
+$string['VND'] = 'دونغ فيتنامي';
 $string['VUV'] = 'فاتو فانواتو';
 $string['WST'] = 'تالا ساموا';
 $string['XAF'] = 'XPF - الفرنك الباسيفيكي';

@@ -34,7 +34,7 @@ YUI.add('moodle-atto_image-button', function (Y, NAME) {
  */
 
 var CSS = {
-        RESPONSIVE: 'img-responsive',
+        RESPONSIVE: 'img-fluid',
         INPUTALIGNMENT: 'atto_image_alignment',
         INPUTALT: 'atto_image_altentry',
         INPUTHEIGHT: 'atto_image_heightentry',
@@ -43,6 +43,7 @@ var CSS = {
         INPUTSIZE: 'atto_image_size',
         INPUTWIDTH: 'atto_image_widthentry',
         IMAGEALTWARNING: 'atto_image_altwarning',
+        IMAGEURLWARNING: 'atto_image_urlwarning',
         IMAGEBROWSER: 'openimagebrowser',
         IMAGEPRESENTATION: 'atto_image_presentation',
         INPUTCONSTRAIN: 'atto_image_constrain',
@@ -50,6 +51,10 @@ var CSS = {
         IMAGEPREVIEW: 'atto_image_preview',
         IMAGEPREVIEWBOX: 'atto_image_preview_box',
         ALIGNSETTINGS: 'atto_image_button'
+    },
+    FORMNAMES = {
+        URL: 'urlentry',
+        ALT: 'altentry'
     },
     SELECTORS = {
         INPUTURL: '.' + CSS.INPUTURL
@@ -96,13 +101,17 @@ var CSS = {
 
     TEMPLATE = '' +
             '<form class="atto_form">' +
-
                 // Add the repository browser button.
+                '<div style="display:none" role="alert" class="alert alert-warning mb-1 {{CSS.IMAGEURLWARNING}}">' +
+                    '<label for="{{elementid}}_{{CSS.INPUTURL}}">' +
+                    '{{get_string "imageurlrequired" component}}' +
+                    '</label>' +
+                '</div>' +
                 '{{#if showFilepicker}}' +
                     '<div class="mb-1">' +
                         '<label for="{{elementid}}_{{CSS.INPUTURL}}">{{get_string "enterurl" component}}</label>' +
                         '<div class="input-group input-append w-100">' +
-                            '<input class="form-control {{CSS.INPUTURL}}" type="url" ' +
+                            '<input name="{{FORMNAMES.URL}}" class="form-control {{CSS.INPUTURL}}" type="url" ' +
                             'id="{{elementid}}_{{CSS.INPUTURL}}" size="32"/>' +
                             '<span class="input-group-append">' +
                                 '<button class="btn btn-secondary {{CSS.IMAGEBROWSER}}" type="button">' +
@@ -113,19 +122,27 @@ var CSS = {
                 '{{else}}' +
                     '<div class="mb-1">' +
                         '<label for="{{elementid}}_{{CSS.INPUTURL}}">{{get_string "enterurl" component}}</label>' +
-                        '<input class="form-control fullwidth {{CSS.INPUTURL}}" type="url" ' +
+                        '<input name="{{FORMNAMES.URL}}" class="form-control fullwidth {{CSS.INPUTURL}}" type="url" ' +
                         'id="{{elementid}}_{{CSS.INPUTURL}}" size="32"/>' +
                     '</div>' +
                 '{{/if}}' +
 
-                // Add the Alt box.
                 '<div style="display:none" role="alert" class="alert alert-warning mb-1 {{CSS.IMAGEALTWARNING}}">' +
+                    '<label for="{{elementid}}_{{CSS.INPUTALT}}">' +
                     '{{get_string "presentationoraltrequired" component}}' +
+                    '</label>' +
                 '</div>' +
+                // Add the Alt box.
                 '<div class="mb-1">' +
                 '<label for="{{elementid}}_{{CSS.INPUTALT}}">{{get_string "enteralt" component}}</label>' +
-                '<input class="form-control fullwidth {{CSS.INPUTALT}}" type="text" value="" ' +
-                'id="{{elementid}}_{{CSS.INPUTALT}}" size="32"/>' +
+                '<textarea class="form-control fullwidth {{CSS.INPUTALT}}" ' +
+                'id="{{elementid}}_{{CSS.INPUTALT}}" name="{{FORMNAMES.ALT}}" maxlength="125"></textarea>' +
+
+                // Add the character count.
+                '<div id="the-count" class="d-flex justify-content-end small">' +
+                '<span id="currentcount">0</span>' +
+                '<span id="maximumcount"> / 125</span>' +
+                '</div>' +
 
                 // Add the presentation select box.
                 '<div class="form-check">' +
@@ -176,7 +193,7 @@ var CSS = {
                 // Add the image preview.
                 '<div class="mdl-align">' +
                 '<div class="{{CSS.IMAGEPREVIEWBOX}}">' +
-                    '<img src="#" class="{{CSS.IMAGEPREVIEW}}" alt="" style="display: none;"/>' +
+                    '<img class="{{CSS.IMAGEPREVIEW}}" alt="" style="display: none;"/>' +
                 '</div>' +
 
                 // Add the submit button and close the form.
@@ -246,7 +263,7 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         this.editor.on('paste', this._handlePaste, this);
         this.editor.on('drop', this._handleDragDrop, this);
 
-        // e.preventDefault needed to stop the default event from clobbering the desired behaviour in some browsers.
+        // ...e.preventDefault needed to stop the default event from clobbering the desired behaviour in some browsers.
         this.editor.on('dragover', function(e) {
             e.preventDefault();
         }, this);
@@ -352,6 +369,11 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
 
         host.saveSelection();
 
+        // Trigger form upload start events.
+        require(['core_form/events'], function(FormEvent) {
+            FormEvent.triggerUploadStarted(self.editor.get('id'));
+        });
+
         var options = host.get('filepickeroptions').image,
             savepath = (options.savepath === undefined) ? '/' : options.savepath,
             formData = new FormData(),
@@ -406,6 +428,10 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                             if (placeholder) {
                                 placeholder.remove(true);
                             }
+                            // Trigger form upload complete events.
+                            require(['core_form/events'], function(FormEvent) {
+                                FormEvent.triggerUploadCompleted(self.editor.get('id'));
+                            });
                             throw new M.core.ajaxException(result);
                         }
 
@@ -420,7 +446,8 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                         // Replace placeholder with actual image.
                         newhtml = template({
                             url: file.url,
-                            presentation: true
+                            presentation: true,
+                            classlist: CSS.RESPONSIVE
                         });
                         newimage = Y.Node.create(newhtml);
                         if (placeholder) {
@@ -432,12 +459,20 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     }
                 } else {
                     Y.use('moodle-core-notification-alert', function() {
+                        // Trigger form upload complete events.
+                        require(['core_form/events'], function(FormEvent) {
+                            FormEvent.triggerUploadCompleted(self.editor.get('id'));
+                        });
                         new M.core.alert({message: M.util.get_string('servererror', 'moodle')});
                     });
                     if (placeholder) {
                         placeholder.remove(true);
                     }
                 }
+                // Trigger form upload complete events.
+                require(['core_form/events'], function(FormEvent) {
+                    FormEvent.triggerUploadCompleted(self.editor.get('id'));
+                });
             }
         };
         xhr.open("POST", M.cfg.wwwroot + '/repository/repository_ajax.php?action=upload', true);
@@ -482,7 +517,9 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             focusAfterHide: true,
             focusOnShowSelector: SELECTORS.INPUTURL
         });
-
+        // Set a maximum width for the dialog. This will prevent the dialog width to extend beyond the screen width
+        // in cases when the uploaded image has larger width.
+        dialogue.get('boundingBox').setStyle('maxWidth', '90%');
         // Set the dialogue content, and then show the dialogue.
         dialogue.set('bodyContent', this._getDialogueContent())
                 .show();
@@ -576,6 +613,7 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
             content = Y.Node.create(template({
                 elementid: this.get('host').get('elementid'),
                 CSS: CSS,
+                FORMNAMES: FORMNAMES,
                 component: COMPONENTNAME,
                 showFilepicker: canShowFilepicker,
                 alignments: ALIGNMENTS
@@ -587,8 +625,9 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         this._applyImageProperties(this._form);
 
         this._form.one('.' + CSS.INPUTURL).on('blur', this._urlChanged, this);
-        this._form.one('.' + CSS.IMAGEPRESENTATION).on('change', this._updateWarning, this);
-        this._form.one('.' + CSS.INPUTALT).on('change', this._updateWarning, this);
+        this._form.one('.' + CSS.INPUTURL).on('change', this._hasErrorUrlField, this);
+        this._form.one('.' + CSS.IMAGEPRESENTATION).on('change', this._hasErrorAltField, this);
+        this._form.one('.' + CSS.INPUTALT).on('blur', this._hasErrorAltField, this);
         this._form.one('.' + CSS.INPUTWIDTH).on('blur', this._autoAdjustSize, this);
         this._form.one('.' + CSS.INPUTHEIGHT).on('blur', this._autoAdjustSize, this, true);
         this._form.one('.' + CSS.INPUTCONSTRAIN).on('change', function(event) {
@@ -596,7 +635,6 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                 this._autoAdjustSize(event);
             }
         }, this);
-        this._form.one('.' + CSS.INPUTURL).on('blur', this._urlChanged, this);
         this._form.one('.' + CSS.INPUTSUBMIT).on('click', this._setImage, this);
 
         if (canShowFilepicker) {
@@ -604,6 +642,9 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
                     this.get('host').showFilepicker('image', this._filepickerCallback, this);
             }, this);
         }
+
+        // Character count.
+        this._form.one('.' + CSS.INPUTALT).on('keyup', this._handleKeyup, this);
 
         return content;
     },
@@ -1018,6 +1059,38 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
         return CSS.ALIGNSETTINGS + '_' + alignment;
     },
 
+    _toggleVisibility: function(selector, predicate) {
+        var form = this._form;
+        var element = form.all(selector);
+        element.setStyle('display', predicate ? 'block' : 'none');
+    },
+
+    _toggleAriaInvalid: function(selectors, predicate) {
+        var form = this._form;
+        selectors.forEach(function(selector) {
+            var element = form.all(selector);
+            element.setAttribute('aria-invalid', predicate);
+        });
+    },
+
+    _hasErrorUrlField: function() {
+        var form = this._form;
+        var url = form.one('.' + CSS.INPUTURL).get('value');
+        var urlerror = url === '';
+        this._toggleVisibility('.' + CSS.IMAGEURLWARNING, urlerror);
+        this._toggleAriaInvalid(['.' + CSS.INPUTURL], urlerror);
+        return urlerror;
+    },
+
+    _hasErrorAltField: function() {
+        var form = this._form;
+        var alt = form.one('.' + CSS.INPUTALT).get('value');
+        var presentation = form.one('.' + CSS.IMAGEPRESENTATION).get('checked');
+        var imagealterror = alt === '' && !presentation;
+        this._toggleVisibility('.' + CSS.IMAGEALTWARNING, imagealterror);
+        this._toggleAriaInvalid(['.' + CSS.INPUTALT, '.' + CSS.IMAGEPRESENTATION], imagealterror);
+        return imagealterror;
+    },
     /**
      * Update the alt text warning live.
      *
@@ -1026,23 +1099,22 @@ Y.namespace('M.atto_image').Button = Y.Base.create('button', Y.M.editor_atto.Edi
      * @private
      */
     _updateWarning: function() {
-        var form = this._form,
-            state = true,
-            alt = form.one('.' + CSS.INPUTALT).get('value'),
-            presentation = form.one('.' + CSS.IMAGEPRESENTATION).get('checked');
-        if (alt === '' && !presentation) {
-            form.one('.' + CSS.IMAGEALTWARNING).setStyle('display', 'block');
-            form.one('.' + CSS.INPUTALT).setAttribute('aria-invalid', true);
-            form.one('.' + CSS.IMAGEPRESENTATION).setAttribute('aria-invalid', true);
-            state = true;
-        } else {
-            form.one('.' + CSS.IMAGEALTWARNING).setStyle('display', 'none');
-            form.one('.' + CSS.INPUTALT).setAttribute('aria-invalid', false);
-            form.one('.' + CSS.IMAGEPRESENTATION).setAttribute('aria-invalid', false);
-            state = false;
-        }
+        var urlerror = this._hasErrorUrlField();
+        var imagealterror = this._hasErrorAltField();
+        var haserrors = urlerror || imagealterror;
         this.getDialogue().centerDialogue();
-        return state;
+        return haserrors;
+    },
+
+    /**
+     * Handle the keyup to update the character count.
+     */
+    _handleKeyup: function() {
+        var form = this._form,
+            alt = form.one('.' + CSS.INPUTALT).get('value'),
+            characterCount = alt.length,
+            current = form.one('#currentcount');
+        current.setHTML(characterCount);
     }
 });
 

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_algebra', language 'sv', version '3.8'.
+ * Strings for component 'filter_algebra', language 'sv', version '3.11'.
  *
  * @package     filter_algebra
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['algebraicexpression'] = 'Algebraiskt uttryck';
 $string['filtername'] = 'Algebraisk notation';
-$string['privacy:metadata'] = 'Pluginmodulen Algebraisk notation lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Algebraisk notation lagrar ingen personinformation.';

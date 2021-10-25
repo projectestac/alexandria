@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_googledocs', language 'ru', version '3.8'.
+ * Strings for component 'repository_googledocs', language 'ru', version '3.11'.
  *
  * @package     repository_googledocs
  * @category    string
@@ -38,14 +38,16 @@ $string['importformat'] = 'Настройка по умолчанию форма
 $string['internal'] = 'Внутренние (файлы, хранящиеся в Moodle)';
 $string['issuer'] = 'Служба OAuth 2';
 $string['issuer_help'] = 'Выберите службу OAuth 2, настроенную для работы с API Google Drive. Если служба еще не существует, вам необходимо ее создать.';
-$string['oauth2serviceslink'] = '<a href="{$a}" title="Ссылка на конфигурацию служб OAuth 2"> Конфигурация служб OAuth 2 </a>';
+$string['mydrive'] = 'My Drive';
+$string['oauth2serviceslink'] = '<a href="{$a}" title="Ссылка на конфигурацию служб OAuth 2"> Конфигурация служб OAuth 2</a>';
 $string['owner'] = 'Владелец: {$a}';
 $string['pluginname'] = 'Google Drive';
 $string['presentationformat'] = 'Формат импорта презентации по умолчанию';
 $string['privacy:metadata:repository_googledocs'] = 'Плагин хранилища Google Drive не хранит никаких личных данных, но передает данные пользователя из Moodle в удаленную систему.';
 $string['privacy:metadata:repository_googledocs:email'] = 'Электронная почта пользователя репозитория Google Drive.';
 $string['privacy:metadata:repository_googledocs:searchtext'] = 'Поисковый текстовый запрос пользователя репозитория Google Drive.';
-$string['searchfor'] = 'Поиск {$a}';
+$string['searchfor'] = 'Поиск для:';
 $string['servicenotenabled'] = 'Доступ не настроен. Убедитесь, что служба «Drive API» включена.';
+$string['shareddrives'] = 'Общие диски';
 $string['spreadsheetformat'] = 'Формат импорта электронной таблицы по умолчанию';
 $string['supportedreturntypes'] = 'Поддерживаемые файлы';

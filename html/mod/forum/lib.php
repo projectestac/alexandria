@@ -374,69 +374,6 @@ function forum_supports($feature) {
 }
 
 /**
- * Obtains the automatic completion state for this forum based on any conditions
- * in forum settings.
- *
- * @global object
- * @global object
- * @param object $course Course
- * @param object $cm Course-module
- * @param int $userid User ID
- * @param bool $type Type of comparison (or/and; can be used as return value if no conditions)
- * @return bool True if completed, false if not. (If no conditions, then return
- *   value depends on comparison type)
- */
-function forum_get_completion_state($course,$cm,$userid,$type) {
-    global $CFG,$DB;
-
-    // Get forum details
-    if (!($forum=$DB->get_record('forum',array('id'=>$cm->instance)))) {
-        throw new Exception("Can't find forum {$cm->instance}");
-    }
-
-    $result=$type; // Default return value
-
-    $postcountparams=array('userid'=>$userid,'forumid'=>$forum->id);
-    $postcountsql="
-SELECT
-    COUNT(1)
-FROM
-    {forum_posts} fp
-    INNER JOIN {forum_discussions} fd ON fp.discussion=fd.id
-WHERE
-    fp.userid=:userid AND fd.forum=:forumid";
-
-    if ($forum->completiondiscussions) {
-        $value = $forum->completiondiscussions <=
-                 $DB->count_records('forum_discussions',array('forum'=>$forum->id,'userid'=>$userid));
-        if ($type == COMPLETION_AND) {
-            $result = $result && $value;
-        } else {
-            $result = $result || $value;
-        }
-    }
-    if ($forum->completionreplies) {
-        $value = $forum->completionreplies <=
-                 $DB->get_field_sql( $postcountsql.' AND fp.parent<>0',$postcountparams);
-        if ($type==COMPLETION_AND) {
-            $result = $result && $value;
-        } else {
-            $result = $result || $value;
-        }
-    }
-    if ($forum->completionposts) {
-        $value = $forum->completionposts <= $DB->get_field_sql($postcountsql,$postcountparams);
-        if ($type == COMPLETION_AND) {
-            $result = $result && $value;
-        } else {
-            $result = $result || $value;
-        }
-    }
-
-    return $result;
-}
-
-/**
  * Create a message-id string to use in the custom headers of forum notification emails
  *
  * message-id is used by email clients to identify emails and to nest conversations
@@ -644,7 +581,8 @@ function forum_print_recent_activity($course, $viewfullnames, $timestart) {
 
     // do not use log table if possible, it may be huge and is expensive to join with other tables
 
-    $allnamefields = user_picture::fields('u', null, 'duserid');
+    $userfieldsapi = \core_user\fields::for_userpic();
+    $allnamefields = $userfieldsapi->get_sql('u', false, '', 'duserid', false)->selects;
     if (!$posts = $DB->get_records_sql("SELECT p.*,
                                               f.course, f.type AS forumtype, f.name AS forumname, f.intro, f.introformat, f.duedate,
                                               f.cutoffdate, f.assessed AS forumassessed, f.assesstimestart, f.assesstimefinish,
@@ -766,7 +704,7 @@ function forum_print_recent_activity($course, $viewfullnames, $timestart) {
         return false;
     }
 
-    echo $OUTPUT->heading(get_string('newforumposts', 'forum').':', 3);
+    echo $OUTPUT->heading(get_string('newforumposts', 'forum') . ':', 6);
     $list = html_writer::start_tag('ul', ['class' => 'unlist']);
 
     foreach ($printposts as $post) {
@@ -954,7 +892,7 @@ function forum_scale_used_anywhere(int $scaleid): bool {
         return false;
     }
 
-    return $DB->record_exists('forum', ['scale' => $scaleid * -1]);
+    return $DB->record_exists_select('forum', "scale = ? and assessed > 0", [$scaleid * -1]);
 }
 
 // SQL FUNCTIONS ///////////////////////////////////////////////////////////
@@ -971,7 +909,8 @@ function forum_scale_used_anywhere(int $scaleid): bool {
 function forum_get_post_full($postid) {
     global $CFG, $DB;
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $userfieldsapi = \core_user\fields::for_name();
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     return $DB->get_record_sql("SELECT p.*, d.forum, $allnames, u.email, u.picture, u.imagealt
                              FROM {forum_posts} p
                                   JOIN {forum_discussions} d ON p.discussion = d.id
@@ -1000,7 +939,8 @@ function forum_get_all_discussion_posts($discussionid, $sort, $tracking = false)
         $params[] = $USER->id;
     }
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $userfieldsapi = \core_user\fields::for_name();
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     $params[] = $discussionid;
     if (!$posts = $DB->get_records_sql("SELECT p.*, $allnames, u.email, u.picture, u.imagealt $tr_sel
                                      FROM {forum_posts} p
@@ -1159,7 +1099,7 @@ function forum_get_readable_forums($userid, $courseid=0) {
  * @param string $extrasql
  * @return array|bool Array of posts found or false
  */
-function forum_search_posts($searchterms, $courseid=0, $limitfrom=0, $limitnum=50,
+function forum_search_posts($searchterms, $courseid, $limitfrom, $limitnum,
                             &$totalcount, $extrasql='') {
     global $CFG, $DB, $USER;
     require_once($CFG->libdir.'/searchlib.php');
@@ -1298,7 +1238,8 @@ function forum_search_posts($searchterms, $courseid=0, $limitfrom=0, $limitnum=5
                    FROM $fromsql
                   WHERE $selectsql";
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $userfieldsapi = \core_user\fields::for_name();
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     $searchsql = "SELECT p.*,
                          d.forum,
                          $allnames,
@@ -1338,7 +1279,8 @@ function forum_get_user_posts($forumid, $userid) {
         }
     }
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $userfieldsapi = \core_user\fields::for_name();
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     return $DB->get_records_sql("SELECT p.*, d.forum, $allnames, u.email, u.picture, u.imagealt
                               FROM {forum} f
                                    JOIN {forum_discussions} d ON d.forum = f.id
@@ -1429,7 +1371,8 @@ function forum_count_user_posts($forumid, $userid) {
 function forum_get_post_from_log($log) {
     global $CFG, $DB;
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $userfieldsapi = \core_user\fields::for_name();
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     if ($log->action == "add post") {
 
         return $DB->get_record_sql("SELECT p.*, f.type AS forumtype, d.forum, d.groupid, $allnames, u.email, u.picture
@@ -1757,11 +1700,13 @@ function forum_get_discussions($cm, $forumsort="", $fullpost=true, $unused=-1, $
         $postdata = "p.*";
     }
 
+    $userfieldsapi = \core_user\fields::for_name();
+
     if (empty($userlastmodified)) {  // We don't need to know this
         $umfields = "";
         $umtable  = "";
     } else {
-        $umfields = ', ' . get_all_user_name_fields(true, 'um', null, 'um') . ', um.email AS umemail, um.picture AS umpicture,
+        $umfields = $userfieldsapi->get_sql('um', false, 'um')->selects . ', um.email AS umemail, um.picture AS umpicture,
                         um.imagealt AS umimagealt';
         $umtable  = " LEFT JOIN {user} um ON (d.usermodified = um.id)";
     }
@@ -1775,7 +1720,7 @@ function forum_get_discussions($cm, $forumsort="", $fullpost=true, $unused=-1, $
     $discussionfields = "d.id as discussionid, d.course, d.forum, d.name, d.firstpost, d.groupid, d.assessed," .
     " d.timemodified, d.usermodified, d.timestart, d.timeend, d.pinned, d.timelocked";
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     $sql = "SELECT $postdata, $discussionfields,
                    $allnames, u.email, u.picture, u.imagealt $umfields
               FROM {forum_discussions} d
@@ -2431,7 +2376,7 @@ function forum_print_discussion_header(&$post, $forum, $group = -1, $datestring 
 
     // Picture
     $postuser = new stdClass();
-    $postuserfields = explode(',', user_picture::fields());
+    $postuserfields = explode(',', implode(',', \core_user\fields::get_picture_fields()));
     $postuser = username_load_fields_from_object($postuser, $post, null, $postuserfields);
     $postuser->id = $post->userid;
     echo '<td class="author">';
@@ -2450,7 +2395,7 @@ function forum_print_discussion_header(&$post, $forum, $group = -1, $datestring 
     // Group picture
     if ($group !== -1) {  // Groups are active - group is a group data object or NULL
         echo '<td class="picture group">';
-        if (!empty($group->picture) and empty($group->hidepicture)) {
+        if (!empty($group->picture)) {
             if ($canviewparticipants && $COURSE->groupmode) {
                 $picturelink = true;
             } else {
@@ -4106,7 +4051,8 @@ function forum_get_recent_mod_activity(&$activities, &$index, $timestart, $cours
         $groupselect = "";
     }
 
-    $allnames = get_all_user_name_fields(true, 'u');
+    $userfieldsapi = \core_user\fields::for_name();
+    $allnames = $userfieldsapi->get_sql('u', false, '', '', false)->selects;
     if (!$posts = $DB->get_records_sql("SELECT p.*, f.type AS forumtype, d.forum, d.groupid,
                                               d.timestart, d.timeend, d.userid AS duserid,
                                               $allnames, u.email, u.picture, u.imagealt, u.email
@@ -4178,7 +4124,7 @@ function forum_get_recent_mod_activity(&$activities, &$index, $timestart, $cours
 
         $tmpactivity->user = new stdClass();
         $additionalfields = array('id' => 'userid', 'picture', 'imagealt', 'email');
-        $additionalfields = explode(',', user_picture::fields());
+        $additionalfields = explode(',', implode(',', \core_user\fields::get_picture_fields()));
         $tmpactivity->user = username_load_fields_from_object($tmpactivity->user, $post, null, $additionalfields);
         $tmpactivity->user->id = $post->userid;
 
@@ -4561,14 +4507,28 @@ function forum_tp_is_post_old($post, $time=null) {
 function forum_tp_get_course_unread_posts($userid, $courseid) {
     global $CFG, $DB;
 
-    $now = floor(time() / 60) * 60; // DB cache friendliness.
-    $cutoffdate = $now - ($CFG->forum_oldpostdays * 24 * 60 * 60);
-    $params = array($userid, $userid, $courseid, $cutoffdate, $userid);
+    $modinfo = get_fast_modinfo($courseid);
+    $forumcms = $modinfo->get_instances_of('forum');
+    if (empty($forumcms)) {
+        // Return early if the course doesn't have any forum. Will save us a DB query.
+        return [];
+    }
+
+    $now = floor(time() / MINSECS) * MINSECS; // DB cache friendliness.
+    $cutoffdate = $now - ($CFG->forum_oldpostdays * DAYSECS);
+    $params = [
+        'privatereplyto' => $userid,
+        'modified' => $cutoffdate,
+        'readuserid' => $userid,
+        'trackprefsuser' => $userid,
+        'courseid' => $courseid,
+        'trackforumuser' => $userid,
+    ];
 
     if (!empty($CFG->forum_enabletimedposts)) {
-        $timedsql = "AND d.timestart < ? AND (d.timeend = 0 OR d.timeend > ?)";
-        $params[] = $now;
-        $params[] = $now;
+        $timedsql = "AND d.timestart < :timestart AND (d.timeend = 0 OR d.timeend > :timeend)";
+        $params['timestart'] = $now;
+        $params['timeend'] = $now;
     } else {
         $timedsql = "";
     }
@@ -4576,31 +4536,65 @@ function forum_tp_get_course_unread_posts($userid, $courseid) {
     if ($CFG->forum_allowforcedreadtracking) {
         $trackingsql = "AND (f.trackingtype = ".FORUM_TRACKING_FORCED."
                             OR (f.trackingtype = ".FORUM_TRACKING_OPTIONAL." AND tf.id IS NULL
-                                AND (SELECT trackforums FROM {user} WHERE id = ?) = 1))";
+                                AND (SELECT trackforums FROM {user} WHERE id = :trackforumuser) = 1))";
     } else {
         $trackingsql = "AND ((f.trackingtype = ".FORUM_TRACKING_OPTIONAL." OR f.trackingtype = ".FORUM_TRACKING_FORCED.")
                             AND tf.id IS NULL
-                            AND (SELECT trackforums FROM {user} WHERE id = ?) = 1)";
+                            AND (SELECT trackforums FROM {user} WHERE id = :trackforumuser) = 1)";
     }
 
-    $sql = "SELECT f.id, COUNT(p.id) AS unread
-              FROM {forum_posts} p
+    $sql = "SELECT f.id, COUNT(p.id) AS unread,
+                   COUNT(p.privatereply) as privatereplies,
+                   COUNT(p.privatereplytouser) as privaterepliestouser
+              FROM (
+                        SELECT
+                            id,
+                            discussion,
+                            CASE WHEN privatereplyto <> 0 THEN 1 END privatereply,
+                            CASE WHEN privatereplyto = :privatereplyto THEN 1 END privatereplytouser
+                        FROM {forum_posts}
+                        WHERE modified >= :modified
+                   ) p
                    JOIN {forum_discussions} d       ON d.id = p.discussion
                    JOIN {forum} f                   ON f.id = d.forum
                    JOIN {course} c                  ON c.id = f.course
-                   LEFT JOIN {forum_read} r         ON (r.postid = p.id AND r.userid = ?)
-                   LEFT JOIN {forum_track_prefs} tf ON (tf.userid = ? AND tf.forumid = f.id)
-             WHERE f.course = ?
-                   AND p.modified >= ? AND r.id is NULL
+                   LEFT JOIN {forum_read} r         ON (r.postid = p.id AND r.userid = :readuserid)
+                   LEFT JOIN {forum_track_prefs} tf ON (tf.userid = :trackprefsuser AND tf.forumid = f.id)
+             WHERE f.course = :courseid
+                   AND r.id is NULL
                    $trackingsql
                    $timedsql
           GROUP BY f.id";
 
-    if ($return = $DB->get_records_sql($sql, $params)) {
-        return $return;
+    $results = [];
+    if ($records = $DB->get_records_sql($sql, $params)) {
+        // Loop through each forum instance to check for capability and count the number of unread posts.
+        foreach ($forumcms as $cm) {
+            // Check that the forum instance exists in the query results.
+            if (!isset($records[$cm->instance])) {
+                continue;
+            }
+
+            $record = $records[$cm->instance];
+            $unread = $record->unread;
+
+            // Check if the user has the capability to read private replies for this forum instance.
+            $forumcontext = context_module::instance($cm->id);
+            if (!has_capability('mod/forum:readprivatereplies', $forumcontext, $userid)) {
+                // The real unread count would be the total of unread count minus the number of unread private replies plus
+                // the total unread private replies to the user.
+                $unread = $record->unread - $record->privatereplies + $record->privaterepliestouser;
+            }
+
+            // Build and add the object to the array of results to be returned.
+            $results[$record->id] = (object)[
+                'id' => $record->id,
+                'unread' => $unread,
+            ];
+        }
     }
 
-    return array();
+    return $results;
 }
 
 /**
@@ -4645,7 +4639,8 @@ function forum_tp_count_forum_unread_posts($cm, $course, $resetreadcache = false
         return $readcache[$course->id][$forumid];
     }
 
-    if (has_capability('moodle/site:accessallgroups', context_module::instance($cm->id))) {
+    $forumcontext = context_module::instance($cm->id);
+    if (has_any_capability(['moodle/site:accessallgroups', 'mod/forum:readprivatereplies'], $forumcontext)) {
         return $readcache[$course->id][$forumid];
     }
 
@@ -4658,30 +4653,36 @@ function forum_tp_count_forum_unread_posts($cm, $course, $resetreadcache = false
     // add all groups posts
     $mygroups[-1] = -1;
 
-    list ($groups_sql, $groups_params) = $DB->get_in_or_equal($mygroups);
+    list ($groupssql, $groupsparams) = $DB->get_in_or_equal($mygroups, SQL_PARAMS_NAMED);
 
-    $now = floor(time() / 60) * 60; // DB Cache friendliness.
-    $cutoffdate = $now - ($CFG->forum_oldpostdays*24*60*60);
-    $params = array($USER->id, $forumid, $cutoffdate);
+    $now = floor(time() / MINSECS) * MINSECS; // DB Cache friendliness.
+    $cutoffdate = $now - ($CFG->forum_oldpostdays * DAYSECS);
+    $params = [
+        'readuser' => $USER->id,
+        'forum' => $forumid,
+        'cutoffdate' => $cutoffdate,
+        'privatereplyto' => $USER->id,
+    ];
 
     if (!empty($CFG->forum_enabletimedposts)) {
-        $timedsql = "AND d.timestart < ? AND (d.timeend = 0 OR d.timeend > ?)";
-        $params[] = $now;
-        $params[] = $now;
+        $timedsql = "AND d.timestart < :timestart AND (d.timeend = 0 OR d.timeend > :timeend)";
+        $params['timestart'] = $now;
+        $params['timeend'] = $now;
     } else {
         $timedsql = "";
     }
 
-    $params = array_merge($params, $groups_params);
+    $params = array_merge($params, $groupsparams);
 
     $sql = "SELECT COUNT(p.id)
               FROM {forum_posts} p
-                   JOIN {forum_discussions} d ON p.discussion = d.id
-                   LEFT JOIN {forum_read} r   ON (r.postid = p.id AND r.userid = ?)
-             WHERE d.forum = ?
-                   AND p.modified >= ? AND r.id is NULL
+              JOIN {forum_discussions} d ON p.discussion = d.id
+         LEFT JOIN {forum_read} r ON (r.postid = p.id AND r.userid = :readuser)
+             WHERE d.forum = :forum
+                   AND p.modified >= :cutoffdate AND r.id is NULL
                    $timedsql
-                   AND d.groupid $groups_sql";
+                   AND d.groupid $groupssql
+                   AND (p.privatereplyto = 0 OR p.privatereplyto = :privatereplyto)";
 
     return $DB->get_field_sql($sql, $params);
 }
@@ -6015,7 +6016,8 @@ function forum_get_posts_by_user($user, array $courses, $musthaveaccess = false,
     // Prepare SQL to both count and search.
     // We alias user.id to useridx because we forum_posts already has a userid field and not aliasing this would break
     // oracle and mssql.
-    $userfields = user_picture::fields('u', null, 'useridx');
+    $userfieldsapi = \core_user\fields::for_userpic();
+    $userfields = $userfieldsapi->get_sql('u', false, '', 'useridx', false)->selects;
     $countsql = 'SELECT COUNT(*) ';
     $selectsql = 'SELECT p.*, d.forum, d.name AS discussionname, '.$userfields.' ';
     $wheresql = implode(" OR ", $forumsearchwhere);
@@ -6607,7 +6609,7 @@ function forum_get_coursemodule_info($coursemodule) {
     global $DB;
 
     $dbparams = ['id' => $coursemodule->instance];
-    $fields = 'id, name, intro, introformat, completionposts, completiondiscussions, completionreplies';
+    $fields = 'id, name, intro, introformat, completionposts, completiondiscussions, completionreplies, duedate, cutoffdate';
     if (!$forum = $DB->get_record('forum', $dbparams, $fields)) {
         return false;
     }
@@ -6625,6 +6627,14 @@ function forum_get_coursemodule_info($coursemodule) {
         $result->customdata['customcompletionrules']['completiondiscussions'] = $forum->completiondiscussions;
         $result->customdata['customcompletionrules']['completionreplies'] = $forum->completionreplies;
         $result->customdata['customcompletionrules']['completionposts'] = $forum->completionposts;
+    }
+
+    // Populate some other values that can be used in calendar or on dashboard.
+    if ($forum->duedate) {
+        $result->customdata['duedate'] = $forum->duedate;
+    }
+    if ($forum->cutoffdate) {
+        $result->customdata['cutoffdate'] = $forum->cutoffdate;
     }
 
     return $result;

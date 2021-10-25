@@ -16,17 +16,19 @@
 /**
  * Manage user tours in Moodle.
  *
+ * @module tool_usertours/tour
  * @copyright  2018 Andrew Nicols <andrew@nicols.co.uk>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 import $ from 'jquery';
+import * as Aria from 'core/aria';
 import Popper from 'core/popper';
 
 /**
  * A Tour.
  *
- * @class Tour
+ * @class
  */
 export default class Tour {
     /**
@@ -594,7 +596,7 @@ export default class Tour {
             });
         }
 
-        this.listeners.forEach(function (listener) {
+        this.listeners.forEach(function(listener) {
             listener.node.on.apply(listener.node, listener.args);
         });
 
@@ -646,14 +648,15 @@ export default class Tour {
 
         // Is this the first step?
         if (this.isFirstStep(stepConfig.stepNumber)) {
-            template.find('[data-role="previous"]').prop('disabled', true);
+            template.find('[data-role="previous"]').hide();
         } else {
             template.find('[data-role="previous"]').prop('disabled', false);
         }
 
         // Is this the final step?
         if (this.isLastStep(stepConfig.stepNumber)) {
-            template.find('[data-role="next"]').prop('disabled', true);
+            template.find('[data-role="next"]').hide();
+            template.find('[data-role="end"]').removeClass("btn-secondary").addClass("btn-primary");
         } else {
             template.find('[data-role="next"]').prop('disabled', false);
         }
@@ -1196,6 +1199,7 @@ export default class Tour {
             return this;
         }
 
+        stepConfig.placement = this.recalculatePlacement(stepConfig);
         let flipBehavior;
         switch (stepConfig.placement) {
             case 'left':
@@ -1288,6 +1292,33 @@ export default class Tour {
         this.currentStepPopper = new Popper(target, content[0], config);
 
         return this;
+    }
+
+    /**
+     * For left/right placement, checks that there is room for the step at current window size.
+     *
+     * If there is not enough room, changes placement to 'top'.
+     *
+     * @method  recalculatePlacement
+     * @param   {Object}    stepConfig      The step configuration of the step
+     * @return  {String}                    The placement after recalculate
+     */
+    recalculatePlacement(stepConfig) {
+        const buffer = 10;
+        const arrowWidth = 16;
+        let target = this.getStepTarget(stepConfig);
+        let widthContent = this.currentStepNode.width() + arrowWidth;
+        let targetOffsetLeft = target.offset().left - buffer;
+        let targetOffsetRight = target.offset().left + target.width() + buffer;
+        let placement = stepConfig.placement;
+
+        if (['left', 'right'].indexOf(placement) !== -1) {
+            if ((targetOffsetLeft < (widthContent + buffer)) &&
+                ((targetOffsetRight + widthContent + buffer) > document.documentElement.clientWidth)) {
+                placement = 'top';
+            }
+        }
+        return placement;
     }
 
     /**
@@ -1497,7 +1528,7 @@ export default class Tour {
             let hidden = child.attr(attrName);
             if (!hidden) {
                 child.attr(stateHolder, true);
-                child.attr(attrName, true);
+                Aria.hide(child);
             }
         };
 
@@ -1518,12 +1549,11 @@ export default class Tour {
      */
     accessibilityHide() {
         let stateHolder = 'data-has-hidden';
-        let attrName = 'aria-hidden';
         let showFunction = function(child) {
             let hidden = child.attr(stateHolder);
             if (typeof hidden !== 'undefined') {
                 child.removeAttr(stateHolder);
-                child.removeAttr(attrName);
+                Aria.unhide(child);
             }
         };
 

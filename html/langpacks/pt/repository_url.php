@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_url', language 'pt', version '3.8'.
+ * Strings for component 'repository_url', language 'pt', version '3.11'.
  *
  * @package     repository_url
  * @category    string
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['configplugin'] = 'Configurar repositório "URL"';
 $string['download'] = 'Descarregar';
 $string['pluginname'] = 'Descarregar de URL';
-$string['privacy:metadata'] = 'O módulo de repositório Descarregar URL não armazena ou transmite dados pessoais.';
+$string['privacy:metadata'] = 'O módulo repositório Descarregar de URL não armazena ou transmite quaisquer dados pessoais.';
 $string['rename'] = 'Nome';
 $string['url'] = 'URL';
 $string['url:view'] = 'Usar o repositório Descarregar de URL no explorador de ficheiros';

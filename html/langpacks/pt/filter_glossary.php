@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_glossary', language 'pt', version '3.8'.
+ * Strings for component 'filter_glossary', language 'pt', version '3.11'.
  *
  * @package     filter_glossary
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['filtername'] = 'Autoligação ao Glossário';
 $string['glossarycategory'] = '{$a->glossary}: Categoria {$a->category}';
 $string['glossaryconcept'] = '{$a->glossary}: {$a->concept}';
-$string['privacy:metadata'] = 'O módulo Hiperligação para o glossário não armazena dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Autoligação ao Glossário não armazena quaisquer dados pessoais.';

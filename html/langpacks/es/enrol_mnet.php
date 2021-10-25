@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_mnet', language 'es', version '3.8'.
+ * Strings for component 'enrol_mnet', language 'es', version '3.11'.
  *
  * @package     enrol_mnet
  * @category    string
@@ -33,6 +33,7 @@ $string['mnet_enrol_description'] = 'Publique este servicio para permitir a los 
 $string['mnet_enrol_name'] = 'Servicio remoto de matriculación';
 $string['pluginname'] = 'Matriculaciones remotas MNet';
 $string['pluginname_desc'] = 'Permite servidor remoto MNet para matricular sus usuarios en nuestros cursos';
+$string['privacy:metadata'] = 'El complemento de inscripciones remotas de MNet no almacena ningún dato personal.';
 $string['remotesubscriber'] = 'Host remoto';
 $string['remotesubscriber_help'] = 'Seleccione "Todos los servidores"  para abrir este curso para todos los puntos MNet a los que estamos ofreciendo el servicio de matriculación remota. O bien, escoja un único servidor para poner este curso únicamente a disposición de los usuarios del mismo.';
 $string['remotesubscribersall'] = 'Todos los hosts';

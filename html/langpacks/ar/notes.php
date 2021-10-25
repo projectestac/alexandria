@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'ar', version '3.8'.
+ * Strings for component 'notes', language 'ar', version '3.11'.
  *
  * @package     notes
  * @category    string
@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addbulknote'] = 'أضف ملاحظة جديدة إلى {$a} شخص/أشخاص';
+$string['addbulknote'] = 'إضافة ملاحظة جديدة إلى {$a} من الأشخاص';
 $string['addbulknotedone'] = 'الملاحظة أضيفت إلى {$a} شخص/أشخاص';
 $string['addbulknotedonesingle'] = 'الملاحظة أضيفت إلى شخص واحد';
-$string['addbulknotesingle'] = 'أضف ملاحظة جديدة إلى شخص واحد';
+$string['addbulknotesingle'] = 'إضافة ملاحظة جديدة إلى شخص واحد';
 $string['addnewnote'] = 'إضافة ملاحظة جديدة';
 $string['addnewnoteselect'] = 'حدد المستخدمين لكتابة ملاحظات عنهم';
 $string['bynameondate'] = 'بواسطة {$a->name} في {$a->date}';
@@ -41,10 +41,10 @@ $string['deleteconfirm'] = 'حذف هذه الملاحظة؟';
 $string['deletenotes'] = 'حذف جميع الملاحظات';
 $string['editnote'] = 'تحرير الملاحظة';
 $string['enablenotes'] = 'تفعيل الملاحظات';
-$string['eventnotecreated'] = 'تم إنشاء الملاحظة';
-$string['eventnotedeleted'] = 'تم حذف الملاحظة';
+$string['eventnotecreated'] = 'ملاحظة تم إنشاؤها';
+$string['eventnotedeleted'] = 'ملاحظة تم حذفها';
 $string['eventnotesviewed'] = 'ملاحظات تمت معاينتها';
-$string['eventnoteupdated'] = 'تم تحديث الملاحظة';
+$string['eventnoteupdated'] = 'ملاحظة تم تحديثها';
 $string['invalidid'] = 'معرّف الملاحظة المحدد غير صالح';
 $string['invaliduserid'] = 'رقم المستخدم غير صحيح  : {$a}';
 $string['myprofileownnotes'] = 'ملاحظاتي';
@@ -59,7 +59,7 @@ $string['nouser'] = 'يجب أن تحدد مستخدماً';
 $string['page-notes-index'] = 'صفحة الملاحظات الرئيسية';
 $string['page-notes-x'] = 'أي صفحات خاصة بالملاحظات';
 $string['personal'] = 'شخصي';
-$string['personalnotes'] = 'ملاحظات شخصية';
+$string['personalnotes'] = 'الملاحظات الشخصية';
 $string['privacy:metadata:core_notes'] = 'مكون الملاحظات يحفظ ملاحظات المستخدم ضمن نواة النظام الفرعية';
 $string['privacy:metadata:core_notes:content'] = 'محتوى الملاحظة';
 $string['privacy:metadata:core_notes:courseid'] = 'مُعرَّف المقرر الدراسي المتعلق بالملاحظة';

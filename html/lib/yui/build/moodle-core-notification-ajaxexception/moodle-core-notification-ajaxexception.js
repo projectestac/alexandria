@@ -7,15 +7,15 @@ var DIALOGUE_PREFIX,
     CONFIRMNO,
     TITLE,
     QUESTION,
-    CSS;
+    CSS_CLASSES;
 
-DIALOGUE_PREFIX = 'moodle-dialogue',
-BASE = 'notificationBase',
-CONFIRMYES = 'yesLabel',
-CONFIRMNO = 'noLabel',
-TITLE = 'title',
-QUESTION = 'question',
-CSS = {
+DIALOGUE_PREFIX = 'moodle-dialogue';
+BASE = 'notificationBase';
+CONFIRMYES = 'yesLabel';
+CONFIRMNO = 'noLabel';
+TITLE = 'title';
+QUESTION = 'question';
+CSS_CLASSES = {
     BASE: 'moodle-dialogue-base',
     WRAP: 'moodle-dialogue-wrap',
     HEADER: 'moodle-dialogue-hd',
@@ -28,8 +28,6 @@ CSS = {
 
 // Set up the namespace once.
 M.core = M.core || {};
-/* global BASE, DIALOGUE_PREFIX */
-
 /**
  * A dialogue type designed to display an appropriate error when an error
  * thrown in the Moodle codebase was reported during an AJAX request.
@@ -63,8 +61,8 @@ Y.extend(AJAXEXCEPTION, M.core.notification.info, {
             labelsep = M.util.get_string('labelsep', 'langconfig');
         this.get(BASE).addClass('moodle-dialogue-exception');
         this.setStdModContent(Y.WidgetStdMod.HEADER,
-                '<h1 id="moodle-dialogue-' + this.get('COUNT') + '-header-text">'
-                    + Y.Escape.html(config.name) + '</h1>',
+                '<h5 id="moodle-dialogue-' + this.get('COUNT') + '-wrap-header-text">'
+                    + Y.Escape.html(config.name) + '</h5>',
                 Y.WidgetStdMod.REPLACE);
         content = Y.Node.create('<div class="moodle-ajaxexception" data-rel="fatalerror"></div>')
                 .append(Y.Node.create('<div class="moodle-exception-message">' + Y.Escape.html(this.get('error')) + '</div>'))

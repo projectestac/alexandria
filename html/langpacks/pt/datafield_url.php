@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_url', language 'pt', version '3.8'.
+ * Strings for component 'datafield_url', language 'pt', version '3.11'.
  *
  * @package     datafield_url
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['fieldtypelabel'] = 'Campo URL';
 $string['openlinkinnewwindow'] = 'Abrir hiperligação numa nova janela';
 $string['pluginname'] = 'URL';
-$string['privacy:metadata'] = 'A componente ficheiro URL não armazena dados pessoais, usa tabelas definidas em mod_data.';
+$string['privacy:metadata'] = 'O componente do ficheiro URL não armazena dados pessoais, usa tabelas definidas em mod_data.';

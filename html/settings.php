@@ -1,6 +1,6 @@
 <?php
 
-require_once dirname(__FILE__) . '/local/agora/lib.php';
+require_once __DIR__ . '/local/agora/lib.php';
 
 get_debug();
 
@@ -42,6 +42,9 @@ $CFG->timezone = 99; // Changed by default to Server's local time
 $CFG->cronremotepassword = '';
 $CFG->cronclionly = 1;
 
+// Activate X-SendFile
+$CFG->xsendfile = 'X-Sendfile';
+
 // Captcha keys
 $CFG->recaptchapublickey = $agora['recaptchapublickey'];
 $CFG->recaptchaprivatekey = $agora['recaptchaprivatekey'];
@@ -73,12 +76,15 @@ $CFG->disablecourseajax = 0;
 // Backups
 $CFG->backup_auto_active = 0;
 
+// Tell Moodle not to be worried if cron executes every 10 minutes
+$CFG->expectedcronfrequency = 600;
+
 // These variable define DEFAULT block variables for new courses
 $CFG->defaultblocks_override = ':calendar_month,activity_modules';
 
 // Language parameters
-$CFG->langotherroot = dirname(__FILE__) . '/langpacks/';
-$CFG->langlocalroot = dirname(__FILE__) . '/langpacks/';
+$CFG->langotherroot = __DIR__ . '/langpacks/';
+$CFG->langlocalroot = __DIR__ . '/langpacks/';
 $CFG->skiplangupgrade = true;
 
 // Only allow some of the languages
@@ -87,7 +93,7 @@ if (!$CFG->iseoi) {
 }
 
 // Path of the cacheconfig.php file, to have only one MUC file for Àgora (instead of having one for each site in moodledata/usuX/muc/config.php).
-$CFG->altcacheconfigpath = dirname(__FILE__) . '/local/agora/muc/';
+$CFG->altcacheconfigpath = __DIR__ . '/local/agora/muc/';
 $CFG->siteidentifier = $CFG->dbuser;
 
 // Cache servers configuration for MUC, used in custom cacheconfig.php
@@ -132,9 +138,13 @@ if (isset($agora['server']['root']) && !empty($agora['server']['root'])) {
 if (!empty($agora['moodle2']['redis_session_servers'])) {
     $CFG->local_redislock_redis_server = $agora['moodle2']['redis_session_servers'];
     $CFG->lock_factory = '\\local_redislock\\lock\\redis_lock_factory';
+    $CFG->local_redislock_logging = false;
 } else {
     $CFG->lock_factory = '\\core\\lock\\db_record_lock_factory';
 }
+
+// Use the system temporary directory
+$CFG->localrequestdir = '/tmp';
 
 // if (isset($agora['proxy']['host']) && !empty($agora['proxy']['host'])) {
 //    $CFG->proxyhost = $agora['proxy']['host'];

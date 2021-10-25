@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_online_users', language 'gl', version '3.8'.
+ * Strings for component 'block_online_users', language 'gl', version '3.11'.
  *
  * @package     block_online_users
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['configtimetosee'] = 'Número de minutos determinados para detectar que un usuario está en liña.';
+$string['configtimetosee'] = 'Número de minutos que determinan o período de inactividade após o cal un usuario xa non se considera conectado.';
 $string['nouser'] = 'Non hai usuarios conectados';
 $string['numuser'] = '{$a} usuario conectado';
 $string['numusers'] = '{$a} usuarios conectados';
@@ -36,6 +36,7 @@ $string['online_users:myaddinstance'] = 'Engadir un novo bloque de usuarios cone
 $string['online_users:viewlist'] = 'Ver a lista de usuarios conectados';
 $string['onlinestatushiding'] = 'Agochamento do estado en liña';
 $string['onlinestatushiding_desc'] = 'Se está activado, os usuarios teñen a opción de agochar o seu estado en liña a outros usuarios.';
+$string['otherusers'] = 'Outros usuarios ({$a})';
 $string['periodnminutes'] = 'últimos {$a} minutos';
 $string['pluginname'] = 'Usuarios conectados';
 $string['privacy:metadata:preference:uservisibility'] = 'Estado en liña visíbel para outros usuarios no bloque de usuarios en liña.';

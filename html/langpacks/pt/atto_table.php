@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_table', language 'pt', version '3.8'.
+ * Strings for component 'atto_table', language 'pt', version '3.11'.
  *
  * @package     atto_table
  * @category    string
@@ -59,7 +59,7 @@ $string['numberofcolumns'] = 'Número de colunas';
 $string['numberofrows'] = 'Número de linhas';
 $string['outer'] = 'Para toda a tabela';
 $string['pluginname'] = 'Tabela';
-$string['privacy:metadata'] = 'O módulo atto_table não armazena nenhum dado pessoal.';
+$string['privacy:metadata'] = 'O módulo atto_table não armazena quaisquer dados pessoais.';
 $string['rows'] = 'Linhas';
 $string['settings'] = 'Definições da tabela';
 $string['solid'] = 'Contínuo';

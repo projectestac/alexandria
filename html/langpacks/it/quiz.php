@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz', language 'it', version '3.8'.
+ * Strings for component 'quiz', language 'it', version '3.11'.
  *
  * @package     quiz
  * @category    string
@@ -92,6 +92,7 @@ $string['attemptclosed'] = 'Il tentativo non è stato ancora chiuso';
 $string['attemptduration'] = 'Tempo impiegato';
 $string['attemptedon'] = 'Tentativo del';
 $string['attempterror'] = 'Non puoi tentare questo quiz adesso in quanto: {$a}';
+$string['attempterrorcontentchange'] = 'Questa anteprima del quiz non esiste più. (Quando un quiz viene modificato, tutte le anteprime in corso vengono eliminate automaticamente.)';
 $string['attempterrorcontentchangeforuser'] = 'Il tentativo non esiste più.';
 $string['attempterrorinvalid'] = 'L\'ID del tentativo non è valido';
 $string['attemptfirst'] = 'Primo tentativo';
@@ -132,6 +133,7 @@ $string['browsersecurity_help'] = 'Impostando "Pop-up a schermo intero con sicur
 * il quiz si avvierà solo se il browser ha JavaScript abilitato
 * il quiz sarà visualizzato a schermo intero in una finestra pop-up senza interfaccia di navigazione che coprirà tutte le finestre sottostanti
 * gli studenti per quanto possibile non potranno usare funzioni come il copia e incolla.';
+$string['cachedef_overrides'] = 'Informazioni sulle personalizzazioni individuali e di gruppo';
 $string['calculated'] = 'con Calcolo';
 $string['calculatedquestion'] = 'Domanda con Calcolo non supportata alla linea {$a}. La domanda sarà ignorata.';
 $string['cannotcreatepath'] = 'Non è possibile creare il percorso ({$a})';
@@ -143,6 +145,7 @@ $string['cannotinsertrandomquestion'] = 'Non è stato possibile aggiungere una n
 $string['cannotloadquestion'] = 'Non è stato possibile caricare le opzioni della domanda';
 $string['cannotloadtypeinfo'] = 'Impossibile caricare le informazioni specifiche per il tipo di domanda';
 $string['cannotopen'] = 'Non è possibile aprire il file da esportare ({$a})';
+$string['cannotremoveallsectionslots'] = 'Sono state selezionate tutte le domande sottostanti l\'intestazione della sezione \'{$a}\'. Non è possibile rimuovere tutte le domande sottostanti un\'intestazione di sezione.';
 $string['cannotremoveslots'] = 'Non è possibile rimuovere domande';
 $string['cannotrestore'] = 'Non è stato possibile ripristinare la sessione delle domande';
 $string['cannotreviewopen'] = 'Non puoi rivedere il tentativo poiché ancora aperto.';
@@ -182,9 +185,17 @@ $string['completedon'] = 'Terminato';
 $string['completionattemptsexhausted'] = 'oppure all\'esaurimento dei tentativi consentiti';
 $string['completionattemptsexhausted_help'] = 'L\'attività sarà considerata completata quando lo studente avrà esaurito il massimo numero di tentativi consentiti';
 $string['completionattemptsexhausteddesc'] = 'Esaurimento dei tentativi';
+$string['completiondetail:minattempts'] = 'Svolgere tentativi: {$a}';
+$string['completiondetail:passgrade'] = 'Ottenere la sufficienza';
+$string['completiondetail:passorexhaust'] = 'Ottenere la sufficienza o esaurire tutti i tentativi';
+$string['completionminattempts'] = 'Numero minimo di tentativi:';
+$string['completionminattemptsdesc'] = 'Numero minimo di tentativi obbligatori: {$a}';
+$string['completionminattemptserror'] = 'Il numero minimo di tentativi deve essere inferiore o uguale ai tentativi consentiti.';
+$string['completionminattemptsgroup'] = 'Tentativi obbligatori';
 $string['completionpass'] = 'Valutazione sufficiente';
 $string['completionpass_help'] = 'L\'attività sarà considerata completata quando lo studente avrà ottenuto un punteggio pari o superiore alla sufficienza impostata nella registro valutatore.';
 $string['completionpassdesc'] = 'Lo studente deve raggiungere la sufficienza per completare l\'attività';
+$string['completionpassorattemptsexhausteddesc'] = 'Lo studente deve ottenere un voto sufficiente o esaurire tutti i tentativi disponibili per completare l\'attività';
 $string['configadaptive'] = 'Impostando a Si, lo studente avrà la possibilità di rispondere più volte a una domanda anche all\'interno dello stesso tentativo di risposta al quiz.';
 $string['configattemptsallowed'] = 'Limitazione del numero dei tentativi consentiti di risposta al quiz .';
 $string['configdecimaldigits'] = 'Numero di cifre decimali da visualizzare nelle valutazioni o nei punteggi degli studenti.';
@@ -342,6 +353,7 @@ $string['eventoverridedeleted'] = 'Eliminata personalizzazione quiz';
 $string['eventoverrideupdated'] = 'Eliminata personalizzazione quiz';
 $string['eventquestionmanuallygraded'] = 'Valutata domanda manualmente';
 $string['eventquizattemptabandoned'] = 'Abbandonato tentativo quiz';
+$string['eventquizattemptregraded'] = 'Rivalutato tentativo quiz';
 $string['eventquizattemptstarted'] = 'Avviato tentativo quiz';
 $string['eventquizattemptsubmitted'] = 'Inviato tentativo quiz';
 $string['eventquizattempttimelimitexceeded'] = 'Superato tempo limite tentativo quiz';
@@ -404,6 +416,7 @@ $string['gradesdeleted'] = 'Valutazioni quiz cancellate';
 $string['gradesofar'] = '<b>{$a->method}: {$a->mygrade} / {$a->quizgrade}</b>.';
 $string['gradetopassmustbeset'] = 'La sufficienza non può essere zero poiché il completamento del quiz è impostato per richiedere la sufficienza. Per favore imposta un valore diverso da zero.';
 $string['gradetopassnotset'] = 'Il quiz non ha una sufficienza impostata. E\' possibile impostarla nella sezione "Valutazione" delle impostazioni del quiz.';
+$string['gradetopassoutof'] = 'Sufficienza: {$a->grade} su {$a->maxgrade}';
 $string['gradingdetails'] = 'Punteggi di questo invio: {$a->raw}/{$a->max}.';
 $string['gradingdetailsadjustment'] = 'Tenendo conto delle penalità  precedenti, questo dà  <strong>{$a->cur}/{$a->max}</strong>.';
 $string['gradingdetailspenalty'] = 'Questo invio ha ricevuto una penalità  di {$a}.';
@@ -454,6 +467,7 @@ $string['invalidcategory'] = 'ID categoria non valido';
 $string['invalidoverrideid'] = 'L\'id della personalizzazione non è valida';
 $string['invalidquestionid'] = 'Id domanda non valido';
 $string['invalidquizid'] = 'ID quiz non valido';
+$string['invalidrandomslot'] = 'L\'ID dello spazio della domanda casuale non è valido.';
 $string['invalidsource'] = 'Il sorgente non è accettato come valido.';
 $string['invalidsourcetype'] = 'Tipo sorgente non valido.';
 $string['invalidstateid'] = 'Id stato non valido';
@@ -605,6 +619,14 @@ $string['overridedeleteusersure'] = 'Sei sicuro di eliminare la personalizzazion
 $string['overridegroup'] = 'Personalizzazione per il gruppo';
 $string['overridegroupeventname'] = '{$a->quiz} - {$a->group}';
 $string['overrides'] = 'Personalizzazioni';
+$string['overridesforquiz'] = 'Impostazioni personalizzazioni: {$a}';
+$string['overridesnoneforgroups'] = 'Non sono state create modifiche alle impostazioni di gruppo per questo quiz.';
+$string['overridesnoneforusers'] = 'Non sono state create personalizzazioni individuali in questo quiz.';
+$string['overridessummary'] = 'Esistono personalizzazioni delle impostazioni ({$a})';
+$string['overridessummarygroup'] = 'Gruppi: {$a}';
+$string['overridessummarythisgroup'] = 'Esistono personalizzazioni ({$a}) per questo gruppo';
+$string['overridessummaryuser'] = 'Utenti: {$a}';
+$string['overridessummaryyourgroups'] = 'Esistono personalizzazioni ({$a}) per i tuoi gruppi';
 $string['overrideuser'] = 'Personalizzazione per l\'utente';
 $string['overrideusereventname'] = '{$a->quiz} - Personalzizzazione';
 $string['page-mod-quiz-attempt'] = 'Pagina del tentativo del quiz';
@@ -686,8 +708,10 @@ $string['questionnotloaded'] = 'La domanda {$a} non può essere caricata dal dat
 $string['questionorder'] = 'Ordinamento domande';
 $string['questionposition'] = 'Nuova posizione ordinale della domanda {$a}';
 $string['questions'] = 'Domande';
+$string['questionsetpreview'] = 'Anteprima set di domande';
 $string['questionsinclhidden'] = 'Domande (incluse le nascoste)';
 $string['questionsinthisquiz'] = 'Domande in questo quiz';
+$string['questionsmatchingfilter'] = 'Domande che corrispondono al filtro: {$a}';
 $string['questionsperpage'] = 'Domande per pagina';
 $string['questionsperpageselected'] = 'E\' stato definito il numero di domande per pagina per cui l\'impaginazione è al momento bloccata. Come risultato, i controlli per l\'impaginazione sono stati disabilitati. Questo si può cambiare in {$a}.';
 $string['questionsperpagex'] = 'Domande per pagina: {$a}';
@@ -709,6 +733,7 @@ $string['quiz:preview'] = 'Visualizzare anteprima quiz';
 $string['quiz:regrade'] = 'Rivalutare i tentativi dei quiz';
 $string['quiz:reviewmyattempts'] = 'Rivedere i propri tentativi';
 $string['quiz:view'] = 'Visualizzare informazioni sui quiz';
+$string['quiz:viewoverrides'] = 'Visualizzare personalizzazioni quiz';
 $string['quiz:viewreports'] = 'Visualizzare report sui quiz';
 $string['quizavailable'] = 'Il quiz è disponibile fino a: {$a}';
 $string['quizclose'] = 'Chiusura';
@@ -731,6 +756,7 @@ $string['quizopens'] = 'Quiz disponibile';
 $string['quizopenwillclose'] = 'Questo quiz è aperto, sarà chiuso il {$a} alle';
 $string['quizordernotrandom'] = 'Ordinamento del quiz non casuale';
 $string['quizorderrandom'] = '* Ordinamento del quiz casuale';
+$string['quizreport'] = 'Report del quiz';
 $string['quizsettings'] = 'Impostazioni quiz';
 $string['quiztimer'] = 'Quiz Timer';
 $string['quizwillopen'] = 'Questo quiz sarà aperto il {$a}';
@@ -745,6 +771,9 @@ $string['randomnumber'] = 'Numero di domande casuali';
 $string['randomquestion'] = 'Domanda casuale';
 $string['randomquestion_help'] = 'Le domande casuali consentono di inserire domande scelte casualmente da una categoria o in base a tag presenti in una attività.';
 $string['randomquestiontags'] = 'Tag';
+$string['randomquestiontags_help'] = 'E\' possibile restringere ulteriormente i criteri di selezione specificando alcuni tag di domanda.
+
+Le domande "casuali" verranno selezionate tra le domande che hanno questi tag.';
 $string['randomquestionusinganewcategory'] = 'Domanda random da una nuova categoria';
 $string['randomwithsubcat'] = 'Domande presenti in questa categoria, incluse le sotto categorie.';
 $string['readytosend'] = 'Stai per inviare l\'intero quiz per la valutazione. Sei sicuro di voler continuare?';
@@ -962,6 +991,8 @@ $string['unfinished'] = 'aperto';
 $string['ungraded'] = 'Non valutato';
 $string['unit'] = 'Unità';
 $string['unknowntype'] = 'Tipo di domanda non supportato alla linea {$a}. La domanda sarà ignorata';
+$string['updateoverdueattemptstask'] = 'Aggiornamento dei tentativi di quiz scaduti';
+$string['updatequizslotswithrandomxofy'] = 'Aggiornamento degli slot dei quiz con i dati delle domande "casuali" ({$a->done}/{$a->total})';
 $string['updatesettings'] = 'Aggiorna impostazioni quiz';
 $string['updatingatttemptgrades'] = 'Aggiornamento voti del tentativo.';
 $string['updatingfinalgrades'] = 'Aggiornamento voti finali.';

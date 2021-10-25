@@ -111,6 +111,46 @@ class core_adhoc_task_testcase extends advanced_testcase {
     }
 
     /**
+     * Test queueing an adhoc task belonging to a component, where we set the task component accordingly
+     */
+    public function test_queue_adhoc_task_for_component(): void {
+        $this->resetAfterTest();
+
+        $task = new \mod_forum\task\refresh_forum_post_counts();
+        $task->set_component('mod_test');
+
+        \core\task\manager::queue_adhoc_task($task);
+        $this->assertDebuggingNotCalled();
+    }
+
+    /**
+     * Test queueing an adhoc task belonging to a component, where we do not set the task component
+     */
+    public function test_queue_task_for_component_without_set_component(): void {
+        $this->resetAfterTest();
+
+        $task = new \mod_forum\task\refresh_forum_post_counts();
+
+        \core\task\manager::queue_adhoc_task($task);
+        $this->assertDebuggingNotCalled();
+
+        // Assert the missing component was set.
+        $this->assertEquals('mod_forum', $task->get_component());
+    }
+
+    /**
+     * Test queueing an adhoc task belonging to an invalid component, where we do not set the task component
+     */
+    public function test_queue_task_for_invalid_component_without_set_component(): void {
+        $this->resetAfterTest();
+
+        $task = new \mod_fake\task\adhoc_component_task();
+
+        \core\task\manager::queue_adhoc_task($task);
+        $this->assertDebuggingCalled('Component not set and the class namespace does not match a valid component (mod_fake).');
+    }
+
+    /**
      * Test empty set of adhoc tasks
      */
     public function test_get_adhoc_tasks_empty_set() {
@@ -361,6 +401,40 @@ class core_adhoc_task_testcase extends advanced_testcase {
         \core\task\manager::adhoc_task_complete($task);
 
         $this->assertEquals($user->id, $task->get_userid());
+    }
+
+    /**
+     * Test get_concurrency_limit() method to return 0 by default.
+     */
+    public function test_get_concurrency_limit() {
+        $this->resetAfterTest(true);
+        $task = new \core\task\adhoc_test_task();
+        $concurrencylimit = $task->get_concurrency_limit();
+        $this->assertEquals(0, $concurrencylimit);
+    }
+
+    /**
+     * Test get_concurrency_limit() method to return a default value set in config.
+     */
+    public function test_get_concurrency_limit_default() {
+        $this->resetAfterTest(true);
+        set_config('task_concurrency_limit_default', 10);
+        $task = new \core\task\adhoc_test_task();
+        $concurrencylimit = $task->get_concurrency_limit();
+        $this->assertEquals(10, $concurrencylimit);
+    }
+
+    /**
+     * Test get_concurrency_limit() method to return a value for specific task class.
+     */
+    public function test_get_concurrency_limit_for_task() {
+        global $CFG;
+        $this->resetAfterTest(true);
+        set_config('task_concurrency_limit_default', 10);
+        $CFG->task_concurrency_limit = array('core\task\adhoc_test_task' => 5);
+        $task = new \core\task\adhoc_test_task();
+        $concurrencylimit = $task->get_concurrency_limit();
+        $this->assertEquals(5, $concurrencylimit);
     }
 
     /**

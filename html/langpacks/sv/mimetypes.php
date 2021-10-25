@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'mimetypes', language 'sv', version '3.8'.
+ * Strings for component 'mimetypes', language 'sv', version '3.11'.
  *
  * @package     mimetypes
  * @category    string
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['application/dash_xml'] = 'Dynamic Adaptive Streaming över HTTP (MPEG-DASH)';
 $string['application/epub_zip'] = 'EPUB-bok';
 $string['application/json'] = '{$a->MIMETYPE2} text';
 $string['application/msword'] = 'Word-dokument';
@@ -43,12 +44,12 @@ $string['application/vnd.openxmlformats-officedocument.presentationml.slideshow'
 $string['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'] = 'Excel 2007-kalkylblad';
 $string['application/vnd.openxmlformats-officedocument.spreadsheetml.template'] = 'Excel 2007-mall';
 $string['application/vnd.openxmlformats-officedocument.wordprocessingml.document'] = 'Word 2007-dokument';
-$string['application/x-iwork-keynote-sffkey'] = 'iWork Keynote presentation';
-$string['application/x-iwork-numbers-sffnumbers'] = 'iWork Numbers kalkylblad';
-$string['application/x-iwork-pages-sffpages'] = 'iWork Pages dokument';
+$string['application/x-iwork-keynote-sffkey'] = 'iWork Keynote-presentation';
+$string['application/x-iwork-numbers-sffnumbers'] = 'iWork Numbers-kalkylblad';
+$string['application/x-iwork-pages-sffpages'] = 'iWork Pages-dokument';
 $string['application/x-javascript'] = 'JavaScript-källkod';
 $string['application/x-mpegURL'] = 'HTTP Live Streaming (HLS)';
-$string['application/x-mspublisher'] = 'Publisherdokument';
+$string['application/x-mspublisher'] = 'Publisher-dokument';
 $string['application/x-shockwave-flash'] = 'Flashanimering';
 $string['application/xhtml_xml'] = 'XHTML-dokument';
 $string['archive'] = 'Arkiv ({$a->EXT})';
@@ -58,12 +59,12 @@ $string['document/unknown'] = 'Fil';
 $string['group:archive'] = 'Arkivfiler';
 $string['group:audio'] = 'Ljudfiler';
 $string['group:document'] = 'Dokumentfiler';
-$string['group:html_audio'] = 'Ljudfiler med inbyggt stöd i webbläsare';
+$string['group:html_audio'] = 'Ljudfiler med inbyggt stöd hos webbläsare';
 $string['group:html_track'] = 'HTML track files';
-$string['group:html_video'] = 'Videofiler med inbyggt stöd i webbläsare';
+$string['group:html_video'] = 'Videofiler med inbyggt stöd hos webbläsare';
 $string['group:image'] = 'Bildfiler';
 $string['group:media_source'] = 'Strömmande media';
-$string['group:optimised_image'] = 'Bildfiler som ska optimeras, som badges';
+$string['group:optimised_image'] = 'Bildfiler som ska optimeras, så som märken';
 $string['group:presentation'] = 'Presentationsfiler';
 $string['group:sourcecode'] = 'Källkod';
 $string['group:spreadsheet'] = 'Kalkylblad';

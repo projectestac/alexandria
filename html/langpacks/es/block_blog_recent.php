@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_blog_recent', language 'es', version '3.8'.
+ * Strings for component 'block_blog_recent', language 'es', version '3.11'.
  *
  * @package     block_blog_recent
  * @category    string
@@ -29,4 +29,5 @@ $string['blog_recent:addinstance'] = 'Añadir un nuevo bloque de entradas recien
 $string['norecentblogentries'] = 'No hay entradas recientes';
 $string['numentriestodisplay'] = 'Número de entradas recientes a mostrar';
 $string['pluginname'] = 'Entradas de blog recientes';
+$string['privacy:metadata'] = 'El bloque de entradas recientes de blog sólo muestra información almacenada en otras localizaciones.';
 $string['recentinterval'] = 'Intervalo de tiempo considerado "reciente"';

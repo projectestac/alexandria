@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_calendar_upcoming', language 'de', version '3.8'.
+ * Strings for component 'block_calendar_upcoming', language 'de', version '3.11'.
  *
  * @package     block_calendar_upcoming
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['calendar_upcoming:addinstance'] = 'Neuen Block \'Aktuelle Termine\' hinzufügen';
-$string['calendar_upcoming:myaddinstance'] = 'Neuen Block \'Aktuelle Termine\' zum Dashboard hinzufügen';
+$string['calendar_upcoming:myaddinstance'] = 'Neuen Block \'Aktuelle Termine\' im Dashboard hinzufügen';
 $string['gotocalendar'] = 'Zum Kalender ...';
 $string['pluginname'] = 'Aktuelle Termine';
 $string['privacy:metadata'] = 'Der Block \'Aktuelle Termine\' zeigt nur existierende Kalenderdaten an.';

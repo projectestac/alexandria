@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cachelock_file', language 'es', version '3.8'.
+ * Strings for component 'cachelock_file', language 'es', version '3.11'.
  *
  * @package     cachelock_file
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Bloqueo de archivos';
+$string['privacy:metadata'] = 'El complemento de bloqueo de Archivos no almacena ningún dato personal.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_myoverview', language 'ru', version '3.8'.
+ * Strings for component 'block_myoverview', language 'ru', version '3.11'.
  *
  * @package     block_myoverview
  * @category    string
@@ -28,15 +28,43 @@ defined('MOODLE_INTERNAL') || die();
 $string['addtofavourites'] = 'Пометить этот курс';
 $string['all'] = 'Все (кроме скрытых)';
 $string['allincludinghidden'] = 'Все';
+$string['aria:addtofavourites'] = 'Установить пометку для';
 $string['aria:allcourses'] = 'Все курсы, кроме скрытых';
 $string['aria:allcoursesincludinghidden'] = 'Все курсы';
+$string['aria:card'] = 'Перейти к просмотру карт';
+$string['aria:controls'] = 'Элементы управления обзором курса';
+$string['aria:courseactions'] = 'Действия для текущего курса';
+$string['aria:courseprogress'] = 'Продвижение по курсу:';
+$string['aria:coursesummary'] = 'Текст краткого изложения курса:';
+$string['aria:customfield'] = 'Показать курсов: {$a}';
+$string['aria:displaydropdown'] = 'Показать раскрывающийся список';
 $string['aria:favourites'] = 'Показать избранные курсы';
+$string['aria:future'] = 'Показать будущие курсы';
+$string['aria:groupingdropdown'] = 'Раскрывающееся меню группирования.';
+$string['aria:hiddencourses'] = 'Показать курсы, скрытые от просмотра';
+$string['aria:hidecourse'] = 'Скрыть {$a} от просмотра';
+$string['aria:inprogress'] = 'Показать текущие курсы';
 $string['aria:lastaccessed'] = 'Сортировать курсы по дате последнего посещения';
+$string['aria:list'] = 'Перейти к просмотру списка';
+$string['aria:past'] = 'Показать прошлые курсы';
+$string['aria:removefromfavourites'] = 'Снять пометку для';
+$string['aria:shortname'] = 'Сортировать курсы по краткому названию';
+$string['aria:showcourse'] = 'Восстановить {$a} для просмотра';
+$string['aria:sortingdropdown'] = 'Сортировать раскрывающийся список';
+$string['aria:summary'] = 'Перейти к просмотру сводок';
 $string['aria:title'] = 'Сортировать курсы по их названию';
+$string['availablegroupings'] = 'Доступные фильтры';
+$string['availablegroupings_desc'] = 'Применяемые к курсам фильтры, доступные пользователям. Если ничего не выбрано, будут отображаться все курсы.';
 $string['card'] = 'Карточка';
 $string['cards'] = 'Карточки';
-$string['defaulttab'] = 'Вкладка по умолчанию';
-$string['defaulttab_desc'] = 'Эта вкладка будет отображаться по умолчанию при первом просмотре сводки по курсам. При повторном просмотре сводки по курсам будет отображаться вкладка, открытая пользователем при последнем просмотре.';
+$string['complete'] = 'выполнено';
+$string['completepercent'] = '{$a}% выполнено';
+$string['courseprogress'] = 'Продвижение по курсу:';
+$string['customfield'] = 'Настраиваемое поле';
+$string['customfiltergrouping'] = 'Используемое поле';
+$string['customfiltergrouping_nofields'] = 'Эта опция требует, чтобы настраиваемое поле курса было задано и было видимым для всех.';
+$string['displaycategories'] = 'Показывать категории';
+$string['displaycategories_help'] = 'Отображать категорию курса в элементах курса Личного кабинета, включая карточки, элементы списка и итоговые элементы.';
 $string['favourites'] = 'Избранное';
 $string['future'] = 'Предстоящие';
 $string['hidden'] = 'Скрытые курсы';
@@ -44,28 +72,21 @@ $string['hiddencourses'] = 'Скрытые';
 $string['hidecourse'] = 'Скрыть из вида';
 $string['inprogress'] = 'Текущие';
 $string['lastaccessed'] = 'Последнее посещение';
+$string['layouts'] = 'Доступные макеты';
+$string['layouts_help'] = 'Макеты обзора курса, доступные для выбора пользователями. Если ничего не выбрано, будут использоваться карточки.';
 $string['list'] = 'Список';
-$string['morecourses'] = 'Больше курсов';
 $string['myoverview:myaddinstance'] = 'Добавлять новый блок «Сводка по курсам» на страницу «Личный кабинет»';
-$string['next30days'] = 'Следующие 30 дней';
-$string['next7days'] = 'Следующие 7 дней';
 $string['nocourses'] = 'Нет курсов';
-$string['nocoursesfuture'] = 'Нет предстоящих курсов';
-$string['nocoursesinprogress'] = 'Нет текущих курсов';
-$string['nocoursespast'] = 'Нет прошедших курсов';
-$string['noevents'] = 'Окончаний сроков сдачи элементов курса в ближайшее время нет.';
+$string['nocustomvalue'] = 'Нет {$a}';
 $string['past'] = 'Прошедшие';
 $string['pluginname'] = 'Сводка по курсам';
-$string['privacy:metadata:overviewlasttab'] = 'Хранит последнюю вкладку, выбранную пользователем в блоке «Сводка по курсам».';
+$string['privacy:metadata:overviewgroupingpreference'] = 'Настройка группирования блока обзора курса.';
+$string['privacy:metadata:overviewpagingpreference'] = 'Настройка разбиения по страницам блока обзора курса.';
 $string['privacy:metadata:overviewsortpreference'] = 'Настройки сортировки блока «Сводка по курсам».';
 $string['privacy:metadata:overviewviewpreference'] = 'Настройки просмотра блока «Сводка по курсам».';
-$string['recentlyoverdue'] = 'Просрочено за последнее время';
+$string['privacy:request:preference:set'] = 'Значение параметра «{$a->name}» было «{$a->value}»';
 $string['removefromfavourites'] = 'Снять отметку с курса';
+$string['shortname'] = 'Краткое название';
 $string['show'] = 'Показать этот курс';
-$string['sortbycourses'] = 'Сортировать по курсам';
-$string['sortbydates'] = 'Сортировать по датам';
 $string['summary'] = 'Описание';
-$string['timeline'] = 'Шкала времени';
 $string['title'] = 'Название курса';
-$string['viewcourse'] = 'Просмотреть курс';
-$string['viewcoursename'] = 'Просмотреть курс «{$a}»';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_private_files', language 'de', version '3.8'.
+ * Strings for component 'block_private_files', language 'de', version '3.11'.
  *
  * @package     block_private_files
  * @category    string
@@ -28,5 +28,5 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Meine Dateien';
 $string['privacy:metadata'] = 'Der Block \'Meine Dateien\' zeigt ausschließlich Daten an, die woanders gespeichert sind.';
 $string['private_files:addinstance'] = 'Neuen Block \'Meine Dateien\' hinzufügen';
-$string['private_files:myaddinstance'] = 'Neuen Block \'Meine Dateien\' zum Dashboard hinzufügen';
+$string['private_files:myaddinstance'] = 'Neuen Block \'Meine Dateien\' im Dashboard hinzufügen';
 $string['privatefiles'] = 'Meine Dateien';

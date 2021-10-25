@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_usertours', language 'zh_cn', version '3.8'.
+ * Strings for component 'tool_usertours', language 'zh_cn', version '3.11'.
  *
  * @package     tool_usertours
  * @category    string
@@ -34,7 +34,9 @@ $string['description'] = '描述';
 $string['enabled'] = '启用';
 $string['endtour'] = '结束教程';
 $string['name'] = '名称';
+$string['nextstep'] = '下一个';
 $string['pluginname'] = '用户导航';
+$string['previousstep'] = '上一个';
 $string['resettouronpage'] = '在这个页面上重新开始用户导航';
 $string['skip'] = '跳过';
 $string['target'] = '目标';
@@ -42,6 +44,9 @@ $string['tour1_title_customisation'] = '定制';
 $string['tour2_title_customisation'] = '定制';
 $string['tour3_title_overview'] = '课程概览';
 $string['tour4_title_starred'] = '带星号标记的';
+$string['tour_activityinfo_activity_teacher_content'] = '现在，每个活动页面（也可选择在课程页面上）为学生显示活动日期和完成条件。
+
+对于需要学生手动将活动标记为已完成的活动，活动页面上会显示“标记为已完成”按钮。';
 $string['tourlist_explanation'] = '您可以根据您的喜好创建尽可能多的导航，并为Moodle的不同部分提供支持。每一页只能创建一个导航。';
 $string['tours'] = '导航';
 $string['usertours'] = '用户导航';

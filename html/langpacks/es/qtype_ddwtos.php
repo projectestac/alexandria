@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qtype_ddwtos', language 'es', version '3.8'.
+ * Strings for component 'qtype_ddwtos', language 'es', version '3.11'.
  *
  * @package     qtype_ddwtos
  * @category    string
@@ -36,3 +36,7 @@ $string['pluginname_help'] = 'Escriba alguna pregunta del tipo "The [[1]] jumped
 $string['pluginnameadding'] = 'Añadiendo arrastrar y soltar sobre texto';
 $string['pluginnameediting'] = 'Editando arrastrar y soltar sobre texto';
 $string['pluginnamesummary'] = 'Las palabras que faltan en un texto se rellenan usando arrastrar y soltar.';
+$string['privacy:metadata'] = 'El complemento de tipo de pregunta de arrastrar y soltar en el texto permite a los autores de preguntas establecer opciones predeterminadas como preferencias del usuario.';
+$string['privacy:preference:defaultmark'] = 'La marca predeterminada establecida para una pregunta determinada.';
+$string['privacy:preference:penalty'] = 'La penalización por cada intento incorrecto cuando las preguntas se ejecutan utilizando el comportamiento \'Interactivo con múltiples intentos\' o \'Modo adaptativo\'.';
+$string['privacy:preference:shuffleanswers'] = 'Si las respuestas deben barajarse automáticamente.';

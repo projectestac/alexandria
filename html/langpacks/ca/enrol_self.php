@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_self', language 'ca', version '3.8'.
+ * Strings for component 'enrol_self', language 'ca', version '3.11'.
  *
  * @package     enrol_self
  * @category    string
@@ -42,6 +42,8 @@ Els marcadors de posició següents poden ser inclosos en el missatge:
 *Nom complet de l\'usuari {$a->fullname}';
 $string['defaultrole'] = 'Assignació de rol per defecte';
 $string['defaultrole_desc'] = 'Trieu el rol que serà assignat als usuaris durant el procés d\'inscripció';
+$string['deleteselectedusers'] = 'Esborra els usuaris inscrits';
+$string['editselectedusers'] = 'Edita les inscripcions del usuaris seleccionats';
 $string['enrolenddate'] = 'Data final';
 $string['enrolenddate_help'] = 'Si s\'habilita, els usuaris només es poden inscriure fins aquest període';
 $string['enrolenddaterror'] = 'La fi del període d\'inscripció no pot ser abans de la data d\'inici.';

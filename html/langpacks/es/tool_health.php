@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_health', language 'es', version '3.8'.
+ * Strings for component 'tool_health', language 'es', version '3.11'.
  *
  * @package     tool_health
  * @category    string
@@ -31,3 +31,4 @@ $string['healthproblemsolution'] = 'Solución al problema de salud';
 $string['healthreturntomain'] = 'Continuar';
 $string['healthsolution'] = 'Solución';
 $string['pluginname'] = 'Centro de salud';
+$string['privacy:metadata'] = 'El complemento de centro de salud no almacena ningún dato personal.';

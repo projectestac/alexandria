@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_multimenu', language 'sv', version '3.8'.
+ * Strings for component 'datafield_multimenu', language 'sv', version '3.11'.
  *
  * @package     datafield_multimenu
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['fieldtypelabel'] = 'Flervalsmeny';
 $string['pluginname'] = 'Flervalsmeny';
-$string['privacy:metadata'] = 'Fältkomponenten Flervalsmeny lagrar ingen personlig information. Den använder tabeller definierade i <code>mod_data</code>.';
+$string['privacy:metadata'] = 'Fältkomponenten Flervalsmeny lagrar ingen personinformation. Den använder tabeller definierade i <code>mod_data</code>.';

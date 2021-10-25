@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_equation', language 'nl', version '3.8'.
+ * Strings for component 'atto_equation', language 'nl', version '3.11'.
  *
  * @package     atto_equation
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['cursorinfo'] = 'Een pijl toont de positie waar nieuwe elementen uit de elementenbibliotheek worden ingevoegd.';
+$string['cursorinfo'] = 'De pijl toont de positie waar je nieuwe elementen uit de bibliotheek gaat toevoegen.';
 $string['editequation'] = 'Bewerk een vergelijking door <a href="{$a}" target="_blank">TeX</a> te gebruiken.';
 $string['librarygroup1'] = 'Bewerkingstekens';
 $string['librarygroup1_desc'] = 'Lijst van TeX-commando\'s op de bewerkingentab.';

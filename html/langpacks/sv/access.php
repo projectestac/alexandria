@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'access', language 'sv', version '3.8'.
+ * Strings for component 'access', language 'sv', version '3.11'.
  *
  * @package     access
  * @category    string
@@ -32,8 +32,8 @@ $string['accessstatement'] = 'Tillgänglighetsredogörelse';
 $string['activitynext'] = 'Nästa aktivitet';
 $string['activityprev'] = 'Föregående aktivitet';
 $string['breadcrumb'] = 'Navigeringsfält';
-$string['eventcontextlocked'] = 'Innehåll låst';
-$string['eventcontextunlocked'] = 'Innehåll olåst';
+$string['eventcontextlocked'] = 'Kontext låst';
+$string['eventcontextunlocked'] = 'Sammanhang upplåst';
 $string['hideblocka'] = 'Dölj {$a}-blocket';
 $string['showblocka'] = 'Visa {$a}-blocket';
 $string['sitemap'] = 'Webbplatskarta';

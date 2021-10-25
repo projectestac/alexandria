@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_category', language 'sv', version '3.8'.
+ * Strings for component 'enrol_category', language 'sv', version '3.11'.
  *
  * @package     enrol_category
  * @category    string
@@ -30,4 +30,4 @@ $string['category:synchronised'] = 'Rolltilldelningar synkroniserade med kursreg
 $string['enrolcategorysynctask'] = 'Synkronisera kursregistreringar via kategori';
 $string['pluginname'] = 'Kategoriregistreringar';
 $string['pluginname_desc'] = 'Pluginmodulen Kategoriregistrering synkroniserar eventuella rolltilldelningar i kategorikontexten för roller med funktionsbehörigheten <code> enrol/category:synchronised</code>.';
-$string['privacy:metadata'] = 'Pluginmodulen Kategoriregistrering lagrar ingen personlig information.';
+$string['privacy:metadata'] = 'Pluginmodulen Kategoriregistrering lagrar ingen personinformation.';

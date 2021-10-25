@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_activitynames', language 'zh_cn', version '3.8'.
+ * Strings for component 'filter_activitynames', language 'zh_cn', version '3.11'.
  *
  * @package     filter_activitynames
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = '自动链接活动名';
+$string['privacy:metadata'] = '活动名称自动链接插件不存储任何个人数据。';

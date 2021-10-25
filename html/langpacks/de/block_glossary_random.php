@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_glossary_random', language 'de', version '3.8'.
+ * Strings for component 'block_glossary_random', language 'de', version '3.11'.
  *
  * @package     block_glossary_random
  * @category    string
@@ -30,7 +30,7 @@ $string['askaddentry'] = 'Wenn Teilnehmer/innen selbst Einträge zum Glossar hin
 $string['askinvisible'] = 'Wenn Teilnehmer/innen das Glossar weder sehen noch Einträge hinzufügen dürfen, wird folgender Text (ohne Link) angezeigt.';
 $string['askviewglossary'] = 'Wenn Teilnehmer/innen das Glossar sehen können, aber keine Einträge hinzufügen dürfen, wird ein Link mit folgendem Text angezeigt.';
 $string['glossary_random:addinstance'] = 'Neuen Block \'Glossareintrag\' hinzufügen';
-$string['glossary_random:myaddinstance'] = 'Neuen Block \'Glossareintrag\' zum Dashboard hinzufügen';
+$string['glossary_random:myaddinstance'] = 'Neuen Block \'Glossareintrag\' im Dashboard hinzufügen';
 $string['intro'] = 'Legen Sie ein Glossar mit einem Eintrag im Kurs an, um die weiteren Einstellungen zu bearbeiten.';
 $string['invisible'] = '(Fortsetzung folgt)';
 $string['lastmodified'] = 'Zuletzt geänderter Eintrag';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_tag_flickr', language 'pt', version '3.8'.
+ * Strings for component 'block_tag_flickr', language 'pt', version '3.11'.
  *
  * @package     block_tag_flickr
  * @category    string
@@ -37,7 +37,7 @@ $string['interestingness-asc'] = 'Grau de interesse ASCEN.';
 $string['interestingness-desc'] = 'Grau de interesse DESCEN.';
 $string['numberofphotos'] = 'Número de fotos';
 $string['pluginname'] = 'Flickr';
-$string['privacy:metadata:block_tag_flickr'] = 'O módulo bloco Flickr não armazena dados pessoais, mas transmite dados de utilizador do Moodle para o sistema remoto.';
+$string['privacy:metadata:block_tag_flickr'] = 'O módulo bloco Flickr não armazena quaisquer dados pessoais, mas transmite dados de utilizador do Moodle para o sistema remoto.';
 $string['privacy:metadata:block_tag_flickr:tags'] = 'Os valores da palavra-chave enviados como formato CSV para procurar imagens Flickr.';
 $string['relevance'] = 'Relevância';
 $string['sortby'] = 'Ordenar por';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_lpimportcsv', language 'es', version '3.8'.
+ * Strings for component 'tool_lpimportcsv', language 'es', version '3.11'.
  *
  * @package     tool_lpimportcsv
  * @category    string
@@ -39,11 +39,15 @@ $string['exportnavlink'] = 'Exportar marco de competencias';
 $string['idnumber'] = 'Identificador';
 $string['import'] = 'Importar';
 $string['importfile'] = 'Archivo CSV de descripción del marco de competencias';
+$string['importfile_help'] = 'Se puede importar un marco de competencias a través de un archivo de texto. El formato del archivo se puede determinar creando un nuevo marco de competencias en el sitio y luego exportándolo.';
+$string['importingfile'] = 'Importando datos de archivo';
 $string['invalidimportfile'] = 'El formato del archivo no es válido.';
 $string['isframework'] = 'Es marco de competencias';
 $string['noframeworks'] = 'No se han creado marcos de competencias todavía';
 $string['parentidnumber'] = 'Identificador padre';
 $string['pluginname'] = 'Importar marco de competencias';
+$string['privacy:metadata'] = 'El complemento de marco de competencia de importación no almacena ningún dato personal.';
+$string['processingfile'] = 'Procesando archivo';
 $string['relatedidnumbers'] = 'Identificadores de referencias cruzadas de competencias';
 $string['ruleconfig'] = 'Configuración de regla (opcional)';
 $string['ruleoutcome'] = 'Resultado de la regla (opcional)';

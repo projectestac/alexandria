@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_singleview', language 'es', version '3.8'.
+ * Strings for component 'gradereport_singleview', language 'es', version '3.11'.
  *
  * @package     gradereport_singleview
  * @category    string
@@ -52,6 +52,7 @@ $string['override'] = 'Anular';
 $string['overrideall'] = 'Anular todas las calificaciones';
 $string['overridefor'] = 'Anular {$a}';
 $string['overridenone'] = 'No sobrescribir ninguna calificación';
+$string['overridenoneconfirm'] = 'Está a punto de deshabilitar las anulaciones de calificaciones. Esto eliminará todas las calificaciones anuladas anteriormente. ¿Está seguro de que quiere continuar?';
 $string['pluginname'] = 'Vista Simple';
 $string['privacy:metadata'] = 'El Informe de Vista individual de calificación solamente muestra datos almacenados en otros sitios.';
 $string['save'] = 'Guardar';

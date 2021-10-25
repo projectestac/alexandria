@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assign', language 'zh_cn', version '3.8'.
+ * Strings for component 'assign', language 'zh_cn', version '3.11'.
  *
  * @package     assign
  * @category    string
@@ -25,6 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activitydate:submissionsdue'] = '到期日：';
+$string['activitydate:submissionsopen'] = '打开：';
+$string['activitydate:submissionsopened'] = '打开：';
 $string['activityoverview'] = '您有需要留意的作业';
 $string['addattempt'] = '允许重做';
 $string['addnewattempt'] = '添加新尝试';
@@ -63,6 +66,7 @@ $string['assign:submit'] = '提交作业';
 $string['assign:view'] = '查看作业';
 $string['assign:viewblinddetails'] = '启用盲批时查看学生身份';
 $string['assign:viewgrades'] = '查看成绩';
+$string['assign:viewownsubmissionsummary'] = '查看自己的提交摘要';
 $string['assignfeedback'] = '反馈插件';
 $string['assignfeedbackpluginname'] = '反馈插件';
 $string['assignmentisdue'] = '作业到期';
@@ -111,6 +115,7 @@ $string['batchsetmarkingworkflowstateforusers'] = '为{$a}位选定的用户设�
 $string['blindmarking'] = '盲批';
 $string['blindmarking_help'] = '盲批，批改人看不到学生的身份信息。一旦完成了与该作业相关的提交或评分，盲批设置将被锁定。';
 $string['blindmarkingenabledwarning'] = '此活动已启用盲批。';
+$string['cachedef_overrides'] = '用户和组覆盖信息';
 $string['calendardue'] = '{$a} 已到期';
 $string['calendargradingdue'] = '{$a} 等待评分中';
 $string['changefilters'] = '变更过滤器';
@@ -122,6 +127,7 @@ $string['clickexpandreviewpanel'] = '点击展开检查面板';
 $string['collapsegradepanel'] = '折叠评分面板';
 $string['collapsereviewpanel'] = '折叠检查面板';
 $string['comment'] = '评论';
+$string['completiondetail:submit'] = '提交';
 $string['completionsubmit'] = '学生必须提交才可以完成此活动。';
 $string['configshowrecentsubmissions'] = '任何人都可以在最近的活动报表中看到作业通知。';
 $string['confirmbatchgradingoperation'] = '您确定您要对 {$a->count} 名学生进行{$a->operation}操作吗?';
@@ -174,7 +180,7 @@ $string['enabled'] = '已启用';
 $string['errornosubmissions'] = '没有可下载的作业';
 $string['errorquickgradingvsadvancedgrading'] = '未保存成绩，因为此作业当前正在使用高级评分方法';
 $string['errorrecordmodified'] = '未保存成绩，因为在您加载此页面之前有人修改了一条或多条记录。';
-$string['eventallsubmissionsdownloaded'] = '提交的作业已经全部下载';
+$string['eventallsubmissionsdownloaded'] = '所有作业均已下载。';
 $string['eventassessablesubmitted'] = '一个作业已提交。';
 $string['eventbatchsetmarkerallocationviewed'] = '批量设置批改人分配已查看';
 $string['eventbatchsetworkflowstateviewed'] = '批量设置工作流程状态已查看。';
@@ -227,6 +233,7 @@ $string['feedbacksettings'] = '反馈设置';
 $string['feedbacktypes'] = '反馈类型';
 $string['filesubmissions'] = '文件作业';
 $string['filter'] = '过滤器';
+$string['filterdraft'] = '草稿';
 $string['filtergrantedextension'] = '准予延期';
 $string['filternone'] = '没有过滤器';
 $string['filternotsubmitted'] = '没有提交';
@@ -348,8 +355,8 @@ $string['noclose'] = '没有关闭日期';
 $string['nofiles'] = '没有文件。';
 $string['nofilters'] = '没有过滤器';
 $string['nograde'] = '没有成绩。';
-$string['nolatesubmissions'] = '没有再收到迟交的作业';
-$string['nomoresubmissionsaccepted'] = '只允许已获准延期的参与人';
+$string['nolatesubmissions'] = '不接受迟交。 ‎';
+$string['nomoresubmissionsaccepted'] = '只允许获准延期的参与人';
 $string['none'] = '没有';
 $string['noonlinesubmissions'] = '此作业不需要您在线提交任何东西';
 $string['noopen'] = '没有开启日期';
@@ -494,8 +501,8 @@ $string['submissionnotcopiedinvalidstatus'] = '该作业未被复制，因为它
 $string['submissionnoteditable'] = '学生不能编辑此作业';
 $string['submissionnotready'] = '此作业还没有准备提交：';
 $string['submissionplugins'] = '提交插件';
-$string['submissionreceipthtml'] = '<p>您已经向“<i>{$a->assignment}</i>”提交了作业。</p>
-<p>您可以查看<a href="{$a->url}">作业</a>状态。</p>';
+$string['submissionreceipthtml'] = '<p>您已经提交了作业“<i>{$a->assignment}</i>”。</p>
+ <p>您可以看到您的<a href="{$a->url}">作业</a>状态。</p>';
 $string['submissionreceiptotherhtml'] = '您已经提交了作业“<i>{$a->assignment}</i>”。<br />
 您可以看到您的<a href="{$a->url}">作业</a>状态。';
 $string['submissionreceiptothersmall'] = '您已经提交了作业{$a->assignment}。';

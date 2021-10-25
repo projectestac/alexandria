@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'langconfig', language 'eu', version '3.8'.
+ * Strings for component 'langconfig', language 'eu', version '3.11'.
  *
  * @package     langconfig
  * @category    string
@@ -35,6 +35,7 @@ $string['iso6392'] = 'eng';
 $string['labelsep'] = ':';
 $string['listsep'] = ';';
 $string['locale'] = 'eu_ES.UTF-8';
+$string['localecldr'] = 'en-AU';
 $string['localewin'] = 'Basque';
 $string['localewincharset'] = 'WINDOWS-1252';
 $string['oldcharset'] = 'ISO-8859-1';
@@ -44,15 +45,15 @@ $string['strftimedatefullshort'] = '%y/%m/%d';
 $string['strftimedatemonthabbr'] = '%Y %b %d';
 $string['strftimedateshort'] = '%Bk %d';
 $string['strftimedateshortmonthabbr'] = '%b %d';
-$string['strftimedatetime'] = '%Y(e)ko %Bren %d(e)n, %H:%M(e)an';
+$string['strftimedatetime'] = '%Y(e)ko %Bren %d(e)n, %H:%M(e)tan';
 $string['strftimedatetimeshort'] = '%Y/%m/%d  %H:%M';
 $string['strftimedaydate'] = '%A, %Y(e)ko  %Bk %d';
-$string['strftimedaydatetime'] = '%A, %Y(e)ko %Bren %d(e)an, %H:%M(e)an';
+$string['strftimedaydatetime'] = '%A, %Y(e)ko %Bren %d(e)an, %H:%M(e)tan';
 $string['strftimedayshort'] = '%A, %Bk %d';
-$string['strftimedaytime'] = '%a, %H:%M(e)an';
+$string['strftimedaytime'] = '%a, %H:%M(e)tan';
 $string['strftimemonthyear'] = '%Y(e)ko %B';
-$string['strftimerecent'] = '%bk %d, %H:%M(e)an';
-$string['strftimerecentfull'] = '%a, %Y(e)ko %bren %d(e)an, %H:%M(e)an';
+$string['strftimerecent'] = '%bk %d, %H:%M(e)tan';
+$string['strftimerecentfull'] = '%a, %Y(e)ko %bren %d(e)an, %H:%M(e)tan';
 $string['strftimetime'] = '%H:%M %p';
 $string['strftimetime12'] = '%I:%M %p';
 $string['strftimetime24'] = '%H:%M';

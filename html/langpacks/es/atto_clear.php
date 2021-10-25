@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_clear', language 'es', version '3.8'.
+ * Strings for component 'atto_clear', language 'es', version '3.11'.
  *
  * @package     atto_clear
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Limpiar el formato';
-$string['privacy:metadata'] = 'El plugin atto_clear no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_clear no almacena ningún dato personal.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'timezones', language 'ar', version '3.8'.
+ * Strings for component 'timezones', language 'ar', version '3.11'.
  *
  * @package     timezones
  * @category    string
@@ -80,7 +80,7 @@ $string['africa/tripoli'] = 'أفريقيا / طرابلس';
 $string['africa/tunis'] = 'أفريقيا / تونس';
 $string['africa/windhoek'] = 'أفريقيا / ويندهوك';
 $string['america/adak'] = 'أمريكا / أداك';
-$string['america/anchorage'] = 'أمريكا / مرسى';
+$string['america/anchorage'] = 'أمريكا / أنكوراج';
 $string['america/anguilla'] = 'أمريكا / أنغيلا';
 $string['america/antigua'] = 'أمريكا / أنتيغوا';
 $string['america/araguaina'] = 'أمريكا / الأرجنتين';

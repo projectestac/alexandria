@@ -1,9 +1,6 @@
 <?php
 
-define('INSTALL_BASE', dirname(dirname(dirname(__FILE__))));
-define('MOODLE_BASE', dirname(__FILE__));
-
-require_once INSTALL_BASE . '/html/config/env-config.php';
+include_once dirname(__FILE__, 3) . '/html/config/env-config.php';
 
 unset($CFG);
 global $CFG;
@@ -23,13 +20,11 @@ $CFG->dboptions = [
     'dbport' => $agora['moodle2']['port'],
 ];
 
-$CFG->langotherroot = MOODLE_BASE . '/langpacks/';
-
 $CFG->directorypermissions = 00777;
 
 $CFG->passwordsaltalt1 = '';
 $CFG->passwordsaltmain = 'y7a!Eb019n8Z5*43Sl5J&ly4pjJUk-b';
 
-require_once MOODLE_BASE . '/site-config.php';
-require_once MOODLE_BASE . '/settings.php';
-require_once MOODLE_BASE . '/lib/setup.php';
+require_once $agora['server']['root'] . '/html/moodle2/site-config.php';
+require_once $agora['server']['root'] . '/html/moodle2/settings.php';
+require_once $agora['server']['root'] . '/html/moodle2/lib/setup.php';

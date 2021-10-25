@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_offlineattempts', language 'es', version '3.8'.
+ * Strings for component 'quizaccess_offlineattempts', language 'es', version '3.11'.
  *
  * @package     quizaccess_offlineattempts
  * @category    string
@@ -28,5 +28,11 @@ defined('MOODLE_INTERNAL') || die();
 $string['allowofflineattempts'] = 'Permitir realizar el cuestionario fuera de línea utilizando la aplicación móvil';
 $string['allowofflineattempts_help'] = 'Si se habilita, el usuario de la aplicación móvil puede descargarse el cuestionario y realizarlo fuera de línea.
 
-Nota: No es posible realizar la lección fuera de línea si tiene límite de tiempo, o si requiere una dirección de red, o si se utiliza un compotamiento de pregunta distinto a realimentación posterior al intento (con o sin CBM).';
-$string['offlineattemptserror'] = 'No es posible realizar la lección fuera de línea si tiene límite de tiempo, o si requiere una dirección de red, o si se utiliza un compotamiento de pregunta distinto a realimentación posterior al intento (con o sin CBM).';
+Nota: No es posible realizar la lección fuera de línea si tiene límite de tiempo, o si requiere una dirección de red, o si se utiliza un comportamiento de pregunta distinto a retroalimentación posterior al intento (con o sin CBM).';
+$string['confirmdatasaved'] = 'Confirmo que no tengo ningún trabajo sin guardar en un dispositivo móvil.';
+$string['mobileapp'] = 'Aplicación móvil';
+$string['offlineattemptserror'] = 'No es posible realizar la lección fuera de línea si tiene límite de tiempo, o si requiere una dirección de red, o si se utiliza un comportamiento de pregunta distinto a retroalimentación posterior al intento (con o sin CBM).';
+$string['offlinedatamessage'] = 'Ha trabajado en este intento utilizando un dispositivo móvil. Los datos se guardaron en el sitio por última vez hace {$a}.';
+$string['pleaseconfirm'] = 'Por favor compruebe y confirme que no tienen ningún trabajo sin guardar.';
+$string['pluginname'] = 'Regla de acceso para intentos sin línea';
+$string['privacy:metadata'] = 'El complemento de regla de acceso para intentos sin línea no almacena ningún dato personal.';

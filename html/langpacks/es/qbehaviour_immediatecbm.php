@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_immediatecbm', language 'es', version '3.8'.
+ * Strings for component 'qbehaviour_immediatecbm', language 'es', version '3.11'.
  *
  * @package     qbehaviour_immediatecbm
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['pleaseselectacertainty'] = 'Por favor seleccione una certeza';
 $string['pluginname'] = 'Retroalimentación inmediata con CBM';
+$string['privacy:metadata'] = 'El complemento Comentarios inmediatos con comportamiento de preguntas de CBM no almacena ningún dato personal.';

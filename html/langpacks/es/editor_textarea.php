@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_textarea', language 'es', version '3.8'.
+ * Strings for component 'editor_textarea', language 'es', version '3.11'.
  *
  * @package     editor_textarea
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Área de texto plano';
+$string['privacy:metadata'] = 'El complemento de editor de área de texto plano no almacena ningún dato personal.';

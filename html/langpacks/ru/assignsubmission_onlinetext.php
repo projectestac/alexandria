@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_onlinetext', language 'ru', version '3.8'.
+ * Strings for component 'assignsubmission_onlinetext', language 'ru', version '3.11'.
  *
  * @package     assignsubmission_onlinetext
  * @category    string
@@ -46,4 +46,4 @@ $string['privacy:metadata:textpurpose'] = 'Текст, фактически от
 $string['privacy:path'] = 'Текст ответа';
 $string['wordlimit'] = 'Лимит слов';
 $string['wordlimit_help'] = 'Если разрешен ответ в виде текста, то этот параметр задает максимальное количество слов, которое может содержать ответ студента.';
-$string['wordlimitexceeded'] = 'Для этого задания задано ограничение максимального количества слов - {$a->limit}. Вы пытаетесь представить {$a->count} слово(а). Проверьте свой текст и попробуйте еще раз.';
+$string['wordlimitexceeded'] = 'Для этого задания задано ограничение максимального количества слов - {$a->limit}. Вы пытаетесь представить слов - {$a->count}. Проверьте свой ответ и попробуйте еще раз.';

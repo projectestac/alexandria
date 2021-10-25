@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'page', language 'fr', version '3.8'.
+ * Strings for component 'page', language 'fr', version '3.11'.
  *
  * @package     page
  * @category    string
@@ -58,7 +58,7 @@ $string['modulenameplural'] = 'Pages';
 $string['optionsheader'] = 'Afficher les options';
 $string['page-mod-page-x'] = 'Toute page de module';
 $string['page:addinstance'] = 'Ajouter une ressource page';
-$string['page:view'] = 'Voir le contenu des pages';
+$string['page:view'] = 'Consulter le contenu des pages';
 $string['pluginadministration'] = 'Administration page';
 $string['pluginname'] = 'Page';
 $string['popupheight'] = 'Hauteur de la fenêtre (en pixels)';

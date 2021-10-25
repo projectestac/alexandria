@@ -13,11 +13,11 @@ Feature: Users can request and approve courses
 
   Scenario: Simple course request workflow
     Given the following "system role assigns" exist:
-      | user  | course | role |
+      | user  | course               | role    |
       | user2 | Acceptance test site | manager |
-    Given I log in as "admin"
-    And I set the following administration settings values:
+    And the following config values are set as admin:
       | lockrequestcategory | 1 |
+    Given I log in as "admin"
     And I set the following system permissions of "Authenticated user" role:
       | capability | permission |
       | moodle/course:request | Allow |
@@ -76,7 +76,7 @@ Feature: Users can request and approve courses
     And I am on course index
     And I follow "English category"
     And I press "Request a course"
-    And the field "Course category" matches value "English category"
+    And the "Course category" select box should contain "English category"
     And I set the following fields to these values:
       | Course full name  | My new course |
       | Course short name | Mynewcourse   |

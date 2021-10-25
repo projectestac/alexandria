@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeexport_xml', language 'es', version '3.8'.
+ * Strings for component 'gradeexport_xml', language 'es', version '3.11'.
  *
  * @package     gradeexport_xml
  * @category    string
@@ -27,5 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['eventgradeexported'] = 'Calificación XML exportada';
 $string['pluginname'] = 'Archivo XML';
+$string['privacy:metadata'] = 'El complemento de exportación de hoja de cálculo de calificaciones en XML no almacena ningún dato personal.';
 $string['xml:publish'] = 'Publicar exportación de calificaciones XML';
 $string['xml:view'] = 'Usar exportación de calificaciones XML';

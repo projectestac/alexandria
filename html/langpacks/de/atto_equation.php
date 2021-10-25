@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_equation', language 'de', version '3.8'.
+ * Strings for component 'atto_equation', language 'de', version '3.11'.
  *
  * @package     atto_equation
  * @category    string
@@ -38,6 +38,6 @@ $string['librarygroup4_desc'] = 'TeX-Befehle auf der Registerkarte \'Weitere Sym
 $string['pluginname'] = 'Gleichungseditor';
 $string['preview'] = 'Gleichungsvorschau';
 $string['privacy:metadata'] = 'Das Plugin atto_equation speichert keine personenbezogenen Daten.';
-$string['saveequation'] = 'Gleichung sichern';
+$string['saveequation'] = 'Gleichung speichern';
 $string['settings'] = 'Gleichungseditor';
 $string['update'] = 'Aktualisieren';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_local', language 'pt', version '3.8'.
+ * Strings for component 'repository_local', language 'pt', version '3.11'.
  *
  * @package     repository_local
  * @category    string
@@ -32,5 +32,5 @@ $string['local:view'] = 'Ver repositório Ficheiros no Servidor';
 $string['notitle'] = 'Sem título';
 $string['pluginname'] = 'Ficheiros no Servidor';
 $string['pluginname_help'] = 'Ficheiros enviados anteriormente para o servidor Moodle';
-$string['privacy:metadata'] = 'O módulo Ficheiros no servidor não armazena ou transmite dados pessoais.';
+$string['privacy:metadata'] = 'O módulo Ficheiros no servidor não armazena ou transmite quaisquer dados pessoais.';
 $string['remember'] = 'Manter sessão';

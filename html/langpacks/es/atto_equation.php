@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_equation', language 'es', version '3.8'.
+ * Strings for component 'atto_equation', language 'es', version '3.11'.
  *
  * @package     atto_equation
  * @category    string
@@ -37,7 +37,7 @@ $string['librarygroup4'] = 'Avanzado';
 $string['librarygroup4_desc'] = 'Comandos de TeX que figuran en la pestaña avanzada.';
 $string['pluginname'] = 'Editor de Ecuaciones';
 $string['preview'] = 'Previsualización de ecuación';
-$string['privacy:metadata'] = 'El plugin atto_equation no guarda ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento atto_equation no almacena ningún dato personal.';
 $string['saveequation'] = 'Salvar ecuación';
 $string['settings'] = 'Opciones del editor de ecuaciones';
 $string['update'] = 'Actualizar';
