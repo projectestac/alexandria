@@ -143,6 +143,7 @@ function alexandria_get_file($recordid, $fieldid, $contextid = 0) {
 
     return null;
 }
+
 /**
  * @param $courseid
  * @return stored_file|null
@@ -306,29 +307,32 @@ function alexandria_get_admin() {
  * @throws moodle_exception
  */
 function alexandria_backup_course($courseid, $doitnow = false) {
+
     global $CFG, $DB, $USER;
 
     if ($doitnow && is_xtecadmin()) {
-        require_once($CFG->dirroot . '/backup/util/includes/backup_includes.php');
-        require_once($CFG->dirroot . '/backup/util/helper/backup_cron_helper.class.php');
+
+        require_once $CFG->dirroot . '/backup/util/includes/backup_includes.php';
+        require_once $CFG->dirroot . '/backup/util/helper/backup_cron_helper.class.php';
+
         $course = $DB->get_record('course', array('id' => $courseid));
         backup_cron_automated_helper::launch_automated_backup($course, 0, $USER->id);
-    } else {
-        // Queue backup
-        if (!$DB->get_record(ALEXANDRIA_BACKUPS_TABLENAME, array('course_id' => $courseid))) {
-            $backup = new stdClass();
-            $backup->course_id = $courseid;
-            $DB->insert_record(ALEXANDRIA_BACKUPS_TABLENAME, $backup);
 
-            // Launch event
-            $contextcourse = \context_course::instance($courseid);
-            $params = array(
-                'context' => $contextcourse,
-                'objectid' => $courseid
-            );
-            $event = \local_alexandria\event\alexandria_backup_db_insert::create($params);
-            $event->trigger();
-        }    
+    } else if (!$DB->get_record(ALEXANDRIA_BACKUPS_TABLENAME, array('course_id' => $courseid))) {
+
+        $backup = new stdClass();
+        $backup->course_id = $courseid;
+        $DB->insert_record(ALEXANDRIA_BACKUPS_TABLENAME, $backup);
+
+        // Launch event
+        $contextcourse = \context_course::instance($courseid);
+        $params = [
+            'context' => $contextcourse,
+            'objectid' => $courseid,
+        ];
+        $event = \local_alexandria\event\alexandria_backup_db_insert::create($params);
+        $event->trigger();
+
     }
 
     redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
@@ -588,27 +592,6 @@ function get_data_field_by_name($name, $recordid) {
 }
 
 /**
- * @param $a
- * @param $b
- * @return int
- */
-/*
-function sort_datarecord_files_last($a, $b) {
-    $a = explode('_', $a->name);
-    $a = end($a);
-
-    $b = explode('_', $b->name);
-    $b = end($b);
-
-    if ($a == 'file' && $b == 'file') return 0;
-    if ($a == 'file') return 1;
-    if ($b == 'file') return -1;
-
-    return 0;
-}
-*/
-
-/**
  * @param $filename
  * @param $summary
  * @param $maxfilesize
@@ -673,6 +656,7 @@ function alexandria_create_scorm_object($filename, $summary, $maxfilesize) {
 
 /**
  * Get an string that describes which type is the database with the given fields.
+ *
  * @param array $fields Field records of the database
  * @return string         Type of the database.
  */
@@ -696,6 +680,7 @@ function get_alexandria_database_type($fields) {
 
 /**
  * Get the field that contains the file in the database.
+ *
  * @param array $fields Field records of the database
  * @return object         Field that describes and contains the file.
  */
@@ -717,6 +702,7 @@ function get_alexandria_file_field($fields) {
 
 /**
  * Get the filename save on the database record.
+ *
  * @param int $fieldid Field that describes and contains the file.
  * @param int $recordid Record to get the filename.
  * @return string|false    Filename or false if no file.
