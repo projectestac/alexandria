@@ -28,7 +28,7 @@ function local_alexandria_coursedeleted_handler($params): bool {
         return false;
     }
 
-    $courseid = intval($params->objectid);
+    $courseid = (int)$params->objectid;
 
     return $DB->delete_records('local_alexandria_backups', ['course_id' => $courseid]);
 }

@@ -30,13 +30,13 @@ $string['reportabuse_submit'] = 'Envia l\'informe';
 $string['reportabuse_cancel'] = 'Cancel·la';
 $string['reportabuse_mailsubject'] = 'Notificació de contingut inadequat a {$a->contentname}';
 $string['reportabuse_mail'] = ' ha notificat el contingut inadequat següent al recurs {$a->coursename}: {$a->abuse}';
-$string['reportabuse_intro'] = 'Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href="{$a}" target="_blank">condicions d\'ús</a> d\'aquest espai! <br>En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
-$string['reportabuse_noguestuseage'] = 'Els usuaris invitats no tenen accès a aquesta pàgina.';
+$string['reportabuse_intro'] = 'Gràcies per ajudar a la comunitat informant sobre contingut que pot estar infringint les <a href="{$a}" target="_blank">condicions d\'ús</a> d\'aquest espai! <br />En breu rebràs una còpia a la teva bústia de correu amb el missatge que has notificat.';
+$string['reportabuse_noguestuseage'] = 'Els usuaris invitats no tenen accés a aquesta pàgina.';
 $string['reportabuse_no_comments'] = 'Sense comentaris';
 $string['reportabuse_no_topic'] = 'Sense categoria';
 
 $string['licensefield'] = 'Llicència';
-$string['creatorfield'] = 'Autor/a';
+$string['creatorfield'] = 'Autor';
 
 $string['coursesdataid'] = 'Llista de IDs de base de dades que contenen cursos';
 $string['coursefieldid'] = 'Camp de ID de curs';
@@ -64,7 +64,7 @@ $string['configcoursesdataid'] = 'Llista de base de dades que estractaran com a 
 
 $string['fileunavailable'] = 'Fitxer no disponible en aquest moments';
 $string['recordmissingfield'] = 'Falta omplir un camp necessari: {$a}';
-$string['error_restoringcourse'] = 'S\'ha produit un error mentre es restaurava el curs';
+$string['error_restoringcourse'] = 'S\'ha produït un error mentre es restaurava el curs';
 
 $string['reports'] = 'Informes';
 $string['pages'] = 'Pàgines';
@@ -79,7 +79,7 @@ $string['nocourse'] = 'No hi ha un curs vàlid';
 
 $string['filetype'] = 'Tipus de fitxer';
 $string['otherfile'] = 'Altres';
-$string['pdipdffile'] = 'Previsualitzacio de PDI en PDF';
+$string['pdipdffile'] = 'Previsualització de PDI en PDF';
 $string['pdifile'] = 'Fitxer per a PDI';
 $string['scormfile'] = 'Fitxer SCORM';
 $string['coursebackupfile'] = 'Fitxer de còpia de seguretat de curs';
@@ -97,6 +97,6 @@ $string['preview_notavalaible'] = 'La previsualització no està disponible';
 $string['show_index'] = "Mostra l\'índex >>";
 $string['hide_index'] = "Amaga l\'índex <<";
 
-$string['event_backup_db_insert'] = 'Curs insertat a la taula de backups d\'Alexandria';
-$string['event_backup_db_delete'] = 'Curs eliminat a la taula de backups d\'Alexandria';
-$string['backup_courses_task'] = 'Alexandria: Tasca de backup de cursos';
+$string['event_backup_db_insert'] = 'Curs afegit a la taula de còpies de seguretat d\'Alexandria';
+$string['event_backup_db_delete'] = 'Curs eliminat de la taula de còpies de seguretat d\'Alexandria';
+$string['backup_courses_task'] = 'Alexandria: Tasca de còpies de seguretat de cursos';
