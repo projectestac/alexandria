@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
--- Dumped by pg_dump version 10.14 (Ubuntu 10.14-0ubuntu0.18.04.1)
+-- Dumped from database version 10.18 (Ubuntu 10.18-0ubuntu0.18.04.1)
+-- Dumped by pg_dump version 10.18 (Ubuntu 10.18-0ubuntu0.18.04.1)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1523,6 +1523,44 @@ ALTER SEQUENCE public.mdl_badge_backpack_id_seq OWNED BY public.mdl_badge_backpa
 
 
 --
+-- Name: mdl_badge_backpack_oauth2; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_badge_backpack_oauth2 (
+    id bigint NOT NULL,
+    usermodified bigint DEFAULT 0 NOT NULL,
+    timecreated bigint DEFAULT 0 NOT NULL,
+    timemodified bigint DEFAULT 0 NOT NULL,
+    userid bigint NOT NULL,
+    issuerid bigint NOT NULL,
+    externalbackpackid bigint NOT NULL,
+    token text NOT NULL,
+    refreshtoken text NOT NULL,
+    expires bigint,
+    scope text
+);
+
+
+--
+-- Name: mdl_badge_backpack_oauth2_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_badge_backpack_oauth2_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_badge_backpack_oauth2_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_badge_backpack_oauth2_id_seq OWNED BY public.mdl_badge_backpack_oauth2.id;
+
+
+--
 -- Name: mdl_badge_criteria; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -1689,7 +1727,8 @@ CREATE TABLE public.mdl_badge_external (
     id bigint NOT NULL,
     backpackid bigint NOT NULL,
     collectionid bigint NOT NULL,
-    entityid character varying(255)
+    entityid character varying(255),
+    assertion text
 );
 
 
@@ -1710,7 +1749,7 @@ CREATE TABLE public.mdl_badge_external_backpack (
     backpackweburl character varying(255) DEFAULT ''::character varying NOT NULL,
     apiversion character varying(12) DEFAULT '1.0'::character varying NOT NULL,
     sortorder bigint DEFAULT 0 NOT NULL,
-    password character varying(255)
+    oauth2_issuerid bigint
 );
 
 
@@ -1998,6 +2037,56 @@ CREATE TABLE public.mdl_block (
 --
 
 COMMENT ON TABLE public.mdl_block IS 'contains all installed blocks';
+
+
+--
+-- Name: mdl_block_configurable_reports; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_block_configurable_reports (
+    id bigint NOT NULL,
+    courseid bigint NOT NULL,
+    ownerid bigint NOT NULL,
+    visible smallint NOT NULL,
+    name character varying(128) DEFAULT ''::character varying NOT NULL,
+    summary text,
+    summaryformat smallint DEFAULT 0 NOT NULL,
+    type character varying(128) DEFAULT ''::character varying NOT NULL,
+    pagination smallint,
+    components text,
+    export character varying(255),
+    jsordering smallint,
+    global smallint DEFAULT 0 NOT NULL,
+    lastexecutiontime bigint DEFAULT 0 NOT NULL,
+    cron smallint DEFAULT 0 NOT NULL,
+    remote smallint DEFAULT 0
+);
+
+
+--
+-- Name: TABLE mdl_block_configurable_reports; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_block_configurable_reports IS 'block_configurable_reports table retrofitted from MySQL';
+
+
+--
+-- Name: mdl_block_configurable_reports_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_block_configurable_reports_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_block_configurable_reports_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_block_configurable_reports_id_seq OWNED BY public.mdl_block_configurable_reports.id;
 
 
 --
@@ -2714,7 +2803,8 @@ CREATE TABLE public.mdl_choice (
     timeclose bigint DEFAULT 0 NOT NULL,
     showpreview smallint DEFAULT 0 NOT NULL,
     timemodified bigint DEFAULT 0 NOT NULL,
-    completionsubmit smallint DEFAULT 0 NOT NULL
+    completionsubmit smallint DEFAULT 0 NOT NULL,
+    showavailable smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -2843,7 +2933,9 @@ CREATE TABLE public.mdl_choicegroup (
     timeclose bigint DEFAULT 0 NOT NULL,
     timemodified bigint DEFAULT 0 NOT NULL,
     completionsubmit smallint DEFAULT 0 NOT NULL,
-    sortgroupsby bigint DEFAULT 0 NOT NULL
+    sortgroupsby bigint DEFAULT 0 NOT NULL,
+    maxenrollments bigint DEFAULT 0,
+    onlyactive smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -3892,6 +3984,44 @@ ALTER SEQUENCE public.mdl_config_plugins_id_seq OWNED BY public.mdl_config_plugi
 
 
 --
+-- Name: mdl_contentbank_content; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_contentbank_content (
+    id bigint NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    contenttype character varying(100) DEFAULT ''::character varying NOT NULL,
+    contextid bigint NOT NULL,
+    instanceid bigint,
+    configdata text,
+    usercreated bigint NOT NULL,
+    usermodified bigint,
+    timecreated bigint DEFAULT 0 NOT NULL,
+    timemodified bigint DEFAULT 0,
+    visibility smallint DEFAULT 1 NOT NULL
+);
+
+
+--
+-- Name: mdl_contentbank_content_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_contentbank_content_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_contentbank_content_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_contentbank_content_id_seq OWNED BY public.mdl_contentbank_content.id;
+
+
+--
 -- Name: mdl_context; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -3986,7 +4116,11 @@ CREATE TABLE public.mdl_course (
     requested smallint DEFAULT 0 NOT NULL,
     enablecompletion smallint DEFAULT 0 NOT NULL,
     completionnotify smallint DEFAULT 0 NOT NULL,
-    cacherev bigint DEFAULT 0 NOT NULL
+    cacherev bigint DEFAULT 0 NOT NULL,
+    originalcourseid bigint,
+    downloadcontent smallint,
+    showactivitydates smallint DEFAULT 0 NOT NULL,
+    showcompletionconditions smallint
 );
 
 
@@ -4534,6 +4668,66 @@ CREATE SEQUENCE public.mdl_course_sections_id_seq
 --
 
 ALTER SEQUENCE public.mdl_course_sections_id_seq OWNED BY public.mdl_course_sections.id;
+
+
+--
+-- Name: mdl_coursequotas_catsize; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_coursequotas_catsize (
+    id bigint NOT NULL,
+    categoryid bigint DEFAULT 0 NOT NULL,
+    quota bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: mdl_coursequotas_catsize_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_coursequotas_catsize_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_coursequotas_catsize_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_coursequotas_catsize_id_seq OWNED BY public.mdl_coursequotas_catsize.id;
+
+
+--
+-- Name: mdl_coursequotas_coursesize; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_coursequotas_coursesize (
+    id bigint NOT NULL,
+    courseid bigint DEFAULT 0 NOT NULL,
+    quota bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: mdl_coursequotas_coursesize_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_coursequotas_coursesize_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_coursequotas_coursesize_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_coursequotas_coursesize_id_seq OWNED BY public.mdl_coursequotas_coursesize.id;
 
 
 --
@@ -5582,7 +5776,8 @@ CREATE TABLE public.mdl_event (
     timemodified bigint DEFAULT 0 NOT NULL,
     subscriptionid bigint,
     priority bigint,
-    location text
+    location text,
+    component character varying(100)
 );
 
 
@@ -6637,7 +6832,8 @@ CREATE TABLE public.mdl_folder (
     timemodified bigint DEFAULT 0 NOT NULL,
     display smallint DEFAULT 0 NOT NULL,
     showexpanded smallint DEFAULT 1 NOT NULL,
-    showdownloadfolder smallint DEFAULT 1 NOT NULL
+    showdownloadfolder smallint DEFAULT 1 NOT NULL,
+    forcedownload smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -8560,7 +8756,6 @@ CREATE TABLE public.mdl_groups (
     descriptionformat smallint DEFAULT 0 NOT NULL,
     enrolmentkey character varying(50),
     picture bigint DEFAULT 0 NOT NULL,
-    hidepicture smallint DEFAULT 0 NOT NULL,
     timecreated bigint DEFAULT 0 NOT NULL,
     timemodified bigint DEFAULT 0 NOT NULL
 );
@@ -8735,7 +8930,11 @@ CREATE TABLE public.mdl_h5p_libraries (
     semantics text,
     addto text,
     coremajor smallint,
-    coreminor smallint
+    coreminor smallint,
+    metadatasettings text,
+    tutorial text,
+    example text,
+    enabled smallint DEFAULT 1
 );
 
 
@@ -8838,6 +9037,146 @@ CREATE SEQUENCE public.mdl_h5p_library_dependencies_id_seq
 --
 
 ALTER SEQUENCE public.mdl_h5p_library_dependencies_id_seq OWNED BY public.mdl_h5p_library_dependencies.id;
+
+
+--
+-- Name: mdl_h5pactivity; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_h5pactivity (
+    id bigint NOT NULL,
+    course bigint NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    timecreated bigint NOT NULL,
+    timemodified bigint NOT NULL,
+    intro text,
+    introformat smallint DEFAULT 0 NOT NULL,
+    grade bigint DEFAULT 0,
+    displayoptions smallint DEFAULT 0 NOT NULL,
+    enabletracking smallint DEFAULT 1 NOT NULL,
+    grademethod smallint DEFAULT 1 NOT NULL,
+    reviewmode smallint DEFAULT 1
+);
+
+
+--
+-- Name: TABLE mdl_h5pactivity; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_h5pactivity IS 'Stores the h5pactivity activity module instances.';
+
+
+--
+-- Name: mdl_h5pactivity_attempts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_h5pactivity_attempts (
+    id bigint NOT NULL,
+    h5pactivityid bigint NOT NULL,
+    userid bigint NOT NULL,
+    timecreated bigint NOT NULL,
+    timemodified bigint NOT NULL,
+    attempt integer DEFAULT 1 NOT NULL,
+    rawscore bigint DEFAULT 0,
+    maxscore bigint DEFAULT 0,
+    scaled numeric(10,5) DEFAULT 0 NOT NULL,
+    duration bigint DEFAULT 0,
+    completion smallint,
+    success smallint
+);
+
+
+--
+-- Name: TABLE mdl_h5pactivity_attempts; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_h5pactivity_attempts IS 'Users attempts inside H5P activities';
+
+
+--
+-- Name: mdl_h5pactivity_attempts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_h5pactivity_attempts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_h5pactivity_attempts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_h5pactivity_attempts_id_seq OWNED BY public.mdl_h5pactivity_attempts.id;
+
+
+--
+-- Name: mdl_h5pactivity_attempts_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_h5pactivity_attempts_results (
+    id bigint NOT NULL,
+    attemptid bigint NOT NULL,
+    subcontent character varying(128),
+    timecreated bigint NOT NULL,
+    interactiontype character varying(128),
+    description text,
+    correctpattern text,
+    response text NOT NULL,
+    additionals text,
+    rawscore bigint DEFAULT 0 NOT NULL,
+    maxscore bigint DEFAULT 0 NOT NULL,
+    duration bigint DEFAULT 0,
+    completion smallint,
+    success smallint
+);
+
+
+--
+-- Name: TABLE mdl_h5pactivity_attempts_results; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_h5pactivity_attempts_results IS 'H5Pactivities_attempts tracking info';
+
+
+--
+-- Name: mdl_h5pactivity_attempts_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_h5pactivity_attempts_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_h5pactivity_attempts_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_h5pactivity_attempts_results_id_seq OWNED BY public.mdl_h5pactivity_attempts_results.id;
+
+
+--
+-- Name: mdl_h5pactivity_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_h5pactivity_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_h5pactivity_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_h5pactivity_id_seq OWNED BY public.mdl_h5pactivity.id;
 
 
 --
@@ -9227,7 +9566,11 @@ CREATE TABLE public.mdl_hvp (
     slug character varying(255) DEFAULT ''::character varying NOT NULL,
     timecreated bigint DEFAULT 0 NOT NULL,
     timemodified bigint DEFAULT 0 NOT NULL,
-    completionpass smallint DEFAULT 0
+    completionpass smallint DEFAULT 0 NOT NULL,
+    a11y_title character varying(255),
+    shared bigint DEFAULT 0 NOT NULL,
+    synced bigint,
+    hub_id bigint
 );
 
 
@@ -9274,6 +9617,37 @@ CREATE SEQUENCE public.mdl_hvp_auth_id_seq
 --
 
 ALTER SEQUENCE public.mdl_hvp_auth_id_seq OWNED BY public.mdl_hvp_auth.id;
+
+
+--
+-- Name: mdl_hvp_content_hub_cache; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_hvp_content_hub_cache (
+    id bigint NOT NULL,
+    language character varying(31) DEFAULT ''::character varying NOT NULL,
+    json text NOT NULL,
+    last_checked bigint NOT NULL
+);
+
+
+--
+-- Name: mdl_hvp_content_hub_cache_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_hvp_content_hub_cache_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_hvp_content_hub_cache_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_hvp_content_hub_cache_id_seq OWNED BY public.mdl_hvp_content_hub_cache.id;
 
 
 --
@@ -9785,6 +10159,39 @@ ALTER SEQUENCE public.mdl_imscp_id_seq OWNED BY public.mdl_imscp.id;
 
 
 --
+-- Name: mdl_infected_files; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_infected_files (
+    id bigint NOT NULL,
+    filename text NOT NULL,
+    quarantinedfile text,
+    userid bigint NOT NULL,
+    reason text NOT NULL,
+    timecreated bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: mdl_infected_files_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_infected_files_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_infected_files_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_infected_files_id_seq OWNED BY public.mdl_infected_files.id;
+
+
+--
 -- Name: mdl_jclic; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -9802,7 +10209,7 @@ CREATE TABLE public.mdl_jclic (
     avaluation character varying(10),
     maxgrade character varying(15),
     grade bigint DEFAULT 0 NOT NULL,
-    lang character varying(10),
+    lang character varying(30),
     exiturl character varying(255),
     timeavailable bigint DEFAULT 0 NOT NULL,
     timedue bigint DEFAULT 0 NOT NULL,
@@ -10561,7 +10968,9 @@ CREATE TABLE public.mdl_license (
     fullname text,
     source character varying(255),
     enabled smallint DEFAULT 1 NOT NULL,
-    version bigint DEFAULT 0 NOT NULL
+    version bigint DEFAULT 0 NOT NULL,
+    custom smallint DEFAULT 0 NOT NULL,
+    sortorder integer DEFAULT 0 NOT NULL
 );
 
 
@@ -10589,6 +10998,35 @@ CREATE SEQUENCE public.mdl_license_id_seq
 --
 
 ALTER SEQUENCE public.mdl_license_id_seq OWNED BY public.mdl_license.id;
+
+
+--
+-- Name: mdl_local_alexandria_backups; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_local_alexandria_backups (
+    id bigint NOT NULL,
+    course_id bigint NOT NULL
+);
+
+
+--
+-- Name: mdl_local_alexandria_backups_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_local_alexandria_backups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_local_alexandria_backups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_local_alexandria_backups_id_seq OWNED BY public.mdl_local_alexandria_backups.id;
 
 
 --
@@ -10830,7 +11268,7 @@ CREATE TABLE public.mdl_lti (
     instructorchoicesendemailaddr smallint,
     instructorchoiceallowroster smallint,
     instructorchoiceallowsetting smallint,
-    instructorcustomparameters character varying(255),
+    instructorcustomparameters text,
     instructorchoiceacceptgrades smallint,
     grade bigint DEFAULT 100 NOT NULL,
     launchcontainer smallint DEFAULT 1 NOT NULL,
@@ -11146,7 +11584,8 @@ CREATE TABLE public.mdl_ltiservice_gradebookservices (
     typeid bigint,
     baseurl text,
     ltilinkid bigint,
-    tag character varying(255)
+    tag character varying(255),
+    resourceid character varying(512)
 );
 
 
@@ -12718,7 +13157,9 @@ CREATE TABLE public.mdl_oauth2_issuer (
     showonloginpage smallint DEFAULT 1 NOT NULL,
     basicauth smallint DEFAULT 0 NOT NULL,
     sortorder bigint NOT NULL,
-    requireconfirmation smallint DEFAULT 1 NOT NULL
+    requireconfirmation smallint DEFAULT 1 NOT NULL,
+    servicetype character varying(255),
+    loginpagename character varying(255)
 );
 
 
@@ -12746,6 +13187,40 @@ CREATE SEQUENCE public.mdl_oauth2_issuer_id_seq
 --
 
 ALTER SEQUENCE public.mdl_oauth2_issuer_id_seq OWNED BY public.mdl_oauth2_issuer.id;
+
+
+--
+-- Name: mdl_oauth2_refresh_token; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_oauth2_refresh_token (
+    id bigint NOT NULL,
+    timecreated bigint NOT NULL,
+    timemodified bigint NOT NULL,
+    userid bigint NOT NULL,
+    issuerid bigint NOT NULL,
+    token text NOT NULL,
+    scopehash character varying(40) DEFAULT ''::character varying NOT NULL
+);
+
+
+--
+-- Name: mdl_oauth2_refresh_token_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_oauth2_refresh_token_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_oauth2_refresh_token_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_oauth2_refresh_token_id_seq OWNED BY public.mdl_oauth2_refresh_token.id;
 
 
 --
@@ -12801,7 +13276,7 @@ CREATE TABLE public.mdl_oauth2_user_field_mapping (
     timecreated bigint NOT NULL,
     usermodified bigint NOT NULL,
     issuerid bigint NOT NULL,
-    externalfield character varying(64) DEFAULT ''::character varying NOT NULL,
+    externalfield character varying(500) DEFAULT ''::character varying NOT NULL,
     internalfield character varying(64) DEFAULT ''::character varying NOT NULL
 );
 
@@ -13192,6 +13667,150 @@ CREATE SEQUENCE public.mdl_page_id_seq
 --
 
 ALTER SEQUENCE public.mdl_page_id_seq OWNED BY public.mdl_page.id;
+
+
+--
+-- Name: mdl_paygw_paypal; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_paygw_paypal (
+    id bigint NOT NULL,
+    paymentid bigint NOT NULL,
+    pp_orderid character varying(255) DEFAULT 'The ID of the order in PayPal'::character varying NOT NULL
+);
+
+
+--
+-- Name: TABLE mdl_paygw_paypal; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_paygw_paypal IS 'Stores PayPal related information';
+
+
+--
+-- Name: mdl_paygw_paypal_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_paygw_paypal_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_paygw_paypal_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_paygw_paypal_id_seq OWNED BY public.mdl_paygw_paypal.id;
+
+
+--
+-- Name: mdl_payment_accounts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_payment_accounts (
+    id bigint NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    idnumber character varying(100),
+    contextid bigint NOT NULL,
+    enabled smallint DEFAULT 0 NOT NULL,
+    archived smallint DEFAULT 0 NOT NULL,
+    timecreated bigint,
+    timemodified bigint
+);
+
+
+--
+-- Name: mdl_payment_accounts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_payment_accounts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_payment_accounts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_payment_accounts_id_seq OWNED BY public.mdl_payment_accounts.id;
+
+
+--
+-- Name: mdl_payment_gateways; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_payment_gateways (
+    id bigint NOT NULL,
+    accountid bigint NOT NULL,
+    gateway character varying(100) DEFAULT ''::character varying NOT NULL,
+    enabled smallint DEFAULT 1 NOT NULL,
+    config text,
+    timecreated bigint NOT NULL,
+    timemodified bigint NOT NULL
+);
+
+
+--
+-- Name: mdl_payment_gateways_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_payment_gateways_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_payment_gateways_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_payment_gateways_id_seq OWNED BY public.mdl_payment_gateways.id;
+
+
+--
+-- Name: mdl_payments; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_payments (
+    id bigint NOT NULL,
+    component character varying(100) DEFAULT ''::character varying NOT NULL,
+    paymentarea character varying(50) DEFAULT ''::character varying NOT NULL,
+    itemid bigint NOT NULL,
+    userid bigint NOT NULL,
+    amount character varying(20) DEFAULT ''::character varying NOT NULL,
+    currency character varying(3) DEFAULT ''::character varying NOT NULL,
+    accountid bigint NOT NULL,
+    gateway character varying(100) DEFAULT ''::character varying NOT NULL,
+    timecreated bigint DEFAULT 0 NOT NULL,
+    timemodified bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: mdl_payments_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_payments_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_payments_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_payments_id_seq OWNED BY public.mdl_payments.id;
 
 
 --
@@ -13795,7 +14414,10 @@ CREATE TABLE public.mdl_qtype_essay_options (
     graderinfoformat smallint DEFAULT 0 NOT NULL,
     responsetemplate text,
     responsetemplateformat smallint DEFAULT 0 NOT NULL,
-    filetypeslist text
+    filetypeslist text,
+    maxbytes bigint DEFAULT 0 NOT NULL,
+    minwordlimit bigint,
+    maxwordlimit bigint
 );
 
 
@@ -13925,7 +14547,8 @@ CREATE TABLE public.mdl_qtype_multichoice_options (
     incorrectfeedback text NOT NULL,
     incorrectfeedbackformat smallint DEFAULT 0 NOT NULL,
     answernumbering character varying(10) DEFAULT 'abc'::character varying NOT NULL,
-    shownumcorrect smallint DEFAULT 0 NOT NULL
+    shownumcorrect smallint DEFAULT 0 NOT NULL,
+    showstandardinstruction smallint DEFAULT 1 NOT NULL
 );
 
 
@@ -15144,7 +15767,8 @@ CREATE TABLE public.mdl_questionnaire (
     sid bigint DEFAULT 0 NOT NULL,
     timemodified bigint DEFAULT 0 NOT NULL,
     completionsubmit smallint DEFAULT 0 NOT NULL,
-    autonum smallint DEFAULT 3 NOT NULL
+    autonum smallint DEFAULT 3 NOT NULL,
+    progressbar smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -15824,7 +16448,8 @@ CREATE TABLE public.mdl_quiz (
     showblocks smallint DEFAULT 0 NOT NULL,
     completionattemptsexhausted smallint DEFAULT 0,
     completionpass smallint DEFAULT 0,
-    allowofflineattempts smallint DEFAULT 0
+    allowofflineattempts smallint DEFAULT 0,
+    completionminattempts bigint DEFAULT 0 NOT NULL
 );
 
 
@@ -16275,6 +16900,112 @@ CREATE SEQUENCE public.mdl_quiz_statistics_id_seq
 --
 
 ALTER SEQUENCE public.mdl_quiz_statistics_id_seq OWNED BY public.mdl_quiz_statistics.id;
+
+
+--
+-- Name: mdl_quizaccess_seb_quizsettings; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_quizaccess_seb_quizsettings (
+    id bigint NOT NULL,
+    quizid bigint NOT NULL,
+    cmid bigint NOT NULL,
+    templateid bigint NOT NULL,
+    requiresafeexambrowser smallint NOT NULL,
+    showsebtaskbar smallint,
+    showwificontrol smallint,
+    showreloadbutton smallint,
+    showtime smallint,
+    showkeyboardlayout smallint,
+    allowuserquitseb smallint,
+    quitpassword text,
+    linkquitseb text,
+    userconfirmquit smallint,
+    enableaudiocontrol smallint,
+    muteonstartup smallint,
+    allowspellchecking smallint,
+    allowreloadinexam smallint,
+    activateurlfiltering smallint,
+    filterembeddedcontent smallint,
+    expressionsallowed text,
+    regexallowed text,
+    expressionsblocked text,
+    regexblocked text,
+    allowedbrowserexamkeys text,
+    showsebdownloadlink smallint,
+    usermodified bigint DEFAULT 0 NOT NULL,
+    timecreated bigint DEFAULT 0 NOT NULL,
+    timemodified bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: TABLE mdl_quizaccess_seb_quizsettings; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_quizaccess_seb_quizsettings IS 'Stores the quiz level Safe Exam Browser configuration.';
+
+
+--
+-- Name: mdl_quizaccess_seb_quizsettings_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_quizaccess_seb_quizsettings_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_quizaccess_seb_quizsettings_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_quizaccess_seb_quizsettings_id_seq OWNED BY public.mdl_quizaccess_seb_quizsettings.id;
+
+
+--
+-- Name: mdl_quizaccess_seb_template; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_quizaccess_seb_template (
+    id bigint NOT NULL,
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    description text NOT NULL,
+    content text NOT NULL,
+    enabled smallint NOT NULL,
+    sortorder bigint NOT NULL,
+    usermodified bigint DEFAULT 0 NOT NULL,
+    timecreated bigint DEFAULT 0 NOT NULL,
+    timemodified bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: TABLE mdl_quizaccess_seb_template; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_quizaccess_seb_template IS 'Templates for Safe Exam Browser configuration.';
+
+
+--
+-- Name: mdl_quizaccess_seb_template_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_quizaccess_seb_template_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_quizaccess_seb_template_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_quizaccess_seb_template_id_seq OWNED BY public.mdl_quizaccess_seb_template.id;
 
 
 --
@@ -18945,7 +19676,11 @@ CREATE TABLE public.mdl_task_adhoc (
     faildelay bigint,
     customdata text,
     userid bigint,
-    blocking smallint DEFAULT 0 NOT NULL
+    blocking smallint DEFAULT 0 NOT NULL,
+    timecreated bigint DEFAULT 0 NOT NULL,
+    timestarted bigint,
+    hostname character varying(255),
+    pid bigint
 );
 
 
@@ -18990,7 +19725,9 @@ CREATE TABLE public.mdl_task_log (
     dbreads bigint NOT NULL,
     dbwrites bigint NOT NULL,
     result smallint NOT NULL,
-    output text NOT NULL
+    output text NOT NULL,
+    hostname character varying(255),
+    pid bigint
 );
 
 
@@ -19038,7 +19775,10 @@ CREATE TABLE public.mdl_task_scheduled (
     dayofweek character varying(25) DEFAULT ''::character varying NOT NULL,
     faildelay bigint,
     customised smallint DEFAULT 0 NOT NULL,
-    disabled smallint DEFAULT 0 NOT NULL
+    disabled smallint DEFAULT 0 NOT NULL,
+    timestarted bigint,
+    hostname character varying(255),
+    pid bigint
 );
 
 
@@ -19066,6 +19806,436 @@ CREATE SEQUENCE public.mdl_task_scheduled_id_seq
 --
 
 ALTER SEQUENCE public.mdl_task_scheduled_id_seq OWNED BY public.mdl_task_scheduled.id;
+
+
+--
+-- Name: mdl_tool_brickfield_areas; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_areas (
+    id bigint NOT NULL,
+    type smallint DEFAULT 0 NOT NULL,
+    contextid bigint,
+    component character varying(100),
+    tablename character varying(40),
+    fieldorarea character varying(50),
+    itemid bigint,
+    filename character varying(1333),
+    reftable character varying(40),
+    refid bigint,
+    cmid bigint,
+    courseid bigint,
+    categoryid bigint
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_areas; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_areas IS 'Areas that have been checked for accessibility problems';
+
+
+--
+-- Name: mdl_tool_brickfield_areas_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_areas_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_areas_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_areas_id_seq OWNED BY public.mdl_tool_brickfield_areas.id;
+
+
+--
+-- Name: mdl_tool_brickfield_cache_acts; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_cache_acts (
+    id bigint NOT NULL,
+    courseid bigint NOT NULL,
+    status smallint,
+    component character varying(64),
+    totalactivities bigint,
+    failedactivities bigint,
+    passedactivities bigint,
+    errorcount bigint
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_cache_acts; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_cache_acts IS 'Contains accessibility summary information per activity.';
+
+
+--
+-- Name: mdl_tool_brickfield_cache_acts_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_cache_acts_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_cache_acts_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_cache_acts_id_seq OWNED BY public.mdl_tool_brickfield_cache_acts.id;
+
+
+--
+-- Name: mdl_tool_brickfield_cache_check; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_cache_check (
+    id bigint NOT NULL,
+    courseid bigint NOT NULL,
+    status smallint,
+    checkid bigint,
+    checkcount bigint,
+    errorcount bigint
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_cache_check; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_cache_check IS 'Contains accessibility summary information per check.';
+
+
+--
+-- Name: mdl_tool_brickfield_cache_check_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_cache_check_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_cache_check_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_cache_check_id_seq OWNED BY public.mdl_tool_brickfield_cache_check.id;
+
+
+--
+-- Name: mdl_tool_brickfield_checks; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_checks (
+    id bigint NOT NULL,
+    checktype character varying(64),
+    shortname character varying(64),
+    checkgroup bigint DEFAULT 0,
+    status smallint NOT NULL,
+    severity smallint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_checks; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_checks IS 'Checks details';
+
+
+--
+-- Name: mdl_tool_brickfield_checks_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_checks_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_checks_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_checks_id_seq OWNED BY public.mdl_tool_brickfield_checks.id;
+
+
+--
+-- Name: mdl_tool_brickfield_content; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_content (
+    id bigint NOT NULL,
+    areaid bigint NOT NULL,
+    contenthash character varying(40) DEFAULT ''::character varying NOT NULL,
+    iscurrent smallint DEFAULT 0 NOT NULL,
+    status smallint DEFAULT 0 NOT NULL,
+    timecreated bigint NOT NULL,
+    timechecked bigint
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_content; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_content IS 'Content of an area at a particular time (recognised by a hash)';
+
+
+--
+-- Name: mdl_tool_brickfield_content_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_content_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_content_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_content_id_seq OWNED BY public.mdl_tool_brickfield_content.id;
+
+
+--
+-- Name: mdl_tool_brickfield_errors; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_errors (
+    id bigint NOT NULL,
+    resultid bigint NOT NULL,
+    linenumber bigint DEFAULT 0 NOT NULL,
+    errordata text,
+    htmlcode text
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_errors; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_errors IS 'Errors during the accessibility checks';
+
+
+--
+-- Name: mdl_tool_brickfield_errors_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_errors_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_errors_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_errors_id_seq OWNED BY public.mdl_tool_brickfield_errors.id;
+
+
+--
+-- Name: mdl_tool_brickfield_process; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_process (
+    id bigint NOT NULL,
+    courseid bigint NOT NULL,
+    item character varying(64),
+    contextid bigint,
+    innercontextid bigint,
+    timecreated bigint,
+    timecompleted bigint
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_process; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_process IS 'Queued records to initiate new processing of specific targets';
+
+
+--
+-- Name: mdl_tool_brickfield_process_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_process_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_process_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_process_id_seq OWNED BY public.mdl_tool_brickfield_process.id;
+
+
+--
+-- Name: mdl_tool_brickfield_results; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_results (
+    id bigint NOT NULL,
+    contentid bigint,
+    checkid bigint NOT NULL,
+    errorcount bigint DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_results; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_results IS 'Results of the accessibility checks';
+
+
+--
+-- Name: mdl_tool_brickfield_results_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_results_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_results_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_results_id_seq OWNED BY public.mdl_tool_brickfield_results.id;
+
+
+--
+-- Name: mdl_tool_brickfield_schedule; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_schedule (
+    id bigint NOT NULL,
+    contextlevel bigint DEFAULT 50 NOT NULL,
+    instanceid bigint NOT NULL,
+    contextid bigint,
+    status smallint DEFAULT 0 NOT NULL,
+    timeanalyzed bigint DEFAULT 0,
+    timemodified bigint DEFAULT 0
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_schedule; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_schedule IS 'Keeps the per course content analysis schedule.';
+
+
+--
+-- Name: mdl_tool_brickfield_schedule_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_schedule_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_schedule_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_schedule_id_seq OWNED BY public.mdl_tool_brickfield_schedule.id;
+
+
+--
+-- Name: mdl_tool_brickfield_summary; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE public.mdl_tool_brickfield_summary (
+    id bigint NOT NULL,
+    courseid bigint NOT NULL,
+    status smallint,
+    activities bigint,
+    activitiespassed bigint,
+    activitiesfailed bigint,
+    errorschecktype1 bigint,
+    errorschecktype2 bigint,
+    errorschecktype3 bigint,
+    errorschecktype4 bigint,
+    errorschecktype5 bigint,
+    errorschecktype6 bigint,
+    errorschecktype7 bigint,
+    failedchecktype1 bigint,
+    failedchecktype2 bigint,
+    failedchecktype3 bigint,
+    failedchecktype4 bigint,
+    failedchecktype5 bigint,
+    failedchecktype6 bigint,
+    failedchecktype7 bigint,
+    percentchecktype1 bigint,
+    percentchecktype2 bigint,
+    percentchecktype3 bigint,
+    percentchecktype4 bigint,
+    percentchecktype5 bigint,
+    percentchecktype6 bigint,
+    percentchecktype7 bigint
+);
+
+
+--
+-- Name: TABLE mdl_tool_brickfield_summary; Type: COMMENT; Schema: public; Owner: -
+--
+
+COMMENT ON TABLE public.mdl_tool_brickfield_summary IS 'Contains accessibility check results summary information.';
+
+
+--
+-- Name: mdl_tool_brickfield_summary_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE public.mdl_tool_brickfield_summary_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: mdl_tool_brickfield_summary_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE public.mdl_tool_brickfield_summary_id_seq OWNED BY public.mdl_tool_brickfield_summary.id;
 
 
 --
@@ -19464,7 +20634,8 @@ CREATE TABLE public.mdl_tool_dataprivacy_request (
     usermodified bigint DEFAULT 0 NOT NULL,
     timecreated bigint DEFAULT 0 NOT NULL,
     timemodified bigint DEFAULT 0 NOT NULL,
-    creationmethod bigint DEFAULT 0 NOT NULL
+    creationmethod bigint DEFAULT 0 NOT NULL,
+    systemapproved smallint DEFAULT 0 NOT NULL
 );
 
 
@@ -20063,11 +21234,6 @@ CREATE TABLE public.mdl_user (
     lastname character varying(100) DEFAULT ''::character varying NOT NULL,
     email character varying(100) DEFAULT ''::character varying NOT NULL,
     emailstop smallint DEFAULT 0 NOT NULL,
-    icq character varying(15) DEFAULT ''::character varying NOT NULL,
-    skype character varying(50) DEFAULT ''::character varying NOT NULL,
-    yahoo character varying(50) DEFAULT ''::character varying NOT NULL,
-    aim character varying(50) DEFAULT ''::character varying NOT NULL,
-    msn character varying(50) DEFAULT ''::character varying NOT NULL,
     phone1 character varying(20) DEFAULT ''::character varying NOT NULL,
     phone2 character varying(20) DEFAULT ''::character varying NOT NULL,
     institution character varying(255) DEFAULT ''::character varying NOT NULL,
@@ -20086,7 +21252,6 @@ CREATE TABLE public.mdl_user (
     lastip character varying(45) DEFAULT ''::character varying NOT NULL,
     secret character varying(15) DEFAULT ''::character varying NOT NULL,
     picture bigint DEFAULT 0 NOT NULL,
-    url character varying(255) DEFAULT ''::character varying NOT NULL,
     description text,
     descriptionformat smallint DEFAULT 1 NOT NULL,
     mailformat smallint DEFAULT 1 NOT NULL,
@@ -20101,7 +21266,8 @@ CREATE TABLE public.mdl_user (
     lastnamephonetic character varying(255),
     firstnamephonetic character varying(255),
     middlename character varying(255),
-    alternatename character varying(255)
+    alternatename character varying(255),
+    moodlenetprofile character varying(255)
 );
 
 
@@ -20979,7 +22145,7 @@ CREATE TABLE public.mdl_workshop_grades (
     assessmentid bigint NOT NULL,
     strategy character varying(30) DEFAULT ''::character varying NOT NULL,
     dimensionid bigint NOT NULL,
-    grade numeric(10,5) NOT NULL,
+    grade numeric(10,5),
     peercomment text,
     peercommentformat smallint DEFAULT 0
 );
@@ -21685,6 +22851,13 @@ ALTER TABLE ONLY public.mdl_badge_backpack ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: mdl_badge_backpack_oauth2 id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_badge_backpack_oauth2 ALTER COLUMN id SET DEFAULT nextval('public.mdl_badge_backpack_oauth2_id_seq'::regclass);
+
+
+--
 -- Name: mdl_badge_criteria id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -21766,6 +22939,13 @@ ALTER TABLE ONLY public.mdl_bigdata_profiles ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.mdl_block ALTER COLUMN id SET DEFAULT nextval('public.mdl_block_id_seq'::regclass);
+
+
+--
+-- Name: mdl_block_configurable_reports id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_block_configurable_reports ALTER COLUMN id SET DEFAULT nextval('public.mdl_block_configurable_reports_id_seq'::regclass);
 
 
 --
@@ -22077,6 +23257,13 @@ ALTER TABLE ONLY public.mdl_config_plugins ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
+-- Name: mdl_contentbank_content id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_contentbank_content ALTER COLUMN id SET DEFAULT nextval('public.mdl_contentbank_content_id_seq'::regclass);
+
+
+--
 -- Name: mdl_context id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -22172,6 +23359,20 @@ ALTER TABLE ONLY public.mdl_course_request ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.mdl_course_sections ALTER COLUMN id SET DEFAULT nextval('public.mdl_course_sections_id_seq'::regclass);
+
+
+--
+-- Name: mdl_coursequotas_catsize id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_coursequotas_catsize ALTER COLUMN id SET DEFAULT nextval('public.mdl_coursequotas_catsize_id_seq'::regclass);
+
+
+--
+-- Name: mdl_coursequotas_coursesize id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_coursequotas_coursesize ALTER COLUMN id SET DEFAULT nextval('public.mdl_coursequotas_coursesize_id_seq'::regclass);
 
 
 --
@@ -22854,6 +24055,27 @@ ALTER TABLE ONLY public.mdl_h5p_library_dependencies ALTER COLUMN id SET DEFAULT
 
 
 --
+-- Name: mdl_h5pactivity id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_h5pactivity ALTER COLUMN id SET DEFAULT nextval('public.mdl_h5pactivity_id_seq'::regclass);
+
+
+--
+-- Name: mdl_h5pactivity_attempts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_h5pactivity_attempts ALTER COLUMN id SET DEFAULT nextval('public.mdl_h5pactivity_attempts_id_seq'::regclass);
+
+
+--
+-- Name: mdl_h5pactivity_attempts_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_h5pactivity_attempts_results ALTER COLUMN id SET DEFAULT nextval('public.mdl_h5pactivity_attempts_results_id_seq'::regclass);
+
+
+--
 -- Name: mdl_hotpot id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -22914,6 +24136,13 @@ ALTER TABLE ONLY public.mdl_hvp ALTER COLUMN id SET DEFAULT nextval('public.mdl_
 --
 
 ALTER TABLE ONLY public.mdl_hvp_auth ALTER COLUMN id SET DEFAULT nextval('public.mdl_hvp_auth_id_seq'::regclass);
+
+
+--
+-- Name: mdl_hvp_content_hub_cache id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_hvp_content_hub_cache ALTER COLUMN id SET DEFAULT nextval('public.mdl_hvp_content_hub_cache_id_seq'::regclass);
 
 
 --
@@ -22991,6 +24220,13 @@ ALTER TABLE ONLY public.mdl_hvp_xapi_results ALTER COLUMN id SET DEFAULT nextval
 --
 
 ALTER TABLE ONLY public.mdl_imscp ALTER COLUMN id SET DEFAULT nextval('public.mdl_imscp_id_seq'::regclass);
+
+
+--
+-- Name: mdl_infected_files id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_infected_files ALTER COLUMN id SET DEFAULT nextval('public.mdl_infected_files_id_seq'::regclass);
 
 
 --
@@ -23117,6 +24353,13 @@ ALTER TABLE ONLY public.mdl_lesson_timer ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.mdl_license ALTER COLUMN id SET DEFAULT nextval('public.mdl_license_id_seq'::regclass);
+
+
+--
+-- Name: mdl_local_alexandria_backups id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_local_alexandria_backups ALTER COLUMN id SET DEFAULT nextval('public.mdl_local_alexandria_backups_id_seq'::regclass);
 
 
 --
@@ -23477,6 +24720,13 @@ ALTER TABLE ONLY public.mdl_oauth2_issuer ALTER COLUMN id SET DEFAULT nextval('p
 
 
 --
+-- Name: mdl_oauth2_refresh_token id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_oauth2_refresh_token ALTER COLUMN id SET DEFAULT nextval('public.mdl_oauth2_refresh_token_id_seq'::regclass);
+
+
+--
 -- Name: mdl_oauth2_system_account id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -23551,6 +24801,34 @@ ALTER TABLE ONLY public.mdl_oauth_user_auth_scopes ALTER COLUMN id SET DEFAULT n
 --
 
 ALTER TABLE ONLY public.mdl_page ALTER COLUMN id SET DEFAULT nextval('public.mdl_page_id_seq'::regclass);
+
+
+--
+-- Name: mdl_paygw_paypal id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_paygw_paypal ALTER COLUMN id SET DEFAULT nextval('public.mdl_paygw_paypal_id_seq'::regclass);
+
+
+--
+-- Name: mdl_payment_accounts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_payment_accounts ALTER COLUMN id SET DEFAULT nextval('public.mdl_payment_accounts_id_seq'::regclass);
+
+
+--
+-- Name: mdl_payment_gateways id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_payment_gateways ALTER COLUMN id SET DEFAULT nextval('public.mdl_payment_gateways_id_seq'::regclass);
+
+
+--
+-- Name: mdl_payments id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_payments ALTER COLUMN id SET DEFAULT nextval('public.mdl_payments_id_seq'::regclass);
 
 
 --
@@ -24065,6 +25343,20 @@ ALTER TABLE ONLY public.mdl_quiz_statistics ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
+-- Name: mdl_quizaccess_seb_quizsettings id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_quizaccess_seb_quizsettings ALTER COLUMN id SET DEFAULT nextval('public.mdl_quizaccess_seb_quizsettings_id_seq'::regclass);
+
+
+--
+-- Name: mdl_quizaccess_seb_template id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_quizaccess_seb_template ALTER COLUMN id SET DEFAULT nextval('public.mdl_quizaccess_seb_template_id_seq'::regclass);
+
+
+--
 -- Name: mdl_qv id; Type: DEFAULT; Schema: public; Owner: -
 --
 
@@ -24531,6 +25823,76 @@ ALTER TABLE ONLY public.mdl_task_log ALTER COLUMN id SET DEFAULT nextval('public
 --
 
 ALTER TABLE ONLY public.mdl_task_scheduled ALTER COLUMN id SET DEFAULT nextval('public.mdl_task_scheduled_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_areas id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_areas ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_areas_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_cache_acts id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_cache_acts ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_cache_acts_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_cache_check id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_cache_check ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_cache_check_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_checks id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_checks ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_checks_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_content id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_content ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_content_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_errors id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_errors ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_errors_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_process id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_process ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_process_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_results id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_results ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_results_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_schedule id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_schedule ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_schedule_id_seq'::regclass);
+
+
+--
+-- Name: mdl_tool_brickfield_summary id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_summary ALTER COLUMN id SET DEFAULT nextval('public.mdl_tool_brickfield_summary_id_seq'::regclass);
 
 
 --
@@ -25163,9 +26525,16 @@ COPY public.mdl_auth_oauth2_linked_login (id, timecreated, timemodified, usermod
 --
 
 COPY public.mdl_backup_controllers (id, backupid, operation, type, itemid, format, interactive, purpose, userid, status, execution, executiontime, checksum, timecreated, timemodified, progress, controller) FROM stdin;
-1	2aa785cdb269872d72cd81e800dd322d	restore	activity	1	moodle2	1	10	2	1000	1	0	4c2451a438abcc9bdb3bff305843dd5b	1604426648	1604426681	0.00000000000000	
-2	eec17cf3135d1bc1933ace33713f5c28	restore	activity	1	moodle2	1	10	2	1000	1	0	99c2fb927d00536a9439918eee2f33ad	1604426720	1604426730	0.00000000000000	
-3	21722130d33f318c217d71cf2a27021b	restore	activity	1	moodle2	1	10	2	1000	1	0	98784f60fa03676a6e7d0e7d5d364f3f	1604426770	1604426781	0.00000000000000	
+10	c225f3e9151599c80c8175330a9087f7	restore	activity	1	moodle2	1	10	2	1000	1	0	820dd8faa6ea79a43736fa7b64349e0c	1635252971	1635252983	0.00000000000000	
+4	a955441d5d3cfea71e81774b64796d16	restore	activity	1	moodle2	1	10	2	1000	1	0	61c27b98bf44c2cd89aadd03a936d643	1635249127	1635252412	0.00000000000000	
+5	61a34c05f6006d25f308c1b69da09b35	backup	activity	1	moodle2	0	50	2	1000	1	0	a511d72e658d3a660ae80484b74d84a7	1635252477	1635252477	0.00000000000000	
+6	5341c04450b6a7c59faf522136bb49bb	backup	activity	2	moodle2	0	50	2	1000	1	0	86435a6c903774e2c593e5d606296d41	1635252605	1635252605	0.00000000000000	
+7	aa6e197d47d0fd5f12549949aa0cf3d5	backup	activity	3	moodle2	0	50	2	1000	1	0	4cd23f8c9b7453e3c4cea40a832fedf9	1635252611	1635252612	0.00000000000000	
+11	6c93c7786532e07d8ea6d83d2492c6fe	restore	activity	1	moodle2	1	10	2	1000	1	0	c28f5e1069339c37e621b8a8935dd1bf	1635253037	1635253047	0.00000000000000	
+8	db295453152c0fb0465d34edcce2c2a0	backup	activity	4	moodle2	0	50	2	1000	1	0	35c4588cb89424cf76b59694d246249a	1635252619	1635252620	0.00000000000000	
+12	680233ee8f7d7ac882057ac6ec18d7cc	restore	activity	1	moodle2	1	10	2	500	1	0	9cda64bbeff2ba32c9d6a77a9d8c2ed5	1635253078	1635253081	0.00000000000000	TzoxODoicmVzdG9yZV9jb250cm9sbGVyIjoyMjp7czoxMDoiACoAdGVtcGRpciI7czozMjoiYjgzMDUwODFhYzJmNTdhOTQxODI5YzViYmMzOWVhMDIiO3M6MTI6IgAqAHJlc3RvcmVpZCI7czozMjoiNjgwMjMzZWU4ZjdkN2FjODgyMDU3YWM2ZWMxOGQ3Y2MiO3M6MTE6IgAqAGNvdXJzZWlkIjtpOjE7czo3OiIAKgB0eXBlIjtzOjg6ImFjdGl2aXR5IjtzOjk6IgAqAGZvcm1hdCI7czo3OiJtb29kbGUyIjtzOjE0OiIAKgBpbnRlcmFjdGl2ZSI7YjoxO3M6NzoiACoAbW9kZSI7aToxMDtzOjk6IgAqAHVzZXJpZCI7czoxOiIyIjtzOjEyOiIAKgBvcGVyYXRpb24iO3M6NzoicmVzdG9yZSI7czo5OiIAKgB0YXJnZXQiO2k6NDtzOjExOiIAKgBzYW1lc2l0ZSI7YjoxO3M6OToiACoAc3RhdHVzIjtpOjUwMDtzOjExOiIAKgBwcmVjaGVjayI7TjtzOjc6IgAqAGluZm8iO086ODoic3RkQ2xhc3MiOjI1OntzOjE0OiJtb29kbGVfdmVyc2lvbiI7czoxMDoiMjAxOTExMTgwNyI7czoxNDoibW9vZGxlX3JlbGVhc2UiO3M6MjM6IjMuOC43IChCdWlsZDogMjAyMTAxMTgpIjtzOjE0OiJiYWNrdXBfdmVyc2lvbiI7czoxMDoiMjAxOTExMTgwMCI7czoxNDoiYmFja3VwX3JlbGVhc2UiO3M6MzoiMy44IjtzOjExOiJiYWNrdXBfZGF0ZSI7czoxMDoiMTYzNTI1Mjg3MiI7czoxNjoibW5ldF9yZW1vdGV1c2VycyI7czoxOiIwIjtzOjE2OiJvcmlnaW5hbF93d3dyb290IjtzOjI3OiJodHRwczovL2FsZXhhbmRyaWEueHRlYy5jYXQiO3M6Mjk6Im9yaWdpbmFsX3NpdGVfaWRlbnRpZmllcl9oYXNoIjtzOjMyOiI1NDE2YTE0NDJkMmQ3NWE2ZTY5Y2M5YTBkNWFhMWZlOCI7czoxODoib3JpZ2luYWxfY291cnNlX2lkIjtzOjE6IjEiO3M6MjQ6Im9yaWdpbmFsX2NvdXJzZV9mdWxsbmFtZSI7czoxMDoiQWxleGFuZHJpYSI7czoyNToib3JpZ2luYWxfY291cnNlX3Nob3J0bmFtZSI7czoxMDoiYWxleGFuZHJpYSI7czoyNToib3JpZ2luYWxfY291cnNlX3N0YXJ0ZGF0ZSI7czoxOiIwIjtzOjIzOiJvcmlnaW5hbF9jb3Vyc2VfZW5kZGF0ZSI7czoxOiIwIjtzOjI1OiJvcmlnaW5hbF9jb3Vyc2VfY29udGV4dGlkIjtzOjE6IjIiO3M6MjU6Im9yaWdpbmFsX3N5c3RlbV9jb250ZXh0aWQiO3M6MToiMSI7czo0MzoiaW5jbHVkZV9maWxlX3JlZmVyZW5jZXNfdG9fZXh0ZXJuYWxfY29udGVudCI7aTowO3M6MjI6Im9yaWdpbmFsX2NvdXJzZV9mb3JtYXQiO3M6NDoic2l0ZSI7czoxMzoiaW5jbHVkZV9maWxlcyI7czoxOiIxIjtzOjQ6InR5cGUiO3M6ODoiYWN0aXZpdHkiO3M6NjoiZm9ybWF0IjtzOjc6Im1vb2RsZTIiO3M6NDoibW9kZSI7czoyOiIxMCI7czoxMzoicm9sZV9tYXBwaW5ncyI7Tzo4OiJzdGRDbGFzcyI6Mjp7czo4OiJtb2RpZmllZCI7YjowO3M6ODoibWFwcGluZ3MiO2E6MDp7fX1zOjg6InNlY3Rpb25zIjthOjA6e31zOjEwOiJhY3Rpdml0aWVzIjthOjE6e3M6MTA6ImRhdGFfMTI0NjYiO086ODoic3RkQ2xhc3MiOjY6e3M6ODoibW9kdWxlaWQiO3M6NToiMTI0NjYiO3M6OToic2VjdGlvbmlkIjtzOjE6IjMiO3M6MTA6Im1vZHVsZW5hbWUiO3M6NDoiZGF0YSI7czo1OiJ0aXRsZSI7czoyOToiQmlibGlvdGVjYSBkZSBtYXRlcmlhbHMgU0NPUk0iO3M6OToiZGlyZWN0b3J5IjtzOjIxOiJhY3Rpdml0aWVzL2RhdGFfMTI0NjYiO3M6ODoic2V0dGluZ3MiO2E6Mjp7czoxOToiZGF0YV8xMjQ2Nl9pbmNsdWRlZCI7czoxOiIxIjtzOjE5OiJkYXRhXzEyNDY2X3VzZXJpbmZvIjtzOjE6IjAiO319fXM6MTM6InJvb3Rfc2V0dGluZ3MiO2E6MTg6e3M6ODoiZmlsZW5hbWUiO3M6NjA6ImJhY2t1cC1tb29kbGUyLWFjdGl2aXR5LTEyNDY2LWRhdGExMjQ2Ni0yMDIxMTAyNi0xNDU0LW51Lm1ieiI7czo1OiJ1c2VycyI7czoxOiIwIjtzOjk6ImFub255bWl6ZSI7czoxOiIwIjtzOjE2OiJyb2xlX2Fzc2lnbm1lbnRzIjtzOjE6IjAiO3M6MTA6ImFjdGl2aXRpZXMiO3M6MToiMSI7czo2OiJibG9ja3MiO3M6MToiMSI7czo1OiJmaWxlcyI7czoxOiIxIjtzOjc6ImZpbHRlcnMiO3M6MToiMSI7czo4OiJjb21tZW50cyI7czoxOiIwIjtzOjY6ImJhZGdlcyI7czoxOiIwIjtzOjE0OiJjYWxlbmRhcmV2ZW50cyI7czoxOiIxIjtzOjE1OiJ1c2Vyc2NvbXBsZXRpb24iO3M6MToiMCI7czo0OiJsb2dzIjtzOjE6IjAiO3M6MTU6ImdyYWRlX2hpc3RvcmllcyI7czoxOiIwIjtzOjEyOiJxdWVzdGlvbmJhbmsiO3M6MToiMSI7czo2OiJncm91cHMiO3M6MToiMSI7czoxMjoiY29tcGV0ZW5jaWVzIjtzOjE6IjAiO3M6MTE6ImN1c3RvbWZpZWxkIjtzOjE6IjEiO319czo3OiIAKgBwbGFuIjtPOjEyOiJyZXN0b3JlX3BsYW4iOjExOntzOjEzOiIAKgBjb250cm9sbGVyIjtyOjE7czoxMToiACoAYmFzZXBhdGgiO3M6NzI6Ii9kYWRlcy9kYXRhL2FsZXhhbmRyaWFkYXRhL3RlbXAvYmFja3VwLy9iODMwNTA4MWFjMmY1N2E5NDE4MjljNWJiYzM5ZWEwMiI7czoxMjoiACoAcHJlbG9hZGVkIjtiOjA7czoxMDoiACoAZGVjb2RlciI7TzoyNDoicmVzdG9yZV9kZWNvZGVfcHJvY2Vzc29yIjo1OntzOjExOiIAKgBjb250ZW50cyI7YTowOnt9czo4OiIAKgBydWxlcyI7YTowOnt9czoxMjoiACoAcmVzdG9yZWlkIjtzOjMyOiI2ODAyMzNlZThmN2Q3YWM4ODIwNTdhYzZlYzE4ZDdjYyI7czoxNjoiACoAc291cmNld3d3cm9vdCI7czoyNzoiaHR0cHM6Ly9hbGV4YW5kcmlhLnh0ZWMuY2F0IjtzOjE2OiIAKgB0YXJnZXR3d3dyb290IjtzOjMxOiJodHRwczovL2FsZXhhbmRyaWEtYXdzLnh0ZWMuY2F0Ijt9czoxNzoiACoAbWlzc2luZ21vZHVsZXMiO2I6MDtzOjIzOiIAKgBleGNsdWRpbmdkYWN0aXZpdGllcyI7YjowO3M6NzoiACoAbmFtZSI7czoxMjoicmVzdG9yZV9wbGFuIjtzOjExOiIAKgBzZXR0aW5ncyI7YToyMDp7czo1OiJ1c2VycyI7TzoyMToicmVzdG9yZV91c2Vyc19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czo1OiJ1c2VycyI7czo4OiIAKgB2YWx1ZSI7aTowO3M6MTY6IgAqAHVubG9ja2VkdmFsdWUiO2k6MDtzOjg6IgAqAHZ0eXBlIjtzOjQ6ImJvb2wiO3M6MTM6IgAqAHZpc2liaWxpdHkiO2k6MTtzOjk6IgAqAHN0YXR1cyI7aTozO3M6MTU6IgAqAGRlcGVuZGVuY2llcyI7YTo3OntzOjE2OiJyb2xlX2Fzc2lnbm1lbnRzIjtPOjM3OiJzZXR0aW5nX2RlcGVuZGVuY3lfZGlzYWJsZWRpZl9jaGVja2VkIjo1OntzOjg6IgAqAHZhbHVlIjtiOjE7czoxMDoiACoAc2V0dGluZyI7cjo4NDtzOjE5OiIAKgBkZXBlbmRlbnRzZXR0aW5nIjtPOjMyOiJyZXN0b3JlX3JvbGVfYXNzaWdubWVudHNfc2V0dGluZyI6MTE6e3M6ODoiACoAbGV2ZWwiO2k6MTtzOjc6IgAqAG5hbWUiO3M6MTY6InJvbGVfYXNzaWdubWVudHMiO3M6ODoiACoAdmFsdWUiO2k6MDtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjA7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjE6e3M6NToidXNlcnMiO3I6OTM7fXM6MTI6IgAqAHVpc2V0dGluZyI7TzoyNjoiYmFja3VwX3NldHRpbmdfdWlfY2hlY2tib3giOjk6e3M6NzoiACoAdHlwZSI7aToxMDtzOjEzOiIAKgBjaGFuZ2VhYmxlIjtiOjA7czo3OiIAKgB0ZXh0IjtOO3M6MTA6IgAqAG9wdGlvbnMiO2E6MDp7fXM6NzoiACoAbmFtZSI7czoyMToicm9vdF9yb2xlX2Fzc2lnbm1lbnRzIjtzOjg6IgAqAGxhYmVsIjtzOjQzOiJJbmNsb3UgbGVzIGFzc2lnbmFjaW9ucyBkZSByb2xzIGRlIGwndXN1YXJpIjtzOjEzOiIAKgBhdHRyaWJ1dGVzIjthOjA6e31zOjc6IgAqAGljb24iO2I6MDtzOjEwOiIAKgBzZXR0aW5nIjtyOjk2O31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjE1OiIAKgBkZWZhdWx0dmFsdWUiO2I6MDtzOjEyOiIAKgBsYXN0dmFsdWUiO2k6MDt9czo4OiJjb21tZW50cyI7TzozNzoic2V0dGluZ19kZXBlbmRlbmN5X2Rpc2FibGVkaWZfY2hlY2tlZCI6NTp7czo4OiIAKgB2YWx1ZSI7YjoxO3M6MTA6IgAqAHNldHRpbmciO3I6ODQ7czoxOToiACoAZGVwZW5kZW50c2V0dGluZyI7TzoyNDoicmVzdG9yZV9jb21tZW50c19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czo4OiJjb21tZW50cyI7czo4OiIAKgB2YWx1ZSI7aTowO3M6MTY6IgAqAHVubG9ja2VkdmFsdWUiO2k6MDtzOjg6IgAqAHZ0eXBlIjtzOjQ6ImJvb2wiO3M6MTM6IgAqAHZpc2liaWxpdHkiO2k6MTtzOjk6IgAqAHN0YXR1cyI7aTozO3M6MTU6IgAqAGRlcGVuZGVuY2llcyI7YTowOnt9czoxNDoiACoAZGVwZW5kZW50b24iO2E6MTp7czo1OiJ1c2VycyI7cjoxMjA7fXM6MTI6IgAqAHVpc2V0dGluZyI7TzoyNjoiYmFja3VwX3NldHRpbmdfdWlfY2hlY2tib3giOjk6e3M6NzoiACoAdHlwZSI7aToxMDtzOjEzOiIAKgBjaGFuZ2VhYmxlIjtiOjA7czo3OiIAKgB0ZXh0IjtOO3M6MTA6IgAqAG9wdGlvbnMiO2E6MDp7fXM6NzoiACoAbmFtZSI7czoxMzoicm9vdF9jb21tZW50cyI7czo4OiIAKgBsYWJlbCI7czoyMToiSW5jbG91IGVscyBjb21lbnRhcmlzIjtzOjEzOiIAKgBhdHRyaWJ1dGVzIjthOjA6e31zOjc6IgAqAGljb24iO2I6MDtzOjEwOiIAKgBzZXR0aW5nIjtyOjEyMzt9czo3OiIAKgBoZWxwIjthOjA6e319czoxNToiACoAZGVmYXVsdHZhbHVlIjtiOjA7czoxMjoiACoAbGFzdHZhbHVlIjtpOjA7fXM6NjoiYmFkZ2VzIjtPOjM3OiJzZXR0aW5nX2RlcGVuZGVuY3lfZGlzYWJsZWRpZl9jaGVja2VkIjo1OntzOjg6IgAqAHZhbHVlIjtiOjE7czoxMDoiACoAc2V0dGluZyI7cjo4NDtzOjE5OiIAKgBkZXBlbmRlbnRzZXR0aW5nIjtPOjIyOiJyZXN0b3JlX2JhZGdlc19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czo2OiJiYWRnZXMiO3M6ODoiACoAdmFsdWUiO2k6MDtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjA7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjI6e3M6MTA6ImFjdGl2aXRpZXMiO086NDE6InNldHRpbmdfZGVwZW5kZW5jeV9kaXNhYmxlZGlmX25vdF9jaGVja2VkIjo1OntzOjg6IgAqAHZhbHVlIjtiOjA7czoxMDoiACoAc2V0dGluZyI7TzoyNjoicmVzdG9yZV9hY3Rpdml0aWVzX3NldHRpbmciOjExOntzOjg6IgAqAGxldmVsIjtpOjE7czo3OiIAKgBuYW1lIjtzOjEwOiJhY3Rpdml0aWVzIjtzOjg6IgAqAHZhbHVlIjtpOjE7czoxNjoiACoAdW5sb2NrZWR2YWx1ZSI7aToxO3M6ODoiACoAdnR5cGUiO3M6NDoiYm9vbCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjM6e3M6NjoiYmFkZ2VzIjtyOjE2MDtzOjE1OiJncmFkZV9oaXN0b3JpZXMiO086NDE6InNldHRpbmdfZGVwZW5kZW5jeV9kaXNhYmxlZGlmX25vdF9jaGVja2VkIjo1OntzOjg6IgAqAHZhbHVlIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjoxNjI7czoxOToiACoAZGVwZW5kZW50c2V0dGluZyI7TzozMToicmVzdG9yZV9ncmFkZV9oaXN0b3JpZXNfc2V0dGluZyI6MTE6e3M6ODoiACoAbGV2ZWwiO2k6MTtzOjc6IgAqAG5hbWUiO3M6MTU6ImdyYWRlX2hpc3RvcmllcyI7czo4OiIAKgB2YWx1ZSI7aTowO3M6MTY6IgAqAHVubG9ja2VkdmFsdWUiO2k6MDtzOjg6IgAqAHZ0eXBlIjtzOjQ6ImJvb2wiO3M6MTM6IgAqAHZpc2liaWxpdHkiO2k6MTtzOjk6IgAqAHN0YXR1cyI7aTozO3M6MTU6IgAqAGRlcGVuZGVuY2llcyI7YTowOnt9czoxNDoiACoAZGVwZW5kZW50b24iO2E6Mjp7czo1OiJ1c2VycyI7TzozNzoic2V0dGluZ19kZXBlbmRlbmN5X2Rpc2FibGVkaWZfY2hlY2tlZCI6NTp7czo4OiIAKgB2YWx1ZSI7YjoxO3M6MTA6IgAqAHNldHRpbmciO3I6ODQ7czoxOToiACoAZGVwZW5kZW50c2V0dGluZyI7cjoxNzU7czoxNToiACoAZGVmYXVsdHZhbHVlIjtiOjA7czoxMjoiACoAbGFzdHZhbHVlIjtpOjA7fXM6MTA6ImFjdGl2aXRpZXMiO3I6MTcyO31zOjEyOiIAKgB1aXNldHRpbmciO086MjY6ImJhY2t1cF9zZXR0aW5nX3VpX2NoZWNrYm94Ijo5OntzOjc6IgAqAHR5cGUiO2k6MTA7czoxMzoiACoAY2hhbmdlYWJsZSI7YjowO3M6NzoiACoAdGV4dCI7TjtzOjEwOiIAKgBvcHRpb25zIjthOjA6e31zOjc6IgAqAG5hbWUiO3M6MjA6InJvb3RfZ3JhZGVfaGlzdG9yaWVzIjtzOjg6IgAqAGxhYmVsIjtzOjM2OiJJbmNsb3UgbCdoaXN0b3JpYWwgZGUgcXVhbGlmaWNhY2lvbnMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6MTc1O31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjE1OiIAKgBkZWZhdWx0dmFsdWUiO2I6MDtzOjEyOiIAKgBsYXN0dmFsdWUiO2k6MDt9czoxOToiZGF0YV8xMjQ2Nl9pbmNsdWRlZCI7Tzo0MToic2V0dGluZ19kZXBlbmRlbmN5X2Rpc2FibGVkaWZfbm90X2NoZWNrZWQiOjU6e3M6ODoiACoAdmFsdWUiO2I6MDtzOjEwOiIAKgBzZXR0aW5nIjtyOjE2MjtzOjE5OiIAKgBkZXBlbmRlbnRzZXR0aW5nIjtPOjMyOiJyZXN0b3JlX2FjdGl2aXR5X2dlbmVyaWNfc2V0dGluZyI6MTE6e3M6ODoiACoAbGV2ZWwiO2k6MTM7czo3OiIAKgBuYW1lIjtzOjE5OiJkYXRhXzEyNDY2X2luY2x1ZGVkIjtzOjg6IgAqAHZhbHVlIjtpOjE7czoxNjoiACoAdW5sb2NrZWR2YWx1ZSI7aToxO3M6ODoiACoAdnR5cGUiO3M6NDoiYm9vbCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjE6e3M6MTk6ImRhdGFfMTI0NjZfdXNlcmluZm8iO086NDE6InNldHRpbmdfZGVwZW5kZW5jeV9kaXNhYmxlZGlmX25vdF9jaGVja2VkIjo1OntzOjg6IgAqAHZhbHVlIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjoyMDg7czoxOToiACoAZGVwZW5kZW50c2V0dGluZyI7TzozMzoicmVzdG9yZV9hY3Rpdml0eV91c2VyaW5mb19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxMztzOjc6IgAqAG5hbWUiO3M6MTk6ImRhdGFfMTI0NjZfdXNlcmluZm8iO3M6ODoiACoAdmFsdWUiO2k6MDtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjA7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjI6e3M6NToidXNlcnMiO086Mzc6InNldHRpbmdfZGVwZW5kZW5jeV9kaXNhYmxlZGlmX2NoZWNrZWQiOjU6e3M6ODoiACoAdmFsdWUiO2I6MTtzOjEwOiIAKgBzZXR0aW5nIjtyOjg0O3M6MTk6IgAqAGRlcGVuZGVudHNldHRpbmciO3I6MjIwO3M6MTU6IgAqAGRlZmF1bHR2YWx1ZSI7YjowO3M6MTI6IgAqAGxhc3R2YWx1ZSI7aTowO31zOjE5OiJkYXRhXzEyNDY2X2luY2x1ZGVkIjtyOjIxNzt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI0OiJiYWNrdXBfc2V0dGluZ191aV9zZWxlY3QiOjg6e3M6NzoiACoAdHlwZSI7aTozMDtzOjk6IgAqAHZhbHVlcyI7YToxOntpOjA7czoyOiJObyI7fXM6MTA6IgAqAG9wdGlvbnMiO2E6MDp7fXM6NzoiACoAbmFtZSI7czoyODoiYWN0aXZpdHlfZGF0YV8xMjQ2Nl91c2VyaW5mbyI7czo4OiIAKgBsYWJlbCI7czoxOiItIjtzOjEzOiIAKgBhdHRyaWJ1dGVzIjthOjA6e31zOjc6IgAqAGljb24iO2I6MDtzOjEwOiIAKgBzZXR0aW5nIjtyOjIyMDt9czo3OiIAKgBoZWxwIjthOjA6e319czoxNToiACoAZGVmYXVsdHZhbHVlIjtiOjA7czoxMjoiACoAbGFzdHZhbHVlIjtpOjA7fX1zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YToxOntzOjEwOiJhY3Rpdml0aWVzIjtyOjIwNTt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MTtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjI4OiJhY3Rpdml0eV9kYXRhXzEyNDY2X2luY2x1ZGVkIjtzOjg6IgAqAGxhYmVsIjtzOjE5OiJkYXRhXzEyNDY2X2luY2x1ZGVkIjtzOjEzOiIAKgBhdHRyaWJ1dGVzIjthOjA6e31zOjc6IgAqAGljb24iO086MTA6ImltYWdlX2ljb24iOjM6e3M6MzoicGl4IjtzOjQ6Imljb24iO3M6OToiY29tcG9uZW50IjtzOjQ6ImRhdGEiO3M6MTA6ImF0dHJpYnV0ZXMiO2E6Mzp7czo1OiJjbGFzcyI7czoyNDoiaWNvbmxhcmdlIGljb24tcG9zdCBtbC0xIjtzOjM6ImFsdCI7czoxMzoiQmFzZSBkZSBkYWRlcyI7czo1OiJ0aXRsZSI7czoxMzoiQmFzZSBkZSBkYWRlcyI7fX1zOjEwOiIAKgBzZXR0aW5nIjtyOjIwODt9czo3OiIAKgBoZWxwIjthOjA6e319czoxNToiACoAZGVmYXVsdHZhbHVlIjtiOjA7czoxMjoiACoAbGFzdHZhbHVlIjtpOjE7fX1zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YTowOnt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MTtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjE1OiJyb290X2FjdGl2aXRpZXMiO3M6ODoiACoAbGFiZWwiO3M6MzY6IkluY2xvdSBsZXMgYWN0aXZpdGF0cyBpIGVscyByZWN1cnNvcyI7czoxMzoiACoAYXR0cmlidXRlcyI7YTowOnt9czo3OiIAKgBpY29uIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjoxNjI7fXM6NzoiACoAaGVscCI7YTowOnt9fXM6MTk6IgAqAGRlcGVuZGVudHNldHRpbmciO3I6MTUwO3M6MTU6IgAqAGRlZmF1bHR2YWx1ZSI7YjowO3M6MTI6IgAqAGxhc3R2YWx1ZSI7aTowO31zOjU6InVzZXJzIjtyOjE0Nzt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MDtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjExOiJyb290X2JhZGdlcyI7czo4OiIAKgBsYWJlbCI7czoxNzoiSW5jbG91IGluc8OtZ25pZXMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6MTUwO31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjE1OiIAKgBkZWZhdWx0dmFsdWUiO2I6MDtzOjEyOiIAKgBsYXN0dmFsdWUiO2k6MDt9czoxNToidXNlcnNjb21wbGV0aW9uIjtPOjM3OiJzZXR0aW5nX2RlcGVuZGVuY3lfZGlzYWJsZWRpZl9jaGVja2VkIjo1OntzOjg6IgAqAHZhbHVlIjtiOjE7czoxMDoiACoAc2V0dGluZyI7cjo4NDtzOjE5OiIAKgBkZXBlbmRlbnRzZXR0aW5nIjtPOjMxOiJyZXN0b3JlX3VzZXJzY29tcGxldGlvbl9zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czoxNToidXNlcnNjb21wbGV0aW9uIjtzOjg6IgAqAHZhbHVlIjtpOjA7czoxNjoiACoAdW5sb2NrZWR2YWx1ZSI7aTowO3M6ODoiACoAdnR5cGUiO3M6NDoiYm9vbCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjA6e31zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YToxOntzOjU6InVzZXJzIjtyOjMwMDt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MDtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjIwOiJyb290X3VzZXJzY29tcGxldGlvbiI7czo4OiIAKgBsYWJlbCI7czo0MjoiSW5jbG91IGVscyBkZXRhbGxzIGRlIHByb2dyw6lzIGRlIGwndXN1YXJpIjtzOjEzOiIAKgBhdHRyaWJ1dGVzIjthOjA6e31zOjc6IgAqAGljb24iO2I6MDtzOjEwOiIAKgBzZXR0aW5nIjtyOjMwMzt9czo3OiIAKgBoZWxwIjthOjA6e319czoxNToiACoAZGVmYXVsdHZhbHVlIjtiOjA7czoxMjoiACoAbGFzdHZhbHVlIjtpOjA7fXM6NDoibG9ncyI7TzozNzoic2V0dGluZ19kZXBlbmRlbmN5X2Rpc2FibGVkaWZfY2hlY2tlZCI6NTp7czo4OiIAKgB2YWx1ZSI7YjoxO3M6MTA6IgAqAHNldHRpbmciO3I6ODQ7czoxOToiACoAZGVwZW5kZW50c2V0dGluZyI7TzoyMDoicmVzdG9yZV9sb2dzX3NldHRpbmciOjExOntzOjg6IgAqAGxldmVsIjtpOjE7czo3OiIAKgBuYW1lIjtzOjQ6ImxvZ3MiO3M6ODoiACoAdmFsdWUiO2k6MDtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjA7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjE6e3M6NToidXNlcnMiO3I6MzI3O31zOjEyOiIAKgB1aXNldHRpbmciO086MjY6ImJhY2t1cF9zZXR0aW5nX3VpX2NoZWNrYm94Ijo5OntzOjc6IgAqAHR5cGUiO2k6MTA7czoxMzoiACoAY2hhbmdlYWJsZSI7YjowO3M6NzoiACoAdGV4dCI7TjtzOjEwOiIAKgBvcHRpb25zIjthOjA6e31zOjc6IgAqAG5hbWUiO3M6OToicm9vdF9sb2dzIjtzOjg6IgAqAGxhYmVsIjtzOjI5OiJJbmNsb3UgZWxzIHJlZ2lzdHJlcyBkZWwgY3VycyI7czoxMzoiACoAYXR0cmlidXRlcyI7YTowOnt9czo3OiIAKgBpY29uIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjozMzA7fXM6NzoiACoAaGVscCI7YTowOnt9fXM6MTU6IgAqAGRlZmF1bHR2YWx1ZSI7YjowO3M6MTI6IgAqAGxhc3R2YWx1ZSI7aTowO31zOjE1OiJncmFkZV9oaXN0b3JpZXMiO3I6MTg1O3M6MTk6ImRhdGFfMTI0NjZfdXNlcmluZm8iO3I6MjMwO31zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YTowOnt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MDtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjEwOiJyb290X3VzZXJzIjtzOjg6IgAqAGxhYmVsIjtzOjI5OiJJbmNsb3UgZWxzIHVzdWFyaXMgcmVnaXN0cmF0cyI7czoxMzoiACoAYXR0cmlidXRlcyI7YTowOnt9czo3OiIAKgBpY29uIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjo4NDt9czo3OiIAKgBoZWxwIjthOjA6e319czoxMDoiZW5yb2xtZW50cyI7TzoyMToicmVzdG9yZV91c2Vyc19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czoxMDoiZW5yb2xtZW50cyI7czo4OiIAKgB2YWx1ZSI7aTowO3M6MTY6IgAqAHVubG9ja2VkdmFsdWUiO2k6MDtzOjg6IgAqAHZ0eXBlIjtzOjM6ImludCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjA6e31zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YTowOnt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI0OiJiYWNrdXBfc2V0dGluZ191aV9zZWxlY3QiOjg6e3M6NzoiACoAdHlwZSI7aTozMDtzOjk6IgAqAHZhbHVlcyI7YToyOntpOjA7czoyOiJObyI7aToyO3M6MzoiU8OtIjt9czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjE1OiJyb290X2Vucm9sbWVudHMiO3M6ODoiACoAbGFiZWwiO3M6Mjk6IkluY2xvdSBtw6h0b2RlcyBkJ2luc2NyaXBjacOzIjtzOjEzOiIAKgBhdHRyaWJ1dGVzIjthOjA6e31zOjc6IgAqAGljb24iO2I6MDtzOjEwOiIAKgBzZXR0aW5nIjtyOjM2ODt9czo3OiIAKgBoZWxwIjthOjA6e319czoxNjoicm9sZV9hc3NpZ25tZW50cyI7cjo5NjtzOjExOiJwZXJtaXNzaW9ucyI7TzoyNzoicmVzdG9yZV9wZXJtaXNzaW9uc19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czoxMToicGVybWlzc2lvbnMiO3M6ODoiACoAdmFsdWUiO2k6MTtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjE7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjA6e31zOjEyOiIAKgB1aXNldHRpbmciO086MjY6ImJhY2t1cF9zZXR0aW5nX3VpX2NoZWNrYm94Ijo5OntzOjc6IgAqAHR5cGUiO2k6MTA7czoxMzoiACoAY2hhbmdlYWJsZSI7YjoxO3M6NzoiACoAdGV4dCI7TjtzOjEwOiIAKgBvcHRpb25zIjthOjA6e31zOjc6IgAqAG5hbWUiO3M6MTY6InJvb3RfcGVybWlzc2lvbnMiO3M6ODoiACoAbGFiZWwiO3M6Mjg6IkluY2x1ZGUgcGVybWlzc2lvbiBvdmVycmlkZXMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6MzkxO31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjEwOiJhY3Rpdml0aWVzIjtyOjE2MjtzOjY6ImJsb2NrcyI7TzoyMzoicmVzdG9yZV9nZW5lcmljX3NldHRpbmciOjExOntzOjg6IgAqAGxldmVsIjtpOjE7czo3OiIAKgBuYW1lIjtzOjY6ImJsb2NrcyI7czo4OiIAKgB2YWx1ZSI7aToxO3M6MTY6IgAqAHVubG9ja2VkdmFsdWUiO2k6MTtzOjg6IgAqAHZ0eXBlIjtzOjQ6ImJvb2wiO3M6MTM6IgAqAHZpc2liaWxpdHkiO2k6MTtzOjk6IgAqAHN0YXR1cyI7aTozO3M6MTU6IgAqAGRlcGVuZGVuY2llcyI7YTowOnt9czoxNDoiACoAZGVwZW5kZW50b24iO2E6MDp7fXM6MTI6IgAqAHVpc2V0dGluZyI7TzoyNjoiYmFja3VwX3NldHRpbmdfdWlfY2hlY2tib3giOjk6e3M6NzoiACoAdHlwZSI7aToxMDtzOjEzOiIAKgBjaGFuZ2VhYmxlIjtiOjE7czo3OiIAKgB0ZXh0IjtOO3M6MTA6IgAqAG9wdGlvbnMiO2E6MDp7fXM6NzoiACoAbmFtZSI7czoxMToicm9vdF9ibG9ja3MiO3M6ODoiACoAbGFiZWwiO3M6MTY6IkluY2xvdSBlbHMgYmxvY3MiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6NDEzO31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjc6ImZpbHRlcnMiO086MjM6InJlc3RvcmVfZ2VuZXJpY19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czo3OiJmaWx0ZXJzIjtzOjg6IgAqAHZhbHVlIjtpOjE7czoxNjoiACoAdW5sb2NrZWR2YWx1ZSI7aToxO3M6ODoiACoAdnR5cGUiO3M6NDoiYm9vbCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjA6e31zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YTowOnt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MTtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjEyOiJyb290X2ZpbHRlcnMiO3M6ODoiACoAbGFiZWwiO3M6MTg6IkluY2xvdSBlbHMgZmlsdHJlcyI7czoxMzoiACoAYXR0cmlidXRlcyI7YTowOnt9czo3OiIAKgBpY29uIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjo0MzQ7fXM6NzoiACoAaGVscCI7YTowOnt9fXM6ODoiY29tbWVudHMiO3I6MTIzO3M6NjoiYmFkZ2VzIjtyOjE1MDtzOjE0OiJjYWxlbmRhcmV2ZW50cyI7TzozMDoicmVzdG9yZV9jYWxlbmRhcmV2ZW50c19zZXR0aW5nIjoxMTp7czo4OiIAKgBsZXZlbCI7aToxO3M6NzoiACoAbmFtZSI7czoxNDoiY2FsZW5kYXJldmVudHMiO3M6ODoiACoAdmFsdWUiO2k6MTtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjE7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjA6e31zOjEyOiIAKgB1aXNldHRpbmciO086MjY6ImJhY2t1cF9zZXR0aW5nX3VpX2NoZWNrYm94Ijo5OntzOjc6IgAqAHR5cGUiO2k6MTA7czoxMzoiACoAY2hhbmdlYWJsZSI7YjoxO3M6NzoiACoAdGV4dCI7TjtzOjEwOiIAKgBvcHRpb25zIjthOjA6e31zOjc6IgAqAG5hbWUiO3M6MTk6InJvb3RfY2FsZW5kYXJldmVudHMiO3M6ODoiACoAbGFiZWwiO3M6Mzc6IkluY2xvdSBlbHMgZXNkZXZlbmltZW50cyBkZSBjYWxlbmRhcmkiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6NDU3O31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjE1OiJ1c2Vyc2NvbXBsZXRpb24iO3I6MzAzO3M6NDoibG9ncyI7cjozMzA7czoxNToiZ3JhZGVfaGlzdG9yaWVzIjtyOjE3NTtzOjY6Imdyb3VwcyI7TzoyMjoicmVzdG9yZV9ncm91cHNfc2V0dGluZyI6MTE6e3M6ODoiACoAbGV2ZWwiO2k6MTtzOjc6IgAqAG5hbWUiO3M6NjoiZ3JvdXBzIjtzOjg6IgAqAHZhbHVlIjtpOjE7czoxNjoiACoAdW5sb2NrZWR2YWx1ZSI7aToxO3M6ODoiACoAdnR5cGUiO3M6NDoiYm9vbCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjA6e31zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YTowOnt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MTtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjExOiJyb290X2dyb3VwcyI7czo4OiIAKgBsYWJlbCI7czoyNjoiSW5jbG91IGdydXBzIGkgYWdydXBhY2lvbnMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6NDgxO31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjEyOiJjb21wZXRlbmNpZXMiO086Mjg6InJlc3RvcmVfY29tcGV0ZW5jaWVzX3NldHRpbmciOjExOntzOjg6IgAqAGxldmVsIjtpOjE7czo3OiIAKgBuYW1lIjtzOjEyOiJjb21wZXRlbmNpZXMiO3M6ODoiACoAdmFsdWUiO2k6MDtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjA7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6NTtzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjA6e31zOjEyOiIAKgB1aXNldHRpbmciO086MjY6ImJhY2t1cF9zZXR0aW5nX3VpX2NoZWNrYm94Ijo5OntzOjc6IgAqAHR5cGUiO2k6MTA7czoxMzoiACoAY2hhbmdlYWJsZSI7YjoxO3M6NzoiACoAdGV4dCI7TjtzOjEwOiIAKgBvcHRpb25zIjthOjA6e31zOjc6IgAqAG5hbWUiO3M6MTc6InJvb3RfY29tcGV0ZW5jaWVzIjtzOjg6IgAqAGxhYmVsIjtzOjI0OiJJbmNsb3UgbGVzIGNvbXBldMOobmNpZXMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6NTAyO31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjEyOiJjdXN0b21maWVsZHMiO086Mjc6InJlc3RvcmVfY3VzdG9tZmllbGRfc2V0dGluZyI6MTE6e3M6ODoiACoAbGV2ZWwiO2k6MTtzOjc6IgAqAG5hbWUiO3M6MTI6ImN1c3RvbWZpZWxkcyI7czo4OiIAKgB2YWx1ZSI7aToxO3M6MTY6IgAqAHVubG9ja2VkdmFsdWUiO2k6MTtzOjg6IgAqAHZ0eXBlIjtzOjQ6ImJvb2wiO3M6MTM6IgAqAHZpc2liaWxpdHkiO2k6MTtzOjk6IgAqAHN0YXR1cyI7aTozO3M6MTU6IgAqAGRlcGVuZGVuY2llcyI7YTowOnt9czoxNDoiACoAZGVwZW5kZW50b24iO2E6MDp7fXM6MTI6IgAqAHVpc2V0dGluZyI7TzoyNjoiYmFja3VwX3NldHRpbmdfdWlfY2hlY2tib3giOjk6e3M6NzoiACoAdHlwZSI7aToxMDtzOjEzOiIAKgBjaGFuZ2VhYmxlIjtiOjE7czo3OiIAKgB0ZXh0IjtOO3M6MTA6IgAqAG9wdGlvbnMiO2E6MDp7fXM6NzoiACoAbmFtZSI7czoxNzoicm9vdF9jdXN0b21maWVsZHMiO3M6ODoiACoAbGFiZWwiO3M6MzE6IkluY2xvdSBlbHMgY2FtcHMgcGVyc29uYWxpdHphdHMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6NTIzO31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjE4OiJjb250ZW50YmFua2NvbnRlbnQiO086MzQ6InJlc3RvcmVfY29udGVudGJhbmtjb250ZW50X3NldHRpbmciOjExOntzOjg6IgAqAGxldmVsIjtpOjE7czo3OiIAKgBuYW1lIjtzOjE4OiJjb250ZW50YmFua2NvbnRlbnQiO3M6ODoiACoAdmFsdWUiO2k6MDtzOjE2OiIAKgB1bmxvY2tlZHZhbHVlIjtpOjA7czo4OiIAKgB2dHlwZSI7czo0OiJib29sIjtzOjEzOiIAKgB2aXNpYmlsaXR5IjtpOjE7czo5OiIAKgBzdGF0dXMiO2k6MztzOjE1OiIAKgBkZXBlbmRlbmNpZXMiO2E6MDp7fXM6MTQ6IgAqAGRlcGVuZGVudG9uIjthOjA6e31zOjEyOiIAKgB1aXNldHRpbmciO086MjY6ImJhY2t1cF9zZXR0aW5nX3VpX2NoZWNrYm94Ijo5OntzOjc6IgAqAHR5cGUiO2k6MTA7czoxMzoiACoAY2hhbmdlYWJsZSI7YjowO3M6NzoiACoAdGV4dCI7TjtzOjEwOiIAKgBvcHRpb25zIjthOjA6e31zOjc6IgAqAG5hbWUiO3M6MjM6InJvb3RfY29udGVudGJhbmtjb250ZW50IjtzOjg6IgAqAGxhYmVsIjtzOjQxOiJJbmNsb3UgZWwgY29udGluZ3V0IGRlbCBiYW5jIGRlIGNvbnRpbmd1dCI7czoxMzoiACoAYXR0cmlidXRlcyI7YTowOnt9czo3OiIAKgBpY29uIjtiOjA7czoxMDoiACoAc2V0dGluZyI7cjo1NDQ7fXM6NzoiACoAaGVscCI7YTowOnt9fXM6MTE6ImxlZ2FjeWZpbGVzIjtPOjIzOiJyZXN0b3JlX2dlbmVyaWNfc2V0dGluZyI6MTE6e3M6ODoiACoAbGV2ZWwiO2k6MTtzOjc6IgAqAG5hbWUiO3M6MTE6ImxlZ2FjeWZpbGVzIjtzOjg6IgAqAHZhbHVlIjtpOjE7czoxNjoiACoAdW5sb2NrZWR2YWx1ZSI7aToxO3M6ODoiACoAdnR5cGUiO3M6NDoiYm9vbCI7czoxMzoiACoAdmlzaWJpbGl0eSI7aToxO3M6OToiACoAc3RhdHVzIjtpOjM7czoxNToiACoAZGVwZW5kZW5jaWVzIjthOjA6e31zOjE0OiIAKgBkZXBlbmRlbnRvbiI7YTowOnt9czoxMjoiACoAdWlzZXR0aW5nIjtPOjI2OiJiYWNrdXBfc2V0dGluZ191aV9jaGVja2JveCI6OTp7czo3OiIAKgB0eXBlIjtpOjEwO3M6MTM6IgAqAGNoYW5nZWFibGUiO2I6MTtzOjc6IgAqAHRleHQiO047czoxMDoiACoAb3B0aW9ucyI7YTowOnt9czo3OiIAKgBuYW1lIjtzOjE2OiJyb290X2xlZ2FjeWZpbGVzIjtzOjg6IgAqAGxhYmVsIjtzOjI3OiJJbmNsdWRlIGxlZ2FjeSBjb3Vyc2UgZmlsZXMiO3M6MTM6IgAqAGF0dHJpYnV0ZXMiO2E6MDp7fXM6NzoiACoAaWNvbiI7YjowO3M6MTA6IgAqAHNldHRpbmciO3I6NTY1O31zOjc6IgAqAGhlbHAiO2E6MDp7fX1zOjE5OiJkYXRhXzEyNDY2X2luY2x1ZGVkIjtyOjIwODtzOjE5OiJkYXRhXzEyNDY2X3VzZXJpbmZvIjtyOjIyMDt9czo4OiIAKgB0YXNrcyI7YTozOntpOjA7TzoxNzoicmVzdG9yZV9yb290X3Rhc2siOjY6e3M6NzoiACoAbmFtZSI7czo5OiJyb290X3Rhc2siO3M6NzoiACoAcGxhbiI7cjo3MDtzOjExOiIAKgBzZXR0aW5ncyI7YToxODp7aTowO3I6ODQ7aToxO3I6MzY4O2k6MjtyOjk2O2k6MztyOjM5MTtpOjQ7cjoxNjI7aTo1O3I6NDEzO2k6NjtyOjQzNDtpOjc7cjoxMjM7aTo4O3I6MTUwO2k6OTtyOjQ1NztpOjEwO3I6MzAzO2k6MTE7cjozMzA7aToxMjtyOjE3NTtpOjEzO3I6NDgxO2k6MTQ7cjo1MDI7aToxNTtyOjUyMztpOjE2O3I6NTQ0O2k6MTc7cjo1NjU7fXM6ODoiACoAc3RlcHMiO2E6MDp7fXM6ODoiACoAYnVpbHQiO2I6MDtzOjExOiIAKgBleGVjdXRlZCI7YjowO31pOjE7TzoyNjoicmVzdG9yZV9kYXRhX2FjdGl2aXR5X3Rhc2siOjE1OntzOjc6IgAqAGluZm8iO3I6NDI7czoxMzoiACoAbW9kdWxlbmFtZSI7czo0OiJkYXRhIjtzOjExOiIAKgBtb2R1bGVpZCI7aTowO3M6MTQ6IgAqAG9sZG1vZHVsZWlkIjtzOjU6IjEyNDY2IjtzOjE5OiIAKgBvbGRtb2R1bGV2ZXJzaW9uIjtpOjA7czoxMjoiACoAY29udGV4dGlkIjtpOjA7czoxNToiACoAb2xkY29udGV4dGlkIjtpOjA7czoxMzoiACoAYWN0aXZpdHlpZCI7aTowO3M6MTY6IgAqAG9sZGFjdGl2aXR5aWQiO2k6MDtzOjc6IgAqAG5hbWUiO3M6Mjk6IkJpYmxpb3RlY2EgZGUgbWF0ZXJpYWxzIFNDT1JNIjtzOjc6IgAqAHBsYW4iO3I6NzA7czoxMToiACoAc2V0dGluZ3MiO2E6Mjp7aTowO3I6MjA4O2k6MTtyOjIyMDt9czo4OiIAKgBzdGVwcyI7YTowOnt9czo4OiIAKgBidWlsdCI7YjowO3M6MTE6IgAqAGV4ZWN1dGVkIjtiOjA7fWk6MjtPOjE4OiJyZXN0b3JlX2ZpbmFsX3Rhc2siOjY6e3M6NzoiACoAbmFtZSI7czoxMDoiZmluYWxfdGFzayI7czo3OiIAKgBwbGFuIjtyOjcwO3M6MTE6IgAqAHNldHRpbmdzIjthOjA6e31zOjg6IgAqAHN0ZXBzIjthOjA6e31zOjg6IgAqAGJ1aWx0IjtiOjA7czoxMToiACoAZXhlY3V0ZWQiO2I6MDt9fXM6MTA6IgAqAHJlc3VsdHMiO2E6MDp7fXM6ODoiACoAYnVpbHQiO2I6MTt9czoxMjoiACoAZXhlY3V0aW9uIjtpOjE7czoxNjoiACoAZXhlY3V0aW9udGltZSI7aTowO3M6MTE6IgAqAGNoZWNrc3VtIjtzOjMyOiI5Y2RhNjRiYmVmZjJiYTMyYzlkNmE3N2E5ZDhjMmVkNSI7czoxMToiACoAcHJvZ3Jlc3MiO086Mjk6ImNvcmVccHJvZ3Jlc3NcZGlzcGxheV9pZl9zbG93IjoxNDp7czo1OiIAKgBpZCI7TjtzOjEwOiIAKgBoZWFkaW5nIjtzOjI3OiJTJ2VzdGFuIHByZXBhcmFudCBsZXMgZGFkZXMiO3M6MTI6IgAqAHN0YXJ0dGltZSI7aToxNjM1MjUzMDg2O3M6MjY6IgBjb3JlXHByb2dyZXNzXGRpc3BsYXkAYmFyIjtOO3M6MTM6IgAqAGxhc3R3aWJibGUiO047czoxNToiACoAY3VycmVudHN0YXRlIjtpOjA7czoxMjoiACoAZGlyZWN0aW9uIjtpOjE7czoxNToiACoAZGlzcGxheW5hbWVzIjtiOjA7czoxOToiACoAbGFzdHByb2dyZXNzdGltZSI7TjtzOjg6IgAqAGNvdW50IjtOO3M6MTU6IgAqAGRlc2NyaXB0aW9ucyI7YTowOnt9czo4OiIAKgBtYXhlcyI7YTowOnt9czoxMToiACoAY3VycmVudHMiO2E6MDp7fXM6MTU6IgAqAHBhcmVudGNvdW50cyI7YTowOnt9fXM6OToiACoAbG9nZ2VyIjtPOjE2OiJlcnJvcl9sb2dfbG9nZ2VyIjo0OntzOjg6IgAqAGxldmVsIjtpOjMwO3M6MTE6IgAqAHNob3dkYXRlIjtiOjA7czoxMjoiACoAc2hvd2xldmVsIjtiOjA7czo3OiIAKgBuZXh0IjtPOjExOiJmaWxlX2xvZ2dlciI6NTp7czo4OiIAKgBsZXZlbCI7aTozMDtzOjExOiIAKgBzaG93ZGF0ZSI7YjoxO3M6MTI6IgAqAHNob3dsZXZlbCI7YjoxO3M6NzoiACoAbmV4dCI7TzoxNToiZGF0YWJhc2VfbG9nZ2VyIjo5OntzOjEwOiIAKgBkYXRlY29sIjtzOjExOiJ0aW1lY3JlYXRlZCI7czoxMToiACoAbGV2ZWxjb2wiO3M6ODoibG9nbGV2ZWwiO3M6MTM6IgAqAG1lc3NhZ2Vjb2wiO3M6NzoibWVzc2FnZSI7czoxMToiACoAbG9ndGFibGUiO3M6MTE6ImJhY2t1cF9sb2dzIjtzOjEwOiIAKgBjb2x1bW5zIjthOjE6e3M6ODoiYmFja3VwaWQiO3M6MzI6IjY4MDIzM2VlOGY3ZDdhYzg4MjA1N2FjNmVjMThkN2NjIjt9czo4OiIAKgBsZXZlbCI7aTozMDtzOjExOiIAKgBzaG93ZGF0ZSI7YjoxO3M6MTI6IgAqAHNob3dsZXZlbCI7YjoxO3M6NzoiACoAbmV4dCI7Tjt9czoxMToiACoAZnVsbHBhdGgiO3M6NzY6Ii9kYWRlcy9kYXRhL2FsZXhhbmRyaWFkYXRhL3RlbXAvYmFja3VwLy82ODAyMzNlZThmN2Q3YWM4ODIwNTdhYzZlYzE4ZDdjYy5sb2ciO319czoxNzoiACoAcmVsZWFzZXNlc3Npb24iO2I6MTtzOjc6IgAqAGNvcHkiO047fQ==
+9	e51ee6865b3350fd895e60d2015ced43	restore	activity	1	moodle2	1	10	2	1000	1	0	74cf6789c1808e707e2e39919c309ee7	1635252672	1635252686	0.00000000000000	
+13	def16c7138528410619d0b9f1de8663a	restore	activity	1	moodle2	1	10	2	1000	1	0	3070b72506f9bb5bba289a3e6691245a	1635253110	1635253119	0.00000000000000	
 \.
 
 
@@ -25210,6 +26579,14 @@ COPY public.mdl_badge_backpack (id, userid, email, backpackuid, autosync, passwo
 
 
 --
+-- Data for Name: mdl_badge_backpack_oauth2; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_badge_backpack_oauth2 (id, usermodified, timecreated, timemodified, userid, issuerid, externalbackpackid, token, refreshtoken, expires, scope) FROM stdin;
+\.
+
+
+--
 -- Data for Name: mdl_badge_criteria; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -25245,7 +26622,7 @@ COPY public.mdl_badge_endorsement (id, badgeid, issuername, issuerurl, issuerema
 -- Data for Name: mdl_badge_external; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_badge_external (id, backpackid, collectionid, entityid) FROM stdin;
+COPY public.mdl_badge_external (id, backpackid, collectionid, entityid, assertion) FROM stdin;
 \.
 
 
@@ -25253,9 +26630,8 @@ COPY public.mdl_badge_external (id, backpackid, collectionid, entityid) FROM std
 -- Data for Name: mdl_badge_external_backpack; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_badge_external_backpack (id, backpackapiurl, backpackweburl, apiversion, sortorder, password) FROM stdin;
-1	https://backpack.openbadges.org	https://backpack.openbadges.org	1	0	
-2	https://api.badgr.io/v2	https://badgr.io	2	1	
+COPY public.mdl_badge_external_backpack (id, backpackapiurl, backpackweburl, apiversion, sortorder, oauth2_issuerid) FROM stdin;
+2	https://api.badgr.io/v2	https://badgr.io	2	1	\N
 \.
 
 
@@ -25355,6 +26731,16 @@ COPY public.mdl_block (id, name, cron, lastcron, visible) FROM stdin;
 49	licenses_vicensvives	0	0	1
 50	my_books	0	0	1
 51	rgrade	0	0	1
+52	accessreview	0	0	1
+53	configurable_reports	86400	0	1
+\.
+
+
+--
+-- Data for Name: mdl_block_configurable_reports; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_block_configurable_reports (id, courseid, ownerid, visible, name, summary, summaryformat, type, pagination, components, export, jsordering, global, lastexecutiontime, cron, remote) FROM stdin;
 \.
 
 
@@ -25375,6 +26761,9 @@ COPY public.mdl_block_instances (id, blockname, parentcontextid, showinsubcontex
 10	myoverview	1	0	0	my-index	2	content	2		1590509950	1590509950
 11	navigation	1	1	1	*	\N	side-pre	0		1590510681	1590510681
 12	settings	1	1	1	*	\N	side-pre	0		1590510681	1590510681
+15	site_main_menu	2	0	0	site-index	\N	side-pre	0		1635252459	1635252459
+16	download_statistics	2	0	0	site-index	\N	side-pre	1		1635253443	1635253443
+17	abuse_reports	2	0	0	site-index	\N	side-pre	2		1635253450	1635253450
 \.
 
 
@@ -25391,6 +26780,10 @@ COPY public.mdl_block_positions (id, blockinstanceid, contextid, pagetype, subpa
 --
 
 COPY public.mdl_block_recent_activity (id, courseid, cmid, timecreated, userid, action, modname) FROM stdin;
+1	1	1	1635252477	2	2	data
+2	1	2	1635252605	2	2	data
+3	1	3	1635252612	2	2	data
+4	1	4	1635252620	2	2	data
 \.
 
 
@@ -25399,9 +26792,9 @@ COPY public.mdl_block_recent_activity (id, courseid, cmid, timecreated, userid, 
 --
 
 COPY public.mdl_block_recentlyaccesseditems (id, courseid, cmid, userid, timeaccess) FROM stdin;
-1	1	1	2	1604428854
-2	1	2	2	1604428859
-3	1	3	2	1604428863
+5	1	6	2	1635253213
+6	1	7	2	1635253259
+7	1	5	2	1635253352
 \.
 
 
@@ -25458,9 +26851,7 @@ COPY public.mdl_cache_filters (id, filter, version, md5key, rawtext, timemodifie
 --
 
 COPY public.mdl_cache_flags (id, flagtype, name, timemodified, value, expiry) FROM stdin;
-2	accesslib/dirtycontexts	/1	1604425701	1	1604432901
-3	userpreferenceschanged	3	1604426262	1	1604433462
-1	userpreferenceschanged	2	1604426390	1	1604433590
+1	userpreferenceschanged	2	1635253514	1	1635260714
 \.
 
 
@@ -25768,7 +27159,6 @@ COPY public.mdl_capabilities (id, name, captype, contextlevel, component, riskbi
 299	mod/feedback:receivemail	read	70	mod_feedback	8
 300	mod/folder:addinstance	write	50	mod_folder	4
 301	mod/folder:view	read	70	mod_folder	0
-302	mod/folder:managefiles	write	70	mod_folder	16
 303	mod/forum:addinstance	write	50	mod_forum	4
 304	mod/forum:viewdiscussion	read	70	mod_forum	0
 305	mod/forum:viewhiddentimedposts	read	70	mod_forum	0
@@ -26188,6 +27578,83 @@ COPY public.mdl_capabilities (id, name, captype, contextlevel, component, riskbi
 719	local/rcommon:editowncredentials	write	10	local_rcommon	0
 12	moodle/backup:backuptargetimport	read	50	moodle	28
 132	moodle/course:viewhiddensections	read	50	moodle	0
+720	moodle/site:senderrormessage	write	10	moodle	16
+721	moodle/site:viewanonymousevents	read	70	moodle	8
+722	moodle/course:recommendactivity	write	10	moodle	0
+723	moodle/contentbank:access	read	50	moodle	0
+724	moodle/contentbank:upload	write	50	moodle	16
+725	moodle/contentbank:deleteanycontent	write	50	moodle	32
+726	moodle/contentbank:deleteowncontent	write	50	moodle	0
+727	moodle/contentbank:manageanycontent	write	50	moodle	32
+728	moodle/contentbank:manageowncontent	write	50	moodle	0
+729	moodle/contentbank:useeditor	write	50	moodle	16
+730	moodle/contentbank:downloadcontent	read	50	moodle	0
+731	moodle/course:downloadcoursecontent	read	50	moodle	0
+732	moodle/course:configuredownloadcontent	write	50	moodle	0
+733	moodle/payment:manageaccounts	write	50	moodle	42
+734	moodle/payment:viewpayments	read	50	moodle	8
+735	moodle/contentbank:viewunlistedcontent	read	50	moodle	0
+736	mod/assign:viewownsubmissionsummary	read	70	mod_assign	0
+302	mod/folder:managefiles	write	70	mod_folder	20
+737	mod/h5pactivity:view	read	70	mod_h5pactivity	0
+738	mod/h5pactivity:addinstance	write	50	mod_h5pactivity	0
+739	mod/h5pactivity:submit	write	70	mod_h5pactivity	0
+740	mod/h5pactivity:reviewattempts	read	70	mod_h5pactivity	0
+741	mod/hvp:share	write	70	mod_hvp	16
+742	mod/hvp:contenthubregistration	write	10	mod_hvp	0
+743	mod/lti:addpreconfiguredinstance	write	50	mod_lti	0
+744	mod/lti:addmanualinstance	write	50	mod_lti	0
+745	mod/quiz:viewoverrides	read	70	mod_quiz	0
+746	enrol/fee:config	write	50	enrol_fee	0
+747	enrol/fee:manage	write	50	enrol_fee	0
+748	enrol/fee:unenrol	write	50	enrol_fee	0
+749	enrol/fee:unenrolself	write	50	enrol_fee	0
+750	enrol/self:enrolself	write	50	enrol_self	0
+751	block/accessreview:addinstance	write	80	block_accessreview	0
+752	block/accessreview:view	read	80	block_accessreview	0
+753	block/configurable_reports:addinstance	write	80	block_configurable_reports	20
+754	block/configurable_reports:myaddinstance	write	80	block_configurable_reports	20
+755	block/configurable_reports:managereports	write	80	block_configurable_reports	0
+756	block/configurable_reports:managesqlreports	write	80	block_configurable_reports	0
+757	block/configurable_reports:manageownreports	write	80	block_configurable_reports	0
+758	block/configurable_reports:viewreports	read	80	block_configurable_reports	0
+759	report/status:view	read	10	report_status	2
+760	repository/contentbank:view	read	70	repository_contentbank	0
+761	repository/contentbank:accesscoursecontent	read	50	repository_contentbank	0
+762	repository/contentbank:accesscoursecategorycontent	read	40	repository_contentbank	0
+763	repository/contentbank:accessgeneralcontent	read	40	repository_contentbank	0
+764	tool/brickfield:viewcoursetools	read	50	tool_brickfield	8
+765	tool/brickfield:viewsystemtools	read	10	tool_brickfield	2
+766	tool/customlang:export	read	10	tool_customlang	2
+767	contenttype/h5p:access	read	50	contenttype_h5p	0
+768	contenttype/h5p:upload	write	50	contenttype_h5p	16
+769	contenttype/h5p:useeditor	write	50	contenttype_h5p	16
+770	quizaccess/seb:managetemplates	write	10	quizaccess_seb	0
+771	quizaccess/seb:bypassseb	read	70	quizaccess_seb	0
+772	quizaccess/seb:manage_seb_requiresafeexambrowser	write	70	quizaccess_seb	0
+773	quizaccess/seb:manage_seb_templateid	read	70	quizaccess_seb	0
+774	quizaccess/seb:manage_filemanager_sebconfigfile	write	70	quizaccess_seb	0
+775	quizaccess/seb:manage_seb_showsebdownloadlink	write	70	quizaccess_seb	0
+776	quizaccess/seb:manage_seb_allowedbrowserexamkeys	write	70	quizaccess_seb	0
+777	quizaccess/seb:manage_seb_linkquitseb	write	70	quizaccess_seb	0
+778	quizaccess/seb:manage_seb_userconfirmquit	write	70	quizaccess_seb	0
+779	quizaccess/seb:manage_seb_allowuserquitseb	write	70	quizaccess_seb	0
+780	quizaccess/seb:manage_seb_quitpassword	write	70	quizaccess_seb	0
+781	quizaccess/seb:manage_seb_allowreloadinexam	write	70	quizaccess_seb	0
+782	quizaccess/seb:manage_seb_showsebtaskbar	write	70	quizaccess_seb	0
+783	quizaccess/seb:manage_seb_showreloadbutton	write	70	quizaccess_seb	0
+784	quizaccess/seb:manage_seb_showtime	write	70	quizaccess_seb	0
+785	quizaccess/seb:manage_seb_showkeyboardlayout	write	70	quizaccess_seb	0
+786	quizaccess/seb:manage_seb_showwificontrol	write	70	quizaccess_seb	0
+787	quizaccess/seb:manage_seb_enableaudiocontrol	write	70	quizaccess_seb	0
+788	quizaccess/seb:manage_seb_muteonstartup	write	70	quizaccess_seb	0
+789	quizaccess/seb:manage_seb_allowspellchecking	write	70	quizaccess_seb	0
+790	quizaccess/seb:manage_seb_activateurlfiltering	write	70	quizaccess_seb	0
+791	quizaccess/seb:manage_seb_filterembeddedcontent	write	70	quizaccess_seb	0
+792	quizaccess/seb:manage_seb_expressionsallowed	write	70	quizaccess_seb	0
+793	quizaccess/seb:manage_seb_regexallowed	write	70	quizaccess_seb	0
+794	quizaccess/seb:manage_seb_expressionsblocked	write	70	quizaccess_seb	0
+795	quizaccess/seb:manage_seb_regexblocked	write	70	quizaccess_seb	0
 \.
 
 
@@ -26227,7 +27694,7 @@ COPY public.mdl_chat_users (id, chatid, userid, groupid, version, ip, firstping,
 -- Data for Name: mdl_choice; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_choice (id, course, name, intro, introformat, publish, showresults, display, allowupdate, allowmultiple, showunanswered, includeinactive, limitanswers, timeopen, timeclose, showpreview, timemodified, completionsubmit) FROM stdin;
+COPY public.mdl_choice (id, course, name, intro, introformat, publish, showresults, display, allowupdate, allowmultiple, showunanswered, includeinactive, limitanswers, timeopen, timeclose, showpreview, timemodified, completionsubmit, showavailable) FROM stdin;
 \.
 
 
@@ -26251,7 +27718,7 @@ COPY public.mdl_choice_options (id, choiceid, text, maxanswers, timemodified) FR
 -- Data for Name: mdl_choicegroup; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_choicegroup (id, course, name, intro, introformat, publish, multipleenrollmentspossible, showresults, display, allowupdate, showunanswered, limitanswers, timeopen, timeclose, timemodified, completionsubmit, sortgroupsby) FROM stdin;
+COPY public.mdl_choicegroup (id, course, name, intro, introformat, publish, multipleenrollmentspossible, showresults, display, allowupdate, showunanswered, limitanswers, timeopen, timeclose, timemodified, completionsubmit, sortgroupsby, maxenrollments, onlyactive) FROM stdin;
 \.
 
 
@@ -26445,8 +27912,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 22	siteguest	1
 23	siteadmins	2
 27	gdversion	2
-28	licenses	unknown,allrightsreserved,public,cc,cc-nd,cc-nc-nd,cc-nc,cc-nc-sa,cc-sa
-29	badges_site_backpack	1
 31	enableoutcomes	0
 32	usecomments	1
 33	usetags	1
@@ -26542,15 +28007,14 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 2	rolesactive	1
 36	enablewebservices	1
 125	grade_report_averagesdecimalpoints	inherit
-13	filterall	0
-8	backup_version	2019111800
 5	theme	xtec2020
-26	templaterev	1604425712
-30	version	2019111805
-25	jsrev	1604425712
-9	backup_release	3.8
 126	grade_report_rangesdecimalpoints	inherit
 127	grade_report_historyperpage	50
+8	backup_version	2021051700
+25	jsrev	1635241503
+26	templaterev	1635241503
+13	filterall	0
+9	backup_release	3.11
 128	grade_report_overview_showrank	0
 129	grade_report_overview_showtotalsifcontainhidden	0
 130	grade_report_user_showrank	0
@@ -26800,7 +28264,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 379	updateautocheck	1
 380	updateminmaturity	200
 381	updatenotifybuilds	0
-382	enablesafebrowserintegration	0
 383	dndallowtextandlinks	0
 384	pathtosassc	
 385	contextlocking	0
@@ -26824,7 +28287,6 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 403	profilingimportprefix	(I)
 279	calendar_exportsalt	TAh27Uy5CkCQ2MDECMJ6LKbqUaXAS5c8K3xlRn5J8IXAu7UT2y2RqwvWc5HH
 377	emailfromvia	1
-405	branch	38
 480	frontpagecourselimit	200
 481	commentsperpage	15
 482	defaultfrontpageroleid	8
@@ -26923,14 +28385,13 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 506	vicensvives_apiurl	http://api.vicensvivesdigital.com/rest
 507	vicensvives_sharekey	
 508	vicensvives_sharepass	
-404	release	3.8.5 (Build: 20200914)
-406	localcachedirpurged	1604425712
-407	scheduledtaskreset	1604425712
 509	block_courses_vicensvives_maxcourses	10
 510	block_courses_vicensvives_defaultcategory	1
 511	vicensvives_moodlews	1
 512	apligestmail	1
 513	apligestlog	
+405	branch	311
+407	scheduledtaskreset	1635241504
 514	apligestlogdebug	
 515	apligestlogpath	/dades/data/repository/files/log
 516	data_coursesdataid	1
@@ -26946,16 +28407,47 @@ COPY public.mdl_config (id, name, value) FROM stdin;
 526	data_creationdatefieldid	Data de creació
 527	data_moodleversionfieldid	Versió de Moodle
 475	profileroles	3,4,5
-534	scorm_updatetimelast	1604426898
 64	agedigitalconsentmap	*, 16\nAT, 14\nBE, 13\nBG, 14\nCY, 14\nCZ, 15\nDK, 13\nEE, 13\nES, 14\nFI, 13\nFR, 15\nGB, 13\nGR, 15\nIT, 14\nLT, 14\nLV, 13\nMT, 13\nNO, 13\nPT, 13\nSE, 13\nUS, 13
-408	allversionshash	6128d95fcfc3a935754d0d0035969a1cdd8b387c
-158	langrev	1604425712
 529	recaptchapublickey	
 530	recaptchaprivatekey	
 531	supportemail	alexandria@xtec.cat
-24	themerev	1604426127
 532	cronstart	1604426897
-533	fileslastcleanup	1604426898
+557	cron_enabled	1
+558	divertallemailsto	
+559	divertallemailsexcept	
+560	emaildkimselector	
+561	emailheaders	
+562	debugsqltrace	0
+28	licenses	unknown,allrightsreserved,public,cc,cc-nd,cc-nc-nd,cc-nc,cc-nc-sa,cc-sa
+24	themerev	1635249082
+533	fileslastcleanup	1635253531
+534	scorm_updatetimelast	1635253531
+408	allversionshash	b7ee91029940c4eed1b32eae529ad1a49cd2aae1
+158	langrev	1635241503
+406	localcachedirpurged	1635241504
+30	version	2021051703.03
+537	enableuserfeedback	0
+538	userfeedback_nextreminder	1
+539	userfeedback_remindafter	90
+540	enableaccessibilitytools	1
+404	release	3.11.3+ (Build: 20211003)
+541	defaultpreference_core_contentbank_visibility	1
+542	downloadcoursecontentallowed	0
+543	maxsizeperdownloadcoursefile	52428800
+536	paygw_plugins_sortorder	paypal
+544	activitychoosertabmode	0
+545	activitychooseractivefooter	hidden
+546	h5plibraryhandler	h5plib_v124
+547	rememberuserlicensepref	1
+548	autolangusercreation	1
+549	searchenginequeryonly	
+550	searchbannerenable	0
+551	searchbanner	
+552	passwordpolicycheckonlogin	0
+553	referrerpolicy	default
+554	langmenuinsecurelayout	0
+555	logininfoinsecurelayout	0
+556	pathtopdftoppm	
 \.
 
 
@@ -28779,6 +30271,124 @@ COPY public.mdl_config_log (id, userid, timemodified, plugin, name, value, oldva
 1813	2	1604426120	theme_xtec2020	linkscolor	#457FB9	#AC2013
 1814	2	1604426120	theme_xtec2020	fontsize	90	100
 1815	2	1604426120	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}\r\n\r\nth, tr, td {\r\n    border: 1px solid #dee2e6 !important;\r\n}\r\n\r\n#nav-drawer a[data-key="myhome"] {\r\n    display: none;\r\n}\r\n\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n/* Text i botó d'accés de visitants */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\r\n    order: 5;\r\n}\r\n/* Text d'oblit de contrasenya */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\r\n    order: 3;\r\n}\r\n/* Text de les galetes */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\r\n    order: 4;\r\n}\r\n/* Text "Autentiqueu-vos utilitzant el vostre compte a:" */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\r\n    order: 1;\r\n}\r\n/* Botó de Google */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\r\n    order: 2;\r\n}	
+1816	2	1635241513	\N	enableuserfeedback	0	\N
+1817	2	1635241513	\N	userfeedback_nextreminder	1	\N
+1818	2	1635241513	\N	userfeedback_remindafter	90	\N
+1819	2	1635241513	\N	enableaccessibilitytools	1	\N
+1820	2	1635241513	\N	defaultpreference_core_contentbank_visibility	1	\N
+1821	2	1635241513	tool_dataprivacy	automaticdataexportapproval	0	\N
+1822	2	1635241513	tool_dataprivacy	automaticdatadeletionapproval	0	\N
+1823	2	1635241513	moodlecourse	downloadcontentsitedefault	0	\N
+1824	2	1635241513	moodlecourse	showactivitydates	1	\N
+1825	2	1635241513	moodlecourse	showcompletionconditions	1	\N
+1826	2	1635241513	\N	downloadcoursecontentallowed	0	\N
+1827	2	1635241513	\N	maxsizeperdownloadcoursefile	52428800	\N
+1828	2	1635241514	\N	activitychoosertabmode	0	\N
+1829	2	1635241514	\N	activitychooseractivefooter	hidden	\N
+1830	2	1635241514	backup	backup_general_contentbankcontent	1	\N
+1831	2	1635241514	backup	backup_general_contentbankcontent_locked		\N
+1832	2	1635241514	backup	backup_general_legacyfiles	1	\N
+1833	2	1635241514	backup	backup_general_legacyfiles_locked		\N
+1834	2	1635241514	backup	backup_import_permissions	0	\N
+1835	2	1635241514	backup	backup_import_permissions_locked		\N
+1836	2	1635241514	backup	backup_import_contentbankcontent	1	\N
+1837	2	1635241514	backup	backup_import_contentbankcontent_locked		\N
+1838	2	1635241514	backup	backup_import_legacyfiles	1	\N
+1839	2	1635241514	backup	backup_import_legacyfiles_locked		\N
+1840	2	1635241514	backup	backup_auto_contentbankcontent	1	\N
+1841	2	1635241514	backup	backup_auto_legacyfiles	1	\N
+1842	2	1635241514	restore	restore_general_permissions	1	\N
+1843	2	1635241514	restore	restore_general_permissions_locked		\N
+1844	2	1635241514	restore	restore_general_contentbankcontent	1	\N
+1845	2	1635241514	restore	restore_general_contentbankcontent_locked		\N
+1846	2	1635241514	restore	restore_general_legacyfiles	1	\N
+1847	2	1635241514	restore	restore_general_legacyfiles_locked		\N
+1848	2	1635241515	analytics	calclifetime	35	\N
+1849	2	1635241515	\N	h5plibraryhandler	h5plib_v124	\N
+1850	2	1635241515	\N	rememberuserlicensepref	1	\N
+1851	2	1635241515	\N	autolangusercreation	1	\N
+1852	2	1635241519	quiz	quizpassword		\N
+1853	2	1635241519	quiz	quizpassword_adv		\N
+1854	2	1635241519	quiz	quizpassword_required		\N
+1855	2	1635241519	quizaccess_seb	autoreconfigureseb	1	\N
+1856	2	1635241519	quizaccess_seb	showseblinks	seb,http	\N
+1857	2	1635241519	quizaccess_seb	downloadlink	https://safeexambrowser.org/download_en.html	\N
+1858	2	1635241519	quizaccess_seb	quizpasswordrequired	0	\N
+1859	2	1635241519	quizaccess_seb	displayblocksbeforestart	0	\N
+1860	2	1635241519	quizaccess_seb	displayblockswhenfinished	1	\N
+1861	2	1635241520	tool_brickfield	analysistype	0	\N
+1862	2	1635241520	tool_brickfield	deletehistoricaldata	1	\N
+1863	2	1635241520	tool_brickfield	batch	1000	\N
+1864	2	1635241520	tool_brickfield	perpage	50	\N
+1865	2	1635241520	antivirus	notifyemail		\N
+1866	2	1635241520	antivirus	enablequarantine	0	\N
+1867	2	1635241520	antivirus	quarantinetime	2419200	\N
+1868	2	1635241520	antivirus_clamav	tcpsockethost		\N
+1869	2	1635241520	antivirus_clamav	tcpsocketport	3310	\N
+1870	2	1635241520	antivirus_clamav	tries	1	\N
+1871	2	1635241522	block_accessreview	whattoshow	showboth	\N
+1872	2	1635241522	block_accessreview	errordisplay	showint	\N
+1873	2	1635241522	block_accessreview	toolpage	errors	\N
+1874	2	1635241523	block_configurable_reports	dbhost		\N
+1875	2	1635241523	block_configurable_reports	dbname		\N
+1876	2	1635241523	block_configurable_reports	dbuser		\N
+1877	2	1635241523	block_configurable_reports	dbpass		\N
+1878	2	1635241523	block_configurable_reports	cron_hour	0	\N
+1879	2	1635241523	block_configurable_reports	cron_minute	0	\N
+1880	2	1635241523	block_configurable_reports	sqlsecurity	1	\N
+1881	2	1635241523	block_configurable_reports	crrepository	jleyva/moodle-configurable_reports_repository	\N
+1882	2	1635241523	block_configurable_reports	sharedsqlrepository	jleyva/moodle-custom_sql_report_queries	\N
+1883	2	1635241523	block_configurable_reports	sqlsyntaxhighlight	1	\N
+1884	2	1635241523	block_configurable_reports	reporttableui	datatables	\N
+1885	2	1635241523	block_configurable_reports	reportlimit	5000	\N
+1886	2	1635241523	block_section_links	showsectionname	0	\N
+1887	2	1635241525	enrol_fee	expiredaction	3	\N
+1888	2	1635241525	enrol_fee	status	1	\N
+1889	2	1635241525	enrol_fee	cost	0	\N
+1890	2	1635241525	enrol_fee	currency	USD	\N
+1891	2	1635241525	enrol_fee	roleid	5	\N
+1892	2	1635241525	enrol_fee	enrolperiod	0	\N
+1893	2	1635241528	local_clickedu	advdebug	0	\N
+1894	2	1635241529	paygw_paypal	surcharge	0	\N
+1895	2	1635241529	qtype_wq	filtercodes_compatibility	0	\N
+1896	2	1635241529	qtype_wq	debug_mode_enabled	0	\N
+1897	2	1635241530	\N	searchenginequeryonly		\N
+1898	2	1635241530	\N	searchbannerenable	0	\N
+1899	2	1635241530	\N	searchbanner		\N
+1900	2	1635241531	\N	passwordpolicycheckonlogin	0	\N
+1901	2	1635241531	\N	referrerpolicy	default	\N
+1902	2	1635241532	\N	langmenuinsecurelayout	0	\N
+1903	2	1635241532	\N	logininfoinsecurelayout	0	\N
+1904	2	1635241532	theme_xtec2020	agora_alert_message		\N
+1905	2	1635241532	theme_xtec2020	agora_alert_start		\N
+1906	2	1635241532	theme_xtec2020	agora_alert_end		\N
+1907	2	1635241532	theme_xtec2020	admin_alert_message		\N
+1908	2	1635241532	theme_xtec2020	admin_alert_start		\N
+1909	2	1635241532	theme_xtec2020	admin_alert_end		\N
+1910	2	1635241532	theme_xtec2020	xtec_type	eix	\N
+1911	2	1635241533	\N	pathtopdftoppm		\N
+1912	2	1635241533	\N	cron_enabled	1	\N
+1913	2	1635241533	\N	divertallemailsto		\N
+1914	2	1635241533	\N	divertallemailsexcept		\N
+1915	2	1635241533	\N	emaildkimselector		\N
+1916	2	1635241533	\N	emailheaders		\N
+1917	2	1635241533	tool_mobile	qrcodetype	2	\N
+1918	2	1635241534	tool_mobile	filetypeexclusionlist		\N
+1919	2	1635241534	\N	debugsqltrace	0	\N
+1920	2	1635241534	tool_moodlenet	enablemoodlenet	0	\N
+1921	2	1635241534	tool_moodlenet	defaultmoodlenetname	MoodleNet Central	\N
+1922	2	1635241534	tool_moodlenet	defaultmoodlenet	https://moodle.net	\N
+1923	2	1635243893	theme_xtec2020	colorset	PEDC	personalitzat
+1924	2	1635243893	theme_xtec2020	maincolor	#FF494E	#457FB9
+1925	2	1635243893	theme_xtec2020	fontcolor	#366944	#457FB9
+1926	2	1635243893	theme_xtec2020	linkscolor	#910048	#457FB9
+1927	2	1635243893	theme_xtec2020	customcss		#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}\r\n\r\nth, tr, td {\r\n    border: 1px solid #dee2e6 !important;\r\n}\r\n\r\n#nav-drawer a[data-key="myhome"] {\r\n    display: none;\r\n}\r\n\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n/* Text i botó d'accés de visitants */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\r\n    order: 5;\r\n}\r\n/* Text d'oblit de contrasenya */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\r\n    order: 3;\r\n}\r\n/* Text de les galetes */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\r\n    order: 4;\r\n}\r\n/* Text "Autentiqueu-vos utilitzant el vostre compte a:" */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\r\n    order: 1;\r\n}\r\n/* Botó de Google */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\r\n    order: 2;\r\n}
+1928	2	1635243893	theme_xtec2020	xtec_type	alexandria	eix
+1929	2	1635248261	theme_xtec2020	logo		/logo_alexandria.png
+1930	2	1635248440	theme_xtec2020	fontsize	100	90
+1931	2	1635248440	theme_xtec2020	agora_alert_message	/*.page-header-headings h1{<br>&nbsp;display: none;<br>}*/<br>.page-header-headings h1{<br>&nbsp;color: #f4766c !important;<br>}	
+1932	2	1635249081	theme_xtec2020	customcss	/*.page-header-headings h1{\r\n display: none;\r\n}*/\r\n.page-header-headings h1{\r\n color: #f4766c !important;\r\n}	
+1933	2	1635249081	theme_xtec2020	agora_alert_message		/*.page-header-headings h1{<br>&nbsp;display: none;<br>}*/<br>.page-header-headings h1{<br>&nbsp;color: #f4766c !important;<br>}
 \.
 
 
@@ -28988,77 +30598,20 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 199	core_admin	coursecolor8	#fdcb6e
 200	core_admin	coursecolor9	#fd79a8
 201	core_admin	coursecolor10	#6c5ce7
-202	antivirus_clamav	version	2019111800
-203	availability_completion	version	2019111800
-204	availability_date	version	2019111800
-205	availability_grade	version	2019111800
-206	availability_group	version	2019111800
-207	availability_grouping	version	2019111800
-208	availability_profile	version	2019111800
-209	qtype_calculated	version	2019111800
-210	qtype_calculatedmulti	version	2019111800
-211	qtype_calculatedsimple	version	2019111800
-212	qtype_ddimageortext	version	2019111800
-213	qtype_ddmarker	version	2019111800
-214	qtype_ddwtos	version	2019111800
-215	qtype_description	version	2019111800
-216	qtype_essay	version	2019111800
-217	qtype_gapselect	version	2019111800
-218	qtype_match	version	2019111800
-219	qtype_missingtype	version	2019111800
-220	qtype_multianswer	version	2019111800
-221	qtype_multichoice	version	2019111800
-222	qtype_numerical	version	2019111800
-223	qtype_random	version	2019111800
-224	qtype_randomsamatch	version	2019111800
-225	qtype_shortanswer	version	2019111800
-226	qtype_truefalse	version	2019111800
-227	mod_assign	version	2019111800
-228	mod_assignment	version	2019111800
-749	tool_httpsreplace	version	2019111800
-230	mod_book	version	2019111800
-231	mod_chat	version	2019111800
-232	mod_choice	version	2019111800
-233	mod_data	version	2019111800
-234	mod_feedback	version	2019111800
-750	tool_innodb	version	2019111800
-236	mod_folder	version	2019111800
-751	tool_installaddon	version	2019111800
-239	mod_glossary	version	2019111800
-240	mod_imscp	version	2019111800
-242	mod_label	version	2019111800
-243	mod_lesson	version	2019111800
-244	mod_lti	version	2019111800
+203	availability_completion	version	2021051700
+204	availability_date	version	2021051700
+205	availability_grade	version	2021051700
+206	availability_group	version	2021051700
+208	availability_profile	version	2021051700
+209	qtype_calculated	version	2021051700
+210	qtype_calculatedmulti	version	2021051700
+211	qtype_calculatedsimple	version	2021051700
+212	qtype_ddimageortext	version	2021051700
+213	qtype_ddmarker	version	2021051700
+214	qtype_ddwtos	version	2021051700
+215	qtype_description	version	2021051700
 246	mod_lti	kid	86679bc0e5f573ae6a39
 247	mod_lti	privatekey	-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDa5UDJtU5ibuM/\n0/fwUHhZeIjz/RjgKJn1zReP1/W9cWAVjU06hUXU643EmnME4J6ngYgFRAsLXGAG\nekRTR/yW2W8MT7Gn43GRhkuUgf/g5rRwTPeSEw/ej3YCkY/9d36aVh/AbI3AC8cP\nBJEwD+fxQt31vYTui+MG1My258EJqlXMeu+Ym2yJSsMG30H3q2c6DjSZ5IrSs3FJ\n+3XtrniXS/M+f9tEyzRxNfA7jvQQKogpxtY/fmi3emPAYtzsiFAS2Ydfx2YkJtD4\nXY1Jk8MS8vKIOa+qrN98f/QWvCE8M6q97kMGypx09/MYc5l5TXRHy9drrNkPRU7t\nrHqh+JKbAgMBAAECggEAWDCtHZcycW4DmJ+p8OQ62LE7XDHIZ+dzwBhVOdrkYuLe\nt1AqoT04mUQd5evkEz78LLh/OL/lQzqAZZu1E2iZV51apDcneGCmTN8ybC7EDLRm\nVihsRinv5tcd0IMc5B3UoBG60SfrJEiadm58oESISieKjYtBl2o8mW/62mYc2+tJ\nwTf1CmIlTTfn+q+7OIt6716N9jgSkjoON1fHPKR4akIpdS1/YMmKUxNTGHA8oJ8P\nZVXUYBJ8O4Y3T+JUCKFaOfSGl0PJhDf4U0TTm/b4F4bkR8PPKEdI2MfCLDwRVFl0\nD0PUR5kUSCNKvixrKfCh9N7uuE5KzwWitJ3xiyqCoQKBgQDyXPQrZ/wf0qwPXic/\ncc7CP+UI8egD+FqNIReT0iAV/raf0sgQpYP2u7BnpKApam2UmWs/6cXroKkKkSZv\npwC8qM62kWeJZitBOwzIqMgsLCvZjXK63xWwNPUZUb83okTrdzhgayR0IGfoEyH9\nlM8AZWt1+SCWyB+1NlYOoyzmnQKBgQDnNkSBOsCT4m6PzKI8Ep1Hme2gk5E/grGe\nw+HrS35boKnr/t3ylZLp0U/0XffvDi5ZjoXrrPPSd7XTDlU/hNjfvnGpBJGSvvoB\nQwZRSGLWtmM8XJ+QbTXUuQ0sGGzSe7HHJFnIR9P10wjv+bspHR4egrFSmfDKWem+\nOhqtN0L8lwKBgQDhVkV62gqTd+ebvjmVhnXrK0cCgw/qKQ3f66WlPZexe4pGnM6A\nk7NXQvhn1KtI9nf90orh+LOZOV4RwhTPeKF5xyWynwx5tjF/S6y+IBdE4qi+dAH4\n9xOOKh68NMIpssiLeORE2Tkic0LIholy4Nl5j9JS9Jc1OcopTOTEZTiJDQKBgQC0\nz8CE2yBMxg+2Ts40ck4i92JYZ+53n0ouIXtkWXZoS11226pQEd6BEZoYPQAuJ4Xh\nrU5XfrpyRgGgGp5Z/Rbo6nLSPWtmOgkiwXqISDZbOOikBL8X3//v6gM+D5/Sfr8J\nQAkiUeGVZUKhAEf4H/g03fmz4gTnCad8hs3j1cqB4wKBgAXJjY+0aUI4C2+2jaI1\nbJiYTs4VIVTdDMvw1o7/cDMP2dV+QHQuTm1Qcc1jzYrG0PjhJ+BOa8Z5OLK0dexo\nXQbYyurw9+i7ipkIAWeMje6v0Elyy7Zy7Ch44DqrIdFKQeaiXwnNM7dDA4MyGCGe\n3pD8EXpAaWBcXnyhduPqtPnU\n-----END PRIVATE KEY-----\n
-248	mod_page	version	2019111800
-250	mod_quiz	version	2019111800
-251	mod_resource	version	2019111800
-252	mod_scorm	version	2019111800
-253	mod_survey	version	2019111800
-255	mod_url	version	2019111800
-257	mod_wiki	version	2019111800
-259	mod_workshop	version	2019111800
-262	auth_db	version	2019111800
-264	auth_email	version	2019111800
-267	auth_lti	version	2019111800
-268	auth_manual	version	2019111800
-269	auth_mnet	version	2019111800
-271	auth_nologin	version	2019111800
-272	auth_none	version	2019111800
-273	auth_oauth2	version	2019111800
-274	auth_shibboleth	version	2019111800
-276	auth_webservice	version	2019111800
-277	calendartype_gregorian	version	2019111800
-278	customfield_checkbox	version	2019111800
-279	customfield_date	version	2019111800
-280	customfield_select	version	2019111800
-281	customfield_text	version	2019111800
-282	customfield_textarea	version	2019111800
-283	enrol_category	version	2019111800
-285	enrol_cohort	version	2019111800
-286	enrol_database	version	2019111800
-288	enrol_flatfile	version	2019111800
 290	enrol_flatfile	map_1	manager
 291	enrol_flatfile	map_2	coursecreator
 292	enrol_flatfile	map_3	editingteacher
@@ -29067,16 +30620,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 295	enrol_flatfile	map_6	guest
 296	enrol_flatfile	map_7	user
 297	enrol_flatfile	map_8	frontpage
-298	enrol_guest	version	2019111800
-299	enrol_imsenterprise	version	2019111800
-301	enrol_ldap	version	2019111800
-303	enrol_lti	version	2019111800
-304	enrol_manual	version	2019111800
-306	enrol_meta	version	2019111800
-308	enrol_mnet	version	2019111800
-309	enrol_paypal	version	2019111800
-310	enrol_self	version	2019111800
-312	message_airnotifier	version	2019111800
 314	message	airnotifier_provider_enrol_imsenterprise_imsenterprise_enrolment_permitted	permitted
 315	message	airnotifier_provider_enrol_paypal_paypal_enrolment_permitted	permitted
 316	message	airnotifier_provider_mod_feedback_submission_permitted	permitted
@@ -29085,8 +30628,69 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 319	message	airnotifier_provider_mod_quiz_submission_permitted	permitted
 320	message	airnotifier_provider_mod_quiz_confirmation_permitted	permitted
 323	message	airnotifier_provider_mod_quiz_attempt_overdue_permitted	permitted
-260	auth_cas	version	2019111801
-265	auth_ldap	version	2019111801
+216	qtype_essay	version	2021051700
+217	qtype_gapselect	version	2021051700
+218	qtype_match	version	2021051700
+220	qtype_multianswer	version	2021051700
+222	qtype_numerical	version	2021051700
+221	qtype_multichoice	version	2021051700
+223	qtype_random	version	2021051700
+224	qtype_randomsamatch	version	2021051700
+225	qtype_shortanswer	version	2021051700
+226	qtype_truefalse	version	2021051700
+227	mod_assign	version	2021051700
+228	mod_assignment	version	2021051700
+231	mod_chat	version	2021051700
+230	mod_book	version	2021051700
+233	mod_data	version	2021051700
+232	mod_choice	version	2021051700
+234	mod_feedback	version	2021051700
+239	mod_glossary	version	2021051700
+236	mod_folder	version	2021051700
+240	mod_imscp	version	2021051700
+242	mod_label	version	2021051700
+243	mod_lesson	version	2021051700
+248	mod_page	version	2021051700
+251	mod_resource	version	2021051700
+250	mod_quiz	version	2021051700
+252	mod_scorm	version	2021051700
+253	mod_survey	version	2021051700
+255	mod_url	version	2021051700
+257	mod_wiki	version	2021051700
+262	auth_db	version	2021051700
+259	mod_workshop	version	2021051700
+260	auth_cas	version	2021051700
+264	auth_email	version	2021051700
+267	auth_lti	version	2021051700
+265	auth_ldap	version	2021051700
+268	auth_manual	version	2021051700
+269	auth_mnet	version	2021051700
+271	auth_nologin	version	2021051700
+272	auth_none	version	2021051700
+276	auth_webservice	version	2021051700
+274	auth_shibboleth	version	2021051700
+277	calendartype_gregorian	version	2021051700
+278	customfield_checkbox	version	2021051700
+279	customfield_date	version	2021051700
+280	customfield_select	version	2021051700
+281	customfield_text	version	2021051700
+282	customfield_textarea	version	2021051700
+283	enrol_category	version	2021051700
+285	enrol_cohort	version	2021051700
+286	enrol_database	version	2021051700
+288	enrol_flatfile	version	2021051700
+298	enrol_guest	version	2021051700
+299	enrol_imsenterprise	version	2021051700
+301	enrol_ldap	version	2021051700
+303	enrol_lti	version	2021051700
+306	enrol_meta	version	2021051700
+308	enrol_mnet	version	2021051700
+309	enrol_paypal	version	2021051700
+310	enrol_self	version	2021051700
+312	message_airnotifier	version	2021051700
+749	tool_httpsreplace	version	2021051700
+750	tool_innodb	version	2021051700
+751	tool_installaddon	version	2021051700
 326	message	airnotifier_provider_mod_lesson_graded_essay_permitted	permitted
 329	message	airnotifier_provider_enrol_self_expiry_notification_permitted	permitted
 330	message	airnotifier_provider_enrol_flatfile_flatfile_enrolment_permitted	permitted
@@ -29099,27 +30703,20 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 337	message	airnotifier_provider_moodle_backup_permitted	permitted
 338	message	airnotifier_provider_moodle_courserequested_permitted	permitted
 339	message	airnotifier_provider_moodle_courserequestapproved_permitted	permitted
-752	tool_langimport	version	2019111800
-753	tool_log	version	2019111800
 342	message	airnotifier_provider_moodle_courserequestrejected_permitted	permitted
 755	tool_log	enabled_stores	logstore_standard
 345	message	airnotifier_provider_moodle_badgerecipientnotice_permitted	permitted
-756	tool_lp	version	2019111800
 348	message	airnotifier_provider_moodle_badgecreatornotice_permitted	permitted
 349	message	airnotifier_provider_moodle_competencyplancomment_permitted	permitted
 350	message	airnotifier_provider_moodle_competencyusercompcomment_permitted	permitted
 351	message	airnotifier_provider_moodle_insights_permitted	permitted
-757	tool_lpimportcsv	version	2019111800
 354	message	airnotifier_provider_moodle_messagecontactrequests_permitted	permitted
 355	message	message_provider_moodle_messagecontactrequests_loggedin	airnotifier
-758	tool_lpmigrate	version	2019111800
 357	message	airnotifier_provider_moodle_asyncbackupnotification_permitted	permitted
 358	message	airnotifier_provider_moodle_gradenotifications_permitted	permitted
 359	message	airnotifier_provider_mod_forum_posts_permitted	permitted
-759	tool_messageinbound	version	2019111800
 760	message	airnotifier_provider_tool_messageinbound_invalidrecipienthandler_permitted	permitted
 362	message	airnotifier_provider_mod_forum_digests_permitted	permitted
-363	message_email	version	2019111800
 761	message	email_provider_tool_messageinbound_invalidrecipienthandler_permitted	permitted
 365	message	email_provider_enrol_imsenterprise_imsenterprise_enrolment_permitted	permitted
 366	message	message_provider_enrol_imsenterprise_imsenterprise_enrolment_loggedin	email
@@ -29161,6 +30758,12 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 765	message	message_provider_tool_messageinbound_invalidrecipienthandler_loggedoff	email
 766	message	airnotifier_provider_tool_messageinbound_messageprocessingerror_permitted	permitted
 391	message	message_provider_enrol_flatfile_flatfile_enrolment_loggedoff	email
+363	message_email	version	2021051700
+752	tool_langimport	version	2021051700
+753	tool_log	version	2021051700
+756	tool_lp	version	2021051700
+758	tool_lpmigrate	version	2021051700
+759	tool_messageinbound	version	2021051700
 392	message	email_provider_mod_assignment_assignment_updates_permitted	permitted
 393	message	message_provider_mod_assignment_assignment_updates_loggedin	email
 394	message	message_provider_mod_assignment_assignment_updates_loggedoff	email
@@ -29213,7 +30816,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 433	message	email_provider_mod_forum_digests_permitted	permitted
 434	message	message_provider_mod_forum_digests_loggedin	email
 435	message	message_provider_mod_forum_digests_loggedoff	email
-436	message_jabber	version	2019111800
 438	message	jabber_provider_enrol_imsenterprise_imsenterprise_enrolment_permitted	permitted
 439	message	jabber_provider_enrol_paypal_paypal_enrolment_permitted	permitted
 440	message	jabber_provider_mod_feedback_submission_permitted	permitted
@@ -29246,7 +30848,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 466	message	jabber_provider_moodle_gradenotifications_permitted	permitted
 467	message	jabber_provider_mod_forum_posts_permitted	permitted
 468	message	jabber_provider_mod_forum_digests_permitted	permitted
-469	message_popup	version	2019111800
 471	message	popup_provider_enrol_imsenterprise_imsenterprise_enrolment_permitted	permitted
 472	message	popup_provider_enrol_paypal_paypal_enrolment_permitted	permitted
 473	message	popup_provider_mod_feedback_submission_permitted	permitted
@@ -29286,205 +30887,156 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 431	message	message_provider_moodle_gradenotifications_loggedoff	popup,email
 503	message	popup_provider_mod_forum_posts_permitted	permitted
 504	message	popup_provider_mod_forum_digests_permitted	permitted
-505	block_activity_modules	version	2019111800
-506	block_activity_results	version	2019111800
-507	block_admin_bookmarks	version	2019111800
-508	block_badges	version	2019111800
-509	block_blog_menu	version	2019111800
-510	block_blog_recent	version	2019111800
-511	block_blog_tags	version	2019111800
-512	block_calendar_month	version	2019111800
-513	block_calendar_upcoming	version	2019111800
-514	block_comments	version	2019111800
-515	block_completionstatus	version	2019111800
-516	block_course_list	version	2019111800
-517	block_course_summary	version	2019111800
-518	block_feedback	version	2019111800
-520	block_globalsearch	version	2019111800
-521	block_glossary_random	version	2019111800
-522	block_html	version	2019111800
-523	block_login	version	2019111800
-524	block_lp	version	2019111800
-525	block_mentees	version	2019111800
-526	block_mnet_hosts	version	2019111800
-527	block_myoverview	version	2019111800
-528	block_myprofile	version	2019111800
-529	block_navigation	version	2019111800
-530	block_news_items	version	2019111800
-531	block_online_users	version	2019111800
-532	block_private_files	version	2019111800
-533	block_quiz_results	version	2019111800
-535	block_recent_activity	version	2019111800
-536	block_recentlyaccessedcourses	version	2019111800
-538	block_recentlyaccesseditems	version	2019111800
-539	block_rss_client	version	2019111800
-540	block_search_forums	version	2019111800
-541	block_section_links	version	2019111800
-542	block_selfcompletion	version	2019111800
-543	block_settings	version	2019111800
-544	block_site_main_menu	version	2019111800
-545	block_social_activities	version	2019111800
-546	block_starredcourses	version	2019111800
-547	block_tag_flickr	version	2019111800
-548	block_tag_youtube	version	2019111800
-903	atto_emojipicker	version	2019111800
-550	block_tags	version	2019111800
-551	block_timeline	version	2019111800
-553	media_html5audio	version	2019111800
-554	media_html5video	version	2019111800
-555	media_swf	version	2019111800
-556	media_videojs	version	2019111800
-557	media_vimeo	version	2019111800
-558	media_youtube	version	2019111800
-559	filter_activitynames	version	2019111800
-561	filter_algebra	version	2019111800
-562	filter_censor	version	2019111800
-563	filter_data	version	2019111800
-565	filter_displayh5p	version	2020031700
-567	filter_emailprotect	version	2019111800
-568	filter_emoticon	version	2019111800
-569	filter_glossary	version	2019111800
-571	filter_mathjaxloader	version	2019111801
-573	filter_mediaplugin	version	2019111800
-575	filter_multilang	version	2019111800
-576	filter_tex	version	2019111800
-578	filter_tidy	version	2019111800
-579	filter_urltolink	version	2019111800
-580	editor_atto	version	2019111800
-582	editor_textarea	version	2019111800
-583	editor_tinymce	version	2019111800
-584	format_singleactivity	version	2019111800
-585	format_social	version	2019111800
-586	format_topics	version	2019111800
-587	format_weeks	version	2019111800
-588	dataformat_csv	version	2019111800
-589	dataformat_excel	version	2019111800
-590	dataformat_html	version	2019111800
-591	dataformat_json	version	2019111800
-592	dataformat_ods	version	2019111800
-593	dataformat_pdf	version	2019111800
-594	profilefield_checkbox	version	2019111800
-595	profilefield_datetime	version	2019111800
-596	profilefield_menu	version	2019111800
-597	profilefield_text	version	2019111800
-598	profilefield_textarea	version	2019111800
-599	report_backups	version	2019111800
-600	report_competency	version	2019111800
-601	report_completion	version	2019111800
-603	report_configlog	version	2019111800
-604	report_courseoverview	version	2019111800
-605	report_eventlist	version	2019111800
-606	report_insights	version	2019111800
-607	report_log	version	2019111800
-609	report_loglive	version	2019111800
-610	report_outline	version	2019111800
-612	report_participation	version	2019111800
-614	report_performance	version	2019111800
-615	report_progress	version	2019111800
-617	report_questioninstances	version	2019111800
-618	report_security	version	2019111800
-619	report_stats	version	2019111800
-621	report_usersessions	version	2019111800
-622	gradeexport_ods	version	2019111800
-623	gradeexport_txt	version	2019111800
-624	gradeexport_xls	version	2019111800
-625	gradeexport_xml	version	2019111800
-626	gradeimport_csv	version	2019111800
-627	gradeimport_direct	version	2019111800
-628	gradeimport_xml	version	2019111800
-629	gradereport_grader	version	2019111800
-630	gradereport_history	version	2019111801
-631	gradereport_outcomes	version	2019111800
-632	gradereport_overview	version	2019111800
-633	gradereport_singleview	version	2019111800
-634	gradereport_user	version	2019111800
-635	gradingform_guide	version	2019111800
-636	gradingform_rubric	version	2019111800
-637	mlbackend_php	version	2019111800
-638	mlbackend_python	version	2019111800
-639	mnetservice_enrol	version	2019111800
-640	webservice_rest	version	2019111800
-641	webservice_soap	version	2019111800
-642	webservice_xmlrpc	version	2019111800
-643	repository_areafiles	version	2019111800
+505	block_activity_modules	version	2021051700
+506	block_activity_results	version	2021051700
+507	block_admin_bookmarks	version	2021051700
+508	block_badges	version	2021051700
+509	block_blog_menu	version	2021051700
+510	block_blog_recent	version	2021051700
+511	block_blog_tags	version	2021051700
+513	block_calendar_upcoming	version	2021051700
+514	block_comments	version	2021051700
+515	block_completionstatus	version	2021051700
+516	block_course_list	version	2021051700
+517	block_course_summary	version	2021051700
+518	block_feedback	version	2021051700
+520	block_globalsearch	version	2021051700
+521	block_glossary_random	version	2021051700
+522	block_html	version	2021051700
+523	block_login	version	2021051700
+524	block_lp	version	2021051700
+525	block_mentees	version	2021051700
+526	block_mnet_hosts	version	2021051700
+528	block_myprofile	version	2021051700
+527	block_myoverview	version	2021051700
+529	block_navigation	version	2021051700
+530	block_news_items	version	2021051700
+531	block_online_users	version	2021051700
+533	block_quiz_results	version	2021051700
+535	block_recent_activity	version	2021051700
+536	block_recentlyaccessedcourses	version	2021051700
+538	block_recentlyaccesseditems	version	2021051700
+539	block_rss_client	version	2021051700
+540	block_search_forums	version	2021051700
+541	block_section_links	version	2021051700
+542	block_selfcompletion	version	2021051700
 645	areafiles	enablecourseinstances	0
 646	areafiles	enableuserinstances	0
-647	repository_boxnet	version	2019111800
-648	repository_coursefiles	version	2019111800
-649	repository_dropbox	version	2019111800
-650	repository_equella	version	2019111800
-651	repository_filesystem	version	2019111800
-652	repository_flickr	version	2019111800
-653	repository_flickr_public	version	2019111800
-654	repository_googledocs	version	2019111800
-655	repository_local	version	2019111800
 657	local	enablecourseinstances	0
 658	local	enableuserinstances	0
-659	repository_merlot	version	2019111800
-660	repository_nextcloud	version	2019111800
-661	repository_onedrive	version	2019111800
-662	repository_picasa	version	2019111800
-663	repository_recent	version	2019111800
 666	recent	enableuserinstances	0
-667	repository_s3	version	2019111800
-668	repository_skydrive	version	2019111800
-669	repository_upload	version	2019111800
+544	block_site_main_menu	version	2021051700
+545	block_social_activities	version	2021051700
+546	block_starredcourses	version	2021051700
+547	block_tag_flickr	version	2021051700
+550	block_tags	version	2021051700
+548	block_tag_youtube	version	2021051700
+551	block_timeline	version	2021051700
+553	media_html5audio	version	2021051700
+554	media_html5video	version	2021051700
+555	media_swf	version	2021051700
+556	media_videojs	version	2021051700
+557	media_vimeo	version	2021051700
+558	media_youtube	version	2021051700
+561	filter_algebra	version	2021051700
+562	filter_censor	version	2021051700
+563	filter_data	version	2021051700
+565	filter_displayh5p	version	2021051700
+567	filter_emailprotect	version	2021051700
+568	filter_emoticon	version	2021051700
+569	filter_glossary	version	2021051700
+571	filter_mathjaxloader	version	2021051700
+573	filter_mediaplugin	version	2021051700
+575	filter_multilang	version	2021051700
+576	filter_tex	version	2021051700
+578	filter_tidy	version	2021051700
+579	filter_urltolink	version	2021051700
+582	editor_textarea	version	2021051700
+580	editor_atto	version	2021051700
+583	editor_tinymce	version	2021051700
+585	format_social	version	2021051700
+586	format_topics	version	2021051700
+587	format_weeks	version	2021051700
+588	dataformat_csv	version	2021051700
+589	dataformat_excel	version	2021051700
+590	dataformat_html	version	2021051700
+591	dataformat_json	version	2021051700
+592	dataformat_ods	version	2021051700
+593	dataformat_pdf	version	2021051700
+594	profilefield_checkbox	version	2021051700
+595	profilefield_datetime	version	2021051700
+596	profilefield_menu	version	2021051700
+597	profilefield_text	version	2021051700
+598	profilefield_textarea	version	2021051700
+599	report_backups	version	2021051700
+600	report_competency	version	2021051700
+601	report_completion	version	2021051700
+603	report_configlog	version	2021051700
+604	report_courseoverview	version	2021051700
+605	report_eventlist	version	2021051700
+606	report_insights	version	2021051700
+607	report_log	version	2021051700
+610	report_outline	version	2021051700
+612	report_participation	version	2021051700
+614	report_performance	version	2021051700
+615	report_progress	version	2021051700
+617	report_questioninstances	version	2021051700
+618	report_security	version	2021051700
+619	report_stats	version	2021051700
+621	report_usersessions	version	2021051700
+622	gradeexport_ods	version	2021051700
+623	gradeexport_txt	version	2021051700
+624	gradeexport_xls	version	2021051700
+625	gradeexport_xml	version	2021051700
+626	gradeimport_csv	version	2021051700
+627	gradeimport_direct	version	2021051700
+628	gradeimport_xml	version	2021051700
+629	gradereport_grader	version	2021051700
+630	gradereport_history	version	2021051700
+631	gradereport_outcomes	version	2021051700
+633	gradereport_singleview	version	2021051700
+634	gradereport_user	version	2021051700
+635	gradingform_guide	version	2021051700
+636	gradingform_rubric	version	2021051700
+637	mlbackend_php	version	2021051700
+638	mlbackend_python	version	2021051700
+639	mnetservice_enrol	version	2021051700
+640	webservice_rest	version	2021051700
+641	webservice_soap	version	2021051700
+642	webservice_xmlrpc	version	2021051700
+643	repository_areafiles	version	2021051700
+647	repository_boxnet	version	2021051700
+648	repository_coursefiles	version	2021051700
+649	repository_dropbox	version	2021051700
+650	repository_equella	version	2021051700
+651	repository_filesystem	version	2021051700
+652	repository_flickr	version	2021051700
+654	repository_googledocs	version	2021051700
+655	repository_local	version	2021051700
+659	repository_merlot	version	2021051700
+660	repository_nextcloud	version	2021051700
+661	repository_onedrive	version	2021051700
+662	repository_picasa	version	2021051700
+663	repository_recent	version	2021051700
+667	repository_s3	version	2021051700
+668	repository_skydrive	version	2021051700
+903	atto_emojipicker	version	2021051700
 771	message	message_provider_tool_messageinbound_messageprocessingerror_loggedoff	email
 671	upload	enablecourseinstances	0
 672	upload	enableuserinstances	0
-673	repository_url	version	2019111800
 772	message	airnotifier_provider_tool_messageinbound_messageprocessingsuccess_permitted	permitted
 675	url	enablecourseinstances	0
 676	url	enableuserinstances	0
-677	repository_user	version	2019111800
 773	message	email_provider_tool_messageinbound_messageprocessingsuccess_permitted	permitted
 679	user	enablecourseinstances	0
 680	user	enableuserinstances	0
-681	repository_webdav	version	2019111800
-682	repository_wikimedia	version	2019111800
 774	message	jabber_provider_tool_messageinbound_messageprocessingsuccess_permitted	permitted
 684	wikimedia	enablecourseinstances	0
 685	wikimedia	enableuserinstances	0
-686	repository_youtube	version	2019111800
 775	message	popup_provider_tool_messageinbound_messageprocessingsuccess_permitted	permitted
-688	portfolio_boxnet	version	2019111800
-689	portfolio_download	version	2019111800
-690	portfolio_flickr	version	2019111800
-691	portfolio_googledocs	version	2019111800
-692	portfolio_mahara	version	2019111800
-693	portfolio_picasa	version	2019111800
-694	search_simpledb	version	2019111800
 776	message	message_provider_tool_messageinbound_messageprocessingsuccess_loggedin	email
-696	search_solr	version	2019111800
-697	qbehaviour_adaptive	version	2019111800
-698	qbehaviour_adaptivenopenalty	version	2019111800
-699	qbehaviour_deferredcbm	version	2019111800
-700	qbehaviour_deferredfeedback	version	2019111800
-701	qbehaviour_immediatecbm	version	2019111800
-702	qbehaviour_immediatefeedback	version	2019111800
-703	qbehaviour_informationitem	version	2019111800
-704	qbehaviour_interactive	version	2019111800
-705	qbehaviour_interactivecountback	version	2019111800
-706	qbehaviour_manualgraded	version	2019111800
 777	message	message_provider_tool_messageinbound_messageprocessingsuccess_loggedoff	email
 708	question	disabledbehaviours	manualgraded
-709	qbehaviour_missing	version	2019111800
-710	qformat_aiken	version	2019111800
-711	qformat_blackboard_six	version	2019111800
-712	qformat_examview	version	2019111800
-713	qformat_gift	version	2019111800
-714	qformat_missingword	version	2019111800
-715	qformat_multianswer	version	2019111800
-716	qformat_webct	version	2019111800
-717	qformat_xhtml	version	2019111800
-718	qformat_xml	version	2019111800
-719	tool_analytics	version	2019111800
-720	tool_availabilityconditions	version	2019111800
-721	tool_behat	version	2019111800
-722	tool_capability	version	2019111800
-723	tool_cohortroles	version	2019111801
-724	tool_customlang	version	2019111800
-778	tool_mobile	version	2019111800
 727	message	airnotifier_provider_tool_dataprivacy_contactdataprotectionofficer_permitted	permitted
 728	message	email_provider_tool_dataprivacy_contactdataprotectionofficer_permitted	permitted
 729	message	jabber_provider_tool_dataprivacy_contactdataprotectionofficer_permitted	permitted
@@ -29503,11 +31055,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 742	message	popup_provider_tool_dataprivacy_notifyexceptions_permitted	permitted
 743	message	message_provider_tool_dataprivacy_notifyexceptions_loggedin	email
 744	message	message_provider_tool_dataprivacy_notifyexceptions_loggedoff	email
-745	tool_dbtransfer	version	2019111800
-746	tool_filetypes	version	2019111800
-747	tool_generator	version	2019111800
-748	tool_health	version	2019111800
-779	tool_monitor	version	2019111800
 780	message	airnotifier_provider_tool_monitor_notification_permitted	permitted
 781	message	email_provider_tool_monitor_notification_permitted	permitted
 782	message	jabber_provider_tool_monitor_notification_permitted	permitted
@@ -29515,142 +31062,149 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1013	assignsubmission_file	default	1
 784	message	message_provider_tool_monitor_notification_loggedin	email
 785	message	message_provider_tool_monitor_notification_loggedoff	email
-786	tool_multilangupgrade	version	2019111800
-787	tool_oauth2	version	2019111800
-788	tool_phpunit	version	2019111800
-789	tool_policy	version	2019111800
-790	tool_profiling	version	2019111800
-791	tool_recyclebin	version	2019111800
-792	tool_replace	version	2019111800
-793	tool_spamcleaner	version	2019111800
-794	tool_task	version	2019111800
-795	tool_templatelibrary	version	2019111800
-796	tool_unsuproles	version	2019111800
-798	tool_uploadcourse	version	2019111800
-799	tool_uploaduser	version	2019111800
-800	tool_usertours	version	2019111801
-802	tool_xmldb	version	2019111800
-803	cachestore_apcu	version	2019111800
-804	cachestore_file	version	2019111800
-805	cachestore_memcached	version	2019111800
-806	cachestore_mongodb	version	2019111800
-807	cachestore_redis	version	2019111800
-808	cachestore_session	version	2019111800
-809	cachestore_static	version	2019111800
-810	cachelock_file	version	2019111800
-811	fileconverter_googledrive	version	2019111800
-812	fileconverter_unoconv	version	2019111800
-814	theme_boost	version	2019111800
-815	theme_classic	version	2019111800
-816	assignsubmission_comments	version	2019111800
-868	quiz_statistics	version	2019111800
-821	assignsubmission_file	version	2019111800
-822	assignsubmission_onlinetext	version	2019111800
-870	quizaccess_delaybetweenattempts	version	2019111800
-871	quizaccess_ipaddress	version	2019111800
-872	quizaccess_numattempts	version	2019111800
+673	repository_url	version	2021051700
+677	repository_user	version	2021051700
+681	repository_webdav	version	2021051700
+682	repository_wikimedia	version	2021051700
+688	portfolio_boxnet	version	2021051700
+689	portfolio_download	version	2021051700
+690	portfolio_flickr	version	2021051700
+691	portfolio_googledocs	version	2021051700
+692	portfolio_mahara	version	2021051700
+693	portfolio_picasa	version	2021051700
+694	search_simpledb	version	2021051700
+696	search_solr	version	2021051700
+697	qbehaviour_adaptive	version	2021051700
+698	qbehaviour_adaptivenopenalty	version	2021051700
+699	qbehaviour_deferredcbm	version	2021051700
+700	qbehaviour_deferredfeedback	version	2021051700
+701	qbehaviour_immediatecbm	version	2021051700
+702	qbehaviour_immediatefeedback	version	2021051700
+703	qbehaviour_informationitem	version	2021051700
+704	qbehaviour_interactive	version	2021051700
+706	qbehaviour_manualgraded	version	2021051700
+709	qbehaviour_missing	version	2021051700
+710	qformat_aiken	version	2021051700
+711	qformat_blackboard_six	version	2021051700
+712	qformat_examview	version	2021051700
+713	qformat_gift	version	2021051700
+714	qformat_missingword	version	2021051700
+715	qformat_multianswer	version	2021051700
+716	qformat_webct	version	2021051700
+717	qformat_xhtml	version	2021051700
+718	qformat_xml	version	2021051700
+719	tool_analytics	version	2021051700
+720	tool_availabilityconditions	version	2021051700
+721	tool_behat	version	2021051700
+722	tool_capability	version	2021051700
+724	tool_customlang	version	2021051700
+723	tool_cohortroles	version	2021051700
+745	tool_dbtransfer	version	2021051700
+746	tool_filetypes	version	2021051700
+747	tool_generator	version	2021051700
+748	tool_health	version	2021051700
+778	tool_mobile	version	2021051700
+779	tool_monitor	version	2021051700
 820	assignsubmission_onlinetext	sortorder	0
 818	assignsubmission_file	sortorder	1
 819	assignsubmission_comments	sortorder	2
-824	assignfeedback_comments	version	2019111800
-830	assignfeedback_editpdf	version	2019111800
-832	assignfeedback_file	version	2019111800
 826	assignfeedback_comments	sortorder	0
 827	assignfeedback_editpdf	sortorder	1
 829	assignfeedback_offline	sortorder	2
 828	assignfeedback_file	sortorder	3
-834	assignfeedback_offline	version	2019111800
-835	assignment_offline	version	2019111800
-836	assignment_online	version	2019111800
-837	assignment_upload	version	2019111800
-838	assignment_uploadsingle	version	2019111800
-839	booktool_exportimscp	version	2019111800
-840	booktool_importhtml	version	2019111800
-841	booktool_print	version	2019111800
-842	datafield_checkbox	version	2019111800
-843	datafield_date	version	2019111800
-844	datafield_file	version	2019111800
-845	datafield_latlong	version	2019111800
-846	datafield_menu	version	2019111800
-847	datafield_multimenu	version	2019111800
-848	datafield_number	version	2019111800
-849	datafield_picture	version	2019111800
-850	datafield_radiobutton	version	2019111800
-851	datafield_text	version	2019111800
-852	datafield_textarea	version	2019111800
-853	datafield_url	version	2019111800
-854	datapreset_imagegallery	version	2019111800
-855	forumreport_summary	version	2019111800
-856	ltiservice_basicoutcomes	version	2019111800
-857	ltiservice_gradebookservices	version	2019111800
-858	ltiservice_memberships	version	2019111800
-859	ltiservice_profile	version	2019111800
-860	ltiservice_toolproxy	version	2019111800
-861	ltiservice_toolsettings	version	2019111800
-862	quiz_grading	version	2019111800
-864	quiz_overview	version	2019111800
-866	quiz_responses	version	2019111800
-873	quizaccess_offlineattempts	version	2019111800
-874	quizaccess_openclosedate	version	2019111800
-875	quizaccess_password	version	2019111800
-876	quizaccess_safebrowser	version	2019111800
-877	quizaccess_securewindow	version	2019111800
-878	quizaccess_timelimit	version	2019111800
-879	scormreport_basic	version	2019111800
-880	scormreport_graphs	version	2019111800
-881	scormreport_interactions	version	2019111800
-882	scormreport_objectives	version	2019111800
-883	workshopform_accumulative	version	2019111800
-885	workshopform_comments	version	2019111800
-887	workshopform_numerrors	version	2019111800
-889	workshopform_rubric	version	2019111800
-891	workshopallocation_manual	version	2019111800
-892	workshopallocation_random	version	2019111800
-893	workshopallocation_scheduled	version	2019111800
-894	workshopeval_best	version	2019111800
-895	atto_accessibilitychecker	version	2019111800
-896	atto_accessibilityhelper	version	2019111800
-897	atto_align	version	2019111800
-898	atto_backcolor	version	2019111800
-899	atto_bold	version	2019111800
-900	atto_charmap	version	2019111800
-901	atto_clear	version	2019111800
-902	atto_collapse	version	2019111800
-904	atto_emoticon	version	2019111800
-905	atto_equation	version	2019111800
-906	atto_fontcolor	version	2019111800
-907	atto_h5p	version	2019111800
-908	atto_html	version	2019111800
-909	atto_image	version	2019111800
-910	atto_indent	version	2019111800
-911	atto_italic	version	2019111800
-912	atto_link	version	2019111800
-913	atto_managefiles	version	2019111800
-914	atto_media	version	2019111800
-915	atto_noautolink	version	2019111800
-916	atto_orderedlist	version	2019111800
-917	atto_recordrtc	version	2019111800
-918	atto_rtl	version	2019111800
-919	atto_strike	version	2019111800
-920	atto_subscript	version	2019111800
-921	atto_superscript	version	2019111800
-922	atto_table	version	2019111800
-923	atto_title	version	2019111800
-924	atto_underline	version	2019111800
-925	atto_undo	version	2019111800
-926	atto_unorderedlist	version	2019111800
-927	tinymce_ctrlhelp	version	2019111800
-928	tinymce_managefiles	version	2019111800
-929	tinymce_moodleemoticon	version	2019111800
-930	tinymce_moodleimage	version	2019111800
-931	tinymce_moodlemedia	version	2019111800
-932	tinymce_moodlenolink	version	2019111800
-933	tinymce_pdw	version	2019111800
-934	tinymce_spellchecker	version	2019111800
-936	tinymce_wrap	version	2019111800
-937	logstore_database	version	2019111800
-938	logstore_legacy	version	2019111800
-939	logstore_standard	version	2019111800
+787	tool_oauth2	version	2021051700
+788	tool_phpunit	version	2021051700
+789	tool_policy	version	2021051700
+790	tool_profiling	version	2021051700
+791	tool_recyclebin	version	2021051700
+792	tool_replace	version	2021051700
+793	tool_spamcleaner	version	2021051700
+794	tool_task	version	2021051700
+795	tool_templatelibrary	version	2021051700
+796	tool_unsuproles	version	2021051700
+798	tool_uploadcourse	version	2021051700
+799	tool_uploaduser	version	2021051700
+800	tool_usertours	version	2021051700
+802	tool_xmldb	version	2021051700
+803	cachestore_apcu	version	2021051700
+805	cachestore_memcached	version	2021051700
+806	cachestore_mongodb	version	2021051700
+807	cachestore_redis	version	2021051700
+808	cachestore_session	version	2021051700
+809	cachestore_static	version	2021051700
+810	cachelock_file	version	2021051700
+811	fileconverter_googledrive	version	2021051700
+812	fileconverter_unoconv	version	2021051700
+814	theme_boost	version	2021051700
+815	theme_classic	version	2021051700
+816	assignsubmission_comments	version	2021051700
+821	assignsubmission_file	version	2021051700
+822	assignsubmission_onlinetext	version	2021051700
+824	assignfeedback_comments	version	2021051700
+830	assignfeedback_editpdf	version	2021051701
+832	assignfeedback_file	version	2021051700
+835	assignment_offline	version	2021051700
+836	assignment_online	version	2021051700
+837	assignment_upload	version	2021051700
+838	assignment_uploadsingle	version	2021051700
+839	booktool_exportimscp	version	2021051700
+840	booktool_importhtml	version	2021051700
+841	booktool_print	version	2021051700
+842	datafield_checkbox	version	2021051700
+843	datafield_date	version	2021051700
+844	datafield_file	version	2021051700
+845	datafield_latlong	version	2021051700
+846	datafield_menu	version	2021051700
+847	datafield_multimenu	version	2021051700
+848	datafield_number	version	2021051700
+849	datafield_picture	version	2021051700
+850	datafield_radiobutton	version	2021051700
+851	datafield_text	version	2021051700
+852	datafield_textarea	version	2021051700
+853	datafield_url	version	2021051700
+854	datapreset_imagegallery	version	2021051700
+855	forumreport_summary	version	2021051700
+858	ltiservice_memberships	version	2021051700
+857	ltiservice_gradebookservices	version	2021051700
+859	ltiservice_profile	version	2021051700
+860	ltiservice_toolproxy	version	2021051700
+861	ltiservice_toolsettings	version	2021051700
+862	quiz_grading	version	2021051700
+864	quiz_overview	version	2021051700
+866	quiz_responses	version	2021051700
+868	quiz_statistics	version	2021051700
+870	quizaccess_delaybetweenattempts	version	2021051700
+871	quizaccess_ipaddress	version	2021051700
+872	quizaccess_numattempts	version	2021051700
+873	quizaccess_offlineattempts	version	2021051700
+874	quizaccess_openclosedate	version	2021051700
+875	quizaccess_password	version	2021051700
+877	quizaccess_securewindow	version	2021051700
+878	quizaccess_timelimit	version	2021051700
+879	scormreport_basic	version	2021051700
+880	scormreport_graphs	version	2021051700
+882	scormreport_objectives	version	2021051700
+883	workshopform_accumulative	version	2021051700
+885	workshopform_comments	version	2021051700
+887	workshopform_numerrors	version	2021051700
+889	workshopform_rubric	version	2021051700
+891	workshopallocation_manual	version	2021051700
+892	workshopallocation_random	version	2021051700
+893	workshopallocation_scheduled	version	2021051700
+894	workshopeval_best	version	2021051700
+895	atto_accessibilitychecker	version	2021051700
+896	atto_accessibilityhelper	version	2021051700
+897	atto_align	version	2021051700
+898	atto_backcolor	version	2021051700
+899	atto_bold	version	2021051700
+900	atto_charmap	version	2021051700
+901	atto_clear	version	2021051700
+902	atto_collapse	version	2021051700
+904	atto_emoticon	version	2021051700
+905	atto_equation	version	2021051700
+906	atto_fontcolor	version	2021051700
+907	atto_h5p	version	2021051700
+908	atto_html	version	2021051700
 940	tool_dataprivacy	contactdataprotectionofficer	0
 941	tool_dataprivacy	automaticdeletionrequests	1
 942	tool_dataprivacy	privacyrequestexpiry	604800
@@ -29728,6 +31282,34 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1015	assignsubmission_file	filetypes	
 1016	assignsubmission_file	maxbytes	0
 1017	assignsubmission_onlinetext	default	0
+909	atto_image	version	2021051700
+911	atto_italic	version	2021051700
+912	atto_link	version	2021051700
+913	atto_managefiles	version	2021051700
+914	atto_media	version	2021051700
+915	atto_noautolink	version	2021051700
+916	atto_orderedlist	version	2021051700
+917	atto_recordrtc	version	2021051700
+918	atto_rtl	version	2021051700
+919	atto_strike	version	2021051700
+920	atto_subscript	version	2021051700
+921	atto_superscript	version	2021051700
+922	atto_table	version	2021051700
+923	atto_title	version	2021051700
+924	atto_underline	version	2021051700
+925	atto_undo	version	2021051700
+927	tinymce_ctrlhelp	version	2021051700
+928	tinymce_managefiles	version	2021051700
+929	tinymce_moodleemoticon	version	2021051700
+930	tinymce_moodleimage	version	2021051700
+931	tinymce_moodlemedia	version	2021051700
+932	tinymce_moodlenolink	version	2021051700
+933	tinymce_pdw	version	2021051700
+934	tinymce_spellchecker	version	2021051700
+936	tinymce_wrap	version	2021051700
+937	logstore_database	version	2021051700
+938	logstore_legacy	version	2021051700
+939	logstore_standard	version	2021051700
 1018	assignfeedback_comments	default	1
 1019	assignfeedback_comments	inline	0
 1020	assignfeedback_comments	inline_adv	
@@ -30405,7 +31987,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1694	block_myoverview	displaygroupingfuture	1
 1695	block_myoverview	displaygroupingcustomfield	0
 1696	block_myoverview	customfiltergrouping	
-1697	block_myoverview	displaygroupingstarred	1
 1698	block_myoverview	displaygroupinghidden	1
 1699	block_recentlyaccessedcourses	displaycategories	1
 1700	block_section_links	numsections1	22
@@ -30568,7 +32149,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1858	filter_urltolink	embedimages	1
 1859	filter_emoticon	formats	1,4,0
 1860	filter_displayh5p	allowedsources	
-1861	filter_mathjaxloader	httpsurl	https://cdn.jsdelivr.net/npm/mathjax@2.7.8/MathJax.js
 1862	filter_mathjaxloader	texfiltercompatibility	0
 1863	filter_mathjaxloader	mathjaxconfig	\nMathJax.Hub.Config({\n    config: ["Accessible.js", "Safe.js"],\n    errorSettings: { message: ["!"] },\n    skipStartupTypeset: true,\n    messageStyle: "none"\n});\n
 1864	filter_mathjaxloader	additionaldelimiters	
@@ -30650,7 +32230,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1942	tool_mobile	disabledfeatures	
 1943	tool_mobile	custommenuitems	
 1944	tool_mobile	customlangstrings	
-1949	qtype_ordering	version	2019121400
 1959	mod_hvp	site_type	network
 1960	mod_hvp	site_uuid	fad48287-5922-4b4f-a9ab-f4ead569f3ed
 1961	mod_hvp	content_type_cache_updated_at	1590510518
@@ -30678,34 +32257,30 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 1988	message	jabber_provider_mod_questionnaire_notification_permitted	permitted
 1989	message	popup_provider_mod_questionnaire_notification_permitted	permitted
 1990	message	message_provider_mod_questionnaire_notification_loggedin	email
-1946	qtype_matchwiris	version	2020061600
-1947	qtype_multianswerwiris	version	2020061600
-1948	qtype_multichoicewiris	version	2020061600
-1950	qtype_shortanswerwiris	version	2020061600
-1951	qtype_truefalsewiris	version	2020061600
-1952	qtype_wq	version	2020061600
-1953	mod_choicegroup	version	2020070100
-1954	mod_geogebra	version	2020090800
-1955	mod_hotpot	version	2020060544
-1957	mod_hvp	version	2020080400
-1975	mod_jclic	version	2020072400
 1977	mod_journal	version	2020091100
-1978	mod_questionnaire	version	2020011508
 1991	message	message_provider_mod_questionnaire_notification_loggedoff	email
 1992	mod_qv	version	2019010700
 1993	mod_rcontent	version	2017101000
 1995	block_about_course	version	2013111900
+1947	qtype_multianswerwiris	version	2021091300
+1948	qtype_multichoicewiris	version	2021091300
+1949	qtype_ordering	version	2021091404
+1950	qtype_shortanswerwiris	version	2021091300
+1951	qtype_truefalsewiris	version	2021091500
+1952	qtype_wq	version	2021092800
+1953	mod_choicegroup	version	2021083100
+1954	mod_geogebra	version	2021060900
+1955	mod_hotpot	version	2021091446
+1957	mod_hvp	version	2021061100
+1975	mod_jclic	version	2021060100
 1996	block_abuse_reports	version	2013111901
 1999	block_download_statistics	version	2013111900
 2001	block_my_books	version	2015111700
 2003	block_rgrade	version	2016090500
 2005	format_simple	version	2012121100
-2007	report_coursequotas	version	2016091400
 2008	qformat_hotpot	version	2019111022
-2011	local_alexandria	version	2016091900
 2013	local_alexandriaimporter	version	2016021600
 2014	local_bigdata	version	2016021601
-2015	local_clickedu	version	20190724000
 2016	local_oauth	version	2016021600
 2017	local_rcommon	version	2017101000
 2019	rcommon	enabled	1
@@ -30720,7 +32295,6 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2029	hotpotreport_overview	version	2010112400
 2030	hotpotreport_responses	version	2010112400
 2031	hotpotreport_scores	version	2010112400
-2032	atto_cloze	version	2017072802
 2033	atto_fontfamily	version	2020010600
 2034	atto_fontsize	version	2015042701
 1913	editor_atto	toolbar	collapse = collapse\nstyle1 = title, bold, italic\nlist = unorderedlist, orderedlist\nlinks = link\nfiles = image, media, recordrtc, managefiles, h5p\nstyle2 = underline, strike, subscript, superscript\nalign = align\nindent = indent\ninsert = equation, charmap, table, clear\nundo = undo\naccessibility = accessibilitychecker, accessibilityhelper\nmath = wiris\nother = html
@@ -30784,19 +32358,21 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2094	filter_wiris	editormodalwindowfullscreen	0
 2095	filter_wiris	access_provider_enabled	0
 2096	local_agora	environment_url	
-1998	block_courses_vicensvives	version	2020090800
-2000	block_licenses_vicensvives	version	2020090800
-2004	filter_wiris	version	2020090300
-2006	format_vv	version	2020090800
-2009	theme_xtec2020	version	2020080703
 2010	local_agora	version	2020072300
-2020	local_wsvicensvives	version	2020090800
-2035	atto_wiris	version	2020090300
 2097	local_alexandriaimporter	alexandria_url	http://alexandria.xtec.cat
 2098	local_alexandriaimporter	alexandria_token	
 2099	local_alexandriaimporter	show_description	
 2100	local_clickedu	webserviceurl	
 2101	local_clickedu	syncusers	0
+2000	block_licenses_vicensvives	version	2021072700
+2004	filter_wiris	version	2021072200
+2006	format_vv	version	2021072700
+2015	local_clickedu	version	20201031001
+2007	report_coursequotas	version	2021062300
+2009	theme_xtec2020	version	2021011201
+2020	local_wsvicensvives	version	2021072700
+2032	atto_cloze	version	2017072803
+2035	atto_wiris	version	2021072200
 2102	local_clickedu	synccourses	0
 2103	local_clickedu	synccontents	0
 2104	local_clickedu	moodlews	0
@@ -30830,25 +32406,190 @@ COPY public.mdl_config_plugins (id, plugin, name, value) FROM stdin;
 2139	theme_xtec2020	fontstyle	normal
 2140	theme_xtec2020	importcss	
 1799	enrol_ldap	objectclass	(objectClass=*)
-1945	qtype_essaywiris	version	2020061600
-238	mod_forum	version	2019111802
+1894	logstore_standard	loglifetime	60
+2120	theme_xtec2020	headerbg	#ffffff
+2143	qtype_wq	lastcron	1604426897
+2146	message	airnotifier_provider_moodle_coursecompleted_permitted	permitted
+2147	message	email_provider_moodle_coursecompleted_permitted	permitted
+2148	message	jabber_provider_moodle_coursecompleted_permitted	permitted
+2149	message	popup_provider_moodle_coursecompleted_permitted	permitted
+2150	message	message_provider_moodle_coursecompleted_loggedin	email
+2151	message	message_provider_moodle_coursecompleted_loggedoff	email
+2152	message	airnotifier_provider_moodle_infected_permitted	permitted
+2153	message	email_provider_moodle_infected_permitted	permitted
+2154	message	jabber_provider_moodle_infected_permitted	permitted
+2155	message	popup_provider_moodle_infected_permitted	permitted
+2156	message	message_provider_moodle_infected_loggedin	email
+2157	message	message_provider_moodle_infected_loggedoff	email
+202	antivirus_clamav	version	2021051700
+207	availability_grouping	version	2021051700
+1945	qtype_essaywiris	version	2021091300
+1946	qtype_matchwiris	version	2021091300
+219	qtype_missingtype	version	2021051700
+273	auth_oauth2	version	2021051700
+238	mod_forum	version	2021051700
+2158	mod_h5pactivity	version	2021051700
+244	mod_lti	version	2021051700
+1978	mod_questionnaire	version	2020111101
 1261	auth_cas	memberattribute_isdn	0
 1460	auth_ldap	memberattribute_isdn	0
-1997	block_completion_progress	version	2020081000
-726	tool_dataprivacy	version	2019111801
-1894	logstore_standard	loglifetime	60
-2119	theme_xtec2020	logo	/logo_alexandria.png
-2120	theme_xtec2020	headerbg	#ffffff
-2134	theme_xtec2020	colorset	personalitzat
-2135	theme_xtec2020	maincolor	#457FB9
-2136	theme_xtec2020	fontcolor	#457FB9
-2137	theme_xtec2020	linkscolor	#457FB9
-2138	theme_xtec2020	fontsize	90
-2141	theme_xtec2020	customcss	#page-header {\r\nbackground-position: left center !important;\r\nmargin-left: 0px;\r\n}\r\n\r\n#page-header h1{\r\n display: none;\r\n}\r\n\r\nth, tr, td {\r\n    border: 1px solid #dee2e6 !important;\r\n}\r\n\r\n#nav-drawer a[data-key="myhome"] {\r\n    display: none;\r\n}\r\n\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\r\n    display: flex;\r\n    flex-direction: column;\r\n}\r\n/* Text i botó d'accés de visitants */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\r\n    order: 5;\r\n}\r\n/* Text d'oblit de contrasenya */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\r\n    order: 3;\r\n}\r\n/* Text de les galetes */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\r\n    order: 4;\r\n}\r\n/* Text "Autentiqueu-vos utilitzant el vostre compte a:" */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\r\n    order: 1;\r\n}\r\n/* Botó de Google */\r\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\r\n    order: 2;\r\n}
-2142	tool_task	lastcronstart	1604426897
-2143	qtype_wq	lastcron	1604426897
-2144	enrol_manual	expirynotifylast	1604426899
-2145	enrol_self	expirynotifylast	1604426899
+2159	enrol_fee	version	2021051700
+304	enrol_manual	version	2021051700
+436	message_jabber	version	2021051700
+469	message_popup	version	2021051700
+2160	block_accessreview	version	2021051700
+512	block_calendar_month	version	2021051700
+1997	block_completion_progress	version	2021070900
+2161	block_configurable_reports	version	2020110300
+1998	block_courses_vicensvives	version	2021072700
+2162	block_myoverview	displaygroupingfavourites	1
+532	block_private_files	version	2021051700
+543	block_settings	version	2021051700
+559	filter_activitynames	version	2021051700
+1861	filter_mathjaxloader	httpsurl	https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js
+2134	theme_xtec2020	colorset	PEDC
+2135	theme_xtec2020	maincolor	#FF494E
+2136	theme_xtec2020	fontcolor	#366944
+2137	theme_xtec2020	linkscolor	#910048
+2142	tool_task	lastcronstart	1635253676
+2119	theme_xtec2020	logo	
+2138	theme_xtec2020	fontsize	100
+2141	theme_xtec2020	customcss	/*.page-header-headings h1{\r\n display: none;\r\n}*/\r\n.page-header-headings h1{\r\n color: #f4766c !important;\r\n}
+2144	enrol_manual	expirynotifylast	1635253531
+2145	enrol_self	expirynotifylast	1635253531
+584	format_singleactivity	version	2021051700
+2163	profilefield_social	version	2021051700
+2164	report_infectedfiles	version	2021051700
+609	report_loglive	version	2021051700
+2165	report_status	version	2021051700
+632	gradereport_overview	version	2021051700
+2166	repository_contentbank	version	2021051700
+2168	contentbank	enablecourseinstances	0
+2169	contentbank	enableuserinstances	0
+653	repository_flickr_public	version	2021051700
+669	repository_upload	version	2021051700
+686	repository_youtube	version	2021051700
+705	qbehaviour_interactivecountback	version	2021051700
+2170	tool_brickfield	version	2021051700
+726	tool_dataprivacy	version	2021051700
+2172	tool_licensemanager	version	2021051700
+757	tool_lpimportcsv	version	2021051700
+2173	tool_migratehvp2h5p	version	2021020400
+2174	tool_moodlenet	version	2021051700
+786	tool_multilangupgrade	version	2021051700
+804	cachestore_file	version	2021051700
+2175	contenttype_h5p	version	2021051700
+2011	local_alexandria	version	2021080505
+2176	local_redislock	version	2020061100
+2177	h5plib_v124	version	2021051700
+2178	paygw_paypal	version	2021051700
+834	assignfeedback_offline	version	2021051700
+856	ltiservice_basicoutcomes	version	2021051700
+2180	quizaccess_seb	version	2021051700
+881	scormreport_interactions	version	2021051700
+910	atto_indent	version	2021051700
+926	atto_unorderedlist	version	2021051700
+2182	tool_dataprivacy	automaticdataexportapproval	0
+2183	tool_dataprivacy	automaticdatadeletionapproval	0
+2184	moodlecourse	downloadcontentsitedefault	0
+2185	moodlecourse	showactivitydates	1
+2186	moodlecourse	showcompletionconditions	1
+2187	backup	backup_general_contentbankcontent	1
+2188	backup	backup_general_contentbankcontent_locked	
+2189	backup	backup_general_legacyfiles	1
+2190	backup	backup_general_legacyfiles_locked	
+2191	backup	backup_import_permissions	0
+2192	backup	backup_import_permissions_locked	
+2193	backup	backup_import_contentbankcontent	1
+2194	backup	backup_import_contentbankcontent_locked	
+2195	backup	backup_import_legacyfiles	1
+2196	backup	backup_import_legacyfiles_locked	
+2197	backup	backup_auto_contentbankcontent	1
+2198	backup	backup_auto_legacyfiles	1
+2199	restore	restore_general_permissions	1
+2200	restore	restore_general_permissions_locked	
+2201	restore	restore_general_contentbankcontent	1
+2202	restore	restore_general_contentbankcontent_locked	
+2203	restore	restore_general_legacyfiles	1
+2204	restore	restore_general_legacyfiles_locked	
+2205	analytics	calclifetime	35
+2206	quiz	quizpassword	
+2207	quiz	quizpassword_adv	
+2208	quiz	quizpassword_required	
+2209	quizaccess_seb	autoreconfigureseb	1
+2210	quizaccess_seb	showseblinks	seb,http
+2211	quizaccess_seb	downloadlink	https://safeexambrowser.org/download_en.html
+2212	quizaccess_seb	quizpasswordrequired	0
+2213	quizaccess_seb	displayblocksbeforestart	0
+2214	quizaccess_seb	displayblockswhenfinished	1
+2215	tool_brickfield	analysistype	0
+2216	tool_brickfield	deletehistoricaldata	1
+2217	tool_brickfield	batch	1000
+2218	tool_brickfield	perpage	50
+2219	antivirus	notifyemail	
+2220	antivirus	enablequarantine	0
+2221	antivirus	quarantinetime	2419200
+2222	antivirus_clamav	tcpsockethost	
+2223	antivirus_clamav	tcpsocketport	3310
+2224	antivirus_clamav	tries	1
+2225	block_accessreview	whattoshow	showboth
+2226	block_accessreview	errordisplay	showint
+2227	block_accessreview	toolpage	errors
+2228	block_configurable_reports	dbhost	
+2229	block_configurable_reports	dbname	
+2230	block_configurable_reports	dbuser	
+2231	block_configurable_reports	dbpass	
+2232	block_configurable_reports	cron_hour	0
+2233	block_configurable_reports	cron_minute	0
+2234	block_configurable_reports	sqlsecurity	1
+2235	block_configurable_reports	crrepository	jleyva/moodle-configurable_reports_repository
+2236	block_configurable_reports	sharedsqlrepository	jleyva/moodle-custom_sql_report_queries
+2237	block_configurable_reports	sqlsyntaxhighlight	1
+2238	block_configurable_reports	reporttableui	datatables
+2239	block_configurable_reports	reportlimit	5000
+2240	block_section_links	showsectionname	0
+2241	enrol_fee	expiredaction	3
+2242	enrol_fee	status	1
+2243	enrol_fee	cost	0
+2244	enrol_fee	currency	USD
+2245	enrol_fee	roleid	5
+2246	enrol_fee	enrolperiod	0
+2247	local_clickedu	advdebug	0
+2248	paygw_paypal	surcharge	0
+2249	qtype_wq	filtercodes_compatibility	0
+2250	qtype_wq	debug_mode_enabled	0
+2252	theme_xtec2020	agora_alert_start	
+2253	theme_xtec2020	agora_alert_end	
+2254	theme_xtec2020	admin_alert_message	
+2255	theme_xtec2020	admin_alert_start	
+2256	theme_xtec2020	admin_alert_end	
+2258	tool_mobile	qrcodetype	2
+2259	tool_mobile	filetypeexclusionlist	
+2260	tool_moodlenet	enablemoodlenet	0
+2261	tool_moodlenet	defaultmoodlenetname	MoodleNet Central
+2262	tool_moodlenet	defaultmoodlenet	https://moodle.net
+2257	theme_xtec2020	xtec_type	alexandria
+2251	theme_xtec2020	agora_alert_message	
+2265	local_agora	adware_detected	0
+2267	tool_brickfield	bfregvalidationchecktime	1635253530
+2268	tool_brickfield	bfregvalidationtime	1635253530
+2269	tool_brickfield	bfsummarytime	1635253530
+2270	tool_brickfield	key	
+2271	tool_brickfield	hash	
+2272	tool_brickfield	id	0
+2266	tool_brickfield	bfregstatus	0
+2273	theme_boost	themerev	1635253532
+2274	theme_classic	themerev	1635253536
+2263	theme_xtec2020	themerev	1635253540
+2264	tool_task	lastcroninterval	147
+\.
+
+
+--
+-- Data for Name: mdl_contentbank_content; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_contentbank_content (id, name, contenttype, contextid, instanceid, configdata, usercreated, usermodified, timecreated, timemodified, visibility) FROM stdin;
 \.
 
 
@@ -30875,9 +32616,13 @@ COPY public.mdl_context (id, contextlevel, instanceid, path, depth, locked) FROM
 16	80	11	/1/16	2	0
 17	80	12	/1/17	2	0
 18	30	3	/1/18	2	0
-19	70	1	/1/2/19	3	0
-20	70	2	/1/2/20	3	0
-21	70	3	/1/2/21	3	0
+25	80	15	/1/2/25	3	0
+26	70	5	/1/2/26	3	0
+27	70	6	/1/2/27	3	0
+28	70	7	/1/2/28	3	0
+29	70	8	/1/2/29	3	0
+30	80	16	/1/2/30	3	0
+31	80	17	/1/2/31	3	0
 \.
 
 
@@ -30893,8 +32638,8 @@ COPY public.mdl_context_temp (id, path, depth, locked) FROM stdin;
 -- Data for Name: mdl_course; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_course (id, category, sortorder, fullname, shortname, idnumber, summary, summaryformat, format, showgrades, newsitems, startdate, enddate, relativedatesmode, marker, maxbytes, legacyfiles, showreports, visible, visibleold, groupmode, groupmodeforce, defaultgroupingid, lang, calendartype, theme, timecreated, timemodified, requested, enablecompletion, completionnotify, cacherev) FROM stdin;
-1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1604426781
+COPY public.mdl_course (id, category, sortorder, fullname, shortname, idnumber, summary, summaryformat, format, showgrades, newsitems, startdate, enddate, relativedatesmode, marker, maxbytes, legacyfiles, showreports, visible, visibleold, groupmode, groupmodeforce, defaultgroupingid, lang, calendartype, theme, timecreated, timemodified, requested, enablecompletion, completionnotify, cacherev, originalcourseid, downloadcontent, showactivitydates, showcompletionconditions) FROM stdin;
+1	0	0	Alexandria	alexandria			0	site	1	3	0	0	0	0	0	0	0	1	1	0	0	0				1590509906	1590510336	0	0	0	1635253327	\N	\N	0	\N
 \.
 
 
@@ -30961,9 +32706,10 @@ COPY public.mdl_course_format_options (id, courseid, format, sectionid, name, va
 --
 
 COPY public.mdl_course_modules (id, course, module, instance, section, idnumber, added, score, indent, visible, visibleoncoursepage, visibleold, groupmode, groupingid, completion, completiongradeitemnumber, completionview, completionexpected, showdescription, availability, deletioninprogress) FROM stdin;
-1	1	6	1	1		1248683669	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
-3	1	6	3	2		1305720358	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
-2	1	6	2	2		1257438749	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
+5	1	6	5	2		1248683669	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
+6	1	6	6	2		1257440862	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
+8	1	6	8	2		1305720358	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
+7	1	6	7	2		1257438749	0	0	1	1	1	0	0	0	\N	0	0	0	\N	0
 \.
 
 
@@ -30996,8 +32742,24 @@ COPY public.mdl_course_request (id, fullname, shortname, summary, summaryformat,
 --
 
 COPY public.mdl_course_sections (id, course, section, name, summary, summaryformat, sequence, visible, availability, timemodified) FROM stdin;
-1	1	1	\N		1	1	1	\N	1604426681
-2	1	0	\N	\N	0	2,3	1	\N	1604426780
+1	1	1	\N		1		1	\N	1604426681
+2	1	0	\N	\N	0	5,6,7,8	1	\N	1635253119
+\.
+
+
+--
+-- Data for Name: mdl_coursequotas_catsize; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_coursequotas_catsize (id, categoryid, quota) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_coursequotas_coursesize; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_coursequotas_coursesize (id, courseid, quota) FROM stdin;
 \.
 
 
@@ -31030,9 +32792,10 @@ COPY public.mdl_customfield_field (id, shortname, name, type, description, descr
 --
 
 COPY public.mdl_data (id, course, name, intro, introformat, comments, timeavailablefrom, timeavailableto, timeviewfrom, timeviewto, requiredentries, requiredentriestoview, maxentries, rssarticles, singletemplate, listtemplate, listtemplateheader, listtemplatefooter, addtemplate, rsstemplate, rsstitletemplate, csstemplate, jstemplate, asearchtemplate, approval, manageapproved, scale, assessed, assesstimestart, assesstimefinish, defaultsort, defaultsortdir, editany, notification, timemodified, config, completionentries) FROM stdin;
-1	1	Biblioteca de cursos Moodle	<p>Aquesta és la base de dades de cursos Moodle. Hi podeu aportar còpies de seguretat (en format .zip) de cursos de Moodle que hàgiu elaborat i que no siguin més grans de 20 Mb tot i que, per tal que es puguin restaurar directament als espais del servei Àgora, <b>és recomanable que no superin els 10 Mb</b>. --&gt; <span class="glossary autolink glossaryid1">Com pujar cursos de Moodle.</span></p>\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/resource/view.php?id=9">Característiques dels materials</a>.</p>\n<p>Per cercar cursos utilitzeu la pestanya "<b>Cerca</b>". També podeu ordenar els cursos per data de creació, autor/a, títol, nivell educatiu i altres dades a partir de les opcions de la part inferior de la pàgina.</p>\n<p>Des de la fitxa individual <b>cliqueu sobre el nom del curs</b> per tal de veure'l complet.</p>\n<hr style="width: 100%; height: 2px;" />\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\n<p></p>\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/page/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	10	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th>Descàrrega:</th>\n<td>\n<p>[[Fitxer]]</p>\n<p style="line-height: 1.231;">[[courseid]]</p>\n</td>\n</tr>\n<tr><th valign="top">Descripció:</th>\n<td>[[Descripció]]</td>\n</tr>\n<tr><th valign="top">Autor/a:</th>\n<td>[[Autor/a]]</td>\n</tr>\n<tr><th valign="top">Nivell/s educatiu/s:</th>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr><th valign="top">Àrea curricular:</th>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr><th valign="top">Àmbit/s competencial/s:</th>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr><th valign="top">Família professional:</th>\n<td>[[Família professional]]</td>\n</tr>\n<tr><th valign="top">Idioma/es:</th>\n<td>[[Idioma]]</td>\n</tr>\n<tr><th valign="top">Llicència d'ús:</th>\n<td>[[Llicència]]</td>\n</tr>\n<tr><th valign="top">Versió de Moodle:</th>\n<td>[[Versió de Moodle]]</td>\n</tr>\n<tr><th valign="top">Data de creació:</th>\n<td>[[Data de creació]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><hr></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br>Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script>	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> - [[Data de creació]]</p>\n[[Àrea curricular]] - ##downloads## descàrregues\n<div class="content">[[Descripció]]</div>\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label> Nom *</label> [[Nom]] <span class="help-block"> Nom del curs que l'identificarà a la base de dades i al llistat per categories.</span> <label> Descripció *</label> [[Descripció]] <span class="help-block"> Feu una breu descripció de les característiques del curs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades dels cursos.</span> <label> Autor/a *</label> [[Autor/a]] <span class="help-block"> Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <label> Còpia de seguretat del curs *</label> [[Fitxer]] <span class="help-block"> Mida màxima 20 MB. Consulteu el document&nbsp;<a href="http://agora/alexandria/web/mod/resource/view.php?id=9"> Característiques dels materials</a> &nbsp;i la PMF&nbsp;<a href="http://alexandria.xtec.cat/mod/glossary/view.php?id=10&amp;mode=entry&amp;hook=5" target="_blank"> Què puc fer si el meu curs supera la mida màxima?</a> &nbsp;per a més informació.</span> <label> Nivell educatiu *</label> [[Nivell educatiu]] <span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label> Àrea curricular *</label> [[Àrea curricular]] <span class="help-block"> Seleccioneu l'opció més escaient.</span> <label> Àmbit competencial</label> [[Àmbit competencial]] <span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label> Família professional</label> [[Família professional]] <span class="help-block"> Seleccioneu l'opció més escaient (per a cursos de Cicles Formatius).</span> <label> Idioma</label> [[Idioma]] <span class="help-block"> Seleccioneu l'idioma en què estan escrits els continguts del curs.</span> <label> Llicència d'ús</label> [[Llicència]] <span class="help-block"> La llicència per defecte, si no s'especifica cap altra, és&nbsp;Creative Commons Reconeixement- No comercial - Compartir igual&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank"> text legal</a> )</span> <label> <label> Data de creació[[Data de creació]]</label> </label>\n<p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank"> condicions d'ús</a> d'aquest espai.</p>\n<p><strong> <span style="text-decoration: underline;"> IMPORTANT</span> :</strong></p>\n<p><strong> Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	<p><span style="line-height: 1.231;">[[Descripció]]</span><span style="line-height: 1.231;"><br /></span></p>		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\ndiv.author a{color:white}\n	function load_addthis() {\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\n}	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th valign="top">Nom del curs:</th>\n<td>[[Nom]]</td>\n</tr>\n<tr><th valign="top">Nivell educatiu:</th>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr><th valign="top">Àrea curricular:</th>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr><th valign="top">Àmbit competencial:</th>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr><th valign="top">Família professional:</th>\n<td>[[Família professional]]</td>\n</tr>\n<tr><th valign="top">Descripció:</th>\n<td>[[Descripció]]</td>\n</tr>\n<tr><th valign="top">Autor/a:</th>\n<td>[[Autor/a]]</td></tr></tbody></table><br></div>	1	1	5	0	0	0	0	1	0	0	0	\N	0
-3	1	Biblioteca de materials SCORM	<p>Base de dades de materials en format SCORM.</p>\n<div style="text-align: center; font-weight: bold;"><span style="color: #ff0000;">Ja es poden pujar materials!</span><br /><br />Aquests materials no són cursos de Moodle,<br />tot i que es poden incloure a un curs Moodle com a "activitat SCORM".</div>\n<ul>\n<li><span style="font-weight: normal;" class="glossary autolink glossaryid1">Com pujar objectes SCORM</span></li>\n<li><span style="font-weight: normal;" class="glossary autolink glossaryid1">Eines per a la creació de contingut SCORM</span></li>\n<li style="font-weight: normal;"><span class="glossary autolink glossaryid1">Com incloure un objecte SCORM a un curs de Moodle</span></li>\n</ul>\n<hr style="width: 100%; height: 2px;" />\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\n<p></p>\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/page/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	10	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td valign="top">Fitxer:</td>\n<td colspan="2">[[Fitxer SCORM]]</td>\n</tr>\n<tr>\n<td class="firstcol">URL permanent:</td>\n<td colspan="2">##moreurl##</td>\n</tr>\n<tr>\n<td valign="top">Descripció:</td>\n<td>[[Descripció]]</td>\n<td rowspan="8">[[Imatges]]</td>\n</tr>\n<tr>\n<td valign="top">Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell/s educatiu/s:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit/s competencial/s:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td valign="top">Llicència d'ús</td>\n<td>[[Llicència d'ús]]</td>\n</tr>\n<tr>\n<td valign="top">Data de creació:</td>\n<td>[[Data de creació]]</td>\n</tr>\n<tr>\n<td>Fitxer font (editable, per exemple elp d'eXelearning):</td>\n<td>[[Fitxer font]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br /><br /><hr /></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br />Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script>	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> - [[Data de creació]]</p>\n<p>[[Àrea curricular]]</p>\n<p>##downloads## descàrregues</p>\n<div class="content" style="float: left; width: 70%; clear: left;">[[Descripció]]</div>\n<div style="float: right; width: 25%;">[[Imatges]]</div>\n<div class="clearfix"> </div>\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label>Nom del recurs *</label>[[Nom]] <span class="help-block">Nom del recurs que l'identificarà a la base de dades.</span> <label>Descripció&nbsp;*</label>[[Descripció]] <span class="help-block">Feu una breu descripció de les característiques del material, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades.</span> <label>Autor/a *</label>[[Autor/a]] <span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <label>Nivell educatiu *</label>[[Nivell educatiu]] <span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label>Àrea curricular&nbsp;*</label>[[Àrea curricular]] <span class="help-block">Seleccioneu l'opció més escaient.</span> <label>Àmbit competencial *</label>[[Àmbit competencial]] <span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label>Fitxer&nbsp;*</label>[[Fitxer SCORM]] <span class="help-block">Mida màxima 20 MB.&nbsp;</span> <label><label style="cursor: pointer; font-size: 14px; font-weight: bold; line-height: 20px; display: block; margin-bottom: 5px; color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; ">Fitxer font</label><span style="color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;  display: inline !important; float: none;">[[Fitxer font]]</span><span class="help-block" style="color: rgb(89, 89, 89); display: block; margin-bottom: 10px; font-size: 0.8em; font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; ">Fitxer editable, per exemple en format .elp d'eXelearning.</span></label><label>Imatge</label>[[Imatges]] <span class="help-block">Adjunteu una imatge representativa del material.</span> <label>Llicència d'ús&nbsp;*</label>[[Llicència d'ús]] <span class="help-block">La llicència per defecte, si no s'especifica cap altra, és&nbsp;<em>Creative Commons Reconeixement- No comercial - Compartir igual</em>&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank">text legal</a>)</span> <label>Data de creació</label>[[Data de creació]] <label><br></label><label><br></label>\n<p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank">condicions d'ús</a> d'aquest espai.</p>\n<p><strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong></p>\n<p><strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	<p>[[Descripció]]</p>		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\n\ntd.firstcol{\nwidth: 115px!important;\ntext-align: left;\nvertical-align:middle;\n}\n\ntd{ vertical-align:top!important;}\n\n#scorm_preview_iframe{\nwidth : 747px;\nheight : 605px;\nborder-width: 0px;\n}\n\n#scorm_preview_iframe #content{\nheight : 600px;\n}\n\n#scorm_preview_iframe .content_frame{\nmargin: 10px;\nborder-width: 0px;\n}	function load_addthis() {\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\n}	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td valign="top">Nom:</td>\n<td>[[Nom]]</td>\n</tr>\n<tr>\n<td valign="top">Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Descripció:</td>\n<td>[[Descripció]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell educatiu:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit competencial:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n</tbody>\n</table>\n</div>	1	1	5	0	0	0	0	1	0	0	0	\N	0
-2	1	Biblioteca de materials per a les PDI	<p>Aquesta és la base de dades de materials per a les pissarres digitals interactives (<span class="nolink">PDI</span>).</p>\n<ul>\n<li>Hi podeu aportar <b>fitxers amb el material en formats diversos</b> (notebook, xbk...) i d'una mida inferior a 20 Mb. --&gt; <span class="glossary autolink glossaryid1">Com pujar materials per a PDI.</span></li>\n<li>La <b>imatge adjunta</b> ha d'estar en format gif, jpg o png (no adjunteu imatges en format bmp).</li>\n<li>Per tal que el material es pugui <b>previsualitzar</b> heu d'adjuntar un fitxer en <span class="nolink">PDF</span> (inferior a 10 Mb).</li>\n</ul>\n<p>Per a més informació consulteu el document <a target="_blank" href="http://alexandria.xtec.cat/mod/page/view.php?id=9">Característiques dels materials</a>.</p>\n<p>Per <b>cercar materials</b> utilitzeu la pestanya "Cerca". També podeu ordenar-los per data de creació, autor/a, títol, nivell educatiu i altres dades a partir de les opcions de la part inferior de la pàgina.</p>\n<hr style="width: 100%; height: 2px;" />\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\n<p></p>\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/page/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	10	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th>Fitxer:</th>\n<td colspan="2">[[Fitxer]]</td>\n</tr>\n<tr>\n<td>URL permanent:</td>\n<td colspan="2"><a href="##moreurl##">##moreurl##</a></td>\n</tr>\n<tr>\n<td valign="top">Descripció:</td>\n<td>[[Descripció]]</td>\n<td rowspan="9">[[Imatge]]</td>\n</tr>\n<tr>\n<td valign="top">Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell/s educatiu/s:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit/s competencial/s:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td valign="top">Tipus de fitxer:</td>\n<td>[[Tipus de fitxer]]</td>\n</tr>\n<tr>\n<td valign="top">Llicència d'ús</td>\n<td>[[Llicència d'ús]]</td>\n</tr>\n<tr>\n<td valign="top">Data de creació:</td>\n<td>[[Data de creació]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br /><br /><hr /></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br />Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script>	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> - [[Data de creació]]</p>\n<p>[[Àrea curricular]] - ##downloads## descàrregues</p>\n<div class="content" style="float: left; width: 70%; clear: left;">[[Descripció]]</div>\n<div style="float: right; width: 25%;">[[Imatge]]</div>\n<div class="clearfix"> </div>\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label>Nom del recurs *</label>[[Nom]] <span class="help-block">Nom del recurs que l'identificarà a la base de dades.</span> <label>Descripció *</label>[[Descripció]] <span class="help-block">Feu una breu descripció de les característiques del recurs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades.</span> <label>Autor/a *</label>[[Autor/a]] <span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <label>Nivell educatiu *</label>[[Nivell educatiu]] <span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label>Àrea curricular *</label>[[Àrea curricular]] <span class="help-block">Seleccioneu l'opció més escaient.</span> <label>Àmbit competencial *</label>[[Àmbit competencial]] <span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label>Fitxer *</label>[[Fitxer]] <span class="help-block"><strong>Important</strong>: Mida màxima 20 MB. Consulteu el document <a href="http://alexandria.xtec.cat/mod/page/view.php?id=9">Característiques dels materials</a> per a més informació.</span> <label>Tipus de fitxer</label>[[Tipus de fitxer]] <span class="help-block">Seleccioneu el tipus de fitxer.</span> <label>PDF *</label>[[pdf]] <span class="help-block">Adjunteu el material en un fitxer en format PDF que permeti previsualitzar-lo. <br /><strong>Important</strong>: Mida màxima 10 MB.</span> <label>Imatge *</label>[[Imatge]] <span class="help-block">Adjunteu una imatge representativa del material.</span> <label>Llicència d'ús *</label>[[Llicència d'ús]] <span class="help-block">La llicència per defecte, si no s'especifica cap altra, és <em>Creative Commons Reconeixement- No cormercial - Compartir igual</em> (<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank">text legal</a>)</span> <label>Data de creació</label>[[Data de creació]]\n<p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les <a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank">condicions d'ús</a> d'aquest espai.</p>\n<p><strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong></p>\n<p><strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	<p>[[Descripció]]</p>		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\n\ntd.firstcol{\nwidth: 115px!important;\ntext-align: left;\nvertical-align:middle;\n}\n\ntd{ vertical-align:top!important;}	function load_addthis() {\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\n}	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td>Nom del recurs:</td>\n<td>[[Nom]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell educatiu:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit competencial:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td>Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Tipus de fitxer:</td>\n<td>[[Tipus de fitxer]]</td>\n</tr>\n</tbody>\n</table>\n</div>	1	1	5	0	0	0	0	1	0	0	0	\N	0
+5	1	Biblioteca de cursos Moodle	<p>Aquesta és la base de dades de cursos Moodle. Hi podeu aportar còpies de seguretat (en format .mbz) de cursos de Moodle que hàgiu elaborat i que no siguin més grans de 10 Mb tot i que, per tal que es puguin restaurar directament als espais del servei Àgora, <b>és recomanable que no superin els 20 Mb</b>. <span class="glossary autolink glossaryid1"></span></p>\n<p>Per a més informació consulteu el document <a href="http://alexandria.xtec.cat/mod/page/view.php?id=9" target="_blank">Característiques dels materials</a>.</p>\n<p>Per cercar cursos utilitzeu la pestanya "<b>Cerca</b>". També podeu ordenar els cursos per data de creació, autor/a, títol, nivell educatiu i altres dades a partir de les opcions de la part inferior de la pàgina.</p>\n<p>Des de la fitxa individual <b>cliqueu sobre el nom del curs</b> per tal de veure'l complet.</p>\n<hr style="width: 100%; height: 2px;">\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\n<p></p>\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	10	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th>Descàrrega:</th>\n<td>\n<p>[[Fitxer]]</p>\n<p style="line-height: 1.231;">[[courseid]]</p>\n</td>\n</tr>\n<tr><th valign="top">Descripció:</th>\n<td>[[Descripció]]</td>\n</tr>\n<tr><th valign="top">Autor/a:</th>\n<td>[[Autor/a]]</td>\n</tr>\n<tr><th valign="top">Nivell/s educatiu/s:</th>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr><th valign="top">Àrea curricular:</th>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr><th valign="top">Àmbit/s competencial/s:</th>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr><th valign="top">Família professional:</th>\n<td>[[Família professional]]</td>\n</tr>\n<tr><th valign="top">Idioma/es:</th>\n<td>[[Idioma]]</td>\n</tr>\n<tr><th valign="top">Llicència d'ús:</th>\n<td>[[Llicència]]</td>\n</tr>\n<tr><th valign="top">Versió de Moodle:</th>\n<td>[[Versió de Moodle]]</td>\n</tr>\n<tr><th valign="top">Data de creació:</th>\n<td>[[Data de creació]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><hr></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br>Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script> 	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> - [[Data de creació]]</p>\n[[Àrea curricular]] - ##downloads## descàrregues\n<div class="content">[[Descripció]]</div>\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label> Nom *</label> <br></div>\n<div class="database-entry-form">[[Nom]] <br></div>\n<div class="database-entry-form"><span class="help-block"> Nom del curs que l'identificarà a la base de dades i al llistat per categories.</span>&nbsp;</div>\n<div class="database-entry-form"><br></div>\n<div class="database-entry-form"><label>Descripció *</label> <br></div>\n<div class="database-entry-form">[[Descripció]] <br></div>\n<div class="database-entry-form"><span class="help-block"> Feu una breu descripció de les característiques del curs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades dels cursos.</span>&nbsp;</div>\n<div class="database-entry-form"><br></div>\n    <div class="database-entry-form"><label> Autor/a *</label><br></div>\n    <div class="database-entry-form"> [[Autor/a]] <br></div>\n    <div class="database-entry-form"><span class="help-block"> Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <label><br></label></div>\n    <div class="database-entry-form"><label><br></label></div>\n    <div class="database-entry-form"><label>Còpia de seguretat del curs *</label> <br></div>\n    <div class="database-entry-form">[[Fitxer]] <br></div>\n    <div class="database-entry-form"><span class="help-block"> Mida màxima 20 MB. Consulteu el document&nbsp;<a href="http://agora/alexandria/web/mod/resource/view.php?id=9"> Característiques dels materials</a> &nbsp;i la PMF&nbsp;<a href="http://alexandria.xtec.cat/mod/glossary/view.php?id=10&amp;mode=entry&amp;hook=5" target="_blank"> Què puc fer si el meu curs supera la mida màxima?</a> &nbsp;per a més informació.</span>&nbsp;<label></label></div>\n    <div class="database-entry-form"><label><br></label></div>\n        <div class="database-entry-form"><label>Nivell educatiu *</label> <br></div>\n        <div class="database-entry-form">[[Nivell educatiu]] <br></div>\n        <div class="database-entry-form"><span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <br></div>\n        <div class="database-entry-form"><label><br></label></div>\n        <div class="database-entry-form"><label> Àrea curricular *</label> <br></div>\n        <div class="database-entry-form">[[Àrea curricular]]<br></div>\n        <div class="database-entry-form"><span class="help-block"> Seleccioneu l'opció més escaient.</span> <br></div>\n        <div class="database-entry-form"><label><br></label></div>\n        <div class="database-entry-form"><label> Àmbit competencial</label> <br></div>\n        <div class="database-entry-form">[[Àmbit competencial]] <br></div>\n        <div class="database-entry-form"><span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <br></div>\n        <div class="database-entry-form"><label><br></label></div>\n        <div class="database-entry-form"><label> Família professional</label> <br></div>\n        <div class="database-entry-form">[[Família professional]] <br></div>\n        <div class="database-entry-form"><span class="help-block"> Seleccioneu l'opció més escaient (per a cursos de Cicles Formatius).</span> <br></div>\n        <div class="database-entry-form"><label><br></label></div>\n        <div class="database-entry-form"><label> Idioma</label> <br></div>\n        <div class="database-entry-form">[[Idioma]] <br></div>\n        <div class="database-entry-form"><span class="help-block"> Seleccioneu l'idioma en què estan escrits els continguts del curs.</span> <br></div>\n        <div class="database-entry-form"><label><br></label></div>\n        <div class="database-entry-form"><label> Llicència d'ús</label> <br></div>\n        <div class="database-entry-form">[[Llicència]] <br></div>\n        <div class="database-entry-form"><span class="help-block"> La llicència per defecte, si no s'especifica cap altra, és&nbsp;Creative Commons Reconeixement- No comercial - Compartir igual&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank"> text legal</a> )</span>            <label><label><br></label></label>\n        </div>\n        <div class="database-entry-form"><label><label>Data de creació</label></label>\n        </div>\n        <div class="database-entry-form"><label><label>[[Data de creació]]</label> </label>\n            <p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank"> condicions d'ús</a> d'aquest espai.</p>\n            <p><strong> <span style="text-decoration: underline;"> IMPORTANT</span> :</strong></p>\n            <p><strong> Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n        </div>	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th>Descàrrega:</th>\n<td>\n<p>[[Fitxer]]</p>\n<p style="line-height: 1.231;">[[courseid]]</p>\n</td>\n</tr>\n<tr><th valign="top">Descripció:</th>\n<td>[[Descripció]]</td>\n</tr>\n<tr><th valign="top">Autor/a:</th>\n<td>[[Autor/a]]</td>\n</tr>\n<tr><th valign="top">Nivell/s educatiu/s:</th>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr><th valign="top">Àrea curricular:</th>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr><th valign="top">Àmbit/s competencial/s:</th>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr><th valign="top">Família professional:</th>\n<td>[[Família professional]]</td>\n</tr>\n<tr><th valign="top">Idioma/es:</th>\n<td>[[Idioma]]</td>\n</tr>\n<tr><th valign="top">Llicència d'ús:</th>\n<td>[[Llicència]]</td>\n</tr>\n<tr><th valign="top">Versió de Moodle:</th>\n<td>[[Versió de Moodle]]</td>\n</tr>\n<tr><th valign="top">Data de creació:</th>\n<td>[[Data de creació]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><hr></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br>Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script> 		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\ndiv.author a{color:white}\n	function load_addthis() {\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\n}	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th valign="top">Nom del curs:</th>\n<td>[[Nom]]</td>\n</tr>\n<tr><th valign="top">Nivell educatiu:</th>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr><th valign="top">Àrea curricular:</th>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr><th valign="top">Àmbit competencial:</th>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr><th valign="top">Família professional:</th>\n<td>[[Família professional]]</td>\n</tr>\n<tr><th valign="top">Descripció:</th>\n<td>[[Descripció]]</td>\n</tr>\n<tr><th valign="top">Autor/a:</th>\n<td>[[Autor/a]]</td></tr></tbody></table><br></div>	1	1	5	0	0	0	0	1	0	0	1600872566	{"editor_singletemplate":false,"editor_listtemplate":false,"editor_asearchtemplate":false,"editor_addtemplate":true}	0
+6	1	Biblioteca de Quaderns Virtuals	En aquesta secció d'Alexandria hi trobareu un conjunt de <b>qüestionaris Moodle</b> generats a partir de la biblioteca de "<b>Quaderns Virtuals</b>".<p></p><div>"<a href="http://clic.xtec.cat/qv_web/ca/index.htm" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://clic.xtec.cat/qv_web/ca/index.htm&amp;source=gmail&amp;ust=1611301208841000&amp;usg=AFQjCNHDpsNC2uaUX9-SFuWGLX5DbUntNQ">Quaderns Virtuals</a>" (QV) va ser un projecte del Departament d'Educació de la Generalitat de Catalunya que va posar a l'abast dels docents una eina orientada a la creació de qüestionaris interactius basats en l'estàndard&nbsp;<a href="https://ca.wikipedia.org/wiki/QTI" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://ca.wikipedia.org/wiki/QTI&amp;source=gmail&amp;ust=1611301208841000&amp;usg=AFQjCNFlOpTIqXOXRF58jkjvAf2TvNbB8w">IMS QTI</a>. Molts docents van crear i compartir els seus materials QV en una&nbsp;<a href="http://clic.xtec.cat/qv_biblio/act_list.jsp" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://clic.xtec.cat/qv_biblio/act_list.jsp&amp;source=gmail&amp;ust=1611301208841000&amp;usg=AFQjCNHcUphmwPu0yTeHGIb1eDHAJRTrew">biblioteca</a>&nbsp;de recursos educatius oberts.<br></div><div><br></div><div>QV feia ús de la tecnologia&nbsp;<a href="https://ca.wikipedia.org/wiki/Miniaplicaci%C3%B3_de_Java" target="_blank" data-saferedirecturl="https://www.google.com/url?q=https://ca.wikipedia.org/wiki/Miniaplicaci%25C3%25B3_de_Java&amp;source=gmail&amp;ust=1611301208841000&amp;usg=AFQjCNEX6OcmVyuBxO--UXa-FgoMoZK9zA">Java Applet</a>, que l'any 2017 va deixar de funcionar als navegadors web. Per aquest motiu, els materials de la biblioteca de QV<b> s'han convertit al format "<a href="http://ateneu.xtec.cat/wikiform/wikiexport/cmd/tac/moodle2/b6_activitats_2/20_questionari" target="_blank" data-saferedirecturl="https://www.google.com/url?q=http://ateneu.xtec.cat/wikiform/wikiexport/cmd/tac/moodle2/b6_activitats_2/20_questionari&amp;source=gmail&amp;ust=1611301208841000&amp;usg=AFQjCNG1YsDkIRUNpKl5GCZwTRfqMJEd7Q">Qüestionari de Moodle</a>" </b>mitjançant un procés automàtic. Això permet seguir utilitzant-los amb navegadors i plataformes web modernes.</div><div><br></div><div>Amb tot, alguns tipus de preguntes molt específiques de QV que requerien&nbsp;<i>applets</i> Java no s'han pogut convertir al nou format. Per aquest motiu, pot ser que en algun dels qüestionaris hi trobeu a faltar alguna pregunta, o que aquesta es presenti de manera incompleta. S'aconsella revisar el contingut dels qüestionaris abans d'obrir-los a l'alumnat.</div><div><br></div><div>En aquesta <a href="https://educaciodigital.cat/moodle/moodle/mod/glossary/view.php?id=461&amp;mode=entry&amp;hook=2761" target="_blank">pregunta freqüent</a> trobareu explicat el procediment a seguir per importar els qüestionaris QV als vostres cursos Moodle. Un cop importats, sempre podreu modificar-los i adaptar-los a les vostres necessitats específiques.&nbsp;</div><br><p></p>	1	0	0	0	0	0	0	0	0	10	<div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe src="//s7.addthis.com/static/r07/sh19.html#" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0pt none; left: 0pt; top: 0pt;" id="_atssh871"></iframe></div> \n<div style="margin: 10px; padding: 30px;" class="defaulttemplate generalbox"> \n<div class="database-entry-info">\n    <h3>[[Nom]]</h3>\n    <table class="table table-striped" cellpadding="5">\n        <tbody>\n    <tr> \n      <th valign="top" style="text-align: left;">Descripció: \n      </th> \n      <td style="text-align: left;">[[Descripció]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Previsualització:\n      </th> \n      <td style="text-align: left;">[[Previsualització]]\n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Autor/a:<br> \n      </th> \n      <td style="text-align: left;">[[Autor/a]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Nivell/s educatiu/s: \n      </th> \n      <td style="text-align: left;">[[Nivell educatiu]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Àrea curricular: \n      </th> \n      <td style="text-align: left;">[[Àrea curricular]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Àmbit/s competencial/s: \n      </th> \n      <td style="text-align: left;">[[Àmbit competencial]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Fitxer: <span class="text-nowrap" id="yui_3_17_2_1_1607950619317_1072">\n                \n                <a class="btn btn-link p-0" role="button" data-container="body" data-toggle="popover" data-placement="right" data-content="<div class=&quot;no-overflow&quot;><p>Per consultar com importar preguntes a un qüestionari de Moodle des d’un fitxer XML feu clic <a href=&quot;https://educaciodigital.cat/moodle/moodle/mod/glossary/view.php?id=461&mode=entry&hook=2761&quot; target=&quot;_blank&quot; rel=&quot;noreferrer noopener&quot;>aquí</a>.</p>\n</div> " data-html="true" tabindex="0" data-trigger="focus" data-original-title="" title="" id="yui_3_17_2_1_1607950619317_1071">\n  <i class="icon fa fa-question-circle text-info fa-fw " title="Ajuda: «Importació fitxers XML al Moodle»" aria-label="Ajuda: «Importació fitxers XML al Moodle»" id="yui_3_17_2_1_1607950619317_1076"></i>\n\n            </span>\n      </th> \n      <td style="text-align: left;">[[Fitxer]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Fitxer addicional: \n      </th> \n      <td style="text-align: left;">[[Fitxer addicional]] \n      </td> \n    </tr>\n    <tr> \n      <th valign="top" style="text-align: left;">Quadern virtual: \n      </th> \n      <td style="text-align: left;">[[Quadern virtual]] \n      </td> \n    </tr>  \n    <tr> \n      <th style="vertical-align: top;">Format:<br> \n      </th> \n      <td style="vertical-align: top;">[[Format]]<br> \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Idioma/es: \n      </th> \n      <td style="text-align: left;">[[Idioma]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Llicència d'ús \n      </th> \n      <td style="text-align: left;">[[Llicència d'ús]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Versió de Moodle: \n      </th> \n      <td style="text-align: left;">[[Versió de Moodle]] \n      </td> \n    </tr> \n    <tr> \n      <th valign="top" style="text-align: left;">Data de creació: \n      </th> \n      <td style="text-align: left;">[[Data de creació]] \n      </td> \n    </tr> </tbody> \n  </table>##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br><hr></div>\n\n  <div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br> \n    <div style="text-align: left;"><!-- AddThis Button BEGIN --> \n      <div class="addthis_toolbox addthis_default_style"> <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=alexandriaxtec" class="addthis_button_compact at300m"><span class="at300bs at15t_compact"></span>Comparteix</a> <span class="addthis_separator"></span> <a class="addthis_button_facebook at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=facebook&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Facebook"><span class="at300bs at15t_facebook"></span></a> <a class="addthis_button_delicious at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=delicious&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Delicious"><span class="at300bs at15t_delicious"></span></a> <a class="addthis_button_google at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=google&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Google"><span class="at300bs at15t_google"></span></a> <a class="addthis_button_twitter at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=twitter&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Twitter"><span class="at300bs at15t_twitter"></span></a> \n        <div class="atclear"></div> \n        <div class="atclear"></div> \n        <div class="atclear"></div></div> \n      <script type="text/javascript">var addthis_config = {ui_language: &amp;quot;ca&amp;quot;}</script> \n      <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#username=alexandriaxtec"></script></div></div></div>	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div> ([[Autor/a]])&nbsp;<br>[[Àrea curricular]] - ##comments## - ##downloads## descàrregues <span style="line-height: 30px;"><br></span>[[Descripció]]&nbsp;&nbsp;</div><div style="margin: 10px;" class="generalbox">##edit## ##delete## ##approve## ##disapprove##</div>			<div style="text-align: left;" class="defaulttemplate"> <span style="font-weight: bold;">Nom</span> * <br>Nom del grup de preguntes, que l'identificarà a la base de dades i al llistat per categories.<br> [[Nom]]<span style="font-weight: bold;"></span><br> <br> <span style="font-weight: bold;">Descripció</span> *<br>Feu una breu descripció de les característiques de les preguntes, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades dels cursos.<br> [[Descripció]]</div><div style="text-align: left;" class="defaulttemplate"><br></div><div style="text-align: left;" class="defaulttemplate"><div><b>Previsualització</b></div><div>Enllaç de la vista del qüestionari</div><div>[[Previsualització]]</div><br><span style="font-weight: bold;">Autor/a</span> * <br>Si hi ha més d'un/a, separeu els noms per punt i coma (;)<br> [[Autor/a]]<br><br><span style="font-weight: bold;">Fitxer</span>*<br>Mida màxima 10 MB. Consulteu el document <a href="../resource/view.php?id=9">Característiques dels materials</a> per a més informació.<br>[[Fitxer]] <br><br><span style="font-weight: bold;">Fitxer addicional</span><br>Mida màxima 10 MB. Consulteu el document <a href="../resource/view.php?id=9">Característiques dels materials</a> i la PMF <a href="../glossary/view.php?id=10&amp;mode=entry&amp;hook=5" title="PMF">Què puc fer si el meu curs ocupa més de 10MB?</a> per a més informació.<br>[[Fitxer addicional]] <br><div><b><br>Quadern virtual*</b></div><div><span id="result_box" tabindex="-1" lang="ca">Indiqueu si és un Quadern Virtual.</span></div><div>[[Quadern virtual]]</div><br><span style="font-weight: bold;">Format</span>*<br>Consulteu la PMF <a href="http://alexandria.xtec.cat/mod/glossary/view.php?id=10&amp;mode=entry&amp;hook=39" target="_blank">Exportar preguntes de qüestionari</a> per a més informació.<br>[[Format]] <br><br><span style="font-weight: bold;">Categories incloses al fitxer</span><br>Especifiqueu si en exportar les preguntes hi heu inclòs les categories.<br>[[Categories incloses al fitxer]]<br> <br> <span style="font-weight: bold;">Nivell educatiu</span> * <br>Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.<br> [[Nivell educatiu]]<br> <br> <span style="font-weight: bold;">Àrea curricular</span> * <br>Seleccioneu l'opció més escaient.<br> [[Àrea curricular]]<br> <br> <span style="font-weight: bold;">Àmbit competencial </span><br>Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.<br> [[Àmbit competencial]]<br> <br><span style="font-weight: bold;">Idioma</span><br>Seleccioneu l'idioma en què estan escrits els continguts del curs.<br> [[Idioma]]<br><br> <span style="font-weight: bold;">Llicència d'ús</span><br> La llicència per defecte, si no s'especifica cap altra, és <span style="font-weight: bold;">Creative Commons</span> <span style="font-weight: bold;">Reconeixement- No comercial - Compartir igual</span> (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>) <br> [[Llicència d'ús]]<br><br> <span style="font-weight: bold;">Versió de Moodle </span><br>Si desconeixeu aquesta dada deixeu el camp en blanc.<br> [[Versió de Moodle]]<br> <br> <span style="font-weight: bold;">Data de creació </span><br> [[Data de creació]] <span style="font-weight: bold;"></span><br><br><span style="color: rgb(204, 0, 0);"><span style="font-weight: bold;">AVÍS</span>: L'enviament d'aquest formulari porta implícita l'acceptació de les <a title="Condicions d'ús" target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" style="color: rgb(204, 0, 0);">condicions d'ús</a> d'aquest espai.</span></div>	<div id="_atssh" style="visibility: hidden; height: 1px; width: 1px; position: absolute; z-index: 100000;"><iframe src="//s7.addthis.com/static/r07/sh19.html#" style="height: 1px; width: 1px; position: absolute; z-index: 100000; border: 0pt none; left: 0pt; top: 0pt;" id="_atssh871"></iframe></div> \n<div style="margin: 10px; padding: 30px;" class="defaulttemplate generalbox"> \n  <div class="defaulttemplate"> \n    <div style="font-size: 1.5em;">[[Nom]]<br> </div></div> \n  <div style="text-align: right;"> </div> \n  <table cellpadding="5"><tbody> \n    <tr> \n      <td valign="top" style="text-align: left;">Descripció: \n      </td> \n      <td style="text-align: left;">[[Descripció]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Previsualització:\n      </td> \n      <td style="text-align: left;">[[Previsualització]]\n      </td> \n    </tr>  \n    <tr> \n      <td valign="top" style="text-align: left;">Autor/a:<br> \n      </td> \n      <td style="text-align: left;">[[Autor/a]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Nivell/s educatiu/s: \n      </td> \n      <td style="text-align: left;">[[Nivell educatiu]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Àrea curricular: \n      </td> \n      <td style="text-align: left;">[[Àrea curricular]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Àmbit/s competencial/s: \n      </td> \n      <td style="text-align: left;">[[Àmbit competencial]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Fitxer: \n      </td> \n      <td style="text-align: left;">[[Fitxer]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Fitxer addicional: \n      </td> \n      <td style="text-align: left;">[[Fitxer addicional]] \n      </td> \n    </tr>\n    <tr> \n      <td valign="top" style="text-align: left;">Quadern virtual: \n      </td> \n      <td style="text-align: left;">[[Quadern virtual]] \n      </td> \n    </tr>  \n    <tr> \n      <td style="vertical-align: top;">Format:<br> \n      </td> \n      <td style="vertical-align: top;">[[Format]]<br> \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Idioma/es: \n      </td> \n      <td style="text-align: left;">[[Idioma]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Llicència d'ús \n      </td> \n      <td style="text-align: left;">[[Llicència d'ús]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Versió de Moodle: \n      </td> \n      <td style="text-align: left;">[[Versió de Moodle]] \n      </td> \n    </tr> \n    <tr> \n      <td valign="top" style="text-align: left;">Data de creació: \n      </td> \n      <td style="text-align: left;">[[Data de creació]] \n      </td> \n    </tr> </tbody> \n  </table>##edit## ##delete## ##approve## ##export## ##abuse_report##<br><br><hr> \n  <div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br> \n    <div style="text-align: left;"><!-- AddThis Button BEGIN --> \n      <div class="addthis_toolbox addthis_default_style"> <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=alexandriaxtec" class="addthis_button_compact at300m"><span class="at300bs at15t_compact"></span>Comparteix</a> <span class="addthis_separator">|</span> <a class="addthis_button_facebook at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=facebook&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Facebook"><span class="at300bs at15t_facebook"></span></a> <a class="addthis_button_delicious at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=delicious&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Delicious"><span class="at300bs at15t_delicious"></span></a> <a class="addthis_button_google at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=google&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Google"><span class="at300bs at15t_google"></span></a> <a class="addthis_button_twitter at300b" href="//www.addthis.com/bookmark.php?pub=alexandriaxtec&amp;v=250&amp;source=tbx-250&amp;tt=0&amp;s=twitter&amp;url=http%3A%2F%2Falexandria.xtec.cat%2Fmod%2Fdata%2Ftemplates.php%3Fd%3D5%26mode%3Dsingletemplate&amp;title=&amp;content=&amp;lng=ca" target="_blank" title="Envia a Twitter"><span class="at300bs at15t_twitter"></span></a> \n        <div class="atclear"></div> \n        <div class="atclear"></div> \n        <div class="atclear"></div></div> \n      <script type="text/javascript">var addthis_config = {ui_language: &amp;quot;ca&amp;quot;}</script> \n      <script type="text/javascript" src="https://s7.addthis.com/js/250/addthis_widget.js#username=alexandriaxtec"></script></div></div></div>		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\ndiv.author a{color:white}	\N	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody><tr><td valign="top" align="right">Nom: </td><td>[[Nom]]</td></tr><tr><td valign="top" align="right">Nom curt: </td><td>[[Nom curt]]</td></tr><tr><td valign="top" align="right">Autor/a: </td><td>[[Autor/a]]</td></tr><tr><td valign="top" align="right">Nivell educatiu: </td><td>[[Nivell educatiu]]</td></tr><tr><td valign="top" align="right">Àrea curricular: </td><td>[[Àrea curricular]]</td></tr><tr><td valign="top" align="right">Àmbit competencial: </td><td>[[Àmbit competencial]]</td></tr><tr><td valign="top" align="right">Descripció: </td><td>[[Descripció]]</td></tr><tr><td valign="top" align="right">Fitxer: </td><td>[[Fitxer]]</td></tr><tr><td valign="top" align="right">Quadern virtual: </td><td>[[Quadern virtual]]</td></tr><tr><td valign="top" align="right">Versió de Moodle: </td><td>[[Versió de Moodle]]</td></tr><tr><td valign="top" align="right">Data de creació: </td><td>[[Data de creació]]</td></tr><tr><td valign="top" align="right">Llicència d'ús: </td><td>[[Llicència d'ús]]</td></tr><tr><td valign="top" align="right">Format: </td><td>[[Format]]</td></tr><tr><td valign="top" align="right">Categories incloses al fitxer: </td><td>[[Categories incloses al fitxer]]</td></tr><tr><td valign="top" align="right">Idioma: </td><td>[[Idioma]]</td></tr><tr><td valign="top" align="right">Nom de l'autor/a: </td><td>##firstname##</td></tr><tr><td valign="top" align="right">Cognom de l'autor/a: </td><td>##lastname##</td></tr></tbody></table></div>	1	1	5	1	0	0	0	1	0	0	1611232658	{"editor_singletemplate":false,"editor_listtemplate":false,"editor_asearchtemplate":false}	0
+7	1	Biblioteca de materials per a les PDI	<p>Aquesta és la base de dades de materials per a les pissarres digitals interactives (<span class="nolink">PDI</span>).</p>\n<ul>\n<li>Hi podeu aportar <b>fitxers amb el material en formats diversos</b> (notebook, xbk...) i d'una mida inferior a 20 Mb. --&gt; <span class="glossary autolink glossaryid1">Com pujar materials per a PDI.</span></li>\n<li>La <b>imatge adjunta</b> ha d'estar en format gif, jpg o png (no adjunteu imatges en format bmp).</li>\n<li>Per tal que el material es pugui <b>previsualitzar</b> heu d'adjuntar un fitxer en <span class="nolink">PDF</span> (inferior a 10 Mb).</li>\n</ul>\n<p>Per a més informació consulteu el document <a href="http://alexandria.xtec.cat/mod/page/view.php?id=9" target="_blank">Característiques dels materials</a>.</p>\n<p>Per <b>cercar materials</b> utilitzeu la pestanya "Cerca". També podeu ordenar-los per data de creació, autor/a, títol, nivell educatiu i altres dades a partir de les opcions de la part inferior de la pàgina.</p>\n<hr style="width: 100%; height: 2px;">\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\n<p></p>\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	10	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr><th>Fitxer:</th>\n<td colspan="2">[[Fitxer]]</td>\n</tr>\n<tr>\n<td>URL permanent:</td>\n<td colspan="2"><a href="##moreurl##">##moreurl##</a></td>\n</tr>\n<tr>\n<td valign="top">Descripció:</td>\n<td>[[Descripció]]</td>\n<td rowspan="9">[[Imatge]]</td>\n</tr>\n<tr>\n<td valign="top">Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell/s educatiu/s:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit/s competencial/s:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td valign="top">Tipus de fitxer:</td>\n<td>[[Tipus de fitxer]]</td>\n</tr>\n<tr>\n<td valign="top">Llicència d'ús</td>\n<td>[[Llicència d'ús]]</td>\n</tr>\n<tr>\n<td valign="top">Data de creació:</td>\n<td>[[Data de creació]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br /><br /><hr /></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br />Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script>	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> - [[Data de creació]]</p>\n<p>[[Àrea curricular]] - ##downloads## descàrregues</p>\n<div class="content" style="float: left; width: 70%; clear: left;">[[Descripció]]</div>\n<div style="float: right; width: 25%;">[[Imatge]]</div>\n<div class="clearfix"> </div>\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label>Nom del recurs *</label><br></div><div class="database-entry-form">[[Nom]] <br></div><div class="database-entry-form"><span class="help-block">Nom del recurs que l'identificarà a la base de dades.</span> <label><br></label></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Descripció&nbsp;*</label><br></div><div class="database-entry-form">[[Descripció]] <br></div><div class="database-entry-form"><span class="help-block">Feu una breu descripció de les característiques del recurs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Autor/a *</label><br></div><div class="database-entry-form">[[Autor/a]] <br></div><div class="database-entry-form"><span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Nivell educatiu *</label><br></div><div class="database-entry-form">[[Nivell educatiu]] <br></div><div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Àrea curricular *</label></div><div class="database-entry-form"><label></label>[[Àrea curricular]] <br></div><div class="database-entry-form"><span class="help-block">Seleccioneu l'opció més escaient.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Àmbit competencial *</label></div><div class="database-entry-form"><label></label>[[Àmbit competencial]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Fitxer&nbsp;*</label></div><div class="database-entry-form"><label></label>[[Fitxer]] <br></div><div class="database-entry-form"><span class="help-block"><strong>Important</strong>: Mida màxima 20 MB. Consulteu el document&nbsp;<a href="http://alexandria.xtec.cat/mod/resource/view.php?id=9">Característiques dels materials</a>&nbsp;per a més informació.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Tipus de fitxer</label><br></div><div class="database-entry-form">[[Tipus de fitxer]] <br></div><div class="database-entry-form"><span class="help-block">Seleccioneu el tipus de fitxer.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>PDF *</label></div><div class="database-entry-form"><label></label>[[pdf]] <br></div><div class="database-entry-form"><span class="help-block">Adjunteu el material en un fitxer en format PDF que permeti previsualitzar-lo. <br><strong>Important</strong>: Mida màxima 10 MB.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Imatge *</label><br></div><div class="database-entry-form">[[Imatge]] <br></div><div class="database-entry-form"><span class="help-block">Adjunteu una imatge representativa del material.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Llicència d'ús&nbsp;*</label></div><div class="database-entry-form"><label></label>[[Llicència d'ús]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">La llicència per defecte, si no s'especifica cap altra, és&nbsp;<em>Creative Commons Reconeixement- No cormercial - Compartir igual</em>&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank">text legal</a>)</span> <label><br></label></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Data de creació</label></div><div class="database-entry-form"><label></label>[[Data de creació]] <br></div><div class="database-entry-form"><br><p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank">condicions d'ús</a> d'aquest espai.</p>\n<p><strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong></p>\n<p><strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	<p>[[Descripció]]</p>		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\n\ntd.firstcol{\nwidth: 115px!important;\ntext-align: left;\nvertical-align:middle;\n}\n\ntd{ vertical-align:top!important;}	function load_addthis() {\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\n}	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td>Nom del recurs:</td>\n<td>[[Nom]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell educatiu:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit competencial:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td>Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Tipus de fitxer:</td>\n<td>[[Tipus de fitxer]]</td>\n</tr>\n</tbody>\n</table>\n</div>	1	1	5	0	0	0	0	1	0	0	1594726257	\N	0
+8	1	Biblioteca de materials SCORM	<p>Base de dades de materials en format SCORM.</p>\n<div style="text-align: center; font-weight: bold;"><span style="color: #ff0000;">Ja es poden pujar materials!</span><br /><br />Aquests materials no són cursos de Moodle,<br />tot i que es poden incloure a un curs Moodle com a "activitat SCORM".</div>\n<ul>\n<li><span style="font-weight: normal;" class="glossary autolink glossaryid1">Com pujar objectes SCORM</span></li>\n<li><span style="font-weight: normal;" class="glossary autolink glossaryid1">Eines per a la creació de contingut SCORM</span></li>\n<li style="font-weight: normal;"><span class="glossary autolink glossaryid1">Com incloure un objecte SCORM a un curs de Moodle</span></li>\n</ul>\n<hr style="width: 100%; height: 2px;" />\n<p><span size="5" style="font-size: x-large;"><span style="color: #ffff00; font-weight: bold; background-color: #ff0099;">IMPORTANT:</span></span></p>\n<p></p>\n<p>Tingueu en compte que la llicència genèrica del lloc és <span class="nolink">Creative Commons</span> Reconeixement - No comercial - Compartir igual (<a title="cc by-nc-sa" target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca">text legal</a>), de manera que tingueu cura amb els <span class="glossary autolink glossaryid1">drets d'autoria</span>. El fet de pujar un material implica que coneixeu i accepteu les "<a target="_blank" href="http://alexandria.xtec.cat/mod/resource/view.php?id=20686">Condicions d'ús</a>" del servei.</p>\n<p><b>En particular, totes les imatges que utilitzeu als materials han d'estar referenciades i tenir una llicència <span class="glossary autolink glossaryid1">Creative Commons</span></b>.</p>	1	0	0	0	0	0	0	0	0	10	<div class="database-entry-info">\n<h3>[[Nom]]</h3>\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td valign="top">Fitxer:</td>\n<td colspan="2">[[Fitxer SCORM]]</td>\n</tr>\n<tr>\n<td class="firstcol">URL permanent:</td>\n<td colspan="2">##moreurl##</td>\n</tr>\n<tr>\n<td valign="top">Descripció:</td>\n<td>[[Descripció]]</td>\n<td rowspan="8">[[Imatges]]</td>\n</tr>\n<tr>\n<td valign="top">Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell/s educatiu/s:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit/s competencial/s:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n<tr>\n<td valign="top">Llicència d'ús</td>\n<td>[[Llicència d'ús]]</td>\n</tr>\n<tr>\n<td valign="top">Data de creació:</td>\n<td>[[Data de creació]]</td>\n</tr>\n<tr>\n<td>Fitxer font (editable, per exemple elp d'eXelearning):</td>\n<td>[[Fitxer font]]</td>\n</tr>\n</tbody>\n</table>\n##approve## ##disapprove## ##edit## ##delete## ##abuse_report##<br /><br /><hr /></div>\n<div style="text-align: right;">Fitxa creada per ##user## - ##timeadded##<br />Darrera modificació: ##timemodified##</div>\n<script type="text/javascript">// <![CDATA[\nload_addthis();\n// ]]></script>	<div class="database-entry ##approved##">\n<div class="subject"><a href="##moreurl##">[[Nom]]</a></div>\n<p>per <span style="font-weight: bold;">[[Autor/a]]</span> - [[Data de creació]]</p>\n<p>[[Àrea curricular]]</p>\n<p>##downloads## descàrregues</p>\n<div class="content" style="float: left; width: 70%; clear: left;">[[Descripció]]</div>\n<div style="float: right; width: 25%;">[[Imatges]]</div>\n<div class="clearfix"> </div>\n##edit## ##delete## ##approve## ##disapprove##</div>			<div class="database-entry-form"><label>Nom del recurs *</label></div><div class="database-entry-form"><label></label>[[Nom]] <br></div><div class="database-entry-form"><span class="help-block">Nom del recurs que l'identificarà a la base de dades.</span> <label><br></label></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Descripció&nbsp;*</label></div><div class="database-entry-form"><label></label>[[Descripció]] <br></div><div class="database-entry-form"><span class="help-block">Feu una breu descripció de les característiques del material, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Autor/a *</label><br></div><div class="database-entry-form">[[Autor/a]] <br></div><div class="database-entry-form"><span class="help-block">Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Nivell educatiu *</label><br></div><div class="database-entry-form">[[Nivell educatiu]] <br></div><div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Àrea curricular&nbsp;*</label><br></div><div class="database-entry-form">[[Àrea curricular]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Seleccioneu l'opció més escaient.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Àmbit competencial *</label></div><div class="database-entry-form"><label></label>[[Àmbit competencial]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label><br></label></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Fitxer&nbsp;*</label></div><div class="database-entry-form"><label></label>[[Fitxer SCORM]] <span class="help-block"><br></span></div><div class="database-entry-form"><span class="help-block">Mida màxima 20 MB.&nbsp;</span> <label><label style="cursor: pointer; font-size: 14px; font-weight: bold; line-height: 20px; display: block; margin-bottom: 5px; color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; "><br></label></label></div><div class="database-entry-form"><label><label style="cursor: pointer; font-size: 14px; font-weight: bold; line-height: 20px; display: block; margin-bottom: 5px; color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; "><br></label></label></div><div class="database-entry-form"><label><label style="cursor: pointer; font-size: 14px; font-weight: bold; line-height: 20px; display: block; margin-bottom: 5px; color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; ">Fitxer font</label><span style="color: rgb(51, 51, 51); font-family: arial, helvetica, clean, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px;  display: inline !important; float: none;">[[Fitxer font]]</span><span class="help-block" style="color: rgb(89, 89, 89); display: block; margin-bottom: 10px; font-size: 0.8em; font-family: arial, helvetica, clean, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; ">Fitxer editable, per exemple en format .elp d'eXelearning.</span></label><label><br></label></div><div class="database-entry-form"><label>Imatge</label></div><div class="database-entry-form"><label></label>[[Imatges]] <br></div><div class="database-entry-form"><span class="help-block">Adjunteu una imatge representativa del material.</span> <br></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Llicència d'ús&nbsp;*</label></div><div class="database-entry-form"><label></label>[[Llicència d'ús]] <br></div><div class="database-entry-form"><span class="help-block">La llicència per defecte, si no s'especifica cap altra, és&nbsp;<em>Creative Commons Reconeixement- No comercial - Compartir igual</em>&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank">text legal</a>)</span> <label><br></label></div><div class="database-entry-form"><label><br></label></div><div class="database-entry-form"><label>Data de creació</label><br></div><div class="database-entry-form">[[Data de creació]] <label><br></label><label><br></label>\n<p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank">condicions d'ús</a> d'aquest espai.</p>\n<p><strong><span style="text-decoration: underline;">IMPORTANT</span>:</strong></p>\n<p><strong>Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	<p>[[Descripció]]</p>		.defaulttemplate{text-align:left;}\nhr {border:none !important; border-bottom: 1px solid #ccc !important;}\n.datapreferences{border: 1px dashed #CCC; padding: 10px;background-color:#FFF;margin: 10px;}\n\ntd.firstcol{\nwidth: 115px!important;\ntext-align: left;\nvertical-align:middle;\n}\n\ntd{ vertical-align:top!important;}\n\n#scorm_preview_iframe{\nwidth : 747px;\nheight : 605px;\nborder-width: 0px;\n}\n\n#scorm_preview_iframe #content{\nheight : 600px;\n}\n\n#scorm_preview_iframe .content_frame{\nmargin: 10px;\nborder-width: 0px;\n}	function load_addthis() {\ndocument.write("<!-- AddThis Button BEGIN --><div class='addthis_toolbox addthis_default_style '><a class='addthis_button_compact'>Comparteix </a><span style='float:left'>&nbsp;&nbsp;|&nbsp;&nbsp;</span><a class='addthis_button_preferred_1'></a><a class='addthis_button_preferred_2'></a><a class='addthis_button_preferred_3'></a><a class='addthis_button_preferred_4'></a></div><script type='text/javascript' src='//s7.addthis.com/js/300/addthis_widget.js#pubid=xa-52a03e651c99ba0e'></script><!-- AddThis Button END -->");\n}	<div class="defaulttemplate">\n<table class="table table-striped" cellpadding="5">\n<tbody>\n<tr>\n<td valign="top">Nom:</td>\n<td>[[Nom]]</td>\n</tr>\n<tr>\n<td valign="top">Autor/a:</td>\n<td>[[Autor/a]]</td>\n</tr>\n<tr>\n<td valign="top">Descripció:</td>\n<td>[[Descripció]]</td>\n</tr>\n<tr>\n<td valign="top">Nivell educatiu:</td>\n<td>[[Nivell educatiu]]</td>\n</tr>\n<tr>\n<td valign="top">Àrea curricular:</td>\n<td>[[Àrea curricular]]</td>\n</tr>\n<tr>\n<td valign="top">Àmbit competencial:</td>\n<td>[[Àmbit competencial]]</td>\n</tr>\n</tbody>\n</table>\n</div>	1	1	5	0	0	0	0	1	0	0	0	\N	0
 \.
 
 
@@ -31057,49 +32820,66 @@ COPY public.mdl_data_content (id, fieldid, recordid, content, content1, content2
 --
 
 COPY public.mdl_data_fields (id, dataid, type, name, description, required, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10) FROM stdin;
-1	1	text	Nom	Nom	1										
-2	1	text	Nom curt	Nom curt	0				\N	\N	\N	\N	\N	\N	\N
-3	1	text	Autor/a	Autor/a	1										
-4	1	multimenu	Nivell educatiu	Nivell educatiu	1	Educació Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nFormació de persones adultes\nFormació permanent\nAltres									
-5	1	menu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nSC-Servei Comunitari\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\n\nAL-Altres									
-6	1	multimenu	Àmbit competencial	Àmbit competencial	0	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana									
-7	1	textarea	Descripció	Descripció	1		60	20	1						
-8	1	file	Fitxer	Fitxer	0			52428800	3						
-9	1	text	Versió del curs	Versió del curs	0										
-10	1	text	Versió de Moodle	Versió de Moodle	0				\N	\N	\N	\N	\N	\N	\N
-11	1	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
-12	1	text	courseid	Identificador del curs	0				\N	\N	\N	\N	\N	\N	\N
-13	1	url	Enllaç	Enllaç	0				\N	\N	\N	\N	\N	\N	\N
-14	1	url	Fitxa de MeRLí	Fitxa de MeRLí	0				\N	\N	\N	\N	\N	\N	\N
-15	1	menu	Llicència	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)									
-16	1	multimenu	Idioma	Idioma	0	Català\nAranès\nCastellà\nAnglès\nFrancès\nItalià\nAlemany\nPortuguès\nAltres									
-17	1	menu	Família professional	Família professional	0	Activitats físiques i esportives\nAdministració i gestió\nAgrària\nArts i artesanies\nArts gràfiques\nComerç i màrqueting\nEdificació i obra civil\nElectricitat i electrònica\nEnergia i aigua\nFabricació mecànica\nFusta, moble i suro\nHoteleria i turisme\nImatge i so\nFormació i Orientació Laboral\nImatge personal\nIndústries alimentàries\nIndústries extractives\nInformàtica i comunicacions\nInstal·lació i manteniment\nMarítim pesquera\nQuímica\nSanitat\nSeguretat i medi ambient\nServeis socioculturals i a la comunitat\nTèxtil, confecció i pell\nTransport i manteniment de vehicles\nVidre i ceràmica			\N	\N	\N	\N	\N	\N	\N
-18	2	text	Nom	Nom	1										
-19	2	text	Nom curt	Nom curt	0				\N	\N	\N	\N	\N	\N	\N
-20	2	text	Autor/a	Autor/a	1										
-21	2	multimenu	Nivell educatiu	Nivell educatiu	1	Educació Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nFormació de persones adultes\nFormació permanent\nAltres									
-22	2	menu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\nAL-Altres									
-23	2	multimenu	Àmbit competencial	Àmbit competencial	1	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana									
-24	2	textarea	Descripció	Descripció	1		60	20	1	0					
-25	2	file	Fitxer	Fitxer	1			20971520	4						
-26	2	menu	Llicència d'ús	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)									
-27	2	multimenu	Idioma	Idioma	0	Català\nAranès\nCastellà\nAnglès\nFrancès\nItalià\nAlemany\nPortuguès\nAltres			\N	\N	\N	\N	\N	\N	\N
-28	2	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
-29	2	text	Versió del recurs	Versió del recurs	0				\N	\N	\N	\N	\N	\N	\N
-30	2	menu	Tipus de fitxer	Tipus de fitxer	0	PDI Smart: .xbk\nPDI Smart: .notebook\nPDI Interwrite: .gwb\nPDI Mimio: .ink\nPDI Promethean: .flp\nPDI Promethean: .flipchart\nOpenSankore: .ubz\nStarboard: .yar\nInteractive White Board: .iwb\nPresentació: .odp, .ppt...\nFormat de video .avi\nFormat de vídeo .mpeg\nArxiu comprimit: .zip, .rar...									
-31	2	picture	Imatge	Captura de pantalla	1	400		2097152	200						
-32	2	file	pdf	pdf	1			10485760	1						
-33	3	text	Nom	Nom	1										
-34	3	text	Autor/a	Autor/a	1										
-35	3	textarea	Descripció	Descripció	1		60	20	1	0					
-36	3	multimenu	Nivell educatiu	Nivell educatiu	1	Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nEOI\nFormació de persones adultes\nFormació permanent\nAltres									
-37	3	multimenu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\nAL-Altres									
-38	3	multimenu	Àmbit competencial	Àmbit competencial	1	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana									
-39	3	file	Fitxer SCORM	Fitxer	1			73400320	2						
-40	3	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
-41	3	menu	Llicència d'ús	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)									
-42	3	picture	Imatges	Captura de pantalla	0	400		1048576	200		\N	\N	\N	\N	\N
-43	3	file	Fitxer font	Fitxer editable (per exemple elp, d'eXelearning)	0			20971520	0	0	\N	\N	\N	\N	\N
+78	6	text	Nom	Nom	0				\N	\N	\N	\N	\N	\N	\N
+79	6	text	Nom curt	Nom curt	0				\N	\N	\N	\N	\N	\N	\N
+80	6	text	Autor/a	Autor/a	0				\N	\N	\N	\N	\N	\N	\N
+81	6	multimenu	Nivell educatiu	Nivell educatiu	0	Educació Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nFormació de persones adultes\nFormació permanent\nEducació a distància\nAltres									
+82	6	menu	Àrea curricular	Àrea curricular	0	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\nCE-Ciències experimentals\nAL-Altres									
+83	6	multimenu	Àmbit competencial	Àmbit competencial	0	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana\nCientificotecnològic\nEducació física\nConeixement del medi\nCultura i valors									
+84	6	textarea	Descripció	Descripció	0		60	20	\N	\N	\N	\N	\N	\N	\N
+85	6	file	Fitxer	Fitxer	0			10485760	\N	\N	\N	\N	\N	\N	\N
+86	6	text	Versió de Moodle	Versió de Moodle	0				\N	\N	\N	\N	\N	\N	\N
+87	6	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
+88	6	menu	Llicència d'ús	Llicència d'ús	0	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)			\N	\N	\N	\N	\N	\N	\N
+89	6	menu	Format	Format	0	Moodle XML\nGIFT\nIMS QTI 2.0\nXHTML			\N	\N	\N	\N	\N	\N	\N
+90	6	radiobutton	Categories incloses al fitxer	Categories incloses al fitxer	0	Sí\nNo			\N	\N	\N	\N	\N	\N	\N
+91	6	multimenu	Idioma	Idioma	0	Català\nAranès\nCastellà\nAnglès\nFrancès\nItalià\nAlemany\nPortuguès\nAltres			\N	\N	\N	\N	\N	\N	\N
+92	6	file	Fitxer addicional	Fitxer addicional	0			10485760	\N	\N	\N	\N	\N	\N	\N
+93	6	radiobutton	Quadern virtual	Indica si és un quadern virtual	0	Sí\nNo			\N	\N	\N	\N	\N	\N	\N
+94	6	url	Previsualització	Visualitza el qüestionari	0	1			\N	\N	\N	\N	\N	\N	\N
+110	8	text	Nom	Nom	1										
+111	8	text	Autor/a	Autor/a	1										
+112	8	textarea	Descripció	Descripció	1		60	20	1	0					
+113	8	multimenu	Nivell educatiu	Nivell educatiu	1	Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nEOI\nFormació de persones adultes\nFormació permanent\nAltres									
+114	8	multimenu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\nAL-Altres									
+115	8	multimenu	Àmbit competencial	Àmbit competencial	1	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana									
+116	8	file	Fitxer SCORM	Fitxer	1			73400320	2						
+117	8	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
+118	8	menu	Llicència d'ús	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)									
+119	8	picture	Imatges	Captura de pantalla	0	400		1048576	200		\N	\N	\N	\N	\N
+120	8	file	Fitxer font	Fitxer editable (per exemple elp, d'eXelearning)	0			20971520	0	0	\N	\N	\N	\N	\N
+95	7	text	Nom	Nom	1										
+96	7	text	Nom curt	Nom curt	0				\N	\N	\N	\N	\N	\N	\N
+97	7	text	Autor/a	Autor/a	1										
+98	7	multimenu	Nivell educatiu	Nivell educatiu	1	Educació Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nFormació de persones adultes\nFormació permanent\nAltres									
+99	7	menu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\nAL-Altres									
+100	7	multimenu	Àmbit competencial	Àmbit competencial	1	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana									
+101	7	textarea	Descripció	Descripció	1		60	20	1	0					
+102	7	file	Fitxer	Fitxer	1			20971520	4						
+103	7	menu	Llicència d'ús	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)									
+104	7	multimenu	Idioma	Idioma	0	Català\nAranès\nCastellà\nAnglès\nFrancès\nItalià\nAlemany\nPortuguès\nAltres			\N	\N	\N	\N	\N	\N	\N
+105	7	date	Data de creació	Data de creació	0				\N	\N	\N	\N	\N	\N	\N
+106	7	text	Versió del recurs	Versió del recurs	0				\N	\N	\N	\N	\N	\N	\N
+107	7	menu	Tipus de fitxer	Tipus de fitxer	0	PDI Smart: .xbk\nPDI Smart: .notebook\nPDI Interwrite: .gwb\nPDI Mimio: .ink\nPDI Promethean: .flp\nPDI Promethean: .flipchart\nOpenSankore: .ubz\nStarboard: .yar\nInteractive White Board: .iwb\nPresentació: .odp, .ppt...\nFormat de video .avi\nFormat de vídeo .mpeg\nArxiu comprimit: .zip, .rar...									
+108	7	picture	Imatge	Captura de pantalla	1	400		2097152	200						
+109	7	file	pdf	pdf	1			10485760	1						
+61	5	menu	Àrea curricular	Àrea curricular	1	CN-Ciències de la naturalesa\nCS-Ciències socials\nCC-Cultura clàssica\nEF-Educació física\nEC-Educació per a la ciutadania\nFI-Filosofia\nRE-Història i cultura de les religions\nLA-Llengua aranesa a la Val d'Aran\nLS-Llengua castellana i literatura\nLC-Llengua catalana i literatura\nLE-Llengües estrangeres\nMA-Matemàtiques\nMU-Música\nSC-Servei Comunitari\nTE-Tecnologies\nTU-Tutoria\nEV-Visual i plàstica\nIN-Interdisciplinar\nAL-Altres									
+62	5	text	Nom	Nom	1										
+63	5	text	Nom curt	Nom curt	0										
+64	5	text	Autor/a	Autor/a	1										
+65	5	textarea	Descripció	Descripció	1		60	20	1						
+66	5	multimenu	Àmbit competencial	Àmbit competencial	0	Comunicativa, lingüística i audiovisual\nArtística i cultural\nGestió i tractament de la informació digital\nMatemàtica\nAprendre a aprendre\nAutonomia i iniciativa personal \nConeixement i la interacció amb el món\nSocial i ciutadana									
+67	5	file	Fitxer	Fitxer	0			52428800	3						
+68	5	text	Versió del curs	Versió del curs	0										
+69	5	text	Versió de Moodle	Versió de Moodle	0										
+70	5	text	courseid	Identificador del curs	0										
+71	5	url	Enllaç	Enllaç	0										
+72	5	url	Fitxa de MeRLí	Fitxa de MeRLí	0										
+73	5	menu	Llicència	Llicència d'ús	1	Creative Commons: Reconeixement – NoComercial – CompartirIgual (by-nc-sa)\nCreative Commons: Reconeixement – NoComercial – SenseObraDerivada (by-nc-nd)\nCreative Commons: Reconeixement – CompartirIgual (by-sa)\nCreative Commons: Reconeixement –  SenseObraDerivada (by-nd)\nCreative Commons: Reconeixement – NoComercial (cc-by-nc)\nCreative Commons: Reconeixement (cc-by)									
+74	5	multimenu	Idioma	Idioma	0	Català\nAranès\nCastellà\nAnglès\nFrancès\nItalià\nAlemany\nPortuguès\nAltres									
+75	5	multimenu	Nivell educatiu	Nivell educatiu	1	Educació Infantil\nCI Primària\nCM Primària\nCS Primària\nESO\nBatxillerat\nEducació especial\nCFGM\nCFGS\nFormació de persones adultes\nFormació permanent\nAltres									
+76	5	date	Data de creació	Data de creació	0										
+77	5	menu	Família professional	Família professional	0	Activitats físiques i esportives\nAdministració i gestió\nAgrària\nArts i artesanies\nArts gràfiques\nComerç i màrqueting\nEdificació i obra civil\nElectricitat i electrònica\nEnergia i aigua\nFabricació mecànica\nFusta, moble i suro\nHoteleria i turisme\nImatge i so\nFormació i Orientació Laboral\nImatge personal\nIndústries alimentàries\nIndústries extractives\nInformàtica i comunicacions\nInstal·lació i manteniment\nMarítim pesquera\nQuímica\nSanitat\nSeguretat i medi ambient\nServeis socioculturals i a la comunitat\nTèxtil, confecció i pell\nTransport i manteniment de vehicles\nVidre i ceràmica									
 \.
 
 
@@ -31116,10 +32896,14 @@ COPY public.mdl_data_records (id, userid, groupid, dataid, timecreated, timemodi
 --
 
 COPY public.mdl_editor_atto_autosave (id, elementid, contextid, pagehash, userid, drafttext, draftid, pageinstance, timemodified) FROM stdin;
-5	id_s_theme_xtec2020_footnote	1	30ddd4c8d2e2b9aef655d5ad521214ce865f7a72	2		-1	yui_3_17_2_1_1604426148517_61	1604426149
 8	field_7	19	9117163cf37dc7e200fef77c4e599cb0d759615e	2		433287670	yui_3_17_2_1_1604426878930_48	1604426878
 11	id_s__summary	1	6c218dfff68b30a998b8733daf1ebd60694348c2	2		-1	yui_3_17_2_1_1604428593382_46	1604428594
-17	id_summary_editor	2	2a38e5a48d3bdca02a38fb5484d22576131bd02e	2		470788847	yui_3_17_2_1_1604428912779_100	1604428913
+39	field_65	26	ce2adba2d9d657656486d54b899ee7d3ebdd5293	2		945090440	yui_3_17_2_1_1635253356108_48	1635253356
+32	id_s_theme_xtec2020_footnote	1	30ddd4c8d2e2b9aef655d5ad521214ce865f7a72	2		-1	yui_3_17_2_1_1635249084384_61	1635249084
+33	id_s_theme_xtec2020_agora_alert_message	1	30ddd4c8d2e2b9aef655d5ad521214ce865f7a72	2		-1	yui_3_17_2_1_1635249084384_387	1635249084
+34	id_s_theme_xtec2020_admin_alert_message	1	30ddd4c8d2e2b9aef655d5ad521214ce865f7a72	2		-1	yui_3_17_2_1_1635249084384_664	1635249084
+35	field_50	24	57389e2e5556569c75aa17672a44b19194283b60	2		537978079	yui_3_17_2_1_1635252491661_49	1635252491
+36	template	1	299ca63de8c63f9141971b3ea7ca79274f271efd	2	<div class="database-entry-form"><label> Nom *</label> [[Nom]] <span class="help-block"> Nom del curs que l'identificarà a la base de dades i al llistat per categories.</span> <label> Descripció *</label> [[Descripció]] <span class="help-block"> Feu una breu descripció de les característiques del curs, de les persones destinatàries, de consideracions sobre la llicència,... Aquesta informació estarà disponible per a tothom en consultar la base de dades dels cursos.</span> <label> Autor/a *</label> [[Autor/a]] <span class="help-block"> Si hi ha més d'un/a, separeu els noms per punt i coma (;)</span> <label> Còpia de seguretat del curs *</label> [[Fitxer]] <span class="help-block"> Mida màxima 20 MB. Consulteu el document&nbsp;<a href="http://agora/alexandria/web/mod/resource/view.php?id=9"> Característiques dels materials</a> &nbsp;i la PMF&nbsp;<a href="http://alexandria.xtec.cat/mod/glossary/view.php?id=10&amp;mode=entry&amp;hook=5" target="_blank"> Què puc fer si el meu curs supera la mida màxima?</a> &nbsp;per a més informació.</span> <label> Nivell educatiu *</label> [[Nivell educatiu]] <span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label> Àrea curricular *</label> [[Àrea curricular]] <span class="help-block"> Seleccioneu l'opció més escaient.</span> <label> Àmbit competencial</label> [[Àmbit competencial]] <span class="help-block"> Podeu seleccionar-ne més d'un tot prement la tecla Ctrl.</span> <label> Família professional</label> [[Família professional]] <span class="help-block"> Seleccioneu l'opció més escaient (per a cursos de Cicles Formatius).</span> <label> Idioma</label> [[Idioma]] <span class="help-block"> Seleccioneu l'idioma en què estan escrits els continguts del curs.</span> <label> Llicència d'ús</label> [[Llicència]] <span class="help-block"> La llicència per defecte, si no s'especifica cap altra, és&nbsp;Creative Commons Reconeixement- No comercial - Compartir igual&nbsp;(<a title="cc by-nc-sa" href="http://creativecommons.org/licenses/by-nc-sa/3.0/es/legalcode.ca" target="_blank"> text legal</a> )</span> <label> <label> Data de creació[[Data de creació]]</label> </label>\n<p>AVÍS: L'enviament d'aquest formulari porta implícita l'acceptació de les&nbsp;<a title="Condicions d'ús" href="http://alexandria.xtec.cat/mod/resource/view.php?id=7" target="_blank"> condicions d'ús</a> d'aquest espai.</p>\n<p><strong> <span style="text-decoration: underline;"> IMPORTANT</span> :</strong></p>\n<p><strong> Aquest recurs serà publicat després d'haver estat revisat i validat per l'equip d'administració.</strong></p>\n</div>	-1	yui_3_17_2_1_1635252501971_46	1635252563
 \.
 
 
@@ -31231,7 +33015,7 @@ COPY public.mdl_enrol_paypal (id, business, receiver_email, receiver_id, item_na
 -- Data for Name: mdl_event; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_event (id, name, description, format, categoryid, courseid, groupid, userid, repeatid, modulename, instance, type, eventtype, timestart, timeduration, timesort, visible, uuid, sequence, timemodified, subscriptionid, priority, location) FROM stdin;
+COPY public.mdl_event (id, name, description, format, categoryid, courseid, groupid, userid, repeatid, modulename, instance, type, eventtype, timestart, timeduration, timesort, visible, uuid, sequence, timemodified, subscriptionid, priority, location, component) FROM stdin;
 \.
 
 
@@ -31393,28 +33177,17 @@ COPY public.mdl_external_functions (id, name, classname, methodname, classpath, 
 118	core_message_mute_conversations	core_message_external	mute_conversations	message/externallib.php	moodle		moodle_mobile_app
 119	core_message_unmute_conversations	core_message_external	unmute_conversations	message/externallib.php	moodle		moodle_mobile_app
 120	core_message_block_user	core_message_external	block_user	message/externallib.php	moodle		moodle_mobile_app
-121	core_message_block_contacts	core_message_external	block_contacts	message/externallib.php	moodle		moodle_mobile_app
-122	core_message_create_contacts	core_message_external	create_contacts	message/externallib.php	moodle		moodle_mobile_app
 123	core_message_get_contact_requests	core_message_external	get_contact_requests	message/externallib.php	moodle		moodle_mobile_app
 124	core_message_create_contact_request	core_message_external	create_contact_request	message/externallib.php	moodle		moodle_mobile_app
 125	core_message_confirm_contact_request	core_message_external	confirm_contact_request	message/externallib.php	moodle		moodle_mobile_app
 126	core_message_decline_contact_request	core_message_external	decline_contact_request	message/externallib.php	moodle		moodle_mobile_app
 127	core_message_get_received_contact_requests_count	core_message_external	get_received_contact_requests_count	message/externallib.php	moodle		moodle_mobile_app
 128	core_message_delete_contacts	core_message_external	delete_contacts	message/externallib.php	moodle		moodle_mobile_app
-129	core_message_delete_conversation	core_message_external	delete_conversation	message/externallib.php	moodle	moodle/site:deleteownmessage	moodle_mobile_app
 130	core_message_delete_conversations_by_id	core_message_external	delete_conversations_by_id	message/externallib.php	moodle	moodle/site:deleteownmessage	moodle_mobile_app
 131	core_message_delete_message	core_message_external	delete_message	message/externallib.php	moodle	moodle/site:deleteownmessage	moodle_mobile_app
 132	core_message_get_blocked_users	core_message_external	get_blocked_users	message/externallib.php	moodle		moodle_mobile_app
 133	core_message_data_for_messagearea_search_messages	core_message_external	data_for_messagearea_search_messages	message/externallib.php	moodle		moodle_mobile_app
-134	core_message_data_for_messagearea_search_users	core_message_external	data_for_messagearea_search_users	message/externallib.php	moodle		\N
-135	core_message_data_for_messagearea_search_users_in_course	core_message_external	data_for_messagearea_search_users_in_course	message/externallib.php	moodle		\N
 136	core_message_message_search_users	core_message_external	message_search_users	message/externallib.php	moodle		moodle_mobile_app
-137	core_message_data_for_messagearea_conversations	core_message_external	data_for_messagearea_conversations	message/externallib.php	moodle		moodle_mobile_app
-138	core_message_data_for_messagearea_contacts	core_message_external	data_for_messagearea_contacts	message/externallib.php	moodle		moodle_mobile_app
-139	core_message_data_for_messagearea_messages	core_message_external	data_for_messagearea_messages	message/externallib.php	moodle		moodle_mobile_app
-140	core_message_data_for_messagearea_get_most_recent_message	core_message_external	data_for_messagearea_get_most_recent_message	message/externallib.php	moodle		\N
-141	core_message_data_for_messagearea_get_profile	core_message_external	data_for_messagearea_get_profile	message/externallib.php	moodle		\N
-142	core_message_get_contacts	core_message_external	get_contacts	message/externallib.php	moodle		moodle_mobile_app
 143	core_message_get_user_contacts	core_message_external	get_user_contacts	message/externallib.php	moodle		moodle_mobile_app
 145	core_message_get_conversation	core_message_external	get_conversation	message/externallib.php	moodle		moodle_mobile_app
 146	core_message_get_conversation_between_users	core_message_external	get_conversation_between_users	message/externallib.php	moodle		moodle_mobile_app
@@ -31426,7 +33199,6 @@ COPY public.mdl_external_functions (id, name, classname, methodname, classpath, 
 152	core_message_get_member_info	core_message_external	get_member_info	message/externallib.php	moodle		moodle_mobile_app
 153	core_message_get_unread_conversations_count	core_message_external	get_unread_conversations_count	message/externallib.php	moodle		moodle_mobile_app
 154	core_message_mark_all_notifications_as_read	core_message_external	mark_all_notifications_as_read	message/externallib.php	moodle		moodle_mobile_app
-155	core_message_mark_all_messages_as_read	core_message_external	mark_all_messages_as_read	message/externallib.php	moodle		moodle_mobile_app
 156	core_message_mark_all_conversation_messages_as_read	core_message_external	mark_all_conversation_messages_as_read	message/externallib.php	moodle		moodle_mobile_app
 157	core_message_mark_message_read	core_message_external	mark_message_read	message/externallib.php	moodle		moodle_mobile_app
 158	core_message_mark_notification_read	core_message_external	mark_notification_read	message/externallib.php	moodle		moodle_mobile_app
@@ -31437,7 +33209,6 @@ COPY public.mdl_external_functions (id, name, classname, methodname, classpath, 
 163	core_message_send_messages_to_conversation	core_message_external	send_messages_to_conversation	message/externallib.php	moodle	moodle/site:sendmessage	moodle_mobile_app
 164	core_message_get_conversation_messages	core_message_external	get_conversation_messages	message/externallib.php	moodle		moodle_mobile_app
 165	core_message_unblock_user	core_message_external	unblock_user	message/externallib.php	moodle		moodle_mobile_app
-166	core_message_unblock_contacts	core_message_external	unblock_contacts	message/externallib.php	moodle		moodle_mobile_app
 167	core_message_get_user_notification_preferences	core_message_external	get_user_notification_preferences	message/externallib.php	moodle	moodle/user:editownmessageprofile	moodle_mobile_app
 168	core_message_get_user_message_preferences	core_message_external	get_user_message_preferences	message/externallib.php	moodle	moodle/user:editownmessageprofile	moodle_mobile_app
 169	core_message_set_favourite_conversations	core_message_external	set_favourite_conversations	message/externallib.php	moodle		moodle_mobile_app
@@ -31874,6 +33645,48 @@ COPY public.mdl_external_functions (id, name, classname, methodname, classpath, 
 600	local_wsvicensvives_update_lti_grade	local_wsvicensvives_external	update_lti_grade	local/wsvicensvives/externallib.php	local_wsvicensvives		\N
 601	local_wsvicensvives_get_lti_grade	local_wsvicensvives_external	update_lti_grade	local/wsvicensvives/externallib.php	local_wsvicensvives		\N
 602	core_output_load_fontawesome_icon_system_map	core\\external\\output\\icon_system\\load_fontawesome_map	execute	\N	moodle		\N
+603	core_backup_get_copy_progress	core_backup_external	get_copy_progress	backup/externallib.php	moodle		\N
+604	core_backup_submit_copy_form	core_backup_external	submit_copy_form	backup/externallib.php	moodle		\N
+605	core_calendar_get_calendar_export_token	core_calendar\\external\\export\\token	execute	\N	moodle		moodle_mobile_app
+606	core_course_add_content_item_to_user_favourites	core_course_external	add_content_item_to_user_favourites	course/externallib.php	moodle		\N
+607	core_course_remove_content_item_from_user_favourites	core_course_external	remove_content_item_from_user_favourites	course/externallib.php	moodle		\N
+608	core_course_get_course_content_items	core_course_external	get_course_content_items	course/externallib.php	moodle		\N
+609	core_course_get_activity_chooser_footer	core_course_external	get_activity_chooser_footer	course/externallib.php	moodle		\N
+610	core_course_toggle_activity_recommendation	core_course_external	toggle_activity_recommendation	course/externallib.php	moodle		\N
+611	core_files_delete_draft_files	core_files\\external\\delete\\draft	execute	\N	moodle		moodle_mobile_app
+612	core_files_get_unused_draft_itemid	core_files\\external\\get\\unused_draft	execute	\N	moodle		moodle_mobile_app
+613	core_form_dynamic_form	core_form\\external\\dynamic_form	execute	\N	moodle		\N
+614	core_grades_create_gradecategory	core_grades_external	create_gradecategory	\N	moodle	moodle/grade:manage	\N
+615	core_grades_create_gradecategories	core_grades\\external\\create_gradecategories	execute	\N	moodle	moodle/grade:manage	\N
+616	core_user_search_identity	\\core_user\\external\\search_identity	execute	\N	moodle	moodle/user:viewalldetails	\N
+617	core_block_fetch_addable_blocks	core_block\\external\\fetch_addable_blocks	execute	\N	moodle	moodle/site:manageblocks	moodle_mobile_app
+618	core_table_get_dynamic_table_content	core_table\\external\\dynamic\\get	execute	\N	moodle		moodle_mobile_app
+619	core_xapi_statement_post	core_xapi\\external\\post_statement	execute	\N	moodle		moodle_mobile_app
+620	core_contentbank_delete_content	core_contentbank\\external\\delete_content	execute	\N	moodle	moodle/contentbank:deleteanycontent	\N
+621	core_contentbank_rename_content	core_contentbank\\external\\rename_content	execute	\N	moodle	moodle/contentbank:manageowncontent	\N
+622	core_contentbank_set_content_visibility	core_contentbank\\external\\set_content_visibility	execute	\N	moodle	moodle/contentbank:manageowncontent	\N
+623	core_create_userfeedback_action_record	core\\external\\record_userfeedback_action	execute	\N	moodle		\N
+624	core_payment_get_available_gateways	core_payment\\external\\get_available_gateways	execute	\N	moodle		\N
+625	mod_glossary_delete_entry	mod_glossary\\external\\delete_entry	execute	\N	mod_glossary		moodle_mobile_app
+626	mod_glossary_update_entry	mod_glossary\\external\\update_entry	execute	\N	mod_glossary		moodle_mobile_app
+627	mod_glossary_prepare_entry_for_edition	mod_glossary\\external\\prepare_entry	execute	\N	mod_glossary		moodle_mobile_app
+628	mod_h5pactivity_get_h5pactivity_access_information	mod_h5pactivity\\external\\get_h5pactivity_access_information	execute	\N	mod_h5pactivity	mod/h5pactivity:view	moodle_mobile_app
+629	mod_h5pactivity_view_h5pactivity	mod_h5pactivity\\external\\view_h5pactivity	execute	\N	mod_h5pactivity	mod/h5pactivity:view	moodle_mobile_app
+630	mod_h5pactivity_get_attempts	mod_h5pactivity\\external\\get_attempts	execute	\N	mod_h5pactivity	mod/h5pactivity:view	moodle_mobile_app
+631	mod_h5pactivity_get_results	mod_h5pactivity\\external\\get_results	execute	\N	mod_h5pactivity	mod/h5pactivity:view	moodle_mobile_app
+632	mod_h5pactivity_get_h5pactivities_by_courses	mod_h5pactivity\\external\\get_h5pactivities_by_courses	execute	\N	mod_h5pactivity	mod/h5pactivity:view	moodle_mobile_app
+633	mod_h5pactivity_log_report_viewed	mod_h5pactivity\\external\\log_report_viewed	execute	\N	mod_h5pactivity		moodle_mobile_app
+634	mod_h5pactivity_get_user_attempts	mod_h5pactivity\\external\\get_user_attempts	execute	\N	mod_h5pactivity	mod/h5pactivity:reviewattempts	moodle_mobile_app
+635	block_accessreview_get_module_data	block_accessreview\\external\\get_module_data	execute	\N	block_accessreview	block/accessreview:view	\N
+636	block_accessreview_get_section_data	block_accessreview\\external\\get_section_data	execute	\N	block_accessreview	block/accessreview:view	\N
+637	block_configurable_reports_get_report_data	block_configurable_reports\\external	get_report_data	\N	block_configurable_reports		\N
+638	media_videojs_get_language	media_videojs\\external\\get_language	execute	\N	media_videojs		\N
+639	tool_mobile_validate_subscription_key	tool_mobile\\external	validate_subscription_key	\N	tool_mobile		moodle_mobile_app
+640	tool_mobile_get_tokens_for_qr_login	tool_mobile\\external	get_tokens_for_qr_login	\N	tool_mobile		moodle_mobile_app
+641	tool_moodlenet_verify_webfinger	tool_moodlenet\\external	verify_webfinger	\N	tool_moodlenet		moodle_mobile_app
+642	tool_moodlenet_search_courses	tool_moodlenet\\external	search_courses	\N	tool_moodlenet		moodle_mobile_app
+643	paygw_paypal_get_config_for_js	paygw_paypal\\external\\get_config_for_js	execute	\N	paygw_paypal		\N
+644	paygw_paypal_create_transaction_complete	paygw_paypal\\external\\transaction_complete	execute	\N	paygw_paypal		\N
 \.
 
 
@@ -31900,379 +33713,390 @@ COPY public.mdl_external_services_functions (id, externalserviceid, functionname
 367	4	local_clickedu_get_grades
 368	5	local_wsvicensvives_update_lti_grade
 369	5	local_wsvicensvives_get_lti_grade
-377	3	local_alexandria_get_databases
-378	3	local_alexandria_search
-379	1	core_badges_get_user_badges
-380	1	core_blog_get_entries
-381	1	core_blog_view_entries
-382	1	core_calendar_get_calendar_monthly_view
-383	1	core_calendar_get_calendar_day_view
-384	1	core_calendar_get_calendar_upcoming_view
-385	1	core_calendar_update_event_start_day
-386	1	core_calendar_create_calendar_events
-387	1	core_calendar_delete_calendar_events
-388	1	core_calendar_get_calendar_events
-389	1	core_calendar_get_action_events_by_timesort
-390	1	core_calendar_get_action_events_by_course
-391	1	core_calendar_get_action_events_by_courses
-392	1	core_calendar_get_calendar_event_by_id
-393	1	core_calendar_submit_create_update_form
-394	1	core_calendar_get_calendar_access_information
-395	1	core_calendar_get_allowed_event_types
-396	1	core_comment_get_comments
-397	1	core_comment_add_comments
-398	1	core_comment_delete_comments
-399	1	core_completion_get_activities_completion_status
-400	1	core_completion_get_course_completion_status
-401	1	core_completion_mark_course_self_completed
-402	1	core_completion_update_activity_completion_status_manually
-403	1	core_course_get_categories
-404	1	core_course_get_contents
-405	1	core_course_get_course_module
-406	1	core_course_get_course_module_by_instance
-407	1	core_course_get_courses
-408	1	core_course_search_courses
-409	1	core_course_view_course
-410	1	core_course_get_user_navigation_options
-411	1	core_course_get_user_administration_options
-412	1	core_course_get_courses_by_field
-413	1	core_course_check_updates
-414	1	core_course_get_updates_since
-415	1	core_course_get_enrolled_courses_by_timeline_classification
-416	1	core_course_get_recent_courses
-417	1	core_course_set_favourite_courses
-418	1	core_enrol_get_course_enrolment_methods
-419	1	core_enrol_get_enrolled_users
-420	1	core_enrol_search_users
-421	1	core_enrol_get_users_courses
-422	1	core_files_get_files
-423	1	core_get_component_strings
-424	1	core_grades_grader_gradingpanel_point_fetch
-425	1	core_grades_grader_gradingpanel_point_store
-426	1	core_message_get_conversations
-427	1	core_grades_grader_gradingpanel_scale_fetch
-428	1	core_grades_grader_gradingpanel_scale_store
-429	1	core_group_get_activity_allowed_groups
-430	1	core_group_get_activity_groupmode
-431	1	core_group_get_course_groupings
-432	1	core_group_get_course_groups
-433	1	core_group_get_course_user_groups
-434	1	core_message_mute_conversations
-435	1	core_message_unmute_conversations
-436	1	core_message_block_user
-437	1	core_message_block_contacts
-438	1	core_message_create_contacts
-439	1	core_message_get_contact_requests
-440	1	core_message_create_contact_request
-441	1	core_message_confirm_contact_request
-442	1	core_message_decline_contact_request
-443	1	core_message_get_received_contact_requests_count
-444	1	core_message_delete_contacts
-445	1	core_message_delete_conversation
-446	1	core_message_delete_conversations_by_id
-447	1	core_message_delete_message
-448	1	core_message_get_blocked_users
-449	1	core_message_data_for_messagearea_search_messages
-450	1	core_message_message_search_users
-451	1	core_message_data_for_messagearea_conversations
-452	1	core_message_data_for_messagearea_contacts
-453	1	core_message_data_for_messagearea_messages
-454	1	core_message_get_contacts
-455	1	core_message_get_user_contacts
-456	1	core_message_get_conversation
-457	1	core_message_get_conversation_between_users
-458	1	core_message_get_self_conversation
-459	1	core_message_get_messages
-460	1	core_message_get_conversation_counts
-461	1	core_message_get_unread_conversation_counts
-462	1	core_message_get_conversation_members
-463	1	core_message_get_member_info
-464	1	core_message_get_unread_conversations_count
-465	1	core_message_mark_all_notifications_as_read
-466	1	core_message_mark_all_messages_as_read
-467	1	core_message_mark_all_conversation_messages_as_read
-468	1	core_message_mark_message_read
-469	1	core_message_mark_notification_read
-470	1	core_message_message_processor_config_form
-471	1	core_message_search_contacts
-472	1	core_message_send_instant_messages
-473	1	core_message_send_messages_to_conversation
-474	1	core_message_get_conversation_messages
-475	1	core_message_unblock_user
-476	1	core_message_unblock_contacts
-477	1	core_message_get_user_notification_preferences
-478	1	core_message_get_user_message_preferences
-479	1	core_message_set_favourite_conversations
-480	1	core_message_unset_favourite_conversations
-481	1	core_message_delete_message_for_all_users
-482	1	core_notes_create_notes
-483	1	core_notes_delete_notes
-484	1	core_notes_get_course_notes
-485	1	core_notes_view_notes
-486	1	core_question_update_flag
-487	1	core_rating_get_item_ratings
-488	1	core_rating_add_rating
-489	1	core_tag_get_tagindex
-490	1	core_tag_get_tagindex_per_area
-491	1	core_tag_get_tag_areas
-492	1	core_tag_get_tag_collections
-493	1	core_tag_get_tag_cloud
-494	1	core_user_add_user_device
-495	1	core_user_add_user_private_files
-496	1	core_user_get_course_user_profiles
-497	1	core_user_get_users_by_field
-498	1	core_user_remove_user_device
-499	1	core_user_update_user_preferences
-500	1	core_user_view_user_list
-501	1	core_user_view_user_profile
-502	1	core_user_get_user_preferences
-503	1	core_user_update_picture
-504	1	core_user_set_user_preferences
-505	1	core_user_agree_site_policy
-506	1	core_user_get_private_files_info
-507	1	core_competency_competency_viewed
-508	1	core_competency_list_course_competencies
-509	1	core_competency_get_scale_values
-510	1	core_competency_user_competency_viewed
-511	1	core_competency_user_competency_viewed_in_plan
-512	1	core_competency_user_competency_viewed_in_course
-513	1	core_competency_user_competency_plan_viewed
-514	1	core_competency_grade_competency_in_course
-515	1	core_competency_delete_evidence
-516	1	core_webservice_get_site_info
-517	1	core_block_get_course_blocks
-518	1	core_block_get_dashboard_blocks
-519	1	core_filters_get_available_in_context
-520	1	core_h5p_get_trusted_h5p_file
-521	1	mod_assign_get_grades
-522	1	mod_assign_get_assignments
-523	1	mod_assign_get_submissions
-524	1	mod_assign_get_user_flags
-525	1	mod_assign_set_user_flags
-526	1	mod_assign_get_user_mappings
-527	1	mod_assign_revert_submissions_to_draft
-528	1	mod_assign_lock_submissions
-529	1	mod_assign_unlock_submissions
-530	1	mod_assign_save_submission
-531	1	mod_assign_submit_for_grading
-532	1	mod_assign_save_grade
-533	1	mod_assign_save_grades
-534	1	mod_assign_save_user_extensions
-535	1	mod_assign_reveal_identities
-536	1	mod_assign_view_grading_table
-537	1	mod_assign_view_submission_status
-538	1	mod_assign_get_submission_status
-539	1	mod_assign_list_participants
-540	1	mod_assign_submit_grading_form
-541	1	mod_assign_get_participant
-542	1	mod_assign_view_assign
-543	1	mod_book_view_book
-544	1	mod_book_get_books_by_courses
-545	1	mod_chat_login_user
-546	1	mod_chat_get_chat_users
-547	1	mod_chat_send_chat_message
-548	1	mod_chat_get_chat_latest_messages
-549	1	mod_chat_view_chat
-550	1	mod_chat_get_chats_by_courses
-551	1	mod_chat_get_sessions
-552	1	mod_chat_get_session_messages
-553	1	mod_choice_get_choice_results
-554	1	mod_choice_get_choice_options
-555	1	mod_choice_submit_choice_response
-556	1	mod_choice_view_choice
-557	1	mod_choice_get_choices_by_courses
-558	1	mod_choice_delete_choice_responses
-559	1	mod_data_get_databases_by_courses
-560	1	mod_data_view_database
-561	1	mod_data_get_data_access_information
-562	1	mod_data_get_entries
-563	1	mod_data_get_entry
-564	1	mod_data_get_fields
-565	1	mod_data_search_entries
-566	1	mod_data_approve_entry
-567	1	mod_data_delete_entry
-568	1	mod_data_add_entry
-569	1	mod_data_update_entry
-570	1	mod_feedback_get_feedbacks_by_courses
-571	1	mod_feedback_get_feedback_access_information
-572	1	mod_feedback_view_feedback
-573	1	mod_feedback_get_current_completed_tmp
-574	1	mod_feedback_get_items
-575	1	mod_feedback_launch_feedback
-576	1	mod_feedback_get_page_items
-577	1	mod_feedback_process_page
-578	1	mod_feedback_get_analysis
-579	1	mod_feedback_get_unfinished_responses
-580	1	mod_feedback_get_finished_responses
-581	1	mod_feedback_get_non_respondents
-582	1	mod_feedback_get_responses_analysis
-583	1	mod_feedback_get_last_completed
-584	1	mod_folder_view_folder
-585	1	mod_folder_get_folders_by_courses
-586	1	mod_forum_get_forums_by_courses
-587	1	mod_forum_get_discussion_posts
-588	1	mod_forum_get_forum_discussion_posts
-589	1	mod_forum_get_forum_discussions_paginated
-590	1	mod_forum_get_forum_discussions
-591	1	mod_forum_view_forum
-592	1	mod_forum_view_forum_discussion
-593	1	mod_forum_add_discussion_post
-594	1	mod_forum_add_discussion
-595	1	mod_forum_can_add_discussion
-596	1	mod_forum_get_forum_access_information
-597	1	mod_forum_set_subscription_state
-598	1	mod_forum_set_lock_state
-599	1	mod_forum_toggle_favourite_state
-600	1	mod_forum_set_pin_state
-601	1	mod_forum_delete_post
-602	1	mod_forum_get_discussion_post
-603	1	mod_forum_prepare_draft_area_for_post
-604	1	mod_forum_update_discussion_post
-605	1	mod_glossary_get_glossaries_by_courses
-606	1	mod_glossary_view_glossary
-607	1	mod_glossary_view_entry
-608	1	mod_glossary_get_entries_by_letter
-609	1	mod_glossary_get_entries_by_date
-610	1	mod_glossary_get_categories
-611	1	mod_glossary_get_entries_by_category
-612	1	mod_glossary_get_authors
-613	1	mod_glossary_get_entries_by_author
-614	1	mod_glossary_get_entries_by_author_id
-615	1	mod_glossary_get_entries_by_search
-616	1	mod_glossary_get_entries_by_term
-617	1	mod_glossary_get_entries_to_approve
-618	1	mod_glossary_get_entry_by_id
-619	1	mod_glossary_add_entry
-620	1	mod_imscp_view_imscp
-621	1	mod_imscp_get_imscps_by_courses
-622	1	mod_label_get_labels_by_courses
-623	1	mod_lesson_get_lessons_by_courses
-624	1	mod_lesson_get_lesson_access_information
-625	1	mod_lesson_view_lesson
-626	1	mod_lesson_get_questions_attempts
-627	1	mod_lesson_get_user_grade
-628	1	mod_lesson_get_user_attempt_grade
-629	1	mod_lesson_get_content_pages_viewed
-630	1	mod_lesson_get_user_timers
-631	1	mod_lesson_get_pages
-632	1	mod_lesson_launch_attempt
-633	1	mod_lesson_get_page_data
-634	1	mod_lesson_process_page
-635	1	mod_lesson_finish_attempt
-636	1	mod_lesson_get_attempts_overview
-637	1	mod_lesson_get_user_attempt
-638	1	mod_lesson_get_pages_possible_jumps
-639	1	mod_lesson_get_lesson
-640	1	mod_lti_get_tool_launch_data
-641	1	mod_lti_get_ltis_by_courses
-642	1	mod_lti_view_lti
-643	1	mod_page_view_page
-644	1	mod_page_get_pages_by_courses
-645	1	mod_quiz_get_quizzes_by_courses
-646	1	mod_quiz_view_quiz
-647	1	mod_quiz_get_user_attempts
-648	1	mod_quiz_get_user_best_grade
-649	1	mod_quiz_get_combined_review_options
-650	1	mod_quiz_start_attempt
-651	1	mod_quiz_get_attempt_data
-652	1	mod_quiz_get_attempt_summary
-653	1	mod_quiz_save_attempt
-654	1	mod_quiz_process_attempt
-655	1	mod_quiz_get_attempt_review
-656	1	mod_quiz_view_attempt
-657	1	mod_quiz_view_attempt_summary
-658	1	mod_quiz_view_attempt_review
-659	1	mod_quiz_get_quiz_feedback_for_grade
-660	1	mod_quiz_get_quiz_access_information
-661	1	mod_quiz_get_attempt_access_information
-662	1	mod_quiz_get_quiz_required_qtypes
-663	1	mod_resource_view_resource
-664	1	mod_resource_get_resources_by_courses
-665	1	mod_scorm_view_scorm
-666	1	mod_scorm_get_scorm_attempt_count
-667	1	mod_scorm_get_scorm_scoes
-668	1	mod_scorm_get_scorm_user_data
-669	1	mod_scorm_insert_scorm_tracks
-670	1	mod_scorm_get_scorm_sco_tracks
-671	1	mod_scorm_get_scorms_by_courses
-672	1	mod_scorm_launch_sco
-673	1	mod_scorm_get_scorm_access_information
-674	1	mod_survey_get_surveys_by_courses
-675	1	mod_survey_view_survey
-676	1	mod_survey_get_questions
-677	1	mod_survey_submit_answers
-678	1	mod_url_view_url
-679	1	mod_url_get_urls_by_courses
-680	1	mod_wiki_get_wikis_by_courses
-681	1	mod_wiki_view_wiki
-682	1	mod_wiki_view_page
-683	1	mod_wiki_get_subwikis
-684	1	mod_wiki_get_subwiki_pages
-685	1	mod_wiki_get_subwiki_files
-686	1	mod_wiki_get_page_contents
-687	1	mod_wiki_get_page_for_editing
-688	1	mod_wiki_new_page
-689	1	mod_wiki_edit_page
-690	1	mod_workshop_get_workshops_by_courses
-691	1	mod_workshop_get_workshop_access_information
-692	1	mod_workshop_get_user_plan
-693	1	mod_workshop_view_workshop
-694	1	mod_workshop_add_submission
-695	1	mod_workshop_update_submission
-696	1	mod_workshop_delete_submission
-697	1	mod_workshop_get_submissions
-698	1	mod_workshop_get_submission
-699	1	mod_workshop_get_submission_assessments
-700	1	mod_workshop_get_assessment
-701	1	mod_workshop_get_assessment_form_definition
-702	1	mod_workshop_get_reviewer_assessments
-703	1	mod_workshop_update_assessment
-704	1	mod_workshop_get_grades
-705	1	mod_workshop_evaluate_assessment
-706	1	mod_workshop_get_grades_report
-707	1	mod_workshop_view_submission
-708	1	mod_workshop_evaluate_submission
-709	1	enrol_guest_get_instance_info
-710	1	enrol_self_get_instance_info
-711	1	enrol_self_enrol_user
-712	1	message_airnotifier_is_system_configured
-713	1	message_airnotifier_are_notification_preferences_configured
-714	1	message_airnotifier_get_user_devices
-715	1	message_airnotifier_enable_device
-716	1	message_popup_get_popup_notifications
-717	1	message_popup_get_unread_popup_notification_count
-718	1	block_recentlyaccesseditems_get_recent_items
-719	1	block_starredcourses_get_starred_courses
-720	1	report_insights_set_notuseful_prediction
-721	1	report_insights_set_fixed_prediction
-722	1	report_insights_action_executed
-723	1	gradereport_overview_get_course_grades
-724	1	gradereport_overview_view_grade_report
-725	1	gradereport_user_get_grades_table
-726	1	gradereport_user_view_grade_report
-727	1	gradereport_user_get_grade_items
-728	1	tool_analytics_potential_contexts
-729	1	tool_lp_data_for_course_competencies_page
-730	1	tool_lp_data_for_plans_page
-731	1	tool_lp_data_for_plan_page
-732	1	tool_lp_data_for_user_evidence_list_page
-733	1	tool_lp_data_for_user_evidence_page
-734	1	tool_lp_data_for_user_competency_summary
-735	1	tool_lp_data_for_user_competency_summary_in_plan
-736	1	tool_lp_data_for_user_competency_summary_in_course
-737	1	tool_mobile_get_plugins_supporting_mobile
-738	1	tool_mobile_get_public_config
-739	1	tool_mobile_get_config
-740	1	tool_mobile_get_autologin_key
-741	1	tool_mobile_get_content
-742	1	tool_mobile_call_external_functions
-743	1	mod_choicegroup_get_choicegroup_options
-744	1	mod_choicegroup_submit_choicegroup_response
-745	1	mod_choicegroup_view_choicegroup
-746	1	mod_choicegroup_delete_choicegroup_responses
-747	1	mod_journal_get_entry
-748	1	mod_journal_set_text
-749	1	mod_questionnaire_submit_questionnaire_response
+750	1	core_badges_get_user_badges
+751	1	core_blog_get_entries
+752	1	core_blog_view_entries
+753	1	core_calendar_get_calendar_monthly_view
+754	1	core_calendar_get_calendar_day_view
+755	1	core_calendar_get_calendar_upcoming_view
+756	1	core_calendar_update_event_start_day
+757	1	core_calendar_create_calendar_events
+758	1	core_calendar_delete_calendar_events
+759	1	core_calendar_get_calendar_events
+760	1	core_calendar_get_action_events_by_timesort
+761	1	core_calendar_get_action_events_by_course
+762	1	core_calendar_get_action_events_by_courses
+763	1	core_calendar_get_calendar_event_by_id
+764	1	core_calendar_submit_create_update_form
+765	1	core_calendar_get_calendar_access_information
+766	1	core_calendar_get_allowed_event_types
+767	1	core_comment_get_comments
+768	1	core_comment_add_comments
+769	1	core_comment_delete_comments
+770	1	core_completion_get_activities_completion_status
+771	1	core_completion_get_course_completion_status
+772	1	core_completion_mark_course_self_completed
+773	1	core_completion_update_activity_completion_status_manually
+774	1	core_course_get_categories
+775	1	core_course_get_contents
+776	1	core_course_get_course_module
+777	1	core_course_get_course_module_by_instance
+778	1	core_course_get_courses
+779	1	core_course_search_courses
+780	1	core_course_view_course
+781	1	core_course_get_user_navigation_options
+782	1	core_course_get_user_administration_options
+783	1	core_course_get_courses_by_field
+784	1	core_course_check_updates
+785	1	core_course_get_updates_since
+786	1	core_course_get_enrolled_courses_by_timeline_classification
+787	1	core_course_get_recent_courses
+788	1	core_course_set_favourite_courses
+789	1	core_enrol_get_course_enrolment_methods
+790	1	core_enrol_get_enrolled_users
+791	1	core_enrol_search_users
+792	1	core_enrol_get_users_courses
+793	1	core_files_get_files
+794	1	core_get_component_strings
+795	1	core_grades_grader_gradingpanel_point_fetch
+796	1	core_grades_grader_gradingpanel_point_store
+797	1	core_message_get_conversations
+798	1	core_grades_grader_gradingpanel_scale_fetch
+799	1	core_grades_grader_gradingpanel_scale_store
+800	1	core_group_get_activity_allowed_groups
+801	1	core_group_get_activity_groupmode
+802	1	core_group_get_course_groupings
+803	1	core_group_get_course_groups
+804	1	core_group_get_course_user_groups
+805	1	core_message_mute_conversations
+806	1	core_message_unmute_conversations
+807	1	core_message_block_user
+808	1	core_message_get_contact_requests
+809	1	core_message_create_contact_request
+810	1	core_message_confirm_contact_request
+811	1	core_message_decline_contact_request
+812	1	core_message_get_received_contact_requests_count
+813	1	core_message_delete_contacts
+814	1	core_message_delete_conversations_by_id
+815	1	core_message_delete_message
+816	1	core_message_get_blocked_users
+817	1	core_message_data_for_messagearea_search_messages
+818	1	core_message_message_search_users
+819	1	core_message_get_user_contacts
+820	1	core_message_get_conversation
+821	1	core_message_get_conversation_between_users
+822	1	core_message_get_self_conversation
+823	1	core_message_get_messages
+824	1	core_message_get_conversation_counts
+825	1	core_message_get_unread_conversation_counts
+826	1	core_message_get_conversation_members
+827	1	core_message_get_member_info
+828	1	core_message_get_unread_conversations_count
+829	1	core_message_mark_all_notifications_as_read
+830	1	core_message_mark_all_conversation_messages_as_read
+831	1	core_message_mark_message_read
+832	1	core_message_mark_notification_read
+833	1	core_message_message_processor_config_form
+834	1	core_message_search_contacts
+835	1	core_message_send_instant_messages
+836	1	core_message_send_messages_to_conversation
+837	1	core_message_get_conversation_messages
+838	1	core_message_unblock_user
+839	1	core_message_get_user_notification_preferences
+840	1	core_message_get_user_message_preferences
+841	1	core_message_set_favourite_conversations
+842	1	core_message_unset_favourite_conversations
+843	1	core_message_delete_message_for_all_users
+844	1	core_notes_create_notes
+845	1	core_notes_delete_notes
+846	1	core_notes_get_course_notes
+847	1	core_notes_view_notes
+848	1	core_question_update_flag
+849	1	core_rating_get_item_ratings
+850	1	core_rating_add_rating
+851	1	core_tag_get_tagindex
+852	1	core_tag_get_tagindex_per_area
+853	1	core_tag_get_tag_areas
+854	1	core_tag_get_tag_collections
+855	1	core_tag_get_tag_cloud
+856	1	core_user_add_user_device
+857	1	core_user_add_user_private_files
+858	1	core_user_get_course_user_profiles
+859	1	core_user_get_users_by_field
+860	1	core_user_remove_user_device
+861	1	core_user_update_user_preferences
+862	1	core_user_view_user_list
+863	1	core_user_view_user_profile
+864	1	core_user_get_user_preferences
+865	1	core_user_update_picture
+866	1	core_user_set_user_preferences
+867	1	core_user_agree_site_policy
+868	1	core_user_get_private_files_info
+869	1	core_competency_competency_viewed
+870	1	core_competency_list_course_competencies
+871	1	core_competency_get_scale_values
+872	1	core_competency_user_competency_viewed
+873	1	core_competency_user_competency_viewed_in_plan
+874	1	core_competency_user_competency_viewed_in_course
+875	1	core_competency_user_competency_plan_viewed
+876	1	core_competency_grade_competency_in_course
+877	1	core_competency_delete_evidence
+878	1	core_webservice_get_site_info
+879	1	core_block_get_course_blocks
+880	1	core_block_get_dashboard_blocks
+881	1	core_filters_get_available_in_context
+882	1	core_h5p_get_trusted_h5p_file
+883	1	mod_assign_get_grades
+884	1	mod_assign_get_assignments
+885	1	mod_assign_get_submissions
+886	1	mod_assign_get_user_flags
+887	1	mod_assign_set_user_flags
+888	1	mod_assign_get_user_mappings
+889	1	mod_assign_revert_submissions_to_draft
+890	1	mod_assign_lock_submissions
+891	1	mod_assign_unlock_submissions
+892	1	mod_assign_save_submission
+893	1	mod_assign_submit_for_grading
+894	1	mod_assign_save_grade
+895	1	mod_assign_save_grades
+896	1	mod_assign_save_user_extensions
+897	1	mod_assign_reveal_identities
+898	1	mod_assign_view_grading_table
+899	1	mod_assign_view_submission_status
+900	1	mod_assign_get_submission_status
+901	1	mod_assign_list_participants
+902	1	mod_assign_submit_grading_form
+903	1	mod_assign_get_participant
+904	1	mod_assign_view_assign
+905	1	mod_book_view_book
+906	1	mod_book_get_books_by_courses
+907	1	mod_chat_login_user
+908	1	mod_chat_get_chat_users
+909	1	mod_chat_send_chat_message
+910	1	mod_chat_get_chat_latest_messages
+911	1	mod_chat_view_chat
+912	1	mod_chat_get_chats_by_courses
+913	1	mod_chat_get_sessions
+914	1	mod_chat_get_session_messages
+915	1	mod_choice_get_choice_results
+916	1	mod_choice_get_choice_options
+917	1	mod_choice_submit_choice_response
+918	1	mod_choice_view_choice
+919	1	mod_choice_get_choices_by_courses
+920	1	mod_choice_delete_choice_responses
+921	1	mod_data_get_databases_by_courses
+922	1	mod_data_view_database
+923	1	mod_data_get_data_access_information
+924	1	mod_data_get_entries
+925	1	mod_data_get_entry
+926	1	mod_data_get_fields
+927	1	mod_data_search_entries
+928	1	mod_data_approve_entry
+929	1	mod_data_delete_entry
+930	1	mod_data_add_entry
+931	1	mod_data_update_entry
+932	1	mod_feedback_get_feedbacks_by_courses
+933	1	mod_feedback_get_feedback_access_information
+934	1	mod_feedback_view_feedback
+935	1	mod_feedback_get_current_completed_tmp
+936	1	mod_feedback_get_items
+937	1	mod_feedback_launch_feedback
+938	1	mod_feedback_get_page_items
+939	1	mod_feedback_process_page
+940	1	mod_feedback_get_analysis
+941	1	mod_feedback_get_unfinished_responses
+942	1	mod_feedback_get_finished_responses
+943	1	mod_feedback_get_non_respondents
+944	1	mod_feedback_get_responses_analysis
+945	1	mod_feedback_get_last_completed
+946	1	mod_folder_view_folder
+947	1	mod_folder_get_folders_by_courses
+948	1	mod_forum_get_forums_by_courses
+949	1	mod_forum_get_discussion_posts
+950	1	mod_forum_get_forum_discussion_posts
+951	1	mod_forum_get_forum_discussions_paginated
+952	1	mod_forum_get_forum_discussions
+953	1	mod_forum_view_forum
+954	1	mod_forum_view_forum_discussion
+955	1	mod_forum_add_discussion_post
+956	1	mod_forum_add_discussion
+957	1	mod_forum_can_add_discussion
+958	1	mod_forum_get_forum_access_information
+959	1	mod_forum_set_subscription_state
+960	1	mod_forum_set_lock_state
+961	1	mod_forum_toggle_favourite_state
+962	1	mod_forum_set_pin_state
+963	1	mod_forum_delete_post
+964	1	mod_forum_get_discussion_post
+965	1	mod_forum_prepare_draft_area_for_post
+966	1	mod_forum_update_discussion_post
+967	1	mod_glossary_get_glossaries_by_courses
+968	1	mod_glossary_view_glossary
+969	1	mod_glossary_view_entry
+970	1	mod_glossary_get_entries_by_letter
+971	1	mod_glossary_get_entries_by_date
+972	1	mod_glossary_get_categories
+973	1	mod_glossary_get_entries_by_category
+974	1	mod_glossary_get_authors
+975	1	mod_glossary_get_entries_by_author
+976	1	mod_glossary_get_entries_by_author_id
+977	1	mod_glossary_get_entries_by_search
+978	1	mod_glossary_get_entries_by_term
+979	1	mod_glossary_get_entries_to_approve
+980	1	mod_glossary_get_entry_by_id
+981	1	mod_glossary_add_entry
+982	1	mod_imscp_view_imscp
+983	1	mod_imscp_get_imscps_by_courses
+984	1	mod_label_get_labels_by_courses
+985	1	mod_lesson_get_lessons_by_courses
+986	1	mod_lesson_get_lesson_access_information
+987	1	mod_lesson_view_lesson
+988	1	mod_lesson_get_questions_attempts
+989	1	mod_lesson_get_user_grade
+990	1	mod_lesson_get_user_attempt_grade
+991	1	mod_lesson_get_content_pages_viewed
+992	1	mod_lesson_get_user_timers
+993	1	mod_lesson_get_pages
+994	1	mod_lesson_launch_attempt
+995	1	mod_lesson_get_page_data
+996	1	mod_lesson_process_page
+997	1	mod_lesson_finish_attempt
+998	1	mod_lesson_get_attempts_overview
+999	1	mod_lesson_get_user_attempt
+1000	1	mod_lesson_get_pages_possible_jumps
+1001	1	mod_lesson_get_lesson
+1002	1	mod_lti_get_tool_launch_data
+1003	1	mod_lti_get_ltis_by_courses
+1004	1	mod_lti_view_lti
+1005	1	mod_page_view_page
+1006	1	mod_page_get_pages_by_courses
+1007	1	mod_quiz_get_quizzes_by_courses
+1008	1	mod_quiz_view_quiz
+1009	1	mod_quiz_get_user_attempts
+1010	1	mod_quiz_get_user_best_grade
+1011	1	mod_quiz_get_combined_review_options
+1012	1	mod_quiz_start_attempt
+1013	1	mod_quiz_get_attempt_data
+1014	1	mod_quiz_get_attempt_summary
+1015	1	mod_quiz_save_attempt
+1016	1	mod_quiz_process_attempt
+1017	1	mod_quiz_get_attempt_review
+1018	1	mod_quiz_view_attempt
+1019	1	mod_quiz_view_attempt_summary
+1020	1	mod_quiz_view_attempt_review
+1021	1	mod_quiz_get_quiz_feedback_for_grade
+1022	1	mod_quiz_get_quiz_access_information
+1023	1	mod_quiz_get_attempt_access_information
+1024	1	mod_quiz_get_quiz_required_qtypes
+1025	1	mod_resource_view_resource
+1026	1	mod_resource_get_resources_by_courses
+1027	1	mod_scorm_view_scorm
+1028	1	mod_scorm_get_scorm_attempt_count
+1029	1	mod_scorm_get_scorm_scoes
+1030	1	mod_scorm_get_scorm_user_data
+1031	1	mod_scorm_insert_scorm_tracks
+1032	1	mod_scorm_get_scorm_sco_tracks
+1033	1	mod_scorm_get_scorms_by_courses
+1034	1	mod_scorm_launch_sco
+1035	1	mod_scorm_get_scorm_access_information
+1036	1	mod_survey_get_surveys_by_courses
+1037	1	mod_survey_view_survey
+1038	1	mod_survey_get_questions
+1039	1	mod_survey_submit_answers
+1040	1	mod_url_view_url
+1041	1	mod_url_get_urls_by_courses
+1042	1	mod_wiki_get_wikis_by_courses
+1043	1	mod_wiki_view_wiki
+1044	1	mod_wiki_view_page
+1045	1	mod_wiki_get_subwikis
+1046	1	mod_wiki_get_subwiki_pages
+1047	1	mod_wiki_get_subwiki_files
+1048	1	mod_wiki_get_page_contents
+1049	1	mod_wiki_get_page_for_editing
+1050	1	mod_wiki_new_page
+1051	1	mod_wiki_edit_page
+1052	1	mod_workshop_get_workshops_by_courses
+1053	1	mod_workshop_get_workshop_access_information
+1054	1	mod_workshop_get_user_plan
+1055	1	mod_workshop_view_workshop
+1056	1	mod_workshop_add_submission
+1057	1	mod_workshop_update_submission
+1058	1	mod_workshop_delete_submission
+1059	1	mod_workshop_get_submissions
+1060	1	mod_workshop_get_submission
+1061	1	mod_workshop_get_submission_assessments
+1062	1	mod_workshop_get_assessment
+1063	1	mod_workshop_get_assessment_form_definition
+1064	1	mod_workshop_get_reviewer_assessments
+1065	1	mod_workshop_update_assessment
+1066	1	mod_workshop_get_grades
+1067	1	mod_workshop_evaluate_assessment
+1068	1	mod_workshop_get_grades_report
+1069	1	mod_workshop_view_submission
+1070	1	mod_workshop_evaluate_submission
+1071	1	enrol_guest_get_instance_info
+1072	1	enrol_self_get_instance_info
+1073	1	enrol_self_enrol_user
+1074	1	message_airnotifier_is_system_configured
+1075	1	message_airnotifier_are_notification_preferences_configured
+1076	1	message_airnotifier_get_user_devices
+1077	1	message_airnotifier_enable_device
+1078	1	message_popup_get_popup_notifications
+1079	1	message_popup_get_unread_popup_notification_count
+1080	1	block_recentlyaccesseditems_get_recent_items
+1081	1	block_starredcourses_get_starred_courses
+1082	1	report_insights_set_notuseful_prediction
+1083	1	report_insights_set_fixed_prediction
+1084	1	report_insights_action_executed
+1085	1	gradereport_overview_get_course_grades
+1086	1	gradereport_overview_view_grade_report
+1087	1	gradereport_user_get_grades_table
+1088	1	gradereport_user_view_grade_report
+1089	1	gradereport_user_get_grade_items
+1090	1	tool_analytics_potential_contexts
+1091	1	tool_lp_data_for_course_competencies_page
+1092	1	tool_lp_data_for_plans_page
+1093	1	tool_lp_data_for_plan_page
+1094	1	tool_lp_data_for_user_evidence_list_page
+1095	1	tool_lp_data_for_user_evidence_page
+1096	1	tool_lp_data_for_user_competency_summary
+1097	1	tool_lp_data_for_user_competency_summary_in_plan
+1098	1	tool_lp_data_for_user_competency_summary_in_course
+1099	1	tool_mobile_get_plugins_supporting_mobile
+1100	1	tool_mobile_get_public_config
+1101	1	tool_mobile_get_config
+1102	1	tool_mobile_get_autologin_key
+1103	1	tool_mobile_get_content
+1104	1	tool_mobile_call_external_functions
+1105	1	mod_choicegroup_get_choicegroup_options
+1106	1	mod_choicegroup_submit_choicegroup_response
+1107	1	mod_choicegroup_view_choicegroup
+1108	1	mod_choicegroup_delete_choicegroup_responses
+1109	1	mod_journal_get_entry
+1110	1	mod_journal_set_text
+1111	1	mod_questionnaire_submit_questionnaire_response
+1112	3	local_alexandria_get_databases
+1113	3	local_alexandria_search
+1114	1	core_calendar_get_calendar_export_token
+1115	1	core_files_delete_draft_files
+1116	1	core_files_get_unused_draft_itemid
+1117	1	core_block_fetch_addable_blocks
+1118	1	core_table_get_dynamic_table_content
+1119	1	core_xapi_statement_post
+1120	1	mod_glossary_delete_entry
+1121	1	mod_glossary_update_entry
+1122	1	mod_glossary_prepare_entry_for_edition
+1123	1	mod_h5pactivity_get_h5pactivity_access_information
+1124	1	mod_h5pactivity_view_h5pactivity
+1125	1	mod_h5pactivity_get_attempts
+1126	1	mod_h5pactivity_get_results
+1127	1	mod_h5pactivity_get_h5pactivities_by_courses
+1128	1	mod_h5pactivity_log_report_viewed
+1129	1	mod_h5pactivity_get_user_attempts
+1130	1	tool_mobile_validate_subscription_key
+1131	1	tool_mobile_get_tokens_for_qr_login
+1132	1	tool_moodlenet_verify_webfinger
+1133	1	tool_moodlenet_search_courses
 \.
 
 
@@ -32383,21 +34207,35 @@ COPY public.mdl_files (id, contenthash, pathnamehash, contextid, component, file
 3	75c101cb8cb34ea573cd25ac38f8157b1de901b8	68317eab56c67d32aeaee5acf509a0c4aa828b6b	1	assignfeedback_editpdf	stamps	0	/	sad.png	2	966	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
 4	0c5190a24c3943966541401c883eacaa20ca20cb	695a55ff780e61c9e59428aa425430b0d6bde53b	1	assignfeedback_editpdf	stamps	0	/	tick.png	2	1039	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
 5	8c96a486d5801e0f4ab8c411f561f1c687e1f865	373e63af262a9b8466ba8632551520be793c37ff	1	assignfeedback_editpdf	stamps	0	/	cross.png	2	861	image/png	0	\N	\N	\N	1590509965	1590509965	0	\N
-6	87793262feb64e380ecaa5ab39f92756b9629afa	13fddd34e5f40c23653f6f751a09e31b6b568dbb	5	user	draft	651931632	/	logo_alexandria.png	2	5234	image/png	0	O:8:"stdClass":1:{s:6:"source";s:19:"logo_alexandria.png";}	Administrador Alexandria	allrightsreserved	1604425963	1604425963	0	\N
-7	da39a3ee5e6b4b0d3255bfef95601890afd80709	a6d733cafb531f111eb0ee5a42b3455ca8f0ab23	5	user	draft	651931632	/	.	2	0	\N	0	\N	\N	\N	1604425964	1604425964	0	\N
 8	64eac2c0349c35b4b30b40b6595f34c9135c8bed	bcd400fff099111f24a8354dee1b4bb69849f89d	1	core	preview	0	/thumb/	87793262feb64e380ecaa5ab39f92756b9629afa	\N	3416	image/png	0	\N	\N	\N	1604425964	1604425964	0	\N
 9	da39a3ee5e6b4b0d3255bfef95601890afd80709	74c104d54c05b5f8c633a36da516d37e6c5279e4	1	core	preview	0	/thumb/	.	\N	0	\N	0	\N	\N	\N	1604425964	1604425964	0	\N
 10	da39a3ee5e6b4b0d3255bfef95601890afd80709	884555719c50529b9df662a38619d04b5b11e25c	1	core	preview	0	/	.	\N	0	\N	0	\N	\N	\N	1604425964	1604425964	0	\N
-11	87793262feb64e380ecaa5ab39f92756b9629afa	0b875f1e7e869fd9b3de12164748ea2f0ab43626	1	theme_xtec2020	logo	0	/	logo_alexandria.png	2	5234	image/png	0	logo_alexandria.png	Administrador Alexandria	allrightsreserved	1604425963	1604426120	0	\N
-12	da39a3ee5e6b4b0d3255bfef95601890afd80709	deb323edb8e693a033698a609112b4384a5445c6	1	theme_xtec2020	logo	0	/	.	2	0	\N	0	\N	\N	\N	1604425964	1604426120	0	\N
-14	da39a3ee5e6b4b0d3255bfef95601890afd80709	98b5c3eadea5402afccd3cb5ffd87560db251bff	5	user	draft	328301829	/	.	2	0	\N	0	\N	\N	\N	1604426123	1604426123	0	\N
-13	87793262feb64e380ecaa5ab39f92756b9629afa	29887b60eb4cc1642c9df155ac4d20a50cdf8f6f	5	user	draft	328301829	/	logo_alexandria.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:19:"logo_alexandria.png";s:8:"original";s:232:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czoxOToibG9nb19hbGV4YW5kcmlhLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1604425963	1604426120	0	\N
-15	f298d32c006abeda4aad641532bffe1482f1856f	0278465f9f750362ccfa0f55cf63a413518b6daf	5	user	draft	262740956	/	basedades_alexadnria_moodle-nu.mbz	2	6802	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:34:"basedades_alexadnria_moodle-nu.mbz";}	Administrador Alexandria	allrightsreserved	1604426584	1604426584	0	\N
-16	da39a3ee5e6b4b0d3255bfef95601890afd80709	20573c5844aa821bd660886ab80e3ab25fcd2cd8	5	user	draft	262740956	/	.	2	0	\N	0	\N	\N	\N	1604426584	1604426584	0	\N
-17	5e7cc57ab9cc60129e42a663b9182d02bb0d0a5b	83831e585322f5fc9e7fcefe1a593728d1758605	5	user	draft	388863958	/	basedades_alexadnria_pdi-nu.mbz	2	6325	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:31:"basedades_alexadnria_pdi-nu.mbz";}	Administrador Alexandria	allrightsreserved	1604426708	1604426708	0	\N
-18	da39a3ee5e6b4b0d3255bfef95601890afd80709	b86cfc6fe48a10d4c3c2a1a2d7decd342e920720	5	user	draft	388863958	/	.	2	0	\N	0	\N	\N	\N	1604426708	1604426708	0	\N
-19	f24bf64493b10ce7ab5671344d1199a542250271	a6d4d64d22d37ba05a41f864992c1d94dc2044f4	5	user	draft	270429121	/	basedades_alexadnria_scorm-nu.mbz	2	6156	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:33:"basedades_alexadnria_scorm-nu.mbz";}	Administrador Alexandria	allrightsreserved	1604426759	1604426759	0	\N
-20	da39a3ee5e6b4b0d3255bfef95601890afd80709	f9cb93acabfaef79cad4368f809c9d02b60a03fb	5	user	draft	270429121	/	.	2	0	\N	0	\N	\N	\N	1604426759	1604426759	0	\N
+22	da39a3ee5e6b4b0d3255bfef95601890afd80709	6f9574c312959c1b9473ad6d039576fd4a285942	5	user	draft	607767518	/	.	2	0	\N	0	\N	\N	\N	1635243864	1635243864	0	\N
+21	87793262feb64e380ecaa5ab39f92756b9629afa	b7880d5990b4b9a1357d59b1875bc9b828ddd21a	5	user	draft	607767518	/	logo_alexandria.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:19:"logo_alexandria.png";s:8:"original";s:232:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czoxOToibG9nb19hbGV4YW5kcmlhLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1604425963	1604426120	0	\N
+24	da39a3ee5e6b4b0d3255bfef95601890afd80709	a85c41b75afa817a83d98b6ab2072da906b4fbb3	5	user	draft	364024153	/	.	2	0	\N	0	\N	\N	\N	1635243894	1635243894	0	\N
+23	87793262feb64e380ecaa5ab39f92756b9629afa	3867de9e11fb0e8a3c3ddf72a54c28b35b2463c0	5	user	draft	364024153	/	logo_alexandria.png	2	5234	image/png	0	O:8:"stdClass":2:{s:6:"source";s:19:"logo_alexandria.png";s:8:"original";s:232:"YTo2OntzOjk6ImNvbnRleHRpZCI7aToxO3M6OToiY29tcG9uZW50IjtzOjE0OiJ0aGVtZV94dGVjMjAyMCI7czo2OiJpdGVtaWQiO2k6MDtzOjg6ImZpbGVhcmVhIjtzOjQ6ImxvZ28iO3M6ODoiZmlsZXBhdGgiO3M6MToiLyI7czo4OiJmaWxlbmFtZSI7czoxOToibG9nb19hbGV4YW5kcmlhLnBuZyI7fQ==";}	Administrador Alexandria	allrightsreserved	1604425963	1604426120	0	\N
+26	da39a3ee5e6b4b0d3255bfef95601890afd80709	97efa284121f64613c3c96ddde90c77bfc374105	5	user	draft	578235367	/	.	2	0	\N	0	\N	\N	\N	1635248244	1635248244	0	\N
+12	da39a3ee5e6b4b0d3255bfef95601890afd80709	deb323edb8e693a033698a609112b4384a5445c6	1	theme_xtec2020	logo	0	/	.	2	0	\N	0	\N	\N	\N	1604425964	1635248244	0	\N
+27	f298d32c006abeda4aad641532bffe1482f1856f	826d7a74e398a0a2eb5345073335911fb630fc01	5	user	draft	897778006	/	basedades_alexandria_moodle-nu.mbz	2	6802	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:34:"basedades_alexandria_moodle-nu.mbz";}	Administrador Alexandria	allrightsreserved	1635249118	1635249118	0	\N
+28	da39a3ee5e6b4b0d3255bfef95601890afd80709	1817309b34908cd9dfa4e2eb5b8ecd599c2a5759	5	user	draft	897778006	/	.	2	0	\N	0	\N	\N	\N	1635249118	1635249118	0	\N
+31	35776cd24b328263434082478374b8786f465846	e83a21a3add7a474610e57ba5271eff74d0daa7a	2	tool_recyclebin	recyclebin_course	1	/	backup.mbz	2	6697	application/vnd.moodle.backup	0	\N	\N	\N	1635252477	1635252477	0	\N
+32	da39a3ee5e6b4b0d3255bfef95601890afd80709	941f8144b85790d9598a4bed620c8633963e4a86	2	tool_recyclebin	recyclebin_course	1	/	.	2	0	\N	0	\N	\N	\N	1635252477	1635252477	0	\N
+35	68dac907978d75a958ec187ac40392773be45852	41a412e43aebbeee71c4810e8117b0ed382cdc0f	2	tool_recyclebin	recyclebin_course	2	/	backup.mbz	2	6494	application/vnd.moodle.backup	0	\N	\N	\N	1635252605	1635252605	0	\N
+36	da39a3ee5e6b4b0d3255bfef95601890afd80709	6ac6015feffc8a09ba3d1c144232102dd2cbd868	2	tool_recyclebin	recyclebin_course	2	/	.	2	0	\N	0	\N	\N	\N	1635252605	1635252605	0	\N
+39	d0164e4b0b46afd31814ac49b6a2025931728b0a	8c2652ff783d93cd547d42e16cf00ab4e13350bc	2	tool_recyclebin	recyclebin_course	3	/	backup.mbz	2	6332	application/vnd.moodle.backup	0	\N	\N	\N	1635252612	1635252612	0	\N
+40	da39a3ee5e6b4b0d3255bfef95601890afd80709	28f42fe610c99517ed9853bc5414f5aa5a56f1f3	2	tool_recyclebin	recyclebin_course	3	/	.	2	0	\N	0	\N	\N	\N	1635252612	1635252612	0	\N
+43	4c75001daf2e5eababe7df245811a8360f12ac73	1a0469ef64575b94e56217543d0acf76aa5efca7	2	tool_recyclebin	recyclebin_course	4	/	backup.mbz	2	6723	application/vnd.moodle.backup	0	\N	\N	\N	1635252620	1635252620	0	\N
+44	da39a3ee5e6b4b0d3255bfef95601890afd80709	e08daff6ff2dc113cd2ed39f6b8bc3c287581553	2	tool_recyclebin	recyclebin_course	4	/	.	2	0	\N	0	\N	\N	\N	1635252620	1635252620	0	\N
+45	7b21c6beef41c8d8d2cb108b417dff3366a8bcca	772b3d2c9e3d725648d19384ca3fc9426bfc4cb4	5	user	draft	337245858	/	backup-moodle2-activity-4-data4-20211026-1449-nu.mbz	2	6975	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:52:"backup-moodle2-activity-4-data4-20211026-1449-nu.mbz";}	Administrador Alexandria	allrightsreserved	1635252661	1635252661	0	\N
+46	da39a3ee5e6b4b0d3255bfef95601890afd80709	eb2e7f0c6f746b03c867ec26a8340f0ea9bf4f67	5	user	draft	337245858	/	.	2	0	\N	0	\N	\N	\N	1635252661	1635252661	0	\N
+47	badd3cc6a3d5fb2eaa968b3f87c67d33aee4472b	24a14dc50e449371cb2a04f77faed3e98c06fcf7	5	user	draft	716520342	/	backup-moodle2-activity-258-data258-20211026-1455-nu.mbz	2	8361	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:56:"backup-moodle2-activity-258-data258-20211026-1455-nu.mbz";}	Administrador Alexandria	allrightsreserved	1635252960	1635252960	0	\N
+48	da39a3ee5e6b4b0d3255bfef95601890afd80709	a7812578d9f34f953221250d673da20f58010f58	5	user	draft	716520342	/	.	2	0	\N	0	\N	\N	\N	1635252960	1635252960	0	\N
+49	ba939ef69cc55d1b2711d64ad4694fa23d61f07c	8c13d7a52651d4259c149e1e194765ca319860e9	5	user	draft	501332501	/	backup-moodle2-activity-257-data257-20211026-1452-nu.mbz	2	6493	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:56:"backup-moodle2-activity-257-data257-20211026-1452-nu.mbz";}	Administrador Alexandria	allrightsreserved	1635253027	1635253027	0	\N
+50	da39a3ee5e6b4b0d3255bfef95601890afd80709	d8d7314a011dc74f7ccf3cb54347bf9fa6770d9f	5	user	draft	501332501	/	.	2	0	\N	0	\N	\N	\N	1635253027	1635253027	0	\N
+51	00061e1cd9b1c10641ab6793db119886a4c9e1f7	f3378ff0be0fa7bdd58c733a7b1acbf3d8b6d62f	5	user	draft	880452666	/	backup-moodle2-activity-12466-data12466-20211026-1454-nu.mbz	2	6314	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:60:"backup-moodle2-activity-12466-data12466-20211026-1454-nu.mbz";}	Administrador Alexandria	allrightsreserved	1635253069	1635253069	0	\N
+52	da39a3ee5e6b4b0d3255bfef95601890afd80709	a83ccfdad979040107b2f86b483ce6023d636fa1	5	user	draft	880452666	/	.	2	0	\N	0	\N	\N	\N	1635253069	1635253069	0	\N
+53	00061e1cd9b1c10641ab6793db119886a4c9e1f7	fd061278f1155b642e032b64371f69394c2ac7c2	5	user	draft	646884147	/	backup-moodle2-activity-12466-data12466-20211026-1454-nu.mbz	2	6314	application/vnd.moodle.backup	0	O:8:"stdClass":1:{s:6:"source";s:60:"backup-moodle2-activity-12466-data12466-20211026-1454-nu.mbz";}	Administrador Alexandria	allrightsreserved	1635253103	1635253103	0	\N
+54	da39a3ee5e6b4b0d3255bfef95601890afd80709	b738f7a847f1a90b01e9c07bc7341388c23ff688	5	user	draft	646884147	/	.	2	0	\N	0	\N	\N	\N	1635253103	1635253103	0	\N
 \.
 
 
@@ -32441,7 +34279,7 @@ COPY public.mdl_filter_wiris_formulas (id, md5, content, jsoncontent, alt, timec
 -- Data for Name: mdl_folder; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_folder (id, course, name, intro, introformat, revision, timemodified, display, showexpanded, showdownloadfolder) FROM stdin;
+COPY public.mdl_folder (id, course, name, intro, introformat, revision, timemodified, display, showexpanded, showdownloadfolder, forcedownload) FROM stdin;
 \.
 
 
@@ -32797,7 +34635,7 @@ COPY public.mdl_groupings_groups (id, groupingid, groupid, timeadded) FROM stdin
 -- Data for Name: mdl_groups; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_groups (id, courseid, idnumber, name, description, descriptionformat, enrolmentkey, picture, hidepicture, timecreated, timemodified) FROM stdin;
+COPY public.mdl_groups (id, courseid, idnumber, name, description, descriptionformat, enrolmentkey, picture, timecreated, timemodified) FROM stdin;
 \.
 
 
@@ -32829,7 +34667,7 @@ COPY public.mdl_h5p_contents_libraries (id, h5pid, libraryid, dependencytype, dr
 -- Data for Name: mdl_h5p_libraries; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_h5p_libraries (id, machinename, title, majorversion, minorversion, patchversion, runnable, fullscreen, embedtypes, preloadedjs, preloadedcss, droplibrarycss, semantics, addto, coremajor, coreminor) FROM stdin;
+COPY public.mdl_h5p_libraries (id, machinename, title, majorversion, minorversion, patchversion, runnable, fullscreen, embedtypes, preloadedjs, preloadedcss, droplibrarycss, semantics, addto, coremajor, coreminor, metadatasettings, tutorial, example, enabled) FROM stdin;
 \.
 
 
@@ -32846,6 +34684,30 @@ COPY public.mdl_h5p_libraries_cachedassets (id, libraryid, hash) FROM stdin;
 --
 
 COPY public.mdl_h5p_library_dependencies (id, libraryid, requiredlibraryid, dependencytype) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_h5pactivity; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_h5pactivity (id, course, name, timecreated, timemodified, intro, introformat, grade, displayoptions, enabletracking, grademethod, reviewmode) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_h5pactivity_attempts; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_h5pactivity_attempts (id, h5pactivityid, userid, timecreated, timemodified, attempt, rawscore, maxscore, scaled, duration, completion, success) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_h5pactivity_attempts_results; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_h5pactivity_attempts_results (id, attemptid, subcontent, timecreated, interactiontype, description, correctpattern, response, additionals, rawscore, maxscore, duration, completion, success) FROM stdin;
 \.
 
 
@@ -32909,7 +34771,7 @@ COPY public.mdl_hotpot_strings (id, string, md5key) FROM stdin;
 -- Data for Name: mdl_hvp; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_hvp (id, course, name, intro, introformat, json_content, embed_type, disable, main_library_id, content_type, authors, source, year_from, year_to, license, license_version, changes, license_extras, author_comments, default_language, filtered, slug, timecreated, timemodified, completionpass) FROM stdin;
+COPY public.mdl_hvp (id, course, name, intro, introformat, json_content, embed_type, disable, main_library_id, content_type, authors, source, year_from, year_to, license, license_version, changes, license_extras, author_comments, default_language, filtered, slug, timecreated, timemodified, completionpass, a11y_title, shared, synced, hub_id) FROM stdin;
 \.
 
 
@@ -32918,6 +34780,14 @@ COPY public.mdl_hvp (id, course, name, intro, introformat, json_content, embed_t
 --
 
 COPY public.mdl_hvp_auth (id, user_id, created_at, secret) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_hvp_content_hub_cache; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_hvp_content_hub_cache (id, language, json, last_checked) FROM stdin;
 \.
 
 
@@ -33056,6 +34926,14 @@ COPY public.mdl_hvp_xapi_results (id, content_id, user_id, parent_id, interactio
 --
 
 COPY public.mdl_imscp (id, course, name, intro, introformat, revision, keepold, structure, timemodified) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_infected_files; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_infected_files (id, filename, quarantinedfile, userid, reason, timecreated) FROM stdin;
 \.
 
 
@@ -33205,16 +35083,24 @@ COPY public.mdl_lesson_timer (id, lessonid, userid, starttime, lessontime, compl
 -- Data for Name: mdl_license; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_license (id, shortname, fullname, source, enabled, version) FROM stdin;
-1	unknown	Unknown license		1	2010033100
-2	allrightsreserved	All rights reserved	http://en.wikipedia.org/wiki/All_rights_reserved	1	2010033100
-3	public	Public Domain	http://creativecommons.org/licenses/publicdomain/	1	2010033100
-4	cc	Creative Commons	http://creativecommons.org/licenses/by/3.0/	1	2010033100
-5	cc-nd	Creative Commons - NoDerivs	http://creativecommons.org/licenses/by-nd/3.0/	1	2010033100
-6	cc-nc-nd	Creative Commons - No Commercial NoDerivs	http://creativecommons.org/licenses/by-nc-nd/3.0/	1	2010033100
-7	cc-nc	Creative Commons - No Commercial	http://creativecommons.org/licenses/by-nc/3.0/	1	2013051500
-8	cc-nc-sa	Creative Commons - No Commercial ShareAlike	http://creativecommons.org/licenses/by-nc-sa/3.0/	1	2010033100
-9	cc-sa	Creative Commons - ShareAlike	http://creativecommons.org/licenses/by-sa/3.0/	1	2010033100
+COPY public.mdl_license (id, shortname, fullname, source, enabled, version, custom, sortorder) FROM stdin;
+1	unknown	Licence not specified		1	2010033100	0	1
+2	allrightsreserved	All rights reserved	https://en.wikipedia.org/wiki/All_rights_reserved	1	2010033100	0	2
+3	public	Public domain	https://en.wikipedia.org/wiki/Public_domain	1	2010033100	0	3
+4	cc	Creative Commons	https://creativecommons.org/licenses/by/3.0/	1	2010033100	0	4
+5	cc-nd	Creative Commons - NoDerivs	https://creativecommons.org/licenses/by-nd/3.0/	1	2010033100	0	5
+6	cc-nc-nd	Creative Commons - No Commercial NoDerivs	https://creativecommons.org/licenses/by-nc-nd/3.0/	1	2010033100	0	6
+7	cc-nc	Creative Commons - No Commercial	https://creativecommons.org/licenses/by-nc/3.0/	1	2010033100	0	7
+8	cc-nc-sa	Creative Commons - No Commercial ShareAlike	https://creativecommons.org/licenses/by-nc-sa/3.0/	1	2010033100	0	8
+9	cc-sa	Creative Commons - ShareAlike	https://creativecommons.org/licenses/by-sa/3.0/	1	2010033100	0	9
+\.
+
+
+--
+-- Data for Name: mdl_local_alexandria_backups; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_local_alexandria_backups (id, course_id) FROM stdin;
 \.
 
 
@@ -33223,19 +35109,67 @@ COPY public.mdl_license (id, shortname, fullname, source, enabled, version) FROM
 --
 
 COPY public.mdl_lock_db (id, resourcekey, expires, owner) FROM stdin;
-1	core_coursecattree_core_coursecattree_cache	\N	\N
 3	core_theme_get_css_content_boost	\N	\N
+33	cron_\\mod_lti\\task\\clean_access_tokens	\N	\N
+53	cron_\\message_email\\task\\send_email_task	\N	\N
+54	cron_\\block_recent_activity\\task\\cleanup	\N	\N
+56	cron_\\editor_atto\\task\\autosave_cleanup_task	\N	\N
+60	cron_\\tool_analytics\\task\\train_models	\N	\N
+62	core_analytics_modelid:3-analysableid:3-timesplitting:-core-analytics-time_splitting-upcoming_week	\N	\N
+61	cron_\\tool_analytics\\task\\predict_models	\N	\N
+64	cron_\\tool_langimport\\task\\update_langpacks_task	\N	\N
+66	cron_\\tool_messageinbound\\task\\cleanup_task	\N	\N
+68	cron_\\tool_monitor\\task\\check_subscriptions	\N	\N
+72	cron_\\ltiservice_gradebookservices\\task\\cleanup_task	\N	\N
+73	cron_\\quiz_statistics\\task\\quiz_statistics_cleanup	\N	\N
+76	cron_\\logstore_standard\\task\\cleanup_task	\N	\N
+59	cron_\\repository_onedrive\\remove_temp_access_task	\N	\N
+75	cron_\\logstore_legacy\\task\\cleanup_task	\N	\N
+81	cron_adhoc_1	\N	\N
 4	core_theme_get_css_content_xtec2020	\N	\N
+1	core_coursecattree_core_coursecattree_cache	\N	\N
+2	core_modinfo_build_course_cache_1	\N	\N
+82	cron_\\core\\task\\backup_cleanup_task	\N	\N
+83	cron_\\core\\task\\context_cleanup_task	\N	\N
+84	cron_\\core\\task\\cache_cleanup_task	\N	\N
+85	cron_\\core\\task\\messaging_cleanup_task	\N	\N
+86	cron_\\core\\task\\check_for_updates_task	\N	\N
+87	cron_\\core\\task\\search_optimize_task	\N	\N
+88	cron_\\core\\task\\password_reset_cleanup_task	\N	\N
+89	cron_\\core\\task\\complete_plans_task	\N	\N
+90	cron_\\core\\oauth2\\refresh_system_tokens_task	\N	\N
+91	cron_\\core\\task\\analytics_cleanup_task	\N	\N
+92	cron_\\mod_questionnaire\\task\\cleanup	\N	\N
+93	cron_\\local_agora\\task\\adware	\N	\N
 6	cron_\\core\\task\\session_cleanup_task	\N	\N
-8	cron_\\core\\task\\delete_unconfirmed_users_task	\N	\N
-9	cron_\\core\\task\\delete_incomplete_users_task	\N	\N
 10	cron_\\core\\task\\send_new_user_passwords_task	\N	\N
+94	cron_\\tool_brickfield\\task\\bulk_process_courses	\N	\N
 11	cron_\\core\\task\\send_failed_login_notifications_task	\N	\N
 12	cron_\\core\\task\\legacy_plugin_cron_task	\N	\N
 13	cron_\\core\\task\\grade_cron_task	\N	\N
+95	cron_\\tool_brickfield\\task\\bulk_process_caches	\N	\N
 14	cron_\\core\\task\\completion_regular_task	\N	\N
 15	cron_\\core\\task\\portfolio_cron_task	\N	\N
 16	cron_\\core\\task\\plagiarism_cron_task	\N	\N
+97	cron_\\local_alexandria\\task\\backup_courses_task	\N	\N
+96	cron_\\tool_brickfield\\task\\process_analysis_requests	\N	\N
+78	cron_\\local_agora\\task\\scripts	\N	\N
+7	cron_core_cron	\N	\N
+79	cron_\\local_oauth\\task\\clean	\N	\N
+40	cron_\\auth_mnet\\task\\cron_task	\N	\N
+8	cron_\\core\\task\\delete_unconfirmed_users_task	\N	\N
+41	cron_\\enrol_category\\task\\enrol_category_sync	\N	\N
+43	cron_\\enrol_flatfile\\task\\flatfile_sync_task	\N	\N
+44	cron_\\enrol_imsenterprise\\task\\cron_task	\N	\N
+45	cron_\\enrol_lti\\task\\sync_grades	\N	\N
+46	cron_\\enrol_lti\\task\\sync_members	\N	\N
+49	cron_\\enrol_meta\\task\\enrol_meta_sync	\N	\N
+50	cron_\\enrol_paypal\\task\\process_expirations	\N	\N
+57	cron_\\repository_dropbox\\task\\cron_task	\N	\N
+58	cron_\\repository_filesystem\\task\\cron_task	\N	\N
+5	cron_scheduled_task_runner_0	\N	\N
+80	cron_adhoc_task_runner_0	\N	\N
+9	cron_\\core\\task\\delete_incomplete_users_task	\N	\N
 17	cron_\\core\\task\\calendar_cron_task	\N	\N
 18	cron_\\core\\task\\blog_cron_task	\N	\N
 19	cron_\\core\\task\\question_preview_cleanup_task	\N	\N
@@ -33248,62 +35182,32 @@ COPY public.mdl_lock_db (id, resourcekey, expires, owner) FROM stdin;
 26	cron_\\core\\task\\file_trash_cleanup_task	\N	\N
 27	cron_\\core\\task\\search_index_task	\N	\N
 28	cron_\\core\\task\\sync_plans_from_template_cohorts_task	\N	\N
-29	cron_\\qtype_random\\task\\remove_unused_questions	\N	\N
 30	cron_\\mod_assign\\task\\cron_task	\N	\N
-31	cron_\\mod_chat\\task\\cron_task	\N	\N
 32	cron_\\mod_forum\\task\\cron_task	\N	\N
-33	cron_\\mod_lti\\task\\clean_access_tokens	\N	\N
 34	cron_\\mod_quiz\\task\\update_overdue_attempts	\N	\N
 35	cron_\\mod_quiz\\task\\legacy_quiz_reports_cron	\N	\N
 36	cron_\\mod_quiz\\task\\legacy_quiz_accessrules_cron	\N	\N
-37	cron_\\mod_scorm\\task\\cron_task	\N	\N
 38	cron_\\mod_workshop\\task\\cron_task	\N	\N
 39	cron_\\mod_workshop\\task\\legacy_workshop_allocation_cron	\N	\N
+29	cron_\\qtype_random\\task\\remove_unused_questions	\N	\N
+31	cron_\\mod_chat\\task\\cron_task	\N	\N
+37	cron_\\mod_scorm\\task\\cron_task	\N	\N
 42	cron_\\enrol_cohort\\task\\enrol_cohort_sync	\N	\N
 47	cron_\\enrol_manual\\task\\sync_enrolments	\N	\N
+63	cron_\\tool_cohortroles\\task\\cohort_role_sync	\N	\N
+65	cron_\\tool_messageinbound\\task\\pickup_task	\N	\N
+67	cron_\\tool_monitor\\task\\clean_events	\N	\N
+74	cron_\\workshopallocation_scheduled\\task\\cron_task	\N	\N
+77	cron_\\mod_hvp\\task\\remove_old_auth_tokens	\N	\N
 48	cron_\\enrol_manual\\task\\send_expiry_notifications	\N	\N
 51	cron_\\enrol_self\\task\\sync_enrolments	\N	\N
 52	cron_\\enrol_self\\task\\send_expiry_notifications	\N	\N
-53	cron_\\message_email\\task\\send_email_task	\N	\N
-54	cron_\\block_recent_activity\\task\\cleanup	\N	\N
 55	cron_\\block_rss_client\\task\\refreshfeeds	\N	\N
-56	cron_\\editor_atto\\task\\autosave_cleanup_task	\N	\N
-60	cron_\\tool_analytics\\task\\train_models	\N	\N
-62	core_analytics_modelid:3-analysableid:3-timesplitting:-core-analytics-time_splitting-upcoming_week	\N	\N
-61	cron_\\tool_analytics\\task\\predict_models	\N	\N
-63	cron_\\tool_cohortroles\\task\\cohort_role_sync	\N	\N
-64	cron_\\tool_langimport\\task\\update_langpacks_task	\N	\N
-65	cron_\\tool_messageinbound\\task\\pickup_task	\N	\N
-66	cron_\\tool_messageinbound\\task\\cleanup_task	\N	\N
-67	cron_\\tool_monitor\\task\\clean_events	\N	\N
-68	cron_\\tool_monitor\\task\\check_subscriptions	\N	\N
 69	cron_\\tool_recyclebin\\task\\cleanup_course_bin	\N	\N
 70	cron_\\tool_recyclebin\\task\\cleanup_category_bin	\N	\N
 71	cron_\\assignfeedback_editpdf\\task\\convert_submissions	\N	\N
-72	cron_\\ltiservice_gradebookservices\\task\\cleanup_task	\N	\N
-73	cron_\\quiz_statistics\\task\\quiz_statistics_cleanup	\N	\N
-74	cron_\\workshopallocation_scheduled\\task\\cron_task	\N	\N
-76	cron_\\logstore_standard\\task\\cleanup_task	\N	\N
-77	cron_\\mod_hvp\\task\\remove_old_auth_tokens	\N	\N
-78	cron_\\local_agora\\task\\scripts	\N	\N
-79	cron_\\local_oauth\\task\\clean	\N	\N
-40	cron_\\auth_mnet\\task\\cron_task	\N	\N
-41	cron_\\enrol_category\\task\\enrol_category_sync	\N	\N
-43	cron_\\enrol_flatfile\\task\\flatfile_sync_task	\N	\N
-44	cron_\\enrol_imsenterprise\\task\\cron_task	\N	\N
-45	cron_\\enrol_lti\\task\\sync_grades	\N	\N
-46	cron_\\enrol_lti\\task\\sync_members	\N	\N
-49	cron_\\enrol_meta\\task\\enrol_meta_sync	\N	\N
-50	cron_\\enrol_paypal\\task\\process_expirations	\N	\N
-57	cron_\\repository_dropbox\\task\\cron_task	\N	\N
-58	cron_\\repository_filesystem\\task\\cron_task	\N	\N
-59	cron_\\repository_onedrive\\remove_temp_access_task	\N	\N
-75	cron_\\logstore_legacy\\task\\cleanup_task	\N	\N
-5	cron_scheduled_task_runner_0	\N	\N
-7	cron_core_cron	\N	\N
-81	cron_adhoc_1	\N	\N
-80	cron_adhoc_task_runner_0	\N	\N
-2	core_modinfo_build_course_cache_1	\N	\N
+99	cron_adhoc_2	\N	\N
+98	cron_adhoc_3	\N	\N
 \.
 
 
@@ -33627,6 +35531,331 @@ COPY public.mdl_logstore_standard_log (id, eventname, component, action, target,
 1545	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1604428898	web	192.168.33.1	\N
 1546	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1604429166	web	192.168.33.1	\N
 1547	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1604429169	web	192.168.33.1	\N
+1548	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	7	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/site:senderrormessage","oldpermission":0,"permission":1}	1635241293	cli	\N	\N
+1549	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/site:viewanonymousevents","oldpermission":0,"permission":1}	1635241293	cli	\N	\N
+1550	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:recommendactivity","oldpermission":0,"permission":1}	1635241293	cli	\N	\N
+1837	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252620	web	192.168.33.1	\N
+1551	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:access","oldpermission":0,"permission":1}	1635241294	cli	\N	\N
+1552	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:access","oldpermission":0,"permission":1}	1635241294	cli	\N	\N
+1553	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:access","oldpermission":0,"permission":1}	1635241294	cli	\N	\N
+1554	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:upload","oldpermission":0,"permission":1}	1635241294	cli	\N	\N
+1555	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:upload","oldpermission":0,"permission":1}	1635241295	cli	\N	\N
+1556	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:upload","oldpermission":0,"permission":1}	1635241295	cli	\N	\N
+1557	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:deleteanycontent","oldpermission":0,"permission":1}	1635241295	cli	\N	\N
+1558	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:deleteanycontent","oldpermission":0,"permission":1}	1635241295	cli	\N	\N
+1559	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	7	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:deleteowncontent","oldpermission":0,"permission":1}	1635241295	cli	\N	\N
+1560	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:manageanycontent","oldpermission":0,"permission":1}	1635241296	cli	\N	\N
+1561	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:manageanycontent","oldpermission":0,"permission":1}	1635241296	cli	\N	\N
+1562	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:manageowncontent","oldpermission":0,"permission":1}	1635241296	cli	\N	\N
+1563	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:manageowncontent","oldpermission":0,"permission":1}	1635241296	cli	\N	\N
+1564	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:manageowncontent","oldpermission":0,"permission":1}	1635241296	cli	\N	\N
+1565	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:useeditor","oldpermission":0,"permission":1}	1635241297	cli	\N	\N
+1566	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:useeditor","oldpermission":0,"permission":1}	1635241297	cli	\N	\N
+1567	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:useeditor","oldpermission":0,"permission":1}	1635241297	cli	\N	\N
+1568	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:downloadcontent","oldpermission":0,"permission":1}	1635241297	cli	\N	\N
+1569	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:downloadcontent","oldpermission":0,"permission":1}	1635241298	cli	\N	\N
+1570	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:downloadcontent","oldpermission":0,"permission":1}	1635241298	cli	\N	\N
+1571	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	5	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:downloadcoursecontent","oldpermission":0,"permission":1}	1635241298	cli	\N	\N
+1572	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	4	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:downloadcoursecontent","oldpermission":0,"permission":1}	1635241298	cli	\N	\N
+1573	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:downloadcoursecontent","oldpermission":0,"permission":1}	1635241298	cli	\N	\N
+1574	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:downloadcoursecontent","oldpermission":0,"permission":1}	1635241299	cli	\N	\N
+1575	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:configuredownloadcontent","oldpermission":0,"permission":1}	1635241299	cli	\N	\N
+1576	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/course:configuredownloadcontent","oldpermission":0,"permission":1}	1635241299	cli	\N	\N
+1577	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:viewunlistedcontent","oldpermission":0,"permission":1}	1635241299	cli	\N	\N
+1578	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"moodle\\/contentbank:viewunlistedcontent","oldpermission":0,"permission":1}	1635241300	cli	\N	\N
+1579	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	5	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/assign:viewownsubmissionsummary","oldpermission":0,"permission":1}	1635241315	cli	\N	\N
+1580	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	6	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:view","oldpermission":0,"permission":1}	1635241323	cli	\N	\N
+1581	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	5	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:view","oldpermission":0,"permission":1}	1635241323	cli	\N	\N
+1582	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	4	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:view","oldpermission":0,"permission":1}	1635241324	cli	\N	\N
+1583	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:view","oldpermission":0,"permission":1}	1635241324	cli	\N	\N
+1584	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:view","oldpermission":0,"permission":1}	1635241324	cli	\N	\N
+1585	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:addinstance","oldpermission":0,"permission":"1"}	1635241324	cli	\N	\N
+1586	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:addinstance","oldpermission":0,"permission":"1"}	1635241325	cli	\N	\N
+1587	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	5	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:submit","oldpermission":0,"permission":1}	1635241325	cli	\N	\N
+1588	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:reviewattempts","oldpermission":0,"permission":"1"}	1635241325	cli	\N	\N
+1589	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/h5pactivity:reviewattempts","oldpermission":0,"permission":"1"}	1635241325	cli	\N	\N
+1590	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/hvp:share","oldpermission":0,"permission":"1"}	1635241327	cli	\N	\N
+1591	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/hvp:share","oldpermission":0,"permission":"1"}	1635241327	cli	\N	\N
+1592	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/lti:addpreconfiguredinstance","oldpermission":0,"permission":"1"}	1635241330	cli	\N	\N
+1593	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/lti:addpreconfiguredinstance","oldpermission":0,"permission":"1"}	1635241330	cli	\N	\N
+1594	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/lti:addmanualinstance","oldpermission":0,"permission":"1"}	1635241330	cli	\N	\N
+1595	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/lti:addmanualinstance","oldpermission":0,"permission":"1"}	1635241330	cli	\N	\N
+1596	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	4	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/quiz:viewoverrides","oldpermission":0,"permission":1}	1635241332	cli	\N	\N
+1597	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/quiz:viewoverrides","oldpermission":0,"permission":1}	1635241332	cli	\N	\N
+1598	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"mod\\/quiz:viewoverrides","oldpermission":0,"permission":1}	1635241332	cli	\N	\N
+1599	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"enrol\\/fee:config","oldpermission":0,"permission":1}	1635241342	cli	\N	\N
+1600	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"enrol\\/fee:manage","oldpermission":0,"permission":1}	1635241342	cli	\N	\N
+1601	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"enrol\\/fee:manage","oldpermission":0,"permission":1}	1635241343	cli	\N	\N
+1602	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"enrol\\/fee:unenrol","oldpermission":0,"permission":1}	1635241343	cli	\N	\N
+1603	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	7	u	0	1	10	0	0	0	\N	0	{"capability":"enrol\\/self:enrolself","oldpermission":0,"permission":1}	1635241347	cli	\N	\N
+1604	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/accessreview:addinstance","oldpermission":0,"permission":"1"}	1635241349	cli	\N	\N
+1605	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/accessreview:addinstance","oldpermission":0,"permission":"1"}	1635241349	cli	\N	\N
+1606	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/accessreview:view","oldpermission":0,"permission":1}	1635241349	cli	\N	\N
+1607	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/accessreview:view","oldpermission":0,"permission":1}	1635241349	cli	\N	\N
+1608	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:addinstance","oldpermission":0,"permission":"1"}	1635241354	cli	\N	\N
+1609	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:addinstance","oldpermission":0,"permission":"1"}	1635241355	cli	\N	\N
+1610	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:myaddinstance","oldpermission":0,"permission":1}	1635241355	cli	\N	\N
+1611	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:myaddinstance","oldpermission":0,"permission":1}	1635241355	cli	\N	\N
+1612	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:managereports","oldpermission":0,"permission":1}	1635241355	cli	\N	\N
+1613	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:managesqlreports","oldpermission":0,"permission":1}	1635241355	cli	\N	\N
+1614	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:manageownreports","oldpermission":0,"permission":1}	1635241356	cli	\N	\N
+1615	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"block\\/configurable_reports:viewreports","oldpermission":0,"permission":1}	1635241356	cli	\N	\N
+1616	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"report\\/status:view","oldpermission":0,"permission":1}	1635241388	cli	\N	\N
+1617	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:view","oldpermission":0,"permission":1}	1635241397	cli	\N	\N
+1618	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:view","oldpermission":0,"permission":1}	1635241397	cli	\N	\N
+1619	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:view","oldpermission":0,"permission":1}	1635241397	cli	\N	\N
+1620	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:accesscoursecontent","oldpermission":0,"permission":1}	1635241398	cli	\N	\N
+1621	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:accesscoursecontent","oldpermission":0,"permission":1}	1635241398	cli	\N	\N
+1622	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:accesscoursecontent","oldpermission":0,"permission":1}	1635241398	cli	\N	\N
+1623	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:accesscoursecategorycontent","oldpermission":0,"permission":1}	1635241398	cli	\N	\N
+1624	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:accesscoursecategorycontent","oldpermission":0,"permission":1}	1635241398	cli	\N	\N
+1625	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	7	u	0	1	10	0	0	0	\N	0	{"capability":"repository\\/contentbank:accessgeneralcontent","oldpermission":0,"permission":1}	1635241399	cli	\N	\N
+1626	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	4	u	0	1	10	0	0	0	\N	0	{"capability":"tool\\/brickfield:viewcoursetools","oldpermission":0,"permission":1}	1635241417	cli	\N	\N
+1627	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"tool\\/brickfield:viewcoursetools","oldpermission":0,"permission":1}	1635241418	cli	\N	\N
+1628	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"tool\\/brickfield:viewcoursetools","oldpermission":0,"permission":1}	1635241418	cli	\N	\N
+1629	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"tool\\/brickfield:viewsystemtools","oldpermission":0,"permission":1}	1635241418	cli	\N	\N
+1630	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"tool\\/customlang:export","oldpermission":0,"permission":1}	1635241419	cli	\N	\N
+1631	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:access","oldpermission":0,"permission":1}	1635241442	cli	\N	\N
+1632	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:access","oldpermission":0,"permission":1}	1635241442	cli	\N	\N
+1633	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:access","oldpermission":0,"permission":1}	1635241443	cli	\N	\N
+1634	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:upload","oldpermission":0,"permission":1}	1635241443	cli	\N	\N
+1635	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:upload","oldpermission":0,"permission":1}	1635241443	cli	\N	\N
+1636	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:upload","oldpermission":0,"permission":1}	1635241444	cli	\N	\N
+1637	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:useeditor","oldpermission":0,"permission":1}	1635241444	cli	\N	\N
+1638	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	2	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:useeditor","oldpermission":0,"permission":1}	1635241444	cli	\N	\N
+1639	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"contenttype\\/h5p:useeditor","oldpermission":0,"permission":1}	1635241445	cli	\N	\N
+1640	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:managetemplates","oldpermission":0,"permission":1}	1635241468	cli	\N	\N
+1641	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:bypassseb","oldpermission":0,"permission":1}	1635241469	cli	\N	\N
+1642	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:bypassseb","oldpermission":0,"permission":1}	1635241469	cli	\N	\N
+1643	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_requiresafeexambrowser","oldpermission":0,"permission":1}	1635241469	cli	\N	\N
+1644	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_requiresafeexambrowser","oldpermission":0,"permission":1}	1635241469	cli	\N	\N
+1645	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_templateid","oldpermission":0,"permission":1}	1635241470	cli	\N	\N
+1646	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_templateid","oldpermission":0,"permission":1}	1635241470	cli	\N	\N
+1647	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_filemanager_sebconfigfile","oldpermission":0,"permission":1}	1635241470	cli	\N	\N
+1648	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_filemanager_sebconfigfile","oldpermission":0,"permission":1}	1635241470	cli	\N	\N
+1649	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showsebdownloadlink","oldpermission":0,"permission":1}	1635241471	cli	\N	\N
+1650	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showsebdownloadlink","oldpermission":0,"permission":1}	1635241471	cli	\N	\N
+1651	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowedbrowserexamkeys","oldpermission":0,"permission":1}	1635241471	cli	\N	\N
+1652	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowedbrowserexamkeys","oldpermission":0,"permission":1}	1635241471	cli	\N	\N
+1653	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_linkquitseb","oldpermission":0,"permission":1}	1635241472	cli	\N	\N
+1654	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_linkquitseb","oldpermission":0,"permission":1}	1635241472	cli	\N	\N
+1655	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_userconfirmquit","oldpermission":0,"permission":1}	1635241472	cli	\N	\N
+1656	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_userconfirmquit","oldpermission":0,"permission":1}	1635241472	cli	\N	\N
+1657	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowuserquitseb","oldpermission":0,"permission":1}	1635241472	cli	\N	\N
+1658	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowuserquitseb","oldpermission":0,"permission":1}	1635241473	cli	\N	\N
+1659	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_quitpassword","oldpermission":0,"permission":1}	1635241473	cli	\N	\N
+1660	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_quitpassword","oldpermission":0,"permission":1}	1635241473	cli	\N	\N
+1661	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowreloadinexam","oldpermission":0,"permission":1}	1635241473	cli	\N	\N
+1662	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowreloadinexam","oldpermission":0,"permission":1}	1635241474	cli	\N	\N
+1663	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showsebtaskbar","oldpermission":0,"permission":1}	1635241474	cli	\N	\N
+1664	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showsebtaskbar","oldpermission":0,"permission":1}	1635241474	cli	\N	\N
+1665	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showreloadbutton","oldpermission":0,"permission":1}	1635241475	cli	\N	\N
+1666	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showreloadbutton","oldpermission":0,"permission":1}	1635241475	cli	\N	\N
+1667	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showtime","oldpermission":0,"permission":1}	1635241475	cli	\N	\N
+1668	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showtime","oldpermission":0,"permission":1}	1635241476	cli	\N	\N
+1669	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showkeyboardlayout","oldpermission":0,"permission":1}	1635241476	cli	\N	\N
+1670	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showkeyboardlayout","oldpermission":0,"permission":1}	1635241476	cli	\N	\N
+1671	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showwificontrol","oldpermission":0,"permission":1}	1635241477	cli	\N	\N
+1672	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_showwificontrol","oldpermission":0,"permission":1}	1635241477	cli	\N	\N
+1673	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_enableaudiocontrol","oldpermission":0,"permission":1}	1635241477	cli	\N	\N
+1674	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_enableaudiocontrol","oldpermission":0,"permission":1}	1635241478	cli	\N	\N
+1675	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_muteonstartup","oldpermission":0,"permission":1}	1635241478	cli	\N	\N
+1676	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_muteonstartup","oldpermission":0,"permission":1}	1635241478	cli	\N	\N
+1677	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowspellchecking","oldpermission":0,"permission":1}	1635241479	cli	\N	\N
+1678	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_allowspellchecking","oldpermission":0,"permission":1}	1635241479	cli	\N	\N
+1679	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_activateurlfiltering","oldpermission":0,"permission":1}	1635241479	cli	\N	\N
+1680	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_activateurlfiltering","oldpermission":0,"permission":1}	1635241480	cli	\N	\N
+1681	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_filterembeddedcontent","oldpermission":0,"permission":1}	1635241480	cli	\N	\N
+1682	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_filterembeddedcontent","oldpermission":0,"permission":1}	1635241480	cli	\N	\N
+1683	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_expressionsallowed","oldpermission":0,"permission":1}	1635241480	cli	\N	\N
+1684	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_expressionsallowed","oldpermission":0,"permission":1}	1635241481	cli	\N	\N
+1685	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_regexallowed","oldpermission":0,"permission":1}	1635241481	cli	\N	\N
+1686	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_regexallowed","oldpermission":0,"permission":1}	1635241481	cli	\N	\N
+1687	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_expressionsblocked","oldpermission":0,"permission":1}	1635241482	cli	\N	\N
+1688	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_expressionsblocked","oldpermission":0,"permission":1}	1635241482	cli	\N	\N
+1689	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	1	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_regexblocked","oldpermission":0,"permission":1}	1635241482	cli	\N	\N
+1690	\\core\\event\\capability_assigned	core	assigned	capability	role_capabilities	3	u	0	1	10	0	0	0	\N	0	{"capability":"quizaccess\\/seb:manage_seb_regexblocked","oldpermission":0,"permission":1}	1635241483	cli	\N	\N
+1691	\\core\\event\\config_log_created	core	created	config_log	config_log	1816	c	0	1	10	0	2	0	\N	0	{"name":"enableuserfeedback","oldvalue":null,"value":"0","plugin":null}	1635241513	cli	\N	\N
+1692	\\core\\event\\config_log_created	core	created	config_log	config_log	1817	c	0	1	10	0	2	0	\N	0	{"name":"userfeedback_nextreminder","oldvalue":null,"value":"1","plugin":null}	1635241513	cli	\N	\N
+1693	\\core\\event\\config_log_created	core	created	config_log	config_log	1818	c	0	1	10	0	2	0	\N	0	{"name":"userfeedback_remindafter","oldvalue":null,"value":"90","plugin":null}	1635241513	cli	\N	\N
+1694	\\core\\event\\config_log_created	core	created	config_log	config_log	1819	c	0	1	10	0	2	0	\N	0	{"name":"enableaccessibilitytools","oldvalue":null,"value":"1","plugin":null}	1635241513	cli	\N	\N
+1695	\\core\\event\\config_log_created	core	created	config_log	config_log	1820	c	0	1	10	0	2	0	\N	0	{"name":"defaultpreference_core_contentbank_visibility","oldvalue":null,"value":"1","plugin":null}	1635241513	cli	\N	\N
+1696	\\core\\event\\config_log_created	core	created	config_log	config_log	1821	c	0	1	10	0	2	0	\N	0	{"name":"automaticdataexportapproval","oldvalue":null,"value":"0","plugin":"tool_dataprivacy"}	1635241513	cli	\N	\N
+1697	\\core\\event\\config_log_created	core	created	config_log	config_log	1822	c	0	1	10	0	2	0	\N	0	{"name":"automaticdatadeletionapproval","oldvalue":null,"value":"0","plugin":"tool_dataprivacy"}	1635241513	cli	\N	\N
+1698	\\core\\event\\config_log_created	core	created	config_log	config_log	1823	c	0	1	10	0	2	0	\N	0	{"name":"downloadcontentsitedefault","oldvalue":null,"value":"0","plugin":"moodlecourse"}	1635241513	cli	\N	\N
+1699	\\core\\event\\config_log_created	core	created	config_log	config_log	1824	c	0	1	10	0	2	0	\N	0	{"name":"showactivitydates","oldvalue":null,"value":"1","plugin":"moodlecourse"}	1635241513	cli	\N	\N
+1700	\\core\\event\\config_log_created	core	created	config_log	config_log	1825	c	0	1	10	0	2	0	\N	0	{"name":"showcompletionconditions","oldvalue":null,"value":"1","plugin":"moodlecourse"}	1635241513	cli	\N	\N
+1701	\\core\\event\\config_log_created	core	created	config_log	config_log	1826	c	0	1	10	0	2	0	\N	0	{"name":"downloadcoursecontentallowed","oldvalue":null,"value":"0","plugin":null}	1635241513	cli	\N	\N
+1702	\\core\\event\\config_log_created	core	created	config_log	config_log	1827	c	0	1	10	0	2	0	\N	0	{"name":"maxsizeperdownloadcoursefile","oldvalue":null,"value":"52428800","plugin":null}	1635241513	cli	\N	\N
+1703	\\core\\event\\config_log_created	core	created	config_log	config_log	1828	c	0	1	10	0	2	0	\N	0	{"name":"activitychoosertabmode","oldvalue":null,"value":"0","plugin":null}	1635241514	cli	\N	\N
+1704	\\core\\event\\config_log_created	core	created	config_log	config_log	1829	c	0	1	10	0	2	0	\N	0	{"name":"activitychooseractivefooter","oldvalue":null,"value":"hidden","plugin":null}	1635241514	cli	\N	\N
+1705	\\core\\event\\config_log_created	core	created	config_log	config_log	1830	c	0	1	10	0	2	0	\N	0	{"name":"backup_general_contentbankcontent","oldvalue":null,"value":"1","plugin":"backup"}	1635241514	cli	\N	\N
+1706	\\core\\event\\config_log_created	core	created	config_log	config_log	1831	c	0	1	10	0	2	0	\N	0	{"name":"backup_general_contentbankcontent_locked","oldvalue":null,"value":"","plugin":"backup"}	1635241514	cli	\N	\N
+1707	\\core\\event\\config_log_created	core	created	config_log	config_log	1832	c	0	1	10	0	2	0	\N	0	{"name":"backup_general_legacyfiles","oldvalue":null,"value":"1","plugin":"backup"}	1635241514	cli	\N	\N
+1708	\\core\\event\\config_log_created	core	created	config_log	config_log	1833	c	0	1	10	0	2	0	\N	0	{"name":"backup_general_legacyfiles_locked","oldvalue":null,"value":"","plugin":"backup"}	1635241514	cli	\N	\N
+1709	\\core\\event\\config_log_created	core	created	config_log	config_log	1834	c	0	1	10	0	2	0	\N	0	{"name":"backup_import_permissions","oldvalue":null,"value":"0","plugin":"backup"}	1635241514	cli	\N	\N
+1710	\\core\\event\\config_log_created	core	created	config_log	config_log	1835	c	0	1	10	0	2	0	\N	0	{"name":"backup_import_permissions_locked","oldvalue":null,"value":"","plugin":"backup"}	1635241514	cli	\N	\N
+1711	\\core\\event\\config_log_created	core	created	config_log	config_log	1836	c	0	1	10	0	2	0	\N	0	{"name":"backup_import_contentbankcontent","oldvalue":null,"value":"1","plugin":"backup"}	1635241514	cli	\N	\N
+1712	\\core\\event\\config_log_created	core	created	config_log	config_log	1837	c	0	1	10	0	2	0	\N	0	{"name":"backup_import_contentbankcontent_locked","oldvalue":null,"value":"","plugin":"backup"}	1635241514	cli	\N	\N
+1713	\\core\\event\\config_log_created	core	created	config_log	config_log	1838	c	0	1	10	0	2	0	\N	0	{"name":"backup_import_legacyfiles","oldvalue":null,"value":"1","plugin":"backup"}	1635241514	cli	\N	\N
+1714	\\core\\event\\config_log_created	core	created	config_log	config_log	1839	c	0	1	10	0	2	0	\N	0	{"name":"backup_import_legacyfiles_locked","oldvalue":null,"value":"","plugin":"backup"}	1635241514	cli	\N	\N
+1715	\\core\\event\\config_log_created	core	created	config_log	config_log	1840	c	0	1	10	0	2	0	\N	0	{"name":"backup_auto_contentbankcontent","oldvalue":null,"value":"1","plugin":"backup"}	1635241514	cli	\N	\N
+1716	\\core\\event\\config_log_created	core	created	config_log	config_log	1841	c	0	1	10	0	2	0	\N	0	{"name":"backup_auto_legacyfiles","oldvalue":null,"value":"1","plugin":"backup"}	1635241514	cli	\N	\N
+1717	\\core\\event\\config_log_created	core	created	config_log	config_log	1842	c	0	1	10	0	2	0	\N	0	{"name":"restore_general_permissions","oldvalue":null,"value":"1","plugin":"restore"}	1635241514	cli	\N	\N
+1718	\\core\\event\\config_log_created	core	created	config_log	config_log	1843	c	0	1	10	0	2	0	\N	0	{"name":"restore_general_permissions_locked","oldvalue":null,"value":"","plugin":"restore"}	1635241514	cli	\N	\N
+1719	\\core\\event\\config_log_created	core	created	config_log	config_log	1844	c	0	1	10	0	2	0	\N	0	{"name":"restore_general_contentbankcontent","oldvalue":null,"value":"1","plugin":"restore"}	1635241514	cli	\N	\N
+1720	\\core\\event\\config_log_created	core	created	config_log	config_log	1845	c	0	1	10	0	2	0	\N	0	{"name":"restore_general_contentbankcontent_locked","oldvalue":null,"value":"","plugin":"restore"}	1635241514	cli	\N	\N
+1721	\\core\\event\\config_log_created	core	created	config_log	config_log	1846	c	0	1	10	0	2	0	\N	0	{"name":"restore_general_legacyfiles","oldvalue":null,"value":"1","plugin":"restore"}	1635241514	cli	\N	\N
+1722	\\core\\event\\config_log_created	core	created	config_log	config_log	1847	c	0	1	10	0	2	0	\N	0	{"name":"restore_general_legacyfiles_locked","oldvalue":null,"value":"","plugin":"restore"}	1635241514	cli	\N	\N
+1723	\\core\\event\\config_log_created	core	created	config_log	config_log	1848	c	0	1	10	0	2	0	\N	0	{"name":"calclifetime","oldvalue":null,"value":"35","plugin":"analytics"}	1635241515	cli	\N	\N
+1724	\\core\\event\\config_log_created	core	created	config_log	config_log	1849	c	0	1	10	0	2	0	\N	0	{"name":"h5plibraryhandler","oldvalue":null,"value":"h5plib_v124","plugin":null}	1635241515	cli	\N	\N
+1725	\\core\\event\\config_log_created	core	created	config_log	config_log	1850	c	0	1	10	0	2	0	\N	0	{"name":"rememberuserlicensepref","oldvalue":null,"value":"1","plugin":null}	1635241515	cli	\N	\N
+1726	\\core\\event\\config_log_created	core	created	config_log	config_log	1851	c	0	1	10	0	2	0	\N	0	{"name":"autolangusercreation","oldvalue":null,"value":"1","plugin":null}	1635241515	cli	\N	\N
+1727	\\core\\event\\config_log_created	core	created	config_log	config_log	1852	c	0	1	10	0	2	0	\N	0	{"name":"quizpassword","oldvalue":null,"value":"","plugin":"quiz"}	1635241519	cli	\N	\N
+1728	\\core\\event\\config_log_created	core	created	config_log	config_log	1853	c	0	1	10	0	2	0	\N	0	{"name":"quizpassword_adv","oldvalue":null,"value":"","plugin":"quiz"}	1635241519	cli	\N	\N
+1729	\\core\\event\\config_log_created	core	created	config_log	config_log	1854	c	0	1	10	0	2	0	\N	0	{"name":"quizpassword_required","oldvalue":null,"value":"","plugin":"quiz"}	1635241519	cli	\N	\N
+1730	\\core\\event\\config_log_created	core	created	config_log	config_log	1855	c	0	1	10	0	2	0	\N	0	{"name":"autoreconfigureseb","oldvalue":null,"value":"1","plugin":"quizaccess_seb"}	1635241519	cli	\N	\N
+1731	\\core\\event\\config_log_created	core	created	config_log	config_log	1856	c	0	1	10	0	2	0	\N	0	{"name":"showseblinks","oldvalue":null,"value":"seb,http","plugin":"quizaccess_seb"}	1635241519	cli	\N	\N
+1732	\\core\\event\\config_log_created	core	created	config_log	config_log	1857	c	0	1	10	0	2	0	\N	0	{"name":"downloadlink","oldvalue":null,"value":"https:\\/\\/safeexambrowser.org\\/download_en.html","plugin":"quizaccess_seb"}	1635241519	cli	\N	\N
+1733	\\core\\event\\config_log_created	core	created	config_log	config_log	1858	c	0	1	10	0	2	0	\N	0	{"name":"quizpasswordrequired","oldvalue":null,"value":"0","plugin":"quizaccess_seb"}	1635241519	cli	\N	\N
+1734	\\core\\event\\config_log_created	core	created	config_log	config_log	1859	c	0	1	10	0	2	0	\N	0	{"name":"displayblocksbeforestart","oldvalue":null,"value":"0","plugin":"quizaccess_seb"}	1635241519	cli	\N	\N
+1735	\\core\\event\\config_log_created	core	created	config_log	config_log	1860	c	0	1	10	0	2	0	\N	0	{"name":"displayblockswhenfinished","oldvalue":null,"value":"1","plugin":"quizaccess_seb"}	1635241519	cli	\N	\N
+1736	\\core\\event\\config_log_created	core	created	config_log	config_log	1861	c	0	1	10	0	2	0	\N	0	{"name":"analysistype","oldvalue":null,"value":"0","plugin":"tool_brickfield"}	1635241520	cli	\N	\N
+1737	\\core\\event\\config_log_created	core	created	config_log	config_log	1862	c	0	1	10	0	2	0	\N	0	{"name":"deletehistoricaldata","oldvalue":null,"value":"1","plugin":"tool_brickfield"}	1635241520	cli	\N	\N
+1738	\\core\\event\\config_log_created	core	created	config_log	config_log	1863	c	0	1	10	0	2	0	\N	0	{"name":"batch","oldvalue":null,"value":"1000","plugin":"tool_brickfield"}	1635241520	cli	\N	\N
+1739	\\core\\event\\config_log_created	core	created	config_log	config_log	1864	c	0	1	10	0	2	0	\N	0	{"name":"perpage","oldvalue":null,"value":"50","plugin":"tool_brickfield"}	1635241520	cli	\N	\N
+1740	\\core\\event\\config_log_created	core	created	config_log	config_log	1865	c	0	1	10	0	2	0	\N	0	{"name":"notifyemail","oldvalue":null,"value":"","plugin":"antivirus"}	1635241520	cli	\N	\N
+1741	\\core\\event\\config_log_created	core	created	config_log	config_log	1866	c	0	1	10	0	2	0	\N	0	{"name":"enablequarantine","oldvalue":null,"value":"0","plugin":"antivirus"}	1635241520	cli	\N	\N
+1742	\\core\\event\\config_log_created	core	created	config_log	config_log	1867	c	0	1	10	0	2	0	\N	0	{"name":"quarantinetime","oldvalue":null,"value":"2419200","plugin":"antivirus"}	1635241520	cli	\N	\N
+1743	\\core\\event\\config_log_created	core	created	config_log	config_log	1868	c	0	1	10	0	2	0	\N	0	{"name":"tcpsockethost","oldvalue":null,"value":"","plugin":"antivirus_clamav"}	1635241520	cli	\N	\N
+1744	\\core\\event\\config_log_created	core	created	config_log	config_log	1869	c	0	1	10	0	2	0	\N	0	{"name":"tcpsocketport","oldvalue":null,"value":"3310","plugin":"antivirus_clamav"}	1635241520	cli	\N	\N
+1745	\\core\\event\\config_log_created	core	created	config_log	config_log	1870	c	0	1	10	0	2	0	\N	0	{"name":"tries","oldvalue":null,"value":"1","plugin":"antivirus_clamav"}	1635241520	cli	\N	\N
+1746	\\core\\event\\config_log_created	core	created	config_log	config_log	1871	c	0	1	10	0	2	0	\N	0	{"name":"whattoshow","oldvalue":null,"value":"showboth","plugin":"block_accessreview"}	1635241522	cli	\N	\N
+1747	\\core\\event\\config_log_created	core	created	config_log	config_log	1872	c	0	1	10	0	2	0	\N	0	{"name":"errordisplay","oldvalue":null,"value":"showint","plugin":"block_accessreview"}	1635241522	cli	\N	\N
+1748	\\core\\event\\config_log_created	core	created	config_log	config_log	1873	c	0	1	10	0	2	0	\N	0	{"name":"toolpage","oldvalue":null,"value":"errors","plugin":"block_accessreview"}	1635241522	cli	\N	\N
+1749	\\core\\event\\config_log_created	core	created	config_log	config_log	1874	c	0	1	10	0	2	0	\N	0	{"name":"dbhost","oldvalue":null,"value":"","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1750	\\core\\event\\config_log_created	core	created	config_log	config_log	1875	c	0	1	10	0	2	0	\N	0	{"name":"dbname","oldvalue":null,"value":"","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1751	\\core\\event\\config_log_created	core	created	config_log	config_log	1876	c	0	1	10	0	2	0	\N	0	{"name":"dbuser","oldvalue":null,"value":"","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1752	\\core\\event\\config_log_created	core	created	config_log	config_log	1877	c	0	1	10	0	2	0	\N	0	{"name":"dbpass","oldvalue":null,"value":"","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1753	\\core\\event\\config_log_created	core	created	config_log	config_log	1878	c	0	1	10	0	2	0	\N	0	{"name":"cron_hour","oldvalue":null,"value":"0","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1754	\\core\\event\\config_log_created	core	created	config_log	config_log	1879	c	0	1	10	0	2	0	\N	0	{"name":"cron_minute","oldvalue":null,"value":"0","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1755	\\core\\event\\config_log_created	core	created	config_log	config_log	1880	c	0	1	10	0	2	0	\N	0	{"name":"sqlsecurity","oldvalue":null,"value":"1","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1756	\\core\\event\\config_log_created	core	created	config_log	config_log	1881	c	0	1	10	0	2	0	\N	0	{"name":"crrepository","oldvalue":null,"value":"jleyva\\/moodle-configurable_reports_repository","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1757	\\core\\event\\config_log_created	core	created	config_log	config_log	1882	c	0	1	10	0	2	0	\N	0	{"name":"sharedsqlrepository","oldvalue":null,"value":"jleyva\\/moodle-custom_sql_report_queries","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1758	\\core\\event\\config_log_created	core	created	config_log	config_log	1883	c	0	1	10	0	2	0	\N	0	{"name":"sqlsyntaxhighlight","oldvalue":null,"value":"1","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1759	\\core\\event\\config_log_created	core	created	config_log	config_log	1884	c	0	1	10	0	2	0	\N	0	{"name":"reporttableui","oldvalue":null,"value":"datatables","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1760	\\core\\event\\config_log_created	core	created	config_log	config_log	1885	c	0	1	10	0	2	0	\N	0	{"name":"reportlimit","oldvalue":null,"value":"5000","plugin":"block_configurable_reports"}	1635241523	cli	\N	\N
+1761	\\core\\event\\config_log_created	core	created	config_log	config_log	1886	c	0	1	10	0	2	0	\N	0	{"name":"showsectionname","oldvalue":null,"value":"0","plugin":"block_section_links"}	1635241523	cli	\N	\N
+1762	\\core\\event\\config_log_created	core	created	config_log	config_log	1887	c	0	1	10	0	2	0	\N	0	{"name":"expiredaction","oldvalue":null,"value":"3","plugin":"enrol_fee"}	1635241525	cli	\N	\N
+1763	\\core\\event\\config_log_created	core	created	config_log	config_log	1888	c	0	1	10	0	2	0	\N	0	{"name":"status","oldvalue":null,"value":"1","plugin":"enrol_fee"}	1635241525	cli	\N	\N
+1764	\\core\\event\\config_log_created	core	created	config_log	config_log	1889	c	0	1	10	0	2	0	\N	0	{"name":"cost","oldvalue":null,"value":"0","plugin":"enrol_fee"}	1635241525	cli	\N	\N
+1765	\\core\\event\\config_log_created	core	created	config_log	config_log	1890	c	0	1	10	0	2	0	\N	0	{"name":"currency","oldvalue":null,"value":"USD","plugin":"enrol_fee"}	1635241525	cli	\N	\N
+1766	\\core\\event\\config_log_created	core	created	config_log	config_log	1891	c	0	1	10	0	2	0	\N	0	{"name":"roleid","oldvalue":null,"value":"5","plugin":"enrol_fee"}	1635241525	cli	\N	\N
+1767	\\core\\event\\config_log_created	core	created	config_log	config_log	1892	c	0	1	10	0	2	0	\N	0	{"name":"enrolperiod","oldvalue":null,"value":"0","plugin":"enrol_fee"}	1635241525	cli	\N	\N
+1768	\\core\\event\\config_log_created	core	created	config_log	config_log	1893	c	0	1	10	0	2	0	\N	0	{"name":"advdebug","oldvalue":null,"value":"0","plugin":"local_clickedu"}	1635241528	cli	\N	\N
+1769	\\core\\event\\config_log_created	core	created	config_log	config_log	1894	c	0	1	10	0	2	0	\N	0	{"name":"surcharge","oldvalue":null,"value":"0","plugin":"paygw_paypal"}	1635241529	cli	\N	\N
+1770	\\core\\event\\config_log_created	core	created	config_log	config_log	1895	c	0	1	10	0	2	0	\N	0	{"name":"filtercodes_compatibility","oldvalue":null,"value":"0","plugin":"qtype_wq"}	1635241529	cli	\N	\N
+1771	\\core\\event\\config_log_created	core	created	config_log	config_log	1896	c	0	1	10	0	2	0	\N	0	{"name":"debug_mode_enabled","oldvalue":null,"value":"0","plugin":"qtype_wq"}	1635241529	cli	\N	\N
+1772	\\core\\event\\config_log_created	core	created	config_log	config_log	1897	c	0	1	10	0	2	0	\N	0	{"name":"searchenginequeryonly","oldvalue":null,"value":"","plugin":null}	1635241530	cli	\N	\N
+1773	\\core\\event\\config_log_created	core	created	config_log	config_log	1898	c	0	1	10	0	2	0	\N	0	{"name":"searchbannerenable","oldvalue":null,"value":"0","plugin":null}	1635241530	cli	\N	\N
+1774	\\core\\event\\config_log_created	core	created	config_log	config_log	1899	c	0	1	10	0	2	0	\N	0	{"name":"searchbanner","oldvalue":null,"value":"","plugin":null}	1635241530	cli	\N	\N
+1775	\\core\\event\\config_log_created	core	created	config_log	config_log	1900	c	0	1	10	0	2	0	\N	0	{"name":"passwordpolicycheckonlogin","oldvalue":null,"value":"0","plugin":null}	1635241531	cli	\N	\N
+1776	\\core\\event\\config_log_created	core	created	config_log	config_log	1901	c	0	1	10	0	2	0	\N	0	{"name":"referrerpolicy","oldvalue":null,"value":"default","plugin":null}	1635241531	cli	\N	\N
+1777	\\core\\event\\config_log_created	core	created	config_log	config_log	1902	c	0	1	10	0	2	0	\N	0	{"name":"langmenuinsecurelayout","oldvalue":null,"value":"0","plugin":null}	1635241532	cli	\N	\N
+1778	\\core\\event\\config_log_created	core	created	config_log	config_log	1903	c	0	1	10	0	2	0	\N	0	{"name":"logininfoinsecurelayout","oldvalue":null,"value":"0","plugin":null}	1635241532	cli	\N	\N
+1779	\\core\\event\\config_log_created	core	created	config_log	config_log	1904	c	0	1	10	0	2	0	\N	0	{"name":"agora_alert_message","oldvalue":null,"value":"","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1780	\\core\\event\\config_log_created	core	created	config_log	config_log	1905	c	0	1	10	0	2	0	\N	0	{"name":"agora_alert_start","oldvalue":null,"value":"","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1781	\\core\\event\\config_log_created	core	created	config_log	config_log	1906	c	0	1	10	0	2	0	\N	0	{"name":"agora_alert_end","oldvalue":null,"value":"","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1782	\\core\\event\\config_log_created	core	created	config_log	config_log	1907	c	0	1	10	0	2	0	\N	0	{"name":"admin_alert_message","oldvalue":null,"value":"","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1783	\\core\\event\\config_log_created	core	created	config_log	config_log	1908	c	0	1	10	0	2	0	\N	0	{"name":"admin_alert_start","oldvalue":null,"value":"","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1784	\\core\\event\\config_log_created	core	created	config_log	config_log	1909	c	0	1	10	0	2	0	\N	0	{"name":"admin_alert_end","oldvalue":null,"value":"","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1785	\\core\\event\\config_log_created	core	created	config_log	config_log	1910	c	0	1	10	0	2	0	\N	0	{"name":"xtec_type","oldvalue":null,"value":"eix","plugin":"theme_xtec2020"}	1635241532	cli	\N	\N
+1786	\\core\\event\\config_log_created	core	created	config_log	config_log	1911	c	0	1	10	0	2	0	\N	0	{"name":"pathtopdftoppm","oldvalue":null,"value":"","plugin":null}	1635241533	cli	\N	\N
+1787	\\core\\event\\config_log_created	core	created	config_log	config_log	1912	c	0	1	10	0	2	0	\N	0	{"name":"cron_enabled","oldvalue":null,"value":"1","plugin":null}	1635241533	cli	\N	\N
+1788	\\core\\event\\config_log_created	core	created	config_log	config_log	1913	c	0	1	10	0	2	0	\N	0	{"name":"divertallemailsto","oldvalue":null,"value":"","plugin":null}	1635241533	cli	\N	\N
+1789	\\core\\event\\config_log_created	core	created	config_log	config_log	1914	c	0	1	10	0	2	0	\N	0	{"name":"divertallemailsexcept","oldvalue":null,"value":"","plugin":null}	1635241533	cli	\N	\N
+1790	\\core\\event\\config_log_created	core	created	config_log	config_log	1915	c	0	1	10	0	2	0	\N	0	{"name":"emaildkimselector","oldvalue":null,"value":"","plugin":null}	1635241533	cli	\N	\N
+1791	\\core\\event\\config_log_created	core	created	config_log	config_log	1916	c	0	1	10	0	2	0	\N	0	{"name":"emailheaders","oldvalue":null,"value":"","plugin":null}	1635241533	cli	\N	\N
+1792	\\core\\event\\config_log_created	core	created	config_log	config_log	1917	c	0	1	10	0	2	0	\N	0	{"name":"qrcodetype","oldvalue":null,"value":"2","plugin":"tool_mobile"}	1635241533	cli	\N	\N
+1793	\\core\\event\\config_log_created	core	created	config_log	config_log	1918	c	0	1	10	0	2	0	\N	0	{"name":"filetypeexclusionlist","oldvalue":null,"value":"","plugin":"tool_mobile"}	1635241534	cli	\N	\N
+1794	\\core\\event\\config_log_created	core	created	config_log	config_log	1919	c	0	1	10	0	2	0	\N	0	{"name":"debugsqltrace","oldvalue":null,"value":"0","plugin":null}	1635241534	cli	\N	\N
+1795	\\core\\event\\config_log_created	core	created	config_log	config_log	1920	c	0	1	10	0	2	0	\N	0	{"name":"enablemoodlenet","oldvalue":null,"value":"0","plugin":"tool_moodlenet"}	1635241534	cli	\N	\N
+1796	\\core\\event\\config_log_created	core	created	config_log	config_log	1921	c	0	1	10	0	2	0	\N	0	{"name":"defaultmoodlenetname","oldvalue":null,"value":"MoodleNet Central","plugin":"tool_moodlenet"}	1635241534	cli	\N	\N
+1797	\\core\\event\\config_log_created	core	created	config_log	config_log	1922	c	0	1	10	0	2	0	\N	0	{"name":"defaultmoodlenet","oldvalue":null,"value":"https:\\/\\/moodle.net","plugin":"tool_moodlenet"}	1635241534	cli	\N	\N
+1798	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	0	1	\N	0	null	1635243821	web	192.168.33.1	\N
+1799	\\core\\event\\user_loggedin	core	loggedin	user	user	2	r	0	1	10	0	2	0	\N	0	{"username":"admin"}	1635243831	web	192.168.33.1	\N
+1800	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635243832	web	192.168.33.1	\N
+1801	\\core\\event\\config_log_created	core	created	config_log	config_log	1923	c	0	1	10	0	2	0	\N	0	{"name":"colorset","oldvalue":"personalitzat","value":"PEDC","plugin":"theme_xtec2020"}	1635243893	web	192.168.33.1	\N
+1802	\\core\\event\\config_log_created	core	created	config_log	config_log	1924	c	0	1	10	0	2	0	\N	0	{"name":"maincolor","oldvalue":"#457FB9","value":"#FF494E","plugin":"theme_xtec2020"}	1635243893	web	192.168.33.1	\N
+1803	\\core\\event\\config_log_created	core	created	config_log	config_log	1925	c	0	1	10	0	2	0	\N	0	{"name":"fontcolor","oldvalue":"#457FB9","value":"#366944","plugin":"theme_xtec2020"}	1635243893	web	192.168.33.1	\N
+1804	\\core\\event\\config_log_created	core	created	config_log	config_log	1926	c	0	1	10	0	2	0	\N	0	{"name":"linkscolor","oldvalue":"#457FB9","value":"#910048","plugin":"theme_xtec2020"}	1635243893	web	192.168.33.1	\N
+1833	\\core\\event\\course_module_deleted	core	deleted	course_module	course_modules	3	d	1	21	70	3	2	1	\N	0	{"modulename":"data","instanceid":"3"}	1635252612	web	192.168.33.1	\N
+1835	\\tool_recyclebin\\event\\course_bin_item_created	tool_recyclebin	created	course_bin_item	tool_recyclebin_course	4	c	0	2	50	1	2	1	\N	0	null	1635252620	web	192.168.33.1	\N
+1836	\\core\\event\\course_module_deleted	core	deleted	course_module	course_modules	4	d	1	24	70	4	2	1	\N	0	{"modulename":"data","instanceid":"4"}	1635252620	web	192.168.33.1	\N
+1838	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252641	web	192.168.33.1	\N
+1805	\\core\\event\\config_log_created	core	created	config_log	config_log	1927	c	0	1	10	0	2	0	\N	0	{"name":"customcss","oldvalue":"#page-header {\\r\\nbackground-position: left center !important;\\r\\nmargin-left: 0px;\\r\\n}\\r\\n\\r\\n#page-header h1{\\r\\n display: none;\\r\\n}\\r\\n\\r\\nth, tr, td {\\r\\n    border: 1px solid #dee2e6 !important;\\r\\n}\\r\\n\\r\\n#nav-drawer a[data-key=\\"myhome\\"] {\\r\\n    display: none;\\r\\n}\\r\\n\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 {\\r\\n    display: flex;\\r\\n    flex-direction: column;\\r\\n}\\r\\n\\/* Text i bot\\u00f3 d'acc\\u00e9s de visitants *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.forgetpass {\\r\\n    order: 5;\\r\\n}\\r\\n\\/* Text d'oblit de contrasenya *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-3 {\\r\\n    order: 3;\\r\\n}\\r\\n\\/* Text de les galetes *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.mt-2 {\\r\\n    order: 4;\\r\\n}\\r\\n\\/* Text \\"Autentiqueu-vos utilitzant el vostre compte a:\\" *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 h6.mt-2 {\\r\\n    order: 1;\\r\\n}\\r\\n\\/* Bot\\u00f3 de Google *\\/\\r\\nsection#region-main div div div div.card div.card-block div.card-body div div.col-md-5 div.potentialidplist {\\r\\n    order: 2;\\r\\n}","value":"","plugin":"theme_xtec2020"}	1635243893	web	192.168.33.1	\N
+1806	\\core\\event\\config_log_created	core	created	config_log	config_log	1928	c	0	1	10	0	2	0	\N	0	{"name":"xtec_type","oldvalue":"eix","value":"alexandria","plugin":"theme_xtec2020"}	1635243893	web	192.168.33.1	\N
+1807	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635243899	web	192.168.33.1	\N
+1808	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	1	r	2	19	70	1	2	1	\N	0	null	1635243915	web	192.168.33.1	\N
+1809	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635248218	web	192.168.33.1	\N
+1810	\\core\\event\\config_log_created	core	created	config_log	config_log	1929	c	0	1	10	0	2	0	\N	0	{"name":"logo","oldvalue":"\\/logo_alexandria.png","value":"","plugin":"theme_xtec2020"}	1635248261	web	192.168.33.1	\N
+1811	\\core\\event\\config_log_created	core	created	config_log	config_log	1930	c	0	1	10	0	2	0	\N	0	{"name":"fontsize","oldvalue":"90","value":"100","plugin":"theme_xtec2020"}	1635248440	web	192.168.33.1	\N
+1812	\\core\\event\\config_log_created	core	created	config_log	config_log	1931	c	0	1	10	0	2	0	\N	0	{"name":"agora_alert_message","oldvalue":"","value":"\\/*.page-header-headings h1{<br>&nbsp;display: none;<br>}*\\/<br>.page-header-headings h1{<br>&nbsp;color: #f4766c !important;<br>}","plugin":"theme_xtec2020"}	1635248440	web	192.168.33.1	\N
+1813	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635249064	web	192.168.33.1	\N
+1814	\\core\\event\\config_log_created	core	created	config_log	config_log	1932	c	0	1	10	0	2	0	\N	0	{"name":"customcss","oldvalue":"","value":"\\/*.page-header-headings h1{\\r\\n display: none;\\r\\n}*\\/\\r\\n.page-header-headings h1{\\r\\n color: #f4766c !important;\\r\\n}","plugin":"theme_xtec2020"}	1635249081	web	192.168.33.1	\N
+1815	\\core\\event\\config_log_created	core	created	config_log	config_log	1933	c	0	1	10	0	2	0	\N	0	{"name":"agora_alert_message","oldvalue":"\\/*.page-header-headings h1{<br>&nbsp;display: none;<br>}*\\/<br>.page-header-headings h1{<br>&nbsp;color: #f4766c !important;<br>}","value":"","plugin":"theme_xtec2020"}	1635249081	web	192.168.33.1	\N
+1816	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635249091	web	192.168.33.1	\N
+1817	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252415	web	192.168.33.1	\N
+1818	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	1	r	2	19	70	1	2	1	\N	0	null	1635252437	web	192.168.33.1	\N
+1819	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252448	web	192.168.33.1	\N
+1820	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252454	web	192.168.33.1	\N
+1821	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252459	web	192.168.33.1	\N
+1822	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252460	web	192.168.33.1	\N
+1823	\\tool_recyclebin\\event\\course_bin_item_created	tool_recyclebin	created	course_bin_item	tool_recyclebin_course	1	c	0	2	50	1	2	1	\N	0	null	1635252477	web	192.168.33.1	\N
+1824	\\core\\event\\course_module_deleted	core	deleted	course_module	course_modules	1	d	1	19	70	1	2	1	\N	0	{"modulename":"data","instanceid":"1"}	1635252477	web	192.168.33.1	\N
+1825	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252478	web	192.168.33.1	\N
+1826	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	4	r	2	24	70	4	2	1	\N	0	null	1635252482	web	192.168.33.1	\N
+1827	\\mod_data\\event\\template_viewed	mod_data	viewed	template	\N	\N	r	0	24	70	4	2	1	\N	0	{"dataid":"4"}	1635252501	web	192.168.33.1	\N
+1828	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252596	web	192.168.33.1	\N
+1829	\\tool_recyclebin\\event\\course_bin_item_created	tool_recyclebin	created	course_bin_item	tool_recyclebin_course	2	c	0	2	50	1	2	1	\N	0	null	1635252605	web	192.168.33.1	\N
+1830	\\core\\event\\course_module_deleted	core	deleted	course_module	course_modules	2	d	1	20	70	2	2	1	\N	0	{"modulename":"data","instanceid":"2"}	1635252605	web	192.168.33.1	\N
+1831	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252606	web	192.168.33.1	\N
+1832	\\tool_recyclebin\\event\\course_bin_item_created	tool_recyclebin	created	course_bin_item	tool_recyclebin_course	3	c	0	2	50	1	2	1	\N	0	null	1635252612	web	192.168.33.1	\N
+1834	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252612	web	192.168.33.1	\N
+1839	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252688	web	192.168.33.1	\N
+1840	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635252984	web	192.168.33.1	\N
+1841	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253049	web	192.168.33.1	\N
+1842	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253089	web	192.168.33.1	\N
+1843	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253121	web	192.168.33.1	\N
+1844	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253131	web	192.168.33.1	\N
+1845	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253170	web	192.168.33.1	\N
+1846	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253174	web	192.168.33.1	\N
+1847	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	0	1	\N	0	null	1635253206	web	192.168.33.1	\N
+1848	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	6	r	2	27	70	6	2	1	\N	0	null	1635253213	web	192.168.33.1	\N
+1849	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253220	web	192.168.33.1	\N
+1850	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253225	web	192.168.33.1	\N
+1851	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253240	web	192.168.33.1	\N
+1852	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253246	web	192.168.33.1	\N
+1853	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	7	r	2	28	70	7	2	1	\N	0	null	1635253247	web	192.168.33.1	\N
+1854	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253250	web	192.168.33.1	\N
+1855	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	7	r	2	28	70	7	2	1	\N	0	null	1635253259	web	192.168.33.1	\N
+1856	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253263	web	192.168.33.1	\N
+1857	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253272	web	192.168.33.1	\N
+1858	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253294	web	192.168.33.1	\N
+1859	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253298	web	192.168.33.1	\N
+1860	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253320	web	192.168.33.1	\N
+1861	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253323	web	192.168.33.1	\N
+1862	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253328	web	192.168.33.1	\N
+1863	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253341	web	192.168.33.1	\N
+1864	\\mod_data\\event\\course_module_viewed	mod_data	viewed	course_module	data	5	r	2	26	70	5	2	1	\N	0	null	1635253352	web	192.168.33.1	\N
+1865	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253363	web	192.168.33.1	\N
+1866	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253391	web	192.168.33.1	\N
+1867	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253443	web	192.168.33.1	\N
+1868	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253444	web	192.168.33.1	\N
+1869	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253450	web	192.168.33.1	\N
+1870	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253450	web	192.168.33.1	\N
+1871	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253457	web	192.168.33.1	\N
+1872	\\core\\event\\course_viewed	core	viewed	course	\N	\N	r	2	2	50	1	2	1	\N	0	null	1635253682	web	192.168.33.1	\N
 \.
 
 
@@ -33690,7 +35919,7 @@ COPY public.mdl_lti_types_config (id, typeid, name, value) FROM stdin;
 -- Data for Name: mdl_ltiservice_gradebookservices; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_ltiservice_gradebookservices (id, gradeitemid, courseid, toolproxyid, typeid, baseurl, ltilinkid, tag) FROM stdin;
+COPY public.mdl_ltiservice_gradebookservices (id, gradeitemid, courseid, toolproxyid, typeid, baseurl, ltilinkid, tag, resourceid) FROM stdin;
 \.
 
 
@@ -33835,6 +36064,8 @@ COPY public.mdl_message_providers (id, name, component, capability) FROM stdin;
 40	confirmation	mod_hvp	mod/hvp:emailconfirmsubmission
 41	message	mod_questionnaire	\N
 42	notification	mod_questionnaire	\N
+43	coursecompleted	moodle	\N
+44	infected	moodle	moodle/site:config
 \.
 
 
@@ -33990,7 +36221,6 @@ COPY public.mdl_mnet_rpc (id, functionname, xmlrpcpath, plugintype, pluginname, 
 2	keepalive_server	auth/mnet/auth.php/keepalive_server	auth	mnet	1	Receives an array of usernames from a remote machine and prods their\nsessions to keep them alive	a:2:{s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:5:"array";s:4:"type";s:5:"array";s:11:"description";s:21:"An array of usernames";}}s:6:"return";a:2:{s:4:"type";s:6:"string";s:11:"description";s:28:""All ok" or an error message";}}	auth.php	auth_plugin_mnet	0
 3	kill_children	auth/mnet/auth.php/kill_children	auth	mnet	1	The IdP uses this function to kill child sessions on other hosts	a:2:{s:10:"parameters";a:2:{i:0;a:3:{s:4:"name";s:8:"username";s:4:"type";s:6:"string";s:11:"description";s:28:"Username for session to kill";}i:1;a:3:{s:4:"name";s:9:"useragent";s:4:"type";s:6:"string";s:11:"description";s:35:"SHA1 hash of user agent to look for";}}s:6:"return";a:2:{s:4:"type";s:6:"string";s:11:"description";s:39:"A plaintext report of what has happened";}}	auth.php	auth_plugin_mnet	0
 4	refresh_log	auth/mnet/auth.php/refresh_log	auth	mnet	1	Receives an array of log entries from an SP and adds them to the mnet_log\ntable	a:2:{s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:5:"array";s:4:"type";s:5:"array";s:11:"description";s:21:"An array of usernames";}}s:6:"return";a:2:{s:4:"type";s:6:"string";s:11:"description";s:28:""All ok" or an error message";}}	auth.php	auth_plugin_mnet	0
-5	fetch_user_image	auth/mnet/auth.php/fetch_user_image	auth	mnet	1	Returns the user's profile image info\nIf the user exists and has a profile picture, the returned array will contain keys:\nf1          - the content of the default 100x100px image\nf1_mimetype - the mimetype of the f1 file\nf2          - the content of the 35x35px variant of the image\nf2_mimetype - the mimetype of the f2 file\nThe mimetype information was added in Moodle 2.0. In Moodle 1.x, images are always jpegs.	a:2:{s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:8:"username";s:4:"type";s:3:"int";s:11:"description";s:18:"The id of the user";}}s:6:"return";a:2:{s:4:"type";s:11:"false|array";s:11:"description";s:84:"false if user not found, empty array if no picture exists, array with data otherwise";}}	auth.php	auth_plugin_mnet	0
 6	fetch_theme_info	auth/mnet/auth.php/fetch_theme_info	auth	mnet	1	Returns the theme information and logo url as strings.	a:2:{s:10:"parameters";a:0:{}s:6:"return";a:2:{s:4:"type";s:6:"string";s:11:"description";s:14:"The theme info";}}	auth.php	auth_plugin_mnet	0
 7	update_enrolments	auth/mnet/auth.php/update_enrolments	auth	mnet	1	Invoke this function _on_ the IDP to update it with enrolment info local to\nthe SP right after calling user_authorise()\nNormally called by the SP after calling user_authorise()	a:2:{s:10:"parameters";a:2:{i:0;a:3:{s:4:"name";s:8:"username";s:4:"type";s:6:"string";s:11:"description";s:12:"The username";}i:1;a:3:{s:4:"name";s:7:"courses";s:4:"type";s:5:"array";s:11:"description";s:75:"Assoc array of courses following the structure of mnetservice_enrol_courses";}}s:6:"return";a:2:{s:4:"type";s:4:"bool";s:11:"description";s:0:"";}}	auth.php	auth_plugin_mnet	0
 8	keepalive_client	auth/mnet/auth.php/keepalive_client	auth	mnet	1	Poll the IdP server to let it know that a user it has authenticated is still\nonline	a:2:{s:10:"parameters";a:0:{}s:6:"return";a:2:{s:4:"type";s:4:"void";s:11:"description";s:0:"";}}	auth.php	auth_plugin_mnet	0
@@ -33999,6 +36229,7 @@ COPY public.mdl_mnet_rpc (id, functionname, xmlrpcpath, plugintype, pluginname, 
 11	user_enrolments	enrol/mnet/enrol.php/user_enrolments	enrol	mnet	1	This method has never been implemented in Moodle MNet API	a:2:{s:10:"parameters";a:0:{}s:6:"return";a:2:{s:4:"type";s:5:"array";s:11:"description";s:11:"empty array";}}	enrol.php	enrol_mnet_mnetservice_enrol	0
 12	enrol_user	enrol/mnet/enrol.php/enrol_user	enrol	mnet	1	Enrol remote user to our course\nIf we do not have local record for the remote user in our database,\nit gets created here.	a:2:{s:10:"parameters";a:2:{i:0;a:3:{s:4:"name";s:8:"userdata";s:4:"type";s:5:"array";s:11:"description";s:43:"user details {@see mnet_fields_to_import()}";}i:1;a:3:{s:4:"name";s:8:"courseid";s:4:"type";s:3:"int";s:11:"description";s:19:"our local course id";}}s:6:"return";a:2:{s:4:"type";s:4:"bool";s:11:"description";s:69:"true if the enrolment has been successful, throws exception otherwise";}}	enrol.php	enrol_mnet_mnetservice_enrol	0
 13	unenrol_user	enrol/mnet/enrol.php/unenrol_user	enrol	mnet	1	Unenrol remote user from our course\nOnly users enrolled via enrol_mnet plugin can be unenrolled remotely. If the\nremote user is enrolled into the local course via some other enrol plugin\n(enrol_manual for example), the remote host can't touch such enrolment. Please\ndo not report this behaviour as bug, it is a feature ;-)	a:2:{s:10:"parameters";a:2:{i:0;a:3:{s:4:"name";s:8:"username";s:4:"type";s:6:"string";s:11:"description";s:18:"of the remote user";}i:1;a:3:{s:4:"name";s:8:"courseid";s:4:"type";s:3:"int";s:11:"description";s:19:"of our local course";}}s:6:"return";a:2:{s:4:"type";s:4:"bool";s:11:"description";s:71:"true if the unenrolment has been successful, throws exception otherwise";}}	enrol.php	enrol_mnet_mnetservice_enrol	0
+5	fetch_user_image	auth/mnet/auth.php/fetch_user_image	auth	mnet	1	Returns the user's profile image info\nIf the user exists and has a profile picture, the returned array will contain keys:\nf1          - the content of the default 100x100px image\nf1_mimetype - the mimetype of the f1 file\nf2          - the content of the 35x35px variant of the image\nf2_mimetype - the mimetype of the f2 file\nThe mimetype information was added in Moodle 2.0. In Moodle 1.x, images are always jpegs.	a:2:{s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:8:"username";s:4:"type";s:3:"int";s:11:"description";s:18:"The id of the user";}}s:6:"return";a:2:{s:4:"type";s:11:"false|array";s:11:"description";s:84:"false if user not found, empty array if no picture exists, array with data otherwise";}}	auth.php	auth_plugin_mnet	0
 14	course_enrolments	enrol/mnet/enrol.php/course_enrolments	enrol	mnet	1	Returns a list of users from the client server who are enrolled in our course\nSuitable instance of enrol_mnet must be created in the course. This method will not\nreturn any information about the enrolments in courses that are not available for\nremote enrolment, even if their users are enrolled into them via other plugin\n(note the difference from {@link self::user_enrolments()}).\nThis method will return enrolment information for users from hosts regardless\nthe enrolment plugin. It does not matter if the user was enrolled remotely by\ntheir admin or locally. Once the course is available for remote enrolments, we\nwill tell them everything about their users.\nIn Moodle 1.x the returned array used to be indexed by username. The side effect\nof MDL-19219 fix is that we do not need to use such index and therefore we can\nreturn all enrolment records. MNet clients 1.x will only use the last record for\nthe student, if she is enrolled via multiple plugins.	a:2:{s:10:"parameters";a:2:{i:0;a:3:{s:4:"name";s:8:"courseid";s:4:"type";s:3:"int";s:11:"description";s:16:"ID of our course";}i:1;a:3:{s:4:"name";s:5:"roles";s:4:"type";s:12:"string|array";s:11:"description";s:58:"comma separated list of role shortnames (or array of them)";}}s:6:"return";a:2:{s:4:"type";s:5:"array";s:11:"description";s:0:"";}}	enrol.php	enrol_mnet_mnetservice_enrol	0
 15	fetch_file	portfolio/mahara/lib.php/fetch_file	portfolio	mahara	1	xmlrpc (mnet) function to get the file.\nreads in the file and returns it base_64 encoded\nso that it can be enrypted by mnet.	a:2:{s:10:"parameters";a:1:{i:0;a:3:{s:4:"name";s:5:"token";s:4:"type";s:6:"string";s:11:"description";s:56:"the token recieved previously during send_content_intent";}}s:6:"return";a:2:{s:4:"type";s:4:"void";s:11:"description";s:0:"";}}	lib.php	portfolio_plugin_mahara	1
 \.
@@ -34106,7 +36337,8 @@ COPY public.mdl_modules (id, name, cron, lastcron, search, visible) FROM stdin;
 29	questionnaire	0	0		1
 30	qv	0	0		1
 31	rcontent	0	0		1
-28	journal	60	1604426897		1
+32	h5pactivity	0	0		1
+28	journal	60	1635253676		1
 \.
 
 
@@ -34148,7 +36380,15 @@ COPY public.mdl_oauth2_endpoint (id, timecreated, timemodified, usermodified, na
 -- Data for Name: mdl_oauth2_issuer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_oauth2_issuer (id, timecreated, timemodified, usermodified, name, image, baseurl, clientid, clientsecret, loginscopes, loginscopesoffline, loginparams, loginparamsoffline, alloweddomains, scopessupported, enabled, showonloginpage, basicauth, sortorder, requireconfirmation) FROM stdin;
+COPY public.mdl_oauth2_issuer (id, timecreated, timemodified, usermodified, name, image, baseurl, clientid, clientsecret, loginscopes, loginscopesoffline, loginparams, loginparamsoffline, alloweddomains, scopessupported, enabled, showonloginpage, basicauth, sortorder, requireconfirmation, servicetype, loginpagename) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_oauth2_refresh_token; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_oauth2_refresh_token (id, timecreated, timemodified, userid, issuerid, token, scopehash) FROM stdin;
 \.
 
 
@@ -34237,6 +36477,38 @@ COPY public.mdl_oauth_user_auth_scopes (id, client_id, user_id, scope) FROM stdi
 --
 
 COPY public.mdl_page (id, course, name, intro, introformat, content, contentformat, legacyfiles, legacyfileslast, display, displayoptions, revision, timemodified) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_paygw_paypal; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_paygw_paypal (id, paymentid, pp_orderid) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_payment_accounts; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_payment_accounts (id, name, idnumber, contextid, enabled, archived, timecreated, timemodified) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_payment_gateways; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_payment_gateways (id, accountid, gateway, enabled, config, timecreated, timemodified) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_payments; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_payments (id, component, paymentarea, itemid, userid, amount, currency, accountid, gateway, timecreated, timemodified) FROM stdin;
 \.
 
 
@@ -34356,7 +36628,7 @@ COPY public.mdl_qtype_ddmarker_drops (id, questionid, no, shape, coords, choice)
 -- Data for Name: mdl_qtype_essay_options; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_qtype_essay_options (id, questionid, responseformat, responserequired, responsefieldlines, attachments, attachmentsrequired, graderinfo, graderinfoformat, responsetemplate, responsetemplateformat, filetypeslist) FROM stdin;
+COPY public.mdl_qtype_essay_options (id, questionid, responseformat, responserequired, responsefieldlines, attachments, attachmentsrequired, graderinfo, graderinfoformat, responsetemplate, responsetemplateformat, filetypeslist, maxbytes, minwordlimit, maxwordlimit) FROM stdin;
 \.
 
 
@@ -34380,7 +36652,7 @@ COPY public.mdl_qtype_match_subquestions (id, questionid, questiontext, question
 -- Data for Name: mdl_qtype_multichoice_options; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_qtype_multichoice_options (id, questionid, layout, single, shuffleanswers, correctfeedback, correctfeedbackformat, partiallycorrectfeedback, partiallycorrectfeedbackformat, incorrectfeedback, incorrectfeedbackformat, answernumbering, shownumcorrect) FROM stdin;
+COPY public.mdl_qtype_multichoice_options (id, questionid, layout, single, shuffleanswers, correctfeedback, correctfeedbackformat, partiallycorrectfeedback, partiallycorrectfeedbackformat, incorrectfeedback, incorrectfeedbackformat, answernumbering, shownumcorrect, showstandardinstruction) FROM stdin;
 \.
 
 
@@ -34612,7 +36884,7 @@ COPY public.mdl_question_usages (id, contextid, component, preferredbehaviour) F
 -- Data for Name: mdl_questionnaire; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_questionnaire (id, course, name, intro, introformat, qtype, respondenttype, resp_eligible, resp_view, notifications, opendate, closedate, resume, navigate, grade, sid, timemodified, completionsubmit, autonum) FROM stdin;
+COPY public.mdl_questionnaire (id, course, name, intro, introformat, qtype, respondenttype, resp_eligible, resp_view, notifications, opendate, closedate, resume, navigate, grade, sid, timemodified, completionsubmit, autonum, progressbar) FROM stdin;
 \.
 
 
@@ -34751,7 +37023,7 @@ COPY public.mdl_questionnaire_survey (id, name, courseid, realm, status, title, 
 -- Data for Name: mdl_quiz; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_quiz (id, course, name, intro, introformat, timeopen, timeclose, timelimit, overduehandling, graceperiod, preferredbehaviour, canredoquestions, attempts, attemptonlast, grademethod, decimalpoints, questiondecimalpoints, reviewattempt, reviewcorrectness, reviewmarks, reviewspecificfeedback, reviewgeneralfeedback, reviewrightanswer, reviewoverallfeedback, questionsperpage, navmethod, shuffleanswers, sumgrades, grade, timecreated, timemodified, password, subnet, browsersecurity, delay1, delay2, showuserpicture, showblocks, completionattemptsexhausted, completionpass, allowofflineattempts) FROM stdin;
+COPY public.mdl_quiz (id, course, name, intro, introformat, timeopen, timeclose, timelimit, overduehandling, graceperiod, preferredbehaviour, canredoquestions, attempts, attemptonlast, grademethod, decimalpoints, questiondecimalpoints, reviewattempt, reviewcorrectness, reviewmarks, reviewspecificfeedback, reviewgeneralfeedback, reviewrightanswer, reviewoverallfeedback, questionsperpage, navmethod, shuffleanswers, sumgrades, grade, timecreated, timemodified, password, subnet, browsersecurity, delay1, delay2, showuserpicture, showblocks, completionattemptsexhausted, completionpass, allowofflineattempts, completionminattempts) FROM stdin;
 \.
 
 
@@ -34836,6 +37108,22 @@ COPY public.mdl_quiz_slots (id, slot, quizid, page, requireprevious, questionid,
 --
 
 COPY public.mdl_quiz_statistics (id, hashcode, whichattempts, timemodified, firstattemptscount, highestattemptscount, lastattemptscount, allattemptscount, firstattemptsavg, highestattemptsavg, lastattemptsavg, allattemptsavg, median, standarddeviation, skewness, kurtosis, cic, errorratio, standarderror) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_quizaccess_seb_quizsettings; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_quizaccess_seb_quizsettings (id, quizid, cmid, templateid, requiresafeexambrowser, showsebtaskbar, showwificontrol, showreloadbutton, showtime, showkeyboardlayout, allowuserquitseb, quitpassword, linkquitseb, userconfirmquit, enableaudiocontrol, muteonstartup, allowspellchecking, allowreloadinexam, activateurlfiltering, filterembeddedcontent, expressionsallowed, regexallowed, expressionsblocked, regexblocked, allowedbrowserexamkeys, showsebdownloadlink, usermodified, timecreated, timemodified) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_quizaccess_seb_template; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_quizaccess_seb_template (id, name, description, content, enabled, sortorder, usermodified, timecreated, timemodified) FROM stdin;
 \.
 
 
@@ -35005,6 +37293,7 @@ COPY public.mdl_repository (id, type, visible, sortorder) FROM stdin;
 5	url	1	5
 6	user	1	6
 7	wikimedia	1	7
+8	contentbank	1	8
 \.
 
 
@@ -35028,6 +37317,7 @@ COPY public.mdl_repository_instances (id, name, typeid, userid, contextid, usern
 5		5	0	1	\N	\N	1590509958	1590509958	0
 6		6	0	1	\N	\N	1590509958	1590509958	0
 7		7	0	1	\N	\N	1590509958	1590509958	0
+8		8	0	1	\N	\N	1635241397	1635241397	0
 \.
 
 
@@ -36727,6 +39017,149 @@ COPY public.mdl_role_capabilities (id, contextid, roleid, capability, permission
 1558	1	4	local/rcommon:editowncredentials	1	1590510524	2
 1559	1	3	local/rcommon:editowncredentials	1	1590510524	2
 1560	1	1	local/rcommon:editowncredentials	1	1590510524	2
+1561	1	7	moodle/site:senderrormessage	1	1635241293	0
+1562	1	1	moodle/site:viewanonymousevents	1	1635241293	0
+1563	1	1	moodle/course:recommendactivity	1	1635241293	0
+1564	1	1	moodle/contentbank:access	1	1635241294	0
+1565	1	2	moodle/contentbank:access	1	1635241294	0
+1566	1	3	moodle/contentbank:access	1	1635241294	0
+1567	1	1	moodle/contentbank:upload	1	1635241294	0
+1568	1	2	moodle/contentbank:upload	1	1635241295	0
+1569	1	3	moodle/contentbank:upload	1	1635241295	0
+1570	1	1	moodle/contentbank:deleteanycontent	1	1635241295	0
+1571	1	2	moodle/contentbank:deleteanycontent	1	1635241295	0
+1572	1	7	moodle/contentbank:deleteowncontent	1	1635241295	0
+1573	1	1	moodle/contentbank:manageanycontent	1	1635241296	0
+1574	1	2	moodle/contentbank:manageanycontent	1	1635241296	0
+1575	1	1	moodle/contentbank:manageowncontent	1	1635241296	0
+1576	1	2	moodle/contentbank:manageowncontent	1	1635241296	0
+1577	1	3	moodle/contentbank:manageowncontent	1	1635241296	0
+1578	1	1	moodle/contentbank:useeditor	1	1635241297	0
+1579	1	2	moodle/contentbank:useeditor	1	1635241297	0
+1580	1	3	moodle/contentbank:useeditor	1	1635241297	0
+1581	1	1	moodle/contentbank:downloadcontent	1	1635241297	0
+1582	1	2	moodle/contentbank:downloadcontent	1	1635241298	0
+1583	1	3	moodle/contentbank:downloadcontent	1	1635241298	0
+1584	1	5	moodle/course:downloadcoursecontent	1	1635241298	0
+1585	1	4	moodle/course:downloadcoursecontent	1	1635241298	0
+1586	1	3	moodle/course:downloadcoursecontent	1	1635241298	0
+1587	1	1	moodle/course:downloadcoursecontent	1	1635241299	0
+1588	1	3	moodle/course:configuredownloadcontent	1	1635241299	0
+1589	1	1	moodle/course:configuredownloadcontent	1	1635241299	0
+1590	1	1	moodle/contentbank:viewunlistedcontent	1	1635241299	0
+1591	1	2	moodle/contentbank:viewunlistedcontent	1	1635241300	0
+1592	1	5	mod/assign:viewownsubmissionsummary	1	1635241315	0
+1593	1	6	mod/h5pactivity:view	1	1635241323	0
+1594	1	5	mod/h5pactivity:view	1	1635241323	0
+1595	1	4	mod/h5pactivity:view	1	1635241324	0
+1596	1	3	mod/h5pactivity:view	1	1635241324	0
+1597	1	1	mod/h5pactivity:view	1	1635241324	0
+1598	1	3	mod/h5pactivity:addinstance	1	1635241324	0
+1599	1	1	mod/h5pactivity:addinstance	1	1635241325	0
+1600	1	5	mod/h5pactivity:submit	1	1635241325	0
+1601	1	3	mod/h5pactivity:reviewattempts	1	1635241325	0
+1602	1	1	mod/h5pactivity:reviewattempts	1	1635241325	0
+1603	1	3	mod/hvp:share	1	1635241327	0
+1604	1	1	mod/hvp:share	1	1635241327	0
+1605	1	1	mod/lti:addpreconfiguredinstance	1	1635241330	0
+1606	1	3	mod/lti:addpreconfiguredinstance	1	1635241330	0
+1607	1	1	mod/lti:addmanualinstance	1	1635241330	0
+1608	1	3	mod/lti:addmanualinstance	1	1635241330	0
+1609	1	4	mod/quiz:viewoverrides	1	1635241332	0
+1610	1	3	mod/quiz:viewoverrides	1	1635241332	0
+1611	1	1	mod/quiz:viewoverrides	1	1635241332	0
+1612	1	1	enrol/fee:config	1	1635241342	0
+1613	1	1	enrol/fee:manage	1	1635241342	0
+1614	1	3	enrol/fee:manage	1	1635241343	0
+1615	1	1	enrol/fee:unenrol	1	1635241343	0
+1616	1	7	enrol/self:enrolself	1	1635241347	0
+1617	1	3	block/accessreview:addinstance	1	1635241349	0
+1618	1	1	block/accessreview:addinstance	1	1635241349	0
+1619	1	3	block/accessreview:view	1	1635241349	0
+1620	1	1	block/accessreview:view	1	1635241349	0
+1621	1	3	block/configurable_reports:addinstance	1	1635241354	0
+1622	1	1	block/configurable_reports:addinstance	1	1635241355	0
+1623	1	3	block/configurable_reports:myaddinstance	1	1635241355	0
+1624	1	1	block/configurable_reports:myaddinstance	1	1635241355	0
+1625	1	1	block/configurable_reports:managereports	1	1635241355	0
+1626	1	1	block/configurable_reports:managesqlreports	1	1635241355	0
+1627	1	1	block/configurable_reports:manageownreports	1	1635241356	0
+1628	1	1	block/configurable_reports:viewreports	1	1635241356	0
+1629	1	1	report/status:view	1	1635241388	0
+1630	1	2	repository/contentbank:view	1	1635241397	0
+1631	1	3	repository/contentbank:view	1	1635241397	0
+1632	1	1	repository/contentbank:view	1	1635241397	0
+1633	1	2	repository/contentbank:accesscoursecontent	1	1635241398	0
+1634	1	3	repository/contentbank:accesscoursecontent	1	1635241398	0
+1635	1	1	repository/contentbank:accesscoursecontent	1	1635241398	0
+1636	1	2	repository/contentbank:accesscoursecategorycontent	1	1635241398	0
+1637	1	1	repository/contentbank:accesscoursecategorycontent	1	1635241398	0
+1638	1	7	repository/contentbank:accessgeneralcontent	1	1635241399	0
+1639	1	4	tool/brickfield:viewcoursetools	1	1635241417	0
+1640	1	3	tool/brickfield:viewcoursetools	1	1635241418	0
+1641	1	1	tool/brickfield:viewcoursetools	1	1635241418	0
+1642	1	1	tool/brickfield:viewsystemtools	1	1635241418	0
+1643	1	1	tool/customlang:export	1	1635241419	0
+1644	1	1	contenttype/h5p:access	1	1635241442	0
+1645	1	2	contenttype/h5p:access	1	1635241442	0
+1646	1	3	contenttype/h5p:access	1	1635241443	0
+1647	1	1	contenttype/h5p:upload	1	1635241443	0
+1648	1	2	contenttype/h5p:upload	1	1635241443	0
+1649	1	3	contenttype/h5p:upload	1	1635241444	0
+1650	1	1	contenttype/h5p:useeditor	1	1635241444	0
+1651	1	2	contenttype/h5p:useeditor	1	1635241444	0
+1652	1	3	contenttype/h5p:useeditor	1	1635241445	0
+1653	1	1	quizaccess/seb:managetemplates	1	1635241468	0
+1654	1	1	quizaccess/seb:bypassseb	1	1635241469	0
+1655	1	3	quizaccess/seb:bypassseb	1	1635241469	0
+1656	1	1	quizaccess/seb:manage_seb_requiresafeexambrowser	1	1635241469	0
+1657	1	3	quizaccess/seb:manage_seb_requiresafeexambrowser	1	1635241469	0
+1658	1	1	quizaccess/seb:manage_seb_templateid	1	1635241470	0
+1659	1	3	quizaccess/seb:manage_seb_templateid	1	1635241470	0
+1660	1	1	quizaccess/seb:manage_filemanager_sebconfigfile	1	1635241470	0
+1661	1	3	quizaccess/seb:manage_filemanager_sebconfigfile	1	1635241470	0
+1662	1	1	quizaccess/seb:manage_seb_showsebdownloadlink	1	1635241471	0
+1663	1	3	quizaccess/seb:manage_seb_showsebdownloadlink	1	1635241471	0
+1664	1	1	quizaccess/seb:manage_seb_allowedbrowserexamkeys	1	1635241471	0
+1665	1	3	quizaccess/seb:manage_seb_allowedbrowserexamkeys	1	1635241471	0
+1666	1	1	quizaccess/seb:manage_seb_linkquitseb	1	1635241472	0
+1667	1	3	quizaccess/seb:manage_seb_linkquitseb	1	1635241472	0
+1668	1	1	quizaccess/seb:manage_seb_userconfirmquit	1	1635241472	0
+1669	1	3	quizaccess/seb:manage_seb_userconfirmquit	1	1635241472	0
+1670	1	1	quizaccess/seb:manage_seb_allowuserquitseb	1	1635241472	0
+1671	1	3	quizaccess/seb:manage_seb_allowuserquitseb	1	1635241473	0
+1672	1	1	quizaccess/seb:manage_seb_quitpassword	1	1635241473	0
+1673	1	3	quizaccess/seb:manage_seb_quitpassword	1	1635241473	0
+1674	1	1	quizaccess/seb:manage_seb_allowreloadinexam	1	1635241473	0
+1675	1	3	quizaccess/seb:manage_seb_allowreloadinexam	1	1635241474	0
+1676	1	1	quizaccess/seb:manage_seb_showsebtaskbar	1	1635241474	0
+1677	1	3	quizaccess/seb:manage_seb_showsebtaskbar	1	1635241474	0
+1678	1	1	quizaccess/seb:manage_seb_showreloadbutton	1	1635241475	0
+1679	1	3	quizaccess/seb:manage_seb_showreloadbutton	1	1635241475	0
+1680	1	1	quizaccess/seb:manage_seb_showtime	1	1635241475	0
+1681	1	3	quizaccess/seb:manage_seb_showtime	1	1635241476	0
+1682	1	1	quizaccess/seb:manage_seb_showkeyboardlayout	1	1635241476	0
+1683	1	3	quizaccess/seb:manage_seb_showkeyboardlayout	1	1635241476	0
+1684	1	1	quizaccess/seb:manage_seb_showwificontrol	1	1635241477	0
+1685	1	3	quizaccess/seb:manage_seb_showwificontrol	1	1635241477	0
+1686	1	1	quizaccess/seb:manage_seb_enableaudiocontrol	1	1635241477	0
+1687	1	3	quizaccess/seb:manage_seb_enableaudiocontrol	1	1635241478	0
+1688	1	1	quizaccess/seb:manage_seb_muteonstartup	1	1635241478	0
+1689	1	3	quizaccess/seb:manage_seb_muteonstartup	1	1635241478	0
+1690	1	1	quizaccess/seb:manage_seb_allowspellchecking	1	1635241479	0
+1691	1	3	quizaccess/seb:manage_seb_allowspellchecking	1	1635241479	0
+1692	1	1	quizaccess/seb:manage_seb_activateurlfiltering	1	1635241479	0
+1693	1	3	quizaccess/seb:manage_seb_activateurlfiltering	1	1635241480	0
+1694	1	1	quizaccess/seb:manage_seb_filterembeddedcontent	1	1635241480	0
+1695	1	3	quizaccess/seb:manage_seb_filterembeddedcontent	1	1635241480	0
+1696	1	1	quizaccess/seb:manage_seb_expressionsallowed	1	1635241480	0
+1697	1	3	quizaccess/seb:manage_seb_expressionsallowed	1	1635241481	0
+1698	1	1	quizaccess/seb:manage_seb_regexallowed	1	1635241481	0
+1699	1	3	quizaccess/seb:manage_seb_regexallowed	1	1635241481	0
+1700	1	1	quizaccess/seb:manage_seb_expressionsblocked	1	1635241482	0
+1701	1	3	quizaccess/seb:manage_seb_expressionsblocked	1	1635241482	0
+1702	1	1	quizaccess/seb:manage_seb_regexblocked	1	1635241482	0
+1703	1	3	quizaccess/seb:manage_seb_regexblocked	1	1635241483	0
 \.
 
 
@@ -36884,7 +39317,7 @@ COPY public.mdl_search_simpledb_index (id, docid, itemid, title, content, contex
 --
 
 COPY public.mdl_sessions (id, state, sid, userid, sessdata, timecreated, timemodified, firstip, lastip) FROM stdin;
-6	0	1ethqef1qastr8tmb9admi9oo9	2	VVNFUnxPOjg6InN0ZENsYXNzIjo2MTp7czoyOiJpZCI7czoxOiIyIjtzOjQ6ImF1dGgiO3M6NjoibWFudWFsIjtzOjk6ImNvbmZpcm1lZCI7czoxOiIxIjtzOjEyOiJwb2xpY3lhZ3JlZWQiO3M6MToiMCI7czo3OiJkZWxldGVkIjtzOjE6IjAiO3M6OToic3VzcGVuZGVkIjtzOjE6IjAiO3M6MTA6Im1uZXRob3N0aWQiO3M6MToiMSI7czo4OiJ1c2VybmFtZSI7czo1OiJhZG1pbiI7czo4OiJpZG51bWJlciI7czowOiIiO3M6OToiZmlyc3RuYW1lIjtzOjEzOiJBZG1pbmlzdHJhZG9yIjtzOjg6Imxhc3RuYW1lIjtzOjEwOiJBbGV4YW5kcmlhIjtzOjU6ImVtYWlsIjtzOjE4OiJhZG1pbkB4dGVjLmludmFsaWQiO3M6OToiZW1haWxzdG9wIjtzOjE6IjAiO3M6MzoiaWNxIjtzOjA6IiI7czo1OiJza3lwZSI7czowOiIiO3M6NToieWFob28iO3M6MDoiIjtzOjM6ImFpbSI7czowOiIiO3M6MzoibXNuIjtzOjA6IiI7czo2OiJwaG9uZTEiO3M6MDoiIjtzOjY6InBob25lMiI7czowOiIiO3M6MTE6Imluc3RpdHV0aW9uIjtzOjA6IiI7czoxMDoiZGVwYXJ0bWVudCI7czowOiIiO3M6NzoiYWRkcmVzcyI7czowOiIiO3M6NDoiY2l0eSI7czowOiIiO3M6NzoiY291bnRyeSI7czoyOiJDVCI7czo0OiJsYW5nIjtzOjI6ImNhIjtzOjEyOiJjYWxlbmRhcnR5cGUiO3M6OToiZ3JlZ29yaWFuIjtzOjU6InRoZW1lIjtzOjA6IiI7czo4OiJ0aW1lem9uZSI7czoyOiI5OSI7czoxMToiZmlyc3RhY2Nlc3MiO3M6MTA6IjE1OTA1MTAwMDkiO3M6MTA6Imxhc3RhY2Nlc3MiO2k6MTYwNDQyOTE2NTtzOjk6Imxhc3Rsb2dpbiI7czoxMDoiMTYwNDQyNTU5OCI7czoxMjoiY3VycmVudGxvZ2luIjtpOjE2MDQ0MjYzOTA7czo2OiJsYXN0aXAiO3M6MTI6IjE5Mi4xNjguMzMuMSI7czo2OiJzZWNyZXQiO3M6MDoiIjtzOjc6InBpY3R1cmUiO3M6MToiMCI7czozOiJ1cmwiO3M6MDoiIjtzOjE3OiJkZXNjcmlwdGlvbmZvcm1hdCI7czoxOiIxIjtzOjEwOiJtYWlsZm9ybWF0IjtzOjE6IjEiO3M6MTA6Im1haWxkaWdlc3QiO3M6MToiMCI7czoxMToibWFpbGRpc3BsYXkiO3M6MToiMCI7czoxMzoiYXV0b3N1YnNjcmliZSI7czoxOiIxIjtzOjExOiJ0cmFja2ZvcnVtcyI7czoxOiIwIjtzOjExOiJ0aW1lY3JlYXRlZCI7czoxOiIwIjtzOjEyOiJ0aW1lbW9kaWZpZWQiO3M6MTA6IjE2MDQ0MjYzMzMiO3M6MTI6InRydXN0Yml0bWFzayI7czoxOiIwIjtzOjg6ImltYWdlYWx0IjtzOjA6IiI7czoxNjoibGFzdG5hbWVwaG9uZXRpYyI7czowOiIiO3M6MTc6ImZpcnN0bmFtZXBob25ldGljIjtzOjA6IiI7czoxMDoibWlkZGxlbmFtZSI7czowOiIiO3M6MTM6ImFsdGVybmF0ZW5hbWUiO3M6MDoiIjtzOjE2OiJsYXN0Y291cnNlYWNjZXNzIjthOjA6e31zOjE5OiJjdXJyZW50Y291cnNlYWNjZXNzIjthOjA6e31zOjExOiJncm91cG1lbWJlciI7YTowOnt9czo3OiJwcm9maWxlIjthOjA6e31zOjc6InNlc3NrZXkiO3M6MTA6Ik93SFJZdU9SVm4iO3M6MTA6InByZWZlcmVuY2UiO2E6ODp7czoyNToiY29yZV9tZXNzYWdlX21pZ3JhdGVfZGF0YSI7czoxOiIxIjtzOjMwOiJhdXRoX21hbnVhbF9wYXNzd29yZHVwZGF0ZXRpbWUiO3M6MTA6IjE1OTA1MTA5NTMiO3M6Mjc6ImZpbGVwaWNrZXJfcmVjZW50cmVwb3NpdG9yeSI7czoxOiI0IjtzOjI0OiJmaWxlcGlja2VyX3JlY2VudGxpY2Vuc2UiO3M6MTc6ImFsbHJpZ2h0c3Jlc2VydmVkIjtzOjE4OiJlbWFpbF9ib3VuY2VfY291bnQiO3M6MToiMCI7czoxNjoiZW1haWxfc2VuZF9jb3VudCI7czoxOiIwIjtzOjE1OiJkcmF3ZXItb3Blbi1uYXYiO3M6NToiZmFsc2UiO3M6MTE6Il9sYXN0bG9hZGVkIjtpOjE2MDQ0MjkxNzA7fXM6MjU6ImFqYXhfdXBkYXRhYmxlX3VzZXJfcHJlZnMiO2E6NTp7czoxNToiZHJhd2VyLW9wZW4tbmF2IjtzOjU6ImFscGhhIjtzOjI3OiJmaWxlcGlja2VyX3JlY2VudHJlcG9zaXRvcnkiO3M6MzoiaW50IjtzOjI0OiJmaWxlcGlja2VyX3JlY2VudGxpY2Vuc2UiO3M6Nzoic2FmZWRpciI7czoyNToiZmlsZXBpY2tlcl9yZWNlbnR2aWV3bW9kZSI7czozOiJpbnQiO3M6MjY6ImZpbGVtYW5hZ2VyX3JlY2VudHZpZXdtb2RlIjtzOjM6ImludCI7fXM6NzoiZWRpdGluZyI7aToxO3M6NjoiYWNjZXNzIjthOjM6e3M6MjoicmEiO2E6Mjp7czoyOiIvMSI7YToxOntpOjc7aTo3O31zOjQ6Ii8xLzIiO2E6MTp7aTo4O2k6ODt9fXM6NDoidGltZSI7aToxNjA0NDI2NTQxO3M6MzoicnN3IjthOjA6e319czo1OiJlbnJvbCI7YToyOntzOjg6ImVucm9sbGVkIjthOjA6e31zOjk6InRlbXBndWVzdCI7YTowOnt9fX1TRVNTSU9OfE86ODoic3RkQ2xhc3MiOjc6e3M6MTg6ImNhY2hlc3RvcmVfc2Vzc2lvbiI7YTozOntzOjMwOiJkZWZhdWx0X3Nlc3Npb24tY29yZS9jb3Vyc2VjYXQiO2E6Njp7czo3MDoidTJfMWV0aHFlZjFxYXN0cjh0bWI5YWRtaTlvbzlfNmEzMjJiN2ZiODljMDJiYzk3ZGJiNGIyMWU3NjkwNDllN2MwNWIzMiI7YToyOntpOjA7czozOToiMTYwNDQyOTE2Ni4zODA2LTVmYTFhNTZlNWNlYzM5LjY3MjIyNTU3IjtpOjE7aToxNjA0NDI5MTY2O31zOjcwOiJ1Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOV8yNjM1NThhOGRhZDI0ZTZjYjdiNzc1YzcyNTY4ODQwNjRmNWM0MDFjIjthOjI6e2k6MDthOjA6e31pOjE7aToxNjA0NDI5MTY2O31zOjcwOiJ1Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOV9jNzVjZDk5YzNmYmE0NzQxNGQxYzkyYmM0MGM4MTQ0MjkyZmM5ZjgyIjthOjI6e2k6MDthOjE6e2k6MDtzOjE6IjEiO31pOjE7aToxNjA0NDI5MTY2O31zOjcwOiJ1Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOV84ZTFkNWQ0NzA3Y2Q0NmNlYTUwNzRhNWJkM2ZiZTUxOWQ0MjQ0YmIxIjthOjI6e2k6MDthOjA6e31pOjE7aToxNjA0NDI5MTY2O31zOjcwOiJ1Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOV9jMDg1ZTMzNmU2NTljZmRhZTBjNmQxYmIzYTkyZjlmODEzMjRjMDI3IjthOjI6e2k6MDtpOjA7aToxO2k6MTYwNDQyOTE2Njt9czo0MzoiX19sYXN0YWNjZXNzX191Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOSI7YToyOntpOjA7aToxNjA0NDI5MTY5O2k6MTtpOjE2MDQ0MjkxNjk7fX1zOjQwOiJkZWZhdWx0X3Nlc3Npb24tY29yZS9jYWxlbmRhcl9jYXRlZ29yaWVzIjthOjA6e31zOjM3OiJkZWZhdWx0X3Nlc3Npb24tY29yZS9ncmFkZV9jYXRlZ29yaWVzIjthOjQ6e3M6MTAzOiJ1Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOV80YTlmZDhkNjI3MzNkODEwZTJjMWI1MjhiYmZmMzBjOWQxNjRiMTg0LTc2ZmFjNjU0MTNjNjJmNDIzNWM1YTc3NGI3NTVhYjgwIjthOjI6e2k6MDtiOjA7aToxO2k6MDt9czoxMDM6InUyXzFldGhxZWYxcWFzdHI4dG1iOWFkbWk5b285XzExNDhlOWQ3NzI1NDRjYTQ0M2U0MDM0YTlkOWViNTJiNzVhYzIyODktNzZmYWM2NTQxM2M2MmY0MjM1YzVhNzc0Yjc1NWFiODAiO2E6Mjp7aTowO2E6MTp7aToxO086MTQ6ImdyYWRlX2NhdGVnb3J5IjoyNTp7czo1OiJ0YWJsZSI7czoxNjoiZ3JhZGVfY2F0ZWdvcmllcyI7czoxNToicmVxdWlyZWRfZmllbGRzIjthOjE0OntpOjA7czoyOiJpZCI7aToxO3M6ODoiY291cnNlaWQiO2k6MjtzOjY6InBhcmVudCI7aTozO3M6NToiZGVwdGgiO2k6NDtzOjQ6InBhdGgiO2k6NTtzOjg6ImZ1bGxuYW1lIjtpOjY7czoxMToiYWdncmVnYXRpb24iO2k6NztzOjg6ImtlZXBoaWdoIjtpOjg7czo3OiJkcm9wbG93IjtpOjk7czoxOToiYWdncmVnYXRlb25seWdyYWRlZCI7aToxMDtzOjE3OiJhZ2dyZWdhdGVvdXRjb21lcyI7aToxMTtzOjExOiJ0aW1lY3JlYXRlZCI7aToxMjtzOjEyOiJ0aW1lbW9kaWZpZWQiO2k6MTM7czo2OiJoaWRkZW4iO31zOjg6ImNvdXJzZWlkIjtzOjE6IjEiO3M6NjoicGFyZW50IjtOO3M6MTU6InBhcmVudF9jYXRlZ29yeSI7TjtzOjU6ImRlcHRoIjtzOjE6IjEiO3M6NDoicGF0aCI7czozOiIvMS8iO3M6ODoiZnVsbG5hbWUiO3M6MToiPyI7czoxMToiYWdncmVnYXRpb24iO3M6MjoiMTMiO3M6ODoia2VlcGhpZ2giO3M6MToiMCI7czo3OiJkcm9wbG93IjtzOjE6IjAiO3M6MTk6ImFnZ3JlZ2F0ZW9ubHlncmFkZWQiO3M6MToiMSI7czoxNzoiYWdncmVnYXRlb3V0Y29tZXMiO3M6MToiMCI7czo4OiJjaGlsZHJlbiI7TjtzOjEyOiJhbGxfY2hpbGRyZW4iO047czoxMDoiZ3JhZGVfaXRlbSI7TjtzOjk6InNvcnRvcmRlciI7TjtzOjk6ImZvcmNlYWJsZSI7YTo1OntpOjA7czoxMToiYWdncmVnYXRpb24iO2k6MTtzOjg6ImtlZXBoaWdoIjtpOjI7czo3OiJkcm9wbG93IjtpOjM7czoxOToiYWdncmVnYXRlb25seWdyYWRlZCI7aTo0O3M6MTc6ImFnZ3JlZ2F0ZW91dGNvbWVzIjt9czoxMDoiY29lZnN0cmluZyI7TjtzOjIxOiIAKgBjYW5hcHBseWxpbWl0cnVsZXMiO047czoxNToib3B0aW9uYWxfZmllbGRzIjthOjA6e31zOjI6ImlkIjtzOjE6IjEiO3M6MTE6InRpbWVjcmVhdGVkIjtzOjEwOiIxNjA0NDI3MzAwIjtzOjEyOiJ0aW1lbW9kaWZpZWQiO3M6MTA6IjE2MDQ0MjczMDAiO3M6NjoiaGlkZGVuIjtzOjE6IjAiO319aToxO2k6MDt9czo0MzoiX19sYXN0YWNjZXNzX191Ml8xZXRocWVmMXFhc3RyOHRtYjlhZG1pOW9vOSI7YToyOntpOjA7aToxNjA0NDI4MzM0O2k6MTtpOjA7fXM6Nzk6InUyXzFldGhxZWYxcWFzdHI4dG1iOWFkbWk5b285X2xhc3RpbnZhbGlkYXRpb24tNzZmYWM2NTQxM2M2MmY0MjM1YzVhNzc0Yjc1NWFiODAiO2E6Mjp7aTowO3M6Mzg6IjE2MDQ0MjczMTMuMzYxLTVmYTE5ZTMxNTgyMjE2LjIxMzQyMjg1IjtpOjE7aTowO319fXM6MTA6ImxvZ2ludG9rZW4iO2E6MTp7czoxNToiY29yZV9hdXRoX2xvZ2luIjthOjI6e3M6NToidG9rZW4iO3M6MzI6IkNJMzdaelVxbG1qdTZaV0JkSVpWTFF4UzIzc1h5SUU4IjtzOjc6ImNyZWF0ZWQiO2k6MTYwNDQyNjM4OTt9fXM6MjE6ImxvYWRfbmF2aWdhdGlvbl9hZG1pbiI7aToxO3M6MTQ6ImZyb21kaXNjdXNzaW9uIjtzOjUyOiJodHRwczovL2FsZXhhbmRyaWEtYXdzLnh0ZWMuY2F0L2NvdXJzZS92aWV3LnBocD9pZD0xIjtzOjk6ImRhdGFwcmVmcyI7YTozOntpOjE7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO31pOjI7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO31pOjM7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO319czoyMjoiYWRtaW5fY3JpdGljYWxfd2FybmluZyI7aTowO3M6ODoibmF2Y2FjaGUiO086ODoic3RkQ2xhc3MiOjE6e3M6MTA6Im5hdmlnYXRpb24iO2E6Mzp7czoxNjoidXNlcmJsb2dvcHRpb25zMiI7YTozOntpOjA7aToxNjA0NDI4NTkyO2k6MTtzOjE6IjIiO2k6MjtzOjcxOToiYToyOntzOjQ6InZpZXciO2E6Mjp7czo2OiJzdHJpbmciO3M6MTc6IkVudHJhZGVzIGRlbCBibG9nIjtzOjQ6ImxpbmsiO086MTA6Im1vb2RsZV91cmwiOjk6e3M6OToiACoAc2NoZW1lIjtzOjU6Imh0dHBzIjtzOjc6IgAqAGhvc3QiO3M6MjM6ImFsZXhhbmRyaWEtYXdzLnh0ZWMuY2F0IjtzOjc6IgAqAHBvcnQiO3M6MDoiIjtzOjc6IgAqAHVzZXIiO3M6MDoiIjtzOjc6IgAqAHBhc3MiO3M6MDoiIjtzOjc6IgAqAHBhdGgiO3M6MTU6Ii9ibG9nL2luZGV4LnBocCI7czoxNjoiACoAc2xhc2hhcmd1bWVudCI7czowOiIiO3M6OToiACoAYW5jaG9yIjtOO3M6OToiACoAcGFyYW1zIjthOjE6e3M6NjoidXNlcmlkIjtzOjE6IjIiO319fXM6MzoiYWRkIjthOjI6e3M6Njoic3RyaW5nIjtzOjI0OiJBZmVnZWl4IHVuYSBlbnRyYWRhIG5vdmEiO3M6NDoibGluayI7TzoxMDoibW9vZGxlX3VybCI6OTp7czo5OiIAKgBzY2hlbWUiO3M6NToiaHR0cHMiO3M6NzoiACoAaG9zdCI7czoyMzoiYWxleGFuZHJpYS1hd3MueHRlYy5jYXQiO3M6NzoiACoAcG9ydCI7czowOiIiO3M6NzoiACoAdXNlciI7czowOiIiO3M6NzoiACoAcGFzcyI7czowOiIiO3M6NzoiACoAcGF0aCI7czoxNDoiL2Jsb2cvZWRpdC5waHAiO3M6MTY6IgAqAHNsYXNoYXJndW1lbnQiO3M6MDoiIjtzOjk6IgAqAGFuY2hvciI7TjtzOjk6IgAqAHBhcmFtcyI7YToxOntzOjY6ImFjdGlvbiI7czozOiJhZGQiO319fX0iO31zOjE2OiJjb250ZXh0aGFzcmVwb3M1IjthOjM6e2k6MDtpOjE2MDQ0Mjg1OTI7aToxO3M6MToiMiI7aToyO3M6NDoiYjowOyI7fXM6MTY6ImNvbnRleHRoYXNyZXBvczIiO2E6Mzp7aTowO2k6MTYwNDQyODg1NDtpOjE7czoxOiIyIjtpOjI7czo0OiJiOjA7Ijt9fX19	1604426390	1604429165	192.168.33.1	192.168.33.1
+8	0	5mto84mekusdce3625f339fa3r	2	VVNFUnxPOjg6InN0ZENsYXNzIjo1Njp7czoyOiJpZCI7czoxOiIyIjtzOjQ6ImF1dGgiO3M6NjoibWFudWFsIjtzOjk6ImNvbmZpcm1lZCI7czoxOiIxIjtzOjEyOiJwb2xpY3lhZ3JlZWQiO3M6MToiMCI7czo3OiJkZWxldGVkIjtzOjE6IjAiO3M6OToic3VzcGVuZGVkIjtzOjE6IjAiO3M6MTA6Im1uZXRob3N0aWQiO3M6MToiMSI7czo4OiJ1c2VybmFtZSI7czo1OiJhZG1pbiI7czo4OiJpZG51bWJlciI7czowOiIiO3M6OToiZmlyc3RuYW1lIjtzOjEzOiJBZG1pbmlzdHJhZG9yIjtzOjg6Imxhc3RuYW1lIjtzOjEwOiJBbGV4YW5kcmlhIjtzOjU6ImVtYWlsIjtzOjE4OiJhZG1pbkB4dGVjLmludmFsaWQiO3M6OToiZW1haWxzdG9wIjtzOjE6IjAiO3M6NjoicGhvbmUxIjtzOjA6IiI7czo2OiJwaG9uZTIiO3M6MDoiIjtzOjExOiJpbnN0aXR1dGlvbiI7czowOiIiO3M6MTA6ImRlcGFydG1lbnQiO3M6MDoiIjtzOjc6ImFkZHJlc3MiO3M6MDoiIjtzOjQ6ImNpdHkiO3M6MDoiIjtzOjc6ImNvdW50cnkiO3M6MjoiQ1QiO3M6NDoibGFuZyI7czoyOiJjYSI7czoxMjoiY2FsZW5kYXJ0eXBlIjtzOjk6ImdyZWdvcmlhbiI7czo1OiJ0aGVtZSI7czowOiIiO3M6ODoidGltZXpvbmUiO3M6MjoiOTkiO3M6MTE6ImZpcnN0YWNjZXNzIjtzOjEwOiIxNTkwNTEwMDA5IjtzOjEwOiJsYXN0YWNjZXNzIjtpOjE2MzUyNTM2ODE7czo5OiJsYXN0bG9naW4iO3M6MTA6IjE2MDQ0MjYzOTAiO3M6MTI6ImN1cnJlbnRsb2dpbiI7aToxNjM1MjQzODMxO3M6NjoibGFzdGlwIjtzOjEyOiIxOTIuMTY4LjMzLjEiO3M6Njoic2VjcmV0IjtzOjA6IiI7czo3OiJwaWN0dXJlIjtzOjE6IjAiO3M6MTc6ImRlc2NyaXB0aW9uZm9ybWF0IjtzOjE6IjEiO3M6MTA6Im1haWxmb3JtYXQiO3M6MToiMSI7czoxMDoibWFpbGRpZ2VzdCI7czoxOiIwIjtzOjExOiJtYWlsZGlzcGxheSI7czoxOiIwIjtzOjEzOiJhdXRvc3Vic2NyaWJlIjtzOjE6IjEiO3M6MTE6InRyYWNrZm9ydW1zIjtzOjE6IjAiO3M6MTE6InRpbWVjcmVhdGVkIjtzOjE6IjAiO3M6MTI6InRpbWVtb2RpZmllZCI7czoxMDoiMTYwNDQyNjMzMyI7czoxMjoidHJ1c3RiaXRtYXNrIjtzOjE6IjAiO3M6ODoiaW1hZ2VhbHQiO3M6MDoiIjtzOjE2OiJsYXN0bmFtZXBob25ldGljIjtzOjA6IiI7czoxNzoiZmlyc3RuYW1lcGhvbmV0aWMiO3M6MDoiIjtzOjEwOiJtaWRkbGVuYW1lIjtzOjA6IiI7czoxMzoiYWx0ZXJuYXRlbmFtZSI7czowOiIiO3M6MTY6Im1vb2RsZW5ldHByb2ZpbGUiO047czoxNjoibGFzdGNvdXJzZWFjY2VzcyI7YTowOnt9czoxOToiY3VycmVudGNvdXJzZWFjY2VzcyI7YTowOnt9czoxMToiZ3JvdXBtZW1iZXIiO2E6MDp7fXM6NzoicHJvZmlsZSI7YTowOnt9czo3OiJzZXNza2V5IjtzOjEwOiJFaUpMOUtMdVFzIjtzOjEwOiJwcmVmZXJlbmNlIjthOjg6e3M6MjU6ImNvcmVfbWVzc2FnZV9taWdyYXRlX2RhdGEiO3M6MToiMSI7czozMDoiYXV0aF9tYW51YWxfcGFzc3dvcmR1cGRhdGV0aW1lIjtzOjEwOiIxNTkwNTEwOTUzIjtzOjI3OiJmaWxlcGlja2VyX3JlY2VudHJlcG9zaXRvcnkiO3M6MToiNCI7czoyNDoiZmlsZXBpY2tlcl9yZWNlbnRsaWNlbnNlIjtzOjE3OiJhbGxyaWdodHNyZXNlcnZlZCI7czoxODoiZW1haWxfYm91bmNlX2NvdW50IjtzOjE6IjAiO3M6MTY6ImVtYWlsX3NlbmRfY291bnQiO3M6MToiMCI7czoxNToiZHJhd2VyLW9wZW4tbmF2IjtzOjU6ImZhbHNlIjtzOjExOiJfbGFzdGxvYWRlZCI7aToxNjM1MjUzNjgxO31zOjI1OiJhamF4X3VwZGF0YWJsZV91c2VyX3ByZWZzIjthOjU6e3M6MTU6ImRyYXdlci1vcGVuLW5hdiI7czo1OiJhbHBoYSI7czoyNjoiZmlsZW1hbmFnZXJfcmVjZW50dmlld21vZGUiO3M6MzoiaW50IjtzOjI3OiJmaWxlcGlja2VyX3JlY2VudHJlcG9zaXRvcnkiO3M6MzoiaW50IjtzOjI0OiJmaWxlcGlja2VyX3JlY2VudGxpY2Vuc2UiO3M6Nzoic2FmZWRpciI7czoyNToiZmlsZXBpY2tlcl9yZWNlbnR2aWV3bW9kZSI7czozOiJpbnQiO31zOjc6ImVkaXRpbmciO2k6MDtzOjY6ImFjY2VzcyI7YTozOntzOjI6InJhIjthOjI6e3M6MjoiLzEiO2E6MTp7aTo3O2k6Nzt9czo0OiIvMS8yIjthOjE6e2k6ODtpOjg7fX1zOjQ6InRpbWUiO2k6MTYzNTI1MjQ1NDtzOjM6InJzdyI7YTowOnt9fXM6NToiZW5yb2wiO2E6Mjp7czo4OiJlbnJvbGxlZCI7YTowOnt9czo5OiJ0ZW1wZ3Vlc3QiO2E6MDp7fX19U0VTU0lPTnxPOjg6InN0ZENsYXNzIjo3OntzOjE4OiJjYWNoZXN0b3JlX3Nlc3Npb24iO2E6Mjp7czozMDoiZGVmYXVsdF9zZXNzaW9uLWNvcmUvY291cnNlY2F0IjthOjY6e3M6NzA6InUyXzVtdG84NG1la3VzZGNlMzYyNWYzMzlmYTNyXzZhMzIyYjdmYjg5YzAyYmM5N2RiYjRiMjFlNzY5MDQ5ZTdjMDViMzIiO2E6Mjp7aTowO3M6Mzk6IjE2MzUyNTMxMjEuMzYzNC02MTc3ZmI4MTU4Yjk1OS41MjQ3MDIzNCI7aToxO2k6MTYzNTI1MzEyMTt9czo3MDoidTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3JfMjYzNTU4YThkYWQyNGU2Y2I3Yjc3NWM3MjU2ODg0MDY0ZjVjNDAxYyI7YToyOntpOjA7YTowOnt9aToxO2k6MTYzNTI1MzEyMTt9czo3MDoidTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3JfYzc1Y2Q5OWMzZmJhNDc0MTRkMWM5MmJjNDBjODE0NDI5MmZjOWY4MiI7YToyOntpOjA7YToxOntpOjA7czoxOiIxIjt9aToxO2k6MTYzNTI1MzEyMTt9czo3MDoidTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3JfOGUxZDVkNDcwN2NkNDZjZWE1MDc0YTViZDNmYmU1MTlkNDI0NGJiMSI7YToyOntpOjA7YTowOnt9aToxO2k6MTYzNTI1MzEyMTt9czo3MDoidTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3JfYzA4NWUzMzZlNjU5Y2ZkYWUwYzZkMWJiM2E5MmY5ZjgxMzI0YzAyNyI7YToyOntpOjA7aTowO2k6MTtpOjE2MzUyNTMxMjE7fXM6NDM6Il9fbGFzdGFjY2Vzc19fdTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3IiO2E6Mjp7aTowO2k6MTYzNTI1MzY4MTtpOjE7aToxNjM1MjUzNjgxO319czozNzoiZGVmYXVsdF9zZXNzaW9uLWNvcmUvZ3JhZGVfY2F0ZWdvcmllcyI7YTozOntzOjQzOiJfX2xhc3RhY2Nlc3NfX3UyXzVtdG84NG1la3VzZGNlMzYyNWYzMzlmYTNyIjthOjI6e2k6MDtpOjE2MzUyNTMzMTk7aToxO2k6MDt9czo3OToidTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3JfbGFzdGludmFsaWRhdGlvbi03NmZhYzY1NDEzYzYyZjQyMzVjNWE3NzRiNzU1YWI4MCI7YToyOntpOjA7czozOToiMTYzNTI1MzI4Ny4zOTQzLTYxNzdmYzI3NjA0NTc1LjM5MTE0MTU2IjtpOjE7aTowO31zOjEwMzoidTJfNW10bzg0bWVrdXNkY2UzNjI1ZjMzOWZhM3JfMTE0OGU5ZDc3MjU0NGNhNDQzZTQwMzRhOWQ5ZWI1MmI3NWFjMjI4OS03NmZhYzY1NDEzYzYyZjQyMzVjNWE3NzRiNzU1YWI4MCI7YToyOntpOjA7YToxOntpOjE7TzoxNDoiZ3JhZGVfY2F0ZWdvcnkiOjI1OntzOjU6InRhYmxlIjtzOjE2OiJncmFkZV9jYXRlZ29yaWVzIjtzOjE1OiJyZXF1aXJlZF9maWVsZHMiO2E6MTQ6e2k6MDtzOjI6ImlkIjtpOjE7czo4OiJjb3Vyc2VpZCI7aToyO3M6NjoicGFyZW50IjtpOjM7czo1OiJkZXB0aCI7aTo0O3M6NDoicGF0aCI7aTo1O3M6ODoiZnVsbG5hbWUiO2k6NjtzOjExOiJhZ2dyZWdhdGlvbiI7aTo3O3M6ODoia2VlcGhpZ2giO2k6ODtzOjc6ImRyb3Bsb3ciO2k6OTtzOjE5OiJhZ2dyZWdhdGVvbmx5Z3JhZGVkIjtpOjEwO3M6MTc6ImFnZ3JlZ2F0ZW91dGNvbWVzIjtpOjExO3M6MTE6InRpbWVjcmVhdGVkIjtpOjEyO3M6MTI6InRpbWVtb2RpZmllZCI7aToxMztzOjY6ImhpZGRlbiI7fXM6ODoiY291cnNlaWQiO3M6MToiMSI7czo2OiJwYXJlbnQiO047czoxNToicGFyZW50X2NhdGVnb3J5IjtOO3M6NToiZGVwdGgiO3M6MToiMSI7czo0OiJwYXRoIjtzOjM6Ii8xLyI7czo4OiJmdWxsbmFtZSI7czoxOiI/IjtzOjExOiJhZ2dyZWdhdGlvbiI7czoyOiIxMyI7czo4OiJrZWVwaGlnaCI7czoxOiIwIjtzOjc6ImRyb3Bsb3ciO3M6MToiMCI7czoxOToiYWdncmVnYXRlb25seWdyYWRlZCI7czoxOiIxIjtzOjE3OiJhZ2dyZWdhdGVvdXRjb21lcyI7czoxOiIwIjtzOjg6ImNoaWxkcmVuIjtOO3M6MTI6ImFsbF9jaGlsZHJlbiI7TjtzOjEwOiJncmFkZV9pdGVtIjtOO3M6OToic29ydG9yZGVyIjtOO3M6OToiZm9yY2VhYmxlIjthOjU6e2k6MDtzOjExOiJhZ2dyZWdhdGlvbiI7aToxO3M6ODoia2VlcGhpZ2giO2k6MjtzOjc6ImRyb3Bsb3ciO2k6MztzOjE5OiJhZ2dyZWdhdGVvbmx5Z3JhZGVkIjtpOjQ7czoxNzoiYWdncmVnYXRlb3V0Y29tZXMiO31zOjEwOiJjb2Vmc3RyaW5nIjtOO3M6MjE6IgAqAGNhbmFwcGx5bGltaXRydWxlcyI7TjtzOjE1OiJvcHRpb25hbF9maWVsZHMiO2E6MDp7fXM6MjoiaWQiO3M6MToiMSI7czoxMToidGltZWNyZWF0ZWQiO3M6MTA6IjE2MDQ0MjczMDAiO3M6MTI6InRpbWVtb2RpZmllZCI7czoxMDoiMTYwNDQyNzMwMCI7czo2OiJoaWRkZW4iO3M6MToiMCI7fX1pOjE7aTowO319fXM6MTA6ImxvZ2ludG9rZW4iO2E6MTp7czoxNToiY29yZV9hdXRoX2xvZ2luIjthOjI6e3M6NToidG9rZW4iO3M6MzI6Ik1kMldTVXk3YTZFRE5MZVBHemg1cFdwTDM1d2pVbEdLIjtzOjc6ImNyZWF0ZWQiO2k6MTYzNTI0MzgzMTt9fXM6MjE6ImxvYWRfbmF2aWdhdGlvbl9hZG1pbiI7aToxO3M6MjI6ImFkbWluX2NyaXRpY2FsX3dhcm5pbmciO2k6MDtzOjk6ImRhdGFwcmVmcyI7YTo1OntpOjE7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO31pOjQ7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO31pOjY7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO31pOjc7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO31pOjU7YTo1OntzOjY6InNlYXJjaCI7czowOiIiO3M6MTI6InNlYXJjaF9hcnJheSI7YTowOnt9czo0OiJzb3J0IjtzOjE6IjAiO3M6ODoiYWR2YW5jZWQiO2k6MDtzOjU6Im9yZGVyIjtzOjQ6IkRFU0MiO319czo4OiJuYXZjYWNoZSI7Tzo4OiJzdGRDbGFzcyI6MTp7czoxMDoibmF2aWdhdGlvbiI7YTozOntzOjE2OiJ1c2VyYmxvZ29wdGlvbnMyIjthOjM6e2k6MDtpOjE2MzUyNTMzMjg7aToxO3M6MToiMiI7aToyO3M6NzE5OiJhOjI6e3M6NDoidmlldyI7YToyOntzOjY6InN0cmluZyI7czoxNzoiRW50cmFkZXMgZGVsIGJsb2ciO3M6NDoibGluayI7TzoxMDoibW9vZGxlX3VybCI6OTp7czo5OiIAKgBzY2hlbWUiO3M6NToiaHR0cHMiO3M6NzoiACoAaG9zdCI7czoyMzoiYWxleGFuZHJpYS1hd3MueHRlYy5jYXQiO3M6NzoiACoAcG9ydCI7czowOiIiO3M6NzoiACoAdXNlciI7czowOiIiO3M6NzoiACoAcGFzcyI7czowOiIiO3M6NzoiACoAcGF0aCI7czoxNToiL2Jsb2cvaW5kZXgucGhwIjtzOjE2OiIAKgBzbGFzaGFyZ3VtZW50IjtzOjA6IiI7czo5OiIAKgBhbmNob3IiO047czo5OiIAKgBwYXJhbXMiO2E6MTp7czo2OiJ1c2VyaWQiO3M6MToiMiI7fX19czozOiJhZGQiO2E6Mjp7czo2OiJzdHJpbmciO3M6MjQ6IkFmZWdlaXggdW5hIGVudHJhZGEgbm92YSI7czo0OiJsaW5rIjtPOjEwOiJtb29kbGVfdXJsIjo5OntzOjk6IgAqAHNjaGVtZSI7czo1OiJodHRwcyI7czo3OiIAKgBob3N0IjtzOjIzOiJhbGV4YW5kcmlhLWF3cy54dGVjLmNhdCI7czo3OiIAKgBwb3J0IjtzOjA6IiI7czo3OiIAKgB1c2VyIjtzOjA6IiI7czo3OiIAKgBwYXNzIjtzOjA6IiI7czo3OiIAKgBwYXRoIjtzOjE0OiIvYmxvZy9lZGl0LnBocCI7czoxNjoiACoAc2xhc2hhcmd1bWVudCI7czowOiIiO3M6OToiACoAYW5jaG9yIjtOO3M6OToiACoAcGFyYW1zIjthOjE6e3M6NjoiYWN0aW9uIjtzOjM6ImFkZCI7fX19fSI7fXM6MTY6ImNvbnRleHRoYXNyZXBvczUiO2E6Mzp7aTowO2k6MTYzNTI1MzMyODtpOjE7czoxOiIyIjtpOjI7czo0OiJiOjA7Ijt9czoxNjoiY29udGV4dGhhc3JlcG9zMiI7YTozOntpOjA7aToxNjM1MjUzMzUzO2k6MTtzOjE6IjIiO2k6MjtzOjQ6ImI6MDsiO319fXM6MTQ6ImZyb21kaXNjdXNzaW9uIjtzOjUyOiJodHRwczovL2FsZXhhbmRyaWEtYXdzLnh0ZWMuY2F0L2NvdXJzZS92aWV3LnBocD9pZD0xIjt9	1635243831	1635253681	192.168.33.1	192.168.33.1
 \.
 
 
@@ -37102,7 +39535,7 @@ COPY public.mdl_tag_instance (id, tagid, component, itemtype, itemid, contextid,
 -- Data for Name: mdl_task_adhoc; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_task_adhoc (id, component, classname, nextruntime, faildelay, customdata, userid, blocking) FROM stdin;
+COPY public.mdl_task_adhoc (id, component, classname, nextruntime, faildelay, customdata, userid, blocking, timecreated, timestarted, hostname, pid) FROM stdin;
 \.
 
 
@@ -37110,68 +39543,161 @@ COPY public.mdl_task_adhoc (id, component, classname, nextruntime, faildelay, cu
 -- Data for Name: mdl_task_log; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_task_log (id, type, component, classname, userid, timestart, timeend, dbreads, dbwrites, result, output) FROM stdin;
-1	0	moodle	core\\task\\session_cleanup_task	0	1604426897.6144000000	1604426897.6420000000	19	1	0	Execute scheduled task: Cleanup old sessions (core\\task\\session_cleanup_task)\n... started 19:08:17. Current memory use 3.3MB.\n... used 20 dbqueries\n... used 0.015659093856812 seconds\nScheduled task complete: Cleanup old sessions (core\\task\\session_cleanup_task)\n
-2	0	moodle	core\\task\\delete_unconfirmed_users_task	0	1604426897.6607000000	1604426897.6632000000	3	0	0	Execute scheduled task: Delete unconfirmed users (core\\task\\delete_unconfirmed_users_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 3 dbqueries\n... used 0.0016300678253174 seconds\nScheduled task complete: Delete unconfirmed users (core\\task\\delete_unconfirmed_users_task)\n
-3	0	moodle	core\\task\\delete_incomplete_users_task	0	1604426897.6750000000	1604426897.6759000000	0	0	0	Execute scheduled task: Delete incomplete users (core\\task\\delete_incomplete_users_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 0 dbqueries\n... used 0.00013518333435059 seconds\nScheduled task complete: Delete incomplete users (core\\task\\delete_incomplete_users_task)\n
-4	0	moodle	core\\task\\send_new_user_passwords_task	0	1604426897.6886000000	1604426897.6902000000	1	0	0	Execute scheduled task: Send new user passwords (core\\task\\send_new_user_passwords_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 1 dbqueries\n... used 0.00082993507385254 seconds\nScheduled task complete: Send new user passwords (core\\task\\send_new_user_passwords_task)\n
-5	0	moodle	core\\task\\send_failed_login_notifications_task	0	1604426897.7020000000	1604426897.7029000000	0	0	0	Execute scheduled task: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 0 dbqueries\n... used 0.00012588500976562 seconds\nScheduled task complete: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n
-6	0	moodle	core\\task\\legacy_plugin_cron_task	0	1604426897.7165000000	1604426897.8530000000	11	3	0	Execute scheduled task: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n... started 19:08:17. Current memory use 3.8MB.\nRunning auth crons if required...\nRunning enrol crons if required...\nStarting activity modules\nProcessing module function journal_cron ...\n... used 3 dbqueries\n... used 0.0040240287780762 seconds\ndone.\nFinished activity modules\nStarting blocks\nFinished blocks\nStarting admin reports\nFinished admin reports\nStarting course reports\nFinished course reports\nStarting gradebook plugins\nFinished gradebook plugins\nStarting question types\nProcessing cron function for qtype_wq...\n... started 19:08:17. Current memory use 5.7MB.\nUpdating wirisessayoptions\n0 questions updateddone. (5 dbqueries, 0.01 seconds)\nFinished question types\n... used 14 dbqueries\n... used 0.13567519187927 seconds\nScheduled task complete: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n
-7	0	moodle	core\\task\\grade_cron_task	0	1604426897.8726000000	1604426897.8816000000	6	0	0	Execute scheduled task: Background processing for gradebook (core\\task\\grade_cron_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 6 dbqueries\n... used 0.0082480907440186 seconds\nScheduled task complete: Background processing for gradebook (core\\task\\grade_cron_task)\n
-8	0	moodle	core\\task\\completion_regular_task	0	1604426897.8945000000	1604426897.9587000000	18	0	0	Execute scheduled task: Calculate regular completion data (core\\task\\completion_regular_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 18 dbqueries\n... used 0.063558101654053 seconds\nScheduled task complete: Calculate regular completion data (core\\task\\completion_regular_task)\n
-9	0	moodle	core\\task\\portfolio_cron_task	0	1604426897.9727000000	1604426897.9737000000	0	0	0	Execute scheduled task: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 0 dbqueries\n... used 0.00014090538024902 seconds\nScheduled task complete: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n
-10	0	moodle	core\\task\\plagiarism_cron_task	0	1604426897.9861000000	1604426897.9869000000	0	0	0	Execute scheduled task: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 0 dbqueries\n... used 9.1075897216797E-5 seconds\nScheduled task complete: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n
-11	0	moodle	core\\task\\calendar_cron_task	0	1604426897.9994000000	1604426898.0188000000	1	0	0	Execute scheduled task: Send calendar notifications (core\\task\\calendar_cron_task)\n... started 19:08:18. Current memory use 5.7MB.\n... used 1 dbqueries\n... used 0.017878770828247 seconds\nScheduled task complete: Send calendar notifications (core\\task\\calendar_cron_task)\n
-12	0	moodle	core\\task\\blog_cron_task	0	1604426898.0303000000	1604426898.0359000000	1	1	0	Execute scheduled task: Sync external blogs (core\\task\\blog_cron_task)\n... started 19:08:18. Current memory use 5.9MB.\n... used 2 dbqueries\n... used 0.0048339366912842 seconds\nScheduled task complete: Sync external blogs (core\\task\\blog_cron_task)\n
-13	0	moodle	core\\task\\question_preview_cleanup_task	0	1604426898.0471000000	1604426898.0640000000	1	4	0	Execute scheduled task: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n... started 19:08:18. Current memory use 5.9MB.\n\n  Cleaning up old question previews...done.\n... used 5 dbqueries\n... used 0.016104936599731 seconds\nScheduled task complete: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n
-14	0	moodle	core\\task\\question_stats_cleanup_task	0	1604426898.0753000000	1604426898.0808000000	1	3	0	Execute scheduled task: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n... started 19:08:18. Current memory use 6.4MB.\n\n  Cleaning up old question statistics cache records...done.\n... used 4 dbqueries\n... used 0.0046770572662354 seconds\nScheduled task complete: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n
-15	0	moodle	core\\task\\cache_cron_task	0	1604426898.0932000000	1604426898.0997000000	0	0	0	Execute scheduled task: Background processing for caches (core\\task\\cache_cron_task)\n... started 19:08:18. Current memory use 6.4MB.\nCleaning up stale session data from cache stores.\n... used 0 dbqueries\n... used 0.0051679611206055 seconds\nScheduled task complete: Background processing for caches (core\\task\\cache_cron_task)\n
-16	0	moodle	core\\task\\automated_backup_task	0	1604426898.1135000000	1604426898.1444000000	1	0	0	Execute scheduled task: Automated backups (core\\task\\automated_backup_task)\n... started 19:08:18. Current memory use 6.4MB.\nChecking automated backup status...INACTIVE\n... used 1 dbqueries\n... used 0.029797077178955 seconds\nScheduled task complete: Automated backups (core\\task\\automated_backup_task)\n
-17	0	moodle	core\\task\\badges_cron_task	0	1604426898.1559000000	1604426898.1618000000	1	0	0	Execute scheduled task: Award badges (core\\task\\badges_cron_task)\n... started 19:08:18. Current memory use 6.9MB.\nStarted reviewing available badges.\nBadges were issued 0 time(s).\n... used 1 dbqueries\n... used 0.0050778388977051 seconds\nScheduled task complete: Award badges (core\\task\\badges_cron_task)\n
-18	0	moodle	core\\task\\badges_message_task	0	1604426898.1752000000	1604426898.1771000000	1	0	0	Execute scheduled task: Background processing for sending badges notifications (core\\task\\badges_message_task)\n... started 19:08:18. Current memory use 6.9MB.\nSending scheduled badge notifications.\n... used 1 dbqueries\n... used 0.00098490715026855 seconds\nScheduled task complete: Background processing for sending badges notifications (core\\task\\badges_message_task)\n
-19	0	moodle	core\\task\\file_temp_cleanup_task	0	1604426898.1880000000	1604426898.1901000000	0	0	0	Execute scheduled task: Delete stale temp files (core\\task\\file_temp_cleanup_task)\n... started 19:08:18. Current memory use 6.9MB.\n... used 0 dbqueries\n... used 0.0013399124145508 seconds\nScheduled task complete: Delete stale temp files (core\\task\\file_temp_cleanup_task)\n
-20	0	moodle	core\\task\\file_trash_cleanup_task	0	1604426898.2007000000	1604426898.2122000000	14	1	0	Execute scheduled task: Cleanup files in trash (core\\task\\file_trash_cleanup_task)\n... started 19:08:18. Current memory use 6.9MB.\nDeleting old draft files... ... started 19:08:18. Current memory use 7MB.\ndone.\nDeleting orphaned preview files... ... started 19:08:18. Current memory use 7MB.\ndone.\nDeleting orphaned document conversion files... ... started 19:08:18. Current memory use 7MB.\ndone.\nCleaning up files from deleted contexts... ... started 19:08:18. Current memory use 7MB.\ndone.\nCall filesystem cron tasks.... started 19:08:18. Current memory use 7MB.\ndone.\n... used 15 dbqueries\n... used 0.010728120803833 seconds\nScheduled task complete: Cleanup files in trash (core\\task\\file_trash_cleanup_task)\n
-21	0	moodle	core\\task\\search_index_task	0	1604426898.2247000000	1604426898.2264000000	0	0	0	Execute scheduled task: Global search indexing (core\\task\\search_index_task)\n... started 19:08:18. Current memory use 6.9MB.\n... used 0 dbqueries\n... used 0.00087785720825195 seconds\nScheduled task complete: Global search indexing (core\\task\\search_index_task)\n
-22	0	moodle	core\\task\\sync_plans_from_template_cohorts_task	0	1604426898.2383000000	1604426898.2580000000	2	0	0	Execute scheduled task: Sync plans from learning plan template cohorts (core\\task\\sync_plans_from_template_cohorts_task)\n... started 19:08:18. Current memory use 6.9MB.\n... used 2 dbqueries\n... used 0.017277002334595 seconds\nScheduled task complete: Sync plans from learning plan template cohorts (core\\task\\sync_plans_from_template_cohorts_task)\n
-23	0	qtype_random	qtype_random\\task\\remove_unused_questions	0	1604426898.6595000000	1604426898.6648000000	1	0	0	Execute scheduled task: Remove unused random questions (qtype_random\\task\\remove_unused_questions)\n... started 19:08:18. Current memory use 7.3MB.\nCleaned up 0 unused random questions.\n... used 1 dbqueries\n... used 0.0045161247253418 seconds\nScheduled task complete: Remove unused random questions (qtype_random\\task\\remove_unused_questions)\n
-24	0	mod_assign	mod_assign\\task\\cron_task	0	1604426898.7747000000	1604426898.8227000000	10	0	0	Execute scheduled task: Background processing for assignment module (mod_assign\\task\\cron_task)\n... started 19:08:18. Current memory use 7.8MB.\n... used 10 dbqueries\n... used 0.046766042709351 seconds\nScheduled task complete: Background processing for assignment module (mod_assign\\task\\cron_task)\n
-25	0	mod_chat	mod_chat\\task\\cron_task	0	1604426898.8370000000	1604426898.8438000000	2	2	0	Execute scheduled task: Background processing for chat module (mod_chat\\task\\cron_task)\n... started 19:08:18. Current memory use 8.2MB.\n... used 4 dbqueries\n... used 0.0059139728546143 seconds\nScheduled task complete: Background processing for chat module (mod_chat\\task\\cron_task)\n
-26	0	mod_forum	mod_forum\\task\\cron_task	0	1604426898.8602000000	1604426898.8683000000	1	1	0	Execute scheduled task: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n... started 19:08:18. Current memory use 8.2MB.\nRemoving old digest records from 7 days ago.\nRemoved all old digest records.\nFetching unmailed posts.\n  No posts found.\n... used 2 dbqueries\n... used 0.0070490837097168 seconds\nScheduled task complete: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n
-27	0	mod_lti	mod_lti\\task\\clean_access_tokens	0	1604426898.8825000000	1604426898.8872000000	0	1	0	Execute scheduled task: External tool removal of expired access tokens (mod_lti\\task\\clean_access_tokens)\n... started 19:08:18. Current memory use 8.2MB.\n... used 1 dbqueries\n... used 0.0031139850616455 seconds\nScheduled task complete: External tool removal of expired access tokens (mod_lti\\task\\clean_access_tokens)\n
-28	0	mod_quiz	mod_quiz\\task\\update_overdue_attempts	0	1604426898.9002000000	1604426898.9135000000	4	0	0	Execute scheduled task: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n... started 19:08:18. Current memory use 8.3MB.\n  Looking for quiz overdue quiz attempts...\n  Considered 0 attempts in 0 quizzes.\n... used 4 dbqueries\n... used 0.012104988098145 seconds\nScheduled task complete: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n
-29	0	mod_quiz	mod_quiz\\task\\legacy_quiz_reports_cron	0	1604426898.9262000000	1604426898.9319000000	0	0	0	Execute scheduled task: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n... started 19:08:18. Current memory use 8.3MB.\n... used 0 dbqueries\n... used 0.0037429332733154 seconds\nScheduled task complete: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n
-30	0	mod_quiz	mod_quiz\\task\\legacy_quiz_accessrules_cron	0	1604426898.9451000000	1604426898.9511000000	0	0	0	Execute scheduled task: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n... started 19:08:18. Current memory use 8.3MB.\n... used 0 dbqueries\n... used 0.0040128231048584 seconds\nScheduled task complete: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n
-31	0	mod_scorm	mod_scorm\\task\\cron_task	0	1604426898.9686000000	1604426898.9786000000	4	2	0	Execute scheduled task: Background processing for SCORM (mod_scorm\\task\\cron_task)\n... started 19:08:18. Current memory use 8.3MB.\nUpdating scorm packages which require daily update\n... used 6 dbqueries\n... used 0.0088908672332764 seconds\nScheduled task complete: Background processing for SCORM (mod_scorm\\task\\cron_task)\n
-32	0	mod_workshop	mod_workshop\\task\\cron_task	0	1604426898.9903000000	1604426898.9927000000	1	0	0	Execute scheduled task: Background processing for workshop module (mod_workshop\\task\\cron_task)\n... started 19:08:18. Current memory use 8.5MB.\n processing workshop subplugins ...\n... used 1 dbqueries\n... used 0.0013740062713623 seconds\nScheduled task complete: Background processing for workshop module (mod_workshop\\task\\cron_task)\n
-33	0	mod_workshop	mod_workshop\\task\\legacy_workshop_allocation_cron	0	1604426899.0052000000	1604426899.0083000000	0	0	0	Execute scheduled task: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n... started 19:08:19. Current memory use 8.5MB.\n... used 0 dbqueries\n... used 0.0020968914031982 seconds\nScheduled task complete: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n
-34	0	enrol_cohort	enrol_cohort\\task\\enrol_cohort_sync	0	1604426899.1105000000	1604426899.1287000000	20	0	0	Execute scheduled task: Cohort enrolment sync task (enrol_cohort\\task\\enrol_cohort_sync)\n... started 19:08:19. Current memory use 8.1MB.\n... used 20 dbqueries\n... used 0.017281055450439 seconds\nScheduled task complete: Cohort enrolment sync task (enrol_cohort\\task\\enrol_cohort_sync)\n
-35	0	enrol_manual	enrol_manual\\task\\sync_enrolments	0	1604426899.1601000000	1604426899.1620000000	1	0	0	Execute scheduled task: Synchronise manual enrolments task (enrol_manual\\task\\sync_enrolments)\n... started 19:08:19. Current memory use 8.2MB.\nVerifying manual enrolment expiration...\n...manual enrolment updates finished.\n... used 1 dbqueries\n... used 0.00118088722229 seconds\nScheduled task complete: Synchronise manual enrolments task (enrol_manual\\task\\sync_enrolments)\n
-36	0	enrol_manual	enrol_manual\\task\\send_expiry_notifications	0	1604426899.1815000000	1604426899.1866000000	4	1	0	Execute scheduled task: Manual enrolment send expiry notifications task (enrol_manual\\task\\send_expiry_notifications)\n... started 19:08:19. Current memory use 8.2MB.\nProcessing manual enrolment expiration notifications...\n...notification processing finished.\n... used 5 dbqueries\n... used 0.0043962001800537 seconds\nScheduled task complete: Manual enrolment send expiry notifications task (enrol_manual\\task\\send_expiry_notifications)\n
-37	0	enrol_self	enrol_self\\task\\sync_enrolments	0	1604426899.2205000000	1604426899.2260000000	7	0	0	Execute scheduled task: Synchronise self enrolments task (enrol_self\\task\\sync_enrolments)\n... started 19:08:19. Current memory use 8.2MB.\nVerifying self-enrolments...\n...user self-enrolment updates finished.\nNo expired enrol_self enrolments detected\n... used 7 dbqueries\n... used 0.0044770240783691 seconds\nScheduled task complete: Synchronise self enrolments task (enrol_self\\task\\sync_enrolments)\n
-38	0	enrol_self	enrol_self\\task\\send_expiry_notifications	0	1604426899.2509000000	1604426899.2550000000	4	1	0	Execute scheduled task: Self enrolment send expiry notifications task (enrol_self\\task\\send_expiry_notifications)\n... started 19:08:19. Current memory use 8.2MB.\nProcessing self enrolment expiration notifications...\n...notification processing finished.\n... used 5 dbqueries\n... used 0.0032820701599121 seconds\nScheduled task complete: Self enrolment send expiry notifications task (enrol_self\\task\\send_expiry_notifications)\n
-39	0	message_email	message_email\\task\\send_email_task	0	1604426899.2926000000	1604426899.6940000000	10	0	0	Execute scheduled task: Messages digest mailings (message_email\\task\\send_email_task)\n... started 19:08:19. Current memory use 8.1MB.\n... used 10 dbqueries\n... used 0.40059804916382 seconds\nScheduled task complete: Messages digest mailings (message_email\\task\\send_email_task)\n
-40	0	block_recent_activity	block_recent_activity\\task\\cleanup	0	1604426899.8456000000	1604426899.8510000000	0	1	0	Execute scheduled task: Cleanup task for recent activity block (block_recent_activity\\task\\cleanup)\n... started 19:08:19. Current memory use 8.4MB.\n... used 1 dbqueries\n... used 0.0044341087341309 seconds\nScheduled task complete: Cleanup task for recent activity block (block_recent_activity\\task\\cleanup)\n
-41	0	block_rss_client	block_rss_client\\task\\refreshfeeds	0	1604426899.8793000000	1604426899.9088000000	3	0	0	Execute scheduled task: Refresh RSS feeds task (block_rss_client\\task\\refreshfeeds)\n... started 19:08:19. Current memory use 8.4MB.\n\n0 feeds refreshed (took 0.001423 seconds)\n... used 3 dbqueries\n... used 0.02839994430542 seconds\nScheduled task complete: Refresh RSS feeds task (block_rss_client\\task\\refreshfeeds)\n
-42	0	editor_atto	editor_atto\\task\\autosave_cleanup_task	0	1604426899.9436000000	1604426899.9455000000	0	1	0	Execute scheduled task: Delete expired autosave drafts (editor_atto\\task\\autosave_cleanup_task)\n... started 19:08:19. Current memory use 8.5MB.\n... used 1 dbqueries\n... used 0.0010240077972412 seconds\nScheduled task complete: Delete expired autosave drafts (editor_atto\\task\\autosave_cleanup_task)\n
-43	0	tool_analytics	tool_analytics\\task\\train_models	0	1604426900.1833000000	1604426900.2299000000	1	0	0	Execute scheduled task: Train models (tool_analytics\\task\\train_models)\n... started 19:08:20. Current memory use 8.6MB.\n... used 1 dbqueries\n... used 0.045562982559204 seconds\nScheduled task complete: Train models (tool_analytics\\task\\train_models)\n
-44	0	tool_analytics	tool_analytics\\task\\predict_models	0	1604426900.2582000000	1604426900.6143000000	56	6	0	Execute scheduled task: Predict models (tool_analytics\\task\\predict_models)\n... started 19:08:20. Current memory use 8.8MB.\nAnalysing id "1" with "From start to end" time splitting method...\n-->Courses at risk of not starting results\nPrediction results\n!! No new elements to get predictions for. !!\n-->Students who have not accessed the course recently results\nPrediction results\n!! No new elements to get predictions for. !!\n-->Students who have not accessed the course yet results\nPrediction results\n!! No new elements to get predictions for. !!\nAnalysing id "3" with "Upcoming week" time splitting method...\n.\n.-->Upcoming activities due results\nPrediction results\n++ Prediction process finished ++\n... used 62 dbqueries\n... used 0.35514879226685 seconds\nScheduled task complete: Predict models (tool_analytics\\task\\predict_models)\n
-45	0	tool_cohortroles	tool_cohortroles\\task\\cohort_role_sync	0	1604426900.6447000000	1604426900.6540000000	2	1	0	Execute scheduled task: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n... started 19:08:20. Current memory use 10MB.\nSync cohort roles...\nAdded 0\nRemoved 0\n... used 3 dbqueries\n... used 0.0068600177764893 seconds\nScheduled task complete: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n
-46	0	tool_langimport	tool_langimport\\task\\update_langpacks_task	0	1604426900.6894000000	1604426900.6909000000	0	0	0	Execute scheduled task: Update all installed language packs (tool_langimport\\task\\update_langpacks_task)\n... started 19:08:20. Current memory use 10MB.\nLangpack update skipped. ($CFG->skiplangupgrade set)\n... used 0 dbqueries\n... used 0.00024104118347168 seconds\nScheduled task complete: Update all installed language packs (tool_langimport\\task\\update_langpacks_task)\n
-47	0	tool_messageinbound	tool_messageinbound\\task\\pickup_task	0	1604426900.7237000000	1604426900.7324000000	0	0	0	Execute scheduled task: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n... started 19:08:20. Current memory use 10MB.\nInbound Message not fully configured - exiting early.\n... used 0 dbqueries\n... used 0.0077369213104248 seconds\nScheduled task complete: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n
-48	0	tool_messageinbound	tool_messageinbound\\task\\cleanup_task	0	1604426900.7681000000	1604426900.7709000000	0	1	0	Execute scheduled task: Cleanup of unverified incoming email (tool_messageinbound\\task\\cleanup_task)\n... started 19:08:20. Current memory use 10MB.\nInbound Message not fully configured - exiting early.\n... used 1 dbqueries\n... used 0.001723051071167 seconds\nScheduled task complete: Cleanup of unverified incoming email (tool_messageinbound\\task\\cleanup_task)\n
-49	0	tool_monitor	tool_monitor\\task\\clean_events	0	1604426900.8120000000	1604426900.8148000000	1	0	0	Execute scheduled task: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n... started 19:08:20. Current memory use 10MB.\n... used 1 dbqueries\n... used 0.0014288425445557 seconds\nScheduled task complete: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n
-50	0	tool_monitor	tool_monitor\\task\\check_subscriptions	0	1604426900.8548000000	1604426900.8567000000	0	0	0	Execute scheduled task: Activate/deactivate invalid rule subscriptions (tool_monitor\\task\\check_subscriptions)\n... started 19:08:20. Current memory use 10MB.\n... used 0 dbqueries\n... used 0.00032806396484375 seconds\nScheduled task complete: Activate/deactivate invalid rule subscriptions (tool_monitor\\task\\check_subscriptions)\n
-51	0	tool_recyclebin	tool_recyclebin\\task\\cleanup_course_bin	0	1604426900.8974000000	1604426900.9069000000	4	0	0	Execute scheduled task: Cleanup course recycle bin (tool_recyclebin\\task\\cleanup_course_bin)\n... started 19:08:20. Current memory use 10MB.\n... used 4 dbqueries\n... used 0.0080478191375732 seconds\nScheduled task complete: Cleanup course recycle bin (tool_recyclebin\\task\\cleanup_course_bin)\n
-52	0	tool_recyclebin	tool_recyclebin\\task\\cleanup_category_bin	0	1604426900.9438000000	1604426900.9506000000	3	0	0	Execute scheduled task: Cleanup category recycle bin (tool_recyclebin\\task\\cleanup_category_bin)\n... started 19:08:20. Current memory use 10MB.\n... used 3 dbqueries\n... used 0.0055460929870605 seconds\nScheduled task complete: Cleanup category recycle bin (tool_recyclebin\\task\\cleanup_category_bin)\n
-53	0	assignfeedback_editpdf	assignfeedback_editpdf\\task\\convert_submissions	0	1604426901.0165000000	1604426901.0192000000	1	0	0	Execute scheduled task: Prepare submissions for annotation (assignfeedback_editpdf\\task\\convert_submissions)\n... started 19:08:21. Current memory use 10.1MB.\n... used 1 dbqueries\n... used 0.0015189647674561 seconds\nScheduled task complete: Prepare submissions for annotation (assignfeedback_editpdf\\task\\convert_submissions)\n
-54	0	ltiservice_gradebookservices	ltiservice_gradebookservices\\task\\cleanup_task	0	1604426901.0682000000	1604426901.0808000000	0	1	0	Execute scheduled task: LTI Assignment and Grade Services table cleanup (ltiservice_gradebookservices\\task\\cleanup_task)\n... started 19:08:21. Current memory use 10.1MB.\n... used 1 dbqueries\n... used 0.01186203956604 seconds\nScheduled task complete: LTI Assignment and Grade Services table cleanup (ltiservice_gradebookservices\\task\\cleanup_task)\n
-55	0	quiz_statistics	quiz_statistics\\task\\quiz_statistics_cleanup	0	1604426901.1279000000	1604426901.1308000000	0	1	0	Execute scheduled task: Clean up old quiz statistics cache records (quiz_statistics\\task\\quiz_statistics_cleanup)\n... started 19:08:21. Current memory use 10.1MB.\n... used 1 dbqueries\n... used 0.0013611316680908 seconds\nScheduled task complete: Clean up old quiz statistics cache records (quiz_statistics\\task\\quiz_statistics_cleanup)\n
-56	0	workshopallocation_scheduled	workshopallocation_scheduled\\task\\cron_task	0	1604426901.1709000000	1604426901.1734000000	1	0	0	Execute scheduled task: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n... started 19:08:21. Current memory use 10.1MB.\n... no workshops awaiting scheduled allocation. ... used 1 dbqueries\n... used 0.001633882522583 seconds\nScheduled task complete: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n
-57	0	logstore_standard	logstore_standard\\task\\cleanup_task	0	1604426901.2295000000	1604426901.2334000000	2	0	0	Execute scheduled task: Log table cleanup (logstore_standard\\task\\cleanup_task)\n... started 19:08:21. Current memory use 10.1MB.\n Deleted old log records from standard store.\n... used 2 dbqueries\n... used 0.0023460388183594 seconds\nScheduled task complete: Log table cleanup (logstore_standard\\task\\cleanup_task)\n
-58	0	mod_hvp	mod_hvp\\task\\remove_old_auth_tokens	0	1604426901.2678000000	1604426901.2734000000	0	1	0	Execute scheduled task: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n... started 19:08:21. Current memory use 9.9MB.\n... used 1 dbqueries\n... used 0.0041739940643311 seconds\nScheduled task complete: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n
-59	0	local_agora	local_agora\\task\\scripts	0	1604426901.3358000000	1604426901.3832000000	1	0	0	Execute scheduled task: Àgora Scripts (local_agora\\task\\scripts)\n... started 19:08:21. Current memory use 9.9MB.\nExecute script: Esborra taules temporals\n This script can only work with oracle databases\nFailed script: Esborra taules temporals\n... used 1 dbqueries\n... used 0.046350002288818 seconds\nScheduled task complete: Àgora Scripts (local_agora\\task\\scripts)\n
-60	0	local_oauth	local_oauth\\task\\clean	0	1604426901.4137000000	1604426901.4184000000	0	3	0	Execute scheduled task: OAuth provider (local_oauth\\task\\clean)\n... started 19:08:21. Current memory use 10.1MB.\nDeleting expired tokens...\n... used 3 dbqueries\n... used 0.0037050247192383 seconds\nScheduled task complete: OAuth provider (local_oauth\\task\\clean)\n
-61	1		core\\task\\refresh_mod_calendar_events_task	0	1604426901.4549000000	1604426901.4902000000	46	0	0	Execute adhoc task: core\\task\\refresh_mod_calendar_events_task\n... started 19:08:21. Current memory use 10.2MB.\nRefreshing events for assign\nRefreshing events for assignment\nRefreshing events for book\nRefreshing events for chat\nRefreshing events for choice\nRefreshing events for choicegroup\nRefreshing events for data\nRefreshing events for feedback\nRefreshing events for folder\nRefreshing events for forum\nRefreshing events for geogebra\nRefreshing events for glossary\nRefreshing events for hotpot\nRefreshing events for hvp\nRefreshing events for imscp\nRefreshing events for jclic\nRefreshing events for journal\nRefreshing events for label\nRefreshing events for lesson\nRefreshing events for lti\nRefreshing events for page\nRefreshing events for questionnaire\nRefreshing events for quiz\nRefreshing events for qv\nRefreshing events for rcontent\nRefreshing events for resource\nRefreshing events for scorm\nRefreshing events for survey\nRefreshing events for url\nRefreshing events for wiki\nRefreshing events for workshop\n... used 46 dbqueries\n... used 0.034196138381958 seconds\nAdhoc task complete: core\\task\\refresh_mod_calendar_events_task\n
+COPY public.mdl_task_log (id, type, component, classname, userid, timestart, timeend, dbreads, dbwrites, result, output, hostname, pid) FROM stdin;
+1	0	moodle	core\\task\\session_cleanup_task	0	1604426897.6144000000	1604426897.6420000000	19	1	0	Execute scheduled task: Cleanup old sessions (core\\task\\session_cleanup_task)\n... started 19:08:17. Current memory use 3.3MB.\n... used 20 dbqueries\n... used 0.015659093856812 seconds\nScheduled task complete: Cleanup old sessions (core\\task\\session_cleanup_task)\n	\N	\N
+2	0	moodle	core\\task\\delete_unconfirmed_users_task	0	1604426897.6607000000	1604426897.6632000000	3	0	0	Execute scheduled task: Delete unconfirmed users (core\\task\\delete_unconfirmed_users_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 3 dbqueries\n... used 0.0016300678253174 seconds\nScheduled task complete: Delete unconfirmed users (core\\task\\delete_unconfirmed_users_task)\n	\N	\N
+3	0	moodle	core\\task\\delete_incomplete_users_task	0	1604426897.6750000000	1604426897.6759000000	0	0	0	Execute scheduled task: Delete incomplete users (core\\task\\delete_incomplete_users_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 0 dbqueries\n... used 0.00013518333435059 seconds\nScheduled task complete: Delete incomplete users (core\\task\\delete_incomplete_users_task)\n	\N	\N
+4	0	moodle	core\\task\\send_new_user_passwords_task	0	1604426897.6886000000	1604426897.6902000000	1	0	0	Execute scheduled task: Send new user passwords (core\\task\\send_new_user_passwords_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 1 dbqueries\n... used 0.00082993507385254 seconds\nScheduled task complete: Send new user passwords (core\\task\\send_new_user_passwords_task)\n	\N	\N
+5	0	moodle	core\\task\\send_failed_login_notifications_task	0	1604426897.7020000000	1604426897.7029000000	0	0	0	Execute scheduled task: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n... started 19:08:17. Current memory use 3.8MB.\n... used 0 dbqueries\n... used 0.00012588500976562 seconds\nScheduled task complete: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n	\N	\N
+6	0	moodle	core\\task\\legacy_plugin_cron_task	0	1604426897.7165000000	1604426897.8530000000	11	3	0	Execute scheduled task: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n... started 19:08:17. Current memory use 3.8MB.\nRunning auth crons if required...\nRunning enrol crons if required...\nStarting activity modules\nProcessing module function journal_cron ...\n... used 3 dbqueries\n... used 0.0040240287780762 seconds\ndone.\nFinished activity modules\nStarting blocks\nFinished blocks\nStarting admin reports\nFinished admin reports\nStarting course reports\nFinished course reports\nStarting gradebook plugins\nFinished gradebook plugins\nStarting question types\nProcessing cron function for qtype_wq...\n... started 19:08:17. Current memory use 5.7MB.\nUpdating wirisessayoptions\n0 questions updateddone. (5 dbqueries, 0.01 seconds)\nFinished question types\n... used 14 dbqueries\n... used 0.13567519187927 seconds\nScheduled task complete: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n	\N	\N
+7	0	moodle	core\\task\\grade_cron_task	0	1604426897.8726000000	1604426897.8816000000	6	0	0	Execute scheduled task: Background processing for gradebook (core\\task\\grade_cron_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 6 dbqueries\n... used 0.0082480907440186 seconds\nScheduled task complete: Background processing for gradebook (core\\task\\grade_cron_task)\n	\N	\N
+8	0	moodle	core\\task\\completion_regular_task	0	1604426897.8945000000	1604426897.9587000000	18	0	0	Execute scheduled task: Calculate regular completion data (core\\task\\completion_regular_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 18 dbqueries\n... used 0.063558101654053 seconds\nScheduled task complete: Calculate regular completion data (core\\task\\completion_regular_task)\n	\N	\N
+9	0	moodle	core\\task\\portfolio_cron_task	0	1604426897.9727000000	1604426897.9737000000	0	0	0	Execute scheduled task: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 0 dbqueries\n... used 0.00014090538024902 seconds\nScheduled task complete: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n	\N	\N
+10	0	moodle	core\\task\\plagiarism_cron_task	0	1604426897.9861000000	1604426897.9869000000	0	0	0	Execute scheduled task: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n... started 19:08:17. Current memory use 5.7MB.\n... used 0 dbqueries\n... used 9.1075897216797E-5 seconds\nScheduled task complete: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n	\N	\N
+11	0	moodle	core\\task\\calendar_cron_task	0	1604426897.9994000000	1604426898.0188000000	1	0	0	Execute scheduled task: Send calendar notifications (core\\task\\calendar_cron_task)\n... started 19:08:18. Current memory use 5.7MB.\n... used 1 dbqueries\n... used 0.017878770828247 seconds\nScheduled task complete: Send calendar notifications (core\\task\\calendar_cron_task)\n	\N	\N
+12	0	moodle	core\\task\\blog_cron_task	0	1604426898.0303000000	1604426898.0359000000	1	1	0	Execute scheduled task: Sync external blogs (core\\task\\blog_cron_task)\n... started 19:08:18. Current memory use 5.9MB.\n... used 2 dbqueries\n... used 0.0048339366912842 seconds\nScheduled task complete: Sync external blogs (core\\task\\blog_cron_task)\n	\N	\N
+13	0	moodle	core\\task\\question_preview_cleanup_task	0	1604426898.0471000000	1604426898.0640000000	1	4	0	Execute scheduled task: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n... started 19:08:18. Current memory use 5.9MB.\n\n  Cleaning up old question previews...done.\n... used 5 dbqueries\n... used 0.016104936599731 seconds\nScheduled task complete: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n	\N	\N
+14	0	moodle	core\\task\\question_stats_cleanup_task	0	1604426898.0753000000	1604426898.0808000000	1	3	0	Execute scheduled task: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n... started 19:08:18. Current memory use 6.4MB.\n\n  Cleaning up old question statistics cache records...done.\n... used 4 dbqueries\n... used 0.0046770572662354 seconds\nScheduled task complete: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n	\N	\N
+15	0	moodle	core\\task\\cache_cron_task	0	1604426898.0932000000	1604426898.0997000000	0	0	0	Execute scheduled task: Background processing for caches (core\\task\\cache_cron_task)\n... started 19:08:18. Current memory use 6.4MB.\nCleaning up stale session data from cache stores.\n... used 0 dbqueries\n... used 0.0051679611206055 seconds\nScheduled task complete: Background processing for caches (core\\task\\cache_cron_task)\n	\N	\N
+16	0	moodle	core\\task\\automated_backup_task	0	1604426898.1135000000	1604426898.1444000000	1	0	0	Execute scheduled task: Automated backups (core\\task\\automated_backup_task)\n... started 19:08:18. Current memory use 6.4MB.\nChecking automated backup status...INACTIVE\n... used 1 dbqueries\n... used 0.029797077178955 seconds\nScheduled task complete: Automated backups (core\\task\\automated_backup_task)\n	\N	\N
+17	0	moodle	core\\task\\badges_cron_task	0	1604426898.1559000000	1604426898.1618000000	1	0	0	Execute scheduled task: Award badges (core\\task\\badges_cron_task)\n... started 19:08:18. Current memory use 6.9MB.\nStarted reviewing available badges.\nBadges were issued 0 time(s).\n... used 1 dbqueries\n... used 0.0050778388977051 seconds\nScheduled task complete: Award badges (core\\task\\badges_cron_task)\n	\N	\N
+18	0	moodle	core\\task\\badges_message_task	0	1604426898.1752000000	1604426898.1771000000	1	0	0	Execute scheduled task: Background processing for sending badges notifications (core\\task\\badges_message_task)\n... started 19:08:18. Current memory use 6.9MB.\nSending scheduled badge notifications.\n... used 1 dbqueries\n... used 0.00098490715026855 seconds\nScheduled task complete: Background processing for sending badges notifications (core\\task\\badges_message_task)\n	\N	\N
+19	0	moodle	core\\task\\file_temp_cleanup_task	0	1604426898.1880000000	1604426898.1901000000	0	0	0	Execute scheduled task: Delete stale temp files (core\\task\\file_temp_cleanup_task)\n... started 19:08:18. Current memory use 6.9MB.\n... used 0 dbqueries\n... used 0.0013399124145508 seconds\nScheduled task complete: Delete stale temp files (core\\task\\file_temp_cleanup_task)\n	\N	\N
+20	0	moodle	core\\task\\file_trash_cleanup_task	0	1604426898.2007000000	1604426898.2122000000	14	1	0	Execute scheduled task: Cleanup files in trash (core\\task\\file_trash_cleanup_task)\n... started 19:08:18. Current memory use 6.9MB.\nDeleting old draft files... ... started 19:08:18. Current memory use 7MB.\ndone.\nDeleting orphaned preview files... ... started 19:08:18. Current memory use 7MB.\ndone.\nDeleting orphaned document conversion files... ... started 19:08:18. Current memory use 7MB.\ndone.\nCleaning up files from deleted contexts... ... started 19:08:18. Current memory use 7MB.\ndone.\nCall filesystem cron tasks.... started 19:08:18. Current memory use 7MB.\ndone.\n... used 15 dbqueries\n... used 0.010728120803833 seconds\nScheduled task complete: Cleanup files in trash (core\\task\\file_trash_cleanup_task)\n	\N	\N
+21	0	moodle	core\\task\\search_index_task	0	1604426898.2247000000	1604426898.2264000000	0	0	0	Execute scheduled task: Global search indexing (core\\task\\search_index_task)\n... started 19:08:18. Current memory use 6.9MB.\n... used 0 dbqueries\n... used 0.00087785720825195 seconds\nScheduled task complete: Global search indexing (core\\task\\search_index_task)\n	\N	\N
+22	0	moodle	core\\task\\sync_plans_from_template_cohorts_task	0	1604426898.2383000000	1604426898.2580000000	2	0	0	Execute scheduled task: Sync plans from learning plan template cohorts (core\\task\\sync_plans_from_template_cohorts_task)\n... started 19:08:18. Current memory use 6.9MB.\n... used 2 dbqueries\n... used 0.017277002334595 seconds\nScheduled task complete: Sync plans from learning plan template cohorts (core\\task\\sync_plans_from_template_cohorts_task)\n	\N	\N
+23	0	qtype_random	qtype_random\\task\\remove_unused_questions	0	1604426898.6595000000	1604426898.6648000000	1	0	0	Execute scheduled task: Remove unused random questions (qtype_random\\task\\remove_unused_questions)\n... started 19:08:18. Current memory use 7.3MB.\nCleaned up 0 unused random questions.\n... used 1 dbqueries\n... used 0.0045161247253418 seconds\nScheduled task complete: Remove unused random questions (qtype_random\\task\\remove_unused_questions)\n	\N	\N
+24	0	mod_assign	mod_assign\\task\\cron_task	0	1604426898.7747000000	1604426898.8227000000	10	0	0	Execute scheduled task: Background processing for assignment module (mod_assign\\task\\cron_task)\n... started 19:08:18. Current memory use 7.8MB.\n... used 10 dbqueries\n... used 0.046766042709351 seconds\nScheduled task complete: Background processing for assignment module (mod_assign\\task\\cron_task)\n	\N	\N
+25	0	mod_chat	mod_chat\\task\\cron_task	0	1604426898.8370000000	1604426898.8438000000	2	2	0	Execute scheduled task: Background processing for chat module (mod_chat\\task\\cron_task)\n... started 19:08:18. Current memory use 8.2MB.\n... used 4 dbqueries\n... used 0.0059139728546143 seconds\nScheduled task complete: Background processing for chat module (mod_chat\\task\\cron_task)\n	\N	\N
+26	0	mod_forum	mod_forum\\task\\cron_task	0	1604426898.8602000000	1604426898.8683000000	1	1	0	Execute scheduled task: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n... started 19:08:18. Current memory use 8.2MB.\nRemoving old digest records from 7 days ago.\nRemoved all old digest records.\nFetching unmailed posts.\n  No posts found.\n... used 2 dbqueries\n... used 0.0070490837097168 seconds\nScheduled task complete: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n	\N	\N
+27	0	mod_lti	mod_lti\\task\\clean_access_tokens	0	1604426898.8825000000	1604426898.8872000000	0	1	0	Execute scheduled task: External tool removal of expired access tokens (mod_lti\\task\\clean_access_tokens)\n... started 19:08:18. Current memory use 8.2MB.\n... used 1 dbqueries\n... used 0.0031139850616455 seconds\nScheduled task complete: External tool removal of expired access tokens (mod_lti\\task\\clean_access_tokens)\n	\N	\N
+28	0	mod_quiz	mod_quiz\\task\\update_overdue_attempts	0	1604426898.9002000000	1604426898.9135000000	4	0	0	Execute scheduled task: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n... started 19:08:18. Current memory use 8.3MB.\n  Looking for quiz overdue quiz attempts...\n  Considered 0 attempts in 0 quizzes.\n... used 4 dbqueries\n... used 0.012104988098145 seconds\nScheduled task complete: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n	\N	\N
+29	0	mod_quiz	mod_quiz\\task\\legacy_quiz_reports_cron	0	1604426898.9262000000	1604426898.9319000000	0	0	0	Execute scheduled task: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n... started 19:08:18. Current memory use 8.3MB.\n... used 0 dbqueries\n... used 0.0037429332733154 seconds\nScheduled task complete: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n	\N	\N
+30	0	mod_quiz	mod_quiz\\task\\legacy_quiz_accessrules_cron	0	1604426898.9451000000	1604426898.9511000000	0	0	0	Execute scheduled task: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n... started 19:08:18. Current memory use 8.3MB.\n... used 0 dbqueries\n... used 0.0040128231048584 seconds\nScheduled task complete: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n	\N	\N
+31	0	mod_scorm	mod_scorm\\task\\cron_task	0	1604426898.9686000000	1604426898.9786000000	4	2	0	Execute scheduled task: Background processing for SCORM (mod_scorm\\task\\cron_task)\n... started 19:08:18. Current memory use 8.3MB.\nUpdating scorm packages which require daily update\n... used 6 dbqueries\n... used 0.0088908672332764 seconds\nScheduled task complete: Background processing for SCORM (mod_scorm\\task\\cron_task)\n	\N	\N
+32	0	mod_workshop	mod_workshop\\task\\cron_task	0	1604426898.9903000000	1604426898.9927000000	1	0	0	Execute scheduled task: Background processing for workshop module (mod_workshop\\task\\cron_task)\n... started 19:08:18. Current memory use 8.5MB.\n processing workshop subplugins ...\n... used 1 dbqueries\n... used 0.0013740062713623 seconds\nScheduled task complete: Background processing for workshop module (mod_workshop\\task\\cron_task)\n	\N	\N
+33	0	mod_workshop	mod_workshop\\task\\legacy_workshop_allocation_cron	0	1604426899.0052000000	1604426899.0083000000	0	0	0	Execute scheduled task: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n... started 19:08:19. Current memory use 8.5MB.\n... used 0 dbqueries\n... used 0.0020968914031982 seconds\nScheduled task complete: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n	\N	\N
+34	0	enrol_cohort	enrol_cohort\\task\\enrol_cohort_sync	0	1604426899.1105000000	1604426899.1287000000	20	0	0	Execute scheduled task: Cohort enrolment sync task (enrol_cohort\\task\\enrol_cohort_sync)\n... started 19:08:19. Current memory use 8.1MB.\n... used 20 dbqueries\n... used 0.017281055450439 seconds\nScheduled task complete: Cohort enrolment sync task (enrol_cohort\\task\\enrol_cohort_sync)\n	\N	\N
+35	0	enrol_manual	enrol_manual\\task\\sync_enrolments	0	1604426899.1601000000	1604426899.1620000000	1	0	0	Execute scheduled task: Synchronise manual enrolments task (enrol_manual\\task\\sync_enrolments)\n... started 19:08:19. Current memory use 8.2MB.\nVerifying manual enrolment expiration...\n...manual enrolment updates finished.\n... used 1 dbqueries\n... used 0.00118088722229 seconds\nScheduled task complete: Synchronise manual enrolments task (enrol_manual\\task\\sync_enrolments)\n	\N	\N
+36	0	enrol_manual	enrol_manual\\task\\send_expiry_notifications	0	1604426899.1815000000	1604426899.1866000000	4	1	0	Execute scheduled task: Manual enrolment send expiry notifications task (enrol_manual\\task\\send_expiry_notifications)\n... started 19:08:19. Current memory use 8.2MB.\nProcessing manual enrolment expiration notifications...\n...notification processing finished.\n... used 5 dbqueries\n... used 0.0043962001800537 seconds\nScheduled task complete: Manual enrolment send expiry notifications task (enrol_manual\\task\\send_expiry_notifications)\n	\N	\N
+37	0	enrol_self	enrol_self\\task\\sync_enrolments	0	1604426899.2205000000	1604426899.2260000000	7	0	0	Execute scheduled task: Synchronise self enrolments task (enrol_self\\task\\sync_enrolments)\n... started 19:08:19. Current memory use 8.2MB.\nVerifying self-enrolments...\n...user self-enrolment updates finished.\nNo expired enrol_self enrolments detected\n... used 7 dbqueries\n... used 0.0044770240783691 seconds\nScheduled task complete: Synchronise self enrolments task (enrol_self\\task\\sync_enrolments)\n	\N	\N
+38	0	enrol_self	enrol_self\\task\\send_expiry_notifications	0	1604426899.2509000000	1604426899.2550000000	4	1	0	Execute scheduled task: Self enrolment send expiry notifications task (enrol_self\\task\\send_expiry_notifications)\n... started 19:08:19. Current memory use 8.2MB.\nProcessing self enrolment expiration notifications...\n...notification processing finished.\n... used 5 dbqueries\n... used 0.0032820701599121 seconds\nScheduled task complete: Self enrolment send expiry notifications task (enrol_self\\task\\send_expiry_notifications)\n	\N	\N
+39	0	message_email	message_email\\task\\send_email_task	0	1604426899.2926000000	1604426899.6940000000	10	0	0	Execute scheduled task: Messages digest mailings (message_email\\task\\send_email_task)\n... started 19:08:19. Current memory use 8.1MB.\n... used 10 dbqueries\n... used 0.40059804916382 seconds\nScheduled task complete: Messages digest mailings (message_email\\task\\send_email_task)\n	\N	\N
+40	0	block_recent_activity	block_recent_activity\\task\\cleanup	0	1604426899.8456000000	1604426899.8510000000	0	1	0	Execute scheduled task: Cleanup task for recent activity block (block_recent_activity\\task\\cleanup)\n... started 19:08:19. Current memory use 8.4MB.\n... used 1 dbqueries\n... used 0.0044341087341309 seconds\nScheduled task complete: Cleanup task for recent activity block (block_recent_activity\\task\\cleanup)\n	\N	\N
+41	0	block_rss_client	block_rss_client\\task\\refreshfeeds	0	1604426899.8793000000	1604426899.9088000000	3	0	0	Execute scheduled task: Refresh RSS feeds task (block_rss_client\\task\\refreshfeeds)\n... started 19:08:19. Current memory use 8.4MB.\n\n0 feeds refreshed (took 0.001423 seconds)\n... used 3 dbqueries\n... used 0.02839994430542 seconds\nScheduled task complete: Refresh RSS feeds task (block_rss_client\\task\\refreshfeeds)\n	\N	\N
+42	0	editor_atto	editor_atto\\task\\autosave_cleanup_task	0	1604426899.9436000000	1604426899.9455000000	0	1	0	Execute scheduled task: Delete expired autosave drafts (editor_atto\\task\\autosave_cleanup_task)\n... started 19:08:19. Current memory use 8.5MB.\n... used 1 dbqueries\n... used 0.0010240077972412 seconds\nScheduled task complete: Delete expired autosave drafts (editor_atto\\task\\autosave_cleanup_task)\n	\N	\N
+43	0	tool_analytics	tool_analytics\\task\\train_models	0	1604426900.1833000000	1604426900.2299000000	1	0	0	Execute scheduled task: Train models (tool_analytics\\task\\train_models)\n... started 19:08:20. Current memory use 8.6MB.\n... used 1 dbqueries\n... used 0.045562982559204 seconds\nScheduled task complete: Train models (tool_analytics\\task\\train_models)\n	\N	\N
+44	0	tool_analytics	tool_analytics\\task\\predict_models	0	1604426900.2582000000	1604426900.6143000000	56	6	0	Execute scheduled task: Predict models (tool_analytics\\task\\predict_models)\n... started 19:08:20. Current memory use 8.8MB.\nAnalysing id "1" with "From start to end" time splitting method...\n-->Courses at risk of not starting results\nPrediction results\n!! No new elements to get predictions for. !!\n-->Students who have not accessed the course recently results\nPrediction results\n!! No new elements to get predictions for. !!\n-->Students who have not accessed the course yet results\nPrediction results\n!! No new elements to get predictions for. !!\nAnalysing id "3" with "Upcoming week" time splitting method...\n.\n.-->Upcoming activities due results\nPrediction results\n++ Prediction process finished ++\n... used 62 dbqueries\n... used 0.35514879226685 seconds\nScheduled task complete: Predict models (tool_analytics\\task\\predict_models)\n	\N	\N
+45	0	tool_cohortroles	tool_cohortroles\\task\\cohort_role_sync	0	1604426900.6447000000	1604426900.6540000000	2	1	0	Execute scheduled task: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n... started 19:08:20. Current memory use 10MB.\nSync cohort roles...\nAdded 0\nRemoved 0\n... used 3 dbqueries\n... used 0.0068600177764893 seconds\nScheduled task complete: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n	\N	\N
+46	0	tool_langimport	tool_langimport\\task\\update_langpacks_task	0	1604426900.6894000000	1604426900.6909000000	0	0	0	Execute scheduled task: Update all installed language packs (tool_langimport\\task\\update_langpacks_task)\n... started 19:08:20. Current memory use 10MB.\nLangpack update skipped. ($CFG->skiplangupgrade set)\n... used 0 dbqueries\n... used 0.00024104118347168 seconds\nScheduled task complete: Update all installed language packs (tool_langimport\\task\\update_langpacks_task)\n	\N	\N
+47	0	tool_messageinbound	tool_messageinbound\\task\\pickup_task	0	1604426900.7237000000	1604426900.7324000000	0	0	0	Execute scheduled task: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n... started 19:08:20. Current memory use 10MB.\nInbound Message not fully configured - exiting early.\n... used 0 dbqueries\n... used 0.0077369213104248 seconds\nScheduled task complete: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n	\N	\N
+48	0	tool_messageinbound	tool_messageinbound\\task\\cleanup_task	0	1604426900.7681000000	1604426900.7709000000	0	1	0	Execute scheduled task: Cleanup of unverified incoming email (tool_messageinbound\\task\\cleanup_task)\n... started 19:08:20. Current memory use 10MB.\nInbound Message not fully configured - exiting early.\n... used 1 dbqueries\n... used 0.001723051071167 seconds\nScheduled task complete: Cleanup of unverified incoming email (tool_messageinbound\\task\\cleanup_task)\n	\N	\N
+49	0	tool_monitor	tool_monitor\\task\\clean_events	0	1604426900.8120000000	1604426900.8148000000	1	0	0	Execute scheduled task: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n... started 19:08:20. Current memory use 10MB.\n... used 1 dbqueries\n... used 0.0014288425445557 seconds\nScheduled task complete: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n	\N	\N
+50	0	tool_monitor	tool_monitor\\task\\check_subscriptions	0	1604426900.8548000000	1604426900.8567000000	0	0	0	Execute scheduled task: Activate/deactivate invalid rule subscriptions (tool_monitor\\task\\check_subscriptions)\n... started 19:08:20. Current memory use 10MB.\n... used 0 dbqueries\n... used 0.00032806396484375 seconds\nScheduled task complete: Activate/deactivate invalid rule subscriptions (tool_monitor\\task\\check_subscriptions)\n	\N	\N
+51	0	tool_recyclebin	tool_recyclebin\\task\\cleanup_course_bin	0	1604426900.8974000000	1604426900.9069000000	4	0	0	Execute scheduled task: Cleanup course recycle bin (tool_recyclebin\\task\\cleanup_course_bin)\n... started 19:08:20. Current memory use 10MB.\n... used 4 dbqueries\n... used 0.0080478191375732 seconds\nScheduled task complete: Cleanup course recycle bin (tool_recyclebin\\task\\cleanup_course_bin)\n	\N	\N
+52	0	tool_recyclebin	tool_recyclebin\\task\\cleanup_category_bin	0	1604426900.9438000000	1604426900.9506000000	3	0	0	Execute scheduled task: Cleanup category recycle bin (tool_recyclebin\\task\\cleanup_category_bin)\n... started 19:08:20. Current memory use 10MB.\n... used 3 dbqueries\n... used 0.0055460929870605 seconds\nScheduled task complete: Cleanup category recycle bin (tool_recyclebin\\task\\cleanup_category_bin)\n	\N	\N
+53	0	assignfeedback_editpdf	assignfeedback_editpdf\\task\\convert_submissions	0	1604426901.0165000000	1604426901.0192000000	1	0	0	Execute scheduled task: Prepare submissions for annotation (assignfeedback_editpdf\\task\\convert_submissions)\n... started 19:08:21. Current memory use 10.1MB.\n... used 1 dbqueries\n... used 0.0015189647674561 seconds\nScheduled task complete: Prepare submissions for annotation (assignfeedback_editpdf\\task\\convert_submissions)\n	\N	\N
+54	0	ltiservice_gradebookservices	ltiservice_gradebookservices\\task\\cleanup_task	0	1604426901.0682000000	1604426901.0808000000	0	1	0	Execute scheduled task: LTI Assignment and Grade Services table cleanup (ltiservice_gradebookservices\\task\\cleanup_task)\n... started 19:08:21. Current memory use 10.1MB.\n... used 1 dbqueries\n... used 0.01186203956604 seconds\nScheduled task complete: LTI Assignment and Grade Services table cleanup (ltiservice_gradebookservices\\task\\cleanup_task)\n	\N	\N
+55	0	quiz_statistics	quiz_statistics\\task\\quiz_statistics_cleanup	0	1604426901.1279000000	1604426901.1308000000	0	1	0	Execute scheduled task: Clean up old quiz statistics cache records (quiz_statistics\\task\\quiz_statistics_cleanup)\n... started 19:08:21. Current memory use 10.1MB.\n... used 1 dbqueries\n... used 0.0013611316680908 seconds\nScheduled task complete: Clean up old quiz statistics cache records (quiz_statistics\\task\\quiz_statistics_cleanup)\n	\N	\N
+56	0	workshopallocation_scheduled	workshopallocation_scheduled\\task\\cron_task	0	1604426901.1709000000	1604426901.1734000000	1	0	0	Execute scheduled task: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n... started 19:08:21. Current memory use 10.1MB.\n... no workshops awaiting scheduled allocation. ... used 1 dbqueries\n... used 0.001633882522583 seconds\nScheduled task complete: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n	\N	\N
+57	0	logstore_standard	logstore_standard\\task\\cleanup_task	0	1604426901.2295000000	1604426901.2334000000	2	0	0	Execute scheduled task: Log table cleanup (logstore_standard\\task\\cleanup_task)\n... started 19:08:21. Current memory use 10.1MB.\n Deleted old log records from standard store.\n... used 2 dbqueries\n... used 0.0023460388183594 seconds\nScheduled task complete: Log table cleanup (logstore_standard\\task\\cleanup_task)\n	\N	\N
+58	0	mod_hvp	mod_hvp\\task\\remove_old_auth_tokens	0	1604426901.2678000000	1604426901.2734000000	0	1	0	Execute scheduled task: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n... started 19:08:21. Current memory use 9.9MB.\n... used 1 dbqueries\n... used 0.0041739940643311 seconds\nScheduled task complete: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n	\N	\N
+59	0	local_agora	local_agora\\task\\scripts	0	1604426901.3358000000	1604426901.3832000000	1	0	0	Execute scheduled task: Àgora Scripts (local_agora\\task\\scripts)\n... started 19:08:21. Current memory use 9.9MB.\nExecute script: Esborra taules temporals\n This script can only work with oracle databases\nFailed script: Esborra taules temporals\n... used 1 dbqueries\n... used 0.046350002288818 seconds\nScheduled task complete: Àgora Scripts (local_agora\\task\\scripts)\n	\N	\N
+60	0	local_oauth	local_oauth\\task\\clean	0	1604426901.4137000000	1604426901.4184000000	0	3	0	Execute scheduled task: OAuth provider (local_oauth\\task\\clean)\n... started 19:08:21. Current memory use 10.1MB.\nDeleting expired tokens...\n... used 3 dbqueries\n... used 0.0037050247192383 seconds\nScheduled task complete: OAuth provider (local_oauth\\task\\clean)\n	\N	\N
+61	1		core\\task\\refresh_mod_calendar_events_task	0	1604426901.4549000000	1604426901.4902000000	46	0	0	Execute adhoc task: core\\task\\refresh_mod_calendar_events_task\n... started 19:08:21. Current memory use 10.2MB.\nRefreshing events for assign\nRefreshing events for assignment\nRefreshing events for book\nRefreshing events for chat\nRefreshing events for choice\nRefreshing events for choicegroup\nRefreshing events for data\nRefreshing events for feedback\nRefreshing events for folder\nRefreshing events for forum\nRefreshing events for geogebra\nRefreshing events for glossary\nRefreshing events for hotpot\nRefreshing events for hvp\nRefreshing events for imscp\nRefreshing events for jclic\nRefreshing events for journal\nRefreshing events for label\nRefreshing events for lesson\nRefreshing events for lti\nRefreshing events for page\nRefreshing events for questionnaire\nRefreshing events for quiz\nRefreshing events for qv\nRefreshing events for rcontent\nRefreshing events for resource\nRefreshing events for scorm\nRefreshing events for survey\nRefreshing events for url\nRefreshing events for wiki\nRefreshing events for workshop\n... used 46 dbqueries\n... used 0.034196138381958 seconds\nAdhoc task complete: core\\task\\refresh_mod_calendar_events_task\n	\N	\N
+62	0	moodle	core\\task\\backup_cleanup_task	0	1635253529.8364000000	1635253529.8449000000	4	6	0	Execute scheduled task: Clean backup tables, logs and files (core\\task\\backup_cleanup_task)\n... started 15:05:29. Current memory use 4.8MB.\n... used 10 dbqueries\n... used 0.0048010349273682 seconds\nScheduled task complete: Clean backup tables, logs and files (core\\task\\backup_cleanup_task)\n	default	6394
+63	0	moodle	core\\task\\context_cleanup_task	0	1635253529.8524000000	1635253529.8569000000	10	1	0	Execute scheduled task: Cleanup contexts (core\\task\\context_cleanup_task)\n... started 15:05:29. Current memory use 5.3MB.\n Cleaned up context instances\n... used 11 dbqueries\n... used 0.003953218460083 seconds\nScheduled task complete: Cleanup contexts (core\\task\\context_cleanup_task)\n	default	6394
+64	0	moodle	core\\task\\cache_cleanup_task	0	1635253529.8621000000	1635253529.8632000000	0	1	0	Execute scheduled task: Remove expired cache entries (core\\task\\cache_cleanup_task)\n... started 15:05:29. Current memory use 5.3MB.\n... used 1 dbqueries\n... used 0.00052189826965332 seconds\nScheduled task complete: Remove expired cache entries (core\\task\\cache_cleanup_task)\n	default	6394
+65	0	moodle	core\\task\\messaging_cleanup_task	0	1635253529.8706000000	1635253529.8748000000	1	4	0	Execute scheduled task: Background processing for messaging (core\\task\\messaging_cleanup_task)\n... started 15:05:29. Current memory use 5.3MB.\n... used 5 dbqueries\n... used 0.0035438537597656 seconds\nScheduled task complete: Background processing for messaging (core\\task\\messaging_cleanup_task)\n	default	6394
+66	0	moodle	core\\task\\check_for_updates_task	0	1635253529.8798000000	1635253529.8806000000	0	0	0	Execute scheduled task: Check for updates (core\\task\\check_for_updates_task)\n... started 15:05:29. Current memory use 5.3MB.\n... used 0 dbqueries\n... used 0.00016999244689941 seconds\nScheduled task complete: Check for updates (core\\task\\check_for_updates_task)\n	default	6394
+67	0	moodle	core\\task\\search_optimize_task	0	1635253529.8872000000	1635253529.8882000000	0	0	0	Execute scheduled task: Global search index optimization (core\\task\\search_optimize_task)\n... started 15:05:29. Current memory use 5.3MB.\n... used 0 dbqueries\n... used 0.00037813186645508 seconds\nScheduled task complete: Global search index optimization (core\\task\\search_optimize_task)\n	default	6394
+68	0	moodle	core\\task\\password_reset_cleanup_task	0	1635253529.8933000000	1635253529.8953000000	0	1	0	Execute scheduled task: Cleanup password reset attempts (core\\task\\password_reset_cleanup_task)\n... started 15:05:29. Current memory use 5.3MB.\n Cleaned up old password reset records\n... used 1 dbqueries\n... used 0.001230001449585 seconds\nScheduled task complete: Cleanup password reset attempts (core\\task\\password_reset_cleanup_task)\n	default	6394
+69	0	moodle	core\\task\\complete_plans_task	0	1635253529.9031000000	1635253529.9064000000	3	0	0	Execute scheduled task: Complete learning plans which are due (core\\task\\complete_plans_task)\n... started 15:05:29. Current memory use 5.3MB.\n... used 3 dbqueries\n... used 0.0017468929290771 seconds\nScheduled task complete: Complete learning plans which are due (core\\task\\complete_plans_task)\n	default	6394
+70	0	moodle	core\\oauth2\\refresh_system_tokens_task	0	1635253529.9117000000	1635253529.9135000000	1	0	0	Execute scheduled task: Refresh OAuth tokens for service accounts (core\\oauth2\\refresh_system_tokens_task)\n... started 15:05:29. Current memory use 5.4MB.\n... used 1 dbqueries\n... used 0.0011341571807861 seconds\nScheduled task complete: Refresh OAuth tokens for service accounts (core\\oauth2\\refresh_system_tokens_task)\n	default	6394
+71	0	moodle	core\\task\\analytics_cleanup_task	0	1635253529.9204000000	1635253530.0331000000	29	4	0	Execute scheduled task: Analytics cleanup (core\\task\\analytics_cleanup_task)\n... started 15:05:29. Current memory use 5.4MB.\n... used 33 dbqueries\n... used 0.11209297180176 seconds\nScheduled task complete: Analytics cleanup (core\\task\\analytics_cleanup_task)\n	default	6394
+72	0	mod_questionnaire	mod_questionnaire\\task\\cleanup	0	1635253530.1697000000	1635253530.1743000000	1	0	0	Execute scheduled task: Questionnaire cleanup job (mod_questionnaire\\task\\cleanup)\n... started 15:05:30. Current memory use 6.7MB.\n... used 1 dbqueries\n... used 0.0038540363311768 seconds\nScheduled task complete: Questionnaire cleanup job (mod_questionnaire\\task\\cleanup)\n	default	6394
+73	0	local_agora	local_agora\\task\\adware	0	1635253530.2030000000	1635253530.2427000000	138	1	0	Execute scheduled task: Detect Adware (local_agora\\task\\adware)\n... started 15:05:30. Current memory use 6.7MB.\n... used 139 dbqueries\n... used 0.038978099822998 seconds\nScheduled task complete: Detect Adware (local_agora\\task\\adware)\n	default	6394
+74	0	tool_brickfield	tool_brickfield\\task\\bulk_process_courses	0	1635253530.3298000000	1635253530.3390000000	14	8	0	Execute scheduled task: Process bulk batch accessibility checking (tool_brickfield\\task\\bulk_process_courses)\n... started 15:05:30. Current memory use 6.4MB.\n... used 22 dbqueries\n... used 0.0077099800109863 seconds\nScheduled task complete: Process bulk batch accessibility checking (tool_brickfield\\task\\bulk_process_courses)\n	default	6394
+75	0	tool_brickfield	tool_brickfield\\task\\bulk_process_caches	0	1635253530.3567000000	1635253530.3583000000	2	1	0	Execute scheduled task: Process bulk caching (tool_brickfield\\task\\bulk_process_caches)\n... started 15:05:30. Current memory use 6.4MB.\n... used 3 dbqueries\n... used 0.00098490715026855 seconds\nScheduled task complete: Process bulk caching (tool_brickfield\\task\\bulk_process_caches)\n	default	6394
+76	0	tool_brickfield	tool_brickfield\\task\\process_analysis_requests	0	1635253530.3736000000	1635253530.3768000000	2	1	0	Execute scheduled task: Process content analysis requests (tool_brickfield\\task\\process_analysis_requests)\n... started 15:05:30. Current memory use 6.4MB.\n... used 3 dbqueries\n... used 0.0025191307067871 seconds\nScheduled task complete: Process content analysis requests (tool_brickfield\\task\\process_analysis_requests)\n	default	6394
+77	0	local_alexandria	local_alexandria\\task\\backup_courses_task	0	1635253530.3941000000	1635253530.3986000000	1	0	0	Execute scheduled task: Alexandria: Backups courses task (local_alexandria\\task\\backup_courses_task)\n... started 15:05:30. Current memory use 6.5MB.\nStarting Alexandria Backup Courses Task...\nEnding Alexandria Backup Courses Task...\n... used 1 dbqueries\n... used 0.0034527778625488 seconds\nScheduled task complete: Alexandria: Backups courses task (local_alexandria\\task\\backup_courses_task)\n	default	6394
+78	0	moodle	core\\task\\session_cleanup_task	0	1635253530.4146000000	1635253530.4225000000	18	3	0	Execute scheduled task: Cleanup old sessions (core\\task\\session_cleanup_task)\n... started 15:05:30. Current memory use 6.8MB.\n... used 21 dbqueries\n... used 0.0059859752655029 seconds\nScheduled task complete: Cleanup old sessions (core\\task\\session_cleanup_task)\n	default	6394
+79	0	moodle	core\\task\\delete_unconfirmed_users_task	0	1635253530.4389000000	1635253530.4401000000	3	0	0	Execute scheduled task: Delete unconfirmed users (core\\task\\delete_unconfirmed_users_task)\n... started 15:05:30. Current memory use 6.8MB.\n... used 3 dbqueries\n... used 0.00060200691223145 seconds\nScheduled task complete: Delete unconfirmed users (core\\task\\delete_unconfirmed_users_task)\n	default	6394
+80	0	moodle	core\\task\\delete_incomplete_users_task	0	1635253530.4546000000	1635253530.4555000000	0	0	0	Execute scheduled task: Delete incomplete users (core\\task\\delete_incomplete_users_task)\n... started 15:05:30. Current memory use 6.8MB.\n... used 0 dbqueries\n... used 9.7036361694336E-5 seconds\nScheduled task complete: Delete incomplete users (core\\task\\delete_incomplete_users_task)\n	default	6394
+81	0	moodle	core\\task\\send_new_user_passwords_task	0	1635253530.4712000000	1635253530.4723000000	1	0	0	Execute scheduled task: Send new user passwords (core\\task\\send_new_user_passwords_task)\n... started 15:05:30. Current memory use 6.8MB.\n... used 1 dbqueries\n... used 0.00049090385437012 seconds\nScheduled task complete: Send new user passwords (core\\task\\send_new_user_passwords_task)\n	default	6394
+82	0	moodle	core\\task\\send_failed_login_notifications_task	0	1635253530.4866000000	1635253530.4874000000	0	0	0	Execute scheduled task: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n... started 15:05:30. Current memory use 6.8MB.\n... used 0 dbqueries\n... used 7.8916549682617E-5 seconds\nScheduled task complete: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n	default	6394
+83	0	moodle	core\\task\\legacy_plugin_cron_task	0	1635253530.5038000000	1635253530.5723000000	5	1	0	Execute scheduled task: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n... started 15:05:30. Current memory use 6.8MB.\nRunning auth crons if required...\nRunning enrol crons if required...\nStarting activity modules\nProcessing module function journal_cron ...\n... used 3 dbqueries\n... used 0.0017430782318115 seconds\ndone.\nFinished activity modules\nStarting blocks\nProcessing cron function for configurable_reports....done.\nFinished blocks\nStarting admin reports\nFinished admin reports\nStarting course reports\nFinished course reports\nStarting gradebook plugins\nFinished gradebook plugins\n... used 6 dbqueries\n... used 0.067795038223267 seconds\nScheduled task complete: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n	default	6394
+84	0	moodle	core\\task\\grade_cron_task	0	1635253530.5875000000	1635253530.5924000000	6	0	0	Execute scheduled task: Background processing for gradebook (core\\task\\grade_cron_task)\n... started 15:05:30. Current memory use 7.8MB.\n... used 6 dbqueries\n... used 0.0042839050292969 seconds\nScheduled task complete: Background processing for gradebook (core\\task\\grade_cron_task)\n	default	6394
+85	0	moodle	core\\task\\completion_regular_task	0	1635253530.6129000000	1635253530.6474000000	18	0	0	Execute scheduled task: Calculate regular completion data (core\\task\\completion_regular_task)\n... started 15:05:30. Current memory use 7.8MB.\n... used 18 dbqueries\n... used 0.033900022506714 seconds\nScheduled task complete: Calculate regular completion data (core\\task\\completion_regular_task)\n	default	6394
+86	0	moodle	core\\task\\portfolio_cron_task	0	1635253530.6631000000	1635253530.6643000000	0	0	0	Execute scheduled task: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n... started 15:05:30. Current memory use 7.9MB.\n... used 0 dbqueries\n... used 0.00017499923706055 seconds\nScheduled task complete: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n	default	6394
+87	0	moodle	core\\task\\plagiarism_cron_task	0	1635253530.6842000000	1635253530.6849000000	0	0	0	Execute scheduled task: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n... started 15:05:30. Current memory use 7.9MB.\n... used 0 dbqueries\n... used 6.0081481933594E-5 seconds\nScheduled task complete: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n	default	6394
+88	0	moodle	core\\task\\calendar_cron_task	0	1635253530.7096000000	1635253530.7248000000	1	0	0	Execute scheduled task: Send calendar notifications (core\\task\\calendar_cron_task)\n... started 15:05:30. Current memory use 7.9MB.\n... used 1 dbqueries\n... used 0.014547109603882 seconds\nScheduled task complete: Send calendar notifications (core\\task\\calendar_cron_task)\n	default	6394
+89	0	moodle	core\\task\\blog_cron_task	0	1635253530.7493000000	1635253530.7524000000	1	1	0	Execute scheduled task: Sync external blogs (core\\task\\blog_cron_task)\n... started 15:05:30. Current memory use 8.1MB.\n... used 2 dbqueries\n... used 0.0024440288543701 seconds\nScheduled task complete: Sync external blogs (core\\task\\blog_cron_task)\n	default	6394
+90	0	moodle	core\\task\\question_preview_cleanup_task	0	1635253530.7772000000	1635253530.7885000000	1	4	0	Execute scheduled task: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n... started 15:05:30. Current memory use 8.1MB.\n\n  Cleaning up old question previews...done.\n... used 5 dbqueries\n... used 0.010721921920776 seconds\nScheduled task complete: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n	default	6394
+91	0	moodle	core\\task\\question_stats_cleanup_task	0	1635253530.8187000000	1635253530.8233000000	1	3	0	Execute scheduled task: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n... started 15:05:30. Current memory use 8.1MB.\n\n  Cleaning up old question statistics cache records...done.\n... used 4 dbqueries\n... used 0.0038650035858154 seconds\nScheduled task complete: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n	default	6394
+92	0	moodle	core\\task\\cache_cron_task	0	1635253530.8536000000	1635253530.8589000000	0	0	0	Execute scheduled task: Background processing for caches (core\\task\\cache_cron_task)\n... started 15:05:30. Current memory use 8.1MB.\nCleaning up stale session data from cache stores.\n... used 0 dbqueries\n... used 0.0044980049133301 seconds\nScheduled task complete: Background processing for caches (core\\task\\cache_cron_task)\n	default	6394
+93	0	moodle	core\\task\\automated_backup_task	0	1635253530.8949000000	1635253530.8959000000	0	0	0	Execute scheduled task: Automated backups (core\\task\\automated_backup_task)\n... started 15:05:30. Current memory use 8.1MB.\nChecking automated backup status...INACTIVE\n... used 0 dbqueries\n... used 0.00019288063049316 seconds\nScheduled task complete: Automated backups (core\\task\\automated_backup_task)\n	default	6394
+94	0	moodle	core\\task\\badges_cron_task	0	1635253530.9299000000	1635253530.9344000000	1	0	0	Execute scheduled task: Award badges (core\\task\\badges_cron_task)\n... started 15:05:30. Current memory use 8.1MB.\nStarted reviewing available badges.\nBadges were issued 0 time(s).\n... used 1 dbqueries\n... used 0.0036001205444336 seconds\nScheduled task complete: Award badges (core\\task\\badges_cron_task)\n	default	6394
+95	0	moodle	core\\task\\badges_message_task	0	1635253530.9680000000	1635253530.9698000000	1	0	0	Execute scheduled task: Background processing for sending badges notifications (core\\task\\badges_message_task)\n... started 15:05:30. Current memory use 8.2MB.\nSending scheduled badge notifications.\n... used 1 dbqueries\n... used 0.00080490112304688 seconds\nScheduled task complete: Background processing for sending badges notifications (core\\task\\badges_message_task)\n	default	6394
+96	0	moodle	core\\task\\file_temp_cleanup_task	0	1635253531.0044000000	1635253531.0071000000	0	0	0	Execute scheduled task: Delete stale temp files (core\\task\\file_temp_cleanup_task)\n... started 15:05:31. Current memory use 8.2MB.\n... used 0 dbqueries\n... used 0.0017309188842773 seconds\nScheduled task complete: Delete stale temp files (core\\task\\file_temp_cleanup_task)\n	default	6394
+97	0	moodle	core\\task\\file_trash_cleanup_task	0	1635253531.0412000000	1635253531.0727000000	45	11	0	Execute scheduled task: Cleanup files in trash (core\\task\\file_trash_cleanup_task)\n... started 15:05:31. Current memory use 8.2MB.\nDeleting old draft files... ... started 15:05:31. Current memory use 8.2MB.\ndone.\nDeleting orphaned preview, and document conversion files... ... started 15:05:31. Current memory use 8.2MB.\ndone.\nCleaning up files from deleted contexts... ... started 15:05:31. Current memory use 8.2MB.\ndone.\nCall filesystem cron tasks.... started 15:05:31. Current memory use 8.2MB.\ndone.\n... used 56 dbqueries\n... used 0.030662059783936 seconds\nScheduled task complete: Cleanup files in trash (core\\task\\file_trash_cleanup_task)\n	default	6394
+98	0	moodle	core\\task\\search_index_task	0	1635253531.1045000000	1635253531.1053000000	0	0	0	Execute scheduled task: Global search indexing (core\\task\\search_index_task)\n... started 15:05:31. Current memory use 8.2MB.\n... used 0 dbqueries\n... used 6.8902969360352E-5 seconds\nScheduled task complete: Global search indexing (core\\task\\search_index_task)\n	default	6394
+99	0	moodle	core\\task\\sync_plans_from_template_cohorts_task	0	1635253531.1263000000	1635253531.1345000000	1	0	0	Execute scheduled task: Sync plans from learning plan template cohorts (core\\task\\sync_plans_from_template_cohorts_task)\n... started 15:05:31. Current memory use 8.2MB.\n... used 1 dbqueries\n... used 0.0074670314788818 seconds\nScheduled task complete: Sync plans from learning plan template cohorts (core\\task\\sync_plans_from_template_cohorts_task)\n	default	6394
+100	0	qtype_random	qtype_random\\task\\remove_unused_questions	0	1635253531.2442000000	1635253531.2472000000	1	0	0	Execute scheduled task: Remove unused random questions (qtype_random\\task\\remove_unused_questions)\n... started 15:05:31. Current memory use 8.1MB.\nCleaned up 0 unused random questions.\n... used 1 dbqueries\n... used 0.0024459362030029 seconds\nScheduled task complete: Remove unused random questions (qtype_random\\task\\remove_unused_questions)\n	default	6394
+101	0	mod_assign	mod_assign\\task\\cron_task	0	1635253531.2677000000	1635253531.2921000000	5	0	0	Execute scheduled task: Background processing for assignment module (mod_assign\\task\\cron_task)\n... started 15:05:31. Current memory use 8.2MB.\n... used 5 dbqueries\n... used 0.02342700958252 seconds\nScheduled task complete: Background processing for assignment module (mod_assign\\task\\cron_task)\n	default	6394
+102	0	mod_chat	mod_chat\\task\\cron_task	0	1635253531.3143000000	1635253531.3212000000	2	2	0	Execute scheduled task: Background processing for chat module (mod_chat\\task\\cron_task)\n... started 15:05:31. Current memory use 8.2MB.\n... used 4 dbqueries\n... used 0.0060479640960693 seconds\nScheduled task complete: Background processing for chat module (mod_chat\\task\\cron_task)\n	default	6394
+103	0	mod_forum	mod_forum\\task\\cron_task	0	1635253531.3450000000	1635253531.3505000000	1	1	0	Execute scheduled task: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n... started 15:05:31. Current memory use 8.2MB.\nRemoving old digest records from 7 days ago.\nRemoved all old digest records.\nFetching unmailed posts.\n  No posts found.\n... used 2 dbqueries\n... used 0.0047171115875244 seconds\nScheduled task complete: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n	default	6394
+104	0	mod_quiz	mod_quiz\\task\\update_overdue_attempts	0	1635253531.4184000000	1635253531.4323000000	4	0	0	Execute scheduled task: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n... started 15:05:31. Current memory use 8.5MB.\n  Looking for quiz overdue quiz attempts...\n  Considered 0 attempts in 0 quizzes.\n... used 4 dbqueries\n... used 0.012684106826782 seconds\nScheduled task complete: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n	default	6394
+105	0	mod_quiz	mod_quiz\\task\\legacy_quiz_reports_cron	0	1635253531.4608000000	1635253531.4644000000	0	0	0	Execute scheduled task: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n... started 15:05:31. Current memory use 8.5MB.\n... used 0 dbqueries\n... used 0.0028150081634521 seconds\nScheduled task complete: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n	default	6394
+106	0	mod_quiz	mod_quiz\\task\\legacy_quiz_accessrules_cron	0	1635253531.4941000000	1635253531.4979000000	0	0	0	Execute scheduled task: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n... started 15:05:31. Current memory use 8.5MB.\n... used 0 dbqueries\n... used 0.0029988288879395 seconds\nScheduled task complete: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n	default	6394
+107	0	mod_scorm	mod_scorm\\task\\cron_task	0	1635253531.5274000000	1635253531.5310000000	2	1	0	Execute scheduled task: Background processing for SCORM (mod_scorm\\task\\cron_task)\n... started 15:05:31. Current memory use 8.6MB.\nUpdating scorm packages which require daily update\n... used 3 dbqueries\n... used 0.0026261806488037 seconds\nScheduled task complete: Background processing for SCORM (mod_scorm\\task\\cron_task)\n	default	6394
+108	0	mod_workshop	mod_workshop\\task\\cron_task	0	1635253531.5610000000	1635253531.5626000000	1	0	0	Execute scheduled task: Background processing for workshop module (mod_workshop\\task\\cron_task)\n... started 15:05:31. Current memory use 8.7MB.\n processing workshop subplugins ...\n... used 1 dbqueries\n... used 0.00058698654174805 seconds\nScheduled task complete: Background processing for workshop module (mod_workshop\\task\\cron_task)\n	default	6394
+109	0	mod_workshop	mod_workshop\\task\\legacy_workshop_allocation_cron	0	1635253531.5934000000	1635253531.5963000000	0	0	0	Execute scheduled task: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n... started 15:05:31. Current memory use 8.7MB.\n... used 0 dbqueries\n... used 0.0021378993988037 seconds\nScheduled task complete: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n	default	6394
+110	0	enrol_cohort	enrol_cohort\\task\\enrol_cohort_sync	0	1635253531.6242000000	1635253531.6442000000	20	0	0	Execute scheduled task: Cohort enrolment sync task (enrol_cohort\\task\\enrol_cohort_sync)\n... started 15:05:31. Current memory use 8.7MB.\n... used 20 dbqueries\n... used 0.019075155258179 seconds\nScheduled task complete: Cohort enrolment sync task (enrol_cohort\\task\\enrol_cohort_sync)\n	default	6394
+111	0	enrol_manual	enrol_manual\\task\\sync_enrolments	0	1635253531.6775000000	1635253531.6793000000	1	0	0	Execute scheduled task: Synchronise manual enrolments task (enrol_manual\\task\\sync_enrolments)\n... started 15:05:31. Current memory use 8.7MB.\nVerifying manual enrolment expiration...\n...manual enrolment updates finished.\n... used 1 dbqueries\n... used 0.00088214874267578 seconds\nScheduled task complete: Synchronise manual enrolments task (enrol_manual\\task\\sync_enrolments)\n	default	6394
+142	0	mod_forum	mod_forum\\task\\cron_task	0	1635253676.7458000000	1635253676.7486000000	1	1	0	Execute scheduled task: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n... started 15:07:56. Current memory use 7MB.\nRemoving old digest records from 7 days ago.\nRemoved all old digest records.\nFetching unmailed posts.\n  No posts found.\n... used 2 dbqueries\n... used 0.0019819736480713 seconds\nScheduled task complete: Forum mailings and maintenance jobs (mod_forum\\task\\cron_task)\n	default	7406
+112	0	enrol_manual	enrol_manual\\task\\send_expiry_notifications	0	1635253531.7129000000	1635253531.7195000000	4	1	0	Execute scheduled task: Manual enrolment send expiry notifications task (enrol_manual\\task\\send_expiry_notifications)\n... started 15:05:31. Current memory use 8.8MB.\nProcessing manual enrolment expiration notifications...\n...notification processing finished.\n... used 5 dbqueries\n... used 0.0055229663848877 seconds\nScheduled task complete: Manual enrolment send expiry notifications task (enrol_manual\\task\\send_expiry_notifications)\n	default	6394
+113	0	enrol_self	enrol_self\\task\\sync_enrolments	0	1635253531.7554000000	1635253531.7603000000	7	0	0	Execute scheduled task: Synchronise self enrolments task (enrol_self\\task\\sync_enrolments)\n... started 15:05:31. Current memory use 8.8MB.\nVerifying self-enrolments...\n...user self-enrolment updates finished.\nNo expired enrol_self enrolments detected\n... used 7 dbqueries\n... used 0.0040650367736816 seconds\nScheduled task complete: Synchronise self enrolments task (enrol_self\\task\\sync_enrolments)\n	default	6394
+114	0	enrol_self	enrol_self\\task\\send_expiry_notifications	0	1635253531.7937000000	1635253531.7982000000	4	1	0	Execute scheduled task: Self enrolment send expiry notifications task (enrol_self\\task\\send_expiry_notifications)\n... started 15:05:31. Current memory use 8.8MB.\nProcessing self enrolment expiration notifications...\n...notification processing finished.\n... used 5 dbqueries\n... used 0.0036420822143555 seconds\nScheduled task complete: Self enrolment send expiry notifications task (enrol_self\\task\\send_expiry_notifications)\n	default	6394
+115	0	block_rss_client	block_rss_client\\task\\refreshfeeds	0	1635253531.9852000000	1635253532.0143000000	3	0	0	Execute scheduled task: Refresh RSS feeds task (block_rss_client\\task\\refreshfeeds)\n... started 15:05:31. Current memory use 8.3MB.\n\n0 feeds refreshed (took 0.001013 seconds)\n... used 3 dbqueries\n... used 0.027937173843384 seconds\nScheduled task complete: Refresh RSS feeds task (block_rss_client\\task\\refreshfeeds)\n	default	6394
+116	0	tool_cohortroles	tool_cohortroles\\task\\cohort_role_sync	0	1635253532.0326000000	1635253532.0384000000	2	1	0	Execute scheduled task: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n... started 15:05:32. Current memory use 8.4MB.\nSync cohort roles...\nAdded 0\nRemoved 0\n... used 3 dbqueries\n... used 0.0046031475067139 seconds\nScheduled task complete: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n	default	6394
+117	0	tool_messageinbound	tool_messageinbound\\task\\pickup_task	0	1635253532.0562000000	1635253532.0613000000	0	0	0	Execute scheduled task: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n... started 15:05:32. Current memory use 8.9MB.\nInbound Message not fully configured - exiting early.\n... used 0 dbqueries\n... used 0.0041890144348145 seconds\nScheduled task complete: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n	default	6394
+118	0	tool_monitor	tool_monitor\\task\\clean_events	0	1635253532.0792000000	1635253532.0801000000	0	0	0	Execute scheduled task: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n... started 15:05:32. Current memory use 9MB.\n... used 0 dbqueries\n... used 0.00013303756713867 seconds\nScheduled task complete: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n	default	6394
+119	0	tool_recyclebin	tool_recyclebin\\task\\cleanup_course_bin	0	1635253532.0984000000	1635253532.1021000000	3	0	0	Execute scheduled task: Cleanup course recycle bin (tool_recyclebin\\task\\cleanup_course_bin)\n... started 15:05:32. Current memory use 9MB.\n... used 3 dbqueries\n... used 0.0014960765838623 seconds\nScheduled task complete: Cleanup course recycle bin (tool_recyclebin\\task\\cleanup_course_bin)\n	default	6394
+120	0	tool_recyclebin	tool_recyclebin\\task\\cleanup_category_bin	0	1635253532.1191000000	1635253532.1231000000	3	0	0	Execute scheduled task: Cleanup category recycle bin (tool_recyclebin\\task\\cleanup_category_bin)\n... started 15:05:32. Current memory use 9MB.\n... used 3 dbqueries\n... used 0.0031561851501465 seconds\nScheduled task complete: Cleanup category recycle bin (tool_recyclebin\\task\\cleanup_category_bin)\n	default	6394
+121	0	assignfeedback_editpdf	assignfeedback_editpdf\\task\\convert_submissions	0	1635253532.1473000000	1635253532.1485000000	1	0	0	Execute scheduled task: Prepare submissions for annotation (assignfeedback_editpdf\\task\\convert_submissions)\n... started 15:05:32. Current memory use 9MB.\n... used 1 dbqueries\n... used 0.00042104721069336 seconds\nScheduled task complete: Prepare submissions for annotation (assignfeedback_editpdf\\task\\convert_submissions)\n	default	6394
+122	0	workshopallocation_scheduled	workshopallocation_scheduled\\task\\cron_task	0	1635253532.1700000000	1635253532.1719000000	1	0	0	Execute scheduled task: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n... started 15:05:32. Current memory use 9.1MB.\n... no workshops awaiting scheduled allocation. ... used 1 dbqueries\n... used 0.0012660026550293 seconds\nScheduled task complete: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n	default	6394
+123	0	mod_hvp	mod_hvp\\task\\remove_old_auth_tokens	0	1635253532.1900000000	1635253532.1934000000	0	1	0	Execute scheduled task: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n... started 15:05:32. Current memory use 9.1MB.\n... used 1 dbqueries\n... used 0.0025269985198975 seconds\nScheduled task complete: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n	default	6394
+124	0	local_agora	local_agora\\task\\scripts	0	1635253532.2081000000	1635253532.2332000000	0	0	0	Execute scheduled task: Àgora Scripts (local_agora\\task\\scripts)\n... started 15:05:32. Current memory use 9.2MB.\n... used 0 dbqueries\n... used 0.024100065231323 seconds\nScheduled task complete: Àgora Scripts (local_agora\\task\\scripts)\n	default	6394
+125	0	local_oauth	local_oauth\\task\\clean	0	1635253532.2499000000	1635253532.2623000000	0	3	0	Execute scheduled task: OAuth provider (local_oauth\\task\\clean)\n... started 15:05:32. Current memory use 9.3MB.\nDeleting expired tokens...\n... used 3 dbqueries\n... used 0.011496067047119 seconds\nScheduled task complete: OAuth provider (local_oauth\\task\\clean)\n	default	6394
+140	0	local_alexandria	local_alexandria\\task\\backup_courses_task	0	1635253676.6296000000	1635253676.6929000000	1	0	0	Execute scheduled task: Alexandria: Backups courses task (local_alexandria\\task\\backup_courses_task)\n... started 15:07:56. Current memory use 4.5MB.\nStarting Alexandria Backup Courses Task...\nEnding Alexandria Backup Courses Task...\n... used 1 dbqueries\n... used 0.06212306022644 seconds\nScheduled task complete: Alexandria: Backups courses task (local_alexandria\\task\\backup_courses_task)\n	default	7406
+141	0	mod_assign	mod_assign\\task\\cron_task	0	1635253676.7184000000	1635253676.7274000000	3	0	0	Execute scheduled task: Background processing for assignment module (mod_assign\\task\\cron_task)\n... started 15:07:56. Current memory use 6.9MB.\n... used 3 dbqueries\n... used 0.0079860687255859 seconds\nScheduled task complete: Background processing for assignment module (mod_assign\\task\\cron_task)\n	default	7406
+126	1		core\\task\\refresh_mod_calendar_events_task	0	1635253532.2794000000	1635253532.2991000000	52	0	0	Execute adhoc task: core\\task\\refresh_mod_calendar_events_task\n... started 15:05:32. Current memory use 9.4MB.\nRefreshing events for assign\nRefreshing events for assignment\nRefreshing events for book\nRefreshing events for chat\nRefreshing events for choice\nRefreshing events for choicegroup\nRefreshing events for data\nRefreshing events for feedback\nRefreshing events for folder\nRefreshing events for forum\nRefreshing events for geogebra\nRefreshing events for glossary\nRefreshing events for h5pactivity\nRefreshing events for hotpot\nRefreshing events for hvp\nRefreshing events for imscp\nRefreshing events for jclic\nRefreshing events for journal\nRefreshing events for label\nRefreshing events for lesson\nRefreshing events for lti\nRefreshing events for page\nRefreshing events for questionnaire\nRefreshing events for quiz\nRefreshing events for qv\nRefreshing events for rcontent\nRefreshing events for resource\nRefreshing events for scorm\nRefreshing events for survey\nRefreshing events for url\nRefreshing events for wiki\nRefreshing events for workshop\n... used 52 dbqueries\n... used 0.018787145614624 seconds\nAdhoc task complete: core\\task\\refresh_mod_calendar_events_task\n	default	6394
+127	1		core\\task\\build_installed_themes_task	0	1635253532.3037000000	1635253545.4371000000	5	3	0	Execute adhoc task: core\\task\\build_installed_themes_task\n... started 15:05:32. Current memory use 9.5MB.\n... used 8 dbqueries\n... used 13.132640838623 seconds\nAdhoc task complete: core\\task\\build_installed_themes_task\n	default	6394
+128	0	moodle	core\\task\\session_cleanup_task	0	1635253676.3012000000	1635253676.3110000000	18	1	0	Execute scheduled task: Cleanup old sessions (core\\task\\session_cleanup_task)\n... started 15:07:56. Current memory use 3MB.\n... used 19 dbqueries\n... used 0.0068721771240234 seconds\nScheduled task complete: Cleanup old sessions (core\\task\\session_cleanup_task)\n	default	7406
+129	0	moodle	core\\task\\send_new_user_passwords_task	0	1635253676.3321000000	1635253676.3344000000	1	0	0	Execute scheduled task: Send new user passwords (core\\task\\send_new_user_passwords_task)\n... started 15:07:56. Current memory use 3.5MB.\n... used 1 dbqueries\n... used 0.0011260509490967 seconds\nScheduled task complete: Send new user passwords (core\\task\\send_new_user_passwords_task)\n	default	7406
+130	0	moodle	core\\task\\send_failed_login_notifications_task	0	1635253676.3539000000	1635253676.3547000000	0	0	0	Execute scheduled task: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n... started 15:07:56. Current memory use 3.5MB.\n... used 0 dbqueries\n... used 8.702278137207E-5 seconds\nScheduled task complete: Send failed login notifications (core\\task\\send_failed_login_notifications_task)\n	default	7406
+131	0	moodle	core\\task\\legacy_plugin_cron_task	0	1635253676.3710000000	1635253676.4107000000	3	1	0	Execute scheduled task: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n... started 15:07:56. Current memory use 3.5MB.\nRunning auth crons if required...\nRunning enrol crons if required...\nStarting activity modules\nProcessing module function journal_cron ...\n... used 2 dbqueries\n... used 0.0011579990386963 seconds\ndone.\nFinished activity modules\nStarting blocks\nProcessing cron function for configurable_reports....done.\nFinished blocks\nStarting admin reports\nFinished admin reports\nStarting course reports\nFinished course reports\nStarting gradebook plugins\nFinished gradebook plugins\n... used 4 dbqueries\n... used 0.039042949676514 seconds\nScheduled task complete: Legacy cron processing for plugins (core\\task\\legacy_plugin_cron_task)\n	default	7406
+132	0	moodle	core\\task\\grade_cron_task	0	1635253676.4313000000	1635253676.4349000000	6	0	0	Execute scheduled task: Background processing for gradebook (core\\task\\grade_cron_task)\n... started 15:07:56. Current memory use 4.1MB.\n... used 6 dbqueries\n... used 0.0027561187744141 seconds\nScheduled task complete: Background processing for gradebook (core\\task\\grade_cron_task)\n	default	7406
+133	0	moodle	core\\task\\completion_regular_task	0	1635253676.4574000000	1635253676.4819000000	18	0	0	Execute scheduled task: Calculate regular completion data (core\\task\\completion_regular_task)\n... started 15:07:56. Current memory use 4.1MB.\n... used 18 dbqueries\n... used 0.023672819137573 seconds\nScheduled task complete: Calculate regular completion data (core\\task\\completion_regular_task)\n	default	7406
+134	0	moodle	core\\task\\portfolio_cron_task	0	1635253676.5014000000	1635253676.5022000000	0	0	0	Execute scheduled task: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n... started 15:07:56. Current memory use 4.1MB.\n... used 0 dbqueries\n... used 0.00010800361633301 seconds\nScheduled task complete: Background processing for portfolio plugins (core\\task\\portfolio_cron_task)\n	default	7406
+135	0	moodle	core\\task\\plagiarism_cron_task	0	1635253676.5199000000	1635253676.5207000000	0	0	0	Execute scheduled task: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n... started 15:07:56. Current memory use 4.2MB.\n... used 0 dbqueries\n... used 6.5088272094727E-5 seconds\nScheduled task complete: Background processing for legacy cron in plagiarism plugins (core\\task\\plagiarism_cron_task)\n	default	7406
+136	0	moodle	core\\task\\calendar_cron_task	0	1635253676.5378000000	1635253676.5414000000	1	0	0	Execute scheduled task: Send calendar notifications (core\\task\\calendar_cron_task)\n... started 15:07:56. Current memory use 4.2MB.\n... used 1 dbqueries\n... used 0.0028879642486572 seconds\nScheduled task complete: Send calendar notifications (core\\task\\calendar_cron_task)\n	default	7406
+137	0	moodle	core\\task\\blog_cron_task	0	1635253676.5603000000	1635253676.5625000000	1	1	0	Execute scheduled task: Sync external blogs (core\\task\\blog_cron_task)\n... started 15:07:56. Current memory use 4.3MB.\n... used 2 dbqueries\n... used 0.001453161239624 seconds\nScheduled task complete: Sync external blogs (core\\task\\blog_cron_task)\n	default	7406
+138	0	moodle	core\\task\\question_preview_cleanup_task	0	1635253676.5803000000	1635253676.5875000000	1	4	0	Execute scheduled task: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n... started 15:07:56. Current memory use 4.3MB.\n\n  Cleaning up old question previews...done.\n... used 5 dbqueries\n... used 0.006432056427002 seconds\nScheduled task complete: Background processing for cleaning up question previews (core\\task\\question_preview_cleanup_task)\n	default	7406
+139	0	moodle	core\\task\\question_stats_cleanup_task	0	1635253676.6074000000	1635253676.6095000000	1	3	0	Execute scheduled task: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n... started 15:07:56. Current memory use 4.5MB.\n\n  Cleaning up old question statistics cache records...done.\n... used 4 dbqueries\n... used 0.001453161239624 seconds\nScheduled task complete: Background processing for cleaning up question statistics caches (core\\task\\question_stats_cleanup_task)\n	default	7406
+143	0	mod_quiz	mod_quiz\\task\\update_overdue_attempts	0	1635253676.7684000000	1635253676.7741000000	3	0	0	Execute scheduled task: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n... started 15:07:56. Current memory use 7MB.\n  Looking for quiz overdue quiz attempts...\n  Considered 0 attempts in 0 quizzes.\n... used 3 dbqueries\n... used 0.0049130916595459 seconds\nScheduled task complete: Updating overdue quiz attempts (mod_quiz\\task\\update_overdue_attempts)\n	default	7406
+144	0	mod_quiz	mod_quiz\\task\\legacy_quiz_reports_cron	0	1635253676.7914000000	1635253676.7938000000	0	0	0	Execute scheduled task: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n... started 15:07:56. Current memory use 7MB.\n... used 0 dbqueries\n... used 0.0014569759368896 seconds\nScheduled task complete: Legacy cron quiz reports (mod_quiz\\task\\legacy_quiz_reports_cron)\n	default	7406
+145	0	mod_quiz	mod_quiz\\task\\legacy_quiz_accessrules_cron	0	1635253676.8172000000	1635253676.8188000000	0	0	0	Execute scheduled task: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n... started 15:07:56. Current memory use 7MB.\n... used 0 dbqueries\n... used 0.00090408325195312 seconds\nScheduled task complete: Legacy cron quiz access rules (mod_quiz\\task\\legacy_quiz_accessrules_cron)\n	default	7406
+146	0	mod_workshop	mod_workshop\\task\\cron_task	0	1635253676.8358000000	1635253676.8373000000	1	0	0	Execute scheduled task: Background processing for workshop module (mod_workshop\\task\\cron_task)\n... started 15:07:56. Current memory use 7MB.\n processing workshop subplugins ...\n... used 1 dbqueries\n... used 0.00076389312744141 seconds\nScheduled task complete: Background processing for workshop module (mod_workshop\\task\\cron_task)\n	default	7406
+147	0	mod_workshop	mod_workshop\\task\\legacy_workshop_allocation_cron	0	1635253676.8555000000	1635253676.8575000000	0	0	0	Execute scheduled task: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n... started 15:07:56. Current memory use 7.1MB.\n... used 0 dbqueries\n... used 0.0011770725250244 seconds\nScheduled task complete: Legacy cron workshop allocation (mod_workshop\\task\\legacy_workshop_allocation_cron)\n	default	7406
+148	0	tool_cohortroles	tool_cohortroles\\task\\cohort_role_sync	0	1635253676.8783000000	1635253676.8834000000	2	1	0	Execute scheduled task: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n... started 15:07:56. Current memory use 6.2MB.\nSync cohort roles...\nAdded 0\nRemoved 0\n... used 3 dbqueries\n... used 0.0044829845428467 seconds\nScheduled task complete: Sync cohort role assignments (tool_cohortroles\\task\\cohort_role_sync)\n	default	7406
+149	0	tool_messageinbound	tool_messageinbound\\task\\pickup_task	0	1635253676.9041000000	1635253676.9058000000	0	0	0	Execute scheduled task: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n... started 15:07:56. Current memory use 6.7MB.\nInbound Message not fully configured - exiting early.\n... used 0 dbqueries\n... used 0.00090312957763672 seconds\nScheduled task complete: Incoming email pickup (tool_messageinbound\\task\\pickup_task)\n	default	7406
+150	0	tool_monitor	tool_monitor\\task\\clean_events	0	1635253676.9237000000	1635253676.9245000000	0	0	0	Execute scheduled task: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n... started 15:07:56. Current memory use 6.7MB.\n... used 0 dbqueries\n... used 0.00011801719665527 seconds\nScheduled task complete: Cleanup event monitor events (tool_monitor\\task\\clean_events)\n	default	7406
+151	0	workshopallocation_scheduled	workshopallocation_scheduled\\task\\cron_task	0	1635253676.9419000000	1635253676.9435000000	1	0	0	Execute scheduled task: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n... started 15:07:56. Current memory use 6.8MB.\n... no workshops awaiting scheduled allocation. ... used 1 dbqueries\n... used 0.00076603889465332 seconds\nScheduled task complete: Background processing for scheduled allocation (workshopallocation_scheduled\\task\\cron_task)\n	default	7406
+152	0	mod_hvp	mod_hvp\\task\\remove_old_auth_tokens	0	1635253676.9651000000	1635253676.9673000000	0	1	0	Execute scheduled task: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n... started 15:07:56. Current memory use 6.8MB.\n... used 1 dbqueries\n... used 0.0011260509490967 seconds\nScheduled task complete: Remove old H5P mobile auth entries (mod_hvp\\task\\remove_old_auth_tokens)\n	default	7406
+153	0	local_agora	local_agora\\task\\scripts	0	1635253676.9853000000	1635253676.9906000000	0	0	0	Execute scheduled task: Àgora Scripts (local_agora\\task\\scripts)\n... started 15:07:56. Current memory use 6.8MB.\n... used 0 dbqueries\n... used 0.0045280456542969 seconds\nScheduled task complete: Àgora Scripts (local_agora\\task\\scripts)\n	default	7406
+154	0	local_oauth	local_oauth\\task\\clean	0	1635253677.0097000000	1635253677.0116000000	0	3	0	Execute scheduled task: OAuth provider (local_oauth\\task\\clean)\n... started 15:07:57. Current memory use 6.9MB.\nDeleting expired tokens...\n... used 3 dbqueries\n... used 0.0011529922485352 seconds\nScheduled task complete: OAuth provider (local_oauth\\task\\clean)\n	default	7406
 \.
 
 
@@ -37179,114 +39705,233 @@ COPY public.mdl_task_log (id, type, component, classname, userid, timestart, tim
 -- Data for Name: mdl_task_scheduled; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextruntime, blocking, minute, hour, day, month, dayofweek, faildelay, customised, disabled) FROM stdin;
-54	auth_db	\\auth_db\\task\\sync_users	0	1590591720	0	2	17	*	*	*	0	0	1
-57	auth_mnet	\\auth_mnet\\task\\cron_task	0	1590510000	0	*	*	*	*	*	0	0	0
-58	enrol_category	\\enrol_category\\task\\enrol_category_sync	0	1590510000	0	*	*	*	*	*	0	0	0
-60	enrol_database	\\enrol_database\\task\\sync_enrolments	0	1590512820	0	7	19	*	*	*	0	0	1
-61	enrol_flatfile	\\enrol_flatfile\\task\\flatfile_sync_task	0	1590513300	0	15	*	*	*	*	0	0	0
-62	enrol_imsenterprise	\\enrol_imsenterprise\\task\\cron_task	0	1590513000	0	10	*	*	*	*	0	0	0
-63	enrol_ldap	\\enrol_ldap\\task\\sync_enrolments	0	1590519960	0	6	21	*	*	*	0	0	1
-9	moodle	\\core\\task\\send_new_user_passwords_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-4	moodle	\\core\\task\\backup_cleanup_task	0	1604427000	0	10	*	*	*	*	0	0	0
-5	moodle	\\core\\task\\tag_cron_task	0	1604456280	0	18	3	*	*	*	0	0	0
-6	moodle	\\core\\task\\context_cleanup_task	0	1604427900	0	25	*	*	*	*	0	0	0
-7	moodle	\\core\\task\\cache_cleanup_task	0	1604428200	0	30	*	*	*	*	0	0	0
-8	moodle	\\core\\task\\messaging_cleanup_task	0	1604428500	0	35	*	*	*	*	0	0	0
-10	moodle	\\core\\task\\send_failed_login_notifications_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-12	moodle	\\core\\task\\legacy_plugin_cron_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-11	moodle	\\core\\task\\create_contexts_task	0	1604444400	1	0	0	*	*	*	0	0	0
-13	moodle	\\core\\task\\grade_cron_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-15	moodle	\\core\\task\\completion_regular_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-14	moodle	\\core\\task\\grade_history_cleanup_task	0	1604447340	0	*	0	*	*	*	0	0	0
-17	moodle	\\core\\task\\portfolio_cron_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-16	moodle	\\core\\task\\completion_daily_task	0	1604509620	0	7	18	*	*	*	0	0	0
-18	moodle	\\core\\task\\plagiarism_cron_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-19	moodle	\\core\\task\\calendar_cron_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-20	moodle	\\core\\task\\blog_cron_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-21	moodle	\\core\\task\\question_preview_cleanup_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-22	moodle	\\core\\task\\question_stats_cleanup_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-25	moodle	\\core\\task\\cache_cron_task	1604426898	1604429400	0	50	*	*	*	*	0	0	0
-23	moodle	\\core\\task\\registration_cron_task	0	1604632740	0	19	4	*	*	5	0	0	0
-24	moodle	\\core\\task\\check_for_updates_task	0	1604430000	0	0	*/2	*	*	*	0	0	0
-26	moodle	\\core\\task\\automated_backup_task	1604426898	1604429400	0	50	*	*	*	*	0	0	0
-27	moodle	\\core\\task\\badges_cron_task	1604426898	1604427000	0	*/5	*	*	*	*	0	0	0
-28	moodle	\\core\\task\\badges_message_task	1604426898	1604427000	0	*/5	*	*	*	*	0	0	0
-29	moodle	\\core\\task\\file_temp_cleanup_task	1604426898	1604447700	0	55	*/6	*	*	*	0	0	0
-30	moodle	\\core\\task\\file_trash_cleanup_task	1604426898	1604447700	0	55	*/6	*	*	*	0	0	0
-31	moodle	\\core\\task\\search_index_task	1604426898	1604428200	0	*/30	*	*	*	*	0	0	0
-36	moodle	\\core\\task\\sync_plans_from_template_cohorts_task	1604426898	1604430180	0	3	*	*	*	*	0	0	0
-32	moodle	\\core\\task\\search_optimize_task	0	1604445300	0	15	*/12	*	*	*	0	0	0
-33	moodle	\\core\\task\\stats_cron_task	0	1604444400	0	0	0	*	*	*	0	0	0
-35	moodle	\\core\\task\\complete_plans_task	0	1604427300	0	15	*	*	*	*	0	0	0
-42	qtype_random	\\qtype_random\\task\\remove_unused_questions	1604426898	1604427300	0	15	*	*	*	*	0	0	0
-37	moodle	\\core_files\\task\\conversion_cleanup_task	0	1604451900	0	5	2	*	*	*	0	0	0
-38	moodle	\\core\\oauth2\\refresh_system_tokens_task	0	1604428200	0	30	*	*	*	*	0	0	0
-39	moodle	\\core\\task\\analytics_cleanup_task	0	1604428920	0	42	*	*	*	*	0	0	0
-40	moodle	\\core\\task\\task_log_cleanup_task	0	1604466000	0	0	6	*	*	*	0	0	0
-41	moodle	\\core\\task\\h5p_get_content_types_task	0	1606853820	0	17	21	1	*	*	0	0	0
-46	mod_lti	\\mod_lti\\task\\clean_access_tokens	1604426898	1604506200	0	10	17	*	*	*	0	0	0
-53	auth_cas	\\auth_cas\\task\\sync_task	0	1604444400	0	0	0	*	*	*	0	0	1
-55	auth_ldap	\\auth_ldap\\task\\sync_roles	0	1604444400	0	0	0	*	*	*	0	0	1
-56	auth_ldap	\\auth_ldap\\task\\sync_task	0	1604444400	0	0	0	*	*	*	0	0	1
-3	moodle	\\core\\task\\delete_incomplete_users_task	1604426897	1604430300	0	5	*	*	*	*	0	0	0
-43	mod_assign	\\mod_assign\\task\\cron_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-44	mod_chat	\\mod_chat\\task\\cron_task	1604426898	1604427000	0	*/5	*	*	*	*	0	0	0
-45	mod_forum	\\mod_forum\\task\\cron_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-47	mod_quiz	\\mod_quiz\\task\\update_overdue_attempts	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-48	mod_quiz	\\mod_quiz\\task\\legacy_quiz_reports_cron	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-49	mod_quiz	\\mod_quiz\\task\\legacy_quiz_accessrules_cron	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-50	mod_scorm	\\mod_scorm\\task\\cron_task	1604426898	1604427000	0	*/5	*	*	*	*	0	0	0
-51	mod_workshop	\\mod_workshop\\task\\cron_task	1604426898	1604426940	0	*	*	*	*	*	0	0	0
-52	mod_workshop	\\mod_workshop\\task\\legacy_workshop_allocation_cron	1604426899	1604426940	0	*	*	*	*	*	0	0	0
-59	enrol_cohort	\\enrol_cohort\\task\\enrol_cohort_sync	1604426899	1604427660	0	21	*	*	*	*	0	0	0
-64	enrol_lti	\\enrol_lti\\task\\sync_grades	0	1590510600	0	*/30	*	*	*	*	0	0	0
-65	enrol_lti	\\enrol_lti\\task\\sync_members	0	1590510600	0	*/30	*	*	*	*	0	0	0
-68	enrol_meta	\\enrol_meta\\task\\enrol_meta_sync	0	1590512640	0	4	*	*	*	*	0	0	0
-69	enrol_paypal	\\enrol_paypal\\task\\process_expirations	0	1590510000	0	*	*	*	*	*	0	0	0
-76	repository_dropbox	\\repository_dropbox\\task\\cron_task	0	1590510000	0	*	*	*	*	*	0	0	0
-77	repository_filesystem	\\repository_filesystem\\task\\cron_task	0	1590510000	0	*	*	*	*	*	0	0	0
-78	repository_onedrive	\\repository_onedrive\\remove_temp_access_task	0	1590779040	0	4	21	*	*	5	0	0	0
-97	logstore_legacy	\\logstore_legacy\\task\\cleanup_task	0	1590549060	0	11	5	*	*	*	0	0	0
-106	local_bigdata	\\local_bigdata\\task\\export	0	1590539640	0	34	2	*	*	*	0	0	1
-34	moodle	\\core\\task\\password_reset_cleanup_task	0	1604444400	0	0	*/6	*	*	*	0	0	0
-99	mod_hvp	\\mod_hvp\\task\\look_for_updates	0	1604449080	0	18	1	*	*	*	0	0	0
-100	mod_hvp	\\mod_hvp\\task\\remove_tmpfiles	0	1604474160	0	16	8	*	*	*	0	0	0
-101	mod_hvp	\\mod_hvp\\task\\remove_old_log_entries	0	1604433900	0	5	21	*	*	*	0	0	0
-107	local_oauth	\\local_oauth\\task\\clean	1604426901	1604426940	0	*	*	*	*	*	0	0	0
-103	mod_questionnaire	\\mod_questionnaire\\task\\cleanup	0	1604445240	0	14	*/12	*	*	*	0	0	0
-82	tool_dataprivacy	\\tool_dataprivacy\\task\\expired_retention_period	0	1604480400	0	0	10	*	*	*	0	0	0
-83	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_contexts	0	1604466000	0	0	6	*	*	*	0	0	0
-84	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_requests	0	1604477100	0	5	9	*	*	*	0	0	0
-85	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_existing_deleted_users	0	1604502660	0	11	16	*	*	*	0	0	1
-104	local_agora	\\local_agora\\task\\adware	0	1604802300	0	25	3	*	*	0	0	0	0
-1	moodle	\\core\\task\\session_cleanup_task	1604426897	1604426940	0	*	*	*	*	*	0	0	0
-2	moodle	\\core\\task\\delete_unconfirmed_users_task	1604426897	1604430000	0	0	*	*	*	*	0	0	0
-66	enrol_manual	\\enrol_manual\\task\\sync_enrolments	1604426899	1604427000	0	*/10	*	*	*	*	0	0	0
-67	enrol_manual	\\enrol_manual\\task\\send_expiry_notifications	1604426899	1604427000	0	*/10	*	*	*	*	0	0	0
-70	enrol_self	\\enrol_self\\task\\sync_enrolments	1604426899	1604427000	0	*/10	*	*	*	*	0	0	0
-71	enrol_self	\\enrol_self\\task\\send_expiry_notifications	1604426899	1604427000	0	*/10	*	*	*	*	0	0	0
-72	message_email	\\message_email\\task\\send_email_task	1604426899	1604437200	0	0	22	*	*	*	0	0	0
-73	block_recent_activity	\\block_recent_activity\\task\\cleanup	1604426899	1604460000	0	20	4	*	*	*	0	0	0
-74	block_rss_client	\\block_rss_client\\task\\refreshfeeds	1604426899	1604427000	0	*/5	*	*	*	*	0	0	0
-75	editor_atto	\\editor_atto\\task\\autosave_cleanup_task	1604426899	1604588700	0	5	16	*	*	4	0	0	0
-79	tool_analytics	\\tool_analytics\\task\\train_models	1604426900	1604498400	0	0	15	*	*	*	0	0	0
-80	tool_analytics	\\tool_analytics\\task\\predict_models	1604426900	1604437200	0	0	22	*	*	*	0	0	0
-81	tool_cohortroles	\\tool_cohortroles\\task\\cohort_role_sync	1604426900	1604427660	0	21	*	*	*	*	0	0	0
-86	tool_langimport	\\tool_langimport\\task\\update_langpacks_task	1604426900	1604459700	0	15	4	*	*	*	0	0	0
-87	tool_messageinbound	\\tool_messageinbound\\task\\pickup_task	1604426900	1604426940	0	*	*	*	*	*	0	0	0
-88	tool_messageinbound	\\tool_messageinbound\\task\\cleanup_task	1604426900	1604451300	0	55	1	*	*	*	0	0	0
-89	tool_monitor	\\tool_monitor\\task\\clean_events	1604426900	1604426940	0	*	*	*	*	*	0	0	0
-90	tool_monitor	\\tool_monitor\\task\\check_subscriptions	1604426900	1604430300	0	5	20	*	*	*	0	0	0
-91	tool_recyclebin	\\tool_recyclebin\\task\\cleanup_course_bin	1604426900	1604428200	0	*/30	*	*	*	*	0	0	0
-92	tool_recyclebin	\\tool_recyclebin\\task\\cleanup_category_bin	1604426900	1604428200	0	*/30	*	*	*	*	0	0	0
-93	assignfeedback_editpdf	\\assignfeedback_editpdf\\task\\convert_submissions	1604426901	1604427300	0	*/15	*	*	*	*	0	0	0
-94	ltiservice_gradebookservices	\\ltiservice_gradebookservices\\task\\cleanup_task	1604426901	1604433840	0	4	21	*	*	*	0	0	0
-95	quiz_statistics	\\quiz_statistics\\task\\quiz_statistics_cleanup	1604426901	1604430720	0	12	*/5	*	*	*	0	0	0
-96	workshopallocation_scheduled	\\workshopallocation_scheduled\\task\\cron_task	1604426901	1604426940	0	*	*	*	*	*	0	0	0
-98	logstore_standard	\\logstore_standard\\task\\cleanup_task	1604426901	1604460120	0	22	4	*	*	*	0	0	0
-102	mod_hvp	\\mod_hvp\\task\\remove_old_auth_tokens	1604426901	1604430060	0	1	*	*	*	*	0	0	0
-105	local_agora	\\local_agora\\task\\scripts	1604426901	1604426940	0	*	*	*	*	*	0	0	0
+COPY public.mdl_task_scheduled (id, component, classname, lastruntime, nextruntime, blocking, minute, hour, day, month, dayofweek, faildelay, customised, disabled, timestarted, hostname, pid) FROM stdin;
+4	moodle	\\core\\task\\backup_cleanup_task	1635253529	1635253800	0	10	*	*	*	*	0	0	0	\N	\N	\N
+5	moodle	\\core\\task\\tag_cron_task	0	1635297120	0	12	3	*	*	*	0	0	0	\N	\N	\N
+7	moodle	\\core\\task\\cache_cleanup_task	1635253529	1635255000	0	30	*	*	*	*	0	0	0	\N	\N	\N
+8	moodle	\\core\\task\\messaging_cleanup_task	1635253529	1635255300	0	35	*	*	*	*	0	0	0	\N	\N	\N
+9	moodle	\\core\\task\\send_new_user_passwords_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+10	moodle	\\core\\task\\send_failed_login_notifications_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+11	moodle	\\core\\task\\create_contexts_task	0	1635285600	1	0	0	*	*	*	0	0	0	\N	\N	\N
+12	moodle	\\core\\task\\legacy_plugin_cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+13	moodle	\\core\\task\\grade_cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+14	moodle	\\core\\task\\grade_history_cleanup_task	0	1635288120	0	*	0	*	*	*	0	0	0	\N	\N	\N
+15	moodle	\\core\\task\\completion_regular_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+17	moodle	\\core\\task\\portfolio_cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+18	moodle	\\core\\task\\plagiarism_cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+19	moodle	\\core\\task\\calendar_cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+20	moodle	\\core\\task\\blog_cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+21	moodle	\\core\\task\\question_preview_cleanup_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+22	moodle	\\core\\task\\question_stats_cleanup_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+23	moodle	\\core\\task\\registration_cron_task	0	1635405000	0	10	9	*	*	4	0	0	0	\N	\N	\N
+24	moodle	\\core\\task\\check_for_updates_task	1635253529	1635256800	0	0	*/2	*	*	*	0	0	0	\N	\N	\N
+25	moodle	\\core\\task\\cache_cron_task	1635253530	1635256200	0	50	*	*	*	*	0	0	0	\N	\N	\N
+26	moodle	\\core\\task\\automated_backup_task	1635253530	1635256200	0	50	*	*	*	*	0	0	0	\N	\N	\N
+28	moodle	\\core\\task\\badges_message_task	1635253530	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+29	moodle	\\core\\task\\file_temp_cleanup_task	1635253531	1635267300	0	55	*/6	*	*	*	0	0	0	\N	\N	\N
+30	moodle	\\core\\task\\file_trash_cleanup_task	1635253531	1635267300	0	55	*/6	*	*	*	0	0	0	\N	\N	\N
+31	moodle	\\core\\task\\search_index_task	1635253531	1635255000	0	*/30	*	*	*	*	0	0	0	\N	\N	\N
+32	moodle	\\core\\task\\search_optimize_task	1635253529	1635286500	0	15	*/12	*	*	*	0	0	0	\N	\N	\N
+33	moodle	\\core\\task\\stats_cron_task	0	1635285600	0	0	0	*	*	*	0	0	0	\N	\N	\N
+35	moodle	\\core\\task\\complete_plans_task	1635253529	1635254100	0	15	*	*	*	*	0	0	0	\N	\N	\N
+36	moodle	\\core\\task\\sync_plans_from_template_cohorts_task	1635253531	1635254580	0	23	*	*	*	*	0	0	0	\N	\N	\N
+37	moodle	\\core_files\\task\\conversion_cleanup_task	0	1635293880	0	18	2	*	*	*	0	0	0	\N	\N	\N
+38	moodle	\\core\\oauth2\\refresh_system_tokens_task	1635253529	1635255000	0	30	*	*	*	*	0	0	0	\N	\N	\N
+40	moodle	\\core\\task\\task_log_cleanup_task	0	1635274800	0	0	21	*	*	*	0	0	0	\N	\N	\N
+41	moodle	\\core\\task\\h5p_get_content_types_task	0	1635732240	0	4	3	1	*	*	0	0	0	\N	\N	\N
+42	qtype_random	\\qtype_random\\task\\remove_unused_questions	1635253531	1635254280	0	18	*	*	*	*	0	0	0	\N	\N	\N
+43	mod_assign	\\mod_assign\\task\\cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+44	mod_chat	\\mod_chat\\task\\cron_task	1635253531	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+45	mod_forum	\\mod_forum\\task\\cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+46	mod_lti	\\mod_lti\\task\\clean_access_tokens	1604426898	1635271800	0	10	20	*	*	*	0	0	0	\N	\N	\N
+47	mod_quiz	\\mod_quiz\\task\\update_overdue_attempts	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+48	mod_quiz	\\mod_quiz\\task\\legacy_quiz_reports_cron	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+49	mod_quiz	\\mod_quiz\\task\\legacy_quiz_accessrules_cron	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+50	mod_scorm	\\mod_scorm\\task\\cron_task	1635253531	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+52	mod_workshop	\\mod_workshop\\task\\legacy_workshop_allocation_cron	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+53	auth_cas	\\auth_cas\\task\\sync_task	0	1635285600	0	0	0	*	*	*	0	0	1	\N	\N	\N
+54	auth_db	\\auth_db\\task\\sync_users	0	1635243000	0	10	12	*	*	*	0	0	1	\N	\N	\N
+55	auth_ldap	\\auth_ldap\\task\\sync_roles	0	1635285600	0	0	0	*	*	*	0	0	1	\N	\N	\N
+56	auth_ldap	\\auth_ldap\\task\\sync_task	0	1635285600	0	0	0	*	*	*	0	0	1	\N	\N	\N
+57	auth_mnet	\\auth_mnet\\task\\cron_task	0	1635241380	0	*	*	*	*	*	0	0	0	\N	\N	\N
+58	enrol_category	\\enrol_category\\task\\enrol_category_sync	0	1635241380	0	*	*	*	*	*	0	0	0	\N	\N	\N
+59	enrol_cohort	\\enrol_cohort\\task\\enrol_cohort_sync	1635253531	1635254460	0	21	*	*	*	*	0	0	0	\N	\N	\N
+60	enrol_database	\\enrol_database\\task\\sync_enrolments	0	1635296940	0	9	3	*	*	*	0	0	1	\N	\N	\N
+62	enrol_imsenterprise	\\enrol_imsenterprise\\task\\cron_task	0	1635243000	0	10	*	*	*	*	0	0	0	\N	\N	\N
+63	enrol_ldap	\\enrol_ldap\\task\\sync_enrolments	0	1635254460	0	21	15	*	*	*	0	0	1	\N	\N	\N
+64	enrol_lti	\\enrol_lti\\task\\sync_grades	0	1635242400	0	*/30	*	*	*	*	0	0	0	\N	\N	\N
+65	enrol_lti	\\enrol_lti\\task\\sync_members	0	1635242400	0	*/30	*	*	*	*	0	0	0	\N	\N	\N
+68	enrol_meta	\\enrol_meta\\task\\enrol_meta_sync	0	1635242580	0	3	*	*	*	*	0	0	0	\N	\N	\N
+106	local_bigdata	\\local_bigdata\\task\\export	0	1590539640	0	34	2	*	*	*	0	0	1	\N	\N	\N
+1	moodle	\\core\\task\\session_cleanup_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+2	moodle	\\core\\task\\delete_unconfirmed_users_task	1635253530	1635256800	0	0	*	*	*	*	0	0	0	\N	\N	\N
+16	moodle	\\core\\task\\completion_daily_task	0	1635289560	0	6	1	*	*	*	0	0	0	\N	\N	\N
+34	moodle	\\core\\task\\password_reset_cleanup_task	1635253529	1635264000	0	0	*/6	*	*	*	0	0	0	\N	\N	\N
+108	moodle	\\core\\task\\h5p_clean_orphaned_records_task	0	1635286380	0	13	0	*	*	*	0	0	0	\N	\N	\N
+109	moodle	\\core\\task\\antivirus_cleanup_task	0	1635285960	0	6	0	*	*	*	0	0	0	\N	\N	\N
+99	mod_hvp	\\mod_hvp\\task\\look_for_updates	0	1635315420	0	17	8	*	*	*	0	0	0	\N	\N	\N
+100	mod_hvp	\\mod_hvp\\task\\remove_tmpfiles	0	1635290280	0	18	1	*	*	*	0	0	0	\N	\N	\N
+101	mod_hvp	\\mod_hvp\\task\\remove_old_log_entries	0	1635318360	0	6	9	*	*	*	0	0	0	\N	\N	\N
+102	mod_hvp	\\mod_hvp\\task\\remove_old_auth_tokens	1635253676	1635257160	0	6	*	*	*	*	0	0	0	\N	\N	\N
+103	mod_questionnaire	\\mod_questionnaire\\task\\cleanup	1635253530	1635285960	0	6	*/12	*	*	*	0	0	0	\N	\N	\N
+61	enrol_flatfile	\\enrol_flatfile\\task\\flatfile_sync_task	0	1635243300	0	15	*	*	*	*	0	0	0	\N	\N	\N
+66	enrol_manual	\\enrol_manual\\task\\sync_enrolments	1635253531	1635253800	0	*/10	*	*	*	*	0	0	0	\N	\N	\N
+67	enrol_manual	\\enrol_manual\\task\\send_expiry_notifications	1635253531	1635253800	0	*/10	*	*	*	*	0	0	0	\N	\N	\N
+69	enrol_paypal	\\enrol_paypal\\task\\process_expirations	0	1635241380	0	*	*	*	*	*	0	0	0	\N	\N	\N
+70	enrol_self	\\enrol_self\\task\\sync_enrolments	1635253531	1635253800	0	*/10	*	*	*	*	0	0	0	\N	\N	\N
+71	enrol_self	\\enrol_self\\task\\send_expiry_notifications	1635253531	1635253800	0	*/10	*	*	*	*	0	0	0	\N	\N	\N
+72	message_email	\\message_email\\task\\send_email_task	1604426899	1635278400	0	0	22	*	*	*	0	0	0	\N	\N	\N
+73	block_recent_activity	\\block_recent_activity\\task\\cleanup	1604426899	1635267960	0	6	19	*	*	*	0	0	0	\N	\N	\N
+74	block_rss_client	\\block_rss_client\\task\\refreshfeeds	1635253532	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+75	editor_atto	\\editor_atto\\task\\autosave_cleanup_task	1604426899	1635480600	0	10	6	*	*	5	0	0	0	\N	\N	\N
+76	repository_dropbox	\\repository_dropbox\\task\\cron_task	0	1635241440	0	*	*	*	*	*	0	0	0	\N	\N	\N
+77	repository_filesystem	\\repository_filesystem\\task\\cron_task	0	1635241440	0	*	*	*	*	*	0	0	0	\N	\N	\N
+78	repository_onedrive	\\repository_onedrive\\remove_temp_access_task	0	1635797400	0	10	21	*	*	1	0	0	0	\N	\N	\N
+79	tool_analytics	\\tool_analytics\\task\\train_models	1604426900	1635303600	0	0	5	*	*	*	0	0	0	\N	\N	\N
+80	tool_analytics	\\tool_analytics\\task\\predict_models	1604426900	1635318000	0	0	9	*	*	*	0	0	0	\N	\N	\N
+82	tool_dataprivacy	\\tool_dataprivacy\\task\\expired_retention_period	0	1635307200	0	0	6	*	*	*	0	0	0	\N	\N	\N
+83	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_contexts	0	1635325200	0	0	11	*	*	*	0	0	0	\N	\N	\N
+84	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_expired_requests	0	1635257400	0	10	16	*	*	*	0	0	0	\N	\N	\N
+85	tool_dataprivacy	\\tool_dataprivacy\\task\\delete_existing_deleted_users	0	1635268260	0	11	19	*	*	*	0	0	1	\N	\N	\N
+86	tool_langimport	\\tool_langimport\\task\\update_langpacks_task	1604426900	1635300780	0	13	4	*	*	*	0	0	0	\N	\N	\N
+88	tool_messageinbound	\\tool_messageinbound\\task\\cleanup_task	1604426900	1635292500	0	55	1	*	*	*	0	0	0	\N	\N	\N
+89	tool_monitor	\\tool_monitor\\task\\clean_events	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+90	tool_monitor	\\tool_monitor\\task\\check_subscriptions	1604426900	1635290280	0	18	1	*	*	*	0	0	0	\N	\N	\N
+91	tool_recyclebin	\\tool_recyclebin\\task\\cleanup_course_bin	1635253532	1635255000	0	*/30	*	*	*	*	0	0	0	\N	\N	\N
+92	tool_recyclebin	\\tool_recyclebin\\task\\cleanup_category_bin	1635253532	1635255000	0	*/30	*	*	*	*	0	0	0	\N	\N	\N
+94	ltiservice_gradebookservices	\\ltiservice_gradebookservices\\task\\cleanup_task	1604426901	1635283200	0	20	23	*	*	*	0	0	0	\N	\N	\N
+95	quiz_statistics	\\quiz_statistics\\task\\quiz_statistics_cleanup	1604426901	1635253920	0	12	*/5	*	*	*	0	0	0	\N	\N	\N
+96	workshopallocation_scheduled	\\workshopallocation_scheduled\\task\\cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+97	logstore_legacy	\\logstore_legacy\\task\\cleanup_task	0	1635304320	0	12	5	*	*	*	0	0	0	\N	\N	\N
+98	logstore_standard	\\logstore_standard\\task\\cleanup_task	1604426901	1635300300	0	5	4	*	*	*	0	0	0	\N	\N	\N
+105	local_agora	\\local_agora\\task\\scripts	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+6	moodle	\\core\\task\\context_cleanup_task	1635253529	1635254700	0	25	*	*	*	*	0	0	0	\N	\N	\N
+39	moodle	\\core\\task\\analytics_cleanup_task	1635253530	1635255720	0	42	*	*	*	*	0	0	0	\N	\N	\N
+104	local_agora	\\local_agora\\task\\adware	1635253530	1635647100	0	25	3	*	*	0	0	0	0	\N	\N	\N
+110	tool_brickfield	\\tool_brickfield\\task\\bulk_process_courses	1635253530	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+111	tool_brickfield	\\tool_brickfield\\task\\bulk_process_caches	1635253530	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+3	moodle	\\core\\task\\delete_incomplete_users_task	1635253530	1635257100	0	5	*	*	*	*	0	0	0	\N	\N	\N
+27	moodle	\\core\\task\\badges_cron_task	1635253530	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+51	mod_workshop	\\mod_workshop\\task\\cron_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+107	local_oauth	\\local_oauth\\task\\clean	1635253677	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+112	tool_brickfield	\\tool_brickfield\\task\\checkid_validation	0	1635318300	0	05	9	*	*	*	0	0	0	\N	\N	\N
+113	tool_brickfield	\\tool_brickfield\\task\\update_summarydata	0	1635288600	0	50	0	*	*	*	0	0	0	\N	\N	\N
+114	tool_brickfield	\\tool_brickfield\\task\\process_analysis_requests	1635253530	1635253800	0	*/5	*	*	*	*	0	0	0	\N	\N	\N
+93	assignfeedback_editpdf	\\assignfeedback_editpdf\\task\\convert_submissions	1635253532	1635254100	0	*/15	*	*	*	*	0	0	0	\N	\N	\N
+115	local_alexandria	\\local_alexandria\\task\\backup_courses_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+81	tool_cohortroles	\\tool_cohortroles\\task\\cohort_role_sync	1635253676	1635257220	0	7	*	*	*	*	0	0	0	\N	\N	\N
+87	tool_messageinbound	\\tool_messageinbound\\task\\pickup_task	1635253676	1635253680	0	*	*	*	*	*	0	0	0	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_areas; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_areas (id, type, contextid, component, tablename, fieldorarea, itemid, filename, reftable, refid, cmid, courseid, categoryid) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_cache_acts; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_cache_acts (id, courseid, status, component, totalactivities, failedactivities, passedactivities, errorcount) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_cache_check; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_cache_check (id, courseid, status, checkid, checkcount, errorcount) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_checks; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_checks (id, checktype, shortname, checkgroup, status, severity) FROM stdin;
+1	full	a_links_dont_open_new_window	4	1	1
+2	full	a_must_contain_text	4	1	1
+3	full	area_dont_open_new_window	4	1	1
+4	full	area_has_alt_value	4	1	1
+5	full	a_suspicious_link_text	4	1	1
+6	full	basefont_is_not_used	7	1	1
+7	full	blink_is_not_used	7	1	1
+8	full	bold_is_not_used	7	1	1
+9	full	content_too_long	7	1	1
+10	full	css_text_has_contrast	7	1	1
+11	full	embed_has_associated_no_embed	7	1	1
+12	full	header_h3	3	1	1
+13	full	headers_have_text	3	1	1
+14	full	i_is_not_used	7	1	1
+15	full	img_alt_is_different	2	1	1
+16	full	img_alt_is_too_long	2	1	1
+17	full	img_alt_not_empty_in_anchor	2	1	1
+18	full	img_alt_not_place_holder	2	1	1
+19	full	img_has_alt	2	1	1
+20	full	img_with_map_has_use_map	2	1	1
+21	full	legend_text_not_empty	7	1	1
+22	full	marquee_is_not_used	7	1	1
+23	full	no_headings	3	1	1
+24	full	object_must_have_embed	5	1	1
+25	full	object_must_have_title	5	1	1
+26	full	object_must_have_valid_title	5	1	1
+27	full	strike_is_not_used	7	1	1
+28	full	table_data_should_have_th	6	1	1
+29	full	table_summary_does_not_duplicate_caption	6	1	1
+30	full	table_td_should_not_merge	6	1	1
+31	full	table_th_should_have_scope	6	1	1
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_content; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_content (id, areaid, contenthash, iscurrent, status, timecreated, timechecked) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_errors; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_errors (id, resultid, linenumber, errordata, htmlcode) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_process; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_process (id, courseid, item, contextid, innercontextid, timecreated, timecompleted) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_results; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_results (id, contentid, checkid, errorcount) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_schedule; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_schedule (id, contextlevel, instanceid, contextid, status, timeanalyzed, timemodified) FROM stdin;
+\.
+
+
+--
+-- Data for Name: mdl_tool_brickfield_summary; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY public.mdl_tool_brickfield_summary (id, courseid, status, activities, activitiespassed, activitiesfailed, errorschecktype1, errorschecktype2, errorschecktype3, errorschecktype4, errorschecktype5, errorschecktype6, errorschecktype7, failedchecktype1, failedchecktype2, failedchecktype3, failedchecktype4, failedchecktype5, failedchecktype6, failedchecktype7, percentchecktype1, percentchecktype2, percentchecktype3, percentchecktype4, percentchecktype5, percentchecktype6, percentchecktype7) FROM stdin;
 \.
 
 
@@ -37366,7 +40011,7 @@ COPY public.mdl_tool_dataprivacy_purposerole (id, purposeid, roleid, lawfulbases
 -- Data for Name: mdl_tool_dataprivacy_request; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_tool_dataprivacy_request (id, type, comments, commentsformat, userid, requestedby, status, dpo, dpocomment, dpocommentformat, usermodified, timecreated, timemodified, creationmethod) FROM stdin;
+COPY public.mdl_tool_dataprivacy_request (id, type, comments, commentsformat, userid, requestedby, status, dpo, dpocomment, dpocommentformat, usermodified, timecreated, timemodified, creationmethod, systemapproved) FROM stdin;
 \.
 
 
@@ -37439,6 +40084,10 @@ COPY public.mdl_tool_recyclebin_category (id, categoryid, shortname, fullname, t
 --
 
 COPY public.mdl_tool_recyclebin_course (id, courseid, section, module, name, timecreated) FROM stdin;
+1	1	1	6	Biblioteca de cursos Moodle	1635252477
+2	1	2	6	Biblioteca de materials per a les PDI	1635252605
+3	1	2	6	Biblioteca de materials SCORM	1635252612
+4	1	2	6	Biblioteca de cursos Moodle	1635252620
 \.
 
 
@@ -37461,6 +40110,10 @@ COPY public.mdl_tool_usertours_steps (id, tourid, title, content, targettype, ta
 11	2	tour3_title_starring,tool_usertours	tour3_content_starring,tool_usertours	0	.block-myoverview [data-display="cards"] [data-region="course-content"] .coursemenubtn	4	{"placement":"right"}
 12	2	tour3_title_starring,tool_usertours	tour3_content_starring,tool_usertours	0	.block-myoverview [data-display]:not([data-display="cards"]) [data-region="course-content"] .coursemenubtn	5	{}
 13	2	tour3_title_displayoptions,tool_usertours	tour3_content_displayoptions,tool_usertours	0	#sortingdropdown	6	{"placement":"top"}
+15	3	tour_activityinfo_course_teacher_title,tool_usertours	tour_activityinfo_course_teacher_content,tool_usertours	0	[data-region=activity-information]	0	{}
+16	4	tour_activityinfo_course_student_title,tool_usertours	tour_activityinfo_course_student_content,tool_usertours	0	[data-region=activity-information]	0	{}
+17	5	tour_activityinfo_activity_teacher_title,tool_usertours	tour_activityinfo_activity_teacher_content,tool_usertours	0	[data-region=activity-information]	0	{}
+18	6	tour_activityinfo_activity_student_title,tool_usertours	tour_activityinfo_activity_student_content,tool_usertours	0	[data-region=activity-information]	0	{}
 \.
 
 
@@ -37469,8 +40122,12 @@ COPY public.mdl_tool_usertours_steps (id, tourid, title, content, targettype, ta
 --
 
 COPY public.mdl_tool_usertours_tours (id, name, description, pathmatch, enabled, sortorder, configdata) FROM stdin;
-1	New Messaging System	New messaging interface in Moodle 3.6	/course/view.php%	1	1	{"placement":"bottom","orphan":"0","backdrop":"0","reflex":"0","filtervalues":{"category":[],"course":["0"],"courseformat":[],"role":[],"theme":[]},"majorupdatetime":1543468823,"shipped_tour":true,"shipped_filename":"36_messaging.json","shipped_version":3}
-2	Dashboard	New dashboard features	/my/%	1	0	{"placement":"top","orphan":"0","backdrop":"0","reflex":"0","filtervalues":{"category":[],"course":["0"],"courseformat":[],"role":[],"theme":[]},"majorupdatetime":1543396938,"shipped_tour":true,"shipped_filename":"36_dashboard.json","shipped_version":3}
+5	Activity information in activity page (Teacher)	A tour of the activity information for Teacher display on the activity page	/mod/%/view.php%	1	1	{"placement":"bottom","orphan":"0","backdrop":"1","reflex":"0","filtervalues":{"accessdate":{"filter_accessdate":"tool_usertours_accountcreation","filter_accessdate_range":0,"filter_accessdate_enabled":"0"},"category":[],"course":[],"courseformat":[],"role":["manager","teacher","editingteacher"],"theme":[],"cssselector":["[data-region=activity-information]"]},"majorupdatetime":1620110287,"shipped_tour":true,"shipped_filename":"311_activity_information_activity_page_teacher.json","shipped_version":2}
+6	Activity information in activity page (Student)	A tour of the activity information for Student display on the activity page	/mod/%/view.php%	1	0	{"placement":"bottom","orphan":"0","backdrop":"1","reflex":"0","filtervalues":{"accessdate":{"filter_accessdate":"tool_usertours_accountcreation","filter_accessdate_range":0,"filter_accessdate_enabled":"0"},"category":[],"course":[],"courseformat":[],"role":["student"],"theme":[],"cssselector":["[data-region=activity-information]"]},"majorupdatetime":1620110287,"shipped_tour":true,"shipped_filename":"311_activity_information_activity_page_student.json","shipped_version":2}
+2	Dashboard	New dashboard features	/my/%	0	4	{"placement":"top","orphan":"0","backdrop":"0","reflex":"0","filtervalues":{"category":[],"course":["0"],"courseformat":[],"role":[],"theme":[]},"majorupdatetime":1543396938,"shipped_tour":true,"shipped_filename":"36_dashboard.json","shipped_version":3}
+3	Activity information in course homepage (Teacher)	A tour of the activity information for Teacher display on the course homepage	/course/view.php%	1	3	{"placement":"bottom","orphan":"0","backdrop":"1","reflex":"0","filtervalues":{"accessdate":{"filter_accessdate":"tool_usertours_accountcreation","filter_accessdate_range":0,"filter_accessdate_enabled":"0"},"category":[],"course":[],"courseformat":[],"role":["manager","teacher","editingteacher"],"theme":[],"cssselector":["[data-region=activity-information]"]},"majorupdatetime":1620109487,"shipped_tour":true,"shipped_filename":"311_activity_information_course_page_teacher.json","shipped_version":2}
+1	New Messaging System	New messaging interface in Moodle 3.6	/course/view.php%	0	5	{"placement":"bottom","orphan":"0","backdrop":"0","reflex":"0","filtervalues":{"category":[],"course":["0"],"courseformat":[],"role":[],"theme":[]},"majorupdatetime":1543468823,"shipped_tour":true,"shipped_filename":"36_messaging.json","shipped_version":3}
+4	Activity information in course homepage (Student)	A tour of the activity information for Student display on the course homepage	/course/view.php%	1	2	{"placement":"bottom","orphan":"0","backdrop":"1","reflex":"0","filtervalues":{"accessdate":{"filter_accessdate":"tool_usertours_accountcreation","filter_accessdate_range":0,"filter_accessdate_enabled":"0"},"category":[],"course":[],"courseformat":[],"role":["student"],"theme":[],"cssselector":["[data-region=activity-information]"]},"majorupdatetime":1620109487,"shipped_tour":true,"shipped_filename":"311_activity_information_course_page_student.json","shipped_version":2}
 \.
 
 
@@ -38943,6 +41600,1437 @@ COPY public.mdl_upgrade_log (id, type, plugin, version, targetversion, info, det
 1462	0	atto_wiris	2020022400	2020090300	Starting plugin upgrade	\N		2	1604425711
 1463	0	atto_wiris	2020090300	2020090300	Upgrade savepoint reached	\N		2	1604425711
 1464	0	atto_wiris	2020090300	2020090300	Plugin upgraded	\N		2	1604425711
+1465	0	core	2019111805	2021051703.03	Starting core upgrade	\N		0	1635241286
+1466	0	core	2019120500.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1467	0	core	2019121800	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1468	0	core	2019122000.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1469	0	core	2020010900.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1470	0	core	2020011700.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1471	0	core	2020013000.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1472	0	core	2020040200.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1473	0	core	2020040700	2021051703.03	Upgrade savepoint reached	\N		0	1635241286
+1474	0	core	2020041500	2021051703.03	Upgrade savepoint reached	\N		0	1635241287
+1475	0	core	2020041700.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241287
+1476	0	core	2020042800.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241287
+1477	0	core	2020051900.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241287
+1478	0	core	2020052000	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1479	0	core	2020052200.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1480	0	core	2020060500.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1481	0	core	2020061500.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1482	0	core	2020062600.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1483	0	core	2020071100.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1484	0	core	2020072300.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1485	0	core	2020081400.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241288
+1486	0	core	2020081400.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241289
+1487	0	core	2020082200.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241289
+1488	0	core	2020082200.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241289
+1489	0	core	2020082200.03	2021051703.03	Upgrade savepoint reached	\N		0	1635241289
+1490	0	core	2020091000.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241289
+1491	0	core	2020091800.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241289
+1492	0	core	2020100200.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1493	0	core	2020100700	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1494	0	core	2020101300.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1495	0	core	2020101600.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1496	0	core	2020101600.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1497	0	core	2020102100.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1498	0	core	2020102100.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1499	0	core	2020102300.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1500	0	core	2020102300.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241290
+1501	0	core	2020102700.04	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1502	0	core	2020111500.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1503	0	core	2021013100	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1504	0	core	2021021100.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1505	0	core	2021021600	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1506	0	core	2021022600.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1507	0	core	2021030500.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1508	0	core	2021031200.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1509	0	core	2021033100	2021051703.03	Upgrade savepoint reached	\N		0	1635241291
+1510	0	core	2021033100.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1511	0	core	2021041300.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1512	0	core	2021042100	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1513	0	core	2021042100.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1514	0	core	2021042100.02	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1515	0	core	2021042400	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1516	0	core	2021043000.01	2021051703.03	Upgrade savepoint reached	\N		0	1635241292
+1517	0	core	2021051700.03	2021051703.03	Upgrade savepoint reached	\N		0	1635241293
+1518	0	core	2021051700.05	2021051703.03	Upgrade savepoint reached	\N		0	1635241293
+1519	0	core	2021051703.03	2021051703.03	Upgrade savepoint reached	\N		0	1635241293
+1520	0	core	2021051703.03	2021051703.03	Core upgraded	\N		0	1635241301
+1521	0	antivirus_clamav	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241301
+1522	0	antivirus_clamav	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241301
+1523	0	antivirus_clamav	2021051700	2021051700	Plugin upgraded	\N		0	1635241302
+1524	0	availability_completion	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241302
+1525	0	availability_completion	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241302
+1526	0	availability_completion	2021051700	2021051700	Plugin upgraded	\N		0	1635241302
+1527	0	availability_date	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241302
+1528	0	availability_date	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241302
+1529	0	availability_date	2021051700	2021051700	Plugin upgraded	\N		0	1635241302
+1530	0	availability_grade	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241302
+1531	0	availability_grade	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241302
+1532	0	availability_grade	2021051700	2021051700	Plugin upgraded	\N		0	1635241303
+1533	0	availability_group	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241303
+1534	0	availability_group	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241303
+1535	0	availability_group	2021051700	2021051700	Plugin upgraded	\N		0	1635241303
+1536	0	availability_grouping	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241303
+1537	0	availability_grouping	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241303
+1538	0	availability_grouping	2021051700	2021051700	Plugin upgraded	\N		0	1635241303
+1539	0	availability_profile	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241303
+1540	0	availability_profile	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241303
+1541	0	availability_profile	2021051700	2021051700	Plugin upgraded	\N		0	1635241304
+1542	0	qtype_calculated	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241304
+1543	0	qtype_calculated	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241304
+1544	0	qtype_calculated	2021051700	2021051700	Plugin upgraded	\N		0	1635241304
+1545	0	qtype_calculatedmulti	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241304
+1546	0	qtype_calculatedmulti	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241304
+1547	0	qtype_calculatedmulti	2021051700	2021051700	Plugin upgraded	\N		0	1635241304
+1548	0	qtype_calculatedsimple	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241304
+1549	0	qtype_calculatedsimple	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241304
+1550	0	qtype_calculatedsimple	2021051700	2021051700	Plugin upgraded	\N		0	1635241305
+1551	0	qtype_ddimageortext	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241305
+1552	0	qtype_ddimageortext	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241305
+1553	0	qtype_ddimageortext	2021051700	2021051700	Plugin upgraded	\N		0	1635241305
+1554	0	qtype_ddmarker	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241305
+1555	0	qtype_ddmarker	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241305
+1556	0	qtype_ddmarker	2021051700	2021051700	Plugin upgraded	\N		0	1635241305
+1557	0	qtype_ddwtos	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241305
+1558	0	qtype_ddwtos	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241305
+1559	0	qtype_ddwtos	2021051700	2021051700	Plugin upgraded	\N		0	1635241306
+1560	0	qtype_description	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241306
+1561	0	qtype_description	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241306
+1562	0	qtype_description	2021051700	2021051700	Plugin upgraded	\N		0	1635241306
+1563	0	qtype_essay	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241306
+1564	0	qtype_essay	2020091600	2021051700	Upgrade savepoint reached	\N		0	1635241306
+1565	0	qtype_essay	2021011100	2021051700	Upgrade savepoint reached	\N		0	1635241306
+1566	0	qtype_essay	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241306
+1567	0	qtype_essay	2021051700	2021051700	Plugin upgraded	\N		0	1635241307
+1568	0	qtype_essaywiris	2020061600	2021091300	Starting plugin upgrade	\N		0	1635241307
+1569	0	qtype_essaywiris	2021091300	2021091300	Upgrade savepoint reached	\N		0	1635241307
+1570	0	qtype_essaywiris	2021091300	2021091300	Plugin upgraded	\N		0	1635241307
+1571	0	qtype_gapselect	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241307
+1572	0	qtype_gapselect	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241307
+1573	0	qtype_gapselect	2021051700	2021051700	Plugin upgraded	\N		0	1635241307
+1574	0	qtype_match	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241307
+1575	0	qtype_match	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241307
+1576	0	qtype_match	2021051700	2021051700	Plugin upgraded	\N		0	1635241308
+1577	0	qtype_matchwiris	2020061600	2021091300	Starting plugin upgrade	\N		0	1635241308
+1578	0	qtype_matchwiris	2021091300	2021091300	Upgrade savepoint reached	\N		0	1635241308
+1579	0	qtype_matchwiris	2021091300	2021091300	Plugin upgraded	\N		0	1635241308
+1580	0	qtype_missingtype	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241308
+1581	0	qtype_missingtype	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241308
+1582	0	qtype_missingtype	2021051700	2021051700	Plugin upgraded	\N		0	1635241308
+1583	0	qtype_multianswer	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241308
+1584	0	qtype_multianswer	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241308
+1585	0	qtype_multianswer	2021051700	2021051700	Plugin upgraded	\N		0	1635241309
+1586	0	qtype_multianswerwiris	2020061600	2021091300	Starting plugin upgrade	\N		0	1635241309
+1587	0	qtype_multianswerwiris	2021091300	2021091300	Upgrade savepoint reached	\N		0	1635241309
+1588	0	qtype_multianswerwiris	2021091300	2021091300	Plugin upgraded	\N		0	1635241309
+1589	0	qtype_multichoice	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241309
+1590	0	qtype_multichoice	2020041600	2021051700	Upgrade savepoint reached	\N		0	1635241309
+1591	0	qtype_multichoice	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241309
+1592	0	qtype_multichoice	2021051700	2021051700	Plugin upgraded	\N		0	1635241310
+1593	0	qtype_multichoicewiris	2020061600	2021091300	Starting plugin upgrade	\N		0	1635241310
+1594	0	qtype_multichoicewiris	2021091300	2021091300	Upgrade savepoint reached	\N		0	1635241310
+1595	0	qtype_multichoicewiris	2021091300	2021091300	Plugin upgraded	\N		0	1635241310
+1596	0	qtype_numerical	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241310
+1597	0	qtype_numerical	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241310
+1598	0	qtype_numerical	2021051700	2021051700	Plugin upgraded	\N		0	1635241311
+1599	0	qtype_ordering	2019121400	2021091404	Starting plugin upgrade	\N		0	1635241311
+1600	0	qtype_ordering	2021091404	2021091404	Upgrade savepoint reached	\N		0	1635241311
+1601	0	qtype_ordering	2021091404	2021091404	Plugin upgraded	\N		0	1635241311
+1602	0	qtype_random	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241311
+1603	0	qtype_random	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241311
+1604	0	qtype_random	2021051700	2021051700	Plugin upgraded	\N		0	1635241312
+1605	0	qtype_randomsamatch	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241312
+1606	0	qtype_randomsamatch	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241312
+1607	0	qtype_randomsamatch	2021051700	2021051700	Plugin upgraded	\N		0	1635241312
+1608	0	qtype_shortanswer	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241312
+1609	0	qtype_shortanswer	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241312
+1610	0	qtype_shortanswer	2021051700	2021051700	Plugin upgraded	\N		0	1635241313
+1611	0	qtype_shortanswerwiris	2020061600	2021091300	Starting plugin upgrade	\N		0	1635241313
+1612	0	qtype_shortanswerwiris	2021091300	2021091300	Upgrade savepoint reached	\N		0	1635241313
+1613	0	qtype_shortanswerwiris	2021091300	2021091300	Plugin upgraded	\N		0	1635241314
+1614	0	qtype_truefalse	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241314
+1615	0	qtype_truefalse	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241314
+1616	0	qtype_truefalse	2021051700	2021051700	Plugin upgraded	\N		0	1635241314
+1617	0	qtype_truefalsewiris	2020061600	2021091500	Starting plugin upgrade	\N		0	1635241314
+1618	0	qtype_truefalsewiris	2021091500	2021091500	Upgrade savepoint reached	\N		0	1635241314
+1619	0	qtype_truefalsewiris	2021091500	2021091500	Plugin upgraded	\N		0	1635241315
+1620	0	qtype_wq	2020061600	2021092800	Starting plugin upgrade	\N		0	1635241315
+1621	0	qtype_wq	2021092800	2021092800	Upgrade savepoint reached	\N		0	1635241315
+1622	0	qtype_wq	2021092800	2021092800	Plugin upgraded	\N		0	1635241315
+1623	0	mod_assign	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241315
+1624	0	mod_assign	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241315
+1625	0	mod_assign	2021051700	2021051700	Plugin upgraded	\N		0	1635241316
+1626	0	mod_assignment	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241316
+1627	0	mod_assignment	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241316
+1628	0	mod_assignment	2021051700	2021051700	Plugin upgraded	\N		0	1635241316
+1629	0	mod_book	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241316
+1630	0	mod_book	2020100100	2021051700	Upgrade savepoint reached	\N		0	1635241317
+1631	0	mod_book	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241317
+1632	0	mod_book	2021051700	2021051700	Plugin upgraded	\N		0	1635241317
+1633	0	mod_chat	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241317
+1634	0	mod_chat	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241317
+1635	0	mod_chat	2021051700	2021051700	Plugin upgraded	\N		0	1635241318
+1636	0	mod_choice	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241318
+1637	0	mod_choice	2020061600	2021051700	Upgrade savepoint reached	\N		0	1635241318
+1638	0	mod_choice	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241318
+1639	0	mod_choice	2021051700	2021051700	Plugin upgraded	\N		0	1635241319
+1640	0	mod_choicegroup	2020070100	2021083100	Starting plugin upgrade	\N		0	1635241319
+1641	0	mod_choicegroup	2021071400	2021083100	Upgrade savepoint reached	\N		0	1635241319
+1642	0	mod_choicegroup	2021080500	2021083100	Upgrade savepoint reached	\N		0	1635241319
+1643	0	mod_choicegroup	2021083100	2021083100	Upgrade savepoint reached	\N		0	1635241320
+1644	0	mod_choicegroup	2021083100	2021083100	Plugin upgraded	\N		0	1635241320
+1645	0	mod_data	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241320
+1646	0	mod_data	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241320
+1647	0	mod_data	2021051700	2021051700	Plugin upgraded	\N		0	1635241321
+1648	0	mod_feedback	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241321
+1649	0	mod_feedback	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241321
+1650	0	mod_feedback	2021051700	2021051700	Plugin upgraded	\N		0	1635241321
+1651	0	mod_folder	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241321
+1652	0	mod_folder	2020061501	2021051700	Upgrade savepoint reached	\N		0	1635241321
+1653	0	mod_folder	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241321
+1654	0	mod_folder	2021051700	2021051700	Plugin upgraded	\N		0	1635241322
+1655	0	mod_forum	2019111802	2021051700	Starting plugin upgrade	\N		0	1635241322
+1656	0	mod_forum	2020072100	2021051700	Upgrade savepoint reached	\N		0	1635241322
+1657	0	mod_forum	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241322
+1658	0	mod_forum	2021051700	2021051700	Plugin upgraded	\N		0	1635241322
+1659	0	mod_geogebra	2020090800	2021060900	Starting plugin upgrade	\N		0	1635241322
+1660	0	mod_geogebra	2021060900	2021060900	Upgrade savepoint reached	\N		0	1635241322
+1661	0	mod_geogebra	2021060900	2021060900	Plugin upgraded	\N		0	1635241322
+1662	0	mod_glossary	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241322
+1663	0	mod_glossary	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241322
+1664	0	mod_glossary	2021051700	2021051700	Plugin upgraded	\N		0	1635241323
+1665	0	mod_h5pactivity	\N	2021051700	Starting plugin installation	\N		0	1635241323
+1666	0	mod_h5pactivity	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241323
+1667	0	mod_h5pactivity	2021051700	2021051700	Plugin installed	\N		0	1635241326
+1668	0	mod_hotpot	2020060544	2021091446	Starting plugin upgrade	\N		0	1635241326
+1669	0	mod_hotpot	2021091446	2021091446	Upgrade savepoint reached	\N		0	1635241326
+1670	0	mod_hotpot	2021091446	2021091446	Plugin upgraded	\N		0	1635241326
+1671	0	mod_hvp	2020080400	2021061100	Starting plugin upgrade	\N		0	1635241326
+1672	0	mod_hvp	2020080401	2021061100	Upgrade savepoint reached	\N		0	1635241326
+1673	0	mod_hvp	2020082800	2021061100	Upgrade savepoint reached	\N		0	1635241327
+1674	0	mod_hvp	2020091500	2021061100	Upgrade savepoint reached	\N		0	1635241327
+1675	0	mod_hvp	2020112600	2021061100	Upgrade savepoint reached	\N		0	1635241327
+1676	0	mod_hvp	2021061100	2021061100	Upgrade savepoint reached	\N		0	1635241327
+1677	0	mod_hvp	2021061100	2021061100	Plugin upgraded	\N		0	1635241328
+1678	0	mod_imscp	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241328
+1679	0	mod_imscp	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241328
+1680	0	mod_imscp	2021051700	2021051700	Plugin upgraded	\N		0	1635241328
+1681	0	mod_jclic	2020072400	2021060100	Starting plugin upgrade	\N		0	1635241328
+1682	0	mod_jclic	2020110400	2021060100	Upgrade savepoint reached	\N		0	1635241328
+1683	0	mod_jclic	2021060100	2021060100	Upgrade savepoint reached	\N		0	1635241328
+1684	0	mod_jclic	2021060100	2021060100	Plugin upgraded	\N		0	1635241329
+1685	0	mod_label	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241329
+1686	0	mod_label	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241329
+1687	0	mod_label	2021051700	2021051700	Plugin upgraded	\N		0	1635241329
+1688	0	mod_lesson	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241329
+1689	0	mod_lesson	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241329
+1690	0	mod_lesson	2021051700	2021051700	Plugin upgraded	\N		0	1635241329
+1691	0	mod_lti	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241329
+1692	0	mod_lti	2020061501	2021051700	Upgrade savepoint reached	\N		0	1635241330
+1693	0	mod_lti	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241330
+1694	0	mod_lti	2021051700	2021051700	Plugin upgraded	\N		0	1635241331
+1695	0	mod_page	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241331
+1696	0	mod_page	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241331
+1697	0	mod_page	2021051700	2021051700	Plugin upgraded	\N		0	1635241331
+1698	0	mod_questionnaire	2020011508	2020111101	Starting plugin upgrade	\N		0	1635241331
+1699	0	mod_questionnaire	2020062301	2020111101	Upgrade savepoint reached	\N		0	1635241331
+1700	0	mod_questionnaire	2020111101	2020111101	Upgrade savepoint reached	\N		0	1635241331
+1701	0	mod_questionnaire	2020111101	2020111101	Plugin upgraded	\N		0	1635241332
+1702	0	mod_quiz	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241332
+1703	0	mod_quiz	2020061501	2021051700	Upgrade savepoint reached	\N		0	1635241332
+1704	0	mod_quiz	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241332
+1705	0	mod_quiz	2021051700	2021051700	Plugin upgraded	\N		0	1635241333
+1706	0	mod_resource	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241333
+1707	0	mod_resource	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241333
+1708	0	mod_resource	2021051700	2021051700	Plugin upgraded	\N		0	1635241333
+1709	0	mod_scorm	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241333
+1710	0	mod_scorm	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241333
+1711	0	mod_scorm	2021051700	2021051700	Plugin upgraded	\N		0	1635241333
+1712	0	mod_survey	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241333
+1713	0	mod_survey	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241334
+1714	0	mod_survey	2021051700	2021051700	Plugin upgraded	\N		0	1635241334
+1715	0	mod_url	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241334
+1716	0	mod_url	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241334
+1717	0	mod_url	2021051700	2021051700	Plugin upgraded	\N		0	1635241334
+1718	0	mod_wiki	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241334
+1719	0	mod_wiki	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241334
+1720	0	mod_wiki	2021051700	2021051700	Plugin upgraded	\N		0	1635241334
+1721	0	mod_workshop	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241334
+1722	0	mod_workshop	2020110901	2021051700	Upgrade savepoint reached	\N		0	1635241335
+1723	0	mod_workshop	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241335
+1724	0	mod_workshop	2021051700	2021051700	Plugin upgraded	\N		0	1635241335
+1725	0	auth_cas	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241335
+1726	0	auth_cas	2020081700	2021051700	Upgrade savepoint reached	\N		0	1635241335
+1727	0	auth_cas	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241335
+1728	0	auth_cas	2021051700	2021051700	Plugin upgraded	\N		0	1635241335
+1729	0	auth_db	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241335
+1730	0	auth_db	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241335
+1731	0	auth_db	2021051700	2021051700	Plugin upgraded	\N		0	1635241336
+1732	0	auth_email	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241336
+1733	0	auth_email	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241336
+1734	0	auth_email	2021051700	2021051700	Plugin upgraded	\N		0	1635241336
+1735	0	auth_ldap	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241336
+1736	0	auth_ldap	2020081700	2021051700	Upgrade savepoint reached	\N		0	1635241336
+1737	0	auth_ldap	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241336
+1738	0	auth_ldap	2021051700	2021051700	Plugin upgraded	\N		0	1635241336
+1739	0	auth_lti	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241336
+1740	0	auth_lti	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241336
+1741	0	auth_lti	2021051700	2021051700	Plugin upgraded	\N		0	1635241337
+1742	0	auth_manual	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241337
+1743	0	auth_manual	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241337
+1744	0	auth_manual	2021051700	2021051700	Plugin upgraded	\N		0	1635241337
+1745	0	auth_mnet	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241337
+1746	0	auth_mnet	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241337
+1747	0	auth_mnet	2021051700	2021051700	Plugin upgraded	\N		0	1635241337
+1748	0	auth_nologin	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241337
+1749	0	auth_nologin	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241337
+1750	0	auth_nologin	2021051700	2021051700	Plugin upgraded	\N		0	1635241338
+1751	0	auth_none	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241338
+1752	0	auth_none	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241338
+1753	0	auth_none	2021051700	2021051700	Plugin upgraded	\N		0	1635241338
+1754	0	auth_oauth2	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241338
+1755	0	auth_oauth2	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241338
+1756	0	auth_oauth2	2021051700	2021051700	Plugin upgraded	\N		0	1635241338
+1757	0	auth_shibboleth	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241338
+1758	0	auth_shibboleth	2020110901	2021051700	Upgrade savepoint reached	\N		0	1635241338
+1759	0	auth_shibboleth	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241338
+1760	0	auth_shibboleth	2021051700	2021051700	Plugin upgraded	\N		0	1635241339
+1761	0	auth_webservice	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241339
+1762	0	auth_webservice	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241339
+1763	0	auth_webservice	2021051700	2021051700	Plugin upgraded	\N		0	1635241339
+1764	0	calendartype_gregorian	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241339
+1765	0	calendartype_gregorian	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241339
+1766	0	calendartype_gregorian	2021051700	2021051700	Plugin upgraded	\N		0	1635241339
+1767	0	customfield_checkbox	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241339
+1768	0	customfield_checkbox	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241339
+1769	0	customfield_checkbox	2021051700	2021051700	Plugin upgraded	\N		0	1635241340
+1770	0	customfield_date	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241340
+1771	0	customfield_date	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241340
+1772	0	customfield_date	2021051700	2021051700	Plugin upgraded	\N		0	1635241340
+1773	0	customfield_select	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241340
+1774	0	customfield_select	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241340
+1775	0	customfield_select	2021051700	2021051700	Plugin upgraded	\N		0	1635241340
+1776	0	customfield_text	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241340
+1777	0	customfield_text	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241340
+1778	0	customfield_text	2021051700	2021051700	Plugin upgraded	\N		0	1635241341
+1779	0	customfield_textarea	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241341
+1780	0	customfield_textarea	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241341
+1781	0	customfield_textarea	2021051700	2021051700	Plugin upgraded	\N		0	1635241341
+1782	0	enrol_category	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241341
+1783	0	enrol_category	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241341
+1784	0	enrol_category	2021051700	2021051700	Plugin upgraded	\N		0	1635241341
+1785	0	enrol_cohort	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241341
+1786	0	enrol_cohort	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241341
+1787	0	enrol_cohort	2021051700	2021051700	Plugin upgraded	\N		0	1635241342
+1788	0	enrol_database	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241342
+1789	0	enrol_database	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241342
+1790	0	enrol_database	2021051700	2021051700	Plugin upgraded	\N		0	1635241342
+1791	0	enrol_fee	\N	2021051700	Starting plugin installation	\N		0	1635241342
+1792	0	enrol_fee	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241342
+1793	0	enrol_fee	2021051700	2021051700	Plugin installed	\N		0	1635241343
+1794	0	enrol_flatfile	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241343
+1795	0	enrol_flatfile	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241343
+1796	0	enrol_flatfile	2021051700	2021051700	Plugin upgraded	\N		0	1635241344
+1797	0	enrol_guest	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241344
+1798	0	enrol_guest	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241344
+1799	0	enrol_guest	2021051700	2021051700	Plugin upgraded	\N		0	1635241344
+1800	0	enrol_imsenterprise	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241344
+1801	0	enrol_imsenterprise	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241344
+1802	0	enrol_imsenterprise	2021051700	2021051700	Plugin upgraded	\N		0	1635241344
+1803	0	enrol_ldap	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241344
+1804	0	enrol_ldap	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241344
+1805	0	enrol_ldap	2021051700	2021051700	Plugin upgraded	\N		0	1635241345
+1806	0	enrol_lti	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241345
+1807	0	enrol_lti	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241345
+1808	0	enrol_lti	2021051700	2021051700	Plugin upgraded	\N		0	1635241345
+1809	0	enrol_manual	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241345
+1810	0	enrol_manual	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241345
+1811	0	enrol_manual	2021051700	2021051700	Plugin upgraded	\N		0	1635241346
+1812	0	enrol_meta	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241346
+1813	0	enrol_meta	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241346
+1814	0	enrol_meta	2021051700	2021051700	Plugin upgraded	\N		0	1635241346
+1815	0	enrol_mnet	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241346
+1816	0	enrol_mnet	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241346
+1817	0	enrol_mnet	2021051700	2021051700	Plugin upgraded	\N		0	1635241346
+1818	0	enrol_paypal	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241346
+1819	0	enrol_paypal	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241346
+1820	0	enrol_paypal	2021051700	2021051700	Plugin upgraded	\N		0	1635241347
+1821	0	enrol_self	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241347
+1822	0	enrol_self	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241347
+1823	0	enrol_self	2021051700	2021051700	Plugin upgraded	\N		0	1635241347
+1824	0	message_airnotifier	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241347
+1825	0	message_airnotifier	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241347
+1826	0	message_airnotifier	2021051700	2021051700	Plugin upgraded	\N		0	1635241348
+1827	0	message_email	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241348
+1828	0	message_email	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241348
+1829	0	message_email	2021051700	2021051700	Plugin upgraded	\N		0	1635241348
+1830	0	message_jabber	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241348
+1831	0	message_jabber	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241348
+1832	0	message_jabber	2021051700	2021051700	Plugin upgraded	\N		0	1635241348
+1833	0	message_popup	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241348
+1834	0	message_popup	2020020600	2021051700	Upgrade savepoint reached	\N		0	1635241348
+1835	0	message_popup	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241348
+1836	0	message_popup	2021051700	2021051700	Plugin upgraded	\N		0	1635241349
+1837	0	block_accessreview	\N	2021051700	Starting plugin installation	\N		0	1635241349
+1838	0	block_accessreview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241349
+1839	0	block_accessreview	2021051700	2021051700	Plugin installed	\N		0	1635241350
+1840	0	block_activity_modules	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241350
+1841	0	block_activity_modules	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241350
+1842	0	block_activity_modules	2021051700	2021051700	Plugin upgraded	\N		0	1635241350
+1843	0	block_activity_results	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241350
+1844	0	block_activity_results	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241350
+1845	0	block_activity_results	2021051700	2021051700	Plugin upgraded	\N		0	1635241351
+1846	0	block_admin_bookmarks	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241351
+1847	0	block_admin_bookmarks	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241351
+1848	0	block_admin_bookmarks	2021051700	2021051700	Plugin upgraded	\N		0	1635241351
+1849	0	block_badges	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241351
+1850	0	block_badges	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241351
+1851	0	block_badges	2021051700	2021051700	Plugin upgraded	\N		0	1635241351
+1852	0	block_blog_menu	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241351
+1853	0	block_blog_menu	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241351
+1854	0	block_blog_menu	2021051700	2021051700	Plugin upgraded	\N		0	1635241352
+1855	0	block_blog_recent	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241352
+1856	0	block_blog_recent	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241352
+1857	0	block_blog_recent	2021051700	2021051700	Plugin upgraded	\N		0	1635241352
+1858	0	block_blog_tags	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241352
+1859	0	block_blog_tags	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241352
+1860	0	block_blog_tags	2021051700	2021051700	Plugin upgraded	\N		0	1635241352
+1861	0	block_calendar_month	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241352
+1862	0	block_calendar_month	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241352
+1863	0	block_calendar_month	2021051700	2021051700	Plugin upgraded	\N		0	1635241353
+1864	0	block_calendar_upcoming	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241353
+1865	0	block_calendar_upcoming	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241353
+1866	0	block_calendar_upcoming	2021051700	2021051700	Plugin upgraded	\N		0	1635241353
+1867	0	block_comments	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241353
+1868	0	block_comments	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241353
+1869	0	block_comments	2021051700	2021051700	Plugin upgraded	\N		0	1635241353
+1870	0	block_completion_progress	2020081000	2021070900	Starting plugin upgrade	\N		0	1635241353
+1871	0	block_completion_progress	2021070900	2021070900	Upgrade savepoint reached	\N		0	1635241353
+1872	0	block_completion_progress	2021070900	2021070900	Plugin upgraded	\N		0	1635241354
+1873	0	block_completionstatus	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241354
+1874	0	block_completionstatus	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241354
+1875	0	block_completionstatus	2021051700	2021051700	Plugin upgraded	\N		0	1635241354
+1876	0	block_configurable_reports	\N	2020110300	Starting plugin installation	\N		0	1635241354
+1877	0	block_configurable_reports	2020110300	2020110300	Upgrade savepoint reached	\N		0	1635241354
+1878	0	block_configurable_reports	2020110300	2020110300	Plugin installed	\N		0	1635241356
+1879	0	block_course_list	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241356
+1880	0	block_course_list	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241356
+1881	0	block_course_list	2021051700	2021051700	Plugin upgraded	\N		0	1635241357
+1882	0	block_course_summary	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241357
+1883	0	block_course_summary	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241357
+1884	0	block_course_summary	2021051700	2021051700	Plugin upgraded	\N		0	1635241357
+1885	0	block_courses_vicensvives	2020090800	2021072700	Starting plugin upgrade	\N		0	1635241357
+1886	0	block_courses_vicensvives	2021072700	2021072700	Upgrade savepoint reached	\N		0	1635241357
+1887	0	block_courses_vicensvives	2021072700	2021072700	Plugin upgraded	\N		0	1635241357
+1888	0	block_feedback	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241357
+1889	0	block_feedback	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241357
+1890	0	block_feedback	2021051700	2021051700	Plugin upgraded	\N		0	1635241358
+1891	0	block_globalsearch	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241358
+1892	0	block_globalsearch	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241358
+1893	0	block_globalsearch	2021051700	2021051700	Plugin upgraded	\N		0	1635241358
+1894	0	block_glossary_random	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241358
+1895	0	block_glossary_random	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241358
+1896	0	block_glossary_random	2021051700	2021051700	Plugin upgraded	\N		0	1635241358
+1897	0	block_html	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241358
+1898	0	block_html	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241358
+1899	0	block_html	2021051700	2021051700	Plugin upgraded	\N		0	1635241359
+1900	0	block_licenses_vicensvives	2020090800	2021072700	Starting plugin upgrade	\N		0	1635241359
+1901	0	block_licenses_vicensvives	2021072700	2021072700	Upgrade savepoint reached	\N		0	1635241359
+1902	0	block_licenses_vicensvives	2021072700	2021072700	Plugin upgraded	\N		0	1635241359
+1903	0	block_login	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241359
+1904	0	block_login	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241359
+1905	0	block_login	2021051700	2021051700	Plugin upgraded	\N		0	1635241359
+1906	0	block_lp	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241359
+1907	0	block_lp	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241359
+1908	0	block_lp	2021051700	2021051700	Plugin upgraded	\N		0	1635241360
+1909	0	block_mentees	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241360
+1910	0	block_mentees	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241360
+1911	0	block_mentees	2021051700	2021051700	Plugin upgraded	\N		0	1635241360
+1912	0	block_mnet_hosts	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241360
+1913	0	block_mnet_hosts	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241360
+1914	0	block_mnet_hosts	2021051700	2021051700	Plugin upgraded	\N		0	1635241360
+1915	0	block_myoverview	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241360
+1916	0	block_myoverview	2019111801	2021051700	Upgrade savepoint reached	\N		0	1635241361
+1917	0	block_myoverview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241361
+1918	0	block_myoverview	2021051700	2021051700	Plugin upgraded	\N		0	1635241361
+1919	0	block_myprofile	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241361
+1920	0	block_myprofile	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241361
+1921	0	block_myprofile	2021051700	2021051700	Plugin upgraded	\N		0	1635241361
+1922	0	block_navigation	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241361
+1923	0	block_navigation	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241361
+1924	0	block_navigation	2021051700	2021051700	Plugin upgraded	\N		0	1635241361
+1925	0	block_news_items	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241361
+1926	0	block_news_items	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241361
+1927	0	block_news_items	2021051700	2021051700	Plugin upgraded	\N		0	1635241362
+1928	0	block_online_users	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241362
+1929	0	block_online_users	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241362
+1930	0	block_online_users	2021051700	2021051700	Plugin upgraded	\N		0	1635241362
+1931	0	block_private_files	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241362
+1932	0	block_private_files	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241362
+1933	0	block_private_files	2021051700	2021051700	Plugin upgraded	\N		0	1635241362
+1934	0	block_quiz_results	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241363
+1935	0	block_quiz_results	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241363
+1936	0	block_quiz_results	2021051700	2021051700	Plugin upgraded	\N		0	1635241363
+1937	0	block_recent_activity	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241363
+1938	0	block_recent_activity	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241363
+1939	0	block_recent_activity	2021051700	2021051700	Plugin upgraded	\N		0	1635241363
+1940	0	block_recentlyaccessedcourses	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241363
+1941	0	block_recentlyaccessedcourses	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241363
+1942	0	block_recentlyaccessedcourses	2021051700	2021051700	Plugin upgraded	\N		0	1635241363
+1943	0	block_recentlyaccesseditems	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241363
+1944	0	block_recentlyaccesseditems	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241363
+1945	0	block_recentlyaccesseditems	2021051700	2021051700	Plugin upgraded	\N		0	1635241364
+1946	0	block_rss_client	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241364
+1947	0	block_rss_client	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241364
+1948	0	block_rss_client	2021051700	2021051700	Plugin upgraded	\N		0	1635241364
+1949	0	block_search_forums	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241364
+1950	0	block_search_forums	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241364
+1951	0	block_search_forums	2021051700	2021051700	Plugin upgraded	\N		0	1635241364
+1952	0	block_section_links	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241364
+1953	0	block_section_links	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241364
+1954	0	block_section_links	2021051700	2021051700	Plugin upgraded	\N		0	1635241365
+1955	0	block_selfcompletion	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241365
+1956	0	block_selfcompletion	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241365
+1957	0	block_selfcompletion	2021051700	2021051700	Plugin upgraded	\N		0	1635241365
+1958	0	block_settings	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241365
+1959	0	block_settings	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241365
+1960	0	block_settings	2021051700	2021051700	Plugin upgraded	\N		0	1635241365
+1961	0	block_site_main_menu	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241365
+1962	0	block_site_main_menu	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241365
+1963	0	block_site_main_menu	2021051700	2021051700	Plugin upgraded	\N		0	1635241366
+1964	0	block_social_activities	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241366
+1965	0	block_social_activities	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241366
+1966	0	block_social_activities	2021051700	2021051700	Plugin upgraded	\N		0	1635241366
+1967	0	block_starredcourses	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241366
+1968	0	block_starredcourses	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241366
+1969	0	block_starredcourses	2021051700	2021051700	Plugin upgraded	\N		0	1635241366
+1970	0	block_tag_flickr	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241366
+1971	0	block_tag_flickr	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241366
+1972	0	block_tag_flickr	2021051700	2021051700	Plugin upgraded	\N		0	1635241367
+1973	0	block_tag_youtube	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241367
+1974	0	block_tag_youtube	2020110901	2021051700	Upgrade savepoint reached	\N		0	1635241367
+1975	0	block_tag_youtube	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241367
+1976	0	block_tag_youtube	2021051700	2021051700	Plugin upgraded	\N		0	1635241367
+1977	0	block_tags	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241367
+1978	0	block_tags	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241367
+1979	0	block_tags	2021051700	2021051700	Plugin upgraded	\N		0	1635241367
+1980	0	block_timeline	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241367
+1981	0	block_timeline	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241367
+1982	0	block_timeline	2021051700	2021051700	Plugin upgraded	\N		0	1635241368
+1983	0	media_html5audio	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241368
+1984	0	media_html5audio	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241368
+1985	0	media_html5audio	2021051700	2021051700	Plugin upgraded	\N		0	1635241368
+1986	0	media_html5video	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241368
+1987	0	media_html5video	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241368
+1988	0	media_html5video	2021051700	2021051700	Plugin upgraded	\N		0	1635241368
+1989	0	media_swf	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241368
+1990	0	media_swf	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241368
+1991	0	media_swf	2021051700	2021051700	Plugin upgraded	\N		0	1635241369
+1992	0	media_videojs	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241369
+1993	0	media_videojs	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241369
+1994	0	media_videojs	2021051700	2021051700	Plugin upgraded	\N		0	1635241369
+1995	0	media_vimeo	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241369
+1996	0	media_vimeo	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241369
+1997	0	media_vimeo	2021051700	2021051700	Plugin upgraded	\N		0	1635241369
+1998	0	media_youtube	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241369
+1999	0	media_youtube	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241369
+2000	0	media_youtube	2021051700	2021051700	Plugin upgraded	\N		0	1635241370
+2001	0	filter_activitynames	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241370
+2002	0	filter_activitynames	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241370
+2003	0	filter_activitynames	2021051700	2021051700	Plugin upgraded	\N		0	1635241370
+2004	0	filter_algebra	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241370
+2005	0	filter_algebra	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241370
+2006	0	filter_algebra	2021051700	2021051700	Plugin upgraded	\N		0	1635241370
+2007	0	filter_censor	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241370
+2008	0	filter_censor	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241370
+2009	0	filter_censor	2021051700	2021051700	Plugin upgraded	\N		0	1635241371
+2010	0	filter_data	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241371
+2011	0	filter_data	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241371
+2012	0	filter_data	2021051700	2021051700	Plugin upgraded	\N		0	1635241371
+2013	0	filter_displayh5p	2020031700	2021051700	Starting plugin upgrade	\N		0	1635241371
+2014	0	filter_displayh5p	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241371
+2015	0	filter_displayh5p	2021051700	2021051700	Plugin upgraded	\N		0	1635241371
+2016	0	filter_emailprotect	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241371
+2017	0	filter_emailprotect	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241371
+2018	0	filter_emailprotect	2021051700	2021051700	Plugin upgraded	\N		0	1635241372
+2019	0	filter_emoticon	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241372
+2020	0	filter_emoticon	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241372
+2021	0	filter_emoticon	2021051700	2021051700	Plugin upgraded	\N		0	1635241372
+2022	0	filter_glossary	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241372
+2023	0	filter_glossary	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241372
+2024	0	filter_glossary	2021051700	2021051700	Plugin upgraded	\N		0	1635241372
+2025	0	filter_mathjaxloader	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241372
+2026	0	filter_mathjaxloader	2020050401	2021051700	Upgrade savepoint reached	\N		0	1635241372
+2027	0	filter_mathjaxloader	2021012000	2021051700	Upgrade savepoint reached	\N		0	1635241372
+2028	0	filter_mathjaxloader	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241372
+2029	0	filter_mathjaxloader	2021051700	2021051700	Plugin upgraded	\N		0	1635241373
+2030	0	filter_mediaplugin	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241373
+2031	0	filter_mediaplugin	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241373
+2032	0	filter_mediaplugin	2021051700	2021051700	Plugin upgraded	\N		0	1635241373
+2033	0	filter_multilang	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241373
+2034	0	filter_multilang	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241373
+2035	0	filter_multilang	2021051700	2021051700	Plugin upgraded	\N		0	1635241373
+2036	0	filter_tex	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241373
+2037	0	filter_tex	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241373
+2038	0	filter_tex	2021051700	2021051700	Plugin upgraded	\N		0	1635241374
+2039	0	filter_tidy	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241374
+2040	0	filter_tidy	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241374
+2041	0	filter_tidy	2021051700	2021051700	Plugin upgraded	\N		0	1635241374
+2042	0	filter_urltolink	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241374
+2043	0	filter_urltolink	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241374
+2044	0	filter_urltolink	2021051700	2021051700	Plugin upgraded	\N		0	1635241374
+2045	0	filter_wiris	2020090300	2021072200	Starting plugin upgrade	\N		0	1635241374
+2046	0	filter_wiris	2021072200	2021072200	Upgrade savepoint reached	\N		0	1635241374
+2047	0	filter_wiris	2021072200	2021072200	Plugin upgraded	\N		0	1635241374
+2048	0	editor_atto	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241374
+2049	0	editor_atto	2020052100	2021051700	Upgrade savepoint reached	\N		0	1635241374
+2050	0	editor_atto	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241375
+2051	0	editor_atto	2021051700	2021051700	Plugin upgraded	\N		0	1635241375
+2052	0	editor_textarea	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241375
+2053	0	editor_textarea	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241375
+2054	0	editor_textarea	2021051700	2021051700	Plugin upgraded	\N		0	1635241375
+2055	0	editor_tinymce	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241375
+2056	0	editor_tinymce	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241375
+2057	0	editor_tinymce	2021051700	2021051700	Plugin upgraded	\N		0	1635241375
+2058	0	format_singleactivity	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241375
+2059	0	format_singleactivity	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241375
+2060	0	format_singleactivity	2021051700	2021051700	Plugin upgraded	\N		0	1635241376
+2061	0	format_social	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241376
+2062	0	format_social	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241376
+2063	0	format_social	2021051700	2021051700	Plugin upgraded	\N		0	1635241376
+2064	0	format_topics	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241376
+2065	0	format_topics	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241376
+2066	0	format_topics	2021051700	2021051700	Plugin upgraded	\N		0	1635241376
+2067	0	format_vv	2020090800	2021072700	Starting plugin upgrade	\N		0	1635241376
+2068	0	format_vv	2021072700	2021072700	Upgrade savepoint reached	\N		0	1635241376
+2069	0	format_vv	2021072700	2021072700	Plugin upgraded	\N		0	1635241377
+2070	0	format_weeks	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241377
+2071	0	format_weeks	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241377
+2072	0	format_weeks	2021051700	2021051700	Plugin upgraded	\N		0	1635241377
+2073	0	dataformat_csv	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241377
+2074	0	dataformat_csv	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241377
+2075	0	dataformat_csv	2021051700	2021051700	Plugin upgraded	\N		0	1635241378
+2076	0	dataformat_excel	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241378
+2077	0	dataformat_excel	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241378
+2078	0	dataformat_excel	2021051700	2021051700	Plugin upgraded	\N		0	1635241378
+2079	0	dataformat_html	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241378
+2080	0	dataformat_html	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241378
+2081	0	dataformat_html	2021051700	2021051700	Plugin upgraded	\N		0	1635241379
+2082	0	dataformat_json	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241379
+2083	0	dataformat_json	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241379
+2084	0	dataformat_json	2021051700	2021051700	Plugin upgraded	\N		0	1635241379
+2085	0	dataformat_ods	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241379
+2086	0	dataformat_ods	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241379
+2087	0	dataformat_ods	2021051700	2021051700	Plugin upgraded	\N		0	1635241379
+2088	0	dataformat_pdf	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241379
+2089	0	dataformat_pdf	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241379
+2090	0	dataformat_pdf	2021051700	2021051700	Plugin upgraded	\N		0	1635241380
+2091	0	profilefield_checkbox	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241380
+2092	0	profilefield_checkbox	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241380
+2093	0	profilefield_checkbox	2021051700	2021051700	Plugin upgraded	\N		0	1635241380
+2094	0	profilefield_datetime	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241380
+2095	0	profilefield_datetime	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241380
+2096	0	profilefield_datetime	2021051700	2021051700	Plugin upgraded	\N		0	1635241380
+2097	0	profilefield_menu	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241380
+2098	0	profilefield_menu	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241380
+2099	0	profilefield_menu	2021051700	2021051700	Plugin upgraded	\N		0	1635241381
+2100	0	profilefield_social	\N	2021051700	Starting plugin installation	\N		0	1635241381
+2101	0	profilefield_social	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241381
+2102	0	profilefield_social	2021051700	2021051700	Plugin installed	\N		0	1635241381
+2103	0	profilefield_text	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241381
+2104	0	profilefield_text	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241381
+2105	0	profilefield_text	2021051700	2021051700	Plugin upgraded	\N		0	1635241381
+2106	0	profilefield_textarea	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241381
+2107	0	profilefield_textarea	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241381
+2108	0	profilefield_textarea	2021051700	2021051700	Plugin upgraded	\N		0	1635241381
+2109	0	report_backups	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241381
+2110	0	report_backups	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241382
+2111	0	report_backups	2021051700	2021051700	Plugin upgraded	\N		0	1635241382
+2112	0	report_competency	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241382
+2113	0	report_competency	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241382
+2114	0	report_competency	2021051700	2021051700	Plugin upgraded	\N		0	1635241382
+2115	0	report_completion	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241382
+2116	0	report_completion	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241382
+2117	0	report_completion	2021051700	2021051700	Plugin upgraded	\N		0	1635241382
+2118	0	report_configlog	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241382
+2119	0	report_configlog	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241382
+2120	0	report_configlog	2021051700	2021051700	Plugin upgraded	\N		0	1635241383
+2121	0	report_courseoverview	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241383
+2122	0	report_courseoverview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241383
+2123	0	report_courseoverview	2021051700	2021051700	Plugin upgraded	\N		0	1635241383
+2124	0	report_coursequotas	2016091400	2021062300	Starting plugin upgrade	\N		0	1635241383
+2125	0	report_coursequotas	2021020100	2021062300	Upgrade savepoint reached	\N		0	1635241383
+2126	0	report_coursequotas	2021062300	2021062300	Upgrade savepoint reached	\N		0	1635241383
+2127	0	report_coursequotas	2021062300	2021062300	Plugin upgraded	\N		0	1635241384
+2128	0	report_eventlist	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241384
+2129	0	report_eventlist	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241384
+2130	0	report_eventlist	2021051700	2021051700	Plugin upgraded	\N		0	1635241384
+2131	0	report_infectedfiles	\N	2021051700	Starting plugin installation	\N		0	1635241384
+2132	0	report_infectedfiles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241384
+2133	0	report_infectedfiles	2021051700	2021051700	Plugin installed	\N		0	1635241384
+2134	0	report_insights	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241384
+2135	0	report_insights	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241384
+2136	0	report_insights	2021051700	2021051700	Plugin upgraded	\N		0	1635241385
+2137	0	report_log	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241385
+2138	0	report_log	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241385
+2139	0	report_log	2021051700	2021051700	Plugin upgraded	\N		0	1635241385
+2140	0	report_loglive	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241385
+2141	0	report_loglive	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241385
+2142	0	report_loglive	2021051700	2021051700	Plugin upgraded	\N		0	1635241385
+2143	0	report_outline	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241385
+2144	0	report_outline	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241385
+2145	0	report_outline	2021051700	2021051700	Plugin upgraded	\N		0	1635241386
+2146	0	report_participation	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241386
+2147	0	report_participation	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241386
+2148	0	report_participation	2021051700	2021051700	Plugin upgraded	\N		0	1635241386
+2149	0	report_performance	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241386
+2150	0	report_performance	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241386
+2151	0	report_performance	2021051700	2021051700	Plugin upgraded	\N		0	1635241386
+2152	0	report_progress	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241386
+2153	0	report_progress	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241386
+2154	0	report_progress	2021051700	2021051700	Plugin upgraded	\N		0	1635241387
+2155	0	report_questioninstances	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241387
+2156	0	report_questioninstances	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241387
+2157	0	report_questioninstances	2021051700	2021051700	Plugin upgraded	\N		0	1635241387
+2158	0	report_security	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241387
+2159	0	report_security	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241387
+2160	0	report_security	2021051700	2021051700	Plugin upgraded	\N		0	1635241387
+2161	0	report_stats	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241387
+2162	0	report_stats	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241387
+2163	0	report_stats	2021051700	2021051700	Plugin upgraded	\N		0	1635241388
+2164	0	report_status	\N	2021051700	Starting plugin installation	\N		0	1635241388
+2165	0	report_status	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241388
+2166	0	report_status	2021051700	2021051700	Plugin installed	\N		0	1635241388
+2167	0	report_usersessions	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241388
+2168	0	report_usersessions	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241388
+2169	0	report_usersessions	2021051700	2021051700	Plugin upgraded	\N		0	1635241389
+2170	0	gradeexport_ods	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241389
+2171	0	gradeexport_ods	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241389
+2172	0	gradeexport_ods	2021051700	2021051700	Plugin upgraded	\N		0	1635241389
+2173	0	gradeexport_txt	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241389
+2174	0	gradeexport_txt	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241389
+2175	0	gradeexport_txt	2021051700	2021051700	Plugin upgraded	\N		0	1635241389
+2176	0	gradeexport_xls	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241389
+2177	0	gradeexport_xls	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241389
+2178	0	gradeexport_xls	2021051700	2021051700	Plugin upgraded	\N		0	1635241390
+2179	0	gradeexport_xml	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241390
+2180	0	gradeexport_xml	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241390
+2181	0	gradeexport_xml	2021051700	2021051700	Plugin upgraded	\N		0	1635241390
+2182	0	gradeimport_csv	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241390
+2183	0	gradeimport_csv	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241390
+2184	0	gradeimport_csv	2021051700	2021051700	Plugin upgraded	\N		0	1635241390
+2185	0	gradeimport_direct	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241390
+2186	0	gradeimport_direct	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241390
+2187	0	gradeimport_direct	2021051700	2021051700	Plugin upgraded	\N		0	1635241391
+2188	0	gradeimport_xml	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241391
+2189	0	gradeimport_xml	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241391
+2190	0	gradeimport_xml	2021051700	2021051700	Plugin upgraded	\N		0	1635241391
+2191	0	gradereport_grader	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241391
+2192	0	gradereport_grader	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241391
+2193	0	gradereport_grader	2021051700	2021051700	Plugin upgraded	\N		0	1635241391
+2194	0	gradereport_history	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241391
+2195	0	gradereport_history	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241391
+2196	0	gradereport_history	2021051700	2021051700	Plugin upgraded	\N		0	1635241392
+2197	0	gradereport_outcomes	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241392
+2198	0	gradereport_outcomes	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241392
+2199	0	gradereport_outcomes	2021051700	2021051700	Plugin upgraded	\N		0	1635241392
+2200	0	gradereport_overview	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241392
+2201	0	gradereport_overview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241392
+2202	0	gradereport_overview	2021051700	2021051700	Plugin upgraded	\N		0	1635241392
+2203	0	gradereport_singleview	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241392
+2204	0	gradereport_singleview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241392
+2205	0	gradereport_singleview	2021051700	2021051700	Plugin upgraded	\N		0	1635241393
+2206	0	gradereport_user	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241393
+2207	0	gradereport_user	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241393
+2208	0	gradereport_user	2021051700	2021051700	Plugin upgraded	\N		0	1635241393
+2209	0	gradingform_guide	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241393
+2210	0	gradingform_guide	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241393
+2211	0	gradingform_guide	2021051700	2021051700	Plugin upgraded	\N		0	1635241393
+2212	0	gradingform_rubric	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241393
+2213	0	gradingform_rubric	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241393
+2214	0	gradingform_rubric	2021051700	2021051700	Plugin upgraded	\N		0	1635241394
+2215	0	mlbackend_php	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241394
+2216	0	mlbackend_php	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241394
+2217	0	mlbackend_php	2021051700	2021051700	Plugin upgraded	\N		0	1635241394
+2218	0	mlbackend_python	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241394
+2219	0	mlbackend_python	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241394
+2220	0	mlbackend_python	2021051700	2021051700	Plugin upgraded	\N		0	1635241394
+2221	0	mnetservice_enrol	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241394
+2222	0	mnetservice_enrol	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241394
+2223	0	mnetservice_enrol	2021051700	2021051700	Plugin upgraded	\N		0	1635241395
+2224	0	webservice_rest	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241395
+2225	0	webservice_rest	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241395
+2226	0	webservice_rest	2021051700	2021051700	Plugin upgraded	\N		0	1635241395
+2227	0	webservice_soap	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241395
+2228	0	webservice_soap	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241395
+2229	0	webservice_soap	2021051700	2021051700	Plugin upgraded	\N		0	1635241395
+2230	0	webservice_xmlrpc	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241395
+2231	0	webservice_xmlrpc	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241395
+2232	0	webservice_xmlrpc	2021051700	2021051700	Plugin upgraded	\N		0	1635241396
+2233	0	repository_areafiles	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241396
+2234	0	repository_areafiles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241396
+2235	0	repository_areafiles	2021051700	2021051700	Plugin upgraded	\N		0	1635241396
+2236	0	repository_boxnet	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241396
+2237	0	repository_boxnet	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241396
+2238	0	repository_boxnet	2021051700	2021051700	Plugin upgraded	\N		0	1635241396
+2239	0	repository_contentbank	\N	2021051700	Starting plugin installation	\N		0	1635241396
+2240	0	repository_contentbank	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241396
+2241	0	repository_contentbank	2021051700	2021051700	Plugin installed	\N		0	1635241399
+2242	0	repository_coursefiles	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241399
+2243	0	repository_coursefiles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241399
+2244	0	repository_coursefiles	2021051700	2021051700	Plugin upgraded	\N		0	1635241400
+2245	0	repository_dropbox	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241400
+2246	0	repository_dropbox	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241400
+2247	0	repository_dropbox	2021051700	2021051700	Plugin upgraded	\N		0	1635241400
+2248	0	repository_equella	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241400
+2249	0	repository_equella	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241400
+2250	0	repository_equella	2021051700	2021051700	Plugin upgraded	\N		0	1635241400
+2251	0	repository_filesystem	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241400
+2252	0	repository_filesystem	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241400
+2253	0	repository_filesystem	2021051700	2021051700	Plugin upgraded	\N		0	1635241401
+2254	0	repository_flickr	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241401
+2255	0	repository_flickr	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241401
+2256	0	repository_flickr	2021051700	2021051700	Plugin upgraded	\N		0	1635241401
+2257	0	repository_flickr_public	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241401
+2258	0	repository_flickr_public	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241401
+2259	0	repository_flickr_public	2021051700	2021051700	Plugin upgraded	\N		0	1635241401
+2260	0	repository_googledocs	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241401
+2261	0	repository_googledocs	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241401
+2262	0	repository_googledocs	2021051700	2021051700	Plugin upgraded	\N		0	1635241402
+2263	0	repository_local	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241402
+2264	0	repository_local	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241402
+2265	0	repository_local	2021051700	2021051700	Plugin upgraded	\N		0	1635241402
+2266	0	repository_merlot	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241402
+2267	0	repository_merlot	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241402
+2268	0	repository_merlot	2021051700	2021051700	Plugin upgraded	\N		0	1635241402
+2269	0	repository_nextcloud	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241402
+2270	0	repository_nextcloud	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241402
+2271	0	repository_nextcloud	2021051700	2021051700	Plugin upgraded	\N		0	1635241403
+2272	0	repository_onedrive	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241403
+2273	0	repository_onedrive	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241403
+2274	0	repository_onedrive	2021051700	2021051700	Plugin upgraded	\N		0	1635241403
+2275	0	repository_picasa	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241403
+2276	0	repository_picasa	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241403
+2277	0	repository_picasa	2021051700	2021051700	Plugin upgraded	\N		0	1635241403
+2278	0	repository_recent	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241403
+2279	0	repository_recent	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241403
+2280	0	repository_recent	2021051700	2021051700	Plugin upgraded	\N		0	1635241404
+2281	0	repository_s3	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241404
+2282	0	repository_s3	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241404
+2283	0	repository_s3	2021051700	2021051700	Plugin upgraded	\N		0	1635241404
+2284	0	repository_skydrive	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241404
+2285	0	repository_skydrive	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241404
+2286	0	repository_skydrive	2021051700	2021051700	Plugin upgraded	\N		0	1635241404
+2287	0	repository_upload	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241404
+2288	0	repository_upload	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241404
+2289	0	repository_upload	2021051700	2021051700	Plugin upgraded	\N		0	1635241405
+2290	0	repository_url	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241405
+2291	0	repository_url	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241405
+2292	0	repository_url	2021051700	2021051700	Plugin upgraded	\N		0	1635241405
+2293	0	repository_user	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241405
+2294	0	repository_user	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241405
+2295	0	repository_user	2021051700	2021051700	Plugin upgraded	\N		0	1635241405
+2296	0	repository_webdav	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241405
+2297	0	repository_webdav	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241405
+2298	0	repository_webdav	2021051700	2021051700	Plugin upgraded	\N		0	1635241406
+2299	0	repository_wikimedia	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241406
+2300	0	repository_wikimedia	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241406
+2301	0	repository_wikimedia	2021051700	2021051700	Plugin upgraded	\N		0	1635241406
+2302	0	repository_youtube	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241406
+2303	0	repository_youtube	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241406
+2304	0	repository_youtube	2021051700	2021051700	Plugin upgraded	\N		0	1635241406
+2305	0	portfolio_boxnet	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241406
+2306	0	portfolio_boxnet	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241406
+2307	0	portfolio_boxnet	2021051700	2021051700	Plugin upgraded	\N		0	1635241407
+2308	0	portfolio_download	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241407
+2309	0	portfolio_download	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241407
+2310	0	portfolio_download	2021051700	2021051700	Plugin upgraded	\N		0	1635241407
+2311	0	portfolio_flickr	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241407
+2312	0	portfolio_flickr	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241407
+2313	0	portfolio_flickr	2021051700	2021051700	Plugin upgraded	\N		0	1635241407
+2314	0	portfolio_googledocs	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241407
+2315	0	portfolio_googledocs	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241407
+2316	0	portfolio_googledocs	2021051700	2021051700	Plugin upgraded	\N		0	1635241408
+2317	0	portfolio_mahara	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241408
+2318	0	portfolio_mahara	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241408
+2319	0	portfolio_mahara	2021051700	2021051700	Plugin upgraded	\N		0	1635241408
+2320	0	portfolio_picasa	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241408
+2321	0	portfolio_picasa	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241408
+2322	0	portfolio_picasa	2021051700	2021051700	Plugin upgraded	\N		0	1635241408
+2323	0	search_simpledb	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241408
+2324	0	search_simpledb	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241408
+2325	0	search_simpledb	2021051700	2021051700	Plugin upgraded	\N		0	1635241409
+2326	0	search_solr	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241409
+2327	0	search_solr	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241409
+2328	0	search_solr	2021051700	2021051700	Plugin upgraded	\N		0	1635241409
+2329	0	qbehaviour_adaptive	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241409
+2330	0	qbehaviour_adaptive	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241409
+2331	0	qbehaviour_adaptive	2021051700	2021051700	Plugin upgraded	\N		0	1635241409
+2332	0	qbehaviour_adaptivenopenalty	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241409
+2333	0	qbehaviour_adaptivenopenalty	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241409
+2334	0	qbehaviour_adaptivenopenalty	2021051700	2021051700	Plugin upgraded	\N		0	1635241410
+2335	0	qbehaviour_deferredcbm	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241410
+2336	0	qbehaviour_deferredcbm	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241410
+2337	0	qbehaviour_deferredcbm	2021051700	2021051700	Plugin upgraded	\N		0	1635241410
+2338	0	qbehaviour_deferredfeedback	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241410
+2339	0	qbehaviour_deferredfeedback	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241410
+2340	0	qbehaviour_deferredfeedback	2021051700	2021051700	Plugin upgraded	\N		0	1635241410
+2341	0	qbehaviour_immediatecbm	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241410
+2342	0	qbehaviour_immediatecbm	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241410
+2343	0	qbehaviour_immediatecbm	2021051700	2021051700	Plugin upgraded	\N		0	1635241411
+2344	0	qbehaviour_immediatefeedback	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241411
+2345	0	qbehaviour_immediatefeedback	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241411
+2346	0	qbehaviour_immediatefeedback	2021051700	2021051700	Plugin upgraded	\N		0	1635241411
+2347	0	qbehaviour_informationitem	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241411
+2348	0	qbehaviour_informationitem	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241411
+2349	0	qbehaviour_informationitem	2021051700	2021051700	Plugin upgraded	\N		0	1635241411
+2350	0	qbehaviour_interactive	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241411
+2351	0	qbehaviour_interactive	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241411
+2352	0	qbehaviour_interactive	2021051700	2021051700	Plugin upgraded	\N		0	1635241412
+2353	0	qbehaviour_interactivecountback	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241412
+2354	0	qbehaviour_interactivecountback	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241412
+2355	0	qbehaviour_interactivecountback	2021051700	2021051700	Plugin upgraded	\N		0	1635241412
+2356	0	qbehaviour_manualgraded	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241412
+2357	0	qbehaviour_manualgraded	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241412
+2358	0	qbehaviour_manualgraded	2021051700	2021051700	Plugin upgraded	\N		0	1635241412
+2359	0	qbehaviour_missing	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241412
+2360	0	qbehaviour_missing	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241412
+2361	0	qbehaviour_missing	2021051700	2021051700	Plugin upgraded	\N		0	1635241413
+2362	0	qformat_aiken	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241413
+2363	0	qformat_aiken	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241413
+2364	0	qformat_aiken	2021051700	2021051700	Plugin upgraded	\N		0	1635241413
+2365	0	qformat_blackboard_six	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241413
+2366	0	qformat_blackboard_six	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241413
+2367	0	qformat_blackboard_six	2021051700	2021051700	Plugin upgraded	\N		0	1635241413
+2368	0	qformat_examview	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241413
+2369	0	qformat_examview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241413
+2370	0	qformat_examview	2021051700	2021051700	Plugin upgraded	\N		0	1635241414
+2371	0	qformat_gift	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241414
+2372	0	qformat_gift	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241414
+2373	0	qformat_gift	2021051700	2021051700	Plugin upgraded	\N		0	1635241414
+2374	0	qformat_missingword	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241414
+2375	0	qformat_missingword	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241414
+2376	0	qformat_missingword	2021051700	2021051700	Plugin upgraded	\N		0	1635241414
+2377	0	qformat_multianswer	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241414
+2378	0	qformat_multianswer	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241414
+2379	0	qformat_multianswer	2021051700	2021051700	Plugin upgraded	\N		0	1635241415
+2380	0	qformat_webct	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241415
+2381	0	qformat_webct	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241415
+2382	0	qformat_webct	2021051700	2021051700	Plugin upgraded	\N		0	1635241415
+2383	0	qformat_xhtml	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241415
+2384	0	qformat_xhtml	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241415
+2385	0	qformat_xhtml	2021051700	2021051700	Plugin upgraded	\N		0	1635241415
+2386	0	qformat_xml	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241415
+2387	0	qformat_xml	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241415
+2388	0	qformat_xml	2021051700	2021051700	Plugin upgraded	\N		0	1635241416
+2389	0	tool_analytics	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241416
+2390	0	tool_analytics	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241416
+2391	0	tool_analytics	2021051700	2021051700	Plugin upgraded	\N		0	1635241416
+2392	0	tool_availabilityconditions	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241416
+2393	0	tool_availabilityconditions	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241416
+2394	0	tool_availabilityconditions	2021051700	2021051700	Plugin upgraded	\N		0	1635241416
+2395	0	tool_behat	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241416
+2396	0	tool_behat	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241416
+2397	0	tool_behat	2021051700	2021051700	Plugin upgraded	\N		0	1635241417
+2398	0	tool_brickfield	\N	2021051700	Starting plugin installation	\N		0	1635241417
+2399	0	tool_brickfield	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241417
+2400	0	tool_brickfield	2021051700	2021051700	Plugin installed	\N		0	1635241419
+2401	0	tool_capability	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241419
+2402	0	tool_capability	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241419
+2403	0	tool_capability	2021051700	2021051700	Plugin upgraded	\N		0	1635241419
+2404	0	tool_cohortroles	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241419
+2405	0	tool_cohortroles	2020020600	2021051700	Upgrade savepoint reached	\N		0	1635241419
+2406	0	tool_cohortroles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241419
+2407	0	tool_cohortroles	2021051700	2021051700	Plugin upgraded	\N		0	1635241419
+2408	0	tool_customlang	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241419
+2409	0	tool_customlang	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241419
+2410	0	tool_customlang	2021051700	2021051700	Plugin upgraded	\N		0	1635241420
+2411	0	tool_dataprivacy	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241420
+2412	0	tool_dataprivacy	2020061501	2021051700	Upgrade savepoint reached	\N		0	1635241420
+2413	0	tool_dataprivacy	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241420
+2414	0	tool_dataprivacy	2021051700	2021051700	Plugin upgraded	\N		0	1635241420
+2415	0	tool_dbtransfer	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241420
+2416	0	tool_dbtransfer	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241420
+2417	0	tool_dbtransfer	2021051700	2021051700	Plugin upgraded	\N		0	1635241421
+2418	0	tool_filetypes	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241421
+2419	0	tool_filetypes	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241421
+2420	0	tool_filetypes	2021051700	2021051700	Plugin upgraded	\N		0	1635241421
+2421	0	tool_generator	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241421
+2422	0	tool_generator	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241421
+2423	0	tool_generator	2021051700	2021051700	Plugin upgraded	\N		0	1635241421
+2424	0	tool_health	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241421
+2425	0	tool_health	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241421
+2426	0	tool_health	2021051700	2021051700	Plugin upgraded	\N		0	1635241422
+2427	0	tool_httpsreplace	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241422
+2428	0	tool_httpsreplace	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241422
+2429	0	tool_httpsreplace	2021051700	2021051700	Plugin upgraded	\N		0	1635241422
+2430	0	tool_innodb	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241422
+2431	0	tool_innodb	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241422
+2432	0	tool_innodb	2021051700	2021051700	Plugin upgraded	\N		0	1635241422
+2433	0	tool_installaddon	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241422
+2434	0	tool_installaddon	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241422
+2435	0	tool_installaddon	2021051700	2021051700	Plugin upgraded	\N		0	1635241423
+2436	0	tool_langimport	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241423
+2437	0	tool_langimport	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241423
+2438	0	tool_langimport	2021051700	2021051700	Plugin upgraded	\N		0	1635241423
+2439	0	tool_licensemanager	\N	2021051700	Starting plugin installation	\N		0	1635241423
+2440	0	tool_licensemanager	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241423
+2441	0	tool_licensemanager	2021051700	2021051700	Plugin installed	\N		0	1635241423
+2442	0	tool_log	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241423
+2443	0	tool_log	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241423
+2444	0	tool_log	2021051700	2021051700	Plugin upgraded	\N		0	1635241424
+2445	0	tool_lp	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241424
+2446	0	tool_lp	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241424
+2447	0	tool_lp	2021051700	2021051700	Plugin upgraded	\N		0	1635241424
+2448	0	tool_lpimportcsv	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241424
+2449	0	tool_lpimportcsv	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241424
+2450	0	tool_lpimportcsv	2021051700	2021051700	Plugin upgraded	\N		0	1635241425
+2451	0	tool_lpmigrate	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241425
+2452	0	tool_lpmigrate	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241425
+2453	0	tool_lpmigrate	2021051700	2021051700	Plugin upgraded	\N		0	1635241425
+2454	0	tool_messageinbound	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241425
+2455	0	tool_messageinbound	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241425
+2456	0	tool_messageinbound	2021051700	2021051700	Plugin upgraded	\N		0	1635241426
+2457	0	tool_migratehvp2h5p	\N	2021020400	Starting plugin installation	\N		0	1635241426
+2458	0	tool_migratehvp2h5p	2021020400	2021020400	Upgrade savepoint reached	\N		0	1635241426
+2459	0	tool_migratehvp2h5p	2021020400	2021020400	Plugin installed	\N		0	1635241426
+2460	0	tool_mobile	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241426
+2461	0	tool_mobile	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241427
+2462	0	tool_mobile	2021051700	2021051700	Plugin upgraded	\N		0	1635241427
+2463	0	tool_monitor	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241427
+2464	0	tool_monitor	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241427
+2465	0	tool_monitor	2021051700	2021051700	Plugin upgraded	\N		0	1635241427
+2466	0	tool_moodlenet	\N	2021051700	Starting plugin installation	\N		0	1635241427
+2467	0	tool_moodlenet	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241427
+2468	0	tool_moodlenet	2021051700	2021051700	Plugin installed	\N		0	1635241428
+2469	0	tool_multilangupgrade	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241428
+2470	0	tool_multilangupgrade	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241428
+2471	0	tool_multilangupgrade	2021051700	2021051700	Plugin upgraded	\N		0	1635241428
+2472	0	tool_oauth2	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241428
+2473	0	tool_oauth2	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241428
+2474	0	tool_oauth2	2021051700	2021051700	Plugin upgraded	\N		0	1635241429
+2475	0	tool_phpunit	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241429
+2476	0	tool_phpunit	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241429
+2477	0	tool_phpunit	2021051700	2021051700	Plugin upgraded	\N		0	1635241429
+2478	0	tool_policy	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241429
+2479	0	tool_policy	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241429
+2480	0	tool_policy	2021051700	2021051700	Plugin upgraded	\N		0	1635241430
+2481	0	tool_profiling	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241430
+2482	0	tool_profiling	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241430
+2483	0	tool_profiling	2021051700	2021051700	Plugin upgraded	\N		0	1635241431
+2484	0	tool_recyclebin	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241431
+2485	0	tool_recyclebin	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241431
+2486	0	tool_recyclebin	2021051700	2021051700	Plugin upgraded	\N		0	1635241431
+2487	0	tool_replace	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241431
+2488	0	tool_replace	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241431
+2489	0	tool_replace	2021051700	2021051700	Plugin upgraded	\N		0	1635241432
+2490	0	tool_spamcleaner	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241432
+2491	0	tool_spamcleaner	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241432
+2492	0	tool_spamcleaner	2021051700	2021051700	Plugin upgraded	\N		0	1635241432
+2493	0	tool_task	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241432
+2494	0	tool_task	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241432
+2495	0	tool_task	2021051700	2021051700	Plugin upgraded	\N		0	1635241433
+2496	0	tool_templatelibrary	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241433
+2497	0	tool_templatelibrary	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241433
+2498	0	tool_templatelibrary	2021051700	2021051700	Plugin upgraded	\N		0	1635241433
+2499	0	tool_unsuproles	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241433
+2500	0	tool_unsuproles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241433
+2501	0	tool_unsuproles	2021051700	2021051700	Plugin upgraded	\N		0	1635241434
+2502	0	tool_uploadcourse	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241434
+2503	0	tool_uploadcourse	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241434
+2504	0	tool_uploadcourse	2021051700	2021051700	Plugin upgraded	\N		0	1635241434
+2505	0	tool_uploaduser	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241434
+2506	0	tool_uploaduser	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241434
+2507	0	tool_uploaduser	2021051700	2021051700	Plugin upgraded	\N		0	1635241435
+2508	0	tool_usertours	2019111801	2021051700	Starting plugin upgrade	\N		0	1635241435
+2509	0	tool_usertours	2020061501	2021051700	Upgrade savepoint reached	\N		0	1635241436
+2510	0	tool_usertours	2020082700	2021051700	Upgrade savepoint reached	\N		0	1635241436
+2511	0	tool_usertours	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241436
+2512	0	tool_usertours	2021051700	2021051700	Plugin upgraded	\N		0	1635241437
+2513	0	tool_xmldb	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241437
+2514	0	tool_xmldb	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241437
+2515	0	tool_xmldb	2021051700	2021051700	Plugin upgraded	\N		0	1635241437
+2516	0	cachestore_apcu	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241437
+2517	0	cachestore_apcu	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241437
+2518	0	cachestore_apcu	2021051700	2021051700	Plugin upgraded	\N		0	1635241438
+2519	0	cachestore_file	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241438
+2520	0	cachestore_file	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241438
+2521	0	cachestore_file	2021051700	2021051700	Plugin upgraded	\N		0	1635241438
+2522	0	cachestore_memcached	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241438
+2523	0	cachestore_memcached	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241438
+2524	0	cachestore_memcached	2021051700	2021051700	Plugin upgraded	\N		0	1635241438
+2525	0	cachestore_mongodb	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241439
+2526	0	cachestore_mongodb	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241439
+2527	0	cachestore_mongodb	2021051700	2021051700	Plugin upgraded	\N		0	1635241439
+2528	0	cachestore_redis	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241439
+2529	0	cachestore_redis	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241439
+2530	0	cachestore_redis	2021051700	2021051700	Plugin upgraded	\N		0	1635241439
+2531	0	cachestore_session	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241439
+2532	0	cachestore_session	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241439
+2533	0	cachestore_session	2021051700	2021051700	Plugin upgraded	\N		0	1635241440
+2534	0	cachestore_static	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241440
+2535	0	cachestore_static	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241440
+2536	0	cachestore_static	2021051700	2021051700	Plugin upgraded	\N		0	1635241440
+2537	0	cachelock_file	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241440
+2538	0	cachelock_file	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241440
+2539	0	cachelock_file	2021051700	2021051700	Plugin upgraded	\N		0	1635241441
+2540	0	fileconverter_googledrive	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241441
+2541	0	fileconverter_googledrive	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241441
+2542	0	fileconverter_googledrive	2021051700	2021051700	Plugin upgraded	\N		0	1635241441
+2543	0	fileconverter_unoconv	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241441
+2544	0	fileconverter_unoconv	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241441
+2545	0	fileconverter_unoconv	2021051700	2021051700	Plugin upgraded	\N		0	1635241442
+2546	0	contenttype_h5p	\N	2021051700	Starting plugin installation	\N		0	1635241442
+2547	0	contenttype_h5p	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241442
+2548	0	contenttype_h5p	2021051700	2021051700	Plugin installed	\N		0	1635241445
+2549	0	theme_boost	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241445
+2550	0	theme_boost	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241445
+2551	0	theme_boost	2021051700	2021051700	Plugin upgraded	\N		0	1635241446
+2552	0	theme_classic	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241446
+2553	0	theme_classic	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241446
+2554	0	theme_classic	2021051700	2021051700	Plugin upgraded	\N		0	1635241446
+2555	0	theme_xtec2020	2020080703	2021011201	Starting plugin upgrade	\N		0	1635241446
+2556	0	theme_xtec2020	2020110302	2021011201	Upgrade savepoint reached	\N		0	1635241446
+2557	0	theme_xtec2020	2021011201	2021011201	Upgrade savepoint reached	\N		0	1635241446
+2558	0	theme_xtec2020	2021011201	2021011201	Plugin upgraded	\N		0	1635241447
+2559	0	local_alexandria	2016091900	2021080505	Starting plugin upgrade	\N		0	1635241447
+2560	0	local_alexandria	2021080501	2021080505	Upgrade savepoint reached	\N		0	1635241447
+2561	0	local_alexandria	2021080505	2021080505	Upgrade savepoint reached	\N		0	1635241447
+2562	0	local_alexandria	2021080505	2021080505	Plugin upgraded	\N		0	1635241447
+2563	0	local_clickedu	20190724000	20201031001	Starting plugin upgrade	\N		0	1635241447
+2564	0	local_clickedu	20201031001	20201031001	Upgrade savepoint reached	\N		0	1635241447
+2565	0	local_clickedu	20201031001	20201031001	Plugin upgraded	\N		0	1635241448
+2566	0	local_redislock	\N	2020061100	Starting plugin installation	\N		0	1635241448
+2567	0	local_redislock	2020061100	2020061100	Upgrade savepoint reached	\N		0	1635241448
+2568	0	local_redislock	2020061100	2020061100	Plugin installed	\N		0	1635241448
+2569	0	local_wsvicensvives	2020090800	2021072700	Starting plugin upgrade	\N		0	1635241448
+2570	0	local_wsvicensvives	2021072700	2021072700	Upgrade savepoint reached	\N		0	1635241448
+2571	0	local_wsvicensvives	2021072700	2021072700	Plugin upgraded	\N		0	1635241449
+2572	0	h5plib_v124	\N	2021051700	Starting plugin installation	\N		0	1635241449
+2573	0	h5plib_v124	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241449
+2574	0	h5plib_v124	2021051700	2021051700	Plugin installed	\N		0	1635241449
+2575	0	paygw_paypal	\N	2021051700	Starting plugin installation	\N		0	1635241449
+2576	0	paygw_paypal	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241450
+2577	0	paygw_paypal	2021051700	2021051700	Plugin installed	\N		0	1635241450
+2578	0	assignsubmission_comments	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241450
+2579	0	assignsubmission_comments	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241450
+2580	0	assignsubmission_comments	2021051700	2021051700	Plugin upgraded	\N		0	1635241450
+2581	0	assignsubmission_file	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241450
+2582	0	assignsubmission_file	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241450
+2583	0	assignsubmission_file	2021051700	2021051700	Plugin upgraded	\N		0	1635241451
+2584	0	assignsubmission_onlinetext	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241451
+2585	0	assignsubmission_onlinetext	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241451
+2586	0	assignsubmission_onlinetext	2021051700	2021051700	Plugin upgraded	\N		0	1635241451
+2587	0	assignfeedback_comments	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241451
+2588	0	assignfeedback_comments	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241451
+2589	0	assignfeedback_comments	2021051700	2021051700	Plugin upgraded	\N		0	1635241452
+2590	0	assignfeedback_editpdf	2019111800	2021051701	Starting plugin upgrade	\N		0	1635241452
+2591	0	assignfeedback_editpdf	2021051701	2021051701	Upgrade savepoint reached	\N		0	1635241452
+2592	0	assignfeedback_editpdf	2021051701	2021051701	Plugin upgraded	\N		0	1635241452
+2593	0	assignfeedback_file	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241452
+2594	0	assignfeedback_file	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241452
+2595	0	assignfeedback_file	2021051700	2021051700	Plugin upgraded	\N		0	1635241453
+2596	0	assignfeedback_offline	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241453
+2597	0	assignfeedback_offline	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241453
+2598	0	assignfeedback_offline	2021051700	2021051700	Plugin upgraded	\N		0	1635241453
+2599	0	assignment_offline	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241453
+2600	0	assignment_offline	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241453
+2601	0	assignment_offline	2021051700	2021051700	Plugin upgraded	\N		0	1635241454
+2602	0	assignment_online	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241454
+2603	0	assignment_online	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241454
+2604	0	assignment_online	2021051700	2021051700	Plugin upgraded	\N		0	1635241454
+2605	0	assignment_upload	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241454
+2606	0	assignment_upload	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241454
+2607	0	assignment_upload	2021051700	2021051700	Plugin upgraded	\N		0	1635241455
+2608	0	assignment_uploadsingle	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241455
+2609	0	assignment_uploadsingle	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241455
+2610	0	assignment_uploadsingle	2021051700	2021051700	Plugin upgraded	\N		0	1635241455
+2611	0	booktool_exportimscp	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241455
+2612	0	booktool_exportimscp	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241455
+2613	0	booktool_exportimscp	2021051700	2021051700	Plugin upgraded	\N		0	1635241456
+2614	0	booktool_importhtml	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241456
+2615	0	booktool_importhtml	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241456
+2616	0	booktool_importhtml	2021051700	2021051700	Plugin upgraded	\N		0	1635241456
+2617	0	booktool_print	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241456
+2618	0	booktool_print	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241456
+2619	0	booktool_print	2021051700	2021051700	Plugin upgraded	\N		0	1635241456
+2620	0	datafield_checkbox	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241456
+2621	0	datafield_checkbox	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241456
+2622	0	datafield_checkbox	2021051700	2021051700	Plugin upgraded	\N		0	1635241457
+2623	0	datafield_date	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241457
+2624	0	datafield_date	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241457
+2625	0	datafield_date	2021051700	2021051700	Plugin upgraded	\N		0	1635241457
+2626	0	datafield_file	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241457
+2627	0	datafield_file	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241457
+2628	0	datafield_file	2021051700	2021051700	Plugin upgraded	\N		0	1635241458
+2629	0	datafield_latlong	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241458
+2630	0	datafield_latlong	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241458
+2631	0	datafield_latlong	2021051700	2021051700	Plugin upgraded	\N		0	1635241458
+2632	0	datafield_menu	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241458
+2633	0	datafield_menu	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241458
+2634	0	datafield_menu	2021051700	2021051700	Plugin upgraded	\N		0	1635241459
+2635	0	datafield_multimenu	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241459
+2636	0	datafield_multimenu	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241459
+2637	0	datafield_multimenu	2021051700	2021051700	Plugin upgraded	\N		0	1635241459
+2638	0	datafield_number	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241459
+2639	0	datafield_number	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241459
+2640	0	datafield_number	2021051700	2021051700	Plugin upgraded	\N		0	1635241460
+2641	0	datafield_picture	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241460
+2642	0	datafield_picture	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241460
+2643	0	datafield_picture	2021051700	2021051700	Plugin upgraded	\N		0	1635241460
+2644	0	datafield_radiobutton	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241460
+2645	0	datafield_radiobutton	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241460
+2646	0	datafield_radiobutton	2021051700	2021051700	Plugin upgraded	\N		0	1635241461
+2647	0	datafield_text	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241461
+2648	0	datafield_text	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241461
+2649	0	datafield_text	2021051700	2021051700	Plugin upgraded	\N		0	1635241461
+2650	0	datafield_textarea	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241461
+2651	0	datafield_textarea	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241461
+2652	0	datafield_textarea	2021051700	2021051700	Plugin upgraded	\N		0	1635241462
+2653	0	datafield_url	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241462
+2654	0	datafield_url	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241462
+2655	0	datafield_url	2021051700	2021051700	Plugin upgraded	\N		0	1635241462
+2656	0	datapreset_imagegallery	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241462
+2657	0	datapreset_imagegallery	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241462
+2658	0	datapreset_imagegallery	2021051700	2021051700	Plugin upgraded	\N		0	1635241462
+2659	0	forumreport_summary	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241462
+2660	0	forumreport_summary	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241462
+2661	0	forumreport_summary	2021051700	2021051700	Plugin upgraded	\N		0	1635241463
+2662	0	ltiservice_basicoutcomes	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241463
+2663	0	ltiservice_basicoutcomes	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241463
+2664	0	ltiservice_basicoutcomes	2021051700	2021051700	Plugin upgraded	\N		0	1635241463
+2665	0	ltiservice_gradebookservices	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241463
+2666	0	ltiservice_gradebookservices	2020042401	2021051700	Upgrade savepoint reached	\N		0	1635241463
+2667	0	ltiservice_gradebookservices	2020042402	2021051700	Upgrade savepoint reached	\N		0	1635241463
+2668	0	ltiservice_gradebookservices	2020042403	2021051700	Upgrade savepoint reached	\N		0	1635241463
+2669	0	ltiservice_gradebookservices	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241463
+2670	0	ltiservice_gradebookservices	2021051700	2021051700	Plugin upgraded	\N		0	1635241464
+2671	0	ltiservice_memberships	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241464
+2672	0	ltiservice_memberships	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241464
+2673	0	ltiservice_memberships	2021051700	2021051700	Plugin upgraded	\N		0	1635241464
+2674	0	ltiservice_profile	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241464
+2675	0	ltiservice_profile	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241464
+2676	0	ltiservice_profile	2021051700	2021051700	Plugin upgraded	\N		0	1635241464
+2677	0	ltiservice_toolproxy	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241464
+2678	0	ltiservice_toolproxy	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241464
+2679	0	ltiservice_toolproxy	2021051700	2021051700	Plugin upgraded	\N		0	1635241465
+2680	0	ltiservice_toolsettings	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241465
+2681	0	ltiservice_toolsettings	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241465
+2682	0	ltiservice_toolsettings	2021051700	2021051700	Plugin upgraded	\N		0	1635241465
+2683	0	quiz_grading	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241465
+2684	0	quiz_grading	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241465
+2685	0	quiz_grading	2021051700	2021051700	Plugin upgraded	\N		0	1635241465
+2686	0	quiz_overview	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241465
+2687	0	quiz_overview	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241465
+2688	0	quiz_overview	2021051700	2021051700	Plugin upgraded	\N		0	1635241466
+2689	0	quiz_responses	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241466
+2690	0	quiz_responses	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241466
+2691	0	quiz_responses	2021051700	2021051700	Plugin upgraded	\N		0	1635241466
+2692	0	quiz_statistics	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241466
+2693	0	quiz_statistics	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241466
+2694	0	quiz_statistics	2021051700	2021051700	Plugin upgraded	\N		0	1635241466
+2695	0	quizaccess_delaybetweenattempts	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241466
+2696	0	quizaccess_delaybetweenattempts	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241466
+2697	0	quizaccess_delaybetweenattempts	2021051700	2021051700	Plugin upgraded	\N		0	1635241466
+2698	0	quizaccess_ipaddress	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241466
+2699	0	quizaccess_ipaddress	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241467
+2700	0	quizaccess_ipaddress	2021051700	2021051700	Plugin upgraded	\N		0	1635241467
+2701	0	quizaccess_numattempts	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241467
+2702	0	quizaccess_numattempts	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241467
+2703	0	quizaccess_numattempts	2021051700	2021051700	Plugin upgraded	\N		0	1635241467
+2704	0	quizaccess_offlineattempts	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241467
+2705	0	quizaccess_offlineattempts	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241467
+2706	0	quizaccess_offlineattempts	2021051700	2021051700	Plugin upgraded	\N		0	1635241467
+2707	0	quizaccess_openclosedate	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241467
+2708	0	quizaccess_openclosedate	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241467
+2709	0	quizaccess_openclosedate	2021051700	2021051700	Plugin upgraded	\N		0	1635241468
+2710	0	quizaccess_password	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241468
+2711	0	quizaccess_password	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241468
+2712	0	quizaccess_password	2021051700	2021051700	Plugin upgraded	\N		0	1635241468
+2713	0	quizaccess_seb	\N	2021051700	Starting plugin installation	\N		0	1635241468
+2714	0	quizaccess_seb	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241468
+2715	0	quizaccess_seb	2021051700	2021051700	Plugin installed	\N		0	1635241483
+2716	0	quizaccess_securewindow	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241483
+2717	0	quizaccess_securewindow	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241483
+2718	0	quizaccess_securewindow	2021051700	2021051700	Plugin upgraded	\N		0	1635241484
+2719	0	quizaccess_timelimit	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241484
+2720	0	quizaccess_timelimit	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241484
+2721	0	quizaccess_timelimit	2021051700	2021051700	Plugin upgraded	\N		0	1635241484
+2722	0	scormreport_basic	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241484
+2723	0	scormreport_basic	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241484
+2724	0	scormreport_basic	2021051700	2021051700	Plugin upgraded	\N		0	1635241484
+2725	0	scormreport_graphs	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241484
+2726	0	scormreport_graphs	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241484
+2727	0	scormreport_graphs	2021051700	2021051700	Plugin upgraded	\N		0	1635241485
+2728	0	scormreport_interactions	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241485
+2729	0	scormreport_interactions	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241485
+2730	0	scormreport_interactions	2021051700	2021051700	Plugin upgraded	\N		0	1635241485
+2731	0	scormreport_objectives	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241485
+2732	0	scormreport_objectives	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241485
+2733	0	scormreport_objectives	2021051700	2021051700	Plugin upgraded	\N		0	1635241485
+2734	0	workshopform_accumulative	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241485
+2735	0	workshopform_accumulative	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241485
+2736	0	workshopform_accumulative	2021051700	2021051700	Plugin upgraded	\N		0	1635241486
+2737	0	workshopform_comments	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241486
+2738	0	workshopform_comments	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241486
+2739	0	workshopform_comments	2021051700	2021051700	Plugin upgraded	\N		0	1635241486
+2740	0	workshopform_numerrors	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241486
+2741	0	workshopform_numerrors	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241486
+2742	0	workshopform_numerrors	2021051700	2021051700	Plugin upgraded	\N		0	1635241486
+2743	0	workshopform_rubric	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241486
+2744	0	workshopform_rubric	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241486
+2745	0	workshopform_rubric	2021051700	2021051700	Plugin upgraded	\N		0	1635241487
+2746	0	workshopallocation_manual	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241487
+2747	0	workshopallocation_manual	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241487
+2748	0	workshopallocation_manual	2021051700	2021051700	Plugin upgraded	\N		0	1635241487
+2749	0	workshopallocation_random	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241487
+2750	0	workshopallocation_random	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241487
+2751	0	workshopallocation_random	2021051700	2021051700	Plugin upgraded	\N		0	1635241487
+2752	0	workshopallocation_scheduled	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241487
+2753	0	workshopallocation_scheduled	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241487
+2754	0	workshopallocation_scheduled	2021051700	2021051700	Plugin upgraded	\N		0	1635241488
+2755	0	workshopeval_best	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241488
+2756	0	workshopeval_best	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241488
+2757	0	workshopeval_best	2021051700	2021051700	Plugin upgraded	\N		0	1635241488
+2758	0	atto_accessibilitychecker	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241488
+2759	0	atto_accessibilitychecker	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241488
+2760	0	atto_accessibilitychecker	2021051700	2021051700	Plugin upgraded	\N		0	1635241488
+2761	0	atto_accessibilityhelper	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241488
+2762	0	atto_accessibilityhelper	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241488
+2763	0	atto_accessibilityhelper	2021051700	2021051700	Plugin upgraded	\N		0	1635241489
+2764	0	atto_align	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241489
+2765	0	atto_align	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241489
+2766	0	atto_align	2021051700	2021051700	Plugin upgraded	\N		0	1635241489
+2767	0	atto_backcolor	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241489
+2768	0	atto_backcolor	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241489
+2769	0	atto_backcolor	2021051700	2021051700	Plugin upgraded	\N		0	1635241489
+2770	0	atto_bold	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241489
+2771	0	atto_bold	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241489
+2772	0	atto_bold	2021051700	2021051700	Plugin upgraded	\N		0	1635241489
+2773	0	atto_charmap	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241489
+2774	0	atto_charmap	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241489
+2775	0	atto_charmap	2021051700	2021051700	Plugin upgraded	\N		0	1635241490
+2776	0	atto_clear	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241490
+2777	0	atto_clear	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241490
+2778	0	atto_clear	2021051700	2021051700	Plugin upgraded	\N		0	1635241490
+2779	0	atto_cloze	2017072802	2017072803	Starting plugin upgrade	\N		0	1635241490
+2780	0	atto_cloze	2017072803	2017072803	Upgrade savepoint reached	\N		0	1635241490
+2781	0	atto_cloze	2017072803	2017072803	Plugin upgraded	\N		0	1635241490
+2782	0	atto_collapse	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241490
+2783	0	atto_collapse	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241490
+2784	0	atto_collapse	2021051700	2021051700	Plugin upgraded	\N		0	1635241491
+2785	0	atto_emojipicker	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241491
+2786	0	atto_emojipicker	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241491
+2787	0	atto_emojipicker	2021051700	2021051700	Plugin upgraded	\N		0	1635241491
+2788	0	atto_emoticon	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241491
+2789	0	atto_emoticon	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241491
+2790	0	atto_emoticon	2021051700	2021051700	Plugin upgraded	\N		0	1635241491
+2791	0	atto_equation	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241491
+2792	0	atto_equation	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241491
+2793	0	atto_equation	2021051700	2021051700	Plugin upgraded	\N		0	1635241492
+2794	0	atto_fontcolor	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241492
+2795	0	atto_fontcolor	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241492
+2796	0	atto_fontcolor	2021051700	2021051700	Plugin upgraded	\N		0	1635241492
+2797	0	atto_h5p	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241492
+2798	0	atto_h5p	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241492
+2799	0	atto_h5p	2021051700	2021051700	Plugin upgraded	\N		0	1635241492
+2800	0	atto_html	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241492
+2801	0	atto_html	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241492
+2802	0	atto_html	2021051700	2021051700	Plugin upgraded	\N		0	1635241493
+2803	0	atto_image	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241493
+2804	0	atto_image	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241493
+2805	0	atto_image	2021051700	2021051700	Plugin upgraded	\N		0	1635241493
+2806	0	atto_indent	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241493
+2807	0	atto_indent	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241493
+2808	0	atto_indent	2021051700	2021051700	Plugin upgraded	\N		0	1635241493
+2809	0	atto_italic	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241493
+2810	0	atto_italic	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241493
+2811	0	atto_italic	2021051700	2021051700	Plugin upgraded	\N		0	1635241494
+2812	0	atto_link	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241494
+2813	0	atto_link	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241494
+2814	0	atto_link	2021051700	2021051700	Plugin upgraded	\N		0	1635241494
+2815	0	atto_managefiles	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241494
+2816	0	atto_managefiles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241494
+2817	0	atto_managefiles	2021051700	2021051700	Plugin upgraded	\N		0	1635241494
+2818	0	atto_media	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241494
+2819	0	atto_media	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241494
+2820	0	atto_media	2021051700	2021051700	Plugin upgraded	\N		0	1635241495
+2821	0	atto_noautolink	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241495
+2822	0	atto_noautolink	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241495
+2823	0	atto_noautolink	2021051700	2021051700	Plugin upgraded	\N		0	1635241495
+2824	0	atto_orderedlist	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241495
+2825	0	atto_orderedlist	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241495
+2826	0	atto_orderedlist	2021051700	2021051700	Plugin upgraded	\N		0	1635241495
+2827	0	atto_recordrtc	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241495
+2828	0	atto_recordrtc	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241495
+2829	0	atto_recordrtc	2021051700	2021051700	Plugin upgraded	\N		0	1635241496
+2830	0	atto_rtl	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241496
+2831	0	atto_rtl	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241496
+2832	0	atto_rtl	2021051700	2021051700	Plugin upgraded	\N		0	1635241496
+2833	0	atto_strike	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241496
+2834	0	atto_strike	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241496
+2835	0	atto_strike	2021051700	2021051700	Plugin upgraded	\N		0	1635241496
+2836	0	atto_subscript	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241496
+2837	0	atto_subscript	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241496
+2838	0	atto_subscript	2021051700	2021051700	Plugin upgraded	\N		0	1635241497
+2839	0	atto_superscript	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241497
+2840	0	atto_superscript	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241497
+2841	0	atto_superscript	2021051700	2021051700	Plugin upgraded	\N		0	1635241497
+2842	0	atto_table	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241497
+2843	0	atto_table	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241497
+2844	0	atto_table	2021051700	2021051700	Plugin upgraded	\N		0	1635241497
+2845	0	atto_title	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241497
+2846	0	atto_title	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241497
+2847	0	atto_title	2021051700	2021051700	Plugin upgraded	\N		0	1635241497
+2848	0	atto_underline	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241497
+2849	0	atto_underline	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241497
+2850	0	atto_underline	2021051700	2021051700	Plugin upgraded	\N		0	1635241498
+2851	0	atto_undo	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241498
+2852	0	atto_undo	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241498
+2853	0	atto_undo	2021051700	2021051700	Plugin upgraded	\N		0	1635241498
+2854	0	atto_unorderedlist	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241498
+2855	0	atto_unorderedlist	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241498
+2856	0	atto_unorderedlist	2021051700	2021051700	Plugin upgraded	\N		0	1635241498
+2857	0	atto_wiris	2020090300	2021072200	Starting plugin upgrade	\N		0	1635241498
+2858	0	atto_wiris	2021072200	2021072200	Upgrade savepoint reached	\N		0	1635241498
+2859	0	atto_wiris	2021072200	2021072200	Plugin upgraded	\N		0	1635241499
+2860	0	tinymce_ctrlhelp	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241499
+2861	0	tinymce_ctrlhelp	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241499
+2862	0	tinymce_ctrlhelp	2021051700	2021051700	Plugin upgraded	\N		0	1635241499
+2863	0	tinymce_managefiles	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241499
+2864	0	tinymce_managefiles	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241499
+2865	0	tinymce_managefiles	2021051700	2021051700	Plugin upgraded	\N		0	1635241499
+2866	0	tinymce_moodleemoticon	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241499
+2867	0	tinymce_moodleemoticon	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241499
+2868	0	tinymce_moodleemoticon	2021051700	2021051700	Plugin upgraded	\N		0	1635241500
+2869	0	tinymce_moodleimage	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241500
+2870	0	tinymce_moodleimage	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241500
+2871	0	tinymce_moodleimage	2021051700	2021051700	Plugin upgraded	\N		0	1635241500
+2872	0	tinymce_moodlemedia	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241500
+2873	0	tinymce_moodlemedia	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241500
+2874	0	tinymce_moodlemedia	2021051700	2021051700	Plugin upgraded	\N		0	1635241500
+2875	0	tinymce_moodlenolink	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241500
+2876	0	tinymce_moodlenolink	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241500
+2877	0	tinymce_moodlenolink	2021051700	2021051700	Plugin upgraded	\N		0	1635241501
+2878	0	tinymce_pdw	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241501
+2879	0	tinymce_pdw	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241501
+2880	0	tinymce_pdw	2021051700	2021051700	Plugin upgraded	\N		0	1635241501
+2881	0	tinymce_spellchecker	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241501
+2882	0	tinymce_spellchecker	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241501
+2883	0	tinymce_spellchecker	2021051700	2021051700	Plugin upgraded	\N		0	1635241501
+2884	0	tinymce_wrap	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241501
+2885	0	tinymce_wrap	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241501
+2886	0	tinymce_wrap	2021051700	2021051700	Plugin upgraded	\N		0	1635241502
+2887	0	logstore_database	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241502
+2888	0	logstore_database	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241502
+2889	0	logstore_database	2021051700	2021051700	Plugin upgraded	\N		0	1635241502
+2890	0	logstore_legacy	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241502
+2891	0	logstore_legacy	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241502
+2892	0	logstore_legacy	2021051700	2021051700	Plugin upgraded	\N		0	1635241502
+2893	0	logstore_standard	2019111800	2021051700	Starting plugin upgrade	\N		0	1635241502
+2894	0	logstore_standard	2021051700	2021051700	Upgrade savepoint reached	\N		0	1635241502
+2895	0	logstore_standard	2021051700	2021051700	Plugin upgraded	\N		0	1635241503
 \.
 
 
@@ -38958,10 +43046,10 @@ COPY public.mdl_url (id, course, name, intro, introformat, externalurl, display,
 -- Data for Name: mdl_user; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, icq, skype, yahoo, aim, msn, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, url, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename) FROM stdin;
-1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0													en	gregorian		99	0	0	0	0			0		This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N
-3	manual	1	0	0	0	1	xtecadmin	$2y$10$qzUE1w3TGCuFrVmTFpYecuG1w9EUXDPh66JB9Vn/LwaStwaqJBmRW		Administrador	XTEC	xtecadmin@xtec.invalid	0												CT	ca	gregorian		99	0	0	0	0			0			1	1	0	0	1	0	1604426262	1604426262	0					
-2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	admin@xtec.invalid	0												CT	ca	gregorian		99	1590510009	1604429165	1604425598	1604426390	192.168.33.1		0			1	1	0	0	1	0	0	1604426333	0					
+COPY public.mdl_user (id, auth, confirmed, policyagreed, deleted, suspended, mnethostid, username, password, idnumber, firstname, lastname, email, emailstop, phone1, phone2, institution, department, address, city, country, lang, calendartype, theme, timezone, firstaccess, lastaccess, lastlogin, currentlogin, lastip, secret, picture, description, descriptionformat, mailformat, maildigest, maildisplay, autosubscribe, trackforums, timecreated, timemodified, trustbitmask, imagealt, lastnamephonetic, firstnamephonetic, middlename, alternatename, moodlenetprofile) FROM stdin;
+1	manual	1	0	0	0	1	guest	$2y$10$nUys1LlIw6OofXIiKBHVQO8PUPvM9GQmBLvfwrlZbd8aF0N2VAgEW		Guest user	 	root@localhost	0								en	gregorian		99	0	0	0	0			0	This user is a special user that allows read-only access to some courses.	1	1	0	2	1	0	0	1590509906	0	\N	\N	\N	\N	\N	\N
+3	manual	1	0	0	0	1	xtecadmin	$2y$10$qzUE1w3TGCuFrVmTFpYecuG1w9EUXDPh66JB9Vn/LwaStwaqJBmRW		Administrador	XTEC	xtecadmin@xtec.invalid	0							CT	ca	gregorian		99	0	0	0	0			0		1	1	0	0	1	0	1604426262	1604426262	0						\N
+2	manual	1	0	0	0	1	admin	$2y$10$ItgEx7ogjA3G9Ulqc6.i6evfzeloRqSpTw2Lr9XD0yuTg/pC3nXoy		Administrador	Alexandria	admin@xtec.invalid	0							CT	ca	gregorian		99	1590510009	1635253681	1604426390	1635243831	192.168.33.1		0		1	1	0	0	1	0	0	1604426333	0						\N
 \.
 
 
@@ -39430,7 +43518,7 @@ SELECT pg_catalog.setval('public.mdl_auth_oauth2_linked_login_id_seq', 1, false)
 -- Name: mdl_backup_controllers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_backup_controllers_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mdl_backup_controllers_id_seq', 13, true);
 
 
 --
@@ -39459,6 +43547,13 @@ SELECT pg_catalog.setval('public.mdl_badge_alignment_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.mdl_badge_backpack_id_seq', 1, false);
+
+
+--
+-- Name: mdl_badge_backpack_oauth2_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_badge_backpack_oauth2_id_seq', 1, false);
 
 
 --
@@ -39546,17 +43641,24 @@ SELECT pg_catalog.setval('public.mdl_bigdata_profiles_id_seq', 1, false);
 
 
 --
+-- Name: mdl_block_configurable_reports_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_block_configurable_reports_id_seq', 1, false);
+
+
+--
 -- Name: mdl_block_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_id_seq', 51, true);
+SELECT pg_catalog.setval('public.mdl_block_id_seq', 53, true);
 
 
 --
 -- Name: mdl_block_instances_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_instances_id_seq', 14, true);
+SELECT pg_catalog.setval('public.mdl_block_instances_id_seq', 17, true);
 
 
 --
@@ -39570,14 +43672,14 @@ SELECT pg_catalog.setval('public.mdl_block_positions_id_seq', 1, false);
 -- Name: mdl_block_recent_activity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_block_recent_activity_id_seq', 4, true);
 
 
 --
 -- Name: mdl_block_recentlyaccesseditems_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_block_recentlyaccesseditems_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mdl_block_recentlyaccesseditems_id_seq', 7, true);
 
 
 --
@@ -39633,7 +43735,7 @@ SELECT pg_catalog.setval('public.mdl_cache_flags_id_seq', 3, true);
 -- Name: mdl_capabilities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_capabilities_id_seq', 719, true);
+SELECT pg_catalog.setval('public.mdl_capabilities_id_seq', 795, true);
 
 
 --
@@ -39843,28 +43945,35 @@ SELECT pg_catalog.setval('public.mdl_competency_userevidencecomp_id_seq', 1, fal
 -- Name: mdl_config_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_config_id_seq', 534, true);
+SELECT pg_catalog.setval('public.mdl_config_id_seq', 562, true);
 
 
 --
 -- Name: mdl_config_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_config_log_id_seq', 1815, true);
+SELECT pg_catalog.setval('public.mdl_config_log_id_seq', 1933, true);
 
 
 --
 -- Name: mdl_config_plugins_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_config_plugins_id_seq', 2145, true);
+SELECT pg_catalog.setval('public.mdl_config_plugins_id_seq', 2274, true);
+
+
+--
+-- Name: mdl_contentbank_content_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_contentbank_content_id_seq', 1, false);
 
 
 --
 -- Name: mdl_context_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_context_id_seq', 23, true);
+SELECT pg_catalog.setval('public.mdl_context_id_seq', 31, true);
 
 
 --
@@ -39934,7 +44043,7 @@ SELECT pg_catalog.setval('public.mdl_course_modules_completion_id_seq', 1, false
 -- Name: mdl_course_modules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_course_modules_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mdl_course_modules_id_seq', 8, true);
 
 
 --
@@ -39956,6 +44065,20 @@ SELECT pg_catalog.setval('public.mdl_course_request_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.mdl_course_sections_id_seq', 2, true);
+
+
+--
+-- Name: mdl_coursequotas_catsize_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_coursequotas_catsize_id_seq', 1, false);
+
+
+--
+-- Name: mdl_coursequotas_coursesize_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_coursequotas_coursesize_id_seq', 1, false);
 
 
 --
@@ -39997,14 +44120,14 @@ SELECT pg_catalog.setval('public.mdl_data_content_id_seq', 1, false);
 -- Name: mdl_data_fields_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_data_fields_id_seq', 43, true);
+SELECT pg_catalog.setval('public.mdl_data_fields_id_seq', 120, true);
 
 
 --
 -- Name: mdl_data_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_data_id_seq', 3, true);
+SELECT pg_catalog.setval('public.mdl_data_id_seq', 8, true);
 
 
 --
@@ -40018,7 +44141,7 @@ SELECT pg_catalog.setval('public.mdl_data_records_id_seq', 1, false);
 -- Name: mdl_editor_atto_autosave_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 17, true);
+SELECT pg_catalog.setval('public.mdl_editor_atto_autosave_id_seq', 39, true);
 
 
 --
@@ -40151,14 +44274,14 @@ SELECT pg_catalog.setval('public.mdl_events_queue_id_seq', 1, false);
 -- Name: mdl_external_functions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_external_functions_id_seq', 602, true);
+SELECT pg_catalog.setval('public.mdl_external_functions_id_seq', 644, true);
 
 
 --
 -- Name: mdl_external_services_functions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_external_services_functions_id_seq', 749, true);
+SELECT pg_catalog.setval('public.mdl_external_services_functions_id_seq', 1133, true);
 
 
 --
@@ -40256,7 +44379,7 @@ SELECT pg_catalog.setval('public.mdl_file_conversion_id_seq', 1, false);
 -- Name: mdl_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_files_id_seq', 20, true);
+SELECT pg_catalog.setval('public.mdl_files_id_seq', 54, true);
 
 
 --
@@ -40638,6 +44761,27 @@ SELECT pg_catalog.setval('public.mdl_h5p_library_dependencies_id_seq', 1, false)
 
 
 --
+-- Name: mdl_h5pactivity_attempts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_h5pactivity_attempts_id_seq', 1, false);
+
+
+--
+-- Name: mdl_h5pactivity_attempts_results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_h5pactivity_attempts_results_id_seq', 1, false);
+
+
+--
+-- Name: mdl_h5pactivity_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_h5pactivity_id_seq', 1, false);
+
+
+--
 -- Name: mdl_hotpot_attempts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -40691,6 +44835,13 @@ SELECT pg_catalog.setval('public.mdl_hotpot_strings_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.mdl_hvp_auth_id_seq', 1, false);
+
+
+--
+-- Name: mdl_hvp_content_hub_cache_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_hvp_content_hub_cache_id_seq', 1, false);
 
 
 --
@@ -40775,6 +44926,13 @@ SELECT pg_catalog.setval('public.mdl_hvp_xapi_results_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.mdl_imscp_id_seq', 1, false);
+
+
+--
+-- Name: mdl_infected_files_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_infected_files_id_seq', 1, false);
 
 
 --
@@ -40904,10 +45062,17 @@ SELECT pg_catalog.setval('public.mdl_license_id_seq', 9, true);
 
 
 --
+-- Name: mdl_local_alexandria_backups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_local_alexandria_backups_id_seq', 1, false);
+
+
+--
 -- Name: mdl_lock_db_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_lock_db_id_seq', 81, true);
+SELECT pg_catalog.setval('public.mdl_lock_db_id_seq', 99, true);
 
 
 --
@@ -40935,7 +45100,7 @@ SELECT pg_catalog.setval('public.mdl_log_queries_id_seq', 1, false);
 -- Name: mdl_logstore_standard_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1547, true);
+SELECT pg_catalog.setval('public.mdl_logstore_standard_log_id_seq', 1872, true);
 
 
 --
@@ -41075,7 +45240,7 @@ SELECT pg_catalog.setval('public.mdl_message_processors_id_seq', 4, true);
 -- Name: mdl_message_providers_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_message_providers_id_seq', 42, true);
+SELECT pg_catalog.setval('public.mdl_message_providers_id_seq', 44, true);
 
 
 --
@@ -41222,7 +45387,7 @@ SELECT pg_catalog.setval('public.mdl_mnetservice_enrol_enrolments_id_seq', 1, fa
 -- Name: mdl_modules_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_modules_id_seq', 31, true);
+SELECT pg_catalog.setval('public.mdl_modules_id_seq', 32, true);
 
 
 --
@@ -41258,6 +45423,13 @@ SELECT pg_catalog.setval('public.mdl_oauth2_endpoint_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.mdl_oauth2_issuer_id_seq', 1, false);
+
+
+--
+-- Name: mdl_oauth2_refresh_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_oauth2_refresh_token_id_seq', 1, false);
 
 
 --
@@ -41335,6 +45507,34 @@ SELECT pg_catalog.setval('public.mdl_oauth_user_auth_scopes_id_seq', 1, false);
 --
 
 SELECT pg_catalog.setval('public.mdl_page_id_seq', 1, false);
+
+
+--
+-- Name: mdl_paygw_paypal_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_paygw_paypal_id_seq', 1, false);
+
+
+--
+-- Name: mdl_payment_accounts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_payment_accounts_id_seq', 1, false);
+
+
+--
+-- Name: mdl_payment_gateways_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_payment_gateways_id_seq', 1, false);
+
+
+--
+-- Name: mdl_payments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_payments_id_seq', 1, false);
 
 
 --
@@ -41849,6 +46049,20 @@ SELECT pg_catalog.setval('public.mdl_quiz_statistics_id_seq', 1, false);
 
 
 --
+-- Name: mdl_quizaccess_seb_quizsettings_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_quizaccess_seb_quizsettings_id_seq', 1, false);
+
+
+--
+-- Name: mdl_quizaccess_seb_template_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_quizaccess_seb_template_id_seq', 1, false);
+
+
+--
 -- Name: mdl_qv_assignments_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
@@ -41978,7 +46192,7 @@ SELECT pg_catalog.setval('public.mdl_registration_hubs_id_seq', 1, false);
 -- Name: mdl_repository_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_repository_id_seq', 7, true);
+SELECT pg_catalog.setval('public.mdl_repository_id_seq', 8, true);
 
 
 --
@@ -41992,7 +46206,7 @@ SELECT pg_catalog.setval('public.mdl_repository_instance_config_id_seq', 1, fals
 -- Name: mdl_repository_instances_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_repository_instances_id_seq', 7, true);
+SELECT pg_catalog.setval('public.mdl_repository_instances_id_seq', 8, true);
 
 
 --
@@ -42055,7 +46269,7 @@ SELECT pg_catalog.setval('public.mdl_role_assignments_id_seq', 1, false);
 -- Name: mdl_role_capabilities_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_role_capabilities_id_seq', 1560, true);
+SELECT pg_catalog.setval('public.mdl_role_capabilities_id_seq', 1703, true);
 
 
 --
@@ -42188,7 +46402,7 @@ SELECT pg_catalog.setval('public.mdl_search_simpledb_index_id_seq', 1, false);
 -- Name: mdl_sessions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 6, true);
+SELECT pg_catalog.setval('public.mdl_sessions_id_seq', 9, true);
 
 
 --
@@ -42300,21 +46514,91 @@ SELECT pg_catalog.setval('public.mdl_tag_instance_id_seq', 1, false);
 -- Name: mdl_task_adhoc_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_task_adhoc_id_seq', 1, true);
+SELECT pg_catalog.setval('public.mdl_task_adhoc_id_seq', 3, true);
 
 
 --
 -- Name: mdl_task_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_task_log_id_seq', 61, true);
+SELECT pg_catalog.setval('public.mdl_task_log_id_seq', 154, true);
 
 
 --
 -- Name: mdl_task_scheduled_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_task_scheduled_id_seq', 107, true);
+SELECT pg_catalog.setval('public.mdl_task_scheduled_id_seq', 115, true);
+
+
+--
+-- Name: mdl_tool_brickfield_areas_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_areas_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_cache_acts_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_cache_acts_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_cache_check_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_cache_check_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_checks_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_checks_id_seq', 31, true);
+
+
+--
+-- Name: mdl_tool_brickfield_content_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_content_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_errors_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_errors_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_process_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_process_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_results_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_results_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_schedule_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_schedule_id_seq', 1, false);
+
+
+--
+-- Name: mdl_tool_brickfield_summary_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('public.mdl_tool_brickfield_summary_id_seq', 1, false);
 
 
 --
@@ -42447,28 +46731,28 @@ SELECT pg_catalog.setval('public.mdl_tool_recyclebin_category_id_seq', 1, false)
 -- Name: mdl_tool_recyclebin_course_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_tool_recyclebin_course_id_seq', 1, false);
+SELECT pg_catalog.setval('public.mdl_tool_recyclebin_course_id_seq', 4, true);
 
 
 --
 -- Name: mdl_tool_usertours_steps_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_tool_usertours_steps_id_seq', 14, true);
+SELECT pg_catalog.setval('public.mdl_tool_usertours_steps_id_seq', 18, true);
 
 
 --
 -- Name: mdl_tool_usertours_tours_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_tool_usertours_tours_id_seq', 2, true);
+SELECT pg_catalog.setval('public.mdl_tool_usertours_tours_id_seq', 6, true);
 
 
 --
 -- Name: mdl_upgrade_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('public.mdl_upgrade_log_id_seq', 1464, true);
+SELECT pg_catalog.setval('public.mdl_upgrade_log_id_seq', 2895, true);
 
 
 --
@@ -42983,6 +47267,14 @@ ALTER TABLE ONLY public.mdl_badge_backpack
 
 
 --
+-- Name: mdl_badge_backpack_oauth2 mdl_badgbackoaut_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_badge_backpack_oauth2
+    ADD CONSTRAINT mdl_badgbackoaut_id_pk PRIMARY KEY (id);
+
+
+--
 -- Name: mdl_badge_criteria mdl_badgcrit_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -43076,6 +47368,14 @@ ALTER TABLE ONLY public.mdl_bigdata_profiles
 
 ALTER TABLE ONLY public.mdl_block
     ADD CONSTRAINT mdl_bloc_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_block_configurable_reports mdl_blocconfrepo_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_block_configurable_reports
+    ADD CONSTRAINT mdl_blocconfrepo_id_pk PRIMARY KEY (id);
 
 
 --
@@ -43439,6 +47739,14 @@ ALTER TABLE ONLY public.mdl_context
 
 
 --
+-- Name: mdl_contentbank_content mdl_contcont_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_contentbank_content
+    ADD CONSTRAINT mdl_contcont_id_pk PRIMARY KEY (id);
+
+
+--
 -- Name: mdl_context_temp mdl_conttemp_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -43460,6 +47768,14 @@ ALTER TABLE ONLY public.mdl_course
 
 ALTER TABLE ONLY public.mdl_course_categories
     ADD CONSTRAINT mdl_courcate_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_coursequotas_catsize mdl_courcats_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_coursequotas_catsize
+    ADD CONSTRAINT mdl_courcats_id_pk PRIMARY KEY (id);
 
 
 --
@@ -43500,6 +47816,14 @@ ALTER TABLE ONLY public.mdl_course_completion_crit_compl
 
 ALTER TABLE ONLY public.mdl_course_completion_defaults
     ADD CONSTRAINT mdl_courcompdefa_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_coursequotas_coursesize mdl_courcour_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_coursequotas_coursesize
+    ADD CONSTRAINT mdl_courcour_id_pk PRIMARY KEY (id);
 
 
 --
@@ -44295,6 +48619,30 @@ ALTER TABLE ONLY public.mdl_h5p
 
 
 --
+-- Name: mdl_h5pactivity mdl_h5pa_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_h5pactivity
+    ADD CONSTRAINT mdl_h5pa_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_h5pactivity_attempts mdl_h5paatte_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_h5pactivity_attempts
+    ADD CONSTRAINT mdl_h5paatte_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_h5pactivity_attempts_results mdl_h5paatteresu_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_h5pactivity_attempts_results
+    ADD CONSTRAINT mdl_h5paatteresu_id_pk PRIMARY KEY (id);
+
+
+--
 -- Name: mdl_h5p_contents_libraries mdl_h5pcontlibr_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -44399,6 +48747,14 @@ ALTER TABLE ONLY public.mdl_hvp_auth
 
 
 --
+-- Name: mdl_hvp_content_hub_cache mdl_hvpconthubcach_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_hvp_content_hub_cache
+    ADD CONSTRAINT mdl_hvpconthubcach_id_pk PRIMARY KEY (id);
+
+
+--
 -- Name: mdl_hvp_contents_libraries mdl_hvpcontlibr_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -44492,6 +48848,14 @@ ALTER TABLE ONLY public.mdl_hvp_xapi_results
 
 ALTER TABLE ONLY public.mdl_imscp
     ADD CONSTRAINT mdl_imsc_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_infected_files mdl_infefile_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_infected_files
+    ADD CONSTRAINT mdl_infefile_id_pk PRIMARY KEY (id);
 
 
 --
@@ -44636,6 +49000,14 @@ ALTER TABLE ONLY public.mdl_lesson_timer
 
 ALTER TABLE ONLY public.mdl_license
     ADD CONSTRAINT mdl_lice_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_local_alexandria_backups mdl_locaalexback_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_local_alexandria_backups
+    ADD CONSTRAINT mdl_locaalexback_id_pk PRIMARY KEY (id);
 
 
 --
@@ -45087,6 +49459,14 @@ ALTER TABLE ONLY public.mdl_oauth_public_keys
 
 
 --
+-- Name: mdl_oauth2_refresh_token mdl_oautrefrtoke_id2_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_oauth2_refresh_token
+    ADD CONSTRAINT mdl_oautrefrtoke_id2_pk PRIMARY KEY (id);
+
+
+--
 -- Name: mdl_oauth_refresh_tokens mdl_oautrefrtoke_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -45132,6 +49512,38 @@ ALTER TABLE ONLY public.mdl_oauth2_user_field_mapping
 
 ALTER TABLE ONLY public.mdl_page
     ADD CONSTRAINT mdl_page_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_paygw_paypal mdl_paygpayp_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_paygw_paypal
+    ADD CONSTRAINT mdl_paygpayp_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_payments mdl_paym_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_payments
+    ADD CONSTRAINT mdl_paym_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_payment_accounts mdl_paymacco_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_payment_accounts
+    ADD CONSTRAINT mdl_paymacco_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_payment_gateways mdl_paymgate_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_payment_gateways
+    ADD CONSTRAINT mdl_paymgate_id_pk PRIMARY KEY (id);
 
 
 --
@@ -45684,6 +50096,22 @@ ALTER TABLE ONLY public.mdl_quiz_overview_regrades
 
 ALTER TABLE ONLY public.mdl_quiz_reports
     ADD CONSTRAINT mdl_quizrepo_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_quizaccess_seb_quizsettings mdl_quizsebquiz_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_quizaccess_seb_quizsettings
+    ADD CONSTRAINT mdl_quizsebquiz_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_quizaccess_seb_template mdl_quizsebtemp_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_quizaccess_seb_template
+    ADD CONSTRAINT mdl_quizsebtemp_id_pk PRIMARY KEY (id);
 
 
 --
@@ -46252,6 +50680,86 @@ ALTER TABLE ONLY public.mdl_task_log
 
 ALTER TABLE ONLY public.mdl_task_scheduled
     ADD CONSTRAINT mdl_tasksche_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_areas mdl_toolbricarea_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_areas
+    ADD CONSTRAINT mdl_toolbricarea_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_cache_acts mdl_toolbriccachacts_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_cache_acts
+    ADD CONSTRAINT mdl_toolbriccachacts_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_cache_check mdl_toolbriccachchec_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_cache_check
+    ADD CONSTRAINT mdl_toolbriccachchec_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_checks mdl_toolbricchec_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_checks
+    ADD CONSTRAINT mdl_toolbricchec_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_content mdl_toolbriccont_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_content
+    ADD CONSTRAINT mdl_toolbriccont_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_errors mdl_toolbricerro_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_errors
+    ADD CONSTRAINT mdl_toolbricerro_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_process mdl_toolbricproc_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_process
+    ADD CONSTRAINT mdl_toolbricproc_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_results mdl_toolbricresu_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_results
+    ADD CONSTRAINT mdl_toolbricresu_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_schedule mdl_toolbricsche_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_schedule
+    ADD CONSTRAINT mdl_toolbricsche_id_pk PRIMARY KEY (id);
+
+
+--
+-- Name: mdl_tool_brickfield_summary mdl_toolbricsumm_id_pk; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY public.mdl_tool_brickfield_summary
+    ADD CONSTRAINT mdl_toolbricsumm_id_pk PRIMARY KEY (id);
 
 
 --
@@ -47290,6 +51798,41 @@ CREATE INDEX mdl_badgback_use_ix ON public.mdl_badge_backpack USING btree (useri
 
 
 --
+-- Name: mdl_badgback_useext_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_badgback_useext_uix ON public.mdl_badge_backpack USING btree (userid, externalbackpackid);
+
+
+--
+-- Name: mdl_badgbackoaut_ext_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_badgbackoaut_ext_ix ON public.mdl_badge_backpack_oauth2 USING btree (externalbackpackid);
+
+
+--
+-- Name: mdl_badgbackoaut_iss_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_badgbackoaut_iss_ix ON public.mdl_badge_backpack_oauth2 USING btree (issuerid);
+
+
+--
+-- Name: mdl_badgbackoaut_use2_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_badgbackoaut_use2_ix ON public.mdl_badge_backpack_oauth2 USING btree (userid);
+
+
+--
+-- Name: mdl_badgbackoaut_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_badgbackoaut_use_ix ON public.mdl_badge_backpack_oauth2 USING btree (usermodified);
+
+
+--
 -- Name: mdl_badgcrit_bad_ix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -47364,6 +51907,13 @@ CREATE UNIQUE INDEX mdl_badgexteback_bac2_uix ON public.mdl_badge_external_backp
 --
 
 CREATE UNIQUE INDEX mdl_badgexteback_bac_uix ON public.mdl_badge_external_backpack USING btree (backpackapiurl);
+
+
+--
+-- Name: mdl_badgexteback_oau_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_badgexteback_oau_ix ON public.mdl_badge_external_backpack USING btree (oauth2_issuerid);
 
 
 --
@@ -47560,6 +52110,13 @@ CREATE INDEX mdl_blogasso_con_ix ON public.mdl_blog_association USING btree (con
 --
 
 CREATE INDEX mdl_blogexte_use_ix ON public.mdl_blog_external USING btree (userid);
+
+
+--
+-- Name: mdl_bookchap_boo_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_bookchap_boo_ix ON public.mdl_book_chapters USING btree (bookid);
 
 
 --
@@ -48018,6 +52575,41 @@ CREATE INDEX mdl_cont_pat_ix_pattern ON public.mdl_context USING btree (path var
 
 
 --
+-- Name: mdl_contcont_con_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_contcont_con_ix ON public.mdl_contentbank_content USING btree (contextid);
+
+
+--
+-- Name: mdl_contcont_conconins_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_contcont_conconins_ix ON public.mdl_contentbank_content USING btree (contextid, contenttype, instanceid);
+
+
+--
+-- Name: mdl_contcont_nam_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_contcont_nam_ix ON public.mdl_contentbank_content USING btree (name);
+
+
+--
+-- Name: mdl_contcont_use2_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_contcont_use2_ix ON public.mdl_contentbank_content USING btree (usercreated);
+
+
+--
+-- Name: mdl_contcont_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_contcont_use_ix ON public.mdl_contentbank_content USING btree (usermodified);
+
+
+--
 -- Name: mdl_cour_cat_ix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -48050,6 +52642,13 @@ CREATE INDEX mdl_cour_sor_ix ON public.mdl_course USING btree (sortorder);
 --
 
 CREATE INDEX mdl_courcate_par_ix ON public.mdl_course_categories USING btree (parent);
+
+
+--
+-- Name: mdl_courcats_cat_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_courcats_cat_uix ON public.mdl_coursequotas_catsize USING btree (categoryid);
 
 
 --
@@ -48162,6 +52761,13 @@ CREATE UNIQUE INDEX mdl_courcompdefa_coumod_uix ON public.mdl_course_completion_
 --
 
 CREATE INDEX mdl_courcompdefa_mod_ix ON public.mdl_course_completion_defaults USING btree (module);
+
+
+--
+-- Name: mdl_courcour_cou_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_courcour_cou_uix ON public.mdl_coursequotas_coursesize USING btree (courseid);
 
 
 --
@@ -48571,6 +53177,13 @@ CREATE INDEX mdl_even_cat_ix ON public.mdl_event USING btree (categoryid);
 
 
 --
+-- Name: mdl_even_comeveins_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_even_comeveins_ix ON public.mdl_event USING btree (component, eventtype, instance);
+
+
+--
 -- Name: mdl_even_cou_ix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -48578,10 +53191,24 @@ CREATE INDEX mdl_even_cou_ix ON public.mdl_event USING btree (courseid);
 
 
 --
+-- Name: mdl_even_eve_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_even_eve_ix ON public.mdl_event USING btree (eventtype);
+
+
+--
 -- Name: mdl_even_grocoucatvisuse_ix; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE INDEX mdl_even_grocoucatvisuse_ix ON public.mdl_event USING btree (groupid, courseid, categoryid, visible, userid);
+
+
+--
+-- Name: mdl_even_modinseve_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_even_modinseve_ix ON public.mdl_event USING btree (modulename, instance, eventtype);
 
 
 --
@@ -48708,6 +53335,13 @@ CREATE INDEX mdl_extetoke_cre_ix ON public.mdl_external_tokens USING btree (crea
 --
 
 CREATE INDEX mdl_extetoke_ext_ix ON public.mdl_external_tokens USING btree (externalserviceid);
+
+
+--
+-- Name: mdl_extetoke_tok_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_extetoke_tok_ix ON public.mdl_external_tokens USING btree (token);
 
 
 --
@@ -48869,6 +53503,13 @@ CREATE INDEX mdl_file_con2_ix ON public.mdl_files USING btree (contextid);
 --
 
 CREATE INDEX mdl_file_con_ix ON public.mdl_files USING btree (contenthash);
+
+
+--
+-- Name: mdl_file_lic_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_file_lic_ix ON public.mdl_files USING btree (license);
 
 
 --
@@ -49859,6 +54500,62 @@ CREATE INDEX mdl_h5p_mai_ix ON public.mdl_h5p USING btree (mainlibraryid);
 
 
 --
+-- Name: mdl_h5pa_cou_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5pa_cou_ix ON public.mdl_h5pactivity USING btree (course);
+
+
+--
+-- Name: mdl_h5paatte_h5p_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5paatte_h5p_ix ON public.mdl_h5pactivity_attempts USING btree (h5pactivityid);
+
+
+--
+-- Name: mdl_h5paatte_h5ptim_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5paatte_h5ptim_ix ON public.mdl_h5pactivity_attempts USING btree (h5pactivityid, timecreated);
+
+
+--
+-- Name: mdl_h5paatte_h5puse_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5paatte_h5puse_ix ON public.mdl_h5pactivity_attempts USING btree (h5pactivityid, userid);
+
+
+--
+-- Name: mdl_h5paatte_h5puseatt_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_h5paatte_h5puseatt_uix ON public.mdl_h5pactivity_attempts USING btree (h5pactivityid, userid, attempt);
+
+
+--
+-- Name: mdl_h5paatte_tim_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5paatte_tim_ix ON public.mdl_h5pactivity_attempts USING btree (timecreated);
+
+
+--
+-- Name: mdl_h5paatteresu_att_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5paatteresu_att_ix ON public.mdl_h5pactivity_attempts_results USING btree (attemptid);
+
+
+--
+-- Name: mdl_h5paatteresu_atttim_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_h5paatteresu_atttim_ix ON public.mdl_h5pactivity_attempts_results USING btree (attemptid, timecreated);
+
+
+--
 -- Name: mdl_h5pcontlibr_h5p_ix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -49978,6 +54675,13 @@ CREATE UNIQUE INDEX mdl_hvpauth_use_uix ON public.mdl_hvp_auth USING btree (user
 
 
 --
+-- Name: mdl_hvpconthubcach_lan_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_hvpconthubcach_lan_uix ON public.mdl_hvp_content_hub_cache USING btree (language);
+
+
+--
 -- Name: mdl_hvpcontlibr_dro_ix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -50006,10 +54710,10 @@ CREATE UNIQUE INDEX mdl_hvplibrcach_libhas_uix ON public.mdl_hvp_libraries_cache
 
 
 --
--- Name: mdl_hvpxapiresu_idconuse_uix; Type: INDEX; Schema: public; Owner: -
+-- Name: mdl_hvpxapiresu_conuse_ix; Type: INDEX; Schema: public; Owner: -
 --
 
-CREATE UNIQUE INDEX mdl_hvpxapiresu_idconuse_uix ON public.mdl_hvp_xapi_results USING btree (id, content_id, user_id);
+CREATE INDEX mdl_hvpxapiresu_conuse_ix ON public.mdl_hvp_xapi_results USING btree (content_id, user_id);
 
 
 --
@@ -50017,6 +54721,13 @@ CREATE UNIQUE INDEX mdl_hvpxapiresu_idconuse_uix ON public.mdl_hvp_xapi_results 
 --
 
 CREATE INDEX mdl_imsc_cou_ix ON public.mdl_imscp USING btree (course);
+
+
+--
+-- Name: mdl_infefile_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_infefile_use_ix ON public.mdl_infected_files USING btree (userid);
 
 
 --
@@ -50206,6 +54917,13 @@ CREATE INDEX mdl_lesstime_les_ix ON public.mdl_lesson_timer USING btree (lessoni
 --
 
 CREATE INDEX mdl_lesstime_use_ix ON public.mdl_lesson_timer USING btree (userid);
+
+
+--
+-- Name: mdl_locaalexback_cou_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_locaalexback_cou_uix ON public.mdl_local_alexandria_backups USING btree (course_id);
 
 
 --
@@ -50839,10 +55557,31 @@ CREATE INDEX mdl_oautendp_iss_ix ON public.mdl_oauth2_endpoint USING btree (issu
 
 
 --
+-- Name: mdl_oautrefrtoke_iss_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_oautrefrtoke_iss_ix ON public.mdl_oauth2_refresh_token USING btree (issuerid);
+
+
+--
 -- Name: mdl_oautrefrtoke_ref_uix; Type: INDEX; Schema: public; Owner: -
 --
 
 CREATE UNIQUE INDEX mdl_oautrefrtoke_ref_uix ON public.mdl_oauth_refresh_tokens USING btree (refresh_token);
+
+
+--
+-- Name: mdl_oautrefrtoke_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_oautrefrtoke_use_ix ON public.mdl_oauth2_refresh_token USING btree (userid);
+
+
+--
+-- Name: mdl_oautrefrtoke_useisssco_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_oautrefrtoke_useisssco_uix ON public.mdl_oauth2_refresh_token USING btree (userid, issuerid, scopehash);
 
 
 --
@@ -50892,6 +55631,48 @@ CREATE UNIQUE INDEX mdl_oautuserfielmapp_issin_uix ON public.mdl_oauth2_user_fie
 --
 
 CREATE INDEX mdl_page_cou_ix ON public.mdl_page USING btree (course);
+
+
+--
+-- Name: mdl_paygpayp_pay_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_paygpayp_pay_uix ON public.mdl_paygw_paypal USING btree (paymentid);
+
+
+--
+-- Name: mdl_paym_acc_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_paym_acc_ix ON public.mdl_payments USING btree (accountid);
+
+
+--
+-- Name: mdl_paym_compayite_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_paym_compayite_ix ON public.mdl_payments USING btree (component, paymentarea, itemid);
+
+
+--
+-- Name: mdl_paym_gat_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_paym_gat_ix ON public.mdl_payments USING btree (gateway);
+
+
+--
+-- Name: mdl_paym_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_paym_use_ix ON public.mdl_payments USING btree (userid);
+
+
+--
+-- Name: mdl_paymgate_acc_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_paymgate_acc_ix ON public.mdl_payment_gateways USING btree (accountid);
 
 
 --
@@ -51627,6 +56408,41 @@ CREATE INDEX mdl_quizoverregr_queslo_ix ON public.mdl_quiz_overview_regrades USI
 --
 
 CREATE UNIQUE INDEX mdl_quizrepo_nam_uix ON public.mdl_quiz_reports USING btree (name);
+
+
+--
+-- Name: mdl_quizsebquiz_cmi_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_quizsebquiz_cmi_uix ON public.mdl_quizaccess_seb_quizsettings USING btree (cmid);
+
+
+--
+-- Name: mdl_quizsebquiz_qui_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_quizsebquiz_qui_uix ON public.mdl_quizaccess_seb_quizsettings USING btree (quizid);
+
+
+--
+-- Name: mdl_quizsebquiz_tem_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_quizsebquiz_tem_ix ON public.mdl_quizaccess_seb_quizsettings USING btree (templateid);
+
+
+--
+-- Name: mdl_quizsebquiz_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_quizsebquiz_use_ix ON public.mdl_quizaccess_seb_quizsettings USING btree (usermodified);
+
+
+--
+-- Name: mdl_quizsebtemp_use_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_quizsebtemp_use_ix ON public.mdl_quizaccess_seb_template USING btree (usermodified);
 
 
 --
@@ -52631,6 +57447,202 @@ CREATE UNIQUE INDEX mdl_tasksche_cla_uix ON public.mdl_task_scheduled USING btre
 
 
 --
+-- Name: mdl_toolbricarea_cat_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_cat_ix ON public.mdl_tool_brickfield_areas USING btree (categoryid);
+
+
+--
+-- Name: mdl_toolbricarea_cmi_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_cmi_ix ON public.mdl_tool_brickfield_areas USING btree (cmid);
+
+
+--
+-- Name: mdl_toolbricarea_con_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_con_ix ON public.mdl_tool_brickfield_areas USING btree (contextid);
+
+
+--
+-- Name: mdl_toolbricarea_cou_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_cou_ix ON public.mdl_tool_brickfield_areas USING btree (courseid);
+
+
+--
+-- Name: mdl_toolbricarea_coucmi_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_coucmi_ix ON public.mdl_tool_brickfield_areas USING btree (courseid, cmid);
+
+
+--
+-- Name: mdl_toolbricarea_refreftyp_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_refreftyp_ix ON public.mdl_tool_brickfield_areas USING btree (reftable, refid, type);
+
+
+--
+-- Name: mdl_toolbricarea_typconcomf_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_typconcomf_ix ON public.mdl_tool_brickfield_areas USING btree (type, contextid, component, fieldorarea, itemid);
+
+
+--
+-- Name: mdl_toolbricarea_typtabitef_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricarea_typtabitef_ix ON public.mdl_tool_brickfield_areas USING btree (type, tablename, itemid, fieldorarea);
+
+
+--
+-- Name: mdl_toolbriccachacts_cou_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccachacts_cou_ix ON public.mdl_tool_brickfield_cache_acts USING btree (courseid);
+
+
+--
+-- Name: mdl_toolbriccachacts_sta_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccachacts_sta_ix ON public.mdl_tool_brickfield_cache_acts USING btree (status);
+
+
+--
+-- Name: mdl_toolbriccachchec_cou_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccachchec_cou_ix ON public.mdl_tool_brickfield_cache_check USING btree (courseid);
+
+
+--
+-- Name: mdl_toolbriccachchec_err_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccachchec_err_ix ON public.mdl_tool_brickfield_cache_check USING btree (errorcount);
+
+
+--
+-- Name: mdl_toolbriccachchec_sta_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccachchec_sta_ix ON public.mdl_tool_brickfield_cache_check USING btree (status);
+
+
+--
+-- Name: mdl_toolbricchec_che2_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricchec_che2_ix ON public.mdl_tool_brickfield_checks USING btree (checkgroup);
+
+
+--
+-- Name: mdl_toolbricchec_che_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricchec_che_ix ON public.mdl_tool_brickfield_checks USING btree (checktype);
+
+
+--
+-- Name: mdl_toolbricchec_sta_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricchec_sta_ix ON public.mdl_tool_brickfield_checks USING btree (status);
+
+
+--
+-- Name: mdl_toolbriccont_are_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccont_are_ix ON public.mdl_tool_brickfield_content USING btree (areaid);
+
+
+--
+-- Name: mdl_toolbriccont_iscare_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccont_iscare_ix ON public.mdl_tool_brickfield_content USING btree (iscurrent, areaid);
+
+
+--
+-- Name: mdl_toolbriccont_sta_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbriccont_sta_ix ON public.mdl_tool_brickfield_content USING btree (status);
+
+
+--
+-- Name: mdl_toolbricerro_res_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricerro_res_ix ON public.mdl_tool_brickfield_errors USING btree (resultid);
+
+
+--
+-- Name: mdl_toolbricproc_tim_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricproc_tim_ix ON public.mdl_tool_brickfield_process USING btree (timecompleted);
+
+
+--
+-- Name: mdl_toolbricresu_che_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricresu_che_ix ON public.mdl_tool_brickfield_results USING btree (checkid);
+
+
+--
+-- Name: mdl_toolbricresu_con_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricresu_con_ix ON public.mdl_tool_brickfield_results USING btree (contentid);
+
+
+--
+-- Name: mdl_toolbricresu_conche_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricresu_conche_ix ON public.mdl_tool_brickfield_results USING btree (contentid, checkid);
+
+
+--
+-- Name: mdl_toolbricsche_conins_uix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE UNIQUE INDEX mdl_toolbricsche_conins_uix ON public.mdl_tool_brickfield_schedule USING btree (contextlevel, instanceid);
+
+
+--
+-- Name: mdl_toolbricsche_sta_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricsche_sta_ix ON public.mdl_tool_brickfield_schedule USING btree (status);
+
+
+--
+-- Name: mdl_toolbricsumm_cou_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricsumm_cou_ix ON public.mdl_tool_brickfield_summary USING btree (courseid);
+
+
+--
+-- Name: mdl_toolbricsumm_sta_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_toolbricsumm_sta_ix ON public.mdl_tool_brickfield_summary USING btree (status);
+
+
+--
 -- Name: mdl_toolcoho_cohroluse_uix; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -53104,6 +58116,13 @@ CREATE INDEX mdl_userpasshist_use_ix ON public.mdl_user_password_history USING b
 --
 
 CREATE INDEX mdl_userpassrese_use_ix ON public.mdl_user_password_resets USING btree (userid);
+
+
+--
+-- Name: mdl_userpref_nam_ix; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX mdl_userpref_nam_ix ON public.mdl_user_preferences USING btree (name);
 
 
 --
