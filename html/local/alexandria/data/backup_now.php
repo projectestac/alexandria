@@ -30,4 +30,4 @@ require_xtecadmin(true);
 
 $courseid = required_param('courseid', PARAM_INT);
 
-alexandria_backup_course($courseid, true);
+alexandria_backup_course($courseid);

@@ -302,23 +302,15 @@ function alexandria_get_admin() {
 
 /**
  * @param $courseid
- * @param bool $doitnow
+ * @throws coding_exception
  * @throws dml_exception
  * @throws moodle_exception
  */
-function alexandria_backup_course($courseid, $doitnow = false) {
+function alexandria_backup_course($courseid) {
 
-    global $CFG, $DB, $USER;
+    global $CFG, $DB;
 
-    if ($doitnow && is_xtecadmin()) {
-
-        require_once $CFG->dirroot . '/backup/util/includes/backup_includes.php';
-        require_once $CFG->dirroot . '/backup/util/helper/backup_cron_helper.class.php';
-
-        $course = $DB->get_record('course', array('id' => $courseid));
-        backup_cron_automated_helper::launch_automated_backup($course, 0, $USER->id);
-
-    } else if (!$DB->get_record(ALEXANDRIA_BACKUPS_TABLENAME, array('course_id' => $courseid))) {
+    if (!$DB->get_record(ALEXANDRIA_BACKUPS_TABLENAME, ['course_id' => $courseid])) {
 
         $backup = new stdClass();
         $backup->course_id = $courseid;
@@ -336,6 +328,7 @@ function alexandria_backup_course($courseid, $doitnow = false) {
     }
 
     redirect($CFG->wwwroot . '/course/view.php?id=' . $courseid);
+
 }
 
 /**
