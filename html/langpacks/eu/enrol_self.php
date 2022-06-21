@@ -33,7 +33,7 @@ $string['cohortonly'] = 'Soilik kohorteko partaideak';
 $string['cohortonly_help'] = 'Matrikulazio automatikoa soilik kohorte bateko kideentzat egon daiteke eskuragarri. Kontuan izan ezarpen hau aldatzeak ez duela eraginik existitzen diren matrikulazioetan.';
 $string['confirmbulkdeleteenrolment'] = 'Ziur zaude erabiltzaile-matrikula hauek ezabatu nahi dituzula?';
 $string['customwelcomemessage'] = 'Pertsonalizatu ongi etorria emateko mezua';
-$string['customwelcomemessage_help'] = 'Ongi-etorri mezu pertsonalizatua gehi daiteke testu-soilean edo Moodleko formatu automatikoan, HTML etiketak eta etiketa eleanitzak barne.
+$string['customwelcomemessage_help'] = 'Ongi-etorri mezu pertsonalizatua gehi daiteke testu-soilean edo Moodleko formatu automatikoan, HTML etiketak eta etiketa eleaniztunak barne.
 
 Mezuan hurrengo gakoak sar daitezke:
 
@@ -60,7 +60,7 @@ $string['expirymessageenrolledbody'] = 'Kaixo, {$a->user}:
 
 Mezu hau \'{$a->course}\' ikastaroan zure matrikula {$a->timeend} datan amaituko dela jakinarazteko da.
 
-Laguntzarik behar baduzu, jarri harremanetan {$a->enroller}-(r)ekin.';
+Laguntzarik behar baduzu, jarri harremanetan {$a->enroller}(r)ekin.';
 $string['expirymessageenrolledsubject'] = 'Matrikulazio automatikoaren amaieraren jakinarazpena';
 $string['expirymessageenrollerbody'] = '\'{$a->course}\' ikastaroko matrikulazioa hurrengo {$a->threshold} iraungiko da hurrengo erabiltzaileentzat:
 
@@ -78,7 +78,7 @@ Oharra: taldeen ezarpenetan taldea matrikulatzeko giltza zehazteaz gain matrikul
 $string['keyholder'] = 'Matrikulazio-giltza hau erabiltzaile honen partetik jaso beharko zenuke:';
 $string['longtimenosee'] = 'Desmatrikulatu parte-hartu gabeko tarte honen ondoren';
 $string['longtimenosee_help'] = 'Erabiltzaileak denbora luzez ikastaroan sartu gabe egonez gero automatikoki desmatrikulatzen dira. Ezarpen honek hori gertatzeko denbora-muga zehazten du.';
-$string['maxenrolled'] = 'Matrikulatutako gehienezko erabiltzaileak';
+$string['maxenrolled'] = 'Matrikulatutako gehieneko erabiltzaileak';
 $string['maxenrolled_help'] = 'Gehienez matrikula daitekeen erabiltzaile-kopurua zehazten du. Zero jarriz gero ez dago mugarik.';
 $string['maxenrolledreached'] = 'Matrikula daitekeen erabiltzaile-kopuruaren mugara iritsi da.';
 $string['messageprovider:expiry_notification'] = 'Matrikulazio automatikoaren iraungitze-jakinarazpenak';
@@ -92,8 +92,8 @@ $string['password_help'] = 'Matrikulazio-giltza batek ikastarorako sarbidea gilt
 Eremu hau hutsik utziz gero edonork matrikulatu dezake bere burua.
 
 Matrikulazio-giltza bat zehaztuz gero, matrikulatzen saiatzen den edozein erabiltzaileri giltza eskatuko zaio. Kontuan izan erabiltzaile batek SOILIK BEHIN sartu behar duela giltza, ikastaroan matrikulatzean.';
-$string['passwordinvalid'] = 'Matrikulazio-giltza ez da zuzena, mesedez, saiatu berriz';
-$string['passwordinvalidhint'] = 'Matrikulazio-giltza hori ez da zuzena, mesedez berriro saiatu<br/>
+$string['passwordinvalid'] = 'Matrikulazio-giltza ez da zuzena, mesedez, saiatu berriro';
+$string['passwordinvalidhint'] = 'Matrikulazio-giltza hori ez da zuzena, mesedez saiatu berriro<br/>
 (Laguntza txiki bat - honela hasten da: \'{$a}\')';
 $string['pluginname'] = 'Matrikulazio automatikoa';
 $string['pluginname_desc'] = 'Matrikulazio automatikoko pluginak erabiltzaileari parte-hartu nahi duen ikastaroak hautatzeko aukera ematen dio. Ikastaroek matrikulazio-giltza eskatu dezakete. Barrutik matrikulazioa eskuzko matrikulazio gehigarriaren bitartez egiten da, eta beraz gehigarri hori ere ikastaro horretan gaituta egon behar da.';

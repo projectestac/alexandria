@@ -26,10 +26,12 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['addsession'] = 'Afegeix una sessió';
+$string['crontask'] = 'Tasques de manteniment de les cites';
 $string['details'] = 'Detalls';
 $string['duration'] = 'Durada';
 $string['error:couldnotaddsession'] = 'No s\'ha pogut afegir una sessió';
 $string['export'] = 'Exporta';
+$string['notificationemail'] = 'Només la notificació';
 $string['placeholder:details'] = '[detalls]';
 $string['placeholder:duration'] = '[durada]';
 $string['submitted'] = 'S\'ha tramès';

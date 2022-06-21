@@ -32,7 +32,7 @@ $string['clicktoclose'] = 'egin klik ixteko';
 $string['error:gradingunavailable'] = 'Kalifikazio-metodo aurreratua ez dago ondo konfiguratuta. Egiaztatu ezazu mesedez foro osoko kalifikazioaren aukerak foroaren ezarpenetan.';
 $string['error:notinrange'] = 'Emandako \'{$a->grade}\' kalifikazioa baliogabea da. Kalifikazioa 0 eta {$a->maxgrade} artean egon behar du.';
 $string['exc_gradingformelement'] = 'Ezin da kalifikazio-formularioa sortu';
-$string['formnotavailable'] = 'Kalifikazio-metodo aurreratu bat erabiltzea aukeratu da baina kalifikazio-formularioa ez dago eskuragarri. Aurretik hori definitu beharko zenuke ekintza-menuko edo kudeaketa blokeko esteka erabilita.';
+$string['formnotavailable'] = 'Kalifikazio-metodo aurreratu bat erabiltzea aukeratu da baina kalifikazio-formularioa oraindik definitu gabe dago.';
 $string['gradingformunavailable'] = 'Kontuan izan, mesedez: une honetan kalifikazio aurreraturako formularioa ez dago prest. Kalifikazio arrunta metodoa erabiliko da formularioa modu egokian konfiguratuta egon arte.';
 $string['gradingmanagement'] = 'Kalifikazio aurreratua';
 $string['gradingmanagementtitle'] = 'Kalifikazio aurreratua: {$a->component} ({$a->area})';
@@ -44,7 +44,7 @@ $string['gradingmethodnone'] = 'Kalifikazio zuzen arrunta';
 $string['gradingmethods'] = 'Kalifikazio-metodoak';
 $string['manageactionclone'] = 'Sortu beste kalifikazio-formulario bat txantiloi batetik';
 $string['manageactiondelete'] = 'Ezabatu definitutako formularioa';
-$string['manageactiondeleteconfirm'] = '\'{$a->formname}\' kalifikazio-formularioa eta \'{$a->component} ({$a->area})\'-(r)ekin erlazionaturiko informazio guztia ezabatzera zoaz. Mesedez ziurtatu hurrengo ondorioak ulertzen dituzula:
+$string['manageactiondeleteconfirm'] = '\'{$a->formname}\' kalifikazio-formularioa eta \'{$a->component} ({$a->area})\'(r)ekin erlazionaturiko informazio guztia ezabatzera zoaz. Mesedez ziurtatu hurrengo ondorioak ulertzen dituzula:
 
 * Ekintza honek ez dauka atzera bueltarik.
 * Beste kalifikazio-metodo bat aukera dezakezu, \'Kalifikazio zuzen arrunta\' barne, formulario hau ezabatu gabe.

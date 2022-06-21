@@ -45,7 +45,7 @@ $string['creategrouping'] = 'Criar agrupamento';
 $string['creategroupinselectedgrouping'] = 'Criar grupo no agrupamento';
 $string['createingrouping'] = 'Agrupamento de grupos criados automaticamente';
 $string['createorphangroup'] = 'Criar grupo órfão';
-$string['csvdelimiter'] = 'Delimitador CSV';
+$string['csvdelimiter'] = 'Separador CSV';
 $string['databaseupgradegroups'] = 'A versão de grupos é, agora, {$a}';
 $string['defaultgrouping'] = 'Agrupamento predefinido';
 $string['defaultgroupingname'] = 'Agrupamento';
@@ -114,7 +114,7 @@ $string['groupmembersselected'] = 'Membros do grupo selecionado';
 $string['groupmode'] = 'Modo de grupo';
 $string['groupmode_help'] = 'A definição do modo de grupo pode ser uma das três seguintes:
 
-* Sem grupos
+* Não há grupos
 * Grupos separados - cada grupo pode ver apenas o seu próprio grupo, estando os restantes grupos invisíveis.
 * Grupos visíveis - cada grupo trabalha apenas dentro do seu próprio grupo, mas pode ver os outros grupos.
 
@@ -138,11 +138,11 @@ $string['groupsvisible'] = 'Grupos visíveis';
 $string['grouptemplate'] = 'Grupo @';
 $string['hidepicture'] = 'Ocultar imagem';
 $string['importgroups'] = 'Importar grupos';
-$string['importgroups_help'] = 'Os grupos podem ser importados a partir de um ficheiro de texto. O formato do ficheiro deve ser o seguinte:
+$string['importgroups_help'] = 'Os grupos podem ser importados via ficheiro de texto. O ficheiro deve ter o seguinte formato:
 
 * Cada linha do ficheiro contém um registo
-* Cada registo é uma série de dados separados por vírgulas
-* O primeiro registo contém uma lista de nomes dos campos que definem o formato do resto do ficheiro
+* Cada registo é uma linha com uma série de dados separados pelo separador selecionado
+* A primeira linha contém a lista dos nomes dos campos que define o formato do ficheiro
 * O campo groupname (nome do grupo) é obrigatório
 * Os campos opcionais são groupidnumber, description, enrolmentkey, groupingname, enablemessaging (ID do grupo, descrição, senha de inscrição, nome do agrupamento, mensagens)';
 $string['importgroups_link'] = 'grupo/importar';
@@ -158,8 +158,8 @@ $string['namingscheme_help'] = 'O símbolo de arroba (@) pode ser utilizado para
 
 O símbolo cardinal (#) pode ser utilizado para criar grupos com nomes que contenham números. Por exemplo, o Grupo # irá gerar grupos, denominados Grupo 1, Grupo 2, Grupo 3, ...';
 $string['newgrouping'] = 'Novo agrupamento';
-$string['newpicture'] = 'Nova fotografia';
-$string['newpicture_help'] = 'Selecione uma imagem no formato JPG ou PNG. A imagem será ajustada a um quadrado e redimensionada para 100x100 pixels.';
+$string['newpicture'] = 'Nova foto';
+$string['newpicture_help'] = 'Selecione uma imagem no formato JPG ou PNG. A imagem será ajustada a um quadrado e redimensionada para 100x100 píxeis.';
 $string['noallocation'] = 'Sem atribuições';
 $string['nogroup'] = 'Sem grupo';
 $string['nogrouping'] = 'Sem agrupamento';

@@ -243,6 +243,9 @@ if ($hassiteconfig) {
                 array('0' => new lang_string('none'), '1' => new lang_string('allfiles'), '2' => new lang_string('htmlfilesonly')));
         $items[] = new admin_setting_configcheckbox('filtermatchoneperpage', new lang_string('filtermatchoneperpage', 'admin'), new lang_string('configfiltermatchoneperpage', 'admin'), 0);
         $items[] = new admin_setting_configcheckbox('filtermatchonepertext', new lang_string('filtermatchonepertext', 'admin'), new lang_string('configfiltermatchonepertext', 'admin'), 0);
+        $items[] = new admin_setting_configcheckbox('filternavigationwithsystemcontext',
+                new lang_string('filternavigationwithsystemcontext', 'admin'),
+                new lang_string('configfilternavigationwithsystemcontext', 'admin'), 0);
         foreach ($items as $item) {
             $item->set_updatedcallback('reset_text_filters_cache');
             $temp->add($item);
@@ -324,11 +327,19 @@ if ($hassiteconfig) {
     $temp->add(new admin_setting_managedataformats());
     $ADMIN->add('dataformatsettings', $temp);
 
+    $plugins = core_plugin_manager::instance()->get_plugins_of_type('dataformat');
+    core_collator::asort_objects_by_property($plugins, 'displayname');
+    foreach ($plugins as $plugin) {
+        /** @var \core\plugininfo\dataformat $plugin */
+        $plugin->load_settings($ADMIN, 'dataformatsettings', $hassiteconfig);
+    }
+
     // XTEC ************ AFEGIT - Allow access only to xtecadmin user
     // 2016.08.16 @sarjona
     // 2021.05.20 @aginard
     }
     // ************ FI
+
 
     //== Portfolio settings ==
     require_once($CFG->libdir. '/portfoliolib.php');
@@ -507,7 +518,10 @@ if ($hassiteconfig && !empty($CFG->enableplagiarism)) {
         $plugin->load_settings($ADMIN, 'plagiarism', $hassiteconfig);
     }
 }
-$ADMIN->add('reports', new admin_externalpage('comments', new lang_string('comments'), $CFG->wwwroot.'/comment/', 'moodle/site:viewreports'));
+
+// Comments report, note this page is really just a means to delete comments so check that.
+$ADMIN->add('reports', new admin_externalpage('comments', new lang_string('comments'), $CFG->wwwroot . '/comment/index.php',
+    'moodle/comment:delete'));
 
 // Course reports settings
 if ($hassiteconfig) {
@@ -740,16 +754,7 @@ if ($hassiteconfig) {
 }
 
 // Content bank content types.
-
-// XTEC ************ MODIFICAT - Allow access only to xtecadmin user
-// 2021.06.23 @aginard
-if ($hassiteconfig && $CFG->isagora && get_protected_agora()) {
-// ************ ORIGINAL
-/*
 if ($hassiteconfig) {
-*/
-// ************ FI
-
     $ADMIN->add('modules', new admin_category('contentbanksettings', new lang_string('contentbank')));
     $temp = new admin_settingpage('managecontentbanktypes', new lang_string('managecontentbanktypes'));
     $temp->add(new admin_setting_managecontentbankcontenttypes());

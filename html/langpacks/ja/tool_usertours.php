@@ -110,7 +110,7 @@ $string['pathmatch_help'] = 'この値に合致するURLのページ上にツア
 * /mod/forum/view.php% - フォーラムディスカッション一覧に合致します。
 * /user/profile.php% - ユーザプロファイルページに合致します。
 
-あなたがツアーをサイトホームページに表示したい場合、次の値を使用できます:  FRONTPAGE';
+あなたがツアーをサイトホームに表示したい場合、次の値を使用できます:  FRONTPAGE';
 $string['pausetour'] = '一時停止';
 $string['placement'] = '配置';
 $string['placement_help'] = 'ステップはターゲットの上下左右に配置できます。モバイル表示に最適に調整されるため上下をお勧めします。
@@ -118,8 +118,8 @@ $string['placement_help'] = 'ステップはターゲットの上下左右に配
 指定された場所の特定ページにステップが適合しない場合、自動的に他の場所に配置されます。';
 $string['pluginname'] = 'ユーザツアー';
 $string['previousstep'] = '前へ';
-$string['privacy:metadata:preference:completed'] = 'ユーザがユーザツアーを完了した時間です。';
-$string['privacy:metadata:preference:requested'] = 'ユーザが最後に手動でユーザツアーをリクエストした時間です。';
+$string['privacy:metadata:preference:completed'] = 'ユーザがユーザツアーを完了した時刻です。';
+$string['privacy:metadata:preference:requested'] = 'ユーザが最後に手動でユーザツアーをリクエストした時刻です。';
 $string['privacy:request:preference:completed'] = 'あなたは「 {$a->name} 」ユーザツアーを {$a->time} に完了マークしました。';
 $string['privacy:request:preference:requested'] = 'あなたは「 {$a->name} 」ユーザツアーを {$a->time} にリクエストしました。';
 $string['reflex'] = 'クリックで進む';
@@ -202,9 +202,9 @@ $string['tour3_title_overview'] = 'コース概要';
 $string['tour3_title_recentcourses'] = '最近アクセスされたコース';
 $string['tour3_title_starring'] = 'コースの星付けおよび非表示';
 $string['tour3_title_timeline'] = 'タイムラインブロック';
-$string['tour4_content_groupconvo'] = 'グループメッセージングが有効にされているグループのメンバーである場合、あなたにはここにグループの会話が表示されます。
+$string['tour4_content_groupconvo'] = 'グループメッセージングが有効にされているグループのメンバである場合、あなたにはここにグループの会話が表示されます。
 
-コースグループ会話ではあなたのグループ内の他のメンバーとプライベートかつ便利な場所で会話することができます。';
+コースグループ会話ではあなたのグループ内の他のメンバとプライベートかつ便利な場所で会話することができます。';
 $string['tour4_content_icon'] = 'このアイコンを使ってどのページからでもあなたのメッセージにアクセスできます。
 
 あなたに未読メッセージがある場合、ここに未読メッセージ数も表示されます。

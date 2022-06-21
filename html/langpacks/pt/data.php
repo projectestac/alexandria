@@ -39,7 +39,7 @@ $string['approved'] = 'Aprovado';
 $string['areacontent'] = 'Campos';
 $string['ascending'] = 'Ascendente';
 $string['asearchtemplate'] = 'Modelo de pesquisa avançada';
-$string['atmaxentry'] = 'Já introduziu o número máximo de registos permitido!';
+$string['atmaxentry'] = 'Já inseriu o número máximo de registos permitido!';
 $string['authorfirstname'] = 'Nome do autor';
 $string['authorlastname'] = 'Apelido do autor';
 $string['autogenallforms'] = 'Gerar todos os formulários predefinidos.';
@@ -137,8 +137,8 @@ $string['emptyadd'] = 'O modelo <b>Adicionar</b> está vazio. A gerar o formulá
 $string['emptyaddform'] = 'Não preencheu nenhum campo!';
 $string['enabletemplateeditorcheck'] = 'Tem a certeza de que pretende ativar o editor? Esta ação pode resultar numa alteração de conteúdo quando o modelo for guardado.';
 $string['entries'] = 'Registos';
-$string['entrieslefttoadd'] = 'Tem que adicionar mais {$a->entriesleft} registo(s) para concluir esta atividade';
-$string['entrieslefttoaddtoview'] = 'Tem que adicionar mais {$a->entrieslefttoview} registo(s) para conseguir visualizar as entradas dos outros participantes.';
+$string['entrieslefttoadd'] = 'Tem de adicionar mais {$a->entriesleft} registo(s) para concluir esta atividade';
+$string['entrieslefttoaddtoview'] = 'Tem de adicionar mais {$a->entrieslefttoview} registo(s) para conseguir visualizar as entradas dos outros participantes.';
 $string['entry'] = 'Registo';
 $string['entrysaved'] = 'O seu registo foi guardado';
 $string['errormustbeteacher'] = 'Apenas os professores podem usar esta página!';
@@ -156,9 +156,9 @@ $string['example'] = 'Exemplo de módulo de <b>Base de dados</b>';
 $string['excel'] = 'Ficheiro Excel';
 $string['expired'] = 'A atividade terminou em <b>{$a}</b> e já não está disponível';
 $string['export'] = 'Exportar';
-$string['exportaszip'] = 'Exportar como ficheiro ZIP';
-$string['exportaszip_help'] = 'A exportação para ficheiro ZIP permite o armazenamento dos modelos e campos num ficheiro zip protótipo que pode ser descarregado. Este ficheiro pode depois ser importado para outra disciplina.';
-$string['exportedtozip'] = 'Exportado para ficheiro ZIP temporário...';
+$string['exportaszip'] = 'Exportar como ficheiro Zip';
+$string['exportaszip_help'] = 'A exportação para ficheiro Zip permite o armazenamento dos modelos e campos num ficheiro zip protótipo que pode ser descarregado. Este ficheiro pode depois ser importado para outra disciplina.';
+$string['exportedtozip'] = 'Exportado para ficheiro Zip temporário...';
 $string['exportentries'] = 'Exportar registos';
 $string['exportformat'] = 'Formato da exportação';
 $string['exportoptions'] = 'Opções da exportação';
@@ -167,7 +167,7 @@ $string['failedpresetdelete'] = 'Ocorreu um erro durante a eliminação do prot�
 $string['fieldadded'] = 'O campo foi adicionado';
 $string['fieldallowautolink'] = 'Permitir hiperligações automáticas';
 $string['fielddeleted'] = 'O campo foi apagado';
-$string['fielddelimiter'] = 'Delimitador de campo';
+$string['fielddelimiter'] = 'Separador de campo';
 $string['fielddescription'] = 'Descrição do campo';
 $string['fieldenclosure'] = 'Limites do campo';
 $string['fieldheight'] = 'Altura';
@@ -194,8 +194,8 @@ $string['footer'] = 'Rodapé';
 $string['forcelinkname'] = 'Texto da hiperligação';
 $string['foundnorecords'] = 'Não foram encontrados registos (<a href="{$a->reseturl}">Nova pesquisa</a>)';
 $string['foundrecords'] = 'Registos encontrados: {$a->num}/{$a->max} (<a href="{$a->reseturl}">Nova pesquisa</a>)';
-$string['fromfile'] = 'Importar ficheiro ZIP';
-$string['fromfile_help'] = 'Esta configuração permite consultar e importar um zip protótipo de modelos e campos de base de dados.';
+$string['fromfile'] = 'Importar ficheiro Zip';
+$string['fromfile_help'] = 'Esta configuração permite consultar e importar um Zip protótipo de modelos e campos de base de dados.';
 $string['generateerror'] = 'Não foi possível gerar todos os ficheiros!';
 $string['header'] = 'Cabeçalho';
 $string['headeraddtemplate'] = 'Define a aparência da página de adição ou edição de registos';
@@ -228,7 +228,7 @@ $string['invalidfieldtype'] = 'O tipo de campo não está correto';
 $string['invalidid'] = 'O ID da informação não está correto';
 $string['invalidpreset'] = '<b>{$a}</b> não é um protótipo.';
 $string['invalidrecord'] = 'Registo incorreto';
-$string['invalidurl'] = 'O URL que introduziu não é válido';
+$string['invalidurl'] = 'O URL que inseriu não é válido';
 $string['jstemplate'] = 'JavaScript';
 $string['latitude'] = 'Latitude';
 $string['latlong'] = 'Latitude/Longitude';
@@ -269,7 +269,7 @@ $string['modulename_link'] = 'mod/data/view';
 $string['modulenameplural'] = 'Bases de dados';
 $string['more'] = 'Mais';
 $string['moreurl'] = 'Mais URL';
-$string['movezipfailed'] = 'Não é possível mover o ficheiro ZIP';
+$string['movezipfailed'] = 'Não é possível mover o ficheiro Zip';
 $string['multientry'] = 'Registo repetido';
 $string['multimenu'] = 'Menu (seleção múltipla)';
 $string['multipletags'] = 'Foram encontrados múltiplos marcadores! O modelo não foi guardado';
@@ -323,13 +323,13 @@ $string['privacy:metadata:data_content:fieldid'] = 'ID da definição do campo';
 $string['privacy:metadata:data_records'] = 'Representa registos na atividade Base de dados';
 $string['privacy:metadata:data_records:approved'] = 'Estado da aprovação';
 $string['privacy:metadata:data_records:groupid'] = 'Grupo';
-$string['privacy:metadata:data_records:timecreated'] = 'Data e hora da criação do registo';
+$string['privacy:metadata:data_records:timecreated'] = 'Data e hora de criação do registo';
 $string['privacy:metadata:data_records:timemodified'] = 'Data e hora da última modificação';
 $string['privacy:metadata:data_records:userid'] = 'Utilizador que criou o registo';
 $string['privacy:metadata:datafieldnpluginsummary'] = 'Campos para a atividade Base de dados';
 $string['privacy:metadata:filepurpose'] = 'Ficheiro anexado ao registo da Base de dados';
-$string['privacy:metadata:ratingpurpose'] = 'Classificações nos registos da Base de dados';
-$string['privacy:metadata:tagpurpose'] = 'Palavras-chave no registo da base de dados';
+$string['privacy:metadata:ratingpurpose'] = 'Avaliações dos registos da Base de dados';
+$string['privacy:metadata:tagpurpose'] = 'Palavras-chave do registo da Base de dados';
 $string['radiobutton'] = 'Botões de rádio';
 $string['recordapproved'] = 'Registo aprovado';
 $string['recorddeleted'] = 'Registo apagado';
@@ -346,9 +346,9 @@ $string['requiredentries_help'] = 'Se ativar esta opção, será mostrada uma me
 Para os registos necessários para a conclusão da atividade, na nova configuração de conclusão da atividade, deve ser usada \'Requer registos\'. Para remover completamente esta definição, defina como Nenhum e, em seguida, guarde as alterações.
 Em vez desta configuração, use "Requer registos" na secção "Conclusão da atividade".';
 $string['requiredentriestoview'] = 'Registos requeridos antes de ser permitida a visualização';
-$string['requiredentriestoview_help'] = 'Número de registos que o aluno tem que submeter antes de poder ver os registos dos outros participantes.
+$string['requiredentriestoview_help'] = 'Número de registos que o aluno tem de submeter antes de poder ver os registos dos outros participantes.
 
-Nota: Se for necessário submeter registos antes de poder ver a base de dados, o filtro <b>Autoligação à base de dados</b> tem que ser desativado uma vez que o filtro não consegue determinar se um utilizador já submeteu o número de registos requerido.';
+Nota: Se for necessário submeter registos antes de poder ver a base de dados, o filtro <b>Autoligação à base de dados</b> tem de ser desativado uma vez que o filtro não consegue determinar se um utilizador já submeteu, ou não, o número de registos requerido.';
 $string['requiredentrieswarning'] = 'Esta configuração foi substituída por uma configuração de conclusão da atividade "Requer registos"';
 $string['requiredfield'] = 'Campo obrigatório';
 $string['resetsettings'] = 'Reiniciar filtros';
@@ -399,11 +399,11 @@ $string['unsupportedfieldslist'] = 'Os seguintes campos não podem ser exportado
 $string['updatefield'] = 'Atualizar um campo existente';
 $string['uploadfile'] = 'Enviar ficheiro';
 $string['uploadrecords'] = 'Importar registos a partir de ficheiro';
-$string['uploadrecords_help'] = 'Os registos podem ser inseridos através de um ficheiro de texto. O formato do ficheiro deve respeitar as seguintes regras:
+$string['uploadrecords_help'] = 'Os registos podem ser carregados via ficheiro de texto. O ficheiro deve ter o seguinte formato:
 
-* Cada linha do ficheiro corresponde a um registo
-* Cada registo tem um conjunto de valores para os diferentes campos, separados por vírgulas (ou outros caracteres)
-* A primeira linha do ficheiro contém os nomes dos campos, definindo a ordem pela qual os mesmos são apresentados em todo o ficheiro
+* Cada linha do ficheiro contém um registo
+* Cada registo é uma linha com uma série de dados separados pelo separador selecionado
+*O primeiro registo contém uma lista com os nomes dos campos, definindo assim o formato do resto do ficheiro
 
 O delimitador dos valores dos campos é um carácter que marca o início e fim do valor de cada campo. Em geral pode deixar indefinido.';
 $string['uploadrecords_link'] = 'mod/data/import';

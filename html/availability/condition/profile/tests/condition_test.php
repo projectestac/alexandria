@@ -14,17 +14,7 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
-/**
- * Unit tests for the user profile condition.
- *
- * @package availability_profile
- * @copyright 2014 The Open University
- * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die();
-
-use availability_profile\condition;
+namespace availability_profile;
 
 /**
  * Unit tests for the user profile condition.
@@ -33,7 +23,7 @@ use availability_profile\condition;
  * @copyright 2014 The Open University
  * @license http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-class availability_profile_condition_testcase extends advanced_testcase {
+class condition_test extends \advanced_testcase {
     /** @var profile_define_text Profile field for testing */
     protected $profilefield;
 
@@ -96,11 +86,11 @@ class availability_profile_condition_testcase extends advanced_testcase {
      */
     public function test_constructor() {
         // No parameters.
-        $structure = new stdClass();
+        $structure = new \stdClass();
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Missing or invalid ->op', $e->getMessage());
         }
 
@@ -109,7 +99,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Missing or invalid ->op', $e->getMessage());
         }
 
@@ -118,7 +108,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Missing or invalid ->v', $e->getMessage());
         }
 
@@ -127,7 +117,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Missing or invalid ->v', $e->getMessage());
         }
 
@@ -136,7 +126,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Unexpected ->v', $e->getMessage());
         }
 
@@ -146,7 +136,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Missing ->sf or ->cf', $e->getMessage());
         }
 
@@ -155,7 +145,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Invalid ->sf', $e->getMessage());
         }
 
@@ -165,7 +155,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Both ->sf and ->cf', $e->getMessage());
         }
 
@@ -175,7 +165,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         try {
             $cond = new condition($structure);
             $this->fail();
-        } catch (coding_exception $e) {
+        } catch (\coding_exception $e) {
             $this->assertStringContainsString('Invalid ->cf', $e->getMessage());
         }
 
@@ -309,6 +299,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
         // Check the message (should be using lang string with capital, which
         // is evidence that it called the right function to get the name).
         $information = $cond->get_description(false, false, $info);
+        $information = \core_availability\info::format_info($information, $info->get_course());
         $this->assertMatchesRegularExpression('~Department~', $information);
 
         // Set the field to true for both users and retry.
@@ -388,6 +379,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
                 'Failed checking normal (positive) result');
         if (!$yes) {
             $information = $cond->get_description(false, false, $info);
+            $information = \core_availability\info::format_info($information, $info->get_course());
             $this->assertMatchesRegularExpression($failpattern, $information);
         }
 
@@ -396,6 +388,7 @@ class availability_profile_condition_testcase extends advanced_testcase {
                 'Failed checking NOT (negative) result');
         if ($yes) {
             $information = $cond->get_description(false, true, $info);
+            $information = \core_availability\info::format_info($information, $info->get_course());
             $this->assertMatchesRegularExpression($failpattern, $information);
         }
     }

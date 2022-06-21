@@ -191,7 +191,7 @@ $string['fieldadded'] = 'Veld toegevoegd';
 $string['fieldallowautolink'] = 'Automatisch linken toegelaten';
 $string['fielddeleted'] = 'Veld verwijderd';
 $string['fielddelimiter'] = 'Veldscheidingsteken';
-$string['fielddescription'] = 'Veldbeschrijving';
+$string['fielddescription'] = 'Veldnaam in databank';
 $string['fieldenclosure'] = 'Veldinsluiting';
 $string['fieldheight'] = 'Hoogte';
 $string['fieldheightlistview'] = 'Hoogte in lijstscherm';
@@ -200,7 +200,7 @@ $string['fieldids'] = 'Veld identiteit';
 $string['fieldmappings'] = 'Veldverwijzingen';
 $string['fieldmappings_help'] = 'Met dit menu kun je data behouden van een bestaande databank. Om de data van een veld te bewaren, moet je deze verwijzen naar een nieuw veld, waar de data dan zal terecht komen. Elk veld kan ook leeg gelaten worden als je er geen gegevens wil naar toe kopiëren. De gegevens uit een oud veld dat niet naar een nieuw veld verwezen wordt, zullen verloren gaan.
 Je kunt alleen velden van hetzelfde type naar elkaar laten verwijzen, dus elk dropdownmenu zal andere velden bevatten. Je moet er ook voor opletten om een oud veld niet naar meer dan één nieuwe velden te laten verwijzen.';
-$string['fieldname'] = 'Veldnaam';
+$string['fieldname'] = 'Veldnaam in interface';
 $string['fieldnametype'] = '{$a->name} ({$a->type})';
 $string['fieldnotmatched'] = 'Volgende velden in je bestand zijn niet bekend in de databank: {$a}';
 $string['fieldoptions'] = 'Opties (Eén per lijn)';
@@ -424,10 +424,10 @@ $string['unsupportedfieldslist'] = 'De volgende velden kunnen niet worden geëxp
 $string['updatefield'] = 'Update een bestaand veld';
 $string['uploadfile'] = 'Upload bestand';
 $string['uploadrecords'] = 'Upload records uit een bestand';
-$string['uploadrecords_help'] = 'Items kunnen geüploaded worden via een tekstbestand. De opmaak van dat bestand moet als volgt zijn:
+$string['uploadrecords_help'] = 'Items kunnen geüpload worden via een tekstbestand. De opmaak van dat bestand moet als volgt zijn:
 
 * Elke lijn van het bestand bevat één record
-* Elke record is een reeks gegevens, gescheiden door komma\'s (of andere scheidingstekens)
+* Elke record is een reeks gegevens, gescheiden door het geselecteerde scheidingsteken
 * De eerste record bevat een lijst met veldnamen die de opmaak van de rest van het bestand bepalen.
 
 De velden kunnen ingesloten worden door een teken in elk veld van elke record, maar dit kan ook weggelaten worden.';

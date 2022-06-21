@@ -402,9 +402,9 @@ $string['importcsv'] = 'Importation CSV';
 $string['importcsv_help'] = 'Les notes peuvent être importées d\'un fichier CSV dont le format est le suivant :
 
 * chaque ligne du fichier contient un enregistrement ;
-* chaque enregistrement est constitué d\'une série de données séparées par des virgules ou un autre caractère de séparation :
-* le premier enregistrement contient la liste des champs, définissant ainsi le format du reste du fichier ;
-* un champ contenant l\'identité de l\'utilisateur est requis — soit le nom d\'utilisateur, soit le numéro d\'ID, soit l\'adresse de courriel.
+* chaque enregistrement est constitué d\'une série de données séparées par le caractère de séparation sélectionné ;
+* le premier enregistrement contient la liste des noms des champs définissant le format du reste du fichier ;
+* un champ contenant l\'identité de l\'utilisateur est requis : soit le nom d\'utilisateur, soit le numéro d\'ID, soit l\'adresse de courriel.
 
 Un fichier dont la syntaxe est correcte peut être obtenu à titre d\'exemple en exportant quelques notes. Le fichier peut alors être modifié et enregistré en format CSV.';
 $string['importcustom'] = 'Importer comme objectifs de ce cours';
@@ -678,7 +678,7 @@ $string['publishing'] = 'Publication en cours';
 $string['publishingoptions'] = 'Options de publication des notes';
 $string['quickfeedback'] = 'Feedback rapide';
 $string['quickgrading'] = 'Évaluation rapide';
-$string['quickgrading_help'] = 'Si ce réglage est activé, lorsque le mode de modification est actif, un champ de texte est affiché à côté des notes du rapport de l\'évaluateur, permettant de modifier de nombreuses notes à la fois. Les modifications sont enregistrées et surlignées quand bouton Modifier est cliqué.
+$string['quickgrading_help'] = 'Si ce réglage est activé, lorsque le mode de modification est actif, un champ de texte est affiché à côté des notes du rapport de l\'évaluateur, permettant de modifier de nombreuses notes à la fois. Les modifications sont enregistrées et surlignées quand le bouton Modifier est cliqué.
 
 Quand une note est modifiée dans le rapport de l\'évaluateur, elle ne peut plus être modifiée par le résultat de l\'activité d\'où elle provient.';
 $string['range'] = 'Valeurs possibles';
@@ -699,7 +699,7 @@ $string['recovergradesdefault_help'] = 'Par défaut, récupérer les anciennes n
 $string['refreshpreview'] = 'Actualiser la prévisualisation';
 $string['regradeanyway'] = 'Réévaluer malgré tout';
 $string['removeallcoursegrades'] = 'Supprimer toutes les notes';
-$string['removeallcoursegrades_help'] = 'Si ce réglage est activé, tous les éléments d\'évaluation ajoutés manuellement au carnet de notes seront supprimés, ainsi que les notes et autres données associées aux notes modifiées, exclues, cachées et verrouillées. Seuls les éléments d\'évaluation associés avec des activités persisteront.';
+$string['removeallcoursegrades_help'] = 'Si ce réglage est activé, tous les éléments d\'évaluation et les notes ajoutées manuellement au carnet de notes seront supprimés, ainsi que les notes et autres données associées aux notes modifiées, exclues, cachées et verrouillées. Seuls les éléments d\'évaluation et notes associés avec des activités persisteront.';
 $string['removeallcourseitems'] = 'Supprimer tous les éléments et catégories';
 $string['removeallcourseitems_help'] = 'Si ce réglage est activé, toutes les catégories et tous les éléments d\'évaluation ajoutés manuellement au carnet de notes seront supprimés, ainsi que les notes et autres données associées aux notes modifiées, exclues, cachées et verrouillées. Seuls les éléments d\'évaluation associés avec des activités persisteront.';
 $string['report'] = 'Rapport';

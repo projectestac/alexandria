@@ -44,7 +44,7 @@ $string['eventjournalviewed'] = 'Diário visualizado';
 $string['feedbackupdated'] = 'Comentários atualizados para {$a} entradas';
 $string['gradeingradebook'] = 'Nota atual na pauta';
 $string['journal:addentries'] = 'Adicionar entradas no diário';
-$string['journal:addinstance'] = 'Adicionar instâncias de diário';
+$string['journal:addinstance'] = 'Adicionar nova instâncias de Diário';
 $string['journal:manageentries'] = 'Gerir entradas do diário';
 $string['journalmail'] = '{$a->teacher} publicou um comentário na sua entrada no diário \'{$a->journal}\'
 
@@ -76,7 +76,7 @@ $string['removemessages'] = 'Apagar todas as entradas';
 $string['saveallfeedback'] = 'Guardar todo o meu feedback';
 $string['search:activity'] = 'Diário - informação da atividade';
 $string['search:entry'] = 'Diário - entradas';
-$string['showoverview'] = 'Mostrar visão global do diário no meu painel do utilizador';
+$string['showoverview'] = 'Mostrar visão global do diário no meu Painel do utilizador';
 $string['showrecentactivity'] = 'Mostrar atividade recente';
 $string['startoredit'] = 'Iniciar ou editar a minha entrada no diário';
 $string['viewallentries'] = 'Visualizar {$a} entradas do diário';

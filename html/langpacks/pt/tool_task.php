@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['adhoc'] = 'Ad hoc';
-$string['adhocempty'] = 'A fila de tarefas ad hoc está vazia';
+$string['adhocempty'] = 'A fila de tarefas ad hoc está vazia.';
 $string['adhocqueueold'] = 'A tarefa mais antiga tem {$a->age} o que é superior a {$a->max}';
 $string['adhocqueuesize'] = 'Existem {$a} tarefas na fila de espera da tarefa ad hoc';
 $string['adhoctaskid'] = 'ID da tarefa ad hoc: {$a}';
@@ -34,7 +34,7 @@ $string['adhoctasks'] = 'Tarefas ad hoc';
 $string['asap'] = 'ASAP';
 $string['backtoscheduledtasks'] = 'Voltar para as tarefas agendadas';
 $string['blocking'] = 'Bloqueio';
-$string['cannotfindthepathtothecli'] = 'Não foi possível encontrar o executável CLI do PHP e por isso a execução da tarefa foi cancelada. Defina a configuração \'Caminho para o CLI do PHP\' em Administração do Site / Servidor / Caminhos do sistema.';
+$string['cannotfindthepathtothecli'] = 'Não foi possível encontrar o executável CLI do PHP e, por isso, a execução da tarefa foi cancelada. Defina a configuração \'Caminho para o CLI do PHP\' em Administração do Site / Servidor / Caminhos do sistema.';
 $string['checkadhocqueue'] = 'Fila de tarefas ad hoc';
 $string['checkcronrunning'] = 'Cron em execução';
 $string['checkmaxfaildelay'] = 'Atraso máximo das falhas das tarefas';

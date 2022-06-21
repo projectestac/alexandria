@@ -29,6 +29,7 @@ $string['confirmquestionsaveasedited'] = 'Ich bestätige, dass die Frage als nac
 $string['confirmsave'] = 'Bestätigen und dann speichern {$a}';
 $string['correctanswer'] = 'Richtige Antwort';
 $string['correctanswerandfeedback'] = 'Richtige Antwort und Feedback';
+$string['corruptedquestion'] = 'Diese Frage ist beschädigt und enthält Unterfragen, die in Ihrem System nicht vorhanden sind.';
 $string['decodeverifyquestiontext'] = 'Fragetext entschlüsseln und prüfen';
 $string['invalidmultianswerquestion'] = 'Lückentextfrage ({$a}) ungültig';
 $string['layout'] = 'Layout';
@@ -38,6 +39,7 @@ $string['layoutmultiple_vertical'] = 'Senkrechte Spalte von Ankreuzfeldern';
 $string['layoutselectinline'] = 'Auswahlmenü direkt im Text';
 $string['layoutundefined'] = 'Undefiniertes Layout';
 $string['layoutvertical'] = 'Eine vertikale Spalte mit Einfach-Auswahl-Möglichkeiten';
+$string['missingsubquestion'] = 'Diese Unterfrage ist in Ihrem System nicht vorhanden und kann nicht angezeigt werden.';
 $string['nooptionsforsubquestion'] = 'Optionen für den Frageteil # {$a->sub} (question->id={$a->id}) konnten nicht gefunden werden';
 $string['noquestions'] = 'Die Lückentext-Frage "<strong>{$a}</strong>" enthält keine Frage.';
 $string['pleaseananswerallparts'] = 'Bitte beantworten Sie alle Teile der Frage.';
@@ -47,14 +49,14 @@ $string['pluginnameadding'] = 'Lückentext-Frage hinzufügen';
 $string['pluginnameediting'] = 'Lückentext-Frage bearbeiten';
 $string['pluginnamesummary'] = 'Fragen dieses Typs sind sehr flexibel. Der Text muss zur Erzeugung einer Lücke codiert werden, um Multiple-Choice-Fragen, Kurztextfragen oder numerische Fragen einzubinden.';
 $string['privacy:metadata'] = 'Der eingebettete Antworten Fragetyp speichert keine personenbezogenen Daten';
-$string['qtypenotrecognized'] = 'Fragetyp {$a} nicht verstanden';
+$string['qtypenotrecognized'] = 'Fragetyp {$a} nicht erkannt';
 $string['questiondefinition'] = 'Fragendefinition';
 $string['questiondeleted'] = 'Frage entfernt';
 $string['questioninquiz'] = '<ul>
   <li>Fragen löschen oder hinzufügen, </li>
   <li>die Reihenfolge der Fragen ändern,</li>
   <li>den Fragetyp (numerisch, Kurzantwort, Multiple-Choice) ändern. </li></ul>';
-$string['questionnotfound'] = 'Frage zum Frageteil # {$a} kann nicht gefunden werden';
+$string['questionnotfound'] = 'Frage zum Frageteil #{$a} kann nicht gefunden werden';
 $string['questionsadded'] = 'Frage hinzugefügt';
 $string['questionsaveasedited'] = 'Die Frage wird als bearbeitet gespeichert';
 $string['questionsless'] = '{$a} Frage(n) weniger als in der Mehrfachantwort-Frage, die in der Datenbank hinterlegt ist';

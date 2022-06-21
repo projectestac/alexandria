@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['actionsforgraderinterface'] = 'Действия для интерфейса оценщика';
+$string['actionsforpost'] = 'Действия для сообщения';
 $string['activitydate:due'] = 'Срок сдачи:';
 $string['activityoverview'] = 'Имеются новые сообщения на форуме';
 $string['addanewdiscussion'] = 'Добавить тему для обсуждения';
@@ -350,7 +351,7 @@ $string['forumtype_help'] = 'Существует 5 типов форумов:
 * Форум «Вопрос-Ответ» - студенты должны сначала дать свой ответ перед просмотром ответов других студентов.';
 $string['generalforum'] = 'Стандартный форум для общих обсуждений';
 $string['generalforums'] = 'Общие форумы';
-$string['grade_forum_header'] = 'Оценивание форума';
+$string['grade_forum_header'] = 'Оценивание всего форума';
 $string['grade_forum_name'] = 'Весь форум';
 $string['grade_forum_title'] = 'Оценка';
 $string['grade_rating_name'] = 'Оценка';

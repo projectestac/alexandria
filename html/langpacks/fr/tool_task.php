@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['adhoc'] = 'Ad hoc';
 $string['adhocempty'] = 'La file d\'attente des tâches ad hoc est vide';
-$string['adhocqueueold'] = 'La plus ancienne tâche a {$a} et dépasse {$a->max}';
+$string['adhocqueueold'] = 'La plus ancienne tâche a {$a->age} et dépasse {$a->max}';
 $string['adhocqueuesize'] = 'La file d\'attente des tâches ad hoc compte {$a} tâches';
 $string['adhoctaskid'] = 'ID de tâche ad hoc : {$a}';
 $string['adhoctasks'] = 'Tâches ad hoc';
@@ -51,7 +51,7 @@ $string['disabled_help'] = 'Les tâches programmées désactivées ne sont pas l
 $string['edittaskschedule'] = 'Modifier la programmation de la tâche : {$a}';
 $string['enablerunnow'] = 'Permettre de lancer immédiatement les tâches programmées';
 $string['enablerunnow_desc'] = 'Ce réglage permet aux administrateurs de lancer une tâche programmée immédiatement, plutôt que d\'attendre son lancement tel que programmé. Cette fonctionnalité nécessite la définition du chemin d\'accès à PHP CLI (pathtophp) dans les chemins système. La tâche se lance sur le serveur web, c\'est pourquoi il peut être préférable de désactiver cette fonctionnalité pour éviter d\'éventuels problèmes de performance.';
-$string['faildelay'] = 'Échec de délai';
+$string['faildelay'] = 'Délai d\'échec';
 $string['fromcomponent'] = 'Du composant : {$a}';
 $string['hostname'] = 'Nom d\'hôte';
 $string['lastruntime'] = 'Dernière exécution';

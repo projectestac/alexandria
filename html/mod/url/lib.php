@@ -202,7 +202,7 @@ function url_delete_instance($id) {
  * "extra" information that may be needed when printing
  * this activity in a course listing.
  *
- * See {@link get_array_of_activities()} in course/lib.php
+ * See {@link course_modinfo::get_array_of_activities()}
  *
  * @param object $coursemodule
  * @return cached_cm_info info
@@ -226,7 +226,7 @@ function url_get_coursemodule_info($coursemodule) {
 
     if ($display == RESOURCELIB_DISPLAY_POPUP) {
         $fullurl = "$CFG->wwwroot/mod/url/view.php?id=$coursemodule->id&amp;redirect=1";
-        $options = empty($url->displayoptions) ? array() : unserialize($url->displayoptions);
+        $options = empty($url->displayoptions) ? [] : (array) unserialize_array($url->displayoptions);
         $width  = empty($options['popupwidth'])  ? 620 : $options['popupwidth'];
         $height = empty($options['popupheight']) ? 450 : $options['popupheight'];
         $wh = "width=$width,height=$height,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes";

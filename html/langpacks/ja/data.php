@@ -167,7 +167,7 @@ $string['failedpresetdelete'] = 'プリセットの削除中にエラーが発�
 $string['fieldadded'] = 'フィールドが追加されました。';
 $string['fieldallowautolink'] = 'オートリンクを許可する';
 $string['fielddeleted'] = 'フィールドが削除されました。';
-$string['fielddelimiter'] = 'フィールドデリミタ';
+$string['fielddelimiter'] = 'フィールドセパレータ';
 $string['fielddescription'] = 'フィールド説明';
 $string['fieldenclosure'] = 'フィールド囲み文字';
 $string['fieldheight'] = '高さ';
@@ -242,7 +242,7 @@ $string['list'] = '一覧表示';
 $string['listtemplate'] = '一覧表示用テンプレート';
 $string['longitude'] = '経度';
 $string['manageapproved'] = '承認済みエントリの編集を許可する';
-$string['manageapproved_help'] = 'この設定を無効にした場合、認証済みエントリは追加したオーナーにより編集および削除することはできません。この設定は「承認必要」が有効にされない限り影響を及ぼしません。';
+$string['manageapproved_help'] = 'この設定を無効にした場合、認証済みエントリは追加したオーナにより編集および削除することはできません。この設定は「承認必要」が有効にされない限り影響を及ぼしません。';
 $string['mapexistingfield'] = '{$a} にマップする';
 $string['mapnewfield'] = '新しいフィールドを作成する';
 $string['mappingwarning'] = '新しいフィールドにマップされない古いフィールドは喪失します。古いフィールドのすべてのデータは削除されます。';
@@ -401,7 +401,7 @@ $string['uploadrecords'] = 'ファイルからエントリをアップロード�
 $string['uploadrecords_help'] = 'テキストファイルによりエントリをアップロードすることができます。ファイルのフォーマットは以下のとおりです:
 
 * それぞれの行には1レコードを含みます。
-* それぞれのレコードはカンマ (または他のデリミタ) で区切られた一連のデータです。
+* それぞれのレコードは選択されたセパレータによって区切られた一連のデータです。
 * 最初のレコードにはファイル内の残りのレコードを定義するフィールド名一覧を含みます。
 
 フィールド囲み文字はレコード内のフィールドを囲む文字です。通常、設定する必要はありません。';

@@ -56,7 +56,7 @@ $string['leveldelete'] = 'Ezabatu {$a} maila';
 $string['levelempty'] = 'Egin klik maila editatzeko';
 $string['levelsgroup'] = 'Maila-taldeak';
 $string['lockzeropoints'] = 'Kalkulatu gutxieneko kalifikazioa errubrikaren gutxieneko puntuazioa izan dadin.';
-$string['lockzeropoints_help'] = 'Ezarpen hau soilik aplikatzen da errubrikaren irizpide guztien gutxienezko puntuazioen batura 0 baino handiagoa bada. Markatuz gero, jardueran lor daitekeen gutxieneko kalifikazioa errubrikaren irizpide guztien gutxienezko puntuazioa izango da. Markatu gabe utziz gero, errubrikaren gutxieneko puntuazioa aktibitatearen gutxieneko puntuazioa izateko egokituko da (0 izango da eskala bat erabiltzen ez bada).';
+$string['lockzeropoints_help'] = 'Ezarpen hau soilik aplikatzen da errubrikaren irizpide guztien gutxieneko puntuazioen batura 0 baino handiagoa bada. Markatuz gero, jardueran lor daitekeen gutxieneko kalifikazioa errubrikaren irizpide guztien gutxieneko puntuazioa izango da. Markatu gabe utziz gero, errubrikaren gutxieneko puntuazioa aktibitatearen gutxieneko puntuazioa izateko egokituko da (0 izango da eskala bat erabiltzen ez bada).';
 $string['name'] = 'Izena';
 $string['needregrademessage'] = 'Errubrikaren definizioa aldatu da ikasle hau kalifikatu ondoren. Ikasleak ezin du ikusi errubrika hau egiaztatu eta kalifikazioa eguneratu arte.';
 $string['notset'] = 'Zehaztu gabe';
@@ -68,14 +68,14 @@ $string['privacy:metadata:fillingssummary'] = 'Errubrikak sortutako erabiltzaile
 $string['privacy:metadata:instanceid'] = 'Jarduera bateko kalifikazioaren identifikatzailea';
 $string['privacy:metadata:levelid'] = 'Errubrikan lortutako maila';
 $string['privacy:metadata:remark'] = 'Ebaluatutako errubrika-irizpidearekin lotutako iruzkinak';
-$string['regrademessage1'] = 'Aldaketak egin behar dituzu kalifikatzeko erabili den errubrika batean. Mesedez, adierazi orain arteko kalifikazioak berrikusi behar diren. Ezarpen hau gaitzen baduzu, errubrika ikasleei ezkutatuko zaie euren elementua berriz kalifikatu arte.';
-$string['regrademessage5'] = 'Kalifikatzeko erabilia izan den errubrika batean aldaketa nabarmenak egin behar dituzu. Kalifikazio liburuaren balioa ez da aldatuko, baina errubrika ikasleei ezkutatuko zaie euren elementua berriz kalifikatu arte.';
-$string['regradeoption0'] = 'Ez markatu berriz kalifikatzeko';
-$string['regradeoption1'] = 'Markatu berriz kalifikatzeko';
+$string['regrademessage1'] = 'Aldaketak egin behar dituzu kalifikatzeko erabili den errubrika batean. Mesedez, adierazi orain arteko kalifikazioak berrikusi behar diren. Ezarpen hau gaitzen baduzu, errubrika ikasleei ezkutatuko zaie euren elementua berriro kalifikatu arte.';
+$string['regrademessage5'] = 'Kalifikatzeko erabilia izan den errubrika batean aldaketa nabarmenak egin behar dituzu. Kalifikazio liburuaren balioa ez da aldatuko, baina errubrika ikasleei ezkutatuko zaie euren elementua berriro kalifikatu arte.';
+$string['regradeoption0'] = 'Ez markatu berriro kalifikatzeko';
+$string['regradeoption1'] = 'Markatu berriro kalifikatzeko';
 $string['restoredfromdraft'] = 'OHARRA: pertsona hau kalifikatzeko azken saiakera ez da ondo gorde, beraz, zirriborro-kalifikazioak berreskuratu dira. Aldaketa hauek bertan behera utzi nahi badituzu, erabili azpiko \'Utzi\' botoia.';
 $string['rubric'] = 'Errubrika';
 $string['rubricmapping'] = 'Puntuazioetatik kalifikazioetara lotura egiteko arauak';
-$string['rubricmappingexplained'] = 'Errubrika honentzako gutxieneko puntuazioa  <b>{$a->minscore} puntu</b> da. Jardueraren gutxieneko kalifikaziora bihurtuko da (eskalarik erabiltzen ez bada, 0 izango da). Gehienezko puntuazioa <b>{$a->maxscore} puntu</b> da, eta gehienezko kalifikaziora bihurtuko da. Erdiko puntuazioak era berean eraldatuko dira.
+$string['rubricmappingexplained'] = 'Errubrika honentzako gutxieneko puntuazioa  <b>{$a->minscore} puntu</b> da. Jardueraren gutxieneko kalifikaziora bihurtuko da (eskalarik erabiltzen ez bada, 0 izango da). Gehieneko puntuazioa <b>{$a->maxscore} puntu</b> da, eta gehieneko kalifikaziora bihurtuko da. Erdiko puntuazioak era berean eraldatuko dira.
 
 Eskala bat erabiltzen bada kalifikazio baten ordez, puntuazioa bihurtuko da eskalaren elementuetako batean, jarraian doazen zenbaki osoak bailiran.
 

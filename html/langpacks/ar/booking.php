@@ -150,7 +150,6 @@ $string['btnbooknowname'] = 'تسمية الزر: إحجز الآن';
 $string['btncacname'] = 'تسمية الزر: تأكيد إكمال النشاط';
 $string['btncancelname'] = 'تسمية الزر: إلغاء الحجز';
 $string['cancancelbookdaysno'] = 'لا تحدد';
-$string['canmanageoptiontemplates'] = 'قادر على إدارة قوالب الخيارات';
 $string['choosepdftitle'] = 'إختر عنوانًا لورقة تسجيل الدخول';
 $string['confirmationmessage'] = 'تم تسجيل حجزك
 
@@ -322,6 +321,7 @@ $string['notifyemaildefaultmessage'] = 'تم تسجيل حجزك
 المساق ذو الصلة يمكن العثور عليه هنا: {$a->courselink}';
 $string['optiondatesmessage'] = 'الجلسة {$a->number}: {$a->date} <br> من: {$a->starttime} <br> إلى: {$a->endtime}';
 $string['otherbookingaddrule'] = 'إضافة قاعدة جديدة';
+$string['pdfroom'] = 'الغرفة:';
 $string['pdfstudentname'] = 'اسم الطالب';
 $string['pdftodaydate'] = 'التاريخ:';
 $string['pollurl_help'] = 'يمكنك استعمال ما تشاء من العناصر النائبة الآتية في النص:
@@ -442,17 +442,6 @@ $string['signinlogoheader'] = 'الشعار في الرأس لعرضه في ور
 $string['spaceleft'] = 'المساحة المتاحة';
 $string['spacesleft'] = 'المساحات المتاحة';
 $string['startendtimeknown'] = 'وقت بدء المقرر الدراسي وانتهائه معروفان';
-$string['statuschangebookedmessage'] = 'مرحبًا {$a->participant}،
-
-تغيرت حالة حجزك. أنت الآن مسجل في {$a->title}.
-
-حالة الحجز: {$a->status}
-المشارك: {$a->participant}
-المساق: {$a->title}
-التاريخ: {$a->startdate} {$a->starttime} - {$a->enddate} {$a->endtime}
-لمعاينة كل مساقاتك المحجوزة، أنقر الرابط الآتي: {$a->bookinglink}
-المساق ذو الصلة يمكن العثور عليه هنا: {$a->courselink}';
-$string['statuschangebookedsubject'] = 'تغيرت حالة الحجز لـ {$a->title}';
 $string['statuschangetext_help'] = 'إتركه فارغاً لاستعمال النص الافتراضي للموقع. يمكنك استعمال ما تشاء من العناصر النائبة الآتية في النص:
 <ul>
 <li>{status}</li>

@@ -37,7 +37,7 @@ $string['clihelp'] = 'Inprimatu laguntza hau.';
 $string['climissingargument'] = '--{$a} parametroa beharrezkoa da';
 $string['clititle'] = 'Komando lerro bidezko Igo erabiltzaileak tresna.';
 $string['clivalidationerror'] = 'Balioztatze-errorea:';
-$string['csvdelimiter'] = 'CSV bereizlea';
+$string['csvdelimiter'] = 'CSV banatzailea';
 $string['defaultvalues'] = 'Lehenetsitako balioak';
 $string['deleteerrors'] = 'Ezabatu erroreak';
 $string['encoding'] = 'Kodifikazioa';
@@ -61,7 +61,7 @@ $string['renameerrors'] = 'Aldatu erroreen izenak';
 $string['requiredtemplate'] = 'Beharrezkoa. Hemen txantiloi-sintaxia erabil dezakezu (%l = abizena, %f = izena, %u = erabiltzaile-izena). Ikusi laguntza zehaztasun gehiagorako eta adibideak ikusteko.';
 $string['rowpreviewnum'] = 'Aurreikusi errenkadak';
 $string['unassignedsysrole'] = 'Sistemako {$a} rola kendu zaio';
-$string['uploadpicture_baduserfield'] = 'Zehaztutako erabiltzaile-ezaugarriak ez du balio. Mesedez, saiatu berriz.';
+$string['uploadpicture_baduserfield'] = 'Zehaztutako erabiltzaile-ezaugarriak ez du balio. Mesedez, saiatu berriro.';
 $string['uploadpicture_cannotmovezip'] = 'Ezin da zip fitxategia aldi baterako direktorio batera mugitu';
 $string['uploadpicture_cannotprocessdir'] = 'Ezin dira deskonprimatutako fitxategiak prozesatu.';
 $string['uploadpicture_cannotsave'] = 'Ezin da gorde {$a} erabiltzailearentzako irudia. Egiaztatu jatorrizko irudi-fitxategia.';
@@ -79,7 +79,7 @@ $string['uploadusers'] = 'Igo erabiltzaileak';
 $string['uploadusers_help'] = 'Erabiltzaileak testu-fitxategi bidez igo (eta aukeran ikastaroetan matrikulatu) daitezke. Fitxategiak hurrengo formatua izan behar du:
 
 * Fitxategiko errenkada bakoitzak erregistro bat du
-* Erregistro bakoitza komaz (edo bestelako bereizleak) banatutako datu-multzo bat da
+* Erregistro bakoitza aukeratutako banatzaileaz banatutako datu-multzo bat da
 * Fitxategiko lehen errenkadak fitxategiaren formatua definitzen duten eremuen zerrenda du.
 * Derrigorrezko eremuen izenak: \'username\' (erabiltzaile-izena), \'firstname\' (izena), \'lastname\' (abizena) eta \'email\' (helbide elektronikoa)';
 $string['uploaduserspreview'] = 'Aurreikusi igotako erabiltzaileak';

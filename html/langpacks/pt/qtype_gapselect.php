@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addmorechoiceblanks'] = 'Espaços para mais {no} opções';
 $string['answer'] = 'Resposta';
+$string['blanknumber'] = 'Em branco {$a}';
 $string['choices'] = 'Opções';
 $string['choicex'] = 'Opção [[{no}]]';
 $string['combinedcontrolnamegapselect'] = 'lista pendente';
@@ -45,7 +46,7 @@ $string['pluginnameediting'] = 'Editar pergunta do tipo selecionar palavras em f
 $string['pluginnamesummary'] = 'As palavras em falta no texto de uma pergunta são preenchidas através de listas pendentes.';
 $string['privacy:metadata'] = 'O módulo Pergunta do tipo Selecionar palavras em falta permite que os autores das perguntas definam opções predefinidas como preferências do utilizador.';
 $string['privacy:preference:defaultmark'] = 'A avaliação predefinida para uma determinada pergunta.';
-$string['privacy:preference:penalty'] = 'A penalização para cada tentativa incorreta quando o comportamento das é o \'Interativo com múltiplas tentativas\' ou \'Modo adaptável \'.';
+$string['privacy:preference:penalty'] = 'A penalização para cada tentativa incorreta quando o comportamento das perguntas é \'Interativo com múltiplas tentativas\' ou \'Modo adaptável\'.';
 $string['privacy:preference:shuffleanswers'] = 'Se as respostas devem, ou não, ser baralhadas automaticamente.';
 $string['shuffle'] = 'Baralhar';
 $string['tagsnotallowed'] = '\'{$a->tag}\' não é permitida. (Apenas é permitida \'{$a->allowed}\')';

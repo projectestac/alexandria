@@ -28,8 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 
 class core_moodlelib_testcase extends advanced_testcase {
 
-    public static $includecoverage = array('lib/moodlelib.php');
-
     /**
      * Define a local decimal separator.
      *
@@ -2342,6 +2340,8 @@ EOF;
         // Option to strip ending zeros after rounding.
         $this->assertEquals('5.43', format_float(5.43, 5, true, true));
         $this->assertEquals('5', format_float(5.0001, 3, true, true));
+        $this->assertEquals('100', format_float(100, 2, true, true));
+        $this->assertEquals('100', format_float(100, 0, true, true));
 
         // Tests with a localised decimal separator.
         $this->define_local_decimal_separator();
@@ -4540,6 +4540,29 @@ EOF;
         // Array used in the grader report.
         $a = array('aggregatesonly' => [51, 34], 'gradesonly' => [21, 45, 78]);
         $this->assertEquals($a, unserialize_array(serialize($a)));
+    }
+
+    /**
+     * Test method for safely unserializing a serialized object of type stdClass
+     */
+    public function test_unserialize_object(): void {
+        $object = (object) [
+            'foo' => 42,
+            'bar' => 'Hamster',
+            'innerobject' => (object) [
+                'baz' => 'happy',
+            ],
+        ];
+
+        // We should get back the same object we serialized.
+        $serializedobject = serialize($object);
+        $this->assertEquals($object, unserialize_object($serializedobject));
+
+        // Try serializing a different class, not allowed.
+        $langstr = new lang_string('no');
+        $serializedlangstr = serialize($langstr);
+        $unserializedlangstr = unserialize_object($serializedlangstr);
+        $this->assertInstanceOf(stdClass::class, $unserializedlangstr);
     }
 
     /**

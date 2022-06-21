@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['activitydate:submissionsdue'] = 'Tegen:';
-$string['activitydate:submissionsopen'] = 'Opent:';
+$string['activitydate:submissionsdue'] = 'Sluit op:';
+$string['activitydate:submissionsopen'] = 'Geopend vanaf:';
 $string['activitydate:submissionsopened'] = 'Geopend:';
 $string['activityoverview'] = 'Je hebt opdrachten die nagekeken moeten worden';
 $string['addattempt'] = 'Nog een poging toestaan';
@@ -164,7 +164,7 @@ $string['downloadasfolders_help'] = 'inzendingen kunnen gedownload worden in map
 $string['downloadselectedsubmissions'] = 'Download geselecteerde inzendingen';
 $string['duedate'] = 'Uiterste inleverdatum';
 $string['duedate_help'] = 'Dit is wanneer de opdracht moet afgegeven worden. Opdrachten mogen te laat afgegeven worden,  maar zullen dan als te laat gemarkeerd worden. Om te verhinderen dat opdrachten na een bepaalde datum ingestuurd worden, kun je een afsluitdatum instellen.';
-$string['duedatecolon'] = 'Klaar tegen: {$a}';
+$string['duedatecolon'] = 'Sluit op: {$a}';
 $string['duedateno'] = 'Geen uiterste inleverdatum';
 $string['duedatereached'] = 'De datum waarop deze opdracht moest afgegeven worden is nu voorbij.';
 $string['duedatevalidation'] = 'Einddatum kan niet voor startdatum zijn.';
@@ -362,6 +362,7 @@ $string['multipleteams_desc'] = 'De opdracht vereist insturen in groep. Je bent 
 $string['multipleteamsgrader'] = 'Lid van meer dan één groep, dus kan geen inzendingen doen.';
 $string['mysubmission'] = 'Status van jouw opdracht:&nbsp;';
 $string['newsubmissions'] = 'Ingestuurde opdrachten';
+$string['nextuser'] = 'Volgende gebruiker';
 $string['noattempt'] = 'Geen poging';
 $string['noclose'] = 'Geen sluitdatum';
 $string['nofiles'] = 'Geen bestanden';
@@ -394,7 +395,7 @@ $string['offline'] = 'Je hoeft niets online in te sturen';
 $string['open'] = 'Open';
 $string['outlinegrade'] = 'Cijfer: {$a}';
 $string['outof'] = '{$a->current} van {$a->total}';
-$string['overdue'] = '<font color="red">Opdracht {$a} te laat ingestuurd</font>';
+$string['overdue'] = 'Opdracht te laat ingestuurd: {$a}';
 $string['override'] = 'Overschrijf';
 $string['overridedeletegroupsure'] = 'Weet je zeker dat je de overschrijving voor groep {$a} wil verwijderen?';
 $string['overridedeleteusersure'] = 'Weet je zeker dat je de overschrijving voor gebruiker {$a} wil verwijderen?';
@@ -414,6 +415,7 @@ $string['preventsubmissionnotingroup_help'] = 'Indien ingeschakeld zullen enkel 
 $string['preventsubmissions'] = 'Verhinder de gebruiker om meer in te sturen voor deze opdracht.';
 $string['preventsubmissionsshort'] = 'Verhinder het wijzigen van ingestuurde opdrachten';
 $string['previous'] = 'Vorige';
+$string['previoususer'] = 'Vorige gebruiker';
 $string['privacy:attemptpath'] = 'poging {$a}';
 $string['privacy:blindmarkingidentifier'] = 'De identificatie, gebruikt voor anoniem insturen';
 $string['privacy:gradepath'] = 'cijfer';
@@ -461,7 +463,7 @@ $string['requireallteammemberssubmit_help'] = 'Indien ingeschakeld moeten alle l
 $string['requiresubmissionstatement'] = 'Eis dat leerlingen de voorwaarden voor insturen aanvaarden.';
 $string['requiresubmissionstatement_help'] = 'Eisen dat leerlingen de voorwaarden voor insturen aanvaarden voor deze opdracht.';
 $string['revealidentities'] = 'Toon identiteit leerlingen';
-$string['revealidentitiesconfirm'] = 'Weet je zeker dat je de identiteit van de leerlingen wil tonen voor deze opdracht? Deze operatie kan niet ongedaan gemaakt worden. Als de identiteit van de leerlingen getoond wordt, dan worden de punten vrijgegeven in de cijferlijst.';
+$string['revealidentitiesconfirm'] = 'Weet je zeker dat je de identiteit van de leerlingen wil tonen voor deze opdracht? Deze operatie kan niet ongedaan gemaakt worden. Als de identiteit van de leerlingen getoond wordt, dan wordt het cijfer vrijgegeven in de cijferlijst.';
 $string['reverttodefaults'] = 'Draai terug naar standaardinstellingen voor de opdracht';
 $string['reverttodraft'] = 'Zet de ingestuurde opdracht terug naar kladwerk';
 $string['reverttodraftforstudent'] = 'Zet de ingestuurde opdracht terug naar kladwerk voor leerling:  (id={$a->id}, naam={$a->fullname}).';
@@ -484,10 +486,10 @@ $string['sendlatenotifications'] = 'Stuur een melding naar de beoordelaars over 
 $string['sendlatenotifications_help'] = 'Indien ingeschakeld zullen beoordelaars (gewoonlijk leraren) een bericht ontvangen wanneer een leerling een opdracht te laat instuurt. De manier van berichtgeving kan ingesteld worden.';
 $string['sendnotifications'] = 'Stuur een melding naar beoordelaars over ingestuurde opdrachten';
 $string['sendnotifications_help'] = 'Indien ingeschakeld zullen beoordelaars (gewoonlijk leraren) een bericht ontvangen wanneer een leerling een opdracht instuurt, te vroeg, op tijd en te laat. De manier van berichtgeving kan ingesteld worden.';
-$string['sendstudentnotifications'] = 'Stuur melding naar leerlingen';
-$string['sendstudentnotifications_help'] = 'Indien ingeschakeld zullen leerlingen een bericht krijgen wanneer hun cijfer of feedback wordt aangepast. Als beoordelings-workflow is ingeschakeld voor deze opdracht, dan zullen er geen meldingen verstuurd worden tot het cijfer vrijgegeven wordt.';
-$string['sendstudentnotificationsdefault'] = 'Standaardinstelling voor \'Stuur melding naar leerlingen\'';
-$string['sendstudentnotificationsdefault_help'] = 'Zet de standaardwaarde voor het \'Stuur melding naar leerlingen\' selectievakje op het beoordelingsformulier.';
+$string['sendstudentnotifications'] = 'Verwittig leerling';
+$string['sendstudentnotifications_help'] = 'Schakel dit in om  leerlingen een bericht te sturen wanneer hun cijfer of feedback wordt aangepast. Als de opdracht een beoordelings-workflow gebruikt of de cijfers zijn verborgen in het beoordelingsrapport, dan zal het bericht niet verstuurd worden voor het cijfer wordt vrijgegeven.';
+$string['sendstudentnotificationsdefault'] = 'Standaardinstelling voor \'Verwittig leerlingen\'';
+$string['sendstudentnotificationsdefault_help'] = 'Wanneer je een leerling beoordeelt, wil je dan dat het \'verwittig leerling\' selectievakje standaard is aangevinkt?';
 $string['sendsubmissionreceipts'] = 'Stuur ontvangstbewijs naar leerlingen';
 $string['sendsubmissionreceipts_help'] = 'Dit schakelt ontvangstbewijzen in voor leerlingen. Leerlingen zullen een melding krijgen, telkens ze met succes een opdracht ingestuurd hebben';
 $string['setmarkerallocationforlog'] = 'Stel beoordelaarstoewijzing in: (id={$a->id}, Volledige naam ={$a->fullname}, beoordelaar={$a->marker}).';

@@ -34,7 +34,7 @@ $string['auth_shib_contact_administrator'] = 'Si vous n\'êtes pas affilié aux 
 $string['auth_shib_convert_data'] = 'API de modification de données';
 $string['auth_shib_convert_data_description'] = 'Vous pouvez utiliser cette API pour modifier les données fournies par Shibboleth. Lisez le fichier <a href="{$a}">README</a> pour d\'autres instructions.';
 $string['auth_shib_convert_data_filepath_warning'] = 'Il n\'est pas possible d\'utiliser un fichier situé à l\'intérieur du dossier de données actuel du site ($CFG->dataroot) comme API de modification de données.';
-$string['auth_shib_convert_data_warning'] = 'Le fichier n\'existe pas ou n\'est pas accessible en lecture par le serveur web !';
+$string['auth_shib_convert_data_warning'] = 'Le fichier n\'existe pas ou ne peut pas être lu par le serveur web !';
 $string['auth_shib_idp_list'] = 'Fournisseurs d\'identité';
 $string['auth_shib_idp_list_description'] = 'Veuillez fournir une liste des entityIDs des fournisseurs d\'identité parmi lesquels l\'utilisateur devra choisir sur la page de connexion.<br />Sur chaque ligne doit être indiqués l\'identifiant entityID du fournisseur d\'identité (voir le fichier de métadonnées Shibboleth) et son nom, séparés par une virgule.<br />Vous pouvez également ajouter comme troisième paramètre l\'emplacement d\'un initiateur de session Shibboleth devant être utilisé au cas où votre installation de Moodle installation fait partie d\'une fédération.';
 $string['auth_shib_instructions'] = 'Utilisez la <a href="{$a}">connexion Shibboleth</a> pour accéder via Shibboleth, si votre institution le permet. Sinon, utilisez le formulaire de connexion standard affiché ici.';
@@ -56,7 +56,7 @@ $string['auth_shibboleth_login_long'] = 'Connexion à Moodle via Shibboleth';
 $string['auth_shibboleth_manual_login'] = 'Connexion manuelle';
 $string['auth_shibboleth_select_member'] = 'Je suis membre de…';
 $string['auth_shibboleth_select_organization'] = 'Pour l\'authentification via Shibboleth, veuillez sélectionner votre organisation dans le menu déroulant :';
-$string['auth_shibbolethdescription'] = 'Cette méthode permet de créer et d\'authentifier des utilisateurs avec Shibboleth. Pour des informations sur la configuration, consultez le <a href="{$a}">Shibboleth README</a>.';
+$string['auth_shibbolethdescription'] = 'Cette méthode permet de créer et d\'authentifier des utilisateurs avec Shibboleth. Pour plus d\'informations sur la configuration, consulter le <a href="{$a}">Shibboleth README</a>.';
 $string['pluginname'] = 'Shibboleth';
 $string['privacy:metadata'] = 'Le plugin d\'authentification Shibboleth n\'enregistre aucune donnée personnelle.';
 $string['shib_invalid_account_error'] = 'Il semble que vous soyez authentifié via Shibboleth, mais Moodle n\'a pas de compte valide pour votre nom d\'utilisateur. Il est possible que votre compte n\'existe pas ou qu\'il soit suspendu.';

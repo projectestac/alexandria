@@ -61,7 +61,7 @@ $string['cannotfindquestionfile'] = 'Não foi possível encontrar o ficheiro da 
 $string['cannotgetdsfordependent'] = 'Não foi possível obter a série de dados para a questão! (question: {$a->id}, datasetitem: {$a->item})';
 $string['cannotgetdsforquestion'] = 'Não foi possível obter a série de dados especificada para a questão calculada! (question: {$a})';
 $string['cannothidequestion'] = 'Não é possível ocultar a pergunta';
-$string['cannotimportformat'] = 'Desculpe mas esse formato ainda não se encontra implementado!';
+$string['cannotimportformat'] = 'Este formato ainda não está implementado!';
 $string['cannotinsertquestion'] = 'Não foi possível adicionar a nova pergunta!';
 $string['cannotinsertquestioncatecontext'] = 'Não foi possível inserir a nova categoria {$a->cat} porque o ID do contexto é inválido {$a->ctx}';
 $string['cannotloadquestion'] = 'Não foi possível carregar a pergunta';
@@ -123,22 +123,22 @@ $string['defaultmarkmustbepositive'] = 'A nota predefinida tem de ser positiva.'
 $string['deletecoursecategorywithquestions'] = 'Existem perguntas na base de dados de perguntas associadas a esta categoria da disciplina. Se continuar, elas serão apagadas. Poderá primeiro movê-las para outras categorias usando a base de dados de perguntas.';
 $string['deletequestioncheck'] = 'Tem a certeza absoluta de que pretende apagar \'{$a}\'?';
 $string['deletequestionscheck'] = '<p>Tem a certeza absoluta de que pretende apagar as seguintes perguntas?<br /><br />{$a}</p>';
-$string['deletingbehaviour'] = 'A apagar o comportamento das perguntas {$a}';
-$string['deletingqtype'] = 'A apagar o tipo de pergunta {$a}';
+$string['deletingbehaviour'] = 'A apagar o comportamento das perguntas \'{$a}\'';
+$string['deletingqtype'] = 'A apagar o tipo de pergunta \'{$a}\'';
 $string['didnotmatchanyanswer'] = '[Não corresponde nenhuma resposta]';
 $string['disabled'] = 'Desativado';
 $string['displayoptions'] = 'Opções de visualização';
 $string['disterror'] = 'Esta distribuição {$a} causou problemas';
 $string['donothing'] = 'Não copiar nem mover ficheiros, nem alterar hiperligações.';
 $string['editcategories'] = 'Editar categorias';
-$string['editcategories_help'] = 'Ao invés das perguntas serem apresentadas numa enorme lista podem ser agrupadas em categorias e subcategorias.
+$string['editcategories_help'] = 'Ao invés de serem apresentadas numa enorme lista, as perguntas podem ser agrupadas em categorias e subcategorias.
 
 Cada categoria tem um contexto que determina onde as perguntas podem ser usadas:
 
 * Contexto da atividade - As perguntas apenas estão disponíveis numa determinada atividade
 * Contexto da disciplina - As perguntas estão disponíveis em todas as atividades da disciplina
 * Contexto da categoria da disciplina -  As perguntas estão disponíveis em todas as atividades da disciplina e nas restantes disciplinas da mesma categoria
-* Contexto do sistema - As perguntas estão disponíveis em todas as disciplinas e atividades da plataforma
+* Contexto do sistema - As perguntas estão disponíveis em todas as disciplinas e atividades do site
 
 As categorias são também usadas para a criação de perguntas aleatórias selecionadas a partir de uma determinada categoria.';
 $string['editcategories_link'] = 'pergunta/categoria';
@@ -195,7 +195,7 @@ $string['exportquestions'] = 'Exportar perguntas para ficheiro';
 $string['exportquestions_help'] = 'Esta função permite a exportação total de uma categoria de perguntas (e todas as subcategorias). Tenha em atenção que, dependendo do formato de ficheiro selecionado, alguns dados e certos tipos de perguntas podem não ser exportados.';
 $string['exportquestions_link'] = 'pergunta/exportar';
 $string['feedback'] = 'Feedback';
-$string['filecantmovefrom'] = 'Os ficheiros das perguntas não podem ser movidos porque não tem permissão para apagar ficheiros do local para onde deseja mover as perguntas.';
+$string['filecantmovefrom'] = 'Os ficheiros das perguntas não podem ser movidos porque não tem permissão para apagar ficheiros do local de onde pretende mover as perguntas.';
 $string['filecantmoveto'] = 'Os ficheiros das perguntas não podem ser movidos porque não tem permissão para adicionar ficheiros no local para onde deseja mover as perguntas.';
 $string['fileformat'] = 'Formato do ficheiro';
 $string['filesareacourse'] = 'área de ficheiros da disciplina';
@@ -218,8 +218,10 @@ $string['hintn'] = 'Ajuda {no}';
 $string['hintnoptions'] = 'Opções da ajuda {no}';
 $string['hinttext'] = 'Texto de ajuda';
 $string['howquestionsbehave'] = 'Modo de comportamento das perguntas';
-$string['howquestionsbehave_help'] = 'Os alunos podem interagir com as perguntas do teste de diferentes formas. Por exemplo, pode configurar o teste de forma a que os alunos insiram uma resposta em cada pergunta e só após submeterem todo o teste obterão a sua nota e/ou feedback. (modo feedback diferido).
+$string['howquestionsbehave_help'] = 'Os alunos podem interagir com as perguntas do teste de diferentes formas. Por exemplo, pode configurar o teste de forma a que os alunos insiram uma resposta em cada pergunta e só após submeterem todo o teste obterão a sua nota e/ou feedback (modo feedback diferido).
+
 Em alternativa, pode configurar de modo a que os alunos obtenham feedback imediato à medida que vão submetendo as respostas a cada pergunta, e se não acertarem, possam responder de novo (modo interativo com múltiplas tentativas).
+
 Estes são provavelmente os dois modos de comportamento mais usados.';
 $string['idnumber'] = 'Número ID';
 $string['idnumber_help'] = 'Se usado, o número de identificação (ID) deve ser único dentro de cada categoria de perguntas. É outro modo de identificar uma pergunta, que às vezes é útil, mas geralmente pode ficar em branco.';
@@ -238,6 +240,7 @@ $string['importparseerror'] = 'Foram encontrados erros ao analisar o ficheiro de
 $string['importquestions'] = 'Importar perguntas a partir de ficheiro';
 $string['importquestions_help'] = 'Esta função permite importar, via ficheiro de texto, uma variedade de formatos de perguntas. Tenha em atenção que o ficheiro deverá usar a codificação UTF-8.';
 $string['importquestions_link'] = 'pergunta/importar';
+$string['importwrongfileencoding'] = 'O ficheiro selecionado não usa a codificação de caracteres UFT-8. Os ficheiros \'{$a}\' têm de usar UTF-8.';
 $string['importwrongfiletype'] = 'O tipo de ficheiro que selecionou ({$a->actualtype}) não corresponde ao tipo esperado neste formato de importação ({$a->expectedtype}).';
 $string['impossiblechar'] = 'Foi detetado, como carácter parêntesis, um carácter não compatível \'{$a}\'';
 $string['includesubcategories'] = 'Mostrar perguntas das subcategorias';
@@ -262,7 +265,7 @@ $string['makecopy'] = 'Guardar como nova pergunta';
 $string['maketoplevelitem'] = 'Tornar categoria de topo';
 $string['manualgradeinvalidformat'] = 'Esse número não é válido.';
 $string['manualgradeoutofrange'] = 'Esta nota está fora do intervalo válido.';
-$string['manuallygraded'] = 'Avaliada manualmente com "{$a->mark}" e com o comentário: {$a->comment}';
+$string['manuallygraded'] = 'Avaliada manualmente com \'{$a->mark}\' com o comentário: {$a->comment}';
 $string['mark'] = 'Nota';
 $string['markedoutof'] = 'Nota';
 $string['markedoutofmax'] = 'Nota: {$a}';
@@ -276,8 +279,8 @@ $string['matchgrades_help'] = 'As notas importadas devem corresponder a um dos v
 * Nota mais próxima, caso não esteja listada - Se a nota não corresponder a nenhum valor da lista será alterada para o valor mais próximo da lista.';
 $string['matchgradeserror'] = 'Mostrar erro se a nota não estiver na lista';
 $string['matchgradesnearest'] = 'Nota mais próxima se não estiver na lista';
-$string['missingcourseorcmid'] = 'É necessário introduzir o ID da disciplina ou cmid para print_question.';
-$string['missingcourseorcmidtolink'] = 'É necessário introduzir o ID da disciplina ou cmid para get_question_edit_link.';
+$string['missingcourseorcmid'] = 'É necessário inserir o ID da disciplina ou cmid para print_question.';
+$string['missingcourseorcmidtolink'] = 'É necessário inserir o ID da disciplina ou cmid para get_question_edit_link.';
 $string['missingimportantcode'] = 'Falta código importante no tipo de pergunta: {$a}';
 $string['missingoption'] = 'Faltam as opções da pergunta de respostas incorporadas {$a}';
 $string['modified'] = 'Última atualização';
@@ -308,14 +311,14 @@ $string['notanswered'] = 'Não respondida';
 $string['notchanged'] = 'Não modificada desde a última tentativa';
 $string['notenoughanswers'] = 'Esse tipo de pergunta exige pelo menos {$a} respostas';
 $string['notenoughdatatoeditaquestion'] = 'Não foi especificado o tipo de pergunta, seu código e o da categoria.';
-$string['notenoughdatatomovequestions'] = 'Tem que indicar os IDs das perguntas que pretende mover.';
+$string['notenoughdatatomovequestions'] = 'Tem de indicar os ID das perguntas que pretende mover.';
 $string['notflagged'] = 'Sem marcação';
 $string['notgraded'] = 'Sem avaliação';
 $string['notshown'] = 'Não mostrar';
 $string['notyetanswered'] = 'Por responder';
 $string['notyourpreview'] = 'Esta pré-visualização não lhe pertence';
 $string['novirtualquestiontype'] = 'Não foi encontrada nenhuma pergunta virtual para o tipo de pergunta {$a}';
-$string['numqas'] = 'N.º Tentativas';
+$string['numqas'] = 'N.º tentativas';
 $string['numquestions'] = 'N.º de perguntas';
 $string['numquestionsandhidden'] = '{$a->numquestions} (+{$a->numhidden} ocultas)';
 $string['options'] = 'Opções';
@@ -341,7 +344,7 @@ O fator de penalização poderá ser um número entre 0 e 1. Um fator de penaliz
 $string['penaltyforeachincorrecttry'] = 'Fator de penalização';
 $string['penaltyforeachincorrecttry_help'] = 'Esta opção configura qual a penalização por cada resposta errada quando o teste está definido no modo \'Interativo com múltiplas tentativas\' ou \'Modo adaptável\' e o aluno pode responder várias vezes até obter a resposta correta à pergunta.
 
-A penalização é uma proporção da nota da pergunta, logo, se a pergunta vale 3 pontos, e o fator de penalização é de 0.3333333, então o aluno tem a nota 3 se acertar à primeira, 2 se acertar à segunda e 1 se apenas acertar à terceira.
+A penalização é uma proporção da nota da pergunta, por isso, se a pergunta vale 3 pontos, e o fator de penalização é de 0.3333333, então o aluno tem a nota 3 se acertar à primeira, 2 se acertar à segunda e 1 se apenas acertar à terceira.
 
 Para algumas perguntas com várias partes, este modo de pontuação é aplicado separadamente a cada parte da pergunta. Os detalhes dependem do tipo de pergunta e podem ser complicados, mas o princípio é dar aos alunos, da forma mais justa possível, o crédito pelo conhecimento que demonstraram.';
 $string['permissionedit'] = 'Editar esta pergunta';
@@ -355,7 +358,7 @@ $string['privacy:metadata:database:question:generalfeedback'] = 'O feedback gera
 $string['privacy:metadata:database:question:modifiedby'] = 'A pessoa que atualizou a pergunta pela última vez.';
 $string['privacy:metadata:database:question:name'] = 'O nome da pergunta';
 $string['privacy:metadata:database:question:questiontext'] = 'O texto da pergunta';
-$string['privacy:metadata:database:question:timecreated'] = 'A data e hora a que esta pergunta foi criada';
+$string['privacy:metadata:database:question:timecreated'] = 'Data e hora a que esta pergunta foi criada';
 $string['privacy:metadata:database:question:timemodified'] = 'A data e hora a que este teste foi atualizado.';
 $string['privacy:metadata:database:question_attempt_step_data'] = 'As etapas da tentativa podem ter informação adicional sobre aquela etapa específica. Os dados são armazenados na tabela step_data.';
 $string['privacy:metadata:database:question_attempt_step_data:name'] = 'O nome dos dados do item.';
@@ -363,7 +366,7 @@ $string['privacy:metadata:database:question_attempt_step_data:value'] = 'O valor
 $string['privacy:metadata:database:question_attempt_steps'] = 'Cada tentativa tem um número de etapas a indicar diferentes fases, desde o início até estar concluído. Esta tabela armazena a informação sobre cada uma destas etapas.';
 $string['privacy:metadata:database:question_attempt_steps:fraction'] = 'A avaliação atribuída a esta tentativa configurado para um valor fora de 1.';
 $string['privacy:metadata:database:question_attempt_steps:state'] = 'O estado da tentativa no final da transição.';
-$string['privacy:metadata:database:question_attempt_steps:timecreated'] = 'A data e hora em que a transição começou.';
+$string['privacy:metadata:database:question_attempt_steps:timecreated'] = 'Data e hora em que a transição começou';
 $string['privacy:metadata:database:question_attempt_steps:userid'] = 'O utilizador que realizou a transição.';
 $string['privacy:metadata:database:question_attempts'] = 'Informação sobre uma tentativas de resposta a uma pergunta específica.';
 $string['privacy:metadata:database:question_attempts:flagged'] = 'Uma indicação de que o utilizador marcou esta questão durante uma tentativa.';
@@ -390,7 +393,7 @@ $string['questionname'] = 'Nome da pergunta';
 $string['questionnamecopy'] = '{$a} (cópia)';
 $string['questionno'] = 'Pergunta {$a}';
 $string['questionpreviewdefaults'] = 'Predefinições da pré-visualização da pergunta';
-$string['questionpreviewdefaults_desc'] = 'Estas configurações predefinidas são usadas quando o utilizador pré-visualiza pela primeira vez uma pergunta na Base de dados de perguntas. Depois de pré-visualizar a pergunta, as suas preferências pessoais serão guardadas como preferências do utilizador.';
+$string['questionpreviewdefaults_desc'] = 'Estas configurações predefinidas são usadas quando o utilizador pré-visualiza pela primeira vez uma pergunta na base de dados de perguntas. Depois de pré-visualizar a pergunta, as suas preferências pessoais serão guardadas como preferências do utilizador.';
 $string['questions'] = 'Perguntas';
 $string['questionsaveerror'] = 'Ocorreram erros ao guardar a pergunta - ({$a})';
 $string['questionsinuse'] = '(* As perguntas assinaladas com asterisco estão a ser usadas em algum lugar, como por exemplo, num teste. Por isso, se prosseguir, essas perguntas não serão realmente apagadas, apenas ficarão ocultas.)';
@@ -429,21 +432,21 @@ $string['shownumpartscorrect'] = 'Mostrar o número de respostas corretas';
 $string['shownumpartscorrectwhenfinished'] = 'Mostrar o número de respostas corretas após a pergunta estar concluída';
 $string['showquestiontext'] = 'Mostrar texto da pergunta na lista de perguntas';
 $string['specificfeedback'] = 'Feedback específico';
-$string['specificfeedback_help'] = 'Feedback correspondente à resposta que o aluno selecionou ou introduziu.';
+$string['specificfeedback_help'] = 'Feedback correspondente à resposta que o aluno selecionou ou inseriu.';
 $string['started'] = 'Iniciada';
 $string['state'] = 'Estado';
 $string['step'] = 'Passo';
 $string['steps'] = 'Passos';
 $string['stoponerror'] = 'Parar se ocorrer um erro';
 $string['stoponerror_help'] = 'Esta configuração determina se o processo de importação é interrompido quando um erro é detetado parando assim a importação, ou se as perguntas com erros são ignoradas sendo apenas importadas as válidas.';
-$string['submissionoutofsequence'] = 'Acesso fora da sequência. Por favor, não clique no botão Retroceder enquanto trabalha nas perguntas do Teste.';
+$string['submissionoutofsequence'] = 'Acesso fora da sequência. Por favor, não clique no botão \'Retroceder\' enquanto trabalha nas perguntas do teste.';
 $string['submissionoutofsequencefriendlymessage'] = 'Inseriu dados fora da sequência. Este erro pode ocorrer se usar os botões de Avançar e Retroceder do seu navegador. Por favor, não os utilize durante o teste. Também pode suceder se clicar em algo enquanto uma página está a carregar. Clique no botão \'Continuar\' para prosseguir.';
 $string['submit'] = 'Submeter';
 $string['submitandfinish'] = 'Submeter e finalizar';
 $string['submitted'] = 'Submetido: {$a}';
 $string['tagarea_question'] = 'Perguntas';
 $string['technicalinfo'] = 'Informação técnica';
-$string['technicalinfo_help'] = 'A Informação técnica é provavelmente apenas necessária para os programadores que trabalham no novo tipo de perguntas. Pode ser útil para descobrirem problemas com as perguntas.';
+$string['technicalinfo_help'] = 'A informação técnica é provavelmente apenas necessária para os programadores que trabalham em novos tipos de pergunta. Pode ser útil para detetar problemas com as perguntas.';
 $string['technicalinfomaxfraction'] = 'Fração máxima: {$a}';
 $string['technicalinfominfraction'] = 'Fração mínima: {$a}';
 $string['technicalinfoquestionsummary'] = 'Resumo da pergunta: {$a}';
@@ -472,7 +475,7 @@ $string['upgradeproblemunknowncategory'] = 'Foram detetados problemas na atualiz
 $string['whethercorrect'] = 'Correta/incorreta';
 $string['whethercorrect_help'] = 'A avaliação na forma de texto \'Correta\', \'Parcialmente correta\' ou \'Incorreta\', ou a cor de realce que expressa essa mesma informação.';
 $string['whichtries'] = 'Que tentativas';
-$string['withselected'] = 'Com os selecionados';
+$string['withselected'] = 'Com as selecionadas';
 $string['wrongprefix'] = 'nameprefix {$a} formatado incorretamente';
 $string['xoutofmax'] = '{$a->mark} em {$a->max}';
 $string['yougotnright'] = 'Selecionou {$a->num} respostas corretas.';

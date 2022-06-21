@@ -140,7 +140,7 @@ $string['ntlmsso_failed'] = 'Saio-hasiera automatikoak huts egin du, saiatu sarb
 $string['ntlmsso_isdisabled'] = 'NTLM SSO desgaituta dago.';
 $string['ntlmsso_unknowntype'] = 'ntlmsso mota ezezaguna!';
 $string['pagedresultsnotsupp'] = 'LDAPeko orrikako emaitzak ez dira onartzen (zure PHP bertsioak onartzen ez dituelako, Moodle LDAP protokoloaren 2 bertsioa erabiltzeko konfiguratu duzulako edo Moodlek ezin duelako LDAP zerbitzariarekin kontaktatu orrikako emaitzak onartzen dituen egiaztatzeko).';
-$string['pagesize'] = 'Ziurtatu ezazu balio hau zure LDAP zerbitzariren emaitza-sortaren gehienezko tamaina (query bakar batek bueltatu dezakeen gehienezko erregistro kopurua) baino txikiagoa dela';
+$string['pagesize'] = 'Ziurtatu ezazu balio hau zure LDAP zerbitzariren emaitza-sortaren gehieneko tamaina (query bakar batek bueltatu dezakeen gehieneko erregistro kopurua) baino txikiagoa dela';
 $string['pagesize_key'] = 'Orriaren tamaina';
 $string['pluginname'] = 'LDAP zerbitzaria';
 $string['pluginnotenabled'] = 'Plugina ez dago gaituta';
@@ -161,7 +161,7 @@ $string['updateremfailfield'] = 'LDAP existitzen ez den eremuarekin eguneratzeak
 $string['updateusernotfound'] = 'Ezin da erabiltzailea aurkitu kanpotik eguneratzean. Xehetasunak jarraian: bilaketaren oinarria: \'{$a->userdn}\'; bilaketa-iragazkia \'(objectClass=*)\'; bilaketa-atributuak: {$a->attribs}';
 $string['user_activatenotsupportusertype'] = 'auth: LDAPeko user_activate()-ek ez du erabiltzaile mota hau onartzen: {$a}';
 $string['user_disablenotsupportusertype'] = 'auth: LDAPeko user_activate()-ek ez du erabiltzaile mota hau onartzen: {$a}';
-$string['useracctctrlerror'] = 'Errorea {$a}-(r)entzako userAccountControl eskuratzean';
+$string['useracctctrlerror'] = 'Errorea {$a}(r)entzako userAccountControl eskuratzean';
 $string['userentriestoadd'] = 'Gehitzeko erabiltzaile-sarrerak: {$a}';
 $string['userentriestoremove'] = 'Ezabatzeko erabiltzaile-sarrerak: {$a}';
 $string['userentriestorevive'] = 'Berreskuratzeko erabiltzaile-sarrerak: {$a}';

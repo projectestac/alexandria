@@ -73,9 +73,9 @@ Selon le réglage, une coche peut apparaître automatiquement lorsque vous avez 
 Dans d\'autres cas, vous pouvez cliquer sur le cercle vide lorsque vous pensez avoir terminé l\'activité. Celle-ci se transforme en une coche verte pleine. (Si vous cliquez de nouveau dessus, la coche se vide.)';
 $string['completionswitchhelp'] = '<p>Vous avez choisi d\'afficher le suivi de l\'achèvement sur chaque tuile. Nous avons donc défini « Suivi de l\'achèvement > Activer » plus bas dans cette page sur « Oui ».</p>
 <p>En outre, vous devez activer le suivi d\'achèvement pour <b>chaque élément </b> que vous suivez. Par exemple, pour un PDF, cliquez sur « Modifier les paramètres », regardez sous Activité terminée, et choisissez le paramètre dont vous avez besoin.</p>
-<p>Vous pouvez aussi le faire <b>en lot</b> comme expliqué dans la <a href="https://docs.moodle.org/3x/fr/Achèvement_des_activités" target="_blank">documentation sur le suivi du progrès sur moodle.org</a></p>';
+<p>Vous pouvez aussi le faire <b>par lots</b> comme expliqué dans la <a href="https://docs.moodle.org/3x/fr/Achèvement_des_activités" target="_blank">documentation sur le suivi du progrès sur moodle.org</a></p>';
 $string['completionwarning'] = 'Vous avez activé le suivi de l\'achèvement au niveau du cours, mais au niveau de l\'activité individuelle, aucun élément n\'a activé le suivi, il n\'y a donc rien à suivre.';
-$string['completionwarning_changeinbulk'] = 'Modifier en lot';
+$string['completionwarning_changeinbulk'] = 'Modifier par lots';
 $string['completionwarning_help'] = 'Vous devez rendre les éléments individuels traçables en les modifiant (sous Achèvement de l\'activité > Suivi de l\'achèvement) ou vous pouvez le faire en masse sous Administration des cours > Achèvement du cours';
 $string['contact'] = 'Entrer en contact';
 $string['contactdeveloper'] = 'Contacter le développeur';
@@ -368,7 +368,7 @@ $string['sitename'] = 'Nom du site';
 $string['snapwarning'] = 'Il peut être possible de modifier votre cours au format Tuiles en utilisant un autre thème, puis de revenir au thème Snap une fois que vous avez terminé l\'édition.';
 $string['snapwarning_help'] = 'Theme_settings#Allow_user_themes';
 $string['subtileszeczerotoggled'] = 'Section du haut alternant entre le format liste et sous tuiles';
-$string['sureresetcolours'] = 'Voulez-vous vraiment réinitialiser les couleurs par défaut des tuiles de cours? Cela affectera {$a} cours';
+$string['sureresetcolours'] = 'Voulez-vous vraiment réinitialiser les couleurs par défaut des tuiles de cours ? Cela affectera {$a} cours';
 $string['tilecolourgeneral'] = 'Palette de couleurs - couleur optionnelle';
 $string['tilecolourgeneral_descr'] = 'Ce réglage permet à l\'administrateur de déterminer les couleurs disponibles pour les enseignants dans leurs cours. Pour désactiver une couleur, la régler sur noir (#000). Si vous modifiez les couleurs ici, aucune modification ne sera reportée dans les cours existants jusqu\'à ce que leur enseignant n\'essaie de changer la couleur d\'une tuile, auquel cas seules les couleurs définies ici lui seront proposées.';
 $string['tilecolourschanged'] = 'Les couleurs des tuiles ont été réinitialisées. Toutes les tuiles ont maintenant des couleurs conformes aux couleurs ci-dessous.';

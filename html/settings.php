@@ -5,7 +5,7 @@ require_once __DIR__ . '/local/agora/lib.php';
 get_debug();
 
 // Specific Àgora params
-$CFG->isagora = 1;
+$CFG->isagora = true;
 $CFG->iseoi = $agora['iseoi'];
 $CFG->isodissea = false;
 $CFG->isalexandria = false;
@@ -26,7 +26,6 @@ $CFG->updatenotifybuilds = false;
 $CFG->core_media_enable_mp3 = false;
 $CFG->core_media_enable_html5audio = true;
 $CFG->core_media_enable_html5video = true;
-$CFG->repositorygetfiletimeout = 300;
 $CFG->alternateloginurl = '';
 $CFG->mymoodleredirect = false;
 $CFG->enablestats = false;
@@ -42,8 +41,8 @@ $CFG->timezone = 99; // Changed by default to Server's local time
 $CFG->cronremotepassword = '';
 $CFG->cronclionly = 1;
 
-// Activate X-SendFile
-$CFG->xsendfile = 'X-Sendfile';
+// Encryption in https is provided by the load balancer.
+$CFG->sslproxy = true;
 
 // Captcha keys
 $CFG->recaptchapublickey = $agora['recaptchapublickey'];
@@ -58,11 +57,9 @@ $CFG->noreplyaddress = $agora['mail']['reply'];
 $CFG->smtpsecure = 'tls';
 $CFG->smtpmaxbulk = 15;
 $CFG->emailfromvia = 0;
-$CFG->mailheader = ($CFG->iseoi) ? '[Àgora-EOI]' : '[Àgora]';
 
 // Cleanup
 $CFG->disablegradehistory = 1;
-$CFG->loglifetime = 365 * 2;
 $CFG->tempdatafoldercleanup = 24;
 
 // Rules
@@ -160,16 +157,19 @@ $CFG->customusermenuitems = "grades,grades|/grade/report/mygrades.php|grades
     preferences,moodle|/user/preferences.php|preferences";
 
 $CFG->forced_plugin_settings = [
-    'logstore_standard' => ['loglifetime' => 365 * 2],
-    'logstore_legacy' => ['loglegacy' => 1],
-    'filter_wiris' => ['uninstall' => 1],
+    'logstore_standard' => [
+        'loglifetime' => 365 * 2,
+    ],
+    'filter_wiris' => [
+        'uninstall' => 1,
+    ],
     'backup' => [
         'loglifetime' => 7,
         'backup_auto_delete_days' => 365,
         'backup_auto_min_kept' => 1,
     ],
     'tool_recyclebin' => [
-        'coursebinenable' => 1,
+//        'coursebinenable' => 1,
         'coursebinexpiry' => 604800,
         'categorybinenable' => 1,
         'categorybinexpiry' => 604800,

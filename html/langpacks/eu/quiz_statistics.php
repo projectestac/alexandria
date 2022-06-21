@@ -31,10 +31,10 @@ $string['allattemptsavg'] = 'Saiakera guztien batez bestekoak';
 $string['allattemptscount'] = 'Denera osorik kalifikatutako saiakera-kopurua';
 $string['analysisnameonly'] = '"{$a->name}"';
 $string['analysisno'] = '({$a->number}) "{$a->name}"';
-$string['analysisnovariant'] = '({$a->number}) "{$a->name}" {$a->variant}-(r)en aldaera';
+$string['analysisnovariant'] = '({$a->number}) "{$a->name}" {$a->variant}(r)en aldaera';
 $string['analysisofresponses'] = 'Erantzunen analisia';
 $string['analysisofresponsesfor'] = 'Erantzunen analisia {$a} kontuan hartuta';
-$string['analysisvariant'] = '"{$a->name}" {$a->variant}-(r)en aldaera';
+$string['analysisvariant'] = '"{$a->name}" {$a->variant}(r)en aldaera';
 $string['attempts'] = 'Saiakerak';
 $string['attemptsall'] = 'saiakera guztiak';
 $string['attemptsfirst'] = 'ikasle bakoitzaren lehenengo saiakera';
@@ -72,18 +72,18 @@ $string['kurtosis'] = 'Emaitzen zapaltasun banaketa ({$a} kontuan hartuta)';
 $string['lastattempts'] = 'ikasle bakoitzaren azken saiakera';
 $string['lastattemptsavg'] = 'Azken saiakeren batez besteko kalifikazioa';
 $string['lastcalculated'] = 'Azkenengoz kalkulatua orain dela {$a->lastcalculated}, ordutik {$a->count} saiakera egon dira.';
-$string['maximumfacility'] = 'Gehienezko erraztasuna';
+$string['maximumfacility'] = 'Gehieneko erraztasuna';
 $string['median'] = 'Kalifikazioaren mediana ({$a} kontuan hartuta)';
 $string['medianfacility'] = 'Erraztasunaren mediana';
 $string['minimumfacility'] = 'Gutxieneko erraztasuna';
 $string['modelresponse'] = 'Ereduzko erantzuena';
-$string['nameforvariant'] = '{$a->name}-(r)en {$a->variant} aldaera';
+$string['nameforvariant'] = '{$a->name}(r)en {$a->variant} aldaera';
 $string['negcovar'] = 'Kalifikazioaren kobariantza negatiboa saiakera osoaren kalifikazioarekiko';
 $string['negcovar_help'] = 'Galdera honen saiakera multzo honentzako kalifikazioa galdetegiaren batez besteko saiakeren kalifikazioaren kontrako zentzuan aldatzen da. Honek batez besteko saiakeren kalifikazioa batez bestetik behera joateko joera duela eta galdera honentzako batez bestetik gorako joera duela esan nahi du, edo alderantziz.
 
 Gure benetako pisua kalkulatzeko ekuazioa ezin da kalkulatu kasu honetan. Galdetegi honetako beste galderentzako benetako pisuaren kalkulua galdera bakoitzaren benetako pisua da nabarmenduta dauden kobariantza negatiboa duten galderei emandako kalifikazioa gehienez zero bada.
 
-Galdetegia editatzen baduzu kobariantza negatiboa duten nabarmandutako galdera hauen gehienezko kalifikazioa zero izateko, orduan galdera hauen benetako pisua zero izango da eta beste galderen benetako pisua orain kalkulatu dena izango da.';
+Galdetegia editatzen baduzu kobariantza negatiboa duten nabarmandutako galdera hauen gehieneko kalifikazioa zero izateko, orduan galdera hauen benetako pisua zero izango da eta beste galderen benetako pisua orain kalkulatu dena izango da.';
 $string['nogradedattempts'] = 'Ez da saiakerarik egin galdetegi honetan, edo egindako saiakera guztiek eskuzko kalifikazioa behar dute.';
 $string['nostudentsingroup'] = 'Oraindik ez dago ikaslerik talde honetan';
 $string['optiongrade'] = 'Kalifikazio partziala';

@@ -170,11 +170,27 @@ a.dropdown-toggle,
 .modal-dialog[tabindex="0"],
 .moodle-dialogue-base .closebutton,
 button.close,
-.form-autocomplete-selection {
+.form-autocomplete-selection,
+[role="treeitem"]:not([aria-expanded="true"]) {
     &.focus,
     &:focus {
         outline: 0;
         box-shadow: $input-btn-focus-box-shadow;
+    }
+    &:focus:hover {
+        text-decoration: none;
+    }
+}
+
+// We don't want to highlight the whole li when it's expanded. Only the first child is highlighted.
+[role="treeitem"][aria-expanded="true"] {
+    outline: 0;
+    &.focus,
+    &:focus {
+        > *:first-child {
+            outline: 0;
+            box-shadow: $input-btn-focus-box-shadow;
+        }
     }
     &:focus:hover {
         text-decoration: none;
@@ -260,8 +276,11 @@ button.close,
     text-align: right;
 }
 
-a.autolink.glossary:hover {
-    cursor: help;
+a.autolink {
+    @extend .aalink;
+    &.glossary:hover {
+        cursor: help;
+    }
 }
 /* Block which is hidden if javascript enabled, prevents fickering visible when JS from footer used! */
 .collapsibleregioncaption {
@@ -1119,6 +1138,14 @@ tr.flagged-tag a {
     margin-left: 3px;
 }
 
+#page-enrol-otherusers .userenrolment .col_role {
+    .role {
+        float: none;
+        margin: 3px 3px 3px 0;
+        padding: 3px 3px 3px 0;
+    }
+}
+
 .corelightbox {
     background-color: #ccc;
     position: absolute;
@@ -1946,6 +1973,14 @@ ul.badges {
     }
 }
 
+#badge-criteria li li {
+    list-style-type: none;
+}
+
+#badge-image-col {
+    flex: 0 0 400px;
+}
+
 .badge-profile {
     vertical-align: top;
 }
@@ -2339,6 +2374,9 @@ $footer-link-color: $bg-inverse-link-color !default;
         display: block;
         width: 100%;
         color: $body-color;
+        &:focus-visible {
+            outline: 0;
+        }
     }
     &:active,
     &:hover,
@@ -2736,12 +2774,14 @@ $picker-emojis-per-row: 7 !default;
 }
 
 .alert.cta {
-    .icon {
-        padding: 0.3rem;
-        &.fa {
-            border-radius: 50%;
-            border-style: solid;
-            border-width: 0.125rem;
+    .cta-icon {
+        .icon {
+            padding: 0.3rem;
+            &.fa {
+                border-radius: 50%;
+                border-style: solid;
+                border-width: 0.125rem;
+            }
         }
     }
 }

@@ -2499,6 +2499,9 @@ function file_safe_save_content($content, $destination) {
  * @param array $options An array of options, currently accepts:
  *                       - (string) cacheability: public, or private.
  *                       - (string|null) immutable
+ *                       - (bool) dontforcesvgdownload: true if force download should be disabled on SVGs.
+ *                                Note: This overrides a security feature, so should only be applied to "trusted" content
+ *                                (eg module content that is created using an XSS risk flagged capability, such as SCORM).
  * @return null script execution stopped unless $dontdie is true
  */
 function send_file($path, $filename, $lifetime = null , $filter=0, $pathisstring=false, $forcedownload=false, $mimetype='',
@@ -2529,8 +2532,9 @@ function send_file($path, $filename, $lifetime = null , $filter=0, $pathisstring
         $filename = rawurlencode($filename);
     }
 
-    // Make sure we force download of SVG files for security reasons (https://digi.ninja/blog/svg_xss.php).
-    if (file_is_svg_image_from_mimetype($mimetype)) {
+    // Make sure we force download of SVG files, unless the module explicitly allows them (eg within SCORM content).
+    // This is for security reasons (https://digi.ninja/blog/svg_xss.php).
+    if (file_is_svg_image_from_mimetype($mimetype) && empty($options['dontforcesvgdownload'])) {
         $forcedownload = true;
     }
 
@@ -2668,6 +2672,8 @@ function send_file($path, $filename, $lifetime = null , $filter=0, $pathisstring
 function send_stored_file($stored_file, $lifetime=null, $filter=0, $forcedownload=false, array $options=array()) {
     global $CFG, $COURSE;
 
+    static $recursion = 0;
+
     if (empty($options['filename'])) {
         $filename = null;
     } else {
@@ -2711,6 +2717,13 @@ function send_stored_file($stored_file, $lifetime=null, $filter=0, $forcedownloa
 
     // handle external resource
     if ($stored_file && $stored_file->is_external_file() && !isset($options['sendcachedexternalfile'])) {
+
+        // Have we been here before?
+        $recursion++;
+        if ($recursion > 10) {
+            throw new coding_exception('Recursive file serving detected');
+        }
+
         $stored_file->send_file($lifetime, $filter, $forcedownload, $options);
         die;
     }
@@ -3702,7 +3715,8 @@ class curl {
         $this->reset_request_state_vars();
 
         if ((defined('PHPUNIT_TEST') && PHPUNIT_TEST)) {
-            if ($mockresponse = array_pop(self::$mockresponses)) {
+            $mockresponse = array_pop(self::$mockresponses);
+            if ($mockresponse !== null) {
                 $this->info = [ 'http_code' => 200 ];
                 return $mockresponse;
             }
@@ -3816,6 +3830,16 @@ class curl {
                     $this->reset_request_state_vars();
                     curl_close($curl);
                     return $urlisblocked;
+                }
+
+                // If the response body is written to a seekable stream resource, reset the stream pointer to avoid
+                // appending multiple response bodies to the same resource.
+                if (!empty($this->options['CURLOPT_FILE'])) {
+                    $streammetadata = stream_get_meta_data($this->options['CURLOPT_FILE']);
+                    if ($streammetadata['seekable']) {
+                        ftruncate($this->options['CURLOPT_FILE'], 0);
+                        rewind($this->options['CURLOPT_FILE']);
+                    }
                 }
 
                 curl_setopt($curl, CURLOPT_URL, $redirecturl);
@@ -4531,6 +4555,37 @@ function file_pluginfile($relativepath, $forcedownload, $preview = null, $offlin
             \core\session\manager::write_close(); // Unlock session during file serving.
             send_stored_file($file, 0, 0, true, $sendfileoptions);
 
+        } else if ($filearea === 'event_description' and $context->contextlevel == CONTEXT_COURSECAT) {
+            if ($CFG->forcelogin) {
+                require_login();
+            }
+
+            // Get category, this will also validate access.
+            $category = core_course_category::get($context->instanceid);
+
+            // Get the event ID from the args array, load event.
+            $eventid = array_shift($args);
+            $event = $DB->get_record('event', [
+                'id' => (int) $eventid,
+                'eventtype' => 'category',
+                'categoryid' => $category->id,
+            ]);
+
+            if (!$event) {
+                send_file_not_found();
+            }
+
+            // Retrieve file from storage, and serve.
+            $filename = array_pop($args);
+            $filepath = $args ? '/' . implode('/', $args) .'/' : '/';
+            $file = $fs->get_file($context->id, $component, $filearea, $eventid, $filepath, $filename);
+            if (!$file || $file->is_directory()) {
+                send_file_not_found();
+            }
+
+            // Unlock session during file serving.
+            \core\session\manager::write_close();
+            send_stored_file($file, HOURSECS, 0, $forcedownload, $sendfileoptions);
         } else if ($filearea === 'event_description' and $context->contextlevel == CONTEXT_COURSE) {
 
             // Respect forcelogin and require login unless this is the site.... it probably

@@ -70,7 +70,7 @@ Behin adierazpen horiek sortuta zure SQL interfaze gogokoenean kopiatu eta modu 
 Irmoki gomendatzen da eskuragarri dagoen zure Moodle bertsioaren azken kaleratzea (bertsiorik altuena) instalatuta izatea falta diren indizeak bilatu baino lehen.
 
 Funtzionalitate honek ez du datu-basean inolako ekintzarik egiten (bertatik irakurri baino ez), eta beraz arazorik gabe edozein unetan exekuta daiteke.';
-$string['confirmcheckoraclesemantics'] = 'Funtzionalitate honek <a href="https://tracker.moodle.org/browse/MDL-29322">BYTE semantika erabiltzen duten Oracle varchar2 zutabeak</a> bilatuko ditu zure Moodle zerbitzarian, eta sortuko ditu (exekutatu gabe!) zutabe guztiek horren ordez CHAR semantika (datu-baseen arteko bateragarritasunerako hobea eta edukien gehienezko luzera handitzen duena) erabil dezaten beharrezkoak diren SQL adierazpenak.
+$string['confirmcheckoraclesemantics'] = 'Funtzionalitate honek <a href="https://tracker.moodle.org/browse/MDL-29322">BYTE semantika erabiltzen duten Oracle varchar2 zutabeak</a> bilatuko ditu zure Moodle zerbitzarian, eta sortuko ditu (exekutatu gabe!) zutabe guztiek horren ordez CHAR semantika (datu-baseen arteko bateragarritasunerako hobea eta edukien gehieneko luzera handitzen duena) erabil dezaten beharrezkoak diren SQL adierazpenak.
 
 Behin adierazpen horiek sortuta zure SQL interfaze gogokoenean kopiatu eta modu seguruan exekuta ditzakezu (ez ahaztu hori egin aurretik zure datuen segurtasun-kopia bat egitea).
 
@@ -180,6 +180,13 @@ $string['persistentfieldsexist'] = 'Hurrengo eremuak dagoeneko existitzen dira:'
 $string['pluginname'] = 'XMLDB editorea';
 $string['primarykeyonlyallownotnullfields'] = 'Gako nagusiak (primary key) ezin dira hutsik egon';
 $string['privacy:metadata'] = 'XMLDB editorea pluginak ez du datu pertsonalik biltzen.';
+$string['reconcile_files'] = 'Bilatu konpondu beharreko XMLDB fitxategiak';
+$string['reconcile_files_intro'] = 'Funtzionalitate honek XMLDB fitxategi guztien edukiak bilatzen ditu, eduki horiek XMLDB Editoretik sortutakoekin bat datozela egiaztatuz.
+
+Konpondu (berriz sortu) beharreko fitxategien zerrenda erakutsiko da eta horiek konpontzeko XMLDB Editorea erabili beharko litzateke.';
+$string['reconcile_files_no'] = 'Fitxategi guztiak ondo daude. Ez dago konpontzerik behar.';
+$string['reconcile_files_yes'] = 'Konpondu beharreko fitxategiak aurkitu dira:';
+$string['reconcilefiles'] = 'Konpondu XMLDB fitxategiak';
 $string['reserved'] = 'Erreserbatua';
 $string['reservedwords'] = 'Hitz erreserbatuak';
 $string['revert'] = 'Desegin';

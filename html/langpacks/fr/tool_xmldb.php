@@ -123,7 +123,7 @@ $string['fieldsnotintable'] = 'Le champ n\'existe pas dans la table';
 $string['fieldsusedinindex'] = 'Ce champ est utilisé comme index';
 $string['fieldsusedinkey'] = 'Ce champ est utilisé comme clef.';
 $string['filemodifiedoutfromeditor'] = 'Attention ! Fichier modifié localement à l\'aide de l\'éditeur XMLDB. L\'enregistrement écrasera les modifications locales.';
-$string['filenotwriteable'] = 'Fichier non accessible en écriture';
+$string['filenotwriteable'] = 'Fichier non atteignable en écriture';
 $string['fkunknownfield'] = 'La clef étrangère {$a->keyname} sur la table {$a->tablename} fait référence à un champ inexistant {$a->reffield} dans la table référencée {$a->reftable}.';
 $string['fkunknowntable'] = 'La clef étrangère {$a->keyname} sur la table {$a->tablename} fait référence à une table inexistante {$a->reftable}.';
 $string['fkviolationdetails'] = 'La clef étrangère {$a->keyname} sur la table {$a->tablename} subit {$a->numviolations} violations sur un total de {$a->numrows} rangées.';
@@ -180,6 +180,13 @@ $string['persistentfieldsexist'] = 'Les champs suivants existent déjà :';
 $string['pluginname'] = 'Éditeur XMLDB';
 $string['primarykeyonlyallownotnullfields'] = 'Les clefs primaires ne peuvent pas être nulles';
 $string['privacy:metadata'] = 'Le plugin Éditeur XMLDB n\'enregistre aucune donnée personnelle.';
+$string['reconcile_files'] = 'Rechercher des fichiers XMLDB nécessitant régénération';
+$string['reconcile_files_intro'] = 'Cette fonctionnalité vérifie si les fichiers XMLDB actuels correspondent aux résultats de leur génération par l\'éditeur XMLDB.
+
+Une liste des fichiers nécessitant d\'être régénérés sera affichée, et l\'éditeur XMLDB peut être utilisé pour corriger les problèmes.';
+$string['reconcile_files_no'] = 'Tous les fichiers sont en ordre ; aucune action de régénération n\'est nécessaire.';
+$string['reconcile_files_yes'] = 'Fichiers nécessitant régénération';
+$string['reconcilefiles'] = 'Régénérer les fichiers XMLDB';
 $string['reserved'] = 'Réservé';
 $string['reservedwords'] = 'Mots réservés';
 $string['revert'] = 'Annuler';
@@ -221,11 +228,11 @@ $string['wrongnumberofreffields'] = 'Nombre incorrect de champs de référence';
 $string['wrongoraclesemantics'] = 'Sémantiques Oracle BYTE incorrectes trouvées';
 $string['wrongreservedwords'] = 'Mots réservés utilisés actuellement<br />(les noms des tables ne sont pas importants si vous utilisez $CFG->prefix)';
 $string['yesextraindexesfound'] = 'Les index supplémentaires suivants ont été trouvés.';
-$string['yesmissingindexesfound'] = '<p>Des index manquants ont été trouvés dans votre base de données. Voici les détails et instructions SQL à exécuter avec votre interface SQL préférée pour les créer. N\'oubliez pas d\'effectuer une sauvegarde de la base de données avant de lancer ces commandes.</p>
+$string['yesmissingindexesfound'] = '<p>Des index manquants ont été trouvés dans votre base de données. Voici des informations détaillées et les instructions SQL à exécuter avec votre interface SQL préférée pour les créer. N\'oubliez pas d\'effectuer une sauvegarde de la base de données avant de lancer ces commandes.</p>
 <p>Après les avoir exécutés, il vous est vivement recommandé de lancer cet utilitaire une nouvelle fois afin de vérifier qu\'il ne reste plus d\'index manquant.</p>';
-$string['yeswrongdefaultsfound'] = '<p>Certaines valeurs par défaut incohérentes ont été trouvées dans votre base de données. Voici les détails et instructions SQL à exécuter avec votre interface SQL préférée pour les corriger. N\'oubliez pas d\'effectuer une sauvegarde de la base de données avant de lancer ces commandes.</p>
+$string['yeswrongdefaultsfound'] = '<p>Certaines valeurs par défaut incohérentes ont été trouvées dans votre base de données. Voici des informations détaillées et les instructions SQL à exécuter avec votre interface SQL préférée pour les corriger. N\'oubliez pas d\'effectuer une sauvegarde de la base de données avant de lancer ces commandes.</p>
 <p>Après les avoir exécutées, il vous est vivement recommandé de lancer cet utilitaire une nouvelle fois afin de vérifier qu\'il ne reste plus de valeurs par défaut incohérentes.</p>';
-$string['yeswrongintsfound'] = '<p>Des entiers incorrectement définis ont été trouvés dans votre base de données. Voici les détails et instructions SQL à exécuter avec votre interface SQL préférée pour les corriger. N\'oubliez pas d\'effectuer une sauvegarde de la base de données avant de lancer ces commandes.</p>
+$string['yeswrongintsfound'] = '<p>Des entiers incorrectement définis ont été trouvés dans votre base de données. Voici des informations détaillées et les instructions SQL à exécuter avec votre interface SQL préférée pour les corriger. N\'oubliez pas d\'effectuer une sauvegarde de la base de données avant de lancer ces commandes.</p>
 <p>Après les avoir corrigés, il vous est vivement recommandé de lancer cet utilitaire une nouvelle fois pour vérifier qu\'il ne reste plus d\'entiers incorrectement définis.</p>';
-$string['yeswrongoraclesemanticsfound'] = '<p>Des colonnes Oracle utilisant la sémantique BYTE ont été trouvées dans votre base de données. Voici des détails et les instructions SQL à lancer depuis votre interface SQL préférée pour toutes les convertir. N\'oubliez pas de sauvegarder vos données avant de le faire !</p>
+$string['yeswrongoraclesemanticsfound'] = '<p>Des colonnes Oracle utilisant la sémantique BYTE ont été trouvées dans votre base de données. Voici des informations détaillées et les instructions SQL à lancer depuis votre interface SQL préférée pour toutes les convertir. N\'oubliez pas de sauvegarder vos données avant de le faire !</p>
 <p>Il est vivement recommandé d\'effectuer une nouvelle fois cette recherche après avoir lancé ces commandes, afin de vous assurer qu\'il ne reste plus de sémantiques incorrectes.</p>';

@@ -25,14 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['allowframeembedding'] = 'Beachten Sie: Es wird empfohlen die "Frame-Einbettung erlauben"-Einstellung zu aktivieren, damit Tools in einem Frame statt in einem neuen Fenster angezeigt werden.';
-$string['authltimustbeenabled'] = 'Hinweis: Dieses Plugin bedarf auch der Aktivierung des LTI Authentifizierungs-Plugins';
+$string['allowframeembedding'] = 'Hinweis: Die Einstellung "Frame-Einbettung erlauben" sollte aktiviert werden, damit LTI Tools in einem Frame statt in einem neuen Fenster angezeigt werden.';
+$string['authltimustbeenabled'] = 'Hinweis: Dieses Plugin benötigt auch der Aktivierung des Plugins "LTI Authentifizierung"';
 $string['cartridgeurl'] = 'Cartridge URL';
 $string['couldnotestablishproxy'] = 'Proxy mit Consumer konnte nicht hergestellt werden.';
 $string['enrolenddate'] = 'Einschreibungsende';
 $string['enrolenddate_help'] = 'Diese Option legt fest, dass Nutzer/innen nur bis zu diesem Termin zugreifen können.';
 $string['enrolenddateerror'] = 'Das Einschreibungsende muss nach dem Einschreibungsbeginn liegen.';
-$string['enrolisdisabled'] = 'Das Plugin \'Veröffentlichen als LTI-Tool\' ist deaktiviert.';
+$string['enrolisdisabled'] = 'Das Plugin \'Veröffentlichen als LTI Tool\' ist deaktiviert.';
 $string['enrolmentfinished'] = 'Einschreibung beendet';
 $string['enrolmentnotstarted'] = 'Einschreibung hat nicht begonnen';
 $string['enrolperiod'] = 'Einschreibungsdauer';
@@ -81,13 +81,13 @@ $string['returnurlnotset'] = 'Die Rückgabe-URL ist nicht gesetzt.';
 $string['roleinstructor'] = 'Rolle für Trainer/in';
 $string['roleinstructor_help'] = 'Die Rolle, die in diesem Tool Trainer/innen zugewiesen wird, wenn sie von einem externen System zugreifen.';
 $string['rolelearner'] = 'Rolle für Teilnehmer/in';
-$string['rolelearner_help'] = 'Die Rolle, die in diesem Tool dem Schüler, der von einem externen System zugreift, zugewiesen ist.';
+$string['rolelearner_help'] = 'Die Rolle, die in diesem Tool dem/der Teilnehmenden, der von einem externen System zugreift, zugewiesen ist.';
 $string['secret'] = 'Secret';
 $string['secret_help'] = 'Eine Zeichenkette, die dem externen System (LTI consumer) mitgeteilt wird um Zugriff auf das tool zu ermöglichen.';
 $string['sharedexternaltools'] = 'Als LTI-Tools bereitgestellt';
 $string['successfulregistration'] = 'Registrierung erfolgreich';
 $string['tasksyncgrades'] = 'LTI-Tool Bewertungen synchronisieren';
-$string['tasksyncmembers'] = 'LTI-Tool Benutzer synchronisieren';
+$string['tasksyncmembers'] = 'LTI-Tool Nutzende synchronisieren';
 $string['toolsprovided'] = 'Bereitgestellte Tools';
 $string['toolsprovided_help'] = 'Ein Tool kann mit einer weiteren Seite geteilt werden indem entweder Launch-Details oder eine Registrierungs-URL angegeben werden.';
 $string['tooltobeprovided'] = 'zu veröffentlichendes Tool';

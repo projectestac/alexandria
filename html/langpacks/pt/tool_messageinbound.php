@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['classname'] = 'Nome da classe';
 $string['component'] = 'Componente';
-$string['configmessageinboundhost'] = 'O endereço do servidor em que o Moodle deve verificar o correio eletrónico. Para especificar uma porta não predefinida, pode usar a sintaxe [server]:[port], como por exemplo \'mail.example.com:993\'. Se deixar o campo vazio, o Moodle usará a porta predefinida para o tipo de servidor de e-mail que especificou.';
+$string['configmessageinboundhost'] = 'O endereço do servidor em que o Moodle deve verificar o correio eletrónico. Para especificar uma porta não predefinida, pode usar a sintaxe [server]:[port], como por exemplo, \'mail.example.com:993\'. Se deixar o campo em branco, o Moodle usará a porta predefinida para o tipo de servidor de e-mail que especificou.';
 $string['defaultexpiration'] = 'Período de validade do endereço predefinido';
 $string['defaultexpiration_help'] = 'Quando um endereço de e-mail é gerado pelo handler, pode ser definido para expirar automaticamente após um período de tempo e, por isso, já não pode ser usado novamente. É aconselhado definir um período de validade.';
 $string['description'] = 'Descrição';
@@ -42,7 +42,7 @@ $string['fixedvalidateaddress_help'] = 'Não é possível alterar o endereço de
 $string['handlerdisabled'] = 'O handler de e-mail que tentou contactar foi desativado. Não é possível processar a mensagem neste momento.';
 $string['incomingmailconfiguration'] = 'Configuração da receção de e-mails';
 $string['incomingmailserversettings'] = 'Configurações do servidor de receção de e-mails';
-$string['incomingmailserversettings_desc'] = 'O Moodle é capaz de ligar a servidores IMAP devidamente configurados. Pode especificar aqui as definições usadas para ligar ao seu servidor IMAP.';
+$string['incomingmailserversettings_desc'] = 'O Moodle é capaz de ligar a servidores IMAP devidamente configurados. Pode especificar aqui as configurações usadas para ligar ao seu servidor IMAP.';
 $string['invalid_recipient_handler'] = 'Se uma mensagem válida é recebida mas o remetente não pode ser autenticado, a mensagem é armazenada no servidor de e-mail e o utilizador é contactado usando o endereço de e-mail que consta no seu perfil do utilizador. O utilizador terá oportunidade de responder para confirmar a autenticidade da mensagem original.
 
 Este handler processa essas respostas.
@@ -57,7 +57,7 @@ $string['mailboxconfiguration'] = 'Configuração da caixa de correio';
 $string['mailboxdescription'] = '[mailbox]+subaddress@[domain]';
 $string['mailsettings'] = 'Configurações do e-mail';
 $string['message_handlers'] = 'Handlers de mensagem';
-$string['messageinbound'] = 'Mensagem Inbound';
+$string['messageinbound'] = 'Mensagem de entrada';
 $string['messageinboundenabled'] = 'Ativar o processo de receção de e-mail';
 $string['messageinboundenabled_desc'] = 'O processo de receção de e-mail tem de ser ativado por forma a que as mensagens sejam enviadas com a informação adequada.';
 $string['messageinboundgeneralconfiguration'] = 'Configuração geral';
@@ -70,7 +70,7 @@ $string['messageinboundhostssl_desc'] = 'Alguns servidores de correio eletrónic
 $string['messageinboundhosttype'] = 'Tipo de servidor';
 $string['messageinboundhostuser'] = 'Nome de utilizador';
 $string['messageinboundhostuser_desc'] = 'Nome de utilizador que o seu fornecedor de serviços terá fornecido para se autenticar na sua conta de e-mail.';
-$string['messageinboundmailboxconfiguration_desc'] = 'Quando as mensagens são enviadas, elas encaixam-se no formato \'address+data@example.com\'. Para gerar de forma confiável endereços a partir do Moodle, por favor, especifique separadamente o endereço que normalmente usaria antes do sinal \'@\', e o domínio depois do sinal \'@\'. Por exemplo, o nome da caixa de correio no exemplo seria "address", e o domínio de e-mail seria "example.com". Deverá usar uma conta de e-mail exclusiva para este propósito.';
+$string['messageinboundmailboxconfiguration_desc'] = 'Quando as mensagens são enviadas, elas encaixam-se no formato \'address+data@example.com\'. Para gerar de forma confiável endereços a partir do Moodle, por favor, especifique separadamente o endereço que normalmente usaria antes do sinal \'@\' e o domínio depois do sinal \'@\'. Por exemplo, o nome da caixa de correio no exemplo seria "address" e o domínio de e-mail seria "example.com". Deverá usar uma conta de e-mail exclusiva para este propósito.';
 $string['messageprocessingerror'] = 'Enviou recentemente um e-mail com o assunto "{$a->subject}", mas infelizmente este não pôde ser processado.
 
 Os detalhes do erro encontram-se indicados abaixo.
@@ -102,7 +102,7 @@ $string['privacy:metadata:coreuserkey'] = 'Chaves de utilizador para validar e-m
 $string['privacy:metadata:messagelist'] = 'Um lista de identificadores de mensagem que falharam na validação e exigem autorização';
 $string['privacy:metadata:messagelist:address'] = 'O endereço para onde foi enviado o e-mail';
 $string['privacy:metadata:messagelist:messageid'] = 'O ID da mensagem';
-$string['privacy:metadata:messagelist:timecreated'] = 'A data/hora em que o registo foi feito';
+$string['privacy:metadata:messagelist:timecreated'] = 'Data e hora em que o registo foi feito';
 $string['privacy:metadata:messagelist:userid'] = 'O ID do utilizador que precisa de aprovar a mensagem';
 $string['replysubjectprefix'] = 'Re:';
 $string['requirevalidation'] = 'Validar endereço do remetente';
@@ -114,7 +114,7 @@ $string['taskpickup'] = 'Captação de e-mails recebidos';
 $string['tls'] = 'TLS (TLS; iniciado através do nível de protocolo de negociação em canal não encriptado; forma recomendada de iniciar a ligação segura)';
 $string['tlsv1'] = 'TLSv1 (ligação direta ao servidor TLS versão 1.x)';
 $string['validateaddress'] = 'Validar endereço de e-mail do remetente';
-$string['validateaddress_help'] = 'Quando uma mensagem é recebida de um utilizador, o Moodle tenta validar a mensagem através da comparação do endereço de e-mail do remetente com o endereço de e-mail no seu perfil do utilizador.
+$string['validateaddress_help'] = 'Quando uma mensagem é recebida de um utilizador, o Moodle tenta validar a mensagem através da comparação do endereço de e-mail do remetente com o endereço de e-mail no perfil do utilizador.
 
 Se o remetente não corresponder, é enviada ao utilizador uma notificação para confirmar que realmente enviou o e-mail.
 

@@ -496,6 +496,11 @@ define('HOMEPAGE_USER', 2);
 defined('HUB_MOODLEORGHUBURL') || define('HUB_MOODLEORGHUBURL', 'https://stats.moodle.org');
 
 /**
+ * URL of the statistic server public key.
+ */
+defined('HUB_STATSPUBLICKEY') || define('HUB_STATSPUBLICKEY', 'https://moodle.org/static/statspubkey.pem');
+
+/**
  * Moodle mobile app service name
  */
 define('MOODLE_OFFICIAL_MOBILE_SERVICE', 'moodle_mobile_app');
@@ -2727,11 +2732,6 @@ function require_login($courseorid = null, $autologinguest = true, $cm = null, $
                 $SESSION->wantsurl = qualified_me();
             }
 
-            $referer = get_local_referer(false);
-            if (!empty($referer)) {
-                $SESSION->fromurl = $referer;
-            }
-
             // Give auth plugins an opportunity to authenticate or redirect to an external login page
             $authsequence = get_enabled_auth_plugins(); // Auths, in sequence.
             foreach($authsequence as $authname) {
@@ -3894,10 +3894,6 @@ function create_user_record($username, $password, $auth = 'manual') {
         if (email_is_not_allowed($newuser->email)) {
             unset($newuser->email);
         }
-    }
-
-    if (!isset($newuser->city)) {
-        $newuser->city = '';
     }
 
     $newuser->auth = $auth;
@@ -5318,8 +5314,7 @@ function remove_course_contents($courseid, $showfeedback = true, array $options 
     fulldelete($CFG->dataroot.'/'.$course->id);
 
     // Delete from cache to reduce the cache size especially makes sense in case of bulk course deletion.
-    $cachemodinfo = cache::make('core', 'coursemodinfo');
-    $cachemodinfo->delete($courseid);
+    course_modinfo::purge_course_cache($courseid);
 
     // Trigger a course content deleted event.
     $event = \core\event\course_content_deleted::create(array(
@@ -8701,8 +8696,9 @@ function format_float($float, $decimalpoints=1, $localized=true, $stripzeros=fal
     }
 
     $result = number_format($float, $decimalpoints, $separator, '');
-    if ($stripzeros) {
+    if ($stripzeros && $decimalpoints > 0) {
         // Remove zeros and final dot if not needed.
+        // However, only do this if there is a decimal point!
         $result = preg_replace('~(' . preg_quote($separator, '~') . ')?0+$~', '', $result);
     }
     return $result;
@@ -10335,6 +10331,21 @@ function unserialize_array($expression) {
         $value[$parts[$i]] = $parts[$i+1];
     }
     return $value;
+}
+
+/**
+ * Safe method for unserializing given input that is expected to contain only a serialized instance of an stdClass object
+ *
+ * If any class type other than stdClass is included in the input string, it will not be instantiated and will be cast to an
+ * stdClass object. The initial cast to array, then back to object is to ensure we are always returning the correct type,
+ * otherwise we would return an instances of {@see __PHP_Incomplete_class} for malformed strings
+ *
+ * @param string $input
+ * @return stdClass
+ */
+function unserialize_object(string $input): stdClass {
+    $instance = (array) unserialize($input, ['allowed_classes' => [stdClass::class]]);
+    return (object) $instance;
 }
 
 /**

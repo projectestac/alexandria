@@ -28,6 +28,8 @@ defined('MOODLE_INTERNAL') || die();
 $string['currentsubmission'] = 'Current Submission';
 $string['default'] = 'Enabled by default';
 $string['default_help'] = 'If set, this submission method will be enabled by default for all newly created assignments.';
+$string['emptyoverride'] = 'Override "No File Uploaded" Message';
+$string['emptyoverride_help'] = 'Change the message that is displayed when users complete a submission without uploading a file using the activated Planet eStream plugin. Depending on your institutional policies you may want to change this to an Error message rather than feedback.';
 $string['enabled'] = 'Planet eStream Submissions enabled';
 $string['enabled_help'] = 'If enabled, students are able to submit upload video/audio files for assessment via Planet eStream when using the text editor plugins.';
 $string['nosubmission'] = 'Nothing has yet been submitted';
@@ -41,4 +43,5 @@ $string['shortname'] = 'Video/Audio Submission';
 $string['upload'] = 'Upload a Video or Audio file';
 $string['upload_help'] = 'Click the Browse button, select a video or audio file to upload, then click Upload.<br />Once uploaded, the file will be available after having been processed by the system.  Please note that larger uploads require more processing time and may take some time to display on the system.<br />';
 $string['uploadfailed'] = 'Upload Failed<br /><br />Please refresh the page and try again';
-$string['uploadok'] = 'Uploaded OK<br /><br />Please click &apos;Save changes&apos; to save.';
+$string['uploadok'] = 'File Upload Complete<br /><br />WARNING: The Submission is NOT yet complete!<br /><br />To finish submission,
+please click &apos;Save changes&apos; below to save.';

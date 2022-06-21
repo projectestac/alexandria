@@ -234,7 +234,7 @@ Veuillez prendre note de toutes les réponses que vous avez saisies sur cette pa
 Une fois la connexion rétablie, vos réponses devraient être enregistrées et ce message disparaîtra.';
 $string['connectionok'] = 'Connexion réseau rétablie. Vous pouvez continuer.';
 $string['containercategorycreated'] = 'Cette catégorie a été créée pour y placer les catégories originales qui ont été déplacées au niveau du site pour les raisons spécifiées ci-dessous.';
-$string['continueattemptquiz'] = 'Continuer la dernière tentative';
+$string['continueattemptquiz'] = 'Continuer votre tentative';
 $string['continuepreview'] = 'Continuer la dernière prévisualisation';
 $string['copyingfrom'] = 'Création d\'une copie de la question « {$a} »';
 $string['copyingquestion'] = 'Copie d\'une question';
@@ -467,7 +467,7 @@ $string['invalidcategory'] = 'L\'identifiant de catégorie n\'est pas valide';
 $string['invalidoverrideid'] = 'Identifiant de dérogation non valide';
 $string['invalidquestionid'] = 'Identifiant de question non valide';
 $string['invalidquizid'] = 'Identifiant de test non valide';
-$string['invalidrandomslot'] = 'Id d\'insertion de question aléatoire non valide.';
+$string['invalidrandomslot'] = 'ID d\'insertion de question aléatoire non valide.';
 $string['invalidsource'] = 'La source n\'est pas acceptée comme valable.';
 $string['invalidsourcetype'] = 'Type de la source non valable.';
 $string['invalidstateid'] = 'Identifiant d\'état non valide';

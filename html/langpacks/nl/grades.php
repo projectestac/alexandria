@@ -419,7 +419,7 @@ $string['importcsv'] = 'Importeer CSV';
 $string['importcsv_help'] = 'Cijfers kunnen als volgt via een CSV-bestand geïmporteerd worden:
 
 * elke lijn van het bestand bevat één record
-* elke record is een reeks gegevens die door comma\'s of een ander scheidingsteken gescheiden zijn
+* elke record is een reeks gegevens gescheiden door het geselecteerde scheidingsteken
 * de eerste record bevat een lijst met veldnamen die de opmaak van de rest van het bestand definiëren
 * een veldnaam die de gebruikersidentiteit bevat is vereist - ofwel username, ID number of email address
 
@@ -713,7 +713,7 @@ $string['recovergradesdefault_help'] = 'Herstel als standaardinstelling oude cij
 $string['refreshpreview'] = 'Voorbeeld vernieuwen';
 $string['regradeanyway'] = 'Cijfers toch opnieuw berekenen';
 $string['removeallcoursegrades'] = 'Verwijder alle cijfers';
-$string['removeallcoursegrades_help'] = 'Indien ingeschakeld zullen alle beoordelingsitems die manueel aan de cijferlijst zijn toegevoegd, verwijderd worden, samen met alle cijfers en gegevens op overschreven, uitgesloten, verborgen en geblokkeerde cijfers. Enkel beoordelingsitems die met activiteiten geassocieerd zijn zullen overblijven.';
+$string['removeallcoursegrades_help'] = 'Indien ingeschakeld zullen alle beoordelingsitems en cijfers die manueel aan de cijferlijst zijn toegevoegd, verwijderd worden, samen met alle cijfers en gegevens op overschreven, uitgesloten, verborgen en geblokkeerde cijfers. Enkel beoordelingsitems en cijfers die met activiteiten geassocieerd zijn zullen overblijven.';
 $string['removeallcourseitems'] = 'Verwijder alle items en categorieën';
 $string['removeallcourseitems_help'] = 'Indien ingeschakeld zullen alle categorieën die manueel aan de cijferlijst zijn toegevoegd, verwijderd worden, samen met alle cijfers en gegevens op overschreven, uitgesloten, verborgen en geblokkeerde cijfers. Enkel beoordelingsitems die met activiteiten geassocieerd zijn zullen overblijven.';
 $string['report'] = 'Rapport';

@@ -25,6 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['acceptrisk'] = '私はメール認証無効化によるセキュリティ上の問題を理解しています。';
+$string['acceptrisk_help'] = 'メール認証を無効にした場合、ユーザが別のユーザとして認証される可能性があります。';
 $string['authconfirm'] = 'この操作は認証済みアカウントにMoodleへの永続的APIアクセス権を与えます。これはMooldleにより所有されているファイルをシステムアカウントが管理するための使用を目的としています。';
 $string['authconnected'] = 'システムアカウントはオフラインアクセスに接続されています。';
 $string['authnotconnected'] = 'システムアカウントはオフラインアクセスに接続されていません。';
@@ -114,7 +116,7 @@ $string['notloginissuer'] = 'ログインを許可しない';
 $string['pluginname'] = 'OAuth 2サービス';
 $string['privacy:metadata'] = 'OAuth 2サービスプラグインはいかなる個人データも保存しません。';
 $string['savechanges'] = '変更を保存する';
-$string['serviceshelp'] = 'サービスプロバイダのセットアップインストラクションです。';
+$string['serviceshelp'] = 'サービスプロバイダのセットアップインストラクション';
 $string['systemaccountconnected'] = 'システムアカウント接続済み';
 $string['systemaccountconnected_help'] = 'システムアカウントはプラグインに高度な機能を提供するため使用されます。ログイン機能にのみ必要であるだけではなく、システムアカウントが接続していない場合にOAuthサービスを利用している他のプラグインに縮小した形で機能を提供するためにも必要です。例えばリポジトリはシステムアカウントによるファイル処理なしに「コントロールリンク」をサポートすることはできません。';
 $string['systemaccountnotconnected'] = 'システムアカウント未接続';

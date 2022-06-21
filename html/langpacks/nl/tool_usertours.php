@@ -108,7 +108,7 @@ Je kunt het %-teken als jokerteken gebruiken. Enkele voorbeeldwaarden:
 * /mod/forum/view.php% - komt overeen met een lijst met forumdiscussies
 * /user/profile.php% - komt overeen met de profielpagina van een gebruiker
 
-Als je een rondleiding op de startpagina van de site wil tonen, dan kun je de waarde "FRONTPAGE" gebruiken.';
+Als je een rondleiding op de site startpagina wil tonen, dan kun je de waarde "FRONTPAGE" gebruiken.';
 $string['pausetour'] = 'Pauze';
 $string['placement'] = 'Plaatsing';
 $string['placement_help'] = 'Een stap kan boven, onder links of rechts van het doel geplaatst worden. Boven of onder wordt aanbevolen omdat die beter passen op mobiele schermen.
@@ -160,7 +160,7 @@ $string['tour1_title_customisation'] = 'Aanpassing';
 $string['tour1_title_end'] = 'Einde van de rondleiding';
 $string['tour1_title_navigation'] = 'Navigatie';
 $string['tour1_title_welcome'] = 'Welkom';
-$string['tour2_content_addblock'] = 'Als je bewerken inschakelt, dan kun je blokken toevoegen vanaf het navigatiepaneel. Wees echter voorzichtig met het toevoegen van blokken aan je pagina\'s. Blokken worden niet getoond op Mobiele app. Voor de beste gebruikerservaring kun je er dus best voor zorgen dat je cursus goed werkt zonder blokken.';
+$string['tour2_content_addblock'] = 'Als je bewerken inschakelt, dan kun je blokken toevoegen vanaf het navigatiepaneel. Wees echter voorzichtig met het toevoegen van blokken aan je pagina\'s. Blokken worden niet getoond op de Mobiele app. Voor de beste gebruikerservaring kun je er dus best voor zorgen dat je cursus goed werkt zonder blokken.';
 $string['tour2_content_addingblocks'] = 'Met deze knop kun je blokken toevoegen aan deze pagina. Wees echter voorzichtig met het toevoegen van blokken aan je pagina\'s. Blokken worden niet getoond op Mobiele app. Voor de beste gebruikerservaring kun je er dus best voor zorgen dat je cursus goed werkt zonder blokken.';
 $string['tour2_content_customisation'] = 'Om de cursusinstellingen te wijzigen kun je het instellingenmenu gebruiken in de hoek van deze balk. Je zult gelijkaardige instellingenmenu\'s vinden op de startpagina van elke activiteit. Probeer nu bewerken in te schakelen.';
 $string['tour2_content_end'] = 'Dit is het einde van jouw rondleiding,. Dit zal niet meer getoond worden, tenzij je deze opnieuw instelt door de link te gebruiken onderaan de pagina. De site-beheerder kan ook rondleidingen zoals deze maken, specifiek voor deze site, indien nodig.';

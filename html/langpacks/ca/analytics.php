@@ -26,13 +26,14 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['analysisinprogress'] = 'Encara s\'està analitzant per una execució prèvia';
-$string['analytics'] = 'Google Analytics';
-$string['analyticsdisabled'] = 'El Google Analytics està deshabilitat. Podeu habilitar-lo a «Administració del lloc > Característiques avançades».';
-$string['analyticslogstore'] = 'L\'emmagatzematge usat pel Google Analytics';
-$string['analyticslogstore_help'] = 'L\'emmagatzematge que usarà l\'API del Google Analytics per llegir l\'activitat de l\'usuari.';
-$string['analyticssettings'] = 'Paràmetres de l\'Analytics';
+$string['analytics'] = 'Analítiques';
+$string['analyticsdisabled'] = 'Les analítiques estan inhabilitades. Podeu habilitar-les a «Administració del lloc > Característiques avançades».';
+$string['analyticslogstore'] = 'L\'emmagatzematge usat per a les analítiques';
+$string['analyticslogstore_help'] = 'L\'emmagatzematge que usarà l\'API de les analítiques per llegir l\'activitat de l\'usuari.';
+$string['analyticssettings'] = 'Paràmetres de les analítiques';
 $string['analyticssiteinfo'] = 'Informació del lloc';
-$string['calclifetime'] = 'Guarda els càlculs de l\'analytics per a';
+$string['calclifetime'] = 'Conserva els càlculs de les analítiques per a';
+$string['disabledmodel'] = 'Model inhabilitat';
 $string['errorimportmissingclasses'] = 'Els components següents de l\'analytics no estan disponibles en aquest lloc: {$a->missingclasses}.';
 $string['errorinvalidindicator'] = 'Indicador {$a} no vàlid';
 $string['errornoindicators'] = 'Aquest model no té cap indicador.';
@@ -40,6 +41,7 @@ $string['errornoroles'] = 'No s\'han definit rols d\'estudiant o professor. Defi
 $string['errorunknownaction'] = 'Acció desconeguda';
 $string['eventinsightsviewed'] = 'Prediccions visualitzades';
 $string['fixedack'] = 'Accepta';
+$string['incorrectlyflagged'] = 'Marcat incorrectament';
 $string['insightinfomessageaction'] = '{$a->text}: {$a->url}';
 $string['insightinfomessagehtml'] = 'El sistema ha generat algunes prediccions: <a href="{$a}">{$a}</a>.';
 $string['insightinfomessageplain'] = 'El sistema ha generat algunes prediccions: {$a}';
@@ -93,5 +95,6 @@ $string['privacy:metadata:analytics:indicatorcalc:timecreated'] = 'Quan es va fe
 $string['privacy:metadata:analytics:indicatorcalc:value'] = 'El valor calculat';
 $string['privacy:metadata:analytics:predictionactions'] = 'Accions de predicció';
 $string['privacy:metadata:analytics:predictionactions:actionname'] = 'El nom de l\'acció';
+$string['useful'] = 'Útil';
 $string['viewdetails'] = 'Mostra els detalls';
 $string['washelpful'] = 'Això us ha semblat útil?';

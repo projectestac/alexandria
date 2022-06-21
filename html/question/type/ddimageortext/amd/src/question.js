@@ -34,6 +34,7 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
      */
     function DragDropOntoImageQuestion(containerId, readOnly, places) {
         this.containerId = containerId;
+        this.questionAnswer = {};
         M.util.js_pending('qtype_ddimageortext-init-' + this.containerId);
         this.places = places;
         this.allImagesLoaded = false;
@@ -284,6 +285,11 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
                         cloneDrag.removeClass('beingdragged');
                         cloneDrag.removeAttr('tabindex');
                         hiddenDrag.after(cloneDrag);
+                        // Sometimes, for the question that has a lot of input groups and unlimited draggable items,
+                        // this 'clone' process takes longer than usual, so the questionManager.init() method
+                        // will not add the eventHandler for this cloned drag.
+                        // We need to make sure to add the eventHandler for the cloned drag too.
+                        questionManager.addEventHandlersToDrag(cloneDrag);
                     } else {
                         hiddenDrag.addClass('active');
                     }
@@ -296,6 +302,48 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
             var drop = root.find('.dropzone.place' + place);
             thisQ.sendDragToDrop(unplacedDrag, drop);
         });
+
+        // Save the question answer.
+        thisQ.questionAnswer = thisQ.getQuestionAnsweredValues();
+    };
+
+    /**
+     * Get the question answered values.
+     *
+     * @return {Object} Contain key-value with key is the input id and value is the input value.
+     */
+    DragDropOntoImageQuestion.prototype.getQuestionAnsweredValues = function() {
+        let result = {};
+        this.getRoot().find('input.placeinput').each((i, inputNode) => {
+            result[inputNode.id] = inputNode.value;
+        });
+
+        return result;
+    };
+
+    /**
+     * Check if the question is being interacted or not.
+     *
+     * @return {boolean} Return true if the user has changed the question-answer.
+     */
+    DragDropOntoImageQuestion.prototype.isQuestionInteracted = function() {
+        const oldAnswer = this.questionAnswer;
+        const newAnswer = this.getQuestionAnsweredValues();
+        let isInteracted = false;
+
+        // First, check both answers have the same structure or not.
+        if (JSON.stringify(newAnswer) !== JSON.stringify(oldAnswer)) {
+            isInteracted = true;
+            return isInteracted;
+        }
+        // Check the values.
+        Object.keys(newAnswer).forEach(key => {
+            if (newAnswer[key] !== oldAnswer[key]) {
+                isInteracted = true;
+            }
+        });
+
+        return isInteracted;
     };
 
     /**
@@ -310,7 +358,7 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
             newIndex = currentIndex + 2;
 
         var info = dragDrop.prepare(e);
-        if (!info.start) {
+        if (!info.start || drag.hasClass('beingdragged')) {
             return;
         }
 
@@ -948,6 +996,12 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
         eventHandlersInitialised: false,
 
         /**
+         * {Object} ensures that the drag event handlers are only initialised once per question,
+         * indexed by containerId (id on the .que div).
+         */
+        dragEventHandlersInitialised: {},
+
+        /**
          * {boolean} is printing or not.
          */
         isPrinting: false,
@@ -977,14 +1031,22 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
                 questionManager.setupEventHandlers();
                 questionManager.eventHandlersInitialised = true;
             }
+            if (!questionManager.dragEventHandlersInitialised.hasOwnProperty(containerId)) {
+                questionManager.dragEventHandlersInitialised[containerId] = true;
+                // We do not use the body event here to prevent the other event on Mobile device, such as scroll event.
+                var questionContainer = document.getElementById(containerId);
+                if (questionContainer.classList.contains('ddimageortext') &&
+                    !questionContainer.classList.contains('qtype_ddimageortext-readonly')) {
+                    // TODO: Convert all the jQuery selectors and events to native Javascript.
+                    questionManager.addEventHandlersToDrag($(questionContainer).find('.draghome'));
+                }
+            }
         },
 
         /**
          * Set up the event handlers that make this question type work. (Done once per page.)
          */
         setupEventHandlers: function() {
-            // We do not use the body event here to prevent the other event on Mobile device, such as scroll event.
-            questionManager.addEventHandlersToDrag($('.que.ddimageortext:not(.qtype_ddimageortext-readonly) .draghome'));
             $('body')
                 .on('keydown',
                     '.que.ddimageortext:not(.qtype_ddimageortext-readonly) .dropzones .dropzone',
@@ -1112,6 +1174,12 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
             if (questionManager.isKeyboardNavigation) {
                 questionManager.isKeyboardNavigation = false;
             }
+            if (thisQ.isQuestionInteracted()) {
+                // The user has interacted with the draggable items. We need to mark the form as dirty.
+                questionManager.handleFormDirty();
+                // Save the new answered value.
+                thisQ.questionAnswer = thisQ.getQuestionAnsweredValues();
+            }
         },
 
         /**
@@ -1122,6 +1190,15 @@ define(['jquery', 'core/dragdrop', 'core/key_codes'], function($, dragDrop, keys
         getQuestionForEvent: function(e) {
             var containerId = $(e.currentTarget).closest('.que.ddimageortext').attr('id');
             return questionManager.questions[containerId];
+        },
+
+        /**
+         * Handle when the form is dirty.
+         */
+        handleFormDirty: function() {
+            if (typeof M.core_formchangechecker !== 'undefined') {
+                M.core_formchangechecker.set_form_changed();
+            }
         }
     };
 

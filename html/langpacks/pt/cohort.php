@@ -55,7 +55,7 @@ $string['editcohort'] = 'Editar Grupo global';
 $string['editcohortidnumber'] = 'Editar o ID do Grupo global';
 $string['editcohortname'] = 'Editar o nome do Grupo global';
 $string['eventcohortcreated'] = 'Grupo global criado';
-$string['eventcohortdeleted'] = 'Grupo global eliminado';
+$string['eventcohortdeleted'] = 'Grupo global apagado';
 $string['eventcohortmemberadded'] = 'Utilizador adicionado a um Grupo global';
 $string['eventcohortmemberremoved'] = 'Utilizador removido de um Grupo global';
 $string['eventcohortupdated'] = 'Grupo global atualizado';
@@ -65,7 +65,7 @@ $string['invalidtheme'] = 'Tema do Grupo global não existe';
 $string['memberscount'] = 'Tamanho';
 $string['name'] = 'Nome';
 $string['namecolumnmissing'] = 'Existe algo errado com o formato do ficheiro CSV. Por favor, verifique se estão incluídos os nomes corretos das colunas. Para adicionar utilizadores a um Grupo Global, aceda a  "Carregar utilizadores" na Administração do Site.';
-$string['namefieldempty'] = 'O campo \'Nome\' não pode estar vazio';
+$string['namefieldempty'] = 'O campo \'Nome\' não pode estar em branco';
 $string['newidnumberfor'] = 'Novo ID para o Grupo global {$a}';
 $string['newnamefor'] = 'Novo nome para o Grupo global {$a}';
 $string['nocomponent'] = 'Criado manualmente';
@@ -76,20 +76,20 @@ $string['privacy:metadata:cohort_members'] = 'Informação sobre o grupo de util
 $string['privacy:metadata:cohort_members:cohortid'] = 'O ID do grupo';
 $string['privacy:metadata:cohort_members:timeadded'] = 'O tempo exato de indicação de quando o utilizador foi adicionado ao grupo';
 $string['privacy:metadata:cohort_members:userid'] = 'O ID do utilizador associado ao grupo';
-$string['removeuserwarning'] = 'Remover utilizadores dos Grupos globais significa desinscrevê-los das disciplinas, o que faz com que estes percam as suas configurações, notas, grupos e outras informações nessas disciplinas.';
+$string['removeuserwarning'] = 'Remover utilizadores dos Grupos globais significa cancelar a inscrição nas disciplinas, o que faz com que estes percam as suas configurações, notas, grupos e outras informações nessas disciplinas.';
 $string['search'] = 'Pesquisar';
 $string['searchcohort'] = 'Pesquisar Grupos globais';
 $string['selectfromcohort'] = 'Selecionar utilizadores do Grupo global';
 $string['systemcohorts'] = 'Grupos globais do sistema';
 $string['unknowncohort'] = 'Grupo global desconhecido ({$a})!';
 $string['uploadcohorts'] = 'Carregar Grupos globais';
-$string['uploadcohorts_help'] = 'Os grupos globais podem ser carregados através de um ficheiro de texto. O formato do ficheiro deverá cumprir com o seguinte:
+$string['uploadcohorts_help'] = 'Os  grupos globais podem ser carregados via ficheiro de texto. O ficheiro deve ter o seguinte formato:
 
-* Cada linha do ficheiro contém um registo;
-* Cada registo consiste numa série de dados separados por vírgulas (ou outro delimitador);
-* O primeiro registo contém uma lista de campos que definem o formato do resto do ficheiro;
-* O campo \'name\' é obrigatório;
-* Os restantes campos são opcionais (idnumber, description, descriptionformat, visible, context, category, category_id, category_idnumber, category_path).';
+* Cada linha do ficheiro contém um registo
+* Cada registo é uma linha com uma série de dados separados pelo separador selecionado
+* O primeiro registo contém uma lista de campos que definem o formato do resto do ficheiro
+* O campo \'name\' é obrigatório
+*Os campos opcionais são idnumber, description, descriptionformat, visible, context, category, category_id, category_idnumber, category_path';
 $string['uploadedcohorts'] = 'Carregar {$a} Grupos globais';
 $string['useradded'] = 'Adicionar utilizador ao Grupo global \'{$a}\'';
 $string['visible'] = 'Visível';

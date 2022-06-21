@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['activityoverview'] = 'Zain dituzu hainbat {$a}';
+$string['activityoverview'] = 'Zure arreta behar duten hainbat {$a} duzu';
 $string['addfavourite'] = 'Gehitu gogokoa';
 $string['alwaysshowall'] = 'Beti erakutsi guztiak';
 $string['collapseall'] = 'Tolestu ikastaro-zerrenda guztiak';
@@ -72,10 +72,10 @@ $string['reorderid'] = 'Ikastaroaren IDa';
 $string['reorderiddesc'] = 'Ikastaroaren IDaren deskribapena';
 $string['reordernone'] = 'Hartu-eta-eramana ordenatzea';
 $string['reordershortname'] = 'Ikastaroaren izen laburrra';
-$string['setmaxcourses'] = 'Ezarri gehienezko ikastaro-kopurua';
-$string['setmaxcoursesdesc'] = 'Ezarri Ikastaroko Laburpen Blokean batera erakusteko lehenetsitako gehienezko ikastaro-kopurua.';
-$string['setmaxcoursesmax'] = 'Ezarri gehienezko ikastaro-kopurua';
-$string['setmaxcoursesmaxdesc'] = 'Ezarri Ikastaroko Laburpen Blokean erabiltzaileek erakustea aukera  dezaketen gehienezko ikastaro-kopurua.';
+$string['setmaxcourses'] = 'Ezarri gehieneko ikastaro-kopurua';
+$string['setmaxcoursesdesc'] = 'Ezarri Ikastaroko Laburpen Blokean batera erakusteko lehenetsitako gehieneko ikastaro-kopurua.';
+$string['setmaxcoursesmax'] = 'Ezarri gehieneko ikastaro-kopurua';
+$string['setmaxcoursesmaxdesc'] = 'Ezarri Ikastaroko Laburpen Blokean erabiltzaileek erakustea aukera  dezaketen gehieneko ikastaro-kopurua.';
 $string['shortnameprefix'] = '{$a} barne';
 $string['shortnamesufixprural'] = '(eta beste {$a})';
 $string['shortnamesufixsingular'] = '(eta beste {$a})';

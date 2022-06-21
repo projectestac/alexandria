@@ -45,7 +45,7 @@ $string['creategrouping'] = 'Sortu talde-multzoa';
 $string['creategroupinselectedgrouping'] = 'Sortu taldea aukeratutako talde-multzoan';
 $string['createingrouping'] = 'Automatikoki sortutako taldeen talde-multzoa';
 $string['createorphangroup'] = 'Sortu talde umezurtza';
-$string['csvdelimiter'] = 'CSV bereizlea';
+$string['csvdelimiter'] = 'CSV banatzailea';
 $string['databaseupgradegroups'] = '{$a} da orain taldeen bertsioa';
 $string['defaultgrouping'] = 'Lehenetsitako talde-multzoa';
 $string['defaultgroupingname'] = 'Talde-multzoa';
@@ -59,9 +59,9 @@ $string['deletegroupsconfirm'] = 'Ziur zaude ondorengo taldeak ezabatu nahi ditu
 $string['deleteselectedgroup'] = 'Ezabatu aukeratutako taldea';
 $string['editgroupingsettings'] = 'Editatu talde-multzoaren ezarpenak';
 $string['editgroupsettings'] = 'Editatu taldearen ezarpenak';
-$string['editusersgroupsa'] = 'Editatu taldeak "{$a}"-(r)entzat';
+$string['editusersgroupsa'] = 'Editatu taldeak "{$a}"(r)entzat';
 $string['enablemessaging'] = 'Taldeko mezularitza';
-$string['enablemessaging_help'] = 'Gaituz gero, taldekideek mezuen kutxatik mezuak elkarri bidal diezazkiekete.';
+$string['enablemessaging_help'] = 'Gaituz gero, taldekideek mezuen nabigazio-kutxatik mezuak elkarri bidal diezazkiekete.';
 $string['encoding'] = 'Kodifikazioa';
 $string['enrolmentkey'] = 'Matrikulazio-giltza';
 $string['enrolmentkey_help'] = 'Matrikulazio-giltzek talde baterako sarbidea pasahitza ezagutzen dutenei mugatzeko aukera ematen dute. Matrikulazio-giltza bat zehaztuz gero, giltza sartuz gero erabiltzailea ikastaroan sartzeaz gain, talde horretako kide ere bihurtuko du.
@@ -141,7 +141,7 @@ $string['importgroups'] = 'Inportatu taldeak';
 $string['importgroups_help'] = 'Taldeak testu-fitxategien bitartez inporta daitezke. Horretarako fitxategiaren formatua hurrengoa izan beharko da:
 
 * Fitxategiko errenkada bakoitzak erregistro bana izango du
-* Erregistro bakoitza komaz banatutako datu-multzo bat da
+* Erregistro bakoitza aukeratutako banatzaileaz banatutako datu-multzo bat da
 * Fitxategiko lehen errenkadak eremuen izenen zerrenda izango du, fitxategiko beste erregistroen formatua zehaztuko duena
 * <i>groupname</i> eremua (taldearen izena) derrigorrezkoa da
 * Aukerako eremuak <i>groupidnumber</i> (talde-multzoaren IDa), <i>description</i> (deskribapena), <i>enrolmentkey</i> (matrikulazio-gakoa), <i>groupingname</i> (talde-multzoaren izena) eta <i>enablemessaging</i> (gaitu mezularitza) dira';
@@ -196,6 +196,6 @@ $string['selectfromrole'] = 'Aukeratu kideak rol honekin';
 $string['showgroupsingrouping'] = 'Erakutsi talde-multzoan dauden taldeak';
 $string['showmembersforgroup'] = 'Erakutsi taldekideak';
 $string['toomanygroups'] = 'Ez dago erabiltzaile nahiko talde-kopuru hori betetzeko - aukeratutako rola duten {$a} erabiltzaile baino ez dago.';
-$string['usercount'] = 'Erabiltzaile-kontua';
-$string['usercounttotal'] = 'Erabiltzaile-kontua ({$a})';
+$string['usercount'] = 'Erabiltzaile kopurua';
+$string['usercounttotal'] = 'Erabiltzaile kopurua ({$a})';
 $string['usergroupmembership'] = 'Aukeratutako erabiltzailearen pertenentzia-taldea';

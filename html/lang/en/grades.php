@@ -405,7 +405,7 @@ $string['importcsv'] = 'Import CSV';
 $string['importcsv_help'] = 'Grades can be imported via a CSV file with format as follows:
 
 * Each line of the file contains one record
-* Each record is a series of data separated by commas or an alternative separator
+* Each record is a series of data separated by the selected separator
 * The first record contains a list of fieldnames defining the format of the rest of the file
 * A fieldname containing user identity data is required - either username or ID number or email address
 
@@ -703,7 +703,7 @@ $string['recovergradesdefault_help'] = 'By default recover old grades when re-en
 $string['refreshpreview'] = 'Refresh preview';
 $string['regradeanyway'] = 'Regrade anyway';
 $string['removeallcoursegrades'] = 'Delete all grades';
-$string['removeallcoursegrades_help'] = 'If ticked, all grade items which were manually added to the gradebook will be deleted, together with grades and data on overridden, excluded, hidden and locked grades. Only grade items associated with activities will remain.';
+$string['removeallcoursegrades_help'] = 'If ticked, all grade items and grades that were manually added to the gradebook will be deleted, as well as data on overridden, excluded, hidden and locked grades. Only grade items and grades associated with activities will remain.';
 $string['removeallcourseitems'] = 'Delete all items and categories';
 $string['removeallcourseitems_help'] = 'If ticked, all categories and grade items which were manually added to the gradebook will be deleted, together with grades and data on overridden, excluded, hidden and locked grades. Only grade items associated with activities will remain.';
 $string['report'] = 'Report';

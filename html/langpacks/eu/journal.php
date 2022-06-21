@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['accessdenied'] = 'Sarbide ukatua';
 $string['alwaysopen'] = 'Beti zabalik';
 $string['blankentry'] = 'Sarrera hutsik';
+$string['crontask'] = 'Egunkaria moduluaren atzeko planoko prozesamendua';
 $string['daysavailable'] = 'Zenbat egunetan eskuragarri';
 $string['deadline'] = 'Zenbat egunetan zabalik';
 $string['editingended'] = 'Editatzeko epea amaitu da';
@@ -46,12 +47,12 @@ $string['gradeingradebook'] = 'Oraingo kalifikazioa kalifikazio-liburuan';
 $string['journal:addentries'] = 'Gehitu egunkari-sarrerak';
 $string['journal:addinstance'] = 'Gehitu egunkari berri bat';
 $string['journal:manageentries'] = 'Kudeatu egunkari-sarrerak';
-$string['journalmail'] = '{$a->teacher}-(e)k  \'{$a->journal}\' egunkariko zure sarrera bati buruzko feedbacka eman dizu.
+$string['journalmail'] = '{$a->teacher}(e)k  \'{$a->journal}\' egunkariko zure sarrera bati buruzko feedbacka eman dizu.
 
  Egunkariaren sarreraren ondoan ikus dezakezu:
 
    {$a->url}';
-$string['journalmailhtml'] = '{$a->teacher}-(e)k zure sarrera bati buruzko feedbacka eman dizu \'<i>{$a->journal}</i>\' egunkarian.<br /><br />
+$string['journalmailhtml'] = '{$a->teacher}(e)k zure sarrera bati buruzko feedbacka eman dizu \'<i>{$a->journal}</i>\' egunkarian.<br /><br />
 Zure <a href="{$a->url}">egunkari-sarreran</a> ikus dezakezu.';
 $string['journalname'] = 'Egunkariaren izena';
 $string['journalquestion'] = 'Egunkariaren galdera';

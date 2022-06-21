@@ -855,6 +855,7 @@ class single_button implements renderable {
      * @param moodle_url $url
      * @param string $label button text
      * @param string $method get or post submit method
+     * @param bool $primary whether this is a primary button, used for styling
      * @param array $attributes Attributes for the HTML button tag
      */
     public function __construct(moodle_url $url, $label, $method='post', $primary=false, $attributes = []) {
@@ -4236,7 +4237,6 @@ class action_menu implements renderable, templatable {
         $this->attributesprimary = array(
             'id' => 'action-menu-'.$this->instance.'-menubar',
             'class' => 'menubar',
-            'role' => 'menubar'
         );
         $this->attributessecondary = array(
             'id' => 'action-menu-'.$this->instance.'-menu',
@@ -4321,6 +4321,7 @@ class action_menu implements renderable, templatable {
     public function add_primary_action($action) {
         if ($action instanceof action_link || $action instanceof pix_icon) {
             $action->attributes['role'] = 'menuitem';
+            $action->attributes['tabindex'] = '-1';
             if ($action instanceof action_menu_link) {
                 $action->actionmenu = $this;
             }
@@ -4336,6 +4337,7 @@ class action_menu implements renderable, templatable {
     public function add_secondary_action($action) {
         if ($action instanceof action_link || $action instanceof pix_icon) {
             $action->attributes['role'] = 'menuitem';
+            $action->attributes['tabindex'] = '-1';
             if ($action instanceof action_menu_link) {
                 $action->actionmenu = $this;
             }
@@ -4393,7 +4395,8 @@ class action_menu implements renderable, templatable {
             'title' => $title,
             'aria-label' => $label,
             'id' => 'action-menu-toggle-'.$this->instance,
-            'role' => 'menuitem'
+            'role' => 'menuitem',
+            'tabindex' => '-1',
         );
         $link = html_writer::link('#', $string . $this->menutrigger . $pixicon, $attributes);
         if ($this->prioritise) {
