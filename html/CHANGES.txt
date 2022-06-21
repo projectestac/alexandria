@@ -6,6 +6,23 @@ development home at https://github.com/projectestac/alexandria/
 All Changes from Àgora Moodle can be found at: https://github.com/projectestac/agora_moodle2/blob/master/CHANGES.txt
 
 
+Changes 22.07.07
+---------------------------------------------------------------------------------------
+- Upgraded Moodle to version 3.11.7+
+- Updated langpacks
+- attendance: Added module
+- completion_progress: Upgraded block
+- coursequotas: Minor improvements to the report
+- H5P core: Activated for all users
+- HVP: Upgraded module and blocked access to users
+- journal: Upgraded module
+- GeoGebra: Upgraded module
+- migratehvp2h5p: Opened access to site admins
+- questionnaire: Upgraded module
+- Theme xtec2020: Minor improvements
+- Wiris: Upgraded all components
+
+
 Changes 21.11.04
 ---------------------------------------------------------------------------------------
 - Upgraded Moodle to version 3.11.3+
