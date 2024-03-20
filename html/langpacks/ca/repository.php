@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'ca', version '3.11'.
+ * Strings for component 'repository', language 'ca', version '4.1'.
  *
  * @package     repository
  * @category    string
@@ -46,7 +46,7 @@ $string['areauserpersonal'] = 'Fitxers privats';
 $string['areauserprofile'] = 'Perfil';
 $string['attachedfiles'] = 'Fitxers adjunts';
 $string['attachment'] = 'Adjunció';
-$string['author'] = 'Autor';
+$string['author'] = 'Autor/a';
 $string['automatedbackup'] = 'Còpies de seguretat automatitzades';
 $string['back'] = 'Enrere';
 $string['backtodraftfiles'] = 'Torna al gestor d\'esborranys';
@@ -58,9 +58,10 @@ $string['cannotdownload'] = 'No es pot baixar aquest fitxer';
 $string['cannotdownloaddir'] = 'No es pot baixar aquesta carpeta';
 $string['cannotinitplugin'] = 'Crida a plugin_init fallada';
 $string['cannotunzipcontentunreadable'] = 'No s\'ha pogut descomprimir aquest arxiu atès que no se\'n pot llegir el contingut.';
+$string['cannotunzipextractfileerror'] = 'No es pot descomprimir aquest fitxer perquè un o més dels seus fitxers no es poden llegir.';
 $string['cannotunzipquotaexceeded'] = 'No s\'ha pogut descomprimir aquest arxiu atès que s\'ultrapassaria la capacitat màxima permesa en aquesta àrea d\'esborranys.';
 $string['choosealink'] = 'Escull un enllaç...';
-$string['chooselicense'] = 'Trieu una llicència';
+$string['chooselicense'] = 'Tria una llicència';
 $string['chooselicense_help'] = 'Seguiu aquests enllaços per obtenir més informació sobre les opcions de llicències disponibles:';
 $string['cleancache'] = 'Esborra els fitxers de la memòria cau';
 $string['close'] = 'Tanca';
@@ -137,7 +138,7 @@ $string['filesizenull'] = 'No es pot determinar la dimensió del fitxer';
 $string['folderexists'] = 'El nom de la carpeta ja s\'està utilitzant, utilitzeu un altre nom';
 $string['foldernotfound'] = 'No s\'ha trobat la carpeta';
 $string['folderrecurse'] = 'La carpeta no es pot moure a la seva pròpia subcarpeta';
-$string['getfile'] = 'Seleccioneu aquest fitxer';
+$string['getfile'] = 'Selecciona aquest fitxer';
 $string['getfiletimeout'] = 'Temps d\'espera per a obtenir el fitxer';
 $string['help'] = 'Ajuda';
 $string['iconview'] = 'Mostra com a icones';
@@ -167,7 +168,7 @@ $string['lostsource'] = 'Error. No es troba la font. {$a}';
 $string['makefilecontrolledlink'] = 'Crea un enllaç amb accés controlat al fitxer';
 $string['makefileinternal'] = 'Fes una còpia del fitxer';
 $string['makefilelink'] = 'Enllaça el fitxer directament';
-$string['makefilereference'] = 'Crear un àlies o accés directe al fitxer';
+$string['makefilereference'] = 'Crea un àlies o accés directe al fitxer';
 $string['manage'] = 'Gestiona els repositoris';
 $string['manageinstances'] = 'Gestiona les instàncies';
 $string['manageurl'] = 'Gestiona';

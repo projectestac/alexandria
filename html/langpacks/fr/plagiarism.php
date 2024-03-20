@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'plagiarism', language 'fr', version '3.11'.
+ * Strings for component 'plagiarism', language 'fr', version '4.1'.
  *
  * @package     plagiarism
  * @category    string
@@ -30,6 +30,6 @@ $string['configenableplagiarism'] = 'Ce réglage permet aux administrateurs de c
 $string['configplagiarismplugins'] = 'Veuillez sélectionner le plugin de détection de plagiat à configurer';
 $string['enableplagiarism'] = 'Activer les plugins de détection de plagiat';
 $string['manageplagiarism'] = 'Gérer les plugins de détection de plagiat';
-$string['nopluginsinstalled'] = 'Il n\'y a aucun plugin de détection de plagiat installé';
+$string['nopluginsinstalled'] = 'Il n’y a aucun plugin de détection de plagiat installé';
 $string['plagiarism'] = 'Plagiat';
 $string['privacy:metadata:plagiarism'] = 'Le sous-système de détection de plagiat agit comme un canal, transmettant des requêtes de plugins aux divers plugins de détection de plagiat.';

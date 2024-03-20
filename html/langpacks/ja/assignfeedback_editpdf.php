@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'ja', version '3.11'.
+ * Strings for component 'assignfeedback_editpdf', language 'ja', version '4.1'.
  *
  * @package     assignfeedback_editpdf
  * @category    string
@@ -35,7 +35,7 @@ $string['colourpicker'] = 'カラーピッカ';
 $string['command'] = 'コマンド:';
 $string['comment'] = 'コメント';
 $string['commentcolour'] = 'コメント色';
-$string['commentcontextmenu'] = 'コメントコンテクストメニュ';
+$string['commentcontextmenu'] = 'コメントコンテクストメニュー';
 $string['commentindex'] = 'コメントインデックス';
 $string['commentlabel'] = '{$a->pnum}.{$a->cnum}';
 $string['couldnotsavepage'] = 'ページ {$a} を保存できませんでした。';
@@ -52,7 +52,7 @@ $string['drag'] = 'ドラッグ';
 $string['editpdf'] = 'PDFに注釈をつける';
 $string['editpdf_help'] = 'ブラウザ内で直接学生の提出に注釈を付けて、ダウンロード可能な編集済みPDFを作成します。';
 $string['enabled'] = 'PDFに注釈をつける';
-$string['enabled_help'] = 'この設定を有効にした場合、教師は課題提出の評定時に注釈付きのPDFを作成することができます。これにより、教師はコメント、スケッチおよびスタンプを直接学生の課題のトップに追加することができます。注釈はブラウザ内で作成します。また、別途ソフトウェアを必要としません。';
+$string['enabled_help'] = 'この設定を有効にした場合、教師は課題提出の評定時に注釈付きのPDFを作成することができます。これで教師はコメント、スケッチおよびスタンプを直接学生の課題のトップに追加できます。注釈はブラウザ内で作成します。また、別途ソフトウェアを必要としません。';
 $string['errorgenerateimage'] = 'Ghostscriptイメージ生成中にエラーが発生しました。デバッグ情報: {$a}';
 $string['errorpdfpage'] = 'このページの生成中にエラーが発生しました。';
 $string['expcolcomments'] = 'すべてのコメントを展開/折りたたむ';

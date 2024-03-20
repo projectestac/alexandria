@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_pam', language 'fr', version '3.11'.
+ * Strings for component 'auth_pam', language 'fr', version '4.1'.
  *
  * @package     auth_pam
  * @category    string
@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['auth_pamdescription'] = 'Cette méthode utilise PAM pour accéder aux noms d\'utilisateurs natifs sur ce serveur. Pour utiliser ce module, vous devrez installer le logiciel <a href="http://www.math.ohio-state.edu/~ccunning/pam_auth/">PHP4 PAM Authentication</a>.';
+$string['auth_pamdescription'] = 'Cette méthode utilise PAM pour accéder aux noms d’utilisateurs natifs sur ce serveur. Pour utiliser ce module, vous devrez installer le logiciel <a href="http://www.math.ohio-state.edu/~ccunning/pam_auth/">PHP4 PAM Authentication</a>.';
 $string['auth_passwordisexpired'] = 'Votre mot de passe est échu. Voulez-vous le changer maintenant ?';
 $string['auth_passwordwillexpire'] = 'Votre mot de passe arrivera à échéance dans {$a} jours. Voulez-vous le changer maintenant ?';
-$string['pluginname'] = 'PAM (Modules d\'authentification installables)';
-$string['privacy:metadata'] = 'Le plugin d\'authentification PAM (Pluggable Authentication Modules) n\'enregistre aucune donnée personnelle.';
+$string['pluginname'] = 'PAM (Modules d’authentification installables)';
+$string['privacy:metadata'] = 'Le plugin d’authentification PAM (Pluggable Authentication Modules) n’enregistre aucune donnée personnelle.';

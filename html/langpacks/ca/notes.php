@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'ca', version '3.11'.
+ * Strings for component 'notes', language 'ca', version '4.1'.
  *
  * @package     notes
  * @category    string
@@ -27,6 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addnewnote'] = 'Afegeix una anotació';
 $string['addnewnoteselect'] = 'Selecciona usuaris per fer-hi anotacions';
+$string['author'] = 'Autor/a';
 $string['bynameondate'] = 'Autor: {$a->name} ({$a->date})';
 $string['configenablenotes'] = 'Habilita l\'historial d\'anotacions sobre els usuaris individuals.';
 $string['content'] = 'Contingut';

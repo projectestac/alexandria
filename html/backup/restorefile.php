@@ -48,13 +48,23 @@ if (!empty($filecontextid)) {
 
 $url = new moodle_url('/backup/restorefile.php', array('contextid'=>$contextid));
 
+$PAGE->set_url($url);
+$PAGE->set_context($context);
+
 switch ($context->contextlevel) {
+    case CONTEXT_COURSECAT:
+        core_course_category::page_setup();
+        break;
     case CONTEXT_MODULE:
-        $heading = get_string('restoreactivity', 'backup');
+        $PAGE->set_heading(get_string('restoreactivity', 'backup'));
         break;
     case CONTEXT_COURSE:
+        $course = get_course($context->instanceid);
+        $PAGE->set_heading($course->fullname);
+        $PAGE->set_secondary_active_tab('coursereuse');
+        break;
     default:
-        $heading = get_string('restorecourse', 'backup');
+        $PAGE->set_heading($SITE->fullname);
 }
 
 
@@ -109,11 +119,9 @@ if ($action == 'choosebackupfile') {
     die;
 }
 
-$PAGE->set_url($url);
-$PAGE->set_context($context);
 $PAGE->set_title(get_string('course') . ': ' . $coursefullname);
-$PAGE->set_heading($heading);
 $PAGE->set_pagelayout('admin');
+$PAGE->activityheader->disable();
 $PAGE->requires->js_call_amd('core_backup/async_backup', 'asyncBackupAllStatus', array($context->id));
 
 // XTEC ************ AFEGIT - Control backup hours
@@ -159,12 +167,16 @@ if ($context->contextlevel == CONTEXT_MODULE) {
     $renderer = $PAGE->get_renderer('core', 'backup');
     echo $renderer->backup_files_viewer($treeview_options);
     echo $OUTPUT->container_end();
+    // Update the course context with the proper value, because $context contains the module context.
+    $coursecontext = \context_course::instance($course->id);
+} else {
+    $coursecontext = $context;
 }
 
 echo $OUTPUT->heading_with_help(get_string('choosefilefromcoursebackup', 'backup'), 'choosefilefromcoursebackup', 'backup');
 echo $OUTPUT->container_start();
 $treeview_options = array();
-$treeview_options['filecontext'] = $context;
+$treeview_options['filecontext'] = $coursecontext;
 $treeview_options['currentcontext'] = $context;
 $treeview_options['component']   = 'backup';
 $treeview_options['context']     = $context;

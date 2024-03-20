@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_chemrender', language 'fr', version '3.11'.
+ * Strings for component 'atto_chemrender', language 'fr', version '4.1'.
  *
  * @package     atto_chemrender
  * @category    string
@@ -30,6 +30,6 @@ $string['height'] = 'Hauteur';
 $string['jmol'] = 'JMol';
 $string['jmoloptions'] = 'Options JMol';
 $string['optiondownloadlink'] = 'Afficher le lien de téléchargement';
-$string['optionhelplink'] = 'Afficher le lien de l\'aide';
+$string['optionhelplink'] = 'Afficher le lien de l’aide';
 $string['submit'] = 'Envoyer';
 $string['width'] = 'Largeur';

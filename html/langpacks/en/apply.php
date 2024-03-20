@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'apply', language 'en', version '3.11'.
+ * Strings for component 'apply', language 'en', version '4.1'.
  *
  * @package     apply
  * @category    string
@@ -114,6 +114,8 @@ $string['dependvalue'] = 'Dependence value';
 $string['description'] = 'Description';
 $string['display_button'] = 'Display';
 $string['do_not_analyse_empty_submits'] = 'Do not analyse empty submits';
+$string['downloadexcel'] = 'Download in Excel';
+$string['downloadtext'] = 'Download in  Text';
 $string['dropdown'] = 'Dropdown List';
 $string['edit_entry'] = 'Edit';
 $string['edit_entry_button'] = 'Edit';
@@ -145,6 +147,7 @@ $string['execd_done'] = 'Done';
 $string['execd_entry'] = 'done';
 $string['execd_notyet'] = 'Not Yet';
 $string['exist'] = 'Exist';
+$string['export'] = 'Export';
 $string['export_templates'] = 'Export templates';
 $string['firstlastname'] = 'firstname lastname';
 $string['fixedtitle'] = 'Fixed Title';

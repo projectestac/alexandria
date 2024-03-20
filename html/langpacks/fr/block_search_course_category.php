@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_search_course_category', language 'fr', version '3.11'.
+ * Strings for component 'block_search_course_category', language 'fr', version '4.1'.
  *
  * @package     block_search_course_category
  * @category    string
@@ -29,7 +29,7 @@ $string['category'] = 'Catégorie';
 $string['combo_option_category'] = 'Rechercher dans les catégories';
 $string['combo_option_course'] = 'Rechercher dans les cours';
 $string['combo_option_summary'] = 'Rechercher dans les résumés';
-$string['completioncriteria'] = 'Critères d\'achèvement';
+$string['completioncriteria'] = 'Critères d’achèvement';
 $string['completioncriteria_disable'] = 'Désactivé';
 $string['completioncriteria_enable'] = 'Activé';
 $string['completioncriteria_none'] = 'Non défini';

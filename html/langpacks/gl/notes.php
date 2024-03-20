@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'notes', language 'gl', version '3.11'.
+ * Strings for component 'notes', language 'gl', version '4.1'.
  *
  * @package     notes
  * @category    string
@@ -31,6 +31,7 @@ $string['addbulknotedonesingle'] = 'Nota engadida a 1 persoa';
 $string['addbulknotesingle'] = 'Engadir unha nota nova a 1 persoa';
 $string['addnewnote'] = 'Engadir unha nova nota';
 $string['addnewnoteselect'] = 'Seleccione os usuarios para escribir notas sobre';
+$string['author'] = 'Autor';
 $string['bynameondate'] = 'por {$a->name} - {$a->date}';
 $string['configenablenotes'] = 'Activar o almacenamento de notas sobre usuarios individuais.';
 $string['content'] = 'Contido';
@@ -73,6 +74,7 @@ $string['publishstate_help'] = 'O contexto dunha nota determina quen pode ver a 
 * Persoal - a nota será visíbel só por vostede
 * Curso - a nota será visíbel polos profesores neste curso
 * Sitio - a nota será visíbel polos profesores en todos os cursos';
+$string['recipient'] = 'Destinatario';
 $string['site'] = 'sitio';
 $string['sitenotes'] = 'Notas do sitio';
 $string['unknown'] = 'descoñecido';

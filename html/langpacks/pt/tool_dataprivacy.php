@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_dataprivacy', language 'pt', version '3.11'.
+ * Strings for component 'tool_dataprivacy', language 'pt', version '4.1'.
  *
  * @package     tool_dataprivacy
  * @category    string
@@ -66,7 +66,7 @@ $string['confirmdenial'] = 'Tem a certeza de que pretende negar esta solicitaç�
 $string['confirmrequestresubmit'] = 'Tem a certeza de que pretende cancelar a solicitação atual de {$a->type} de {$a->username} e resubmetê-la?';
 $string['contactdataprotectionofficer'] = 'Contactar o responsável pela privacidade';
 $string['contactdataprotectionofficer_desc'] = 'Se ativar esta opção, os utilizadores poderão contactar o responsável pela privacidade do site para solicitar os dados através de uma hiperligação na sua página de perfil.';
-$string['contactdpoviaprivacypolicy'] = 'Entre em contacto com o responsável pela privacidade do site, conforme descrito na política de privacidade.';
+$string['contactdpoviaprivacypolicy'] = 'Contacte o responsável pela privacidade do site, conforme descrito na política de privacidade.';
 $string['contextlevelname10'] = 'Site';
 $string['contextlevelname30'] = 'Utilizadores';
 $string['contextlevelname40'] = 'Categorias de disciplinas';
@@ -80,7 +80,7 @@ $string['createnewdatarequest'] = 'Criar um novo pedido de dados';
 $string['createpurpose'] = 'Criar finalidade';
 $string['creationauto'] = 'Automaticamente';
 $string['creationmanual'] = 'Manualmente';
-$string['datadeletion'] = 'Apagamento de dados';
+$string['datadeletion'] = 'Eliminação de dados';
 $string['datadeletionpagehelp'] = 'Esta página lista os dados cujo período de retenção já expirou. Por favor, reveja e confirme o apagamento dos dados. Uma vez confirmado, o apagamento será processado na próxima execução da tarefa agendada "Apagar contextos expirados".';
 $string['dataprivacy:downloadallrequests'] = 'Descarregar dados exportados de todos';
 $string['dataprivacy:downloadownrequest'] = 'Descarregar os seus próprios dados exportados';
@@ -118,9 +118,9 @@ $string['deletecategory'] = 'Apagar categoria';
 $string['deletecategorytext'] = 'Tem a certeza de que pretende apagar a categoria \'{$a}\'?';
 $string['deletedefaults'] = 'Apagar predefinições: {$a}';
 $string['deletedefaultsconfirmation'] = 'Tem a certeza de que pretende apagar a categoria e finalidade predefinidas de {$a} módulos?';
-$string['deleteexistingdeleteduserstask'] = 'Criar pedido de eliminação de dados para utilizadores já apagados';
-$string['deleteexpiredcontextstask'] = 'Apagar contextos expirados';
-$string['deleteexpireddatarequeststask'] = 'Apagar ficheiros de exportação de solicitação de dados já expiradas';
+$string['deleteexistingdeleteduserstask'] = 'Criação de pedido de eliminação de dados para utilizadores já apagados';
+$string['deleteexpiredcontextstask'] = 'Eliminação de contextos expirados';
+$string['deleteexpireddatarequeststask'] = 'Eliminação de ficheiros de exportação de solicitação de dados já expiradas';
 $string['deletemyaccount'] = 'Apagar a minha conta';
 $string['deletepurpose'] = 'Apagar finalidade';
 $string['deletepurposetext'] = 'Tem a certeza de que pretende apagar a finalidade \'{$a}\'?';
@@ -157,7 +157,9 @@ $string['errorrequestalreadyexists'] = 'Já existe uma solicitação em processa
 $string['errorrequestnotfound'] = 'Pedido não encontrado';
 $string['errorrequestnotwaitingforapproval'] = 'A solicitação não está a aguardar aprovação. Ou ainda não está concluída ou já foi processada.';
 $string['errorsendingmessagetodpo'] = 'Ocorreu um erro ao tentar enviar uma mensagem para {$a}.';
-$string['exceptionnotificationbody'] = '<p>Exceção ocorreu enquanto processava <b>{\\$a->fullmethodname}</b>.<br>Isto significa que o módulo <b>{\\$a->component}</b> não completou o processamento de dados. Em baixo, pode encontrar informação da exceção que pode ser transmitida pelo programador do módulo.</p><pre>{\\$a->message}<br>\\n\\n{\\$a->backtrace}</pre>';
+$string['exceptionnotificationbody'] = '<p>Ocorreu uma exceção ao chamar <b>{$a->fullmethodname}</b>.<br>Isto significa que o plugin <b>{$a->component}</b> não concluiu o processamento dos dados. A seguinte informação de exceção pode ser transmitida ao desenvolvedor do plugin:</p><pre>{$a->message}<br>
+
+{$a->backtrace}</pre>';
 $string['exceptionnotificationsubject'] = 'Ocorreu uma exceção durante o processamento dos dados de privacidade';
 $string['expandplugin'] = 'Expandir e colapsar o módulo.';
 $string['expandplugintype'] = 'Expandir e colapsar o tipo de módulo.';
@@ -202,7 +204,7 @@ $string['gdpr_art_9_2_i_name'] = 'Saúde pública (RGPD Art.º 9.º 2(i))';
 $string['gdpr_art_9_2_j_description'] = 'Se o tratamento for necessário para fins de arquivo de interesse público, para fins de investigação científica ou histórica ou para fins estatísticos, em conformidade com o artigo 89.o, n.o 1, com base no direito da União ou de um Estado-Membro, que deve ser proporcional ao objetivo visado, respeitar a essência do direito à proteção dos dados pessoais e prever medidas adequadas e específicas para a defesa dos direitos fundamentais e dos interesses do titular dos dados';
 $string['gdpr_art_9_2_j_name'] = 'Interesse público ou investigação científica/histórica/estatística (RGPD Art.º 9.º 2(j))';
 $string['hide'] = 'Contrair todos';
-$string['httpwarning'] = 'Qualquer dado descarregado deste site pode não estar encriptado. Entre em contacto com o administrador do sistema e solicite que seja instalado o SSL neste site.';
+$string['httpwarning'] = 'Qualquer dado descarregado deste site pode não estar encriptado. Contacte o administrador do sistema e solicite que seja instalado o SSL neste site.';
 $string['inherit'] = 'Herdado';
 $string['lawfulbases'] = 'Fundamento legal';
 $string['lawfulbases_help'] = 'Selecione pelo menos uma opção que servirá de fundamento legal para tratar os dados pessoais. Para detalhes sobre estes fundamentos legais consulte o n.º 1 do Art.º 6.º do RGPD';
@@ -241,6 +243,8 @@ $string['pluginregistrytitle'] = 'Registo de conformidade de privacidade do mód
 $string['privacy'] = 'Privacidade';
 $string['privacy:metadata:preference:tool_dataprivacy_request-filters'] = 'Os filtros atualmente aplicados à página de solicitações de dados.';
 $string['privacy:metadata:preference:tool_dataprivacy_request-perpage'] = 'Número de solicitações de dados que o utilizador prefere ver por página';
+$string['privacy:metadata:purpose'] = 'Informações sobre as finalidades do processamento de dados neste site.';
+$string['privacy:metadata:purpose:usermodified'] = 'O ID do utilizador que alterou a finalidade';
 $string['privacy:metadata:request'] = 'Informações de solicitações de dados pessoais (solicitações de acesso e eliminação de pedidos) feitas para este site.';
 $string['privacy:metadata:request:comments'] = 'Qualquer comentário do utilizador que acompanhe a solicitação.';
 $string['privacy:metadata:request:dpocomment'] = 'Comentários feitos pelo responsável pela privacidade em relação à solicitação.';

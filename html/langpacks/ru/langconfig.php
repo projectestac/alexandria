@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'langconfig', language 'ru', version '3.11'.
+ * Strings for component 'langconfig', language 'ru', version '4.1'.
  *
  * @package     langconfig
  * @category    string
@@ -43,17 +43,22 @@ $string['localewincharset'] = 'WINDOWS-1251';
 $string['oldcharset'] = 'WINDOWS-1251';
 $string['pm'] = 'после полудня';
 $string['pmcaps'] = 'После полудня';
+$string['questioniconfollowlangdirection'] = 'да';
 $string['strftimedate'] = '%d %B %Y';
 $string['strftimedatefullshort'] = '%d/%m/%y';
 $string['strftimedatemonthabbr'] = '%d %b %Y';
+$string['strftimedatemonthtimeshort'] = '%d %b %Y, %I:%M';
 $string['strftimedateshort'] = '%d %B';
 $string['strftimedateshortmonthabbr'] = '%d %b';
 $string['strftimedatetime'] = '%d %B %Y, %H:%M';
+$string['strftimedatetimeaccurate'] = '%d %B %Y, %I:%M:%S %p';
 $string['strftimedatetimeshort'] = '%d/%m/%y, %H:%M';
+$string['strftimedatetimeshortaccurate'] = '%d/%m/%y, %H:%M:%S';
 $string['strftimedaydate'] = '%A %d %B %Y';
 $string['strftimedaydatetime'] = '%A, %d %B %Y, %H:%M';
 $string['strftimedayshort'] = '%A %d %B';
 $string['strftimedaytime'] = '%a, %H:%M';
+$string['strftimemonth'] = '%B';
 $string['strftimemonthyear'] = '%B %Y';
 $string['strftimerecent'] = '%d %b %H:%M';
 $string['strftimerecentfull'] = '%a, %d %b %Y, %H:%M';
@@ -61,7 +66,7 @@ $string['strftimetime'] = '%H:%M';
 $string['strftimetime12'] = '%I:%M %p';
 $string['strftimetime24'] = '%H:%M';
 $string['thisdirection'] = 'ltr';
-$string['thisdirectionvertical'] = 'снизу-вверх';
+$string['thisdirectionvertical'] = 'снизу вверх';
 $string['thislanguage'] = 'Русский';
 $string['thislanguageint'] = 'Russian';
 $string['thousandssep'] = '&nbsp;';

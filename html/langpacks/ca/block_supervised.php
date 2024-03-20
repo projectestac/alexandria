@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_supervised', language 'ca', version '3.11'.
+ * Strings for component 'block_supervised', language 'ca', version '4.1'.
  *
  * @package     block_supervised
  * @category    string
@@ -25,5 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['allusers'] = 'Tots els usuaris';
 $string['duration'] = 'Durada (en minuts)';
 $string['durationvalidationerror'] = 'La durada ha de ser un valor major que zero.';
+$string['editinglessontype'] = 'S\'està editant el tipus de lliçó';

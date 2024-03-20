@@ -37,11 +37,11 @@ $PAGE->set_url($url);
 require_login();
 
 if (isguestuser()) {
-    print_error('guestnoeditmessage', 'message');
+    throw new \moodle_exception('guestnoeditmessage', 'message');
 }
 
 if (!$user = $DB->get_record('user', ['id' => $userid])) {
-    print_error('invaliduserid');
+    throw new \moodle_exception('invaliduserid');
 }
 
 $personalcontext = context_user::instance($user->id);
@@ -51,7 +51,7 @@ $PAGE->set_pagelayout('admin');
 
 // Display page header.
 $title = get_string('notifications', 'message');
-$PAGE->set_title("{$SITE->shortname}: " . $title);
+$PAGE->set_title($title);
 $PAGE->set_heading(fullname($user));
 
 // Grab the renderer.

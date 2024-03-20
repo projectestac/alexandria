@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_comments', language 'es', version '3.11'.
+ * Strings for component 'workshopform_comments', language 'es', version '4.1'.
  *
  * @package     workshopform_comments
  * @category    string
@@ -30,4 +30,4 @@ $string['dimensioncommentfor'] = 'Comentario para {$a}';
 $string['dimensiondescription'] = 'Descripción';
 $string['dimensionnumber'] = 'Aspecto {$a}';
 $string['pluginname'] = 'Comentarios';
-$string['privacy:metadata'] = 'El complemento de calificación de comentarios solo almacena los detalles del formulario de evaluación. Los datos personales reales de cómo se llenó el formulario se almacenan en el módulo de Taller y se adjuntan a las evaluaciones exportadas.';
+$string['privacy:metadata'] = 'El plugin de comentarios de Calificación  sólo almacena los detalles del formulario de evaluación. Los datos personales reales de cómo se ha rellenado el formulario son almacenados por el propio módulo Taller y se adjuntan a las evaluaciones exportadas';

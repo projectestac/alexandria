@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_password', language 'es', version '3.11'.
+ * Strings for component 'quizaccess_password', language 'es', version '4.1'.
  *
  * @package     quizaccess_password
  * @category    string
@@ -27,6 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['passworderror'] = 'La contraseña es incorrecta';
 $string['pluginname'] = 'Regla de acceso por contraseña';
-$string['privacy:metadata'] = 'El complemento de la regla de acceso al cuestionario mediante contraseña no almacena ningún dato personal.';
+$string['privacy:metadata'] = 'El complemento de reglas de acceso Password quiz no almacena ningún dato personal.';
 $string['quizpassword'] = 'Contraseña del cuestionario';
 $string['requirepasswordmessage'] = 'Para contestar este cuestionario necesita conocer la contraseña';

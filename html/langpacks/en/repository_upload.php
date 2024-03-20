@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_upload', language 'en', version '3.11'.
+ * Strings for component 'repository_upload', language 'en', version '4.1'.
  *
  * @package     repository_upload
  * @category    string
@@ -33,7 +33,7 @@ $string['upload:view'] = 'Use uploading in file picker';
 $string['upload_error_cant_write'] = 'Failed to write file to disk.';
 $string['upload_error_extension'] = 'A PHP extension stopped the file upload.';
 $string['upload_error_form_size'] = 'The uploaded file exceeds the MAX_FILE_SIZE directive that was specified in the HTML form.';
-$string['upload_error_ini_size'] = 'The uploaded file exceeds the upload_max_filesize directive in php.ini.';
+$string['upload_error_ini_size'] = 'The file is larger than the maximum size allowed.';
 $string['upload_error_invalid_file'] = 'The file \'{$a}\' is either empty or a folder. To upload folders zip them first.';
 $string['upload_error_no_file'] = 'No file was uploaded.';
 $string['upload_error_no_tmp_dir'] = 'PHP is missing a temporary folder.';

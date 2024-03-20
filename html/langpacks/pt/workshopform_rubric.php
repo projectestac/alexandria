@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_rubric', language 'pt', version '3.11'.
+ * Strings for component 'workshopform_rubric', language 'pt', version '4.1'.
  *
  * @package     workshopform_rubric
  * @category    string
@@ -35,7 +35,7 @@ $string['layoutgrid'] = 'Grelha';
 $string['layoutlist'] = 'Lista';
 $string['levelgroup'] = 'Nota e opção de resposta';
 $string['levels'] = 'Opções de resposta';
-$string['mustbeunique'] = 'O nível das notas deve ser único em cada critério';
+$string['mustbeunique'] = 'O nível das notas tem de ser único em cada critério';
 $string['mustchooseone'] = 'Tem de selecionar um dos itens';
 $string['mustdefinelevel'] = 'É necessário pelo menos um nível';
 $string['pluginname'] = 'Escolha múltipla';

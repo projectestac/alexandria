@@ -130,11 +130,6 @@ class mod_scorm_mod_form extends moodleform_mod {
         $mform->hideIf('winoptgrp', 'popup', 'eq', 0);
         $mform->setAdvanced('winoptgrp', $cfgscorm->winoptgrp_adv);
 
-        // Display activity name.
-        $mform->addElement('advcheckbox', 'displayactivityname', get_string('displayactivityname', 'scorm'));
-        $mform->addHelpButton('displayactivityname', 'displayactivityname', 'scorm');
-        $mform->setDefault('displayactivityname', $cfgscorm->displayactivityname);
-
         // Skip view page.
         $skipviewoptions = scorm_get_skip_view_array();
         $mform->addElement('select', 'skipview', get_string('skipview', 'scorm'), $skipviewoptions);
@@ -275,6 +270,11 @@ class mod_scorm_mod_form extends moodleform_mod {
 
         $this->standard_coursemodule_elements();
 
+        // A SCORM module should define this within itself and is not needed here.
+        if ($mform->elementExists('completionpassgrade')) {
+            $mform->removeElement('completionpassgrade');
+        }
+
         // Buttons.
         $this->add_action_buttons();
     }
@@ -333,16 +333,16 @@ class mod_scorm_mod_form extends moodleform_mod {
 
         // Set some completion default data.
         $cvalues = array();
-        if (empty($this->_instance)) {
-            // When in add mode, set a default completion rule that requires the SCORM's status be set to "Completed".
-            $cvalues[4] = 1;
-        } else if (!empty($defaultvalues['completionstatusrequired']) && !is_array($defaultvalues['completionstatusrequired'])) {
+        if (!empty($defaultvalues['completionstatusrequired']) && !is_array($defaultvalues['completionstatusrequired'])) {
             // Unpack values.
             foreach (scorm_status_options() as $key => $value) {
                 if (($defaultvalues['completionstatusrequired'] & $key) == $key) {
                     $cvalues[$key] = 1;
                 }
             }
+        } else if (empty($this->_instance)) {
+            // When in add mode, set a default completion rule that requires the SCORM's status be set to "Completed".
+            $cvalues[4] = 1;
         }
         if (!empty($cvalues)) {
             $defaultvalues['completionstatusrequired'] = $cvalues;

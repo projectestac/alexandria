@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scormreport_interactions', language 'fr', version '3.11'.
+ * Strings for component 'scormreport_interactions', language 'fr', version '4.1'.
  *
  * @package     scormreport_interactions
  * @category    string
@@ -25,12 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Rapport d\'interactions';
-$string['privacy:metadata:preference:scorm_report_interactions_qtext'] = 'S\'il faut afficher le résumé des questions dans le rapport d\'interactions SCORM';
-$string['privacy:metadata:preference:scorm_report_interactions_resp'] = 'S\'il faut afficher le résumé des réponses dans le rapport d\'interactions SCORM';
-$string['privacy:metadata:preference:scorm_report_interactions_result'] = 'S\'il faut afficher le résumé des résultats dans le rapport d\'interactions SCORM';
-$string['privacy:metadata:preference:scorm_report_interactions_right'] = 'S\'il faut afficher le résumé des réponses correctes dans le rapport d\'interactions SCORM';
-$string['privacy:metadata:preference:scorm_report_pagesize'] = 'Nombre d\'utilisateurs à afficher dans les rapports SCORM';
+$string['pluginname'] = 'Rapport d’interactions';
+$string['privacy:metadata:preference:scorm_report_interactions_qtext'] = 'S’il faut afficher le résumé des questions dans le rapport d’interactions SCORM';
+$string['privacy:metadata:preference:scorm_report_interactions_resp'] = 'S’il faut afficher le résumé des réponses dans le rapport d’interactions SCORM';
+$string['privacy:metadata:preference:scorm_report_interactions_result'] = 'S’il faut afficher le résumé des résultats dans le rapport d’interactions SCORM';
+$string['privacy:metadata:preference:scorm_report_interactions_right'] = 'S’il faut afficher le résumé des réponses correctes dans le rapport d’interactions SCORM';
+$string['privacy:metadata:preference:scorm_report_pagesize'] = 'Nombre d’utilisateurs à afficher dans les rapports SCORM';
 $string['questionx'] = 'Question {$a}';
 $string['responsex'] = 'Réponse {$a}';
 $string['resultx'] = 'Résultat {$a}';

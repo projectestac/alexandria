@@ -43,8 +43,8 @@
  * The variable name for the capability definitions array is $capabilities
  *
  * For more information, take a look to the documentation available:
- *     - Access API: {@link http://docs.moodle.org/dev/Access_API}
- *     - Upgrade API: {@link http://docs.moodle.org/dev/Upgrade_API}
+ *     - Access API: {@link https://moodledev.io/docs/apis/subsystems/access}
+ *     - Upgrade API: {@link https://moodledev.io/docs/guides/upgrade}
  *
  * @package   core_access
  * @category  access
@@ -1094,6 +1094,7 @@ $capabilities = array(
         'clonepermissionsfrom' => 'moodle/course:update'
     ),
 
+    // Ability to set a forced language for a course or activity.
     'moodle/course:setforcedlanguage' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_COURSE,
@@ -2626,5 +2627,40 @@ $capabilities = array(
             'manager' => CAP_ALLOW,
             'coursecreator' => CAP_ALLOW,
         ]
+    ],
+
+    // Allow users to view custom reports.
+    'moodle/reportbuilder:view' => [
+        'captype' => 'read',
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'user' => CAP_ALLOW,
+        ],
+    ],
+
+    // Allow users to create/edit their own custom reports.
+    'moodle/reportbuilder:edit' => [
+        'captype' => 'write',
+        'riskbitmap' => RISK_PERSONAL,
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [
+            'manager' => CAP_ALLOW,
+        ],
+    ],
+
+    // Allow users to create/edit all custom reports.
+    'moodle/reportbuilder:editall' => [
+        'captype' => 'write',
+        'riskbitmap' => RISK_PERSONAL,
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [],
+    ],
+
+    // Allow users to schedule reports as other users.
+    'moodle/reportbuilder:scheduleviewas' => [
+        'captype' => 'read',
+        'riskbitmap' => RISK_PERSONAL,
+        'contextlevel' => CONTEXT_SYSTEM,
+        'archetypes' => [],
     ],
 );

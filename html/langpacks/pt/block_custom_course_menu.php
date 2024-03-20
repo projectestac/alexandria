@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_custom_course_menu', language 'pt', version '3.11'.
+ * Strings for component 'block_custom_course_menu', language 'pt', version '4.1'.
  *
  * @package     block_custom_course_menu
  * @category    string
@@ -43,5 +43,4 @@ $string['lastxviewed'] = 'Últimas {$a} visualizadas';
 $string['loading'] = 'A carregar...';
 $string['nocourses'] = 'Não está inscrito em qualquer disciplina.';
 $string['pluginname'] = 'Menu personalizado de disciplinas';
-$string['privacy:metadata'] = 'O módulo não armazena quaisquer dados pessoais.';
 $string['showsearch'] = 'Mostrar caixa de pesquisa de disciplinas';

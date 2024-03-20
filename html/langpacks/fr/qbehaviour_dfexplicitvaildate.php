@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_dfexplicitvaildate', language 'fr', version '3.11'.
+ * Strings for component 'qbehaviour_dfexplicitvaildate', language 'fr', version '4.1'.
  *
  * @package     qbehaviour_dfexplicitvaildate
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Feedback différé avec validation explicite';
-$string['privacy:metadata'] = 'Le plugin Feedback différé avec validation explicite n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Feedback différé avec validation explicite n’enregistre aucune donnée personnelle.';

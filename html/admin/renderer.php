@@ -15,19 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Renderer for core_admin subsystem
+ * Standard HTML output renderer for core_admin subsystem.
  *
  * @package    core
  * @subpackage admin
  * @copyright  2011 David Mudrak <david@moodle.com>
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
-
-defined('MOODLE_INTERNAL') || die();
-
-
-/**
- * Standard HTML output renderer for core_admin subsystem
  */
 class core_admin_renderer extends plugin_renderer_base {
 
@@ -51,7 +44,7 @@ class core_admin_renderer extends plugin_renderer_base {
         $output .= $this->heading(get_string('copyrightnotice'));
         $output .= $this->box($copyrightnotice, 'copyrightnotice');
         $output .= html_writer::empty_tag('br');
-        $output .= $this->confirm(get_string('doyouagree'), $continue, "http://docs.moodle.org/dev/License");
+        $output .= $this->confirm(get_string('doyouagree'), $continue, "https://moodledev.io/general/license");
         $output .= $this->footer();
 
         return $output;
@@ -284,6 +277,8 @@ class core_admin_renderer extends plugin_renderer_base {
      * @param bool $croninfrequent If true, warn that cron hasn't run in the past few minutes
      * @param bool $showcampaigncontent Whether the campaign content should be visible or not.
      * @param bool $showfeedbackencouragement Whether the feedback encouragement content should be displayed or not.
+     * @param bool $showservicesandsupport Whether the services and support content should be displayed or not.
+     * @param string $xmlrpcwarning XML-RPC deprecation warning message.
      *
      * @return string HTML to output.
      */
@@ -292,12 +287,14 @@ class core_admin_renderer extends plugin_renderer_base {
             $buggyiconvnomb, $registered, array $cachewarnings = array(), $eventshandlers = 0,
             $themedesignermode = false, $devlibdir = false, $mobileconfigured = false,
             $overridetossl = false, $invalidforgottenpasswordurl = false, $croninfrequent = false,
-            $showcampaigncontent = false, bool $showfeedbackencouragement = false) {
+            $showcampaigncontent = false, bool $showfeedbackencouragement = false, bool $showservicesandsupport = false,
+            $xmlrpcwarning = '') {
 
         global $CFG;
         $output = '';
 
         $output .= $this->header();
+        $output .= $this->output->heading(get_string('notifications', 'admin'));
         $output .= $this->maturity_info($maturity);
         $output .= $this->legacy_log_store_writing_error();
         $output .= empty($CFG->disableupdatenotifications) ? $this->available_updates($availableupdates, $availableupdatesfetch) : '';
@@ -322,7 +319,9 @@ class core_admin_renderer extends plugin_renderer_base {
         if (get_protected_agora()) {
         // ************ FI
 
+        $output .= $this->mnet_deprecation_warning($xmlrpcwarning);
         $output .= $this->userfeedback_encouragement($showfeedbackencouragement);
+        $output .= $this->services_and_support_content($showservicesandsupport);
         $output .= $this->campaign_content($showcampaigncontent);
 
         // XTEC ************ AFEGIT - Allow access only to xtecadmin user
@@ -758,10 +757,10 @@ class core_admin_renderer extends plugin_renderer_base {
         //////////////////////////////////////////////////////////////////////////////////////////////////
         ////  IT IS ILLEGAL AND A VIOLATION OF THE GPL TO HIDE, REMOVE OR MODIFY THIS COPYRIGHT NOTICE ///
         $copyrighttext = '<a href="http://moodle.org/">Moodle</a> '.
-                         '<a href="http://docs.moodle.org/dev/Releases" title="'.$CFG->version.'">'.$CFG->release.'</a><br />'.
+                         '<a href="https://moodledev.io/general/releases" title="'.$CFG->version.'">'.$CFG->release.'</a><br />'.
                          'Copyright &copy; 1999 onwards, Martin Dougiamas<br />'.
                          'and <a href="http://moodle.org/dev">many other contributors</a>.<br />'.
-                         '<a href="http://docs.moodle.org/dev/License">GNU Public License</a>';
+                         '<a href="https://moodledev.io/general/license">GNU Public License</a>';
         //////////////////////////////////////////////////////////////////////////////////////////////////
 
         return $this->box($copyrighttext, 'copyright');
@@ -906,7 +905,37 @@ class core_admin_renderer extends plugin_renderer_base {
             return '';
         }
 
-        return $this->render_from_template('core/campaign_content', ['lang' => current_language()]);
+        $lang = current_language();
+        $url = "https://campaign.moodle.org/current/lms/{$lang}/install/";
+        $params = [
+            'url' => $url,
+            'iframeid' => 'campaign-content',
+            'title' => get_string('campaign', 'admin'),
+        ];
+
+        return $this->render_from_template('core/external_content_banner', $params);
+    }
+
+    /**
+     * Display services and support content.
+     *
+     * @param bool $showservicesandsupport Whether the services and support content should be visible or not.
+     * @return string the campaign content raw html.
+     */
+    protected function services_and_support_content(bool $showservicesandsupport): string {
+        if (!$showservicesandsupport) {
+            return '';
+        }
+
+        $lang = current_language();
+        $url = "https://campaign.moodle.org/current/lms/{$lang}/servicesandsupport/";
+        $params = [
+            'url' => $url,
+            'iframeid' => 'services-support-content',
+            'title' => get_string('supportandservices', 'admin'),
+        ];
+
+        return $this->render_from_template('core/external_content_banner', $params);
     }
 
     /**
@@ -975,7 +1004,7 @@ class core_admin_renderer extends plugin_renderer_base {
      * @return string HTML to output.
      */
     protected function release_notes_link() {
-        $releasenoteslink = get_string('releasenoteslink', 'admin', 'http://docs.moodle.org/dev/Releases');
+        $releasenoteslink = get_string('releasenoteslink', 'admin', 'https://moodledev.io/general/releases');
         $releasenoteslink = str_replace('target="_blank"', 'onclick="this.target=\'_blank\'"', $releasenoteslink); // extremely ugly validation hack
         return $this->box($releasenoteslink, 'generalbox alert alert-info');
     }
@@ -1064,12 +1093,21 @@ class core_admin_renderer extends plugin_renderer_base {
             $plugintyperows = array();
 
             foreach ($plugins as $name => $plugin) {
+                $component = "{$plugin->type}_{$plugin->name}";
+
                 $sumtotal++;
                 $row = new html_table_row();
-                $row->attributes['class'] = 'type-' . $plugin->type . ' name-' . $plugin->type . '_' . $plugin->name;
+                $row->attributes['class'] = "type-{$plugin->type} name-{$component}";
 
-                if ($this->page->theme->resolve_image_location('icon', $plugin->type . '_' . $plugin->name, null)) {
-                    $icon = $this->output->pix_icon('icon', '', $plugin->type . '_' . $plugin->name, array('class' => 'smallicon pluginicon'));
+                $iconidentifier = 'icon';
+                if ($plugin->type === 'mod') {
+                    $iconidentifier = 'monologo';
+                }
+
+                if ($this->page->theme->resolve_image_location($iconidentifier, $component, null)) {
+                    $icon = $this->output->pix_icon($iconidentifier, '', $component, [
+                        'class' => 'smallicon pluginicon',
+                    ]);
                 } else {
                     $icon = '';
                 }
@@ -1782,11 +1820,20 @@ class core_admin_renderer extends plugin_renderer_base {
             }
 
             foreach ($plugins as $name => $plugin) {
-                $row = new html_table_row();
-                $row->attributes['class'] = 'type-' . $plugin->type . ' name-' . $plugin->type . '_' . $plugin->name;
+                $component = "{$plugin->type}_{$plugin->name}";
 
-                if ($this->page->theme->resolve_image_location('icon', $plugin->type . '_' . $plugin->name, null)) {
-                    $icon = $this->output->pix_icon('icon', '', $plugin->type . '_' . $plugin->name, array('class' => 'icon pluginicon'));
+                $row = new html_table_row();
+                $row->attributes['class'] = "type-{$plugin->type} name-{$component}";
+
+                $iconidentifier = 'icon';
+                if ($plugin->type === 'mod') {
+                    $iconidentifier = 'monologo';
+                }
+
+                if ($this->page->theme->resolve_image_location($iconidentifier, $component, null)) {
+                    $icon = $this->output->pix_icon($iconidentifier, '', $component, [
+                        'class' => 'icon pluginicon',
+                    ]);
                 } else {
                     $icon = $this->output->spacer();
                 }
@@ -2054,7 +2101,7 @@ class core_admin_renderer extends plugin_renderer_base {
                         $errorline = true;
                     } else {
                         if ($status) {                                          //Handle ok result (ok)
-                            $status = get_string('ok');
+                            $status = get_string('statusok');
                         } else {
                             if ($environment_result->getLevel() == 'optional') {//Handle check result (warning)
                                 $status = get_string('check');
@@ -2226,5 +2273,19 @@ class core_admin_renderer extends plugin_renderer_base {
         }
 
         return $output;
+    }
+
+    /**
+     * Display a warning about the deprecation of Mnet.
+     *
+     * @param string $xmlrpcwarning The warning message
+     * @return string HTML to output.
+     */
+    protected function mnet_deprecation_warning($xmlrpcwarning) {
+        if (empty($xmlrpcwarning)) {
+            return '';
+        }
+
+        return $this->warning($xmlrpcwarning);
     }
 }

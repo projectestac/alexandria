@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'de', version '3.11'.
+ * Strings for component 'group', language 'de', version '4.1'.
  *
  * @package     group
  * @category    string
@@ -85,6 +85,7 @@ $string['eventgroupmemberadded'] = 'Gruppenmitglied hinzugefügt';
 $string['eventgroupmemberremoved'] = 'Gruppenmitglied entfernt';
 $string['eventgroupupdated'] = 'Gruppe aktualisiert';
 $string['existingmembers'] = 'Vorhandene Mitglieder: {$a}';
+$string['exportgroupsgroupings'] = 'Gruppen und Gruppierungen herunterladen als';
 $string['filtergroups'] = 'Gruppen filtern nach:';
 $string['group'] = 'Gruppe';
 $string['groupaddedsuccesfully'] = 'Gruppe {$a} erfolgreich hinzugefügt';
@@ -110,15 +111,13 @@ $string['groupmembers'] = 'Gruppenmitglieder';
 $string['groupmemberssee'] = 'Gruppenmitglieder anzeigen';
 $string['groupmembersselected'] = 'Mitglieder der markierten Gruppe';
 $string['groupmode'] = 'Gruppenmodus';
-$string['groupmode_help'] = 'Für den Gruppenmodus stehen drei Optionen zur Verfügung:
+$string['groupmode_help'] = '* Keine Gruppen
+* Getrennte Gruppen - Teilnehmer/innen sind in Gruppen geteilt und können nur die Arbeit der eigenen Gruppe sehen.
+* Sichtbare Gruppen - Teilnehmer/innen sind in Gruppen geteilt, aber sie können die Arbeit anderer Gruppen sehen.
 
-* Keine Gruppen - Im Kurs gibt es keine Gruppen und alle nutzen alles zusammen.
-* Getrennte Gruppen - Im Kurs gibt es getrennte Gruppen, d.h. jedes Gruppenmitglied kann nur Mitglieder der eigenen Gruppe sehen, alle anderen sind unsichtbar.
-* Sichtbare Gruppen - Im Kurs gibt es sichtbare Gruppen, d.h. jedes Gruppenmitglied arbeitet in der eigenen Gruppe, kann aber die anderen Gruppen sehen.
-
-Der Gruppenmodus auf Kursebene ist der Standardmodus für alle Aktivitäten im Kurs. Jede Aktivität, die Gruppen unterstützt, kann aber auch ihren eigenen Gruppenmodus haben. Falls allerdings der Gruppenmodus auf Kursebene erzwungen wird, werden die Einstellungen zum Gruppenmodus für alle Aktivitäten ignoriert.';
+Der Gruppenmodus, der auf Kursebene gesetzt wird, ist der Standardmodus für alle Aktivitäten im Kurs. Falls der Gruppenmodus auf Kursebene erzwungen wird, kann diese Einstellung für keine Aktivität geändert werden.';
 $string['groupmodeforce'] = 'Gruppenmodus erzwingen';
-$string['groupmodeforce_help'] = 'Wenn der Gruppenmodus erzwungen wird, dann wird der Gruppenmodus des Kurses auch auf jede Aktivität im Kurs angewendet. Die Gruppeneinstellungen in jeder Aktivität werden ignoriert.';
+$string['groupmodeforce_help'] = 'Der Gruppenmodus ist für den ganzen Kurs erzwungen und kann für keine Aktivität geändert werden.';
 $string['groupmy'] = 'Meine Gruppe';
 $string['groupname'] = 'Gruppenname';
 $string['groupnameexists'] = 'Der Gruppenname \'{$a}\' existiert in diesem Kurs bereits.';
@@ -145,6 +144,7 @@ $string['importgroups_help'] = 'Gruppen können über eine Textdatei angelegt we
 * Notwendiges Feld ist groupname (Gruppenname)
 * Optionale Felder sind groupidnumber (Gruppen-ID), description (Beschreibung), enrolmentkey (Gruppenschlüssel), groupingname (Gruppierungsname), enablemessaging (Mitteilungen aktivieren)
 * Die Felder müssen in der englischen Bezeichnung angegeben sein';
+$string['importgroups_link'] = 'group/import';
 $string['includeonlyactiveenrol'] = 'Nur aktive Einschreibungen einbeziehen';
 $string['includeonlyactiveenrol_help'] = 'Diese Option legt fest, dass gesperrte Nutzer/innen keiner Gruppe zugeteilt werden.';
 $string['javascriptrequired'] = 'Diese Seite benötigt JavaScript.';

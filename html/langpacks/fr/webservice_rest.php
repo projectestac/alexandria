@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice_rest', language 'fr', version '3.11'.
+ * Strings for component 'webservice_rest', language 'fr', version '4.1'.
  *
  * @package     webservice_rest
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Protocole REST';
-$string['privacy:metadata'] = 'Le plugin Protocole REST n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Protocole REST n’enregistre aucune donnée personnelle.';
 $string['rest:use'] = 'Utiliser le protocole REST';

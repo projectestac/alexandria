@@ -40,7 +40,7 @@ require_once($CFG->libdir . '/blocklib.php');
  * @category  test
  * @copyright 2009 Tim Hunt
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- * @covers    \moodle_page
+ * @coversDefaultClass \moodle_page
  */
 class moodle_page_test extends \advanced_testcase {
 
@@ -325,11 +325,66 @@ class moodle_page_test extends \advanced_testcase {
         $this->assertSame('a heading <a href="#">edit</a><p></p>', $this->testpage->heading);
     }
 
-    public function test_set_title() {
-        // Exercise SUT.
-        $this->testpage->set_title('a title');
+    /**
+     * Data provider for {@see test_set_title}.
+     *
+     * @return array
+     */
+    public function set_title_provider(): array {
+        return [
+            'Do not append the site name' => [
+                'shortname', false, '', false
+            ],
+            'Site not yet installed not configured defaults to site shortname' => [
+                null, true, 'shortname'
+            ],
+            '$CFG->sitenameintitle not configured defaults to site shortname' => [
+                null, true, 'shortname'
+            ],
+            '$CFG->sitenameintitle set to shortname' => [
+                'shortname', true, 'shortname'
+            ],
+            '$CFG->sitenameintitle set to fullname' => [
+                'fullname', true, 'fullname'
+            ],
+        ];
+    }
+
+    /**
+     * Test for set_title
+     *
+     * @dataProvider set_title_provider
+     * @param string|null $config The config value for $CFG->sitenameintitle.
+     * @param bool $appendsitename The $appendsitename parameter
+     * @param string $expected The expected site name to be appended to the title.
+     * @param bool $sitenameset To simulate the absence of the site name being set in the site.
+     * @return void
+     * @covers ::set_title
+     */
+    public function test_set_title(?string $config, bool $appendsitename, string $expected, bool $sitenameset = true): void {
+        global $CFG, $SITE;
+
+        if ($config !== null) {
+            $CFG->sitenameintitle = $config;
+        }
+
+        $title = "A title";
+        if ($appendsitename) {
+            if ($sitenameset) {
+                $expectedtitle = $title . moodle_page::TITLE_SEPARATOR . $SITE->{$expected};
+            } else {
+                // Simulate site fullname and shortname being empty for any reason.
+                $SITE->fullname = null;
+                $SITE->shortname = null;
+                $expectedtitle = $title . moodle_page::TITLE_SEPARATOR . 'Moodle';
+            }
+        } else {
+            $expectedtitle = $title;
+        }
+
+        $this->testpage->set_title($title, $appendsitename);
         // Validated.
-        $this->assertSame('a title', $this->testpage->title);
+        $this->assertSame($expectedtitle, $this->testpage->title);
     }
 
     public function test_default_pagelayout() {
@@ -774,6 +829,47 @@ class moodle_page_test extends \advanced_testcase {
                 'expected' => 'classic',
             ],
         ];
+    }
+
+    /**
+     * Tests user_can_edit_blocks() returns the expected response.
+     * @covers ::user_can_edit_blocks()
+     */
+    public function test_user_can_edit_blocks() {
+        global $DB;
+
+        $systemcontext = \context_system::instance();
+        $this->testpage->set_context($systemcontext);
+
+        $user = $this->getDataGenerator()->create_user();
+        $role = $DB->get_record('role', ['shortname' => 'teacher']);
+        role_assign($role->id, $user->id, $systemcontext->id);
+        $this->setUser($user);
+
+        // Confirm expected response (false) when user does not have access to edit blocks.
+        $capability = $this->testpage->all_editing_caps()[0];
+        assign_capability($capability, CAP_PROHIBIT, $role->id, $systemcontext, true);
+        $this->assertFalse($this->testpage->user_can_edit_blocks());
+
+        // Give capability and confirm expected response (true) now user has access to edit blocks.
+        assign_capability($capability, CAP_ALLOW, $role->id, $systemcontext, true);
+        $this->assertTrue($this->testpage->user_can_edit_blocks());
+    }
+
+    /**
+     * Tests that calling force_lock_all_blocks() will cause user_can_edit_blocks() to return false, regardless of capabilities.
+     * @covers ::force_lock_all_blocks()
+     */
+    public function test_force_lock_all_blocks() {
+        $this->testpage->set_context(\context_system::instance());
+        $this->setAdminUser();
+
+        // Confirm admin user has access to edit blocks.
+        $this->assertTrue($this->testpage->user_can_edit_blocks());
+
+        // Force lock and confirm user can no longer edit, despite having the capability.
+        $this->testpage->force_lock_all_blocks();
+        $this->assertFalse($this->testpage->user_can_edit_blocks());
     }
 }
 

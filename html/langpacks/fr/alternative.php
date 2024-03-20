@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'alternative', language 'fr', version '3.11'.
+ * Strings for component 'alternative', language 'fr', version '4.1'.
  *
  * @package     alternative
  * @category    string
@@ -36,8 +36,8 @@ $string['synthpotential'] = 'Étudiants potentiels';
 $string['synthregistered'] = 'Étudiants enregistrés';
 $string['synthunregistered'] = 'Étudiants non enregistrés';
 $string['team'] = 'Équipe';
-$string['teamleader'] = 'Chef d\'équipe';
-$string['teammax'] = 'Taille maximale de l\'équipe';
-$string['teammin'] = 'Taille minimale de l\'équipe';
+$string['teamleader'] = 'Chef d’équipe';
+$string['teammax'] = 'Taille maximale de l’équipe';
+$string['teammin'] = 'Taille minimale de l’équipe';
 $string['teams'] = 'Équipes';
 $string['unique'] = 'Unique';

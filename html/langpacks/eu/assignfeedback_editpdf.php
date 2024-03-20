@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'eu', version '3.11'.
+ * Strings for component 'assignfeedback_editpdf', language 'eu', version '4.1'.
  *
  * @package     assignfeedback_editpdf
  * @category    string
@@ -62,7 +62,7 @@ $string['generatingpdf'] = 'PDFa sortzen...';
 $string['gotopage'] = 'Joan orrira';
 $string['green'] = 'Berdea';
 $string['gsimage'] = 'Ghostscript-en probetarako irudia';
-$string['highlight'] = 'Azpimarratu';
+$string['highlight'] = 'Nabarmendu';
 $string['jsrequired'] = 'JavaScript-a gaituta egotea beharrezkoa da PDFetan oharrak egiteko. Mesedez, funtzio hau erabiltzeko zure nabigatzailean JavaScript-a gaitu ezazu.';
 $string['launcheditor'] = 'Ireki PDF editorea...';
 $string['line'] = 'Lerroa';

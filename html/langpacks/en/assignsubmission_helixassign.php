@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_helixassign', language 'en', version '3.11'.
+ * Strings for component 'assignsubmission_helixassign', language 'en', version '4.1'.
  *
  * @package     assignsubmission_helixassign
  * @category    string
@@ -32,7 +32,7 @@ $string['enabled'] = 'MEDIAL Video Assignments enabled';
 $string['enabled_help'] = 'If enabled, students are able submit videos using the MEDIAL submission system.';
 $string['eventassessableuploaded'] = 'A MEDIAL submission has been uploaded.';
 $string['helixassign'] = 'Video Assignment';
-$string['helixassign:can_use'] = 'Can enable video submissions when creating new assignment activities';
+$string['helixassign:can_use'] = 'Can enable MEDIAL video submissions when creating new assignment activities';
 $string['helixassignfilename'] = 'helixassign.html';
 $string['helixassignsubmission'] = 'Allow MEDIAL Video submission';
 $string['helixsubmissionlog'] = 'MEDIAL Submission';

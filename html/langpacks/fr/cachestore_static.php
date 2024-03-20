@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cachestore_static', language 'fr', version '3.11'.
+ * Strings for component 'cachestore_static', language 'fr', version '4.1'.
  *
  * @package     cachestore_static
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Cache statique de requête';
-$string['privacy:metadata'] = 'Le plugin de stockage de cache Cache statique de requête enregistre des données brièvement, de par sa fonction de mise en cache. Ces données ne sont enregistrées que durant la durée d\'une simple requête HTTP.';
+$string['privacy:metadata'] = 'Le plugin de stockage de cache Cache statique de requête enregistre des données brièvement, de par sa fonction de mise en cache. Ces données ne sont enregistrées que durant la durée d’une simple requête HTTP.';

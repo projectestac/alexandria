@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choice', language 'es', version '3.11'.
+ * Strings for component 'choice', language 'es', version '4.1'.
  *
  * @package     choice
  * @category    string
@@ -40,9 +40,7 @@ $string['choice:deleteresponses'] = 'Modificar y eliminar respuestas';
 $string['choice:downloadresponses'] = 'Descargar respuestas';
 $string['choice:readresponses'] = 'Ver respuestas';
 $string['choice:view'] = 'Ver actividad de consulta';
-$string['choiceactivityname'] = 'Consulta: {$a}';
 $string['choiceclose'] = 'Permite respuestas hasta';
-$string['choicecloseson'] = 'La consulta se cierra el {$a}';
 $string['choicefull'] = 'Una o más de las opciones que Usted ha seleccionado ya se han llenado. Su respuesta no ha sido guardada. Por favor, haga otra selección.';
 $string['choicename'] = 'Título de la consulta';
 $string['choiceopen'] = 'Permitir respuestas a partir de';
@@ -76,10 +74,12 @@ $string['indicator:cognitivedepth'] = 'Elección cognitiva';
 $string['indicator:cognitivedepth_help'] = 'Este indicador está basado en la profundidad cognitiva alcanzada por el estudiante en una actividad Elección.';
 $string['indicator:cognitivedepthdef'] = 'Elección cognitiva';
 $string['indicator:cognitivedepthdef_help'] = 'El participante ha alcanzado este porcentaje de compromiso cognitivo ofrecido por las actividades de Elección durante este intervalo de análisis (Niveles = Sin ver, Ver, Enviar, Ver retroalimentación)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'Consulta social';
 $string['indicator:socialbreadth_help'] = 'Este indicador está basado en la amplitud social alcanzada por el estudiante en una actividad Consulta.';
 $string['indicator:socialbreadthdef'] = 'Consulta social';
 $string['indicator:socialbreadthdef_help'] = 'El participante ha alcanzado este porcentaje del compromiso social ofrecido por las actividades de Consulta durante este intervalo de análisis (Niveles = Sin participación, Participante solo, Participante con otros)';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['limit'] = 'Límite';
 $string['limita'] = 'Límite: {$a}';
 $string['limitanswers'] = 'Limitar el número de respuestas permitidas';
@@ -92,15 +92,14 @@ $string['limitno'] = 'Límite {no}';
 $string['modulename'] = 'Consulta';
 $string['modulename_help'] = 'El módulo Consulta permite al profesor hacer una pregunta especificando las posibles respuestas posibles.
 
-Los resultados de la elección puede ser publicados después que los estudiantes hayan respondido, después de cierta fecha, o no publicarse. Los resultados pueden ser publicados, con los nombres de los estudiantes o de forma anónima.
+Los resultados de la elección puede ser publicados después que los estudiantes hayan respondido, después de cierta fecha, o no publicarse. Los resultados pueden ser publicados con los nombres de los estudiantes o de forma anónima (aunque los profesores siempre verán los nombres de los estudiantes y sus respuestas).
 
 Una Consulta puede utilizarse
 
 * Para realizar una encuesta rápida que estimule a los alunmos a reflexionar sobre un tema
-
 * Para comprobar rápidamente que los estudiantes han entendido algo concreto
-
 * Para facilitar la toma de decisiones, por ejemplo permitiendo a los estudiantes votar algún aspecto relacionado con el curso.';
+$string['modulename_link'] = 'mod/choice/view';
 $string['modulenameplural'] = 'Consultas';
 $string['moveselectedusersto'] = 'Mover los usuarios seleccionados a...';
 $string['multiplenotallowederror'] = 'En esta consulta no está permito seleccionar más de una respuesta';

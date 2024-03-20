@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'eu', version '3.11'.
+ * Strings for component 'availability', language 'eu', version '4.1'.
  *
  * @package     availability
  * @category    string
@@ -25,23 +25,23 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['accessrestrictions'] = 'Eskuragarritasun baldintzak';
-$string['addrestriction'] = 'Gehitu baldintza...';
+$string['accessrestrictions'] = 'Eskuragarritasun murrizketak';
+$string['addrestriction'] = 'Gehitu murrizketa...';
 $string['and'] = 'eta';
-$string['condition_group'] = 'Baldintza-sorta';
-$string['condition_group_info'] = 'Gehitu habiaratutako baldintza-multzo bat logika konplexua erabiltzeko.';
+$string['condition_group'] = 'Murrizketa-multzoa';
+$string['condition_group_info'] = 'Gehitu habiaratutako murrizketa-multzo bat logika konplexua erabiltzeko.';
 $string['enableavailability'] = 'Gaitu eskuragarritasun baldintzak';
 $string['enableavailability_desc'] = 'Gaituz gero, baldintzak (data, kalifikazioa edo beste jarduera bat osatua egotea) ezarri ahal izango dituzu jarduera eskuragarri dagoen ala ez kontrolatzeko.';
-$string['error_list_nochildren'] = 'Baldintza-sortek gutxienez baldintza bat izan behar dute.';
-$string['hidden_all'] = 'Guztiz ezkutatuta erabiltzaileak baldintzak betetzen ez baditu';
-$string['hidden_individual'] = 'Guztiz ezkutatuta erabiltzaileak baldintza hau betetzen ez badu';
+$string['error_list_nochildren'] = 'Murrizketa-multzoak gutxienez murrizketa bat izan behar dute.';
+$string['hidden_all'] = 'Guztiz ezkutatuta ikasleak baldintzak betetzen ez baditu';
+$string['hidden_individual'] = 'Guztiz ezkutatuta ikasleak baldintza hau betetzen ez badu';
 $string['hidden_marker'] = '(bestela ezkutuan)';
 $string['hide_verb'] = 'Egin klik guztiz ezkutatzeko';
 $string['invalid'] = 'Konfiguratu mesedez';
-$string['item_unknowntype'] = 'Baldintzak hauek dagoeneko eskuragarri ez dagoen plugin bat erabiltzen dute (baldintza hori ezabatzeko arazorik ez badago, ezabatu behean)';
-$string['itemheading'] = '{$a->number} {$a->type} motako baldintza';
-$string['label_multi'] = 'Beharrezko baldintzak';
-$string['label_sign'] = 'Baldintza mota';
+$string['item_unknowntype'] = 'Murrizketa hauek dagoeneko eskuragarri ez dagoen plugin bat erabiltzen dute (murrizketa hori ezabatzeko arazorik ez badago, ezabatu behean)';
+$string['itemheading'] = '{$a->number} {$a->type} motako murrizketa';
+$string['label_multi'] = 'Beharrezko murrizketak';
+$string['label_sign'] = 'Eskuragarritasun murrizketa mota';
 $string['list_and'] = 'Hauek guztiak:';
 $string['list_and_hidden'] = 'Hauek guztiak (bestela ezkutuan):';
 $string['list_or'] = 'Hauetako edozein:';
@@ -58,14 +58,15 @@ $string['listheader_sign_before'] = 'Ikasleak';
 $string['listheader_sign_neg'] = 'ez d(it)u bete behar';
 $string['listheader_sign_pos'] = 'bete behar d(it)u';
 $string['listheader_single'] = 'hurrengo baldintza';
-$string['manageplugins'] = 'Kudeatu baldintza-motak';
-$string['missingplugin'] = 'Baldintza-plugina falta da';
+$string['manageplugins'] = 'Kudeatu eskuragarritasun murrizketa motak';
+$string['missingplugin'] = 'Eskuragarritasun murrizketa plugina falta da';
 $string['or'] = 'edo';
-$string['privacy:metadata'] = 'Eskuragarritasun baldintzen azpisistemak ez du datu pertsonalik biltzen.';
+$string['privacy:metadata'] = 'Eskuragarritasun murrizketen azpisistemak ez du datu pertsonalik biltzen.';
 $string['restrictaccess'] = 'Mugatu eskuragarritasuna';
-$string['restrictbygroup'] = 'Gehitu talde/talde-multzo eskuragarritasun baldintza';
-$string['setheading'] = '{$a->number} {$a->count} sortako baldintza(k)';
-$string['show_verb'] = 'Egin klik grisean erakusteko';
-$string['shown_all'] = 'Grisean erakusten da erabiltzaileak baldintzak betetzen ez baditu';
-$string['shown_individual'] = 'Grisean erakusten da erabiltzaileak baldintza hau betetzen ez badu';
+$string['restrictbygroup'] = 'Gehitu talde/talde-multzo eskuragarritasun murrizketa';
+$string['setheading'] = '{$a->number} {$a->count} multzoko eskuragarritasun murrizketa(k)';
+$string['show_verb'] = 'Egin klik erakusteko';
+$string['showmore'] = 'Erakutsi gehiago';
+$string['shown_all'] = 'Erakusten da ikasleak baldintzak betetzen ez baditu';
+$string['shown_individual'] = 'Erakusten da ikasleak baldintza hau betetzen ez badu';
 $string['unknowncondition'] = 'Baldintza ezezaguna (ezabatutako baldintza plugina)';

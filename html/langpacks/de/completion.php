@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'de', version '3.11'.
+ * Strings for component 'completion', language 'de', version '4.1'.
  *
  * @package     completion
  * @category    string
@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['achievinggrade'] = 'Erreichen der Bewertung';
+$string['achievingpassinggrade'] = 'Erreichen der Bestehensnote';
 $string['activities'] = 'Aktivitäten';
 $string['activitiescompleted'] = 'Aktivitätsabschluss';
 $string['activitiescompletednote'] = 'Hinweis: Ein Aktivitätenabschluss muss gesetzt sein, bevor die Aktivität in der Liste angezeigt wird.';
@@ -36,6 +37,7 @@ $string['activityaggregation_any'] = 'Mindestens eine der ausgewählten Aktivit�
 $string['activitycompletion'] = 'Aktivitätsabschluss';
 $string['activitycompletionupdated'] = 'Änderungen gespeichert';
 $string['activitygradenotrequired'] = 'Bewertung nicht notwendig';
+$string['activitygradetopassnotset'] = 'Für diese Aktivität ist keine gültige Bestehensnote vorhanden. Sie kann im Abschnitt Note der Aktivitätseinstellungen festgelegt werden.';
 $string['affectedactivities'] = 'Die Änderungen betreffen die folgenden <b>{$a}</b> Aktivitäten:';
 $string['aggregationmethod'] = 'Methode zur Zusammenfassung';
 $string['all'] = 'Alle';
@@ -58,10 +60,9 @@ $string['checkallsection'] = 'Kontrollfelder für alle Aktivitäten im Abschnitt
 $string['completeactivity'] = 'Aktivität abschließen';
 $string['completed'] = 'Abgeschlossen';
 $string['completedunlocked'] = 'Abschlusseinstellungen verfügbar';
-$string['completedunlockedtext'] = 'Wenn Sie Ihre Änderungen speichern, wird der Abschlussstatus für alle Nutzer/innen gelöscht. Wenn Sie dies nicht möchten, speichern Sie bitte nicht!';
+$string['completedunlockedtext'] = 'Wenn Sie Ihre Änderungen speichern, werden die Abschlussdaten für alle Nutzer/innen gelöscht und wenn möglich neu berechnet. Wenn Sie dies nicht möchten, speichern Sie bitte nicht!';
 $string['completedwarning'] = 'Abschlusseinstellungen gesperrt';
-$string['completedwarningtext'] = 'Eine oder mehrere Personen ({$a}) haben diese Aktivität bereits als abgeschlossen markiert.
-Die Änderung der Abschlusseinstellungen löscht alle Daten zum Abschlussstatus und könnte zu Verwirrungen führen. Deswegen wurden die Optionen gesperrt und sollten auch nicht freigegeben werden, außer es ist unbedingt notwendig.';
+$string['completedwarningtext'] = 'Diese Aktivität wurde von einer oder mehreren Personen als abgeschlossen markiert. Wenn Sie die Einstellungen entsperren, um Änderungen vorzunehmen und zu speichern, werden die Abschlussdaten gelöscht und wenn möglich neu berechnet. Manuelle Abschlüsse können nicht neu berechnet werden, so dass Teilnehmer/innen diese erneut als erledigt markieren müssen.';
 $string['completion'] = 'Abschlussverfolgung';
 $string['completion-alt-auto-enabled'] = 'Das System markiert dieses Element entsprechend den Bedingungen als abgeschlossen: {$a}';
 $string['completion-alt-auto-fail'] = 'Abgeschlossen: {$a} (Bestehensgrenze nicht erreicht)';
@@ -83,6 +84,7 @@ $string['completion-y'] = 'Abgeschlossen';
 $string['completion-y-override'] = 'Abgeschlossen (gesetzt von {$a})';
 $string['completion_automatic'] = 'Abschluss, wenn alle Bedingungen erfüllt sind';
 $string['completion_help'] = 'Wenn diese Option aktiviert ist, wird der Aktivitätsabschluss nachverfolgt, entweder manuell oder automatisch. Falls gewünscht, können mehrere Bedingungen festgelegt werden. In diesem Fall gilt die Aktivität erst dann als abgeschlossen, wenn alle Bedingungen erfüllt sind.';
+$string['completion_link'] = 'activity/completion';
 $string['completion_manual'] = 'Abschluss wird manuell markiert';
 $string['completion_none'] = 'Aktivitätsabschluss wird nicht angezeigt';
 $string['completionactivitydefault'] = 'Aktivitätseinstellungen benutzen';
@@ -106,6 +108,9 @@ $string['completionnotenabledforcourse'] = 'Abschluss ist für diesen Kurs nicht
 $string['completionnotenabledforsite'] = 'Abschluss ist für diese Website nicht aktiviert';
 $string['completionondate'] = 'Datum';
 $string['completionondatevalue'] = 'Datum, wann der Kurs als abgeschlossen markiert wird';
+$string['completionpassgrade'] = 'Bestehensnote erforderlich';
+$string['completionpassgrade_desc'] = 'Teilnehmer/in muss eine Bestehensnote erhalten, um diese Aktivität abzuschließen';
+$string['completionpassgrade_help'] = 'Wenn diese Option aktiviert ist, gilt die Aktivität als bestanden, wenn Teilnehmer/innen die Bestehensnote erreichen.';
 $string['completionsettingslocked'] = 'Abschlusseinstellungen gesperrt';
 $string['completionupdated'] = 'Aktualisierter Abschluss für Aktivität <b>{$a}</b>';
 $string['completionusegrade'] = 'Bewertung notwendig';
@@ -125,6 +130,7 @@ $string['coursecompleted'] = 'Kurs abgeschlossen';
 $string['coursecompletedmessage'] = '<p>Herzlichen Glückwunsch!</p><p>Sie haben den Kurs <a href="{$a->courselink}">{$a->coursename}</a> abgeschlossen.</p>';
 $string['coursecompletion'] = 'Kursabschluss';
 $string['coursecompletioncondition'] = 'Bedingung: {$a}';
+$string['coursecompletionnavigation'] = 'Kursabschluss tertiäre Navigation';
 $string['coursegrade'] = 'Kursbewertung';
 $string['coursesavailable'] = 'Kurse verfügbar';
 $string['coursesavailableexplaination'] = 'Bemerkung: Abschlussbedingungen für den Kurs müssen festgelegt sein, damit ein Kurs in dieser Liste erscheint.';
@@ -132,20 +138,23 @@ $string['criteria'] = 'Kriterien';
 $string['criteriagroup'] = 'Kriteriengruppe';
 $string['criteriarequiredall'] = 'Alle folgenden Kriterien sind notwendig';
 $string['criteriarequiredany'] = 'Eines der folgenden Kriterien ist notwendig';
-$string['csvdownload'] = 'Download als Tabelle (.csv, utf-8)';
+$string['csvdownload'] = 'Als Tabelle (utf-8 .csv) herunterladen';
 $string['datepassed'] = 'Zeitpunkt vorbei';
 $string['days'] = 'Tage';
 $string['daysoftotal'] = '{$a->days} von {$a->total}';
+$string['daysuntilcompletion'] = 'Tage bis zum Abschluss';
 $string['defaultcompletion'] = 'Standard-Aktivitätsabschluss';
 $string['defaultcompletionupdated'] = 'Änderungen gespeichert';
 $string['deletecompletiondata'] = 'Abschlussdaten löschen';
 $string['dependencies'] = 'Abhängigkeiten';
 $string['dependenciescompleted'] = 'Abschluss von anderen Kursen';
 $string['detail_desc:receivegrade'] = 'Eine Bewertung erhalten';
+$string['detail_desc:receivepassgrade'] = 'Bestehensnote erreichen';
 $string['detail_desc:view'] = 'Anzeigen';
+$string['done'] = 'Erledigt';
 $string['editcoursecompletionsettings'] = 'Abschlusseinstellungen für den Kurs bearbeiten';
 $string['enablecompletion'] = 'Abschlussverfolgung aktivieren';
-$string['enablecompletion_help'] = 'Wenn diese Option aktiviert ist, können Abschlussbedingungen für die Aktivität in den Einstellungen der Aktivität und/oder Abschlussbedingungen für den Kurs gesetzt werden. Es wird empfohlen diese Einstellung zu verwenden, damit im Dashboard sinnvolle Informationen zum Kursfortschritt angezeigt werden können.';
+$string['enablecompletion_help'] = 'Wenn diese Option aktiviert ist, können Bedingungen für Aktivitätsabschlüsse und für den Kursabschluss gesetzt werden.';
 $string['enrolmentduration'] = 'Einschreibedauer';
 $string['enrolmentdurationlength'] = 'Nutzer/in muss eingeschrieben bleiben';
 $string['err_noactivities'] = 'Abschlussinformationen sind nicht für jede Aktivität eingeschaltet, daher können keine angezeigt werden. Sie können die Abschlussinformationen einschalten, indem Sie die Einstellungen einer Aktivität bearbeiten.';
@@ -159,7 +168,8 @@ $string['eventcoursecompleted'] = 'Kurs beendet';
 $string['eventcoursecompletionupdated'] = 'Kursabschluss aktualisiert';
 $string['eventcoursemodulecompletionupdated'] = 'Abschluss für Aktivität aktualisiert';
 $string['eventdefaultcompletionupdated'] = 'Standard für Kursaktivitätsabschluss aktualisiert';
-$string['excelcsvdownload'] = 'Download als Tabelle (.csv)';
+$string['excelcsvdownload'] = 'Als Excel-Datei (.csv) herunterladen';
+$string['failed'] = 'Nicht bestanden';
 $string['fraction'] = 'Bruchteil';
 $string['graderequired'] = 'Wertung erforderlich';
 $string['gradexrequired'] = '{$a} erforderlich';
@@ -196,6 +206,7 @@ $string['privacy:metadata:gradefinal'] = 'Erreichte Endbewertung für Kursabschl
 $string['privacy:metadata:overrideby'] = 'ID der Person, die den Aktivitätsabschluss überschrieben hat';
 $string['privacy:metadata:reaggregate'] = 'Ob der Kursabschluss neu ermittelt wurde';
 $string['privacy:metadata:timecompleted'] = 'Zeitpunkt des Kursabschlusses';
+$string['privacy:metadata:timecreated'] = 'Zeit, zu der der Aktivitätsabschluss erstellt wurde';
 $string['privacy:metadata:timeenrolled'] = 'Zeit, bei der die Person im Kurs eingeschrieben wurde';
 $string['privacy:metadata:timemodified'] = 'Zeitpunkt zu dem der Aktivitätsabschluss geändert wurde';
 $string['privacy:metadata:timestarted'] = 'Startzeitpunkt des Kurses';
@@ -214,7 +225,7 @@ $string['resetactivities'] = 'Alle markierte Aktivitäten und Materialien abwäh
 $string['restoringcompletiondata'] = 'Abschlussdaten werden wiederhergestellt';
 $string['roleaggregation'] = 'Voraussetzung';
 $string['roleaggregation_all'] = 'ALLE gewählten Rollen müssen markieren, um den Kurs abzuschließen';
-$string['roleaggregation_any'] = 'JEDE der gewählten Rollen kann den Kurs als abschlossen markieren';
+$string['roleaggregation_any'] = 'JEDE der gewählten Rollen kann den Kurs als abgeschlossen markieren';
 $string['roleidnotfound'] = 'Rollen-ID {$a} wurde nicht gefunden';
 $string['saved'] = 'Gespeichert';
 $string['seedetails'] = 'Details ansehen';
@@ -222,8 +233,10 @@ $string['select'] = 'Auswählen';
 $string['self'] = 'Selbst';
 $string['selfcompletion'] = 'Eigener Abschluss';
 $string['showcompletionconditions'] = 'Abschlussbedingungen anzeigen';
-$string['showcompletionconditions_help'] = 'Die Abschlussbedingungen für die Aktivitäten werden immer auf der Aktivitätsseite angezeigt. Diese Einstellung bestimmt, dass die Abschlussbedingungen der Aktivitäten auch unter jeder Aktivität auf der Kursseite angezeigt werden.';
+$string['showcompletionconditions_help'] = 'Die Abschlussbedingungen werden auf der Kursseite angezeigt.';
 $string['showinguser'] = 'Nutzeranzeige';
+$string['timecompleted'] = 'Zeit abgeschlossen';
+$string['todo'] = 'Zu erledigen';
 $string['unenrolingfromcourse'] = 'Vom Kurs abmelden';
 $string['unenrolment'] = 'Abmeldung';
 $string['unit'] = 'Abschnitt';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_filtered_course_list', language 'ca', version '3.11'.
+ * Strings for component 'block_filtered_course_list', language 'ca', version '4.1'.
  *
  * @package     block_filtered_course_list
  * @category    string
@@ -27,3 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['confighideallcourseslink'] = 'Oculta l\'enllaç «Tots els cursos» que hi ha al capdavall del bloc. <br>El fet d\'ocultar-lo no afecta la visualització del gestor';
 $string['hideallcourseslink'] = 'Oculta l\'enllaç «Tots els cursos»';
+$string['top'] = 'Part superior';

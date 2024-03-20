@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'booktool_print', language 'fr', version '3.11'.
+ * Strings for component 'booktool_print', language 'fr', version '4.1'.
  *
  * @package     booktool_print
  * @category    string
@@ -33,4 +33,4 @@ $string['printbook'] = 'Imprimer tout le livre';
 $string['printchapter'] = 'Imprimer ce chapitre';
 $string['printdate'] = 'Date';
 $string['printedby'] = 'Imprimé par';
-$string['privacy:metadata'] = 'Le plugin Impression de livre n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Impression de livre n’enregistre aucune donnée personnelle.';

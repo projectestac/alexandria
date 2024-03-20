@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_wiris', language 'fr', version '3.11'.
+ * Strings for component 'atto_wiris', language 'fr', version '4.1'.
  *
  * @package     atto_wiris
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['error_connection'] = 'Une erreur s\'est produite lors du chargement de MathType';
+$string['error_connection'] = 'Une erreur s’est produite lors du chargement de MathType';
 $string['pluginname'] = 'MathType par WIRIS';
 $string['wiris_chem_editor_title'] = 'Insérer une formule chimique - ChemType';
 $string['wiris_editor_title'] = 'Insérer une équation mathématique - MathType';

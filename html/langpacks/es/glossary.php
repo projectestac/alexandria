@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'glossary', language 'es', version '3.11'.
+ * Strings for component 'glossary', language 'es', version '4.1'.
  *
  * @package     glossary
  * @category    string
@@ -29,6 +29,7 @@ $string['addcategory'] = 'Añadir categoría';
 $string['addcomment'] = 'Añadir comentario';
 $string['addentry'] = 'Añadir entrada';
 $string['addingcomment'] = 'Añadir un comentario';
+$string['addsingleentry'] = 'Añadir entrada';
 $string['alias'] = 'Palabra clave';
 $string['aliases'] = 'Palabra(s) clave';
 $string['aliases_help'] = '<p>Cada entrada del glosario puede tener asociada una lista de palabras clave o alias.</p>
@@ -136,34 +137,15 @@ $string['destination_help'] = '<P>Puede especificar dónde desea importar las en
 </ul>';
 $string['disapprove'] = 'Deshacer aprobación';
 $string['displayformat'] = 'Formato de visualización de entradas';
-$string['displayformat_help'] = '<P>Esta variable define la manera cómo se mostrará cada entrada dentro del glosario.
-Los formatos disponibles son:</p>
-<blockquote>
-<dl>
-<dt><b>Diccionario simple</b>:</dt>
-<dd>Luce como un diccionario convencional, con las entradas separadas. No se
-muestra a ningún autor y los archivos adjuntos aparecen como enlaces.</dd>
-<dt><b>Contínuo</b>:</dt>
-<dd>Presenta las entradas una después de la otra sin otra separación que los
-iconos de separación.</dd>
-<dt><b>Completo con autor</b>:</dt>
-<dd>Un formato semajante al de los foros, que muestra la información del autor
-de cada entrada. Los archivos adjuntos aparecen como enlaces.</dd>
-<dt><b>Completo sin autor</b>:</dt>
-<dd>Un formato semajante al de los foros, que no muestra la información del autor
-de cada entrada. Los archivos adjuntos aparecen como enlaces.</dd>
-<dt><b>Enciclopedia</b>:</dt>
-<dd>Semejante a \'Completo con autor\' pero en el que las imágenes adjuntas se muestran
-en línea.</dd>
-<dt><b>FAQ</b>:</dt>
-<dd>Útil para presentar listas de Preguntas Frecuentemente Respondidas. Automáticamente
-añade las palabras Pregunta y Respuesta en el concepto y la definición respectivamente.</dd>
-</dl>
-</blockquote>
+$string['displayformat_help'] = 'Hay 7 formatos de vista:
 
-<hr />
-<p>Los administradores de Moodle pueden crear nuevos formatos siguiendo las instrucciones que
-aparecen en el archivo <b>mod/glossary/formats/README.txt</b> de su instalación.</p>';
+* Simple, estilo diccionario - No se muestran los autores y los adjuntos se ven como enlaces.
+* Contínua sin autor - Las entradas se ven una tras otra sin ninguna separación aparte de los iconos de edición.
+* Completa con autor - Una vista estilo forum que muestra los datos del autor y con adjuntos mostrados como enlaces.
+* Completa sin autor - Una vista estilo forum sin autores y con adjuntos mostrados como enlaces.
+* Enciclopedia - Como "Completa con autor" pero las imágenes adjuntas se ven en línea.
+* Lista de entradas - Los conceptos se listan como enlaces.
+* FAQ - Las palabras PREGUNTA y RESPUESTA se adjuntan a sus respectivos conceptos y definiciones.';
 $string['displayformatcontinuous'] = 'Continuo sin autor';
 $string['displayformatdefault'] = 'Por defecto la misma que el formato de visualización';
 $string['displayformatdictionary'] = 'Simple, estilo diccionario';
@@ -213,6 +195,7 @@ $string['errconceptalreadyexists'] = 'Este concepto ya existe. En este glosario 
 $string['errdeltimeexpired'] = 'No puede eliminar esto: el tiempo ha expirado.';
 $string['erredittimeexpired'] = 'El tiempo de edición de esta entrada ha expirado.';
 $string['errorparsingxml'] = 'Error al analizar el fichero. Asegúrese de que la sintaxis XML es válida.';
+$string['errreservedkeywords'] = 'Una o más palabras clave contiene un carácter especial que no puede usarse.';
 $string['eventcategorycreated'] = 'La categoría ha sido creada';
 $string['eventcategorydeleted'] = 'La categoría ha sido borrada';
 $string['eventcategoryupdated'] = 'La categoría ha sido actualizada';
@@ -228,6 +211,7 @@ $string['explainalphabet'] = 'Navegue por el glosario usando este índice.';
 $string['explainexport'] = 'Se ha generado un archivo.<br />Descárguelo y guárdelo. Podrá importarlo en cualquier momento en éste u otro curso.';
 $string['explainimport'] = 'Debe especificar el archivo a importar y definir el criterio del proceso.<p>Someta su solicitud y revise los resultados.</p>';
 $string['explainspecial'] = 'Muestra las entradas que no comienzan con una letra';
+$string['export'] = 'Exportar';
 $string['exportedentry'] = 'Entrada exportada';
 $string['exportentries'] = 'Exportar entradas';
 $string['exportentriestoxml'] = 'Exportar entradas a archivo XML';
@@ -276,10 +260,12 @@ $string['indicator:cognitivedepth'] = 'Glosario cognitivo';
 $string['indicator:cognitivedepth_help'] = 'Este indicador está basado en la profundidad cognitiva alcanzada por el estudiante en una actividad Glosario.';
 $string['indicator:cognitivedepthdef'] = 'Glosario cognitivo';
 $string['indicator:cognitivedepthdef_help'] = 'El participante ha alcanzado este porcentaje del compromiso cognitivo ofrecido por las actividades de Glosario durante este intervalo de análisis (Niveles = Sin visualización, Visualización, Enviar)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'Glosario social';
 $string['indicator:socialbreadth_help'] = 'Este indicador está basado en la amplitud social alcanzada por el estudiante en una actividad Glosario.';
 $string['indicator:socialbreadthdef'] = 'Glosario social';
 $string['indicator:socialbreadthdef_help'] = 'El participante ha alcanzado este porcentaje de compromiso social ofrecido por las actividades de Glosario durante este intervalo de análisis (Niveles = Sin participación, Participante solo)';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['isglobal'] = '¿Este es el glosario global?';
 $string['isglobal_help'] = 'Un glosario global tiene entradas que están enlazadas desde cualquier lugar del sitio, no solo desde el curso en que reside el glosario. Únicamente los administradores pueden determinar que un glosario sea global.';
 $string['letter'] = 'letra';
@@ -304,6 +290,7 @@ Los glosarios tienen muchos usos, como
 * Un recurso con "consejos prácticos" con las mejores prácticas en un tema concreto
 * Un área para compartir vídeos, imágenes o archivos de sonido
 * Un recurso con "asuntos que recordar"';
+$string['modulename_link'] = 'mod/glossary/view';
 $string['modulenameplural'] = 'Glosarios';
 $string['newentries'] = 'Nuevas entradas al glosario';
 $string['newglossary'] = 'Glosario nuevo';
@@ -324,6 +311,7 @@ $string['onebyline'] = '(uno por línea)';
 $string['page-mod-glossary-edit'] = 'Página añadir/editar entrada de glosario';
 $string['page-mod-glossary-view'] = 'Ver la página de edición del glosario';
 $string['page-mod-glossary-x'] = 'Cualquier página del módulo Glosario';
+$string['pendingapproval'] = 'Pendiente de aprobación.';
 $string['pluginadministration'] = 'Administración del glosario';
 $string['pluginname'] = 'Glosario';
 $string['popupformat'] = 'Formato \'popup\'';
@@ -352,6 +340,7 @@ $string['rssarticles'] = 'Número de artículos recientes RSS';
 $string['rssarticles_help'] = '<P>Esta opción le permite seleccionar el número de artículos a incluir en el Canal RSS.
 
 <P>Un número entre 5 y 20 debería ser apropiado para la mayoría de los glosarios. Auméntelo si se trata de un glosario muy utilizado.';
+$string['rssfeed'] = 'Alimentación RSS';
 $string['rsssubscriberss'] = 'Mostrar canal RSS para los conceptos \'{$a}\'';
 $string['rsstype'] = 'Canal RSS de esta actividad';
 $string['rsstype_help'] = '<P>Esta opción le permite habilitar los canales RSS en este glosario.

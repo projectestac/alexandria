@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'bulkusers', language 'fr', version '3.11'.
+ * Strings for component 'bulkusers', language 'fr', version '4.1'.
  *
  * @package     bulkusers
  * @category    string
@@ -41,7 +41,7 @@ $string['selected'] = 'Sélectionné(s)';
 $string['selectedlist'] = 'Liste des utilisateurs sélectionnés…';
 $string['selectedlist_help'] = 'Des utilisateurs peuvent être ajoutés ou retirés de la liste en cliquant sur les noms, puis sur le bouton adéquat. On peut sélectionner plusieurs utilisateurs simultanément (en maintenant la touche Pomme ou Ctrl enfoncée)';
 $string['users'] = 'Utilisateurs';
-$string['users_help'] = 'Tous les utilisateurs correspondants aux filtres actifs sont mentionnés dans la boîte disponible. Si aucun filtre n\'est actif, tous les utilisateurs du site sont affichés.';
+$string['users_help'] = 'Tous les utilisateurs correspondants aux filtres actifs sont mentionnés dans la boîte disponible. Si aucun filtre n’est actif, tous les utilisateurs du site sont affichés.';
 $string['usersfound'] = '{$a} utilisateur(s) trouvé(s).';
 $string['usersinlist'] = 'Utilisateurs dans la liste';
 $string['usersselected'] = '{$a} utilisateur(s) sélectionné(s).';

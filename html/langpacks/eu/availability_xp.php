@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_xp', language 'eu', version '3.11'.
+ * Strings for component 'availability_xp', language 'eu', version '4.1'.
  *
  * @package     availability_xp
  * @category    string
@@ -37,6 +37,6 @@ $string['levelnrequiredtoaccess'] = '{$a}. mailan edo maila altuago batean zaude
 $string['levelnumber'] = 'Mailaren zenbakia';
 $string['opequalto'] = 'Zehazki honen berdina';
 $string['opgreaterorequalto'] = 'Honen handiagoa edo berdina';
-$string['pluginname'] = 'Mailaren araberako eskuragarritasuna';
+$string['pluginname'] = 'Maila gora XP eskuragarritasuna';
 $string['privacy:metadata'] = 'Plugin honek ez du datu pertsonalik biltzen.';
 $string['title'] = 'Maila';

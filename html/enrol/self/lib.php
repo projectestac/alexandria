@@ -159,8 +159,8 @@ class enrol_self_plugin extends enrol_plugin {
 
         \core\notification::success(get_string('youenrolledincourse', 'enrol'));
 
-        if ($instance->password and $instance->customint1 and $data->enrolpassword !== $instance->password) {
-            // It must be a group enrolment, let's assign group too.
+        // Test whether the password is also used as a group key.
+        if ($instance->password && $instance->customint1) {
             $groups = $DB->get_records('groups', array('courseid'=>$instance->courseid), 'id', 'id, enrolmentkey');
             foreach ($groups as $group) {
                 if (empty($group->enrolmentkey)) {
@@ -231,7 +231,7 @@ class enrol_self_plugin extends enrol_plugin {
      * @return bool|string true if successful, else error message or false.
      */
     public function can_self_enrol(stdClass $instance, $checkuserenrolment = true) {
-        global $CFG, $DB, $OUTPUT, $USER;
+        global $DB, $OUTPUT, $USER;
 
         if ($checkuserenrolment) {
             if (isguestuser()) {
@@ -244,12 +244,31 @@ class enrol_self_plugin extends enrol_plugin {
             }
         }
 
-        if ($instance->status != ENROL_INSTANCE_ENABLED) {
-            return get_string('canntenrol', 'enrol_self');
+        // Check if self enrolment is available right now for users.
+        $result = $this->is_self_enrol_available($instance);
+        if ($result !== true) {
+            return $result;
         }
 
         // Check if user has the capability to enrol in this context.
         if (!has_capability('enrol/self:enrolself', context_course::instance($instance->courseid))) {
+            return get_string('canntenrol', 'enrol_self');
+        }
+
+        return true;
+    }
+
+    /**
+     * Does this plugin support some way to self enrol?
+     * This function doesn't check user capabilities. Use can_self_enrol to check capabilities.
+     *
+     * @param stdClass $instance enrolment instance
+     * @return bool - true means "Enrol me in this course" link could be available
+     */
+    public function is_self_enrol_available(stdClass $instance) {
+        global $CFG, $DB, $USER;
+
+        if ($instance->status != ENROL_INSTANCE_ENABLED) {
             return get_string('canntenrol', 'enrol_self');
         }
 
@@ -384,7 +403,7 @@ class enrol_self_plugin extends enrol_plugin {
         $a->coursename = format_string($course->fullname, true, array('context'=>$context));
         $a->profileurl = "$CFG->wwwroot/user/view.php?id=$user->id&course=$course->id";
 
-        if (trim($instance->customtext1) !== '') {
+        if (!is_null($instance->customtext1) && trim($instance->customtext1) !== '') {
             $message = $instance->customtext1;
             $key = array('{$a->coursename}', '{$a->profileurl}', '{$a->fullname}', '{$a->email}');
             $value = array($a->coursename, $a->profileurl, fullname($user), $user->email);
@@ -857,6 +876,9 @@ class enrol_self_plugin extends enrol_plugin {
      * @return void
      */
     public function edit_instance_validation($data, $files, $instance, $context) {
+        global $CFG;
+        require_once("{$CFG->dirroot}/enrol/self/locallib.php");
+
         $errors = array();
 
         $checkpassword = false;
@@ -869,6 +891,11 @@ class enrol_self_plugin extends enrol_plugin {
 
             // Check the password if the instance is enabled and the password has changed.
             if (($data['status'] == ENROL_INSTANCE_ENABLED) && ($instance->password !== $data['password'])) {
+                $checkpassword = true;
+            }
+
+            // Check the password if we are enabling group enrolment keys.
+            if (!$instance->customint1 && $data['customint1']) {
                 $checkpassword = true;
             }
         } else {
@@ -885,6 +912,10 @@ class enrol_self_plugin extends enrol_plugin {
                 if (!check_password_policy($data['password'], $errmsg)) {
                     $errors['password'] = $errmsg;
                 }
+            } else if (!empty($data['password']) && $data['customint1'] &&
+                    enrol_self_check_group_enrolment_key($data['courseid'], $data['password'])) {
+
+                $errors['password'] = get_string('passwordmatchesgroupkey', 'enrol_self');
             }
         }
 

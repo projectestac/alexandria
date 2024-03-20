@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_adaptiveallnothing', language 'fr', version '3.11'.
+ * Strings for component 'qbehaviour_adaptiveallnothing', language 'fr', version '4.1'.
  *
  * @package     qbehaviour_adaptiveallnothing
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Mode adaptatif (tout ou rien)';
-$string['privacy:metadata'] = 'Le plugin de comportement de question Mode adaptatif (tout ou rien) n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de comportement de question Mode adaptatif (tout ou rien) n’enregistre aucune donnée personnelle.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'search', language 'ca', version '3.11'.
+ * Strings for component 'search', language 'ca', version '4.1'.
  *
  * @package     search
  * @category    string
@@ -29,6 +29,7 @@ $string['advancedsearch'] = 'Cerca avançada';
 $string['all'] = 'Tots';
 $string['allareas'] = 'Totes les àrees';
 $string['allcourses'] = 'Tots els cursos';
+$string['allusers'] = 'Tots els usuaris';
 $string['author'] = 'Autor/a';
 $string['authorname'] = 'Nom de l\'autor/a';
 $string['back'] = 'Enrere';
@@ -71,6 +72,7 @@ $string['normalsearch'] = 'Cerca normal';
 $string['notitle'] = 'Sense títol';
 $string['openedon'] = 'obert';
 $string['optimize'] = 'Optimitza';
+$string['progress'] = 'Progrés';
 $string['resultsreturnedfor'] = 'resultats per a';
 $string['runindexer'] = 'Executa l\'indexador (real)';
 $string['runindexertest'] = 'Executa la prova d\'indexació';

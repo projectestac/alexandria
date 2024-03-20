@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_usertours', language 'es', version '3.11'.
+ * Strings for component 'tool_usertours', language 'es', version '4.1'.
  *
  * @package     tool_usertours
  * @category    string
@@ -43,9 +43,12 @@ $string['confirmtourremovalquestion'] = '¿Está seguro de querer quitar este to
 $string['confirmtourremovaltitle'] = 'Confirmar eliminación de tour';
 $string['content'] = 'Contenido';
 $string['content_heading'] = 'Contenido';
-$string['content_help'] = 'El contenido que describe el  paso puede añadirse como texto simple, rodeado por marcas (tags) multi-idioma (para usarse con el filtro de contenido multi-idioma) si se requiere.
-
-Alternativamente, puede usar una ID de una cadena-de-caracteres del idioma en el formato identificador,componente (sin paréntesis ni espacio después de la coma).';
+$string['content_help'] = 'El contenido que describe el  paso puede añadirse como texto simple, rodeado por marcas (tags) multi-idioma (para usarse con el filtro de contenido multi-idioma) si se requiere.';
+$string['content_type'] = 'Tipo de contenido';
+$string['content_type_help'] = '* Manual - el contenido se introduce usando un editor de texto
+* ID de cadena de idioma - en el formato de cadena "identificador,componente" (sin espacio después de la coma)';
+$string['content_type_langstring'] = 'ID de cadena de idioma';
+$string['content_type_manual'] = 'Manual';
 $string['cssselector'] = 'Selector CSS';
 $string['defaultvalue'] = 'Por defecto ({$a})';
 $string['delay'] = 'Retardo antes de mostrar el paso';
@@ -53,12 +56,20 @@ $string['delay_help'] = 'Opcionalmente puede elegir añadir un retraso antes de 
 
 El retraso es en milisegundos.';
 $string['description'] = 'Descripción';
+$string['description_help'] = 'La descripción de un recorrido se puede añadir como texto sin formato, encerrado en etiquetas multilenguaje (para usar con el filtro de contenido multilingüe) si es necesario.
+
+Alternativamente, se puede introducir una ID de cadena de idioma en el formato "identificador,componente" (sin corchetes ni espacios después de la coma).';
+$string['displaystepnumbers'] = 'Mostrar números de paso';
+$string['displaystepnumbers_help'] = 'Si se muestra o no una cuenta de pasos ej. 1/4, 2/4, etc. para indicar la extensión del tour de usuario.';
 $string['done'] = 'Finalizado';
 $string['duplicatetour'] = 'Tour duplicado';
 $string['duplicatetour_name'] = '{$a} (copiar)';
 $string['editstep'] = 'Editando "{$a}"';
 $string['enabled'] = 'Habilitado';
+$string['endonesteptour'] = '¡Entendido!';
 $string['endtour'] = 'Terminar tour';
+$string['endtourlabel'] = 'Etiqueta del botón de finalización del tour';
+$string['endtourlabel_help'] = 'Opcionalmente, puede especificar una etiqueta personalizada para el botón de finalización del tour. La etiqueta predeterminada es "Entendido" para recorridos de un solo paso y "Finalizar recorrido" para recorridos de varios pasos. Como alternativa, se puede ingresar un ID de cadena de idioma en el identificador de formato, componente (sin corchetes ni espacios después de la coma).';
 $string['event_step_shown'] = 'Paso mostrado';
 $string['event_tour_ended'] = 'Tour terminado';
 $string['event_tour_reset'] = 'Tour reiniciado';
@@ -79,37 +90,41 @@ $string['filter_date_account_creation'] = 'Fecha de creación de la cuenta de us
 $string['filter_date_first_login'] = 'Fecha de primer acceso del usuario dentro de';
 $string['filter_date_last_login'] = 'Fecha de último acceso del usuario dentro de';
 $string['filter_header'] = 'Filtros del tour';
-$string['filter_help'] = 'Selecione las condiciones bajo las que se mostrará el tour. Todos los filtros deben de coincidir para que un tour se le muestre a un usuario.';
+$string['filter_help'] = 'Seleccione las condiciones bajo las que se mostrará el tour. Todos los filtros deben de coincidir para que un tour se le muestre a un usuario.';
 $string['filter_role'] = 'Rol';
 $string['filter_role_help'] = 'Un tour puede estar restringido a usuarios con roles seleccionados en el contexto en donde se muestra el tour. Por ejemplo, el restringir un tour del Área personal a usuarios con el rol de estudiante no funcionará si los usuarios tienen el rol de estudiante en un curso (como generalmente sucede). Un tour del Área personal solamente puede restringirse a usuarios con un rol del sistema.';
 $string['filter_theme'] = 'Tema';
 $string['filter_theme_help'] = 'Mostrar el tour cuando el usuario esté usando uno de los temas seleccionados.';
 $string['importtour'] = 'Importar tour';
+$string['invalid_lang_id'] = 'ID de cadena de idioma no valido';
 $string['left'] = 'Izquierda';
 $string['modifyshippedtourwarning'] = 'Este es un tour para usuario que se ha incluido con Moodle. Cualquier modificación que  haga puede ser anulada durante su siguiente actualización del sitio.';
+$string['moodle_language_identifier'] = 'ID de cadena de idioma';
 $string['movestepdown'] = 'Mover un paso abajo';
 $string['movestepup'] = 'Mover un paso arriba';
 $string['movetourdown'] = 'Mover tour hacia abajo';
 $string['movetourup'] = 'Mover tour hacia arriba';
 $string['name'] = 'Nombre';
+$string['name_help'] = 'El nombre de un recorrido se puede agregar como texto sin formato, encerrado en etiquetas multilenguaje (para usar con el filtro de contenido multilingüe) si es necesario. Como alternativa, se puede ingresar un ID de cadena de idioma en el identificador de formato, componente (sin corchetes ni espacios después de la coma).';
 $string['newstep'] = 'Nuevo paso';
 $string['newtour'] = 'Crear nuevo tour';
 $string['next'] = 'Siguiente';
 $string['nextstep'] = 'Siguiente';
+$string['nextstep_sequence'] = 'Siguiente ({$a->position}/{$a->total})';
 $string['options_heading'] = 'Opciones';
 $string['orphan'] = 'Mostrar si el objetivo no se encuentra';
 $string['orphan_help'] = 'Mostrar el paso si no pudo encontrarse el destino en la página.';
 $string['pathmatch'] = 'Aplicar a la coincidencia de URL';
 $string['pathmatch_help'] = 'Los tours serán mostrados en cualquier página cuya URL coincida con este valor.
 
-Puede usar el caracter  % como un comodín para significar cualquier cosa. Algunos valores de ejemplo incluyen:
+Puede usar el caracter % como un comodín para significar cualquier cosa. Algunos valores de ejemplo incluyen:
 
 * /my/% - para coincidir con el Área Personal
 * /course/view.php?id=2 - para coincidir con un curso específico
 * /mod/forum/view.php% - para coincidir con la lista de discusión del foro
 * /user/profile.php% - para coincidir con la página del perfil del usuario
 
-Si quisiera mostrar un tour en la Página inicial del Sitio (hogar/portada), Usted puede usar el valor: "FRONTPAGE".';
+Si quisiera mostrar un tour en la página inicial del sitio, puede usar el valor: "FRONTPAGE".';
 $string['pausetour'] = 'Pausa';
 $string['placement'] = 'Posicionamiento';
 $string['placement_help'] = 'Un paso puede colocarse, ya sea arriba, debajo, a la izquierda del, o a la derecha del destino. Se recomienda arriba de o debajo de, porque éstos se ajustan mejor para visualizarse en dispositivos móviles.
@@ -132,6 +147,7 @@ $string['selectordisplayname'] = 'Un selector CSS conteniendo \'{$a}\'';
 $string['selecttype'] = 'Seleccionar tipo de paso';
 $string['sharedtourslink'] = 'Repositorio de tours';
 $string['skip'] = 'Omitir';
+$string['skip_tour'] = 'Salir del tour';
 $string['target'] = 'Objetivo';
 $string['target_block'] = 'Bloque';
 $string['target_heading'] = 'Destino del paso';
@@ -151,7 +167,7 @@ $string['title_help'] = 'El título de un paso puede añadirse como texto simple
 Alternativamente, puede ingresarse una ID de cadena-de-caracteres del idioma en el formato de identificador,componente (sin paréntesis ni espacio después de la coma).';
 $string['tour1_content_addingblocks'] = 'De hecho, piense cuidadosamente si incluir algun bloque en sus páginas. Los bloques no se muestran en la App de Moodle Mobile, por lo que, de forma general, es mucho mejor asegurarse de que el sitio funciona bien sin bloques.';
 $string['tour1_content_blockregion'] = 'Todavía hay una región de bloque aquí. Nosotros recomendamos quitar los bloques de Navegación y Administración completamente, porque toda la funcionalidad está en otra parte en el tema Boost (Impulso).';
-$string['tour1_content_customisation'] = 'Para personalizar  la apariencia de su sitio y de la Portada, use el menú de configuraciones en la esquina de este encabezado. Intente activar la edición ahora mismo.';
+$string['tour1_content_customisation'] = 'Para personalizar  la apariencia de su sitio y de la página principal del sitio, use el menú de configuraciones en la esquina de este encabezado. Intente activar la edición ahora mismo.';
 $string['tour1_content_end'] = 'Este ha sido un tour para usuario, No volverá a mostrarse a menos de que lo reinicie usando el enlace en el pie de página. ¡Cómo administrador también puede crear sus propios tours como éste!';
 $string['tour1_content_navigation'] = 'La navegación principal es ahora a través de este bloque de navegación. La actualización de los contenidos depende de dónde se encuentre en el sitio. Utilice el botón en la parte superior para ocultarlo o mostrarlo.';
 $string['tour1_content_welcome'] = 'Bienvenido al tema Boost. Si ha actualizado desde una versión anterior, es posible que algunas cosas se vean un poco diferentes con este tema.';
@@ -161,10 +177,10 @@ $string['tour1_title_customisation'] = 'Personalización';
 $string['tour1_title_end'] = 'Fin del tour';
 $string['tour1_title_navigation'] = 'Navegación';
 $string['tour1_title_welcome'] = 'Bienvenida';
-$string['tour2_content_addblock'] = 'Si habilita el modo de edición, puede añadir bloques desde el cajón de navegación. Sin embargo, piense cuidadosamente acerca de incluir algun bloque en sus páginas. Los bloques no se muestran en la App de Moodle Mobile, por lo que para una mejor experiencia para el usuario, sería mucho mejor que se asegure de que su curso funciona bien sin bloques.';
-$string['tour2_content_addingblocks'] = 'Puede añadir bloques a esta página usando este botón. Sin embargo, piense cuidadosamente si incluir algun bloque en sus páginas. Los bloques no se muestran en la App de Moodle Mobile, por lo que para una mejor experiencia para el usuario, sería mucho mejor que se asegure de que su curso funciona bien sin bloques.';
+$string['tour2_content_addblock'] = 'Si habilita el modo de edición, puede añadir bloques desde el cajón de navegación. Sin embargo, piense cuidadosamente acerca de incluir algún bloque en sus páginas. Los bloques no se muestran en la app de Moodle, por lo que para una mejor experiencia para el usuario, sería mucho mejor que se asegure de que su curso funciona bien sin bloques.';
+$string['tour2_content_addingblocks'] = 'Puede añadir bloques a esta página usando este botón. Sin embargo, piense cuidadosamente si incluir algun bloque en sus páginas. Los bloques no se muestran en la app de Moodle, por lo que para una mejor experiencia para el usuario, sería mucho mejor que se asegure de que su curso funciona bien sin bloques.';
 $string['tour2_content_customisation'] = 'Para cambiar cualquier configuración de curso, utilice el menú de configuración de la esquina de este encabezado. También encontrará un menú de configuración similar en la página principal de todas las actividades. Prueba a cambiar la edición en este momento.';
-$string['tour2_content_end'] = 'Este ha sido un tour para usuario, una característica nueva de Moodle 3.2. No volverá a mostrarse a menos de que lo reinicie usando el enlace en el pie de página. El administrador del sitio también puede crear otros tours.';
+$string['tour2_content_end'] = 'Este es el final de su tour para usuario. No volverá a mostrarse a menos que lo reinicie usando el enlace en el pie de página. El administrador del sitio también puede crear otros tours si hace falta.';
 $string['tour2_content_navigation'] = 'La navegación es ahora a través de este bloque de navegación. Utilice el botón en la parte superior para ocultarlo o mostrarlo. Verá que hay enlaces para secciones de su curso.';
 $string['tour2_content_opendrawer'] = 'Intentar abrir el cajón de navegación ahora.';
 $string['tour2_content_participants'] = 'Ver los participantes aquí. Aquí además es donde podrás añadir o quitar estudiantes.';
@@ -178,7 +194,7 @@ $string['tour2_title_opendrawer'] = 'Abrir el cajón de navegación';
 $string['tour2_title_participants'] = 'Participantes del curso';
 $string['tour2_title_welcome'] = 'Bienvenida';
 $string['tour3_content_dashboard'] = 'Su nuevo panel tiene muchas características que pueden ayudar a acceder fácilmente a la información más importante.';
-$string['tour3_content_displayoptions'] = 'Los cursos pueden ordenarse por nombre o por su última fecha de acceso.
+$string['tour3_content_displayoptions'] = 'Los cursos pueden ordenarse por nombre, nombre corto o por su última fecha de acceso.
 
 También puede optar por mostrar los cursos en una lista, con información de resumen o la vista de "tarjeta" predeterminada.';
 $string['tour3_content_overview'] = 'El bloque de Vista general del curso muestra todos los cursos en los cuales está matriculado.
@@ -229,6 +245,27 @@ $string['tour_activityinfo_course_teacher_content'] = 'Las nuevas configuracione
 $string['tour_activityinfo_course_teacher_title'] = 'Nuevo: información de la actividad';
 $string['tour_final_step_content'] = 'Este es el final del recorrido. No se mostrará de nuevo a menos que lo restablezca utilizando el enlace en el pie de página.';
 $string['tour_final_step_title'] = 'Fin del tour';
+$string['tour_navigation_course_announcements_teacher_content'] = '@@PIXICON::tour/tour_course_admin_3::tool_usertours@@<br>Publique noticias importantes aquí.';
+$string['tour_navigation_course_announcements_teacher_title'] = '¿Algo que decir a todos?';
+$string['tour_navigation_course_edit_teacher_content'] = '@@PIXICON::tour/tour_course_admin_1::tool_usertours@@<br>Añadir nuevo contenido o editar el existente.';
+$string['tour_navigation_course_edit_teacher_title'] = 'Activar modo de edición';
+$string['tour_navigation_course_index_student_content'] = '@@PIXICON::tour/tour_course_student::tool_usertours@@<br>Navega a través de las actividades y realiza un seguimiento de tu progreso.';
+$string['tour_navigation_course_index_student_title'] = 'Encontrar su camino alrededor';
+$string['tour_navigation_course_index_teacher_content'] = '@@PIXICON::tour/tour_course_admin_2::tool_usertours@@<br>Arrastra y suelta actividades para reordenar el contenido del curso.';
+$string['tour_navigation_course_index_teacher_title'] = 'Índice del curso';
+$string['tour_navigation_course_student_tour_des'] = 'Dónde navegar por las actividades de un curso';
+$string['tour_navigation_course_student_tour_name'] = 'Índice del curso';
+$string['tour_navigation_course_teacher_tour_des'] = 'Modo de edición, arrastrar y soltar actividades y publicación de anuncios en un curso';
+$string['tour_navigation_course_teacher_tour_name'] = 'Edición del curso';
+$string['tour_navigation_dashboard_content'] = '@@PIXICON::tour/tour_dashboard::tool_usertours@@<br>Este panel lateral puede contener más características.';
+$string['tour_navigation_dashboard_title'] = '¡Expande para explorar!';
+$string['tour_navigation_dashboard_tour_des'] = 'Dónde se pueden encontrar los bloques';
+$string['tour_navigation_dashboard_tour_name'] = 'Diseñador de bloques';
+$string['tour_navigation_mycourses_content'] = '@@PIXICON::tour/tour_mycourses::tool_usertours@@<br>Añade, copia, elimina y oculta cursos desde este menú.';
+$string['tour_navigation_mycourses_endtourlabel'] = 'entiendo';
+$string['tour_navigation_mycourses_title'] = 'Cursos y categorías';
+$string['tour_navigation_mycourses_tour_des'] = 'Opciones de administración de cursos en la página Mis cursos';
+$string['tour_navigation_mycourses_tour_name'] = 'Administración de cursos';
 $string['tour_resetforall'] = 'El estado del tour ha sido reiniciado. Se mostrará nuevamente a todos los usuarios.';
 $string['tourconfig'] = 'Archivo de configuración de tour a importar';
 $string['tourisenabled'] = 'El Tour está habilitado';

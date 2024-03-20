@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_flatfile', language 'nl', version '3.11'.
+ * Strings for component 'enrol_flatfile', language 'nl', version '4.1'.
  *
  * @package     enrol_flatfile
  * @category    string
@@ -34,7 +34,7 @@ $string['flatfile:manage'] = 'Beheer aanmelding van gebruikers manueel';
 $string['flatfile:unenrol'] = 'Gebruikers manueel uit de cursus halen';
 $string['flatfileenrolments'] = 'Aanmeldingen via platte tekst (CSV)';
 $string['flatfilesync'] = 'Synchronisatie aanmelding tekstbestand';
-$string['location'] = 'Bestandslokatie';
+$string['location'] = 'Bestandslocatie';
 $string['location_desc'] = 'Geef het volledige pad voor het aanmeldingsbestand. Dit bestand wordt automatisch verwijderd nadat het verwerkt is.';
 $string['mapping'] = 'Rolkoppeling voor tekstbestand';
 $string['messageprovider:flatfile_enrolment'] = 'Aanmeldingsberichten tekstbestand aanmeldingen';

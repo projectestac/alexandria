@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forumng', language 'ar', version '3.11'.
+ * Strings for component 'forumng', language 'ar', version '4.1'.
  *
  * @package     forumng
  * @category    string
@@ -171,6 +171,7 @@ $string['forumng:startdiscussion'] = 'بدء مناقشات جديدة';
 $string['forumng:viewdiscussion'] = 'معاينة المناقشات';
 $string['forumngdiscusstagfilter'] = 'معاينة مناقشات المنتدى حسب الوسوم';
 $string['forumngdiscusstagfilter_help'] = 'حدد أحد خيارات الوسوم لمعاينة/ترشيح مناقشات المنتدى تبعًا له';
+$string['forumtype_link'] = 'mod/forumng/forumtypes';
 $string['grading_help'] = 'إذا إخترت هذا الخيار، ستضاف درجة تقييم لهذا المنتدى إلى سجل تقديرات المساق وسيتم احتسابها تلقائيًا. أتركه معطلاً ليكون المنتدى بلا تقييم، أو إذا أردت تقييمه يدويًا.
 
 الطرق المتعددة لحساب التقديرات، تشرح نفسها بنفسها؛ في كل حالة، يتم حساب درجة كل طالب بناءً على كل التقييمات التي حصل عليها في كل منشوراته. التقديرات محددة بالمقياس؛ على سبيل المثال، إذا كان المقياس 0-3، وطريقة التقييم معدة بشكل &lsquo;عدد&rsquo;

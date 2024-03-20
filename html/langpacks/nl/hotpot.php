@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'nl', version '3.11'.
+ * Strings for component 'hotpot', language 'nl', version '4.1'.
  *
  * @package     hotpot
  * @category    string
@@ -123,7 +123,7 @@ controle zal worden teruggegeven aan Moodle na het opgegeven aantal seconden.
 Let op, de testresultaten worden altijd onmiddellijk naar Moodle gezonden als de test beëindigd is of wanneer de pagina wordt verlaten, ongeacht deze instelling.';
 $string['delay3afterok'] = 'Wacht tot de leerling op OK klikt';
 $string['delay3disable'] = 'Ga niet automatisch verder.';
-$string['delay3specific'] = 'Gebruik specifieke tijd (in seconden)';
+$string['delay3specific'] = 'Gebruik specifieke vertraging';
 $string['delay3summary'] = 'Wachttijd aan het eind van de test';
 $string['delay3template'] = 'Gebruik instellingen in bron- / sjabloonbestand';
 $string['deleteallattempts'] = 'Verwijder alle pogingen';
@@ -133,7 +133,7 @@ $string['duration'] = 'Duur';
 $string['enablecache'] = 'HotPot cache inschakelen';
 $string['enablecron'] = 'HotPot cron inschakelen';
 $string['enablemymoodle'] = 'Toon HotPots op Mijn Startpagina';
-$string['enableobfuscate'] = 'Verdoezelen van media-playercode inschakelen';
+$string['enableobfuscate'] = 'Verdoezelen van tekst en media-spelers';
 $string['enableswf'] = 'Sta emedden van SWF-bestanden in HotPot-activiteiten toe.';
 $string['entry_attempts'] = 'Pogingen';
 $string['entry_dates'] = 'Data';
@@ -328,6 +328,7 @@ Een HotPot-activiteit kan oefeningen verwerken die gemaakt zijn met volgende sof
 * Xerte
 * iSpring
 * elke HTML-editor';
+$string['modulename_link'] = 'mod/hotpot/view';
 $string['modulenameplural'] = 'HotPots';
 $string['nameadd'] = 'Naam';
 $string['nameedit'] = 'Naam';
@@ -423,8 +424,8 @@ $string['subplugintype_hotpotreport_plural'] = 'Rapporten';
 $string['subplugintype_hotpotsource'] = 'Bronbestand';
 $string['subplugintype_hotpotsource_plural'] = 'Bronbestanden';
 $string['textsourcefile'] = 'Haal uit bronbestand';
-$string['textsourcefilename'] = 'Gebruik bestandsnaam';
-$string['textsourcefilepath'] = 'Gebruik bestandspad';
+$string['textsourcefilename'] = 'Gebruik oorspronkelijke bestandsnaam';
+$string['textsourcefilepath'] = 'Gebruik bronbestandspad';
 $string['textsourcequiz'] = 'Haal uit test';
 $string['textsourcespecific'] = 'Specifieke test';
 $string['timeclose'] = 'Beschikbaar tot';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_upload', language 'ar', version '3.11'.
+ * Strings for component 'repository_upload', language 'ar', version '4.1'.
  *
  * @package     repository_upload
  * @category    string
@@ -33,7 +33,7 @@ $string['upload:view'] = 'استعمال الرفع في منتقي الملفا
 $string['upload_error_cant_write'] = 'فشلت كتابة الملف في القرص.';
 $string['upload_error_extension'] = 'أحد إمتدادات PHP أوقف رفع الملف.';
 $string['upload_error_form_size'] = 'الملف المرفوع يتجاوز موجه MAX_FILE_SIZE الذي تم تحديده في نموذج HTML.';
-$string['upload_error_ini_size'] = 'الملف المرفوع يتجاوز موجه upload_max_filesize في php.ini.';
+$string['upload_error_ini_size'] = 'الملف يتجاوز حجمه الحجم الأقصى المسموح به.';
 $string['upload_error_invalid_file'] = 'إما أن الملف \'{$a}\' فارغ أو هو مجلد. لرفع المجلدات، قم بضغطها بصيغة zip أولاً.';
 $string['upload_error_no_file'] = 'لم يتم رفع أي ملف.';
 $string['upload_error_no_tmp_dir'] = 'PHP ينقصه مجلد مؤقت.';

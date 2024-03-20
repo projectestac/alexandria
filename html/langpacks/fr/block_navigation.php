@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_navigation', language 'fr', version '3.11'.
+ * Strings for component 'block_navigation', language 'fr', version '4.1'.
  *
  * @package     block_navigation
  * @category    string
@@ -28,14 +28,14 @@ defined('MOODLE_INTERNAL') || die();
 $string['courseactivities'] = 'Catégories, cours et activités de cours';
 $string['courses'] = 'Catégories et cours';
 $string['coursestructures'] = 'Catégories, cours et structure des cours';
-$string['enabledockdesc'] = 'Permettre à l\'utilisateur de placer ce bloc dans le dock';
+$string['enabledockdesc'] = 'Permettre à l’utilisateur de placer ce bloc dans le dock';
 $string['everything'] = 'Tout';
 $string['expansionlimit'] = 'Générer la navigation pour ces éléments';
 $string['linkcategoriesdesc'] = 'Afficher les catégories sous forme de liens';
 $string['navigation:addinstance'] = 'Ajouter un bloc navigation';
 $string['navigation:myaddinstance'] = 'Ajouter un bloc navigation au tableau de bord';
 $string['pluginname'] = 'Navigation';
-$string['privacy:metadata'] = 'Le bloc Navigation affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Navigation affiche seulement des données enregistrées à d’autres endroits.';
 $string['trimlength'] = 'Nombre de caractères maximal de nom raccourci';
 $string['trimmode'] = 'Mode de raccourcissement';
 $string['trimmodecenter'] = 'Retirer des caractères au centre';

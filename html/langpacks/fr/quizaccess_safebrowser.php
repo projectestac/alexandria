@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_safebrowser', language 'fr', version '3.11'.
+ * Strings for component 'quizaccess_safebrowser', language 'fr', version '4.1'.
  *
  * @package     quizaccess_safebrowser
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Safe Exam Browser';
-$string['privacy:metadata'] = 'Le plugin de restriction d\'accès au test Safe Exam Browser n\'enregistre aucune donnée personnelle.';
-$string['requiresafeexambrowser'] = 'Nécessite l\'utilisation de « Safe Exam Browser »';
-$string['safebrowsererror'] = 'Ce test a été configuré de façon à n\'être passé qu\'avec le logiciel « Safe Exam Browser ». Vous ne pouvez pas le faire avec votre navigateur actuel.';
-$string['safebrowsernotice'] = 'Ce test a été configuré de façon à ce que les étudiants ne puissent le passer qu\'en utilisant le logiciel « Safe Exam Browser ».';
+$string['privacy:metadata'] = 'Le plugin de restriction d’accès au test Safe Exam Browser n’enregistre aucune donnée personnelle.';
+$string['requiresafeexambrowser'] = 'Nécessite l’utilisation de « Safe Exam Browser »';
+$string['safebrowsererror'] = 'Ce test a été configuré de façon à n’être passé qu’avec le logiciel « Safe Exam Browser ». Vous ne pouvez pas le faire avec votre navigateur actuel.';
+$string['safebrowsernotice'] = 'Ce test a été configuré de façon à ce que les étudiants ne puissent le passer qu’en utilisant le logiciel « Safe Exam Browser ».';

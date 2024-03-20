@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_installaddon', language 'es', version '3.11'.
+ * Strings for component 'tool_installaddon', language 'es', version '4.1'.
  *
  * @package     tool_installaddon
  * @category    string
@@ -26,22 +26,23 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['acknowledgement'] = 'Reconocimiento';
-$string['acknowledgementtext'] = 'Entiendo que es mi responsabilidad disponer de copias de seguridad completas de este sitio antes de instalar módulos externos (ad-ons). Acepto y entiendo que los módulos externos  (especialmente aquellos procedentes de fuentes no oficiales) pueden contener agujeros de seguridad, hacer que el sitio quede fuera de servicio, o provocar fugas de datos privados o la pérdida de los mismos.';
+$string['acknowledgementtext'] = 'Entiendo que es mi responsabilidad disponer de copias de seguridad completas de este sitio antes de instalar módulos externos (ad-ons). Acepto y entiendo que los módulos externos  (especialmente, pero no exclusivamente, aquellos procedentes de fuentes no oficiales) pueden contener agujeros de seguridad, hacer que el sitio quede fuera de servicio, o provocar fugas de datos privados o la pérdida de los mismos.';
 $string['featuredisabled'] = 'El instalador de complementos está deshabilitado en este sitio.';
 $string['installaddon'] = '¡Instalar complemento!';
 $string['installaddons'] = 'Instalar complementos';
 $string['installfromrepo'] = 'Instalar complementos desde el directorio de extensiones de Moodle';
-$string['installfromrepo_help'] = 'Se le redirijirá al directorio de extensiones de Moodle para buscar e instalar el módulo externo, Tenga en cuenta que se enviará también el nombre completo, la URL y la versión de su sitio Moodle, para facilitarle la instalación.';
+$string['installfromrepo_help'] = 'Se le redirijirá al directorio de extensiones de Moodle para buscar e instalar un plugin. Tenga en cuenta que se enviará también el nombre completo, la URL y la versión de su sitio Moodle, para facilitarle la instalación.';
 $string['installfromzip'] = 'Instalar complemento desde un archivo ZIP';
-$string['installfromzip_help'] = 'Una alternativa a la instalación de un módulo externo directamente desde el directorio de extensiones de Moodle es cargar un paquete ZIP con el módulo. El paquete ZIP debe tener la misma estructura que el paquete descargado en el directorio de extensiones de Moodle.';
+$string['installfromzip_help'] = 'Una alternativa a la instalación de un plugin directamente desde el directorio de plugins de Moodle es cargar un paquete ZIP con el plugin. El paquete ZIP debe tener la misma estructura que el paquete descargado en el directorio de plugins de Moodle.';
 $string['installfromzipfile'] = 'Paquete ZIP';
-$string['installfromzipfile_help'] = 'El paquete de extensión ZIP debe contener sólo un directorio, con el mismo nombre que la extensión. El archivo ZIP se desempaquetará en el lugar apropiado según el tipo de extensión. Si el paquete se ha descargado desde el directorio de extensiones de Moodle entonces tendrá esta estructura.';
+$string['installfromzipfile_help'] = 'El paquete de plugin ZIP debe contener sólo un directorio, con el mismo nombre que el plugin. El archivo ZIP se desempaquetará en el lugar apropiado según el tipo de plugin. Si el paquete se ha descargado desde el directorio de plugins de Moodle entonces tendrá esta estructura.';
 $string['installfromzipinvalid'] = 'El paquete ZIP del complemento debe contener solo un directorio, cuyo nombre coincida con el nombre del complemento. El archivo proporcionado no es un paquete ZIP de complemento válido.';
 $string['installfromziprootdir'] = 'Cambie el nombre del directorio raíz';
 $string['installfromziprootdir_help'] = 'Algunos paquetes ZIP, como los generados por Github, pueden contener un nombre de directorio raíz incorrecto. Si es así, el nombre correcto se debe indicar aquí.';
 $string['installfromzipsubmit'] = 'Instalar complemento desde archivo ZIP';
 $string['installfromziptype'] = 'Tipo de extensión';
 $string['installfromziptype_help'] = 'Para los complementos que declaran correctamente el nombre de su componente, el instalador puede detectar el tipo de complemento automáticamente. Si la detección automática falla, elija el tipo correcto de complemento manualmente. Advertencia: El procedimiento de instalación puede fallar gravemente si se especifica un tipo de complemento incorrecto.';
+$string['installfromziptype_link'] = 'Development:Plugins';
 $string['permcheck'] = 'Asegúrese de que los procesos del servidor web pueden escribir en la ubicación raíz de este tipo de extensiones.';
 $string['permcheckerror'] = 'Error al comprobar los permisos de escritura';
 $string['permcheckprogress'] = 'Comprobando los permisos de escritura...';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'accredible', language 'ru', version '3.11'.
+ * Strings for component 'accredible', language 'ru', version '4.1'.
  *
  * @package     accredible
  * @category    string
@@ -47,7 +47,7 @@ $string['dashboardlinktext'] = 'Чтобы удалить или изменит�
 $string['datecreated'] = 'Дата создания';
 $string['description'] = 'Описание';
 $string['eventcertificatecreated'] = 'Сертификат опубликован на сайте Accredible.com';
-$string['gotodashboard'] = 'Чтобы обновить свои значки или сертификаты, посетите: <a href="https://www.accredible.com/issuer/dashboard" target="_blank">https://www.accredible.com/issuer/dashboard</a>';
+$string['gotodashboard'] = 'Чтобы обновить свои значки или сертификаты, посетите: <a href="https://dashboard.accredible.com" target="_blank">https://dashboard.accredible.com</a>';
 $string['gradeissueheader'] = 'Критерий автоматического получения: оценка за итоговый тест';
 $string['groupselect'] = 'Группа';
 $string['id'] = 'Идентификатор';
@@ -58,6 +58,7 @@ $string['modulename'] = 'Сертификат Accredible.com';
 $string['modulename_help'] = 'Модуль элемента курса «Сертификат Accredible.com» позволяет выпускать на сайте accredible.com сертификаты для студентов.
 
 Там, куда Вы добавите элемент курса «Сертификат Accredible.com», Ваши студенты смогут увидеть свои сертификаты.';
+$string['modulename_link'] = 'mod/accredible/view';
 $string['modulenameplural'] = 'Сертификаты Accredible.com';
 $string['nocertificates'] = 'Сертификаты отсутствуют';
 $string['overview'] = 'Обзор';

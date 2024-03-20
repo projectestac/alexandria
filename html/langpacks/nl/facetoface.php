@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'facetoface', language 'nl', version '3.11'.
+ * Strings for component 'facetoface', language 'nl', version '4.1'.
  *
  * @package     facetoface
  * @category    string
@@ -355,10 +355,6 @@ $string['sessionroles'] = 'Sessierollen';
 $string['sessions'] = 'Sessies';
 $string['sessionsoncoursepage'] = 'Sessie getoond op cursuspagina';
 $string['sessionstartdate'] = 'Startdatum sessie';
-$string['sessionstartdateandtime'] = '{$a->startdate}, {$a->starttime} - {$a->endtime} (time zone: {$a->timezone})';
-$string['sessionstartdateandtimewithouttimezone'] = '{$a->startdate}, {$a->starttime} - {$a->endtime}';
-$string['sessionstartfinishdateandtime'] = '{$a->startdate} - {$a->enddate}, {$a->starttime} - {$a->endtime} (time zone: {$a->timezone})';
-$string['sessionstartfinishdateandtimewithouttimezone'] = '{$a->startdate} - {$a->enddate}, {$a->starttime} - {$a->endtime}';
 $string['sessionstarttime'] = 'Begintijd sessie';
 $string['sessionvenue'] = 'Ruimte/lokaal sessie';
 $string['setting:addchangemanageremail'] = 'Vraag gebruikers om het emailadres van de afspraakmanager';

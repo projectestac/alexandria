@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'countries', language 'fr', version '3.11'.
+ * Strings for component 'countries', language 'fr', version '4.1'.
  *
  * @package     countries
  * @category    string
@@ -39,7 +39,7 @@ $string['AS'] = 'Samoas américaines';
 $string['AT'] = 'Autriche';
 $string['AU'] = 'Australie';
 $string['AW'] = 'Aruba';
-$string['AX'] = 'Îles d\'Åland';
+$string['AX'] = 'Îles d’Åland';
 $string['AZ'] = 'Azerbaïdjan';
 $string['BA'] = 'Bosnie-Herzégovine';
 $string['BB'] = 'Barbade';
@@ -68,7 +68,7 @@ $string['CD'] = 'Congo (République Démocratique du)';
 $string['CF'] = 'République centrafricaine';
 $string['CG'] = 'Congo';
 $string['CH'] = 'Suisse';
-$string['CI'] = 'Côte d\'Ivoire';
+$string['CI'] = 'Côte d’Ivoire';
 $string['CK'] = 'Îles Cook';
 $string['CL'] = 'Chili';
 $string['CM'] = 'Cameroun';
@@ -130,7 +130,7 @@ $string['IE'] = 'Irlande';
 $string['IL'] = 'Israël';
 $string['IM'] = 'Île de Man';
 $string['IN'] = 'Inde';
-$string['IO'] = 'Territoire britannique de l\'Océan Indien';
+$string['IO'] = 'Territoire britannique de l’Océan Indien';
 $string['IQ'] = 'Iraq';
 $string['IR'] = 'Iran (République islamique d\')';
 $string['IS'] = 'Islande';
@@ -225,7 +225,7 @@ $string['SE'] = 'Suède';
 $string['SG'] = 'Singapour';
 $string['SH'] = 'Sainte-Hélène, Ascension et Tristan da Cunha';
 $string['SI'] = 'Slovénie';
-$string['SJ'] = 'Svalbard et l\'Île Jan Mayen';
+$string['SJ'] = 'Svalbard et l’Île Jan Mayen';
 $string['SK'] = 'Slovaquie';
 $string['SL'] = 'Sierra Leone';
 $string['SM'] = 'Saint-Marino';

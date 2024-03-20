@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_participation', language 'eu', version '3.11'.
+ * Strings for component 'report_participation', language 'eu', version '4.1'.
  *
  * @package     report_participation
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['eventreportviewed'] = 'Partaidetza-txostena ikusi da';
-$string['nologreaderenabled'] = 'Ez dago agerraldien irakurlerik gaituta';
+$string['nologreaderenabled'] = 'Ez dago agerraldi-irakurlerik gaituta';
 $string['page-report-participation-index'] = 'Ikastaroaren partaidetza-txostena';
 $string['page-report-participation-x'] = 'Edozein partaidetza-txosten';
 $string['participation:view'] = 'Ikusi ikastaroaren partaidetza-txostena';

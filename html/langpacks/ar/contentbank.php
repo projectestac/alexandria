@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'contentbank', language 'ar', version '3.11'.
+ * Strings for component 'contentbank', language 'ar', version '4.1'.
  *
  * @package     contentbank
  * @category    string
@@ -26,10 +26,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['author'] = 'المؤلف';
+$string['choosecontext'] = 'حدد المساق أو التصنيف...';
 $string['close'] = 'إغلاق';
 $string['contentbank'] = 'بنك المحتوى';
 $string['contentbankpreferences'] = 'تفضيلات بنك المحتوى الحالية';
-$string['contentdeleted'] = 'لقد تم حذف المحتوى.';
+$string['contentdeleted'] = 'تم حذف المحتوى.';
 $string['contentname'] = 'اسم المحتوى';
 $string['contentnotdeleted'] = 'حدث خطأ ما عند محاولة حذف المحتوى.';
 $string['contentnotrenamed'] = 'حدث خطأ ما عند محاولة إعادة تسمية المحتوى.';
@@ -37,7 +38,7 @@ $string['contentrenamed'] = 'تمت إعادة تسمية المحتوى.';
 $string['contentsmoved'] = 'محتويات بنك المحتوى تم نقلها إلى {$a}.';
 $string['contenttypenoaccess'] = 'لا يمكنك معاينة هذه العينة من {$a}.';
 $string['contenttypenoedit'] = 'لا يمكنك تعديل هذا المحتوى.';
-$string['contentvisibilitychanged'] = 'لقد تم جعل المحتوى {$a}.';
+$string['contentvisibilitychanged'] = 'المحتوى الآن {$a}.';
 $string['contentvisibilitynotset'] = 'وقع خطأ عند محاولة تعيين حالة إظهار المحتوى.';
 $string['contextnotallowed'] = 'ليس مسموحاً لك بالوصول إلى بنك المحتوى في هذا السياق.';
 $string['deletecontent'] = 'إحذف المحتوى';
@@ -54,10 +55,12 @@ $string['eventcontentreplaced'] = 'محتوى تم استبداله بملف';
 $string['eventcontentupdated'] = 'تم تحديث المحتوى';
 $string['eventcontentuploaded'] = 'تم رفع المحتوى';
 $string['eventcontentviewed'] = 'محتوى تمت معاينته';
+$string['exit'] = 'خروج';
 $string['file'] = 'إرفع المحتوى';
 $string['file_help'] = 'يمكن خزن الملفات في بنك المحتوى لاستعمالها في المقررات الدراسية. يمكن فقط قبول رفع الملفات ذات الأنواع الممكَّنة في الموقع.';
 $string['itemsfound'] = 'يوجد {$a} عنصر/عناصر';
 $string['lastmodified'] = 'آخر تحديث';
+$string['more'] = 'المزيد';
 $string['name'] = 'المحتوى';
 $string['nocontentavailable'] = 'لا محتوى متاح';
 $string['nocontenttypes'] = 'ليس هناك أي نوع محتوى متاح';

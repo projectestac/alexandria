@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_regexpadaptivewithhelp', language 'fr', version '3.11'.
+ * Strings for component 'qbehaviour_regexpadaptivewithhelp', language 'fr', version '4.1'.
  *
  * @package     qbehaviour_regexpadaptivewithhelp
  * @category    string
@@ -34,6 +34,6 @@ $string['buywordorpunctuation'] = 'Acheter un mot ou un signe de ponctuation';
 $string['completedword'] = 'Mot complété : <strong>{$a}</strong>.';
 $string['helppenalty'] = 'Cette aide vous a coûté une pénalité de : <strong>{$a}</strong>.';
 $string['pluginname'] = 'Mode RegExp adaptatif avec aide';
-$string['privacy:metadata'] = 'Le plugin Mode RegExp adaptatif avec aide n\'enregistre aucune donnée personnelle.';
-$string['submittedwithhelp'] = 'Envoyé (avec demande d\'aide) : {$a}';
+$string['privacy:metadata'] = 'Le plugin Mode RegExp adaptatif avec aide n’enregistre aucune donnée personnelle.';
+$string['submittedwithhelp'] = 'Envoyé (avec demande d’aide) : {$a}';
 $string['totalpenalties'] = 'Total actuel des pénalités : <strong>{$a}</strong>.';

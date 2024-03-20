@@ -249,13 +249,13 @@ class com_wiris_util_xml_XmlSerializer {
 		}
 		return $data;
 	}
-	public function textContent($content) {
+	public function textContentImpl($content, $forceCData) {
 		if($this->mode === com_wiris_util_xml_XmlSerializer::$MODE_READ) {
 			$content = com_wiris_util_xml_XmlSerializer::getXmlTextContent($this->element);
 		} else {
 			if($this->mode === com_wiris_util_xml_XmlSerializer::$MODE_WRITE && $content !== null && $this->ignoreTagStackCount === 0) {
 				$textNode = null;
-				if(strlen($content) > 100 || StringTools::startsWith($content, "<") && StringTools::endsWith($content, ">")) {
+				if(strlen($content) > 100 || StringTools::startsWith($content, "<") && StringTools::endsWith($content, ">") || $forceCData) {
 					$k = _hx_index_of($content, "]]>", null);
 					$i = 0;
 					while($k > -1) {
@@ -276,6 +276,9 @@ class com_wiris_util_xml_XmlSerializer {
 			}
 		}
 		return $content;
+	}
+	public function textContent($content) {
+		return $this->textContentImpl($content, false);
 	}
 	public function attributeFloat($name, $value, $def) {
 		return Std::parseFloat($this->attributeString($name, "" . _hx_string_rec($value, ""), "" . _hx_string_rec($def, "")));
@@ -516,12 +519,12 @@ class com_wiris_util_xml_XmlSerializer {
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
 			return call_user_func_array($this->$m, $a);
-		else if(isset($this->»dynamics[$m]) && is_callable($this->»dynamics[$m]))
-			return call_user_func_array($this->»dynamics[$m], $a);
+		else if(isset($this->Â»dynamics[$m]) && is_callable($this->Â»dynamics[$m]))
+			return call_user_func_array($this->Â»dynamics[$m], $a);
 		else if('toString' == $m)
 			return $this->__toString();
 		else
-			throw new HException('Unable to call «'.$m.'»');
+			throw new HException('Unable to call Â«'.$m.'Â»');
 	}
 	static $MODE_READ = 0;
 	static $MODE_WRITE = 1;

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_behat', language 'es', version '3.11'.
+ * Strings for component 'tool_behat', language 'es', version '4.1'.
  *
  * @package     tool_behat
  * @category    string
@@ -27,14 +27,13 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['aim'] = 'Esta herramienta de administración permite a los desarrolladores y creadores de pruebas generar archivos .feature que describen las funcionalidades de Moodle y se ejecutan automáticamente. Las etapas definidas disponibles para su uso en los archivos .feature se enumeran a continuación.';
 $string['allavailablesteps'] = 'Todas las definiciones de etapas disponibles';
-$string['errorapproot'] = '$CFG->behat_ionic_dirroot no hace referencia a una instalación válida de desarrollador de la aplicación Moodle.';
 $string['errorbehatcommand'] = 'Error durante la ejecución del comando behat en CLI. Ejecute manualmente "{$a} --help" desde la línea de comando para saber más acerca de este error.';
 $string['errorcomposer'] = 'Las dependencias necesarias no están instaladas.';
 $string['errordataroot'] = 'La configuración $CFG->behat_dataroot no existe o es inválida.';
 $string['errorsetconfig'] = '$CFG->behat_dataroot, $CFG->behat_prefix y $CFG->behat_wwwroot deben ser agregadas en el fichero config.php.';
-$string['erroruniqueconfig'] = 'Los valores de $CFG->behat_dataroot, $CFG->behat_prefix y $CFG->behat_wwwroot deben ser diferentes de los valores $CFG->dataroot, $CFG->prefix, $CFG->wwwroot, $CFG->phpunit_dataroot y $CFG->phpunit_prefix.';
+$string['erroruniqueconfig'] = 'Los valores $CFG->behat_dataroot, $CFG->behat_prefix y $CFG->behat_wwwroot deben ser diferentes de $CFG->dataroot, $CFG->prefix, $CFG->wwwroot, $CFG->phpunit_dataroot y valores $CFG->phpunit_prefix.<br/>O, si $CFG->behat_prefix es igual, $CFG->behat_dbname o $CFG->behat_dbhost tiene que ser distinto de $CFG->phpunit_dbname and $CFG->phpunit_dbhost y de $CFG->dbname y $CFG->dbhost.';
 $string['fieldvalueargument'] = 'Parámetros de valor del campo';
-$string['fieldvalueargument_help'] = 'Este parámetro debe ser completado con un valor del campo, existen varios tipos de campos, simples como casillas de verificación, áreas de texto o complejos como selector de fechas. Consultar <a href="http://docs.moodle.org/dev/Acceptance_testing#Providing_values_to_steps" target="_blank">Valores del campo</a> para saber el valor esperado dependiendo del tipo de campo.';
+$string['fieldvalueargument_help'] = 'Este argumento debe ser completado con un valor del campo. Existen varios tipos de campos, simples como casillas de verificación, áreas de texto o complejos como selector de fechas. Consulte <a href="https://moodledev.io/general/development/tools/behat" target="_blank">Prueba de aceptación</a> para conocer en detalle los valores de campo esperados.';
 $string['giveninfo'] = 'Dado. Proceso para preparar el entorno';
 $string['infoheading'] = 'Información';
 $string['installinfo'] = 'Lea {$a} para obtener información acerca de la instalación y la ejecución de pruebas';

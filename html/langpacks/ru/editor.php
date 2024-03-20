@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor', language 'ru', version '3.11'.
+ * Strings for component 'editor', language 'ru', version '4.1'.
  *
  * @package     editor
  * @category    string
@@ -48,7 +48,7 @@ $string['chooseicon'] = 'Выбрать иконку для вставки';
 $string['close'] = 'Закрыть';
 $string['closeafterreplace'] = 'Закрыть после замены';
 $string['cols'] = 'Столбцы';
-$string['configeditorplugins'] = 'Пожалуйста, выберите текстовые плагины, которые вы хотите использовать, и расположите их в порядке приоритета.';
+$string['configeditorplugins'] = 'Выберите текстовые редакторы, которые вы хотите использовать, и расположите их в порядке приоритета.';
 $string['copy'] = 'Копировать выделение';
 $string['createanchor'] = 'Создать закладку';
 $string['createfolder'] = 'Создать папку';
@@ -58,6 +58,7 @@ $string['cutpastemozilla'] = 'К сожалению, Вы не можете ис
 $string['delete'] = 'Удалить';
 $string['editors'] = 'Текстовые редакторы';
 $string['editorsettings'] = 'Управление редакторами';
+$string['editorxformat'] = 'Формат {$a}';
 $string['enterurlfirst'] = 'Нужно сначала ввести адрес';
 $string['filebrowser'] = 'Список файлов';
 $string['findwhat'] = 'Найти';

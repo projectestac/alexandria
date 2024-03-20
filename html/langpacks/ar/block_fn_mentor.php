@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_fn_mentor', language 'ar', version '3.11'.
+ * Strings for component 'block_fn_mentor', language 'ar', version '4.1'.
  *
  * @package     block_fn_mentor
  * @category    string
@@ -27,12 +27,12 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['add_all'] = 'إضافة الكل';
 $string['all'] = 'الكل';
-$string['all_courses'] = 'كل المساقات';
+$string['all_courses'] = 'كل المقررات';
 $string['all_mentees'] = 'كل التلاميذ';
 $string['all_mentors'] = 'كل المرشدين';
 $string['all_students'] = 'كل الطلاب';
 $string['allcategories'] = 'كل التصنيفات';
-$string['allcourses'] = 'كل المساقات';
+$string['allcourses'] = 'كل المقررات';
 $string['allgroups'] = 'كل المجموعات';
 $string['allstudents'] = 'كل الطلاب';
 $string['blockinfo'] = 'معلومات الكتلة';
@@ -42,7 +42,7 @@ $string['firstname'] = 'الاسم الأول';
 $string['fn_mentor:viewblock'] = 'معاينة الكتلة';
 $string['idnumber'] = 'رقم المُعرَّف';
 $string['linktomentorpage'] = 'رابط التقرير عبر الإنترنت: <a href="{$a}">{$a}</a>';
-$string['markinmanagerscoursecatsdesc'] = 'حدد تصنيفات المساقات التي ستتم معالجتها من قبل كتلة مدير المرشدين في صفحة واجهة مودل وفي لوحة التحكم.';
+$string['markinmanagerscoursecatsdesc'] = 'حدد تصنيفات المقررات الدراسية التي ستتم معالجتها من قبل كتلة مدير المرشدين في صفحة واجهة مودل وفي لوحة التحكم.';
 $string['mentee_without_course'] = 'إظهار التلاميذ الذين بلا مقررات دراسية';
 $string['mentees_without_groups'] = 'التلاميذ الذين بلا مجموعات';
 $string['mentees_without_mentor'] = 'التلاميذ الذين بلا مرشد';

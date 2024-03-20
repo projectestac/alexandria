@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'englishcentral', language 'en', version '3.11'.
+ * Strings for component 'englishcentral', language 'en', version '4.1'.
  *
  * @package     englishcentral
  * @category    string
@@ -51,6 +51,8 @@ $string['attemptdetailsheader'] = '{$a->name} attempt details for {$a->username}
 $string['attemptsmanager'] = 'Attempts Manager';
 $string['badcount'] = 'Bad Count';
 $string['beginner'] = 'Beginner';
+$string['chatmode'] = 'Enable Chat Mode';
+$string['chatmode_details'] = 'If enabled on your account, chat mode will become available in the EnglishCentral player.';
 $string['completed'] = 'Completed';
 $string['completiondetail:goals'] = 'Complete the watch,learn and speak goals';
 $string['completiondetail:mingrade'] = 'Minimum grade: {$a}';
@@ -228,6 +230,11 @@ $string['privacy:metadata:watchcomplete'] = 'The percentage of the watch session
 $string['privacy:metadata:watchcount'] = 'The watch session items watched';
 $string['privacy:metadata:watchlineids'] = 'The watch session item line ids';
 $string['privacy:metadata:watchtotal'] = 'The watch session total items';
+$string['progressdials'] = 'Progress Dials Location';
+$string['progressdials_bottom'] = 'Bottom (Below player)';
+$string['progressdials_details'] = '';
+$string['progressdials_top'] = 'Top (above player)';
+$string['progressupdated'] = 'Progress Updated Event';
 $string['readonlymode'] = 'Read-only mode';
 $string['readonlymode_desc'] = 'This activity is currently in read-only mode. You can view the information on the first page of this EnglishCentral activity, but you cannot view any of the videos.';
 $string['reattempt'] = 'Try Again';
@@ -303,6 +310,7 @@ $string['username'] = 'Username';
 $string['value'] = 'Value';
 $string['videoclose'] = 'Videos viewable until';
 $string['videoclose_help'] = 'Students can view and interact with videos until this date and time. After this date, students cannot view the videos, but they can still view their results.';
+$string['videodetails'] = 'EnglishCentral video details';
 $string['videoid'] = 'Video ID';
 $string['videoopen'] = 'Videos viewable from';
 $string['videoopen_help'] = 'Students can view and interact with videos starting from this date and time. Before this date, the videos will not be viewable.';

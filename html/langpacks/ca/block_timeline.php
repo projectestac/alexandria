@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_timeline', language 'ca', version '3.11'.
+ * Strings for component 'block_timeline', language 'ca', version '4.1'.
  *
  * @package     block_timeline
  * @category    string
@@ -26,15 +26,31 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['all'] = 'Tots';
+$string['ariadayfilter'] = 'Filtra la cronologia per data';
+$string['ariadayfilteroption'] = 'Filtra per {$a}';
+$string['ariaeventlistitem'] = 'L\'activitat {$a->name} a {$a->course} vencerà el {$a->date}';
+$string['ariaeventlistpagelimit'] = 'Mostra {$a} activitats per pàgina';
+$string['ariaeventlistpaginationnavcourses'] = 'Activitats de la cronologia per a la paginació del curs {$a}';
+$string['ariaeventlistpaginationnavdates'] = 'Paginació de les activitats de la cronologia';
+$string['ariaviewselector'] = 'Ordena la cronologia';
+$string['ariaviewselectoroption'] = 'Ordenat per {$a}';
 $string['duedate'] = 'Data de venciment';
+$string['moreactivities'] = 'Mostra més activitats';
+$string['morecourses'] = 'Mostra més cursos';
 $string['next30days'] = 'Propers 30 dies';
 $string['next3months'] = 'Propers 3 mesos';
 $string['next6months'] = 'Propers 6 mesos';
 $string['next7days'] = 'Propers 7 dies';
 $string['nocoursesinprogress'] = 'No hi ha cursos en marxa';
-$string['noevents'] = 'No hi ha cap activitat propera prevista';
+$string['noevents'] = 'No hi ha cap activitat que requereixi una acció';
 $string['overdue'] = 'Vençuda';
 $string['pluginname'] = 'Cronologia';
+$string['privacy:metadata:timelinefilterpreference'] = 'La preferència d\'usuari del filtre de dia al bloc de la cronologia.';
+$string['privacy:metadata:timelinelimitpreference'] = 'La preferència d\'usuari del límit de pàgina al bloc de la cronologia.';
+$string['privacy:metadata:timelinesortpreference'] = 'La preferència d\'usuari d\'ordenació al bloc de la cronologia.';
+$string['searchevents'] = 'Cerca per tipus d\'activitat o nom';
 $string['sortbycourses'] = 'Ordena per cursos';
 $string['sortbydates'] = 'Ordena per data';
+$string['timeline'] = 'Cronologia';
+$string['timeline:myaddinstance'] = 'Afegeix un bloc nou de cronologia al tauler';
 $string['viewcourse'] = 'Visualitza el curs';

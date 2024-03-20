@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'langconfig', language 'zh_cn', version '3.11'.
+ * Strings for component 'langconfig', language 'zh_cn', version '4.1'.
  *
  * @package     langconfig
  * @category    string
@@ -32,7 +32,7 @@ $string['backupnameformat'] = '%Y%m%d-%H%M';
 $string['dateintervaldayshoursmins'] = '%ad %hh %im';
 $string['decsep'] = '.';
 $string['firstdayofweek'] = '1';
-$string['iso6391'] = 'cn';
+$string['iso6391'] = 'zh';
 $string['iso6392'] = 'chn';
 $string['labelsep'] = '：';
 $string['listsep'] = '，';

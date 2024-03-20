@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_recentlyaccesseditems', language 'fr', version '3.11'.
+ * Strings for component 'block_recentlyaccesseditems', language 'fr', version '4.1'.
  *
  * @package     block_recentlyaccesseditems
  * @category    string
@@ -25,12 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['noitems'] = 'Pas d\'élément récent';
+$string['moreitems'] = 'Montrer plus d’éléments';
+$string['noitems'] = 'Pas d’élément récent';
 $string['pluginname'] = 'Éléments consultés récemment';
-$string['privacy:metadata:block_recentlyaccesseditemstablesummary'] = 'Le bloc Éléments consultés récemment enregistre des informations sur les éléments consultés récemment par l\'utilisateur';
-$string['privacy:metadata:cmid'] = 'L\'identifiant de l\'activité ou de la ressource';
-$string['privacy:metadata:courseid'] = 'Le cours auquel appartient l\'élément';
-$string['privacy:metadata:timeaccess'] = 'La date et l\'heure de la dernière consultation de l\'élément par l\'utilisateur';
-$string['privacy:metadata:userid'] = 'L\'identifiant de l\'utilisateur qui a consulté l\'élément';
+$string['privacy:metadata:block_recentlyaccesseditemstablesummary'] = 'Le bloc Éléments consultés récemment enregistre des informations sur les éléments consultés récemment par l’utilisateur';
+$string['privacy:metadata:cmid'] = 'L’identifiant de l’activité ou de la ressource';
+$string['privacy:metadata:courseid'] = 'Le cours auquel appartient l’élément';
+$string['privacy:metadata:timeaccess'] = 'La date et l’heure de la dernière consultation de l’élément par l’utilisateur';
+$string['privacy:metadata:userid'] = 'L’identifiant de l’utilisateur qui a consulté l’élément';
 $string['privacy:recentlyaccesseditemspath'] = 'Éléments consultés récemment';
 $string['recentlyaccesseditems:myaddinstance'] = 'Ajouter au tableau de bord un bloc éléments consultés récemment';

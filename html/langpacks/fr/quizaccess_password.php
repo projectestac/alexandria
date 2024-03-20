@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quizaccess_password', language 'fr', version '3.11'.
+ * Strings for component 'quizaccess_password', language 'fr', version '4.1'.
  *
  * @package     quizaccess_password
  * @category    string
@@ -25,8 +25,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['passworderror'] = 'La clef n\'est pas correcte';
+$string['passworderror'] = 'La clef n’est pas correcte';
 $string['pluginname'] = 'Restriction par mot de passe';
-$string['privacy:metadata'] = 'Le plugin de restriction d\'accès au test Restriction par mot de passe n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de restriction d’accès au test Restriction par mot de passe n’enregistre aucune donnée personnelle.';
 $string['quizpassword'] = 'Mot de passe du test';
-$string['requirepasswordmessage'] = 'Vous devez connaître la clef du test pour pouvoir l\'effectuer';
+$string['requirepasswordmessage'] = 'Vous devez connaître la clef du test pour pouvoir l’effectuer';

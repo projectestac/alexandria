@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'profilefield_text', language 'fr', version '3.11'.
+ * Strings for component 'profilefield_text', language 'fr', version '4.1'.
  *
  * @package     profilefield_text
  * @category    string
@@ -28,6 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Saisie de texte';
 $string['privacy:metadata:profilefield_text:data'] = 'Données du champ de profil utilisateur Saisie de texte';
 $string['privacy:metadata:profilefield_text:dataformat'] = 'Le format des données du champ de profil utilisateur Saisie de texte';
-$string['privacy:metadata:profilefield_text:fieldid'] = 'L\'identifiant du champ de profil';
+$string['privacy:metadata:profilefield_text:fieldid'] = 'L’identifiant du champ de profil';
 $string['privacy:metadata:profilefield_text:tableexplanation'] = 'Informations de profil additionnelles';
-$string['privacy:metadata:profilefield_text:userid'] = 'L\'identifiant de l\'utilisateur dont les données sont enregistrées par le champ de profil Saisie de texte';
+$string['privacy:metadata:profilefield_text:userid'] = 'L’identifiant de l’utilisateur dont les données sont enregistrées par le champ de profil Saisie de texte';

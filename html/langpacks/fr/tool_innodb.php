@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_innodb', language 'fr', version '3.11'.
+ * Strings for component 'tool_innodb', language 'fr', version '4.1'.
  *
  * @package     tool_innodb
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Convertisseur vers InnoDB';
-$string['privacy:metadata'] = 'Le plugin Convertisseur vers InnoDB n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Convertisseur vers InnoDB n’enregistre aucune donnée personnelle.';

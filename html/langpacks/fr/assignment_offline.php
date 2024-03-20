@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignment_offline', language 'fr', version '3.11'.
+ * Strings for component 'assignment_offline', language 'fr', version '4.1'.
  *
  * @package     assignment_offline
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Hors ligne';
-$string['privacy:metadata'] = 'Le plugin Devoir hors ligne n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Devoir hors ligne n’enregistre aucune donnée personnelle.';

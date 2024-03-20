@@ -87,6 +87,7 @@ class behat_partial_named_selector extends \Behat\Mink\Selector\PartialNamedSele
     protected static $allowedselectors = array(
         'activity' => 'activity',
         'actionmenu' => 'actionmenu',
+        'badge' => 'badge',
         'block' => 'block',
         'button' => 'button',
         'checkbox' => 'checkbox',
@@ -103,11 +104,13 @@ class behat_partial_named_selector extends \Behat\Mink\Selector\PartialNamedSele
         'group_message_tab' => 'group_message_tab',
         'group_message_list_area' => 'group_message_list_area',
         'group_message_message_content' => 'group_message_message_content',
+        'heading' => 'heading',
         'icon_container' => 'icon_container',
         'icon' => 'icon',
         'link' => 'link',
         'link_or_button' => 'link_or_button',
         'list_item' => 'list_item',
+        'menuitem' => 'menuitem',
         'optgroup' => 'optgroup',
         'option' => 'option',
         'question' => 'question',
@@ -148,6 +151,9 @@ XPATH
         (contains(normalize-space(.), %locator%) or descendant::*[%titleMatch%])
     ]
 ]
+XPATH
+        , 'badge' => <<<XPATH
+.//span[(contains(@class, 'badge')) and text()[contains(., %locator%)]]
 XPATH
         , 'block' => <<<XPATH
 .//*[@data-block][contains(concat(' ', normalize-space(@class), ' '), concat(' ', %locator%, ' ')) or
@@ -201,6 +207,9 @@ XPATH
     , 'group_message_message_content' => <<<XPATH
         .//*[@data-region='message-drawer']//*[@data-region='message' and @data-message-id and contains(., %locator%)]
 XPATH
+    , 'heading' => <<<XPATH
+        .//*[self::h1 or self::h2 or self::h3 or self::h4 or self::h5 or self::h6][contains(normalize-space(.), %locator%)]
+XPATH
     , 'icon_container' => <<<XPATH
         .//span[contains(@data-region, concat(%locator%,'-icon-container'))]
 XPATH
@@ -209,6 +218,9 @@ XPATH
 XPATH
         , 'list_item' => <<<XPATH
 .//li[contains(normalize-space(.), %locator%) and not(.//li[contains(normalize-space(.), %locator%)])]
+XPATH
+        , 'menuitem' => <<<XPATH
+.//*[@role='menuitem'][%titleMatch% or %ariaLabelMatch% or text()[contains(., %locator%)]]
 XPATH
         , 'question' => <<<XPATH
 .//div[contains(concat(' ', normalize-space(@class), ' '), ' que ')]
@@ -283,6 +295,11 @@ XPATH
             'date_time' => <<<XPATH
 .//fieldset[(%idMatch% or ./legend[%exactTagTextMatch%]) and (@data-fieldtype='date' or @data-fieldtype='date_time')]
 XPATH
+        ,
+            'select_menu' => <<<XPATH
+//*[@role='combobox'][@aria-labelledby = //label[contains(normalize-space(string(.)), %locator%)]/@id]
+XPATH
+        ,
         ],
     ];
 

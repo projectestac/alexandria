@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_statistics', language 'ja', version '3.11'.
+ * Strings for component 'quiz_statistics', language 'ja', version '4.1'.
  *
  * @package     quiz_statistics
  * @category    string
@@ -65,6 +65,9 @@ $string['firstattempts'] = '最初の受験';
 $string['firstattemptsavg'] = '最初の受験評点の平均値';
 $string['firstattemptscount'] = '評定済み受験数 (評定済み)';
 $string['frequency'] = '頻度';
+$string['getstatslockprogress'] = '進行中のタスク処理を待っています。しばらくお待ちいただくか、後ほど再度お試しください。';
+$string['getstatslocktimeout'] = '統計計算ロックタイムアウト';
+$string['getstatslocktimeoutdesc'] = '小テストの統計計算を実行する場合、何秒間ロックを待ちますか。この設定は主にテストのために存在します。あなたが何をしているか理解できない限り、変更しないでください。';
 $string['highestattempts'] = '最高評点の受験';
 $string['highestattemptsavg'] = '受験の最高評点の平均点';
 $string['intended_weight'] = '意図された加重';
@@ -85,6 +88,7 @@ $string['negcovar_help'] = '小テストの一連の受験に関するこの問�
 
 あなたが問題を編集してこれらの問題に最大評点ゼロの負の共分散を与えた場合、これらの問題の有効問題加重はゼロになります。そして、他の問題の実有効問題加重は直ちに計算されます。';
 $string['nogradedattempts'] = 'この小テストでは受験されたものがありません。またはすべての受験を手動評定する必要があります。';
+$string['nostats'] = '統計計算を完了できませんでした。長時間実行中の計算が存在する可能性があります。後ほど再度お試しください。';
 $string['nostudentsingroup'] = 'このグループにはまだ学生が登録されていません。';
 $string['optiongrade'] = '部分点';
 $string['partofquestion'] = '問題の一部';
@@ -101,12 +105,12 @@ $string['questiontype'] = '問題タイプ';
 $string['quizinformation'] = '小テスト情報';
 $string['quizname'] = '小テスト名';
 $string['quizoverallstatistics'] = '小テスト全体の統計';
-$string['quizstatisticscleanuptask'] = '古い小テスト統計キャッシュレコードを削除する';
 $string['quizstructureanalysis'] = '問題構造分析';
 $string['random_guess_score'] = '当てずっぽうの評点';
 $string['rangebetween'] = '{$a->min} − {$a->max}';
 $string['rangeofvalues'] = '問題の統計範囲';
 $string['recalculatenow'] = '再計算する';
+$string['recalculatetask'] = '問題統計を再計算する';
 $string['reportsettings'] = '統計計算設定';
 $string['response'] = '解答';
 $string['skewness'] = '評点分布の歪み ({$a})';

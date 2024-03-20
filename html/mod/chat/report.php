@@ -42,20 +42,19 @@ if ($confirmdelete !== 0) {
 $PAGE->set_url($url);
 
 if (! $cm = get_coursemodule_from_id('chat', $id)) {
-    print_error('invalidcoursemodule');
+    throw new \moodle_exception('invalidcoursemodule');
 }
 if (! $chat = $DB->get_record('chat', array('id' => $cm->instance))) {
-    print_error('invalidcoursemodule');
+    throw new \moodle_exception('invalidcoursemodule');
 }
 if (! $course = $DB->get_record('course', array('id' => $chat->course))) {
-    print_error('coursemisconf');
+    throw new \moodle_exception('coursemisconf');
 }
 
+require_login($course, false, $cm);
 $context = context_module::instance($cm->id);
 $PAGE->set_context($context);
 $PAGE->set_heading($course->fullname);
-
-require_login($course, false, $cm);
 
 if (empty($chat->studentlogs) && !has_capability('mod/chat:readlog', $context)) {
     notice(get_string('nopermissiontoseethechatlog', 'chat'));
@@ -84,13 +83,17 @@ $navlinks = array();
 $canexportsess = has_capability('mod/chat:exportsession', $context);
 $canviewfullnames = has_capability('moodle/site:viewfullnames', $context);
 
+$PAGE->activityheader->set_attrs([
+    'title' => '',
+    'description' => '',
+    'hidecompletion' => true,
+    'hideoverflow' => true,
+]);
 // Print a session if one has been specified.
 
 if ($start and $end and !$confirmdelete) {   // Show a full transcript.
     $PAGE->navbar->add($strchatreport);
-    $PAGE->set_title(format_string($chat->name).": $strchatreport");
     echo $OUTPUT->header();
-    echo $OUTPUT->heading(format_string($chat->name), 2);
 
     // Check to see if groups are being used here.
     $groupmode = groups_get_activity_groupmode($cm);
@@ -147,10 +150,10 @@ if ($start and $end and !$confirmdelete) {   // Show a full transcript.
 
 // Print the Sessions display.
 $PAGE->navbar->add($strchatreport);
-$PAGE->set_title(format_string($chat->name).": $strchatreport");
+$PAGE->set_title($strchatreport);
 echo $OUTPUT->header();
 
-echo $OUTPUT->heading(format_string($chat->name).': '.get_string('sessions', 'chat'), 2);
+echo $OUTPUT->heading(get_string('sessions', 'chat'), 2);
 
 // Check to see if groups are being used here
 if ($groupmode = groups_get_activity_groupmode($cm)) {   // Groups are being used.

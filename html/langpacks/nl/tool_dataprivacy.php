@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_dataprivacy', language 'nl', version '3.11'.
+ * Strings for component 'tool_dataprivacy', language 'nl', version '4.1'.
  *
  * @package     tool_dataprivacy
  * @category    string
@@ -171,7 +171,7 @@ $string['explanationtitle'] = 'Gebruikte icoontjes op deze pagina en wat ze bete
 $string['external'] = 'Bijkomend';
 $string['externalexplanation'] = 'Een bijkomende plugin die op deze site geïnstalleerd is.';
 $string['filteroption'] = '{$a->category}: {$a->name}';
-$string['frontpagecourse'] = 'Startpaginacursus';
+$string['frontpagecourse'] = 'Site startpaginacursus';
 $string['gdpr_art_6_1_a_description'] = 'De betrokkene heeft toestemming gegeven voor de verwerking van zijn persoonsgegevens voor een of meer specifieke doeleinden';
 $string['gdpr_art_6_1_a_name'] = 'Toestemming  (AVG Art. 6.1(a))';
 $string['gdpr_art_6_1_b_description'] = 'De verwerking is noodzakelijk voor de uitvoering van een overeenkomst waarbij de betrokkene partij is, of om op verzoek van de betrokkene vóór de sluiting van een overeenkomst maatregelen te nemen';
@@ -208,7 +208,7 @@ $string['hide'] = 'Alles samenklappen';
 $string['httpwarning'] = 'Gegevens die gedownload worden van deze site zijn mogelijk niet geëncrypteerd. Contacteer je systeembeheerder en vraag om SSL te installeren op deze site.';
 $string['inherit'] = 'Overerven';
 $string['lawfulbases'] = 'Wettelijke basis';
-$string['lawfulbases_help'] = 'Selecteer minstens één optie die als wettelijke basis dient voor het verwerken van persoonlijke gegevens. Voor details over deze wettelijke basis, zie <a href="https://www.privacy-regulation.eu/nl/artikel-6-rechtmatigheid-van-de-verwerking-EU-AVG.htm" target=_blank">AVG Art. 6.1</a>';
+$string['lawfulbases_help'] = 'Selecteer minstens één optie die als wettelijke basis dient voor het verwerken van persoonlijke gegevens. Voor details over deze wettelijke basis, zie <a href="https://www.privacy-regulation.eu/nl/artikel-6-rechtmatigheid-van-de-verwerking-EU-AVG.htm" target="_blank">AVG Art. 6.1</a>';
 $string['markcomplete'] = 'Markeer als voltooid';
 $string['markedcomplete'] = 'Uw aanvraag is door de privacy officer als voltooid gemarkeerd.';
 $string['message'] = 'Bericht';
@@ -244,6 +244,8 @@ $string['pluginregistrytitle'] = 'Plugin privacy-register compliance';
 $string['privacy'] = 'Privacy';
 $string['privacy:metadata:preference:tool_dataprivacy_request-filters'] = 'De filters die toegepast zijn op de pagina met gegevensaanvragen.';
 $string['privacy:metadata:preference:tool_dataprivacy_request-perpage'] = 'Het aantal gegevensverzoeken dat de gebruiker het liefst op één pagina ziet';
+$string['privacy:metadata:purpose'] = 'Informatie uit gegevensdoeleinden gemaakt voor deze site.';
+$string['privacy:metadata:purpose:usermodified'] = 'De ID van de gebruiker die het doel heeft gewijzigd';
 $string['privacy:metadata:request'] = 'Informatie van verzoeken om persoonlijke gegevens (toegang tot het onderwerp en verwijderingsverzoeken) gedaan voor deze website.';
 $string['privacy:metadata:request:comments'] = 'Eventuele opmerkingen van gebruikers bij het verzoek.';
 $string['privacy:metadata:request:dpocomment'] = 'Eventuele opmerkingen van de functionaris voor gegevensbescherming van deze website met betrekking tot het verzoek.';

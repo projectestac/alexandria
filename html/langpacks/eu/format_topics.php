@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'eu', version '3.11'.
+ * Strings for component 'format_topics', language 'eu', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -25,12 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addsections'] = 'Gehitu gaiak';
+$string['addsections'] = 'Gehitu gaia';
 $string['currentsection'] = 'Gai hau';
 $string['deletesection'] = 'Ezabatu gaia';
 $string['editsection'] = 'Editatu gaia';
 $string['editsectionname'] = 'Editatu gaiaren izena';
 $string['hidefromothers'] = 'Ezkutatu gaia';
+$string['indentation'] = 'Baimendu koskatzea ikastaro-orrian';
+$string['indentation_help'] = 'Baimendu irakasleek eta jarduerak kudeatzeko baimenak dituzten bestelako erabiltzaileek elementuak ikastaro-orrian koskatzea.';
 $string['newsectionname'] = 'izen berria {$a} gairako';
 $string['page-course-view-topics'] = 'Gai-formatuko edozein ikastaroko hasiera-orria';
 $string['page-course-view-topics-x'] = 'Gai-formatuko edozein ikastaro-orri';

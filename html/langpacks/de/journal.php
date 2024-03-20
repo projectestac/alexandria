@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'journal', language 'de', version '3.11'.
+ * Strings for component 'journal', language 'de', version '4.1'.
  *
  * @package     journal
  * @category    string
@@ -74,6 +74,7 @@ $string['lastnamedesc'] = 'Nachname absteigend';
 $string['mailsubject'] = 'Feedback zum Journal';
 $string['modulename'] = 'Journal';
 $string['modulename_help'] = '<p>Die Aktivität Journal ermöglicht es, von Teilnehmer/innen eine Rückmeldung zu einem bestimmten Thema zu erhalten, die ausschließlich die schreibende Person selbst und die Trainer/innen lesen können.</p><p>Anwendungsbeispiele sind u.a.<ul><li>Tagebücher zum Projektverlauf</li><li>Rechenschaftsberichte</li></ul></p>';
+$string['modulename_link'] = 'mod/journal/view';
 $string['modulenameplural'] = 'Journale';
 $string['needsregrade'] = 'Eintrag wurde verändert, seit dem das letzte Feedback gespeichert wurde.';
 $string['newjournalentries'] = 'Neue Journaleinträge';
@@ -91,6 +92,7 @@ $string['privacy:metadata:journal_entries'] = 'Datensatz zum Journaleintrag';
 $string['privacy:metadata:journal_entries:entrycomment'] = 'Empfangener Kommentar von Nutzer/in zum Journal';
 $string['privacy:metadata:journal_entries:modified'] = 'Startzeit der Journaleinträge';
 $string['privacy:metadata:journal_entries:rating'] = 'Empfangene Wertung von Nutzer/in zum Journal';
+$string['privacy:metadata:journal_entries:teacher'] = 'Trainer/in hat ein Feedback für Nutzer/in zum Journal gegeben';
 $string['privacy:metadata:journal_entries:text'] = 'Text von Nutzer/in geschrieben';
 $string['privacy:metadata:journal_entries:userid'] = 'Nutzer-ID';
 $string['rate'] = 'Bewertung';

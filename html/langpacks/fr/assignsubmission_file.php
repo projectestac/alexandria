@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_file', language 'fr', version '3.11'.
+ * Strings for component 'assignsubmission_file', language 'fr', version '4.1'.
  *
  * @package     assignsubmission_file
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['acceptedfiletypes'] = 'Types de fichiers acceptés';
-$string['acceptedfiletypes_help'] = 'Les types de fichier acceptés peuvent être restreints en saisissant une liste d\'extensions de fichiers. Si le champ est laissé vide, tous les types de fichier seront acceptés.';
+$string['acceptedfiletypes_help'] = 'Les types de fichier acceptés peuvent être restreints en saisissant une liste d’extensions de fichiers. Si le champ est laissé vide, tous les types de fichier seront acceptés.';
 $string['configmaxbytes'] = 'Taille maximale des fichiers';
 $string['countfiles'] = '{$a} fichiers';
 $string['default'] = 'Activé par défaut';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_site_main_menu', language 'fr', version '3.11'.
+ * Strings for component 'block_site_main_menu', language 'fr', version '4.1'.
  *
  * @package     block_site_main_menu
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Menu principal';
-$string['privacy:metadata'] = 'Le bloc Menu principal affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Menu principal affiche seulement des données enregistrées à d’autres endroits.';
 $string['site_main_menu:addinstance'] = 'Ajouter un bloc menu principal';

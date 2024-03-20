@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpotreport_scores', language 'fr', version '3.11'.
+ * Strings for component 'hotpotreport_scores', language 'fr', version '4.1'.
  *
  * @package     hotpotreport_scores
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Rapport des scores';
-$string['privacy:metadata'] = 'Le plugin Rapport des scores n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Rapport des scores n’enregistre aucune donnée personnelle.';

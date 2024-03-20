@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_arlo', language 'it', version '3.11'.
+ * Strings for component 'enrol_arlo', language 'it', version '4.1'.
  *
  * @package     enrol_arlo
  * @category    string
@@ -26,11 +26,23 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['allowhiddencourses'] = 'Consenti corsi nascosti';
+$string['allowportalintegration_text'] = 'Consenti l\'integrazione con il portale Arlo.';
+$string['apistatusok'] = 'OK, l\'ultima richiesta è stata {$a}';
+$string['apistatusservererror'] = 'Servizio attualmente non disponibile';
+$string['arlocoursecode'] = 'Codice corso Arlo';
+$string['assignrole'] = 'Assegna ruolo';
+$string['associateduser'] = 'Utente associato';
+$string['changessaved'] = 'Modifiche salvate';
 $string['communications'] = 'Comunicazioni';
 $string['completed'] = 'Completato';
 $string['configuration'] = 'Configurazione';
 $string['creategroup'] = 'Crea nuovo gruppo';
+$string['customwelcomemessage'] = 'Messaggio di benvenuto personalizzato';
+$string['defaultrole'] = 'Ruolo predefinito';
+$string['delivered'] = 'Consegnato';
 $string['disabled'] = 'Disabilitato';
 $string['email'] = 'Email';
+$string['enrolment'] = 'Iscrizione';
+$string['enrolperiod'] = 'Durata iscrizione';
 $string['errorselectevent'] = 'Devi selezionare un evento';
 $string['locktimeout'] = 'Si è verificato un time out durante l\'attesa del lock';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_table', language 'ar', version '3.11'.
+ * Strings for component 'atto_table', language 'ar', version '4.1'.
  *
  * @package     atto_table
  * @category    string
@@ -32,7 +32,7 @@ $string['allowbackgroundcolour'] = 'السماح بلون الخلفية';
 $string['allowborder'] = 'السماح بتنميط الإطار';
 $string['allowborder_desc'] = 'عند تمكينه، سيكون بالإمكان تخصيص الجدول وحدود الخلايا.';
 $string['allowwidth'] = 'إسمح بالعُرض';
-$string['appearance'] = 'المظهر';
+$string['appearance'] = 'القالب';
 $string['backgroundcolour'] = 'لون الخلفية';
 $string['bordercolour'] = 'لون الحدود';
 $string['borders'] = 'الحدود';

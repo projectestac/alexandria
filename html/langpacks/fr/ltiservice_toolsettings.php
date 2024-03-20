@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'ltiservice_toolsettings', language 'fr', version '3.11'.
+ * Strings for component 'ltiservice_toolsettings', language 'fr', version '4.1'.
  *
  * @package     ltiservice_toolsettings
  * @category    string
@@ -26,8 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['allow'] = 'Utiliser ce service';
-$string['ltiservice_toolsettings'] = 'Réglages de l\'outil';
-$string['ltiservice_toolsettings_help'] = 'Permettre à l\'outil d\'enregistrer et de récupérer des valeurs de réglage.';
+$string['ltiservice_toolsettings'] = 'Réglages de l’outil';
+$string['ltiservice_toolsettings_help'] = 'Permettre à l’outil d’enregistrer et de récupérer des valeurs de réglage.';
 $string['notallow'] = 'Ne pas utiliser ce service';
-$string['pluginname'] = 'Service de réglages d\'outil';
-$string['privacy:metadata'] = 'Le plugin Service de réglages d\'outil n\'enregistre aucune donnée personnelle.';
+$string['pluginname'] = 'Service de réglages d’outil';
+$string['privacy:metadata'] = 'Le plugin Service de réglages d’outil n’enregistre aucune donnée personnelle.';

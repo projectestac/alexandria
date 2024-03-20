@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_xp', language 'en', version '3.11'.
+ * Strings for component 'availability_xp', language 'en', version '4.1'.
  *
  * @package     availability_xp
  * @category    string
@@ -37,6 +37,6 @@ $string['levelnrequiredtoaccess'] = 'You are level {$a} or greater.';
 $string['levelnumber'] = 'Level number';
 $string['opequalto'] = 'Strictly equal to';
 $string['opgreaterorequalto'] = 'Greater or equal to';
-$string['pluginname'] = 'Level availability';
+$string['pluginname'] = 'Level Up XP Availability';
 $string['privacy:metadata'] = 'The plugin does not store any personal data.';
 $string['title'] = 'Level';

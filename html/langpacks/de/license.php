@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'license', language 'de', version '3.11'.
+ * Strings for component 'license', language 'de', version '4.1'.
  *
  * @package     license
  * @category    string
@@ -27,14 +27,20 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['allrightsreserved'] = 'Alle Rechte vorbehalten';
 $string['cannotdeletecore'] = 'Eine Standardlizenz kann nicht gelöscht werden.';
-$string['cannotdeletelicenseinuse'] = 'Eine Lizenz, die derzeit einer oder mehreren Dateien zugewiesen ist, kann nicht gelöscht werden.';
-$string['cc'] = 'CC - Creative Commons';
-$string['cc-nc'] = 'CC - nicht kommerziell';
-$string['cc-nc-nd'] = 'CC - nicht kommerziell - keine Bearbeitung';
-$string['cc-nc-sa'] = 'CC - nicht kommerziell - gleiche Weitergabe';
-$string['cc-nd'] = 'CC - keine Bearbeitung';
-$string['cc-sa'] = 'CC - gleiche Weitergabe';
-$string['licensenotfoundshortname'] = 'Es kann keine Lizenz mit dem Kurznamen \'{$a}\' gefunden werden.';
+$string['cannotdeletelicenseinuse'] = 'Eine Lizenz kann nicht gelöscht werden, wenn sie einer oder mehreren Dateien zugewiesen ist.';
+$string['cc'] = 'CC - Creative Commons - 3.0 International';
+$string['cc-4.0'] = 'Creative Commons - 4.0 International';
+$string['cc-nc'] = 'Creative Commons - nicht kommerziell 3.0 International';
+$string['cc-nc-4.0'] = 'Creative Commons - nicht kommerziell 4.0 International';
+$string['cc-nc-nd'] = 'Creative Commons - nicht kommerziell - keine Bearbeitung  3.0 International';
+$string['cc-nc-nd-4.0'] = 'Creative Commons - nicht kommerziell - keine Bearbeitung  4.0 International';
+$string['cc-nc-sa'] = 'Creative Commons - nicht kommerziell - gleiche Weitergabe 3.0 International';
+$string['cc-nc-sa-4.0'] = 'Creative Commons - nicht kommerziell - gleiche Weitergabe 4.0 International';
+$string['cc-nd'] = 'Creative Commons - keine Bearbeitung 3.0 International';
+$string['cc-nd-4.0'] = 'Creative Commons - keine Bearbeitung 4.0 International';
+$string['cc-sa'] = 'Creative Commons - gleiche Weitergabe 3.0 International';
+$string['cc-sa-4.0'] = 'Creative Commons - gleiche Weitergabe 4.0 International';
+$string['licensenotfoundshortname'] = 'Eine Lizenz mit dem Kurznamen \'{$a}\' kann nicht gefunden werden.';
 $string['missinglicensesortorder'] = 'Lizenzreihenfolge kann nicht festgelegt werden. Eine oder mehrere installierte Lizenzen fehlen in der neuen Liste.';
 $string['public'] = 'Public Domain';
 $string['unknown'] = 'Lizenz nicht angegeben';

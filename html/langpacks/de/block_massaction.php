@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_massaction', language 'de', version '3.11'.
+ * Strings for component 'block_massaction', language 'de', version '4.1'.
  *
  * @package     block_massaction
  * @category    string
@@ -25,16 +25,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['action_contentchangednotification'] = 'Änderungsbenachrichtigung senden';
 $string['action_delete'] = 'Löschen';
 $string['action_duplicate'] = 'Duplizieren';
 $string['action_duplicatetocourse'] = 'Duplizieren in anderen Kurs';
 $string['action_duplicatetosection'] = 'Nach Abschnitt duplizieren';
 $string['action_hide'] = 'Verbergen';
+$string['action_hidedescription'] = 'Beschreibung im Kurs verbergen';
 $string['action_makeavailable'] = 'Verfügbar machen';
 $string['action_moveleft'] = 'Nach links verschieben';
 $string['action_moveright'] = 'Nach rechts verschieben';
 $string['action_movetosection'] = 'In Abschnitt verschieben';
 $string['action_show'] = 'Anzeigen';
+$string['action_showdescription'] = 'Beschreibung im Kurs anzeigen';
 $string['actionexecuted'] = 'Die angeforderte Stapeloperation wurde ausgeführt.';
 $string['applicablecourseformats'] = 'Verwendbare Kursformate';
 $string['applicablecourseformats_description'] = 'Der Block Stapeloperationen steht nur für die ausgewählten Kursformate zur Verfügung.<br />Die vorausgewählten Kursformate sind diejenigen, die offiziell vom Plugin-Maintainer unterstützt werden. Aktivieren des Blocks Stapeloperationen für weitere Kursformate geschieht auf eigene Gefahr.';
@@ -50,15 +53,34 @@ $string['confirmsectionselect'] = 'Abschnitt wählen';
 $string['deletecheck'] = 'Löschen mehrerer Aktivitäten bestätigen';
 $string['deletecheckconfirm'] = 'Möchten Sie die folgenden Aktivitäten wirklich löschen?';
 $string['deselectall'] = 'Alles abwählen';
+$string['duplicatefailed'] = 'Konnte Aktivität id {$a} nicht duplizieren';
 $string['duplicatemaxactivities'] = 'Maximale Anzahl von Aktivitäten zum Duplizieren';
 $string['duplicatemaxactivities_description'] = 'Die maximale Anzahl an Aktivitäten, die im Stapeloperationen-Block direkt ohne Hintergrund-Task dupliziert werden. Wenn auf "0" gesetzt, wird der Duplizierungsvorgang immer als Hintergrund-Task ausgeführt.';
+$string['enablebulkediting'] = 'Massenbearbeitungsmodus aktivieren';
+$string['event:course_modules_duplicated'] = 'Aktivität wurden dupliziert';
+$string['event:course_modules_duplicated_failed'] = 'Aktivität konnten nicht dupliziert werden';
+$string['event:duplicated_completed_list'] = 'Abgeschlossen {$a->list}.';
+$string['event:duplicated_description'] = 'cmid von \'{$a->src}\' zu \'{$a->dst}\'';
+$string['event:duplicated_failed_description'] = 'Duplizieren der Aktivität fehlgeschlagen: {$a->cmid} error: {$a->error}';
+$string['event:duplicated_failed_list'] = 'Fehlgeschlagen {$a->list}.';
+$string['event:duplicated_summary'] = 'Die Duplizierung der Aktivität ist abgeschlossen. Zusammenfassung: {$a->countcomplete} Abgeschlossen, {$a->countfailed} Gescheitert.';
 $string['invalidaction'] = 'Unbekannte Aktion: {$a}';
 $string['invalidcourseid'] = 'Ungültige Kurs-ID';
 $string['invalidcoursemodule'] = 'Ungültiges Kursmodul';
 $string['invalidmoduleid'] = 'Ungültige Modul-ID: {$a}';
 $string['jsonerror'] = 'Programmierfehler: Ungültiges JSON-format.';
 $string['keepsectionnum'] = 'Ursprünglichen Abschnitt beibehalten';
+$string['limittoenrolled'] = 'Liste der Zielkurse auf Kurse beschränken, in denen eine Person eingeschrieben ist';
+$string['limittoenrolled_description'] = 'Wenn diese Option aktiviert ist, wird das Kursauswahlelement des Features "In anderen Kurs duplizieren" auf Kurse beschränkt, in denen die jeweilige Person eingeschrieben ist. Es wird empfohlen, diese Option vor allem für große Instanzen mit vielen Kursen zu aktivieren, um Performance-Probleme und Timeouts zu vermeiden. Das Deaktivieren geschieht auf eigene Gefahr.';
+$string['massaction:activityshowhide'] = 'Alle Aktivitäten ein-/ausblenden';
 $string['massaction:addinstance'] = 'Stapeloperationen-Block hinzufügen';
+$string['massaction:delete'] = 'Alle Aktivitäten löschen';
+$string['massaction:descriptionshowhide'] = 'Alle Beschreibungen ein-/ausblenden';
+$string['massaction:duplicate'] = 'Alle Aktivitäten duplizieren';
+$string['massaction:duplicatetocourse'] = 'Alle Aktivitäten in einen anderen Kurs kopieren';
+$string['massaction:indent'] = 'Alle Aktivitäten einrücken';
+$string['massaction:movetosection'] = 'Alle Aktivitäten in einen anderen Abschnitt verschieben';
+$string['massaction:sendcontentchangednotifications'] = 'Änderungsbenachrichtigungen senden';
 $string['massaction:use'] = 'Benutzung des Stapeloperationen-Blocks';
 $string['modulename'] = 'Aktivitätsname';
 $string['moduletype'] = 'Aktivitätstyp';
@@ -74,6 +96,7 @@ $string['notargetcourseidspecified'] = 'Es wurde keine Kurs-ID angegeben.';
 $string['pluginname'] = 'Stapeloperationen';
 $string['privacy:metadata'] = 'Dieser Block ermöglicht es lediglich, Standardaktionen für mehrere Aktivitäten gleichzeitig durchzuführen. Von diesem Block werden keinerlei Daten gespeichert.';
 $string['sectionnotexist'] = 'Zielabschnitt existiert nicht';
+$string['sectionrestricted'] = 'Quellenbereich ist eingeschränkt';
 $string['sectionselect'] = 'Abschnittsauswahl';
 $string['sectionselect_help'] = 'Sie können nur Abschnitte auswählen, die Aktivitäten enthalten.
 Im Kachel- und Ein-Themen-Format können Sie außerdem nur die Abschnitte auswählen, die aktuell zu sehen sind.';

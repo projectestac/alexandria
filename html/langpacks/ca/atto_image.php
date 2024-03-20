@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_image', language 'ca', version '3.11'.
+ * Strings for component 'atto_image', language 'ca', version '4.1'.
  *
  * @package     atto_image
  * @category    string
@@ -32,7 +32,7 @@ $string['alignment_middle'] = 'Mig';
 $string['alignment_right'] = 'Dreta';
 $string['alignment_top'] = 'Superior';
 $string['browserepositories'] = 'Navega pels repositoris ...';
-$string['constrain'] = 'Mida automàtica';
+$string['constrain'] = 'Conserva les proporcions';
 $string['createimage'] = 'Insereix imatge';
 $string['customstyle'] = 'Estil personalitzat';
 $string['enteralt'] = 'Descriu aquesta imatge per a algú que no la pot veure';

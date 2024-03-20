@@ -44,14 +44,14 @@ $PAGE->set_url($url);
 if (empty($cfgscorm->allowaicchacp)) {
     require_login();
     if (!confirm_sesskey($sessionid)) {
-        print_error('invalidsesskey');
+        throw new \moodle_exception('invalidsesskey');
     }
     $aiccuser = $USER;
     $scormsession = $SESSION->scorm;
 } else {
     $scormsession = scorm_aicc_confirm_hacp_session($sessionid);
     if (empty($scormsession)) {
-        print_error('invalidhacpsession', 'scorm');
+        throw new \moodle_exception('invalidhacpsession', 'scorm');
     }
     $aiccuser = $DB->get_record('user', array('id' => $scormsession->userid), 'id,username,lastname,firstname', MUST_EXIST);
 }
@@ -62,7 +62,7 @@ if (!empty($command)) {
     if (isset($scormsession->scoid)) {
         $scoid = $scormsession->scoid;
     } else {
-        print_error('cannotcallscript');
+        throw new \moodle_exception('cannotcallscript');
     }
     $mode = 'normal';
     if (isset($scormsession->scormmode)) {
@@ -80,10 +80,10 @@ if (!empty($command)) {
 
     if ($sco = scorm_get_sco($scoid, SCO_ONLY)) {
         if (!$scorm = $DB->get_record('scorm', array('id' => $sco->scorm))) {
-            print_error('cannotcallscript');
+            throw new \moodle_exception('cannotcallscript');
         }
     } else {
-        print_error('cannotcallscript');
+        throw new \moodle_exception('cannotcallscript');
     }
     $aiccrequest = "MOODLE scoid: $scoid"
                  . "\r\nMOODLE mode: $mode"
@@ -192,7 +192,7 @@ if (!empty($command)) {
                         echo 'Max_Time_Allowed='.$userdata->max_time_allowed."\r\n";
                         echo 'Time_Limit_Action='.$userdata->time_limit_action."\r\n";
                     } else {
-                        print_error('cannotfindsco', 'scorm');
+                        throw new \moodle_exception('cannotfindsco', 'scorm');
                     }
                 }
             break;
@@ -217,8 +217,28 @@ if (!empty($command)) {
                         $datamodel['[comments]'] = 'cmi.comments';
                         $datarows = explode("\r\n", $aiccdata);
                         reset($datarows);
-                        foreach ($datarows as $datarow) {
-                            if (($equal = strpos($datarow, '=')) !== false) {
+                        $multirowvalue = '';
+                        $multirowelement = '';
+                        foreach ($datarows as $did => $datarow) {
+                            $equal = strpos($datarow, '=');
+                            if ($equal === false || !empty($multirowelement)) {
+                                if (empty($multirowelement)) {
+                                    if (isset($datamodel[strtolower(trim($datarow))])) {
+                                        $multirowelement = $datamodel[strtolower(trim($datarow))];
+                                    } else {
+                                        // An element was passed by the external AICC package is not one we care about.
+                                        continue;
+                                    }
+                                }
+                                $multirowvalue .= $datarow."\r\n";
+                                if (isset($datarows[$did + 1]) && substr($datarows[$did + 1], 0, 1) != '[') {
+                                    // This is a multiline row, we haven't found the end yet.
+                                    continue;
+                                }
+                                $value = rawurlencode($multirowvalue);
+                                $id = scorm_insert_track($aiccuser->id, $scorm->id, $sco->id, $attempt, $multirowelement, $value);
+                                $multirowvalue = $multirowelement = '';
+                            } else {
                                 $element = strtolower(trim(substr($datarow, 0, $equal)));
                                 $value = trim(substr($datarow, $equal + 1));
                                 if (isset($datamodel[$element])) {
@@ -301,17 +321,6 @@ if (!empty($command)) {
                                              $scormsession->sessiontime = $value;
                                         break;
                                     }
-                                }
-                            } else {
-                                if (isset($datamodel[strtolower(trim($datarow))])) {
-                                    $element = $datamodel[strtolower(trim($datarow))];
-                                    $value = '';
-                                    while ((($datarow = current($datarows)) !== false) && (substr($datarow, 0, 1) != '[')) {
-                                        $value .= $datarow."\r\n";
-                                        next($datarows);
-                                    }
-                                    $value = rawurlencode($value);
-                                    $id = scorm_insert_track($aiccuser->id, $scorm->id, $sco->id, $attempt, $element, $value);
                                 }
                             }
                         }

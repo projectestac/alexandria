@@ -78,6 +78,43 @@ class qtype_multianswer_question extends question_graded_automatically_with_coun
         }
     }
 
+    public function validate_can_regrade_with_other_version(question_definition $otherversion): ?string {
+        $basemessage = parent::validate_can_regrade_with_other_version($otherversion);
+        if ($basemessage) {
+            return $basemessage;
+        }
+
+        if (count($this->subquestions) != count($otherversion->subquestions)) {
+            return get_string('regradeissuenumsubquestionschanged', 'qtype_multianswer');
+        }
+
+        foreach ($this->subquestions as $i => $subq) {
+            $subqmessage = $subq->validate_can_regrade_with_other_version($otherversion->subquestions[$i]);
+            if ($subqmessage) {
+                return $subqmessage;
+            }
+        }
+
+        return null;
+    }
+
+    public function update_attempt_state_data_for_new_version(
+            question_attempt_step $oldstep, question_definition $oldquestion) {
+        parent::update_attempt_state_data_for_new_version($oldstep, $oldquestion);
+
+        $result = [];
+        foreach ($this->subquestions as $i => $subq) {
+            $substep = $this->get_substep($oldstep, $i);
+            $statedata = $subq->update_attempt_state_data_for_new_version(
+                    $substep, $oldquestion->subquestions[$i]);
+            foreach ($statedata as $name => $value) {
+                $result[$substep->add_prefix($name)] = $value;
+            }
+        }
+
+        return $result;
+    }
+
     public function get_question_summary() {
         $summary = $this->html_to_text($this->questiontext, $this->questiontextformat);
         foreach ($this->subquestions as $i => $subq) {
@@ -110,6 +147,9 @@ class qtype_multianswer_question extends question_graded_automatically_with_coun
             $fractionmax += $subq->defaultmark;
             $fractionsum += $subq->defaultmark * $subq->get_min_fraction();
         }
+        if (empty($fractionsum)) {
+            return 0;
+        }
         return $fractionsum / (!empty($this->subquestions) ? $fractionmax : 1);
     }
 
@@ -119,6 +159,9 @@ class qtype_multianswer_question extends question_graded_automatically_with_coun
         foreach ($this->subquestions as $i => $subq) {
             $fractionmax += $subq->defaultmark;
             $fractionsum += $subq->defaultmark * $subq->get_max_fraction();
+        }
+        if (empty($fractionsum)) {
+            return 1;
         }
         return $fractionsum / (!empty($this->subquestions) ? $fractionmax : 1);
     }
@@ -261,6 +304,9 @@ class qtype_multianswer_question extends question_graded_automatically_with_coun
                 $fractionsum += $subfraction * $subq->defaultmark;
                 $overallstate = $this->combine_states($overallstate, $newstate);
             }
+        }
+        if (empty($fractionmax)) {
+            return array(null, $overallstate ?? question_state::$finished);
         }
         return array($fractionsum / $fractionmax, $overallstate);
     }

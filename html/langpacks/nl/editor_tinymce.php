@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_tinymce', language 'nl', version '3.11'.
+ * Strings for component 'editor_tinymce', language 'nl', version '4.1'.
  *
  * @package     editor_tinymce
  * @category    string
@@ -337,7 +337,7 @@ $string['common:invalid_data_number'] = '{# Field} moet een getal zijn';
 $string['common:invalid_data_size'] = '{# Field} moet een percentage zijn';
 $string['common:more_colors'] = 'Meer kleuren...';
 $string['common:not_set'] = '- Standaard -';
-$string['common:popup_blocked'] = 'U zult uw pop-up-blocker tijdelijk moeten uitschakelen voor deze website om gebruik te kunnen maken van alle functies van deze teksteditor.';
+$string['common:popup_blocked'] = 'Je zult je pop-up-blocker tijdelijk moeten uitschakelen voor deze website om gebruik te kunnen maken van alle functies van deze teksteditor.';
 $string['common:update'] = 'Bijwerken';
 $string['common:value'] = '(waarde)';
 $string['contextmenu:align'] = 'Uitlijning';
@@ -600,7 +600,7 @@ $string['paste:selectall_desc'] = 'Alles selecteren';
 $string['paste_dlg:text_linebreaks'] = 'Regelafbreking bewaren';
 $string['paste_dlg:text_title'] = 'Gebruik Ctrl+v op je toetsenbord om tekst in het venster te plakken.';
 $string['paste_dlg:word_title'] = 'Gebruik Ctrl+v op je toetsenbord om tekst in het venster te plakken.';
-$string['pluginname'] = 'TinyMCE HTML-editor';
+$string['pluginname'] = 'TinyMCE HTML-editor (verouderd)';
 $string['preview:preview_desc'] = 'Voorbeeld';
 $string['print:print_desc'] = 'Afdrukken';
 $string['privacy:metadata'] = 'DeTinyMCE HTML-editor-plugin bewaart geen persoonlijke gegevens.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lti', language 'ca', version '3.11'.
+ * Strings for component 'lti', language 'ca', version '4.1'.
  *
  * @package     lti
  * @category    string
@@ -132,6 +132,7 @@ $string['donot'] = 'No ho enviïs';
 $string['donotaccept'] = 'No ho acceptis';
 $string['donotallow'] = 'No ho permetis';
 $string['duplicateregurl'] = 'Aquest URL per al registre ja està en ús';
+$string['dynreg_update_version'] = 'Versió de LTI';
 $string['editdescription'] = 'Feu clic aquí per donar una descripció a aquesta eina';
 $string['edittype'] = 'Edita l\'eina preconfigurada';
 $string['embed'] = 'Incrustada';
@@ -187,6 +188,8 @@ $string['icon_url'] = 'URL de l\'icona';
 $string['icon_url_help'] = 'L\'URL de la icona permet a la icona mostrar la llista del curs per a aquesta activitat per a ser modificat. En lloc d\'utilitzar la icona per defecte, es mostrarà una icona que transporta el tipus d\'activitat.';
 $string['id'] = 'id';
 $string['indicator:cognitivedepthdef_help'] = 'El participant ha assolit aquest percentatge de la implicació cognitiva oferta per les activitats LTI en el decurs d\'aquest interval d\'anàlisi (Nivells = No visualització, Visualització, Enviament, Visualització de retroalimentacions)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['invalidid'] = 'La identificació de LTI és incorrecta';
 $string['launch_in_moodle'] = 'Llança l\'eina a Moodle';
 $string['launch_in_popup'] = 'Llança una eina emergent';
@@ -232,6 +235,7 @@ $string['lti_tool_request_added'] = 'La petició de configuració de l\'eina s\'
 $string['lti_tool_request_existing'] = 'S\'ha enviat una configuració d\'eina per al domini de l\'eina.';
 $string['ltisettings'] = 'Paràmetres LTI';
 $string['ltiunknownserviceapicall'] = 'Crida API a servei de LTI desconegut';
+$string['ltiversion'] = 'Versió de LTI';
 $string['main_admin'] = 'Ajuda general';
 $string['main_admin_help'] = 'Les eines externes permeten als usuaris de Moodle interaccionar de forma fluida amb recursos d\'aprenentatge allotjats de manera remota. Mitjançant un protocol de llançament especial, l\'eina remota té accés a informació general sobre l\'usuari que l\'executa; per exemple, el nom de la institució, l\'ID del curs, l\'ID de l\'usuari, i altres informacions com el nom de l\'usuari o l\'adreça de correu electrònic.
 
@@ -261,6 +265,7 @@ Les eines externes diferiran en els recursos URL en alguns aspectes:
 * **Integració avançada** — Les eines externes permeten llegir, actualitzar i suprimir qualificacions associades amb l\'activitat de què es tracti. Es planegen més punts d\'integració en versions futures.
 
 * **Seguretat** — Les configuracions de les eines externes creen relacions de confiança entre Moodle i  l\'eina; permeten una comunicació segura entre aquests.';
+$string['modulename_link'] = 'mod/lti/view';
 $string['modulenameplural'] = 'Eines externes';
 $string['modulenamepluralformatted'] = 'Instàncies';
 $string['name'] = 'Nom';
@@ -284,10 +289,6 @@ $string['noviewusers'] = 'No s\'han trobat usuaris amb permís per utilitzar aqu
 $string['optionalsettings'] = 'Paràmetres opcionals';
 $string['organization'] = 'Detalls de l\'organització';
 $string['organizationdescr'] = 'Descripció de l\'organització';
-$string['organizationid'] = 'ID de l\'organització';
-$string['organizationid_help'] = 'Un únic identificador per a aquesta instància de Moodle. De forma típica s\'utilitza el nom de DNS de l\'organització.
-
-Si deixeu aquest camp en blanc s\'utilitzarà el nom del servidor del vostre lloc Moodle per defecte.';
 $string['organizationurl'] = 'URL de l\'organització';
 $string['organizationurl_help'] = 'L\'URL base per a aquesta instància de Moodle.
 

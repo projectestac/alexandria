@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'studentquiz', language 'de', version '3.11'.
+ * Strings for component 'studentquiz', language 'de', version '4.1'.
  *
  * @package     studentquiz
  * @category    string
@@ -70,6 +70,18 @@ $string['commentcolumnexplainprivate'] = 'Anzahl an privaten Kommentaren. Ein bl
 $string['commentcolumnexplainpublic'] = 'Anzahl an öffentlichen Kommentaren. Ein blauer Hintergrund bedeutet, dass Sie mindest einen ungelesenen Kommentar haben.';
 $string['commenthistory'] = 'Kommentarverlauf';
 $string['commentplural'] = 'Kommentare';
+$string['completiondetail:approved'] = 'Mindestanzahl an eindeutigen freigegebenen Fragen: {$a}';
+$string['completiondetail:point'] = 'Mindestpunkte: {$a}';
+$string['completiondetail:published'] = 'Mindestanzahl an eindeutigen verfassten Fragen: {$a}';
+$string['completionpoint'] = 'Mindestpunkte notwendig:';
+$string['completionpointgroup'] = 'Punkte notwendig';
+$string['completionpointgroup_help'] = 'Teilnehmer/innen können die in der Rangliste eingestellten Punkte sammeln, z.B. 10 Punkte für das Verfassen einer Frage, 5 Punkte für die Freigabe einer Frage durch den/die Trainer/in, 3 Punkte für das Bewerten einer Frage eines anderen Teilnehmers/einer anderen Teilnehmerin. Wird eine Zahl in diesem Feld eingetragen, können Teilnehmer/innen die Aktivität StudentQuiz nur abschließen, wenn sie genügend Punkte gesammelt haben.';
+$string['completionquestionapproved'] = 'Mindestanzahl an eindeutigen freigegebenen Fragen notwendig:';
+$string['completionquestionapprovedgroup'] = 'Verfasste freigegebene Fragen notwendig';
+$string['completionquestionapprovedgroup_help'] = 'Die Mindestanzahl an eindeutigen Fragen, die ein/e Teilnehmer/in verfassen und freigegeben werden muss bevor diese Aktivität abgeschlossen werden kann. Diese Option kann entweder mit der Einstellung "Freigabe vor Veröffentlichung notwendig" oder "Automatische Freigabe" verwendet werden. Die Automatische Freigabe ist jedoch weniger effektiv, im Fall dass die automatisch freigegebene Frage später verborgen, gelöscht oder entfernt wird.';
+$string['completionquestionpublished'] = 'Mindestanzahl an eindeutig verfassten Fragen notwendig:';
+$string['completionquestionpublishedgroup'] = 'Veröffentlichte Frage notwendig';
+$string['completionquestionpublishedgroup_help'] = 'Die Mindestanzahl an eindeutigen Fragen, die ein/e Teilnehmer/in verfassen muss, bevor diese Aktivität abgeschlossen werden kann. Dies ist eine einfache numerische Überprüfung - zwie Fragen, die verborgen/gelöscht wurden, wurden dennoch verfasst.';
 $string['confirmdeletecomment'] = 'Soll der Kommentar wirklich gelöscht werden?';
 $string['createnewquestion'] = 'Neue Frage erstellen';
 $string['createnewquestionfirst'] = 'Erste Frage erstellen';
@@ -217,6 +229,7 @@ $string['missingparam'] = 'Ein Parameter fehlt oder ist falsch';
 $string['moderator'] = 'Moderator/in';
 $string['modulename'] = 'StudentQuiz';
 $string['modulename_help'] = 'Die StudentQuiz-Aktivität ermöglicht es Teilnehmer/innen, Fragen zum Pool hinzuzufügen. In der StudentQuiz-Übersicht können die Teilnehmer/innen Fragen filtern. Sie können die gefilterten Fragen anschließend zum Üben benutzen. Trainer/innen haben die Option die Spalte "erstellt von" zu anonymisieren.<br><br>Die StudentQuiz-Aktivität vergibt Teilnehmer/innen Punkte, um sie zu motivieren, Fragen hinzuzufügen und damit zu üben. Die Punkte werden in einer Rangliste aufgelistet.';
+$string['modulename_link'] = 'mod/studentquiz/view';
 $string['modulenameplural'] = 'StudentQuizzes';
 $string['more'] = 'Mehr';
 $string['myattempts_column_name'] = 'Meine Versuche';
@@ -270,8 +283,8 @@ $string['privacy:metadata:studentquiz_comment:deleteuserid'] = 'Nutzer-ID im Kom
 $string['privacy:metadata:studentquiz_comment:edited'] = 'Zeitstempel im Kommentar geändert.';
 $string['privacy:metadata:studentquiz_comment:edituserid'] = 'Nutzer-ID im Kommentar geändert.';
 $string['privacy:metadata:studentquiz_comment:parentid'] = 'ID des übergeordneten Kommentars. 0: Kommentar auf höchster Ebene.';
-$string['privacy:metadata:studentquiz_comment:questionid'] = 'ID der Frage';
 $string['privacy:metadata:studentquiz_comment:status'] = 'Status des Kommentars';
+$string['privacy:metadata:studentquiz_comment:studentquizquestionid'] = 'ID der Studentquiz-Frage';
 $string['privacy:metadata:studentquiz_comment:timemodified'] = 'Änderungszeit des Kommentars';
 $string['privacy:metadata:studentquiz_comment:type'] = 'Art des Kommentars';
 $string['privacy:metadata:studentquiz_comment:userid'] = 'Nutzer-ID';
@@ -294,21 +307,21 @@ $string['privacy:metadata:studentquiz_progress:correctattempts'] = 'Anzahl richt
 $string['privacy:metadata:studentquiz_progress:lastanswercorrect'] = '0: Die zuletzt gegebene Anwort war falsch oder nicht definiert. 1: Die zuletzt gegebene Antwort war richtig';
 $string['privacy:metadata:studentquiz_progress:lastreadprivatecomment'] = 'Letzter Zeitpunkt, an welchem die Person den privaten Kommentar gelesen hat';
 $string['privacy:metadata:studentquiz_progress:lastreadpubliccomment'] = 'Letzter Zeitpunkt, an welchem die Person den öffentlichen Kommentar gelesen hat';
-$string['privacy:metadata:studentquiz_progress:questionid'] = 'ID der Frage';
 $string['privacy:metadata:studentquiz_progress:studentquizid'] = 'ID des StudentQuiz';
+$string['privacy:metadata:studentquiz_progress:studentquizquestionid'] = 'ID der Studentquiz-Frage';
 $string['privacy:metadata:studentquiz_progress:userid'] = 'Nutzer-ID';
 $string['privacy:metadata:studentquiz_question'] = 'Fragenbezogene Eigenschaften speichern';
 $string['privacy:metadata:studentquiz_question:groupid'] = 'ID der Gruppe, zu welcher die Frage gehört';
 $string['privacy:metadata:studentquiz_question:hidden'] = 'Eigenschaft, ob eine Frage verborgen ist oder nicht';
 $string['privacy:metadata:studentquiz_question:pinned'] = 'Eigenschaft, ob eine Frage angeheftet ist oder nicht';
-$string['privacy:metadata:studentquiz_question:questionid'] = 'ID der Frage';
 $string['privacy:metadata:studentquiz_question:state'] = 'Eigenschaft, ob eine Frage bestätigt, nicht bestätigt, neu oder geändert ist';
+$string['privacy:metadata:studentquiz_question:studentquizid'] = 'ID des Studentquiz';
 $string['privacy:metadata:studentquiz_rate'] = 'Bewertungen zu Fragen speichern';
-$string['privacy:metadata:studentquiz_rate:questionid'] = 'ID der Frage';
 $string['privacy:metadata:studentquiz_rate:rate'] = 'Bewertung der Frage';
+$string['privacy:metadata:studentquiz_rate:studentquizquestionid'] = 'ID der Studentquiz-Frage';
 $string['privacy:metadata:studentquiz_rate:userid'] = 'Nutzer-ID';
-$string['privacy:metadata:studentquiz_state_history:questionid'] = 'ID der Frage.';
 $string['privacy:metadata:studentquiz_state_history:state'] = 'Eigenschaft, ob eine Frage bestätigt, nicht bestätigt, neu oder geändert ist';
+$string['privacy:metadata:studentquiz_state_history:studentquizquestionid'] = 'ID der Studentquiz-Frage';
 $string['privacy:metadata:studentquiz_state_history:timecreated'] = 'Erstellt am-Aktion';
 $string['privacy:metadata:studentquiz_state_history:userid'] = 'Nutzer-ID';
 $string['private'] = 'Privat';
@@ -532,6 +545,7 @@ $string['state_hiddenplural'] = 'Ausgeblendet';
 $string['state_new'] = 'Neu';
 $string['state_newplural'] = 'Neu';
 $string['state_pinned'] = 'Angeheftet';
+$string['state_pinnedlowercase'] = 'angeheftet';
 $string['state_pinnedplural'] = 'Angeheftet';
 $string['state_reviewable'] = 'Überprüfbar';
 $string['state_reviewablelowercase'] = 'überprüfbar';
@@ -540,6 +554,8 @@ $string['state_shown'] = 'Angezeigt';
 $string['state_shownlowercase'] = 'angezeigt';
 $string['state_shownplural'] = 'Angezeigt';
 $string['state_toggle'] = 'Status ändern';
+$string['state_unhiddenlowercase'] = 'angezeigt';
+$string['state_unpinnedlowercase'] = 'gelöst';
 $string['statehistory'] = 'Status-Verlauf';
 $string['statistic_block_approvals'] = 'Bestätigte Fragen';
 $string['statistic_block_created'] = 'Erstellte Fragen';

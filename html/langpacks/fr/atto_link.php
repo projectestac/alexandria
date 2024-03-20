@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_link', language 'fr', version '3.11'.
+ * Strings for component 'atto_link', language 'fr', version '4.1'.
  *
  * @package     atto_link
  * @category    string
@@ -27,8 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['browserepositories'] = 'Parcourir les dépôts…';
 $string['createlink'] = 'Créer lien';
-$string['enterurl'] = 'Saisir l\'URL';
+$string['enterurl'] = 'Saisir l’URL';
 $string['openinnewwindow'] = 'Ouvrir dans une nouvelle fenêtre';
 $string['pluginname'] = 'Lien';
-$string['privacy:metadata'] = 'Le plugin atto_link n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_link n’enregistre aucune donnée personnelle.';
+$string['texttodisplay'] = 'Texte à afficher';
 $string['unlink'] = 'Supprimer le lien';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_database', language 'de', version '3.11'.
+ * Strings for component 'enrol_database', language 'de', version '4.1'.
  *
  * @package     enrol_database
  * @category    string
@@ -51,7 +51,7 @@ $string['ignorehiddencourses_desc'] = 'Wenn diese Option aktiviert ist, werden N
 $string['localcategoryfield'] = 'Lokales Kategoriefeld';
 $string['localcoursefield'] = 'Lokaler Kurs';
 $string['localrolefield'] = 'Lokale Rolle';
-$string['localuserfield'] = 'Lokaler Nutzer';
+$string['localuserfield'] = 'Lokales Nutzerfeld';
 $string['newcoursecategory'] = 'Kursbereich des neuen Kurses';
 $string['newcoursefullname'] = 'Vollstandiger Kursname des neuen Kurses';
 $string['newcourseidnumber'] = 'ID-Nummer des neuen Kurses';
@@ -65,8 +65,8 @@ $string['remotecoursefield'] = 'Kursfeld (Remote)';
 $string['remotecoursefield_desc'] = 'Der Feldname in der Remotetabelle, das für Einträge in der Kurstabelle zugeordnet wird.';
 $string['remoteenroltable'] = 'Externe Nutzertabelle';
 $string['remoteenroltable_desc'] = 'Geben Sieden Namen derTabelel an, die die Nutzereinschreibungen enthält. Leer bedeutet, dass keine Nutzer zugeordnet werden.';
-$string['remoteotheruserfield'] = 'Entferntes Feld für \'andere Nutzer\'.';
-$string['remoteotheruserfield_desc'] = 'Name des Feldes in der entfernten Tabelle, um die Einschreibungen "Anderer Nutzer" zu verwenden.';
+$string['remoteotheruserfield'] = 'Entferntes Feld für \'andere Nutzer/in\'.';
+$string['remoteotheruserfield_desc'] = 'Name des Feldes in der entfernten Tabelle, um die Einschreibungen "Andere Nutzer/in" zu verwenden.';
 $string['remoterolefield'] = 'Rollenfeld (Remote)';
 $string['remoterolefield_desc'] = 'Der Feldname in der Remotetabelle, das für Einträge in der Rollentabelle zugeordnet wird.';
 $string['remoteuserfield'] = 'Nutzerfeld (Remote)';
@@ -75,6 +75,6 @@ $string['settingsheaderdb'] = 'Externe Datenbankverbindung';
 $string['settingsheaderlocal'] = 'Lokale Feldzuordnung';
 $string['settingsheadernewcourses'] = 'Erstellen eines neuen Kurses';
 $string['settingsheaderremote'] = 'Einschreibesynchronisation (Remote)';
-$string['syncenrolmentstask'] = 'Externe Einschreibeverfahren Synchronisierungs-Task';
+$string['syncenrolmentstask'] = 'Synchronisierung von Einschreibungen über externe Datenbanken';
 $string['templatecourse'] = 'Vorlage für neue Kurse';
 $string['templatecourse_desc'] = 'Optional: Automatisch angelegte Kurse können ihre Einstellungen aus einem Vorlagenkurs beziehen. Tragen Sie hier den Kursnamen des Vorlagenkurses ein. ';

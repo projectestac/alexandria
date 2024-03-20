@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'nl', version '3.11'.
+ * Strings for component 'format_topics', language 'nl', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -25,12 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addsections'] = 'Voeg onderwerpen toe';
+$string['addsections'] = 'Voeg onderwerp toe';
 $string['currentsection'] = 'Dit onderwerp';
 $string['deletesection'] = 'Verwijder onderwerp';
 $string['editsection'] = 'Bewerk onderwerp';
 $string['editsectionname'] = 'Bewerk onderwerpnaam';
 $string['hidefromothers'] = 'Verberg onderwerp';
+$string['indentation'] = 'Sta inspringen toe op de cursuspagina';
+$string['indentation_help'] = 'Leraren en andere gebruikers met de mogelijkheid om activiteiten te beheren toestaan om items op de cursuspagina in te laten springen.';
 $string['newsectionname'] = 'Nieuwe naam voor onderwerp {$a}';
 $string['page-course-view-topics'] = 'Alle hoofdpagina\'s van cursussen in onderwerpformat';
 $string['page-course-view-topics-x'] = 'Alle cursuspagina\'s in onderwerpsopmaak';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth', language 'de', version '3.11'.
+ * Strings for component 'auth', language 'de', version '4.1'.
  *
  * @package     auth
  * @category    string
@@ -38,7 +38,7 @@ $string['auth_changingemailaddress'] = 'Sie möchten Ihre E-Mail-Adresse von {$a
 $string['auth_common_settings'] = 'Allgemeine Einstellungen';
 $string['auth_data_mapping'] = 'Datenzuordnung';
 $string['auth_fieldlock'] = 'Feld sperren';
-$string['auth_fieldlock_expl'] = '<p><b>Feld sperren:</b> Wenn diese Option aktiviert ist, verhindert Moodle die Änderung des Feldinhalts. Dies ist sinnvoll, wenn die Daten in einer externen Datenbank verwaltet werden. </p>';
+$string['auth_fieldlock_expl'] = '<p><b>Feld sperren:</b> Wenn diese Option aktiviert ist, können Nutzer/innen dieses Feld nicht ändern. Dies ist sinnvoll, wenn die Daten in einer externen Datenbank verwaltet werden. </p>';
 $string['auth_fieldlockfield'] = 'Feld sperren ({$a})';
 $string['auth_fieldlocks'] = 'Nutzerdatenfelder sperren';
 $string['auth_fieldlocks_help'] = '<p>Sie können Datenfelder im Nutzerprofil sperren. Dies ist sinnvoll, wenn die Nutzerdaten von Administrator/innen gepflegt werden, manuell angelegt oder im Bulkupload (Hochladen über Textdatei) hochgeladen werden. Falls Sie von Moodle benötigte Datenfelder sperren, müssen Sie sicherstellen, dass diese Datenfelder beim Anlegen der Nutzerprofile sinnvoll belegt werden.</p><p>Um Probleme zu vermeiden, achten Sie darauf, dass die Einstellung auf "Bearbeitbar (wenn leer)" gesetzt ist.</p>';
@@ -144,13 +144,14 @@ $string['privacy:metadata:userpref:forcepasswordchange'] = 'Legt fest, ob eine P
 $string['privacy:metadata:userpref:loginfailedcount'] = 'Anzahl der Fehllogins des Nutzers';
 $string['privacy:metadata:userpref:loginfailedcountsincesuccess'] = 'Anzahl der Fehllogins des Nutzers nach seinem letzten erfolgreichen Login';
 $string['privacy:metadata:userpref:loginfailedlast'] = 'Das Datum, an dem der letzte Loginversuch erfolgte';
-$string['privacy:metadata:userpref:loginlockout'] = 'Kennzeichnet, ob ein Nutzeraccount geblockt ist weil er vergebliche Loginversuche hatte und zu welchem Zeitpunkt der Account geblockt wurde';
-$string['privacy:metadata:userpref:loginlockoutignored'] = 'Kennzeichnet, dass ein Nutzeraccount niemals geblockt werden soll.';
-$string['privacy:metadata:userpref:loginlockoutsecret'] = '\'Kennzeichen\' mit dem ein geblockter Nutzer den Account entsperren kann.';
+$string['privacy:metadata:userpref:loginlockout'] = 'Markierung, ob das Nutzerkonto wegen zu vieler fehlerhafter Anmeldeversuche gesperrt ist und zu welchem Zeitpunkt dies passiert ist.';
+$string['privacy:metadata:userpref:loginlockoutignored'] = 'Markierung, dass ein Nutzerkonto niemals gesperrt werden soll.';
+$string['privacy:metadata:userpref:loginlockoutsecret'] = 'Kennwort, mit dem eine gesperrte Person das Konto entsperren kann.';
 $string['recaptcha'] = 'ReCaptcha';
 $string['recaptcha_help'] = 'Das Captcha dient dazu, Missbrauch durch automatisierte Programme zu verhindern. Befolgen Sie die Anleitung zur Bestätigung, dass Sie kein Roboter sind. Verschiedene Dinge sind möglich, z.B. eine Box zum Markieren, Buchstaben in einem angezeigten Bild oder eine Reihe zur Auswahl angezeigte Bilder.
 
 Sollten Sie nicht sicher sein, wie sie antworten sollen, versuchen Sie es noch einmal mit einem neuen Captcha oder mit einem Audio-Captcha.';
+$string['recaptcha_link'] = 'auth/email';
 $string['security_question'] = 'Sicherheitsfrage';
 $string['selfregistration'] = 'Selbstregistrierung';
 $string['selfregistration_help'] = 'Wenn die Selbstregistrierung (z.B. \'E-Mail basiert\') aktiviert ist, können sich alle Personen selbst registrieren und ein Nutzerkonto anlegen. Auf diese Weise könnten aber auch Spammer ein Nutzerkonto erhalten und Einträge in Foren, Blogs oder Profilen  missbrauchen. Um dieses Risiko zu vermeiden, können Sie die Selbstregistrierung ausschalten oder auf bestimmte E-Mail-Domains (z.B. meinefirma.de) beschränken.';

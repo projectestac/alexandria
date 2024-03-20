@@ -149,6 +149,7 @@ class question_engine_data_mapper {
 
     /**
      * Helper method used by insert_question_attempt_step and update_question_attempt_step
+     *
      * @param question_attempt_step $step the step to store.
      * @param int $questionattemptid the question attept id this step belongs to.
      * @param int $seq the sequence number of this stop.
@@ -158,7 +159,7 @@ class question_engine_data_mapper {
         $record = new stdClass();
         $record->questionattemptid = $questionattemptid;
         $record->sequencenumber = $seq;
-        $record->state = (string) $step->get_state();
+        $record->state = $step->get_state() ? $step->get_state()->__toString() : null;
         $record->fraction = $step->get_fraction();
         $record->timecreated = $step->get_timecreated();
         $record->userid = $step->get_user_id();
@@ -560,7 +561,9 @@ ORDER BY
      * @return array of records. See the SQL in this function to see the fields available.
      */
     public function load_questions_usages_latest_steps(qubaid_condition $qubaids, $slots = null, $fields = null) {
-        if ($slots !== null) {
+        if ($slots === []) {
+            return [];
+        } else if ($slots !== null) {
             [$slottest, $params] = $this->db->get_in_or_equal($slots, SQL_PARAMS_NAMED, 'slot');
             $slotwhere = " AND qa.slot {$slottest}";
         } else {
@@ -713,24 +716,29 @@ ORDER BY
      * @param int $limitfrom implements paging of the results.
      *      Ignored if $orderby = random or $limitnum is null.
      * @param int $limitnum implements paging of the results. null = all.
+     * @param string $extraselect anything passed here will be added to the SELECT list, use this to return extra data.
      * @return array with two elements, an array of usage ids, and a count of the total number.
      */
     public function load_questions_usages_where_question_in_state(
             qubaid_condition $qubaids, $summarystate, $slot, $questionid = null,
-            $orderby = 'random', $params = array(), $limitfrom = 0, $limitnum = null) {
+            $orderby = 'random', $params = array(), $limitfrom = 0, $limitnum = null, $extraselect = '') {
 
         $extrawhere = '';
         if ($questionid) {
             $extrawhere .= ' AND qa.questionid = :questionid';
             $params['questionid'] = $questionid;
         }
-        if ($summarystate != 'all') {
+        if ($summarystate !== 'all') {
             list($test, $sparams) = $this->in_summary_state_test($summarystate);
             $extrawhere .= ' AND qas.state ' . $test;
             $params += $sparams;
         }
 
-        if ($orderby == 'random') {
+        if (!empty($extraselect)) {
+            $extraselect = ', ' . $extraselect;
+        }
+
+        if ($orderby === 'random') {
             $sqlorderby = '';
         } else if ($orderby) {
             $sqlorderby = 'ORDER BY ' . $orderby;
@@ -747,29 +755,24 @@ ORDER BY
         $qubaidswhere = $qubaids->where(); // Must call this before params.
         $params += $qubaids->from_where_params();
         $params['slot'] = $slot;
+        $sql = "SELECT qa.questionusageid,
+                       1
+                       $extraselect
+                  FROM {$qubaids->from_question_attempts('qa')}
+                  JOIN {question_attempt_steps} qas ON qas.questionattemptid = qa.id
+                   AND qas.sequencenumber = {$this->latest_step_for_qa_subquery()}
+                  JOIN {question} q ON q.id = qa.questionid
+                 WHERE {$qubaidswhere}
+                   AND qa.slot = :slot
+                       $extrawhere
+                       $sqlorderby";
 
-        $qubaids = $this->db->get_records_sql_menu("
-SELECT
-    qa.questionusageid,
-    1
-
-FROM {$qubaids->from_question_attempts('qa')}
-JOIN {question_attempt_steps} qas ON qas.questionattemptid = qa.id
-        AND qas.sequencenumber = {$this->latest_step_for_qa_subquery()}
-JOIN {question} q ON q.id = qa.questionid
-
-WHERE
-    {$qubaidswhere} AND
-    qa.slot = :slot
-    $extrawhere
-
-$sqlorderby
-        ", $params);
+        $qubaids = $this->db->get_records_sql_menu($sql, $params);
 
         $qubaids = array_keys($qubaids);
         $count = count($qubaids);
 
-        if ($orderby == 'random') {
+        if ($orderby === 'random') {
             shuffle($qubaids);
             $limitfrom = 0;
         }
@@ -938,6 +941,7 @@ ORDER BY
         $record = new stdClass();
         $record->id = $qa->get_database_id();
         $record->slot = $qa->get_slot();
+        $record->questionid = $qa->get_question(false)->id;
         $record->variant = $qa->get_variant();
         $record->maxmark = $qa->get_max_mark();
         $record->minfraction = $qa->get_min_fraction();

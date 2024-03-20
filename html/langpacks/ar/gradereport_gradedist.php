@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_gradedist', language 'ar', version '3.11'.
+ * Strings for component 'gradereport_gradedist', language 'ar', version '4.1'.
  *
  * @package     gradereport_gradedist
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['boundaryerror'] = 'بعض الإدخالات لحروف التقديرات الجديدة قد تكون خاطئة. لا بد من وضع إدخال في كل حقل';
 $string['printchart'] = 'طباعة المخطط';
-$string['privacy:null_reason'] = 'هذه الإضافة لا تخزن أي بيانات شخصية. إنها تقدم واجهة لعرض توزيع التقديرات وتصديرها والمتعلقة بمفردات التقييم في المساق.';
+$string['privacy:null_reason'] = 'هذه الإضافة لا تخزن أي بيانات شخصية. إنها تقدم واجهة لعرض توزيع التقديرات وتصديرها والمتعلقة بعناصر التقييم في المقرر.';

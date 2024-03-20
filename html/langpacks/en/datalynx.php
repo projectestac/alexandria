@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datalynx', language 'en', version '3.11'.
+ * Strings for component 'datalynx', language 'en', version '4.1'.
  *
  * @package     datalynx
  * @category    string
@@ -34,6 +34,7 @@ $string['admin'] = 'Administrator';
 $string['admissibleroles'] = 'Admissible roles';
 $string['admissibleroles_error'] = 'Please select at least one role!';
 $string['admissibleroles_help'] = 'Users possessing any of the selected roles will be admissible to the team. At least one role must be selected.';
+$string['affectedid'] = 'Affected entry id: {$a}.';
 $string['after'] = 'after';
 $string['alignment'] = 'Alignment';
 $string['allof'] = 'all of';
@@ -106,6 +107,7 @@ $string['converttoeditor'] = 'Convert to editor field';
 $string['copyof'] = 'Copy of {$a}';
 $string['correct'] = 'Correct';
 $string['coursevisible'] = 'The course hase been approved and is ready for the students';
+$string['cron_trigger'] = 'Datalynx Scheduled Task';
 $string['csscode'] = 'CSS code';
 $string['cssinclude'] = 'CSS';
 $string['cssincludes'] = 'Include external CSS';
@@ -210,6 +212,7 @@ $string['disabled'] = 'Display disabled elements';
 $string['disapproved'] = 'Not approved';
 $string['displaytemplate'] = 'Display template';
 $string['displaytemplate_help'] = 'Specify HTML template to replace the field tag in browse mode. To specify the position of the actual value, use #value tag within the template.';
+$string['displayview'] = 'Display a datalynx view via shortcodes';
 $string['documenttype'] = 'Document type';
 $string['dots'] = '...';
 $string['download'] = 'Download';
@@ -284,6 +287,7 @@ $string['entrytimelimit_help'] = 'Minutes until editing is disabled, -1 sets no 
 $string['equal'] = 'equal';
 $string['err_numeric'] = 'You must enter a number here. Example: 0.00 or 0.3 or 387';
 $string['event_comment_created'] = 'Comment created';
+$string['event_cron_trigger'] = 'Datalynx Scheduled Task';
 $string['event_entry_approved'] = 'Entry approved';
 $string['event_entry_created'] = 'Entry created';
 $string['event_entry_deleted'] = 'Entry deleted';
@@ -683,6 +687,7 @@ $string['required'] = 'Required';
 $string['requiredall'] = 'all required';
 $string['requirednotall'] = 'not all required';
 $string['resetsettings'] = 'Reset filters';
+$string['resizefactor'] = 'Factor for resizing PDF. Default display size is: 595x841';
 $string['returntoimport'] = 'Return to import';
 $string['rssglobaldisabled'] = 'Disabled. See site configuration variables.';
 $string['rsshowmany'] = '(number of latest entries to show, 0 to disable RSS)';
@@ -806,6 +811,7 @@ $string['unique_required'] = 'Unique text required! This text was already used!'
 $string['unlock'] = 'Unlock';
 $string['unsubscribe'] = 'Unsubscribe';
 $string['unsupportedfield'] = 'Sorry, fields of type {$a} are not yet supported in fieldgroups.';
+$string['updateentry'] = 'Update entry';
 $string['updateexisting'] = 'Overwrite existing';
 $string['updatefield'] = 'Update an existing field';
 $string['updateview'] = 'Update an existing view';

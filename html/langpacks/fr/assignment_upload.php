@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignment_upload', language 'fr', version '3.11'.
+ * Strings for component 'assignment_upload', language 'fr', version '4.1'.
  *
  * @package     assignment_upload
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['event_assessable_submitted'] = 'Travail remis';
 $string['event_assessable_uploaded'] = 'Fichier déposé';
 $string['pluginname'] = 'Déposer';
-$string['privacy:metadata'] = 'Le plugin Déposer des travaux n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Déposer des travaux n’enregistre aucune donnée personnelle.';

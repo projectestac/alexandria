@@ -764,4 +764,122 @@ class user_test extends \advanced_testcase {
         $this->assertFalse(\core_user::is_real_user(\core_user::get_support_user()->id, true));
     }
 
+    /**
+     * Tests for the {@see \core_user::awaiting_action()} method.
+     */
+    public function test_awaiting_action() {
+        global $CFG, $DB, $USER;
+
+        $guest = \core_user::get_user($CFG->siteguest);
+        $student = $this->getDataGenerator()->create_user();
+        $teacher = $this->getDataGenerator()->create_user();
+        $manager = $this->getDataGenerator()->create_user();
+        $admin = get_admin();
+
+        $this->getDataGenerator()->role_assign($DB->get_field('role', 'id', ['shortname' => 'manager']),
+            $manager->id, \context_system::instance()->id);
+
+        // Scenario: Guests required to agree to site policy.
+        $this->assertFalse(\core_user::awaiting_action($guest));
+
+        $CFG->sitepolicyguest = 'https://example.com';
+        $this->assertTrue(\core_user::awaiting_action($guest));
+
+        $guest->policyagreed = 1;
+        $this->assertFalse(\core_user::awaiting_action($guest));
+
+        // Scenario: Student required to fill their profile.
+        $this->assertFalse(\core_user::awaiting_action($student));
+
+        $student->firstname = '';
+        $this->assertTrue(\core_user::awaiting_action($student));
+
+        $student->firstname = 'Alice';
+        $this->assertFalse(\core_user::awaiting_action($student));
+
+        // Scenario: Teacher force to change their password.
+        $this->assertFalse(\core_user::awaiting_action($teacher));
+
+        set_user_preference('auth_forcepasswordchange', 1, $teacher);
+        $this->assertTrue(\core_user::awaiting_action($teacher));
+
+        unset_user_preference('auth_forcepasswordchange', $teacher);
+        $this->assertFalse(\core_user::awaiting_action($teacher));
+
+        // Scenario: Admins do not need to agree to the policy but others do.
+        $this->assertFalse(\core_user::awaiting_action($admin));
+        $this->assertFalse(\core_user::awaiting_action($manager));
+        $CFG->sitepolicy = 'https://example.com';
+        $this->assertFalse(\core_user::awaiting_action($admin));
+        $this->assertTrue(\core_user::awaiting_action($manager));
+    }
+
+    /**
+     * Test that user with Letter avatar respect language preference.
+     *
+     * @param array $userdata
+     * @param string $fullnameconfig
+     * @param string $expected
+     * @return void
+     * @covers       \core_user::get_initials
+     * @dataProvider user_name_provider
+     */
+    public function test_get_initials(array $userdata, string $fullnameconfig, string $expected): void {
+        $this->resetAfterTest();
+        // Create a user.
+        $page = new \moodle_page();
+        $page->set_url('/user/profile.php');
+        $page->set_context(\context_system::instance());
+        $renderer = $page->get_renderer('core');
+        $user1 =
+            $this->getDataGenerator()->create_user(
+                array_merge(
+                    ['picture' => 0, 'email' => 'user1@example.com'],
+                    $userdata
+                )
+            );
+        set_config('fullnamedisplay', $fullnameconfig);
+        $initials = \core_user::get_initials($user1);
+        $this->assertEquals($expected, $initials);
+    }
+
+    /**
+     * Provider of user configuration for testing initials rendering
+     *
+     * @return array[]
+     */
+    public static function user_name_provider(): array {
+        return [
+            'simple user' => [
+                'user' => ['firstname' => 'first', 'lastname' => 'last'],
+                'fullnamedisplay' => 'language',
+                'expected' => 'fl',
+            ],
+            'simple user with lastname firstname in language settings' => [
+                'user' => ['firstname' => 'first', 'lastname' => 'last'],
+                'fullnamedisplay' => 'lastname firstname',
+                'expected' => 'lf',
+            ],
+            'simple user with no surname' => [
+                'user' => ['firstname' => '', 'lastname' => 'L'],
+                'fullnamedisplay' => 'language',
+                'expected' => 'L',
+            ],
+            'simple user with a middle name' => [
+                'user' => ['firstname' => 'f', 'lastname' => 'l', 'middlename' => 'm'],
+                'fullnamedisplay' => 'middlename lastname',
+                'expected' => 'ml',
+            ],
+            'user with a middle name & fullnamedisplay contains 3 names' => [
+                'user' => ['firstname' => 'first', 'lastname' => 'last', 'middlename' => 'middle'],
+                'fullnamedisplay' => 'firstname middlename lastname',
+                'expected' => 'fl',
+            ],
+            'simple user with a namefield consisting of one element' => [
+                'user' => ['firstname' => 'first', 'lastname' => 'last'],
+                'fullnamedisplay' => 'lastname',
+                'expected' => 'l',
+            ],
+        ];
+    }
 }

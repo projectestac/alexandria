@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_rubric', language 'es', version '3.11'.
+ * Strings for component 'gradingform_rubric', language 'es', version '4.1'.
  *
  * @package     gradingform_rubric
  * @category    string
@@ -87,7 +87,7 @@ $string['save'] = 'Guardar';
 $string['saverubric'] = 'Guardar rúbrica y dejarla preparada';
 $string['saverubricdraft'] = 'Guardar como borrador';
 $string['scoreinputforlevel'] = 'Puntuación de entrada para el nivel {$a}';
-$string['scorepostfix'] = '{$a}puntos';
+$string['scorepostfix'] = '{$a} puntos';
 $string['showdescriptionstudent'] = 'Mostrar la descripción de la rúbrica a aquellos que serán calificados';
 $string['showdescriptionteacher'] = 'Mostrar la descripción de la rúbrica durante al evaluación';
 $string['showremarksstudent'] = 'Mostrar comentarios a los evaluados';

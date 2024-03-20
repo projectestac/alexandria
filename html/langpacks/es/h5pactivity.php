@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'h5pactivity', language 'es', version '3.11'.
+ * Strings for component 'h5pactivity', language 'es', version '4.1'.
  *
  * @package     h5pactivity
  * @category    string
@@ -30,6 +30,7 @@ $string['answer_checked'] = 'Respuesta comprobada';
 $string['answer_correct'] = 'Su respuesta es correcta';
 $string['answer_fail'] = 'Respuesta incorrecta';
 $string['answer_incorrect'] = 'Su respuesta es incorrecta';
+$string['answer_noanswer'] = 'Nada';
 $string['answer_pass'] = 'Respuesta correcta';
 $string['answer_text'] = 'Texto de respuesta';
 $string['answer_unchecked'] = 'Respuesta sin marcar';
@@ -39,7 +40,7 @@ $string['attempt'] = 'Intento';
 $string['attempt_answer'] = 'Intento de respuesta';
 $string['attempt_average'] = 'Promedio de puntuación de intentos';
 $string['attempt_completion_no'] = 'Este intento no está marcado como completado';
-$string['attempt_completion_yes'] = 'Este intento no está completado';
+$string['attempt_completion_yes'] = 'Este intento está completado';
 $string['attempt_first'] = 'Primer intento';
 $string['attempt_highest'] = 'Intento con más alta puntuación';
 $string['attempt_last'] = 'Último intento';
@@ -73,6 +74,7 @@ $string['grade_grademethod_help'] = 'Al usar la calificación de puntos, los sig
 * Primer intento (todos los otros intentos son ignorados)
 * Último intento (todos los demás intentos se ignoran)
 * No utilice intentos de calificación (deshabilite el cálculo de calificación)';
+$string['grade_h5p'] = 'Calificación: {$a}';
 $string['grade_highest_attempt'] = 'Calificación mas alta';
 $string['grade_last_attempt'] = 'Último intento';
 $string['grade_manual'] = 'No calcule una calificación';
@@ -90,8 +92,10 @@ $string['modulename'] = 'H5P';
 $string['modulename_help'] = 'H5P es una abreviatura de Paquete HTML5: contenido interactivo como presentaciones, videos y otros contenidos multimedia, preguntas, cuestionarios, juegos y más. La actividad H5P permite que H5P se cargue y se agregue a un curso.
 
 Cualquier intento de pregunta se marca automáticamente y la calificación se registra en el libro de calificaciones.';
+$string['modulename_link'] = 'mod/h5pactivity/view';
 $string['modulenameplural'] = 'H5P';
 $string['myattempts'] = 'Mis intentos';
+$string['newsubmissions'] = 'H5P enviado';
 $string['no_compatible_track'] = 'Esta interacción ({$a}) no facilita información de rastreo o el rastreo
 facilitado no es compatible con la versión actual  de la actividad';
 $string['noparticipants'] = 'No hay participantes para mostrar';
@@ -108,7 +112,7 @@ $string['privacy:metadata:rawscore'] = 'Puntaje obtenido';
 $string['privacy:metadata:timecreated'] = 'La hora en que se creó el elemento rastreado';
 $string['privacy:metadata:timemodified'] = 'La última hora en que el elemento fue rastreado';
 $string['privacy:metadata:userid'] = 'El ID del usuario que accedió a la actividad H5P';
-$string['privacy:metadata:xapi_track'] = 'Información de monitoreo del intento';
+$string['privacy:metadata:xapi_track'] = 'Información de seguimiento de intentos';
 $string['privacy:metadata:xapi_track_results'] = 'Información de monitoreo de resultados del intento';
 $string['report_viewed'] = 'Informe visto';
 $string['result_compound'] = 'Puntuación parcial combinada';
@@ -127,6 +131,7 @@ $string['review_on_completion'] = 'Los participantes pueden revisar sus propios 
 $string['review_user_attempts'] = 'Ver los intentos de usuario ({$a})';
 $string['score'] = 'Puntuación';
 $string['score_out_of'] = '{$a->rawscore} de un máximo de {$a->maxscore}';
+$string['search:activity'] = 'H5P - información de actividad';
 $string['startdate'] = 'Fecha de inicio';
 $string['statement_received'] = 'Declaración xAPI recibida';
 $string['totalscore'] = 'Puntuación total';

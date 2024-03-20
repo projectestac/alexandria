@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_analytics_graphs', language 'pt', version '3.11'.
+ * Strings for component 'block_analytics_graphs', language 'pt', version '4.1'.
  *
  * @package     block_analytics_graphs
  * @category    string
@@ -107,7 +107,7 @@ $string['subfailed'] = 'Submissão falhada';
 $string['subject'] = 'Assunto';
 $string['submission_ratio'] = 'Rácio das submissões';
 $string['submissions'] = 'Submissões';
-$string['submissions_assign'] = 'Submissões de Trabalhos';
+$string['submissions_assign'] = 'Submissões de trabalhos';
 $string['submissions_forumchart'] = 'Acessos a Fórum';
 $string['submissions_hotpot'] = 'Submissões Hotpot';
 $string['submissions_quiz'] = 'Submissões de testes';

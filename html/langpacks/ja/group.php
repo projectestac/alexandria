@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'ja', version '3.11'.
+ * Strings for component 'group', language 'ja', version '4.1'.
  *
  * @package     group
  * @category    string
@@ -87,6 +87,7 @@ $string['eventgroupmemberadded'] = 'グループメンバが追加されまし�
 $string['eventgroupmemberremoved'] = 'グループメンバが削除されました。';
 $string['eventgroupupdated'] = 'グループが更新されました。';
 $string['existingmembers'] = '既存のメンバ: {$a}';
+$string['exportgroupsgroupings'] = 'グループおよびグルーピングをダウンロードする:';
 $string['filtergroups'] = 'グループをフィルタする:';
 $string['group'] = 'グループ';
 $string['groupaddedsuccesfully'] = 'グループ「 {$a} 」が正常に追加されました。';
@@ -112,15 +113,13 @@ $string['groupmembers'] = 'グループメンバ';
 $string['groupmemberssee'] = 'グループメンバを表示する';
 $string['groupmembersselected'] = '選択したグループのメンバ';
 $string['groupmode'] = 'グループモード';
-$string['groupmode_help'] = 'この設定には以下3つのオプションがあります:
+$string['groupmode_help'] = '* グループなし
+* 分離グループ: 学生はグループに分けられて自分のグループの作業のみ閲覧できます。
+* 可視グループ: 学生はグループに分けられますが、他のグループの作業を閲覧できます。
 
-* グループなし
-* 分離グループ - それぞれのグループメンバはそのグループ内のみ閲覧できます。他のグループを閲覧することはできません。
-* 可視グループ - それぞれのグループメンバはそのグループ内で作業しますが、他のグループを閲覧することもできます。
-
-コースレベルで設定されたグループモードはコース内活動すべてのデフォルトモードとなります。グループに対応している活動ではそれぞれ独自のグループモードを設定することもできます。しかし、コースレベルで強制グループモードが設定された場合、活動ごとに設定したグループモードは無視されます。';
+コースレベルで設定されたグループモードはすべての活動のデフォルトモードです。コースレベルでグループモードが強制された場合、活動では変更できません。';
 $string['groupmodeforce'] = 'グループモードを強制する';
-$string['groupmodeforce_help'] = 'グループモードが強制された場合、コース内すべての活動にコースグループモードが適用されます。そのため、それぞれの活動のグループモード設定は無視されます。';
+$string['groupmodeforce_help'] = 'グループモードはすべての活動に適用されます。活動の中では変更できません。';
 $string['groupmy'] = 'マイグループ';
 $string['groupname'] = 'グループ名';
 $string['groupnameexists'] = 'グループ名「 {$a} 」はすでにこのコースで使用されています。他のグループ名を使用してください。';
@@ -132,7 +131,7 @@ $string['groupsgroupings'] = 'グループ&グルーピング';
 $string['groupsinselectedgrouping'] = 'グループ:';
 $string['groupsnone'] = 'グループなし';
 $string['groupsonly'] = 'グループのみ';
-$string['groupspreview'] = 'グループプレビュ';
+$string['groupspreview'] = 'グループプレビュー';
 $string['groupsseparate'] = '分離グループ';
 $string['groupsvisible'] = '可視グループ';
 $string['grouptemplate'] = 'グループ @';
@@ -145,6 +144,7 @@ $string['importgroups_help'] = 'テキストファイル経由でグループを
 * 先頭レコードには残りのデータのフォーマットを定義したフィールド名を記述してください。
 * 必須フィールド名は「groupname」です。
 * 任意フィールド名は「groupidnumber」「description」「enrolmentkey」「groupingname」「enablemessaging」です。';
+$string['importgroups_link'] = 'group/import';
 $string['includeonlyactiveenrol'] = 'アクティブな登録のみ含む';
 $string['includeonlyactiveenrol_help'] = 'この設定を有効にした場合、利用停止ユーザはグループに含まれません。';
 $string['javascriptrequired'] = 'このページではJavaScriptを有効にする必要があります。';

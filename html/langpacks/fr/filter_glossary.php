@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_glossary', language 'fr', version '3.11'.
+ * Strings for component 'filter_glossary', language 'fr', version '4.1'.
  *
  * @package     filter_glossary
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['filtername'] = 'Liaison automatique des glossaires';
 $string['glossarycategory'] = '{$a->glossary} : catégorie {$a->category}';
 $string['glossaryconcept'] = '{$a->glossary} : {$a->concept}';
-$string['privacy:metadata'] = 'Le plugin Liaison automatique des glossaires n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Liaison automatique des glossaires n’enregistre aucune donnée personnelle.';

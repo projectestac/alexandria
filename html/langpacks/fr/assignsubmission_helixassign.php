@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_helixassign', language 'fr', version '3.11'.
+ * Strings for component 'assignsubmission_helixassign', language 'fr', version '4.1'.
  *
  * @package     assignsubmission_helixassign
  * @category    string
@@ -31,8 +31,8 @@ $string['helixassign'] = 'Devoir vidéo';
 $string['helixassignfilename'] = 'helixassign.html';
 $string['helixassignsubmission'] = 'Autoriser le dépôt de vidéo MEDIAL';
 $string['helixsubmissionlog'] = 'Dépôt MEDIAL';
-$string['no_permission'] = 'Vous n\'êtes pas autorisé à utiliser les devoirs vidéo';
-$string['nopermission'] = 'Vous n\'êtes pas autorisé à utiliser les devoirs vidéo';
+$string['no_permission'] = 'Vous n’êtes pas autorisé à utiliser les devoirs vidéo';
+$string['nopermission'] = 'Vous n’êtes pas autorisé à utiliser les devoirs vidéo';
 $string['pluginname'] = 'Devoir MEDIAL';
 $string['version_warning_head'] = 'ATTENTION';
 $string['version_warning_mes2'] = 'installé sur votre serveur Moodle.';

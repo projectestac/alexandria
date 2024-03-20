@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'pt', version '3.11'.
+ * Strings for component 'format_topics', language 'pt', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -25,12 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addsections'] = 'Adicionar tópicos';
+$string['addsections'] = 'Adicionar tópico abaixo';
 $string['currentsection'] = 'Este tópico';
 $string['deletesection'] = 'Apagar tópico';
 $string['editsection'] = 'Editar tópico';
 $string['editsectionname'] = 'Editar o nome do tópico';
 $string['hidefromothers'] = 'Ocultar tópico';
+$string['indentation'] = 'Permitir indentação na página da disciplina';
+$string['indentation_help'] = 'Permitir que os professores, e outros utilizadores com permissão para gerir atividades, possam indentar itens na página da disciplina.';
 $string['newsectionname'] = 'Novo nome para o tópico {$a}';
 $string['page-course-view-topics'] = 'Qualquer página principal de disciplina no formato tópicos';
 $string['page-course-view-topics-x'] = 'Qualquer página da disciplina no formato tópicos';

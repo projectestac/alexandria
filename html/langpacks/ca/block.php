@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block', language 'ca', version '3.11'.
+ * Strings for component 'block', language 'ca', version '4.1'.
  *
  * @package     block
  * @category    string
@@ -25,7 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addtodock'] = 'Minimitza a la barra lateral';
 $string['anypagematchingtheabove'] = 'Qualsevol pàgina que concordi amb l\'anterior';
 $string['appearsinsubcontexts'] = 'Apareix en subcontextos';
 $string['assignrolesinblock'] = 'Assigna rols al bloc {$a}';
@@ -44,11 +43,11 @@ $string['defaultweight'] = 'Pes per defecte';
 $string['defaultweight_help'] = 'El pes per defecte permet triar aproximadament on voleu que aparegui el bloc dins de la regió, més amunt o més avall. La ubicació definitiva es calcula prenent en consideració tots els blocs que apareguin a la regió. Aquest valor es pot canviar si cal en pàgines específiques.';
 $string['deleteblock'] = 'Suprimeix el bloc {$a}';
 $string['deleteblockcheck'] = 'Confirmeu que voleu suprimir aquest bloc anomenat {$a}?';
+$string['deleteblockinprogress'] = 'S\'està eliminant el bloc {$a}...';
 $string['deleteblockwarning'] = '<p> Ara eliminareu un bloc que apareix en un altre lloc. </p><p> Ubicació del bloc original: {$a->location} <br /> Visualització en tipus de pàgines: {$a->pagetype} </p><p> Esteu segur que voleu continuar? </p>';
 $string['deletecheck'] = 'Suprimiu el bloc {$a}?';
-$string['dockblock'] = 'Acobla el bloc {$a}';
+$string['deletecheck_modal'] = 'Segur que voleu eliminar el bloc?';
 $string['hideblock'] = 'Amaga el bloc {$a}';
-$string['hidedockpanel'] = 'Amaga el tauler d\'acoblament';
 $string['hidepanel'] = 'Amaga el tauler';
 $string['moveblock'] = 'Mou el bloc {$a}';
 $string['moveblockafter'] = 'Mou el bloc després del bloc {$a}';
@@ -59,6 +58,10 @@ $string['myblocks'] = 'Els meus blocs';
 $string['onthispage'] = 'En aquesta pàgina';
 $string['pagetypes'] = 'Tipus de pàgina';
 $string['pagetypewarning'] = 'El tipus de pàgina especificat prèviament ja no es pot seleccionar. Trieu a sota el tipus de pàgina més adequat.';
+$string['privacy:metadata:userpref:dockedinstance'] = 'Registra quan l\'usuari acobla un bloc';
+$string['privacy:metadata:userpref:hiddenblock'] = 'Registra quan l\'usuari s\'ha col·lapsat/amagat un bloc';
+$string['privacy:request:blockisdocked'] = 'Indica si el bloc s\'ha acoblat';
+$string['privacy:request:blockishidden'] = 'Indica si el bloc s\'ha ocultat/col·lapsat';
 $string['region'] = 'Regió';
 $string['restrictpagetypes'] = 'Visualitza en aquests tipus de pàgines';
 $string['showblock'] = 'Mostra el bloc {$a}';
@@ -69,9 +72,6 @@ $string['showonfrontpageandsubs'] = 'Mostra a la primera plana i a qualsevol pà
 $string['showonfrontpageonly'] = 'Mostra només a la primera plana';
 $string['subpages'] = 'Selecciona pàgines';
 $string['thisspecificpage'] = 'Aquesta pàgina específica';
-$string['undockall'] = 'Restaura tots els blocs a la seva columna';
-$string['undockblock'] = 'Desacobla el bloc {$a}';
-$string['undockitem'] = 'Restaura aquest bloc a columna de blocs';
 $string['visible'] = 'Visible';
 $string['weight'] = 'Pes';
 $string['wherethisblockappears'] = 'On apareix aquest bloc';

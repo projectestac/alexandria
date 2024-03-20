@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth', language 'en', version '3.11'.
+ * Strings for component 'auth', language 'en', version '4.1'.
  *
  * @package     auth
  * @category    string
@@ -38,7 +38,7 @@ $string['auth_changingemailaddress'] = 'You have requested a change of email add
 $string['auth_common_settings'] = 'Common settings';
 $string['auth_data_mapping'] = 'Data mapping';
 $string['auth_fieldlock'] = 'Lock value';
-$string['auth_fieldlock_expl'] = '<p><b>Lock value:</b> If enabled, will prevent Moodle users and admins from editing the field directly. Use this option if you are maintaining this data in the external auth system. </p>';
+$string['auth_fieldlock_expl'] = '<p>Lock value: If enabled, users will not be able to edit the field. Use this option if you are maintaining this data in the external auth system. </p>';
 $string['auth_fieldlockfield'] = 'Lock value ({$a})';
 $string['auth_fieldlocks'] = 'Lock user fields';
 $string['auth_fieldlocks_help'] = '<p>You can lock user data fields. This is useful for sites where the user data is maintained by the administrators manually by editing user records or uploading using the \'Upload users\' facility. If you are locking fields that are required by Moodle, make sure that you provide that data when creating user accounts or the accounts will be unusable.</p><p>Consider setting the lock mode to \'Unlocked if empty\' to avoid this problem.</p>';
@@ -97,7 +97,7 @@ $string['errormaxconsecutiveidentchars'] = 'Passwords must have at most {$a} con
 $string['errorminpassworddigits'] = 'Passwords must have at least {$a} digit(s).';
 $string['errorminpasswordlength'] = 'Passwords must be at least {$a} characters long.';
 $string['errorminpasswordlower'] = 'Passwords must have at least {$a} lower case letter(s).';
-$string['errorminpasswordnonalphanum'] = 'The password must have at least {$a} special character(s) such as as *, -, or #.';
+$string['errorminpasswordnonalphanum'] = 'The password must have at least {$a} special character(s) such as *, -, or #.';
 $string['errorminpasswordupper'] = 'Passwords must have at least {$a} upper case letter(s).';
 $string['errorpasswordreused'] = 'This password has been used before, and is not permitted to be reused';
 $string['errorpasswordupdate'] = 'Error updating password, password not changed';
@@ -116,7 +116,7 @@ $string['infilefield'] = 'Field required in file';
 $string['informminpassworddigits'] = 'at least {$a} digit(s)';
 $string['informminpasswordlength'] = 'at least {$a} characters';
 $string['informminpasswordlower'] = 'at least {$a} lower case letter(s)';
-$string['informminpasswordnonalphanum'] = 'at least {$a} special character(s) such as as *, -, or #';
+$string['informminpasswordnonalphanum'] = 'at least {$a} special character(s) such as *, -, or #';
 $string['informminpasswordreuselimit'] = 'Passwords can be reused after {$a} changes';
 $string['informminpasswordupper'] = 'at least {$a} upper case letter(s)';
 $string['informpasswordpolicy'] = 'The password must have {$a}';

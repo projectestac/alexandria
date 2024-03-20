@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_backcolor', language 'fr', version '3.11'.
+ * Strings for component 'atto_backcolor', language 'fr', version '4.1'.
  *
  * @package     atto_backcolor
  * @category    string
@@ -32,4 +32,4 @@ $string['color_red'] = 'Rouge';
 $string['color_white'] = 'Blanc';
 $string['color_yellow'] = 'Jaune';
 $string['pluginname'] = 'Couleur de fond';
-$string['privacy:metadata'] = 'Le plugin atto_backcolor n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_backcolor n’enregistre aucune donnée personnelle.';

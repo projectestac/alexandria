@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'en', version '3.11'.
+ * Strings for component 'role', language 'en', version '4.1'.
  *
  * @package     role
  * @category    string
@@ -46,7 +46,7 @@ $string['archetype'] = 'Role archetype';
 $string['archetype_help'] = 'The role archetype determines the permissions when a role is reset to default. It also determines any new permissions for the role when the site is upgraded.';
 $string['archetypecoursecreator'] = 'ARCHETYPE: Course creator';
 $string['archetypeeditingteacher'] = 'ARCHETYPE: Teacher (editing)';
-$string['archetypefrontpage'] = 'ARCHETYPE: Authenticated user on frontpage';
+$string['archetypefrontpage'] = 'ARCHETYPE: Authenticated user on site home';
 $string['archetypeguest'] = 'ARCHETYPE: Guest';
 $string['archetypemanager'] = 'ARCHETYPE: Manager';
 $string['archetypestudent'] = 'ARCHETYPE: Student';
@@ -178,7 +178,7 @@ $string['course:changeidnumber'] = 'Change course ID number';
 $string['course:changelockedcustomfields'] = 'Change locked custom fields';
 $string['course:changeshortname'] = 'Change course short name';
 $string['course:changesummary'] = 'Change course summary';
-$string['course:configurecustomfields'] = 'Configure custom fields';
+$string['course:configurecustomfields'] = 'Configure course custom fields';
 $string['course:configuredownloadcontent'] = 'Configure download course content';
 $string['course:create'] = 'Create courses';
 $string['course:creategroupconversations'] = 'Create group conversations';
@@ -204,7 +204,7 @@ $string['course:reset'] = 'Reset course';
 $string['course:reviewotherusers'] = 'Review other users';
 $string['course:sectionvisibility'] = 'Control section visibility';
 $string['course:setcurrentsection'] = 'Set current section';
-$string['course:setforcedlanguage'] = 'Force course language';
+$string['course:setforcedlanguage'] = 'Force course or activity language';
 $string['course:tag'] = 'Change course tags';
 $string['course:togglecompletion'] = 'Manually mark activities as complete';
 $string['course:update'] = 'Update course settings';
@@ -230,6 +230,7 @@ $string['customrolename_help'] = 'Names of standard roles are localised automati
 $string['defaultrole'] = 'Default role';
 $string['defaultx'] = 'Default: {$a}';
 $string['defineroles'] = 'Define roles';
+$string['definitionofrolex'] = 'Definition of role \'{$a}\'';
 $string['deletecourseoverrides'] = 'Delete all overrides in course';
 $string['deletelocalroles'] = 'Delete all local role assignments';
 $string['deleterolesure'] = '<p>Are you sure that you want to delete role "{$a->name} ({$a->shortname})"?</p><p>Currently this role is assigned to {$a->count} users.</p>';
@@ -262,10 +263,10 @@ $string['export'] = 'Export';
 $string['extusers'] = 'Existing users';
 $string['extusersmatching'] = 'Existing users matching \'{$a}\'';
 $string['filter:manage'] = 'Manage local filter settings';
-$string['frontpageuser'] = 'Authenticated user on frontpage';
-$string['frontpageuserdescription'] = 'All logged-in users in the frontpage course.';
+$string['frontpageuser'] = 'Authenticated user on site home';
+$string['frontpageuserdescription'] = 'All logged-in users in the site home course.';
 $string['globalrole'] = 'System role';
-$string['globalroleswarning'] = 'Warning: Any roles you assign from this page will apply to users throughout the entire system, including the front page and all courses.';
+$string['globalroleswarning'] = 'Warning: Any roles you assign from this page will apply to users throughout the entire system, including the site home and all courses.';
 $string['gotoassignroles'] = 'Go to Assign roles for this {$a->contextlevel}';
 $string['gotoassignsystemroles'] = 'Go to Assign system roles';
 $string['grade:edit'] = 'Edit grades';
@@ -375,6 +376,8 @@ $string['privacy:metadata:role_cohortroles'] = 'Roles to cohort';
 $string['prohibit'] = 'Prohibit';
 $string['prohibitedroles'] = 'Prohibited';
 $string['question:add'] = 'Add new questions';
+$string['question:commentall'] = 'Comment on all questions';
+$string['question:commentmine'] = 'Comment on your own questions';
 $string['question:config'] = 'Configure question types';
 $string['question:editall'] = 'Edit all questions';
 $string['question:editmine'] = 'Edit your own questions';
@@ -392,6 +395,10 @@ $string['rating:rate'] = 'Add ratings to items';
 $string['rating:view'] = 'View the total rating you received';
 $string['rating:viewall'] = 'View all raw ratings given by individuals';
 $string['rating:viewany'] = 'View total ratings that anyone received';
+$string['reportbuilder:edit'] = 'Edit your own custom reports';
+$string['reportbuilder:editall'] = 'Edit all custom reports';
+$string['reportbuilder:scheduleviewas'] = 'Schedule reports to be viewed as other users';
+$string['reportbuilder:view'] = 'View custom reports';
 $string['resetrole'] = 'Reset';
 $string['resettingrole'] = 'Resetting role \'{$a}\'';
 $string['restore:configure'] = 'Configure restore options';

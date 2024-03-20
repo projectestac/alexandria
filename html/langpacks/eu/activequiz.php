@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'activequiz', language 'eu', version '3.11'.
+ * Strings for component 'activequiz', language 'eu', version '4.1'.
  *
  * @package     activequiz
  * @category    string
@@ -71,7 +71,7 @@ $string['fullanonymize'] = 'Egin ikasleen erantzunak guztiz anonimo.';
 $string['fullanonymize_help'] = 'Egin ikasleen erantzunak guztiz anonimo. Ohar zaitez aukera hori gaitu ezker, saio honetako erantzunak ez direla ebaluatuko, ezta ikasleei aplikatuko ere.';
 $string['gatheringresults'] = 'Emaitzak biltzen...';
 $string['gotosession'] = 'Joan irekitako saiora';
-$string['grademethod'] = 'Saioa ebaluatzeko metodoa';
+$string['grademethod'] = 'Saioaren kalifikazio-metodoa';
 $string['grademethod_help'] = 'Hau ebaluatzeko metodoa da, aurrez aurreko galdetegi bereko saio anitzetan ebaluazioa ebazten duena.';
 $string['gradesettings'] = 'Ebaluazio-ezarpenak';
 $string['groupattendance'] = 'Baimendu taldeko partaidetza';

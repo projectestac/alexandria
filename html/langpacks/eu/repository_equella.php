@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_equella', language 'eu', version '3.11'.
+ * Strings for component 'repository_equella', language 'eu', version '4.1'.
  *
  * @package     repository_equella
  * @category    string
@@ -37,7 +37,7 @@ $string['pluginname'] = 'EQUELLA biltegia';
 $string['privacy:metadata'] = 'EQUELLA biltegi-pluginak ez du datu pertsonalik biltzen, baina erabiltzaile-datuak Moodletik urruneko sistemara bidaltzen ditu.';
 $string['restrictionattachmentsonly'] = 'Erantsitako baliabidea soilik';
 $string['restrictionitemsonly'] = 'Elementuen laburpena soilik';
-$string['restrictionnone'] = 'Mugarik ez';
+$string['restrictionnone'] = 'Murrizketarik ez';
 $string['search'] = 'Bilatu EQUELLA';
 $string['selectrestriction'] = 'Mugatu aukeraketa';
 $string['selectrestriction.desc'] = 'Hautatu ikastaro-editore batek elementuen laburpena aukera dezakeen, soilik erantsitako baliabideak edo biak.';

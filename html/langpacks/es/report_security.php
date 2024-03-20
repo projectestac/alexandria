@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_security', language 'es', version '3.11'.
+ * Strings for component 'report_security', language 'es', version '4.1'.
  *
  * @package     report_security
  * @category    string
@@ -25,6 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['check_antivirus_details'] = 'Este estado comprueba si se ha detectado un error reciente o no en función del umbral establecido en la configuración principal del antivirus.';
+$string['check_antivirus_error'] = 'Se han detectado {$a->errors} errores en el último {$a->lookback}';
+$string['check_antivirus_info'] = 'Actualmente no hay escáneres antivirus habilitados';
+$string['check_antivirus_logstore_not_supported'] = 'No se puede verificar el estado de los escáneres antivirus debido al tipo de almacén de registros elegido';
+$string['check_antivirus_name'] = 'Antivirus';
+$string['check_antivirus_ok'] = '{$a->scanners} escáner(es) antivirus habilitado(s), no se han detectado problemas en el último {$a->lookback}';
 $string['check_configrw_details'] = '<p>Se recomienda que los permisos del archivo <code>config.php</code> se cambien después de la instalación para que este archivo no sea modificado por el servidor web.
 Por favor tenga en cuenta que esta medida no mejora la seguridad del servidor de forma significativa, pero si puede ralentizar o limitar vulnerabilidades comunes.</p>';
 $string['check_configrw_name'] = 'Archivo config.php escribible';
@@ -40,8 +46,9 @@ $string['check_crawlers_error'] = 'Se permite el acceso al motor de búsquedas p
 $string['check_crawlers_info'] = 'Los motores de búsqueda pueden entrar como invitados.';
 $string['check_crawlers_name'] = 'Abrir a Google';
 $string['check_crawlers_ok'] = 'El acceso a los motores de búsqueda está deshabilitado.';
-$string['check_defaultuserrole_details'] = '<p>A todos los usuarios identificados se les asignan los permisos del rol de usuario por defecto. Por favor, asegúrese de que no se admiten permisos de riego en este rol. </p>
-<p>Para el rol de usuario por defecto solo se permite heredar el tipo <em>usuario autenticado</em>. El  permiso para ver el curso no debe estar habilitado. </p>';
+$string['check_defaultuserrole_details'] = '<p>A todos los usuarios identificados se les asignan los permisos del rol de usuario por defecto. Por favor, asegúrese de que no se admiten permisos de riesgo en este rol. </p>
+<p>Para el rol de usuario por defecto sólo se permite heredar el tipo <em>usuario autenticado</em>. El  permiso para ver el curso no debe estar habilitado.</p>
+<p>Por favor, compruebe si la opcion de solicitud de aprobación de borrado de datos automática (tool_dataprivacy | automaticdatadeletionapproval) está habilitada. Los usuarios pueden solicitar borrados que podrían eliminar grandes cantidades de datos.</p>';
 $string['check_defaultuserrole_error'] = 'El rol default para el usuario "{$a}" ¡está incorrectamente definido!';
 $string['check_defaultuserrole_name'] = 'Rol por defecto de todos los usuarios';
 $string['check_defaultuserrole_notset'] = 'No se ha determinado el rol por defecto';
@@ -61,12 +68,12 @@ $string['check_embed_details'] = '<p> La Incrustación ilimitada de objetos es m
 $string['check_embed_error'] = 'Incrustación ilimitada de objetos habilitada - esto es muy peligroso en la mayoría de los servidores.';
 $string['check_embed_name'] = 'Permitir EMBED (incrustar) y OBJECT (objeto)';
 $string['check_embed_ok'] = 'No se permite la incrustación ilimitada de objetos.';
-$string['check_frontpagerole_details'] = 'El rol por defecto en la página principal se da a todos los usuarios registrados para las actividades en la portada. Por favor, asegúrese de que no están permitidos privilegios con riesgo para este rol.
-Se recomienda crear un rol especial a tal efecto y no se use un tipo de rol preestablecido.';
-$string['check_frontpagerole_error'] = '¡Detectado un rol en la página principal "{$a}" definido de forma incorrecta!';
-$string['check_frontpagerole_name'] = 'Rol en la página principal';
-$string['check_frontpagerole_notset'] = 'El rol en la página principal no está establecido.';
-$string['check_frontpagerole_ok'] = 'La definición del rol en la página principal es correcta.';
+$string['check_frontpagerole_details'] = '<p>El rol por defecto en la página principal del sitio se da a todos los usuarios registrados para las actividades en la portada. Por favor, asegúrese de que no están permitidos privilegios con riesgo para este rol.</p>
+<p>Se recomienda crear un rol especial a tal efecto y no se use un tipo de rol preestablecido.</p>';
+$string['check_frontpagerole_error'] = '¡Detectado un rol en la página principal del sitio "{$a}" definido de forma incorrecta!';
+$string['check_frontpagerole_name'] = 'Rol en la página principal del sitio';
+$string['check_frontpagerole_notset'] = 'El rol en la página principal del sitio no está establecido.';
+$string['check_frontpagerole_ok'] = 'La definición del rol en la página principal del sitio es correcta.';
 $string['check_guestrole_details'] = '<p>El rol de invitados se emplea para el acceso a cursos para invitados, para usuarios no-identificados y para invitados temporales. Por favor asegúrese que no se permitan permisos riesgosos en este rol.</p>
 <p>El único rol heredado soportado para el rol de invitado es <em>Invitado</em>.</p>';
 $string['check_guestrole_error'] = '¡El rol de invitado "{$a}" está definido incorrectamente!';
@@ -89,13 +96,15 @@ N ponga unos requisitos demasiado estrictos, ya que puede ocurrir que los usuari
 $string['check_passwordpolicy_error'] = 'No se ha configurado la política de contraseñas.';
 $string['check_passwordpolicy_name'] = 'Política de contraseñas';
 $string['check_passwordpolicy_ok'] = 'Política de contraseñas habilitada.';
-$string['check_preventexecpath_details'] = '<p>El permitir que las rutas hacia los ejecutables sean configuradas mediante la Interfase Gráfica del Usuario es un vector para escalamiento de privilegios. Esto debe estar forzado en config.php:</p><p><code>$CFG->preventexecpath = true;<code></p>';
+$string['check_preventexecpath_details'] = '<p>Permitir que las rutas hacia los ejecutables sean configuradas mediante la Interfase Gráfica del Usuario Admin GUI es un vector para escalamiento de privilegios. Esto debe estar forzado en config.php:</p><p><code>$CFG->preventexecpath = true;</code></p>';
 $string['check_preventexecpath_name'] = 'Rutas hacia ejecutables';
 $string['check_preventexecpath_ok'] = 'Las rutas hacia ejecutables solamente son configurables en config.php.';
 $string['check_preventexecpath_warning'] = 'Las rutas hacia ejecutables pueden configurarse en la Interfaz Gráfica del Usuario Administrador.';
 $string['check_publicpaths_403'] = '(Devolvió un 403, lo ideal sería un 404)';
 $string['check_publicpaths_generic'] = '{$a} archivos no deberían ser públicos';
 $string['check_publicpaths_name'] = 'Comprobar todas las rutas públicas / privadas';
+$string['check_publicpaths_ok'] = 'Todas las rutas internas no son accesibles de forma pública';
+$string['check_publicpaths_warning'] = 'Algunas rutas internas son accesibles de forma pública';
 $string['check_riskadmin_detailsok'] = '<p>Por favor, compruebe la siguiente lista de los administradores del sistema:</p>{$a}';
 $string['check_riskadmin_detailswarning'] = '<p>Por favor verifique la lista siguiente de administradores del sistema:</p>{$a->admins} <p> Se recomienda que solamente se asigne el rol de administrador en el contexto de sistema. Los siguientes usuarios tienen asignaciones de rol de administrador (no soportadas) en otros contextos:</p>{$a->unsupported}';
 $string['check_riskadmin_name'] = 'Administradores';

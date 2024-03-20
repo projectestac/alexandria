@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'book', language 'gl', version '3.11'.
+ * Strings for component 'book', language 'gl', version '4.1'.
  *
  * @package     book
  * @category    string
@@ -29,7 +29,7 @@ $string['addafter'] = 'Engadir un novo capítulo';
 $string['addafterchapter'] = 'Engadir un novo capítulo após «{$a->title}»';
 $string['book:addinstance'] = 'Engadir un novo libro';
 $string['book:edit'] = 'Editar capítulos do libro';
-$string['book:read'] = 'Ler libro';
+$string['book:read'] = 'Ver  bloque';
 $string['book:viewhiddenchapters'] = 'Ver capítulos agochados do libro';
 $string['chapterandsubchaptersdeleted'] = 'O capítulo «{$a->title}» e os seuss {$a->subchapters} subcapítulos foron eliminados';
 $string['chapterdeleted'] = 'O capítulo «{$a->title}» foi eliminado';

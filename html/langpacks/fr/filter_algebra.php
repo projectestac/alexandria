@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_algebra', language 'fr', version '3.11'.
+ * Strings for component 'filter_algebra', language 'fr', version '4.1'.
  *
  * @package     filter_algebra
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['algebraicexpression'] = 'Expression algébrique';
 $string['filtername'] = 'Notation Algebra';
-$string['privacy:metadata'] = 'Le plugin Notation Algebra n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Notation Algebra n’enregistre aucune donnée personnelle.';

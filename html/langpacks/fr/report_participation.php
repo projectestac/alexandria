@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_participation', language 'fr', version '3.11'.
+ * Strings for component 'report_participation', language 'fr', version '4.1'.
  *
  * @package     report_participation
  * @category    string
@@ -31,4 +31,4 @@ $string['page-report-participation-index'] = 'Rapport de participation au cours'
 $string['page-report-participation-x'] = 'Tout rapport de participation';
 $string['participation:view'] = 'Consulter le rapport de participation au cours';
 $string['pluginname'] = 'Participation au cours';
-$string['privacy:metadata'] = 'Le plugin Participation au cours n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Participation au cours n’enregistre aucune donnée personnelle.';

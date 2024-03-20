@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_title', language 'fr', version '3.11'.
+ * Strings for component 'atto_title', language 'fr', version '4.1'.
  *
  * @package     atto_title
  * @category    string
@@ -31,5 +31,5 @@ $string['h5'] = 'Titre (petit)';
 $string['p'] = 'Paragraphe';
 $string['pluginname'] = 'Styles de paragraphe';
 $string['pre'] = 'Pré-formaté';
-$string['privacy:metadata'] = 'Le plugin atto_title n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_title n’enregistre aucune donnée personnelle.';
 $string['title'] = 'Styles de paragraphe';

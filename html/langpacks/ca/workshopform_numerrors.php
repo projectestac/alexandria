@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_numerrors', language 'ca', version '3.11'.
+ * Strings for component 'workshopform_numerrors', language 'ca', version '4.1'.
  *
  * @package     workshopform_numerrors
  * @category    string
@@ -36,7 +36,7 @@ $string['dimensionweight'] = 'Pes';
 $string['grade0'] = 'Mot per l\'error';
 $string['grade0default'] = 'No';
 $string['grade1'] = 'Mot per l\'encert';
-$string['grade1default'] = 'Si';
+$string['grade1default'] = 'Sí';
 $string['grademapping'] = 'Taula de mapatge de notes';
 $string['maperror'] = 'El número ponderat d\'errors és menor o igual a';
 $string['mapgrade'] = 'Puntuació de la tramesa';

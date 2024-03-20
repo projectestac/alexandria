@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forumngfeature_export', language 'fr', version '3.11'.
+ * Strings for component 'forumngfeature_export', language 'fr', version '4.1'.
  *
  * @package     forumngfeature_export
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['export'] = 'Exporter';
-$string['exportallnodisc'] = 'Aucun fil de discussion sélectionné pour l\'export';
+$string['exportallnodisc'] = 'Aucun fil de discussion sélectionné pour l’export';
 $string['pluginname'] = 'Exportation des messages';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'dataformat_ods', language 'fr', version '3.11'.
+ * Strings for component 'dataformat_ods', language 'fr', version '4.1'.
  *
  * @package     dataformat_ods
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['dataformat'] = 'OpenDocument (.ods)';
-$string['privacy:metadata'] = 'Le plugin format de données OpenDocument n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin format de données OpenDocument n’enregistre aucune donnée personnelle.';
 $string['shortname'] = 'OpenDocument';

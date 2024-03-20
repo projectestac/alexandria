@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopeval_credit', language 'ru', version '3.11'.
+ * Strings for component 'workshopeval_credit', language 'ru', version '4.1'.
  *
  * @package     workshopeval_credit
  * @category    string
@@ -36,3 +36,4 @@ $string['modeall'] = 'Всё или ничего';
 $string['modeone'] = 'Как минимум одна работа';
 $string['modeproportional'] = 'Пропорционально';
 $string['pluginname'] = 'Бонус за участие';
+$string['privacy:metadata'] = 'Кредит на участие не хранит никаких личных данных';

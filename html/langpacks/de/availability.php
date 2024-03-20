@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability', language 'de', version '3.11'.
+ * Strings for component 'availability', language 'de', version '4.1'.
  *
  * @package     availability
  * @category    string
@@ -29,7 +29,7 @@ $string['accessrestrictions'] = 'Voraussetzungen';
 $string['addrestriction'] = 'Voraussetzung hinzufügen';
 $string['and'] = 'und';
 $string['condition_group'] = 'Zugriffsregel';
-$string['condition_group_info'] = 'Mit Zugriffsregeln können Voraussetzungen logisch verknüpft sein';
+$string['condition_group_info'] = 'Über Zugriffsregeln können Voraussetzungen logisch verknüpft werden';
 $string['enableavailability'] = 'Voraussetzungen aktivieren';
 $string['enableavailability_desc'] = 'Diese Option erlaubt Bedingungen (z.B. Zeit, Bewertung, Abschluss), die den Zugriff auf Aktivitäten und Abschnitte regeln.';
 $string['error_list_nochildren'] = 'Zugriffsregeln müssen mindestens eine Bedingung enthalten.';
@@ -65,7 +65,8 @@ $string['privacy:metadata'] = 'Das Zugriffsberechtigungssystem speichert keine p
 $string['restrictaccess'] = 'Voraussetzungen';
 $string['restrictbygroup'] = 'Voraussetzung für Gruppe/Gruppierung hinzufügen';
 $string['setheading'] = '{$a->number} Liste von {$a->count} Voraussetzung(en)';
-$string['show_verb'] = 'Klicken, um in grau anzuzeigen';
-$string['shown_all'] = 'Grau angezeigt, wenn die Bedingungen nicht erfüllt sind';
-$string['shown_individual'] = 'Grau angezeigt, wenn diese Bedingung nicht erfüllt ist';
+$string['show_verb'] = 'Zum Anzeigen klicken';
+$string['showmore'] = 'Mehr anzeigen';
+$string['shown_all'] = 'Angezeigt, wenn nicht alle Bedingungen erfüllt sind';
+$string['shown_individual'] = 'Angezeigt, wenn diese Bedingung nicht erfüllt ist';
 $string['unknowncondition'] = 'Unbekannte Bedingung (gelöschtes Plugin)';

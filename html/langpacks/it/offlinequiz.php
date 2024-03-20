@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'offlinequiz', language 'it', version '3.11'.
+ * Strings for component 'offlinequiz', language 'it', version '4.1'.
  *
  * @package     offlinequiz
  * @category    string
@@ -62,7 +62,10 @@ $string['attemptexists'] = 'Esiste un tentativo';
 $string['attemptsexist'] = 'Non è più possibile aggiungere o rimuovere domande.';
 $string['attemptsnum'] = 'Risultati: {$a}';
 $string['attemptsonly'] = 'Visualizza solo studenti con risultati';
+$string['attendanceoverview'] = 'Presenze';
 $string['attendances'] = 'Presenze';
+$string['attendancesheadline'] = 'Presenze';
+$string['backtopreview'] = 'Visualizza Anteprima';
 $string['basicideasofofflinequiz'] = 'Idee di base per la creazione di quiz offline';
 $string['blackwhitethreshold'] = 'Soglia bianco/nero';
 $string['bulksavegrades'] = 'Salva voti';
@@ -99,6 +102,8 @@ $string['copytogroup'] = 'Aggiungi tutte le domande al gruppo: {$a}';
 $string['correct'] = 'corretto';
 $string['correcterror'] = 'risolvi';
 $string['correctforgroup'] = 'Risposte corrette per il gruppo {$a}';
+$string['correctheader'] = 'Correzione necessaria:';
+$string['correctionerrors'] = 'Moduli con errori di correzione:';
 $string['correctionform'] = 'Correzione';
 $string['correctionforms'] = 'Moduli per la correzione';
 $string['correctionoptionsheading'] = 'Opzioni di correzione';
@@ -156,7 +161,7 @@ $string['editingofflinequiz'] = 'Modifica domande del gruppo';
 $string['editingofflinequiz_help'] = 'Quando si crea un quiz offline, i concetti principali sono:
 <ul><li> Il quiz offline, contiene domande in una o più pagine</li>
 <li>Il deposito domande, che archivia copie di tutte le domande organizzate in categorie</li></ul>';
-$string['editingofflinequizx'] = 'Modifica quiz offline: {$a}';
+$string['editingofflinequizx'] = 'Domande';
 $string['editlist'] = 'Modifica lista';
 $string['editlists'] = 'Modifica liste';
 $string['editmaxmark'] = 'Modifica voto massimo';
@@ -172,6 +177,8 @@ $string['emptygroups'] = 'Alcuni gruppi del quiz offline sono vuoti. Per favore 
 $string['enroluser'] = 'Iscrivi utente';
 $string['erroraccessingreport'] = 'Non ti è permesso visualizzare questo report.';
 $string['errorreport'] = 'Report degli errori di importazione';
+$string['evaluated'] = 'Valutati:';
+$string['evaluation'] = '2. Valutazione';
 $string['eventattemptdeleted'] = 'Eliminato tentativo del quiz offline';
 $string['eventattemptpreviewstarted'] = 'Avviata anteprima del tentativo del quiz offline';
 $string['eventattemptreviewed'] = 'Revisionato tentativo del quiz offline';
@@ -206,6 +213,7 @@ $string['formforcorrection'] = 'Modulo di correzione per il gruppo {$a}';
 $string['formforgroup'] = 'Modulo delle domande per il gruppo {$a}';
 $string['formforgroupdocx'] = 'Modulo delle domande per il gruppo {$a} (DOCX)';
 $string['formforgrouplatex'] = 'Modulo delle domande per il gruppo {$a} (LATEX)';
+$string['forms'] = 'Moduli';
 $string['formsexist'] = 'Moduli già creati.';
 $string['formsexistx'] = 'Moduli già creati (<a href="{$a}">Scarica moduli</a>)';
 $string['formsheetsettings'] = 'Impostazioni moduli';
@@ -228,7 +236,6 @@ $string['gradingoptionsheading'] = 'Opzioni di valutazione';
 $string['greeniscross'] = 'conteggiato come una croce';
 $string['group'] = 'Gruppo';
 $string['groupoutofrange'] = 'Il gruppo era fuori dal limite ed è stato sostituito con il gruppo A.';
-$string['groupquestions'] = 'Domande gruppo';
 $string['hasresult'] = 'Esiste un risultato';
 $string['hotspotdeletiontask'] = 'Eliminazione degli hotspot';
 $string['html'] = 'HTML';
@@ -283,6 +290,9 @@ $string['ischecked'] = 'La partecipazione è controllata';
 $string['isnotchecked'] = 'La partecipazione non è controllata';
 $string['itemdata'] = 'Elemento dati';
 $string['keepfilesfordays'] = 'Conserva i file per giorni';
+$string['legend'] = 'Legenda';
+$string['legendnoaction'] = 'Nessuna azione richiesta.';
+$string['legendwarning'] = 'Richiesta azione immediata.';
 $string['letter'] = 'Lettera';
 $string['lightgray'] = 'Grigio chiaro';
 $string['linktoscannedform'] = 'Visualizza modulo scansionato';
@@ -517,7 +527,6 @@ $string['questiontextisempty'] = '[testo della domanda vuoto]';
 $string['quizdate'] = 'Data del quiz offline';
 $string['quizopenclose'] = 'Date di apertura e chiusura';
 $string['quizopenclose_help'] = 'Gli studenti possono vedere i loro tentativi solo dopo la data di apertura e prima della data di chiusura.';
-$string['quizquestions'] = 'Domande quiz';
 $string['randomfromexistingcategory'] = 'Domande casuali da una categoria esistente';
 $string['randomnumber'] = 'Numero di domande casuali';
 $string['randomquestionusinganewcategory'] = 'Domande casuali utilizzando una nuova categoria';

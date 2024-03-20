@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_pdf', language 'ar', version '3.11'.
+ * Strings for component 'assignsubmission_pdf', language 'ar', version '4.1'.
  *
  * @package     assignsubmission_pdf
  * @category    string
@@ -27,19 +27,19 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['choosetemplate'] = 'إختر القالب';
 $string['configmaxfiles'] = 'القيمة الافتراضية للإعداد \'أقصى عدد من ملفات PDF المرفوعة\' في صفحة تهيئة الواجب';
-$string['coversheettemplate'] = 'قالب الغلاف';
+$string['coversheettemplate'] = 'مظهر الغلاف';
 $string['deletetemplate'] = 'حذف القالب';
 $string['duplicatetemplate'] = 'تكرار القالب';
-$string['edittemplates'] = 'تحرير القالب';
+$string['edittemplates'] = 'تحرير القوالب';
 $string['enabled_help'] = 'هذا سيسمح بالتسليم والتجميع التلقائي لملفات PDF من الطلاب. هو مصمم لاستعماله مقترنًا مع نوع التصحيحات في ملفات PDF.';
 $string['itemsettingmore'] = 'اسم الحقل (للحقول النصية) أو تنسيق التاريخ (مثل d/m/Y)';
 $string['missingfield'] = 'ينبغي عليك إملاء حقل \'{$a}\' في نموذج التسليم.';
-$string['newtemplate'] = 'قالب جديد';
-$string['notemplate'] = 'لا قالب';
+$string['newtemplate'] = 'مظهر جديد';
+$string['notemplate'] = 'لا مظهر';
 $string['pluginname'] = 'تسليم PDF';
 $string['savetemplate'] = 'حفظ القالب';
 $string['showused'] = 'القالب المستعمل في الواجبات';
-$string['sitetemplate'] = 'قالب عمومي';
+$string['sitetemplate'] = 'مظهر عمومي';
 $string['sitetemplatehelp'] = 'يمكن مشاهدتها في أرجاء الموقع، ولكن يمكن تحريرها من قبل مشرف الموقع حصراً';
 $string['templatename'] = 'اسم القالب';
 $string['templatenotused'] = 'هذا القالب ليس مستعملاً حالياً';

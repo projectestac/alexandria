@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_courseoverview', language 'fr', version '3.11'.
+ * Strings for component 'report_courseoverview', language 'fr', version '4.1'.
  *
  * @package     report_courseoverview
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['courseoverview:view'] = 'Consulter le rapport résumé du cours';
-$string['pluginname'] = 'Vue d\'ensemble des cours';
-$string['privacy:metadata'] = 'Le plugin Vue d\'ensemble des cours n\'enregistre aucune donnée personnelle.';
+$string['pluginname'] = 'Vue d’ensemble des cours';
+$string['privacy:metadata'] = 'Le plugin Vue d’ensemble des cours n’enregistre aucune donnée personnelle.';

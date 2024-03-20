@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_learning_plan', language 'eu', version '3.11'.
+ * Strings for component 'block_learning_plan', language 'eu', version '4.1'.
  *
  * @package     block_learning_plan
  * @category    string
@@ -32,7 +32,7 @@ $string['addusers'] = 'Gehitu erabiltzaileak';
 $string['assign_learningplan_user'] = 'Esleitu ikasketa-planak erabiltzaileei';
 $string['assign_training_learningplan'] = 'Esleitu trebakuntza';
 $string['assignee'] = 'Emailea';
-$string['attachment'] = 'Kargatu fitxategia';
+$string['attachment'] = 'Igo fitxategia';
 $string['block/learning_plan:managepages'] = 'Kudeatu ikasketa-planaren orriak';
 $string['block/learning_plan:viewpages'] = 'Ikusi ikasketa-planaren orriak';
 $string['classroom'] = 'Ikasgelako trebakuntza';

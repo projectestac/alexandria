@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'webservice_soap', language 'fr', version '3.11'.
+ * Strings for component 'webservice_soap', language 'fr', version '4.1'.
  *
  * @package     webservice_soap
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Protocole SOAP';
-$string['privacy:metadata'] = 'Le plugin Protocole SOAP n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Protocole SOAP n’enregistre aucune donnée personnelle.';
 $string['soap:use'] = 'Utiliser le protocole SOAP';

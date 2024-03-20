@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_indent', language 'fr', version '3.11'.
+ * Strings for component 'atto_indent', language 'fr', version '4.1'.
  *
  * @package     atto_indent
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['indent'] = 'Indenter';
 $string['outdent'] = 'Désindenter';
 $string['pluginname'] = 'Indentation';
-$string['privacy:metadata'] = 'Le plugin atto_indent n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_indent n’enregistre aucune donnée personnelle.';

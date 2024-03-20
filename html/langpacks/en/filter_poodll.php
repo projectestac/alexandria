@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_poodll', language 'en', version '3.11'.
+ * Strings for component 'filter_poodll', language 'en', version '4.1'.
  *
  * @package     filter_poodll
  * @category    string
@@ -46,6 +46,7 @@ $string['activate'] = 'Activate Poodll?';
 $string['advancedsettings'] = 'Advanced Settings';
 $string['alwayshtml5'] = 'Always use HTML5';
 $string['appauthorised'] = 'Poodll filter is authorised for this site.';
+$string['appitselfnotauthorised'] = 'No valid subscription contains access to the plugin: filter_poodll';
 $string['appnotauthorised'] = 'Poodll filter is NOT authorised for this site.';
 $string['audio'] = 'Audio';
 $string['audiotranscode'] = 'Auto Conv. to MP3';
@@ -88,7 +89,7 @@ $string['debug_enable_details'] = 'If enabled, information about recordings will
 $string['debug_heading'] = 'Poodll Debugging';
 $string['default_camera'] = 'Default camera';
 $string['defaultwhiteboard'] = 'Default whiteboard';
-$string['displaysubs'] = '{$a->subscriptionname} : expires {$a->expiredate}';
+$string['displaysubs'] = '{$a->subscriptionname} : expires {$a->displayexpiredate}';
 $string['end'] = 'Expiration';
 $string['event_adhoc_completed'] = 'Poodll Adhoc task completed';
 $string['event_adhoc_convert_completed'] = 'Poodll Adhoc convert task completed';
@@ -119,6 +120,7 @@ $string['filter_poodll_videogallery_heading'] = 'Video Gallery Settings';
 $string['filter_poodll_videoplayer_heading'] = 'Video Player Settings';
 $string['filter_poodll_whiteboard_heading'] = 'Whiteboard Settings';
 $string['filtername'] = 'Poodll Filter';
+$string['finished'] = 'finished';
 $string['flashcardstype'] = 'Flashcards Type';
 $string['flashonandroid'] = 'Use Flash on Android';
 $string['flashonandroid_desc'] = 'It is possible to use Flash on Android, though in many cases its not available and difficult to communicate to students what to do. So by default this is off.';
@@ -137,6 +139,7 @@ $string['html5ondsafaridetails'] = 'Desktop Safari may not select the correct au
 $string['html5recorder_skin_audio'] = 'HTML5 Recorder Skin(Audio)';
 $string['html5recorder_skin_video'] = 'HTML5 Recorder Skin(Video)';
 $string['insert'] = 'Insert';
+$string['invalidresponse'] = 'Invalid response or connection failure';
 $string['jumpcat_explanation'] = 'The full set of Poodll filter settings can be found <a href="{$a}">here</a>.';
 $string['jumpcat_heading'] = 'Poodll filter settings';
 $string['legacysettings'] = 'Legacy Settings';
@@ -177,10 +180,13 @@ $string['no_subscriptions'] = 'No subscriptions.';
 $string['noapisecret'] = 'No API secret entered.';
 $string['noapiuser'] = 'No API username entered.';
 $string['normal'] = 'Normal';
+$string['nosubtitlesyet'] = 'Subtitles are not available (yet)';
 $string['notokenincache'] = 'Refresh to see license information. Contact Poodll support if there is a problem.';
+$string['novalidsubscription'] = 'No valid subscription.';
 $string['once_recorder'] = 'Once';
 $string['oneeighty_days'] = '180 Days';
 $string['onetwothree_recorder'] = 'One Two Three';
+$string['paused'] = 'paused';
 $string['per_plugin'] = 'Per Plugin (Last Yr)';
 $string['per_recording_type'] = 'Per recording type';
 $string['picqual'] = 'Target webcam qual. 1 - 10';
@@ -197,6 +203,7 @@ $string['placeholdervideosecs_details'] = 'Duration in seconds to at least one d
 $string['plain_recorder'] = 'Plain';
 $string['player'] = 'Player {$a}';
 $string['playertype'] = 'player';
+$string['playing'] = 'playing';
 $string['pluginname'] = 'Poodll Filter';
 $string['poodll:candownloadmedia'] = 'Can download media';
 $string['poodll:comparetext'] = 'Allow text comparison via API.';
@@ -234,6 +241,7 @@ $string['presets'] = 'Autofill template with a Preset';
 $string['presets_desc'] = 'Poodll comes with some default presets you can use out of the box, or to help you get started with your own template. Choose one of those here, or just create your own template from scratch. You can export a template as a bundle by clicking on the green box above. You can import a bundle by dragging it onto the green box.';
 $string['privacy:metadata'] = 'The Poodll filter plugin does not store any personal data.';
 $string['readaloud_recorder'] = 'Read Aloud';
+$string['ready'] = 'ready';
 $string['recorderorder'] = 'Preferred Recorder Order';
 $string['recorderorder_audio'] = 'Audio Recorder Order';
 $string['recorderorder_audio_desc'] = '';
@@ -303,7 +311,9 @@ $string['recui_waitwaitstilluploading'] = 'Your file is still uploading. Do you 
 $string['refreshtoken'] = 'Refresh license information';
 $string['registrationkey'] = 'Registration Key';
 $string['registrationkey_explanation'] = 'Enter your Poodll registration key here only if you have not entered an API key and secret above. You can obtain a key from <a href=\'https://poodll.com/pricing\'>https://poodll.com/pricing</a>';
+$string['remainingplays'] = 'Remaining plays';
 $string['screen_recorder'] = 'Screen Recorder';
+$string['select-text-and-click-me'] = 'Select Text and Click Me';
 $string['serverhttpport'] = 'Poodll Red5 Server Port (HTTP)';
 $string['serverid'] = 'Poodll Red5 Server Id';
 $string['servername'] = 'Poodll Red5 Server Address';
@@ -313,6 +323,7 @@ $string['shadow_recorder'] = 'Shadow';
 $string['showdownloadicon'] = 'Show download button under players';
 $string['showdownloadicon_desc'] = 'This is implemented in some players. native players, mediaelement players, audiojs_shim, flowplayer first frame and Video JS';
 $string['sitedefault'] = 'Site Default';
+$string['sitenotvalid'] = 'Site URL does not match the registered site URL for this API user.';
 $string['size'] = 'Size';
 $string['skinstyleaudio'] = 'Skin style(audio)';
 $string['skinstyleaudio_details'] = 'A CSS class name that will be added to the audio recorder to assist in customizing recorder appearance.';
@@ -370,9 +381,12 @@ $string['templatestyle_desc'] = 'Enter any custom CSS that your template uses he
 $string['templateupdated'] = '{$a} Poodll Templates Updated.';
 $string['templateversion'] = 'The version of this template {$a}';
 $string['templateversion_desc'] = 'Use semantic versioning e.g 1.0.0. Poodll will show an update button when the preset version is greater than the template version.';
+$string['thetokenisold'] = 'The authentication token is old. Please refresh. If refreshing fails, you have a connection problem. Contact Poodll Support.';
 $string['thirty_days'] = '30 Days';
 $string['threehundredsixtyfive_days'] = '365 Days';
 $string['tiny'] = 'Tiny';
+$string['tokenfetchfailed'] = 'Failed to refresh token. Are your API user and secret correct?';
+$string['tokenfetchfailedwitherror'] = 'Failed to refresh token: {$a}';
 $string['transcode_heading'] = 'Audio/Video File Conversion Settings (FFMPEG)';
 $string['transcode_heading_desc'] = 'The settings in this section are for FFMPEG and Red5, and do not apply when using remote conversions';
 $string['type'] = 'Type';
@@ -386,6 +400,7 @@ $string['usecloudrecording'] = 'Remote conversion';
 $string['usecloudrecording_desc'] = 'Remote conversion. This enables transcoding and other services in the cloud. Submitted files are returned to Moodle and not hosted in the cloud.';
 $string['useplayer'] = '{$a} Player';
 $string['useplayerdesc'] = 'The player selected will use the information from the appropriate template.';
+$string['usingoldtoken'] = '. Recycling old authentication token.';
 $string['value'] = 'value';
 $string['video'] = 'Video';
 $string['videotranscode'] = 'Auto Conv. to MP4';

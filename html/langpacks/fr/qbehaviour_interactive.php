@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_interactive', language 'fr', version '3.11'.
+ * Strings for component 'qbehaviour_interactive', language 'fr', version '4.1'.
  *
  * @package     qbehaviour_interactive
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Interactif avec essais multiples';
-$string['privacy:metadata'] = 'Le plugin de comportement de question Interactif avec essais multiples n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de comportement de question Interactif avec essais multiples n’enregistre aucune donnée personnelle.';
 $string['triesremaining'] = 'Essais restants : {$a}';
 $string['tryagain'] = 'Essayez encore';

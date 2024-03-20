@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'coursereport_log', language 'fr', version '3.11'.
+ * Strings for component 'coursereport_log', language 'fr', version '4.1'.
  *
  * @package     coursereport_log
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['log:viewlive'] = 'Consulter les historiques en direct';
 $string['loglive'] = 'Historiques en direct';
 $string['pluginname'] = 'Historiques';
-$string['pluginpagetype'] = 'Rapport d\'historiques de cours';
+$string['pluginpagetype'] = 'Rapport d’historiques de cours';

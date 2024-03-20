@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filters', language 'ca', version '3.11'.
+ * Strings for component 'filters', language 'ca', version '4.1'.
  *
  * @package     filters
  * @category    string
@@ -29,6 +29,7 @@ $string['actfilterhdr'] = 'Filtres actius';
 $string['addfilter'] = 'Afegeix filtre';
 $string['anycategory'] = 'qualsevol categoria';
 $string['anycourse'] = 'qualsevol curs';
+$string['anycourses'] = 'Inscrit en qualsevol curs';
 $string['anyfield'] = 'qualsevol camp';
 $string['anyrole'] = 'qualsevol rol';
 $string['anyvalue'] = 'qualsevol valor';
@@ -75,12 +76,14 @@ $string['nofiltersenabled'] = 'No s\'ha activat cap connecto de filtre per aques
 $string['off'] = 'Inactiu';
 $string['offbutavailable'] = 'Inactiu, però disponible';
 $string['on'] = 'Actiu';
+$string['privacy:reason'] = 'El subsistema Filtre no emmagatzema cap dada personal.';
 $string['profilefilterfield'] = 'Nom del camp del perfil';
 $string['profilefilterlimiter'] = 'Perfil de l\'operador de camp';
 $string['profilelabel'] = '{$a->label}: {$a->profile} {$a->operator} {$a->value}';
 $string['profilelabelnovalue'] = '{$a->label}: {$a->profile} {$a->operator}';
 $string['removeall'] = 'Suprimeix tots els filtres';
 $string['removeselected'] = 'Suprimeix filtres seleccionats';
+$string['replacefilters'] = 'Reemplaça els filtres';
 $string['selectlabel'] = '{$a->label} {$a->operator} {$a->value}';
 $string['startswith'] = 'comença per';
 $string['tablenosave'] = 'Els canvis en la taula de dalt es desen automàticament.';

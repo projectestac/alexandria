@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_quiz_results', language 'fr', version '3.11'.
+ * Strings for component 'block_quiz_results', language 'fr', version '4.1'.
  *
  * @package     block_quiz_results
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Résultats de test (désactivé)';
-$string['privacy:metadata'] = 'Le bloc Résultats de test affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Résultats de test affiche seulement des données enregistrées à d’autres endroits.';
 $string['quiz_results:addinstance'] = 'Ajouter un bloc résultats de test';

@@ -80,14 +80,17 @@ class grade_report_overview extends grade_report {
      * @param string $context
      */
     public function __construct($userid, $gpr, $context) {
-        global $CFG, $COURSE, $DB;
+        global $CFG, $COURSE, $DB, $USER;
         parent::__construct($COURSE->id, $gpr, $context);
 
         // Get the user (for full name).
         $this->user = $DB->get_record('user', array('id' => $userid));
 
+        // Set onlyactive flag to true if the user's viewing his/her report.
+        $onlyactive = ($this->user->id === $USER->id);
+
         // Load the user's courses.
-        $this->courses = enrol_get_users_courses($this->user->id, false, 'id, shortname, showgrades');
+        $this->courses = enrol_get_users_courses($this->user->id, $onlyactive, 'id, shortname, showgrades');
 
         $this->showrank = array();
         $this->showrank['any'] = false;
@@ -352,8 +355,10 @@ class grade_report_overview extends grade_report {
         $table->head = array(get_string('coursename', 'grades'));
         $table->data = null;
         foreach ($this->teachercourses as $courseid => $course) {
+            $coursecontext = context_course::instance($course->id);
+            $coursenamelink = format_string($course->fullname, true, ['context' => $coursecontext]);
             $url = new moodle_url('/grade/report/index.php', array('id' => $courseid));
-            $table->data[] = array(html_writer::link($url, $course->fullname));
+            $table->data[] = array(html_writer::link($url, $coursenamelink));
         }
         echo html_writer::table($table);
     }

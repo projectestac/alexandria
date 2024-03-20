@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'pt', version '3.11'.
+ * Strings for component 'portfolio', language 'pt', version '4.1'.
  *
  * @package     portfolio
  * @category    string
@@ -54,8 +54,8 @@ $string['displayexpiry'] = 'A transferência expirou o tempo limite';
 $string['displayinfo'] = 'Informação de exportação';
 $string['dontwait'] = 'Não aguardar';
 $string['enabled'] = 'Ativar portefólios';
-$string['enableddesc'] = 'Se ativar esta opção, os utilizadores podem exportar conteúdo, tal como tópicos dos fóruns e submissões de trabalhos, para portefólios externos ou páginas HTML.';
-$string['err_uniquename'] = 'O nome do portefólio deve ser único (por cada módulo)';
+$string['enableddesc'] = 'Se ativar esta opção, os utilizadores podem exportar conteúdo, tais como tópicos de fóruns e submissões de trabalhos, para portefólios externos ou páginas HTML.';
+$string['err_uniquename'] = 'O nome do portefólio tem de ser único (por cada módulo)';
 $string['exportalreadyfinished'] = 'A exportação do portefólio está concluída';
 $string['exportalreadyfinisheddesc'] = 'A exportação do portefólio está concluída';
 $string['exportcomplete'] = 'A exportação do portefólio está concluída';
@@ -111,11 +111,11 @@ $string['instancenotdelete'] = 'Erro ao apagar o portefólio';
 $string['instancenotsaved'] = 'Erro ao guardar o portefólio';
 $string['instancesaved'] = 'O portefólio foi guardado com sucesso';
 $string['intro'] = 'Os conteúdos que criou, tais como submissões de trabalhos, tópicos de discussão e publicações em blogues, podem ser exportados para um portfólio ou descarregados.<br>
-Poderá esconder qualquer portfólio que não deseje utilizar, desta forma o mesmo não será listado como uma opção para exportar os conteúdos.';
+Poderá ocultar qualquer portfólio que não deseje utilizar, desta forma o mesmo não será listado como uma opção para exportar os conteúdos.';
 $string['invalidaddformat'] = 'O formato de adição passado a portfolio_add_button é inválido. O valor "{$a}" deve ser um de PORTFOLIO_ADD_XXX';
 $string['invalidbuttonproperty'] = 'Não é possível encontrar a propriedade ({$a}) no portfolio_button';
-$string['invalidconfigproperty'] = 'Não é possível encontrar esta propriedade de configuração ({$a->property} de {$a->class})';
-$string['invalidexportproperty'] = 'Não é possível encontrar esta propriedade de configuração de exportação ({$a->property} of {$a->class})';
+$string['invalidconfigproperty'] = 'Não é possível encontrar a propriedade de configuração ({$a->property} em {$a->class})';
+$string['invalidexportproperty'] = 'Não é possível encontrar a propriedade de configuração de exportação ({$a->property} em {$a->class})';
 $string['invalidfileareaargs'] = 'Os argumentos de área de ficheiro passados a  set_file_and_format_data são inválidos. Estes devem conter contextid, component, filearea e itemid';
 $string['invalidformat'] = 'Algo está a exportar num formato inválido, {$a}';
 $string['invalidinstance'] = 'Não foi possível encontrar a instância de Portefólio indicada';
@@ -123,7 +123,7 @@ $string['invalidpreparepackagefile'] = 'Invocação inválida de prepare_package
 $string['invalidproperty'] = 'Não é possível encontrar a propriedade ({$a->property} em {$a->class})';
 $string['invalidsha1file'] = 'Invocação inválida de get_sha1_file inválida. Devem estar definidos ficheiros individuais ou múltiplos';
 $string['invalidtempid'] = 'O ID exportado é inválido. Pode ter expirado.';
-$string['invaliduserproperty'] = 'Não é possível encontrar a propriedade de conf do utilizador ({$a->property} em {$a->class})';
+$string['invaliduserproperty'] = 'Não é possível encontrar a propriedade de configuração do utilizador ({$a->property} em {$a->class})';
 $string['leap2a_emptyselection'] = 'O valor não foi selecionado';
 $string['leap2a_entryalreadyexists'] = 'Está a tentar adicionar uma entrada Leap2A com o ID ({$a}) que já existe nesta lista';
 $string['leap2a_feedtitle'] = 'Leap2A exportado do Moodle para {$a}';
@@ -163,7 +163,7 @@ $string['notyetselected'] = 'Nada selecionado';
 $string['notyours'] = 'Está a tentar retomar a exportação de um portefólio que não lhe pertence!';
 $string['nouploaddirectory'] = 'Não foi possível criar uma pasta temporária para guardar os seus dados';
 $string['off'] = 'Ativo, mas oculto';
-$string['on'] = 'Ativo, mas visível';
+$string['on'] = 'Ativo e visível';
 $string['plugin'] = 'Módulo portefólio';
 $string['plugincouldnotpackage'] = 'Erro ao compactar os seus dados para exportação: erro original {$a}';
 $string['pluginismisconfigured'] = 'O módulo Portefólio foi ignorado por estar mal configurado. Mensagem de erro: {$a}';

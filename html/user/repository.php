@@ -55,18 +55,15 @@ $PAGE->set_heading($course->fullname);
 
 echo $OUTPUT->header();
 
-$currenttab = 'repositories';
-require('tabs.php');
-
 echo $OUTPUT->heading($configstr);
 echo $OUTPUT->box_start();
 
 $params = array();
-$params['context'] = $coursecontext;
+$params['context'] = [$coursecontext];
 $params['currentcontext'] = $PAGE->context;
 $params['userid']   = $USER->id;
 if (!$instances = repository::get_instances($params)) {
-    print_error('noinstances', 'repository', $CFG->wwwroot . '/user/view.php');
+    throw new \moodle_exception('noinstances', 'repository', $CFG->wwwroot . '/user/view.php');
 }
 
 $table = new html_table();

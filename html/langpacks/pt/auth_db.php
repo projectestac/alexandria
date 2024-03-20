@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_db', language 'pt', version '3.11'.
+ * Strings for component 'auth_db', language 'pt', version '4.1'.
  *
  * @package     auth_db
  * @category    string
@@ -64,7 +64,7 @@ $string['auth_dbsuspenduser'] = 'O utilizador {$a->name} com ID {$a->id} foi sus
 $string['auth_dbsuspendusererror'] = 'Erro ao suspender o utilizador {$a}';
 $string['auth_dbsybasequoting'] = 'Usar formato de aspas Sybase';
 $string['auth_dbsybasequotinghelp'] = 'Usar o estilo de Sybase de escaping de aspas - necessário para Oracle, MS SQL e outras bases de dados. Não usar com MySQL!';
-$string['auth_dbsyncuserstask'] = 'Tarefa de sincronizar utilizadores';
+$string['auth_dbsyncuserstask'] = 'Sincronização de utilizadores';
 $string['auth_dbtable'] = 'Nome da tabela na base de dados';
 $string['auth_dbtable_key'] = 'Tabela';
 $string['auth_dbtableempty'] = 'A tabela externa está vazia.';

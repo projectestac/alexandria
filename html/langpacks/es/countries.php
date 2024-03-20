@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'countries', language 'es', version '3.11'.
+ * Strings for component 'countries', language 'es', version '4.1'.
  *
  * @package     countries
  * @category    string
@@ -167,7 +167,7 @@ $string['LV'] = 'Latvia';
 $string['LY'] = 'Libia';
 $string['MA'] = 'Marruecos';
 $string['MC'] = 'Mónaco';
-$string['MD'] = 'Moldovia ( República de)';
+$string['MD'] = 'Moldavia (República de Moldavia)';
 $string['ME'] = 'Montenegro';
 $string['MF'] = 'San Martín (zona Francesa)';
 $string['MG'] = 'Madagascar';

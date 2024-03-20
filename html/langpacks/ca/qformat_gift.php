@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qformat_gift', language 'ca', version '3.11'.
+ * Strings for component 'qformat_gift', language 'ca', version '4.1'.
  *
  * @package     qformat_gift
  * @category    string
@@ -34,5 +34,6 @@ $string['giftqtypenotset'] = 'Aquest tipus de pregunta no està establert';
 $string['giftrightbraceerror'] = 'No es troba un }';
 $string['importminerror'] = 'Hi ha un error a la pregunta. No hi ha prou respostes per a aquest tipus de pregunta.';
 $string['nohandler'] = 'No hi ha una capçalera per al tipus de pregunta {$a}';
-$string['pluginname'] = 'Format Gift';
+$string['pluginname'] = 'Format GIFT';
 $string['pluginname_help'] = 'El format GIFT permet importar o exportar amb un fitxer de text preguntes d\'opció múltiple, de vertader/fals, de resposta breu, d\'aparellament, d\'emplenar paraules omeses, preguntes numèriques i preguntes de resposta oberta.';
+$string['pluginname_link'] = 'qformat/gift';

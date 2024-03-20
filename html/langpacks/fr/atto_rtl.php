@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_rtl', language 'fr', version '3.11'.
+ * Strings for component 'atto_rtl', language 'fr', version '4.1'.
  *
  * @package     atto_rtl
  * @category    string
@@ -27,5 +27,5 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['ltr'] = 'Gauche à droite';
 $string['pluginname'] = 'RTL/LTR';
-$string['privacy:metadata'] = 'Le plugin atto_rtl n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_rtl n’enregistre aucune donnée personnelle.';
 $string['rtl'] = 'Droite à gauche';

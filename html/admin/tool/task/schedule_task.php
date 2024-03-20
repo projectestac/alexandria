@@ -30,16 +30,6 @@ require('../../../config.php');
 
 require_once($CFG->libdir.'/cronlib.php');
 
-/**
- * Function used to handle mtrace by outputting the text to normal browser window.
- *
- * @param string $message Message to output
- * @param string $eol End of line character
- */
-function tool_task_mtrace_wrapper($message, $eol) {
-    echo s($message . $eol);
-}
-
 // Allow execution of single task. This requires login and has different rules.
 $taskname = required_param('task', PARAM_RAW_TRIMMED);
 
@@ -59,11 +49,7 @@ if (!\core\task\manager::is_runnable()) {
     throw new moodle_exception('cannotfindthepathtothecli', 'tool_task', $redirecturl->out());
 }
 
-$plugininfo = core_plugin_manager::instance()->get_plugin_info($task->get_component());
-$plugindisabled = $plugininfo && $plugininfo->is_enabled() === false &&
-    !$task->get_run_if_component_disabled();
-
-if (!get_config('tool_task', 'enablerunnow') || $plugindisabled) {
+if (!get_config('tool_task', 'enablerunnow') || !$task->can_run()) {
     throw new moodle_exception('nopermissions', 'error', new moodle_url('/admin/tool/task/scheduledtasks.php'),
         get_string('runnow', 'tool_task'), $task->get_name());
 }
@@ -101,6 +87,8 @@ require_sesskey();
 
 // Prepare to handle output via mtrace.
 echo html_writer::start_tag('pre');
+
+require_once("{$CFG->dirroot}/{$CFG->admin}/tool/task/lib.php");
 $CFG->mtrace_wrapper = 'tool_task_mtrace_wrapper';
 
 // Run the specified task (this will output an error if it doesn't exist).

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_templates', language 'ar', version '3.11'.
+ * Strings for component 'atto_templates', language 'ar', version '4.1'.
  *
  * @package     atto_templates
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['description'] = 'إختر قالبًا لاستعراض ما سيبدو عليه، ثم أنقر إدراج';
+$string['description'] = 'إختر مظهراً لاستعراض ما سيبدو عليه، ثم أنقر إدراج';
 $string['dialogtitle'] = 'إدراج محتوى القالب المعرف سابقاً';
 $string['pluginname'] = 'القوالب';
 $string['privacy:metadata'] = 'إن إضافة atto_templates لا تخزن أي بيانات شخصية.';

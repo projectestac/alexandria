@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_rubric', language 'fr', version '3.11'.
+ * Strings for component 'workshopform_rubric', language 'fr', version '4.1'.
  *
  * @package     workshopform_rubric
  * @category    string
@@ -35,8 +35,8 @@ $string['layoutgrid'] = 'Grille';
 $string['layoutlist'] = 'Liste';
 $string['levelgroup'] = 'Niveau de note et définition';
 $string['levels'] = 'Niveaux';
-$string['mustbeunique'] = 'Les niveaux de note doivent être uniques au sein d\'un critère';
+$string['mustbeunique'] = 'Les niveaux de note doivent être uniques au sein d’un critère';
 $string['mustchooseone'] = 'Vous devez sélectionner un de ces éléments';
 $string['mustdefinelevel'] = 'Au moins un niveau est requis';
 $string['pluginname'] = 'Critères';
-$string['privacy:metadata'] = 'Le plugin Critères n\'enregistre que des informations sur le formulaire d\'évaluation. Les données personnelles récoltées sont enregistrées par le plugin Atelier lui-même et sont annexées aux évaluations exportées.';
+$string['privacy:metadata'] = 'Le plugin Critères n’enregistre que des informations sur le formulaire d’évaluation. Les données personnelles récoltées sont enregistrées par le plugin Atelier lui-même et sont annexées aux évaluations exportées.';

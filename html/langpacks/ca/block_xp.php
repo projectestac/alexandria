@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_xp', language 'ca', version '3.11'.
+ * Strings for component 'block_xp', language 'ca', version '4.1'.
  *
  * @package     block_xp
  * @category    string
@@ -52,6 +52,7 @@ $string['level'] = 'Nivell';
 $string['levels'] = 'Nivells';
 $string['levelup'] = 'Puja de nivell!';
 $string['levelx'] = 'Nivell #{$a}';
+$string['name'] = 'Nom';
 $string['navinfos'] = 'Informació';
 $string['navladder'] = 'Classificació';
 $string['navlevels'] = 'Nivells';
@@ -61,6 +62,7 @@ $string['navsettings'] = 'Configuració';
 $string['participant'] = 'Participant';
 $string['participatetolevelup'] = 'Participa en el curs per guanyar punts d\'experiència (xp) i pujar de nivell!';
 $string['pluginname'] = 'Puja de nivell!';
+$string['progress'] = 'Progrés';
 $string['recentrewards'] = 'Recompenses recents';
 $string['rule'] = 'Regla';
 $string['ruleset:all'] = 'TOTES les condicions són certes';

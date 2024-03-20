@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'nl', version '3.11'.
+ * Strings for component 'choicegroup', language 'nl', version '4.1'.
  *
  * @package     choicegroup
  * @category    string
@@ -25,7 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activitydate:closingbeforeopening'] = 'Begindatum moet eerder zijn dan einddatum.';
+$string['activitydate:exceeded'] = 'Einddatum overschreden.';
 $string['activitydate:hasopened'] = 'Geopend:';
+$string['activitydate:notavailableyet'] = 'Nog niet beschikbaar.';
 $string['activitydate:willclose'] = 'Sluit op:';
 $string['activitydate:willopen'] = 'Opent op:';
 $string['add'] = 'Toevoegen';
@@ -68,6 +71,7 @@ $string['choicetext'] = 'Keuze tekst';
 $string['chooseaction'] = 'Selecteer een actie...';
 $string['choosegroup'] = 'Selecteer een groep';
 $string['collapse_all_groupings'] = 'Alle groeperingen inklappen';
+$string['completiondetail:submit'] = 'Kies een groep';
 $string['completionsubmit'] = 'Beschouw als voltooid wanneer de deelnemer een keuze heeft gemaakt';
 $string['createdate'] = 'Aanmaakdatum groep';
 $string['defaultsettings'] = 'Standaardinstellingen';
@@ -108,6 +112,7 @@ $string['members/'] = 'Leden';
 $string['members/max'] = 'Leden / Capaciteit';
 $string['modulename'] = 'Groepkeuze';
 $string['modulename_help'] = 'Met de module Groepkeuze kunnen leerlingen zichzelf inschrijven voor een groep binnen een cursus. De leraar kan instellen welke groepen er gekozen kunnen worden en wat het maximum aantal leerlingen in iedere groep is.';
+$string['modulename_link'] = 'mod/choicegroup/view';
 $string['modulenameplural'] = 'Groepkeuzes';
 $string['moveselectedusersto'] = 'Verplaats de geselecteerde gebruikers naar...';
 $string['multipleenrollmentspossible'] = 'Sta toe om voor meerdere groepen te kiezen.';

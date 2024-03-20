@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_lp', language 'fr', version '3.11'.
+ * Strings for component 'block_lp', language 'fr', version '4.1'.
  *
  * @package     block_lp
  * @category    string
@@ -29,9 +29,9 @@ $string['competenciestoreview'] = 'Compétences à valider';
 $string['lp:addinstance'] = 'Ajouter un bloc plans de formation';
 $string['lp:myaddinstance'] = 'Ajouter un bloc plans de formation au tableau de bord';
 $string['myplans'] = 'Mes plans';
-$string['noactiveplans'] = 'Aucun plan actif pour l\'instant.';
+$string['noactiveplans'] = 'Aucun plan actif pour l’instant.';
 $string['planstoreview'] = 'Plans à valider';
 $string['pluginname'] = 'Plans de formation';
-$string['privacy:metadata'] = 'Le bloc Plans de formation affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Plans de formation affiche seulement des données enregistrées à d’autres endroits.';
 $string['viewmore'] = 'Voir plus…';
-$string['viewotherplans'] = 'Consulter d\'autres plans…';
+$string['viewotherplans'] = 'Consulter d’autres plans…';

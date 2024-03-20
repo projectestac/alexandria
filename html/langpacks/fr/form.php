@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'form', language 'fr', version '3.11'.
+ * Strings for component 'form', language 'fr', version '4.1'.
  *
  * @package     form
  * @category    string
@@ -44,11 +44,11 @@ $string['err_numeric'] = 'Vous devez saisir un nombre dans ce champ.';
 $string['err_positiveint'] = 'Vous devez saisir un nombre plus grand que 0.';
 $string['err_rangelength'] = 'Vous devez saisir entre {$a->format[0]} et {$a->format[1]} caractères dans ce champ.';
 $string['err_required'] = 'Vous devez remplir ce champ.';
-$string['err_wrappingwhitespace'] = 'La valeur ne doit pas commencer ou se terminer par une espace.';
-$string['err_wrongfileextension'] = 'Certains fichiers ({$a->wrongfiles}) ne peuvent pas être déposés. Seuls les types de fichiers {$a-> allowlist} sont autorisés.';
+$string['err_wrappingwhitespace'] = 'La valeur ne doit pas commencer ou se terminer par un espace.';
+$string['err_wrongfileextension'] = 'Certains fichiers ({$a->wrongfiles}) ne peuvent pas être déposés. Seuls les types de fichiers {$a->allowlist} sont autorisés.';
 $string['filesofthesetypes'] = 'Types de fichier acceptés :';
 $string['filetypesany'] = 'Tous les types de fichier';
-$string['filetypesnotall'] = 'Il n\'est pas permis de choisir ici « Tous les types de fichier ».';
+$string['filetypesnotall'] = 'Il n’est pas permis de choisir ici « Tous les types de fichier ».';
 $string['filetypesnotallowed'] = 'Ces types de fichier ne sont pas autorisés ici : {$a}';
 $string['filetypesnotwhitelisted'] = 'Ces types de fichier ne sont pas autorisés ici : {$a}';
 $string['filetypesothers'] = 'Autres fichiers';
@@ -62,9 +62,9 @@ $string['modstandardels'] = 'Réglages courants';
 $string['month'] = 'Mois';
 $string['mustbeoverriden'] = 'La méthode form_definition() dans la classe {$a} doit être surchargée. Veuillez corriger le code.';
 $string['newvaluefor'] = 'Nouvelle valeur de {$a}';
-$string['nomethodforaddinghelpbutton'] = 'Il n\'y a pas de méthode pour ajouter un bouton d\'aide sur un élément {$a->name} (classe {$a->classname}) de formulaire';
-$string['nonexistentformelements'] = 'Tentative d\'ajout de bouton d\'aide à des éléments non existants : {$a}';
-$string['nopermissionform'] = 'Vous n\'avez pas les permissions requises pour accéder à ce formulaire.';
+$string['nomethodforaddinghelpbutton'] = 'Il n’y a pas de méthode pour ajouter un bouton d’aide sur un élément {$a->name} (classe {$a->classname}) de formulaire';
+$string['nonexistentformelements'] = 'Tentative d’ajout de bouton d’aide à des éléments non existants : {$a}';
+$string['nopermissionform'] = 'Vous n’avez pas les permissions requises pour accéder à ce formulaire.';
 $string['noselection'] = 'Aucune sélection';
 $string['nosuggestions'] = 'Pas de suggestion';
 $string['novalue'] = 'Champ vide';
@@ -74,8 +74,8 @@ $string['othersettings'] = 'Autres réglages';
 $string['passwordunmaskedithint'] = 'Modifier le mot de passe';
 $string['passwordunmaskinstructions'] = 'Taper « Entrée » pour enregistrer les modifications';
 $string['passwordunmaskrevealhint'] = 'Révéler';
-$string['privacy:metadata:preference:filemanager_recentviewmode'] = 'Mode d\'affichage récemment affiché des éléments du sélecteur de fichiers';
-$string['privacy:preference:filemanager_recentviewmode'] = 'Votre façon préférée d\'afficher les fichiers dans le sélecteur de fichier est : {$a}';
+$string['privacy:metadata:preference:filemanager_recentviewmode'] = 'Mode d’affichage récemment affiché des éléments du sélecteur de fichiers';
+$string['privacy:preference:filemanager_recentviewmode'] = 'Votre façon préférée d’afficher les fichiers dans le sélecteur de fichier est : {$a}';
 $string['requiredelement'] = 'Champ requis';
 $string['security'] = 'Sécurité';
 $string['selectallornone'] = 'Tout/ne rien sélectionner';

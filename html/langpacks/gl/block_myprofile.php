@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_myprofile', language 'gl', version '3.11'.
+ * Strings for component 'block_myprofile', language 'gl', version '4.1'.
  *
  * @package     block_myprofile
  * @category    string
@@ -34,9 +34,11 @@ $string['display_currentlogin'] = 'Amosar a identificación actual';
 $string['display_email'] = 'Amosar o correo';
 $string['display_firstaccess'] = 'Amosar o primeiro acceso';
 $string['display_icq'] = 'Amosar o ICQ';
+$string['display_idnumber'] = 'Amosar o número  ID';
 $string['display_institution'] = 'Amosar a institución';
 $string['display_lastaccess'] = 'Amosar o último acceso';
 $string['display_lastip'] = 'Amosar o último IP';
+$string['display_lastlogin'] = 'Amosar o último acceso';
 $string['display_msn'] = 'Amosar o MSN';
 $string['display_phone1'] = 'Amosar o 1º número de tél.';
 $string['display_phone2'] = 'Amosar o 2º número de tél.';

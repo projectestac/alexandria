@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_flexpagenav', language 'ca', version '3.11'.
+ * Strings for component 'block_flexpagenav', language 'ca', version '4.1'.
  *
  * @package     block_flexpagenav
  * @category    string
@@ -26,4 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['invalidurl'] = 'L\'URL que heu introduït no és vàlid i no es pot fer servir. Comproveu-lo.';
+$string['name'] = 'Nom';
 $string['type'] = 'Tipus';

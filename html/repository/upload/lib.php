@@ -87,6 +87,8 @@ class repository_upload extends repository {
         }
         // ************ FI
 
+        \core\session\manager::write_close();
+
         if ((is_array($types) and in_array('*', $types)) or $types == '*') {
             $this->mimetypes = '*';
         } else {
@@ -198,7 +200,7 @@ class repository_upload extends repository {
         }
 
         if (($maxbytes!==-1) && (filesize($_FILES[$elname]['tmp_name']) > $maxbytes)) {
-            $maxbytesdisplay = display_size($maxbytes);
+            $maxbytesdisplay = display_size($maxbytes, 0);
             throw new file_exception('maxbytesfile', (object) array('file' => $record->filename,
                                                                     'size' => $maxbytesdisplay));
         }

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_atto', language 'it', version '3.11'.
+ * Strings for component 'editor_atto', language 'it', version '4.1'.
  *
  * @package     editor_atto
  * @category    string
@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['autosavefailed'] = 'Non è stato possibile collegarsi al server per salvare una copia temporanea del testo in redazione. Prima di inviare il testo, accertarsi di essere collegati.';
 $string['autosavefrequency'] = 'Frequenza salvataggio automatico';
 $string['autosavefrequency_desc'] = 'Il numero di secondi che intercorrono tra salvataggi automatici. Atto salverà automaticamente il testo presente nell\'editor in base a questa impostazione. Il testo potrà essere ripristinato quando lo stesso utente accederà lo stesso form.';
+$string['autosaves'] = 'Informazioni di salvataggio automatico dell\'editor';
 $string['autosavesucceeded'] = 'Bozza salvata.';
 $string['editor_command_keycode'] = 'Cmd + {$a}';
 $string['editor_control_keycode'] = 'Ctrl + {$a}';
@@ -45,6 +46,7 @@ $string['privacy:metadata:database:atto_autosave:drafttext'] = 'Testo salvato.';
 $string['privacy:metadata:database:atto_autosave:timemodified'] = 'Orario di modifica del contenuto.';
 $string['privacy:metadata:database:atto_autosave:userid'] = 'ID dell\'utente di cui sono stati salvati i dati.';
 $string['recover'] = 'Ripristino';
+$string['richtexteditor'] = 'Rich text editor';
 $string['settings'] = 'Impostazioni barra degli strumenti Atto';
 $string['subplugintype_atto'] = 'Plugin Atto';
 $string['subplugintype_atto_plural'] = 'Plugin Atto';

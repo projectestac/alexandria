@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_statistics', language 'nl', version '3.11'.
+ * Strings for component 'quiz_statistics', language 'nl', version '4.1'.
  *
  * @package     quiz_statistics
  * @category    string
@@ -49,7 +49,7 @@ $string['coursename'] = 'Cursusnaam';
 $string['detailedanalysis'] = 'Meer gedetailleerde analyse van de antwoorden op deze vraag';
 $string['detailedanalysisforvariant'] = 'Meer gedetailleerde analyse van de antwoorden op variant {$a} van deze vraag';
 $string['discrimination_index'] = 'Discriminatie-index';
-$string['discriminative_efficiency'] = 'Discriminatieve efficientie';
+$string['discriminative_efficiency'] = 'Discriminatieve efficiëntie';
 $string['downloadeverything'] = 'Download volledig rapport als';
 $string['duration'] = 'Open voor';
 $string['effective_weight'] = 'Effectieve weging';
@@ -65,6 +65,9 @@ $string['firstattempts'] = 'eerste pogingen';
 $string['firstattemptsavg'] = 'Gemiddelde cijfer voor eerste poging';
 $string['firstattemptscount'] = 'Aantal volledig beoordeelde eerste pogingen';
 $string['frequency'] = 'Frequentie';
+$string['getstatslockprogress'] = 'Wachten op een lopende taak. Probeer later opnieuw';
+$string['getstatslocktimeout'] = 'Statistiekberekening time-out slot';
+$string['getstatslocktimeoutdesc'] = 'Hoeveel seconden er op een slot gewacht moet worden wanneer er een statistieksberekening gebeurt voor een test. Deze instelling bestaat vooral voor testdoeleinden. Wijzig ze niet, tenzij je weet wat je doet.';
 $string['highestattempts'] = 'hoogst beoordeelde poging';
 $string['highestattemptsavg'] = 'Gemiddeld cijfer van de hoogst beoordeelde pogingen';
 $string['intended_weight'] = 'Bedoelde weging';
@@ -85,6 +88,7 @@ Onze vergelijking voor effectieve vraagweging kan in dit geval niet berekend wor
 
 Als je een test bewerkt en de vragen met een negatieve covariantie een maximumcijfer 0 geeft, dat zal de weging van deze vraag 0 zijn en zal de echte weging van deze vraag 0 zijn en zullen de echte effectieve wegingen van de andere vragen berekend worden.';
 $string['nogradedattempts'] = 'Er zijn nog geen pogingen gemaakt voor deze test, of alle pogingen hebben vragen die manueel beoordeeld moeten worden.';
+$string['nostats'] = 'Kon de statistieksberekening niet voltooien. Er kan nog een lang lopende berekening bezig zijn. Probeer later opnieuw.';
 $string['nostudentsingroup'] = 'Er zijn nog geen leerlingen in deze groep';
 $string['optiongrade'] = 'Gedeeltelijke puntscore';
 $string['partofquestion'] = 'Deel van vraag';
@@ -101,19 +105,19 @@ $string['questiontype'] = 'Vraagtype';
 $string['quizinformation'] = 'Testinformatie';
 $string['quizname'] = 'Testnaam';
 $string['quizoverallstatistics'] = 'Algemene teststatistieken';
-$string['quizstatisticscleanuptask'] = 'Opruimen van oude cache-records voor testtatistieken';
 $string['quizstructureanalysis'] = 'Analyse teststructuur';
 $string['random_guess_score'] = 'Gok-score';
 $string['rangebetween'] = '{$a->min} − {$a->max}';
 $string['rangeofvalues'] = 'Reeks statistieken voor deze vragen';
 $string['recalculatenow'] = 'Herbereken nu';
+$string['recalculatetask'] = 'Vraagstatistieken opnieuw berekenen';
 $string['reportsettings'] = 'Instellingen statistische berekening';
 $string['response'] = 'Antwoord';
 $string['skewness'] = 'Score verdelingsscheefheid (voor {$a})';
 $string['slotstructureanalysis'] = 'Structurele analyse van vraag nummer {$a}';
 $string['standarddeviation'] = 'Standaarddeviatie (voor {$a})';
 $string['standarddeviationq'] = 'Standaarddeviatie';
-$string['standarderror'] = 'Standaardafwijking (voor {$a})';
+$string['standarderror'] = 'Standaardfout (voor {$a})';
 $string['statistics'] = 'Statistieken';
 $string['statistics:view'] = 'Bekijk rapport teststatistieken';
 $string['statisticsreport'] = 'Statistisch rapport';

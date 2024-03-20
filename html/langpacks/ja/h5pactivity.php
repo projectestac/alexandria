@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'h5pactivity', language 'ja', version '3.11'.
+ * Strings for component 'h5pactivity', language 'ja', version '4.1'.
  *
  * @package     h5pactivity
  * @category    string
@@ -30,6 +30,7 @@ $string['answer_checked'] = '解答チェック済み';
 $string['answer_correct'] = 'あなたの答えは正解です。';
 $string['answer_fail'] = '不正解';
 $string['answer_incorrect'] = 'あなたの答えは不正解です。';
+$string['answer_noanswer'] = 'なし';
 $string['answer_pass'] = '正解';
 $string['answer_text'] = '解答テキスト';
 $string['answer_unchecked'] = '解答未チェック';
@@ -74,6 +75,7 @@ $string['grade_grademethod_help'] = '評点を使用する場合、以下方法�
 * 最初の受験 (他のすべての受験は無視されます)
 * 最新の受験 (他のすべての受験は無視されます)
 * 評点計算を使用しない (評点計算を無効にします)';
+$string['grade_h5p'] = '評定: {$a}';
 $string['grade_highest_attempt'] = '最高点';
 $string['grade_last_attempt'] = '最新の受験';
 $string['grade_manual'] = '評点を計算しない';
@@ -91,8 +93,10 @@ $string['modulename'] = 'H5P';
 $string['modulename_help'] = 'H5PはHTML5 Packageの省略形です - プレゼンテーション、ビデオ、他のマルチメディア、問題、小テスト、ゲーム等のインタラクティブコンテンツです。H5P活動ではコースにH5Pをアップロードおよび追加できます。
 
 すべての問題受験は自動的に評定されます。また、評定は評定表に記録されます。';
+$string['modulename_link'] = 'mod/h5pactivity/view';
 $string['modulenameplural'] = 'H5P';
 $string['myattempts'] = 'マイ受験';
+$string['newsubmissions'] = 'H5P送信';
 $string['no_compatible_track'] = 'このインタラクション ({$a}) がトラッキング情報を提供していないか、提供されたトラッキングに現在の活動バージョンとの互換性がありません。';
 $string['noparticipants'] = '表示する参加者はいません。';
 $string['opencontentbank'] = '<a href="{$a}" target="_blank">コンテンツバンクのH5Pファイルにアクセスします</a> (新しいウィンドウで開きます)。';
@@ -102,13 +106,13 @@ $string['package_help'] = 'パッケージファイルはH5Pインタラクテ�
 $string['page-mod-h5pactivity-x'] = 'すべてのH5Pモジュールページ';
 $string['pluginadministration'] = 'H5P管理';
 $string['pluginname'] = 'H5P';
-$string['previewmode'] = 'このコンテンツはプレビュモードで表示されています。受験追跡は保存されません。';
+$string['previewmode'] = 'このコンテンツはプレビューモードで表示されています。受験追跡は保存されません。';
 $string['privacy:metadata:attempt'] = '受験回数';
 $string['privacy:metadata:rawscore'] = '獲得点数';
 $string['privacy:metadata:timecreated'] = '追跡されたエレメントが作成された日時です。';
 $string['privacy:metadata:timemodified'] = '前回のエレメント追跡日時です。';
 $string['privacy:metadata:userid'] = 'H5P活動にアクセスしたユーザのIDです。';
-$string['privacy:metadata:xapi_track'] = '受験追跡情報';
+$string['privacy:metadata:xapi_track'] = '受験トラッキング情報';
 $string['privacy:metadata:xapi_track_results'] = '受験結果追跡情報';
 $string['report_viewed'] = 'レポートが閲覧されました。';
 $string['result_compound'] = '結合部分点';

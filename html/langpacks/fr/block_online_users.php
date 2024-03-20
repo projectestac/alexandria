@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_online_users', language 'fr', version '3.11'.
+ * Strings for component 'block_online_users', language 'fr', version '4.1'.
  *
  * @package     block_online_users
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['configtimetosee'] = 'Nombre de minutes déterminant la période d\'inactivité après laquelle un utilisateur n\'est plus considéré comme étant en ligne.';
+$string['configtimetosee'] = 'Nombre de minutes déterminant la période d’inactivité après laquelle un utilisateur n’est plus considéré comme étant en ligne.';
 $string['nouser'] = 'Aucun utilisateur en ligne';
 $string['numuser'] = '{$a} utilisateur en ligne';
 $string['numusers'] = '{$a} utilisateurs en ligne';

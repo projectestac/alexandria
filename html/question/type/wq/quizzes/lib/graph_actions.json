@@ -208,6 +208,14 @@
     }
   },
   {
+    "id": "sketch",
+    "title": "tt_sketch",
+    "icon": {
+      "name": "hand",
+      "type": "svg"
+    }
+  },
+  {
     "id": "elements",
     "title": "tt_elements"
   },
@@ -244,6 +252,39 @@
     "title": "tt_ray",
     "icon": {
       "name": "ray",
+      "type": "svg"
+    }
+  },
+  {
+
+    "id": "midpointOfLineSegment",
+    "title": "tt_midpointOfSegment",
+    "icon": {
+      "name": "midpointsegment",
+      "type": "svg"
+    }
+  },
+  {
+    "id": "newLineParallelToLineThroughPoint",
+    "title": "tt_parallelLine",
+    "icon": {
+      "name": "parallel_line",
+      "type": "svg"
+    }
+  },
+  {
+    "id": "mediatrixOfLineSegment",
+    "title": "tt_mediatrixOfSegment",
+    "icon": {
+      "name": "mediatrixsegment",
+      "type": "svg"
+    }
+  },
+  {
+    "id": "newLinePerpendicularToLineThroughPoint",
+    "title": "tt_perpendicularLine",
+    "icon": {
+      "name":"perpendicular_line",
       "type": "svg"
     }
   },
@@ -448,6 +489,38 @@
     "title": "tt_deleteAll",
     "icon": {
       "name": "delete_forever",
+      "type": "material"
+    }
+  },
+  {
+    "id": "restoreInitialContent",
+    "title": "tt_restoreInitialContent",
+    "icon": {
+      "name": "refresh",
+      "type": "material"
+    }
+  },
+  {
+    "id": "showHiddenElements",
+    "title": "tt_showHiddenElements",
+    "icon": {
+      "name": "visibility",
+      "type": "material"
+    }
+  },
+  {
+    "id": "hideElement",
+    "title": "tt_hideElement",
+    "icon": {
+      "name": "visibility_off",
+      "type": "material"
+    }
+  },
+  {
+    "id": "hideLabel",
+    "title": "tt_hideElement",
+    "icon": {
+      "name": "visibility_off",
       "type": "material"
     }
   },

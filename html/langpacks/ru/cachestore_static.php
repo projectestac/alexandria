@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'cachestore_static', language 'ru', version '3.11'.
+ * Strings for component 'cachestore_static', language 'ru', version '4.1'.
  *
  * @package     cachestore_static
  * @category    string
@@ -25,5 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Кэш в статической переменной';
-$string['privacy:metadata'] = 'Плагин хранилища кэша «Кэш в статической переменной» хранит некоторые данные, но они существуют только в течение жизни одиночного HTTP-запроса.';
+$string['pluginname'] = 'Кэш статических запросов';
+$string['privacy:metadata'] = 'Плагин хранилища кэша «Кэш статических запросов» хранит некоторые данные, но они существуют только в течение жизни одиночного HTTP-запроса.';

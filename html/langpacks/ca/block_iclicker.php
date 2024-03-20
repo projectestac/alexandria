@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_iclicker', language 'ca', version '3.11'.
+ * Strings for component 'block_iclicker', language 'ca', version '4.1'.
  *
  * @package     block_iclicker
  * @category    string
@@ -25,4 +25,5 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['inst.student.name.header'] = 'Nom';
 $string['invalidcourse'] = 'El CourseID no és vàlid:';

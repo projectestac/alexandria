@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topcoll', language 'pt', version '3.11'.
+ * Strings for component 'format_topcoll', language 'pt', version '4.1'.
  *
  * @package     format_topcoll
  * @category    string
@@ -31,10 +31,11 @@ $string['bulb'] = 'Lâmpada';
 $string['center'] = 'Centro';
 $string['cloud'] = 'Nuvem';
 $string['colourrule'] = 'Indique um código RGB válido com seis dígitos hexadecimais ou \'-\' para usar valor predefinido.';
+$string['columndynamic'] = 'Dinâmico';
 $string['columnhorizontal'] = 'Horizontal';
 $string['columnvertical'] = 'Vertical';
 $string['configurationheadingsub'] = 'Configuração';
-$string['configurationheadingsubdesc'] = 'Opções de configuração';
+$string['configurationheadingsubdesc'] = 'Opções globais de configuração';
 $string['coursesectionactivityfurtherinformation'] = 'Página da disciplina com mais informações';
 $string['coursesectionactivityfurtherinformationassign'] = 'Mostrar informação do trabalho';
 $string['coursesectionactivityfurtherinformationassigndesc'] = 'Mostrar informações do trabalho. Aos professores/administradores será mostrado o número de submissões.';
@@ -125,7 +126,25 @@ $string['defaulttoggleborderradiustr_desc'] = 'Raio do canto superior direito do
 $string['defaulttoggleiconposition'] = 'Posição do ícone';
 $string['defaulttoggleiconposition_desc'] = 'Define se o ícone deve estar à esquerda ou à direita do texto do botão';
 $string['defaulttoggleiconset'] = 'Ícones do botão';
-$string['defaulttoggleiconset_desc'] = '<table><tbody><tr><td>Seta</td><td>{$a->arrow}</td></tr><tr><td>Lâmpada</td><td>{$a->bulb}</td></tr><tr><td>Nuvem</td><td>{$a->cloud}</td></tr><tr><td>Olho</td><td>{$a->eye}</td></tr><tr><td>Pasta</td><td>{$a->folder}</td></tr><tr><td>Sinal de massa/td><td>{$a->groundsignal}</td></tr><tr><td>Díodo emissor de luz</td><td>{$a->led}</td></tr><tr><td>Ponto</td><td>{$a->point}</td></tr><tr><td>Pólo</td><td>{$a->power}</td></tr><tr><td>Botão rádio</td><td>{$a->radio}</td></tr><tr><td>Sorriso/td><td>{$a->smiley}</td></tr><tr><td>Quadrado</td><td>{$a->square}</td></tr><tr><td>Sol/Lua</td><td>{$a->sunmoon}</td></tr><tr><td>Interruptor</td><td>{$a->switch}</td></tr></tbody></table>';
+$string['defaulttoggleiconset_desc'] = '<table>
+  <tbody>
+    <tr><td>Seta</td><td>{$a->seta}</td></tr>
+    <tr><td>Lâmpada</td><td>{$a->lampada}</td></tr>
+    <tr><td>Nuvem</td><td>{$a->nuvem}</td></tr>
+    <tr><td>Olho</td><td>{$a->olho}</td></tr>
+    <tr><td>Pasta</td><td>{$a->pasta}</td></tr>
+    <tr><td>Sinal de Solo</td><td>{$a->sinaldesolo}</td></tr>
+    <tr><td>Díodo Emissor de Luz</td><td>{$a->led}</td></tr>
+    <tr><td>Ponto</td><td>{$a->ponto}</td></tr>
+    <tr><td>Alimentação</td><td>{$a->alimentacao}</td></tr>
+    <tr><td>Rádio</td><td>{$a->radio}</td></tr>
+    <tr><td>Sorriso</td><td>{$a->sorriso}</td></tr>
+    <tr><td>Quadrado</td><td>{$a->quadrado}</td></tr>
+    <tr><td>Sol / Lua</td><td>{$a->sollua}</td></tr>
+    <tr><td>Interruptor</td><td>{$a->interruptor}</td></tr>
+    <tr><td>Fonte de Ícones</td><td>{$a->fontedeicones}</td></tr>
+  </tbody>
+</table>';
 $string['defaulttoggleiconsize'] = 'Tamanho do ícone do botão';
 $string['defaulttoggleiconsize_desc'] = 'Tamanho do ícone: Pequeno = 16px, Médio = 24px e Grande = 32px.';
 $string['defaulttogglepersistence'] = 'Persistência dos botões';
@@ -337,8 +356,8 @@ $string['topcoll:changelayout'] = 'Alterar ou repor a estrutura';
 $string['topcoll:changetogglealignment'] = 'Alterar ou repor a definição do alinhamento do botão';
 $string['topcoll:changetoggleiconset'] = 'Alterar ou repor a definição dos ícones do botão';
 $string['topcollall'] = 'secções.';
-$string['topcollclosed'] = 'Contraír todos';
-$string['topcollopened'] = 'Expandir todos';
+$string['topcollclosed'] = 'Contrair tudo';
+$string['topcollopened'] = 'Expandir tudo';
 $string['topcollsidewidthlang'] = 'en-28px';
 $string['topcolltoggle'] = 'Alternar';
 $string['two'] = 'Duas';

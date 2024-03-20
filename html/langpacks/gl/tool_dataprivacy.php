@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_dataprivacy', language 'gl', version '3.11'.
+ * Strings for component 'tool_dataprivacy', language 'gl', version '4.1'.
  *
  * @package     tool_dataprivacy
  * @category    string
@@ -93,7 +93,7 @@ $string['datarequestcreatedupondelete'] = 'Creada automaticamente ao eliminar o 
 $string['datarequestemailsubject'] = 'Solicitude de datos: {$a}';
 $string['datarequests'] = 'Solicitudes de datos';
 $string['dataretentionexplanation'] = 'Este resumo amosa os propósitos e as categorías predeterminadas para reter datos do usuario. Certas áreas puideran ter propósitos e categorías máis específicas que as aquí relacionadas.';
-$string['dataretentionsummary'] = 'Resumen da retención de datos';
+$string['dataretentionsummary'] = 'Resumo da retención de datos';
 $string['datecomment'] = '[{$a->date}]:
  {$a->comment}';
 $string['daterequested'] = 'Data solicitada';

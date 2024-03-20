@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'completion', language 'en', version '3.11'.
+ * Strings for component 'completion', language 'en', version '4.1'.
  *
  * @package     completion
  * @category    string
@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['achievinggrade'] = 'Achieving grade';
+$string['achievingpassinggrade'] = 'Achieving passing grade';
 $string['activities'] = 'Activities';
 $string['activitiescompleted'] = 'Activity completion';
 $string['activitiescompletednote'] = 'Note: Activity completion must be set for an activity to appear in the above list.';
@@ -36,6 +37,7 @@ $string['activityaggregation_any'] = 'ANY selected activities to be completed';
 $string['activitycompletion'] = 'Activity completion';
 $string['activitycompletionupdated'] = 'Changes saved';
 $string['activitygradenotrequired'] = 'Grade not required';
+$string['activitygradetopassnotset'] = 'This activity does not have a valid grade to pass set. It may be set in the Grade section of the activity settings.';
 $string['affectedactivities'] = 'The changes will affect the following <b>{$a}</b> activities or resources:';
 $string['aggregationmethod'] = 'Aggregation method';
 $string['all'] = 'All';
@@ -58,9 +60,9 @@ $string['checkallsection'] = 'Check or uncheck all activities and resources in t
 $string['completeactivity'] = 'Complete the activity';
 $string['completed'] = 'Completed';
 $string['completedunlocked'] = 'Completion options unlocked';
-$string['completedunlockedtext'] = 'When you save changes, completion state for all students will be erased. If you change your mind about this, do not save the form.';
+$string['completedunlockedtext'] = 'When you save this form, completion data will be deleted then recalculated where possible. To avoid this, you can navigate away without saving.';
 $string['completedwarning'] = 'Completion options locked';
-$string['completedwarningtext'] = 'This activity has already been marked as completed for {$a} participant(s). Changing completion options will erase their completion state and may cause confusion. Thus the options have been locked and should not be unlocked unless absolutely necessary.';
+$string['completedwarningtext'] = 'This activity is marked as done for one or more students. If you unlock the settings to make a change then save the form, completion data will be deleted then recalculated where possible. Manual completion can\'t be recalculated, so in this case the student will need to mark it as done again.';
 $string['completion'] = 'Completion tracking';
 $string['completion-alt-auto-enabled'] = 'The system marks this item complete according to conditions: {$a}';
 $string['completion-alt-auto-fail'] = 'Completed: {$a} (did not achieve pass grade)';
@@ -106,6 +108,9 @@ $string['completionnotenabledforcourse'] = 'Completion is not enabled for this c
 $string['completionnotenabledforsite'] = 'Completion is not enabled for this site';
 $string['completionondate'] = 'Date';
 $string['completionondatevalue'] = 'Date when course will be marked as complete';
+$string['completionpassgrade'] = 'Require passing grade';
+$string['completionpassgrade_desc'] = 'Student must receive a passing grade to complete this activity';
+$string['completionpassgrade_help'] = 'If enabled, the activity is considered complete when a student receives a passing grade.';
 $string['completionsettingslocked'] = 'Completion settings locked';
 $string['completionupdated'] = 'Updated completion for activity <b>{$a}</b>';
 $string['completionusegrade'] = 'Require grade';
@@ -125,6 +130,7 @@ $string['coursecompleted'] = 'Course completed';
 $string['coursecompletedmessage'] = '<p>Congratulations!</p><p>You have completed the course <a href="{$a->courselink}">{$a->coursename}</a>.</p>';
 $string['coursecompletion'] = 'Course completion';
 $string['coursecompletioncondition'] = 'Condition: {$a}';
+$string['coursecompletionnavigation'] = 'Course completion tertiary navigation';
 $string['coursegrade'] = 'Course grade';
 $string['coursesavailable'] = 'Courses available';
 $string['coursesavailableexplaination'] = 'Note: Course completion conditions must be set for a course to appear in the above list.';
@@ -136,16 +142,19 @@ $string['csvdownload'] = 'Download in spreadsheet format (UTF-8 .csv)';
 $string['datepassed'] = 'Date passed';
 $string['days'] = 'Days';
 $string['daysoftotal'] = '{$a->days} of {$a->total}';
+$string['daysuntilcompletion'] = 'Days until completion';
 $string['defaultcompletion'] = 'Default activity completion';
 $string['defaultcompletionupdated'] = 'Changes saved';
 $string['deletecompletiondata'] = 'Delete completion data';
 $string['dependencies'] = 'Dependencies';
 $string['dependenciescompleted'] = 'Completion of other courses';
 $string['detail_desc:receivegrade'] = 'Receive a grade';
+$string['detail_desc:receivepassgrade'] = 'Receive a passing grade';
 $string['detail_desc:view'] = 'View';
+$string['done'] = 'Done';
 $string['editcoursecompletionsettings'] = 'Edit course completion settings';
 $string['enablecompletion'] = 'Enable completion tracking';
-$string['enablecompletion_help'] = 'If enabled, activity completion conditions may be set in the activity settings and/or course completion conditions may be set. It is recommended to have this enabled so that meaningful data is displayed in the course overview on the Dashboard.';
+$string['enablecompletion_help'] = 'If enabled, you can set conditions for activity completion or course completion.';
 $string['enrolmentduration'] = 'Enrolment duration';
 $string['enrolmentdurationlength'] = 'User must remain enrolled for';
 $string['err_noactivities'] = 'Completion information is not enabled for any activity, so none can be displayed. You can enable completion information by editing the settings for an activity.';
@@ -160,6 +169,7 @@ $string['eventcoursecompletionupdated'] = 'Course completion updated';
 $string['eventcoursemodulecompletionupdated'] = 'Course activity completion updated';
 $string['eventdefaultcompletionupdated'] = 'Default for course activity completion updated';
 $string['excelcsvdownload'] = 'Download in Excel-compatible format (.csv)';
+$string['failed'] = 'Failed';
 $string['fraction'] = 'Fraction';
 $string['graderequired'] = 'Required course grade';
 $string['gradexrequired'] = '{$a} required';
@@ -196,6 +206,7 @@ $string['privacy:metadata:gradefinal'] = 'Final grade received for course comple
 $string['privacy:metadata:overrideby'] = 'The user ID of the person who overrode the activity completion';
 $string['privacy:metadata:reaggregate'] = 'If the course completion was reaggregated.';
 $string['privacy:metadata:timecompleted'] = 'The time that the course was completed.';
+$string['privacy:metadata:timecreated'] = 'The time that the activity completion was created';
 $string['privacy:metadata:timeenrolled'] = 'The time that the user was enrolled in the course';
 $string['privacy:metadata:timemodified'] = 'The time that the activity completion was modified';
 $string['privacy:metadata:timestarted'] = 'The time the course was started.';
@@ -222,8 +233,10 @@ $string['select'] = 'Select';
 $string['self'] = 'Self';
 $string['selfcompletion'] = 'Self completion';
 $string['showcompletionconditions'] = 'Show activity completion conditions';
-$string['showcompletionconditions_help'] = 'Activity completion conditions are always shown on the activity page. This setting determines whether activity completion conditions are also shown below each activity on the course page.';
+$string['showcompletionconditions_help'] = 'Show activity completion conditions on the course page.';
 $string['showinguser'] = 'Showing user';
+$string['timecompleted'] = 'Time completed';
+$string['todo'] = 'To do';
 $string['unenrolingfromcourse'] = 'Unenrolling from course';
 $string['unenrolment'] = 'Unenrolment';
 $string['unit'] = 'Unit';

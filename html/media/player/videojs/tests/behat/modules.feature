@@ -7,7 +7,7 @@ Feature: Embed videos without the media filter
   Background:
     Given I log in as "admin"
     And I am on site homepage
-    And I navigate to "Turn editing on" in current page administration
+    And I turn editing mode on
 
   @javascript
   Scenario: Add a video in a URL resource. Make sure media filters work
@@ -24,7 +24,7 @@ Feature: Embed videos without the media filter
 
   @javascript
   Scenario: Add a video as a File resource. Make sure media filters work
-    When I add a "File" to section "1"
+    When I add a "File" to section "1" using the activity chooser
     And I set the following fields to these values:
       | Name | Video File |
       | Description | Example of a video file |
@@ -46,7 +46,8 @@ Feature: Embed videos without the media filter
       | Page title | Placeholder content |
       | Description | Just so we can preview the lesson |
     And I press "Save page"
-    And I navigate to "Preview" in current page administration
+    And I am on site homepage
+    And I follow "Lesson"
     And I follow "Click here to view"
     And I switch to "lessonmediafile" window
     Then ".video-js" "css_element" should exist

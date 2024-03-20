@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_displayh5p', language 'fr', version '3.11'.
+ * Strings for component 'filter_displayh5p', language 'fr', version '4.1'.
  *
  * @package     filter_displayh5p
  * @category    string
@@ -26,11 +26,11 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['allowedsourceslist'] = 'Sources autorisées';
-$string['allowedsourceslistdesc'] = 'Une liste d\'URLs à partir desquelles les utilisateurs peuvent intégrer du contenu H5P. Si aucune URL n\'est indiquée, toutes les URLs resteront de simples liens et ne seront pas affichées comme contenus H5P.
+$string['allowedsourceslistdesc'] = 'Une liste d’URLs à partir desquelles les utilisateurs peuvent intégrer du contenu H5P. Si aucune URL n’est indiquée, toutes les URLs resteront de simples liens et ne seront pas affichées comme contenus H5P.
 
-« [id] » est un paramètre fictif pour l\'ID du contenu H5P dans la source externe. Par exemple :
+« [id] » est un paramètre fictif pour l’ID du contenu H5P dans la source externe. Par exemple :
 
 - H5P.com : https://[xxxxxx].h5p.com/content/[id]
 - WordPress : https://myserver/wp-admin/admin-ajax.php?action=h5p_embed&id=[id]';
 $string['filtername'] = 'Affichage H5P';
-$string['privacy:metadata'] = 'Le filtre affichage H5P n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le filtre affichage H5P n’enregistre aucune donnée personnelle.';

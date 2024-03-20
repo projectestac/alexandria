@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'pt', version '3.11'.
+ * Strings for component 'error', language 'pt', version '4.1'.
  *
  * @package     error
  * @category    string
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['TODO'] = 'TODO';
 $string['activityisscheduledfordeletion'] = 'A atividade está a ser apagada...';
-$string['agedigitalconsentmapinvalidage'] = 'Não foi possível aceder a {$a->url} para verificar a notificação de pagamento instantâneo: {$a->result}';
+$string['agedigitalconsentmapinvalidage'] = '"{$a}" não é um valor válido para a idade.';
 $string['agedigitalconsentmapinvalidcomma'] = '"{$a}" tem mais ou menos que um separador de vírgula.';
 $string['agedigitalconsentmapinvalidcountry'] = '"{$a}" não é um valor válido para o país.';
 $string['agedigitalconsentmapinvaliddefault'] = 'O valor predefinido (*) está em falta.';
@@ -156,6 +156,7 @@ $string['cannotsetupcapformod'] = 'Não foi possível configurar as permissões 
 $string['cannotsetupcapforplugin'] = 'Não foi possível configurar as permissões para {$a}';
 $string['cannotshowhidecoursesincategory'] = 'Não é possível mostrar/ocultar as disciplinas da categoria {$a}';
 $string['cannotsignup'] = 'Não pode criar uma nova conta uma vez que já se encontra autenticado como {$a}.';
+$string['cannotswitcheditmodeon'] = 'Não foi possível ativar o modo de edição';
 $string['cannotunassigncap'] = 'Não foi possível remover a permissão descontinuada {$a->cap} do papel {$a->role}';
 $string['cannotunassignrolefrom'] = 'Não é possível subscrever este utilizador do papel com o ID: {$a}';
 $string['cannotunzipfile'] = 'Não é possível descompactar o ficheiro Zip';
@@ -177,7 +178,7 @@ $string['cannotviewprofile'] = 'Não pode ver o perfil deste utilizador';
 $string['cannotviewreport'] = 'Não pode ver este relatório';
 $string['cannotwritefile'] = 'Não pode editar o ficheiro ({$a})';
 $string['categoryerror'] = 'Erro na categoria';
-$string['categoryidnumbertaken'] = 'Este número de identificação já está a ser usado por outra categoria';
+$string['categoryidnumbertaken'] = 'Este número de identificação (ID) já está a ser usado por outra categoria';
 $string['categorynamerequired'] = 'O nome da categoria é obrigatório';
 $string['categorytoolong'] = 'O nome da categoria é muito longo';
 $string['commentmisconf'] = 'O comentário com o ID não está configurado';
@@ -188,13 +189,13 @@ $string['contenttypenotfound'] = 'O tipo de banco de conteúdos \'{$a}\' não ex
 $string['contentvisibilitynotfound'] = 'A visibilidade do conteúdo com o valor \'{$a}\' não existe ou não é reconhecida.';
 $string['couldnotassignrole'] = 'Ocorreu um erro sério, mas indeterminado, durante a operação de atribuição de um papel a si próprio.';
 $string['couldnotupdatenoexistinguser'] = 'Não é possível atualizar este utilizador - não existe';
-$string['couldnotverifyagedigitalconsent'] = 'Ocorreu um erro ao tentar verificar a idade do consentimento digital.<br /> Entre em contacto com o administrador.';
+$string['couldnotverifyagedigitalconsent'] = 'Ocorreu um erro ao tentar verificar a idade do consentimento digital.<br />Contacte o administrador.';
 $string['countriesphpempty'] = 'Erro: O ficheiro countries.php no pacote linguístico {$a} está vazio ou não existe.';
 $string['coursedoesnotbelongtocategory'] = 'A disciplina não pertence a esta categoria';
 $string['courseformatnotfound'] = 'O formato da disciplina \'{$a}\' não existe ou não é reconhecido.';
 $string['coursegroupunknown'] = 'A disciplina correspondente ao grupo {$a} não foi especificada';
 $string['courseidnotfound'] = 'Este ID de disciplina não existe.';
-$string['courseidnumbertaken'] = 'O número de ID já está a ser usado noutra disciplina ({$a})';
+$string['courseidnumbertaken'] = 'Este número de identificação (ID) já está a ser usado noutra disciplina ({$a})';
 $string['coursemisconf'] = 'A disciplina está mal configurada';
 $string['courserequestdisabled'] = 'Lamentamos, mas os pedidos de disciplina foram desativados pelo administrador.';
 $string['csvcolumnduplicates'] = 'Foram detetadas colunas duplicadas.';
@@ -206,7 +207,7 @@ $string['csvinvalidcolsnum'] = 'Ficheiro CSV inválido - cada linha deve ter 49 
 $string['csvloaderror'] = 'Ocorreu um erro ao carregar o ficheiro CSV: {$a}';
 $string['csvnodata'] = 'Ficheiro CSV inválido - O ficheiro CSV tem cabeçalhos, mas não contém dados.';
 $string['csvweirdcolumns'] = 'Formato de ficheiro CSV inválido; o número de colunas não é constante!';
-$string['dbconnectionfailed'] = '<p>Erro: Falhou a ligação à Base de dados</p>
+$string['dbconnectionfailed'] = '<p>Erro: Falhou a ligação à base de dados</p>
 <p>É possível que a base de dados esteja sobrecarregada ou não está a funcionar corretamente.</p>
 <p>O administrador do site também deve verificar se os dados da base de dados foram corretamente especificados no ficheiro config.php</p>';
 $string['dbdriverproblem'] = '<p>Erro: foi detetado um erro no driver da base de dados.</p>
@@ -293,7 +294,7 @@ $string['groupnotaddederror'] = 'O grupo "{$a}" não foi adicionado';
 $string['groupnotaddedtogroupingerror'] = 'O grupo "{$a->groupname}" não foi adicionado ao agrupamento "{$a->groupingname}"';
 $string['groupunknown'] = 'O grupo {$a} não está associado à disciplina especificada';
 $string['groupusernotmember'] = 'O utilizador não é membro deste grupo.';
-$string['guestcantaccessprofiles'] = 'Os visitantes não podem aceder aos perfis dos utilizador. Autentique-se com uma conta de utilizador para continuar.';
+$string['guestcantaccessprofiles'] = 'Os visitantes não podem aceder aos perfis dos utilizadores. Para continuar, autentique-se com uma conta de utilizador.';
 $string['guestnocomment'] = 'Os visitantes não têm permissão para inserir comentários!';
 $string['guestnoeditprofile'] = 'Os visitantes não podem editar o seu perfil';
 $string['guestnoeditprofileother'] = 'O perfil do visitante não pode ser editado';
@@ -302,8 +303,8 @@ $string['guestsarenotallowed'] = 'O utilizador visitante não tem permissão par
 $string['hackdetected'] = 'Hack ataque detetado!';
 $string['hashpoolproblem'] = 'Conteúdo incorreto {$a}';
 $string['headersent'] = 'Cabeçalhos já enviados';
-$string['idnumbertaken'] = 'Este número de ID já está a ser usado';
-$string['idnumbertoolong'] = 'O número de identificação é muito longo';
+$string['idnumbertaken'] = 'Este número de identificação (ID) já está a ser usado';
+$string['idnumbertoolong'] = 'O número de identificação (ID) é muito longo';
 $string['importformatnotimplement'] = 'Desculpe, importar esse formato ainda não está implementado!';
 $string['incorrectext'] = 'O ficheiro tem uma extensão incorreta';
 $string['inplaceeditableerror'] = 'Erro ao chamar o processador de atualização';
@@ -335,6 +336,7 @@ $string['invalidcourseformat'] = 'Formato da disciplina inválido';
 $string['invalidcourseid'] = 'Está a tentar usar ID de disciplina inválido';
 $string['invalidcourselevel'] = 'Nível de contexto inválido';
 $string['invalidcoursemodule'] = 'O ID do módulo da disciplina é inválido';
+$string['invalidcoursemoduleid'] = 'ID de módulo de disciplina inválido: {$a}';
 $string['invalidcoursenameshort'] = 'O nome curto da disciplina é inválido';
 $string['invaliddata'] = 'Os dados submetidos são inválidos';
 $string['invaliddatarootpermissions'] = 'Foram detetadas permissões inválidas ao tentar criar a pasta. Ative a exibição de mensagens de erro para mais detalhes.';
@@ -409,6 +411,7 @@ $string['messagingdisable'] = 'A troca de mensagens está desativada neste site'
 $string['mimetexisnotexist'] = 'O seu sistema não está configurado para executar mimeTeX. É necessário  obter o código fonte em C a partir de <a href="http://www.forkosh.com/mimetex.zip">http://www.forkosh.com/mimetex.zip</a>, compilá-lo e colocar o executável na pasta moodle/filter/tex/.';
 $string['mimetexnotexecutable'] = 'Mimetex Custom não é executável!';
 $string['missing_moodle_backup_xml_file'] = 'Na cópia de segurança fica em falta o ficheiro: {$a}';
+$string['missingcategoryrole'] = 'Não foi possível atribuir um papel ao utilizador: papel em falta para a categoria.';
 $string['missingfield'] = 'O campo "{$a}" está em falta.';
 $string['missingkeyinsql'] = 'ERRO: falta o parâmetro "{$a}" na consulta';
 $string['missingparam'] = 'Está em falta um parâmetro necessário ({$a})';
@@ -445,7 +448,7 @@ $string['nocontext'] = 'Essa disciplina não é um contexto válido';
 $string['nodata'] = 'Sem informação';
 $string['noexistingcategory'] = 'Não existe categoria';
 $string['nofile'] = 'Ficheiro não encontrado';
-$string['nofiltersenabled'] = 'Não há filtros ativos.';
+$string['nofiltersenabled'] = 'Não existem filtros ativos.';
 $string['nofolder'] = 'O diretório pedido não existe';
 $string['noformdesc'] = 'Nenhum ficheiro de descrição formslib foi encontrado para essa atividade.';
 $string['noguest'] = 'Não existem visitantes!';
@@ -455,6 +458,7 @@ $string['nonmeaningfulcontent'] = 'Conteúdo não significativo';
 $string['noparticipants'] = 'Não foram encontrados participantes para esta disciplina';
 $string['noparticipatorycms'] = 'Não tem módulos de participação, para onde possa enviar relatórios, em nenhuma disciplina.';
 $string['nopermissions'] = 'Atualmente, não tem permissões para realizar a operação ({$a})';
+$string['nopermissiontoaccesspage'] = 'Não tem permissão para aceder a esta página.';
 $string['nopermissiontocomment'] = 'Não pode adicionar comentários';
 $string['nopermissiontodelentry'] = 'Não pode apagar este comentário!';
 $string['nopermissiontoeditcomment'] = 'Não pode editar mensagens de outras pessoas!';
@@ -488,6 +492,8 @@ $string['oauth2upgradetokenerror'] = 'Não foi possível atualizar o token de OA
 $string['onlyadmins'] = 'Só os administradores podem fazer isso';
 $string['onlyeditingteachers'] = 'Só os professores com permissões de edição podem fazer isso';
 $string['onlyeditown'] = 'Só pode editar a sua própria informação';
+$string['opensslsealerror'] = 'OpenSSL incapaz de selar os dados';
+$string['opensslsignerror'] = 'OpenSSL incapaz de assinar os dados';
 $string['orderidnotfound'] = 'ID ordem {$a} não foi encontrado';
 $string['pagenotexist'] = '<p>Ocorreu um erro pouco frequente ao tentar visualizar uma página que não existe: </p>{$a}';
 $string['pagenotexisttitle'] = 'Erro 404: ficheiro não encontrado';
@@ -526,6 +532,9 @@ $string['sendmessage'] = 'Enviar mensagem';
 $string['sendmessagesent'] = 'Obrigado pelo seu feedback acerca de: <br>{$a}';
 $string['serverconnection'] = 'Ocorreu um erro ao ligar com o servidor';
 $string['servicedonotexist'] = 'Esse serviço não existe';
+$string['sessioncannotobtainlock'] = '<p>Não foi possível obter o bloqueio da sessão com ID {$a->id} em {$a->acquiretimeout}.</p>
+<p>É provável que outra página ({$a->whohaslock}) ainda esteja em execução noutro separador do navegador ou não libertou o bloqueio devido a um erro.</p>
+<p>Pode esperar até ao fim do tempo limite de bloqueio da sessão ({$a->lockexpire}) ou pode reiniciar a sessão do navegador. Se o erro persistir, notifique o administrador do servidor.</p>';
 $string['sessioncookiesdisable'] = 'Uso incorreto de \'require_key_login()\' - os cookies da sessão devem estar desativos!';
 $string['sessiondiskfull'] = 'A partição da sessão está completa. Não é possível autenticar-se neste momento. Por favor, avise o administrador do site.';
 $string['sessionerroruser'] = 'A sua sessão expirou. Autentique-se novamente.';
@@ -549,7 +558,7 @@ $string['storedfilecannotread'] = 'Não é possível ler o ficheiro. O ficheiro 
 $string['storedfilecannotreadfile'] = 'Não é possível ler o ficheiro \'{$a}\'. Ou o ficheiro não existe ou há um problema de permissão.';
 $string['storedfilenotcreated'] = 'Não é possível criar o ficheiro \'{$a->contextid}/{$a->component}/{$a->filearea}/{$a->itemid}{$a->filepath}{$a->filename}\'';
 $string['storedfileproblem'] = 'Exceção desconhecida nos ficheiros locais ({$a})';
-$string['tagdisabled'] = 'As etiquetas estão desativadas!';
+$string['tagdisabled'] = 'As palavras-chave estão desativadas!';
 $string['tagnotfound'] = 'A senha especificada não foi encontrada na base de dados';
 $string['targetdatabasenotempty'] = 'A base de dados de destino não está vazia. A transferência foi cancelada por razões de segurança.';
 $string['textconditionsnotallowed'] = 'Não são permitidas comparações de condições de colunas de texto. Utilize a função sql_compare_text() no seu pedido.';
@@ -564,6 +573,7 @@ $string['unknowcontext'] = 'Este é um contexto desconhecido ({$a}) em get_child
 $string['unknowformat'] = 'Formato desconhecido ({$a})';
 $string['unknownbackupexporterror'] = 'Erro desconhecido a preparar informação para importação';
 $string['unknownblockregion'] = 'A região do bloco "{$a}" não é reconhecida nesta página.';
+$string['unknowncategory'] = 'Categoria desconhecida com ID de categoria "{$a}"';
 $string['unknowncontext'] = 'Este contexto é desconhecido.';
 $string['unknowncourse'] = 'Disciplina desconhecida designada de "{$a}"';
 $string['unknowncourseidnumber'] = 'Identificador de disciplina desconhecido "{$a}"';
@@ -586,7 +596,7 @@ $string['unknowuploadaction'] = 'Erro: ação de carregamento desconhecida ({$a}
 $string['unspecifycourseid'] = 'Deve especificar o ID da disciplina, nome curto ou Idnumber';
 $string['unsupportedevent'] = 'Tipo de evento não suportado';
 $string['unsupportedstate'] = 'Estado de conclusão não compatível';
-$string['unsupportedwebserver'] = 'O Software de servidor Web ({$a}) não é compatível.';
+$string['unsupportedwebserver'] = 'O software do servidor web ({$a}) não é compatível.';
 $string['upgraderequires19'] = 'Erro: A nova versão do Moodle foi instalada no servidor, infelizmente não é possível fazer um upgrade da versão anterior <br /> Atualize em primeiro lugar a última versão 1.9.x. Também pode voltar à versão anterior, reinstalando os ficheiros originais.';
 $string['upgraderunning'] = 'O site está em processo de atualização. Por favor, tente novamente mais tarde.';
 $string['urlnotdefinerss'] = 'O URL não foi definido para a lista RSS';
@@ -595,6 +605,7 @@ $string['useradminodelete'] = 'As contas de administrador não podem ser apagada
 $string['userautherror'] = 'Módulo de autenticação desconhecido';
 $string['userauthunsupported'] = 'Módulo de autenticação não suportado aqui.';
 $string['useremailduplicate'] = 'Endereço duplicado';
+$string['userisfilteredout'] = 'Este utilizador não corresponde aos filtros e às preferências da tabela!';
 $string['usermustbemnet'] = 'Os utilizadores na lista de controle de acesso MNET devem ser utilizadores remotos MNET';
 $string['usernamelowercase'] = 'O nome de utilizador tem de ser em minúsculas';
 $string['usernotaddederror'] = 'Utilizador não adicionado - erro.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'apply', language 'ar', version '3.11'.
+ * Strings for component 'apply', language 'ar', version '4.1'.
  *
  * @package     apply
  * @category    string
@@ -26,8 +26,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['add_pagebreak'] = 'إضافة فاصل صفحات للمعتمد';
-$string['apply:createprivatetemplate'] = 'إنشاء قالب خاص';
-$string['apply:createpublictemplate'] = 'إنشاء قالب عام';
+$string['apply:createprivatetemplate'] = 'إنشاء مظهر خاص';
+$string['apply:createpublictemplate'] = 'إنشاء مظهر عام';
 $string['apply:deletetemplate'] = 'حذف القالب';
 $string['apply:edittemplates'] = 'تحرير القوالب';
 $string['apply:viewanalysepage'] = 'معاينة صفحة التحليل بعد التسليم';
@@ -37,7 +37,7 @@ $string['confirm_delete_entry'] = 'هل أنت متأكد من رغبتك في �
 $string['confirm_delete_template'] = 'هل أنت متأكد من رغبتك في حذف هذا القالب؟';
 $string['confirm_rollback_entry'] = 'هل أنت متأكد من رغبتك في سحب هذا الإدخال؟';
 $string['confirm_use_template'] = 'هل أنت متأكد من رغبتك في استعمال هذا القالب؟';
-$string['creating_templates'] = 'حفظ هذه الأسئلة بمثابة قالب جديد';
+$string['creating_templates'] = 'حفظ هذه الأسئلة بمثابة مظهر جديد';
 $string['date_format'] = 'عرض تنسيق التاريخ (الوقت)';
 $string['date_format_help'] = 'تحديد تنسيق عرض التاريخ والوقت. القيمة الافتراضية هي %m/%d/%y %H:%M';
 $string['delete_entry'] = 'إنسحاب';
@@ -75,7 +75,7 @@ $string['multichoice_values'] = 'قيم متعدد الاختيارات';
 $string['name'] = 'الاسم';
 $string['name_required'] = 'الاسم مطلوب';
 $string['next_page_button'] = 'الصفحة التالية';
-$string['no_templates_available_yet'] = 'لا قوالب متاحة بعد';
+$string['no_templates_available_yet'] = 'لا مظاهر متاحة بعد';
 $string['no_title'] = 'بلا عنوان';
 $string['numeric'] = 'إجابة رقمية';
 $string['only_acked_accept_help'] = 'تمكين قبول الاستلام فقط. حدده عندما تكون المعالجة غير مطلوبة.';
@@ -89,7 +89,7 @@ $string['printpagebreak'] = 'إضافة فاصل صفحات للطباعة';
 $string['responsetime'] = 'وقت الاستجابة';
 $string['rollback_entry'] = 'إنسحاب';
 $string['rollback_entry_button'] = 'إنسحاب';
-$string['save_as_new_template'] = 'الحفظ بمثابة قالب جديد';
+$string['save_as_new_template'] = 'الحفظ بمثابة مظهر جديد';
 $string['saving_failed_because_missing_or_false_values'] = 'فشل الحفظ بسبب قيم مفقودة أو خاطئة.';
 $string['show_perpage'] = 'إظهار {$a} لكل صفحة';
 $string['switch_item_to_not_required'] = 'التبديل إلى: الإجابة غير مطلوبة';

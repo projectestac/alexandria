@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'profilefield_textarea', language 'fr', version '3.11'.
+ * Strings for component 'profilefield_textarea', language 'fr', version '4.1'.
  *
  * @package     profilefield_textarea
  * @category    string
@@ -28,6 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $string['pluginname'] = 'Zone de texte';
 $string['privacy:metadata:profile_field_textarea:data'] = 'Données du champ de profil utilisateur Zone de texte';
 $string['privacy:metadata:profile_field_textarea:dataformat'] = 'Le format des données du champ de profil utilisateur Zone de texte';
-$string['privacy:metadata:profile_field_textarea:fieldid'] = 'L\'identifiant du champ de profil';
+$string['privacy:metadata:profile_field_textarea:fieldid'] = 'L’identifiant du champ de profil';
 $string['privacy:metadata:profile_field_textarea:tableexplanation'] = 'Informations de profil additionnelles';
-$string['privacy:metadata:profile_field_textarea:userid'] = 'L\'identifiant de l\'utilisateur dont les données sont enregistrées par le champ de profil Zone de texte';
+$string['privacy:metadata:profile_field_textarea:userid'] = 'L’identifiant de l’utilisateur dont les données sont enregistrées par le champ de profil Zone de texte';

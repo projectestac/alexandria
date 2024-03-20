@@ -172,37 +172,22 @@ function url_print_header($url, $cm, $course) {
 }
 
 /**
- * Print url heading.
+ * Get url introduction.
+ *
  * @param object $url
  * @param object $cm
- * @param object $course
- * @param bool $notused This variable is no longer used.
- * @return void
- */
-function url_print_heading($url, $cm, $course, $notused = false) {
-    global $OUTPUT;
-    echo $OUTPUT->heading(format_string($url->name), 2);
-}
-
-/**
- * Print url introduction.
- * @param object $url
- * @param object $cm
- * @param object $course
  * @param bool $ignoresettings print even if not specified in modedit
- * @return void
+ * @return string
  */
-function url_print_intro($url, $cm, $course, $ignoresettings=false) {
-    global $OUTPUT;
-
+function url_get_intro(object $url, object $cm, bool $ignoresettings = false): string {
     $options = empty($url->displayoptions) ? [] : (array) unserialize_array($url->displayoptions);
     if ($ignoresettings or !empty($options['printintro'])) {
         if (trim(strip_tags($url->intro))) {
-            echo $OUTPUT->box_start('mod_introbox', 'urlintro');
-            echo format_module_intro('url', $url, $cm->id);
-            echo $OUTPUT->box_end();
+            return format_module_intro('url', $url, $cm->id);
         }
     }
+
+    return '';
 }
 
 /**
@@ -219,9 +204,11 @@ function url_display_frame($url, $cm, $course) {
 
     if ($frame === 'top') {
         $PAGE->set_pagelayout('frametop');
+        $PAGE->activityheader->set_attrs([
+            'description' => url_get_intro($url, $cm),
+            'title' => format_string($url->name)
+        ]);
         url_print_header($url, $cm, $course);
-        url_print_heading($url, $cm, $course);
-        url_print_intro($url, $cm, $course);
         echo $OUTPUT->footer();
         die;
 
@@ -263,42 +250,33 @@ EOF;
  * @param object $url
  * @param object $cm
  * @param object $course
- * @return does not return
  */
 function url_print_workaround($url, $cm, $course) {
-    global $OUTPUT, $USER;
+    global $OUTPUT, $PAGE, $USER;
 
+    $PAGE->activityheader->set_description(url_get_intro($url, $cm, true));
     url_print_header($url, $cm, $course);
-    url_print_heading($url, $cm, $course, true);
 
-    // Display any activity information (eg completion requirements / dates).
-    $cminfo = cm_info::create($cm);
-    $completiondetails = \core_completion\cm_completion_details::get_instance($cminfo, $USER->id);
-    $activitydates = \core\activity_dates::get_dates_for_module($cminfo, $USER->id);
-    echo $OUTPUT->activity_information($cminfo, $completiondetails, $activitydates);
-
-    url_print_intro($url, $cm, $course, true);
-
-    $fullurl = url_get_full_url($url, $cm, $course);
+    $fullurl = new moodle_url(url_get_full_url($url, $cm, $course));
 
     $display = url_get_final_display_type($url);
     if ($display == RESOURCELIB_DISPLAY_POPUP) {
-        $jsfullurl = addslashes_js($fullurl);
+        $jsfullurl = addslashes_js($fullurl->out(false));
         $options = empty($url->displayoptions) ? [] : (array) unserialize_array($url->displayoptions);
         $width  = empty($options['popupwidth'])  ? 620 : $options['popupwidth'];
         $height = empty($options['popupheight']) ? 450 : $options['popupheight'];
         $wh = "width=$width,height=$height,toolbar=no,location=no,menubar=no,copyhistory=no,status=no,directories=no,scrollbars=yes,resizable=yes";
-        $extra = "onclick=\"window.open('$jsfullurl', '', '$wh'); return false;\"";
+        $attributes = ['onclick' => "window.open('$jsfullurl', '', '$wh'); return false;"];
 
     } else if ($display == RESOURCELIB_DISPLAY_NEW) {
-        $extra = "onclick=\"this.target='_blank';\"";
+        $attributes = ['onclick' => "this.target='_blank';"];
 
     } else {
-        $extra = '';
+        $attributes = [];
     }
 
     echo '<div class="urlworkaround">';
-    print_string('clicktoopen', 'url', "<a href=\"$fullurl\" $extra>$fullurl</a>");
+    print_string('clicktoopen', 'url', html_writer::link($fullurl, format_string($cm->name), $attributes));
     echo '</div>';
 
     echo $OUTPUT->footer();
@@ -310,18 +288,17 @@ function url_print_workaround($url, $cm, $course) {
  * @param object $url
  * @param object $cm
  * @param object $course
- * @return does not return
  */
 function url_display_embed($url, $cm, $course) {
-    global $PAGE, $OUTPUT, $USER;
+    global $PAGE, $OUTPUT;
 
     $mimetype = resourcelib_guess_url_mimetype($url->externalurl);
     $fullurl  = url_get_full_url($url, $cm, $course);
     $title    = $url->name;
 
-    $link = html_writer::tag('a', $fullurl, array('href'=>str_replace('&amp;', '&', $fullurl)));
-    $clicktoopen = get_string('clicktoopen', 'url', $link);
     $moodleurl = new moodle_url($fullurl);
+    $link = html_writer::link($moodleurl, format_string($cm->name));
+    $clicktoopen = get_string('clicktoopen', 'url', $link);
 
     $extension = resourcelib_get_extension($url->externalurl);
 
@@ -343,18 +320,10 @@ function url_display_embed($url, $cm, $course) {
         $code = resourcelib_embed_general($fullurl, $title, $clicktoopen, $mimetype);
     }
 
+    $PAGE->activityheader->set_description(url_get_intro($url, $cm));
     url_print_header($url, $cm, $course);
-    url_print_heading($url, $cm, $course);
-
-    // Display any activity information (eg completion requirements / dates).
-    $cminfo = cm_info::create($cm);
-    $completiondetails = \core_completion\cm_completion_details::get_instance($cminfo, $USER->id);
-    $activitydates = \core\activity_dates::get_dates_for_module($cminfo, $USER->id);
-    echo $OUTPUT->activity_information($cminfo, $completiondetails, $activitydates);
 
     echo $code;
-
-    url_print_intro($url, $cm, $course);
 
     echo $OUTPUT->footer();
     die;

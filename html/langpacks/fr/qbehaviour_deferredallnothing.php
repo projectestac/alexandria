@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_deferredallnothing', language 'fr', version '3.11'.
+ * Strings for component 'qbehaviour_deferredallnothing', language 'fr', version '4.1'.
  *
  * @package     qbehaviour_deferredallnothing
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Feedback a posteriori (tout ou rien)';
-$string['privacy:metadata'] = 'Le plugin de comportement de question Feedback a posteriori (tout ou rien) n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de comportement de question Feedback a posteriori (tout ou rien) n’enregistre aucune donnée personnelle.';

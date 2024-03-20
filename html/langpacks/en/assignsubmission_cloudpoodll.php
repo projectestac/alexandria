@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignsubmission_cloudpoodll', language 'en', version '3.11'.
+ * Strings for component 'assignsubmission_cloudpoodll', language 'en', version '4.1'.
  *
  * @package     assignsubmission_cloudpoodll
  * @category    string
@@ -87,6 +87,7 @@ $string['enabletranscription_details'] = 'Cloud Poodll can transcribe the studen
 $string['enablevideo'] = 'Enable video recording';
 $string['es-es'] = 'Spanish (ES)';
 $string['es-us'] = 'Spanish (US)';
+$string['eu-es'] = 'Basque';
 $string['expiredays'] = 'Cloud Poodll Days to keep file';
 $string['fa-ir'] = 'Farsi';
 $string['fallback'] = 'non-HTML5 Fallback';
@@ -94,6 +95,7 @@ $string['fallbackdetails'] = 'If the browser does not support HTML5 recording fo
 $string['fallbackiosupload'] = 'iOS: upload, else warning';
 $string['fallbackupload'] = 'Upload';
 $string['fallbackwarning'] = 'Warning';
+$string['fi-fi'] = 'Finnish';
 $string['fillcredentials'] = 'Set API user and secret with existing credentials';
 $string['forever'] = 'Never expire';
 $string['fr-ca'] = 'French (CA)';
@@ -103,18 +105,25 @@ $string['freetrial'] = 'Get Cloud Poodll API Credentials and a Free Trial';
 $string['freetrial_desc'] = 'A dialog should appear that allows you to register for a free trial with Poodll. After registering you should login to the members dashboard to get your API user and secret. And to register your site URL.';
 $string['he-il'] = 'Hebrew';
 $string['hi-in'] = 'Hindi';
+$string['hu-hu'] = 'Hungarian';
 $string['id-id'] = 'Indonesian';
 $string['it-it'] = 'Italian (IT)';
 $string['ja-jp'] = 'Japanese';
 $string['ko-kr'] = 'Korean';
 $string['language'] = 'Cloud Poodll Speaker Language';
 $string['london'] = 'London, U.K';
+$string['mi-nz'] = 'Maori';
 $string['ms-my'] = 'Malay';
 $string['mumbai'] = 'Mumbai, India';
+$string['nb-no'] = 'Norwegian';
 $string['nl-nl'] = 'Dutch';
 $string['no'] = 'no';
+$string['no-no'] = 'Norwegian';
 $string['noapisecret'] = 'No API secret entered. This plugin will not work correctly.';
 $string['noapiuser'] = 'No API user entered. This plugin will not work correctly.';
+$string['noaudiofilters'] = 'Disable audio noise filters';
+$string['noaudiofilters_desc'] = 'Disable audio noise filters - can be useful when shadowing or recording music.';
+$string['noaudiofilters_details'] = 'Turning off echo cancellation and noise suppression can be useful when shadowing or recording music.';
 $string['nocredentials'] = 'API user and secret not entered. Please enter them on <a href="{$a}">the settings page.</a> You can get them from <a href="https://poodll.com/member">Poodll.com.</a>';
 $string['nosubmission'] = 'Nothing has been submitted for this assignment';
 $string['nosubscriptions'] = 'There is no current subscription for this site/plugin.';
@@ -122,6 +131,7 @@ $string['notokenincache'] = 'Refresh to see license information. Contact Poodll 
 $string['novalidcredentials'] = 'API user and secret were rejected and could not gain access. Please check them on <a href="{$a}">the settings page.</a> You can get them from <a href="https://poodll.com/member">Poodll.com.</a>';
 $string['numwords'] = '({$a} words)';
 $string['ottawa'] = 'Ottawa, Canada';
+$string['pl-pl'] = 'Polish';
 $string['playertype'] = 'Cloud Poodll Transcript Display (teacher)';
 $string['playertypedefault'] = 'No transcript.';
 $string['playertypeinteractivetranscript'] = 'Interactive transcript';
@@ -148,6 +158,7 @@ $string['recorderskin'] = 'Cloud Poodll Rec. Skin';
 $string['recordertype'] = 'Cloud Poodll Rec. Type';
 $string['recordervideo'] = 'Video Recorder';
 $string['refreshtoken'] = 'Refresh license information';
+$string['ro-ro'] = 'Romanian';
 $string['ru-ru'] = 'Russian';
 $string['safesave'] = 'Enable Safe Save - disables assignment submit button until Cloud Poodll upload is complete.';
 $string['saopaulo'] = 'Sao Paulo, Brazil';
@@ -167,9 +178,11 @@ $string['skinonce'] = 'Once';
 $string['skinplain'] = 'Plain';
 $string['skinscreen'] = 'Screen Recorder (video)';
 $string['skinupload'] = 'Upload';
+$string['sv-se'] = 'Swedish';
 $string['sydney'] = 'Sydney, Australia';
 $string['ta-in'] = 'Tamil';
 $string['te-in'] = 'Telugu';
+$string['textcopiedtoclipboard'] = 'Text copied to clipboard';
 $string['timelimit'] = 'Cloud Poodll Rec. Time Limit';
 $string['tokyo'] = 'Tokyo, Japan';
 $string['tr-tr'] = 'Turkish';
@@ -177,6 +190,8 @@ $string['transcriberamazon'] = 'Normal transcription';
 $string['transcribergooglecloud'] = 'Fast transcription(audio only)';
 $string['transcribernone'] = 'No transcription';
 $string['transcripttitle'] = 'Transcript';
+$string['uk-ua'] = 'Ukranian';
+$string['unabletocopytoclipboard'] = 'Unable to copy text to the clipboard';
 $string['useast1'] = 'US East';
 $string['videolistdisplay'] = 'Video player size (in lists)';
 $string['videosingledisplay'] = 'Video player size (single)';

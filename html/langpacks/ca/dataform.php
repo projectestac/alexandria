@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'dataform', language 'ca', version '3.11'.
+ * Strings for component 'dataform', language 'ca', version '4.1'.
  *
  * @package     dataform
  * @category    string
@@ -34,7 +34,7 @@ $string['alignment'] = 'Alineació';
 $string['and'] = 'I';
 $string['andor'] = 'i/o';
 $string['ascending'] = 'Ascendent';
-$string['author'] = 'Autor';
+$string['author'] = 'Autor/a';
 $string['authorinfo'] = 'Informació de l\'autor';
 $string['availablefrom'] = 'Disponible des de';
 $string['availableplugins'] = 'Connectors disponibles';
@@ -71,6 +71,7 @@ $string['dataform:entryownexport'] = 'Entrada pròpia - Exporta';
 $string['dataform:entryownupdate'] = 'Entrada pròpia - Actualitza';
 $string['dataform:entryownview'] = 'Entrada pròpia - Visualitza';
 $string['dataform:indexview'] = 'Visualitza índex';
+$string['dataform:managefields'] = 'Gestiona els camps';
 $string['dataform:viewaccess'] = 'Visualitza - Accés';
 $string['dataform:viewaccessearly'] = 'Visualitza - Accés anticipat';
 $string['dataform:viewaccesshidden'] = 'Visualitza - Accés ocult';
@@ -120,7 +121,7 @@ $string['field'] = 'camp';
 $string['fieldadd'] = 'Afegeix un camp';
 $string['fieldallowautolink'] = 'Permet autoenllaçat';
 $string['fieldattributes'] = 'Atributs del camp';
-$string['fieldcreate'] = 'Crea un nou camp';
+$string['fieldcreate'] = 'Crea un camp nou';
 $string['fielddescription'] = 'Descripció del camp';
 $string['fieldedit'] = 'S\'està editant \'{$a}';
 $string['fieldeditable'] = 'Editable';
@@ -152,7 +153,7 @@ $string['unlock'] = 'Desbloqueja';
 $string['userpref'] = 'Preferències d\'usuari';
 $string['view'] = 'vista';
 $string['viewadd'] = 'Afegeix una vista';
-$string['viewcreate'] = 'Crea una nova vista';
+$string['viewcreate'] = 'Crea una vista nova';
 $string['viewcurrent'] = 'Visualització actual';
 $string['viewdescription'] = 'Veure descripció';
 $string['viewdisabled'] = 'Inhabilitat';

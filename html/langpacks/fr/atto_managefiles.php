@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_managefiles', language 'fr', version '3.11'.
+ * Strings for component 'atto_managefiles', language 'fr', version '4.1'.
  *
  * @package     atto_managefiles
  * @category    string
@@ -31,7 +31,7 @@ $string['hasmissingfiles'] = 'Attention ! Les fichiers suivants qui sont réfé
 $string['managefiles'] = 'Gérer les fichiers';
 $string['missingfiles'] = 'Fichiers manquants';
 $string['pluginname'] = 'Gestion des fichiers';
-$string['privacy:metadata'] = 'Le plugin atto_managefiles n\'enregistre aucune donnée personnelle.';
-$string['unusedfilesdesc'] = 'Les fichiers suivants ne sont pas utilisés dans l\'éditeur de texte :';
+$string['privacy:metadata'] = 'Le plugin atto_managefiles n’enregistre aucune donnée personnelle.';
+$string['unusedfilesdesc'] = 'Les fichiers suivants ne sont pas utilisés dans l’éditeur de texte :';
 $string['unusedfilesheader'] = 'Fichiers inutilisés';
-$string['unusedfilesremovalnotice'] = 'Tous les fichiers non utilisés seront supprimés automatiquement lors de l\'enregistrement des changements.';
+$string['unusedfilesremovalnotice'] = 'Tous les fichiers non utilisés seront supprimés automatiquement lors de l’enregistrement des changements.';

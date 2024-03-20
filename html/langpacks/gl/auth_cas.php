@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_cas', language 'gl', version '3.11'.
+ * Strings for component 'auth_cas', language 'gl', version '4.1'.
  *
  * @package     auth_cas
  * @category    string
@@ -26,8 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['CASform'] = 'Opción de autenticación';
-$string['accesCAS'] = 'Usuarios CAS';
-$string['accesNOCAS'] = 'outros usuarios';
 $string['auth_cas_auth_logo'] = 'Logotipo do método de autenticación';
 $string['auth_cas_auth_logo_description'] = 'Forneza un logotipo para o método de autenticación CAS que sexa familiar para os seus usuarios.';
 $string['auth_cas_auth_name'] = 'Nome do método de autenticación';
@@ -66,7 +64,7 @@ $string['auth_cas_logincas'] = 'Acceso de conexión segura';
 $string['auth_cas_logout_return_url'] = 'Forneza o URL a onde serán redireccionados os usuarios de CAS após saír.<br />Se o deixa baleiro, os usuarios serán redireccionados ao lugar ao que Moodle redirecciona aos seus usuarios';
 $string['auth_cas_logout_return_url_key'] = 'URL alternativo de saída da conta';
 $string['auth_cas_logoutcas'] = 'Seleccione «Si» se quere saír do CAS cando se desconecte de Moodle';
-$string['auth_cas_logoutcas_key'] = 'Saír do CAS';
+$string['auth_cas_logoutcas_key'] = 'Opción de saída de CAS';
 $string['auth_cas_multiauth'] = 'Seleccione «Si» se quere dispor de autenticación múltiple (CAS + outra autenticación)';
 $string['auth_cas_multiauth_key'] = 'Autenticación múltiple';
 $string['auth_cas_port'] = 'Porto do servidor CAS';

@@ -1,4 +1,4 @@
-@core @core_grades
+@core @core_grades @javascript
 Feature: Changing the aggregation of an item affects its weight and extra credit definition
   In order to switch to another aggregation method
   As an teacher
@@ -31,10 +31,10 @@ Feature: Changing the aggregation of an item affects its weight and extra credit
       | Item b3   | C1     | Cat natural & | 1               | 0.10             | 1              |
       | Item b4   | C1     | Cat natural & | 1               | 0                | 0              |
     And I log in as "admin"
+    And I change window size to "large"
     And I set the following administration settings values:
       | grade_aggregations_visible | Mean of grades,Weighted mean of grades,Simple weighted mean of grades,Mean of grades (with extra credits),Median of grades,Lowest grade,Highest grade,Mode of grades,Natural |
-    And I am on "Course 1" course homepage
-    And I navigate to "View > Grader report" in the course gradebook
+    And I am on the "Course 1" "grades > Grader report > View" page
     And I turn editing mode on
     And I follow "Edit   Cat mean"
     And I set the following fields to these values:
@@ -331,7 +331,6 @@ Feature: Changing the aggregation of an item affects its weight and extra credit
     And the field "Extra credit" matches value "0"
     And I press "Cancel"
 
-  @javascript
   Scenario: Switching grade items between categories
     # Move to same aggregation (Natural).
     Given I navigate to "Setup > Gradebook setup" in the course gradebook

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'checkmark', language 'ar', version '3.11'.
+ * Strings for component 'checkmark', language 'ar', version '4.1'.
  *
  * @package     checkmark
  * @category    string
@@ -65,7 +65,7 @@ $string['examplenames'] = 'الأسماء الفردية';
 $string['exporttemplates_help'] = 'التصدير السريع مع القوالب مسبقة التهيئة<br />
 <ul>
     <li><strong>الإعدادات المخصصة</strong><br />
-        لا يجري استعمال أي مظهر، كل الإعدادات ينبغي إجراؤها يدويًا</li>
+        لا يجري استعمال أي قالب، كل الإعدادات ينبغي إجراؤها يدويًا</li>
     <li><strong>قائمة التقييم البسيطة:</strong><br />
         اتجاه عمودي، خط صغير، مع العنوان/التذييل، الأسماء مطبوعة في سطر واحد<br />
         تحتوي على الأعمدة الآتية: [fullname, examples, grade]</li>
@@ -85,7 +85,7 @@ $string['feedbackfromteacher'] = 'الإفادة من {$a}';
 $string['feedbackupdated'] = 'إفادة التسليم تم تحديثها لـ {$a} من الأشخاص';
 $string['flexiblenaming_help'] = 'إذا تم تفعيله، سيتم استعمال الأسماء والتقديرات الفردية لكل مثال.';
 $string['forcesinglelinenames'] = 'فرض الأسماء بسطر واحد';
-$string['gradingdue_help'] = 'التاريخ المتوقع لإكمال تصحيح التسليمات. هذا التاريخ يستعمل لمنح الأولوية في إشعارات لوحة التحكم للمعلمين.';
+$string['gradingdue_help'] = 'التاريخ المتوقع لإكمال تصحيح التسليمات. هذا التاريخ يستعمل لمنح الأولوية في إشعارات دفة القيادة للمعلمين.';
 $string['informstudents_help'] = 'إذا تم تفعيله، سيتلقى المشارك إشعاراً عن حالة حضوره.';
 $string['latesubmissionsaccepted'] = 'مسموح حتى {$a}';
 $string['page-mod-checkmark-view'] = 'الصفحة الرئيسية لوحدة العلامة المرجعية';

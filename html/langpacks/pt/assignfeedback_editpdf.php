@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'pt', version '3.11'.
+ * Strings for component 'assignfeedback_editpdf', language 'pt', version '4.1'.
  *
  * @package     assignfeedback_editpdf
  * @category    string
@@ -77,7 +77,7 @@ $string['partialwarning'] = 'Alguns dos ficheiros desta submissão só podem ser
 $string['pathtogspathdesc'] = 'Tenha em atenção que a anotação de PDF requer que o caminho para o Ghostscript esteja definido em {$a}.';
 $string['pen'] = 'Caneta';
 $string['pluginname'] = 'Anotar PDF';
-$string['preparesubmissionsforannotation'] = 'Preparar submissões de Trabalhos para anotação';
+$string['preparesubmissionsforannotation'] = 'Preparar submissões de trabalhos para anotação';
 $string['privacy:metadata:colourpurpose'] = 'A cor do comentário ou anotação';
 $string['privacy:metadata:conversionpurpose'] = 'Os ficheiros são convertidos em PDF para permitir anotações.';
 $string['privacy:metadata:filepurpose'] = 'Armazena um PDF anotado com feedback para o utilizador';

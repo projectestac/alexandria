@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_course_overview_campus', language 'ar', version '3.11'.
+ * Strings for component 'block_course_overview_campus', language 'ar', version '4.1'.
  *
  * @package     block_course_overview_campus
  * @category    string
@@ -28,6 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['all'] = 'الكل';
 $string['blocktitle'] = 'عنوان الكتلة';
 $string['blocktitle_desc'] = 'هذا الاسم يتم إظهاره بمثابة عنوان الكتلة';
+$string['blocktitledefault'] = 'نظرة عامة على المقرر الدراسي';
 $string['course_overview_campus:addinstance'] = 'إضافة كتلة جديدة لنظرة عامة على الحرم الجامعي';
 $string['course_overview_campus:myaddinstance'] = 'إضافة كتلة جديدة لنظرة عامة على الحرم الجامعي إلى لوحة التحكم';
 $string['firstrowcoursename'] = 'الصف الأول: نمط اسم المساق';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshop', language 'ja', version '3.11'.
+ * Strings for component 'workshop', language 'ja', version '4.1'.
  *
  * @package     workshop
  * @category    string
@@ -43,8 +43,10 @@ $string['allocationdone'] = '割り当て完了';
 $string['allocationerror'] = '割り当てエラー';
 $string['allowedfiletypesforoverallfeedback'] = 'フィードバック添付で許可されたファイルタイプ';
 $string['allowedfiletypesforoverallfeedback_help'] = 'フィードバック添付ファイルタイプは許可されるファイルタイプのリストにより制限することができます。フィールドが空白の場合、すべてのファイルタイプが許可されます。';
+$string['allowedfiletypesforoverallfeedback_link'] = 'admin/tool/filetypes/index';
 $string['allowedfiletypesforsubmission'] = '提出添付で許可されたファイルタイプ';
 $string['allowedfiletypesforsubmission_help'] = '提出添付ファイルタイプは許可されるファイルタイプのリストで制限することができます。フィールドが空白の場合、すべてのファイルタイプが許可されます。';
+$string['allowedfiletypesforsubmission_link'] = 'admin/tool/filetypes/index';
 $string['allsubmissions'] = 'すべての提出 ({$a})';
 $string['alreadygraded'] = '評定済み';
 $string['areaconclusion'] = '結論テキスト';
@@ -195,10 +197,12 @@ $string['indicator:cognitivedepth'] = 'ワークショップ認知的';
 $string['indicator:cognitivedepth_help'] = 'この指標はワークショップ活動で学生が到達した認識深度に基づきます。';
 $string['indicator:cognitivedepthdef'] = 'ワークショップ認知的';
 $string['indicator:cognitivedepthdef_help'] = 'この分析間隔中、参加者がワークショップ活動から提供された認知的関与のこのパーセンテージに到達しました (レベル = 閲覧なし, 閲覧, 送信, フィードバックの閲覧, フィードバックへのコメント, フィードバック閲覧後の再送信)。';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'ワークショップ社会的';
 $string['indicator:socialbreadth_help'] = 'この指標はワークショップ活動で学生が到達した社会的広がりに基づきます。';
 $string['indicator:socialbreadthdef'] = 'ワークショップ社会的';
 $string['indicator:socialbreadthdef_help'] = 'この分析間隔中、参加者がワークショップ活動から提供された社会的関与のこのパーセンテージに到達しました (レベル = 参加なし, 個人で参加, 他の人と参加)。';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['info'] = '情報';
 $string['instructauthors'] = '提出のインストラクション';
 $string['instructreviewers'] = '評価のインストラクション';
@@ -217,6 +221,7 @@ $string['modulename_help'] = 'ワークショップ活動モジュールでは�
 提出物は教師によって定義された複数クライテリアの評価フォームを使用して評価されます。相互評価手順および評価フォームの理解は教師から提供される練習提出物および評価例によって練習することができます。学生には1つまたはそれ以上のクラスメートの提出物を評価する機会が与えられます。必要であれば提出およびレビューを匿名にすることもできます。
 
 ワークショップ活動において学生は2つの評点を取得することになります - 「自分の提出物」に対する評点および「クラスメートの提出物の評価」に対する評点です。両評点は評定表に記録されます。';
+$string['modulename_link'] = 'mod/workshop/view';
 $string['modulenameplural'] = 'ワークショップ';
 $string['myassessments'] = '私の評価です。';
 $string['mysubmission'] = '私の提出';
@@ -226,7 +231,7 @@ $string['noexamplesformready'] = 'あなたは提出例を提供する前に評�
 $string['nogradeyet'] = '未評価';
 $string['nosubmissionfound'] = 'このユーザの提出はありません。';
 $string['nosubmissions'] = 'このワークショップの提出はまだありません。';
-$string['nosubmissiontype'] = '少なくとも1つの提出タイプを利用可にする必要があります。';
+$string['nosubmissiontype'] = '少なくとも1つの提出タイプを利用可能にする必要があります。';
 $string['notassessed'] = '未評価';
 $string['nothingfound'] = '表示するものはありません。';
 $string['nothingtoreview'] = 'レビューするものはありません。';
@@ -255,7 +260,7 @@ $string['phasesubmission'] = '提出フェーズ';
 $string['pluginadministration'] = 'ワークショップ管理';
 $string['pluginname'] = 'ワークショップ';
 $string['prepareexamples'] = '提出例を準備する';
-$string['previewassessmentform'] = 'プレビュ';
+$string['previewassessmentform'] = 'プレビュー';
 $string['privacy:metadata:aggregatedgradinggrade'] = '所与のワークショップ活動でユーザにより与えられたすべての評価の評点総計です。';
 $string['privacy:metadata:assessmentgrade'] = 'この評価に提案された提出の評点総計です。';
 $string['privacy:metadata:assessmentgradinggrade'] = 'この評価に与えられた評点です。';
@@ -327,7 +332,7 @@ $string['resetsubmissions'] = 'すべての提出を削除する';
 $string['resetsubmissions_help'] = 'すべての提出およびその評価が削除されます。これは提出例に影響を及ぼしません。';
 $string['saveandclose'] = '保存して閉じる';
 $string['saveandcontinue'] = '保存して編集を続ける';
-$string['saveandpreview'] = '保存してプレビュする';
+$string['saveandpreview'] = '保存してプレビューする';
 $string['saveandshownext'] = '保存して次を表示する';
 $string['search:activity'] = 'ワークショップ - 活動情報';
 $string['selfassessmentdisabled'] = '自己評価は無効にされています。';
@@ -349,7 +354,7 @@ $string['submissionattachment'] = '添付';
 $string['submissionby'] = '提出 by {$a}';
 $string['submissioncontent'] = '提出コンテンツ';
 $string['submissiondeleteconfirm'] = '本当に次の提出を削除してもよろしいですか?';
-$string['submissiondeleteconfirmassess'] = '本当に次の提出を削除してもよろしいですか? これによりこの提出に関して評価者の評定に影響する {$a->count} 件の評価も削除されることに留意してください。';
+$string['submissiondeleteconfirmassess'] = '本当に次の提出を削除してもよろしいですか? これでこの提出に関して評価者の評定に影響する {$a->count} 件の評価も削除されることに留意してください。';
 $string['submissionend'] = '提出終了日時';
 $string['submissionendbeforestart'] = '提出開始日時の前に提出終了日時を指定できません。';
 $string['submissionenddatetime'] = '提出終了日時: {$a->daydatetime} ({$a->distanceday})';
@@ -364,6 +369,7 @@ $string['submissiongradeof'] = '提出に対する評点 (最大 {$a})';
 $string['submissionlastmodified'] = '最終更新日時';
 $string['submissionrequiredcontent'] = 'あなたはテキストを入力するかファイルを追加する必要があります。';
 $string['submissionrequiredfile'] = 'あなたはファイルを追加するかテキストを入力する必要があります。';
+$string['submissionsallocation'] = '提出の割り当て';
 $string['submissionsettings'] = '提出設定';
 $string['submissionsreport'] = 'ワークショップ提出レポート';
 $string['submissionstart'] = '提出開始日時';
@@ -371,10 +377,10 @@ $string['submissionstartdatetime'] = '提出開始日時 {$a->daydatetime} ({$a-
 $string['submissionstartevent'] = '{$a} 提出開始';
 $string['submissiontitle'] = 'タイトル';
 $string['submissiontypedisabled'] = 'このワークショップのこの提出タイプは無効にされています。';
-$string['submissiontypefileavailable'] = 'ファイル添付<span class="accesshide"> 利用可</span>';
+$string['submissiontypefileavailable'] = 'ファイル添付<span class="accesshide"> 利用可能</span>';
 $string['submissiontypefilerequired'] = '<span class="accesshide">ファイル添付 </span>要';
 $string['submissiontypes'] = '提出タイプ';
-$string['submissiontypetextavailable'] = 'オンラインテキスト<span class="accesshide"> 利用可</span>';
+$string['submissiontypetextavailable'] = 'オンラインテキスト<span class="accesshide"> 利用可能</span>';
 $string['submissiontypetextrequired'] = '<span class="accesshide">オンラインテキスト </span>要';
 $string['submittednotsubmitted'] = '提出 ({$a->submitted}) / 未提出 ({$a->notsubmitted})';
 $string['subplugintype_workshopallocation'] = '提出割り当て方法';
@@ -395,7 +401,7 @@ $string['switchphase30info'] = 'あなたはワークショップを<strong>評�
 $string['switchphase40'] = '成績評価フェーズにスイッチする';
 $string['switchphase40info'] = 'あなたはワークショップを<strong>成績評価</strong>フェーズに切り替えようとしています。このフェーズではユーザは自分の提出または評価を修正することはできません。教師は成績評価ツールを最終評点の計算および評価者に対するフィードバックの提供に使用することができます。';
 $string['switchphase50'] = 'ワークショップを閉じる';
-$string['switchphase50info'] = 'あなたはワークショップを終了しようとしています。これにより計算済み評点が評定表に表示されます。学生は自分の提出および提出評価を閲覧することができます。';
+$string['switchphase50info'] = 'あなたはワークショップを終了しようとしています。これで計算済み評点が評定表に表示されます。学生は自分の提出および提出評価を閲覧することができます。';
 $string['switchphaseauto'] = 'スイッチがスケジュールされました。';
 $string['switchphasenext'] = '次のフェーズにスキップする';
 $string['taskassesspeers'] = '相互評価';

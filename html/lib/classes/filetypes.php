@@ -260,8 +260,8 @@ abstract class core_filetypes {
             'svgz' => array('type' => 'image/svg+xml', 'icon' => 'image',
                     'groups' => array('image', 'web_image'), 'string' => 'image'),
             'swa' => array('type' => 'application/x-director', 'icon' => 'flash'),
-            'swf' => array('type' => 'application/x-shockwave-flash', 'icon' => 'flash', 'groups' => array('video', 'web_video')),
-            'swfl' => array('type' => 'application/x-shockwave-flash', 'icon' => 'flash', 'groups' => array('video', 'web_video')),
+            'swf' => array('type' => 'application/x-shockwave-flash', 'icon' => 'flash'),
+            'swfl' => array('type' => 'application/x-shockwave-flash', 'icon' => 'flash'),
 
             'sxw' => array('type' => 'application/vnd.sun.xml.writer', 'icon' => 'writer'),
             'stw' => array('type' => 'application/vnd.sun.xml.writer.template', 'icon' => 'writer'),
@@ -312,6 +312,9 @@ abstract class core_filetypes {
 
             'xml' => array('type' => 'application/xml', 'icon' => 'markup'),
             'xsl' => array('type' => 'text/xml', 'icon' => 'markup'),
+
+            'yaml' => array('type' => 'application/yaml', 'icon' => 'markup'),
+            'yml' => array('type' => 'application/yaml', 'icon' => 'markup'),
 
             'zip' => array('type' => 'application/zip', 'icon' => 'archive', 'groups' => array('archive'), 'string' => 'archive')
         );

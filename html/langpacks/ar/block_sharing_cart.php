@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_sharing_cart', language 'ar', version '3.11'.
+ * Strings for component 'block_sharing_cart', language 'ar', version '4.1'.
  *
  * @package     block_sharing_cart
  * @category    string
@@ -34,6 +34,7 @@ $string['define_required_capabilities'] = 'يرجى تعريف الإمكاني�
 $string['delete_folder'] = 'وكل محتوياته';
 $string['forbidden'] = 'ليست لديك أي صلاحيات للوصول إلى هذا العنصر المشترك';
 $string['missing_capabilities'] = 'الإمكانيات المطلوبة مفقودة: {$a}';
+$string['modal_checkbox'] = 'هل تريد نسخ بيانات المستخدم؟ (على سبيل المثال، مدخلات القاموس/الموسوعة/قاعدة البيانات)';
 $string['no_backup_support'] = 'لا يوجد دعم للحفظ الاحتياطي لهذه الوحدة';
 $string['privacy:metadata:block_sharing_cart:ctime'] = 'وقت الإنشاء';
 $string['privacy:metadata:block_sharing_cart:modicon'] = 'أيقونة وحدة النشاط';

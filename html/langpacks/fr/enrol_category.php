@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_category', language 'fr', version '3.11'.
+ * Strings for component 'enrol_category', language 'fr', version '4.1'.
  *
  * @package     enrol_category
  * @category    string
@@ -25,9 +25,9 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['category:config'] = 'Configurer les instances d\'inscription par catégorie';
-$string['category:synchronised'] = 'Synchroniser les attributions de rôles avec l\'inscription au cours';
+$string['category:config'] = 'Configurer les instances d’inscription par catégorie';
+$string['category:synchronised'] = 'Synchroniser les attributions de rôles avec l’inscription au cours';
 $string['enrolcategorysynctask'] = 'Synchronisation des inscriptions de catégories';
 $string['pluginname'] = 'Inscription par catégorie';
-$string['pluginname_desc'] = 'Le plugin d\'inscription par catégorie synchronise l\'attribution des rôles au niveau du contexte de catégorie, pour les rôles avec la capacité enrol/category:synchronised.';
-$string['privacy:metadata'] = 'Le plugin Inscription par catégorie n\'enregistre aucune donnée personnelle.';
+$string['pluginname_desc'] = 'Le plugin d’inscription par catégorie synchronise l’attribution des rôles au niveau du contexte de catégorie, pour les rôles avec la capacité enrol/category:synchronised.';
+$string['privacy:metadata'] = 'Le plugin Inscription par catégorie n’enregistre aucune donnée personnelle.';

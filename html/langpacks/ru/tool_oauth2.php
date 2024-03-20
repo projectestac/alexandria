@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_oauth2', language 'ru', version '3.11'.
+ * Strings for component 'tool_oauth2', language 'ru', version '4.1'.
  *
  * @package     tool_oauth2
  * @category    string
@@ -30,6 +30,7 @@ $string['acceptrisk_help'] = 'Отключение проверки электр
 $string['authconfirm'] = 'Это действие предоставит постоянный доступ API к Moodle для аутентифицированной учетной записи. Это предназначено для использования в качестве системной учетной записи для управления файлами, принадлежащими Moodle.';
 $string['authconnected'] = 'Системная учетная запись теперь подключена для автономного доступа';
 $string['authnotconnected'] = 'Системная учетная запись не была подключена для автономного доступа';
+$string['clever_service'] = 'Clever';
 $string['configured'] = 'Настроенные';
 $string['configuredstatus'] = 'Настроенные';
 $string['connectsystemaccount'] = 'Подключение к системной учетной записи';
@@ -66,6 +67,7 @@ $string['google_service'] = 'Google';
 $string['imsobv2p1_service'] = 'Open Badges';
 $string['issueralloweddomains'] = 'Домены входа';
 $string['issueralloweddomains_help'] = 'Этот установленный параметр представляет собой разделенный запятыми список доменов, которым будет разрешен вход при использовании этого провайдера.';
+$string['issueralloweddomains_link'] = 'OAuth_2_login_domains';
 $string['issuerbaseurl'] = 'Базовый URL-адрес службы';
 $string['issuerbaseurl_help'] = 'Базовый URL-адрес, используемый для доступа к службе.';
 $string['issuerclientid'] = 'ID пользователя';
@@ -77,7 +79,7 @@ $string['issuerdisabled'] = 'Эмитент отключен';
 $string['issuerenabled'] = 'Эмитент включен';
 $string['issuerimage'] = 'URL-адрес логотипа';
 $string['issuerimage_help'] = 'URL-адрес изображения, используемого для отображения логотипа этого эмитента. Может отображаться на странице входа в систему.';
-$string['issuerloginpagename'] = 'Название отображается на странице входа в систему';
+$string['issuerloginpagename'] = 'Название, отображаемое на странице входа в систему';
 $string['issuerloginpagename_help'] = 'Если указано, то это название будет использоваться на странице входа вместо названия службы.';
 $string['issuerloginparams'] = 'Дополнительные параметры, включенные в запрос на вход.';
 $string['issuerloginparams_help'] = 'Для чтения основного профиля пользователя некоторые системы требуют дополнительных параметров запроса на вход.';
@@ -100,7 +102,7 @@ $string['issuersservicesallow'] = 'Разрешить службы';
 $string['issuersservicesnotallow'] = 'Не разрешать службы';
 $string['issuerusedforinternal'] = 'Внутренние службы';
 $string['issuerusedforlogin'] = 'Логин';
-$string['issuerusein'] = 'Эта служба может использоваться:';
+$string['issuerusein'] = 'Эту службу могут использовать:';
 $string['issuerusein_help'] = 'Службы OAuth 2 могут использоваться для внутренних служб, на странице входа или в обоих случаях, если требуется.';
 $string['issueruseineverywhere'] = 'Страница входа и внутренние службы';
 $string['issueruseininternalonly'] = 'Только внутренние службы';

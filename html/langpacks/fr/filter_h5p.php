@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_h5p', language 'fr', version '3.11'.
+ * Strings for component 'filter_h5p', language 'fr', version '4.1'.
  *
  * @package     filter_h5p
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['filtername'] = 'Filtre H5P';
 $string['pluginname'] = 'Filtre H5P';
-$string['privacy:metadata'] = 'Ce plugin n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Ce plugin n’enregistre aucune donnée personnelle.';

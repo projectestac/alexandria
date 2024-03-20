@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpotreport_clicktrail', language 'fr', version '3.11'.
+ * Strings for component 'hotpotreport_clicktrail', language 'fr', version '4.1'.
  *
  * @package     hotpotreport_clicktrail
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Suivre les clics de souris';
-$string['privacy:metadata'] = 'Le plugin Suivre les clic de souris n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Suivre les clic de souris n’enregistre aucune donnée personnelle.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_outline', language 'eu', version '3.11'.
+ * Strings for component 'report_outline', language 'eu', version '4.1'.
  *
  * @package     report_outline
  * @category    string
@@ -29,7 +29,7 @@ $string['eventactivityreportviewed'] = 'Jardueraren txostena ikusi da';
 $string['eventoutlinereportviewed'] = 'Laburpen-txostena ikusi da';
 $string['neverseen'] = 'Ikusi gabea';
 $string['nocapability'] = 'Ez dago sarbiderik laburpen-txostenera';
-$string['nologreaderenabled'] = 'Ez dago irakurlerik gaituta';
+$string['nologreaderenabled'] = 'Ez dago agerraldi-irakurlerik gaituta';
 $string['numviews'] = '{$a->distinctusers} erabiltzailek guztira {$a->numviews} ikustaldi egin dituzte';
 $string['outline:view'] = 'Ikusi ikastaroaren jarduera-txostena';
 $string['outline:viewuserreport'] = 'Ikusi erabiltzailearen  jarduera-txostena';

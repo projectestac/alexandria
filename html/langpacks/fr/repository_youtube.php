@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_youtube', language 'fr', version '3.11'.
+ * Strings for component 'repository_youtube', language 'fr', version '4.1'.
  *
  * @package     repository_youtube
  * @category    string
@@ -30,12 +30,12 @@ $string['apikey'] = 'Clef API';
 $string['configplugin'] = 'Configuration YouTube';
 $string['information'] = 'Obtenir pour votre site une <a href="https://developers.google.com/youtube/v3/getting-started">clef API Google</a>.';
 $string['pluginname'] = 'Vidéos YouTube';
-$string['privacy:metadata:repository_youtube'] = 'Le plugin de dépôt Vidéos YouTube n\'enregistre aucune donnée personnelle, mais transmet des données des utilisateurs de Moodle vers le système distant.';
+$string['privacy:metadata:repository_youtube'] = 'Le plugin de dépôt Vidéos YouTube n’enregistre aucune donnée personnelle, mais transmet des données des utilisateurs de Moodle vers le système distant.';
 $string['privacy:metadata:repository_youtube:searchtext'] = 'La requête de recherche utilisateur pour le dépôt Vidéo YouTube';
 $string['search'] = 'Recherche vidéos';
 $string['sortby'] = 'Trier par';
 $string['sortpublished'] = 'Date de publication';
 $string['sortrating'] = 'Évaluation';
 $string['sortrelevance'] = 'Pertinence';
-$string['sortviewcount'] = 'Nombre d\'affichages';
+$string['sortviewcount'] = 'Nombre d’affichages';
 $string['youtube:view'] = 'Utiliser YouTube dans le sélecteur de fichiers';

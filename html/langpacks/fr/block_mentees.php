@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_mentees', language 'fr', version '3.11'.
+ * Strings for component 'block_mentees', language 'fr', version '4.1'.
  *
  * @package     block_mentees
  * @category    string
@@ -31,4 +31,4 @@ $string['mentees:addinstance'] = 'Ajouter un bloc participants suivis';
 $string['mentees:myaddinstance'] = 'Ajouter un bloc participants suivis au tableau de bord';
 $string['newmenteesblock'] = '(Nouveau bloc participants suivis)';
 $string['pluginname'] = 'Participants suivis';
-$string['privacy:metadata'] = 'Le bloc Participants suivis affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Participants suivis affiche seulement des données enregistrées à d’autres endroits.';

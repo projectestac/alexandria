@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'contentbank', language 'it', version '3.11'.
+ * Strings for component 'contentbank', language 'it', version '4.1'.
  *
  * @package     contentbank
  * @category    string
@@ -26,18 +26,19 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['author'] = 'Autore';
+$string['choosecontext'] = 'Seleziona corso o categoria...';
 $string['close'] = 'Chiudi';
 $string['contentbank'] = 'Deposito dei contenuti';
 $string['contentbankpreferences'] = 'Preferenze del deposito dei contenuti';
-$string['contentdeleted'] = 'Il contenuto è stato eliminato.';
+$string['contentdeleted'] = 'Contenuto eliminato.';
 $string['contentname'] = 'Nome del contenuto';
 $string['contentnotdeleted'] = 'Si è verificato un errore durante l\'eliminazione del contenuto.';
 $string['contentnotrenamed'] = 'Si è verificato un errore durante la rinomina del contenuto.';
-$string['contentrenamed'] = 'Il contenuto è stato rinominato';
+$string['contentrenamed'] = 'Contenuto rinominato.';
 $string['contentsmoved'] = 'Il contenuto è stato spostato in {$a}.';
 $string['contenttypenoaccess'] = 'Non puoi visualizzare l\'istanza {$a}';
 $string['contenttypenoedit'] = 'Non puoi modificare questo ontenuto';
-$string['contentvisibilitychanged'] = 'Il contenuto è stato impostato a {$a}.';
+$string['contentvisibilitychanged'] = 'Il contenuto è ora {$a}.';
 $string['contentvisibilitynotset'] = 'Si è verificato un errore durante la modifica delle visibilità del contenuto.';
 $string['contextnotallowed'] = 'Il contesto non è consentito';
 $string['deletecontent'] = 'Elimina contenuto';
@@ -54,6 +55,7 @@ $string['eventcontentreplaced'] = 'Sostituzione contenuto con file';
 $string['eventcontentupdated'] = 'Aggiornamento contenuto';
 $string['eventcontentuploaded'] = 'Caricamento contenuto';
 $string['eventcontentviewed'] = 'Visualizzazione contenuto';
+$string['exit'] = 'Esci';
 $string['file'] = 'Carica contenuto';
 $string['file_help'] = 'È possibile memorizzare contenuti nel deposito ed utilizzarli nei corsi. È possibile caricare solamente file inclusi nei tip di contenuto abilitati.';
 $string['itemsfound'] = 'trovati {$a} elementi';

@@ -41,17 +41,25 @@ $string['oldcharset'] = 'ISO-8859-1';
 $string['parentlanguage'] = '';
 $string['pm'] = 'pm';
 $string['pmcaps'] = 'PM';
+// Whether the question icon follows the language direction.
+// E.g. In some RTL languages, like Arabic, it needs to be set to 'yes' so the question mark is flipped.
+// But for Hebrew, the question mark character is not flipped, so it needs to be set to 'no'.
+$string['questioniconfollowlangdirection'] = 'yes';
 $string['strftimedate'] = '%d %B %Y';
 $string['strftimedatemonthabbr'] = '%d %b %Y';
+$string['strftimedatemonthtimeshort'] = '%d %b %Y, %I:%M';
 $string['strftimedatefullshort'] = '%d/%m/%y';
 $string['strftimedateshort'] = '%d %B';
 $string['strftimedateshortmonthabbr'] = '%d %b';
 $string['strftimedatetime'] = '%d %B %Y, %I:%M %p';
+$string['strftimedatetimeaccurate'] = '%d %B %Y, %I:%M:%S %p';
 $string['strftimedatetimeshort'] = '%d/%m/%y, %H:%M';
+$string['strftimedatetimeshortaccurate'] = '%d/%m/%y, %H:%M:%S';
 $string['strftimedaydate'] = '%A, %d %B %Y';
 $string['strftimedaydatetime'] = '%A, %d %B %Y, %I:%M %p';
 $string['strftimedayshort'] = '%A, %d %B';
 $string['strftimedaytime'] = '%a, %H:%M';
+$string['strftimemonth'] = '%B';
 $string['strftimemonthyear'] = '%B %Y';
 $string['strftimerecent'] = '%d %b, %H:%M';
 $string['strftimerecentfull'] = '%a, %d %b %Y, %I:%M %p';

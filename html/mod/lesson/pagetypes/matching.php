@@ -79,19 +79,22 @@ class lesson_page_type_matching extends lesson_page {
             $answers[$getanswer->id] = $getanswer;
         }
 
+        // Calculate the text for the dropdown, keyed by the non formatted version.
         $responses = array();
         foreach ($answers as $answer) {
-            // get all the response
+            // Get all the response.
             if ($answer->response != null) {
-                $responses[] = trim($answer->response);
+                $responses[trim($answer->response)] = format_text(trim($answer->response));
             }
         }
 
-        $responseoptions = array(''=>get_string('choosedots'));
+        // Now shuffle the answers to randomise the order of the items in the dropdown.
+        $responseoptions = ['' => get_string('choosedots')];
         if (!empty($responses)) {
-            shuffle($responses);
-            foreach ($responses as  $response) {
-                $responseoptions[htmlspecialchars($response)] = $response;
+            $keys = array_keys($responses);
+            shuffle($keys);
+            foreach ($keys as $key) {
+                $responseoptions[$key] = $responses[$key];
             }
         }
         if (isset($USER->modattempts[$this->lesson->id]) && !empty($attempt->useranswer)) {
@@ -211,7 +214,6 @@ class lesson_page_type_matching extends lesson_page {
                 $result->noanswer = true;
                 return $result;
             }
-            $value = htmlspecialchars_decode($value);
             $userresponse[] = $value;
             // Make sure the user's answer exists in question's answer
             if (array_key_exists($id, $answers)) {
@@ -577,7 +579,7 @@ class lesson_display_answer_form_matching extends moodleform {
                 $responseid = 'response['.$answer->id.']';
                 if ($hasattempt) {
                     $responseid = 'response_'.$answer->id;
-                    $mform->addElement('hidden', 'response['.$answer->id.']', htmlspecialchars($useranswers[$i]));
+                    $mform->addElement('hidden', 'response['.$answer->id.']', htmlspecialchars($useranswers[$i], ENT_COMPAT));
                     // Temporary fixed until MDL-38885 gets integrated
                     $mform->setType('response', PARAM_TEXT);
                 }
@@ -585,7 +587,7 @@ class lesson_display_answer_form_matching extends moodleform {
                 $mform->addElement('select', $responseid, format_text($answer->answer,$answer->answerformat,$options), $responseoptions, $disabled);
                 $mform->setType($responseid, PARAM_TEXT);
                 if ($hasattempt) {
-                    $mform->setDefault($responseid, htmlspecialchars(trim($useranswers[$i])));
+                    $mform->setDefault($responseid, htmlspecialchars(trim($useranswers[$i]), ENT_COMPAT));
                 } else {
                     $mform->setDefault($responseid, 'answeroption');
                 }

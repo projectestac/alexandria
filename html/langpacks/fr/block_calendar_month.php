@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_calendar_month', language 'fr', version '3.11'.
+ * Strings for component 'block_calendar_month', language 'fr', version '4.1'.
  *
  * @package     block_calendar_month
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['calendar_month:addinstance'] = 'Ajouter un bloc calendrier';
 $string['calendar_month:myaddinstance'] = 'Ajouter un bloc calendrier au tableau de bord';
 $string['pluginname'] = 'Calendrier';
-$string['privacy:metadata'] = 'Le bloc Calendrier affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Calendrier affiche seulement des données enregistrées à d’autres endroits.';

@@ -159,9 +159,11 @@ class manager {
                 throw new \core\session\exception(get_string('servererror'));
             }
 
-            // Grab the time when session lock starts.
-            $PERF->sessionlock['gained'] = microtime(true);
-            $PERF->sessionlock['wait'] = $PERF->sessionlock['gained'] - $PERF->sessionlock['start'];
+            if ($requireslock) {
+                // Grab the time when session lock starts.
+                $PERF->sessionlock['gained'] = microtime(true);
+                $PERF->sessionlock['wait'] = $PERF->sessionlock['gained'] - $PERF->sessionlock['start'];
+            }
             self::initialise_user_session($isnewsession);
             self::$sessionactive = true; // Set here, so the session can be cleared if the security check fails.
             self::check_security();
@@ -274,8 +276,10 @@ class manager {
      * This is intended for installation scripts, unit tests and other
      * special areas. Do NOT use for logout and session termination
      * in normal requests!
+     *
+     * @param mixed $newsid only used after initialising a user session, is this a new user session?
      */
-    public static function init_empty_session() {
+    public static function init_empty_session(?bool $newsid = null) {
         global $CFG;
 
         if (isset($GLOBALS['SESSION']->notifications)) {
@@ -283,6 +287,9 @@ class manager {
             $notifications = $GLOBALS['SESSION']->notifications;
         }
         $GLOBALS['SESSION'] = new \stdClass();
+        if (isset($newsid)) {
+            $GLOBALS['SESSION']->isnewsessioncookie = $newsid;
+        }
 
         $GLOBALS['USER'] = new \stdClass();
         $GLOBALS['USER']->id = 0;
@@ -413,7 +420,7 @@ class manager {
         if (!$sid) {
             // No session, very weird.
             error_log('Missing session ID, session not started!');
-            self::init_empty_session();
+            self::init_empty_session($newsid);
             return;
         }
 
@@ -541,7 +548,7 @@ class manager {
             self::set_user($user);
             self::add_session_record($user->id);
         } else {
-            self::init_empty_session();
+            self::init_empty_session($newsid);
             self::add_session_record(0);
         }
 
@@ -681,16 +688,17 @@ class manager {
         global $PERF, $ME, $CFG;
 
         if (self::$sessionactive) {
-            // Grab the time when session lock is released.
-            $PERF->sessionlock['released'] = microtime(true);
-            if (!empty($PERF->sessionlock['gained'])) {
-                $PERF->sessionlock['held'] = $PERF->sessionlock['released'] - $PERF->sessionlock['gained'];
-            }
-            $PERF->sessionlock['url'] = me();
-            self::update_recent_session_locks($PERF->sessionlock);
-            self::sessionlock_debugging();
-
             $requireslock = self::$handler->requires_write_lock();
+            if ($requireslock) {
+                // Grab the time when session lock is released.
+                $PERF->sessionlock['released'] = microtime(true);
+                if (!empty($PERF->sessionlock['gained'])) {
+                    $PERF->sessionlock['held'] = $PERF->sessionlock['released'] - $PERF->sessionlock['gained'];
+                }
+                $PERF->sessionlock['url'] = me();
+                self::update_recent_session_locks($PERF->sessionlock);
+                self::sessionlock_debugging();
+            }
             if (!$requireslock || !self::$requireslockdebug) {
                 // Compare the array of the earlier session data with the array now, if
                 // there is a difference then a lock is required.
@@ -935,6 +943,9 @@ class manager {
 
         // Init session key.
         sesskey();
+
+        // Make sure the user is correct in web server access logs.
+        set_access_log_user();
     }
 
     /**
@@ -1132,7 +1143,8 @@ class manager {
         $PAGE->requires->js_call_amd('core/network', 'keepalive', array(
                 $frequency,
                 $timeout,
-                get_string($identifier, $component)
+                $identifier,
+                $component
             ));
     }
 

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'contenttype_h5p', language 'fr', version '3.11'.
+ * Strings for component 'contenttype_h5p', language 'fr', version '4.1'.
  *
  * @package     contenttype_h5p
  * @category    string
@@ -28,7 +28,7 @@ defined('MOODLE_INTERNAL') || die();
 $string['description'] = 'Contenu interactif H5P';
 $string['h5p:access'] = 'Accéder au contenu H5P de la banque de contenus';
 $string['h5p:upload'] = 'Déposer un contenu H5P';
-$string['h5p:useeditor'] = 'Créer ou modifier du contenu avec l\'éditeur H5P';
+$string['h5p:useeditor'] = 'Créer ou modifier du contenu avec l’éditeur H5P';
 $string['pluginname'] = 'H5P';
 $string['pluginname_help'] = 'Banque de contenus permettant de déposer et partager des contenus H5P';
-$string['privacy:metadata'] = 'Le plugin de banque de contenus H5P n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de banque de contenus H5P n’enregistre aucune donnée personnelle.';

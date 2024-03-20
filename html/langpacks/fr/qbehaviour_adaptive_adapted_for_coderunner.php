@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qbehaviour_adaptive_adapted_for_coderunner', language 'fr', version '3.11'.
+ * Strings for component 'qbehaviour_adaptive_adapted_for_coderunner', language 'fr', version '4.1'.
  *
  * @package     qbehaviour_adaptive_adapted_for_coderunner
  * @category    string
@@ -30,6 +30,6 @@ $string['pluginname'] = 'Adaptatif adapté pour coderunner';
 $string['precheck'] = 'Précontrôle';
 $string['precheckedresponse'] = 'Pré-vérifié : {$a}';
 $string['precheckresults'] = 'Résultats pré-vérifiés';
-$string['privacy:metadata'] = 'Le plugin de comportement de question qbehaviour_adaptive_adapted_for_coderunner ne stocke aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de comportement de question qbehaviour_adaptive_adapted_for_coderunner n’enregistre aucune donnée personnelle.';
 $string['triesremaining'] = 'Essais restants : {$a}';
 $string['tryagain'] = 'Réessayer';

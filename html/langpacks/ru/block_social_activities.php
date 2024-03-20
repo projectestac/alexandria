@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_social_activities', language 'ru', version '3.11'.
+ * Strings for component 'block_social_activities', language 'ru', version '4.1'.
  *
  * @package     block_social_activities
  * @category    string
@@ -25,6 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['pluginname'] = 'Общественная деятельность';
-$string['privacy:metadata'] = 'Блок «Общественная деятельность» только показывает данные, хранящиеся в других местах.';
-$string['social_activities:addinstance'] = 'Добавлять новый блок «Общественная деятельность»';
+$string['pluginname'] = 'Социальные мероприятия';
+$string['privacy:metadata'] = 'Блок «Социальные мероприятия» только показывает данные, хранящиеся в других местах.';
+$string['social_activities:addinstance'] = 'Добавлять новый блок «Социальные мероприятия»';

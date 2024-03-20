@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_statistics', language 'pt', version '3.11'.
+ * Strings for component 'quiz_statistics', language 'pt', version '4.1'.
  *
  * @package     quiz_statistics
  * @category    string
@@ -65,6 +65,9 @@ $string['firstattempts'] = 'primeiras tentativas';
 $string['firstattemptsavg'] = 'Nota média das primeiras tentativas';
 $string['firstattemptscount'] = 'Número de primeiras tentativas terminadas e avaliadas';
 $string['frequency'] = 'Frequência';
+$string['getstatslockprogress'] = 'A aguardar tarefa em execução. Aguarde ou tente novamente mais tarde.';
+$string['getstatslocktimeout'] = 'Tempo limite de bloqueio do cálculo das estatísticas';
+$string['getstatslocktimeoutdesc'] = 'Quantos segundos deve esperar antes de bloquear quando tenta realizar cálculo das estatísticas de um teste. Esta configuração existe principalmente para ensaios, não a modifique a menos que saiba o que está a fazer.';
 $string['highestattempts'] = 'nota mais alta';
 $string['highestattemptsavg'] = 'nota média das notas mais altas';
 $string['intended_weight'] = 'Peso pretendido';
@@ -85,6 +88,7 @@ A nossa equação para o peso efetivo da pergunta não pode ser calculada neste 
 
 Se editar um teste e atribuir a estas perguntas com covariância negativa a nota máxima de zero, o peso efetivo destas perguntas será zero e o peso real efetivo das outras perguntas será como o calculado agora.';
 $string['nogradedattempts'] = 'Não existem tentativas de resposta a este teste, ou em todas as tentativas existem perguntas que precisam de avaliação manual.';
+$string['nostats'] = 'Não foi possível concluir o cálculo das estatísticas. Pode haver um cálculo de longa duração em execução. Por favor, tente novamente mais tarde.';
 $string['nostudentsingroup'] = 'Ainda não existem alunos neste grupo';
 $string['optiongrade'] = 'Crédito parcial';
 $string['partofquestion'] = 'Parte da pergunta';
@@ -101,12 +105,12 @@ $string['questiontype'] = 'Tipo de pergunta';
 $string['quizinformation'] = 'Informação do teste';
 $string['quizname'] = 'Nome do teste';
 $string['quizoverallstatistics'] = 'Estatísticas globais do teste';
-$string['quizstatisticscleanuptask'] = 'Limpeza dos registos da cache de estatísticas de teste antigos';
 $string['quizstructureanalysis'] = 'Análise da estrutura do teste';
 $string['random_guess_score'] = 'Pontuação de resposta aleatória';
 $string['rangebetween'] = '{$a->min} − {$a->max}';
 $string['rangeofvalues'] = 'Intervalo de estatísticas para estas perguntas';
 $string['recalculatenow'] = 'Reavaliar agora';
+$string['recalculatetask'] = 'Recalcular as estatísticas da pergunta';
 $string['reportsettings'] = 'Configurações de cálculo das estatísticas';
 $string['response'] = 'Resposta';
 $string['skewness'] = 'Skewness da distribuição da pontuação (para {$a})';

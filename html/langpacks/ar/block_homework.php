@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_homework', language 'ar', version '3.11'.
+ * Strings for component 'block_homework', language 'ar', version '4.1'.
  *
  * @package     block_homework
  * @category    string
@@ -71,7 +71,7 @@ $string['pluginname'] = 'الواجب البيتي';
 $string['section_help'] = 'المقطع أو الموضوع ضمن المساق الذي ستتم إضافة نشاط الواجب البيتي إليه.';
 $string['selectcourse_help'] = 'هذا هو المساق الذي ستتم إضافة نشاط الواجب البيتي إليه. الطلاب المنضمون إلى الوساق حصرًا سيكون لهم إمكانية الوصول إليه.';
 $string['sethomework'] = 'وضع الواجب البيتي';
-$string['showdescription'] = 'إظهار الوصف في المساق';
+$string['showdescription'] = 'إظهار الوصف في المقرر الدراسي';
 $string['showdescription_help'] = 'فيما إذا كان ينبغي عرض الوصف في صفحة المقرر الدراسي';
 $string['staffstatistics'] = 'إحصائيات الموظفين';
 $string['student'] = 'الطالب';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_emoticon', language 'fr', version '3.11'.
+ * Strings for component 'filter_emoticon', language 'fr', version '4.1'.
  *
  * @package     filter_emoticon
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['filtername'] = 'Afficher les binettes sous forme d\'images';
-$string['privacy:metadata'] = 'Le plugin Afficher les binettes sous forme d\'images n\'enregistre aucune donnée personnelle.';
+$string['filtername'] = 'Afficher les binettes sous forme d’images';
+$string['privacy:metadata'] = 'Le plugin Afficher les binettes sous forme d’images n’enregistre aucune donnée personnelle.';
 $string['settingformats'] = 'Appliquer aux formats';
-$string['settingformats_desc'] = 'Le filtre sera appliqué seulement si le texte original a été saisi dans l\'un des formats sélectionnés.';
+$string['settingformats_desc'] = 'Le filtre sera appliqué seulement si le texte original a été saisi dans l’un des formats sélectionnés.';

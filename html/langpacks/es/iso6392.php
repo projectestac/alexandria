@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'iso6392', language 'es', version '3.11'.
+ * Strings for component 'iso6392', language 'es', version '4.1'.
  *
  * @package     iso6392
  * @category    string
@@ -383,7 +383,7 @@ $string['rar'] = 'Rarotonga, Islas Cook Maoríes';
 $string['roa'] = 'Lenguas Romances';
 $string['roh'] = 'Romansh';
 $string['rom'] = 'Rumano';
-$string['ron'] = 'Rumania, Moldavia, Moldavia';
+$string['ron'] = 'Rumano, Moldavo, Moldavo';
 $string['run'] = 'Rundi';
 $string['rup'] = 'Arrumana';
 $string['rus'] = 'Ruso';

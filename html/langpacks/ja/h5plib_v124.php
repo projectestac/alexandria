@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'h5plib_v124', language 'ja', version '3.11'.
+ * Strings for component 'h5plib_v124', language 'ja', version '4.1'.
  *
  * @package     h5plib_v124
  * @category    string
@@ -25,13 +25,15 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['editor:a11ytitlehidelabel'] = 'ATのラベルを非表示にする';
+$string['editor:a11ytitleshowlabel'] = 'ATのラベルを表示にする';
 $string['editor:add'] = '追加';
 $string['editor:addauthor'] = '作成者を保存する';
 $string['editor:addentity'] = ':entity を追加する';
 $string['editor:addfile'] = 'ファイルを追加する';
 $string['editor:addnewchange'] = '新しい変更を追加する';
 $string['editor:addtitle'] = 'タイトルを追加する';
-$string['editor:addvideodescription'] = 'H5Pはmp4、webmまたはogv、Vimeo Proのような外部ビデオソースをサポートします。また、YouTubeリンクもサポートします。';
+$string['editor:addvideodescription'] = 'H5Pはmp4、webmまたはogv、Vimeo Proのような外部ビデオソースをサポートします。またYouTubeおよびPanoptoリンクもサポートします。';
 $string['editor:atoz'] = 'A -> Z';
 $string['editor:avtablistlabel'] = '次を使用して挿入する';
 $string['editor:belowmin'] = ':property 値は最小の :min 以下にしてください。';
@@ -44,11 +46,11 @@ $string['editor:changelogdescription'] = 'ライセンスの一部ではオリ�
 $string['editor:close'] = '閉じる';
 $string['editor:commonfields'] = 'テキストオーバーライドおよび翻訳';
 $string['editor:commonfieldsdescription'] = 'あなたはこのコンテクストで設定を編集またはテキストを翻訳できます。';
-$string['editor:confirmchangelibrary'] = 'これによりあなたは現在のコンテンツタイプの作業すべてを失います。本当にコンテンツタイプを変更してもよろしいですか?';
+$string['editor:confirmchangelibrary'] = 'これであなたは現在のコンテンツタイプの作業すべてを失います。本当にコンテンツタイプを変更してもよろしいですか?';
 $string['editor:confirmdeletechangelog'] = '本当にこの変更ログエントリを削除してもよろしいですか?';
-$string['editor:confirmimageremoval'] = 'これによりあなたのイメージが削除されます。本当に続けてもよろしいですか?';
+$string['editor:confirmimageremoval'] = 'これであなたのイメージが削除されます。本当に続けてもよろしいですか?';
 $string['editor:confirmpastebuttontext'] = 'コンテンツを置換する';
-$string['editor:confirmpastecontent'] = 'これにより現在のコンテンツをあなたのクリップボードのコンテンツと置換します。現在のコンテンツは失われます。本当に続けてもよろしいですか?';
+$string['editor:confirmpastecontent'] = 'これで現在のコンテンツをあなたのクリップボードのコンテンツと置換します。現在のコンテンツは失われます。本当に続けてもよろしいですか?';
 $string['editor:confirmremoval'] = '本当にこの :type を削除してもよろしいですか?';
 $string['editor:confirmremoveauthor'] = '本当にこの作成者を削除してもよろしいですか?';
 $string['editor:contenttypebackbuttonlabel'] = '戻る';
@@ -91,7 +93,7 @@ $string['editor:enteraudiotitle'] = 'リンクまたは他のオーディオソ�
 $string['editor:enteraudiourl'] = 'オーディオソースURLを入力する';
 $string['editor:enterfullscreenbuttonlabel'] = 'フルスクリーンに入る';
 $string['editor:entervideotitle'] = 'YouTubeリンクまたは他のソースURLを貼り付ける';
-$string['editor:entervideourl'] = 'ビデオソースURLまたはYouTubeリンクを入力する';
+$string['editor:entervideourl'] = 'ビデオURLを入力する';
 $string['editor:errorcalculatingmaxscore'] = 'このコンテンツの最高評点を計算できませんでした。最大評点は「0」であると思われます。これが正しくない場合、あなたの管理者にご連絡ください。';
 $string['editor:errorcommunicatinghubcontent'] = 'エラーが発生しました。再度お試しください。';
 $string['editor:errorcommunicatinghubtitle'] = 'ハブと連携できません。';
@@ -208,7 +210,7 @@ $string['editor:tabtitlebasicfileupload'] = 'ファイルをアップロード�
 $string['editor:tabtitleinputlinkurl'] = 'リンク/URL';
 $string['editor:textfield'] = 'テキストフィールド';
 $string['editor:thecontenttype'] = 'コンテンツタイプ';
-$string['editor:thiswillpotentially'] = 'これによりすべてのテキストおよび翻訳がリセットされる可能性があります。あなたはこれを元に戻せません。コンテンツ自体は変更されません。本当に続けてもよろしいですか?';
+$string['editor:thiswillpotentially'] = 'これですべてのテキストおよび翻訳がリセットされる可能性があります。あなたはこれを元に戻せません。コンテンツ自体は変更されません。本当に続けてもよろしいですか?';
 $string['editor:title'] = 'タイトル';
 $string['editor:toolong'] = 'フィールド値が長すぎます。:max 文字またはそれ以下を含んでください。';
 $string['editor:tryagain'] = '再度試す';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_fontsize', language 'fr', version '3.11'.
+ * Strings for component 'atto_fontsize', language 'fr', version '4.1'.
  *
  * @package     atto_fontsize
  * @category    string
@@ -26,3 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Taille de police';
+$string['privacy:metadata'] = 'Le plugin Atto Taille de caractère n’enregistre aucune donnée personnelle.';

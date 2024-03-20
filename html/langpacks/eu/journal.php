@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'journal', language 'eu', version '3.11'.
+ * Strings for component 'journal', language 'eu', version '4.1'.
  *
  * @package     journal
  * @category    string
@@ -75,6 +75,7 @@ $string['lastnamedesc'] = 'Abizenaren arabera Beherantz';
 $string['mailsubject'] = 'Egunkariaren feedbacka';
 $string['modulename'] = 'Egunkaria';
 $string['modulename_help'] = 'Egunkariak irakasleak ikasleengandik gai jakin bati buruzko feedbacka lortzea ahalbidetzen du';
+$string['modulename_link'] = 'mod/journal/view';
 $string['modulenameplural'] = 'Egunkariak';
 $string['needsregrade'] = 'Sarrera aldatu da feedbacka gorde zen azken alditik.';
 $string['newjournalentries'] = 'Egunkari-sarrera berriak';
@@ -92,6 +93,7 @@ $string['privacy:metadata:journal_entries'] = 'Egunkariko sarreraren erregistro 
 $string['privacy:metadata:journal_entries:entrycomment'] = 'Erabiltzaileak egunkarian jasotako iruzkina';
 $string['privacy:metadata:journal_entries:modified'] = 'Egunkariko sarreren hasierako denbora';
 $string['privacy:metadata:journal_entries:rating'] = 'Erabiltzaileak egunkarian jasotako sailkapena';
+$string['privacy:metadata:journal_entries:teacher'] = 'Irakasleak erabiltzaileari egunkarian feedbacka eman dio';
 $string['privacy:metadata:journal_entries:text'] = 'Erabiltzaileak idatzitako testua';
 $string['privacy:metadata:journal_entries:userid'] = 'Erabiltzailearen IDa';
 $string['rate'] = 'Kalifikazioa';

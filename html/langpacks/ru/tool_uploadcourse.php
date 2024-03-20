@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_uploadcourse', language 'ru', version '3.11'.
+ * Strings for component 'tool_uploadcourse', language 'ru', version '4.1'.
  *
  * @package     tool_uploadcourse
  * @category    string
@@ -39,9 +39,9 @@ $string['cannotreadbackupfile'] = 'Не удается прочитать фай
 $string['cannotrenamecoursenotexist'] = 'Не удается переименовать несуществующий курс';
 $string['cannotrenameidnumberconflict'] = 'Не удается переименовать курс - конфликт ID с имеющимся курсом';
 $string['cannotrenameshortnamealreadyinuse'] = 'Не удается переименовать курс, короткое имя уже используется';
-$string['cannotupdatefrontpage'] = 'Запрещено изменять главную страницу';
+$string['cannotupdatefrontpage'] = 'Вы не можете изменять главную страницу сайта.';
 $string['canonlyrenameinupdatemode'] = 'Можно только переименовать курс при разрешенном обновлении';
-$string['canonlyresetcourseinupdatemode'] = 'Можно только сбросить курс в режиме обновления';
+$string['canonlyresetcourseinupdatemode'] = 'Сбросить курс можно только в режиме обновления';
 $string['couldnotresolvecatgorybyid'] = 'Не удалось определить категорию по ID';
 $string['couldnotresolvecatgorybyidnumber'] = 'Не удалось определить категорию по ID-номеру';
 $string['couldnotresolvecatgorybypath'] = 'Не удалось определить категорию по пути';
@@ -77,9 +77,9 @@ $string['csvdelimiter'] = 'Разделитель CSV';
 $string['csvdelimiter_help'] = 'Символ, разделяющий последовательность данных в каждой записи.';
 $string['csvfileerror'] = 'Что-то не так с форматом файла CSV. Пожалуйста, проверьте соответствие заголовков и столбцов; верно ли указаны разделитель и кодировка файла: {$a}';
 $string['csvline'] = 'Строка';
-$string['customfieldinvalid'] = 'Пользовательское поле {$a} пусто или содержит недопустимые данные';
+$string['customfieldinvalid'] = 'Пользовательское поле «{$a}» пусто или содержит недопустимые данные';
 $string['defaultvalues'] = 'Значения по умолчанию';
-$string['defaultvaluescustomfieldcategory'] = 'Значения по умолчанию для \'{$a}\'';
+$string['defaultvaluescustomfieldcategory'] = 'Значения по умолчанию для «{$a}»';
 $string['downloadcontentnotallowed'] = 'Скачивание контента курса запрещено';
 $string['encoding'] = 'Кодировка';
 $string['encoding_help'] = 'Кодировка файла CSV.';

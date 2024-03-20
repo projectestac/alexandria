@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grouptool', language 'de', version '3.11'.
+ * Strings for component 'grouptool', language 'de', version '4.1'.
  *
  * @package     grouptool
  * @category    string
@@ -54,6 +54,8 @@ $string['asterisk_marks_moodle_registrations'] = 'Teilnehmer/innen mit führende
 $string['availabledate'] = 'Anmeldebeginn';
 $string['availabledate_help'] = 'Beginn des Anmeldezeitraums. Nach diesem Datum ist es Teilnehmer/innen möglich sich selbst zu den ausgewählten Gruppen anzumelden (falls dies zugelassen ist).';
 $string['availabledateno'] = 'Immer verfügbar';
+$string['calendaravailable'] = '{$a} Anmeldung gestartet';
+$string['calendardue'] = '{$a} Anmeldung ist fällig';
 $string['cant_enrol'] = 'Kann Nutzer/in nicht automatisch in Kurs einschreiben.';
 $string['cfg_addinstanceset_head'] = 'Weitere Instanzeinstellungen';
 $string['cfg_addinstanceset_head_info'] = 'Weitere Instanzeinstellungen für die Gruppenverwaltung.';
@@ -85,7 +87,7 @@ $string['cfg_ifmemberremoved'] = 'Bei gelöschtem Gruppenmitglied';
 $string['cfg_ifmemberremoved_desc'] = 'Sollen Anmeldungen entfernter Gruppenmitglieder innerhalb der Gruppenverwaltungen standardmäßig gelöscht oder ignoriert werden?';
 $string['cfg_immediate_reg'] = 'Sofortige Anmeldung';
 $string['cfg_immediate_reg_desc'] = 'Soll jede Anmeldung automatisch zu den Moodle-Gruppen durchgereicht werden?';
-$string['cfg_importfields'] = 'Vergleichsfelder für Import/ Austragen';
+$string['cfg_importfields'] = 'Vergleichsfelder für Import und Abmeldung';
 $string['cfg_importfields_desc'] = 'Gibt an mit welchen Feldern der Teilnehmer/innen-Tabelle beim Import/ beim Austragen verglichen werden soll. Die Felder werden sequenziell durchsucht, bis möglichst genau ein einziger Treffer gefunden wurde. Mögliche/Sinnvolle Werte sind z.B.: username, idnumber, email. ACHTUNG: es erfolgt keine Kontrolle auf richtige Schreibweise. Erlaubte Zeichen: a-z, A-Z und \',\'';
 $string['cfg_instance_head'] = 'Standard-Instanz-Einstellungen';
 $string['cfg_instance_head_info'] = 'Standardeinstellungen für neue Gruppenverwaltungsinstanzen.';
@@ -95,6 +97,8 @@ $string['cfg_moodlesync_head'] = 'Synchronisationsverhalten';
 $string['cfg_moodlesync_head_info'] = 'Wie sich die Gruppenverwaltungsinstanz bei hinzugefügten/gelöschten Mitgliedern/Gruppen in Moodle verhalten soll';
 $string['cfg_name_scheme'] = 'Standard-Namensschema';
 $string['cfg_name_scheme_desc'] = 'Standard-Namensschema für Gruppenerzeugung';
+$string['cfg_show_add_info'] = 'Zusätzliche Gruppeninformationen in der Selbstanmeldung anzeigen';
+$string['cfg_show_add_info_desc'] = 'Zusätzliche Informationen von Moodle-Gruppen wie Beschreibungen oder Bilder bei der Anmeldung anzeigen';
 $string['cfg_show_members'] = 'Zeige Gruppenmitglieder';
 $string['cfg_show_members_desc'] = 'Gibt an ob Gruppenmitglieder standardmäßig angezeigt werden sollen';
 $string['cfg_use_individual'] = 'Unterschiedliche Gruppengrößen festlegen';
@@ -138,7 +142,11 @@ $string['completionregister'] = 'Teilnehmer/in muss in Gruppen angemeldet sein:'
 $string['condition_prevent_access'] = 'Die derzeitigen Umstände erlauben Ihnen keinen Zugriff auf die Gruppenverwaltung!';
 $string['confirm_delete'] = 'Sie sind dabei, diese Gruppe komplett zu löschen. Dies wird alle bisherigen Mitglieder unwiederbringlich aus der Gruppe entfernen. Sind Sie SICHER, dass Sie fortfahren möchten?';
 $string['confirm_delete_title'] = 'Wollen Sie dieses Element wirklich löschen?';
-$string['copied_grade_feedback'] = 'Gruppenbenotung<br /> Abgabe von: <strong>{$a->student}</strong><br /> Note von: <strong>{$a->teacher}</strong><br /> Original Datum/Zeit: <strong>{$a->date}</strong><br /> Feedback: <strong>{$a->feedback}</strong>';
+$string['copied_grade_feedback'] = 'Gruppenbewertung<br />
++Abgabe von: <strong>{$a->student}</strong><br />
++Note von: <strong>{$a->teacher}</strong><br />
++Original Datum/Zeit: <strong>{$a->date}</strong><br />
++Kommentar: <strong>{$a->feedback}</strong>';
 $string['copy'] = 'Übertragen';
 $string['copy_chosen'] = 'Übertrage Gewählte';
 $string['copy_grade_confirm'] = 'Sind Sie sich wirklich SICHER?';
@@ -147,7 +155,7 @@ $string['copy_grades_confirm'] = 'Sind Sie sich wirklich SICHER?';
 $string['copy_grades_errors'] = 'Zumindest 1 Fehler trat während des Übertragens der Bewertungen auf:';
 $string['copy_grades_overwrite_confirm'] = 'Sind Sie sich wirklich SICHER? Existierende Bewertungen werden überschrieben!';
 $string['copy_grades_success'] = 'Die folgenden Bewertungen wurden erfolgreich aktualisiert:';
-$string['copy_refgrades_feedback'] = 'Übertrage Referenzbewertungen und Feedback der gewählten Gruppen auf andere Gruppenmitglieder';
+$string['copy_refgrades_feedback'] = 'Referenzbewertungen und Kommentar der gewählten Gruppen auf andere Gruppenmitglieder übertragen';
 $string['copygrade'] = 'Bewertung kopieren';
 $string['could_not_add'] = 'Konnte <strong>{$a->username}</strong> nicht zu Gruppe <strong>{$a->groupname}</strong> hinzufügen!';
 $string['couldnt_move_down'] = 'Gruppe konnte nicht nach unten verschoben werden!';
@@ -418,7 +426,7 @@ $string['noregistrationdue'] = 'unbeschränkt';
 $string['nosmallgroups'] = 'Verhindere kleine Gruppen';
 $string['nosmallgroups_help'] = 'Wenn aktiviert, wird sichergestellt, dass jede Gruppe zumindest zu 70% der angegebenen Größe gefüllt ist! Die Teilnehmer/innen der unter Umständen vorhandenen letzten kleineren Gruppe, werden auf die übrigen Gruppen aufgeteilt. Es kann daher vorkommen, dass diese Gruppen mehr Mitglieder als spezifiziert haben!';
 $string['not_allowed_to_show_members'] = 'Sie haben keine Berechtigung diese Information anzuzeigen!';
-$string['not_graded_by_me'] = 'Wurde von jemand anders benotet';
+$string['not_graded_by_me'] = 'Von jemand anders bewertet';
 $string['not_in_queue_or_registered'] = '<strong>{$a->username}</strong> ist weder in der Gruppe <strong>{$a->groupname}</strong> angemeldet noch in deren Warteliste gereiht.';
 $string['not_permitted'] = 'Nicht erlaubt';
 $string['not_registered'] = 'Sie sind noch nirgends angemeldet!';
@@ -434,6 +442,7 @@ $string['number_of_students'] = 'Anzahl an Teilnehmer/innen';
 $string['occupied'] = 'Belegt';
 $string['onenewgrouping'] = 'In EINER neuen Gruppierung';
 $string['onenewgroupingpergroup'] = 'Eine Gruppierung PRO Gruppe';
+$string['open_group_message'] = 'Gruppenmitteilungen öffnen';
 $string['orientation'] = 'PDF-Ausrichtung';
 $string['outdated'] = 'weicht ab';
 $string['overflowwarning'] = 'Wenn Sie fortfahren wird die Gruppengröße in der Instanz <strong>{$a->instancename}</strong> überschritten!';
@@ -537,7 +546,7 @@ $string['setactive'] = 'Aktivieren';
 $string['setinactive'] = 'Deaktivieren';
 $string['settingspage'] = 'Gruppe bearbeiten';
 $string['show_members'] = 'Gruppenmitglieder anzeigen';
-$string['show_members_help'] = 'Ermöglicht es Teilnehmer/innen (unter gewissen Umständen) zu sehen, wer sich bereits in Gruppen registriert hat.
+$string['show_members_help'] = 'Ermöglicht es Teilnehmer/innen (unter gewissen Umständen) zu sehen, wer sich bereits in Gruppen registriert hat.<br />
 <ul>
     <li><strong>Nein:</strong> zeige keine Gruppenmitglieder</li>
     <li><strong>Alle - nach Ablauf des Anmeldeendes:</strong> zeige Mitglieder aller Gruppen nach Ablauf des Anmeldeendes</li>
@@ -559,7 +568,12 @@ $string['source_missing'] = 'Es gibt keine Quellen, von denen kopiert werden kan
 $string['sources_missing'] = 'Es existiert zumindest 1 Gruppe, bei der keine Quelle ausgewählt wurde!';
 $string['start'] = 'Start';
 $string['status'] = 'Status';
-$string['status_help'] = '<ul><li><span style="font-weight:bold">✔</span> angemeldet in Moodle-Gruppe und Gruppenverwaltung</li><li><span style="font-weight:bold">?</span> angemeldet in Moodle-Gruppe, nicht aber in der Gruppenverwaltung</li><li><span style="font-weight:bold">+</span> angemeldet in der Gruppenverwaltung, nicht aber in Moodle-Gruppe</li><li><span style="font-weight:bold">1, 2, 3...</span> auf Warteliste in der Gruppenverwaltung</li></ul>';
+$string['status_help'] = '<ul>
+<li><span style="font-weight:bold">✔</span> angemeldet in Moodle-Gruppe und Gruppenverwaltung</li>
+<li><span style="font-weight:bold">?</span> angemeldet in Moodle-Gruppe, nicht aber in der Gruppenverwaltung</li>
+<li><span style="font-weight:bold">+</span> angemeldet in der Gruppenverwaltung, nicht aber in Moodle-Gruppe</li>
+<li><span style="font-weight:bold">1, 2, 3...</span> auf Warteliste in der Gruppenverwaltung</li>
+</ul>';
 $string['successfully_deleted_groups'] = 'Gruppen erfolgreich gelöscht!';
 $string['swapped_groups'] = 'Gruppen <strong>{$a->a}</strong> (Reihenfolge <strong>{$a->aorder}</strong>) und <strong>{$a->b}</strong> (Reihenfolge <strong>{$a->border}</strong>) wurde getauscht!';
 $string['switched_to_all_groups'] = 'Ändere Gruppenfilter zu "Alle"!';
@@ -596,7 +610,7 @@ $string['unregister_progress_unregister'] = 'Teilnehmer/innen austragen';
 $string['unregister_skipped'] = 'Teilnehmer/in <strong>{$a->fullname}</strong> wurde für Gruppe <strong>{$a->groupname}</strong> übersprungen!';
 $string['unregister_user'] = 'Abmeldung von <strong>{$a->fullname}</strong> (<strong>{$a->idnumber}</strong>) aus Gruppe <strong>{$a->groupname}</strong> erfolgreich.';
 $string['unregister_user_from_moodle_group'] = 'Abmeldung von <strong>{$a->fullname}</strong> (<strong>{$a->idnumber}</strong>) aus Moodle-Gruppe <strong>{$a->groupname}</strong> erfolgreich.';
-$string['unregister_user_not_in_group'] = 'Teilnehmer/in <strong>{$a->fullname}</strong> (<strong>{$a->idnumber}</strong>) nicht in Gruppe <strong>{$a->groupname}</strong>!';
+$string['unregister_user_not_in_group'] = 'Teilnehmer/in <strong>{$a->fullname}</strong> (<strong>{$a->idnumber}</strong>) ist nicht in Gruppe <strong>{$a->groupname}</strong>!';
 $string['unregister_user_only_in_moodle_group'] = 'Nutzer/in <strong>{$a->fullname}</strong> ist nur in der Moodle-Gruppe <strong>{$a->groupname}</strong> registriert, aber nicht in der Gruppe der Gruppenverwaltung!';
 $string['unregister_user_prev'] = 'Austragen von <strong>{$a->fullname}</strong> (<strong>{$a->idnumber}</strong>) aus Gruppe <strong>{$a->groupname}</strong>.';
 $string['unregisterbutton'] = 'Teilnehmer/innen austragen';

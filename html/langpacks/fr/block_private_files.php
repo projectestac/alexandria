@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_private_files', language 'fr', version '3.11'.
+ * Strings for component 'block_private_files', language 'fr', version '4.1'.
  *
  * @package     block_private_files
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Fichiers personnels';
-$string['privacy:metadata'] = 'Le bloc Fichiers privés fournit un affichage et des liens vers les fichiers personnels de l\'utilisateur.';
+$string['privacy:metadata'] = 'Le bloc Fichiers privés fournit un affichage et des liens vers les fichiers personnels de l’utilisateur.';
 $string['private_files:addinstance'] = 'Ajouter un bloc mes fichiers personnels';
 $string['private_files:myaddinstance'] = 'Ajouter un bloc fichiers personnels au tableau de bord';
 $string['privatefiles'] = 'Fichiers personnels';

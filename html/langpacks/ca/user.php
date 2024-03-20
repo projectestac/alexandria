@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'user', language 'ca', version '3.11'.
+ * Strings for component 'user', language 'ca', version '4.1'.
  *
  * @package     user
  * @category    string
@@ -64,3 +64,4 @@ $string['privacy:metadata:lastnamephonetic'] = 'Detalls fonètics sobre el cogno
 $string['privacy:metadata:user_preferences:name'] = 'Nom de la preferència';
 $string['privacy:metadata:user_preferences:userid'] = 'ID de l\'usuari';
 $string['selectfiltertype'] = 'Selecciona';
+$string['supportmessagesent'] = 'S\'ha enviat el vostre missatge.';

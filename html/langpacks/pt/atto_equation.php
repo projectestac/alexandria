@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_equation', language 'pt', version '3.11'.
+ * Strings for component 'atto_equation', language 'pt', version '4.1'.
  *
  * @package     atto_equation
  * @category    string
@@ -28,13 +28,13 @@ defined('MOODLE_INTERNAL') || die();
 $string['cursorinfo'] = 'Uma seta indica a posição em que os novos elementos da biblioteca serão inseridos.';
 $string['editequation'] = 'O Editor de Equações está a usar a Notação <a href="{$a}" target="_blank">TeX</a>';
 $string['librarygroup1'] = 'Operadores';
-$string['librarygroup1_desc'] = 'Comandos TeX listados no separador operadores.';
+$string['librarygroup1_desc'] = 'Comandos TeX listados no separador \'Operadores\'.';
 $string['librarygroup2'] = 'Setas';
-$string['librarygroup2_desc'] = 'Comandos TeX listados no separador setas.';
+$string['librarygroup2_desc'] = 'Comandos TeX listados no separador \'Setas\'.';
 $string['librarygroup3'] = 'Símbolos gregos';
-$string['librarygroup3_desc'] = 'Comandos TeX listados no separador símbolos gregos';
+$string['librarygroup3_desc'] = 'Comandos TeX listados no separador \'Símbolos gregos\'.';
 $string['librarygroup4'] = 'Avançado';
-$string['librarygroup4_desc'] = 'Comandos TeX listados no separador avançado.';
+$string['librarygroup4_desc'] = 'Comandos TeX listados no separador \'Avançado\'.';
 $string['pluginname'] = 'Editor de equações';
 $string['preview'] = 'Pré-visualização da Equação';
 $string['privacy:metadata'] = 'O módulo atto_equation não armazena quaisquer dados pessoais.';

@@ -112,6 +112,25 @@ class manager {
             }
         }
 
+        // XOAUTH2.
+        if ($CFG->messageinbound_hostoauth != '') {
+            // Get the issuer.
+            $issuer = \core\oauth2\api::get_issuer($CFG->messageinbound_hostoauth);
+            // Validate the issuer and check if it is enabled or not.
+            if ($issuer && $issuer->get('enabled')) {
+                // Get the OAuth Client.
+                if ($oauthclient = \core\oauth2\api::get_system_oauth_client($issuer)) {
+                    $xoauth2token = new \Horde_Imap_Client_Password_Xoauth2(
+                        $configuration['username'],
+                        $oauthclient->get_accesstoken()->token
+                    );
+                    $configuration['xoauth2_token'] = $xoauth2token;
+                    // Password is not necessary when using OAuth2 but Horde still needs it. We just set a random string here.
+                    $configuration['password'] = random_string(64);
+                }
+            }
+        }
+
         $this->client = new \Horde_Imap_Client_Socket($configuration);
 
         try {
@@ -810,7 +829,7 @@ class manager {
 
         // An auto-reply may itself include the Bulk Precedence.
         $precedence = $messagedata->getHeaderText(0, \Horde_Imap_Client_Data_Fetch::HEADER_PARSE)->getValue('Precedence');
-        $isbulk = $isbulk || strtolower($precedence) == 'bulk';
+        $isbulk = $isbulk || strtolower($precedence ?? '') == 'bulk';
 
         // If the X-Autoreply header is set, and not 'no', then this is an automatic reply.
         $autoreply = $messagedata->getHeaderText(0, \Horde_Imap_Client_Data_Fetch::HEADER_PARSE)->getValue('X-Autoreply');

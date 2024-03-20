@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hvp', language 'es', version '3.11'.
+ * Strings for component 'hvp', language 'es', version '4.1'.
  *
  * @package     hvp
  * @category    string
@@ -250,6 +250,7 @@ $string['invalidcontenttype'] = 'El tipo de contenido elegido no es válido.';
 $string['invalidfieldtype'] = 'Tipo de campo no válido.';
 $string['invalidfile'] = 'El archivo "{$a->%filename}" no está permitido. Solo se permiten archivos con las siguientes extensiones: {$a->%files-allowed}.';
 $string['invalidh5ppost'] = 'No se pudo publicar el H5P.';
+$string['invalidhvp'] = 'Actividad H5P no válida';
 $string['invalidimageformat'] = 'Formato de archivo de imagen no válido. Utilice jpg, png o gif.';
 $string['invalidlanguagefile'] = 'Archivo de idioma no válido {$a->%file} en la biblioteca {$a->%library}';
 $string['invalidlanguagefile2'] = 'Archivo de idioma no válido {$a->%languageFile} ha sido incluido en la biblioteca {$a->%name}';
@@ -267,7 +268,7 @@ $string['invalidselectoption'] = 'Opción escogida no válida en selección.';
 $string['invalidsemanticsjson'] = 'El archivo semantics.json no válido se ha incluido en la biblioteca {$a->%name}';
 $string['invalidsemanticstype'] = 'Error interno de H5P: tipo de contenido desconocido "{$a->@type}" en las semánticas. ¡Eliminando el contenido!';
 $string['invalidstring'] = 'La cadena dada no es válida de acuerdo con la expresión regular en las semánticas. (valor: \\"{$a->%value}\\", Expresión regular: \\"{$a->%regexp}\\")';
-$string['invalidtoken'] = 'Token de seguridad no válido.';
+$string['invalidtoken'] = 'H5P Ha recibido un token no válido. Refresque la página e inténtelo de nuevo.';
 $string['invalidvideoformat'] = 'Formato de archivo de vídeo no válido. Utilice mp4 o webm.';
 $string['invalidxapiresult'] = 'No se encontraron resultados de xAPI para la combinación de contenido e identificación de usuario dada';
 $string['isnowsubmitted'] = 'Está ahora enviado al Hub H5P';
@@ -340,6 +341,7 @@ Además de ser una herramienta de autoría para contenido enriquecido, H5P le pe
 Las interacciones con el usuario y los puntajes son monitoreados usando xAPI y están disponibles mediante el Libro de Calificaciones de Moodle. Tenga en cuenta que es actualmente posible para personas con habilidades de programación el hacer trampa en interacciones H5P y obtener el puntaje completo sin saber las respuestas correctas. H5Ps no deben usarse  para exámenes sumativos o similares.
 
 Usted añade contenido interactivo H5P al crear contenido usando la herramienta de autoría incluida o al subir archivos H5P encontrados en otros sitios con H5P.';
+$string['modulename_link'] = 'https://h5p.org/moodle-more-help';
 $string['modulenameplural'] = 'Contenido interactivo';
 $string['next'] = 'Siguiente';
 $string['nextpage'] = 'Siguiente página';
@@ -351,6 +353,7 @@ $string['nodata'] = 'No hay datos disponibles que coincidan con sus criterios.';
 $string['noexport'] = 'Falta archivo de exportación.';
 $string['noextension'] = 'El archivo que subió no es un paquete HTML5 válido (No tiene la extensión .h5p)';
 $string['noh5ps'] = 'No hay contenido interactivo disponible para este curso.';
+$string['nohubregistration'] = 'No registrado con Hub H5P';
 $string['nojson'] = 'El archivo principal h5p.json no es válido';
 $string['nombstringexteension'] = 'La extensión PHP mbstring no está cargada. H5P necesita que funcione correctamente';
 $string['noparameters'] = 'Sin parámetros';
@@ -366,7 +369,7 @@ $string['nopermissiontoviewcontenthubcache'] = 'Usted no tiene permiso para ver 
 $string['nopermissiontoviewcontenttypes'] = 'No tienes permiso para ver los tipos de contenido.';
 $string['nopermissiontoviewresult'] = 'No tiene permiso para ver los resultados de este contenido.';
 $string['nosuchlibrary'] = 'No hay tal biblioteca';
-$string['notapplicable'] = 'NO disponible';
+$string['notapplicable'] = 'No disponible';
 $string['nounzip'] = 'El archivo que cargó no es un paquete HTML5 válido (no podemos descomprimirlo)';
 $string['noversionattribution'] = 'Atribución';
 $string['noversionattributionnc'] = 'Atribución-NoComercial';

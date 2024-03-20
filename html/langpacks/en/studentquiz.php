@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'studentquiz', language 'en', version '3.11'.
+ * Strings for component 'studentquiz', language 'en', version '4.1'.
  *
  * @package     studentquiz
  * @category    string
@@ -70,6 +70,18 @@ $string['commentcolumnexplainprivate'] = 'Number of private comments. A blue bac
 $string['commentcolumnexplainpublic'] = 'Number of public comments. A blue background means that you have at least one unread comment.';
 $string['commenthistory'] = 'Comment history';
 $string['commentplural'] = 'Comments';
+$string['completiondetail:approved'] = 'Minimum number of unique approved questions: {$a}';
+$string['completiondetail:point'] = 'Minimum amount of points: {$a}';
+$string['completiondetail:published'] = 'Minimum number of unique authored questions: {$a}';
+$string['completionpoint'] = 'Minimum amount of points required:';
+$string['completionpointgroup'] = 'Require points';
+$string['completionpointgroup_help'] = 'Students earn points as specified under the Ranking settings, e.g. 10 points for creating a question, 5 points for a teacher approving the students\' question, 3 points for the student rating another\'s question. By entering a numeric value in the field, students will only complete the StudentQuiz once they have accumulated enough points.';
+$string['completionquestionapproved'] = 'Minimum number of unique approved questions required:';
+$string['completionquestionapprovedgroup'] = 'Require created approved questions';
+$string['completionquestionapprovedgroup_help'] = 'The minimum number of unique questions that a student must author and be approved before the activity is completed. This option can be used with either the Question publishing "Requires approval before publishing" or "Auto-approval" setting, but won\'t be as effective with the latter setting, in case auto-approved questions are later hidden, deleted, or otherwise removed.';
+$string['completionquestionpublished'] = 'Minimum number of unique authored questions required:';
+$string['completionquestionpublishedgroup'] = 'Require published questions';
+$string['completionquestionpublishedgroup_help'] = 'The minimum number of unique questions that a student must author before the activity is completed. Note that this is a simple numerical check - two questions that are hidden/deleted have still been authored.';
 $string['confirmdeletecomment'] = 'Are you sure you want to delete this comment?';
 $string['createnewquestion'] = 'Create new question';
 $string['createnewquestionfirst'] = 'Create first question';
@@ -272,8 +284,8 @@ $string['privacy:metadata:studentquiz_comment:deleteuserid'] = 'ID of the user d
 $string['privacy:metadata:studentquiz_comment:edited'] = 'Time edited time comment.';
 $string['privacy:metadata:studentquiz_comment:edituserid'] = 'ID of the user edited comment.';
 $string['privacy:metadata:studentquiz_comment:parentid'] = 'ID of parent comment. 0: top level comment.';
-$string['privacy:metadata:studentquiz_comment:questionid'] = 'ID of the question.';
 $string['privacy:metadata:studentquiz_comment:status'] = 'Status of comment';
+$string['privacy:metadata:studentquiz_comment:studentquizquestionid'] = 'ID of the studentquizquestion.';
 $string['privacy:metadata:studentquiz_comment:timemodified'] = 'Comment modified time';
 $string['privacy:metadata:studentquiz_comment:type'] = 'Type of comment';
 $string['privacy:metadata:studentquiz_comment:userid'] = 'ID of the user.';
@@ -296,21 +308,21 @@ $string['privacy:metadata:studentquiz_progress:correctattempts'] = 'Number of co
 $string['privacy:metadata:studentquiz_progress:lastanswercorrect'] = '0: last answer was wrong or undefined, 1: last answer was correct.';
 $string['privacy:metadata:studentquiz_progress:lastreadprivatecomment'] = 'Last time user read the private comments';
 $string['privacy:metadata:studentquiz_progress:lastreadpubliccomment'] = 'Last time user read the public comments';
-$string['privacy:metadata:studentquiz_progress:questionid'] = 'ID of the question.';
 $string['privacy:metadata:studentquiz_progress:studentquizid'] = 'ID of the StudentQuiz.';
+$string['privacy:metadata:studentquiz_progress:studentquizquestionid'] = 'ID of the studentquizquestion.';
 $string['privacy:metadata:studentquiz_progress:userid'] = 'ID of the user.';
 $string['privacy:metadata:studentquiz_question'] = 'Store question related properties';
 $string['privacy:metadata:studentquiz_question:groupid'] = 'ID of group that question belong to';
 $string['privacy:metadata:studentquiz_question:hidden'] = 'Property whether the question hidden or not';
 $string['privacy:metadata:studentquiz_question:pinned'] = 'Property whether the question pinned or not';
-$string['privacy:metadata:studentquiz_question:questionid'] = 'ID of the question';
 $string['privacy:metadata:studentquiz_question:state'] = 'Property whether the question is approved, disapprove, new or changed';
+$string['privacy:metadata:studentquiz_question:studentquizid'] = 'ID of the StudentQuiz.';
 $string['privacy:metadata:studentquiz_rate'] = 'Store rates for questions.';
-$string['privacy:metadata:studentquiz_rate:questionid'] = 'ID of the question.';
 $string['privacy:metadata:studentquiz_rate:rate'] = 'Rate for the question.';
+$string['privacy:metadata:studentquiz_rate:studentquizquestionid'] = 'ID of the studentquizquestion.';
 $string['privacy:metadata:studentquiz_rate:userid'] = 'ID of the user.';
-$string['privacy:metadata:studentquiz_state_history:questionid'] = 'ID of the question.';
 $string['privacy:metadata:studentquiz_state_history:state'] = 'Property whether the question is approved, disapprove, new or changed';
+$string['privacy:metadata:studentquiz_state_history:studentquizquestionid'] = 'ID of the studentquizquestion.';
 $string['privacy:metadata:studentquiz_state_history:timecreated'] = 'Time to create action.';
 $string['privacy:metadata:studentquiz_state_history:userid'] = 'ID of the user.';
 $string['private'] = 'Private';
@@ -539,6 +551,7 @@ $string['state_hiddenplural'] = 'Hidden';
 $string['state_new'] = 'New';
 $string['state_newplural'] = 'New';
 $string['state_pinned'] = 'Pinned';
+$string['state_pinnedlowercase'] = 'pinned';
 $string['state_pinnedplural'] = 'Pinned';
 $string['state_reviewable'] = 'Reviewable';
 $string['state_reviewablelowercase'] = 'reviewable';
@@ -547,6 +560,8 @@ $string['state_shown'] = 'Shown';
 $string['state_shownlowercase'] = 'shown';
 $string['state_shownplural'] = 'Shown';
 $string['state_toggle'] = 'Change state';
+$string['state_unhiddenlowercase'] = 'unhidden';
+$string['state_unpinnedlowercase'] = 'unpinned';
 $string['statehistory'] = 'State History';
 $string['statistic_block_approvals'] = 'Questions approved';
 $string['statistic_block_created'] = 'Questions created';

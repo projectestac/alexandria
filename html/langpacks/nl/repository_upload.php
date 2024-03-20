@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_upload', language 'nl', version '3.11'.
+ * Strings for component 'repository_upload', language 'nl', version '4.1'.
  *
  * @package     repository_upload
  * @category    string
@@ -33,7 +33,7 @@ $string['upload:view'] = 'Gebruik uploaden in de file picker';
 $string['upload_error_cant_write'] = 'Kon bestand niet op schijf bewaren';
 $string['upload_error_extension'] = 'Een PHP-extentie heeft de bestandsupload gestopt.';
 $string['upload_error_form_size'] = 'Het geüploade bestand is groter dan de MAX_FILE_SIZE instelling die in het HTML-formulier was opgegeven.';
-$string['upload_error_ini_size'] = 'Het geüploade bestand is groter dan de upload_max_filesize instelling in php.ini.';
+$string['upload_error_ini_size'] = 'Het bestand is groter dan de maximaal toegestane grootte.';
 $string['upload_error_invalid_file'] = 'Het bestand \'{$a}\' is leeg of is een map. Van mappen moet je eerst een zip-bestand maken voor je ze upload.';
 $string['upload_error_no_file'] = 'Geen bestand geüploaded.';
 $string['upload_error_no_tmp_dir'] = 'PHP heeft geen tijdelijke map';

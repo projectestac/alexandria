@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'de', version '3.11'.
+ * Strings for component 'format_topics', language 'de', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -25,12 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addsections'] = 'Themen hinzufügen';
+$string['addsections'] = 'Thema hinzufügen';
 $string['currentsection'] = 'Dieser Abschnitt';
 $string['deletesection'] = 'Abschnitt löschen';
 $string['editsection'] = 'Abschnitt bearbeiten';
 $string['editsectionname'] = 'Name des Abschnitts bearbeiten';
 $string['hidefromothers'] = 'Abschnitt verbergen';
+$string['indentation'] = 'Einrückung auf Kursseite zulassen';
+$string['indentation_help'] = 'Trainer/innen und anderen Personen mit dem Recht zum Verwalten von Aktivitäten erlauben, Elemente auf der Kursseite einzurücken.';
 $string['newsectionname'] = 'Neuer Name für Abschnitt {$a}';
 $string['page-course-view-topics'] = 'Jede Kurshauptseite im Themenformat';
 $string['page-course-view-topics-x'] = 'Jede Kursseite im Themenformat';

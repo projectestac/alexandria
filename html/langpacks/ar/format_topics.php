@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'ar', version '3.11'.
+ * Strings for component 'format_topics', language 'ar', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -25,15 +25,17 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addsections'] = 'أضف مواضيع';
+$string['addsections'] = 'إضافة موضوع';
 $string['currentsection'] = 'هذا الموضوع';
 $string['deletesection'] = 'حذف الموضوع';
 $string['editsection'] = 'تحرير الموضوع';
 $string['editsectionname'] = 'تعديل اسم الموضوع';
 $string['hidefromothers'] = 'إخفاء الموضوع';
+$string['indentation'] = 'السماح بالتداخل في صفحة المقرر';
+$string['indentation_help'] = 'السماح للمعلمين وغيرهم من المستخدمين ذوي إمكانية إدارة النشاطات بمداخلة العناصر في صفحة المقرر.';
 $string['newsectionname'] = 'اسم جديد للموضوع {$a}';
-$string['page-course-view-topics'] = 'أي صفحة رئيسية لمقرر بتنسيق المواضيع';
-$string['page-course-view-topics-x'] = 'أي صفحة مقرر دراسي في تنسيق المواضيع';
+$string['page-course-view-topics'] = 'أي صفحة رئيسية لمساق بتنسيق المواضيع';
+$string['page-course-view-topics-x'] = 'أي صفحة مساق في تنسيق المواضيع';
 $string['pluginname'] = 'تنسيق المواضيع';
 $string['privacy:metadata'] = 'إن ملحق التنسيق بشكل مواضيع لا يخزن أي بيانات شخصية.';
 $string['section0name'] = 'عام';

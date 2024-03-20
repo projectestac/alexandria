@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_overview', language 'gl', version '3.11'.
+ * Strings for component 'quiz_overview', language 'gl', version '4.1'.
  *
  * @package     quiz_overview
  * @category    string
@@ -70,7 +70,9 @@ $string['regradecomplete'] = 'Recualificación realizada satisfactorimente';
 $string['regradedsuccessfullyxofy'] = 'Recualificado satisfactoriamente ({$a->done}/{$a->count})';
 $string['regradeheader'] = 'Recualificando';
 $string['regradeselected'] = 'Volver cualificar os intentos seleccionados';
+$string['regradingattemptissue'] = 'Franxa {$a->slot}: {$a->reason}';
 $string['regradingattemptxofy'] = 'Recualificando o intento ({$a->done}/{$a->count})';
+$string['regradingattemptxofyproblem'] = 'Non foi posíbel recualificar as seguintes preguntas no intento {$a->attemptnum} por {$a->name} (id {$a->attemptid})';
 $string['regradingattemptxofywithdetails'] = 'Recualificación do intento ({$a->done}/{$a->count}) - Intento {$a->attemptnum} por {$a->name} (id {$a->attemptid})';
 $string['show'] = 'Amosar / descargar';
 $string['showattempts'] = 'Só amosar / descargar os intentos';

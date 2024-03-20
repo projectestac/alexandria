@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_wiris', language 'en', version '3.11'.
+ * Strings for component 'filter_wiris', language 'en', version '4.1'.
  *
  * @package     filter_wiris
  * @category    string
@@ -94,6 +94,7 @@ $string['rendertype_help'] = 'Specifies how to render the formulas.<br>- PHP: ca
 $string['securitysettings'] = 'Security settings';
 $string['securitysettings_text'] = '';
 $string['tinymce'] = 'TinyMCE';
+$string['tinymceincompatibility'] = 'MathType for TinyMCE (legacy) is not supported in Moodle 4.2 or higher. You must uninstall the plugin located on "./lib/editor/tinymce/plugins/tiny_mce_wiris" and install the MathType plugin for TinyMCE 6. You can <a href="https://moodle.org/plugins/tiny_wiris">install it here</a>.';
 $string['title'] = 'MathType filter test page';
 $string['version'] = 'version';
 $string['versionsdontmatch'] = 'versions don\'t match';

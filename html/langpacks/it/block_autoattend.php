@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_autoattend', language 'it', version '3.11'.
+ * Strings for component 'block_autoattend', language 'it', version '4.1'.
  *
  * @package     block_autoattend
  * @category    string
@@ -120,9 +120,6 @@ $string['newsessionduration'] = 'Nuova durata';
 $string['newsessionendtime'] = 'Nuovo termine';
 $string['newsessionmethod'] = 'Nuovo metodo';
 $string['newsessionstarttime'] = 'Nuovo inizio';
-$string['noofdaysabsent'] = 'Giorni di assenza';
-$string['noofdayslate'] = 'Giorni di ritardo';
-$string['noofdayspresent'] = 'Giorni di partecipazione';
 $string['order'] = 'Ordine';
 $string['period'] = 'Periodo';
 $string['refreshdata'] = 'Aggiorna';

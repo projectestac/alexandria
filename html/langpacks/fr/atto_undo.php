@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_undo', language 'fr', version '3.11'.
+ * Strings for component 'atto_undo', language 'fr', version '4.1'.
  *
  * @package     atto_undo
  * @category    string
@@ -26,6 +26,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Annuler/rétablir';
-$string['privacy:metadata'] = 'Le plugin atto_undo n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_undo n’enregistre aucune donnée personnelle.';
 $string['redo'] = 'Répéter';
 $string['undo'] = 'Annuler';

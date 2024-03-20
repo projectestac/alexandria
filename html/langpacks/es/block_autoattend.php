@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_autoattend', language 'es', version '3.11'.
+ * Strings for component 'block_autoattend', language 'es', version '4.1'.
  *
  * @package     block_autoattend
  * @category    string
@@ -79,7 +79,6 @@ $string['attendgradeshort'] = 'C';
 $string['attendkey'] = 'Clave';
 $string['attendkey_help'] = 'En caso de especificar una palabra clave los estudiantes deberán ingresarla para que la asistencia sea anotada. Esto ocurre únicamente en modo semiautomático, en los modos manual y automático la clave es ignorada. Cuando se marca la casilla "Clave aleatoria" se generará una clave de 5 caracteres de forma automática.';
 $string['attendnotstarted'] = 'El control de asistencia aún no ha comenzado en este curso';
-$string['attendpercent'] = 'Porcentaje';
 $string['attendreport'] = 'Informe de asistencia';
 $string['attendsubmiterr'] = 'Ha ocurrido un error anotando la asistencia';
 $string['attendsubmitted'] = 'La asistencia ha sido anotada';
@@ -100,7 +99,7 @@ $string['choosegrouping'] = 'Elegir Agrupamiento';
 $string['class_division'] = 'Clasificaciones';
 $string['class_settings'] = 'Ajustes de clase';
 $string['classname'] = 'Clase';
-$string['clearall'] = 'Deselecionar todas';
+$string['clearall'] = 'Deseleccionar todas';
 $string['correctuser'] = 'Correcto';
 $string['courseidwrong'] = 'ID del curso incorrecto';
 $string['coursename'] = 'Nombre del curso';
@@ -168,10 +167,6 @@ $string['newsessionstarttime'] = 'Nueva hora de inicio';
 $string['noattforuser'] = 'No existen asistencias para el usuario';
 $string['nodescription'] = 'Ninguna';
 $string['nonclass'] = 'Sin clase';
-$string['noofdaysabsent'] = 'Nº de días ausente';
-$string['noofdaysexcused'] = 'Nº de días justificados';
-$string['noofdayslate'] = 'Nº de días tarde';
-$string['noofdayspresent'] = 'Nº de días presente';
 $string['nosessiondayselected'] = 'No ha seleccionado ninguna sesión';
 $string['nosessionexists'] = 'No existen sesiones para este curso';
 $string['nosuchsession'] = 'No existe tal sesión en este curso';

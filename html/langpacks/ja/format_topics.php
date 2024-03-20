@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'ja', version '3.11'.
+ * Strings for component 'format_topics', language 'ja', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -31,6 +31,8 @@ $string['deletesection'] = 'トピックを削除する';
 $string['editsection'] = 'トピックを編集する';
 $string['editsectionname'] = 'トピック名を編集する';
 $string['hidefromothers'] = 'トピックを隠す';
+$string['indentation'] = 'コースページでのインデントを許可する';
+$string['indentation_help'] = '教師および活動管理ケイパビリティのある他のユーザがコースページのアイテムをインデントできるようにします。';
 $string['newsectionname'] = 'トピック {$a} の新しい名称';
 $string['page-course-view-topics'] = 'トピックフォーマット内のコースメインページすべて';
 $string['page-course-view-topics-x'] = 'トピックフォーマット内のコースページすべて';

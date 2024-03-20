@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_exacomp', language 'ar', version '3.11'.
+ * Strings for component 'block_exacomp', language 'ar', version '4.1'.
  *
  * @package     block_exacomp
  * @category    string
@@ -116,10 +116,14 @@ $string['settings_assessment_grade_negativ'] = 'قيمة الفشل للعلام
 $string['settings_assessment_points_limit'] = 'أعلى قيمة للنقاط';
 $string['settings_assessment_points_limit_description'] = 'نقاط مخطط التقييم، محدد للإدخال';
 $string['settings_assessment_points_negativ'] = 'قيمة الفشل للنقاط';
+$string['settings_dakora_show_overview'] = 'عرض نظرة عامة';
 $string['settings_heading_general'] = 'عام';
 $string['settings_periods'] = 'إدخالات الجدول الزمني';
+$string['statistic'] = 'نظرة عامة';
 $string['statistic_type_descriptor'] = 'التغيير إلى الإحصائيات الوصفية';
 $string['student'] = 'الطالب';
+$string['tab_competence_gridoverview'] = 'نظرة عامة';
+$string['tab_cross_subjects_overview'] = 'نظرة عامة';
 $string['teacher_first_configuration_step'] = 'أول خطوة لتهيئة المساق هي ضبط الإعدادات العامة فيه.';
 $string['teacher_tipp_1'] = 'هذه الكفاءة تم ربطها مع';
 $string['teacher_tipp_2'] = 'نشاطات مودل وتم الوصول إليها مع';

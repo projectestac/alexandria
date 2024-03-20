@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'access', language 'it', version '3.11'.
+ * Strings for component 'access', language 'it', version '4.1'.
  *
  * @package     access
  * @category    string
@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['access'] = 'Accessibilità';
-$string['accesshelp'] = 'Assistenza accessibilità';
+$string['accesshelp'] = 'Aiuto accessibilità';
 $string['accesskey'] = 'Tasti di accesso rapido, {$a}';
 $string['accessstatement'] = 'Dichiarazione di accessibilità';
 $string['activitynext'] = 'Attività successiva';

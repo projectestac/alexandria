@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topics', language 'gl', version '3.11'.
+ * Strings for component 'format_topics', language 'gl', version '4.1'.
  *
  * @package     format_topics
  * @category    string
@@ -25,12 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addsections'] = 'Engadir temas';
+$string['addsections'] = 'Engadir tema';
 $string['currentsection'] = 'Este tema';
 $string['deletesection'] = 'Eliminar o tema';
 $string['editsection'] = 'Editar o tema';
 $string['editsectionname'] = 'Editar o nome do tema';
 $string['hidefromothers'] = 'Agochar o tema';
+$string['indentation'] = 'Permitir o sangrado na páxina do curso';
+$string['indentation_help'] = 'Permitir que o profesorado, e outros usuarios con capacidade de xestión de actividades, sangrar elementos na páxina do curso.';
 $string['newsectionname'] = 'Novo nome para o tema {$a}';
 $string['page-course-view-topics'] = 'Calquera páxina principal de curso no formato dos temas';
 $string['page-course-view-topics-x'] = 'Calquera páxina de curso no formato dos temas';

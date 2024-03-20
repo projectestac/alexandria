@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_selfcompletion', language 'fr', version '3.11'.
+ * Strings for component 'block_selfcompletion', language 'fr', version '4.1'.
  *
  * @package     block_selfcompletion
  * @category    string
@@ -28,6 +28,6 @@ defined('MOODLE_INTERNAL') || die();
 $string['alreadyselfcompleted'] = 'Vous vous êtes déjà marqué vous-même comme ayant terminé ce cours';
 $string['completecourse'] = 'Marquer le cours comme achevé';
 $string['pluginname'] = 'Auto-achèvement';
-$string['privacy:metadata'] = 'Le bloc Auto-achèvement affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Auto-achèvement affiche seulement des données enregistrées à d’autres endroits.';
 $string['selfcompletion:addinstance'] = 'Ajouter un bloc auto-achèvement';
-$string['selfcompletionnotenabled'] = 'Le critère d\'auto-achèvement n\'a pas été défini pour ce cours';
+$string['selfcompletionnotenabled'] = 'Le critère d’auto-achèvement n’a pas été défini pour ce cours';

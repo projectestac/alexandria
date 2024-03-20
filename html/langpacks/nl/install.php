@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'install', language 'nl', version '3.11'.
+ * Strings for component 'install', language 'nl', version '4.1'.
  *
  * @package     install
  * @category    string
@@ -44,6 +44,7 @@ $string['cliinstallfinished'] = 'Installatie met succes beëindigd.';
 $string['cliinstallheader'] = 'Moodle {$a} command line installatieprogramma';
 $string['climustagreelicense'] = 'In niet interactieve modus moet je akkoord gaan met de licentievoorwaarden door de --agree-license optie op te geven.';
 $string['cliskipdatabase'] = 'Databank-installatie overslaan';
+$string['clisupportemail'] = 'E-mailadres voor ondersteuning';
 $string['clitablesexist'] = 'Databanktabellen bestaan al, cli-installatie kan niet verder gaan.';
 $string['compatibilitysettings'] = 'Bezig met je PHP-instellingen te controleren ...';
 $string['compatibilitysettingshead'] = 'Bezig met je PHP-instellingen te controleren ...';
@@ -74,13 +75,13 @@ $string['dbpass'] = 'Wachtwoord';
 $string['dbport'] = 'Poort';
 $string['dbprefix'] = 'Tabelvoorvoegsel';
 $string['dbtype'] = 'Type';
-$string['directorysettings'] = '<p>Bevestig de verschillende lokaties voor deze Moodle-installatie.</p>
+$string['directorysettings'] = '<p>Bevestig de verschillende locaties voor deze Moodle-installatie.</p>
 
 <p><b>Webadres:</b>
-Geef hier het volledige webadres op langswaar je toegang tot Moodle geeft. Als je website vanaf verschillende URL\'s toegankelijk is, kies dan diegene die je leerlingen zullen gebruiken. Voeg achteraan het adres geen schuine streep toe.</p>
+Geef hier het volledige webadres op waarlangs je toegang tot Moodle geeft. Als je website vanaf verschillende URL\'s toegankelijk is, kies dan diegene die je leerlingen zullen gebruiken. Voeg achteraan het adres geen schuine streep toe.</p>
 
 <p><b>Moodle-map</b>
-Geef het volledige fysieke pad van het besturingssysteem naar diezelfde lokatie. Let op dat je hoofdletters en kleine letters juist zet.</p>
+Geef het volledige fysieke pad van het besturingssysteem naar diezelfde locatie. Let op dat je hoofdletters en kleine letters juist zet.</p>
 
 <p><b>Data-map:</b>
 Je moet een plaats voorzien waar Moodle geüploade bestanden kan plaatsen. Deze map moet leesbaar EN BESCHRIJFBAAR zijn door de webserver (meestal gebruiker \'nobody\' of \'apache\'), maar ze mag niet rechtstreeks leesbaar zijn vanaf het internet.</p>';

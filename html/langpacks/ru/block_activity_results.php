@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_activity_results', language 'ru', version '3.11'.
+ * Strings for component 'block_activity_results', language 'ru', version '4.1'.
  *
  * @package     block_activity_results
  * @category    string
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['activity_results:addinstance'] = 'Добавлять новый блок «Оценки за элемент курса»';
 $string['bestgrade'] = 'Самая высокая оценка:';
-$string['bestgrades'] = '{$a} самых высоких оценок:';
+$string['bestgrades'] = 'Лучшие оценки ({$a}):';
 $string['bestgroupgrade'] = 'Группа с наивысшим средним:';
 $string['bestgroupgrades'] = 'Группы ({$a}) с наивысшим средним:';
 $string['config_decimalplaces'] = 'Знаков после запятой для отображения';

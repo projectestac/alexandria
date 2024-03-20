@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'pt', version '3.11'.
+ * Strings for component 'choicegroup', language 'pt', version '4.1'.
  *
  * @package     choicegroup
  * @category    string
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activitydate:closingbeforeopening'] = 'A data de abertura tem de ser anterior à data de fim.';
 $string['activitydate:exceeded'] = 'Data de fim ultrapassada.';
 $string['activitydate:hasopened'] = 'Abriu:';
 $string['activitydate:notavailableyet'] = 'Ainda não está disponível.';
@@ -58,9 +59,13 @@ $string['choicegroupfull'] = 'Escolher Grupo está cheio e não há lugares disp
 $string['choicegroupname'] = 'Nome do Escolher Grupo';
 $string['choicegroupopen'] = 'Desde';
 $string['choicegroupoptions'] = 'Opções de escolha';
-$string['choicegroupoptions_help'] = 'Aqui pode especificar quais os grupos estão disponíveis para os participantes poderem escolher.
+$string['choicegroupoptions_help'] = 'Aqui pode especificar quais os grupos que estarão disponíveis para os participantes poderem escolher.
+
 A lista da esquerda mostra todos os grupos e agrupamentos disponíveis. Para adicionar um ou vários grupos, selecione da lista e clique em "Adicionar". Para adicionar todos os grupos de um agrupamento, selecione o agrupamento e clique em "Adicionar".
-Os grupos selecionados são exibidos na lista à direita. Para remover grupo(s) da seleção, selecione na lista da direita e clique em "Remover".';
+
+Os grupos selecionados são exibidos na lista à direita.
+
+Para remover qualquer grupo da seleção, selecione na lista da direita e clique em "Remover".';
 $string['choicegroupsaved'] = 'A escolha foi registada';
 $string['choicetext'] = 'Texto da escolha';
 $string['chooseaction'] = 'Escolha uma ação...';
@@ -106,6 +111,7 @@ $string['members/'] = 'Membros';
 $string['members/max'] = 'Membros / Permissão';
 $string['modulename'] = 'Escolher Grupo';
 $string['modulename_help'] = 'O módulo Escolher Grupo permite aos alunos inscreverem-se num grupo de uma disciplina. O professor pode selecionar os grupos que os alunos podem escolher e o número máximo de alunos permitidos em cada grupo.';
+$string['modulename_link'] = 'mod/choicegroup/view';
 $string['modulenameplural'] = 'Escolher Grupos';
 $string['moveselectedusersto'] = 'Mover os utilizadores selecionados para...';
 $string['multipleenrollmentspossible'] = 'Permitir inscrição em vários grupos';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpot', language 'pt', version '3.11'.
+ * Strings for component 'hotpot', language 'pt', version '4.1'.
  *
  * @package     hotpot
  * @category    string
@@ -348,6 +348,7 @@ A atividade HotPot pode lidar com exercícios criados com os seguintes software 
 * Xerte
 * iSpring
 * e qualquer editor HTML';
+$string['modulename_link'] = 'mod/hotpot/view';
 $string['modulenameplural'] = 'Testes Hot Potatoes';
 $string['nameadd'] = 'Nome';
 $string['nameadd_help'] = 'O nome poderá ser um texto específico inserido pelo professor ou criado automaticamente.
@@ -498,8 +499,8 @@ $string['storedetails'] = 'Guardar os detalhes de XML das tentativas do teste Ho
 $string['studentfeedback'] = 'Comentário(s) do(s) aluno(s)';
 $string['studentfeedback_help'] = 'Se ativar esta opção, será exibida uma hiperligação para uma janela pop-up de feedback sempre que o aluno clica no botão "Verificar". A janela de feedback permite aos alunos enviar comentários para o professor através de 4 formas:
 
-* Página Web (é necessário inserir o URL da página, como por exemplo http://myserver.com/feedbackform.html)
-* Formulário para comentário(s) (é necessário inserir o URL do script, como por exemplo  http://myserver.com/cgi-bin/formmail.pl)
+* Página Web (é necessário inserir o URL da página, como por exemplo: http://myserver.com/feedbackform.html)
+* Formulário para comentário(s) (é necessário inserir o URL do script, como por exemplo: http://myserver.com/cgi-bin/formmail.pl)
 * Fórum Moodle - É exibido o fórum da disciplina
 * Mensagens Moodle - É exibida a janela de mensagens instantâneas. Se a disciplina tiver vários professores, o aluno tem de selecionar um professor antes de aparecer a janela de mensagem .';
 $string['submits'] = 'Submissões';

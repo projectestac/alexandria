@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_orderedlist', language 'fr', version '3.11'.
+ * Strings for component 'atto_orderedlist', language 'fr', version '4.1'.
  *
  * @package     atto_orderedlist
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Liste numérotée';
-$string['privacy:metadata'] = 'Le plugin atto_orderedlist n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_orderedlist n’enregistre aucune donnée personnelle.';

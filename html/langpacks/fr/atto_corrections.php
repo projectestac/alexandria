@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_corrections', language 'fr', version '3.11'.
+ * Strings for component 'atto_corrections', language 'fr', version '4.1'.
  *
  * @package     atto_corrections
  * @category    string
@@ -47,6 +47,6 @@ $string['dialogtitle'] = 'Ajouter/Modifier une correction';
 $string['displayfulltext'] = 'Afficher le texte avec les marques de correction';
 $string['fulltexttitle'] = 'Texte avec les marques de correction';
 $string['pluginname'] = 'Corrections';
-$string['privacy:metadata'] = 'Le plugin atto_corrections n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin atto_corrections n’enregistre aucune donnée personnelle.';
 $string['removemark'] = 'Supprimer cette marque de correction';
 $string['settings'] = 'Réglages des corrections de texte intégrées';

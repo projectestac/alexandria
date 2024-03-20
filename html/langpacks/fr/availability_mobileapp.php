@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_mobileapp', language 'fr', version '3.11'.
+ * Strings for component 'availability_mobileapp', language 'fr', version '4.1'.
  *
  * @package     availability_mobileapp
  * @category    string
@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['description'] = 'Nécessite que les étudiants utilisent (ou non) l\'application pour Mobile.';
-$string['label_access'] = 'Type d\'accès :';
+$string['description'] = 'Nécessite que les étudiants utilisent (ou non) l’application pour Mobile.';
+$string['label_access'] = 'Type d’accès :';
 $string['pluginname'] = 'Restriction par application Mobile';
-$string['privacy:metadata'] = 'Le plugin Restriction par application Mobile n\'enregistre aucune donnée personnelle.';
-$string['requires_app'] = 'Accès par l\'application Mobile';
-$string['requires_notapp'] = 'Accès SANS utiliser l\'application Mobile';
+$string['privacy:metadata'] = 'Le plugin Restriction par application Mobile n’enregistre aucune donnée personnelle.';
+$string['requires_app'] = 'Accès par l’application Mobile';
+$string['requires_notapp'] = 'Accès SANS utiliser l’application Mobile';
 $string['title'] = 'Application Mobile';

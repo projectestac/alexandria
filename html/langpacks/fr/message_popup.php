@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'message_popup', language 'fr', version '3.11'.
+ * Strings for component 'message_popup', language 'fr', version '4.1'.
  *
  * @package     message_popup
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Web';
-$string['privacy:metadata'] = 'Le plugin de messagerie Web n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de messagerie Web n’enregistre aucune donnée personnelle.';

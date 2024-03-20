@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'dataform', language 'ar', version '3.11'.
+ * Strings for component 'dataform', language 'ar', version '4.1'.
  *
  * @package     dataform
  * @category    string
@@ -68,7 +68,7 @@ $string['filterdescription'] = 'وصف المرشح';
 $string['filterperpage'] = 'لكل صفحة';
 $string['firstdayofweek'] = 'الاثنين';
 $string['formemptyadd'] = 'لم تقم بإملاء أي حقول!';
-$string['gradeitems_help'] = 'هذه الصفحة تسمح لك بإضافة أو تحرير مفردات التقييم لهذا النشاط.';
+$string['gradeitems_help'] = 'هذه الصفحة تسمح لك بإضافة أو تحرير عناصر التقييم لهذا النشاط.';
 $string['importadd'] = 'إضافة معاينة استيراد جديدة';
 $string['maxsize'] = 'الحجم الأقصى';
 $string['newvalue'] = 'القيمة الجديدة';

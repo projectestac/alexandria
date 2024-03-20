@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_search_forums', language 'fr', version '3.11'.
+ * Strings for component 'block_search_forums', language 'fr', version '4.1'.
  *
  * @package     block_search_forums
  * @category    string
@@ -27,5 +27,5 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['advancedsearch'] = 'Recherche avancée';
 $string['pluginname'] = 'Recherche forums';
-$string['privacy:metadata'] = 'Le bloc Recherche forums affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Recherche forums affiche seulement des données enregistrées à d’autres endroits.';
 $string['search_forums:addinstance'] = 'Ajouter un bloc recherche forums';

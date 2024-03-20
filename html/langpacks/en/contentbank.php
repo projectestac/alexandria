@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'contentbank', language 'en', version '3.11'.
+ * Strings for component 'contentbank', language 'en', version '4.1'.
  *
  * @package     contentbank
  * @category    string
@@ -26,18 +26,19 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['author'] = 'Author';
+$string['choosecontext'] = 'Choose course or category...';
 $string['close'] = 'Close';
 $string['contentbank'] = 'Content bank';
 $string['contentbankpreferences'] = 'Content bank preferences';
-$string['contentdeleted'] = 'The content has been deleted.';
+$string['contentdeleted'] = 'Content deleted.';
 $string['contentname'] = 'Content name';
 $string['contentnotdeleted'] = 'An error was encountered while trying to delete the content.';
 $string['contentnotrenamed'] = 'An error was encountered while trying to rename the content.';
-$string['contentrenamed'] = 'The content has been renamed.';
+$string['contentrenamed'] = 'Content renamed.';
 $string['contentsmoved'] = 'Content bank contents moved to {$a}.';
 $string['contenttypenoaccess'] = 'You cannot view this {$a} instance.';
 $string['contenttypenoedit'] = 'You can not edit this content';
-$string['contentvisibilitychanged'] = 'The content has been made {$a}.';
+$string['contentvisibilitychanged'] = 'Content is now {$a}.';
 $string['contentvisibilitynotset'] = 'An error was encountered while trying to set the content visibility.';
 $string['contextnotallowed'] = 'You are not allowed to access the content bank in this context.';
 $string['deletecontent'] = 'Delete content';
@@ -54,10 +55,12 @@ $string['eventcontentreplaced'] = 'Content replaced with file';
 $string['eventcontentupdated'] = 'Content updated';
 $string['eventcontentuploaded'] = 'Content uploaded';
 $string['eventcontentviewed'] = 'Content viewed';
+$string['exit'] = 'Exit';
 $string['file'] = 'Upload content';
 $string['file_help'] = 'Files may be stored in the content bank for use in courses. Only files used by content types enabled on the site may be uploaded.';
 $string['itemsfound'] = '{$a} items found';
 $string['lastmodified'] = 'Last modified';
+$string['more'] = 'More';
 $string['name'] = 'Content';
 $string['nocontentavailable'] = 'No content available';
 $string['nocontenttypes'] = 'No content types available';

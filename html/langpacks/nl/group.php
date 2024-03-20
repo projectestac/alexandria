@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'nl', version '3.11'.
+ * Strings for component 'group', language 'nl', version '4.1'.
  *
  * @package     group
  * @category    string
@@ -87,6 +87,7 @@ $string['eventgroupmemberadded'] = 'Groepslid toegevoegd';
 $string['eventgroupmemberremoved'] = 'Groepslid verwijderd';
 $string['eventgroupupdated'] = 'Groep aangepast';
 $string['existingmembers'] = 'Leden: {$a}';
+$string['exportgroupsgroupings'] = 'Groepen en groeperingen downloaden als';
 $string['filtergroups'] = 'Filter groepeert op:';
 $string['group'] = 'Groep';
 $string['groupaddedsuccesfully'] = 'Groep {$a} toegevoegd';
@@ -113,15 +114,13 @@ $string['groupmembers'] = 'Groepsleden';
 $string['groupmemberssee'] = 'Bekijk groepsleden';
 $string['groupmembersselected'] = 'Leden van de geselecteerde groep';
 $string['groupmode'] = 'Groepsmodus';
-$string['groupmode_help'] = 'Er zijn drie types van groepsmodus:
+$string['groupmode_help'] = '* Geen groepen
+* Gescheiden groepen - leerlingen zijn in groepen verdeeld en zien enkel het werk van hun groep.
+* Zichtbare groepen - leerlingen zijn in groepen verdeeld en zien ook het werk van andere groepen.
 
-* Geen groepen
-* Gescheiden groepen - elke groep kan alleen zijn eigen groepsleden zien, alle anderen zijn onzichtbaar
-* Zichtbare groepen - elke leerling werkt binnen zijn eigen groep, maar kan de andere groepen ook zien
-
-De groepsmodus, ingesteld op cursusniveau is de standaardmodus voor alle activiteiten in de cursus. Elke activiteit die groepen ondersteunt kan ook zijn eigen groepsmodus ingesteld hebben. Hoewel, als de groepsmodus op cursusniveau geforceerd wordt, dan wordt de instelling op niveau van de activiteit genegeerd.';
+De groepsmodus, ingesteld op cursusniveau is de standaardmodus voor alle activiteiten in de cursus. Als de groepsmodus op cursusniveau geforceerd wordt, dan kan die niet gewijzigd worden op het niveau van de activiteit.';
 $string['groupmodeforce'] = 'Forceer groepsmodus';
-$string['groupmodeforce_help'] = 'Als de groepsmodus geforceerd wordt, dan zal de groepsmodus van de cursus op elke activiteit toegepast worden. De instellingen van de groepsmodus in de activiteitenmodules wordt dan genegeerd.';
+$string['groupmodeforce_help'] = 'De groepsmodus is geforceerd op cursusniveau voor alle activiteiten en kan niet gewijzigd worden in de activiteit.';
 $string['groupmy'] = 'Mijn groep';
 $string['groupname'] = 'Groepsnaam';
 $string['groupnameexists'] = 'De groepnaam \'{$a}\' bestaat al in deze cursus. Kies een andere.';
@@ -146,6 +145,7 @@ $string['importgroups_help'] = 'Groepen kunnen geïmporteerd worden via een teks
 * De eerste record bevat een lijst met veldnamen die de opmaak bepalen van de rest van het bestand
 * De vereiste veldnaam is groupname
 * Optionele velnamen zijn groupidnumber, description, enrolmentkey, groupingname, enablemessaging';
+$string['importgroups_link'] = 'group/import';
 $string['includeonlyactiveenrol'] = 'Enkel actieve aanmeldingen meenemen';
 $string['includeonlyactiveenrol_help'] = 'Indien ingeschakeld zullen geschorste gebruikers niet mee opgenomen worden in groepen.';
 $string['javascriptrequired'] = 'Voor deze pagina moet Javascript ingeschakeld zijn';

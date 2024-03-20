@@ -6,17 +6,17 @@ class com_wiris_util_geometry_GeometryFile {
 		$this->data = $data;
 	}}
 	public function getGeometryHandwriting($i) {
-		return new com_wiris_util_geometry_GeometryHandwriting(com_wiris_util_json_JSon::getHash(_hx_array_get($this->getHandwritings(), $i)));
+		return new com_wiris_util_geometry_GeometryHandwriting(com_wiris_util_json_JSon::getHash(_hx_array_get($this->getHandwritingTraces(), $i)));
 	}
-	public function getHandwritingsLength() {
-		$a = $this->getHandwritings();
+	public function getHandwritingTracesLength() {
+		$a = $this->getHandwritingTraces();
 		return com_wiris_util_geometry_GeometryFile_0($this, $a);
 	}
-	public function getHandwritings() {
-		return com_wiris_util_json_JSon::getArray($this->data->get(com_wiris_util_geometry_GeometryFile::$HANDWRITING));
+	public function getHandwritingTraces() {
+		return com_wiris_util_json_JSon::getArray($this->data->get(com_wiris_util_geometry_GeometryFile::$HANDWRITING_TRACES));
 	}
 	public function addHandwriting($h) {
-		$this->getHandwritings()->push($h->data);
+		$this->getHandwritingTraces()->push($h->data);
 	}
 	public function deleteElement($i) {
 		if($i < 0 || $i >= $this->getElementsLength()) {
@@ -91,17 +91,17 @@ class com_wiris_util_geometry_GeometryFile {
 	public function __call($m, $a) {
 		if(isset($this->$m) && is_callable($this->$m))
 			return call_user_func_array($this->$m, $a);
-		else if(isset($this->»dynamics[$m]) && is_callable($this->»dynamics[$m]))
-			return call_user_func_array($this->»dynamics[$m], $a);
+		else if(isset($this->Â»dynamics[$m]) && is_callable($this->Â»dynamics[$m]))
+			return call_user_func_array($this->Â»dynamics[$m], $a);
 		else if('toString' == $m)
 			return $this->__toString();
 		else
-			throw new HException('Unable to call «'.$m.'»');
+			throw new HException('Unable to call Â«'.$m.'Â»');
 	}
 	static $ELEMENTS = "elements";
 	static $CONSTRAINTS = "constraints";
 	static $DISPLAYS = "displays";
-	static $HANDWRITING = "handwriting";
+	static $HANDWRITING_TRACES = "handwriting_traces";
 	static function readJSON($json) {
 		return new com_wiris_util_geometry_GeometryFile(com_wiris_util_json_JSon::getHash(com_wiris_util_json_JSon::decode($json)));
 	}
@@ -110,7 +110,7 @@ class com_wiris_util_geometry_GeometryFile {
 		$data->set(com_wiris_util_geometry_GeometryFile::$ELEMENTS, new _hx_array(array()));
 		$data->set(com_wiris_util_geometry_GeometryFile::$CONSTRAINTS, new _hx_array(array()));
 		$data->set(com_wiris_util_geometry_GeometryFile::$DISPLAYS, new _hx_array(array()));
-		$data->set(com_wiris_util_geometry_GeometryFile::$HANDWRITING, new _hx_array(array()));
+		$data->set(com_wiris_util_geometry_GeometryFile::$HANDWRITING_TRACES, new _hx_array(array()));
 		return new com_wiris_util_geometry_GeometryFile($data);
 	}
 	static function isGeometryFile($str) {
@@ -120,7 +120,7 @@ class com_wiris_util_geometry_GeometryFile {
 				if($hash === null || !com_wiris_system_TypeTools::isHash($hash)) {
 					return false;
 				}
-				$geometryTags = new _hx_array(array("elements", "constraints", "displays", "handwriting"));
+				$geometryTags = new _hx_array(array(com_wiris_util_geometry_GeometryFile::$ELEMENTS, com_wiris_util_geometry_GeometryFile::$CONSTRAINTS, com_wiris_util_geometry_GeometryFile::$DISPLAYS));
 				{
 					$_g = 0;
 					while($_g < $geometryTags->length) {
@@ -133,8 +133,8 @@ class com_wiris_util_geometry_GeometryFile {
 					}
 				}
 			}
-		}catch(Exception $»e) {
-			$_ex_ = ($»e instanceof HException) ? $»e->e : $»e;
+		}catch(Exception $Â»e) {
+			$_ex_ = ($Â»e instanceof HException) ? $Â»e->e : $Â»e;
 			$t = $_ex_;
 			{
 				return false;
@@ -144,28 +144,28 @@ class com_wiris_util_geometry_GeometryFile {
 	}
 	function __toString() { return 'com.wiris.util.geometry.GeometryFile'; }
 }
-function com_wiris_util_geometry_GeometryFile_0(&$»this, &$a) {
+function com_wiris_util_geometry_GeometryFile_0(&$Â»this, &$a) {
 	if($a === null) {
 		return 0;
 	} else {
 		return $a->length;
 	}
 }
-function com_wiris_util_geometry_GeometryFile_1(&$»this, &$a) {
+function com_wiris_util_geometry_GeometryFile_1(&$Â»this, &$a) {
 	if($a !== null) {
-		return $»this->getConstraints()->length;
+		return $Â»this->getConstraints()->length;
 	} else {
 		return 0;
 	}
 }
-function com_wiris_util_geometry_GeometryFile_2(&$»this, &$a) {
+function com_wiris_util_geometry_GeometryFile_2(&$Â»this, &$a) {
 	if($a !== null) {
 		return $a->length;
 	} else {
 		return 0;
 	}
 }
-function com_wiris_util_geometry_GeometryFile_3(&$»this, &$a) {
+function com_wiris_util_geometry_GeometryFile_3(&$Â»this, &$a) {
 	if($a !== null) {
 		return $a->length;
 	} else {

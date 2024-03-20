@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'auth_db', language 'de', version '3.11'.
+ * Strings for component 'auth_db', language 'de', version '4.1'.
  *
  * @package     auth_db
  * @category    string
@@ -67,7 +67,7 @@ $string['auth_dbsuspenduser'] = 'Gesperrte Nutzer/in {$a->name} ID {$a->id}';
 $string['auth_dbsuspendusererror'] = 'Fehler beim Sperren von Nutzer/in {$a}';
 $string['auth_dbsybasequoting'] = 'Sybase Anführungszeichen verwenden';
 $string['auth_dbsybasequotinghelp'] = 'Sybase Stil mit einfachen Anführungszeichen - für Oracle, MS SQL und einige andere Datenbanken, nicht jedoch für MySQL verwnden!';
-$string['auth_dbsyncuserstask'] = 'Nutzersynchronisierung';
+$string['auth_dbsyncuserstask'] = 'Task zur Nutzersynchronisierung';
 $string['auth_dbtable'] = 'Name der Datenbank-Tabelle';
 $string['auth_dbtable_key'] = 'Tabelle';
 $string['auth_dbtableempty'] = 'Externe Tabelle ist leer.';

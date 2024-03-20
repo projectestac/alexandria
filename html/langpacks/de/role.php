@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'role', language 'de', version '3.11'.
+ * Strings for component 'role', language 'de', version '4.1'.
  *
  * @package     role
  * @category    string
@@ -55,13 +55,14 @@ $string['archetypeuser'] = 'Basisrolle: Authentifizierte/r Nutzer/in';
 $string['assignanotherrole'] = 'Weitere Rolle zuweisen';
 $string['assignedroles'] = 'Rollen zuweisen';
 $string['assignerror'] = 'Fehler beim Zuweisen der Rolle {$a->role} zum Nutzerkonto {$a->user}';
-$string['assignglobalroles'] = 'Globale Rollen';
+$string['assignglobalroles'] = 'Globale Rollen zuweisen';
 $string['assignmentcontext'] = 'Zuweisungskontext';
 $string['assignmentoptions'] = 'Zuweisungsoptionen';
 $string['assignrole'] = 'Rollen zuweisen';
 $string['assignrolenameincontext'] = 'Rolle \'{$a->role}\' in \'{$a->context}\' zuweisen';
 $string['assignroles'] = 'Rollen zuweisen';
 $string['assignroles_help'] = 'Durch die Rollenzuweisung in einem Kontext werden alle Fähigkeiten der Rolle übertragen, u.z. im aktuellen Kontext und in allen nachrangigen Kontexten. Wird z.B. Nutzer/innen die Rolle "Teilnehmer/in" in einem Kurs zugewiesen, so haben sie diese Rolle auch für alle Aktivitäten und Blöcke innerhalb des Kurses.';
+$string['assignroles_link'] = 'admin/roles/assign';
 $string['assignrolesin'] = 'Rollen zuweisen in {$a}';
 $string['assignrolesrelativetothisuser'] = 'Rollen relativ zu diesem Nutzerkonto zuweisen';
 $string['backtoallroles'] = 'Zurück zur Rollenliste';
@@ -177,7 +178,7 @@ $string['course:changeidnumber'] = 'Kurs-ID-Nummer ändern';
 $string['course:changelockedcustomfields'] = 'Gesperrte Kursfelder ändern';
 $string['course:changeshortname'] = 'Kurzen Kursnamen ändern';
 $string['course:changesummary'] = 'Kursbeschreibung ändern';
-$string['course:configurecustomfields'] = 'Kursfelder konfigurieren';
+$string['course:configurecustomfields'] = 'Nutzerbestimmte Kursfelder konfigurieren';
 $string['course:configuredownloadcontent'] = 'Kursinhalt herunterladen konfigurieren';
 $string['course:create'] = 'Kurse anlegen';
 $string['course:creategroupconversations'] = 'Gruppenkommunikation erstellen';
@@ -203,7 +204,7 @@ $string['course:reset'] = 'Kurs zurücksetzen';
 $string['course:reviewotherusers'] = 'Beobachtung anderer Nutzer/innen';
 $string['course:sectionvisibility'] = 'Abschnitte anzeigen/verbergen';
 $string['course:setcurrentsection'] = 'Kursabschnitt als \'aktuell\' markieren';
-$string['course:setforcedlanguage'] = 'Kurssprache festlegen';
+$string['course:setforcedlanguage'] = 'Sprache für Kurs oder Aktivität festlegen';
 $string['course:tag'] = 'Kurs-Tags ändern';
 $string['course:togglecompletion'] = 'Manuell Aktivitäten als abgeschlossen markieren.';
 $string['course:update'] = 'Kurseinstellungen aktualisieren';
@@ -229,6 +230,7 @@ $string['customrolename_help'] = 'Die Namen von Standardrollen wird automatisch 
 $string['defaultrole'] = 'Standardrolle';
 $string['defaultx'] = 'Standard: {$a}';
 $string['defineroles'] = 'Rollen verwalten';
+$string['definitionofrolex'] = 'Definition der Rolle \'{$a}\'';
 $string['deletecourseoverrides'] = 'Alle Änderungen im Kurs löschen';
 $string['deletelocalroles'] = 'Alle lokalen Rollenzuordnungen löschen';
 $string['deleterolesure'] = '<p>Möchten Sie wirklich die Rolle \'{$a->name} ({$a->shortname})\' löschen?</p>
@@ -265,7 +267,7 @@ $string['filter:manage'] = 'Lokale Filterinstellungen verwalten';
 $string['frontpageuser'] = 'Authentifizierte/r Nutzer/in der Startseite';
 $string['frontpageuserdescription'] = 'Alle authentifizierten Nutzer/innen auf der Startseite';
 $string['globalrole'] = 'Globale Rolle';
-$string['globalroleswarning'] = 'Warnung! Jede hier zugewiesene Rolle gilt für die gesamte Webseite. Die jeweiligen Nutzer/innen besitzen die Rolle dann auf der Startseite und in allen Kursen.';
+$string['globalroleswarning'] = 'Achtung! Jede hier zugewiesene Rolle gilt für die gesamte Webseite. Die jeweiligen Nutzer/innen besitzen die Rolle dann auf der Startseite und  in allen Kursen.';
 $string['gotoassignroles'] = 'Zum Zuweisen von Rollen für {$a->contextlevel}';
 $string['gotoassignsystemroles'] = 'Globale Rollen zuweisen';
 $string['grade:edit'] = 'Bewertungen bearbeiten';
@@ -331,6 +333,7 @@ $string['overrideanotherrole'] = 'Andere Rolle ändern';
 $string['overridecontext'] = 'Kontext ändern';
 $string['overridepermissions'] = 'Rechte überschreiben';
 $string['overridepermissions_help'] = 'Die Änderung von Rollenrechten ermöglicht, ausgewählte Fähigkeiten in bestimmten Kontexten zu erlauben oder zu verbieten.';
+$string['overridepermissions_link'] = 'admin/roles/override';
 $string['overridepermissionsforrole'] = 'Rechte für \'{$a->role}\' in {$a->context} ändern';
 $string['overridepermissionsin'] = 'Rechte in {$a} ändern';
 $string['overrideroles'] = 'Rollen ändern';
@@ -370,10 +373,12 @@ $string['privacy:metadata:role_capabilities:permission'] = 'Berechtigungsumfang:
 $string['privacy:metadata:role_capabilities:roleid'] = 'Rollen-ID';
 $string['privacy:metadata:role_capabilities:tableexplanation'] = 'Rechte und überschreibende Rechte für eine bestimmte Rolle in einem angegebenen Kontext';
 $string['privacy:metadata:role_capabilities:timemodified'] = 'Datum zu dem die Berechtigung erstellt oder verändert wurde';
-$string['privacy:metadata:role_cohortroles'] = 'Rollen für Globale Gruppen';
+$string['privacy:metadata:role_cohortroles'] = 'Rollen für globale Gruppen';
 $string['prohibit'] = 'Verbieten';
 $string['prohibitedroles'] = 'Verboten';
 $string['question:add'] = 'Neue Fragen hinzufügen';
+$string['question:commentall'] = 'Alle Fragen kommentieren';
+$string['question:commentmine'] = 'Eigene Fragen kommentieren';
 $string['question:config'] = 'Fragetypen konfigurieren';
 $string['question:editall'] = 'Alle Fragen bearbeiten';
 $string['question:editmine'] = 'Eigene Fragen bearbeiten';
@@ -391,6 +396,10 @@ $string['rating:rate'] = 'Bewertung hinzufügen';
 $string['rating:view'] = 'Eigene Gesamtwertung anzeigen';
 $string['rating:viewall'] = 'Alle Teilwertungen anzeigen';
 $string['rating:viewany'] = 'Alle Gesamtwertungen anzeigen';
+$string['reportbuilder:edit'] = 'Eigene nutzerdefinierte Berichte bearbeiten';
+$string['reportbuilder:editall'] = 'Alle nutzerdefinierten Berichte bearbeiten';
+$string['reportbuilder:scheduleviewas'] = 'Berichtszeitpläne werden als andere Person angezeigt';
+$string['reportbuilder:view'] = 'Nutzerdefinierte Berichte anzeigen';
 $string['resetrole'] = 'Grundeinstellung wiederherstellen';
 $string['resettingrole'] = 'Rolle \'{$a}\' wird wiederhergestellt';
 $string['restore:configure'] = 'Wiederherstellung konfigurieren';
@@ -425,6 +434,7 @@ $string['rolerisks'] = 'Rollenrisiken';
 $string['roles'] = 'Rollen';
 $string['roles_help'] = 'Eine Rolle ist definiert durch einen Satz von Rechten, die für die gesamte Website festgelegt sind. Rollen können einzelnen Nutzer/innen in bestimmten Kontexten (Zusammenhängen) zugewiesen werden.
 ';
+$string['roles_link'] = 'roles';
 $string['roleselect'] = 'Rolle aussuchen';
 $string['rolesforuser'] = 'Rollen für Nutzer/in {$a}';
 $string['roleshortname'] = 'Kurzbezeichnung';

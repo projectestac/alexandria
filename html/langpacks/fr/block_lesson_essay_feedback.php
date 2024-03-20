@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_lesson_essay_feedback', language 'fr', version '3.11'.
+ * Strings for component 'block_lesson_essay_feedback', language 'fr', version '4.1'.
  *
  * @package     block_lesson_essay_feedback
  * @category    string
@@ -25,12 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['clicktosee'] = 'Cliquez pour afficher les commentaires de l\'enseignant et votre score pour {$a->nbessaysinlesson} {$a->essay} dans la leçon "{$a->lessonname}"';
+$string['clicktosee'] = 'Cliquez pour afficher les commentaires de l’enseignant et votre score pour {$a->nbessaysinlesson} {$a->essay} dans la leçon "{$a->lessonname}"';
 $string['essayprompt'] = 'Sujet de la composition n° {$a} :';
 $string['finish'] = 'Terminer {$a}';
-$string['graderscomments'] = 'Commentaires de l\'enseignant et score :';
-$string['graderscommentsandscore'] = 'Commentaires de l\'enseignant et score pour les compositions de la leçon :';
-$string['incompletelesson'] = 'Cette tentative a été envoyée dans une leçon incomplète commencée le {$a}. Vous devez finir cette leçon avant qu\'elle puisse être évaluée par l\'enseignant !';
+$string['graderscomments'] = 'Commentaires de l’enseignant et score :';
+$string['graderscommentsandscore'] = 'Commentaires de l’enseignant et score pour les compositions de la leçon :';
+$string['incompletelesson'] = 'Cette tentative a été envoyée dans une leçon incomplète commencée le {$a}. Vous devez finir cette leçon avant qu’elle puisse être évaluée par l’enseignant !';
 $string['lesson_essay_feedback:addinstance'] = 'Ajouter un nouveau bloc de Feedback de Composition des leçons';
 $string['lesson_essay_feedback:myaddinstance'] = 'Ajouter un nouveau bloc de Feedback de Composition des leçons à mon Tableau de bord';
 $string['newgrade'] = 'Votre note pour cette leçon est maintenant de {$a}%.';

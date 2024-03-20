@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'scorm', language 'de', version '3.11'.
+ * Strings for component 'scorm', language 'de', version '4.1'.
  *
  * @package     scorm
  * @category    string
@@ -88,13 +88,13 @@ $string['completed'] = 'Abgeschlossen';
 $string['completiondetail:allscos'] = 'Alle Teile dieser Aktivität ausführen';
 $string['completiondetail:completionscore'] = 'Eine Bewertung von {$a} oder mehr erhalten';
 $string['completiondetail:completionstatuscompleted'] = 'Aktivität abschließen';
-$string['completiondetail:completionstatuscompletedandpassed'] = 'Aktivität abschließen und bestehen';
+$string['completiondetail:completionstatuscompletedorpassed'] = 'Aktivität abschließen und bestehen';
 $string['completiondetail:completionstatuspassed'] = 'Aktivität bestehen';
 $string['completionscorerequired'] = 'Mindestpunkte notwendig';
 $string['completionscorerequired_help'] = 'Wenn diese Option aktiviert ist, müssen Teilnehmer/innen neben anderen Anforderungen auch die angegebene Mindestpunkte erreichen, um dieses Lernpaket als \'abgeschlossen\' markieren zu können.';
 $string['completionscorerequireddesc'] = 'Die Mindestpunktzahl {$a} ist zum Abschluss erforderlich.';
 $string['completionstatus_completed'] = 'Erledigt';
-$string['completionstatus_passed'] = 'Durchlaufen';
+$string['completionstatus_passed'] = 'Bestanden';
 $string['completionstatusallscos'] = 'Alle Scos sind erforderlich, um den Abschlussstatus zurückzugeben';
 $string['completionstatusallscos_help'] = 'Einige SCORM Pakete enthalten mehrere Komponenten oder "scos" - bei Aktivierung müssen alle scos innerhalb des Pakets den entsprechenden lesson_status für diese Aktivität zurücksenden um als abgeschlossen markiert zu werden.';
 $string['completionstatusrequired'] = 'Status erforderlich';
@@ -130,7 +130,6 @@ $string['displaydesc'] = 'Ob das Lernpaket in einem neuen Fenster gezeigt werden
 $string['displaysettings'] = 'Anzeigeeinstellungen';
 $string['dnduploadscorm'] = 'Lernpaket hinzufügen';
 $string['domxml'] = 'DOMXML externe Bibliothek';
-$string['duedate'] = 'Fälligkeitsdatum';
 $string['element'] = 'Element';
 $string['enter'] = 'Start';
 $string['entercourse'] = 'Lernpaket starten';
@@ -208,10 +207,12 @@ $string['indicator:cognitivedepth'] = 'Lernpaket kognitiv';
 $string['indicator:cognitivedepth_help'] = 'Dieser Indikator basiert auf der kognitiven Tiefe, die einPerson in einer Lernpaketaktivität erreicht hat.';
 $string['indicator:cognitivedepthdef'] = 'Lernpaket kognitiv';
 $string['indicator:cognitivedepthdef_help'] = 'Die Person hat diesen Prozentsatz des kognitiven Engagements erreicht, das die Lernpaketaktivitäten während dieses Analyseintervalls aufzeigen (Ebenen = Keine Ansicht, Ansicht, Beiträge, Feedback anzeigen).';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'Lernpaket sozial';
 $string['indicator:socialbreadth_help'] = 'Dieser Indikator basiert auf der sozialen Breite, die eine Person in einer Lernpaketaktivität erreicht hat.';
 $string['indicator:socialbreadthdef'] = 'Lernpaket sozial';
 $string['indicator:socialbreadthdef_help'] = 'Die Person hat diesen Prozentsatz des soziale Engagements erreicht, das die Lernpaketaktivitäten während dieses Analyseintervalls aufzeigen (Ebenen = Keine Teilnahme, Teilnahme allein).';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['info'] = 'Info';
 $string['interactions'] = 'Interaktionen';
 $string['invalidactivity'] = 'Aktivität im Lernpaket ist falsch';
@@ -251,6 +252,7 @@ Eine Lernpaket-Aktivität kann verwendet werden
 
 * Zur Präsentation von Multimedia-Inhalten und Animationen
 * Als Bewertungsinstrument';
+$string['modulename_link'] = 'mod/scorm/view';
 $string['modulenameplural'] = 'Lernpakete';
 $string['myaiccsessions'] = 'Meine AICC sessions';
 $string['myattempts'] = 'Meine Versuche';
@@ -304,7 +306,7 @@ $string['packageurl'] = 'URL';
 $string['packageurl_help'] = 'Diese Einstellung ermöglicht die Eingabe einer URL für das Lernpaket, anstatt das Lernpaket in der Dateiauswahl auszusuchen.';
 $string['page-mod-scorm-x'] = 'Jede Lernpaketseite';
 $string['pagesize'] = 'Seitenzahl';
-$string['passed'] = 'Abgeschlossen';
+$string['passed'] = 'Bestanden';
 $string['php5'] = 'PHP 5 (DOMXML native library)';
 $string['pluginadministration'] = 'Lernpaket-Administration';
 $string['pluginname'] = 'Lernpaket';

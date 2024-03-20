@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'choicegroup', language 'es', version '3.11'.
+ * Strings for component 'choicegroup', language 'es', version '4.1'.
  *
  * @package     choicegroup
  * @category    string
@@ -25,6 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['activitydate:closingbeforeopening'] = 'La fecha de apertura debe ser anterior a la de cierre.';
 $string['activitydate:exceeded'] = 'Fecha de vencimiento excedida.';
 $string['activitydate:hasopened'] = 'Abierto:';
 $string['activitydate:notavailableyet'] = 'No disponible todavía.';
@@ -115,6 +116,7 @@ $string['modulename_help'] = 'El módulo de Elección de grupo permite que el pr
 El número de miembros para cada grupo puede limitarse a un número determinado de usuarios.
 
 Los alumnos pueden o no cambiar libremente de grupo si el profesor así lo considera en la configuración de la actividad.';
+$string['modulename_link'] = 'mod/choicegroup/view';
 $string['modulenameplural'] = 'Selección de grupos.';
 $string['moveselectedusersto'] = 'Mover los usuarios seleccionados a ...';
 $string['multipleenrollmentspossible'] = 'Permitir la inclusión en múltiples grupos';
@@ -133,7 +135,7 @@ $string['numberofuser'] = 'El número de usuarios';
 $string['onlyactive'] = 'Filtrar datos de la respuesta para usuarios con matriculación expirada o suspendida.';
 $string['option'] = 'Grupo';
 $string['page-mod-choice-x'] = 'Cualquier página del módulo Elección de grupo';
-$string['pleaseselectonegroup'] = 'Por favor seleccione al menos un grupo del cual elegir.';
+$string['pleaseselectonegroup'] = 'Por favor, seleccione al menos un grupo del cual elegir.';
 $string['pleasesetgroups'] = 'Por favor, genere al menos un grupo en este curso.';
 $string['pleasesetonegroupor'] = 'Por favor, cree al menos un grupo dentro de este curso.<br /><br />
 <ul>
@@ -141,7 +143,7 @@ $string['pleasesetonegroupor'] = 'Por favor, cree al menos un grupo dentro de es
 <li><a href="{$a->linkcourse}">regresar al curso</a></li>
 </ul>';
 $string['pluginadministration'] = 'Administración de la elección';
-$string['pluginname'] = 'Selección de grupo.';
+$string['pluginname'] = 'Selección de grupo';
 $string['privacy'] = 'Privacidad de los resultados';
 $string['privacy:metadata'] = 'El plugin Choice Group (Elección de Grupo) no almacena ningún dato personal. Todos los datos son almacenados por el componente del núcleo de Moodle (core_group).';
 $string['publish'] = 'Publicar resultados';

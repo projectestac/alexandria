@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_grader', language 'ja', version '3.11'.
+ * Strings for component 'gradereport_grader', language 'ja', version '4.1'.
  *
  * @package     gradereport_grader
  * @category    string
@@ -30,12 +30,13 @@ $string['ajaxclicktoclose'] = '削除するにはこのチェックボックス�
 $string['ajaxerror'] = 'エラー';
 $string['ajaxfailedupdate'] = '[2] の [1] を更新できません。';
 $string['ajaxfieldchanged'] = '現在あなたが編集しているフィールドの内容が変更されました。更新された値を使用しますか?';
+$string['editingmode_title'] = '評定者レポートを編集する';
 $string['eventgradereportviewed'] = '評定者レポートが閲覧されました。';
 $string['grader:manage'] = '評定者レポートを管理する';
 $string['grader:view'] = '評定者レポートを表示する';
 $string['overriddengrade'] = 'オーバーライド評点';
 $string['pluginname'] = '評定者レポート';
-$string['preferences'] = '評定者レポートプリファレンス';
+$string['preferences'] = '評定者レポートプレファレンス';
 $string['privacy:metadata:preference:grade_report_aggregationposition'] = 'カテゴリおよびコース合計カラムを評定表レポートの先頭に表示するか末尾に表示するか指定します。';
 $string['privacy:metadata:preference:grade_report_averagesdecimalpoints'] = 'それぞれの平均点に表示される小数位以下桁数、または全体のカテゴリ設定または評定項目で全体の小数位設定を使用 (継承) するかどうか指定します。';
 $string['privacy:metadata:preference:grade_report_averagesdisplaytype'] = '実評点、パーセンテージ、評価文字として平均が表示されるか、またはカテゴリまたは評定項目の表示タイプを使用 (継承) するかどうか指定します。';

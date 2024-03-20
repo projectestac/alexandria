@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_calendar_upcoming', language 'fr', version '3.11'.
+ * Strings for component 'block_calendar_upcoming', language 'fr', version '4.1'.
  *
  * @package     block_calendar_upcoming
  * @category    string
@@ -29,4 +29,4 @@ $string['calendar_upcoming:addinstance'] = 'Ajouter un bloc événements à veni
 $string['calendar_upcoming:myaddinstance'] = 'Ajouter un bloc événements à venir au tableau de bord';
 $string['gotocalendar'] = 'Vers le calendrier…';
 $string['pluginname'] = 'Événements à venir';
-$string['privacy:metadata'] = 'Le bloc Événements à venir affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Événements à venir affiche seulement des données enregistrées à d’autres endroits.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_manual', language 'de', version '3.11'.
+ * Strings for component 'enrol_manual', language 'de', version '4.1'.
  *
  * @package     enrol_manual
  * @category    string
@@ -63,6 +63,7 @@ Sie können auf der folgenden Seite die Einschreibedauer verlängern: {$a->exten
 
 Ihr E-Learning Team';
 $string['expirymessageenrollersubject'] = 'Benachrichtigung zum Teilnahmeende';
+$string['managemanualenrolements'] = 'Manuelle Einschreibungen verwalten';
 $string['manual:config'] = 'Manuelle Einschreibung verwalten';
 $string['manual:enrol'] = 'Nutzer/innen einschreiben';
 $string['manual:manage'] = 'Nutzereinschreibung verwalten';
@@ -83,7 +84,7 @@ $string['status_desc'] = 'Kurszugriff für intern eingeschriebene Nutzer/innen e
 $string['status_help'] = 'Diese Option legt fest, ob Nutzer/innen manuell eingeschrieben werden können. In der Regel führen Trainer/innen (oder jemand mit passenden Rechten) die manuelle Einschreibung in einen Kurs durch.';
 $string['statusdisabled'] = 'Deaktiviert';
 $string['statusenabled'] = 'Aktiviert';
-$string['syncenrolmentstask'] = 'Manuelle Einschreibung synchronisieren';
+$string['syncenrolmentstask'] = 'Synchronisierung von manuellen Einschreibungen';
 $string['unenrol'] = 'Nutzer/in abmelden';
 $string['unenrolselectedusers'] = 'Ausgewählte Nutzer/innen abmelden';
 $string['unenrolselfconfirm'] = 'Möchten Sie sich selbst wirklich vom Kurs \'{$a}\' abmelden?';

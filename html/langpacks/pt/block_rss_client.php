@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_rss_client', language 'pt', version '3.11'.
+ * Strings for component 'block_rss_client', language 'pt', version '4.1'.
  *
  * @package     block_rss_client
  * @category    string
@@ -74,7 +74,7 @@ $string['privacy:metadata:block_rss_client:tableexplanation'] = 'Informação do
 $string['privacy:metadata:block_rss_client:title'] = 'O título da lista RSS.';
 $string['privacy:metadata:block_rss_client:url'] = 'O URL da lista RSS.';
 $string['privacy:metadata:block_rss_client:userid'] = 'ID do utilizador que adicionou a lista RSS.';
-$string['refreshfeedstask'] = 'Tarefa de atualização das listas RSS';
+$string['refreshfeedstask'] = 'Atualização das listas RSS';
 $string['remotenewsfeed'] = 'Lista RSS remota';
 $string['rss_client:addinstance'] = 'Adicionar um novo bloco Lista RSS';
 $string['rss_client:createprivatefeeds'] = 'Criar lista RSS privada';

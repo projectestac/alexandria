@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_questioninstances', language 'fr', version '3.11'.
+ * Strings for component 'report_questioninstances', language 'fr', version '4.1'.
  *
  * @package     report_questioninstances
  * @category    string
@@ -29,9 +29,9 @@ $string['editquestionshere'] = 'Modifier les questions de ce contexte';
 $string['eventreportviewed'] = 'Rapport consulté';
 $string['getreport'] = 'Obtenir le rapport';
 $string['hiddenquestions'] = 'Caché';
-$string['intro'] = 'Ce rapport donne la liste de tous les contextes du système comprenant des questions d\'un type donné.';
+$string['intro'] = 'Ce rapport donne la liste de tous les contextes du système comprenant des questions d’un type donné.';
 $string['pluginname'] = 'Instances de question';
-$string['privacy:metadata'] = 'Le plugin Instances de question n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Instances de question n’enregistre aucune donnée personnelle.';
 $string['questioninstances:view'] = 'Consulter le rapport des instances de question';
 $string['reportforallqtypes'] = 'Rapport pour tous les types de question';
 $string['reportformissingqtypes'] = 'Rapport pour les questions de type inconnu';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradereport_history', language 'ar', version '3.11'.
+ * Strings for component 'gradereport_history', language 'ar', version '4.1'.
  *
  * @package     gradereport_history
  * @category    string
@@ -25,12 +25,12 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['allgradeitems'] = 'كل مفردات التقييم';
+$string['allgradeitems'] = 'كل عناصر التقييم';
 $string['allgraders'] = 'جميع التقديرات';
 $string['datefrom'] = 'من تاريخ';
 $string['datetime'] = 'التاريخ والوقت';
 $string['dateto'] = 'حتى تاريخ';
-$string['deleteditemid'] = 'إحذف المفردة ذات المُعرَّف {$a}';
+$string['deleteditemid'] = 'إحذف العنص ذو المُعرَّف {$a}';
 $string['errajaxsearch'] = 'وقع خطأ عند البحث عن المستخدمين';
 $string['eventgradereportviewed'] = 'تقرير ماضي التقييم تمت معاينته';
 $string['excluded'] = 'مستبعد من الحسابات';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'offlinequiz', language 'ru', version '3.11'.
+ * Strings for component 'offlinequiz', language 'ru', version '4.1'.
  *
  * @package     offlinequiz
  * @category    string
@@ -42,7 +42,7 @@ $string['addquestionfrombanktopage'] = 'Добавить из банка воп�
 $string['addrandom'] = 'Добавить случайным образом {$a} вопросов с множественным выбором';
 $string['addrandomfromcategory'] = 'Случайные вопросы';
 $string['addrandomquestion'] = 'Случайные вопросы';
-$string['addrandomquestiontoofflinequiz'] = 'Добавить вопросы в автономный тест {$a-> name} (группа {$a->group})';
+$string['addrandomquestiontoofflinequiz'] = 'Добавить вопросы в автономный тест {$a->name} (группа {$a->group})';
 $string['addrandomquestiontopage'] = 'Добавить случайный вопрос на страницу {$a}';
 $string['addtoofflinequiz'] = 'Добавить в офлайн-тест';
 $string['addtoqueue'] = 'Добавить в очередь';
@@ -142,7 +142,7 @@ $string['difficultytitleb'] = 'Сложность B';
 $string['difficultytitlediff'] = 'Различия';
 $string['disableimgnewlines'] = 'Отключить новые строки до и после изображений';
 $string['disableimgnewlines_help'] = 'Эта опция отключает новые строки до и после изображений в листах вопросов PDF. Предупреждение: это может привести к проблемам с форматированием.';
-$string['displayoptions'] = 'Показать варианты';
+$string['displayoptions'] = 'Параметры отображения';
 $string['done'] = 'готово';
 $string['downloadallzip'] = 'Скачать все файлы в архиве ZIP';
 $string['downloadpartpdf'] = 'Скачать PDF-файл для списка {$a}';
@@ -228,7 +228,6 @@ $string['gradingoptionsheading'] = 'Опции оценки.';
 $string['greeniscross'] = 'засчитано как крестик';
 $string['group'] = 'Группа';
 $string['groupoutofrange'] = 'Группа была вне диапазона и заменена группой А.';
-$string['groupquestions'] = 'Группа вопросов';
 $string['hasresult'] = 'Результат существует';
 $string['hotspotdeletiontask'] = 'Удаление точки доступа';
 $string['html'] = 'HTML';
@@ -570,7 +569,6 @@ $string['questiontextisempty'] = '[пустой текст вопроса]';
 $string['quizdate'] = 'Дата офлайн-теста';
 $string['quizopenclose'] = 'Даты открытия и закрытия';
 $string['quizopenclose_help'] = 'Студенты могут просматривать свои попытки после открытия и до закрытия';
-$string['quizquestions'] = 'Вопросы теста';
 $string['randomfromexistingcategory'] = 'Случайный вопрос из имеющийся категории';
 $string['randomnumber'] = 'Количество случайных вопросов';
 $string['randomquestionusinganewcategory'] = 'Случайный вопрос с использованием новой категории';

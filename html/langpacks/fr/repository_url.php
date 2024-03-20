@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_url', language 'fr', version '3.11'.
+ * Strings for component 'repository_url', language 'fr', version '4.1'.
  *
  * @package     repository_url
  * @category    string
@@ -27,10 +27,10 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['configplugin'] = 'Configuration URL';
 $string['download'] = 'Téléchargement';
-$string['pluginname'] = 'Téléchargement d\'URL';
-$string['privacy:metadata'] = 'Le plugin de dépôt Téléchargement d\'URL n\'enregistre et ne transmet aucune donnée personnelle.';
+$string['pluginname'] = 'Téléchargement d’URL';
+$string['privacy:metadata'] = 'Le plugin de dépôt Téléchargement d’URL n’enregistre et ne transmet aucune donnée personnelle.';
 $string['rename'] = 'Nom';
 $string['url'] = 'URL';
-$string['url:view'] = 'Utiliser le téléchargement d\'URL dans le sélecteur de fichiers';
+$string['url:view'] = 'Utiliser le téléchargement d’URL dans le sélecteur de fichiers';
 $string['validfiletype'] = 'Vous devez indiquer une URL vers une image ou vers une page contenant des images.';
 $string['validname'] = 'Veuillez fournir un nom de fichier valable';

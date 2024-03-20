@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_coursefiles', language 'fr', version '3.11'.
+ * Strings for component 'repository_coursefiles', language 'fr', version '4.1'.
  *
  * @package     repository_coursefiles
  * @category    string
@@ -27,9 +27,9 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['configplugin'] = 'Configuration du dépôt de fichiers du cours (obsolète)';
 $string['coursefiles:view'] = 'Consulter le dépôt des fichiers du cours';
-$string['emptyfilelist'] = 'Il n\'y a pas de fichier à afficher';
+$string['emptyfilelist'] = 'Il n’y a pas de fichier à afficher';
 $string['notitle'] = 'sans titre';
 $string['pluginname'] = 'Fichiers du cours (obsolète)';
 $string['pluginname_help'] = 'Fichiers du cours (obsolète)';
-$string['privacy:metadata'] = 'Le plugin de dépôt Fichiers du cours n\'enregistre et ne transmet aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin de dépôt Fichiers du cours n’enregistre et ne transmet aucune donnée personnelle.';
 $string['remember'] = 'Se souvenir de moi';

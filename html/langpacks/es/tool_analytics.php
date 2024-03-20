@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_analytics', language 'es', version '3.11'.
+ * Strings for component 'tool_analytics', language 'es', version '4.1'.
  *
  * @package     tool_analytics
  * @category    string
@@ -41,7 +41,7 @@ $string['cantguessstartdate'] = 'No puede adivinarse la fecha de inicio';
 $string['classdoesnotexist'] = 'La clase {$a} no existe';
 $string['clearmodelpredictions'] = '¿Está seguro de querer eliminar todas las predicciones de "{$a}"?';
 $string['clearpredictions'] = 'Borrar predicciones';
-$string['clienablemodel'] = 'Puede habilitar el modelo al seleccionar un método para dividir el tiempo por su ID. Tenga en cuenta que también puede habilitarlo más tarde al usar la intefaz web (\'ninguno\' para salir).';
+$string['clienablemodel'] = 'Puede habilitar el modelo seleccionando un intervalo de análisis por su ID. Tenga en cuenta que también puede habilitarlo más tarde al usar la intefaz web ("\'ninguno" para salir).';
 $string['clievaluationandpredictions'] = 'Una tarea programada del cron iteractua con los modelos habilitados y obtiene predicciones. La evaluación de modelos vía interfaz web está deshabilitada. Usted puede permitir que estos procesos sean ejecutados manualmente mediante la interfaz web al deshabilitar la configuración de Analítica <a href="{$a}">\'onlycli\'</a>.';
 $string['clievaluationandpredictionsnoadmin'] = 'Una tarea programada iteractua con los modelos habilitados y obtiene predicciones. La evaluación de modelos vía interfaz web está deshabilitada. Puede ser habilitada por un administrador del sitio.';
 $string['component'] = 'Componente';
@@ -56,7 +56,7 @@ $string['delete'] = 'Eliminar';
 $string['deletemodelconfirmation'] = '¿Seguro que quieres eliminar "{$a}"? Estos cambios no se pueden revertir.';
 $string['disabled'] = 'Deshabilitado';
 $string['editmodel'] = 'Editar modelo "{$a}"';
-$string['edittrainedwarning'] = 'Este modelo ya ha sido entrenado. Tenga en cuenta que si cambia sus indicadores o su método para dividir el tiempo eliminará sus predicciones anteriores y comenzará a generar nuevas predicciones.';
+$string['edittrainedwarning'] = 'Este modelo ya ha sido entrenado. Tenga en cuenta que si cambia sus indicadores o su intervalo de análisis eliminará sus predicciones anteriores y comenzará a generar nuevas predicciones.';
 $string['enabled'] = 'Habilitado';
 $string['errorcantenablenotimesplitting'] = 'Tiene que seleccionar un intervalo de análisis antes de habilitar el modelo';
 $string['errornoenabledandtrainedmodels'] = 'No hay modelos habilitados y entrenados para predecir.';
@@ -88,7 +88,6 @@ $string['exportmodel'] = 'Exportar configuración';
 $string['exporttrainingdata'] = 'Exportar datos de entrenamiento';
 $string['extrainfo'] = 'Información';
 $string['generalerror'] = 'Error de evaluación. Código de estado {$a}';
-$string['getpredictions'] = 'Obtener predicciones';
 $string['goodmodel'] = 'Este es un buen modelo a usar para obtener predicciones. Habilítelo para comenzar a obtener predicciones.';
 $string['ignoreversionmismatches'] = 'Ignorar diferencias entre versiones';
 $string['ignoreversionmismatchescheckbox'] = 'Ignore las diferencias entre esta versión del sitio y la versión original del sitio.';
@@ -96,6 +95,7 @@ $string['importedsuccessfully'] = 'El modelo ha sido importado con éxito.';
 $string['importmodel'] = 'Importar modelo';
 $string['indicators'] = 'Indicadores';
 $string['indicators_help'] = 'Los indicadores son lo que cree que conducirán a una predicción precisa del objetivo.';
+$string['indicators_link'] = 'Indicators';
 $string['indicatorsnum'] = 'Número de indicadores: {$a}';
 $string['info'] = 'Información';
 $string['insights'] = 'Intuiciones (predicciones)';
@@ -139,11 +139,12 @@ $string['restoredefaultsome'] = 'Se recrearon con éxito los nuevos modelos {$a-
 $string['restoredefaultsubmit'] = 'Restaurar seleccionado';
 $string['sameenddate'] = 'La fecha de terminación actual es buena';
 $string['samestartdate'] = 'La fecha de inicio actual es buena';
-$string['scheduledanalysisresults'] = 'Resultados usando {$a->name} para división de la duración del tiempo';
-$string['scheduledanalysisresultscli'] = 'Resultados usando la división de tiempo del curso {$a->name} (id: {$a->id})';
+$string['scheduledanalysisresults'] = 'Resultados usando {$a->name} para intervalo de análisis';
+$string['scheduledanalysisresultscli'] = 'Resultados usando intervalo de análisis {$a->name} (id: {$a->id})';
 $string['selecttimesplittingforevaluation'] = 'Seleccione el intervalo de análisis que desea usar para evaluar la configuración del modelo.';
 $string['target'] = 'Objetivo';
 $string['target_help'] = 'El objetivo es lo que predecirá el modelo.';
+$string['target_link'] = 'Targets';
 $string['timesplittingnotdefined'] = 'No se ha definido el intervalo de análisis.';
 $string['timesplittingnotdefined_help'] = 'Necesita seleccionar un intervalo de análisis antes de antes de habilitar el modelo.';
 $string['trainandpredictmodel'] = 'Entrenando modelo y calculando predicciones';

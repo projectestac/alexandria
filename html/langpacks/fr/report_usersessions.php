@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_usersessions', language 'fr', version '3.11'.
+ * Strings for component 'report_usersessions', language 'fr', version '4.1'.
  *
  * @package     report_usersessions
  * @category    string
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['mysessions'] = 'Mes sessions actives';
 $string['navigationlink'] = 'Sessions du navigateur';
-$string['pluginname'] = 'Rapport des sessions de l\'utilisateur';
-$string['privacy:metadata'] = 'Le plugin Rapport des sessions de l\'utilisateur n\'enregistre aucune donnée personnelle.';
+$string['pluginname'] = 'Rapport des sessions de l’utilisateur';
+$string['privacy:metadata'] = 'Le plugin Rapport des sessions de l’utilisateur n’enregistre aucune donnée personnelle.';
 $string['thissession'] = 'Session courante';
 $string['usersessions:manageownsessions'] = 'Gérer ses propres sessions de navigation';

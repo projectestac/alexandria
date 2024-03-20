@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'assignfeedback_editpdf', language 'de', version '3.11'.
+ * Strings for component 'assignfeedback_editpdf', language 'de', version '4.1'.
  *
  * @package     assignfeedback_editpdf
  * @category    string
@@ -50,7 +50,7 @@ $string['downloadfeedback'] = 'Feedback-PDF herunterladen';
 $string['draftchangessaved'] = 'Entwurf für die Anmerkungen gespeichert';
 $string['drag'] = 'Ziehen';
 $string['editpdf'] = 'Anmerkungen im PDF';
-$string['editpdf_help'] = 'Kommentieren Sie die Lösungen der Teilnehmer/innen direkt im Browser und erzeugen Sie eine herunterladbare PDF-Datei daraus.';
+$string['editpdf_help'] = 'Kommentieren Sie die Lösungen der Teilnehmer/innen direkt im Browser und erzeugen Sie daraus eine herunterladbare PDF-Datei.';
 $string['enabled'] = 'Anmerkungen im PDF';
 $string['enabled_help'] = 'Nach der Aktivierung können Trainer/innen bei der Bewertung kommentierte PDF-Dateien für die eingereichten Lösungen erstellen. Kommentare, Korrekturen, Kennzeichnungen und \'Stempel\' können direkt in der Lösung von Teilnehmer/innen erstellt werden. Dies erfolgt direkt im Browser ohne Zusatzssoftware.';
 $string['errorgenerateimage'] = 'Fehler beim Erstellen des Bildes mit Ghostscript. Fehlerinformation: {$a}';
@@ -74,7 +74,7 @@ $string['oval'] = 'Oval';
 $string['pagenumber'] = 'Seite {$a}';
 $string['pagexofy'] = 'Seite {$a->page} von {$a->total}';
 $string['partialwarning'] = 'Einige der eingereichten Dateien in dieser Abgabe stehen nur zum direkten Download zur Verfügung.';
-$string['pathtogspathdesc'] = 'Beachten Sie, dass für ein beschreibbares PDF der Pfad zu Ghostscript in {$a} eingetragen sein muss.';
+$string['pathtogspathdesc'] = 'Beachten Sie, dass für Anmerkungen im PDF der Pfad zu Ghostscript in {$a} eingetragen sein muss.';
 $string['pen'] = 'Stift';
 $string['pluginname'] = 'Anmerkungen im PDF';
 $string['preparesubmissionsforannotation'] = 'Abgaben für Anmerkungen vorbereiten';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'table', language 'ca', version '3.11'.
+ * Strings for component 'table', language 'ca', version '4.1'.
  *
  * @package     table
  * @category    string
@@ -26,3 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['downloadas'] = 'Baixa les dades de la taula com a';
+$string['missingrequiredfields'] = 'Falta un o més filtres obligatoris ({$a})';
+$string['privacy:metadata'] = 'L\'API de la taula no emmagatzema ara per ara cap dada d\'usuari';

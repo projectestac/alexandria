@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'qcreate', language 'pt', version '3.11'.
+ * Strings for component 'qcreate', language 'pt', version '4.1'.
  *
  * @package     qcreate
  * @category    string
@@ -89,7 +89,7 @@ $string['gradeavailabletext'] = '{$a->username} avaliou a questão elaborada \'{
 Pode visualizar na página da atividade:
 
 {$a->url}';
-$string['gradecomment'] = 'Exportar as melhores perguntas';
+$string['gradecomment'] = 'Comentário para a pergunta \'{$a->qname}\' criado por {$a->user}';
 $string['graded'] = 'Avaliada';
 $string['grademixed'] = 'A avaliação é {$a->automatic}% automática e {$a->manual}% manual.';
 $string['gradequestions'] = 'Avaliar questões';
@@ -114,6 +114,7 @@ $string['minimumquestions_help'] = 'Indique aqui o número de questões, do tipo
 $string['modulename'] = 'Criar Questões';
 $string['modulename_help'] = 'A atividade **Criar Questões** permite ao professor pedir aos alunos para elaborarem questões.
 Pode ser especificado o número de questões necessárias, os tipos de perguntas disponíveis e o número de questões exigido para cada tipo de pergunta.';
+$string['modulename_link'] = 'mod/qcreate/view';
 $string['modulenameplural'] = 'Criar Questões';
 $string['needsgrading'] = 'Necessita avaliação';
 $string['needsregrading'] = 'Necessário reavaliar';

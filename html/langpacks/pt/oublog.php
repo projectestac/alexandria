@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'oublog', language 'pt', version '3.11'.
+ * Strings for component 'oublog', language 'pt', version '4.1'.
  *
  * @package     oublog
  * @category    string
@@ -346,7 +346,7 @@ $string['ncomments'] = '{$a} comentários';
 $string['newblogposts'] = 'Novos tópicos';
 $string['newcomment'] = 'Novo comentário';
 $string['newerposts'] = 'Tópicos mais recentes';
-$string['newpost'] = 'Criar novo tópico';
+$string['newpost'] = 'Novo artigo {$a}';
 $string['no'] = 'não';
 $string['no_blogtogetheroringroups'] = 'Não (blog juntos ou em grupos)';
 $string['noblogposts'] = 'Nenhum tópico';

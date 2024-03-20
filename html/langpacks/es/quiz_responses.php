@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_responses', language 'es', version '3.11'.
+ * Strings for component 'quiz_responses', language 'es', version '4.1'.
  *
  * @package     quiz_responses
  * @category    string
@@ -36,7 +36,7 @@ $string['privacy:preference:right'] = 'Si mostrar las columnas de la respuesta c
 $string['privacy:preference:which_tries'] = 'Que intenta mostrar respuestas de.';
 $string['privacy:preference:which_tries:all'] = 'Todos los intentos en una pregunta durante un intento por un usuario.';
 $string['privacy:preference:which_tries:first'] = 'El primer intento en una pregunta durante un intento por un usuario.';
-$string['privacy:preference:which_tries:last'] = 'El úñtimo intento en una pregunta durante un intento por un usuario.';
+$string['privacy:preference:which_tries:last'] = 'El último intento en una pregunta durante un intento por un usuario';
 $string['questiontext'] = 'enunciado de la pregunta';
 $string['reportresponses'] = 'Respuestas';
 $string['response'] = 'respuesta';

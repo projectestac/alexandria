@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_globalsearch', language 'fr', version '3.11'.
+ * Strings for component 'block_globalsearch', language 'fr', version '4.1'.
  *
  * @package     block_globalsearch
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['globalsearch:addinstance'] = 'Ajouter un bloc de recherche globale';
 $string['globalsearch:myaddinstance'] = 'Ajouter un bloc de recherche globale au tableau de bord';
 $string['pluginname'] = 'Recherche globale';
-$string['privacy:metadata'] = 'Le bloc Recherche globale affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Recherche globale affiche seulement des données enregistrées à d’autres endroits.';

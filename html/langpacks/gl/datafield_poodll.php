@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_poodll', language 'gl', version '3.11'.
+ * Strings for component 'datafield_poodll', language 'gl', version '4.1'.
  *
  * @package     datafield_poodll
  * @category    string
@@ -28,9 +28,11 @@ defined('MOODLE_INTERNAL') || die();
 $string['backimageurl'] = 'URL da imaxe do fondo do encerado';
 $string['backimageurl_desc'] = 'Opcional: déixeo baleiro se non se necesita.';
 $string['clicktoplay'] = 'Prema para reproducir';
+$string['fieldtypelabel'] = 'Poodll';
 $string['maxbytes'] = 'Tamaño máximo do ficheiro incrustado (bytes)';
 $string['maxbytes_desc'] = 'Se o configura a cero, de xeito predeterminado non haberá límite';
 $string['namepoodll'] = 'PoodLL';
 $string['pluginname'] = 'PoodLL';
 $string['poodll'] = 'PoodLL';
+$string['privacy:metadata'] = 'O complemento de Campo de datos de actividade Poodll si almacena datos persoais.';
 $string['responsetype'] = 'Trebello PoodLL (tipo de resposta)';

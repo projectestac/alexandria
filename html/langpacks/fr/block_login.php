@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_login', language 'fr', version '3.11'.
+ * Strings for component 'block_login', language 'fr', version '4.1'.
  *
  * @package     block_login
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['login:addinstance'] = 'Ajouter un bloc connexion';
 $string['pluginname'] = 'Connexion';
-$string['privacy:metadata'] = 'Le bloc Connexion fournit un moyen de se connecter et n\'enregistre aucune donnée.';
+$string['privacy:metadata'] = 'Le bloc Connexion fournit un moyen de se connecter et n’enregistre aucune donnée.';

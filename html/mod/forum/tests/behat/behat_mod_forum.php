@@ -27,7 +27,8 @@
 
 require_once(__DIR__ . '/../../../../lib/behat/behat_base.php');
 
-use Behat\Gherkin\Node\TableNode as TableNode;
+use Behat\Gherkin\Node\TableNode;
+
 /**
  * Forum-related steps definitions.
  *
@@ -37,6 +38,15 @@ use Behat\Gherkin\Node\TableNode as TableNode;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class behat_mod_forum extends behat_base {
+    /**
+     * Reset forum caches between tests.
+     *
+     * @BeforeScenario @mod_forum
+     */
+    public function reset_forum_caches(): void {
+        \mod_forum\subscriptions::reset_discussion_cache();
+        \mod_forum\subscriptions::reset_forum_cache();
+    }
 
     /**
      * Adds a topic to the forum specified by it's name. Useful for the Announcements and blog-style forums.
@@ -46,7 +56,7 @@ class behat_mod_forum extends behat_base {
      * @param TableNode $table
      */
     public function i_add_a_new_topic_to_forum_with($forumname, TableNode $table) {
-        $this->add_new_discussion($forumname, $table, get_string('addanewtopic', 'forum'));
+        $this->add_new_discussion($forumname, $table, get_string('addanewdiscussion', 'forum'));
     }
 
     /**
@@ -57,7 +67,7 @@ class behat_mod_forum extends behat_base {
      * @param TableNode $table
      */
     public function i_add_a_new_question_to_forum_with($forumname, TableNode $table) {
-        $this->add_new_discussion($forumname, $table, get_string('addanewquestion', 'forum'));
+        $this->add_new_discussion($forumname, $table, get_string('addanewdiscussion', 'forum'));
     }
 
     /**
@@ -250,6 +260,11 @@ class behat_mod_forum extends behat_base {
                 $cm = get_coursemodule_from_instance('forum', $replyinfo['forum']);
             }
 
+            // Get the user id of the user to whom the reply is private.
+            if (!empty($replyinfo['privatereplyto'])) {
+                $replyinfo['privatereplyto'] = $this->get_user_id($replyinfo['privatereplyto']);
+            }
+
             // Create the reply post.
             $reply = $forumgenerator->create_post($replyinfo);
 
@@ -273,15 +288,7 @@ class behat_mod_forum extends behat_base {
      * @Given /^I can subscribe to this forum$/
      */
     public function i_can_subscribe_to_this_forum() {
-        if ($this->running_javascript()) {
-            $this->execute('behat_general::i_click_on', [get_string('actionsmenu'), 'link']);
-        }
-
         $this->execute('behat_general::assert_page_contains_text', [get_string('subscribe', 'mod_forum')]);
-
-        if ($this->running_javascript()) {
-            $this->execute('behat_general::i_click_on', [get_string('actionsmenu'), 'link']);
-        }
     }
 
     /**
@@ -290,15 +297,7 @@ class behat_mod_forum extends behat_base {
      * @Given /^I can unsubscribe from this forum$/
      */
     public function i_can_unsubscribe_from_this_forum() {
-        if ($this->running_javascript()) {
-            $this->execute('behat_general::i_click_on', [get_string('actionsmenu'), 'link']);
-        }
-
         $this->execute('behat_general::assert_page_contains_text', [get_string('unsubscribe', 'mod_forum')]);
-
-        if ($this->running_javascript()) {
-            $this->execute('behat_general::i_click_on', [get_string('actionsmenu'), 'link']);
-        }
     }
 
     /**
@@ -307,10 +306,6 @@ class behat_mod_forum extends behat_base {
      * @Given /^I subscribe to this forum$/
      */
     public function i_subscribe_to_this_forum() {
-        if ($this->running_javascript()) {
-            $this->execute('behat_general::i_click_on', [get_string('actionsmenu'), 'link']);
-        }
-
         $this->execute('behat_general::click_link', [get_string('subscribe', 'mod_forum')]);
     }
 
@@ -320,10 +315,6 @@ class behat_mod_forum extends behat_base {
      * @Given /^I unsubscribe from this forum$/
      */
     public function i_unsubscribe_from_this_forum() {
-        if ($this->running_javascript()) {
-            $this->execute('behat_general::i_click_on', [get_string('actionsmenu'), 'link']);
-        }
-
         $this->execute('behat_general::click_link', [get_string('unsubscribe', 'mod_forum')]);
     }
 

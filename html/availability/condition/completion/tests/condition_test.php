@@ -202,6 +202,8 @@ class condition_test extends \advanced_testcase {
                         'completion' => COMPLETION_TRACKING_AUTOMATIC]);
         $DB->set_field('course_modules', 'completiongradeitemnumber', 0,
                 ['id' => $assignrow->cmid]);
+        // As we manually set the field here, we are going to need to reset the modinfo cache.
+        rebuild_course_cache($course->id, true);
         $assign = new \assign(\context_module::instance($assignrow->cmid), false, false);
 
         // Get basic details.
@@ -299,14 +301,14 @@ class condition_test extends \advanced_testcase {
         $cond = new condition((object)[
             'cm' => (int)$assigncm->id, 'e' => COMPLETION_INCOMPLETE
         ]);
-        $this->assertFalse($cond->is_available(false, $info, true, $user->id));
-        $this->assertTrue($cond->is_available(true, $info, true, $user->id));
+        $this->assertTrue($cond->is_available(false, $info, true, $user->id));
+        $this->assertFalse($cond->is_available(true, $info, true, $user->id));
 
         $cond = new condition((object)[
             'cm' => (int)$assigncm->id, 'e' => COMPLETION_COMPLETE
         ]);
-        $this->assertTrue($cond->is_available(false, $info, true, $user->id));
-        $this->assertFalse($cond->is_available(true, $info, true, $user->id));
+        $this->assertFalse($cond->is_available(false, $info, true, $user->id));
+        $this->assertTrue($cond->is_available(true, $info, true, $user->id));
 
         $cond = new condition((object)[
             'cm' => (int)$assigncm->id, 'e' => COMPLETION_COMPLETE_PASS
@@ -529,10 +531,10 @@ class condition_test extends \advanced_testcase {
             ],
             // Depending on assign with grade.
             'Previous complete condition with previous fail grade' => [
-                40, COMPLETION_COMPLETE, '', 'page3', true, false, '~Assign!.*is marked complete~'
+                40, COMPLETION_COMPLETE, '', 'page3', false, true, '~Assign!.*is marked complete~',
             ],
             'Previous incomplete condition with previous fail grade' => [
-                40, COMPLETION_INCOMPLETE, '', 'page3', false, true, '~Assign!.*is incomplete~'
+                40, COMPLETION_INCOMPLETE, '', 'page3', true, false, '~Assign!.*is incomplete~',
             ],
             'Previous complete pass condition with previous fail grade' => [
                 40, COMPLETION_COMPLETE_PASS, '', 'page3', false, true, '~Assign!.*is complete and passed~'

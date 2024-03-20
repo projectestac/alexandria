@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_mediaplugin', language 'fr', version '3.11'.
+ * Strings for component 'filter_mediaplugin', language 'fr', version '4.1'.
  *
  * @package     filter_mediaplugin
  * @category    string
@@ -31,4 +31,4 @@ $string['filtername'] = 'Plugins multimédia';
 $string['linktomedia'] = 'Le filtre de plugins multimédia remplace les liens pointant vers une ressource multimédia par un lecteur multimédia permettant de lire la ressource. Il remplace également les tags &lt;video&gt; et &lt;audio&gt; par des lecteurs vidéo et audio.
 
 <a href="{$a}">Gérer les lecteurs multimédia</a>';
-$string['privacy:metadata'] = 'Le plugin Plugins multimédia n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Plugins multimédia n’enregistre aucune donnée personnelle.';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_feedback', language 'fr', version '3.11'.
+ * Strings for component 'block_feedback', language 'fr', version '4.1'.
  *
  * @package     block_feedback
  * @category    string
@@ -28,4 +28,4 @@ defined('MOODLE_INTERNAL') || die();
 $string['feedback'] = 'Feedback';
 $string['feedback:addinstance'] = 'Ajouter un bloc feedback';
 $string['pluginname'] = 'Feedback';
-$string['privacy:metadata'] = 'Le bloc Feedback affiche seulement des données enregistrées à d\'autres endroits.';
+$string['privacy:metadata'] = 'Le bloc Feedback affiche seulement des données enregistrées à d’autres endroits.';

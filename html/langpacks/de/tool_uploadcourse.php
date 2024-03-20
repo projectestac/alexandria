@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_uploadcourse', language 'de', version '3.11'.
+ * Strings for component 'tool_uploadcourse', language 'de', version '4.1'.
  *
  * @package     tool_uploadcourse
  * @category    string
@@ -77,7 +77,7 @@ $string['csvdelimiter'] = 'CSV-Trennzeichen';
 $string['csvdelimiter_help'] = 'Trennzeichen, das die Datenfelder in einem Datensatz von einander abgrenzt.';
 $string['csvfileerror'] = 'Fehler in der CSV-Datei. Überprüfen Sie bitte, ob die Anzahl der Überschriften und Spalten übereinstimmt und ob das Trennzeichen und die Dateikodierung korrekt sind. {$a}';
 $string['csvline'] = 'Zeile';
-$string['customfieldinvalid'] = 'Das benutzerdefinierte Feld \'{$a}\' ist leer oder enthält ungültige Daten';
+$string['customfieldinvalid'] = 'Das nutzerdefinierte Feld \'{$a}\' ist leer oder enthält ungültige Daten';
 $string['defaultvalues'] = 'Standardwerte für Kurseinstellungen';
 $string['defaultvaluescustomfieldcategory'] = 'Standardmäßiger Wert für \'{$a}\'';
 $string['downloadcontentnotallowed'] = 'Das Herunterladen von Kursinhalten kann nicht konfiguriert werden.';

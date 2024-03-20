@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradeexport_xml', language 'fr', version '3.11'.
+ * Strings for component 'gradeexport_xml', language 'fr', version '4.1'.
  *
  * @package     gradeexport_xml
  * @category    string
@@ -27,6 +27,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['eventgradeexported'] = 'Notes exportées en format XML';
 $string['pluginname'] = 'Fichier XML';
-$string['privacy:metadata'] = 'Le plugin d\'exportation de notes Fichier XML n\'enregistre aucune donnée personnelle.';
-$string['xml:publish'] = 'Publier l\'exportation des notes au format XML';
+$string['privacy:metadata'] = 'Le plugin d’exportation de notes Fichier XML n’enregistre aucune donnée personnelle.';
+$string['xml:publish'] = 'Publier l’exportation des notes au format XML';
 $string['xml:view'] = 'Exporter les notes au format XML';

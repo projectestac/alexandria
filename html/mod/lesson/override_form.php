@@ -95,8 +95,11 @@ class lesson_override_form extends moodleform {
             // Group override.
             if ($this->groupid) {
                 // There is already a groupid, so freeze the selector.
-                $groupchoices = array();
-                $groupchoices[$this->groupid] = groups_get_group_name($this->groupid);
+                $groupchoices = [
+                    $this->groupid => format_string(groups_get_group_name($this->groupid), true, [
+                        'context' => $this->context,
+                    ]),
+                ];
                 $mform->addElement('select', 'groupid',
                         get_string('overridegroup', 'lesson'), $groupchoices);
                 $mform->freeze('groupid');
@@ -107,12 +110,14 @@ class lesson_override_form extends moodleform {
                 if (empty($groups)) {
                     // Generate an error.
                     $link = new moodle_url('/mod/lesson/overrides.php', array('cmid' => $cm->id));
-                    print_error('groupsnone', 'lesson', $link);
+                    throw new \moodle_exception('groupsnone', 'lesson', $link);
                 }
 
                 $groupchoices = array();
                 foreach ($groups as $group) {
-                    $groupchoices[$group->id] = $group->name;
+                    $groupchoices[$group->id] = format_string($group->name, true, [
+                        'context' => $this->context,
+                    ]);
                 }
                 unset($groups);
 
@@ -166,7 +171,7 @@ class lesson_override_form extends moodleform {
                 if (empty($users)) {
                     // Generate an error.
                     $link = new moodle_url('/mod/lesson/overrides.php', array('cmid' => $cm->id));
-                    print_error('usersnone', 'lesson', $link);
+                    throw new \moodle_exception('usersnone', 'lesson', $link);
                 }
 
                 $userchoices = array();

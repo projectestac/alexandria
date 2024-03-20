@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'eu', version '3.11'.
+ * Strings for component 'group', language 'eu', version '4.1'.
  *
  * @package     group
  * @category    string
@@ -64,7 +64,7 @@ $string['enablemessaging'] = 'Taldeko mezularitza';
 $string['enablemessaging_help'] = 'Gaituz gero, taldekideek mezuen nabigazio-kutxatik mezuak elkarri bidal diezazkiekete.';
 $string['encoding'] = 'Kodifikazioa';
 $string['enrolmentkey'] = 'Matrikulazio-gakoa';
-$string['enrolmentkey_help'] = 'Matrikulazio-giltzek talde baterako sarbidea pasahitza ezagutzen dutenei mugatzeko aukera ematen dute. Matrikulazio-gako bat zehaztuz gero, gakoa sartuz gero erabiltzailea ikastaroan sartzeaz gain, talde horretako kide ere bihurtuko du.
+$string['enrolmentkey_help'] = 'Matrikulazio-gakoek talde baterako sarbidea pasahitza ezagutzen dutenei mugatzeko aukera ematen dute. Matrikulazio-gako bat zehaztuz gero, gakoa sartuz gero erabiltzailea ikastaroan sartzeaz gain, talde horretako kide ere bihurtuko du.
 
 Oharra: Taldeen matrikulazio-gakoak matrikulazio automatikoko ezarpenetan gaitu behar dira eta ikastarorako matrikulazio-gakoa ere zehaztu beharko da.';
 $string['enrolmentkeyalreadyinuse'] = 'Matrikulazio-gako hau beste talde baterako erabiltzen ari da jada.';
@@ -87,6 +87,7 @@ $string['eventgroupmemberadded'] = 'Taldekidea gehitu da';
 $string['eventgroupmemberremoved'] = 'Taldekidea ezabatu da';
 $string['eventgroupupdated'] = 'Taldea eguneratu da';
 $string['existingmembers'] = 'Dauden kideak: {$a}';
+$string['exportgroupsgroupings'] = 'Jaitsi taldeak eta talde-multzoak honela:';
 $string['filtergroups'] = 'Iragazi taldeak honen arabera:';
 $string['group'] = 'Taldea';
 $string['groupaddedsuccesfully'] = '{$a} taldea ondo gehitu da';
@@ -112,15 +113,13 @@ $string['groupmembers'] = 'Taldekideak';
 $string['groupmemberssee'] = 'Ikusi taldekideak';
 $string['groupmembersselected'] = 'Aukeratutako taldeko kideak';
 $string['groupmode'] = 'Talde-modua';
-$string['groupmode_help'] = 'Hiru aukera dago:
+$string['groupmode_help'] = '* Talderik ez
+* Taldeek ezin elkar ikusi - Ikasleak taldeetan banatuta daude eta bakoitzak bere taldearen lana baino ezin du ikusi.
+* Taldeek elkar ikusten dute - Ikasleak taldeetan banatuta daude eta bakoitzak bere taldean egiten du lan baina gainerako taldeen lana ere ikusi dezake.
 
-* Talderik ez
-* Taldeek ezin elkar ikusi - taldekide bakoitzak bere taldea baino ezin du ikusi; gainerakoak ezin ditu ikusi
-* Taldeek elkar ikusten dute - taldekide bakoitzak bere taldean egiten du lan baina gainerakoak ere ikusten ditu
-
-Ikastaro mailan definitutako talde-modua izango da lehenetsitako modua ikastaroko jarduera guztietan. Taldeak onartzen dituen jarduera bakoitzean ere talde-modua ezarri daiteke, baina ikastaro mailan talde-modua behartzen bada, ez zaio jaramonik egingo jarduera bakoitzaren talde-modua ezarpenari.';
+Ikastaro mailan zehaztutako talde-modua jarduera guztietan lehenetsitakoa da. Ikastaro mailan talde-modua behartzen bada ezin da jardueretan aldatu.';
 $string['groupmodeforce'] = 'Behartu talde-modua';
-$string['groupmodeforce_help'] = 'Talde-modua behartuta badago, ikastaroko talde-modua aplikatuko zaio ikastaroko edozein jarduerari. Jarduera bakoitzeko talde-modua ezarpenari ez zaio jaramonik egingo.';
+$string['groupmodeforce_help'] = 'Talde-modua jarduera guztientzako behartuta dago eta ezin da jardueretan aldatu.';
 $string['groupmy'] = 'Neure taldea';
 $string['groupname'] = 'Taldearen izena';
 $string['groupnameexists'] = 'Dagoeneko bada ikastaro honetan \'{$a}\' izeneko taldea; mesedez, aukeratu beste bat.';
@@ -145,6 +144,7 @@ $string['importgroups_help'] = 'Taldeak testu-fitxategien bitartez inporta daite
 * Fitxategiko lehen errenkadak eremuen izenen zerrenda izango du, fitxategiko beste erregistroen formatua zehaztuko duena
 * <i>groupname</i> eremua (taldearen izena) derrigorrezkoa da
 * Hautazko eremuak <i>groupidnumber</i> (talde-multzoaren IDa), <i>description</i> (deskribapena), <i>enrolmentkey</i> (matrikulazio-gakoa), <i>groupingname</i> (talde-multzoaren izena) eta <i>enablemessaging</i> (gaitu mezularitza) dira';
+$string['importgroups_link'] = 'group/import';
 $string['includeonlyactiveenrol'] = 'Sartu soilik aktibo dauden matrikulazioak';
 $string['includeonlyactiveenrol_help'] = 'Gaituz gero, kontua etenda duten erabiltzaileak ez dira taldeetan sartuko.';
 $string['javascriptrequired'] = 'Orri honek Javascript-a gaituta izan behar du.';
@@ -174,7 +174,7 @@ $string['number'] = 'Talde-kopurua edo kide-kopurua taldeko';
 $string['numgroups'] = 'Talde-kopurua';
 $string['nummembers'] = 'Kideak taldeko';
 $string['othergroups'] = 'Beste taldeak';
-$string['overview'] = 'Ikuspegi orokorra';
+$string['overview'] = 'Taldeen ikuspegi orokorra';
 $string['potentialmembers'] = 'Balizko kideak: {$a}';
 $string['potentialmembs'] = 'Balizko kideak';
 $string['printerfriendly'] = 'Talde-multzoa inprimatzeko formatuan erakutsi';

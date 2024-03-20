@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_monitor', language 'pt', version '3.11'.
+ * Strings for component 'tool_monitor', language 'pt', version '4.1'.
  *
  * @package     tool_monitor
  * @category    string
@@ -71,6 +71,7 @@ $string['messagetemplate_help'] = 'Uma mensagem de notificação é enviada aos 
 * Nome da regra {rulename}
 * Descrição {description}
 * Evento {eventname}';
+$string['messagetemplate_link'] = 'admin/tool/monitor/managerules';
 $string['moduleinstance'] = 'Instância';
 $string['monitor:managerules'] = 'Gerir regras de monitorização de eventos';
 $string['monitor:managetool'] = 'Ativar/desativar monitorização de eventos';
@@ -120,6 +121,6 @@ $string['subdeletesuccess'] = 'Subscrição removida com sucesso';
 $string['subhelp'] = 'Detalhes da subscrição';
 $string['subhelp_help'] = 'Esta subscrição deteta quando o evento \'{$a->eventname}\' foi desencadeado em \'{$a->moduleinstance}\' {$a->frequency}  vez(es) por {$a->minutes} minuto(s).';
 $string['subscribeto'] = 'Subscrever a regra "{$a}"';
-$string['taskchecksubscriptions'] = 'Ativar/desativar regras inválidas de subscrições';
-$string['taskcleanevents'] = 'Remover eventos do monitor de eventos';
+$string['taskchecksubscriptions'] = 'Ativação/desativação de regras inválidas de subscrições';
+$string['taskcleanevents'] = 'Remoção de eventos do monitor de eventos';
 $string['unsubscribe'] = 'Cancelar subscrição';

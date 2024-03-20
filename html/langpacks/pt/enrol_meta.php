@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol_meta', language 'pt', version '3.11'.
+ * Strings for component 'enrol_meta', language 'pt', version '4.1'.
  *
  * @package     enrol_meta
  * @category    string
@@ -30,7 +30,7 @@ $string['coursesort'] = 'Ordenar a lista de disciplinas';
 $string['coursesort_help'] = 'Esta opção determina se a lista de disciplinas em que pode sincronizar as inscrições estão ordenadas por ordem predefinida (ou seja, a ordem definida em Administração do Site / Disciplinas / Gerir disciplinas e categorias) ou por ordem alfabética de configuração da disciplina.';
 $string['creategroup'] = 'Criar um novo grupo';
 $string['defaultgroupnametext'] = '{$a->increment} disciplina {$a->name}';
-$string['enrolmetasynctask'] = 'Tarefa de sincronização de inscrições com disciplina';
+$string['enrolmetasynctask'] = 'Sincronização de inscrições com disciplina';
 $string['linkedcourse'] = 'Sincronizar inscrições com';
 $string['meta:config'] = 'Configurar instâncias de Sincronização com disciplina';
 $string['meta:selectaslinked'] = 'Selecionar a disciplina para sincronizar inscrições';
@@ -42,3 +42,7 @@ $string['pluginname_desc'] = 'Este módulo de inscrição permite sincronizar in
 $string['privacy:metadata:core_group'] = 'O módulo de inscrição por sincronização pode criar um novo grupo ou usar um grupo existente para adicionar todos os participantes da disciplina vinculada.';
 $string['syncall'] = 'Sincronizar todos os utilizadores inscritos';
 $string['syncall_desc'] = 'Se ativar esta opção, todos os utilizadores inscritos são sincronizados mesmo que não possuam nenhum papel na disciplina de origem das inscrições. Caso contrário, apenas os utilizadores que possuem pelo menos um papel sincronizado na disciplina de origem serão inscritos na disciplina.';
+$string['wscannotcreategroup'] = 'Sem permissão para criar grupo na disciplina vinculada com ID = {$a}.';
+$string['wsinvalidcourse'] = 'O ID da disciplina = {$a} não existe ou sem permissão para vincular na meta-inscrição.';
+$string['wsinvalidmetacourse'] = 'O ID da meta-disciplina = {$a} não existe ou sem permissão para adicionar instância de inscrição.';
+$string['wsnoinstancesspecified'] = 'Sem instâncias especificadas';

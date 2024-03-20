@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_exaport', language 'ca', version '3.11'.
+ * Strings for component 'block_exaport', language 'ca', version '4.1'.
  *
  * @package     block_exaport
  * @category    string
@@ -32,6 +32,7 @@ $string['descriptionsaved'] = 'S\'ha desat la descripció';
 $string['deselectall'] = 'Desselecciona-ho tot';
 $string['details'] = 'Detalls';
 $string['download'] = 'Descarrega';
+$string['edit'] = 'Edita';
 $string['hidesummary'] = '(oculta el resum)';
 $string['import'] = 'Importa';
 $string['importexport'] = 'Importa/Exporta';
@@ -39,10 +40,14 @@ $string['invalidassignmentid'] = 'L\'ID de la tasca no és vàlid';
 $string['invalidcourseid'] = 'Aquest no és un ID de curs vàlid';
 $string['invalidinstance'] = 'Aquesta no és una instància vàlida';
 $string['mediacontent'] = 'URL o codi d\'incrustació *';
+$string['name'] = 'Nom';
 $string['new'] = 'Nou';
 $string['resume_enddate'] = 'Data de finalització';
 $string['role'] = 'Rol';
+$string['saveButton'] = 'Desa';
+$string['saveitem'] = 'Desa';
 $string['selectall'] = 'Selecciona-ho tot';
 $string['showsummary'] = '(mostra el resum)';
 $string['type'] = 'Tipus';
+$string['view'] = 'view | block_cmanager';
 $string['viewdescription'] = 'Descripció';

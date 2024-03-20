@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'contentbank', language 'nl', version '3.11'.
+ * Strings for component 'contentbank', language 'nl', version '4.1'.
  *
  * @package     contentbank
  * @category    string
@@ -26,18 +26,19 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['author'] = 'Auteur';
+$string['choosecontext'] = 'Kies cursus of categorie...';
 $string['close'] = 'Sluiten';
 $string['contentbank'] = 'Inhoudsbank';
 $string['contentbankpreferences'] = 'Voorkeuren voor de inhoudsbank';
-$string['contentdeleted'] = 'De inhoud is verwijderd.';
+$string['contentdeleted'] = 'Inhoud verwijderd.';
 $string['contentname'] = 'Inhoud naam';
 $string['contentnotdeleted'] = 'Er is een fout opgetreden bij het verwijderen van de inhoud.';
 $string['contentnotrenamed'] = 'Er is een fout opgetreden bij het hernoemen van de inhoud.';
-$string['contentrenamed'] = 'De inhoud is hernoemd.';
+$string['contentrenamed'] = 'Inhoud hernoemd.';
 $string['contentsmoved'] = 'Inhoudsbank verplaatst naar {$a}';
 $string['contenttypenoaccess'] = 'Je kan deze {$a} instantie niet bekijken.';
 $string['contenttypenoedit'] = 'Je kunt deze inhoud niet bewerken';
-$string['contentvisibilitychanged'] = 'De inhoud is gemaakt {$a}.';
+$string['contentvisibilitychanged'] = 'Inhoud is nu {$a}.';
 $string['contentvisibilitynotset'] = 'Er is een fout opgetreden bij het instellen van de zichtbaarheid van de inhoud.';
 $string['contextnotallowed'] = 'Je hebt geen toegangsrecht in de inhoudsbank in deze context.';
 $string['deletecontent'] = 'Inhoud verwijderen';
@@ -54,10 +55,12 @@ $string['eventcontentreplaced'] = 'Inhoud vervangen door bestand';
 $string['eventcontentupdated'] = 'Inhoud aangepast';
 $string['eventcontentuploaded'] = 'Inhoud geuploaded';
 $string['eventcontentviewed'] = 'Inhoud bekeken';
+$string['exit'] = 'Verlaat';
 $string['file'] = 'Upload inhoud';
 $string['file_help'] = 'Bestanden kunnen worden opgeslagen in de inhoudsbank voor gebruik in cursussen. Alleen bestanden die worden gebruikt door inhoudstypen die op de site zijn ingeschakeld, mogen worden geüpload.';
 $string['itemsfound'] = '{$a} items gevonden';
 $string['lastmodified'] = 'Laatst gewijzigd';
+$string['more'] = 'Meer';
 $string['name'] = 'Inhoud';
 $string['nocontentavailable'] = 'Geen inhoud beschikbaar';
 $string['nocontenttypes'] = 'Geen inhoudstypes beschikbaar';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'my', language 'fr', version '3.11'.
+ * Strings for component 'my', language 'fr', version '4.1'.
  *
  * @package     my
  * @category    string
@@ -28,16 +28,18 @@ defined('MOODLE_INTERNAL') || die();
 $string['addpage'] = 'Ajouter page';
 $string['alldashboardswerereset'] = 'Toutes les pages du tableau de bord ont été réinitialisées à leur valeur par défaut.';
 $string['allprofileswerereset'] = 'Toutes les pages de profil ont été réinitialisés à leur valeur par défaut.';
+$string['coursemanagementoptions'] = 'Options de gestion de cours';
 $string['defaultpage'] = 'Page Ma page par défaut';
 $string['defaultprofilepage'] = 'Page de profil par défaut';
 $string['delpage'] = 'Supprimer page';
+$string['error:dashboardisdisabled'] = 'Le Tableau de bord a été désactivé par l’administrateur.';
 $string['managepages'] = 'Gérer pages';
 $string['mymoodle'] = 'Tableau de bord';
 $string['nocourses'] = 'Aucune information de cours à afficher.';
-$string['noguest'] = 'La page « Tableau de bord » n\'est pas disponible pour les visiteurs anonymes';
+$string['noguest'] = 'La page « Tableau de bord » n’est pas disponible pour les visiteurs anonymes';
 $string['pinblocks'] = 'Configurer les blocs fixes de Ma page';
 $string['pinblocksexplan'] = 'Les réglages des blocs que vous configurez ici seront valables sur la page Ma page de chaque utilisateur, et non modifiables.';
-$string['privacy:metadata:core_my:preference:user_home_page_preference'] = 'La préférence de page d\'accueil de l\'utilisateur.';
+$string['privacy:metadata:core_my:preference:user_home_page_preference'] = 'La préférence de page d’accueil de l’utilisateur.';
 $string['reseterror'] = 'Une erreur est survenue lors de la réinitialisation de votre page';
 $string['reseteveryonesdashboard'] = 'Réinitialiser le tableau de bord de tous les utilisateurs';
 $string['reseteveryonesprofile'] = 'Réinitialiser le profil de tous les utilisateurs';

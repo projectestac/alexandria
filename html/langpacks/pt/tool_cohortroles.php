@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_cohortroles', language 'pt', version '3.11'.
+ * Strings for component 'tool_cohortroles', language 'pt', version '4.1'.
  *
  * @package     tool_cohortroles
  * @category    string
@@ -51,5 +51,5 @@ $string['removecohortroleassignmentconfirm'] = 'Tem a certeza de que pretende re
 $string['selectcohorts'] = 'Selecionar Grupos globais';
 $string['selectrole'] = 'Selecionar papel';
 $string['selectusers'] = 'Selecionar utilizadores para atribuir o papel';
-$string['taskname'] = 'Sincronizar atribuições de papel do Grupo global';
+$string['taskname'] = 'Sincronização de atribuições de papel do Grupo global';
 $string['thisuserroles'] = 'Papéis atribuídos em relação a este utilizador';

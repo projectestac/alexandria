@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_oauth2', language 'ja', version '3.11'.
+ * Strings for component 'tool_oauth2', language 'ja', version '4.1'.
  *
  * @package     tool_oauth2
  * @category    string
@@ -30,11 +30,12 @@ $string['acceptrisk_help'] = 'メール認証を無効にした場合、ユー�
 $string['authconfirm'] = 'この操作は認証済みアカウントにMoodleへの永続的APIアクセス権を与えます。これはMooldleにより所有されているファイルをシステムアカウントが管理するための使用を目的としています。';
 $string['authconnected'] = 'システムアカウントはオフラインアクセスに接続されています。';
 $string['authnotconnected'] = 'システムアカウントはオフラインアクセスに接続されていません。';
+$string['clever_service'] = 'Clever';
 $string['configured'] = '設定済み';
 $string['configuredstatus'] = '設定済み';
 $string['connectsystemaccount'] = 'システムアカウントに接続する';
 $string['createfromtemplate'] = 'テンプレートからOAuth 2サービスを作成する';
-$string['createfromtemplatedesc'] = '既知のサービスタイプの1つが有効に設定されたOAuthサービスを作成するため、以下のOAuth 2サービスの1つを選択してください。これにより認証に要求される正しいエンドポイントおよびパラメータすべてが設定されたOAuth 2サービスが作成されます。あなたが新しいサービスを使用するためにはクライアントIDおよび秘密鍵を入力する必要があります。';
+$string['createfromtemplatedesc'] = '既知のサービスタイプの1つが有効に設定されたOAuthサービスを作成するため、以下のOAuth 2サービスの1つを選択してください。これで認証に要求される正しいエンドポイントおよびパラメータすべてが設定されたOAuth 2サービスが作成されます。あなたが新しいサービスを使用するためにはクライアントIDおよび秘密鍵を入力する必要があります。';
 $string['createnewendpoint'] = 'イシュア「 {$a} 」の新しいエンドポイントを作成する';
 $string['createnewfacebookissuer'] = '新しいFacebookサービスを作成する';
 $string['createnewgoogleissuer'] = '新しいGoogleサービスを作成する';
@@ -66,6 +67,7 @@ $string['google_service'] = 'Google';
 $string['imsobv2p1_service'] = 'Open Badges';
 $string['issueralloweddomains'] = 'ログインドメイン';
 $string['issueralloweddomains_help'] = '入力する場合、この設定はこのプロバイダを使用してログインする場合に制限されるカンマ区切りのドメイン一覧です。';
+$string['issueralloweddomains_link'] = 'OAuth_2_login_domains';
 $string['issuerbaseurl'] = 'サービスベースURL';
 $string['issuerbaseurl_help'] = 'サービスへのアクセスに使用されるベースURLです。';
 $string['issuerclientid'] = 'クライアントID';

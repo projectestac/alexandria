@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'report_log', language 'eu', version '3.11'.
+ * Strings for component 'report_log', language 'eu', version '4.1'.
  *
  * @package     report_log
  * @category    string
@@ -38,7 +38,7 @@ $string['log:view'] = 'Ikusi ikastaroko agerraldiak';
 $string['log:viewtoday'] = 'Ikusi gaurko agerraldiak';
 $string['logsformat'] = 'Agerraldien formatua';
 $string['nocapability'] = 'Ez dago sarbiderik erabiltzailearen agerraldien txostenera';
-$string['nologreaderenabled'] = 'Agerraldi-irakurlea ez dago gaituta';
+$string['nologreaderenabled'] = 'Ez dago agerraldi-irakurlerik gaituta';
 $string['origin'] = 'Iturburua';
 $string['other'] = 'Bestelako bat';
 $string['page'] = '{$a}. orria';

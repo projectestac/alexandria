@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_unsuproles', language 'fr', version '3.11'.
+ * Strings for component 'tool_unsuproles', language 'fr', version '4.1'.
  *
  * @package     tool_unsuproles
  * @category    string
@@ -30,4 +30,4 @@ $string['contextlevel'] = 'Niveau de contexte';
 $string['count'] = 'Nombre';
 $string['noprolbems'] = 'Aucune attribution non supportée de rôle';
 $string['pluginname'] = 'Attributions non supportées de rôles';
-$string['privacy:metadata'] = 'Le plugin Attributions non supportées de rôles n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Attributions non supportées de rôles n’enregistre aucune donnée personnelle.';

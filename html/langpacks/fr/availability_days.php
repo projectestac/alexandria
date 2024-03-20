@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'availability_days', language 'fr', version '3.11'.
+ * Strings for component 'availability_days', language 'fr', version '4.1'.
  *
  * @package     availability_days
  * @category    string
@@ -30,9 +30,9 @@ $string['conditiontitle'] = 'Jours depuis le début';
 $string['configreferencedate'] = 'Date de référence';
 $string['configreferencedate_desc'] = 'Choisissez la date à partir de laquelle le décalage de dates sera calculé';
 $string['coursestartdate'] = 'Date de début de cours';
-$string['description'] = 'Interdire l\'accès avant un certain nombre de jours après la date de début de cours.';
+$string['description'] = 'Interdire l’accès avant un certain nombre de jours après la date de début de cours.';
 $string['full_days'] = 'Disponible à partir du jour <strong>{$a}</strong> après la date de début de cours';
 $string['pluginname'] = 'Restriction par nombre de jours après le début';
 $string['short_days'] = 'Disponible à partir du jour <strong>{$a}</strong>';
 $string['title'] = 'Jours';
-$string['userenroldate'] = 'Date d\'inscription de l\'utilisateur';
+$string['userenroldate'] = 'Date d’inscription de l’utilisateur';

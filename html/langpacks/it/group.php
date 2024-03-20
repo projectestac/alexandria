@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'it', version '3.11'.
+ * Strings for component 'group', language 'it', version '4.1'.
  *
  * @package     group
  * @category    string
@@ -87,6 +87,7 @@ $string['eventgroupmemberadded'] = 'Inserimento membro nel gruppo';
 $string['eventgroupmemberremoved'] = 'Rimozione membro dal gruppo';
 $string['eventgroupupdated'] = 'Aggiornamento gruppo';
 $string['existingmembers'] = 'Membri esistenti: <b>{$a}</b>';
+$string['exportgroupsgroupings'] = 'Scarica gruppi e raggruppamenti come';
 $string['filtergroups'] = 'Filtra gruppi per:';
 $string['group'] = 'Gruppo';
 $string['groupaddedsuccesfully'] = 'Gruppo {$a} aggiunto correttamente';
@@ -112,11 +113,9 @@ $string['groupmembers'] = 'Membri del gruppo';
 $string['groupmemberssee'] = 'Visualizza membri del gruppo';
 $string['groupmembersselected'] = 'Membri del gruppo selezionato';
 $string['groupmode'] = 'Modalità gruppo';
-$string['groupmode_help'] = 'L\'impostazione ha 3 opzioni:
-
-* Senza gruppi
-* Gruppi separati - ciascun partecipante è membro del gruppo al quale è stato assegnato e non ha facoltà di vedere i lavoro svolto dai membri degli altri gruppi
-* Gruppi visibili - ciascun partecipante è membro del gruppo al quale è stato assegnato ma può vedere il lavoro svolto dagli altri gruppi.
+$string['groupmode_help'] = '* Senza gruppi
+* Gruppi separati : ciascun partecipante è membro del gruppo al quale è stato assegnato e non ha facoltà di vedere i lavoro svolto dai membri degli altri gruppi
+* Gruppi visibili: ciascun partecipante è membro del gruppo al quale è stato assegnato ma può vedere il lavoro svolto dagli altri gruppi.
 
 La modalità gruppo definita nelle impostazioni del corso è la modalità di default per le attività del corso. La modalità gruppo può essere gestita per ciascuna attività del corso purché l\'attività supporti i gruppi e la modalità gruppo non sia stata forzata a livello di corso.';
 $string['groupmodeforce'] = 'Forza modalità gruppo';
@@ -145,6 +144,7 @@ $string['importgroups_help'] = 'È possibile importare gruppi attraverso un file
 * il primo record deve contenere l\'elenco dei nomi dei campi che definiscono il formato del dati presenti nel resto del file
 * il campo groupname è obbligatorio
 * i campi groupidnumber, description, enrolmentkey, groupingname ed enablemessaging sono facoltativi.';
+$string['importgroups_link'] = 'group/import';
 $string['includeonlyactiveenrol'] = 'Includi solo iscrizioni attive';
 $string['includeonlyactiveenrol_help'] = 'Consente di escludere dai gruppi gli utenti sospesi.';
 $string['javascriptrequired'] = 'Questa pagina richiede Javascript abilitato';

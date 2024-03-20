@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_massaction', language 'en', version '3.11'.
+ * Strings for component 'block_massaction', language 'en', version '4.1'.
  *
  * @package     block_massaction
  * @category    string
@@ -25,16 +25,19 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+$string['action_contentchangednotification'] = 'Send content changed notification';
 $string['action_delete'] = 'Delete';
 $string['action_duplicate'] = 'Duplicate';
 $string['action_duplicatetocourse'] = 'Duplicate to another course';
 $string['action_duplicatetosection'] = 'Duplicate to section';
 $string['action_hide'] = 'Hide';
+$string['action_hidedescription'] = 'Hide description';
 $string['action_makeavailable'] = 'Make available';
 $string['action_moveleft'] = 'Outdent (move left)';
 $string['action_moveright'] = 'Indent (move right)';
 $string['action_movetosection'] = 'Move to section';
 $string['action_show'] = 'Show';
+$string['action_showdescription'] = 'Show description';
 $string['actionexecuted'] = 'The action you requested has been executed.';
 $string['applicablecourseformats'] = 'Applicable course formats';
 $string['applicablecourseformats_description'] = 'Mass Actions block will only be available for the selected course formats. <br />Preselected defaults are the ones tested and supported by the plugin maintainer. Add other formats at your own risk.';
@@ -50,15 +53,34 @@ $string['confirmsectionselect'] = 'Choose section';
 $string['deletecheck'] = 'Confirm mass deletion';
 $string['deletecheckconfirm'] = 'Are you sure you want to delete the following module(s)?';
 $string['deselectall'] = 'Deselect all';
+$string['duplicatefailed'] = 'Could not duplicate course module from id {$a}';
 $string['duplicatemaxactivities'] = 'Maximum amount of course modules to duplicate';
 $string['duplicatemaxactivities_description'] = 'Maximum amount of course modules which can be duplicated at the same time without running the process as background task. If set to "0" all duplication operations will be run as background task.';
+$string['enablebulkediting'] = 'Enable bulk editing';
+$string['event:course_modules_duplicated'] = 'Course modules duplicated';
+$string['event:course_modules_duplicated_failed'] = 'Course modules failed to duplicate';
+$string['event:duplicated_completed_list'] = 'Completed {$a->list}.';
+$string['event:duplicated_description'] = 'cmid from \'{$a->src}\' to \'{$a->dst}\'';
+$string['event:duplicated_failed_description'] = 'Course module duplication failed. cmid: {$a->cmid} error: {$a->error}';
+$string['event:duplicated_failed_list'] = 'Failed {$a->list}.';
+$string['event:duplicated_summary'] = 'Course module duplication has been completed. Summary: {$a->countcomplete} Completed, {$a->countfailed} Failed.';
 $string['invalidaction'] = 'Unknown action: {$a}';
 $string['invalidcourseid'] = 'Invalid course ID';
 $string['invalidcoursemodule'] = 'Invalid course module';
 $string['invalidmoduleid'] = 'Invalid module ID: {$a}';
 $string['jsonerror'] = 'Error coding: Invalid JSON format';
 $string['keepsectionnum'] = 'Keep original section number';
+$string['limittoenrolled'] = 'Limit target course list to courses in which the user is enrolled';
+$string['limittoenrolled_description'] = 'If enabled the course selection of the feature "Duplicate to another course" will be limited to courses in which the user is enrolled. Enabling this is recommended for instances with many courses, because not limiting the courses is likely to result in performance issues and timeouts. Disabling this option is at one own\'s risk.';
+$string['massaction:activityshowhide'] = 'MassAction: Show/Hide modules';
 $string['massaction:addinstance'] = 'Add a new Mass Actions Block';
+$string['massaction:delete'] = 'MassAction: Delete modules';
+$string['massaction:descriptionshowhide'] = 'MassAction: Show/Hide Descriptions';
+$string['massaction:duplicate'] = 'MassAction: Duplicate modules';
+$string['massaction:duplicatetocourse'] = 'MassAction: Duplicate to Course';
+$string['massaction:indent'] = 'MassAction: Indent modules';
+$string['massaction:movetosection'] = 'MassAction: Move to Section';
+$string['massaction:sendcontentchangednotifications'] = 'Send content changed notifications';
 $string['massaction:use'] = 'Use the Mass Actions block';
 $string['modulename'] = 'Activity name';
 $string['moduletype'] = 'Activity type';
@@ -75,6 +97,7 @@ $string['pluginname'] = 'Mass Actions';
 $string['privacy:metadata'] = 'This block only offers the possibility to apply standard operations on multiple course modules at the same time.
 Thus, no data is being stored by this block.';
 $string['sectionnotexist'] = 'Target section does not exist';
+$string['sectionrestricted'] = 'Source section is restricted';
 $string['sectionselect'] = 'Section selection';
 $string['sectionselect_help'] = 'You can only select sections which include at least one course module.
 Additionally, when using the Tiles or One Topic course format you can only select sections which are currently visible.';

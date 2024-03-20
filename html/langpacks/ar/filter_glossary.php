@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_glossary', language 'ar', version '3.11'.
+ * Strings for component 'filter_glossary', language 'ar', version '4.1'.
  *
  * @package     filter_glossary
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['filtername'] = 'الربط التلقائي للمسرد';
+$string['filtername'] = 'الربط التلقائي لقاموس المصطلحات';
 $string['glossarycategory'] = '{$a->glossary}: التصنيف {$a->category}';
 $string['glossaryconcept'] = '{$a->glossary}: {$a->concept}';
-$string['privacy:metadata'] = 'إضافة الربط التلقائي للمسرد لا تخزن أي بيانات شخصية.';
+$string['privacy:metadata'] = 'إضافة الربط التلقائي للقاموس لا تخزن أي بيانات شخصية.';

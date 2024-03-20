@@ -42,6 +42,7 @@ defined('MOODLE_INTERNAL') || die();
  * @category   test
  * @copyright  2008 Nicolas Connault
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @coversDefaultClass \moodle_database
  */
 class dml_test extends \database_driver_testcase {
 
@@ -511,7 +512,7 @@ SELECT * FROM {users}
 -- line 74 of /lib/dml/tests/fixtures/test_dml_sql_debugging_fixture.php: call to test_dml_sql_debugging_fixture->one()
 -- line 83 of /lib/dml/tests/fixtures/test_dml_sql_debugging_fixture.php: call to test_dml_sql_debugging_fixture->two()
 -- line 92 of /lib/dml/tests/fixtures/test_dml_sql_debugging_fixture.php: call to test_dml_sql_debugging_fixture->three()
--- line 507 of /lib/dml/tests/dml_test.php: call to test_dml_sql_debugging_fixture->four()
+-- line 508 of /lib/dml/tests/dml_test.php: call to test_dml_sql_debugging_fixture->four()
 EOD;
         $this->assertEquals($this->unix_to_os_dirsep($expected), $out);
 
@@ -3875,6 +3876,44 @@ EOD;
         $this->assertEquals(666, $DB->get_field_sql($sql));
     }
 
+    /**
+     * Test DML libraries sql_cast_to_char method
+     *
+     * @covers ::sql_cast_to_char
+     */
+    public function test_cast_to_char(): void {
+        $DB = $this->tdb;
+        $dbman = $DB->get_manager();
+
+        $tableone = $this->get_test_table('one');
+        $tableone->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $tableone->add_field('intfield', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, null, null);
+        $tableone->add_field('details', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $tableone->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $dbman->create_table($tableone);
+
+        $tableonename = $tableone->getName();
+        $DB->insert_record($tableonename, (object) ['intfield' => 10, 'details' => 'uno']);
+        $DB->insert_record($tableonename, (object) ['intfield' => 20, 'details' => 'dos']);
+
+        $tabletwo = $this->get_test_table('two');
+        $tabletwo->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $tabletwo->add_field('charfield', XMLDB_TYPE_CHAR, '255', null, XMLDB_NOTNULL, null, null);
+        $tabletwo->add_key('primary', XMLDB_KEY_PRIMARY, ['id']);
+        $dbman->create_table($tabletwo);
+
+        $tabletwoname = $tabletwo->getName();
+        $DB->insert_record($tabletwoname, (object) ['charfield' => '10']);
+
+        // Test by joining a char field to a cast int field (mixing types not supported across databases).
+        $sql = "SELECT t1.details
+                  FROM {{$tableonename}} t1
+                  JOIN {{$tabletwoname}} t2 ON t2.charfield = " . $DB->sql_cast_to_char('t1.intfield');
+
+        $fieldset = $DB->get_fieldset_sql($sql);
+        $this->assertEquals(['uno'], $fieldset);
+    }
+
     public function test_cast_char2int() {
         $DB = $this->tdb;
         $dbman = $DB->get_manager();
@@ -4327,29 +4366,68 @@ EOD;
         $tablename = $table->getName();
 
         $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
-        $table->add_field('description', XMLDB_TYPE_TEXT, 'big', null, null, null, null);
+        $table->add_field('charshort', XMLDB_TYPE_CHAR, '255');
+        $table->add_field('charlong', XMLDB_TYPE_CHAR, '1333');
+        $table->add_field('description', XMLDB_TYPE_TEXT, 'big');
         $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
         $dbman->create_table($table);
 
-        $DB->insert_record($tablename, array('description'=>'áéíóú'));
-        $DB->insert_record($tablename, array('description'=>'dxxx'));
-        $DB->insert_record($tablename, array('description'=>'bcde'));
+        // Regarding 1300 length - all drivers except Oracle support larger values (2K+), but this hits a limit on Oracle.
+        $DB->insert_record($tablename, [
+            'charshort' => 'áéíóú',
+            'charlong' => str_repeat('A', 512),
+            'description' => str_repeat('X', 1300),
+        ]);
+        $DB->insert_record($tablename, [
+            'charshort' => 'dxxx',
+            'charlong' => str_repeat('B', 512),
+            'description' => str_repeat('Y', 1300),
+        ]);
+        $DB->insert_record($tablename, [
+            'charshort' => 'bcde',
+            'charlong' => str_repeat('C', 512),
+            'description' => str_repeat('Z', 1300),
+        ]);
 
-        // Fieldnames and values mixed.
-        $sql = 'SELECT id, ' . $DB->sql_concat('description', "'harcoded'", '?', '?') . ' AS result FROM {' . $tablename . '}';
-        $records = $DB->get_records_sql($sql, array(123.45, 'test'));
-        $this->assertCount(3, $records);
-        $this->assertSame('áéíóúharcoded123.45test', $records[1]->result);
+        // Char (short) fieldnames and values.
+        $fieldsql = $DB->sql_concat('charshort', "'harcoded'", '?', '?');
+        $this->assertEqualsCanonicalizing([
+            'áéíóúharcoded123.45test',
+            'dxxxharcoded123.45test',
+            'bcdeharcoded123.45test',
+        ], $DB->get_fieldset_select($tablename, $fieldsql, '', [123.45, 'test']));
+
+        // Char (long) fieldnames and values.
+        $fieldsql = $DB->sql_concat('charlong', "'harcoded'", '?', '?');
+        $this->assertEqualsCanonicalizing([
+            str_repeat('A', 512) . 'harcoded123.45test',
+            str_repeat('B', 512) . 'harcoded123.45test',
+            str_repeat('C', 512) . 'harcoded123.45test',
+        ], $DB->get_fieldset_select($tablename, $fieldsql, '', [123.45, 'test']));
+
+        // Text fieldnames and values.
+        $fieldsql = $DB->sql_concat('description', "'harcoded'", '?', '?');
+        $this->assertEqualsCanonicalizing([
+            str_repeat('X', 1300) . 'harcoded123.45test',
+            str_repeat('Y', 1300) . 'harcoded123.45test',
+            str_repeat('Z', 1300) . 'harcoded123.45test',
+        ], $DB->get_fieldset_select($tablename, $fieldsql, '', [123.45, 'test']));
+
         // Integer fieldnames and values.
-        $sql = 'SELECT id, ' . $DB->sql_concat('id', "'harcoded'", '?', '?') . ' AS result FROM {' . $tablename . '}';
-        $records = $DB->get_records_sql($sql, array(123.45, 'test'));
-        $this->assertCount(3, $records);
-        $this->assertSame('1harcoded123.45test', $records[1]->result);
+        $fieldsql = $DB->sql_concat('id', "'harcoded'", '?', '?');
+        $this->assertEqualsCanonicalizing([
+            '1harcoded123.45test',
+            '2harcoded123.45test',
+            '3harcoded123.45test',
+        ], $DB->get_fieldset_select($tablename, $fieldsql, '', [123.45, 'test']));
+
         // All integer fieldnames.
-        $sql = 'SELECT id, ' . $DB->sql_concat('id', 'id', 'id') . ' AS result FROM {' . $tablename . '}';
-        $records = $DB->get_records_sql($sql, array());
-        $this->assertCount(3, $records);
-        $this->assertSame('111', $records[1]->result);
+        $fieldsql = $DB->sql_concat('id', 'id', 'id');
+        $this->assertEqualsCanonicalizing([
+            '111',
+            '222',
+            '333',
+        ], $DB->get_fieldset_select($tablename, $fieldsql, ''));
 
     }
 
@@ -4580,6 +4658,41 @@ EOD;
         $this->assertEquals(3, $second->id);
         $last = array_shift($records);
         $this->assertEquals(2, $last->id);
+    }
+
+    /**
+     * Test DML libraries sql_order_by_null method
+     */
+    public function test_sql_order_by_null(): void {
+        $DB = $this->tdb;
+        $dbman = $DB->get_manager();
+
+        $table = $this->get_test_table();
+        $tablename = $table->getName();
+
+        $table->add_field('id', XMLDB_TYPE_INTEGER, '10', null, XMLDB_NOTNULL, XMLDB_SEQUENCE, null);
+        $table->add_field('name', XMLDB_TYPE_CHAR, '255', null, null, null, null);
+        $table->add_key('primary', XMLDB_KEY_PRIMARY, array('id'));
+        $dbman->create_table($table);
+
+        $DB->insert_record($tablename, array('name' => 'aaaa'));
+        $DB->insert_record($tablename, array('name' => 'bbbb'));
+        $DB->insert_record($tablename, array('name' => ''));
+        $DB->insert_record($tablename, array('name' => null));
+
+        $sql = "SELECT * FROM {{$tablename}} ORDER BY ".$DB->sql_order_by_null('name');
+        $records = $DB->get_records_sql($sql);
+        $this->assertEquals(null, array_shift($records)->name);
+        $this->assertEquals('', array_shift($records)->name);
+        $this->assertEquals('aaaa', array_shift($records)->name);
+        $this->assertEquals('bbbb', array_shift($records)->name);
+
+        $sql = "SELECT * FROM {{$tablename}} ORDER BY ".$DB->sql_order_by_null('name', SORT_DESC);
+        $records = $DB->get_records_sql($sql);
+        $this->assertEquals('bbbb', array_shift($records)->name);
+        $this->assertEquals('aaaa', array_shift($records)->name);
+        $this->assertEquals('', array_shift($records)->name);
+        $this->assertEquals(null, array_shift($records)->name);
     }
 
     public function test_sql_substring() {

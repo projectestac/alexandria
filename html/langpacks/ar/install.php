@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'install', language 'ar', version '3.11'.
+ * Strings for component 'install', language 'ar', version '4.1'.
  *
  * @package     install
  * @category    string
@@ -36,7 +36,7 @@ $string['admindirsetting'] = 'القليل جداً من مستضيفي الوي
 هذا من شأنه إصلاح روابط الإدارة في مودل.';
 $string['admindirsettinghead'] = 'إعداد دليل المشرف ...';
 $string['admindirsettingsub'] = 'القليل جداً من مستضيفي الويب يستعمل /admin بمثابة رابط خاص
-للوصول إلى لوحة التحكم أو ما شابه. لسوء الحظ هذا يتعارض مع
+للوصول إلى دلوحة التحكم أو ما شابه. لسوء الحظ هذا يتعارض مع
 الموضع القياسي لصفحات إدارة مودل. يمكنك حل هذه المشكلة عبر
 إعادة تسمية مجلد الإدارة admin في نسختك لهذا التنصيب، لتضع
 هذا الاسم الجديد هنا. مثلاً: <br /> <br />
@@ -56,6 +56,7 @@ $string['cliinstallfinished'] = 'تم التنصيب بنجاح.';
 $string['cliinstallheader'] = 'برنامج تنصيب مودل {$a} عبر سطر الأوامر النصية';
 $string['climustagreelicense'] = 'في النمط اللاتفاعلي، عليك الموافقة على الرخصة عبر استعمال الخيار --agree-license';
 $string['cliskipdatabase'] = 'يجري تخطي تنصيب قاعدة البيانات.';
+$string['clisupportemail'] = 'عنوان البريد الالكتروني للدعم';
 $string['clitablesexist'] = 'جداول قاعدة البيانات موجودة سلفاً؛ التنصيب عبر واجهة سطر الأوامر لا يمكنه الاستمرار.';
 $string['compatibilitysettings'] = 'يجري فحص إعدادات PHP ...';
 $string['compatibilitysettingshead'] = 'يجري فحص إعدادات PHP ...';

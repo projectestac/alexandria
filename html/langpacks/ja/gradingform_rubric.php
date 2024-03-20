@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_rubric', language 'ja', version '3.11'.
+ * Strings for component 'gradingform_rubric', language 'ja', version '4.1'.
  *
  * @package     gradingform_rubric
  * @category    string
@@ -27,7 +27,7 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['addcriterion'] = 'クライテリアを追加する';
 $string['additionalfeedback'] = '追加フィードバック';
-$string['alwaysshowdefinition'] = 'ユーザがルーブリックをプレビュできるようにする (そうでない場合、ルーブリックは評定後のみ閲覧できます)';
+$string['alwaysshowdefinition'] = 'ユーザがルーブリックをプレビューできるようにする (そうでない場合、ルーブリックは評定後のみ閲覧できます)';
 $string['backtoediting'] = '編集に戻る';
 $string['confirmdeletecriterion'] = '本当にこのクライテリアを削除してもよろしいですか?';
 $string['confirmdeletelevel'] = '本当にこのレベルを削除してもよろしいですか?';
@@ -62,7 +62,7 @@ $string['needregrademessage'] = 'この学生が評定された後、ルーブ�
 $string['notset'] = '未設定';
 $string['pluginname'] = 'ルーブリック';
 $string['pointsvalue'] = '{$a} 点';
-$string['previewrubric'] = 'ルーブリックをプレビュする';
+$string['previewrubric'] = 'ルーブリックをプレビューする';
 $string['privacy:metadata:criterionid'] = '評定される特定のクライテリアのIDです。';
 $string['privacy:metadata:fillingssummary'] = 'ルーブリックにより作成されたユーザの評定に関する情報を保持します。';
 $string['privacy:metadata:instanceid'] = '活動の評定に関するIDです。';
@@ -84,7 +84,7 @@ $string['rubricnotcompleted'] = 'それぞれのクライテリアに何か選�
 $string['rubricoptions'] = 'ルーブリックオプション';
 $string['rubricstatus'] = '現在のルーブリックステータス';
 $string['save'] = '保存';
-$string['saverubric'] = 'ルーブリックを保存して利用可にする';
+$string['saverubric'] = 'ルーブリックを保存して利用可能にする';
 $string['saverubricdraft'] = '下書きとして保存する';
 $string['scoreinputforlevel'] = 'レベル {$a} の評点入力';
 $string['scorepostfix'] = '{$a} 点';
@@ -96,5 +96,5 @@ $string['showscoreteacher'] = '評定中にレベルに点数を表示する';
 $string['sortlevelsasc'] = 'レベルの並べ替え順:';
 $string['sortlevelsasc0'] = '点数の降順';
 $string['sortlevelsasc1'] = '点数の昇順';
-$string['zerolevelsabsent'] = '警告: このルーブリックの最小評点は「0」ではありません。これにより活動の評点が予想外の結果となる場合があります。これを避けるため、それぞれのクライテリアに「0」点のレベルを持つ必要があります。<br />
+$string['zerolevelsabsent'] = '警告: このルーブリックの最小評点は「0」ではありません。これで活動の評点が予想外の結果となる場合があります。これを避けるため、それぞれのクライテリアに「0」点のレベルを持つ必要があります。<br />
 評定に評価尺度が使用されてルーブリックの最小レベルが評価尺度の最小値に相当する場合、この警告を無視することができます。';

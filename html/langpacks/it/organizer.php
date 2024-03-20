@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'organizer', language 'it', version '3.11'.
+ * Strings for component 'organizer', language 'it', version '4.1'.
  *
  * @package     organizer
  * @category    string
@@ -44,7 +44,7 @@ $string['allowsubmissionsfromdate'] = 'Inizio registrazione';
 $string['allowsubmissionsfromdate_help'] = 'Seleziona questo se vuoi rendere questo organizzatore disponibile per gli studenti dopo un certo momento.';
 $string['allowsubmissionsfromdatesummary'] = 'Questo organizzatore accetterà le registrazioni da <strong>{$a}</strong>';
 $string['allowsubmissionstodate'] = 'Fine registrazione';
-$string['alwaysshowdescription'] = 'Visualizza sempre la descrizione';
+$string['alwaysshowdescription'] = 'Mostra sempre la descrizione';
 $string['alwaysshowdescription_help'] = 'Se disabilitato, la descrizione del compito sopra sarà visibile agli studenti solo alla data di "Inizio iscrizione".';
 $string['applicant'] = 'Questa è la persona che ha registrato il gruppo';
 $string['appointment_reminder_student:fullmessage'] = 'Ciao {$a->nome destinatario}! Come parte del corso {$a->courseid} {$a->coursefullname}, hai un appuntamento {$a->sendername} il {$a->date} alle {$a->time} in { $a->location}. Sistema di messaggistica Moodle';
@@ -53,15 +53,9 @@ $string['appointment_reminder_student:group:smallmessage'] = 'Hai un appuntament
 $string['appointment_reminder_student:group:subject'] = '[{$a->courseid}{$a->courseshortname} / {$a->organizername}] - Promemoria appuntamento di gruppo';
 $string['appointment_reminder_student:smallmessage'] = 'Hai un appuntamento {$a->sendername} il {$a->date} alle {$a->time} in {$a->location}.';
 $string['appointment_reminder_student:subject'] = '[{$a->courseid}{$a->courseshortname} / {$a->organizername}] - Promemoria appuntamento';
-$string['appointment_reminder_teacher:digest:fullmessage'] = 'Ciao {$a->receivername}!
-
-Domani hai i seguenti appuntamenti:
-
-{$a->digest}
-
-Moodle Messaging System';
+$string['appointment_reminder_teacher:digest:fullmessage'] = 'Ciao {$a->receivername}! Domani hai i seguenti appuntamenti: {$a->digest} Moodle Messaging System';
 $string['appointment_reminder_teacher:digest:smallmessage'] = 'Hai ricevuto un messaggio riassuntivo dei tuoi appuntamenti di domani.';
-$string['appointment_reminder_teacher:digest:subject'] = 'Riassunto degli appuntamenti';
+$string['appointment_reminder_teacher:digest:subject'] = 'Appuntamento sommario';
 $string['appointment_reminder_teacher:fullmessage'] = 'Ciao {$a->receivername}! Come parte del corso {$a->courseid} {$a->coursefullname}, hai un appuntamento con gli studenti il {$a->date} alle {$a->time} in {$a->location }. Sistema di messaggistica Moodle';
 $string['appointment_reminder_teacher:group:digest:fullmessage'] = 'Ciao {$a->receivername}! Domani hai i seguenti appuntamenti: {$a->digest} Moodle Messaging System';
 $string['appointment_reminder_teacher:group:digest:smallmessage'] = 'Hai ricevuto un messaggio riassuntivo dei tuoi appuntamenti di domani.';
@@ -71,7 +65,7 @@ $string['appointment_reminder_teacher:subject'] = '[{$a->courseid}{$a->coursesho
 $string['appointmentcomments'] = 'Commenti';
 $string['appointmentcomments_help'] = 'Informazioni addizionali circa gli appuntamenti possono essere aggiunte qui.';
 $string['appointmentdatetime'] = 'Data e Ora';
-$string['assign'] = 'Assegna';
+$string['assign'] = 'Assegnare';
 $string['assign_notify_student:fullmessage'] = 'Ciao {$a->receivername}! Nell\'ambito del corso {$a->courseid} {$a->coursefullname} è stato assegnato un appuntamento con {$a->slot_teacher} il {$a->date} alle {$a->time} a te da {$a->sendername}. Insegnante: {$a->slot_teacher} Luogo: {$a->slot_location} Data: {$a->date} alle {$a->time} Sistema di messaggistica Moodle';
 $string['assign_notify_student:group:fullmessage'] = 'Ciao {$a->receivername}! Nell\'ambito del corso {$a->courseid} {$a->coursefullname} è stato assegnato un appuntamento con {$a->slot_teacher} il {$a->date} alle {$a->time} al tuo gruppo {$a->groupname} da {$a->sendername}. Insegnante: {$a->slot_teacher} Luogo: {$a->slot_location} Data: {$a->date} alle {$a->time} Sistema di messaggistica Moodle';
 $string['assign_notify_student:group:smallmessage'] = 'Un appuntamento con {$a->slot_teacher} il {$a->date} alle {$a->time} è stato assegnato al tuo gruppo {$a->groupname} da {$a->sendername}.';
@@ -84,7 +78,7 @@ $string['assign_notify_teacher:group:smallmessage'] = 'Un appuntamento con il gr
 $string['assign_notify_teacher:group:subject'] = '[{$a->courseid}{$a->courseshortname} / {$a->organizername}] - Appuntamento assegnato';
 $string['assign_notify_teacher:smallmessage'] = 'Un appuntamento con {$a->sendername} il {$a->date} alle {$a->time} è stato assegnato da te da {$a->sendername}';
 $string['assign_notify_teacher:subject'] = '[{$a->courseid}{$a->courseshortname} / {$a->organizername}] - Appuntamento assegnato';
-$string['assign_title'] = 'Assegna appuntamento';
+$string['assign_title'] = 'Assegna Appuntamento';
 $string['assignsuccess'] = 'La fascia oraria è stata assegnata con successo e il/i partecipante/i è stato informato.';
 $string['assignsuccessnotsent'] = 'La fascia oraria è stata assegnata con successo MA il/i partecipante/i NON è stato avvisato.';
 $string['atlocation'] = 'a';
@@ -109,17 +103,17 @@ $string['btn_evalsingle'] = 'Valutazione fascia oraria selezionata';
 $string['btn_print'] = 'Stampa fasce orarie selezionate';
 $string['btn_printsingle'] = 'Stampa fascia oraria selezionata';
 $string['btn_queue'] = 'Coda';
-$string['btn_reeval'] = 'Rivaluta';
+$string['btn_reeval'] = 'Rivalutare';
 $string['btn_register'] = 'Registrati';
 $string['btn_remind'] = 'Invia promemoria';
 $string['btn_reregister'] = 'Registrati di nuovo';
 $string['btn_save'] = 'Salva commento';
-$string['btn_send'] = 'Invia';
+$string['btn_send'] = 'Spedire';
 $string['btn_sendall'] = 'Invia promemoria a tutti gli studenti senza appuntamento';
 $string['btn_start'] = 'Inizia';
 $string['btn_unqueue'] = 'Rimuovi dalla coda';
-$string['btn_unregister'] = 'Annulla Registrazione';
-$string['calendarsettings'] = 'Impostazioni calendario';
+$string['btn_unregister'] = 'Cancella Registrazione';
+$string['calendarsettings'] = 'Impostazioni Calendario';
 $string['can_reregister'] = 'Puoi registrarti nuovamente ad un altro appuntamento.';
 $string['cannot_eval'] = 'Impossibile valutare, lo studente ha un';
 $string['changegradewarning'] = 'Questo organizzatore ha valutato gli appuntamenti e la modifica delle impostazioni del voto non ricalcolerà automaticamente i voti esistenti. Se desideri modificare il voto, devi riclassificare tutti gli appuntamenti esistenti.';
@@ -519,12 +513,12 @@ $string['reg_status_not_registered'] = 'Non registrato';
 $string['reg_status_organizer_expired'] = 'Organizer scaduto';
 $string['reg_status_registered'] = 'Registrato';
 $string['reg_status_slot_attended'] = 'Frequentato';
-$string['reg_status_slot_available'] = 'Fascia oraria disponibile';
-$string['reg_status_slot_expired'] = 'Fascia oraria scaduta';
-$string['reg_status_slot_full'] = 'Fascia oraria completa';
+$string['reg_status_slot_available'] = 'Fascia Oraria disponibile';
+$string['reg_status_slot_expired'] = 'Fascia Oraria scaduta';
+$string['reg_status_slot_full'] = 'Fascia Oraria piena';
 $string['reg_status_slot_not_attended'] = 'Non ha frequentato';
-$string['reg_status_slot_past_deadline'] = 'Fascia oraria oltre la scadenza';
-$string['reg_status_slot_pending'] = 'Fascia oraria in attesa di valutazione';
+$string['reg_status_slot_past_deadline'] = 'Fascia Oraria oltre la scadenza';
+$string['reg_status_slot_pending'] = 'Fascia Oraria in attesa di valutazione';
 $string['register_notify_teacher:queue:fullmessage'] = 'Ciao {$a->receivername}! Come parte del corso {$a->courseid} {$a->coursefullname}, lo studente {$a->sendername} si è messo in coda per la fascia oraria del {$a->date} alle {$a->time } in {$a->posizione}. Sistema di messaggistica Moodle';
 $string['register_notify_teacher:queue:group:fullmessage'] = 'Ciao {$a->receivername}! Come parte del corso {$a->courseid} {$a->coursefullname}, lo studente {$a->sendername} ha messo in lista d\'attesa il gruppo {$a->groupname} per la fascia oraria di {$a ->data} in {$a->ora} in {$a->posizione}. Sistema di messaggistica Moodle';
 $string['register_notify_teacher:queue:group:smallmessage'] = 'Lo studente {$a->sendername} ha messo in lista d\'attesa il gruppo {$a->groupname} per la fascia oraria di {$a->date} alle {$a->time} in {$a->location}.';
@@ -589,7 +583,7 @@ $string['singleslotprintfield'] = 'Stampa campo fascia oraria utente';
 $string['singleslotprintfield0'] = 'Stampa campo fascia oraria utente';
 $string['singleslotprintfield0_help'] = 'Questi campi utente vengono utilizzati per ogni partecipante quando viene stampato un singolo slot.';
 $string['singleslotprintfields'] = 'Campi profilo utente slot di stampa singolo';
-$string['singleslotprintfields_help'] = 'TESTO FINTO - deve essere modificato con maggiori informazioni sui campi del profilo e su come sono controllati da un\'impostazione dell\'amministratore';
+$string['singleslotprintfields_help'] = 'TESTO FALSO - deve essere modificato con maggiori informazioni sui campi del profilo e su come sono controllati da un\'impostazione dell\'amministratore';
 $string['slot'] = 'Appuntamento';
 $string['slot_anonymous'] = 'Fascia oraria anonima';
 $string['slot_slotvisible'] = 'Membri visibili esclusivamente se possiedono una fascia oraria';
@@ -658,11 +652,11 @@ $string['title_delete'] = 'Elimina le fasce orarie selezionate';
 $string['title_edit'] = 'Modifica le fasce orarie selezionate';
 $string['title_eval'] = 'Valuta le fasce orarie selezionate';
 $string['title_print'] = 'Stampa fasce orarie';
-$string['totalday'] = 'xxx fasce orarie per yyy persone';
-$string['totalday_groups'] = 'xxx fasce orarie per yyy gruppi';
+$string['totalday'] = 'xxx fasce orarie per persone yyy';
+$string['totalday_groups'] = 'xxx fasce orarie per gruppi yyy';
 $string['totalslots'] = 'da {$a->starttime} a {$a->endtime}, {$a->duration} {$a->unit} ciascuno, {$a->totalslots} fasce orarie in totale';
-$string['totaltotal'] = 'Totale: xxx fasce orarie per yyy persone';
-$string['totaltotal_groups'] = 'Totale: xxx fasce orarie per yyy gruppi';
+$string['totaltotal'] = 'Totale: xxx fasce orarie per persone yyy';
+$string['totaltotal_groups'] = 'Totale: xxx fasce orarie per gruppi yyy';
 $string['trainer'] = 'Istruttore';
 $string['trainerid'] = 'Docente';
 $string['trainerid_help'] = 'Seleziona l\'insegnante che vuoi guidare gli appuntamenti';
@@ -674,9 +668,9 @@ $string['visibility_anonymous'] = 'Anonimo';
 $string['visibility_help'] = 'Definizione dell\'opzione di visibilità predefinita con cui verrà creato un nuova fascia oraria.<br/><b>Anonimo:</b> I membri di questa fascia oraria sono sempre invisibili a tutti.<br/><b>Visibile:</ b> Tutti i membri di questa fascia oraria sono sempre visibili a tutti.<br/><b>Visibile solo ai membri della fascia oraria:</b> solo i membri della fascia oraria possono vedersi.';
 $string['visibility_slot'] = 'Visibile solo ai membri della fascia oraria';
 $string['visible'] = 'fascia oraria visibile';
-$string['warning_groupingid'] = 'Modalità gruppo abilitata. Devi selezionare un raggruppamento valido.';
+$string['warning_groupingid'] = 'Modalità di gruppo abilitata. Devi selezionare un raggruppamento valido.';
 $string['warninggroupmode'] = 'Devi abilitare la modalità di gruppo e selezionare un raggruppamento per creare un organizer di gruppo!';
 $string['warningtext1'] = 'Le fasce orarie selezionate contengono valori diversi in questo campo!';
-$string['warningtext2'] = 'ATTENZIONE! Il contenuto di questo campo è stato modificato!';
+$string['warningtext2'] = 'AVVERTIMENTO! Il contenuto di questo campo è stato modificato!';
 $string['weekdaylabel'] = 'Fascia feriale';
 $string['with'] = 'con';

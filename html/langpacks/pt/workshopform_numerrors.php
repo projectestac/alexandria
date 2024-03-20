@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_numerrors', language 'pt', version '3.11'.
+ * Strings for component 'workshopform_numerrors', language 'pt', version '4.1'.
  *
  * @package     workshopform_numerrors
  * @category    string
@@ -41,5 +41,5 @@ $string['grademapping'] = 'Tabela de conversão em nota';
 $string['maperror'] = 'O número ponderado de erros é menor ou igual a';
 $string['mapgrade'] = 'Nota da submissão';
 $string['pluginname'] = 'Número de erros';
-$string['privacy:export:metadata:map'] = 'Se o número ponderado de erros atingir {$a->nonegative} então a nota será {$a->grade}.';
+$string['privacy:export:metadata:map'] = 'Se o número ponderado de erros atingir {$a->nonegative} então a nota será {$a->grade}%.';
 $string['privacy:metadata'] = 'O módulo Número de erros apenas armazena detalhes da grelha de avaliação. Os atuais dados pessoais de como a grelha tem sido preenchida são armazenados pelo módulo workshop e anexados a avaliações exportadas.';

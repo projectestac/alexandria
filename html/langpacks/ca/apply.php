@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'apply', language 'ca', version '3.11'.
+ * Strings for component 'apply', language 'ca', version '4.1'.
  *
  * @package     apply
  * @category    string
@@ -43,5 +43,7 @@ $string['execd_entry'] = 'fet';
 $string['horizontal'] = 'horitzontal';
 $string['info'] = 'informació';
 $string['multichoice'] = 'Opció múltiple';
+$string['name'] = 'Nom';
 $string['public'] = 'Públic';
 $string['submitted'] = 's\'ha tramès';
+$string['yes_button'] = 'Sí';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_weeks', language 'ja', version '3.11'.
+ * Strings for component 'format_weeks', language 'ja', version '4.1'.
  *
  * @package     format_weeks
  * @category    string
@@ -33,6 +33,8 @@ $string['deletesection'] = '週を削除する';
 $string['editsection'] = '週を編集する';
 $string['editsectionname'] = '週名を編集する';
 $string['hidefromothers'] = '週を隠す';
+$string['indentation'] = 'コースページでのインデントを許可する';
+$string['indentation_help'] = '教師および活動管理ケイパビリティのある他のユーザがコースページのアイテムをインデントできるようにします。';
 $string['newsectionname'] = '週 {$a} の新しい名称';
 $string['page-course-view-weeks'] = 'ウィークリーフォーマット内のコースメインページすべて';
 $string['page-course-view-weeks-x'] = 'ウィークリーフォーマット内のコースページすべて';

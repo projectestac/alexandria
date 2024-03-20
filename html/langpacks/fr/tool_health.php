@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_health', language 'fr', version '3.11'.
+ * Strings for component 'tool_health', language 'fr', version '4.1'.
  *
  * @package     tool_health
  * @category    string
@@ -25,10 +25,10 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['healthnoproblemsfound'] = 'Aucun problème n\'a été détecté !';
-$string['healthproblemsdetected'] = 'Problèmes d\'intégrité détectés !';
+$string['healthnoproblemsfound'] = 'Aucun problème n’a été détecté !';
+$string['healthproblemsdetected'] = 'Problèmes d’intégrité détectés !';
 $string['healthproblemsolution'] = 'Solution proposée';
 $string['healthreturntomain'] = 'Continuer';
 $string['healthsolution'] = 'Solution';
 $string['pluginname'] = 'Diagnostic et aide à la résolution de problèmes';
-$string['privacy:metadata'] = 'Le plugin Diagnostic et aide à la résolution de problèmes n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Diagnostic et aide à la résolution de problèmes n’enregistre aucune donnée personnelle.';

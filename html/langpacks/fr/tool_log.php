@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_log', language 'fr', version '3.11'.
+ * Strings for component 'tool_log', language 'fr', version '4.1'.
  *
  * @package     tool_log
  * @category    string
@@ -26,9 +26,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['actlogshdr'] = 'Stockages de journaux disponibles';
-$string['configlogplugins'] = 'Veuillez activer tous les plugins nécessaires et les placer dans l\'ordre adéquat.';
-$string['exportlog'] = 'Inclure les journaux lors de l\'exportation';
-$string['exportlogdetail'] = 'Inclure les journaux en lien avec l\'utilisateur lors de l\'exportation.';
+$string['configlogplugins'] = 'Veuillez activer tous les plugins nécessaires et les placer dans l’ordre adéquat.';
+$string['exportlog'] = 'Inclure les journaux lors de l’exportation';
+$string['exportlogdetail'] = 'Inclure les journaux en lien avec l’utilisateur lors de l’exportation.';
 $string['logging'] = 'Journaux';
 $string['managelogging'] = 'Gérer les stockages des journaux';
 $string['pluginname'] = 'Gestion des stockages de journaux';

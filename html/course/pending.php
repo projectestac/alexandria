@@ -67,7 +67,7 @@ if (!empty($approve) and confirm_sesskey()) {
             redirect(new moodle_url('/course/view.php', ['id' => $courseid]));
         }
     } else {
-        print_error('courseapprovedfailed');
+        throw new \moodle_exception('courseapprovedfailed');
     }
 }
 
@@ -110,14 +110,20 @@ if (empty($pending)) {
     echo $OUTPUT->heading(get_string('nopendingcourses'));
 } else {
     echo $OUTPUT->heading(get_string('coursespending'));
-    $role = $DB->get_record('role', array('id' => $CFG->creatornewroleid), '*', MUST_EXIST);
-    echo $OUTPUT->notification(get_string('courserequestwarning', 'core', role_get_name($role)), 'notifyproblem');
+
+    $role = $DB->get_record('role', ['id' => $CFG->creatornewroleid]);
+    if ($role) {
+        echo $OUTPUT->notification(get_string('courserequestwarning', 'core', role_get_name($role)), 'notifyproblem');
+    } else {
+        $userpoliciesurl = new moodle_url('/admin/settings.php', ['section' => 'userpolicies']);
+        echo $OUTPUT->notification(get_string('courserequestroleerror', 'core', (string) $userpoliciesurl), 'notifyerror');
+    }
 
 /// Build a table of all the requests.
     $table = new html_table();
     $table->attributes['class'] = 'pendingcourserequests generaltable';
     $table->align = array('center', 'center', 'center', 'center', 'center', 'center');
-    $table->head = array(get_string('shortnamecourse'), get_string('fullnamecourse'), get_string('requestedby'),
+    $table->head = array(get_string('requestedby'), get_string('shortnamecourse'), get_string('fullnamecourse'),
             get_string('summary'), get_string('category'), get_string('requestreason'), get_string('action'));
 
     foreach ($pending as $course) {
@@ -131,10 +137,16 @@ if (empty($pending)) {
         }
         $category = $course->get_category();
 
+        // Fullname of the user who requested the course (with link to profile if current user can view it).
+        $requesterfullname = $OUTPUT->user_picture($course->get_requester(), [
+            'includefullname' => true,
+            'link' => user_can_view_profile($course->get_requester()),
+        ]);
+
         $row = array();
+        $row[] = $requesterfullname;
         $row[] = format_string($course->shortname);
         $row[] = format_string($course->fullname);
-        $row[] = fullname($course->get_requester());
         $row[] = format_text($course->summary, $course->summaryformat);
         $row[] = $category->get_formatted_name();
         $row[] = format_string($course->reason);

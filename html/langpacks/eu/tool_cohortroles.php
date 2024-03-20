@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_cohortroles', language 'eu', version '3.11'.
+ * Strings for component 'tool_cohortroles', language 'eu', version '4.1'.
  *
  * @package     tool_cohortroles
  * @category    string
@@ -33,7 +33,7 @@ $string['cohortroleassignmentnotremoved'] = 'Kohorteko rol-esleipena ez da ezaba
 $string['cohortroleassignmentremoved'] = 'Kohorteko rol-esleipena ezabatu da.';
 $string['cohortroles'] = 'Kohorteko rolak';
 $string['existingcohortroles'] = 'Kohortean dauden rol-esleipenak';
-$string['managecohortroles'] = 'Gehitu erabiltzailea kohorte batera';
+$string['managecohortroles'] = 'Esleitu kohortea erabiltzaile-rolei';
 $string['noassignableroles'] = 'Une honetan ez dago erabiltzaile-testuinguru honetan eslei daitekeen rolik. <a href="../../roles/manage.php">Kudeatu rolak</a>';
 $string['nocohortroleassignmentssaved'] = 'Ez da kohorteko rol-esleipenik gorde.';
 $string['onecohortroleassignmentsaved'] = 'kohorteko rol-esleipen bat gorde da.';

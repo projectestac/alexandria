@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_textarea', language 'fr', version '3.11'.
+ * Strings for component 'editor_textarea', language 'fr', version '4.1'.
  *
  * @package     editor_textarea
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Zone de texte pur';
-$string['privacy:metadata'] = 'Le plugin Zone de texte pur n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Zone de texte pur n’enregistre aucune donnée personnelle.';

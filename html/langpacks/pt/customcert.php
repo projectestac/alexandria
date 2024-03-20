@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'customcert', language 'pt', version '3.11'.
+ * Strings for component 'customcert', language 'pt', version '4.1'.
  *
  * @package     customcert
  * @category    string
@@ -28,6 +28,11 @@ defined('MOODLE_INTERNAL') || die();
 $string['activity'] = 'Atividade';
 $string['addcertpage'] = 'Adicionar página';
 $string['addelement'] = 'Adicionar elemento';
+$string['aligncenter'] = 'Ao centro';
+$string['alignleft'] = 'À esquerda';
+$string['alignment'] = 'Alinhamento';
+$string['alignment_help'] = 'Esta propriedade define o alinhamento horizontal do elemento. Alguns elementos podem não suportar, mas o comportamento de outros pode ser diferente.';
+$string['alignright'] = 'À direita';
 $string['awardedto'] = 'Concedido a';
 $string['cannotverifyallcertificates'] = 'Não tem permissão para verificar todos os certificados do site.';
 $string['certificate'] = 'Certificado';
@@ -41,12 +46,13 @@ $string['customcert:manage'] = 'Gerir um Certificado Personalizado';
 $string['customcert:manageemailothers'] = 'Gerir configuração de envio de e-mail a outros';
 $string['customcert:manageemailstudents'] = 'Gerir configuração de envio de e-mail aos alunos';
 $string['customcert:manageemailteachers'] = 'Gerir configuração do envio de e-mail aos professores';
+$string['customcert:managelanguages'] = 'Gerir o idioma no formulário de edição';
 $string['customcert:manageprotection'] = 'Gerir configuração da proteção';
 $string['customcert:managerequiredtime'] = 'Gerir configuração do tempo obrigatório';
 $string['customcert:manageverifyany'] = 'Gerir configuração da verificação';
 $string['customcert:receiveissue'] = 'Receber um certificado';
 $string['customcert:verifyallcertificates'] = 'Verificar todos os certificados do site';
-$string['customcert:verifycertificate'] = 'Verificar um cerificado';
+$string['customcert:verifycertificate'] = 'Verificar um certificado';
 $string['customcert:view'] = 'Visualizar um certificado personalizado';
 $string['customcert:viewallcertificates'] = 'Visualizar todos os certificados';
 $string['customcert:viewreport'] = 'Ver relatório da disciplina';
@@ -69,6 +75,8 @@ $string['duplicatetemplateconfirm'] = 'Tem a certeza de que pretende duplicar es
 $string['editcustomcert'] = 'Editar o certificado';
 $string['editelement'] = 'Editar elemento';
 $string['edittemplate'] = 'Editar modelo';
+$string['elementheight'] = 'Altura';
+$string['elementheight_help'] = 'Especifique a altura do elemento. Se \'0\' for permitido, será automaticamente calculada.';
 $string['elementname'] = 'Nome do elemento';
 $string['elementname_help'] = 'Este será o nome usado para identificar este elemento ao editar um certificado personalizado. Por exemplo, pode ter várias imagens numa página e deseja distinguir rapidamente as imagens ao editar o certificado. Nota: Este nome não será exibido no PDF.';
 $string['elementplugins'] = 'Elementos do módulo';
@@ -94,6 +102,15 @@ $string['emailstudents_help'] = 'Se ativar esta opção, será enviado aos aluno
 $string['emailstudentsubject'] = '{$a->coursefullname}: {$a->certificatename}';
 $string['emailteachers'] = 'Enviar e-mail aos professores';
 $string['emailteachers_help'] = 'Se ativar esta opção, será enviado aos professores por e-mail uma cópia do certificado quando estiver disponível.  <strong>Aviso</strong>: Se definir como \'Sim\', antes de finalizar a criação do certificado, enviará aos professores um certificado incompleto.';
+$string['eventelementcreated'] = 'Elemento de certificado personalizado criado';
+$string['eventelementdeleted'] = 'Elemento de certificado personalizado eliminado';
+$string['eventelementupdated'] = 'Elemento de certificado personalizado atualizado';
+$string['eventpagecreated'] = 'Página de certificado personalizado criada';
+$string['eventpagedeleted'] = 'Página de certificado personalizado eliminada';
+$string['eventpageupdated'] = 'Página de certificado personalizado atualizada';
+$string['eventtemplatecreated'] = 'Modelo de certificado personalizado criado';
+$string['eventtemplatedeleted'] = 'Modelo de certificado personalizado eliminado';
+$string['eventtemplateupdated'] = 'Modelo de certificado personalizado atualizado';
 $string['exampledatawarning'] = 'Alguns destes valores servem apenas de exemplo para garantir que é possível o posicionamento dos elementos.';
 $string['font'] = 'Tipo de letra';
 $string['font_help'] = 'O tipo de letra usado ao gerar este elemento.';
@@ -107,12 +124,15 @@ $string['height'] = 'Altura';
 $string['height_help'] = 'Altura do certificado PDF em mm. Para referência, uma folha A4 tem 297 mm de altura e o tamanho Letter tem 279 mm de altura.';
 $string['invalidcode'] = 'Código fornecido inválido';
 $string['invalidcolour'] = 'Cor escolhida inválida, insira um nome de cor HTML válido ou uma cor hexadecimal de seis ou três dígitos.';
-$string['invalidelementwidth'] = 'Digite um número positivo.';
+$string['invalidelementwidthorheightnotnumber'] = 'Insira um número válido.';
+$string['invalidelementwidthorheightzeroallowed'] = 'Insira um número maior ou igual a 0.';
+$string['invalidelementwidthorheightzeronotallowed'] = 'Insira um número maior que 0.';
 $string['invalidheight'] = 'A altura tem de ser um número válido maior que 0.';
 $string['invalidmargin'] = 'A margem tem de ser um número válido maior que 0.';
 $string['invalidposition'] = 'Selecione um número positivo para a posição {$a}.';
 $string['invalidwidth'] = 'A largura tem de ser um número válido maior que 0.';
 $string['landscape'] = 'Paisagem';
+$string['languageoptions'] = 'Forçar idioma do certificado';
 $string['leftmargin'] = 'Margem esquerda';
 $string['leftmargin_help'] = 'Tamanho da margem esquerda do certificado PDF (em mm).';
 $string['listofissues'] = 'Destinatários: {$a}';
@@ -124,6 +144,7 @@ $string['managetemplatesdesc'] = 'Esta hiperligação abre uma nova janela onde 
 $string['modify'] = 'Modificar';
 $string['modulename'] = 'Certificado Personalizado';
 $string['modulename_help'] = 'Este módulo permite criar dinamicamente certificados PDF.';
+$string['modulename_link'] = 'Custom_certificate_module';
 $string['modulenameplural'] = 'Certificados Personalizados';
 $string['mycertificates'] = 'Os meus certificados';
 $string['mycertificatesdescription'] = 'Certificados emitidos em seu nome e enviados por e-mail ou descarregados manualmente.';
@@ -188,6 +209,8 @@ $string['type'] = 'Tipo';
 $string['uploadimage'] = 'Carregar imagem';
 $string['uploadimagedesc'] = 'Esta hiperligação abre uma nova janela onde pode carregar imagens.
 As imagens carregadas por este método estarão disponíveis em todo o site para todos os utilizadores capazes de criar um Certificado Personalizado.';
+$string['userlanguage'] = 'Usar as preferências do utilizador';
+$string['userlanguage_help'] = 'Pode forçar o idioma do certificado a substituir as preferências de idioma do utilizador.';
 $string['verified'] = 'Verificado';
 $string['verify'] = 'Verificar';
 $string['verifyallcertificates'] = 'Permitir a verificação de todos os certificados';

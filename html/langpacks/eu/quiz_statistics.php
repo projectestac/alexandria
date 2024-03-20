@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'quiz_statistics', language 'eu', version '3.11'.
+ * Strings for component 'quiz_statistics', language 'eu', version '4.1'.
  *
  * @package     quiz_statistics
  * @category    string
@@ -65,6 +65,9 @@ $string['firstattempts'] = 'ikasleen lehenengo saiakerak';
 $string['firstattemptsavg'] = 'Lehenengo saiakeren batez besteko kalifikazioa';
 $string['firstattemptscount'] = 'Osorik kalifikaturiko lehen saiakera-kopurua';
 $string['frequency'] = 'Maiztasuna';
+$string['getstatslockprogress'] = 'Martxan dauden atazen zain. Itxaron ala beranduago saiatu zaitez, mesedez.';
+$string['getstatslocktimeout'] = 'Estatistiken kalkuluaren blokeoaren denbora-muga';
+$string['getstatslocktimeoutdesc'] = 'Galdetegi baten estatistiken kalkulua egiten saiatzean blokeoaren zain egon beharreko segundo kopurua. Ezarpen hau batez ere probetarako dago, ez zenuke aldatu beharko zer egiten ari zaren ez badakizu.';
 $string['highestattempts'] = 'ikasle bakoitzaren kalifikazio altueneko saiakera';
 $string['highestattemptsavg'] = 'Kalifikazio altueneko saiakeren batez besteko kalifikazioa';
 $string['intended_weight'] = 'Planifikatutako pisua';
@@ -85,6 +88,7 @@ Gure benetako pisua kalkulatzeko ekuazioa ezin da kalkulatu kasu honetan. Galdet
 
 Galdetegia editatzen baduzu kobariantza negatiboa duten nabarmandutako galdera hauen gehieneko kalifikazioa zero izateko, orduan galdera hauen benetako pisua zero izango da eta beste galderen benetako pisua orain kalkulatu dena izango da.';
 $string['nogradedattempts'] = 'Ez da saiakerarik egin galdetegi honetan, edo egindako saiakera guztiek eskuzko kalifikazioa behar dute.';
+$string['nostats'] = 'Ezin izan da estatistiken kalkulua egin. Baliteke denbora luzez martxan dagoen kalkulu bat egotea. Saiatu zaitez beranduago, mesedez.';
 $string['nostudentsingroup'] = 'Oraindik ez dago ikaslerik talde honetan';
 $string['optiongrade'] = 'Kalifikazio partziala';
 $string['partofquestion'] = 'Galdera zati bat';
@@ -101,12 +105,12 @@ $string['questiontype'] = 'Galdera mota';
 $string['quizinformation'] = 'Galdetegiaren informazioa';
 $string['quizname'] = 'Galdetegiaren izena';
 $string['quizoverallstatistics'] = 'Galdetegiaren estatistika orokorrak';
-$string['quizstatisticscleanuptask'] = 'Garbitu zaharkitutako galdetegi-estatistiken cache-aren erregistroak';
 $string['quizstructureanalysis'] = 'Galdetegiaren egituraren analisia';
 $string['random_guess_score'] = 'Ausaz erantzundakoen kalifikazioa';
 $string['rangebetween'] = '{$a->min} − {$a->max}';
 $string['rangeofvalues'] = 'Galdera hauetarako estatistika-tartea';
 $string['recalculatenow'] = 'Berriz kalkulatu orain';
+$string['recalculatetask'] = 'Berriz kalkulatu galderen estatistikak';
 $string['reportsettings'] = 'Estatistikak kalkulatzeko ezarpenak';
 $string['response'] = 'Erantzuna';
 $string['skewness'] = 'Kalifikazioen asimetria-banaketa ({$a} kontuan hartuta)';

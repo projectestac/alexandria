@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshop', language 'ca', version '3.11'.
+ * Strings for component 'workshop', language 'ca', version '4.1'.
  *
  * @package     workshop
  * @category    string
@@ -43,8 +43,10 @@ $string['allocationdone'] = 'S\'ha efectuat l\'assignació';
 $string['allocationerror'] = 'Error en l\'assignació';
 $string['allowedfiletypesforoverallfeedback'] = 'Tipus de fitxer permesos a les adjuncions de la retroacció';
 $string['allowedfiletypesforoverallfeedback_help'] = 'Es poden restringir els tipus de fitxer permesos a les adjuncions de la retroacció introduint una llista d\'extensions de fitxer separada per comes; per exemple, «mp4, mp3, png, jpg». Si es deixa el camp en blanc, aleshores s\'hi permetran tots els tipus de fitxer.';
+$string['allowedfiletypesforoverallfeedback_link'] = 'admin/tool/filetypes/index';
 $string['allowedfiletypesforsubmission'] = 'Tipus de fitxers permesos com a adjuncions a la tramesa';
 $string['allowedfiletypesforsubmission_help'] = 'Els tipus de fitxers permesos com a adjuncions a la tramesa es poden restringuir escrivint una llista separada per comes d’extensions de fitxers; per exemple: «mp4, mp3, png, jpg». Si es deixa el camp buit, aleshores es permeten tots els tipus de fitxers.';
+$string['allowedfiletypesforsubmission_link'] = 'admin/tool/filetypes/index';
 $string['allsubmissions'] = 'Totes les trameses ({$a})';
 $string['alreadygraded'] = 'Ja qualificat';
 $string['areaconclusion'] = 'Text d\'acabament';
@@ -192,8 +194,10 @@ $string['indicator:cognitivedepth'] = 'Taller: Aspecte cognitiu';
 $string['indicator:cognitivedepth_help'] = 'Aquest indicador es basa en l\'aprofundiment cognitiu assolit per l\'estudiant en una activitat de taller.';
 $string['indicator:cognitivedepthdef'] = 'Taller: Aspecte cognitiu';
 $string['indicator:cognitivedepthdef_help'] = 'El participant ha assolit aquest percentatge de la implicació cognitiva oferta per les activitats de Taller en el decurs d\'aquest interval d\'anàlisi (Nivells = No visualització, Visualització, Enviament, Visualització de retroalimentacions, Comenaris a les retroalimentacions, Reenviament després de veure les retroalimentacions)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'Taller: Aspecte social';
 $string['indicator:socialbreadthdef'] = 'Taller: Aspecte social';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['info'] = 'Info';
 $string['instructauthors'] = 'Instruccions per a la tramesa';
 $string['instructreviewers'] = 'Instruccions per a l\'avaluació';
@@ -210,6 +214,7 @@ Els estudiants poden presentar qualsevol contingut digital (fitxers), com ara do
 Les contribucions seran avaluades mitjançant un formulari d\'avaluació de múltiples criteris definits pel professor. El procés d\'avaluació entre iguals i la comprensió del formulari d\'avaluació es pot practicar per endavant amb exemples de trameses proporcionades pel professor, acompanyades d\'una avaluació de referència. Els estudiants tenen l\'oportunitat d\'avaluar una o més trameses dels seus companys. Les trameses i els revisors poden ser anònims, si cal.
 
 Els estudiants obtenen dues notes en una activitat de taller: una qualificació per la seva tramesa i una qualificació per la seva acció d\'avaluació de les trameses dels seus companys. Ambdues qualificacions es registren al llibre de qualificacions.';
+$string['modulename_link'] = 'mod/workshop/view';
 $string['modulenameplural'] = 'Tallers';
 $string['myassessments'] = 'Les meves avaluacions';
 $string['mysubmission'] = 'La meva tramesa';
@@ -217,7 +222,7 @@ $string['nattachments'] = 'Nombre màxim d\'adjuncions a la tramesa';
 $string['noexamples'] = 'Aquest taller encara no té exemples';
 $string['noexamplesformready'] = 'Heu de definir un formulari d\'avaluació abans d\'especificar trameses d\'exemple';
 $string['nogradeyet'] = 'Encara sense qualificar';
-$string['nosubmissionfound'] = 'No s\'ha trobat cap tramesa per aquest usuari';
+$string['nosubmissionfound'] = 'No s\'ha trobat cap tramesa d\'aquest usuari';
 $string['nosubmissions'] = 'Aquest taller encara no té trameses';
 $string['nosubmissiontype'] = 'Com a mínim ha d\'estar disponible un tipus de tramesa';
 $string['notassessed'] = 'No avaluat encara';
@@ -298,9 +303,10 @@ Si activeu aquesta característica, es recomana configurar també el mètode d\'
 $string['submissiongrade'] = 'Qualificació de la tramesa';
 $string['submissiongrade_help'] = 'Aquest paràmetre especifica la qualificació màxima que es pot obtenir per la feina tramesa.';
 $string['submissiongradeof'] = 'Qualificació de la tramesa (de {$a})';
-$string['submissionlastmodified'] = 'Darrera modificada';
+$string['submissionlastmodified'] = 'Darrera modificació';
 $string['submissionrequiredcontent'] = 'Cal que escriviu text o afegiu un fitxer.';
 $string['submissionrequiredfile'] = 'Heu d\'afegir un fitxer o introduir algun text.';
+$string['submissionsallocation'] = 'Assignació de trameses';
 $string['submissionsettings'] = 'Paràmetres de la tramesa';
 $string['submissionsreport'] = 'Informe de les tasques del taller';
 $string['submissionstart'] = 'Inici de les trameses des de';
@@ -314,7 +320,7 @@ $string['submissiontypetextavailable'] = 'Text en línia<span class="accesshide"
 $string['submissiontypetextrequired'] = '<span class="accesshide">Text en línia </span>obligatori';
 $string['submittednotsubmitted'] = 'Tramesa ({$a->submitted}) / No tramesa ({$a->notsubmitted})';
 $string['subplugintype_workshopallocation'] = 'Mètode d\'assignació de trameses';
-$string['subplugintype_workshopallocation_plural'] = 'Mètodes d\'assignació d\'enviaments';
+$string['subplugintype_workshopallocation_plural'] = 'Mètodes d\'assignació de trameses';
 $string['subplugintype_workshopeval'] = 'Mètode d\'avaluació de qualificacions';
 $string['subplugintype_workshopeval_plural'] = 'Mètodes d\'avaluació de qualificacions';
 $string['subplugintype_workshopform'] = 'Estratègia de qualificació';
@@ -329,7 +335,7 @@ $string['switchphase30'] = 'Canvia a la fase d\'avaluació';
 $string['switchphase30auto'] = 'El taller canviarà automàticament a la fase d\'avaluació després de {$a->daydatetime} ({$a->distanceday})';
 $string['switchphase30info'] = 'Ara canviareu el taller a la <strong>Fase d\'avaluació</strong>. En aquesta fase, els revisors poden avaluar les trameses que els han estat assignades (entre les dates d\'inici i final d\'avaluació, si estan establertes).';
 $string['switchphase40'] = 'Canvia a la fase d\'avaluació de les qualificacions';
-$string['switchphase40info'] = 'Ara canviareu el taller a la <strong>Fase d\'avaluació de les qualificacions</strong>. En aquesta fase, els usuaris no poden modificar les seves trameses ni les seves avaluacions. Els professors poden usar les eines d\'avaluació de qualificacions per a calcular les qualificacions finals i oferir retroacció als revisors.';
+$string['switchphase40info'] = 'Ara canviareu el taller a la <strong>Fase de qualificació de les avaluacions</strong>. En aquesta fase, els usuaris no poden modificar les seves trameses ni les seves avaluacions. Els professors poden usar les eines d\'avaluació de qualificacions per a calcular les qualificacions finals i oferir retroacció als revisors.';
 $string['switchphase50'] = 'Tanca el taller';
 $string['switchphase50info'] = 'Ara tancareu el taller. Això farà que les qualificacions calculades apareguin al llibre de qualificacions. Els estudiants podran veure les seves trameses i l\'avaluació d\'aquestes.';
 $string['switchphaseauto'] = 'L\'acció de canviar s\'ha programat';

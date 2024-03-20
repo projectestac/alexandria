@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'error', language 'ca', version '3.11'.
+ * Strings for component 'error', language 'ca', version '4.1'.
  *
  * @package     error
  * @category    string
@@ -213,7 +213,7 @@ $string['ddlfieldalreadyexists'] = 'El camp "{$a}" ja existeix';
 $string['ddlfieldnotexist'] = 'El camp "{$a->fieldname}" no existeix a la taula "{$a->tablename}"';
 $string['ddltablealreadyexists'] = 'La taula "{$a}" ja existeix';
 $string['ddltablenotexist'] = 'La taula "{$a}" no existeix';
-$string['ddlunknownerror'] = 'S\'ha produït un error a causa de la biblioteca desconeguda DDL';
+$string['ddlunknownerror'] = 'S\'ha produït un error desconegut a la biblioteca DDL';
 $string['ddlxmlfileerror'] = 'S\'han trobat errors en el fitxer XML de la base de dades';
 $string['ddsequenceerror'] = 'La definició de la taula "{$a}" és incorrecta. Només hi pot haver una columna auto i s\'ha de definir com a clau.';
 $string['destinationcmnotexit'] = 'El mòdul de destinació del curs no existeix.';
@@ -441,6 +441,7 @@ $string['nonmeaningfulcontent'] = 'Contingut no significatiu';
 $string['noparticipants'] = 'No s\'ha trobat cap participant en aquest curs';
 $string['noparticipatorycms'] = 'No teniu mòduls participatius dels quals es pugui informar';
 $string['nopermissions'] = 'Actualment no teniu permisos per a fer això ({$a}).';
+$string['nopermissiontoaccesspage'] = 'No teniu permisos per accedir a la pàgina.';
 $string['nopermissiontocomment'] = 'No podeu afegir comentaris';
 $string['nopermissiontodelentry'] = 'No podeu esborrar entrades d\'altres persones';
 $string['nopermissiontoeditcomment'] = 'No podeu editar els comentaris d\'altres persones';

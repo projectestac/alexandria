@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hvp', language 'ru', version '3.11'.
+ * Strings for component 'hvp', language 'ru', version '4.1'.
  *
  * @package     hvp
  * @category    string
@@ -247,7 +247,7 @@ $string['messageprovider:confirmation'] = 'Подтверждение ваших
 $string['messageprovider:submission'] = 'Уведомления об ответах H5P';
 $string['missingcontentfolder'] = 'Допустимая папка с контентом (содержимым) отсутствует';
 $string['missingcontentuserdata'] = 'Ошибка: не удалось найти содержимое данных пользователя';
-$string['missingcoreversion'] = 'Системе не удалось установить компонент <em> {$a ->%component} </em> из пакета, для этого требуется более новая версия плагина H5P. На этом сайте работает версия {$a->%current}, а требуемая версия {$a ->%required} или выше. Вам следует рассмотреть возможность обновления, а затем повторить попытку.';
+$string['missingcoreversion'] = 'Системе не удалось установить компонент <em> {$a->%component} </em> из пакета, для этого требуется более новая версия плагина H5P. На этом сайте работает версия {$a->%current}, а требуемая версия {$a->%required} или выше. Вам следует рассмотреть возможность обновления, а затем повторить попытку.';
 $string['missingdependency'] = 'Отсутствует зависимость {$a->@dep}, требуемая {$a->@lib}.';
 $string['missinglibrary'] = 'Отсутствует требуемая библиотека {$a->@library}';
 $string['missinglibraryfile'] = 'Файл "{$a->%file}" отсутствует в библиотеке: "{$a->%name}"';
@@ -264,6 +264,7 @@ $string['modulename_help'] = 'Модуль H5P позволяет создава
 Пользовательский интерфейс и баллы отслеживаются с использованием xAPI и доступны через Журнал оценок Moodle.
 
 Вы можете добавлять интерактивный контент H5P, создавая его с помощью встроенного инструмента разработки или загружая файлы H5P, найденные на других сайтах, поддерживающих H5P.';
+$string['modulename_link'] = 'https://h5p.org/moodle-more-help';
 $string['modulenameplural'] = 'Интерактивный контент';
 $string['nextpage'] = 'Следующая страница';
 $string['noanswersubmitted'] = 'Этот пользователь еще не отправил ответ в H5P';
@@ -385,7 +386,7 @@ $string['validationfailed'] = 'Запрашиваемый H5P недействи
 $string['viewreportlabel'] = 'Отчёт';
 $string['welcomecommunity'] = 'Мы надеемся что вам понравится H5P и вы вступите в наше растущее сообщество через наши <a {$a->forums}>форумы</a>.';
 $string['welcomecontactus'] = 'Если у вас есть отзывы, не стесняйтесь <a {$a}>связаться с нами</a>. Мы очень серьезно относимся к отзывам и каждый день стараемся сделать H5P лучше!';
-$string['welcomegettingstarted'] = 'Чтобы начать работу с H5P и Moodle, ознакомьтесь с <a {$a-> moodle_tutorial}>руководством</a> и <a {$a-> example_content}>примером контента</a> на странице H5P.org для вдохновения.';
+$string['welcomegettingstarted'] = 'Чтобы начать работу с H5P и Moodle, ознакомьтесь с <a {$a->moodle_tutorial}>руководством</a> и <a {$a->example_content}>примером контента</a> на странице H5P.org для вдохновения.';
 $string['welcomeheader'] = 'Добро пожаловать в мир H5P!';
 $string['wrongversion'] = 'Недопустимая версия библиотеки H5P {$a->%machineName}, используемая в этом контенте. Контент содержит {$a->%contentLibrary}, а должен содержать {$a->%semanticsLibrary}.';
 $string['year'] = 'Год';

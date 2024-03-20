@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'dataformat_html', language 'fr', version '3.11'.
+ * Strings for component 'dataformat_html', language 'fr', version '4.1'.
  *
  * @package     dataformat_html
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['dataformat'] = 'Table HTML';
-$string['privacy:metadata'] = 'Le plugin format de données HTML n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin format de données HTML n’enregistre aucune donnée personnelle.';
 $string['shortname'] = 'HTML';

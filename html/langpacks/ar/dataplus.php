@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'dataplus', language 'ar', version '3.11'.
+ * Strings for component 'dataplus', language 'ar', version '4.1'.
  *
  * @package     dataplus
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['addadditionaltocomment'] = 'إضافة معلومات إضافية إلى قالب تعليقاتك';
+$string['addadditionaltocomment'] = 'إضافة معلومات إضافية إلى مظهر تعليقاتك';
 $string['addadditionaltorecord'] = 'إضافة معلومات إضافية إلى سجلك';
 $string['addinfo'] = 'إضافة معلومات إضافية إلى سجلك';
 $string['advancedsearch'] = 'بحث متقدم';

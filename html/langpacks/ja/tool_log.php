@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_log', language 'ja', version '3.11'.
+ * Strings for component 'tool_log', language 'ja', version '4.1'.
  *
  * @package     tool_log
  * @category    string
@@ -27,8 +27,8 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['actlogshdr'] = '利用可能なログストア';
 $string['configlogplugins'] = 'すべての必要なプラグインを有効にして適切な順に配置してください。';
-$string['exportlog'] = 'エクスポート時にログを含みます。';
-$string['exportlogdetail'] = 'エクスポート時にユーザに関連するログを含みます。';
+$string['exportlog'] = 'エクスポート時にログを含めます。';
+$string['exportlogdetail'] = 'エクスポート時にユーザに関連するログを含めます。';
 $string['logging'] = 'ロギング';
 $string['managelogging'] = 'ログストアを管理する';
 $string['pluginname'] = 'ログストアマネージャ';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'grading', language 'eu', version '3.11'.
+ * Strings for component 'grading', language 'eu', version '4.1'.
  *
  * @package     grading
  * @category    string
@@ -63,7 +63,7 @@ $string['privacy:metadata:grading_definitions'] = 'Kalifikagarria den eremu bate
 $string['privacy:metadata:grading_definitions:areaid'] = 'Kalifikazio aurreraturako formularioa definituta dagoen eremuaren IDa.';
 $string['privacy:metadata:grading_definitions:copiedfromid'] = 'Hau kopiatu zeneko kalifikazio-definizioaren IDa.';
 $string['privacy:metadata:grading_definitions:description'] = 'Kalifikazio aurreraturako metodoaren deskribapena.';
-$string['privacy:metadata:grading_definitions:method'] = 'Definizioaren arduraduna den kalifikazio metodoa.';
+$string['privacy:metadata:grading_definitions:method'] = 'Definizioaren arduraduna den kalifikazio-metodoa.';
 $string['privacy:metadata:grading_definitions:name'] = 'Kalifikazio aurreraturako definizioaren izena.';
 $string['privacy:metadata:grading_definitions:options'] = 'Kalifikazio-definizio honen ezarpen batzuk.';
 $string['privacy:metadata:grading_definitions:status'] = 'Kalifikazio aurreraturako definizio honen egoera.';

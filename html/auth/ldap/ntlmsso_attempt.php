@@ -10,12 +10,12 @@ $site = get_site();
 
 $authsequence = get_enabled_auth_plugins(); // Auths, in sequence.
 if (!in_array('ldap', $authsequence, true)) {
-    print_error('ldap_isdisabled', 'auth');
+    throw new \moodle_exception('ldap_isdisabled', 'auth');
 }
 
 $authplugin = get_auth_plugin('ldap');
 if (empty($authplugin->config->ntlmsso_enabled)) {
-    print_error('ntlmsso_isdisabled', 'auth_ldap');
+    throw new \moodle_exception('ntlmsso_isdisabled', 'auth_ldap');
 }
 
 $sesskey = sesskey();
@@ -26,7 +26,7 @@ $sesskey = sesskey();
 // when we've already left the page that set the timer.
 $loginsite = get_string("loginsite");
 $PAGE->navbar->add($loginsite);
-$PAGE->set_title("$site->fullname: $loginsite");
+$PAGE->set_title($loginsite);
 $PAGE->set_heading($site->fullname);
 echo $OUTPUT->header();
 

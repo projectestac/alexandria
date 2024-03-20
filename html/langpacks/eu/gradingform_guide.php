@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'gradingform_guide', language 'eu', version '3.11'.
+ * Strings for component 'gradingform_guide', language 'eu', version '4.1'.
  *
  * @package     gradingform_guide
  * @category    string
@@ -49,7 +49,7 @@ $string['criterionempty'] = 'Egin klik irizpidea editatzeko';
 $string['criterionmovedown'] = 'Mugitu behera';
 $string['criterionmoveup'] = 'Mugitu gora';
 $string['criterionname'] = 'Irizpidearen izena';
-$string['criterionremark'] = '{$a} irizpide-iruzkin';
+$string['criterionremark'] = '{$a} irizpidearen iruzkina';
 $string['definemarkingguide'] = 'Zehaztu ebaluazio-gida';
 $string['description'] = 'Deskribapena';
 $string['descriptionmarkers'] = 'Kalifikatzaileentzako deskribapena';

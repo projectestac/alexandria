@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'format_topcoll', language 'ar', version '3.11'.
+ * Strings for component 'format_topcoll', language 'ar', version '4.1'.
  *
  * @package     format_topcoll
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['coursesectionactivityfurtherinformation'] = 'المعلومات الإضافية لصفحة المساق';
+$string['coursesectionactivityfurtherinformation'] = 'المعلومات الإضافية لصفحة المقرر';
 $string['coursesectionactivityfurtherinformationfeedback'] = 'إظهار معلومات الإفادة';
 $string['coursesectionactivityfurtherinformationfeedbackdesc'] = 'إظهار معلومات الإفادة. بالنسبة إلى المعلمين / المشرفين، إظهار عدد التسليمات.';
 $string['coursesectionactivityfurtherinformationquiz'] = 'إظهار معلومات الاختبار';
@@ -44,8 +44,8 @@ $string['feedbackavailable'] = 'الإفادة متاحة';
 $string['hidefromothers'] = 'إخفاء المقطع';
 $string['layoutstructuredays'] = 'أيام';
 $string['left'] = 'اليسار';
-$string['maincoursepage'] = 'الصفحة الرئيسية للمقرر الدراسي';
-$string['page-course-view-topcoll'] = 'أي صفحة رئيسية لمقرر ذي تنسيق المواضيع المطوية';
+$string['maincoursepage'] = 'الصفحة الرئيسية للمساق الدراسي';
+$string['page-course-view-topcoll'] = 'أي صفحة رئيسية لمساق ذي تنسيق المواضيع المطوية';
 $string['page-course-view-topcoll-x'] = 'أي صفحة لمساق ذي تنسيق المواضيع المطوية';
 $string['pluginname'] = 'المواضيع المنهارة';
 $string['privacy:request:preference:toggle'] = 'مُعرَّف المساق "{$a->name}" قيمته "{$a->value}" والتي تمثل "{$a->decoded}" لأغراض أدوات التبديل.';
@@ -74,7 +74,7 @@ $string['settogglealignment_help'] = 'ضبط محاذاة النص في التب
 $string['settogglebackgroundcolour_help'] = 'تعيين لون خلفية التبديل.';
 $string['settogglebackgroundhovercolour_help'] = 'تعيين لون خلفية التبديل عند تحريك الماوس فوقه.';
 $string['showadditionalmoddata'] = 'إظهار معلومات إضافية عن: {$a} في المساق';
-$string['showadditionalmoddata_help'] = 'السماح لكل المستخدمين بمشاهدة الموعد النهائي للنشاط، والمساح للمستخدمين ذوي صلاحية التقييم بمشاهدة عدد تسليمات النشاطات في صفحة المساق.';
+$string['showadditionalmoddata_help'] = 'السماح لكل المستخدمين بمشاهدة الموعد النهائي للنشاط، والمساح للمستخدمين ذوي صلاحية التقييم بمشاهدة عدد تسليمات النشاطات في صفحة المقرر.';
 $string['small'] = 'صغير';
 $string['topcoll:changetogglealignment'] = 'تغيير أو إعادة تعيين محاذاة التبديل';
 $string['topcollclosed'] = 'إغلاق الكل';

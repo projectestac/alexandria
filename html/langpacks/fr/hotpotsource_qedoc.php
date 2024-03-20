@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'hotpotsource_qedoc', language 'fr', version '3.11'.
+ * Strings for component 'hotpotsource_qedoc', language 'fr', version '4.1'.
  *
  * @package     hotpotsource_qedoc
  * @category    string
@@ -26,4 +26,4 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Fichiers source Qedoc';
-$string['privacy:metadata'] = 'Le plugin Fichiers source Qedoc n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin Fichiers source Qedoc n’enregistre aucune donnée personnelle.';

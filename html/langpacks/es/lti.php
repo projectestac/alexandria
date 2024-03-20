@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'lti', language 'es', version '3.11'.
+ * Strings for component 'lti', language 'es', version '4.1'.
  *
  * @package     lti
  * @category    string
@@ -170,23 +170,16 @@ $string['errortooltypenotfound'] = 'Tipo de herramienta LTI no encontrado.';
 $string['existing_window'] = 'Ventana existente';
 $string['extensions'] = 'Servicios de extensión LTI';
 $string['external_tool_type'] = 'Herramienta preconfigurada';
-$string['external_tool_type_help'] = 'El propósito principal de una "configuración de herramientas" es establecer un canal de comunicación seguro entre Moodle y el proveedor de la herramienta También proporciona una oportunidad para establecer configuraciones por defecto e instalar servicios adicionales proporcionados por la herramienta.
+$string['external_tool_type_help'] = '* **Automático, basado en Launch URL** -  Se selecciona automáticamente la mejor configuración de herramientas. Si no se reconoce la URL de herramientas, puede que haya que introducir manualmente los detalles de configuración de herramienta.
+* **Un tipo específico de herramienta preconfigurada** - La herramienta de configuración de la herramienta específica se usará cuando se comunique con el proveedor de herramienta externa. Si la URL de la herramienta no parece pertenecer al proveedor de la herramienta, se mostraá un aviso. No siempre es necesario introducir una URL de herramienta.
+* **Configuración personalizada** - Puede que haya que introducir manualmente una clave de cliente y una clave secreta. Ambas claves debe proporcionarlas el proveedor de la herramienta. Sin embargo, no todas las herramientas necesitan estas claves, en cuyo caso los campos pueden dejarse en blanco.
 
-* **Automático, basada en Launch URL** - Esta configuración debería ser empleada en la mayoría de los casos. Moodle elegirá la configuración de la utilidad más apropiada      basada en Launch URL. Se usarán herramientas configurada tanto por el administrador como desde el propio curso.
-Cuando se especifica Launch URL, Moodle dará información sobre si la reconoce o no. Si Moodle no reconociera Launch URL, entonces deberíaponer los detalles de configuración de la herramienta manualmente.
+### Edición de Herramienta preconfigurada.
 
-* **Un tipo específico de herramienta** - Al seleccionar un tipo específico de herramienta, usted puede forzar a Moodle a que emplee esa configuración de herramienta cuando se comunique con el proveedor de la herramienta externa. Si pareciera que la Launch URL no pertenece al proveedor de la herramienta, aparecerá una advertencia. En algunos casos no es necesario proporcionar un Launch URL al emplear un tipo de herramienta específico (si no está invocando un recurso particular dentro del proveedor de la herramienta).
-
-* **Configuración a la medida** - Para ajustar la configuración a la medida solamente en esta instancia, mostrar Opciones Avanzadas, y proporcione usted mismo la clave privada y la clave pública. Si no tiene clave privada y clave pública, puede solicitarlas al proveedor de la herramienta. No todas las herramientas requieren una clave privada y una clave pública; en estos casos los campos pueden dejarse en blanco.
-
-### Edición del Tipo de Herramienta.
-
-Existen tres íconos disponibles en la lista desplegable de Herramienta:
+Existen tres iconos disponibles en la lista desplegable de Herramienta preconfigurada:
 
 * **Añadir** - Crea una configuración de herramienta a nivel de curso. Todas las instancias de la herramienta externa en este curso pueden emplear esta configuración de herramienta.
-
-* **Editar** - Selecciona un tipo de herramienta a nivel de curso a partir de una lista desplegable y eligiendo después este ícono. Los detalles de la configuración de la herramienta pueden editarse.
-
+* **Editar** - Seleccione un tipo de herramienta a nivel de curso a partir de una lista desplegable y elija después este icono. Los detalles de la configuración de la herramienta pueden editarse.
 * **Borrar** - Elimina el tipo de herramienta del curso seleccionado.';
 $string['external_tool_types'] = 'Herramientas preconfiguradas';
 $string['failedtoconnect'] = 'Moodle fue incapaz de comunicarse con el sistema "{$a}"';
@@ -217,10 +210,12 @@ $string['indicator:cognitivedepth'] = 'LTI cognitiva';
 $string['indicator:cognitivedepth_help'] = 'Este indicador está basado en la profundidad cognitiva alcanzada por el estudiante en una actividad LTI.';
 $string['indicator:cognitivedepthdef'] = 'LTI cognitivo';
 $string['indicator:cognitivedepthdef_help'] = 'El participante ha alcanzado este porcentaje del compromiso cognitivo ofrecido por las actividades LTI durante este intervalo de análisis (Niveles = Sin visualización, Visualización, Envío, Visualización de comentarios)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'LTI social';
 $string['indicator:socialbreadth_help'] = 'Este indicador está basado en la amplitud social alcanzada por el estudiante en una actividad LTI.';
 $string['indicator:socialbreadthdef'] = 'LTI social';
 $string['indicator:socialbreadthdef_help'] = 'El participante ha alcanzado este porcentaje de compromiso social ofrecido por las actividades LTI durante este intervalo de análisis (Niveles = Sin participación, Participante solo, Participante con otros)';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['initiatelogin'] = 'Iniciar URL de inicio de sesión';
 $string['initiatelogin_help'] = 'La URL de la herramienta a la que se enviarán las solicitudes para iniciar un inicio de sesión. Esta URL es necesaria antes de que un mensaje se pueda enviar correctamente a la herramienta.';
 $string['invalidid'] = 'ID de LTI incorrecta';
@@ -232,17 +227,21 @@ $string['keytype_rsa'] = 'Clave RSA';
 $string['launch_in_moodle'] = 'Iniciar la herramienta en Moodle';
 $string['launch_in_popup'] = 'Iniciar la herramienta en ventana emergente (pop-up)';
 $string['launch_url'] = 'URL de la herramienta';
-$string['launch_url_help'] = 'La URL de inicio indica la dirección web de la Herramienta Externa y puede contener información adicional. Si no está seguro que ruta introducir, por favor consulte al proveedor de la misma para más información.
+$string['launch_url_help'] = 'La URL de inicio indica la dirección web de la Herramienta Externa y puede contener información adicional, como el recurso a mostrar.
+Si no sabe con seguridad qué URL de herramienta introducir, por favor consulte con el proveedor de la herramienta para más información.
 
-Si ha seleccionado un tipo de herramienta específico, puede no ser necesario especificar una URL de inicio. Si el enlace se utiliza sólo para poner en marcha el sistema del proveedor y no para ir a un recurso específico, es probable que esto sea así.';
+Puede introducir una URL si la tiene, y el resto de los detalles del formulario se rellenarán automáticamente.
+
+Si ha seleccionado un tipo específico de herramienta preconfigurada, puede no ser necesario especificar una URL de herramienta. Si el enlace se utiliza sólo para poner en marcha el sistema del proveedor y no para ir a un recurso específico, es probable que esto sea así.';
 $string['launchinpopup'] = 'Iniciar el contenedor';
 $string['launchinpopup_help'] = 'El contenedor que inicia la herramienta afecta al modo de visualización en el curso. Algunos contenedores proporcionan más espacio en pantalla y otros proporcionan una apariencia más integrada en Moodle.
 
 **Por defecto** Utiliza el contenedor especificado en la configuración de la herramienta.
-**Incrustado** Se muestra en la ventana de Moodle, de forma similar al resto de actividades.
-**Incrustado sin bloques** Se muestra en la ventana de Moodle, mostrando sólo los controles de navegación al principio de la página.
+**Incrustado** Se muestra en la ventana de Moodle existente, de forma similar al resto de actividades.
+**Incrustado sin bloques** Se muestra en la ventana de Moodle existente, mostrando sólo los controles de navegación en la parte superior de la página.
 **Nueva ventana** Se muestra en ventana nueva usando todo el espacio disponible.
-Dependiendo del navegador se abrirá en nueva pestaña o en ventana emergente. Es posible que algunos navegadores o programas bloqueen la apertura en nueva ventana.';
+        Dependiendo del navegador se abrirá en nueva pestaña o en ventana emergente.
+        Es posible que algunos navegadores o programas bloqueen la apertura.';
 $string['launchoptions'] = 'Opciones de inicio';
 $string['leaveblank'] = 'Déjalo en blanco si no lo necesitas';
 $string['lti'] = 'LTI';
@@ -270,16 +269,13 @@ $string['ltiversion'] = 'Versión LTI';
 $string['ltiversion_help'] = 'La versión de LTI que se está utilizando para firmar mensajes y peticiones de servicio: LTI 1.0/1.1 y LTI 2.0 usan el perfil de seguridad OAuth 1.0A; LTI 1.3.0 utiliza JWT.';
 $string['main_admin'] = 'Ayuda general';
 $string['main_admin_help'] = 'Las herramientas externas permiten a los usuarios de Moodle interactuar directamente con recursos educativos alojados en servidores externos.
-
-Mediante un protocolo especial de inicio la herramienta externa tendrá acceso a alguna información general del usuario que la inicia, como por ejemplo, el nombre de la institución, el id del curso y otras informaciones como el nombre de usuario o la dirección de correo.
+Mediante un protocolo especial de inicio, la herramienta externa tendrá acceso a información general del usuario que la inicia. Por ejemplo, el nombre de la institución, el id del curso y otras informaciones como el nombre de usuario o la dirección de correo.
 
 Los tipos de herramienta se clasifican en tres categorías:
 
-**Activo** Estos proveedores de herramientas han sido aprobados y configurados por el administrador. Pueden ser utilizados en todos los cursos de la plataforma Moodle. Si se dispone de clave de usuario y clave compartida, se establecerá una comunicación segura entre el sitio Moodle y la herramienta externa.
-
-**Pendiente** Estos proveedores no han sido configurados por el administrador. Los docentes podrán usar herramientas de ese proveedor si disponen de una clave de usuario y clave compartida o si no se requieren.
-
-**Rechazado** Estos proveedores están marcados como no disponibles en el sitio Moodle. Los docentes podrán usar herramientas de ese proveedor si disponen de una clave de usuario y clave compartida o si no se requieren.';
+**Activa** Estos proveedores de herramientas han sido aprobados y configurados por el administrador. Pueden ser utilizados en todos los cursos de la plataforma Moodle. Si se dispone de clave de cliente y clave secreta, se establecerá una comunicación segura entre el sitio Moodle y la herramienta externa.
+**Pendiente** Estos proveedores no han sido configurados por el administrador. Los docentes podrán usar herramientas de ese proveedor si disponen de una clave de cliente y clave secreta o si no se requieren.
+**Rechazada** Estos proveedores están marcados como aquellos que un administrador no tiene intención de hacer disponibles en el sitio. Aún así, los docentes podrán usar herramientas de estos proveedores si disponen de una clave de cliente o clave secreta, o si no se requieren.';
 $string['manage_external_tools'] = 'Administrar herramientas';
 $string['manage_tool_proxies'] = 'Administrar registros de la herramienta externa';
 $string['manage_tools'] = 'Gestionar herramientas preconfiguradas';
@@ -300,8 +296,10 @@ Las herramientas externas difieren se los recursos URL en varias formas:
 * Las herramientas externas soportan leer, actualizar y borrar calificaciones asociadas con la instancia de la actividad
 
 * Las configuraciones de la herramienta externa crean una relación de confianza entre su sitio Moodle y el provedor de la herramienta, permitiendo la comunicación segura entre ambos';
+$string['modulename_link'] = 'mod/lti/view';
+$string['modulename_shortcut_link'] = 'mod/lti/view/custom (mod/lti/ver/personalizar)';
 $string['modulenameplural'] = 'Herramientas externas';
-$string['modulenamepluralformatted'] = 'Instancias LTI';
+$string['modulenamepluralformatted'] = 'Herramientas externas';
 $string['name'] = 'Nombre';
 $string['never'] = 'Nunca';
 $string['new_window'] = 'Nueva ventana';
@@ -325,12 +323,8 @@ $string['opensslconfiginvalid'] = 'LTI 1.3 requiere un archivo openssl.cnf váli
 $string['optionalsettings'] = 'Ajustes opcionales';
 $string['organization'] = 'Detalles de la organización';
 $string['organizationdescr'] = 'Descripción de la organización';
-$string['organizationid'] = 'ID de la organización';
 $string['organizationid_default'] = 'ID por defecto de la organización';
 $string['organizationid_default_help'] = 'El valor por defecto para utilizarlo como ID de la organización. El ID del sitio identifica esta instalación de Moodle.';
-$string['organizationid_help'] = 'Un identificador único para esta instancia de Moodle. Habitualmente se utiliza el nombre DNS de la organización.
-
-Si este campo se deja en blanco, el nombre del host de este sitio Moodle se utilizará como valor por defecto.';
 $string['organizationidguid'] = 'ID de la organización';
 $string['organizationidguid_help'] = 'Un identificador único para esta instancia de Moodle que se pasa a la herramienta como GUID de instancia de plataforma.
 

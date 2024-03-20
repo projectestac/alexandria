@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'currencies', language 'fr', version '3.11'.
+ * Strings for component 'currencies', language 'fr', version '4.1'.
  *
  * @package     currencies
  * @category    string
@@ -131,7 +131,7 @@ $string['NIO'] = 'Córdoba d’or nicaraguayen';
 $string['NOK'] = 'Couronne norvégienne';
 $string['NPR'] = 'Roupie népalaise';
 $string['NZD'] = 'Dollar néo-zélandais';
-$string['OMR'] = 'Rial d\'Oman';
+$string['OMR'] = 'Rial d’Oman';
 $string['PAB'] = 'Balboa panaméen';
 $string['PEN'] = 'Nouveau sol péruvien';
 $string['PGK'] = 'Kina de Papouasie-Nouvelle-Guinée';
@@ -163,7 +163,7 @@ $string['THB'] = 'Baht thaïlandais';
 $string['TJS'] = 'Somoni tadjik';
 $string['TMT'] = 'Manat turkmène';
 $string['TND'] = 'Dinar tunisien';
-$string['TOP'] = 'Pa\'anga tongan';
+$string['TOP'] = 'Pa’anga tongan';
 $string['TRY'] = 'Livre turque';
 $string['TTD'] = 'Dollar de Trinité-et-Tobago';
 $string['TWD'] = 'Dollar taïwanais';
@@ -183,5 +183,5 @@ $string['XOF'] = 'Franc CFA BCEAO';
 $string['XPF'] = 'Franc Pacifique';
 $string['YER'] = 'Rial yéménite';
 $string['ZAR'] = 'Rand sud-africain';
-$string['ZMK'] = 'Kwacha de Zambie';
+$string['ZMW'] = 'Kwacha de Zambie';
 $string['ZWL'] = 'Dollar zimbabwéen';

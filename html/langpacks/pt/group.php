@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'group', language 'pt', version '3.11'.
+ * Strings for component 'group', language 'pt', version '4.1'.
  *
  * @package     group
  * @category    string
@@ -37,7 +37,7 @@ $string['backtogroupings'] = 'Voltar para Agrupamentos';
 $string['backtogroups'] = 'Voltar para Grupos';
 $string['badnamingscheme'] = 'Tem de conter exatamente um caráter \'@\' ou \'#';
 $string['byfirstname'] = 'Ordenação alfabética por nome, apelido';
-$string['byidnumber'] = 'Ordenação ascendente por número de ID';
+$string['byidnumber'] = 'Ordenação ascendente por ID';
 $string['bylastname'] = 'Ordenação alfabética por apelido, nome';
 $string['createautomaticgrouping'] = 'Criar agrupamento automático';
 $string['creategroup'] = 'Criar grupo';
@@ -62,7 +62,7 @@ $string['editgroupsettings'] = 'Editar configurações do grupo';
 $string['editusersgroupsa'] = 'Editar grupos de "{$a}"';
 $string['enablemessaging'] = 'Ativar mensagens de grupo';
 $string['enablemessaging_help'] = 'Se ativar esta opção, os membros do grupo podem enviar mensagens para os outros membros do grupo através da caixa de mensagens.';
-$string['encoding'] = 'A codificar';
+$string['encoding'] = 'Codificação';
 $string['enrolmentkey'] = 'Senha de inscrição';
 $string['enrolmentkey_help'] = 'Uma senha de inscrição permite que o acesso à disciplina seja limitado apenas para aqueles que conhecem a senha. Se especificar a senha de inscrição de um grupo, essa senha não permitirá apenas o acesso do utilizador à disciplina, mas também a sua inscrição automática como membro do grupo.
 
@@ -87,6 +87,7 @@ $string['eventgroupmemberadded'] = 'Membro do grupo adicionado';
 $string['eventgroupmemberremoved'] = 'Membro do grupo removido';
 $string['eventgroupupdated'] = 'Grupo atualizado';
 $string['existingmembers'] = 'Membros existentes: {$a}';
+$string['exportgroupsgroupings'] = 'Descarregar agrupamentos e grupos como:';
 $string['filtergroups'] = 'Filtrar grupos por:&nbsp;';
 $string['group'] = 'Grupo';
 $string['groupaddedsuccesfully'] = 'Grupo \'{$a}\' adicionado com sucesso';
@@ -112,15 +113,13 @@ $string['groupmembers'] = 'Membros do grupo';
 $string['groupmemberssee'] = 'Ver membros do grupo';
 $string['groupmembersselected'] = 'Membros do grupo selecionado';
 $string['groupmode'] = 'Modo de grupo';
-$string['groupmode_help'] = 'A definição do modo de grupo pode ser uma das três seguintes:
+$string['groupmode_help'] = '* Não há grupos
+* Grupos separados - Os alunos são divididos em grupos e só podem ver o trabalho do seu grupo.
+* Grupos visíveis - Os alunos são divididos em grupos, mas podem ver o trabalho dos outros grupos.
 
-* Não há grupos
-* Grupos separados - cada grupo pode ver apenas o seu próprio grupo, estando os restantes grupos invisíveis.
-* Grupos visíveis - cada grupo trabalha apenas dentro do seu próprio grupo, mas pode ver os outros grupos.
-
-O modo de grupo definido ao nível da disciplina será o modo aplicado automaticamente a todas as atividades nessa disciplina. Contudo, cada atividade poderá também ter a sua própria definição de modo de grupo. No entanto, se o modo de grupo for forçado ao nível da disciplina, o modo de grupo definido no âmbito das atividades será ignorado.';
+O modo de grupo definido ao nível da disciplina será o modo predefinido para todas as atividades nessa disciplina. Se o modo de grupo for forçado ao nível da disciplina, o modo de grupo não poderá ser alterado nas atividades.';
 $string['groupmodeforce'] = 'Forçar modo de grupo';
-$string['groupmodeforce_help'] = 'Se esta configuração tiver o valor "Sim", então o modo de grupo é forçado ao nível da disciplina e o modo de grupo definido no âmbito das atividades será ignorado.';
+$string['groupmodeforce_help'] = 'O modo de grupo é forçado para todas as atividades e não pode ser alterado nas atividades.';
 $string['groupmy'] = 'Meu grupo';
 $string['groupname'] = 'Nome do grupo';
 $string['groupnameexists'] = 'O nome de grupo \'{$a}\' já existe nesta disciplina, escolha outro.';

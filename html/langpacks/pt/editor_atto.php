@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'editor_atto', language 'pt', version '3.11'.
+ * Strings for component 'editor_atto', language 'pt', version '4.1'.
  *
  * @package     editor_atto
  * @category    string
@@ -46,10 +46,11 @@ $string['privacy:metadata:database:atto_autosave:drafttext'] = 'O texto guardado
 $string['privacy:metadata:database:atto_autosave:timemodified'] = 'Data e hora de modificação do conteúdo';
 $string['privacy:metadata:database:atto_autosave:userid'] = 'ID do utilizador dos dados guardados.';
 $string['recover'] = 'Recuperar';
+$string['richtexteditor'] = 'Editor \'Rich text\'';
 $string['settings'] = 'Configurações da barra de ferramentas Atto';
 $string['subplugintype_atto'] = 'Módulo Atto';
 $string['subplugintype_atto_plural'] = 'Módulos Atto';
-$string['taskautosavecleanup'] = 'Apagar os rascunhos automáticos expirados';
+$string['taskautosavecleanup'] = 'Eliminação dos rascunhos automáticos expirados';
 $string['textrecovered'] = 'Uma versão de rascunho deste texto foi automaticamente restaurada.';
 $string['toolbarconfig'] = 'Configurações da barra de ferramentas';
 $string['toolbarconfig_desc'] = 'A lista de módulos e a ordem pela qual são apresentados podem ser configurados aqui. A configuração consiste em grupos (um por linha), seguido pela lista ordenada de módulos para esse grupo. O grupo é separado dos módulos com um sinal de igual e os módulos são separados por vírgulas. Os nomes dos grupos devem ser únicos e devem indicar o que os botões têm em comum. Os botões e os nomes dos grupos não devem ser repetidos e só podem conter caracteres alfanuméricos.';

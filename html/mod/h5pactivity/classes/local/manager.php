@@ -357,6 +357,9 @@ class manager {
 
         // But excluding all reviewattempts users converting a capabilities join into left join.
         $reviewersjoin = get_with_capability_join($context, 'mod/h5pactivity:reviewattempts', 'u.id');
+        if ($reviewersjoin->cannotmatchanyrows) {
+            return $capjoin;
+        }
 
         $capjoin = new sql_join(
             $capjoin->joins . "\n LEFT " . str_replace('ra', 'reviewer', $reviewersjoin->joins),
@@ -476,7 +479,7 @@ class manager {
             // Ensure user can view the attempt of specific userid, respecting access checks.
             if ($user && $user->id != $USER->id) {
                 $course = get_course($this->coursemodule->course);
-                if ($this->coursemodule->effectivegroupmode == SEPARATEGROUPS && !user_can_view_profile($user, $course)) {
+                if (!groups_user_groups_visible($course, $user->id, $this->coursemodule)) {
                     return null;
                 }
             }

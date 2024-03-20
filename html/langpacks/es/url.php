@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'url', language 'es', version '3.11'.
+ * Strings for component 'url', language 'es', version '4.1'.
  *
  * @package     url
  * @category    string
@@ -29,7 +29,7 @@ $string['chooseavariable'] = 'Escoja una variable';
 $string['clicktoopen'] = 'Haga clic en el enlace {$a} para abrir el recurso.';
 $string['configdisplayoptions'] = 'Seleccione todas las opciones que deben estar disponibles; los valores existentes no se modifican. Mantenga pulsada la tecla CTRL para seleccionar varios campos.';
 $string['configframesize'] = 'Cuando una página web o un archivo subido se muestra dentro de un marco, este valor es la altura (en píxeles) del marco superior (el que contiene la barra de navegación).';
-$string['configrolesinparams'] = 'Activar si desea incluir los nombres de rol localizados en la lista de parámetros variables disponibles';
+$string['configrolesinparams'] = '¿Deberían estar disponibles como variables de parámetros URL los nombres de roles personalizados?';
 $string['configsecretphrase'] = 'Esta frase secreta se utiliza para producir código cifrado válido que pueda ser enviado a algunos servidores como parámetro. El código de cifrado se produce por un valor md5 del usuario actual dirección IP concatenado con su frase secreta. es decir, el código = md5 (IP.frase_secreta). Tenga en cuenta que esto no es fiable porque la dirección IP puede cambiar y habitualmente es compartida por diferentes equipos.';
 $string['contentheader'] = 'Contenido';
 $string['createurl'] = 'Crear una URL';
@@ -41,7 +41,9 @@ Las opciones pueden incluir:
 * Automático - Se selecciona de forma automática la mejor opción para visualizar la dirección URL
 * Incrustar - La URL se muestra dentro de la página debajo de la barra de navegación junto con la descripción y cualquier otro bloque
 * Abrir  - Sólo se muestra la dirección en la ventana del navegador
-* En ventana emergente - La URL se muestra en una ventana nueva del navegador sin menús y sin barra de direcciones';
+* En ventana emergente - La URL se muestra en una ventana nueva del navegador sin menús y sin barra de direcciones
+* En marco - La URL se muestra en un marco bajo la barra de navegación y la descripción de la URL
+* Nueva ventana - La URL se muestra en una nueva ventana del navegador con menús y una barra de direcciones';
 $string['displayselectexplain'] = 'Elija el modo de visualización; por desgracia no todos los modos son adecuados para todas las direcciones URL.';
 $string['externalurl'] = 'URL externa';
 $string['framesize'] = 'Altura del marco';
@@ -49,10 +51,12 @@ $string['indicator:cognitivedepth'] = 'URL cognitiva';
 $string['indicator:cognitivedepth_help'] = 'Este indicador está basado en la profundidad cognitiva alcanzada por el estudiante en un recurso URL.';
 $string['indicator:cognitivedepthdef'] = 'URL cognitiva';
 $string['indicator:cognitivedepthdef_help'] = 'El participante ha alcanzado este porcentaje de participación cognitiva ofrecida por los recursos de URL durante este intervalo de análisis (Niveles = Sin ver, Ver)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'URL social';
 $string['indicator:socialbreadth_help'] = 'Este indicador está basado en la amplitud social alcanzada por el estudiante en un recurso URL.';
 $string['indicator:socialbreadthdef'] = 'URL social';
 $string['indicator:socialbreadthdef_help'] = 'El participante ha alcanzado este porcentaje de participación social ofrecida por los recursos de URL durante este intervalo de análisis (Niveles = Sin ver, Ver)';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['invalidstoredurl'] = 'No se puede mostrar el recurso, la URL no es válida.';
 $string['invalidurl'] = 'La URL introducida no es válida';
 $string['modulename'] = 'URL';
@@ -61,7 +65,14 @@ $string['modulename_help'] = 'El recurso URL permite que el profesor pueda propo
 Hay una serie de opciones de visualización de la URL, como incrustada o abierta en una nueva ventana, y opciones avanzadas,  como parsear información a la URL, como el nombre de un estudiante.
 
 Tenga en cuenta que las URLs también pueden ser añadidas en otros recursos o actividades a través del editor de texto.';
+$string['modulename_link'] = 'mod/url/view';
 $string['modulenameplural'] = 'URLs';
+$string['name'] = 'Nombre';
+$string['name_help'] = 'Esto servirá como texto de enlace de la URL.
+
+Introduzca un texto con sentido que describa el propósito de la URL.
+
+Evite usar la palabra "link/enlace". Esto ayudará a los usuarios de lectores de pantalla porque éstos anuncian los enlaces (p.ej. "Moodle.org, enlace") así que no hay necesidad de incluir la palabra "enlace" en el nombre del campo.';
 $string['page-mod-url-x'] = 'Cualquier página del módulo URL';
 $string['parameterinfo'] = '&amp;parámetro=variable';
 $string['parametersheader'] = 'Variables URL';
@@ -75,7 +86,7 @@ $string['popupwidthexplain'] = 'Especifica la anchura por defecto de las ventana
 $string['printintro'] = 'Mostrar la descripción de la URL';
 $string['printintroexplain'] = '¿Mostrar la descripción URL debajo del contenido? Algunos tipos de visualización pueden no mostrar la descripción incluso aunque esté activada esa opción.';
 $string['privacy:metadata'] = 'El complemento de recursos URL no almacena ningún dato personal.';
-$string['rolesinparams'] = 'Incluye los nombres de rol en los parámetros';
+$string['rolesinparams'] = 'Nombres de rol como variables URL';
 $string['search:activity'] = 'URL';
 $string['serverurl'] = 'URL del servidor';
 $string['url:addinstance'] = 'Añadir un nuevo recurso URL';

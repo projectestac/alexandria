@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'h5pactivity', language 'en', version '3.11'.
+ * Strings for component 'h5pactivity', language 'en', version '4.1'.
  *
  * @package     h5pactivity
  * @category    string
@@ -30,6 +30,7 @@ $string['answer_checked'] = 'Answer checked';
 $string['answer_correct'] = 'Your answer is correct';
 $string['answer_fail'] = 'Incorrect answer';
 $string['answer_incorrect'] = 'Your answer is incorrect';
+$string['answer_noanswer'] = 'None';
 $string['answer_pass'] = 'Correct answer';
 $string['answer_text'] = 'Answer text';
 $string['answer_unchecked'] = 'Answer unchecked';
@@ -74,6 +75,7 @@ $string['grade_grademethod_help'] = 'When using point grading, the following met
 * First attempt (all other attempts are ignored)
 * Last attempt (all other attempts are ignored)
 * Don\'t use attempts for grading (disable grading calculation)';
+$string['grade_h5p'] = 'Grade: {$a}';
 $string['grade_highest_attempt'] = 'Highest grade';
 $string['grade_last_attempt'] = 'Last attempt';
 $string['grade_manual'] = 'Don\'t calculate a grade';
@@ -94,6 +96,7 @@ Any question attempts are marked automatically, and the grade is recorded in the
 $string['modulename_link'] = 'mod/h5pactivity/view';
 $string['modulenameplural'] = 'H5P';
 $string['myattempts'] = 'My attempts';
+$string['newsubmissions'] = 'H5P submitted';
 $string['no_compatible_track'] = 'This interaction ({$a}) does not provide tracking information or the tracking
         provided is not compatible with the current activity version.';
 $string['noparticipants'] = 'No participants to display';

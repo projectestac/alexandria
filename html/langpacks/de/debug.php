@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'debug', language 'de', version '3.11'.
+ * Strings for component 'debug', language 'de', version '4.1'.
  *
  * @package     debug
  * @category    string
@@ -25,7 +25,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['authpluginnotfound'] = 'Authentifierung {$a} nicht gefunden';
+$string['authpluginnotfound'] = 'Plugin zur Authentifizierung {$a} nicht gefunden';
 $string['blocknotexist'] = 'Block {$a} existiert nicht!';
 $string['cannotbenull'] = '{$a} darf nicht Null sein!';
 $string['cannotdowngrade'] = 'Ein Downgrade des Plugins \'{$a->plugin}\' von {$a->oldversion} nach {$a->newversion} ist nicht möglich.';
@@ -55,6 +55,17 @@ $string['notables'] = 'Keine Tabellen!';
 $string['outputbuffer'] = 'Ausgabepuffer';
 $string['phpvaroff'] = 'Die PHP-Variable \'{$a->name}\' sollte ausgeschaltet werden: {$a->link}';
 $string['phpvaron'] = 'Die PHP-Variable \'{$a->name}\' sollte eingeschaltet werden: {$a->link}';
+$string['reactive_highlightoff'] = 'Hervorhebung AUS';
+$string['reactive_highlighton'] = 'Hervorhebung EIN';
+$string['reactive_instances'] = 'Reaktive Instanzen:';
+$string['reactive_noinstances'] = 'Diese Seite hat keine reaktiven Instanzen';
+$string['reactive_pin'] = 'Anpinnen';
+$string['reactive_readmodeoff'] = 'Lesemodus AUS';
+$string['reactive_readmodeon'] = 'Lesemodus EIN';
+$string['reactive_resetpanel'] = 'Panel zurücksetzen';
+$string['reactive_saveingwarning'] = 'Warnung: Das Bearbeiten des Status kann unerwartete Ergebnisse liefern.';
+$string['reactive_statedata'] = 'Statusdaten';
+$string['reactive_unpin'] = 'Abpinnen';
 $string['sessionmissing'] = 'Objekt {$a} fehlt für Session';
 $string['sqlrelyonobsoletetable'] = 'Dieses SQL beinhaltet fehlerhafte Tabellen: {$a}! Ein Entwickler muss den Code korrigieren.';
 $string['stacktrace'] = 'Stack trace';

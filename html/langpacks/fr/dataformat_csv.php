@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'dataformat_csv', language 'fr', version '3.11'.
+ * Strings for component 'dataformat_csv', language 'fr', version '4.1'.
  *
  * @package     dataformat_csv
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['dataformat'] = 'Séparé par des virgules (.csv)';
-$string['privacy:metadata'] = 'Le plugin format de données CSV n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin format de données CSV n’enregistre aucune donnée personnelle.';
 $string['shortname'] = 'CSV';

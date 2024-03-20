@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'enrol', language 'el', version '3.11'.
+ * Strings for component 'enrol', language 'el', version '4.1'.
  *
  * @package     enrol
  * @category    string
@@ -35,8 +35,8 @@ $string['ajaxxusersfound'] = 'Βρέθηκαν {$a} χρήστες';
 $string['assignnotpermitted'] = 'Δεν έχετε δικαίωμα ή δεν μπορείτε να αναθέσετε ρόλους σε αυτό το μάθημα.';
 $string['bulkuseroperation'] = 'Μαζικές λειτουργίες χρήστη';
 $string['configenrolplugins'] = 'Παρακαλούμε επιλέξτε όλα τα απαιτούμενα πρόσθετα και έπειτα ταξινομείστε τα στην κατάλληλη σειρά.';
-$string['custominstancename'] = 'Όνομα προσαρμοσμένου στιγμιότυπου';
-$string['defaultenrol'] = 'Προσθήκη στιγμιότυπου στα νέα μαθήματα';
+$string['custominstancename'] = 'Όνομα προσαρμοσμένου στιγμιοτύπου';
+$string['defaultenrol'] = 'Προσθήκη στιγμιοτύπου στα νέα μαθήματα';
 $string['defaultenrol_desc'] = 'Είναι δυνατό να προσθέσετε αυτό το πρόσθετο σε όλα τα νέα μαθήματα από προεπιλογή.';
 $string['deleteinstanceconfirm'] = 'Πρόκειται να διαγράψετε την μέθοδο εγγραφής «{$a->name}». Για τους {$a->users} χρήστες που είναι τώρα εγγεγραμμένοι στο μάθημα χρησιμοποιώντας αυτή την μέθοδο εγγραφής θα γίνει ακύρωση της εγγραφής τους και όλα τα σχετικά με το μάθημα δεδομένα όπως βαθμοί χρηστών, συμμετοχή σε ομάδες, εγγραφές σε φόρουμ κλπ. θα διαγραφούν.
 
@@ -57,10 +57,11 @@ $string['enrollednewusers'] = 'Εγγράφηκαν επιτυχώς {$a} νέο
 $string['enrolledusers'] = 'Εγγεγραμμένοι χρήστες';
 $string['enrolledusersmatching'] = 'Ταίριασμα εγγεγραμμένων χρηστών';
 $string['enrolme'] = 'Εγγραφή στο μάθημα';
+$string['enrolment'] = 'Εγγραφή χρήστη';
 $string['enrolmentinstances'] = 'Μέθοδοι εγγραφής';
 $string['enrolmentmethod'] = 'Μέθοδος εγγραφής';
 $string['enrolmentnew'] = 'Νέα εγγραφή στο {$a}';
-$string['enrolmentnewuser'] = 'Ο μαθητής {$a->user} έκανε εγγραφή στο μάθημα {$a->course}';
+$string['enrolmentnewuser'] = 'Ο μαθητής {$a->user} έκανε εγγραφή στο μάθημα «{$a->course}»';
 $string['enrolmentoptions'] = 'Επιλογές εγγραφής';
 $string['enrolments'] = 'Εγγραφές';
 $string['enrolmentupdatedforuser'] = 'Η εγγραφή για το χρήστη «{$a->fullname}» έχει ενημερωθεί';
@@ -85,7 +86,7 @@ $string['eventenrolinstancedeleted'] = 'Το στιγμιότυπο εγγραφ
 $string['eventenrolinstanceupdated'] = 'Το στιγμιότυπο εγγραφής ενημερώθηκε';
 $string['eventuserenrolmentcreated'] = 'Ο χρήστης γράφτηκε στο μάθημα';
 $string['eventuserenrolmentdeleted'] = 'Ακύρωση εγγραφής χρήστη στο μάθημα';
-$string['eventuserenrolmentupdated'] = 'Ενημέρωση ακύρωσης εγγραφής χρήστη';
+$string['eventuserenrolmentupdated'] = 'Ενημέρωση εγγραφής χρήστη';
 $string['expirynotify'] = 'Ειδοποίηση πριν από τη λήξη της εγγραφής';
 $string['expirynotify_help'] = 'Αυτή η ρύθμιση καθορίζει εάν αποστέλλονται μηνύματα ειδοποίησης λήξης εγγραφής.';
 $string['expirynotifyall'] = 'Υπεύθυνος εγγραφής και εγγεγραμμένος χρήστης';
@@ -110,6 +111,7 @@ $string['invalidrequest'] = 'Άκυρο αίτημα';
 $string['invalidrole'] = 'Μη επιτρεπτός ρόλος';
 $string['manageenrols'] = 'Διαχείριση πρόσθετων για εγγραφές';
 $string['manageinstance'] = 'Διαχείριση';
+$string['method'] = 'Μέθοδος';
 $string['migratetomanual'] = 'Μετεγκατάσταση (μεταφορά/μετατροπή) σε χειροκίνητες εγγραφές';
 $string['nochange'] = 'Καμία αλλαγή';
 $string['noexistingparticipants'] = 'Δεν υπάρχουν συμμετέχοντες';
@@ -150,6 +152,7 @@ $string['startdatetoday'] = 'Σήμερα';
 $string['synced'] = 'Συγχρονίστηκε';
 $string['testsettings'] = 'Δοκιμαστικές ρυθμίσεις';
 $string['testsettingsheading'] = 'Ελέγξτε τις ρυθμίσεις εγγραφής - {$a}';
+$string['timeenrolled'] = 'Χρόνος εγγραφής';
 $string['totalenrolledusers'] = '{$a} εγγεγραμμένοι χρήστες';
 $string['totalotherusers'] = '{$a} άλλοι χρήστες';
 $string['totalunenrolledusers'] = '{$a} μη εγγεγραμμένοι χρήστες';

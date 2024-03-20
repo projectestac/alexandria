@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'portfolio', language 'ru', version '3.11'.
+ * Strings for component 'portfolio', language 'ru', version '4.1'.
  *
  * @package     portfolio
  * @category    string
@@ -190,7 +190,7 @@ $string['selectplugin'] = 'Выберите место назначения';
 $string['showhide'] = 'Показать / скрыть';
 $string['singleinstancenomultiallowed'] = 'Доступен только один экземпляр плагина портфолио, несколько экспортов в сессии не поддерживается. Уже есть активный экспорт в сессии, использующей этот плагин!';
 $string['somepluginsdisabled'] = 'Некоторые плагины портфолио целиком были отключены, потому что они либо неверно сконфигурированы, либо полагаются на что-то другое:';
-$string['sure'] = 'Вы уверены, что хотите удалить«{$a}»? Это действие не может быть отменено.';
+$string['sure'] = 'Вы уверены, что хотите удалить «{$a}»? Это действие не может быть отменено.';
 $string['thirdpartyexception'] = 'Сторонее исключение было получено в течение экспорта портфолио ({$a}). Прервите и вызовите вновь, но это должно быть действительно исправлено';
 $string['transfertime'] = 'Время передачи';
 $string['unknownplugin'] = 'Неизвестно (возможно, были удалены администратором)';

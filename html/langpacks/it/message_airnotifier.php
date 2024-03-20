@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'message_airnotifier', language 'it', version '3.11'.
+ * Strings for component 'message_airnotifier', language 'it', version '4.1'.
  *
  * @package     message_airnotifier
  * @category    string
@@ -42,13 +42,19 @@ $string['configured'] = 'Configurato';
 $string['deletecheckdevicename'] = 'Elimina dispositvo: {$a->name}';
 $string['deletedevice'] = 'Elimina il dispositivo. Da notare che una app puà registrare nuovamente il dispositivo. Se il dispositivo continua a ricomparire, disabilitarlo.';
 $string['devicetoken'] = 'Token dispositivo';
+$string['donotsendnotification'] = 'Non inviare nessuna notifica';
 $string['enableprocessor'] = 'Abilita le notifiche mobile';
+$string['encryptnotifications'] = 'Crittografa notifiche';
+$string['encryptprocessing'] = 'Per i dispositivi che non supportano la crittografia';
+$string['encryptprocessing_desc'] = 'Per favore definire il comportamento quando un dispositivo di destinazione non supporta la crittografia (supporto solo per Android 6 e IOS 13 e superiori)';
 $string['errorretrievingkey'] = 'Si è verificato un errore durante il recupero della chiave. Per utilizzare il servizio, il sito deve essere registrato. Se il sito è già registrato, provare ad aggiornare la registrazione. In alternativa è possibile ottenere una chiave di accesso creando un account su <a href="https://apps.moodle.com">Moodle Apps Portal</a>.';
 $string['keyretrievedsuccessfully'] = 'La chiave è stata recuperata correttamente. Per accedere alle statistiche di utilizzo della Moodle App, per favore creare un account sul <a href="https://apps.moodle.com">Moodle Apps Portal</a>.';
 $string['messageprovidersempty'] = 'Non ci sono notifiche mobili abilitate nelle preferenze predefinite di notifica .';
 $string['messageproviderslow'] = 'Nelle preferenze predefinite di notifica sono abilitate solo alcune notifiche mobili.';
 $string['moodleappsportallimitswarning'] = 'Da tenere presente che il numero di dispositivi utente autorizzati a ricevere notifiche dipende dalla sottoscrizione dell\'app Moodle. Per i dettagli, visita il <a href="{$a}" target="_blank">Moodle Apps Portal</a>.';
 $string['nodevices'] = 'Non sono presenti dispositivi registrati. I dispositivi appariranno automaticamente dopo aver installato l\'app Moodle e aggiunto questo sito.';
+$string['noemailevernotset'] = '$CFG->noemailever è disabilitato';
+$string['noemaileverset'] = '$CFG->noemailever è abilitato nel file config.php. È necessario disabilitarlo impostandolo a \'false\' oppure rimuovere l\'istruzione.';
 $string['nopermissiontomanagedevices'] = 'Non sei autorizzato a gestire dispositivi.';
 $string['notconfigured'] = 'Il server Airnotifier non è stato configurato, non è possibile inviare notifiche push.';
 $string['notificationsserverconfiguration'] = 'Configurazione del server delle notifiche (Airnotifier)';
@@ -71,6 +77,7 @@ $string['privacy:metadata:username'] = 'Username dell\'utente.';
 $string['privacy:metadata:usersubsystem'] = 'Il plugin è collegato al sottosistema utente.';
 $string['privacy:subcontext'] = 'Messaggio Airnotifier';
 $string['requestaccesskey'] = 'Richiedi chiave di accesso';
+$string['sendnotificationnotenc'] = 'Invia le notifiche non crittografate';
 $string['sendtest'] = 'Invia una notifica push di prova ai miei dispositivi';
 $string['sendtestconfirmation'] = 'Verrà inviata una notifica push di prova ai dispositivi che utilizzi per connetterti a questo sito. Assicurarsi che i dispositivi siano connessi a Internet e che l\'app mobile non sia aperta (poiché le notifiche push vengono visualizzate solo quando vengono ricevute in background).';
 $string['serverconnectivityerror'] = 'Questo sito non è in grado di connettersi al server delle notifiche {$a}';
@@ -78,3 +85,4 @@ $string['showhide'] = 'Abilita/disabilita il dispositivo';
 $string['sitemustberegistered'] = 'Per utilizzare l\'istanza Airnotifier pubblica, è necessario registrare il proprio sito Moodle. In alternativa, è possibile ricevere una Access Key creando  account sul <a href="https://apps.moodle.com">Moodle Apps Portal</a>.';
 $string['unknowndevice'] = 'Dispositivo sconosciuto';
 $string['userdevices'] = 'Dispositivi utente';
+$string['view_notification'] = 'Tocca per visualizzare';

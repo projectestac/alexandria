@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_todo', language 'fr', version '3.11'.
+ * Strings for component 'block_todo', language 'fr', version '4.1'.
  *
  * @package     block_todo
  * @category    string
@@ -25,6 +25,6 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['placeholder'] = 'Qu\'avez-vous besoin de faire ?';
+$string['placeholder'] = 'Qu’avez-vous besoin de faire ?';
 $string['pluginname'] = 'Ma liste de tâches personnelle';
 $string['todo:myaddinstance'] = 'Ajouter un nouveau bloc « Ma liste de tâches personnelle »';

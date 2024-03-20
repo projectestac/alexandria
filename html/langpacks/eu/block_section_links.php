@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_section_links', language 'eu', version '3.11'.
+ * Strings for component 'block_section_links', language 'eu', version '4.1'.
  *
  * @package     block_section_links
  * @category    string
@@ -30,7 +30,7 @@ $string['incby1_help'] = 'Atal-kopuruari balio hau gehituko zaio ataletarako est
 $string['incby2'] = 'Zenbat gehiago ordezkoan';
 $string['incby2_help'] = 'Atal-kopuruari balio hau gehituko zaio ataletarako esteka erakusten den bakoitzean 1etik hasita.';
 $string['jumptocurrenttopic'] = 'Gai hau ikusi';
-$string['jumptocurrentweek'] = 'Aste hau ikusi';
+$string['jumptocurrentweek'] = 'Jauzi egin oraingo astera';
 $string['numsections1'] = 'Atal-kopurua';
 $string['numsections1_help'] = 'Ikastaroko atal-kopurua kantitate honetara iristen denean, zenbat gehitu ordezkoan balioa erabiliko da.';
 $string['numsections2'] = 'Ordezko atal-kopurua';

@@ -35,7 +35,6 @@ Feature: Award badges with separate groups
     And I set the field "Group mode" to "Separate groups"
     And I press "Save and display"
     And I navigate to "Badges > Add a new badge" in current page administration
-    And I follow "Add a new badge"
     And I set the following fields to these values:
       | Name | Course Badge |
       | Description | Course badge description |
@@ -57,7 +56,6 @@ Feature: Award badges with separate groups
     When I log in as "teacher2"
     And I am on "Course 1" course homepage
     And I navigate to "Badges > Manage badges" in current page administration
-    And I follow "Manage badges"
     And I follow "Course Badge"
     And I press "Award badge"
     And I set the field "role" to "Non-editing teacher"
@@ -69,6 +67,8 @@ Feature: Award badges with separate groups
     # Non-editing teacher can award the badge
     And I set the field "potentialrecipients[]" to "Student 2 (student2@example.com)"
     And I press "Award badge"
+    And I am on "Course 1" course homepage
+    And I navigate to "Badges > Manage badges" in current page administration
     And I follow "Course Badge"
     And I should see "Recipients (1)"
     And I log out
@@ -81,9 +81,7 @@ Feature: Award badges with separate groups
   @javascript
   Scenario: Award course badge as non-editing teacher with more than one group
     Given I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I navigate to "Users > Groups" in current page administration
-    And I follow "Groups"
+    And I am on the "Course 1" "groups" page
     And I set the field "groups" to "Class B (2)"
     And I press "Add/remove users"
     And I set the field "addselect" to "Teacher 2 (teacher2@example.com)"
@@ -92,7 +90,6 @@ Feature: Award badges with separate groups
     When I log in as "teacher2"
     And I am on "Course 1" course homepage
     And I navigate to "Badges > Manage badges" in current page administration
-    And I follow "Manage badges"
     And I follow "Course Badge"
     And I press "Award badge"
     And I set the field "role" to "Non-editing teacher"
@@ -108,9 +105,7 @@ Feature: Award badges with separate groups
   @javascript
   Scenario: Award course badge as non-editing teacher without any group
     Given I log in as "teacher1"
-    And I am on "Course 1" course homepage
-    And I navigate to "Users > Groups" in current page administration
-    And I follow "Groups"
+    And I am on the "Course 1" "groups" page
     And I set the field "groups" to "Class A (2)"
     And I press "Add/remove users"
     And I set the field "removeselect" to "Teacher 2 (teacher2@example.com)"
@@ -120,8 +115,101 @@ Feature: Award badges with separate groups
     When I log in as "teacher2"
     And I am on "Course 1" course homepage
     And I navigate to "Badges > Manage badges" in current page administration
-    And I follow "Manage badges"
     And I follow "Course Badge"
     And I press "Award badge"
     # Teacher 2 shouldn't be able to go further
     Then I should see "Sorry, but you need to be part of a group to see this page."
+
+  @javascript
+  Scenario: Editing teacher can award badge to members of separate groups
+    Given I am on the "Course 1" course page logged in as teacher1
+    And I navigate to "Badges > Manage badges" in current page administration
+    And I follow "Course Badge"
+    And I press "Award badge"
+    When I set the field "role" to "Teacher"
+    # Confirm that editing teacher sees a separate groups dropdown menu.
+    Then "Separate groups" "select" should exist
+    And I should see "All participants" in the "Separate groups" "select"
+    # Confirm that all participants are displayed when All participants is selected.
+    And I should see "Student 1" in the "potentialrecipients[]" "select"
+    And I should see "Student 2" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 1" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 2" in the "potentialrecipients[]" "select"
+    And I set the field "Separate groups" to "Class A"
+    # Confirm that only members of selected group are displayed
+    And I should not see "Student 1" in the "potentialrecipients[]" "select"
+    And I should not see "Teacher 1" in the "potentialrecipients[]" "select"
+    And I should see "Student 2" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 2" in the "potentialrecipients[]" "select"
+    And I set the field "Separate groups" to "Class B"
+    And I should not see "Student 2" in the "potentialrecipients[]" "select"
+    And I should not see "Teacher 2" in the "potentialrecipients[]" "select"
+    And I should see "Student 1" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 1" in the "potentialrecipients[]" "select"
+
+  @javascript
+  Scenario Outline: Teacher can award badge to members of visible groups
+    Given I am on the "Course 1" "course editing" page logged in as teacher1
+    And I expand all fieldsets
+    # Set the group mode to visible groups.
+    And I set the field "Group mode" to "Visible groups"
+    And I press "Save and display"
+    When I am on the "Course 1" course page logged in as <loggedinuser>
+    And I navigate to "Badges > Manage badges" in current page administration
+    And I follow "Course Badge"
+    And I press "Award badge"
+    And I set the field "role" to "<awarder>"
+    # Confirm that teachers see a visible groups dropdown menu.
+    Then "Visible groups" "select" should exist
+    # Confirm that My groups option group exists.
+    And "optgroup[label='My groups']" "css_element" should exist in the "select[name='group']" "css_element"
+    # Confirm that Other groups option group exists.
+    And "optgroup[label='Other groups']" "css_element" should exist in the "select[name='group']" "css_element"
+    # Confirm that all participants are displayed when All participants is selected.
+    And I set the field "Visible groups" to "All participants"
+    And I should see "Student 1" in the "potentialrecipients[]" "select"
+    And I should see "Student 2" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 1" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 2" in the "potentialrecipients[]" "select"
+    # Confirm that only members of selected group are displayed.
+    And I set the field "Visible groups" to "Class A"
+    And I should not see "Student 1" in the "potentialrecipients[]" "select"
+    And I should not see "Teacher 1" in the "potentialrecipients[]" "select"
+    And I should see "Student 2" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 2" in the "potentialrecipients[]" "select"
+    And I set the field "Visible groups" to "Class B"
+    And I should not see "Student 2" in the "potentialrecipients[]" "select"
+    And I should not see "Teacher 2" in the "potentialrecipients[]" "select"
+    And I should see "Student 1" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 1" in the "potentialrecipients[]" "select"
+
+    Examples:
+      | loggedinuser | awarder             |
+      | teacher1     | Teacher             |
+      | teacher2     | Non-editing teacher |
+
+  @javascript
+  Scenario Outline: Teacher can award badge to members when group mode is set to no groups
+    Given I am on the "Course 1" "course editing" page logged in as teacher1
+    And I expand all fieldsets
+    # Set the group mode to no groups.
+    And I set the field "Group mode" to "No groups"
+    And I press "Save and display"
+    When I am on the "Course 1" course page logged in as <loggedinuser>
+    And I navigate to "Badges > Manage badges" in current page administration
+    And I follow "Course Badge"
+    And I press "Award badge"
+    And I set the field "role" to "<awarder>"
+    # Confirm that no group dropdowns don't exist.
+    Then "Separate groups" "select" should not exist
+    And "Visible groups" "select" should not exist
+    # Confirm all participants are displayed.
+    And I should see "Student 1" in the "potentialrecipients[]" "select"
+    And I should see "Student 2" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 1" in the "potentialrecipients[]" "select"
+    And I should see "Teacher 2" in the "potentialrecipients[]" "select"
+
+    Examples:
+      | loggedinuser | awarder             |
+      | teacher1     | Teacher             |
+      | teacher2     | Non-editing teacher |

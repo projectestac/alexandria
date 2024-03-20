@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'backup', language 'ja', version '3.11'.
+ * Strings for component 'backup', language 'ja', version '4.1'.
  *
  * @package     backup
  * @category    string
@@ -73,6 +73,7 @@ $string['automatedsetup'] = '自動バックアップ設定';
 $string['automatedstorage'] = '自動バックアップストレージ';
 $string['automatedstoragehelp'] = '自動バックアップ作成時にあなたがバックアップを保存したい場所を選択してください。';
 $string['backupactivity'] = '活動をバックアップする: {$a}';
+$string['backupautoactivitiesdescription'] = 'バックアップに活動を含めるためのデフォルトを設定します。ごみ箱を機能させるためにはこの設定を有効にする必要があります。';
 $string['backupcourse'] = 'コースをバックアップする: {$a}';
 $string['backupcoursedetails'] = 'コース詳細';
 $string['backupcoursesection'] = 'セクション: {$a}';
@@ -136,7 +137,7 @@ $string['configgeneralfilters'] = 'フィルタをバックアップに含むか
 $string['configgeneralgroups'] = 'グループおよびグルーピングをバックアップに含むかどうかデフォルトを設定します。';
 $string['configgeneralhistories'] = 'ユーザ履歴をバックアップに含むかどうかデフォルトを設定します。';
 $string['configgenerallogs'] = 'ログをバックアップに含むかどうかデフォルトを設定します。';
-$string['configgeneralpermissions'] = 'この設定を有効にした場合、ロールパーミッションがインポートされます。これにより既存の登録済みユーザのパーミッションをオーバーライドします。';
+$string['configgeneralpermissions'] = 'この設定を有効にした場合、ロールパーミッションがインポートされます。これで既存の登録済みユーザのパーミッションをオーバーライドします。';
 $string['configgeneralquestionbank'] = 'この設定を有効にした場合、問題バンクがデフォルトでバックアップに含まれます。注意: この設定を無効にした場合、小テストのように問題バンクを使用する活動のバックアップも無効にされます。';
 $string['configgeneralroleassignments'] = 'この設定を有効にした場合、デフォルトのロール割り当てもバックアップに含まれます。';
 $string['configgeneralusers'] = 'バックアップにユーザを含むかどうかデフォルトを設定します。';
@@ -155,7 +156,7 @@ $string['configrestorefilters'] = 'フィルタのリストアのデフォルト
 $string['configrestoregroups'] = 'バックアップに含まれている場合のグループおよびグルーピングのリストアのデフォルトを設定します。';
 $string['configrestorehistories'] = 'バックアップに含まれている場合のユーザ履歴のリストアのデフォルトを設定します。';
 $string['configrestorelogs'] = 'バックアップに含まれている場合のログのリストアのデフォルトを設定します。';
-$string['configrestorepermissions'] = 'この設定を有効にした場合、ロールパーミッションがリストアされます。これにより既存の登録済みユーザのパーミッションをオーバーライドします。';
+$string['configrestorepermissions'] = 'この設定を有効にした場合、ロールパーミッションがリストアされます。これで既存の登録済みユーザのパーミッションをオーバーライドします。';
 $string['configrestoreroleassignments'] = 'バックアップに含まれている場合のロール割り当てのリストアのデフォルトを設定します。';
 $string['configrestoreusers'] = 'バックアップに含まれている場合のユーザのリストアのデフォルトを設定します。';
 $string['configrestoreuserscompletion'] = 'バックアップに含まれている場合のユーザ完了情報のリストアのデフォルトを設定します。';
@@ -204,7 +205,7 @@ $string['errorfilenametoolong'] = 'ファイル名は半角255文字以下の長
 $string['errorinvalidformat'] = '不明なバックアップフォーマットです。';
 $string['errorinvalidformatinfo'] = '選択されたファイルは有効なMoodleバックアップファイルではないため、リストアすることはできません。';
 $string['errorminbackup20version'] = 'このバックアップファイルは開発バージョンのMoodleバックアップ ({$a->backup}) により作成されました。最小必要条件は {$a->min} です。リストアすることはできません。';
-$string['errorrestorefrontpagebackup'] = 'フロントページにおいて、あなたはフロントページバックアップのみリストアすることができます。';
+$string['errorrestorefrontpagebackup'] = 'あなたはサイトホームでサイトホームバックアップのみリストアできます。';
 $string['executionsuccess'] = 'バックアップファイルが正常に作成されました。';
 $string['extractingbackupfileto'] = 'バックアップファイル展開先: {$a}';
 $string['failed'] = 'バックアップ失敗';
@@ -212,6 +213,7 @@ $string['filealiasesrestorefailures'] = 'エイリアスリストア失敗';
 $string['filealiasesrestorefailures_help'] = 'エイリアスは外部リポジトリに保存されたファイルを含む他のファイルへのシンボリックリンクです。一部の例ではMoodeがシンボリックリンクをリストアできない場合があります - 例えば別のサイトでのバックアップをリストアする場合、または参照ファイルが存在しくなった場合です。
 
 詳細情報および実際のリストア失敗理由に関して、リストアログファイルをご覧ください。';
+$string['filealiasesrestorefailures_link'] = 'restore/filealiases';
 $string['filealiasesrestorefailuresinfo'] = 'バックアップファイルに含まれるいくつかのエイリアスをリストアすることができませんでした。以下のリストではオリジナルサイトで参照されていた予測されるロケーションおよびソースファイルを含みます。';
 $string['filename'] = 'ファイル名';
 $string['filereferencesincluded'] = '外部コンテンツのファイル参照がバックアップファイルに含まれます。バックアップが異なるサイトでリストアされる場合、これらは動作しません。';
@@ -307,14 +309,14 @@ $string['privacy:metadata:backup_controllers:type'] = '実行されたアイテ�
 $string['qcategory2coursefallback'] = '本来はバックアップファイルのシステム/コースカテゴリコンテクストにある問題カテゴリ「 {$a->name} 」はリストアによりコースコンテクストに作成されます。';
 $string['qcategorycannotberestored'] = '問題カテゴリ「 {$a->name} 」をリストアで作成できません。';
 $string['question2coursefallback'] = '本来バックアップファイルのシステム/コースカテゴリコンテクストにある問題カテゴリ「 {$a->name} 」はリストアによりコースコンテクストに作成されます。';
-$string['questionegorycannotberestored'] = '問題カテゴリ「 {$a->name} 」をリストアで作成できません。';
+$string['questioncannotberestored'] = '問題カテゴリ「 {$a->name} 」をリストアで作成できません。';
 $string['recyclebin_desc'] = 'これらの設定はゴミ箱にも適用されることに留意してください。';
 $string['replacerestoredefaults'] = '別のコースへのコンテンツを削除したグループ統合時のリストアデフォルト';
 $string['restoreactivity'] = '活動をリストアする';
 $string['restorecourse'] = 'コースをリストアする';
 $string['restorecoursesettings'] = 'コース設定';
 $string['restoredcourseid'] = 'リストア済みコースID: {$a}';
-$string['restoreexecutionsuccess'] = 'コースが正常にリストアされました。「続ける」ボタンをクリックすることにより、あなたがリストアしたコースを閲覧することができます。';
+$string['restoreexecutionsuccess'] = 'コースが正常にリストアされました。';
 $string['restorefileweremissing'] = 'バックアップの中に存在しないため、いくつかのファイルをリストアすることができませんでした。';
 $string['restorenewcoursefullname'] = '新しいコース名';
 $string['restorenewcourseshortname'] = '新しいコース省略名';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'forum', language 'es', version '3.11'.
+ * Strings for component 'forum', language 'es', version '4.1'.
  *
  * @package     forum
  * @category    string
@@ -32,6 +32,7 @@ $string['activityoverview'] = 'Hay nuevos mensajes en el foro';
 $string['addanewdiscussion'] = 'Añadir un nuevo tema de debate';
 $string['addanewquestion'] = 'Añadir una nueva pregunta';
 $string['addanewtopic'] = 'Añadir un nuevo tema';
+$string['addreply'] = 'Añadir respuesta';
 $string['addtofavourites'] = 'Marcar como favorita esta discusión';
 $string['advancedsearch'] = 'Búsqueda avanzada';
 $string['alldiscussions'] = 'Todos los debates';
@@ -62,7 +63,7 @@ $string['blockperiod'] = 'Período de tiempo para bloqueo';
 $string['blockperiod_help'] = 'Se puede impedir que los estudiantes puedan publicar más aportaciones que las especificadas por número determinado dentro de un periodo de tiempo.
 Los usuarios con el permiso \'moodle/forum:ostwithoutthrottling\' están exentos de esta limitación. ';
 $string['blockperioddisabled'] = 'No bloquear';
-$string['blogforum'] = 'Foro estándar que aparece en un formato de blog.';
+$string['blogforum'] = 'Foro estándar con formato de blog.';
 $string['bynameondate'] = 'de {$a->name} - {$a->date}';
 $string['cachedef_forum_is_tracked'] = 'Estado de seguimiento del foro para el usuario';
 $string['calendardue'] = '{$a} pendiente';
@@ -75,7 +76,6 @@ $string['cannotaddsubscriber'] = 'No se pudo añadirun suscriptor con la id {$a}
 $string['cannotaddteacherforumto'] = 'No se ha podido convertir el ejemplo de foro de profesores a la sección 0 del curso';
 $string['cannotcreatediscussion'] = 'No se pudo crear un debate nuevo';
 $string['cannotcreateinstanceforteacher'] = 'No se pudo crear un nuevo ejemplo de móduno de curso para el foro de profesores';
-$string['cannotdeletediscussioninsinglediscussion'] = 'No puede borrar el primer mensaje de un debate sencillo';
 $string['cannotdeletepost'] = 'No puede eliminar este mensaje.';
 $string['cannoteditposts'] = 'No puede eliminar los mensajes de otras personas.';
 $string['cannotexportforum'] = 'No puede expotar este foro';
@@ -98,7 +98,9 @@ $string['cannotsubscribe'] = 'Lo sentimos, debe ser un miembro de un grupo para 
 $string['cannottrack'] = 'No se pudo parar de rastrear ese foro';
 $string['cannotunsubscribe'] = 'No se pudo darle de baja en ese foro';
 $string['cannotupdatepost'] = 'No puede actualizar este mensaje';
-$string['cannotviewpostyet'] = 'No puede leer las preguntas planteadas por otros estudiantes en este debate porque usted aún no ha realizado ninguna aportación';
+$string['cannotuseseperategroupsandsingletopic'] = 'No se pueden usar grupos separados con un debate sencillo';
+$string['cannotusesingletopicandseperategroups'] = 'No se puede usar un debate sencillo con grupos separados.';
+$string['cannotviewpostyet'] = 'Usted no puede leer las preguntas planteadas por otros estudiantes en este debate porque usted aún no ha realizado ninguna aportación.';
 $string['cannotviewusersposts'] = 'No hay aportaciones realizadas por este usuario que usted pueda ver.';
 $string['cleanreadtime'] = 'Hora para marcar mensajes antiguos como leídos';
 $string['clicktofavourite'] = 'No has marcado como favorita esta discusión. Haz clic para marcar como favorita.';
@@ -129,7 +131,7 @@ $string['configdigestmailtime'] = 'Se enviará un resumen de los correos a las p
 $string['configdisplaymode'] = 'El modo de visualización predeterminado para los debates si no se ha establecido ya uno.';
 $string['configenablerssfeeds'] = 'Esta opción habilita la posibilidad de canales RSS para todos los foros. Aún así necesitará activar manualmente los canales en los ajustes de cada foro.';
 $string['configenabletimedposts'] = 'Seleccione \'sí\' si desea permitir el ajuste de períodos en los que se mostrará un nuevo debate en el foro.';
-$string['configlongpost'] = 'Cualquier mensaje que exceda esta extensión (sin incluir código HTML) se considera largo. Las aportaciones mostradas en la página principal del sitio, en las páginas de los cursos con formato social o en los perfiles de usuario, están ordenados de forma natural entre los valores forum_shortpost y forum_longpost';
+$string['configlongpost'] = 'Cualquier mensaje que exceda esta extensión (sin incluir código HTML) se considera largo. Las aportaciones mostradas en la página principal del sitio, en las páginas de los cursos con formato social o en los perfiles de usuario, están acortadas en algún punto natural entre los valores forum_shortpost y forum_longpost.';
 $string['configmanydiscussions'] = 'Máximo número de debates mostrados en una página de foro.';
 $string['configmaxattachments'] = 'Máximo número de archivos adjuntos que se permiten por mensaje.';
 $string['configmaxbytes'] = 'Tamaño máximo por defecto para los archivos adjuntos a los mensajes de los foros en este sitio (sujeto a los límites del curso y otras configuraciones del servidor)';
@@ -193,7 +195,7 @@ $string['discussionmoved'] = 'El debate se ha movido a \'{$a}\'.';
 $string['discussionmovedpost'] = 'Este debate ha sido trasladado a <a href="{$a->discusshref}">aquí</a> en el foro <a href="{$a->forumhref}">{$a->forumname}</a>';
 $string['discussionname'] = 'Título del debate';
 $string['discussionnownotsubscribed'] = '{$a->name} NO recibirá notificaciones de las nuevas publicaciones en \'{$a->discussion}\' de \'{$a->forum}\'';
-$string['discussionnowsubscribed'] = '{$a->name}  recibirá notificación de nuevas aportaciones en \'{$a->discussion}\' de \'{$a->forum}\'';
+$string['discussionnowsubscribed'] = 'Usted recibirá notificación de nuevas aportaciones en \'{$a->discussion}\' de \'{$a->forum}\'';
 $string['discussionpin'] = 'Fijar';
 $string['discussionpinned'] = 'Fijado';
 $string['discussionpinned_help'] = 'Los debates fijados aparecerán en la parte superior del foro.';
@@ -202,6 +204,7 @@ $string['discussionsplit'] = 'La discusión ha sido separada';
 $string['discussionsstartedby'] = 'Debates comenzados por {$a}';
 $string['discussionsstartedbyrecent'] = 'Debates recientemente comenzados por {$a}';
 $string['discussionsstartedbyuserincourse'] = 'Debates iniciados por {$a->fullname} en {$a->coursename}';
+$string['discussionsstartedincourse'] = 'Debates comenzados en {$a}';
 $string['discussionstartedby'] = 'Debate iniciado por {$a}';
 $string['discussionsubscribed'] = 'Ahora está suscrito a este debate.';
 $string['discussionsubscribestart'] = 'Enviarme notificaciones de nuevas participaciones en este debate';
@@ -227,6 +230,8 @@ $string['duedate_help'] = 'Esto es cuando el foro está en fecha esperada. Aunqu
 $string['duedatetodisplayincalendar'] = 'Fecha esperada a mostrar en calendario';
 $string['eachuserforum'] = 'Cada persona plantea un tema';
 $string['edit'] = 'Editar';
+$string['editdiscussion'] = 'Editar debate';
+$string['editdiscussiontopic'] = 'Editar tema de debate';
 $string['editedby'] = 'Editado por {$a->name} - envío original {$a->date}';
 $string['editedpostupdated'] = '{$a} mensajes actualizados';
 $string['editing'] = 'Editando';
@@ -343,15 +348,11 @@ $string['forumtrackednot'] = 'Los mensajes no leídos no se están rastreando';
 $string['forumtype'] = 'Tipo de foro';
 $string['forumtype_help'] = 'Hay cinco tipos diferentes de foros:
 
-* Cada persona plantea un tema - Cada persona puede plantear un nuevo tema de debate (y todos pueden responder). Esta modalidad es útil cuando usted quiere que cada estudiante empiece una discusión sobre, digamos, sus reflexiones sobre el tema de la semana, y que todos los demás le respondan.
-
-* Un debate sencillo. - Es simplemente un intercambio de ideas sobre un solo tema, todo en un página. Útil para debates cortos y concretos.
-
-* Foro P y R: Pregunta y Respuestas. -  Los estudiantes primero deben fijar sus puntos de vista antes de ver los mensajes de los demás.
-
-* Foro General con formato de Blog. - Un foro abierto donde cualquiera puede iniciar un nuevo debate en cualquier momento y en el que los temas de discusión se muestran en una página con enlaces "Discute este tema".
-
-* Foro para uso general. -  Es un foro abierto donde cualquiera puede empezar un nuevo tema de debate cuando quiera. Este es el foro más adecuado, para uso general.';
+* Un debate sencillo - Un tema de conversación al que cualquiera puede responder (no se puede usar con grupos separados).
+* Cada persona plantea un tema - Cada estudiante puede postear exactamente un nuevo tema, al que cualquiera puede responder.
+* Foro P y R (Pregunta y Respuestas) -  Los estudiantes primero deben responder a una pregunta planteada por el profesor, antes de ver los mensajes de los demás.
+* Foro General con formato de Blog. - Un foro abierto donde cualquiera puede iniciar un nuevo debate en cualquier momento y en el que los temas de discusión se muestran en una página con enlaces "Hacer un comentario en este tema".
+* Foro para uso general -  Es un foro abierto donde cualquiera puede empezar un nuevo tema de debate cuando quiera.';
 $string['generalforum'] = 'Foro para uso general';
 $string['generalforums'] = 'Foros generales';
 $string['grade_forum_header'] = 'Evaluación del foro completo';
@@ -381,12 +382,13 @@ $string['indicator:cognitivedepth'] = 'Foro cognitivo';
 $string['indicator:cognitivedepth_help'] = 'Este indicador está basado en la profundidad cognitiva alcanzada por el estudiante en una actividad Foro.';
 $string['indicator:cognitivedepthdef'] = 'Foro cognitivo';
 $string['indicator:cognitivedepthdef_help'] = 'El participante ha alcanzado este porcentaje del compromiso cognitivo ofrecido por las actividades de Foro durante este intervalo de análisis (Niveles = Sin visualización, Ver, Enviar, Ver comentarios, Comentar comentarios, Reenviar después de ver comentarios)';
+$string['indicator:cognitivedepthdef_link'] = 'Learning_analytics_indicators#Cognitive_depth';
 $string['indicator:socialbreadth'] = 'Foro social';
 $string['indicator:socialbreadth_help'] = 'Este indicador está basado en la amplitud social alcanzada por el estudiante en una actividad Foro.';
 $string['indicator:socialbreadthdef'] = 'Foro social';
 $string['indicator:socialbreadthdef_help'] = 'El participante ha alcanzado este porcentaje de compromiso social ofrecido por las actividades de Foro durante este intervalo de análisis (Niveles = Sin participación, Participante solo, Participante con otros)';
+$string['indicator:socialbreadthdef_link'] = 'Learning_analytics_indicators#Social_breadth';
 $string['inforum'] = 'en {$a}';
-$string['inpagereplysubject'] = 'Re: {$a}';
 $string['inreplyto'] = 'En respuesta a {$a}';
 $string['introblog'] = 'Los mensajes de este foro fueron copiados aquí de forma automática a partir de los blogs de los usuarios de este curso debido a que esas entradas de blog ya no están disponibles';
 $string['intronews'] = 'Avisos y novedades generales';
@@ -463,6 +465,7 @@ Los foros tiene muchos usos, como por ejemplo
 * Un centro de ayuda donde los tutores y los estudiantes pueden dar consejos
 * Un área de soporte uno-a-uno para comunicaciones entre alumno y profesor (usando un foro con grupos separados y con un estudiante por grupo)
 * Para actividades complementarias, como una "lluvia de ideas" donde los estudiantes puedan reflexionar y proponer ideas';
+$string['modulename_link'] = 'mod/forum/view';
 $string['modulenameplural'] = 'Foros';
 $string['more'] = 'más';
 $string['movedmarker'] = '(Trasladada)';
@@ -513,15 +516,13 @@ $string['nowallunsubscribed'] = 'Se ha dado de baja de todos los foros en {$a}.'
 $string['nowgradinguser'] = 'Calificando ahora {$a}';
 $string['nownotsubscribed'] = '{$a->name} no recibirá notificaciones de nuevas aportaciones al foro \'{$a->forum}\'';
 $string['nownottracking'] = '{$a->name} ya no está rastreando \'{$a->forum}\'.';
-$string['nowsubscribed'] = '{$a->name} recibirá notificación de nuevas aportaciones en \'{$a->forum}\'';
+$string['nowsubscribed'] = 'Usted recibirá notificación de nuevas aportaciones en el foro "{$a->forum}"';
 $string['nowtracking'] = '{$a->name} está rastreando \'{$a->forum}\' en este momento.';
 $string['numberofreplies'] = 'Número de respuestas: {$a}';
 $string['numposts'] = '{$a} mensajes';
 $string['olderdiscussions'] = 'Debates anteriores';
 $string['oldertopics'] = 'Temas antiguos';
 $string['oldpostdays'] = 'Leer después de días';
-$string['overviewnumpostssince'] = '{$a} mensajes desde la última entrada';
-$string['overviewnumunread'] = '{$a} mensajes no leídos';
 $string['page-mod-forum-discuss'] = 'Página de hilo de debate del módulo foro';
 $string['page-mod-forum-view'] = 'Página principal del módulo Foro';
 $string['page-mod-forum-x'] = 'Cualquier página del módulo Foro';
@@ -556,6 +557,7 @@ $string['posts'] = 'Mensajes';
 $string['postsfrom'] = 'Mensaje de';
 $string['postsmadebyuser'] = 'Aportación realizada por {$a}';
 $string['postsmadebyuserincourse'] = 'Aportación realizada por {$a->fullname} en {$a->coursename}';
+$string['postsmadeincourse'] = 'Mensajes publicados en {$a}';
 $string['poststo'] = 'Mensaje para';
 $string['posttoforum'] = 'Enviar al foro';
 $string['posttomygroups'] = 'Publicar una copia para todos los grupos';
@@ -626,10 +628,11 @@ $string['privacy:request:delete:post:message'] = 'El contenido de esta publicaci
 $string['privacy:request:delete:post:subject'] = 'Eliminar a solicitud del autor';
 $string['privacy:subscribedtoforum'] = 'Está suscrito a este foro.';
 $string['privatereply'] = 'Responder en privado';
-$string['privatereply_help'] = 'Una respuesta privada solo puede ser vista por el autor de la publicación a la que se responde y cualquier usuario con la capacidad de ver respuestas privadas.';
+$string['privatereply_help'] = 'Una respuesta privada sólo puede ser vista por el autor de la publicación a la que se responde y cualquier usuario con la capacidad de ver respuestas privadas, como por ejemplo, profesores.';
 $string['processingdigest'] = 'Procesando el resumen por correo para el usuario {$a}';
 $string['processingpost'] = 'Procesando {$a}';
 $string['prune'] = 'Dividir';
+$string['prunediscussion'] = 'Dividir debate';
 $string['prunedpost'] = 'Se ha creado un nuevo debate a partir de ese mensaje';
 $string['pruneheading'] = 'Dividir el debate y mover esta entrada a un nuevo debate';
 $string['qandaforum'] = 'Foro P y R';
@@ -648,6 +651,7 @@ $string['replyauthorself'] = '{$a} (tú)';
 $string['replyforum'] = 'Responder al foro';
 $string['replyingtoauthor'] = 'Respondiendo a {$a}...';
 $string['replyplaceholder'] = 'Escriba su respuesta...';
+$string['replypostdiscussion'] = 'Responder al debate';
 $string['replytopostbyemail'] = 'Puede responder al mensaje mediante email.';
 $string['replytouser'] = 'Usar dirección email en réplica';
 $string['resetdigests'] = 'Eliminar todas las preferencias de usuario para resúmenes del foro';
@@ -700,6 +704,8 @@ $string['smallmessagedigest'] = 'Resumen de foro conteniendo {$a} mensajes';
 $string['starredonly'] = 'Buscar solo debates marcados como favoritos';
 $string['startedby'] = 'Comenzado por';
 $string['subject'] = 'Asunto';
+$string['subplugintype_forumreport'] = 'Informe de foro';
+$string['subplugintype_forumreport_plural'] = 'Informes de foro';
 $string['subscribe'] = 'Suscribirse a este foro';
 $string['subscribeall'] = 'Suscribir a todos a este foro';
 $string['subscribed'] = 'Suscrito';
@@ -723,6 +729,7 @@ $string['subscriptionmode_help'] = 'Cuando alguien se subscribe a un foro recibi
 * Suscripción forzosa - Todos están suscritos y no puede darse de baja
 * Suscripción automática - Todos están suscritos inicialmente pero cada usuario puede desactivar la suscripción en cualquier momento
 * Suscripción desactivada - No se permiten suscripciones';
+$string['subscriptionmodeconfirm'] = '¿Está seguro de que desea cambiar el modo de suscripción a {$a}?';
 $string['subscriptionoptional'] = 'Suscripción opcional';
 $string['subscriptions'] = 'Suscripciones';
 $string['tagarea_forum_posts'] = 'Publicaciones del foro';
@@ -745,11 +752,11 @@ $string['trackingoff'] = 'Desconectado';
 $string['trackingon'] = 'Forzado';
 $string['trackingoptional'] = 'Opcional';
 $string['trackingtype'] = 'Rastreo de lectura';
-$string['trackingtype_help'] = 'El seguimiento de lectura permite a los participantes verificar rápidamente que temas no han sido leídos, destacando los temas nuevos.
+$string['trackingtype_help'] = 'El seguimiento de lectura permite a los participantes verificar rápidamente qué temas no han sido leídos, destacando los temas nuevos.
 
-Si está configurado como opcional, los participantes pueden elegir si habilitar o no el seguimiento a través de un enlace en el bloque de administración. (Los usuarios también deben habilitar el seguimiento en sus preferencias del foro).
+Si está configurado como opcional, los participantes pueden elegir si habilitar o no el seguimiento del foro. (Los usuarios también deben habilitar el seguimiento en sus preferencias del foro).
 
-Si \'Permitir forzar seguimiento de lectura\' está habilitado en la administración del sitio, entonces una opción más está disponible: forzado. Esto significa que, más allá de las preferencias del foro del usuario, el seguimiento está siempre habilitado.';
+Si "Permitir forzar seguimiento de lectura" está habilitado en la administración del sitio, entonces una opción más está disponible: forzado. Esto significa que, más allá de las preferencias del foro del usuario, el seguimiento está siempre habilitado.';
 $string['trackreadposts_header'] = 'Seguimiento del foro';
 $string['unlockdiscussion'] = 'Desbloquea esta discusión';
 $string['unpindiscussion'] = 'Desfijar esta discusión';

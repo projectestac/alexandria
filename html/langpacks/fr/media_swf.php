@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'media_swf', language 'fr', version '3.11'.
+ * Strings for component 'media_swf', language 'fr', version '4.1'.
  *
  * @package     media_swf
  * @category    string
@@ -26,5 +26,5 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['pluginname'] = 'Animation Flash';
-$string['pluginname_help'] = 'Fichiers avec l\'extension .swf. Pour des raisons de sécurité, ce filtre n\'est utilisé que dans des textes fiables.';
-$string['privacy:metadata'] = 'Le plugin média Animation Flash n\'enregistre aucune donnée personnelle.';
+$string['pluginname_help'] = 'Fichiers avec l’extension .swf. Pour des raisons de sécurité, ce filtre n’est utilisé que dans des textes fiables.';
+$string['privacy:metadata'] = 'Le plugin média Animation Flash n’enregistre aucune donnée personnelle.';

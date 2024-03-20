@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'es', version '3.11'.
+ * Strings for component 'repository', language 'es', version '4.1'.
  *
  * @package     repository
  * @category    string
@@ -149,7 +149,7 @@ $string['instance'] = 'instancia';
 $string['instancedeleted'] = 'Instancia de repositorio eliminada';
 $string['instances'] = 'Instancias de repositorio';
 $string['instancesforcourses'] = '{$a} Repositorio(s) común(es) de todo el curso';
-$string['instancesforsite'] = '{$a} Repositorio(s) común(es) de todo el curso';
+$string['instancesforsite'] = '{$a} Repositorio(s) común(es) de todo el sitio';
 $string['instancesforusers'] = '{$a} Repositorio(s) de usuario privado';
 $string['invalidfiletype'] = 'El tipo de archivo {$a} no se acepta.';
 $string['invalidjson'] = 'Cadena JSON no válida';

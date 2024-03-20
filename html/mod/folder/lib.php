@@ -33,7 +33,7 @@ define('FOLDER_DISPLAY_INLINE', 1);
 /**
  * List of features supported in Folder module
  * @param string $feature FEATURE_xx constant for requested feature
- * @return mixed True if module supports feature, false if not, null if doesn't know
+ * @return mixed True if module supports feature, false if not, null if doesn't know or string for the module purpose.
  */
 function folder_supports($feature) {
     switch($feature) {
@@ -46,6 +46,7 @@ function folder_supports($feature) {
         case FEATURE_GRADE_OUTCOMES:          return false;
         case FEATURE_BACKUP_MOODLE2:          return true;
         case FEATURE_SHOW_DESCRIPTION:        return true;
+        case FEATURE_MOD_PURPOSE:             return MOD_PURPOSE_CONTENT;
 
         default: return null;
     }
@@ -285,7 +286,7 @@ function folder_pluginfile($course, $cm, $context, $filearea, $args, $forcedownl
 
     // Set security posture for in-browser display.
     if (!$forcedownload) {
-        header("Content-Security-Policy: default-src 'none'; img-src 'self'");
+        header("Content-Security-Policy: default-src 'none'; img-src 'self'; media-src 'self'");
     }
 
     // Finally send the file.

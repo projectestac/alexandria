@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository_s3', language 'fr', version '3.11'.
+ * Strings for component 'repository_s3', language 'fr', version '4.1'.
  *
  * @package     repository_s3
  * @category    string
@@ -25,11 +25,11 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['access_key'] = 'Clef d\'accès';
+$string['access_key'] = 'Clef d’accès';
 $string['configplugin'] = 'Configuration Amazon S3';
 $string['endpoint'] = 'Point de terminaison Amazon S3';
-$string['needaccesskey'] = 'Une clef d\'accès doit être fournie';
+$string['needaccesskey'] = 'Une clef d’accès doit être fournie';
 $string['pluginname'] = 'Amazon S3';
-$string['privacy:metadata'] = 'Le plugin de dépôt Amazon S3 n\'enregistre aucune donnée personnelle, mais transmet des données des utilisateurs de Moodle vers le système distant.';
+$string['privacy:metadata'] = 'Le plugin de dépôt Amazon S3 n’enregistre aucune donnée personnelle, mais transmet des données des utilisateurs de Moodle vers le système distant.';
 $string['s3:view'] = 'Consulter un dépôt Amazon S3';
 $string['secret_key'] = 'Clef secrète';

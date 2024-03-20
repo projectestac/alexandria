@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'datafield_checkbox', language 'fr', version '3.11'.
+ * Strings for component 'datafield_checkbox', language 'fr', version '4.1'.
  *
  * @package     datafield_checkbox
  * @category    string
@@ -27,4 +27,4 @@ defined('MOODLE_INTERNAL') || die();
 
 $string['fieldtypelabel'] = 'Cases à cocher';
 $string['pluginname'] = 'Cases à cocher';
-$string['privacy:metadata'] = 'Le composant Champ cases à cocher n\'enregistre aucune donnée personnelle ; il utilise des tables définies dans mod_data.';
+$string['privacy:metadata'] = 'Le composant Champ cases à cocher n’enregistre aucune donnée personnelle ; il utilise des tables définies dans mod_data.';

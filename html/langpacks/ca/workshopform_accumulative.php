@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'workshopform_accumulative', language 'ca', version '3.11'.
+ * Strings for component 'workshopform_accumulative', language 'ca', version '4.1'.
  *
  * @package     workshopform_accumulative
  * @category    string
@@ -41,7 +41,7 @@ $string['mustchoosegrade'] = 'Heu de seleccionar una qualificació per aquest as
 $string['pluginname'] = 'Qualificació acumulativa';
 $string['poor'] = 'Pobre';
 $string['present'] = 'Present';
-$string['scalename0'] = 'Si/No (2 punts)';
+$string['scalename0'] = 'Sí/No (2 punts)';
 $string['scalename1'] = 'Present/Absent (2 punts)';
 $string['scalename2'] = 'Correcte/Incorrecte (2 punts)';
 $string['scalename3'] = 'Bé/Pobre (2 punts)';

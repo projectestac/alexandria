@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'tool_licensemanager', language 'fr', version '3.11'.
+ * Strings for component 'tool_licensemanager', language 'fr', version '4.1'.
  *
  * @package     tool_licensemanager
  * @category    string
@@ -43,12 +43,12 @@ $string['licensemanager'] = 'Gestionnaire de licences';
 $string['movelicensedownname'] = 'Déplacer la licence « {$a} » vers le bas';
 $string['movelicenseupname'] = 'Déplacer la licence « {$a} » vers le haut';
 $string['pluginname'] = 'Gestionnaire de licences';
-$string['privacy:metadata'] = 'Le plugin tool_licensemanager n\'enregistre aucune donnée personnelle.';
+$string['privacy:metadata'] = 'Le plugin tool_licensemanager n’enregistre aucune donnée personnelle.';
 $string['shortname'] = 'Nom abrégé de la licence';
 $string['shortnamerequirederror'] = 'Un nom abrégé de licence est requis.';
 $string['sitedefaultlicenselock'] = 'Cette licence est la licence par défaut du site. Elle ne peut pas être désactivée.';
 $string['source'] = 'Source de la licence';
-$string['source_help'] = 'L\'URL (avec le préfixe http:// ou https://) où se trouvent la définition et les conditions de la licence.';
+$string['source_help'] = 'L’URL (avec le préfixe http:// ou https://) où se trouvent la définition et les conditions de la licence.';
 $string['sourcerequirederror'] = 'Une URL valide est requise pour la source de la licence.';
 $string['version'] = 'Version de la licence';
 $string['version_help'] = 'La date de publication de la version de la licence utilisée.';

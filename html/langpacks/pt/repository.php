@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'repository', language 'pt', version '3.11'.
+ * Strings for component 'repository', language 'pt', version '4.1'.
  *
  * @package     repository
  * @category    string
@@ -46,7 +46,7 @@ $string['areauserpersonal'] = 'Ficheiros privados ';
 $string['areauserprofile'] = 'Perfil';
 $string['attachedfiles'] = 'Ficheiros anexos';
 $string['attachment'] = 'Anexo';
-$string['author'] = 'Autor:';
+$string['author'] = 'Autor';
 $string['automatedbackup'] = 'Cópias de segurança automáticas';
 $string['back'] = 'Voltar';
 $string['backtodraftfiles'] = 'Voltar para gestor de rascunhos';
@@ -92,11 +92,11 @@ $string['createinstance'] = 'Criar uma instância de repositório';
 $string['createrepository'] = 'Criar uma instância de repositório';
 $string['createxxinstance'] = 'Criar instância de "{$a}"';
 $string['date'] = 'Data';
-$string['datecreated'] = 'Criado:';
+$string['datecreated'] = 'Criado';
 $string['deleted'] = 'O repositório foi apagado';
 $string['deleterepository'] = 'Apagar este repositório';
 $string['detailview'] = 'Ver detalhes';
-$string['dimensions'] = 'Dimensões:';
+$string['dimensions'] = 'Dimensões';
 $string['disabled'] = 'Desativado';
 $string['displayasdetails'] = 'Apresentar como detalhes do ficheiro';
 $string['displayasicons'] = 'Apresentar como ícones do ficheiro';
@@ -131,7 +131,7 @@ $string['fileexistsdialog_editor'] = 'Um ficheiro com esse nome já se encontra 
 $string['fileexistsdialog_filemanager'] = 'Um ficheiro com esse nome já se encontra anexo';
 $string['fileexistsdialogheader'] = 'Ficheiro existente';
 $string['filename'] = 'Nome do ficheiro';
-$string['filenotnull'] = 'Tem de escolher um ficheiro para enviar';
+$string['filenotnull'] = 'Tem de escolher um ficheiro para enviar.';
 $string['filepicker'] = 'Selecionar ficheiro';
 $string['filesaved'] = 'O ficheiro foi guardado';
 $string['filesizenull'] = 'O tamanho do ficheiro não pode ser determinado';

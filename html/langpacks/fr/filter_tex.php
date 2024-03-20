@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'filter_tex', language 'fr', version '3.11'.
+ * Strings for component 'filter_tex', language 'fr', version '4.1'.
  *
  * @package     filter_tex
  * @category    string
@@ -30,11 +30,11 @@ $string['convertformat'] = 'Format de sortie image';
 $string['filtername'] = 'Notation TeX';
 $string['latexpreamble'] = 'Préambule LaTeX';
 $string['latexsettings'] = 'Réglages de LaTeX Renderer';
-$string['pathconvert'] = 'Chemin d\'accès à <em>convert</em>';
-$string['pathdvips'] = 'Chemin d\'accès à <em>dvips</em>';
-$string['pathdvisvgm'] = 'Chemin d\'accès à <em>dvisvgm</em>';
-$string['pathlatex'] = 'Chemin d\'accès à <em>latex</em>';
-$string['pathmimetex'] = 'Chemin d\'accès à <em>mimetex</em>';
-$string['pathmimetexdesc'] = 'Moodle utilisera son propre programme Mimetex, à moins qu\'un chemin valide soit indiqué ici.';
-$string['privacy:metadata'] = 'Le plugin Notation TeX n\'enregistre aucune donnée personnelle.';
+$string['pathconvert'] = 'Chemin d’accès à <em>convert</em>';
+$string['pathdvips'] = 'Chemin d’accès à <em>dvips</em>';
+$string['pathdvisvgm'] = 'Chemin d’accès à <em>dvisvgm</em>';
+$string['pathlatex'] = 'Chemin d’accès à <em>latex</em>';
+$string['pathmimetex'] = 'Chemin d’accès à <em>mimetex</em>';
+$string['pathmimetexdesc'] = 'Moodle utilisera son propre programme Mimetex, à moins qu’un chemin valide soit indiqué ici.';
+$string['privacy:metadata'] = 'Le plugin Notation TeX n’enregistre aucune donnée personnelle.';
 $string['source'] = 'Source TeX';

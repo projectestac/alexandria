@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'atto_accessibilityhelper', language 'fr', version '3.11'.
+ * Strings for component 'atto_accessibilityhelper', language 'fr', version '4.1'.
  *
  * @package     atto_accessibilityhelper
  * @category    string
@@ -25,13 +25,13 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$string['listimages'] = 'Images dans l\'éditeur de texte :';
-$string['listlinks'] = 'Liens dans l\'éditeur de texte :';
+$string['listimages'] = 'Images dans l’éditeur de texte :';
+$string['listlinks'] = 'Liens dans l’éditeur de texte :';
 $string['liststyles'] = 'Styles de la sélection courante :';
-$string['noimages'] = 'Pas d\'image';
+$string['noimages'] = 'Pas d’image';
 $string['nolinks'] = 'Pas de lien';
 $string['nostyles'] = 'Pas de style';
-$string['pluginname'] = 'Aide lecteur d\'écran';
-$string['privacy:metadata'] = 'Le plugin atto_accessibilityhelper n\'enregistre aucune donnée personnelle.';
+$string['pluginname'] = 'Aide lecteur d’écran';
+$string['privacy:metadata'] = 'Le plugin atto_accessibilityhelper n’enregistre aucune donnée personnelle.';
 $string['selectimage'] = 'Sélectionner image';
 $string['selectlink'] = 'Sélectionner lien';

@@ -15,7 +15,7 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'block_recent_activity', language 'de', version '3.11'.
+ * Strings for component 'block_recent_activity', language 'de', version '4.1'.
  *
  * @package     block_recent_activity
  * @category    string
@@ -34,7 +34,7 @@ $string['privacy:metadata:block_recent_activity:cmid'] = 'Kursaktivitäts-ID';
 $string['privacy:metadata:block_recent_activity:courseid'] = 'Kurs-ID';
 $string['privacy:metadata:block_recent_activity:modname'] = 'Modultypbezeichung (für Löschaktion)';
 $string['privacy:metadata:block_recent_activity:timecreated'] = 'Zeitpunkt der Ausführung der Aktion';
-$string['privacy:metadata:block_recent_activity:userid'] = 'Nutzer der die Aktion ausführte';
+$string['privacy:metadata:block_recent_activity:userid'] = 'Person, die die Aktion ausgeführt hat';
 $string['recent_activity:addinstance'] = 'Neuen Block \'Neue Aktivitäten\' hinzufügen';
 $string['recent_activity:viewaddupdatemodule'] = 'Hinzugefügte und aktualisierte Module im Block \'Letzte Aktivitäten\' anzeigen.';
 $string['recent_activity:viewdeletemodule'] = 'Gelöschte Module im Block \'Letzte Aktivitäten\' anzeigen.';
