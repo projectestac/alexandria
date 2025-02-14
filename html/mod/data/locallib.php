@@ -1487,10 +1487,34 @@ function data_add_fields_contents_to_new_record($data, $context, $recordid, $fie
     // Bulk insert the records now. Some records may have no data but all must exist.
     $DB->insert_records('data_content', $records);
 
+    // XTEC - ALEXANDRIA ************ MODIFICAT - Process the files at the end because the alexandria hack launches
+    //                                            the course restore process and some records in data_content table
+    //                                            are not populated yet (they are created, but empty).
+    // 2025.02.14 @aginard
+
+    $filestoprocess = [];
+
+    foreach ($processeddata->fields as $fieldname => $field) {
+        if ($field->type === 'file') {
+            $filestoprocess[$fieldname] = $field;
+        } else {
+            $field->update_content($recordid, $datarecord->$fieldname, $fieldname);
+        }
+    }
+
+    foreach ($filestoprocess as $fieldname => $field) {
+        $field->update_content($recordid, $datarecord->$fieldname, $fieldname);
+    }
+
+    //************ ORIGINAL
+    /*
     // Add all provided content.
     foreach ($processeddata->fields as $fieldname => $field) {
         $field->update_content($recordid, $datarecord->$fieldname, $fieldname);
     }
+    */
+    //*************** FI
+
 }
 
 /**
