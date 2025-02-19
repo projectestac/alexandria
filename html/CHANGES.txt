@@ -6,6 +6,11 @@ development home at https://github.com/projectestac/alexandria/
 All Changes from Àgora Moodle can be found at: https://github.com/projectestac/agora_moodle2/blob/master/CHANGES.txt
 
 
+Changes 25.02.19
+---------------------------------------------------------------------------------------
+- Modified processing order of the fields to fix course restoration
+
+
 Changes 23.03.27
 ---------------------------------------------------------------------------------------
 - Upgraded Moodle to version 3.11.13+
