@@ -141,35 +141,36 @@ class core_renderer extends \core_renderer {
     }
 
     public function header_logos() {
-        $logos = '<a href="http://ensenyament.gencat.cat/ca/inici/" class="brand ensenyament d-none d-sm-inline"><img src="'.$this->image_url('departament', 'theme').'" alt="Departament d\'Educació" title="" /></a>';
-        // XTEC logo moved to footer
-        // $logos .= '<a href="http://xtec.gencat.cat" class="brand xtec d-none d-sm-inline"><img src="'.$this->image_url('xtec', 'theme').'" alt="Xarxa Telemàtica Educativa de Catalunya" title="" /></a>';
-
-        return $logos;
+        return '<a href="https://educacio.gencat.cat/ca/inici/" class="brand educacio d-none d-sm-inline">
+                    <img src="'.$this->image_url('logo_defp_transparent', 'theme').'"
+                         alt="Departament d\'Educació i Formació Professional" title="" />
+                </a>';
     }
 
     public function footer_logos() {
-        global $CFG;
         $xtec_type = get_xtec_type();
-        $logos = '<a href="http://ensenyament.gencat.cat/ca/inici/" class="brand ensenyament"><img src="'.$this->image_url('departament', 'theme').'" alt="Departament d\'Educació" title="" /></a>';
+        $logos = '<a href="https://educacio.gencat.cat/ca/inici/" class="brand educacio">
+                      <img src="'.$this->image_url('logo_defp_transparent', 'theme').'"
+                           alt="Departament d\'Educació i Formació Professional" title="" />
+                  </a>';
         $logos .= '<a href="http://xtec.gencat.cat" class="brand xtec"><img src="'.$this->image_url('xtec', 'theme').'" alt="Xarxa Telemàtica Educativa de Catalunya" title="" /></a>';
         if ($xtec_type == 'alexandria') {
             $href = 'https://alexandria.xtec.cat/';
-            $logos .= '<a href="'.$href.'" target="_blank" class="agora_footer"><img src="'.$this->image_url('logo_main_alexandria', 'theme').'" alt="Alexandria" title="" /></a>';
+            $logos .= '<a href="'.$href.'" target="_blank" class="brand alexandria"><img src="'.$this->image_url('logo_main_alexandria', 'theme').'" alt="Alexandria" title="" /></a>';
         }
         elseif ($xtec_type == 'odissea') {
             $href = 'https://odissea.xtec.cat/';
-            $logos .= '<a href="'.$href.'" target="_blank" class="agora_footer"><img src="'.$this->image_url('logo_main_odissea', 'theme').'" alt="Odissea" title="" /></a>';
+            $logos .= '<a href="'.$href.'" target="_blank" class="brand odissea"><img src="'.$this->image_url('logo_main_odissea', 'theme').'" alt="Odissea" title="" /></a>';
         }
         elseif ($xtec_type == 'eoi') {
             $href = 'https://agora-eoi.xtec.cat/';
-            $logos .= '<a href="'.$href.'" target="_blank" class="agora_footer"><img src="'.$this->image_url('logo_main_eoi', 'theme').'" alt="Àgora-EOI" title="" /></a>';
+            $logos .= '<a href="'.$href.'" target="_blank" class="brand eoi"><img src="'.$this->image_url('logo_main_eoi', 'theme').'" alt="Àgora-EOI" title="" /></a>';
         }
         elseif ($xtec_type == 'eix') {
             $href = 'https://educaciodigital.cat/';
-            $logos .= '<a href="'.$href.'" target="_blank" class="agora_footer"><img src="'.$this->image_url('logo_main_eix', 'theme').'" alt="Eix" title="" /></a>';
+            $logos .= '<a href="'.$href.'" target="_blank" class="brand eix"><img src="'.$this->image_url('logo_main_eix', 'theme').'" alt="Eix" title="" /></a>';
         }
-        $logos .= '<a href="https://moodle.org" target="_blank" class="moodle_footer" title="Moodle"><img src="'.$this->image_url('moodlelogo').'" alt="'.get_string('moodlelogo').'"/></a>';
+        $logos .= '<a href="https://moodle.org" target="_blank" class="brand moodle" title="Moodle"><img src="'.$this->image_url('moodlelogo').'" alt="'.get_string('moodlelogo').'"/></a>';
 
         return $logos;
     }
