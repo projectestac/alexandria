@@ -6,6 +6,11 @@ development home at https://github.com/projectestac/alexandria/
 All Changes from Àgora Moodle can be found at: https://github.com/projectestac/agora_moodle2/blob/master/CHANGES.txt
 
 
+Changes 26.11.16
+---------------------------------------------------------------------------------------
+- configurable_reports: Removed block
+
+
 Changes 25.11.10
 ---------------------------------------------------------------------------------------
 - Updated logo of Departament d'Educació
